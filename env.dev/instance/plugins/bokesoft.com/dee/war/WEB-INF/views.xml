@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<!--
+  - Application context definition for "springapp" DispatcherServlet.
+  -->
+
+<beans>
+  
+	<bean name="xmlView" class="com.bokesoft.dee.web.view.XmlView">
+  		<property name="contentType">
+  			<value>text/plain; charset=UTF-8</value>
+		</property>
+		<property name="encoding">
+  			<value>UTF-8</value>
+		</property>
+	</bean>
+
+</beans>

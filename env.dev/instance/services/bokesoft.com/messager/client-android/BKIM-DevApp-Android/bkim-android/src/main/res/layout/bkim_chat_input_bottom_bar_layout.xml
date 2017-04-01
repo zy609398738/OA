@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/bottomLayout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <View style="@style/BKIMDividerLine.Horizontal"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/bkim_bottom_bar_height"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical">
+
+            <Button
+                android:id="@+id/input_bar_btn_action"
+                android:layout_width="@dimen/bkim_bottom_bar_button_size"
+                android:layout_height="@dimen/bkim_bottom_bar_button_size"
+                android:layout_marginLeft="3dp"
+                android:background="@drawable/bkim_bottom_bar_action_button_bg"/>
+        </LinearLayout>
+
+        <include layout="@layout/bkim_bottom_bar_text_layout"/>
+    </LinearLayout>
+
+    <include layout="@layout/bkim_bottom_bar_more_layout"/>
+</LinearLayout>

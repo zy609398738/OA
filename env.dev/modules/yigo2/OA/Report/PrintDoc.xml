@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Report Caption="文档打印" FormKey="OA_Doc" Key="PrintDoc" PageHeight="842" PageID="A4" PageWidth="595" PaperHeight="842" PaperID="A4" PaperWidth="595">
+    <DataSource>
+        <Table Key="OA_Doc_H" Caption="文档管理" SourceType="DataObject" DBTableKey="OA_Doc_H">
+            <Field Caption="对象标识" Key="OID"/>
+            <Field Caption="主对象标识" Key="SOID"/>
+            <Field Caption="父对象标识" Key="POID"/>
+            <Field Caption="对象版本" Key="VERID"/>
+            <Field Caption="对象明细版本" Key="DVERID"/>
+            <Field Caption="单据编号" Key="NO"/>
+            <Field Caption="申请日期" Key="BillDate"/>
+            <Field Caption="状态" Key="Status"/>
+            <Field Caption="主题" Key="Topic"/>
+            <Field Caption="紧急程度" Key="UrgencyDeg"/>
+            <Field Caption="申请人" Key="EmpID"/>
+            <Field Caption="申请部门" Key="DeptID"/>
+            <Field Caption="文档分类" Key="DocType"/>
+            <Field Caption="有效期" Key="ValidityDate"/>
+            <Field Caption="标签" Key="Tag"/>
+            <Field Caption="内容摘要" Key="Summary"/>
+            <Field Caption="创建人" Key="Creator"/>
+            <Field Caption="创建日期" Key="CreateTime"/>
+            <Field Caption="修改人" Key="Modifier"/>
+            <Field Caption="修改日期" Key="ModifyTime"/>
+            <Field Caption="单据Key" Key="BillKey"/>
+            <Field Caption="集团" Key="ClusterID"/>
+            <Field Caption="流程标识" Key="InstanceID"/>
+            <Field Caption="文档级别" Key="DocLevel"/>
+            <Field Caption="流程类别明细ID" Key="WorkflowTypeDtlID"/>
+            <Field Caption="阅读权限" Key="ViewAcl"/>
+            <Field Caption="参与者ids" Key="OptIDs"/>
+        </Table>
+    </DataSource>
+    <Grid>
+        <Section Caption="页眉" Key="PageHead" Type="PageHead">
+            <Columns>
+                <Column Width="80"/>
+                <Column Width="80"/>
+                <Column Width="80"/>
+                <Column Width="80"/>
+                <Column Width="80"/>
+                <Column Width="80"/>
+            </Columns>
+            <Rows>
+                <Row Height="30">
+                    <Cell/>
+                    <Cell/>
+                    <Cell Caption="文档管理" IsMerged="true" IsMergedHead="true" Key="OA_Doc" MergedColumnSpan="2" MergedRowSpan="1"/>
+                    <Cell IsMerged="true" MergedColumnSpan="1"/>
+                    <Cell/>
+                    <Cell/>
+                </Row>
+            </Rows>
+        </Section>
+        <Section Caption="段落" Key="Body" Type="Paragraph">
+            <Columns>
+                <Column Width="80"/>
+                <Column Width="80"/>
+                <Column Width="80"/>
+                <Column Width="80"/>
+                <Column Width="80"/>
+                <Column Width="80"/>
+            </Columns>
+            <Rows>
+                <Row Height="30">
+                    <Cell Caption="主题" Key="Lab_Topic"/>
+                    <Cell Caption="主题" FieldKey="Topic" IsMerged="true" IsMergedHead="true" Key="Topic" MergedColumnSpan="3" MergedRowSpan="1" SourceType="Field" TableKey="OA_Doc_H"/>
+                    <Cell IsMerged="true" MergedColumnSpan="1"/>
+                    <Cell IsMerged="true" MergedColumnSpan="2"/>
+                    <Cell Caption="紧急程度" Key="Lab_UrgencyDeg"/>
+                    <Cell Caption="紧急程度" FieldKey="UrgencyDeg" Key="UrgencyDeg" SourceType="Field" TableKey="OA_Doc_H">
+                        <Display>
+                            <Format DataType="List">
+                                <ListItem Text="一般" Value="0"/>
+                                <ListItem Text="紧急" Value="1"/>
+                                <ListItem Text="特急" Value="2"/>
+                            </Format>
+                        </Display>
+                    </Cell>
+                </Row>
+                <Row Height="30">
+                    <Cell Caption="申请人" Key="Lab_EmpID"/>
+                    <Cell Caption="申请人" FieldKey="EmpID" Key="EmpID" SourceType="Field" TableKey="OA_Doc_H">
+                        <Display>
+                            <Format DataType="Dict" ItemKey="OA_Employee"/>
+                        </Display>
+                    </Cell>
+                    <Cell Caption="申请部门" Key="Lab_DeptID"/>
+                    <Cell Caption="申请部门" FieldKey="DeptID" Key="DeptID" SourceType="Field" TableKey="OA_Doc_H">
+                        <Display>
+                            <Format DataType="Dict" ItemKey="OA_Department"/>
+                        </Display>
+                    </Cell>
+                    <Cell Caption="文档分类" Key="Lab_DocType"/>
+                    <Cell Caption="文档分类" FieldKey="DocType" Key="DocType" SourceType="Field" TableKey="OA_Doc_H">
+                        <Display>
+                            <Format DataType="Dict" ItemKey="OA_DocType"/>
+                        </Display>
+                    </Cell>
+                </Row>
+                <Row Height="30">
+                    <Cell Caption="有效期" Key="Lab_ValidityDate"/>
+                    <Cell Caption="有效期" FieldKey="ValidityDate" Key="ValidityDate" SourceType="Field" TableKey="OA_Doc_H">
+                        <Display>
+                            <Format DataType="Date" FormatString="yyyy-MM-dd HH:mm:ss"/>
+                        </Display>
+                    </Cell>
+                    <Cell Caption="标签" Key="Lab_Tag"/>
+                    <Cell Caption="标签" FieldKey="Tag" Key="Tag" SourceType="Field" TableKey="OA_Doc_H"/>
+                    <Cell Caption="文档级别" Key="Lab_DocLevel"/>
+                    <Cell Caption="文档级别" FieldKey="DocLevel" Key="DocLevel" SourceType="Field" TableKey="OA_Doc_H">
+                        <Display>
+                            <Format DataType="List">
+                                <ListItem Text="个人" Value="1"/>
+                                <ListItem Text="项目" Value="2"/>
+                                <ListItem Text="公司" Value="3"/>
+                            </Format>
+                        </Display>
+                    </Cell>
+                </Row>
+                <Row Height="30">
+                    <Cell Caption="内容摘要" IsMerged="true" IsMergedHead="true" Key="Lab_Summary" MergedColumnSpan="1" MergedRowSpan="2"/>
+                    <Cell Caption="内容摘要" FieldKey="Summary" IsMerged="true" IsMergedHead="true" Key="Summary" MergedColumnSpan="5" MergedRowSpan="2" SourceType="Field" TableKey="OA_Doc_H"/>
+                    <Cell IsMerged="true" MergedColumnSpan="1"/>
+                    <Cell IsMerged="true" MergedColumnSpan="2"/>
+                    <Cell IsMerged="true" MergedColumnSpan="3"/>
+                    <Cell IsMerged="true" MergedColumnSpan="4"/>
+                </Row>
+                <Row Height="30">
+                    <Cell IsMerged="true" MergedRowSpan="1"/>
+                    <Cell IsMerged="true" MergedRowSpan="1"/>
+                    <Cell IsMerged="true" MergedColumnSpan="1" MergedRowSpan="1"/>
+                    <Cell IsMerged="true" MergedColumnSpan="2" MergedRowSpan="1"/>
+                    <Cell IsMerged="true" MergedColumnSpan="3" MergedRowSpan="1"/>
+                    <Cell IsMerged="true" MergedColumnSpan="4" MergedRowSpan="1"/>
+                </Row>
+                <Row Height="30">
+                    <Cell Caption="阅读权限" IsMerged="true" IsMergedHead="true" Key="Lab_ViewAcl" MergedColumnSpan="1" MergedRowSpan="2"/>
+                    <Cell Caption="阅读权限" FieldKey="ViewAcl" IsMerged="true" IsMergedHead="true" Key="ViewAcl" MergedColumnSpan="5" MergedRowSpan="2" SourceType="Field" TableKey="OA_Doc_H"/>
+                    <Cell IsMerged="true" MergedColumnSpan="1"/>
+                    <Cell IsMerged="true" MergedColumnSpan="2"/>
+                    <Cell IsMerged="true" MergedColumnSpan="3"/>
+                    <Cell IsMerged="true" MergedColumnSpan="4"/>
+                </Row>
+                <Row Height="30">
+                    <Cell IsMerged="true" MergedRowSpan="1"/>
+                    <Cell IsMerged="true" MergedRowSpan="1"/>
+                    <Cell IsMerged="true" MergedColumnSpan="1" MergedRowSpan="1"/>
+                    <Cell IsMerged="true" MergedColumnSpan="2" MergedRowSpan="1"/>
+                    <Cell IsMerged="true" MergedColumnSpan="3" MergedRowSpan="1"/>
+                    <Cell IsMerged="true" MergedColumnSpan="4" MergedRowSpan="1"/>
+                </Row>
+            </Rows>
+        </Section>
+        <Section Caption="页尾" Key="PageEnd" Type="PageTail">
+            <Columns>
+                <Column Width="80"/>
+                <Column Width="80"/>
+                <Column Width="80"/>
+                <Column Width="80"/>
+                <Column Width="80"/>
+                <Column Width="80"/>
+            </Columns>
+            <Rows>
+                <Row Height="30">
+                    <Cell/>
+                    <Cell/>
+                    <Cell/>
+                    <Cell/>
+                    <Cell/>
+                    <Cell/>
+                </Row>
+                <Row Height="30">
+                    <Cell/>
+                    <Cell/>
+                    <Cell/>
+                    <Cell/>
+                    <Cell/>
+                    <Cell/>
+                </Row>
+                <Row Height="30">
+                    <Cell/>
+                    <Cell/>
+                    <Cell Caption="页码" IsMerged="true" IsMergedHead="true" Key="PageEnd" MergedColumnSpan="2" MergedRowSpan="1" PageNo="Page" SourceType="PageNo"/>
+                    <Cell IsMerged="true" MergedColumnSpan="1"/>
+                    <Cell/>
+                    <Cell/>
+                </Row>
+            </Rows>
+        </Section>
+    </Grid>
+</Report>

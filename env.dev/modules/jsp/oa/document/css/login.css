@@ -1,0 +1,211 @@
+﻿
+/* CSS Document*/
+@charset "utf-8";
+/*
+@名称: login.css
+@功能: 登陆页面样式 
+*/
+/*登录 start*/
+html{
+	background:url(../images/login_bg.gif) top left #32446a;
+}
+body.login{
+    /*background:url(../images/login_bg.gif) top left #32446a;*/
+}
+.login .row.mid{
+	background:url(../images/login_top_bg2.jpg) no-repeat center 0;
+    min-width: 920px;
+}
+.login .login_box{
+    height: 470px;
+    margin: 130px auto 110px;
+    position: relative;
+    width: 923px;
+}
+.form_box{
+    color: #000;
+    height: 200px;
+    position: absolute;
+    right: 23px;
+    top: 140px;
+    width: 300px;
+}
+.form_box p{
+    height: 45px;
+    line-height: 45px;
+    position: relative;
+    text-align: left;
+}
+.form_box label{
+	padding-left:24px;
+}
+.form_box span{
+	padding-left:24px;
+}
+.form_box span.info{
+}
+.form_box span.error{
+	color:#b00101;
+	font-size:12px;
+    background: url("../images/error.gif") no-repeat left center;
+}
+
+.form_box input{
+	width:162px;
+	height:28px;
+	line-height:28px;
+	background:url(../images/index_bar_bg.png) no-repeat -365px -154px;
+    *background:url(../images/index_bar_bg.png) no-repeat -365px -120px;
+	border:none;
+	text-align:left;
+	padding:0 10px;
+	position:absolute;
+	top:10px;
+	right:23px;
+}
+.form_box input[type="text"]:focus,
+.form_box input[type="password"]:focus{
+    background:url(../images/index_bar_bg.png) no-repeat -365px -191px;
+    *background:url(../images/index_bar_bg.png) no-repeat -365px -120px;
+}
+.form_box .btns{
+	margin:20px 0 5px;
+	padding-left:23px;
+}
+.form_box .btns a{
+	margin-right:10px;
+	line-height:30px;
+	*line-height:35px;
+}
+.form_box .btns a:hover{
+	text-decoration:none;
+}
+.form_box .btns .Certificate_login,
+.form_box .btns .normal_login{
+    height: 38px;
+    _height: 34px;
+    top: 0;
+	color:#fff;	
+	border:none;
+	cursor: pointer;
+	display:inline-block;
+	padding-bottom: 8px;
+	font-size:14px;
+    position: static;
+    text-align: center;
+    line-height: 38px;
+    _line-height: 34px;
+}
+.form_box .btns .Certificate_login{
+	background:url(../images/login_btns.png) no-repeat 0 0;
+	/*_background:url(../images/login_btns_ie6.jpg) no-repeat 0 0;*/
+    width: 157px;
+    _width: 152px;
+}
+.form_box .btns .Certificate_login:hover,
+.form_box .btns .Certificate_login.hover{
+	background:url(../images/login_btns.png) no-repeat 0 -39px;
+	/**background:url(../images/login_btns_ie6.jpg) no-repeat 0 -39px;*/
+}
+.form_box .btns .normal_login{
+	background:url(../images/login_btns.png) no-repeat 0 -81px;
+	/**background:url(../images/login_btns_ie6.jpg) no-repeat 0 -81px;*/
+    width: 98px;
+    _width: 94px;
+}
+.form_box .btns .normal_login:hover,
+.form_box .btns .normal_login.hover{
+	background:url(../images/login_btns.png) no-repeat 0 -122px;
+	/**background:url(../images/login_btns_ie6.jpg) no-repeat 0 -122px;*/
+}
+.form_box  .login_links{
+	text-align:right;
+}
+.form_box  .login_links a{
+	margin:0 8px;
+}
+.login .footer .container{
+	height:80px;
+	color:#666;
+	border-top:1px solid #6f85ae;
+}
+.login_bottom{
+    bottom: 14px;
+    color: #1c2746;
+    height: 36px;
+    left: 40px;
+    line-height: 36px;
+    position: absolute;
+    text-align: left;
+    width: 827px;
+}
+.login_bottom span{
+	margin:0 5px;
+}
+.login_bottom a{
+    color: #014dbe;
+	text-decoration:underline;
+}
+.login_bottom p{
+    width: 72%;
+}
+.login_bottom .fl_right{
+    color: #014016;
+	text-align:right;
+	width: 20%;
+}
+.login .f039 a{
+	color:#053c97;
+	text-decoration: underline;
+}
+.system-tip{
+    height: 20px;
+    overflow: hidden;
+    /*padding-left: 21px;*/
+    text-align: center;
+    margin-bottom: 16px;
+}
+.system-tip .tip{
+    background: url("../images/lb.gif") no-repeat left center;
+}
+.form_box marquee{
+    width: 190px;
+    *width: 188px;
+    height: 18px;
+    margin: 0;
+    padding: 0;
+}
+.form_box marquee i{
+    font-style: normal;
+}
+.banner-show{
+    height: 326px;
+    width: 508px;
+    position:absolute;
+    top:35px;
+    left: 50px;
+}
+.banner-show ul li {
+    display: block;
+    height: 326px;
+    width: 508px;
+    overflow: hidden;
+}
+.banner-show img {
+    height: 326px;
+    width: 508px;
+}
+.banner-show-index{
+    height: 20px;
+    display: none;
+}
+.banner-show .alpha{
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 172px;
+    height: 328px;
+    background: url("../images/banner/alpha.png") no-repeat;
+    _background: none;
+}
+/*登录 end*/

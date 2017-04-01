@@ -1,0 +1,5 @@
+<ul class="user-list">
+    <% _.forEach(users, function(user) { %>
+    <li class="user-list-item" data-user-code="${user.code}"><img src="${user.icon || defUserIcon}" height="100%" ><span>${user.name}</span></li>
+    <% }); %>
+</ul>

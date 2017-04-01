@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="V_RegionDictEdit" Caption="区域编辑" FormulaAbbrCaption="Para('EntryCaption')" FormulaCaption="Para('EntryCaption')">
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="main">
+                <ToolBar Key="main_toolbar" Height="pref">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <SplitPanel Key="Split" Height="100%">
+                    <FlexFlowLayoutPanel Key="DictViewPanel">
+                        <GridLayoutPanel Key="dic" Padding="8px">
+                            <Label Key="Inner_HeadCountryID" Caption="国家" X="0" Y="0"/>
+                            <Dict Key="HeadCountryID" Caption="国家" BuddyKey="Inner_HeadCountryID" X="1" Y="0" Visible="true;" Enable="true;" ItemKey="Country">
+                                <DataBinding DefaultFormulaValue="iif(existsUIVariable('lastHeadCountryID'), getUIVariable('lastHeadCountryID'), ERAF_GetDicFirstDetailID('HeadCountryID'));">
+                                    <ValueChanged>
+                                        <![CDATA[setUIVariable('lastHeadCountryID', value('HeadCountryID'));init();;]]>
+                                    </ValueChanged>
+                                </DataBinding>
+                            </Dict>
+                            <RowDefCollection RowGap="5">
+                                <RowDef Height="30px"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="5">
+                                <ColumnDef Width="80px"/>
+                                <ColumnDef Width="100%"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                        <DictView FormulaItemKey="GetDataObjectKey(Para('FormKey'))" Height="100%" Key="DictView">
+                            <FocusRowChanged>
+                                <![CDATA[OpenDict(Para('FormKey'),GetSelectedValue('DictView','OID'),'Container');]]>
+                            </FocusRowChanged>
+                            <ItemFilter ItemKey="ERP_region">
+                                <Filter Type="FieldValue">
+                                    <FilterValue FieldKey="CountryID" RefValue="HeadCountryID" Type="Field"/>
+                                </Filter>
+                            </ItemFilter>
+                        </DictView>
+                    </FlexFlowLayoutPanel>
+                    <FlexFlowLayoutPanel Key="DictPanel">
+                        <Container Height="100%" Key="Container" MergeOperation="true" Style="Stack"/>
+                    </FlexFlowLayoutPanel>
+                    <SplitSize Size="30%"/>
+                    <SplitSize Size="70%"/>
+                </SplitPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+    <OnLoad>
+        <![CDATA[OpenDict(Para('FormKey'),-1,'Container')]]>
+    </OnLoad>
+</Form>

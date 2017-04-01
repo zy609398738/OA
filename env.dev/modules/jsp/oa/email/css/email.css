@@ -1,0 +1,949 @@
+﻿@charset "utf-8";
+/*
+@名称: zh-oa.css
+@功能: 中航国际样式
+*/
+.aside-left{
+    width: 210px;
+}
+
+/*面包屑*/
+.breadcrumb{
+	margin:10px 0;
+}
+.breadcrumb a,
+.breadcrumb span{
+	margin:0 5px;
+	color: #43579a;
+}
+.breadcrumb a:hover{
+	color:#333;
+	text-decoration:underline;
+}
+/*操作buttons*/
+.controls-btns{
+	text-align:left;
+    height: 30px;
+}
+.controls-btns a{
+	float:left;
+	height:25px;
+	line-height:25px;
+	color: #006898;
+	margin: 0 5px;
+	position:relative;
+}
+.controls-btns a:hover{
+	background:url(../images/zh-btns-img.gif) left top no-repeat;
+}
+.controls-btns a b{
+	display:block;
+	width:3px;
+	height:25px;
+	position:absolute;
+	top:0;
+	right:0;
+}
+.controls-btns a:hover b{
+	background:url(../images/zh-btns-img.gif) -147px -25px no-repeat;
+}
+.controls-btns a span{
+	background:url(../images/oa_ico.gif) 0 0 no-repeat;
+	padding:2px 0 2px 20px;
+	margin:0 8px;
+}
+.controls-btns .create span{
+	background-position:0 0;	
+}
+.controls-btns .del span{
+	background-position:0 -35px;
+}
+.controls-btns .edit span{
+	background-position:0 -64px;
+}
+.controls-btns .publish span{
+	background-position:0 -93px;
+}
+.controls-btns .save span{
+	background-position:0 -122px;
+}
+.controls-btns .preview span{
+	background-position:0 -153px;
+}
+.controls-btns .cancel span{
+	background-position:0 -184px;
+}
+.controls-btns .submit span{
+	background-position:0 -328px;
+}
+.controls-btns .save span{
+	background-position:0 -361px;
+}
+.controls-btns .close span{
+	background-position:0 -393px;
+}
+.controls-btns .pass span{
+	background-position:0 -475px;
+}
+.controls-btns .deny span{
+	background-position:0 -506px;
+}
+.controls-btns .sign span{
+	background-position:0 -539px;
+}
+.controls-btns .ask span{
+	background-position:0 -572px;
+}
+
+/*操作buttons   end*/
+/*翻页 page*/
+.page{
+    height: 30px;
+    line-height: 30px;
+    margin: 10px 0;
+    text-align: center;
+	font-family: Verdana, Arial, Geneva, sans-serif,"宋体";	
+}
+.page a{
+	float:left;
+	padding:0 5px;
+	color: #666;
+}
+.page a:hover,
+.page a.hover{
+	color: #006898;
+	text-decoration:underline;
+}
+.page span{
+	padding:0 15px;
+	float:left;
+}
+.page i,
+.page b{
+	font-style:normal;
+	padding:0 3px;
+	font-weight:normal;
+}
+.page .page_sel{
+	float:right;
+}
+/*翻页 page end*/
+
+/*加载中。。。*/
+.loading-gif {
+    position:absolute;
+    left:42%;
+    top:40%;
+    z-index: 1111;
+    border:1px solid #6593cf;
+    padding:2px;
+    background:#c3daf9;
+    text-align:center;
+}
+.loading-gif .loading-indicator {
+    border:1px solid #a3bad9;
+    background: white;
+    background-position: 15px center;
+    color:#003366;
+    font:bold 13px tahoma,arial,helvetica;
+    padding:10px;
+    margin:0;
+    height: auto;
+}
+[class*="span"] {         /*此句不兼容ie6*/
+    float: left;
+}
+.span2,.span3,.span4,.span6,.span9{   /*只对ie6*/
+    _float: left;
+}
+.span12{
+    float: none;
+}
+body {
+    background-color: #fff;
+    color: #666;
+    font-family: "宋体", Arial,Verdana, Geneva, sans-serif;
+    font-size: 12px;
+    line-height: 18px;
+    text-align: center;
+}
+.container{
+	margin:0 auto;
+	text-align: left;
+	min-width:1024px;
+	position: relative;
+	z-index:0;
+}
+#mid .tree-menu {
+	border-top: none;
+	background-color: #fbf9fa;
+}
+.sub-menu {
+	height: 325px;
+	float: left;
+	width: 270px;
+}
+.mbx_fil{
+	height:35px;
+}
+
+/*邮件管理 start*/
+.mail .aside-left {
+    width: 270px;
+	margin-left:10px;
+}
+.mail #mid .main {
+    margin-left: 291px;
+	_margin-left:291px;
+	position:relative;
+	float: none;
+	margin-right: 5px;
+}
+
+.operate {
+    background-repeat: repeat-x;
+    height: 34px;
+    background-position: 0 -107px;
+    display: block;
+    border-top: 2px solid #7DAFD0;
+}
+.operate_btn {
+    margin: 5px 0 0;
+    float: left;
+}
+.btn_space {
+    margin-left: 15px;
+}
+.operate_btn a {
+    display: inline-block;
+    line-height: 24px;
+    height: 24px;
+    background-repeat: repeat-x;
+    padding: 0 15px;
+    background-position: 0 -182px;
+    color: #333;
+    position: relative;
+    margin: 0 -3px;
+}
+.btn_l, .btn_r, .btn_m, .btn_arr {
+    width: 3px;
+    background-position: 0 -211px;
+    height: 24px;
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    outline: 0 none;
+}
+.btn_l {
+    left: 0;
+}
+.btn_m {
+    width: 1px;
+    background-position: -4px -211px;
+    right: 0;
+}
+.btn_r {
+    background-position: -7px -211px;
+    right: 0;
+}
+.operate_btn span {
+    position: relative;
+    color: #999;
+}
+.operate_btn span.usable{
+    color: #333;
+}
+.operate, .operate_btn a, .btn_l, .btn_r, .btn_m, .btn_arr,.mail .aside-left .tree-menu dl dt,.mail .aside-left .tree-menu h6{
+   /* background-image: url(../images/mail-all-bgs2.png);*/
+}
+.mail .data-list{
+    position: relative;
+    border-top: none;
+}
+.mail .data-list .paixu{
+    height: 25px;
+    position: absolute;
+    right: 0;
+    top: 3px;
+    width: 111px;
+}
+.mail .data-list .paixu select{
+    border:none;
+    background: none;
+    text-align: center;
+}
+.mail .table-head td{
+    background: none;
+}
+.mail .aside-left .tree-menu h6 {
+	overflow:hidden;
+    padding-left: 20px;
+}
+.mail .tree-menu .sub-menu{
+    background-color: #fbf9fa;
+}
+.mail .tree-menu .sub-menu li,
+.mail .tree-menu .sub-menu p{
+	line-height:23px;
+	margin-left: 9px;
+}
+
+.mail-check, .mail-write {
+	 background-repeat: no-repeat;
+	height: 42px;
+	padding-left: 56px;
+	width: 58px;
+	cursor: pointer;
+	float: left;
+	line-height: 44px;
+	color: #fff;
+	font-size: 14px;
+	background-image: url(../images/mail-all-bgs.png);
+	background-position: -50px -217px;
+	margin-top: 11px;
+}
+.mail-write {
+    background-position: -166px -217px;
+}
+.Ctrl-mail {
+}
+.mail .tree-menu .sub-menu .hover a,.mail .tree-menu .sub-menu a:hover {
+    color: #263d8b;
+}
+.mail .tree-menu .sub-menu a {
+    color: #3a6399;
+    display: block;
+	height:24px;
+    padding-left: 45px;
+	margin-top: 7px;
+    background: url(../images/mail-tree-menu-icons.png) no-repeat 20px 6px;
+}
+.mail .tree-menu a.received_mail {
+    background-position: 20px 6px;
+}
+.mail .tree-menu a.sended_mail {
+    background-position: 20px -28px;
+}
+.mail .tree-menu a.draft_mail {
+    background-position: 20px -61px;
+}
+.mail .tree-menu a.deleted_mail {
+    background-position: 20px -95px;
+}
+.mail .tree-menu a.junk_mail {
+    background-position: 20px -129px;
+}
+.mail .tree-menu a.timing_mail {
+    background-image: url(../images/clock_base.png);
+    background-position: 21px 6px;
+    background-repeat: no-repeat;
+}
+
+
+
+
+.mail .data-list td.author{
+	width:10%;
+}
+.mail .data-list td.mail-title{
+    text-align: left; 
+}
+.mail .data-list td.time{
+    color: #4b6cd3;
+	width:10%;
+}
+.mail .data-list td.size{
+    width:10%;
+}
+.mail .data-list td.collect,.mail .data-list td.collect{
+	width:70px;
+}
+
+.mail .data-list .zf, .mail .data-list .file{
+    padding: 3px 7px;
+    background: url(../images/mail-all-bgs.gif) no-repeat -125px -108px;
+}
+.mail .data-list .zf{
+    background-position: -125px -111px;
+    margin-left: -20px;
+}
+.mail .data-list .file{
+    background-position:-98px -111px;
+    margin-right: -20px;
+}
+.mail .table-head{
+	height:30px;
+	border-bottom: 1px solid #eee;
+	position:relative;
+}
+.mail .table-head .check{
+	height:30px;
+	line-height:30px;
+}
+.mail .table-head input{
+	margin-left:28px;
+	margin-top:8px;
+	width:15px;
+	height:15px;
+}
+.mail-list{
+	height:348px;
+	_height:auto;
+	line-height:21px;
+	overflow-y:auto;
+	*overflow-x:hidden;
+	width:100%;
+}
+/*邮件管理 end*/
+/*收件箱详细 start*/
+.inb_detail{
+	background:#f5f8fd;
+	border-bottom:1px solid #e5e5e5;
+}
+.inb_detail h3{
+    font-size: 14px;
+    color: #666;
+    font-weight: bold;
+    padding-bottom:8px;
+}
+.box_lis li{
+	position:relative;
+	line-height:20px;
+    color: #8c8c8c;
+    *zoom:1;
+}
+.box_lis li span{
+	position:absolute;
+	top:0;
+	left:0;
+	display:block;
+}
+.box_lis li .nr{
+	padding-left:70px;
+}
+.inb_article p{
+    text-indent: 24px;
+    font-size: 14px;
+    line-height: 22px;
+}
+.inb_article .tx_ind0{
+    text-indent:0;
+}
+.attach{
+    border: 1px solid #e5e5e5;
+}
+.attach h4{
+    background: #f5f8fd;
+    line-height: 30px;
+    padding-left: 10px;
+    font-weight: bold;
+    font-size: 14px;
+    border-bottom: 1px solid #e5e5e5;
+}
+.attach h4 .num{
+    font-weight: normal;
+}
+.attach h4 .num i{
+    font-style: normal;
+}
+.att_img img{
+	width: 30px;
+	height: 30px;
+	overflow:hidden;
+}
+.att_img,.att_info{
+    float:left;
+}
+.att_info span{
+    padding-right: 5px;
+}
+.atta_ope a{
+    margin-right: 8px;
+    color:#006898;
+}
+/*收件箱详细 end*/
+/*mail 写信 end*/
+.w_main{
+    padding:0 20px;
+    position: relative;
+    *zoom:1;
+}
+
+.edit_list li{
+    position: relative;
+    margin-bottom: 10px;
+    *zoom:1;
+}
+.edit_list label{
+    position: absolute;
+    left:0;
+    top:3px;
+}
+.edit_list .edit{
+    margin-left: 45px;
+}
+.receiver .main_re,.theme input{
+    border: 1px solid #ccc;
+    height: 23px;
+    line-height: 23px;
+    margin-bottom: 10px;
+}
+.receiver .main_re .txt{
+    border: 1px solid #fff;
+    outline: none;
+    -webkit-appearance: none;
+}
+.theme input{
+    margin-bottom: 0;
+    width: 100%;
+	_width: 99%;
+}
+.receiver span a,.all_attach a{
+    margin-right:10px;
+    color: #006898;
+    text-decoration: underline;
+}
+.all_attach b{
+    background: url(../images/mail-all-bgs.gif) no-repeat -183px -174px;
+    padding: 0 13px;
+}
+.all_attach b.bM{
+    background-position:-180px -174px ;
+}
+.all_attach b.twoG{
+    background-position:-127px -174px ;
+}
+.texta div{
+    height: 400px;
+    overflow: hidden;
+}
+.texta textarea{
+    height: 387px;
+    width: 97%;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    resize: none;
+   * margin-left: -45px;
+}
+#mid .w_main .aside-right{
+    right: 20px;
+}
+.wt_rg .lib-tab{
+    border: 1px solid #d2d2d2;
+}
+.manag_tit li{
+    float: left;
+    height: 27px;
+    line-height: 27px;
+    background: url(../images/mail-all-bgs2.png) repeat-x 0 -411px;
+    border-right: 1px solid #d2d2d2;
+    border-bottom: 1px solid #d2d2d2;
+    padding: 0 18px;
+    color: #333;
+    cursor: pointer;
+}
+.manag_tit li.borg{
+    border-right:1px solid #f8f8f8 ;
+}
+.manag_tit li.hover{
+    background: #fff;
+    border-bottom:1px solid #fff;
+}
+.serchs{
+    width: 195px;
+    height: 26px;
+    position: relative;
+    background: url(../images/mail-all-bgs.gif) no-repeat -203px -108px;
+    margin-left: 5px;
+}
+.serchs .txt{
+    width: 170px;
+    border:none;
+    height: 24px;
+    line-height: 24px;
+    color: #666;
+    background: none;
+    text-indent: 5px;
+}
+.serchs .button{
+    width: 22px;
+    height: 26px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    position: absolute;
+    top:0;
+    right:0;
+}
+.con-itms{
+    display: none;
+}
+.con-itms .s_result{
+    height: 470px;
+    overflow-y: auto;
+    background: url(../images/mail_shu.jpg) no-repeat;
+}
+.senderset{
+    margin:0 0 20px 45px;
+}
+.senderset li{
+    float: left;
+}
+.senderset .line{
+    border-right: 1px solid #666;
+    margin: 0 10px 0 20px;
+}
+.senderset .senders span,.senderset .sign span{
+    margin-right: 5px;
+    cursor: pointer;
+}
+.senderset .sel{
+    background: url(../images/mail-all-bgs.gif) no-repeat -67px -110px;
+    padding: 0px 4px;
+}
+.senderset .checkbs input{
+    margin: 0 3px 0 10px;
+}
+/*mail 写信 end*/
+/*mail 通讯录页面 start*/
+.em_main{
+    position: relative;
+    height: 430px;
+    background: #ced6e1;
+	_overflow:hidden;
+}
+.m_left{
+    width: 180px;
+    height: 100%;
+    position: absolute;
+    top:0;
+    left:0;
+    border-right: 1px solid #8b9fb8;
+    background: #fff;
+}
+.m_center{
+    margin-left: 185px;
+    border-left: 1px solid #8b9fb8;
+    height: 100%;
+    background: #fff;
+}
+.titop{
+    height: 30px;
+    border-top: 1px solid #fff;
+    background: url(../images/mail-all-bgs2.png) repeat-x 0 -380px;
+}
+.titop li{
+    float: left;
+    width: 65px;
+    height: 25px;
+    line-height: 22px;
+    text-align: center;
+    color: #8c8c8c;
+    margin:2px 0 0 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.titop li.hover{
+    background: url(../images/mail-all-bgs.gif) no-repeat -148px -236px;
+    color: #fff;
+}
+.titbot{
+    display: none;
+}
+.titbot li{
+    height: 27px;
+    line-height: 27px;
+    position: relative;
+}
+.titbot li a{
+    color: #666;
+    padding-left: 15px;
+    display: block;
+    width:110px;
+    text-overflow:ellipsis;
+    -o-text-overflow:ellipsis;
+    -webkit-text-overflow:ellipsis;
+    -moz-text-overflow:ellipsis;
+    white-space:nowrap;
+    overflow:hidden;
+}
+.titbot li span{
+    position: absolute;
+    top:0;
+    right: 10px;
+}
+.titbot li b{
+    font-weight: normal;
+}
+.titbot li.hover b{
+    font-weight: bold;
+}
+.titbot li.hover{
+    background: #bcd4f8;
+    font-weight: bold;
+}
+.box_ls{
+    height: 400px;
+    overflow-y: auto;
+	width:100%;
+	*overflow-x:hidden;
+}
+.table_list{
+    width: 100%;
+}
+.table_list .table_head td{
+    background: url(../images/mail-all-bgs2.png) repeat-x 0 -380px;
+    border: none;
+}
+.table_list td{
+    padding: 6px 0;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+}
+.table_list .check{
+    width: 70px;
+}
+.table_list .petname{
+    width: 40%;
+}
+.table_list .petname,.table_list .address{
+    text-align: left;
+}
+.table_list .hover{
+    background: #f0f4ff;
+}
+.line2{
+    margin-top: 1px;
+    background:#f3f3f3;
+    height: 2px;
+    *overflow: hidden;
+}
+.titbot_three{
+    display: none;
+    background: url(../images/mail_shu2.gif) no-repeat 0 0;
+    height: 399px;
+    overflow-y: auto;
+}
+.table_list .name{
+    width: 70px;
+}
+.table_list .phone{
+    width: 120px;
+}
+.table_list .division{
+    text-align: left;
+    width: 30%;
+}
+/*mail 通讯录页面 end*/
+/*mail 通讯录-新建联系人*/
+.edit_box{
+    height: 398px;
+    overflow-y: auto;
+    position: relative;
+}
+.edit_box h3{
+    font-size: 14px;
+    color: #333;
+    font-weight: bold;
+    padding: 20px 0;
+}
+.edit_box h3 a{
+    font-size: 12px;
+    color: #4c6bd6;
+    text-decoration: underline;
+}
+.edit_box h4{
+    color: #5a80bf;
+    font-weight: bold;
+    border-bottom: 1px solid #d6d6d6;
+}
+.edit_box .edit_list li{
+    margin-bottom: 8px;
+    *margin-bottom: 7px;
+}
+.edit_box .edit_list label{
+    display: block;
+    width: 90px;
+    text-align: right;
+    padding-right: 10px;
+}
+.edit_box .edit_list .edit{
+    margin-left: 100px;
+}
+.edit_box .edit_list input,.edit_box .edit_list select{
+    height: 22px;
+    line-height: 22px;
+    border: 1px solid #abadb3;
+    width: 185px;
+}
+.edit_list .fill{
+    color: #f00;
+    font-weight: normal;
+    padding-left: 5px;
+}
+.edit_box .edit_list .btn_sure,.edit_box .edit_list .btn_cancel{
+    width: 63px;
+    height: 23px;
+    line-height: 23px;
+    border: none;
+    background: url(../images/mail-all-bgs.gif) no-repeat -140px -201px;
+    color: #fff;
+    margin-right: 20px;
+    cursor: pointer;
+}
+.edit_box .edit_list .btn_cancel{
+    background-position:-63px -201px;
+    color: #666;
+}
+.edit_box .edit_list .inp500{
+    width: 500px;
+}
+.edit_list .birthday input{
+    width: 115px;
+    margin-right: 5px;
+}
+/*mail  163代收邮箱、账户设置*/
+.cont_box{
+	width:98%;
+}
+.cont_box h3{
+    color: #333;
+    font-size: 16px;
+    font-weight: bold;
+    font-family: "Microsoft Yahei", "微软雅黑","宋体";
+    padding: 0 0 10px 0;
+}
+.cont_box_ls .edit_list .edit{
+    margin-left: 100px;
+}
+.cont_box_ls .edit_list input{
+    width: 20%;
+    border: 1px solid #d2d2d2;
+    height: 22px;
+    line-height: 22px;
+}
+.edit_list .firstmail input{
+    width: auto;
+    height: auto;
+    border: none;
+}
+.edit_list .firstmail .radio{
+    margin: 2px;
+}
+.edit_list .firstmail .edit label{
+    position: static;
+    margin-right: 15px;
+}
+.edit_list .firstmail p{
+    margin-bottom: 10px;
+}
+.edit_list .firstmail .button{
+    cursor: pointer;
+    background: url(../images/mail-all-bgs.gif) no-repeat -70px -369px;
+    width: 63px;
+    height: 23px;
+    line-height: 23px;
+    color: #fff;
+    border: none;
+    margin-left: 30px;
+}
+.cont_box_ls{
+    height: 300px;
+	overflow-y: auto;
+	width: 100%;
+	*overflow-x: hidden;
+}
+.inform_list{
+    width: 282px;
+    height: 120px;
+    background: url(../images/box_out.gif) no-repeat 0 0;
+    padding: 10px 25px;
+    float: left;
+    margin-right: 20px;
+}
+.inform_list dt{
+    color: #43579a;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 26px;
+}
+.inform_list dd{
+    position: relative;
+    line-height: 24px;
+    *zoom:1;
+}
+.inform_list a{
+    position: absolute;
+    left:0;
+    top:0;
+    color: #5e5e5e;
+}
+.inform_list a:hover{
+    text-decoration: underline;
+}
+.inform_list .describe{
+    margin-left: 90px;
+    color: #b4b4b4;
+}
+.right-banner {
+	height: 131px;
+	background: url("../images/bg.jpg");
+	position: relative;
+	margin: 5px 7px 7px 0;
+}
+.ele-right-banner .left {
+	background: url("../images/mail-banner-left.png") no-repeat left top;
+}
+.right-banner .left {
+	position: absolute;
+	top: 44px;
+	left: 157px;
+	width: 375px;
+	height: 54px;
+}
+.ele-right-banner .right {
+	background: url("../images/mail-banner-right.png") no-repeat right top;
+}
+.right-banner .right {
+	position: absolute;
+	top: 13px;
+	right: 175px;
+	width: 399px;
+	height: 100%;
+}
+.ele-left-top .img{
+	position: absolute;
+	top: 10px;
+	left: 49px;
+	width: 90px;
+	height: 90px;
+	background: url("../images/ele-head-img.png") no-repeat right top;
+}
+.mail-left-top {
+	background-color: #a0c0e6;
+	zoom: 1;
+	height: 132px;
+	padding-top: 10px;
+	position: relative;
+}
+.mail-left-top h2 {
+	margin-top: 90px;
+}
+.mail-left-top .img {
+	position: absolute;
+	top: 10px;
+	left: 49px;
+	width: 90px;
+	height: 90px;
+	background: url("../images/mail-head-img.png") no-repeat right top;
+}
+.mail-left-top h2 span {
+	color: #364ea1;
+	padding: 25px 0 0 61px;
+	font-size: 20px;
+	font-weight: normal;
+	font-family: "Microsoft Yahei", "微软雅黑","宋体", Verdana, Arial, Geneva, sans-serif;
+}
+.ui-tabs .ui-tabs-nav{
+    height:30px;
+}

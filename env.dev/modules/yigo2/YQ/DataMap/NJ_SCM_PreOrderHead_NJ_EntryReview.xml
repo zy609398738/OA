@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Map Caption="意向登记下推资格审核" Key="NJ_SCM_PreOrderHead_NJ_EntryReview" SrcDataObjectKey="NJ_SCM_PreOrderHead" TgtDataObjectKey="NJ_EntryReview">
+    <SourceTableCollection Height="270" Width="398" X="30" Y="30">
+        <SourceTable Key="NJ_SCM_PreOrderHead" IsPrimary="true" TargetTableKey="NJ_SCM_EntryReviewHead">
+            <SourceField Definition="EmpID" TargetFieldKey="EmpID"/>
+            <SourceField Definition="IndID" TargetFieldKey="IndID"/>
+            <SourceField Definition="ProjCustomer" TargetFieldKey="ProjCustomer"/>
+            <SourceField Definition="NOTES" TargetFieldKey="NOTES"/>
+            <SourceField Definition="ProjectTypeid" TargetFieldKey="ProjectTypeid" EdgeType="Focus"/>
+        </SourceTable>
+    </SourceTableCollection>
+    <TargetTableCollection Height="270" Width="444" X="478" Y="30">
+        <TargetTable Key="NJ_SCM_EntryReviewHead" IsPrimary="true">
+            <TargetField Definition="EmpID"/>
+            <TargetField Definition="IndID"/>
+            <TargetField Definition="ProjCustomer"/>
+            <TargetField Definition="NOTES"/>
+            <TargetField Definition="ProjectTypeid"/>
+        </TargetTable>
+    </TargetTableCollection>
+</Map>

@@ -1,0 +1,29 @@
+#wrapper{
+	width:1200px;
+	margin:10px auto;
+	clear:both;
+}
+#wrapper table{
+	
+}
+#toSiteShow{
+	width:550px;
+}
+.fromSite_td{
+	width:400px;
+}
+.namespace{
+	width:150px;
+}
+#fromSite{
+	width:380px;
+	margin:2px auto;
+}
+#execDiv{
+	float:right;
+	margin:5px 10px;
+}
+
+#exec{
+	font-size:18px;
+}

@@ -1,0 +1,14 @@
+{
+	"@type":"com.bokesoft.cms2.impl.buildin.modelio.vo.BlockVO",
+	"block":{
+		"@type":"com.bokesoft.cms2.model.blocks.TmplBlock",
+		"formulaText":"cms.PageExp.Local(\n    'picdata',cms.DataExp.QueryList({ \n     select  oan.topic,oap.oid as id,oap.name as filename,oap.path from oa_newsdraft_h oan RIGHT JOIN oa_newsdraft_pho oap \n     on oan.OID=oap.SOID  where oap.SOID=${id} \n}))",
+		"notes":"",
+		"parameters":[],
+		"tmplText":"<script src=\"${staticRoot}/resources/yigo-cms/js/cms.Page.js\" type=\"text/javascript\"></script>\n<link rel=\"stylesheet\" href=\"${staticRoot}/resources/yigo-cms/css/cms.Page.css\" type=\"text/css\" /> \n<style>\nbody{\n text-align:center;\n}\n.photoShowArea{\n width:600px;\n height:auto;\n margin:10px auto;\n text-align:left;\n border:1px solid #ddd;\n position:relative;\n z-index:0;\n}\n</style> \n\n<script>\n$(function(){\nvar jsonText=\"\";\nvar jsonDate = [];\n$(\".transImgPath .imgpath\").each(function(){\n    var path=($(this).text()).replace(/\\\\/g,'/');\n    jsonText={ url: '/yigo/a/cms2-yigo2-adapter/cms/view-yigo-file/'+path,url_min: '/yigo/a/cms2-yigo2-adapter/cms/view-yigo-file/'+path};\n    jsonDate.push(jsonText);\n});\ncms.Page.photosShow('#photoShowArea',jsonDate);\n})\n</script>\n<ul style=\"display:none;\" class=\"transImgPath\">\n\t#foreach( $picline in $picdata )\n         <li class=\"img\">\n            <span class=\"imgpath\">$picline.PATH</span>\n         </li>\n    #end\n</ul>",
+		"type":"TMPL"
+	},
+	"code":"NEWS-IMGS",
+	"name":"新闻图片",
+	"params":[]
+}

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <web-app  
+        version="3.0"  
+        xmlns="http://java.sun.com/xml/ns/javaee"  
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+        xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+
+    <display-name>bokesoft-messager</display-name>
+    
+    <listener>
+		<listener-class>com.bokesoft.services.messager.server.context.ContextListener</listener-class>   
+	</listener>
+  
+    <servlet>
+        <servlet-name>messager</servlet-name>
+        <servlet-class>com.bokesoft.services.messager.server.MessagerServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>messager</servlet-name>
+        <url-pattern>/messager/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>upload</servlet-name>
+        <servlet-class>com.bokesoft.services.messager.server.UploadServlet</servlet-class>
+        <load-on-startup>2</load-on-startup>
+	    <multipart-config>
+	        <max-file-size>209715200</max-file-size> <!-- 200M -->
+	        <max-request-size>419430400</max-request-size> <!-- 400M -->
+	        <file-size-threshold>1048576</file-size-threshold>
+	    </multipart-config>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>upload</servlet-name>
+        <url-pattern>/upload/*</url-pattern>
+    </servlet-mapping>
+
+	<servlet>
+			<servlet-name>session</servlet-name>
+			<servlet-class>com.bokesoft.services.messager.server.HostSessionServlet</servlet-class>
+			<load-on-startup>3</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+        <servlet-name>session</servlet-name>
+        <url-pattern>/session/*</url-pattern>
+    </servlet-mapping>
+
+	<servlet>
+			<servlet-name>state</servlet-name>
+			<servlet-class>com.bokesoft.services.messager.server.StateServlet</servlet-class>
+			<load-on-startup>4</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+        <servlet-name>state</servlet-name>
+        <url-pattern>/state/*</url-pattern>
+    </servlet-mapping>
+
+	<servlet>
+			<servlet-name>blacklist</servlet-name>
+			<servlet-class>com.bokesoft.services.messager.server.BlackListServlet</servlet-class>
+			<load-on-startup>5</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+        <servlet-name>blacklist</servlet-name>
+        <url-pattern>/blacklist/*</url-pattern>
+    </servlet-mapping>
+
+	<servlet>
+			<servlet-name>history</servlet-name>
+			<servlet-class>com.bokesoft.services.messager.server.HistoryServlet</servlet-class>
+			<load-on-startup>6</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+        <servlet-name>history</servlet-name>
+        <url-pattern>/history/*</url-pattern>
+    </servlet-mapping>
+
+    <filter>
+        <filter-name>cross-origin</filter-name>
+        <filter-class>org.eclipse.jetty.servlets.CrossOriginFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>cross-origin</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+  
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+</web-app>

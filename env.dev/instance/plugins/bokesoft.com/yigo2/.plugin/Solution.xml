@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Solution Caption="${PROFILE_NAME}" Key="${PROFILE_NAME}" SecurityLevel="9" StartProject="${START_PROJECT}">
+	<ProjectCollection>
+		<!-- 
+		<Project Caption="..." Key="..." Path="..."/>
+		-->
+${PROJECT_LIST_XML}
+	</ProjectCollection>
+	<InplaceToolbarCollection>
+        <InplaceToolbar Tag="BPM" Handler="com.bokesoft.yes.bpm.BPMInplaceToolBarCallback" Description="BPM融合"/>
+		<InplaceToolbar Tag="WORKITEM" Handler="com.bokesoft.yes.bpm.LoadWorkitemInplaceToolBarCallback" Description="提交工作项"/>
+    </InplaceToolbarCollection>
+	<MidProcessFlowCollection>
+    </MidProcessFlowCollection>
+</Solution>

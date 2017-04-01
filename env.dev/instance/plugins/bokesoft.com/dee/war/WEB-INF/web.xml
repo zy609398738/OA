@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN" "http://java.sun.com/dtd/web-app_2_3.dtd">
+<web-app>
+	<display-name>ManageService</display-name>
+	<description>Manage Service</description>
+
+	<filter>
+		<filter-name>MyHttpFilter</filter-name>
+		<filter-class>
+			com.bokesoft.dee.web.filter.HttpFilter
+		</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>MyHttpFilter</filter-name>
+		<url-pattern>*.do</url-pattern>
+	</filter-mapping>
+
+	<!--
+		<filter> <filter-name>OauthFilter</filter-name> <filter-class>
+		com.bokesoft.dee.web.oauth.filter.OauthFilter </filter-class>
+		</filter> <filter-mapping> <filter-name>OauthFilter</filter-name>
+		<url-pattern>*.do</url-pattern> </filter-mapping>
+	-->
+	<listener>
+		<listener-class>
+			com.bokesoft.dee.mule.listener.MuleContextManageListener
+		</listener-class>
+	</listener>
+
+	<servlet>
+		<servlet-name>validateCodeServlet</servlet-name>
+		<servlet-class>com.bokesoft.dee.web.oauth.validate.ValidateCodeServlet</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>MuleContextManageServlet</servlet-name>
+		<servlet-class>
+			com.bokesoft.dee.mule.servlet.MuleContextManageServlet
+		</servlet-class>
+		<init-param>
+			<param-name>dee.mule.common.config-name</param-name>
+			<param-value>common-config</param-value>
+		</init-param>
+		<init-param>
+			<param-name>dee.mule.common.start_nosql</param-name>
+			<param-value>0</param-value>
+		</init-param>
+		<!-- 设置日志存放目录 ， 不设置的情况下 默认使用workspace的目录, 设置路径需要使用 "/"-->
+		<!--
+			<init-param> <param-name>bokedee.common.config-logroot</param-name>
+			<param-value>E:/workfolder/data_transfer</param-value> </init-param>
+		-->
+		<!-- 设置路径必须使用 "/" -->
+		<!--
+			<init-param> <param-name>bokedee.workspace.config-root</param-name>
+			<param-value>E:/workfolder/data_transfer/dee_mule_3_1_1/dee/build/deploy/domains/testLogAndExchange</param-value>
+			</init-param>
+		-->
+		<init-param>
+			<param-name>bokedeelic</param-name>
+			<param-value>baN+lancMw4M+KOU+1XC4taWrsAGHMO8+qMjynPqbtcF16+VM8YfvHkIPLdmX7VJm8kWT4FrkCUu
+J44PN9vhMKLWkxzRkrJoQhOWnD7DZNnvxcTtdFM9MNvqap0X2sN3OV0K15bOgAGYXa9bdMGwGEji
+O+zVz6ggnKHpKzl30hfE3703uy9Vaf74p8WB+ybI+WASD4ZL2Qg=BZOKESDEMEMZlVuhjm7XZSgnkniDL2z8Gjtmd20SaBCD+K/5Cavp9F/pa3sHXkS63XWVJveY312S8ySdm01X9D
+P4MA6bGGKA==BZOKESDEMEMIIBUwIBADANBgkqhkiG9w0BAQEFAASCAT0wggE5AgEAAkEAkprKFa9cY7sFTqz3plwgqyD5PbmzLC0p3wfaqHp8zjDAGCo+8683ZObuXcPqBePPHggHf7aBjAKFpKYlDqcWZwIDAQABAkAhdoFwB7Hv9a1VcveoGlk+lm0toKh8CecHyHQphqPcMDtvUCeIxQRpIw+DqOXCBjGzvtqzuoO5IVDxZ0VQfI0RAiEA9rQOcNDhXXNGrxWRozKVT//EADFhNabZ//tNQwF1SskCIQCYIRUQrKBX9vCvtHu0C3TnX9W96d+iQXNOfhkOAMW/rwIgBPrvi7F7yzInjCNIVF4SC5JjN4nHp5idsAA3uBGQd5kCIGIsb0Csdmlt9dMd4PrGrfGmufPuGqDGJhhQbfDIdNUHAiBWPmXSKUbV5hNPta1ZmOZSlLtYK6ZQBHArd/VxKzavSw==</param-value>
+		</init-param>
+
+		<load-on-startup>2</load-on-startup>
+
+	</servlet>
+
+	<servlet>
+		<servlet-name>httpService</servlet-name>
+		<servlet-class>
+			com.bokesoft.dee.web.servlet.ActionServlet
+		</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>fileUpload</servlet-name>
+		<servlet-class>
+			com.bokesoft.dee.web.servlet.FileUploadServlet
+		</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>AxisServlet</servlet-name>
+		<servlet-class>
+			org.apache.axis.transport.http.AxisServlet
+		</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>springapp</servlet-name>
+		<servlet-class>
+			org.springframework.web.servlet.DispatcherServlet
+		</servlet-class>
+		<load-on-startup>3</load-on-startup>
+	</servlet>
+	<servlet>
+		<servlet-name>ExchangeSaveData</servlet-name>
+		<servlet-class>com.bokesoft.dee.web.exchangeoperate.ExchangeSaveEventDataServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>ExchangeReceiveEventDataServlet</servlet-name>
+		<servlet-class>com.bokesoft.dee.web.exchangeoperate.ExchangeReceiveEventDataServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>ExchangeConfirmEventDataServlet</servlet-name>
+		<servlet-class>com.bokesoft.dee.web.exchangeoperate.ExchangeConfirmEventDataServlet</servlet-class>
+	</servlet>
+	<servlet>
+	    <servlet-name>AndroidServlet</servlet-name>
+	    <servlet-class>com.bokesoft.dee.web.servlet.AndroidServlet</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>UploadOrDownloadServlet</servlet-name>
+		<servlet-class>com.bokesoft.dee.mule.servlet.UploadOrDownloadServlet</servlet-class>
+		<!--
+			设置上传目录
+			若param-value不设置,或者为空字符串,则上传到默认位置(该位置为:项目/upload/(以billId命名的文件夹下面)/),
+		-->
+		<!-- 请务必写存在并且正确的磁盘位置!!! -->
+		<!--
+			<init-param> <param-name>uploadDir</param-name>
+			<param-value>D:/upload</param-value> </init-param>
+		-->
+
+		<!-- 设置上传文件重名是否重命名 yes进行重命名,no进行重命名,将会覆盖原文件,默认值为no -->
+		<!--
+			<init-param> <param-name>setFileReName</param-name>
+			<param-value>yes</param-value> </init-param>
+		-->
+	</servlet>
+
+
+	<servlet-mapping>
+		<servlet-name>validateCodeServlet</servlet-name>
+		<url-pattern>/validateCodeServlet</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>httpService</servlet-name>
+		<url-pattern>/httpService/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>fileUpload</servlet-name>
+		<url-pattern>/fileUpload/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>AxisServlet</servlet-name>
+		<url-pattern>/services/*</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>springapp</servlet-name>
+		<url-pattern>*.do</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ExchangeSaveData</servlet-name>
+		<url-pattern>/servlet/ExchangeSaveEventDataServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ExchangeReceiveEventDataServlet</servlet-name>
+		<url-pattern>/servlet/ExchangeReceiveEventDataServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ExchangeConfirmEventDataServlet</servlet-name>
+		<url-pattern>/servlet/ExchangeConfirmEventDataServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>UploadOrDownloadServlet</servlet-name>
+		<url-pattern>/UploadOrDownloadServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+	    <servlet-name>AndroidServlet</servlet-name>
+	    <url-pattern>/servlet/AndroidServlet</url-pattern>
+	</servlet-mapping>
+
+
+	<session-config>
+		<session-timeout>60</session-timeout>
+	</session-config>
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+
+</web-app>

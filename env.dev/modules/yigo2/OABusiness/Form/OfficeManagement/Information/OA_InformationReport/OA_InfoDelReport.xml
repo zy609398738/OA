@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="OA_InfoDelReport" Caption="新闻明细表" FormType="Report" Platform="">
+    <DataSource>
+        <DataObject Key="OA_InfoDelReport" Caption="新闻明细表">
+            <TableCollection>
+                <Table Key="OA_InfoDelReport" Caption="新闻明细表" TableMode="Detail" SourceType="Query" Persist="false">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="NO" Caption="NO" DataType="Varchar"/>
+                    <Column Key="NewsTypeID" Caption="NewsTypeID" DataType="Long"/>
+                    <Column Key="BillDate" Caption="BillDate" DataType="DateTime"/>
+                    <Column Key="Status" Caption="Status" DataType="Integer"/>
+                    <Column Key="Topic" Caption="Topic" DataType="Varchar"/>
+                    <Column Key="UrgencyDeg" Caption="UrgencyDeg" DataType="Integer"/>
+                    <Column Key="EmpID" Caption="EmpID" DataType="Long"/>
+                    <Column Key="DeptID" Caption="DeptID" DataType="Long"/>
+                    <Column Key="Top" Caption="Top" DataType="Integer"/>
+                    <Column Key="NewsDate" Caption="NewsDate" DataType="Integer"/>
+                    <Statement>
+                        <![CDATA[select * from (select *  from OA_NewsDraft_H order by BillDate desc)h]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="Close" Caption="关闭" RefKey="Close"/>
+    </OperationCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板">
+                <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <GridLayoutPanel Key="first_head" Height="160px" Caption="基本信息">
+                    <DatePicker Key="Q_DatePicker1" Caption="发布日期" BuddyKey="Lab_Q_DatePicker1" X="1" Y="1">
+                        <Condition TableKey="OA_InfoDelReport" CondSign="between" ColumnKey="BillDate" Group="A" GroupHead="true"/>
+                    </DatePicker>
+                    <Label Key="Lab_Q_DatePicker1" Caption="发布日期" X="0" Y="1"/>
+                    <DatePicker Key="Q_DatePicker2" Caption="到" BuddyKey="Lab_Q_DatePicker2" X="3" Y="1">
+                        <Condition TableKey="OA_InfoDelReport" CondSign="between" ColumnKey="BillDate" Group="A" GroupTail="true"/>
+                    </DatePicker>
+                    <Label Key="Lab_Q_DatePicker2" Caption="到" X="2" Y="1"/>
+                    <TextEditor Key="Q_TextEditor1" Caption="单据编号" BuddyKey="Lab_Q_TextEditor1" X="1" Y="0">
+                        <Condition TableKey="OA_InfoDelReport" CondSign="like" ColumnKey="NO"/>
+                    </TextEditor>
+                    <Label Key="Lab_Q_TextEditor1" Caption="单据编号" X="0" Y="0"/>
+                    <TextEditor Key="Q_TextEditor2" Caption="主题" BuddyKey="Lab_Q_TextEditor2" X="5" Y="0">
+                        <Condition TableKey="OA_InfoDelReport" CondSign="like" ColumnKey="Topic"/>
+                    </TextEditor>
+                    <Label Key="Lab_Q_TextEditor2" Caption="主题" X="4" Y="0"/>
+                    <Dict Key="Q_Dict1" Caption="发布人员" BuddyKey="Lab_Q_Dict1" X="5" Y="2" AllowMultiSelection="true" ItemKey="OA_Employee">
+                        <Condition TableKey="OA_InfoDelReport" CondSign="in" ColumnKey="EmpID"/>
+                    </Dict>
+                    <Label Key="Lab_Q_Dict1" Caption="发布人员" X="4" Y="2"/>
+                    <Dict Key="Q_Dict2" Caption="发布部门" BuddyKey="Lab_Q_Dict2" X="1" Y="3" AllowMultiSelection="true" ItemKey="OA_Department">
+                        <Condition TableKey="OA_InfoDelReport" CondSign="in" ColumnKey="DeptID"/>
+                    </Dict>
+                    <Label Key="Lab_Q_Dict2" Caption="发布部门" X="0" Y="3"/>
+                    <Button Key="Query" Caption="查询" X="6" Y="0">
+                        <OnClick>
+                            <![CDATA[DealCondition();
+LoadData();
+ShowData()]]>
+                        </OnClick>
+                    </Button>
+                    <Button Key="Reset" Caption="重置" X="6" Y="1">
+                        <OnClick>
+                            <![CDATA[ResetCondition()]]>
+                        </OnClick>
+                    </Button>
+                    <Dict Key="Q_NewsTypeID" Caption="新闻分类" BuddyKey="Lab_Q_NewsTypeID" X="3" Y="2" ItemKey="OA_NewsType" AllowMultiSelection="true">
+                        <Condition TableKey="OA_InfoDelReport" CondSign="in" ColumnKey="NewsTypeID"/>
+                    </Dict>
+                    <Label Key="Lab_Q_NewsTypeID" Caption="新闻分类" X="2" Y="2"/>
+                    <CheckBox Caption="是否置顶" Key="Q_Top" X="2" Y="3"/>
+                    <NumberEditor Key="Q_NewsDate" Caption="有效期" BuddyKey="Lab_Q_NewsDate" X="1" Y="2">
+                        <Condition TableKey="OA_InfoDelReport" CondSign="between" ColumnKey="NewsDate" Group="A" GroupHead="true"/>
+                    </NumberEditor>
+                    <Label Key="Lab_Q_NewsDate" Caption="有效期" X="0" Y="2"/>
+                    <CheckListBox BuddyKey="Lab_CheckListBox1" Caption="紧急程度" Key="CheckListBox1" X="5" Y="1">
+                        <Condition TableKey="OA_InfoDelReport" CondSign="in" ColumnKey="UrgencyDeg"/>
+                        <Item Key="0" Value="0"/>
+                        <Item Caption="一般" Key="10" Value="10"/>
+                        <Item Caption="紧急" Key="20" Value="20"/>
+                        <Item Caption="特急" Key="30" Value="30"/>
+                    </CheckListBox>
+                    <Label Key="Lab_CheckListBox1" Caption="紧急程度" X="4" Y="1"/>
+                    <CheckListBox BuddyKey="Lab_CheckListBox2" Caption="状态" Key="CheckListBox2" SourceType="Formula" X="3" Y="0">
+                        <Condition TableKey="OA_InfoDelReport" CondSign="in" ColumnKey="Status"/>
+                        <FormulaItems>
+                            <![CDATA[OA_GetDropItemFromStatus()]]>
+                        </FormulaItems>
+                    </CheckListBox>
+                    <Label Key="Lab_CheckListBox2" Caption="状态" X="2" Y="0"/>
+                    <RowDefCollection RowGap="8">
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="8">
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="33%"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="33%"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="34%"/>
+                        <ColumnDef Width="80px"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+                <Grid Key="Grid1" Caption="Grid1" Enable="false" NewEmptyRow="false" PageLoadType="UI" CanDelete="false" CanInsert="false" Height="100%">
+                    <GridColumnCollection>
+                        <GridColumn Key="NO" Caption="单据编号" Width="200px"/>
+                        <GridColumn Key="NewsTypeID" Caption="新闻分类" Width="80px"/>
+                        <GridColumn Key="BillDate" Caption="发布日期" Width="150px"/>
+                        <GridColumn Key="Status" Caption="状态" Width="80px"/>
+                        <GridColumn Key="Topic" Caption="主题" Width="250px"/>
+                        <GridColumn Key="UrgencyDeg" Caption="紧急程度" Width="80px"/>
+                        <GridColumn Key="EmpID" Caption="发布人员" Width="150px"/>
+                        <GridColumn Key="DeptID" Caption="发布部门" Width="200px"/>
+                        <GridColumn Key="NewsDate" Caption="有效期" Width="80px"/>
+                        <GridColumn Key="Top" Caption="是否置顶" Width="80px"/>
+                    </GridColumnCollection>
+                    <GridRowCollection>
+                        <GridRow Key="row1" RowHeight="35" TableKey="OA_InfoDelReport">
+                            <GridCell Key="NO" Caption="单据编号" CellType="TextEditor" CellSortType="None">
+                                <DataBinding ColumnKey="NO"/>
+                            </GridCell>
+                            <GridCell Key="NewsTypeID" Caption="新闻分类" CellType="Dict" ItemKey="OA_NewsType" CellSortType="None">
+                                <DataBinding ColumnKey="NewsTypeID"/>
+                            </GridCell>
+                            <GridCell Key="BillDate" Caption="发布日期" CellType="DatePicker" CellSortType="None">
+                                <DataBinding ColumnKey="BillDate"/>
+                            </GridCell>
+                            <GridCell Key="Status" Caption="状态" CellType="ComboBox" SourceType="Formula" CellSortType="None">
+                                <DataBinding ColumnKey="Status"/>
+                                <FormulaItems>
+                                    <![CDATA[OA_GetDropItemFromStatus()]]>
+                                </FormulaItems>
+                            </GridCell>
+                            <GridCell Key="Topic" Caption="主题" CellType="TextEditor" CellSortType="None">
+                                <DataBinding ColumnKey="Topic"/>
+                            </GridCell>
+                            <GridCell Key="UrgencyDeg" Caption="紧急程度" CellType="ComboBox" CellSortType="None">
+                                <DataBinding ColumnKey="UrgencyDeg"/>
+                                <Item Key="0" Value="0"/>
+                                <Item Caption="一般" Key="10" Value="10"/>
+                                <Item Caption="紧急" Key="20" Value="20"/>
+                                <Item Caption="特急" Key="30" Value="30"/>
+                            </GridCell>
+                            <GridCell Key="EmpID" Caption="发布人员" CellType="Dict" ItemKey="OA_Employee" CellSortType="None">
+                                <DataBinding ColumnKey="EmpID"/>
+                            </GridCell>
+                            <GridCell Key="DeptID" Caption="发布部门" CellType="Dict" ItemKey="OA_Department" CellSortType="None">
+                                <DataBinding ColumnKey="DeptID"/>
+                            </GridCell>
+                            <GridCell Key="NewsDate" Caption="有效期" CellType="NumberEditor" CellSortType="None">
+                                <DataBinding ColumnKey="NewsDate"/>
+                            </GridCell>
+                            <GridCell Key="Top" Caption="是否置顶" CellType="CheckBox" CellSortType="None">
+                                <DataBinding ColumnKey="Top"/>
+                            </GridCell>
+                        </GridRow>
+                    </GridRowCollection>
+                </Grid>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

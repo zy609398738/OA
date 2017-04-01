@@ -1,0 +1,29 @@
+{
+	"@type":"com.bokesoft.cms2.impl.buildin.modelio.vo.PageVO",
+	"attributes":{"@type":"java.util.LinkedHashMap"},
+	"code":"UPDATEPWD",
+	"deliveryVOs":[
+		{
+			"@type":"com.bokesoft.cms2.impl.buildin.modelio.vo.PageVO$DeliveryVO",
+			"areaCode":"personalinfo",
+			"blockCode":"HOME.UPDATEPWD",
+			"groupName":"",
+			"name":"密码修改",
+			"options":[
+				"Raw"
+			],
+			"parameters":{"@type":"java.util.HashMap"},
+			"sequence":"1"
+		}
+	],
+	"enabled":true,
+	"groups":[
+		{
+			"groupName":""
+		}
+	],
+	"name":"修改密码",
+	"title":"修改密码",
+	"tmplCode":"HOME.PERSONAL_INFO",
+	"url":"/updatePWD.page"
+}

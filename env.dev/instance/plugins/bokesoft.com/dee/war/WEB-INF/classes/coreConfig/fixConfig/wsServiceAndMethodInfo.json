@@ -1,0 +1,42 @@
+[
+  {
+    "deeSpService": [
+      {
+        "deeService": [
+          
+          {
+            "text": "xml",
+            "javaType": "java.lang.String",
+            "xtype": "textarea",
+            "fieldId" : "wsSam_xml",
+            "diaplayName" : "Xml内容"
+          },
+          {
+            "text": "action",
+            "javaType": "java.lang.String",
+            "xtype": "textfield",
+            "fieldId" : "wsSam_action",
+            "diaplayName" : "Action名称"
+          }
+        ]
+      },{
+        "deeServiceHv": [
+          {
+            "text": "xml",
+            "javaType": "java.lang.String",
+            "xtype": "textarea",
+            "fieldId" : "wsSam_hv_xml",
+            "diaplayName" : "Xml内容"
+          },
+           {
+            "text": "action",
+            "javaType": "java.lang.String",
+            "xtype": "textfield",
+            "fieldId" : "wsSam_hv_action",
+            "diaplayName" : "Action名称"
+          }
+        ]
+      }
+    ]
+  }
+]

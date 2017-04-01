@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="OA_ReadDelReport" Caption="传阅明细表" FormType="Report" Platform="">
+    <DataSource>
+        <DataObject Key="OA_ReadDelReport" Caption="传阅明细表">
+            <TableCollection>
+                <Table Key="OA_ReadDelReport" Caption="传阅明细表" TableMode="Detail" SourceType="Query" Persist="false">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="Topic" Caption="主题" DataType="Varchar"/>
+                    <Column Key="SendUser" Caption="传阅人" DataType="Long"/>
+                    <Column Key="DeptID" Caption="传阅部门" DataType="Long"/>
+                    <Column Key="ReadUser" Caption="阅读人" DataType="Long"/>
+                    <Column Key="ReadTime" Caption="阅读时间" DataType="Date"/>
+                    <Column Key="Status" Caption="状态" DataType="Integer"/>
+                    <Column Key="BillKey" Caption="单据Key" DataType="Varchar"/>
+                    <Statement>
+                        <![CDATA[select (case when ISNULL(r.status)  then 0 else r.Status end)as status,r.oid,r.SOID,r.ReadTime,r.SendTime,r.BillKey,r.BillOID,m.DeptID ,r.SendUser,r.readuser,m.topic ,m.BillCreatTime from oa_read r join bpm_migration m on r.BillOID=m.BillOID]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="Close" Caption="关闭" RefKey="Close"/>
+    </OperationCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板">
+                <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <GridLayoutPanel Key="first_head" Height="pref" Caption="基本信息">
+                    <TextEditor Key="TextEditor1" Caption="主题" BuddyKey="Lab_TextEditor1" X="3" Y="0"/>
+                    <Label Key="Lab_TextEditor1" Caption="主题" X="2" Y="0"/>
+                    <Dict Key="Dict1" Caption="传阅人" BuddyKey="Lab_Dict1" X="5" Y="0" ItemKey="OA_Employee" AllowMultiSelection="true">
+                        <Condition ColumnKey="SendUser" TableKey="OA_ReadDelReport" CondSign="in"/>
+                    </Dict>
+                    <Label Key="Lab_Dict1" Caption="传阅人" X="4" Y="0"/>
+                    <Dict Key="Dict2" Caption="传阅部门" BuddyKey="Lab_Dict2" X="1" Y="1" ItemKey="OA_Department" AllowMultiSelection="true">
+                        <Condition ColumnKey="DeptID" TableKey="OA_ReadDelReport" CondSign="in"/>
+                    </Dict>
+                    <Label Key="Lab_Dict2" Caption="传阅部门" X="0" Y="1"/>
+                    <Dict Key="Dict3" Caption="阅读人" BuddyKey="Lab_Dict3" X="3" Y="1" AllowMultiSelection="true" ItemKey="Operator">
+                        <Condition ColumnKey="ReadUser" TableKey="OA_ReadDelReport" CondSign="in"/>
+                    </Dict>
+                    <Label Key="Lab_Dict3" Caption="阅读人" X="2" Y="1"/>
+                    <DatePicker Key="DatePicker1" Caption="阅读时间" BuddyKey="Lab_DatePicker1" X="1" Y="2">
+                        <Condition ColumnKey="ReadTime" TableKey="OA_ReadDelReport" CondSign="between" Group="R" GroupHead="true"/>
+                    </DatePicker>
+                    <Label Key="Lab_DatePicker1" Caption="阅读时间" X="0" Y="2"/>
+                    <Button Key="Button1" Caption="查询" X="6" Y="0">
+                        <OnClick>
+                            <![CDATA[DealCondition();
+LoadData();
+ShowData();]]>
+                        </OnClick>
+                    </Button>
+                    <Button Key="Button2" Caption="重置" X="6" Y="1">
+                        <OnClick>
+                            <![CDATA[ResetCondition()]]>
+                        </OnClick>
+                    </Button>
+                    <CheckListBox BuddyKey="Lab_CheckListBox1" Caption="业务类型" Key="CheckListBox1" SourceType="Formula" X="1" Y="0">
+                        <Condition ColumnKey="BillKey" TableKey="OA_ReadDelReport" CondSign="in"/>
+                        <FormulaItems>
+                            <![CDATA[GetFormByType("Entity")]]>
+                        </FormulaItems>
+                    </CheckListBox>
+                    <Label Key="Lab_CheckListBox1" Caption="业务类型" X="0" Y="0"/>
+                    <CheckListBox BuddyKey="Lab_CheckListBox2" Caption="状态" Key="CheckListBox2" X="5" Y="1">
+                        <Condition ColumnKey="Status" TableKey="OA_ReadDelReport" CondSign="in"/>
+                        <Item Caption="待阅" Key="10" Value="10"/>
+                        <Item Caption="已阅" Key="20" Value="20"/>
+                        <Item Key="0" Value="0"/>
+                    </CheckListBox>
+                    <Label Key="Lab_CheckListBox2" Caption="状态" X="4" Y="1"/>
+                    <DatePicker Key="TO2" Caption="到" BuddyKey="Lab_TO2" X="3" Y="2">
+                        <Condition ColumnKey="ReadTime" TableKey="OA_ReadDelReport" CondSign="between" Group="R" GroupTail="true"/>
+                    </DatePicker>
+                    <Label Key="Lab_TO2" Caption="到" X="2" Y="2"/>
+                    <RowDefCollection RowGap="8">
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="8">
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="33%"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="33%"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="34%"/>
+                        <ColumnDef Width="80px"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+                <Grid Key="Grid1" Caption="Grid1" NewEmptyRow="false" Height="100%" PageLoadType="DB">
+                    <GridColumnCollection>
+                        <GridColumn Key="BillKey" Caption="业务类型" Width="200px"/>
+                        <GridColumn Key="Topic" Caption="主题" Width="200px"/>
+                        <GridColumn Key="SendUser" Caption="传阅人" Width="150px"/>
+                        <GridColumn Key="DeptID" Caption="传阅部门" Width="150px"/>
+                        <GridColumn Key="ReadUser" Caption="阅读人" Width="150px"/>
+                        <GridColumn Key="ReadTime" Caption="阅读时间" Width="200px"/>
+                        <GridColumn Key="Status" Caption="状态" Width="80px"/>
+                    </GridColumnCollection>
+                    <GridRowCollection>
+                        <GridRow Key="row1" RowHeight="35" TableKey="OA_ReadDelReport">
+                            <GridCell Key="BillKey" Caption="业务类型" CellType="ComboBox" SourceType="Formula" CellSortType="None">
+                                <DataBinding ColumnKey="BillKey"/>
+                                <FormulaItems>
+                                    <![CDATA[GetFormByType("Entity")]]>
+                                </FormulaItems>
+                            </GridCell>
+                            <GridCell Key="Topic" Caption="主题" CellType="TextEditor" CellSortType="None">
+                                <DataBinding ColumnKey="Topic"/>
+                            </GridCell>
+                            <GridCell Key="SendUser" Caption="传阅人" CellType="Dict" CellSortType="None" ItemKey="Operator">
+                                <DataBinding ColumnKey="SendUser"/>
+                            </GridCell>
+                            <GridCell Key="DeptID" Caption="传阅部门" CellType="Dict" ItemKey="OA_Department" CellSortType="None">
+                                <DataBinding ColumnKey="DeptID"/>
+                            </GridCell>
+                            <GridCell Key="ReadUser" Caption="阅读人" CellType="Dict" ItemKey="Operator" CellSortType="None">
+                                <DataBinding ColumnKey="ReadUser"/>
+                            </GridCell>
+                            <GridCell Key="ReadTime" Caption="阅读时间" CellType="DatePicker" CellSortType="None">
+                                <DataBinding ColumnKey="ReadTime"/>
+                            </GridCell>
+                            <GridCell Key="Status" Caption="状态" CellType="ComboBox" CellSortType="None">
+                                <DataBinding ColumnKey="Status"/>
+                                <Item Caption="待阅" Key="10" Value="10"/>
+                                <Item Caption="已阅" Key="20" Value="20"/>
+                                <Item Key="0" Value="0"/>
+                            </GridCell>
+                        </GridRow>
+                    </GridRowCollection>
+                </Grid>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

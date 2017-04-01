@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Caption="流程定义" FormType="Dict" Key="OA_Workflow">
+    <DataSource>
+        <DataObject Key="OA_Workflow" Caption="流程定义" PrimaryTableKey="OA_Workflow_H" SecondaryType="Dict" PrimaryType="Entity">
+            <TableCollection>
+                <Table Caption="基本信息" DBTableName="OA_Workflow_H" Key="OA_Workflow_H">
+                    <Column Caption="对象标识" DataType="Long" Key="OID"/>
+                    <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+                    <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+                    <Column Caption="对象版本" DataType="Integer" Key="VERID"/>
+                    <Column Caption="对象明细版本" DataType="Integer" Key="DVERID"/>
+                    <Column Caption="状态" DataType="Integer" DefaultValue="1" Key="Status"/>
+                    <Column Caption="启用标记" DataType="Integer" Key="Enable" DefaultValue="1"/>
+                    <Column Caption="节点类型" DataType="Integer" DefaultValue="0" Key="NodeType"/>
+                    <Column Caption="父节点" DataType="Long" DefaultValue="0" Key="ParentID"/>
+                    <Column Caption="左索引" DataType="Integer" Key="TLeft"/>
+                    <Column Caption="右索引" DataType="Integer" Key="TRight"/>
+                    <Column Caption="代码" DataType="Varchar" Key="Code" Length="50"/>
+                    <Column Caption="名称" DataType="Varchar" Key="Name" Length="50"/>
+                    <Column Caption="创建人员" DataType="Long" Key="Creator"/>
+                    <Column Caption="创建时间" DataType="DateTime" Key="CreateTime"/>
+                    <Column Caption="修改人员" DataType="Long" Key="Modifier"/>
+                    <Column Caption="修改时间" DataType="DateTime" Key="ModifyTime"/>
+                    <Column Caption="备注" DataType="Varchar" Key="Notes"/>
+                    <Column Caption="单据Key" DataType="Varchar" Key="BillKey"/>
+                    <Column Caption="集团" DataType="Long" Key="ClusterID"/>
+                    <Column Key="WorkflowRelevance" Caption="流程关联" DataType="Varchar"/>
+                    <Column Key="WorkflowKey" Caption="流程标识" DataType="Varchar" Cache="true"/>
+                    <Column Key="WorkflowName" Caption="流程名称" DataType="Varchar"/>
+                    <Column Key="WorkflowVersion" Caption="流程版本" DataType="Integer"/>
+                </Table>
+                <Table Caption="流程设置" Key="OA_Workflow_D" ParentKey="OA_Workflow_H" TableMode="Detail">
+                    <Column Caption="对象标识" DataType="Long" Key="OID"/>
+                    <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+                    <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+                    <Column Caption="对象版本" DataType="Integer" Key="VERID"/>
+                    <Column Caption="对象明细版本" DataType="Integer" Key="DVERID"/>
+                    <Column Caption="序号" DataType="Integer" Key="Sequence"/>
+                    <Column Caption="审批节点" DataType="Varchar" Key="AuditNode"/>
+                    <Column Key="AuditPerDepict" Caption="审批人员描述" DataType="Varchar"/>
+                    <Column Key="AuditOptDepict" Caption="审批操作描述" DataType="Varchar"/>
+                    <Column Caption="为下一步指定参与者" DataType="Integer" Key="SetNextPer"/>
+                    <Column Caption="审批意见必填" DataType="Integer" Key="UserInfoCheck"/>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <Body PopHeight="pref" PopWidth="pref">
+        <Block>
+            <FlexFlowLayoutPanel Caption="FlexFlowLayoutPanel1" Key="FlexFlowLayoutPanel1" Height="0px">
+                <TabPanel Caption="TabPanel1" Height="100%" Key="TabPanel1">
+                    <GridLayoutPanel Caption="基本信息" Key="GridLayoutPanel1">
+                        <TextEditor BuddyKey="Lab_Code" Caption="流程定义代码" Key="Code" X="1" Y="2">
+                            <DataBinding ColumnKey="Code" TableKey="OA_Workflow_H" Required="true"/>
+                        </TextEditor>
+                        <Label Caption="流程定义代码" Key="Lab_Code" X="0" Y="2"/>
+                        <TextEditor BuddyKey="Lab_Name" Caption="流程定义名称" Key="Name" X="4" Y="2">
+                            <DataBinding ColumnKey="Name" TableKey="OA_Workflow_H" Required="true"/>
+                        </TextEditor>
+                        <Label Caption="流程定义名称" Key="Lab_Name" X="3" Y="2"/>
+                        <Label Key="Lab_WorkflowVersion" Caption="版本" X="0" Y="3"/>
+                        <NumberEditor BuddyKey="Lab_WorkflowVersion" Caption="版本" Key="WorkflowVersion" Scale="0" X="1" Y="3" Enable="false">
+                            <DataBinding ColumnKey="WorkflowVersion" TableKey="OA_Workflow_H"/>
+                        </NumberEditor>
+                        <ComboBox Key="WorkflowRelevance" Caption="流程关联" BuddyKey="Lab_WorkflowRelevance" X="1" Y="0" SourceType="Formula">
+                            <DataBinding ColumnKey="WorkflowRelevance" TableKey="OA_Workflow_H">
+                                <ValueChanged>
+                                    <![CDATA[WorkflowKey=OA_GetWorkflowAttribute(WorkflowRelevance,0,"Key");
+WorkflowName=OA_GetWorkflowAttribute(WorkflowRelevance,0,"Caption");
+Code=WorkflowRelevance;
+WorkflowVersion=OA_GetWorkflowAttribute(WorkflowRelevance,0,"Version");
+Name=WorkflowName&"_版本("&WorkflowVersion&")";
+WorkflowState=OA_GetWorkflowAttribute(WorkflowRelevance,0,"State");  ]]>
+                                </ValueChanged>
+                            </DataBinding>
+                            <FormulaItems>
+                                <![CDATA[InvokeService("OA_GetDropItemByBPM",false,false,"Deploy",true);]]>
+                            </FormulaItems>
+                        </ComboBox>
+                        <Label Key="Lab_WorkflowRelevance" Caption="流程关联" X="0" Y="0"/>
+                        <Label Caption="流程状态" Key="Lab_WorkflowState" X="3" Y="3"/>
+                        <ComboBox BuddyKey="Lab_WorkflowState" Caption="流程状态" Key="WorkflowState" X="4" Y="3" Enable="false">
+                            <DataBinding DefaultFormulaValue="OA_GetWorkflowAttribute(WorkflowRelevance,0,&quot;State&quot;); "/>
+                            <Item Caption="新建" Key="0" Value="0"/>
+                            <Item Caption="已部署" Key="1" Value="1"/>
+                        </ComboBox>
+                        <TextEditor Key="WorkflowName" Caption="流程名称" BuddyKey="Lab_WorkflowName" X="4" Y="1" Enable="false">
+                            <DataBinding ColumnKey="WorkflowName" TableKey="OA_Workflow_H"/>
+                        </TextEditor>
+                        <Label Key="Lab_WorkflowName" Caption="流程名称" X="3" Y="1"/>
+                        <TextEditor Key="WorkflowKey" Caption="流程标识" BuddyKey="Lab_WorkflowKey" X="1" Y="1" Enable="false">
+                            <DataBinding ColumnKey="WorkflowKey" TableKey="OA_Workflow_H"/>
+                        </TextEditor>
+                        <Label Key="Lab_WorkflowKey" Caption="流程标识" X="0" Y="1"/>
+                        <Button Caption="流程设置" Key="WorkflowSet" X="4" Y="0">
+                            <OnClick>
+                                <![CDATA[OA_ShowWorkflowDesigne()]]>
+                            </OnClick>
+                        </Button>
+                        <RowDefCollection RowGap="4">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="4">
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="50%"/>
+                            <ColumnDef Width="20px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="50%"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <GridLayoutPanel Caption="系统信息" Height="1%" Key="SysTab">
+                        <Dict BuddyKey="Lab_Creator" Caption="创建人员" Enable="false" ItemKey="Operator" Key="Creator" X="1" Y="0">
+                            <DataBinding ColumnKey="Creator" TableKey="OA_Workflow_H" DefaultFormulaValue="GetOperator()" Required="true"/>
+                        </Dict>
+                        <Label Caption="创建人员" Key="Lab_Creator" X="0" Y="0"/>
+                        <Label Caption="创建时间" Key="Lab_CreateTime" X="3" Y="0"/>
+                        <DatePicker BuddyKey="Lab_CreateTime" Caption="创建时间" Enable="false" Key="CreateTime" X="4" Y="0">
+                            <DataBinding ColumnKey="CreateTime" TableKey="OA_Workflow_H" DefaultFormulaValue="ServerDate()" Required="true"/>
+                        </DatePicker>
+                        <Label Caption="修改人员" Key="Lab_Modifier" X="0" Y="1"/>
+                        <Dict BuddyKey="Lab_Modifier" Caption="修改人员" Enable="false" ItemKey="Operator" Key="Modifier" X="1" Y="1">
+                            <DataBinding ColumnKey="Modifier" TableKey="OA_Workflow_H" DefaultFormulaValue="GetOperator()" Required="true"/>
+                        </Dict>
+                        <Label Caption="修改时间" Key="Lab_ModifyTime" X="3" Y="1"/>
+                        <DatePicker BuddyKey="Lab_ModifyTime" Caption="修改时间" Enable="false" Key="ModifyTime" X="4" Y="1">
+                            <DataBinding ColumnKey="ModifyTime" TableKey="OA_Workflow_H" DefaultFormulaValue="ServerDate()" Required="true"/>
+                        </DatePicker>
+                        <Label Caption="备注" Key="Lab_Notes" X="0" Y="2"/>
+                        <TextEditor BuddyKey="Lab_Notes" Caption="备注" Key="Notes" X="1" XSpan="4" Y="2">
+                            <DataBinding ColumnKey="Notes" TableKey="OA_Workflow_H"/>
+                        </TextEditor>
+                        <TextEditor BuddyKey="Lab_BillKey" Caption="单据Key" Enable="false" Key="BillKey" X="1" Y="3">
+                            <DataBinding ColumnKey="BillKey" TableKey="OA_Workflow_H" DefaultFormulaValue="GetFormKey()"/>
+                        </TextEditor>
+                        <Label Caption="单据Key" Key="Lab_BillKey" X="0" Y="3"/>
+                        <Dict BuddyKey="Lab_ClusterID" Caption="集团" Enable="false" ItemKey="Client" Key="ClusterID" X="4" Y="3">
+                            <DataBinding ColumnKey="ClusterID" TableKey="OA_Workflow_H"/>
+                        </Dict>
+                        <Label Caption="集团" Key="Lab_ClusterID" X="3" Y="3"/>
+                        <TextEditor Key="OID" Caption="字典ID" BuddyKey="Lab_OID" X="1" Y="4">
+                            <DataBinding ColumnKey="OID" TableKey="OA_Workflow_H"/>
+                        </TextEditor>
+                        <Label Key="Lab_OID" Caption="字典ID" X="0" Y="4"/>
+                        <RowDefCollection RowGap="4">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="4">
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="50%"/>
+                            <ColumnDef Width="20px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="50%"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                </TabPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+    <MacroCollection>
+        <Macro Key="OA_ShowWorkflowDesigne">
+            <![CDATA[SetPara("WorkflowDesigneID", OA_GetWorkflowDesigneID());
+IIF(GetPara("WorkflowDesigneID")>0,
+    parent.Open("OA_WorkflowDesigne_Ex", GetPara("WorkflowDesigneID"), "newtab","WorkflowKey:{Container.GetValue('WorkflowKey')},WorkflowVersion:{Container.GetValue('WorkflowVersion')},Tag1:{Container.GetValue('BillKey')},Tag2:{Container.GetOID()}"),
+    parent.New("OA_WorkflowDesigne_Ex","newtab","WorkflowKey:{Container.GetValue('WorkflowKey')},WorkflowVersion:{Container.GetValue('WorkflowVersion')},Tag1:{Container.GetValue('BillKey')},Tag2:{Container.GetOID()}")
+);]]>
+        </Macro>
+        <Macro Key="OA_GetWorkflowDesigneID">
+            <![CDATA[DBQueryValue("Select OID From OA_WorkflowDesigne_H Where WorkflowKey=? and WorkflowVersion=? And Tag1=? And Tag2=?", WorkflowKey,WorkflowVersion,BillKey,OID);]]>
+        </Macro>
+    </MacroCollection>
+</Form>

@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <title>中航国际OA新闻发布页面</title>
+    <div yigo-cms:block="static?staticFile=buildin/boot-js.vm"/>
+</head>
+<body>
+<!-- Header -->
+<div yigo-cms:block="static?staticFile=buildin/oa-default-header.html"/>
+<!-- 菜单区域 -->
+<div yigo-cms:block="main-menu"/>
+
+<!--主体-->
+<div class="container com-news-create mt_10" id="mid">
+    
+    <div yigo-cms:area="content" />
+
+</div>
+<!--主体 end-->
+
+<!-- Footer -->
+<div yigo-cms:block="static?staticFile=buildin/oa-default-footer.html"/>
+<!--[if IE 6]>
+<script type="text/javascript">
+	function ie6_min_width(){	//解决ie6不兼容min-width
+			if($(window).width() <= 1024){
+				$('body').addClass('ie6');  
+			}
+			else{
+				$('body').removeClass('ie6'); 
+			}
+	}
+    $(function(){ie6_min_width();});	
+	$(window).resize(function(){ie6_min_width();});	
+</script>
+<![endif]-->
+</body>
+</html>

@@ -1,0 +1,35 @@
+{
+	"@type":"com.bokesoft.cms2.impl.buildin.modelio.vo.PageVO",
+	"attributes":{"@type":"java.util.LinkedHashMap"},
+	"code":"LIST.PAGE",
+	"deliveryVOs":[
+		{
+			"@type":"com.bokesoft.cms2.impl.buildin.modelio.vo.PageVO$DeliveryVO",
+			"areaCode":"newslist",
+			"blockCode":"NEWS.NEWS-LIST",
+			"groupName":"",
+			"name":"新闻列表",
+			"options":[
+				"Raw"
+			],
+			"parameters":{"@type":"java.util.HashMap",
+				"QueryPage_DEF_PAGE_SIZE":"5",
+				"pageNo":"0"
+			},
+			"sequence":"1"
+		}
+	],
+	"enabled":true,
+	"groups":[
+		{
+			"groupName":""
+		},
+		{
+			"groupName":""
+		}
+	],
+	"name":"新闻中心",
+	"title":"新闻中心",
+	"tmplCode":"NEWS.NEWS-LIST",
+	"url":"/newslist.page"
+}

@@ -1,0 +1,445 @@
+[
+		{
+			'text' : 'JDBC',
+			'type' : 'Jdbc',
+			'attr' : [ {
+				'name' : 'connector_ref',
+				'label' : '连接器',
+				'defaultValue' : '请选择',
+				'type' : 'Connector_Jdbc',
+				'require' : 'true'
+			}, {
+				'name' : 'queryKey',
+				'label' : 'SQL语句',
+				'defaultValue' : '请选择',
+				'type' : 'Connector_Jdbc/queries',
+				'require' : 'true'
+			}, {
+				'name' : 'transaction',
+				'label' : '事务策略',
+				'defaultValue' : '请选择',
+				'type' : 'comboxTranscationType'
+			}, {
+				'name' : 'xaTransaction',
+				'label' : 'XA事务策略',
+				'type' : 'comboxTranscationType',
+				'defaultValue' : '请选择'
+			} ]
+		},
+		{
+			'text' : 'Http',
+			'type' : 'Http',
+			'attr' : [ {
+				'name' : 'host',
+				'label' : '服务器地址',
+				'defaultValue' : 'localhost',
+				'type' : 'string',
+				'require' : 'true'
+			}, {
+				'name' : 'port',
+				'label' : '端口',
+				'defaultValue' : '',
+				'type' : 'number',
+				'require' : 'true'
+			}, {
+				'name' : 'path',
+				'label' : 'Path',
+				'defaultValue' : '',
+				'type' : 'string',
+				'require' : 'true'
+			}, {
+				'name' : 'method',
+				'label' : '发送方式',
+				'defaultValue' : 'POST',
+				'type' : 'comboxHttpMethod',
+				'require' : 'true'
+			}, {
+				'name' : 'contentType',
+				'label' : '内容类型',
+				'defaultValue' : 'text/plain;charset=utf8',
+				'type' : 'String'
+			}, {
+				'name' : 'connector_ref',
+				'label' : '连接器',
+				'defaultValue' : '81818796409fa2a301409fbdb653000e',
+				'type' : 'Connector_Http'
+			}, {
+				'name' : 'exchange_pattern',
+				'label' : '交换模式',
+				'defaultValue' : 'request-response',
+				'type' : 'comboExchangeType'
+			} ]
+		},{
+			'text' : 'Https',
+			'type' : 'Https',
+			'attr' : [ {
+				'name' : 'host',
+				'label' : '服务器地址',
+				'defaultValue' : 'localhost',
+				'type' : 'string',
+				'require' : 'true'
+			}, {
+				'name' : 'port',
+				'label' : '端口',
+				'defaultValue' : '',
+				'type' : 'number',
+				'require' : 'true'
+			}, {
+				'name' : 'path',
+				'label' : 'Path',
+				'defaultValue' : '',
+				'type' : 'string',
+				'require' : 'true'
+			}, {
+				'name' : 'method',
+				'label' : '发送方式',
+				'defaultValue' : 'POST',
+				'type' : 'comboxHttpMethod',
+				'require' : 'true'
+			}, {
+				'name' : 'connector_ref',
+				'label' : '连接器',
+				'defaultValue' : '请选择',
+				'type' : 'Connector_Https',
+				'require' : 'true'
+			}, {
+				'name' : 'contentType',
+				'label' : '内容类型',
+				'defaultValue' : 'text/plain;charset=utf8',
+				'type' : 'String'
+			}, {
+				'name' : 'exchange_pattern',
+				'label' : '交换模式',
+				'defaultValue' : 'request-response',
+				'type' : 'comboExchangeType'
+			} ]
+		},
+		{
+			'text' : 'File',
+			'type' : 'File',
+			'attr' : [
+					{
+						'name' : 'path',
+						'label' : '文件主目录',
+						'defaultValue' : '${bokedee.logpath.runtimeLog}/[接口名称]',
+						'type' : 'string',
+						'require' : 'true'
+					},
+					{
+						'name' : 'outputPattern',
+						'label' : '文件名称',
+						'defaultValue' : '#[function:datestamp:yyyyMMddHHmmss].xml',
+						'type' : 'String',
+						'require' : 'true'
+					},
+					{
+						'name' : 'file_subdir',
+						'label' : '文件子目录(file_subdir)',
+						'defaultValue' : '#[context:serviceName]/#[function:datestamp:yyyyMMdd]',
+						'type' : 'String'
+					}, {
+						'name' : 'connector_ref',
+						'label' : '连接器',
+						'defaultValue' : '请选择',
+						'type' : 'Connector_File'
+					}, {
+						'name' : 'moveFileTo',
+						'label' : '移动文件目录(moveFileTo)',
+						'defaultValue' : '',
+						'type' : 'String'
+					}, {
+						'name' : 'sameFileNameProc',
+						'label' : '同名处理(delete,append)',
+						'defaultValue' : '',
+						'type' : 'String'
+					},{
+						'name' : 'encoding',
+						'label' : 'encoding',
+						'type' : 'string',
+						'defaultValue' : 'UTF-8'
+					} ]
+		},
+		{
+			'text' : 'FTP',
+			'type' : 'FTP',
+			'attr' : [ {
+				'name' : 'host',
+				'label' : '设置访问服务器',
+				'defaultValue' : '',
+				'type' : 'string',
+				'require' : 'true'
+			}, {
+				'name' : 'port',
+				'label' : '端口',
+				'defaultValue' : 21,
+				'type' : 'number',
+				'require' : 'true'
+			}, {
+				'name' : 'user',
+				'label' : '用户名',
+				'defaultValue' : '',
+				'type' : 'string',
+				'require' : 'true'
+			}, {
+				'name' : 'password',
+				'label' : '密码',
+				'defaultValue' : '',
+				'type' : 'String',
+				'require' : 'true'
+			}, {
+				'name' : 'outputPattern',
+				'label' : '文件名称',
+				'defaultValue' : '#[function:datestamp:yyyyMMddHHmmss].xml',
+				'type' : 'String'
+			}, {
+				'name' : 'connector_ref',
+				'label' : '连接器',
+				'defaultValue' : '8181879640a428140140a485f1dd000d',
+				'type' : 'Connector_Ftp'
+			}, {
+				'name' : 'path',
+				'label' : '创建文件的路径(path)',
+				'defaultValue' : '',
+				'type' : 'String'
+			}, {
+				'name' : 'renameFileAlreadyReadSuffix',
+				'label' : '处理完成修改文件后缀(renameFileAlreadyReadSuffix)',
+				'defaultValue' : '',
+				'type' : 'String'
+			}, {
+				'name' : 'movefileto',
+				'label' : '异常文件移动目录(movefileto)',
+				'defaultValue' : '',
+				'type' : 'String'
+			},{
+				'name' : 'encoding',
+				'label' : 'encoding',
+				'type' : 'string',
+				'defaultValue' : 'UTF-8'
+			}]
+		},
+		{
+			'text' : 'SFTP',
+			'type' : 'SFTP',
+			'attr' : [ {
+				'name' : 'address',
+				'label' : '服务器地址',
+				'defaultValue' : 'sftp://user:pass@ip:22/folder',
+				'type' : 'String',
+				'require' : 'true'
+			}, {
+				'name' : 'connector_ref',
+				'label' : '连接器',
+				'defaultValue' : '8181879640a428140140a4867f36000e',
+				'type' : 'Connector_SFtp',
+				'require' : 'true'
+			}, {
+				'name' : 'outputPattern',
+				'label' : '文件名称',
+				'defaultValue' : '#[function:datestamp:yyyyMMddHHmmss].xml',
+				'type' : 'String'
+			}, {
+				'name' : 'fileNameEncoding',
+				'label' : '文件名称编码',
+				'defaultValue' : 'GBK',
+				'type' : 'String'
+			}, {
+				'name' : 'tempDir',
+				'label' : '临时文件夹',
+				'defaultValue' : '.deetemp',
+				'type' : 'String'
+			}, {
+				'name' : 'renameFileAlreadyReadSuffix',
+				'label' : '处理完成修改文件后缀(renameFileAlreadyReadSuffix)',
+				'defaultValue' : '',
+				'type' : 'String'
+			}, {
+				'name' : 'movefileto',
+				'label' : '异常文件移动目录(movefileto)',
+				'defaultValue' : '',
+				'type' : 'String'
+			}, {
+				'name' : 'identityFile',
+				'label' : '私钥文件路径(identityFile)',
+				'defaultValue' : '',
+				'type' : 'String'
+			}, {
+				'name' : 'passphrase',
+				'label' : '私钥密码(passphrase)',
+				'defaultValue' : '',
+				'type' : 'String'
+			} ]
+		},
+		{
+			'text' : 'Axis',
+			'type' : 'Axis',
+			'attr' : [
+					{
+						'name' : 'address',
+						'label' : 'address',
+						'defaultValue' : 'BD{MAP_URL}/services/MapWebService?method=unsafeInvokeService',
+						'type' : 'string',
+						'require' : 'true'
+					},
+					{
+						'name' : 'soap_method',
+						'label' : '调用方法',
+						'defaultValue' : "{\"soap_method\":\"qname{http://webservice.mid.myerp.bokesoft.com:unsafeInvokeService}\",\"soap_returnType\":\"java.lang.Object\",\"parameter\":[{\"parameter\":\"sServiceName\",\"type\":\"string\",\"mode\":\"IN\"},{\"parameter\":\"args\",\"type\":\"array\",\"mode\":\"IN\"}]}",
+						'type' : 'windowAxis',
+						'require' : 'true'
+					}, {
+						'name' : 'responseTimeout',
+						'label' : '等待响应超时时间',
+						'defaultValue' : 600000,
+						'type' : 'number'
+					}, {
+						'name' : 'connector_ref',
+						'label' : '连接器',
+						'defaultValue' : '8181879640a3b27d0140a40930d00026',
+						'type' : 'Connector_Axis'
+					} ]
+		}, {
+			'text' : 'VM',
+			'type' : 'VM',
+			'attr' : [ {
+				'name' : 'address',
+				'label' : 'address',
+				'defaultValue' : 'vm://',
+				'type' : 'string',
+				'require' : 'true'
+			}, {
+				'name' : 'exchange_pattern',
+				'label' : '交换模式',
+				'defaultValue' : 'request-response',
+				'type' : 'comboExchangeType'
+			} ]
+		}, {
+			'text' : 'SMTP',
+			'type' : 'SMTP',
+			'attr' : [ {
+				'name' : 'user',
+				'label' : '用户',
+				'defaultValue' : '',
+				'type' : 'String',
+				'require' : 'true'
+			}, {
+				'name' : 'password',
+				'label' : '密码',
+				'defaultValue' : '',
+				'type' : 'String',
+				'require' : 'true'
+			}, {
+				'name' : 'host',
+				'label' : '服务器',
+				'defaultValue' : '',
+				'type' : 'String',
+				'require' : 'true'
+			}, {
+				'name' : 'port',
+				'label' : '端口',
+				'defaultValue' : '25',
+				'type' : 'number',
+				'require' : 'true'
+			}, {
+				'name' : 'from',
+				'label' : '发送者',
+				'defaultValue' : '',
+				'type' : 'String',
+				'require' : 'true'
+			}, {
+				'name' : 'to',
+				'label' : '接收者',
+				'defaultValue' : '',
+				'type' : 'String',
+				'require' : 'true'
+			}, {
+				'name' : 'subject',
+				'label' : '主题',
+				'defaultValue' : '',
+				'type' : 'String',
+				'require' : 'true'
+			}, {
+				'name' : 'cc',
+				'label' : '抄送邮箱',
+				'defaultValue' : '',
+				'type' : 'String'
+			}, {
+				'name' : 'bcc',
+				'label' : '密送邮箱',
+				'defaultValue' : '',
+				'type' : 'String'
+			}, {
+				'name' : 'replyTo',
+				'label' : '回复邮箱',
+				'defaultValue' : '',
+				'type' : 'String'
+			}, {
+				'name' : 'connector_ref',
+				'label' : '连接器',
+				'defaultValue' : '请选择',
+				'type' : 'Connector_SMTP'
+			}, {
+				'name' : 'encoding',
+				'label' : 'Encoding字符集',
+				'defaultValue' : 'UTF-8',
+				'type' : 'String'
+			} ]
+		}, {
+			'text' : 'JMS',
+			'type' : 'JMS',
+			'attr' : [{
+						'name' : 'address',
+						'label' : 'address',
+						'defaultValue' : 'jms://queue:queueName/jms://topic:topicName',
+						'type' : 'string',
+						'require' : 'true'
+					},{
+						'name' : 'connector_ref',
+						'label' : '连接器',
+						'defaultValue' : '请选择',
+						'type' : 'Connector_JMS',
+						'require' : 'true'
+					},{
+						'name' : 'xaTransaction',
+						'label' : 'XA事务策略',
+						'type' : 'comboxTranscationType',
+						'defaultValue' : '请选择'
+					}, {
+						'name' : 'exchange_pattern',
+						'label' : '交换模式',
+						'defaultValue' : 'request-response',
+						'type' : 'comboExchangeType'
+					}, {
+						'name' : 'encoding',
+						'label' : 'encoding',
+						'type' : 'string',
+						'defaultValue' : 'UTF-8'
+					}]
+		} , {
+			'text' : 'TCP',
+			'type' : 'TCP',
+			'attr' : [{
+						'name' : 'host',
+						'label' : '服务器地址',
+						'defaultValue' : 'localhost',
+						'type' : 'string',
+						'require' : 'true'
+					}, {
+						'name' : 'port',
+						'label' : '端口',
+						'defaultValue' : '',
+						'type' : 'number',
+						'require' : 'true'
+					}, {
+						'name' : 'connector_ref',
+						'label' : '连接器',
+						'defaultValue' : '请选择',
+						'type' : 'Connector_TCP',
+						'require' : 'true'
+					}, {
+						'name' : 'exchange_pattern',
+						'label' : '交换模式',
+						'defaultValue' : 'request-response',
+						'type' : 'comboExchangeType'
+					}]
+		}]

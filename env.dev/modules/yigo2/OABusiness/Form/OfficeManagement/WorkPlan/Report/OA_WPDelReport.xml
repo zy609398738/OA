@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="OA_WPDelReport" Caption="工作明细报表" FormType="Report" Platform="">
+    <DataSource>
+        <DataObject Key="OA_WPDelReport" Caption="工作明细报表">
+            <TableCollection>
+                <Table Key="OA_WPDelReport" Caption="工作明细报表" TableMode="Detail" SourceType="Query" Persist="false">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="NO" Caption="编号" DataType="Varchar"/>
+                    <Column Key="Status" Caption="状态" DataType="Integer"/>
+                    <Column Key="GroupID" Caption="小组" DataType="Long"/>
+                    <Column Key="Week" Caption="周期" DataType="Long"/>
+                    <Column Key="DateBegin" Caption="开始工作日期" DataType="DateTime"/>
+                    <Column Key="isPushed" Caption="已完成" DataType="Integer"/>
+                    <Column Key="DateEnd" Caption="结束工作日期" DataType="DateTime"/>
+                    <Statement>
+                        <![CDATA[Select OID,SOID,POID,VERID,DVERID,SourceBillID,No,GroupID,Week,WeekCode,DateBegin,DateEnd,Status,isPushed From
+(Select H.OID,H.SOID,H.POID,H.VERID,H.DVERID,H.SourceBillID,H.No,H.GroupID,H.Week,W.Code As WeekCode,W.DateBegin,W.DateEnd,H.Status,H.isPushed From OA_weeklyreport H Join OA_Week W On H.Week=W.SOID) D]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="Close" Caption="关闭界面" RefKey="Close"/>
+    </OperationCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板" Height="100%" Width="100%">
+                <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <GridLayoutPanel Key="first_head" Height="120%" Caption="基本信息">
+                    <TextEditor Key="Q_NO" Caption="单据编号" BuddyKey="Lab_Q_NO" X="1" Y="0"/>
+                    <Label Key="Lab_Q_NO" Caption="单据编号" X="0" Y="0"/>
+                    <Dict Key="Dict1" Caption="工作小组" BuddyKey="Lab_Dict1" X="5" Y="0" ItemKey="OA_Group" AllowMultiSelection="true">
+                        <Condition ColumnKey="GroupID" TableKey="OA_WPDelReport" CondSign="in"/>
+                    </Dict>
+                    <Label Key="Lab_Dict1" Caption="工作小组" X="4" Y="0"/>
+                    <DatePicker Key="DatePicker2" Caption="工作日期从" BuddyKey="Lab_DatePicker2" X="3" Y="1"/>
+                    <Label Key="Lab_DatePicker2" Caption="工作日期从" X="2" Y="1"/>
+                    <DatePicker Key="DatePicker3" Caption="到" BuddyKey="Lab_DatePicker3" X="5" Y="1"/>
+                    <Label Key="Lab_DatePicker3" Caption="到" X="4" Y="1"/>
+                    <CheckBox Caption="已完成" Key="CheckBox1" X="1" Y="2">
+                        <Condition ColumnKey="isPushed" TableKey="OA_WPDelReport" CondSign="="/>
+                    </CheckBox>
+                    <Button Key="Query" Caption="查询" X="6" Y="0">
+                        <OnClick>
+                            <![CDATA[DealCondition();
+LoadData();
+ShowData();]]>
+                        </OnClick>
+                    </Button>
+                    <Button Key="Reset" Caption="重置" X="6" Y="1">
+                        <OnClick>
+                            <![CDATA[ResetCondition()]]>
+                        </OnClick>
+                    </Button>
+                    <Dict Key="Dict2" Caption="工作周期" BuddyKey="Lab_Dict2" X="1" Y="1" ItemKey="OA_Week" AllowMultiSelection="true">
+                        <Condition ColumnKey="Week" TableKey="OA_WPDelReport" CondSign="in"/>
+                    </Dict>
+                    <Label Key="Lab_Dict2" Caption="工作周期" X="0" Y="1"/>
+                    <CheckListBox BuddyKey="Lab_CheckListBox1" Caption="单据状态" Key="CheckListBox1" SourceType="Formula" X="3" Y="0">
+                        <Condition ColumnKey="Status" TableKey="OA_WPDelReport" CondSign="in"/>
+                        <FormulaItems>
+                            <![CDATA[OA_GetDropItemFromStatus()]]>
+                        </FormulaItems>
+                    </CheckListBox>
+                    <Label Key="Lab_CheckListBox1" Caption="单据状态" X="2" Y="0"/>
+                    <RowDefCollection RowGap="8">
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="8">
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="33%"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="33%"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="34%"/>
+                        <ColumnDef Width="80px"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+                <Grid Key="Grid1" Caption="Grid1" NewEmptyRow="false" Height="100%" PageLoadType="DB">
+                    <GridColumnCollection>
+                        <GridColumn Key="NO" Caption="单据编号" Width="200px"/>
+                        <GridColumn Key="Status" Caption="单据状态" Width="80px"/>
+                        <GridColumn Key="GroupID" Caption="工作小组" Width="150px"/>
+                        <GridColumn Key="Week" Caption="工作周期" Width="150px"/>
+                        <GridColumn Key="DateBegin" Caption="开始工作日期" Width="150px"/>
+                        <GridColumn Key="DateEnd" Caption="结束工作日期" Width="80px"/>
+                        <GridColumn Key="isPushed" Caption="已完成" Width="80px"/>
+                    </GridColumnCollection>
+                    <GridRowCollection>
+                        <GridRow Key="row1" RowHeight="35" TableKey="OA_WPDelReport">
+                            <GridCell Key="NO" Caption="单据编号" CellSortType="None">
+                                <DataBinding ColumnKey="NO"/>
+                            </GridCell>
+                            <GridCell Key="Status" Caption="单据状态" CellType="ComboBox" SourceType="Formula" CellSortType="None">
+                                <DataBinding ColumnKey="Status"/>
+                                <FormulaItems>
+                                    <![CDATA[OA_GetDropItemFromStatus()]]>
+                                </FormulaItems>
+                            </GridCell>
+                            <GridCell Key="GroupID" Caption="工作小组" CellType="Dict" ItemKey="OA_Group" CellSortType="None">
+                                <DataBinding ColumnKey="GroupID"/>
+                            </GridCell>
+                            <GridCell Key="Week" Caption="工作周期" CellType="Dict" ItemKey="OA_Week" CellSortType="None">
+                                <DataBinding ColumnKey="Week"/>
+                            </GridCell>
+                            <GridCell Key="DateBegin" Caption="开始工作日期" CellType="DatePicker" CellSortType="None">
+                                <DataBinding ColumnKey="DateBegin"/>
+                            </GridCell>
+                            <GridCell Key="DateEnd" Caption="结束工作日期" CellType="DatePicker">
+                                <DataBinding ColumnKey="DateEnd"/>
+                            </GridCell>
+                            <GridCell Key="isPushed" Caption="已完成" CellType="CheckBox" CellSortType="None">
+                                <DataBinding ColumnKey="isPushed"/>
+                            </GridCell>
+                        </GridRow>
+                    </GridRowCollection>
+                </Grid>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

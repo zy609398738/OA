@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Caption="单据模板" FormType="Entity" Key="BillTemp" ViewKey="BillTempView">
+    <DataSource>
+        <DataObject Caption="单据模板" DisplayFields="BillNO;BillDate" Key="BillTemp" PrimaryTableKey="BillTemp_H" PrimaryType="Entity" QueryFields="BillNO;BillDate">
+            <TableCollection>
+                <Table Caption="单据主表" DBTableName="BillTemp_H" Key="BillTemp_H">
+                    <Column Caption="对象标识" DataType="Long" Key="OID"/>
+                    <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+                    <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+                    <Column Caption="对象版本" DataType="Integer" Key="VERID"/>
+                    <Column Caption="对象明细版本" DataType="Integer" Key="DVERID"/>
+                    <Column Caption="单据编号" DataType="Varchar" Key="No"/>
+                    <Column Caption="单据日期" DataType="Date" Key="BillDate"/>
+                    <Column Caption="单据状态" DataType="Integer" Key="Status"/>
+                    <Column Caption="创建人" DataType="Long" Key="Creator"/>
+                    <Column Caption="创建日期" DataType="DateTime" Key="CreateTime"/>
+                    <Column Caption="修改人" DataType="Long" Key="Modifier"/>
+                    <Column Caption="修改日期" DataType="DateTime" Key="ModifyTime"/>
+                    <Column Caption="单据Key" DataType="Varchar" Key="BillKey"/>
+                    <Column Caption="集团" DataType="Long" Key="ClusterID"/>
+                    <Column Key="SEARCH_ENTITY_VERSION" Caption="数据版本(搜索引擎集成)" DataType="Numeric" Precision="16" Scale="0"/>
+                    <Column Key="SEARCH_IDX_VERSION" Caption="索引版本(搜索引擎集成)" DataType="Numeric" Precision="16" Scale="0"/>
+                </Table>
+                <Table Caption="单据明细" DBTableName="BillTemp_D" Key="BillTemp_D" ParentKey="BillTemp_H">
+                    <Column Caption="对象标识" DataType="Long" Key="OID"/>
+                    <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+                    <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+                    <Column Caption="对象版本" DataType="Integer" Key="VERID"/>
+                    <Column Caption="对象明细版本" DataType="Integer" Key="DVERID"/>
+                    <Column Caption="序号" DataType="Integer" Key="Sequence"/>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="NewBill" RefKey="NewBill"/>
+        <Operation Key="Save" RefKey="Save"/>
+        <Operation Key="Delete" RefKey="Delete"/>
+        <Operation Key="Edit" RefKey="Edit"/>
+        <Operation Key="Cancel" RefKey="Cancel"/>
+    </OperationCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板">
+                <ToolBar Caption="ToolBar1" Height="pref" Key="ToolBar1">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <TabPanel Caption="TabPanel1" Height="100%" Key="TabPanel1">
+                    <SplitPanel Caption="基础信息" Key="mainTab" Orientation="Vertical" OverflowY="Auto">
+                        <GridLayoutPanel Caption="GridLayoutPanel2" Key="GridLayoutPanel2">
+                            <TextEditor BuddyKey="Lab_No" Caption="单据编号" Key="No" X="1" XSpan="2" Y="0">
+                                <DataBinding ColumnKey="No" TableKey="BillTemp_H"/>
+                            </TextEditor>
+                            <Label Caption="单据编号" Key="Lab_No" X="0" Y="0"/>
+                            <DatePicker BuddyKey="Lab_BillDate" Caption="单据日期" Key="BillDate" X="5" XSpan="2" Y="0">
+                                <DataBinding ColumnKey="BillDate" TableKey="BillTemp_H" DefaultFormulaValue="ServerDate()"/>
+                            </DatePicker>
+                            <Label Caption="单据日期" Key="Lab_BillDate" X="4" Y="0"/>
+                            <Label Key="Lab_status" X="7" Y="0"/>
+                            <Label Caption="单据状态" Key="Label_Status" X="8" Y="0"/>
+                            <ComboBox BuddyKey="Label_Status" Caption="单据状态" Key="Status" SourceType="Status" X="9" XSpan="2" Y="0">
+                                <DataBinding ColumnKey="Status" TableKey="BillTemp_H" DefaultValue="0"/>
+                            </ComboBox>
+                            <RowDefCollection RowGap="4">
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="4">
+                                <ColumnDef Width="80px"/>
+                                <ColumnDef Width="80px"/>
+                                <ColumnDef Width="33%"/>
+                                <ColumnDef Width="20px"/>
+                                <ColumnDef Width="80px"/>
+                                <ColumnDef Width="80px"/>
+                                <ColumnDef Width="33%"/>
+                                <ColumnDef Width="20px"/>
+                                <ColumnDef Width="80px"/>
+                                <ColumnDef Width="80px"/>
+                                <ColumnDef Width="34%"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                        <TabPanel Caption="TabPanel2" Key="TabPanel2">
+                            <Grid Caption="主明细" Height="100%" Key="Dtl" Width="100%">
+                                <GridColumnCollection>
+                                    <GridColumn Caption="选择" Key="L_Sel" Width="80px"/>
+                                </GridColumnCollection>
+                                <GridRowCollection>
+                                    <GridRow Key="row-0" TableKey="BillTemp_D">
+                                        <GridCell Caption="选择" CellType="CheckBox" IsSelect="true" Key="Sel"/>
+                                    </GridRow>
+                                </GridRowCollection>
+                            </Grid>
+                        </TabPanel>
+                        <SplitSize Size="100px"/>
+                        <SplitSize Size="100%"/>
+                    </SplitPanel>
+                    <GridLayoutPanel Caption="系统信息" Key="SysTab">
+                        <Dict BuddyKey="Lab_Creator" Caption="创建人" Enable="false" ItemKey="Operator" Key="Creator" X="1" XSpan="2" Y="0">
+                            <DataBinding ColumnKey="Creator" TableKey="BillTemp_H" DefaultFormulaValue="GetOperator()"/>
+                        </Dict>
+                        <Label Caption="创建人" Key="Lab_Creator" X="0" Y="0"/>
+                        <Dict BuddyKey="Lab_Modifier" Caption="修改人" Enable="false" ItemKey="Operator" Key="Modifier" X="1" XSpan="2" Y="1">
+                            <DataBinding ColumnKey="Modifier" TableKey="BillTemp_H" DefaultFormulaValue="GetOperator()"/>
+                        </Dict>
+                        <DatePicker BuddyKey="Lab_CreateTime" Caption="创建日期" Enable="false" Key="CreateTime" OnlyDate="false" X="5" XSpan="2" Y="0">
+                            <DataBinding ColumnKey="CreateTime" TableKey="BillTemp_H" DefaultFormulaValue="ServerDate()"/>
+                        </DatePicker>
+                        <Label Caption="创建时间" Key="Lab_CreateTime" X="4" Y="0"/>
+                        <Label Caption="修改人" Key="Lab_Modifier" X="0" Y="1"/>
+                        <DatePicker BuddyKey="Lab_ModifyTime" Caption="修改日期" Enable="false" Key="ModifyTime" OnlyDate="false" X="5" XSpan="2" Y="1">
+                            <DataBinding ColumnKey="ModifyTime" TableKey="BillTemp_H" DefaultFormulaValue="ServerDate()"/>
+                        </DatePicker>
+                        <Label Caption="修改时间" Key="Lab_ModifyTime" X="4" Y="1"/>
+                        <TextEditor BuddyKey="Lab_BillKey" Caption="单据Key" Key="BillKey" X="9" XSpan="2" Y="0">
+                            <DataBinding ColumnKey="BillKey" TableKey="BillTemp_H" DefaultFormulaValue="GetFormKey()"/>
+                        </TextEditor>
+                        <Label Caption="单据Key" Key="Lab_BillKey" X="8" Y="0"/>
+                        <Dict BuddyKey="Lab_ClusterID" Caption="集团" Enable="false" ItemKey="Client" Key="ClusterID" X="9" XSpan="2" Y="1">
+                            <DataBinding ColumnKey="ClusterID" TableKey="BillTemp_H"/>
+                        </Dict>
+                        <Label Caption="集团" Key="Lab_ClusterID" X="8" Y="1"/>
+                        <NumberEditor Key="SEARCH_ENTITY_VERSION" Caption="数据版本(搜索引擎集成)" BuddyKey="Lab_SEARCH_ENTITY_VERSION" X="1" Y="2" Enable="false" Visible="false" IntegerValue="true" XSpan="2" Scale="0">
+                            <DataBinding ColumnKey="SEARCH_ENTITY_VERSION" TableKey="BillTemp_H" DefaultValue="1"/>
+                        </NumberEditor>
+                        <Label Key="Lab_SEARCH_ENTITY_VERSION" Caption="数据版本(搜索引擎集成)" X="0" Y="2"/>
+                        <NumberEditor Key="SEARCH_IDX_VERSION" Caption="索引版本(搜索引擎集成)" BuddyKey="Lab_SEARCH_IDX_VERSION" X="5" Y="2" Enable="false" Visible="false" XSpan="2" IntegerValue="true" Scale="0">
+                            <DataBinding ColumnKey="SEARCH_IDX_VERSION" TableKey="BillTemp_H" DefaultValue="0"/>
+                        </NumberEditor>
+                        <Label Key="Lab_SEARCH_IDX_VERSION" Caption="索引版本(搜索引擎集成)" X="4" Y="2"/>
+                        <RowDefCollection RowGap="4">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="4">
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="33%"/>
+                            <ColumnDef Width="20px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="33%"/>
+                            <ColumnDef Width="20px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="34%"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                </TabPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

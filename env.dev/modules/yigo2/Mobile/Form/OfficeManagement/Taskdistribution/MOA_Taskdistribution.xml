@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="MOA_Taskdistribution" Caption="任务派发" FormType="Entity" AliasKey="OA_Taskdistribution">
+    <DataSource>
+        <DataObject Key="MOA_Taskdistribution" Caption="任务派发" PrimaryTableKey="MOA_Taskdistribution" PrimaryType="Entity">
+            <TableCollection>
+                <Table Key="MOA_Taskdistribution" Caption="任务派发" DBTableName="OA_Taskdistribution_H">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="NO" Caption="单据编号" DataType="Varchar"/>
+                    <Column Key="BillDate" Caption="发布日期" DataType="DateTime"/>
+                    <Column Key="UrgencyDeg" Caption="紧急程度" DataType="Integer"/>
+                    <Column Key="Topic" Caption="主题" DataType="Varchar"/>
+                    <Column Key="EmpID" Caption="作者" DataType="Long"/>
+                    <Column Key="DeptID" Caption="发布部门" DataType="Long"/>
+                    <Column Key="NewsSummy" Caption="新闻概要" DataType="Varchar" Length="4000"/>
+                    <Column Key="NewsContent" Caption="新闻内容" DataType="Varchar" Length="4000"/>
+                    <Column Key="Creator" Caption="创建人" DataType="Long"/>
+                    <Column Key="CreateTime" Caption="创建时间" DataType="DateTime"/>
+                    <Column Key="Modifier" Caption="修改人" DataType="Long"/>
+                    <Column Key="ModifyTime" Caption="修改时间" DataType="DateTime"/>
+                    <Column Key="BillKey" Caption="单据名称" DataType="Varchar"/>
+                    <Column Key="WorkflowTypeDtlID" Caption="流程类别明细ID" DataType="Long"/>
+                    <Column Key="ReceiveEmpID" Caption="接收人员" DataType="Long"/>
+                    <Column Key="PlanStartDate" Caption="计划开始时间" DataType="DateTime"/>
+                    <Column Key="PlanEndDate" Caption="计划结束时间" DataType="DateTime"/>
+                    <Column Key="OutTime" Caption="到期时间" DataType="DateTime"/>
+                    <Column Key="ShareEmpID" Caption="接收人员" DataType="Varchar" Length="4000"/>
+                    <Column Key="FactStartDate" Caption="实际开始时间" DataType="DateTime"/>
+                    <Column Key="Notes" Caption="备注" DataType="Varchar"/>
+                    <Column Key="Status" Caption="状态" DataType="Integer"/>
+                    <Column Key="OptIDs" Caption="参与者ID" DataType="Varchar" Length="4000"/>
+                    <Column Key="FactEndDate" Caption="实际结束时间" DataType="DateTime"/>
+                    <Column Key="Arrangement" Caption="工作安排" DataType="Varchar" Length="4000"/>
+                    <Column Key="Completion" Caption="完成情况" DataType="Varchar" Length="4000"/>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="BPM" Caption="BPM" Tag="BPM"/>
+        <Operation Key="WORKITEM" Caption="WORKITEM" Tag="WORKITEM"/>
+        <Operation Key="Save" Caption="保存" Visible="!ReadOnly()||(IsEnable(&quot;Topic&quot;))||(IsEnable(&quot;Notes&quot;))">
+            <Action>
+                <![CDATA[SaveData();]]>
+            </Action>
+        </Operation>
+        <Operation Key="Delete" Caption="删除" RefKey="Delete"/>
+        <Operation Key="Edit" Caption="编辑" RefKey="Edit"/>
+        <Operation Key="Cancel" Caption="取消" RefKey="Cancel"/>
+        <Operation Key="Close" Caption="关闭" RefKey="Close"/>
+        <Operation Key="WFlog" Caption="审批记录" RefKey="ShowWFLog"/>
+    </OperationCollection>
+    <ScriptCollection>
+        <Script Key="LoadData" Caption="载入" Range="Action" Verb="Load">
+            <![CDATA[LoadData();SetPara("IsMobile",true);]]>
+        </Script>
+    </ScriptCollection>
+    <Body>
+        <Block>
+            <TableView Caption="TableView1" Key="TableView1" Padding="10px" Visible="true">
+                <Format BackColor="#e6e6e6"/>
+                <TableRowCollection>
+                    <TableRow Key="row1" ShowFirstMargin="true" TopMargin="10px">
+                        <LinearLayoutPanel Caption="LinearLayoutPanel2" Height="40px" Key="LinearLayoutPanel2" Width="auto">
+                            <Label Key="Lab_NO" Caption="单据编号" Height="auto" Width="100px">
+                                <Format HAlign="Left"/>
+                            </Label>
+                            <TextEditor Key="NO" Caption="单据编号" Height="pref" Width="auto">
+                                <DataBinding TableKey="MOA_Taskdistribution" ColumnKey="NO"/>
+                                <Format HAlign="Center"/>
+                            </TextEditor>
+                        </LinearLayoutPanel>
+                    </TableRow>
+                    <TableRow Key="row2" TopMargin="10px">
+                        <LinearLayoutPanel Caption="LinearLayoutPanel3" Height="40px" Key="LinearLayoutPanel3" Width="auto">
+                            <Label Key="Label1" Caption="发布日期" Height="auto" Width="100px">
+                                <Format HAlign="Left"/>
+                            </Label>
+                            <DatePicker Key="BillDate" Caption="DatePicker1" Height="pref" Width="auto">
+                                <DataBinding TableKey="MOA_Taskdistribution" ColumnKey="BillDate"/>
+                                <Format HAlign="Center"/>
+                            </DatePicker>
+                        </LinearLayoutPanel>
+                    </TableRow>
+                    <TableRow Key="row3" TopMargin="10px">
+                        <LinearLayoutPanel Caption="LinearLayoutPanel4" Height="40px" Key="LinearLayoutPanel4" Width="auto">
+                            <Label Key="Label2" Caption="紧急程度" Height="auto" Width="100px">
+                                <DataBinding TableKey="MOA_Taskdistribution" ColumnKey="UrgencyDeg"/>
+                                <Format HAlign="Left"/>
+                            </Label>
+                            <ComboBox Key="UrgencyDeg" Caption="紧急程度" Height="pref" Width="auto">
+                                <DataBinding TableKey="MOA_Taskdistribution" ColumnKey="UrgencyDeg"/>
+                                <Format HAlign="Center"/>
+                                <Item Caption="一般" Key="10" Value="10"/>
+                                <Item Caption="紧急" Key="20" Value="20"/>
+                                <Item Caption="特急" Key="30" Value="30"/>
+                            </ComboBox>
+                        </LinearLayoutPanel>
+                    </TableRow>
+                    <TableRow Key="row4" TopMargin="10px">
+                        <LinearLayoutPanel Caption="LinearLayoutPanel5" Height="40px" Key="LinearLayoutPanel5" Width="auto">
+                            <Label Key="Label3" Caption="主题" Height="auto" Width="100px">
+                                <Format HAlign="Left"/>
+                            </Label>
+                            <TextArea Key="Topic" Caption="主题" Height="auto" Weight="1.0" Width="auto">
+                                <DataBinding TableKey="MOA_Taskdistribution" ColumnKey="Topic" Required="true"/>
+                            </TextArea>
+                        </LinearLayoutPanel>
+                    </TableRow>
+                    <TableRow Key="row5" TopMargin="10px">
+                        <LinearLayoutPanel Caption="LinearLayoutPanel5" Height="40px" Key="LinearLayoutPanel7" Width="auto">
+                            <Label Key="Label5" Caption="发布部门" Height="auto" Width="100px">
+                                <Format HAlign="Left"/>
+                            </Label>
+                            <Dict Key="DeptID" Caption="发布部门" Height="pref" ItemKey="OA_Department" Width="auto">
+                                <DataBinding TableKey="MOA_Taskdistribution" ColumnKey="DeptID"/>
+                                <Format HAlign="Center"/>
+                            </Dict>
+                        </LinearLayoutPanel>
+                    </TableRow>
+                    <TableRow Key="row6" TopMargin="10px">
+                        <LinearLayoutPanel Caption="LinearLayoutPanel5" Height="40px" Key="LinearLayoutPanel6" Width="auto">
+                            <Label Key="Label4" Caption="发布人员" Height="auto" Width="100px">
+                                <Format HAlign="Left"/>
+                            </Label>
+                            <Dict Key="EmpID" Caption="作者" Height="pref" ItemKey="OA_Employee" Width="auto">
+                                <DataBinding TableKey="MOA_Taskdistribution" ColumnKey="EmpID"/>
+                                <Format HAlign="Center"/>
+                            </Dict>
+                        </LinearLayoutPanel>
+                    </TableRow>
+                    <TableRow Key="row7" TopMargin="10px">
+                        <LinearLayoutPanel Caption="LinearLayoutPanel14" Height="40px" Key="LinearLayoutPanel14" Width="auto">
+                            <Label Key="Label12" Caption="接收人员" Height="auto" Width="100px">
+                                <Format HAlign="Left"/>
+                            </Label>
+                            <Dict Key="ReceiveEmpID" Caption="接收人员" Height="pref" Width="auto" ItemKey="OA_Employee">
+                                <DataBinding TableKey="MOA_Taskdistribution" ColumnKey="ReceiveEmpID"/>
+                            </Dict>
+                        </LinearLayoutPanel>
+                    </TableRow>
+                    <TableRow Key="row8" TopMargin="10px">
+                        <LinearLayoutPanel Caption="LinearLayoutPanel15" Height="40px" Key="LinearLayoutPanel15" Width="auto">
+                            <Label Key="Label13" Caption="计划开始时间" Height="auto" Width="100px"/>
+                            <DatePicker Key="PlanStartDate" Caption="计划开始时间" Height="pref" Width="auto">
+                                <DataBinding TableKey="MOA_Taskdistribution" ColumnKey="PlanStartDate"/>
+                            </DatePicker>
+                        </LinearLayoutPanel>
+                    </TableRow>
+                    <TableRow Key="row9" TopMargin="10px">
+                        <LinearLayoutPanel Caption="LinearLayoutPanel16" Height="40px" Key="LinearLayoutPanel16" Width="auto">
+                            <Label Key="Label14" Caption="计划结束时间" Height="auto" Width="100px"/>
+                            <DatePicker Key="PlanEndDate" Caption="计划结束时间" Height="pref" Width="auto">
+                                <DataBinding TableKey="MOA_Taskdistribution" ColumnKey="PlanEndDate"/>
+                            </DatePicker>
+                        </LinearLayoutPanel>
+                    </TableRow>
+                    <TableRow Key="row10" TopMargin="10px">
+                        <LinearLayoutPanel Caption="LinearLayoutPanel17" Height="40px" Key="LinearLayoutPanel17" Width="auto">
+                            <Label Key="OutTimeLab" Caption="到期时间" Height="auto" Width="100px"/>
+                            <DatePicker Key="OutTime" Caption="到期时间" Height="pref" Width="auto">
+                                <DataBinding TableKey="MOA_Taskdistribution" ColumnKey="OutTime"/>
+                            </DatePicker>
+                        </LinearLayoutPanel>
+                    </TableRow>
+                    <TableRow Key="row11" TopMargin="10px">
+                        <LinearLayoutPanel Caption="LinearLayoutPanel18" Height="80px" Key="LinearLayoutPanel18" Width="auto">
+                            <Label Key="ShareEmpIDLab" Caption="共享人员" Height="auto" Width="100px"/>
+                            <TextArea Key="ShareEmpID" Caption="共享人员" Height="pref" Weight="1.0" Width="pref">
+                                <DataBinding TableKey="MOA_Taskdistribution" ColumnKey="ShareEmpID"/>
+                            </TextArea>
+                            <HyperLink Caption="人员选择" Height="auto" Key="EmpSelect" Width="60px">
+                                <OnClick>
+                                    <![CDATA[OA_ShowEmpSelectOpt()]]>
+                                </OnClick>
+                            </HyperLink>
+                        </LinearLayoutPanel>
+                    </TableRow>
+                    <TableRow Key="row12" TopMargin="10px">
+                        <LinearLayoutPanel Caption="LinearLayoutPanel19" Height="80px" Key="LinearLayoutPanel19" Width="auto">
+                            <Label Key="OptIDsLab" Caption="参与者ID" Height="auto" Width="100px"/>
+                            <TextArea Key="OptIDs" Caption="参与者ID" Height="pref" Weight="1.0" Width="pref">
+                                <DataBinding TableKey="MOA_Taskdistribution" ColumnKey="OptIDs"/>
+                            </TextArea>
+                        </LinearLayoutPanel>
+                    </TableRow>
+                    <TableRow Key="row13" TopMargin="10px">
+                        <LinearLayoutPanel Caption="LinearLayoutPanel9" Height="40px" Key="LinearLayoutPanel9" Width="auto">
+                            <Label Key="Label15" Caption="实际开始时间" Height="auto" Width="100px"/>
+                            <DatePicker Key="FactStartDate" Caption="实际开始时间" Visible="Status==1200" Height="pref" Width="auto">
+                                <DataBinding TableKey="MOA_Taskdistribution" ColumnKey="FactStartDate"/>
+                            </DatePicker>
+                        </LinearLayoutPanel>
+                    </TableRow>
+                    <TableRow Key="row14" TopMargin="10px">
+                        <LinearLayoutPanel Caption="LinearLayoutPanel20" Height="40px" Key="LinearLayoutPanel20" Width="auto">
+                            <Label Key="Label16" Caption="实际结束时间" Height="auto" Width="100px"/>
+                            <DatePicker Key="FactEndDate" Caption="实际结束时间" Visible="Status==1200" Height="pref" Width="auto">
+                                <DataBinding TableKey="MOA_Taskdistribution" ColumnKey="FactEndDate"/>
+                            </DatePicker>
+                        </LinearLayoutPanel>
+                    </TableRow>
+                    <TableRow Key="row15" TopMargin="10px">
+                        <LinearLayoutPanel Caption="LinearLayoutPanel13" Height="auto" Key="LinearLayoutPanel13" Width="auto">
+                            <Label Key="Label11" Caption="工作安排" Height="auto" Width="100px">
+                                <Format HAlign="Left"/>
+                            </Label>
+                            <TextArea Key="Arrangement" Caption="工作安排" Height="auto" Width="auto" Weight="1.0">
+                                <DataBinding TableKey="MOA_Taskdistribution" ColumnKey="Arrangement"/>
+                            </TextArea>
+                        </LinearLayoutPanel>
+                    </TableRow>
+                    <TableRow Key="row16" TopMargin="10px">
+                        <LinearLayoutPanel Caption="LinearLayoutPanel12" Height="auto" Key="LinearLayoutPanel12" Width="auto">
+                            <Label Key="Label10" Caption="完成情况" Height="auto" Width="100px">
+                                <Format HAlign="Left"/>
+                            </Label>
+                            <TextArea Key="Completion" Caption="完成情况" Height="auto" Width="auto" Weight="1.0">
+                                <DataBinding TableKey="MOA_Taskdistribution" ColumnKey="Completion"/>
+                            </TextArea>
+                        </LinearLayoutPanel>
+                    </TableRow>
+                    <TableRow Key="row17" TopMargin="10px">
+                        <LinearLayoutPanel Caption="LinearLayoutPanel21" Height="40px" Key="LinearLayoutPanel21" Width="auto">
+                            <Label Key="Label17" Caption="备注" Height="auto" Width="100px"/>
+                            <TextEditor Key="Notes" Caption="备注" Height="pref" Weight="1.0" Width="auto">
+                                <DataBinding TableKey="MOA_Taskdistribution" ColumnKey="Notes"/>
+                            </TextEditor>
+                        </LinearLayoutPanel>
+                    </TableRow>
+                    <TableRow Key="row18" TopMargin="10px">
+                        <LinearLayoutPanel Caption="LinearLayoutPanel11" Height="0px" Key="LinearLayoutPanel11" Visible="false" Width="auto">
+                            <Dict Key="Creator" Caption="创建人" BuddyKey="Lab_Creator" Height="auto" ItemKey="Operator" Width="auto">
+                                <DataBinding TableKey="MOA_Taskdistribution" ColumnKey="Creator" DefaultFormulaValue="GetOperator()"/>
+                            </Dict>
+                            <DatePicker Key="CreateTime" Caption="创建日期" BuddyKey="Lab_CreateTime" Height="auto" Width="auto">
+                                <DataBinding TableKey="MOA_Taskdistribution" ColumnKey="CreateTime" DefaultFormulaValue="ServerDate()"/>
+                            </DatePicker>
+                            <Dict Key="Modifier" Caption="修改人" BuddyKey="Lab_Modifier" Height="auto" ItemKey="Operator" Width="auto">
+                                <DataBinding TableKey="MOA_Taskdistribution" ColumnKey="Modifier" DefaultFormulaValue="GetOperator()"/>
+                            </Dict>
+                            <DatePicker Key="ModifyTime" Caption="修改日期" BuddyKey="Lab_ModifyTime" Height="auto" Width="auto">
+                                <DataBinding TableKey="MOA_Taskdistribution" ColumnKey="ModifyTime" DefaultFormulaValue="ServerDate()"/>
+                            </DatePicker>
+                            <TextEditor Key="BillKey" Caption="单据Key" BuddyKey="Lab_BillKey" Height="auto" Width="auto">
+                                <DataBinding TableKey="MOA_Taskdistribution" ColumnKey="BillKey" DefaultFormulaValue="GetFormKey()"/>
+                            </TextEditor>
+                            <TextEditor Key="OID" Caption="OID" BuddyKey="Lab_OID" Height="auto" Width="auto">
+                                <DataBinding TableKey="MOA_Taskdistribution" ColumnKey="OID" DefaultFormulaValue="GetOID()"/>
+                            </TextEditor>
+                            <TextEditor Key="WorkflowTypeDtlID" Caption="流程明细版本ID" BuddyKey="Lab_WorkflowTypeDtlID" Height="auto" Width="auto">
+                                <DataBinding TableKey="MOA_Taskdistribution" ColumnKey="WorkflowTypeDtlID" DefaultFormulaValue="Para(&quot;WorkflowTypeDtlID&quot;)"/>
+                            </TextEditor>
+                            <ComboBox Key="Status" Caption="状态" SourceType="Status" Height="pref" Width="pref">
+                                <DataBinding TableKey="MOA_Taskdistribution" ColumnKey="Status" DefaultValue="100"/>
+                            </ComboBox>
+                        </LinearLayoutPanel>
+                    </TableRow>
+                </TableRowCollection>
+            </TableView>
+        </Block>
+    </Body>
+</Form>

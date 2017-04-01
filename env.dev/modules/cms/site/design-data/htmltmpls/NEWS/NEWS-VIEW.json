@@ -1,0 +1,39 @@
+{
+	"@type":"com.bokesoft.cms2.model.HtmlTmpl",
+	"code":"NEWS-VIEW",
+	"htmlText":"",
+	"name":"新闻详情页模板",
+	"notes":"",
+	"slices":[
+		{
+			"followHtml":"<!DOCTYPE html>\n<html lang=\"zh-CN\">\n<head>\n    <meta charset=\"utf-8\">\n    "
+		},
+		{
+			"code":"博科协同办公管理系统新闻内容模板",
+			"followHtml":"\n</head>\n<body class=\"news-detail-page\">\n<div class=\"bootjs-box\">\n    ",
+			"tag":"yigo-cms:title"
+		},
+		{
+			"code":"static?staticFile=buildin/boot-js.vm",
+			"followHtml":"\n</div>\n\n <!--主体-->\n<div class=\"container com-news-detail\" id=\"mid\">\n     <div class=\"row\">\n       ",
+			"tag":"yigo-cms:block"
+		},
+		{
+			"code":"photoShowArea",
+			"followHtml":" \n       ",
+			"name":"photoshow",
+			"tag":"yigo-cms:area"
+		},
+		{
+			"code":"newsdetail",
+			"followHtml":" \n       ",
+			"name":"newsdetail",
+			"tag":"yigo-cms:area"
+		},
+		{
+			"code":"Comment",
+			"followHtml":"\n     </div>\n</div>\n <!--主体 end-->\n</body>\n</html>",
+			"tag":"yigo-cms:area"
+		}
+	]
+}

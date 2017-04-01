@@ -1,0 +1,14 @@
+{
+	"@type":"com.bokesoft.cms2.impl.buildin.modelio.vo.BlockVO",
+	"block":{
+		"@type":"com.bokesoft.cms2.model.blocks.TmplBlock",
+		"formulaText":"var lastUrl = cms.ReqExp.Var(\"com.bokesoft.cms2.core.acl.ACLConfig_ATTR_NAME_LAST_ACCESS_URL\");\nif (! lastUrl){\n    lastUrl = \"/home.page\";\n}\nvar loginUrl = cms.PageExp.PageProp(\"url\");\nif (lastUrl==loginUrl){\n    lastUrl = \"/home.page\";\n}\ncms.PageExp.Local(\"lastUrl\", lastUrl);",
+		"notes":"",
+		"parameters":[],
+		"tmplText":"#set( $R_ROOT = \"$this.eval('#!spring:cms.PageExp.RelContextRoot()')\" )\n<link rel=\"stylesheet\" href=\"${staticRoot}/resources/@buildin/css/reset.css\" type=\"text/css\" />\n<link rel=\"stylesheet\" href=\"${staticRoot}/resources/@buildin/css/public.css\" type=\"text/css\" />\n<link rel=\"stylesheet\" href=\"${staticRoot}/resources/@buildin/css/login.css\" type=\"text/css\" />\n<script src=\"${staticRoot}/resources/jquery/jquery.1.9.1.js\" type=\"text/javascript\"></script>\n<script Language=\"JavaScript\">\t\n\t$(document).ready(function(){\n\t\t$(\".login-form-box\").css(\"visibility\", \"visible\");\n\t\t$(\"#login-btn\").click(function(){\n        var user = $.trim($(\"input[name='userName']\").val());\n\t\tvar pass = $.trim($(\"input[name='password']\").val());\n        $.post(\"${R_ROOT}/auth/login.action\", {\n                userName: user, password: pass\n            }, function(data){\n  \t\t\t\tdocument.cookie='clientID='+data.result;\n                window.location.href=\"$R_ROOT${lastUrl}\";\n            });\n\t  });\n\t});\n</script> \n\n<div class=\"container\" id=\"mid\">\n    <div class=\"row\">\n        <div class=\"login-form-box\" style=\"visibility:hidden;\">\t\t\t\n            <form action=\"./login.action\" method=\"post\">\t\t\t\t\n\t\t\t\t<p id=\"failedMsg\" style=\"color:red\"></p>\n                <p class=\"user-name\"><span>账号:</span><input  type=\"text\" name=\"userName\" value=\"\"/></p>\n                <p class=\"pwd\"><span>密码:</span><input type=\"password\" name=\"password\" value=\"\" /></p>\n                <p style=\"margin-top:10px;\">\n                    <input id=\"login-btn\" class=\"login-btn\" type=\"button\" value=\"登     录\"/>\n                </p>\t\t\t\t\n            </form>\n        </div>\n    </div>\n</div>\n<!--主体 end-->\n<!--尾部 bottom-->\n<div class=\"container\" id=\"bottom\">\n    <div class=\"row\">\n        <p class=\"copy\">支持系统：Internet Explorer 7/8/9版本  上海博科资讯股份有限公司版权所有©  咨询热线: 400-720-3088</p>\n    </div>\n</div>",
+		"type":"TMPL"
+	},
+	"code":"LOGINFORM",
+	"name":"登录界面",
+	"params":[]
+}

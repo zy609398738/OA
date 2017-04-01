@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="MOA_EndList" Caption="结束事项" FormType="View">
+    <DataSource>
+        <DataObject Key="MOA_EndList" Caption="结束事项">
+            <TableCollection>
+                <Table Key="MOA_EndList" Caption="结束事项" TableMode="Detail" SourceType="Query" Persist="false">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="Topic" Caption="主题" DataType="Varchar"/>
+                    <Column Key="ProcessKey" Caption="流程名称" DataType="Varchar"/>
+                    <Column Key="FormKey" Caption="业务类型" DataType="Varchar"/>
+                    <Column Key="EmpID" Caption="申请人" DataType="Long"/>
+                    <Column Key="creatTime" Caption="申请时间" DataType="DateTime"/>
+                    <Column Key="WorkitemID" Caption="工作项标识" DataType="Long"/>
+                    <Column Key="UrgencyDeg" Caption="紧急程度" DataType="Integer"/>
+                    <ParameterCollection>
+                        <Parameter Formula="GetOperator()" DataType="Long"/>
+                    </ParameterCollection>
+                    <Statement>
+                        <![CDATA[select i.FormKey,w.WorkitemID,Topic,empid,deptid,UrgencyDeg,i.ProcessKey,i.oid,W.creatTime  from wf_workitem w join bpm_workiteminfo bw on w.WorkitemID=bw.WorkitemID join bpm_instance i on bw.InstanceID=i.InstanceID join BPM_migration m on i.OID=m.BillOID where m.BillCreator=? and bw.WorkitemID IN (select max(ParentWorkitemID) from bpm_workiteminfo bpw GROUP BY bpw.InstanceID) and i.instancestate = 2]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <Body>
+        <Block>
+            <LinearLayoutPanel Caption="LinearLayoutPanel1" Key="LinearLayoutPanel1" Orientation="Vertical">
+                <GridLayoutPanel Key="first_head" Padding="5px" Height="130px" Width="auto" Caption="基本信息">
+                    <DatePicker Key="From" Caption="申请日期 从" BuddyKey="Lab_From" X="1" Y="0" XSpan="4">
+                        <Condition ColumnKey="creatTime" TableKey="MOA_EndList" CondSign="between" Group="a" GroupHead="true"/>
+                    </DatePicker>
+                    <Label Key="Lab_From" Caption="申请日期 从" X="0" Y="0">
+                        <Format HAlign="Right"/>
+                    </Label>
+                    <DatePicker Key="To" Caption="到" BuddyKey="Lab_To" X="1" Y="1" XSpan="4">
+                        <Condition ColumnKey="creatTime" TableKey="MOA_EndList" CondSign="between" Group="a" GroupTail="true"/>
+                    </DatePicker>
+                    <Label Key="Lab_To" Caption="到" X="0" Y="1">
+                        <Format HAlign="Right"/>
+                    </Label>
+                    <Button Key="Query" Caption="查询" X="0" Y="2" XSpan="2">
+                        <OnClick>
+                            <![CDATA[DealCondition();
+LoadData();
+ShowData();]]>
+                        </OnClick>
+                    </Button>
+                    <Button Key="Reset" Caption="重置" X="3" Y="2" XSpan="2">
+                        <OnClick>
+                            <![CDATA[ResetCondition();]]>
+                        </OnClick>
+                    </Button>
+                    <RowDefCollection RowGap="8">
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                        <RowDef Height="35px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="8">
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="50%"/>
+                        <ColumnDef Width="20px"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="50%"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+                <TableView Caption="TableView1" Height="pref" Key="TableView1" Width="pref">
+                    <TableRowCollection>
+                        <TableRow Key="TableView2" RowType="Detail" TableKey="MOA_EndList" TopMargin="10px">
+                            <LinearLayoutPanel Caption="LinearLayoutPanel2" Height="pref" Key="LinearLayoutPanel2" Width="auto" Orientation="Vertical">
+                                <Label Key="Topic" Caption="主题" Height="auto" Width="auto" Weight="1.0">
+                                    <DataBinding ColumnKey="Topic" TableKey="MOA_EndList"/>
+                                </Label>
+                                <LinearLayoutPanel Caption="LinearLayoutPanel3" Height="40px" Key="LinearLayoutPanel3" Width="auto">
+                                    <ComboBox Key="ProcessKey" Caption="流程名称" Enable="false" SourceType="Formula" Height="auto" Weight="1.0" Width="auto" OnlyShow="true">
+                                        <DataBinding ColumnKey="ProcessKey" TableKey="MOA_EndList"/>
+                                        <Format HAlign="Center"/>
+                                        <FormulaItems>
+                                            <![CDATA[OA_GetDropItemByBPM()]]>
+                                        </FormulaItems>
+                                    </ComboBox>
+                                    <ComboBox Key="FormKey" Caption="业务类型" Enable="false" SourceType="Formula" Height="auto" Weight="1.0" Width="auto" OnlyShow="true">
+                                        <DataBinding ColumnKey="FormKey" TableKey="MOA_EndList"/>
+                                        <Format HAlign="Center"/>
+                                        <FormulaItems>
+                                            <![CDATA[GetFormByType("Entity")]]>
+                                        </FormulaItems>
+                                    </ComboBox>
+                                </LinearLayoutPanel>
+                                <LinearLayoutPanel Caption="LinearLayoutPanel4" Height="40px" Key="LinearLayoutPanel4" Width="auto">
+                                    <ComboBox Key="UrgencyDeg" Caption="紧急程度" Enable="false" Height="auto" Width="auto" Weight="1.0" OnlyShow="true">
+                                        <DataBinding ColumnKey="UrgencyDeg"/>
+                                        <Format HAlign="Center"/>
+                                        <Item Caption="一般" Key="10" Value="10"/>
+                                        <Item Caption="紧急" Key="20" Value="20"/>
+                                        <Item Caption="特急" Key="30" Value="30"/>
+                                        <Item Key="0" Value="0"/>
+                                    </ComboBox>
+                                    <Dict Key="EmpID" Caption="申请人" Enable="false" Height="auto" ItemKey="OA_Employee" Weight="1.0" Width="auto" OnlyShow="true">
+                                        <DataBinding ColumnKey="EmpID" TableKey="MOA_EndList"/>
+                                    </Dict>
+                                    <Label Key="WorkitemID" Caption="工作项标识" Visible="false" Height="pref" Width="pref" OnlyShow="true">
+                                        <DataBinding ColumnKey="WorkitemID"/>
+                                    </Label>
+                                </LinearLayoutPanel>
+                                <LinearLayoutPanel Caption="LinearLayoutPanel5" Height="40px" Key="LinearLayoutPanel5" Width="auto">
+                                    <DatePicker Key="BillDate" Caption="申请日期" Enable="false" Height="auto" Weight="0.5" Width="auto" OnlyShow="true">
+                                        <DataBinding ColumnKey="creatTime"/>
+                                    </DatePicker>
+                                    <TextEditor Key="OID" Caption="OID" Visible="FALSE" Height="pref" Width="pref">
+                                        <DataBinding ColumnKey="OID"/>
+                                    </TextEditor>
+                                </LinearLayoutPanel>
+                            </LinearLayoutPanel>
+                            <RowClick>
+                                <![CDATA[OA_GetMobileFormKey(GetValue("FormKey"),GetValue("OID"))]]>
+                            </RowClick>
+                        </TableRow>
+                    </TableRowCollection>
+                </TableView>
+            </LinearLayoutPanel>
+        </Block>
+    </Body>
+    <OnLoad>
+        <![CDATA[LoadData()]]>
+    </OnLoad>
+</Form>

@@ -1,0 +1,14 @@
+{
+	"@type":"com.bokesoft.cms2.impl.buildin.modelio.vo.BlockVO",
+	"block":{
+		"@type":"com.bokesoft.cms2.model.blocks.TmplBlock",
+		"formulaText":"#!spring\ncms.PageExp.Local('topNode', T(com.bokesoft.redist.cms2.site.SiteTree).loadCurrentTopNode())",
+		"notes":"",
+		"parameters":[],
+		"tmplText":"#set( $R_ROOT = \"$this.eval('#!spring:cms.PageExp.RelContextRoot()')\" )\n<div class=\"tree\">\n\t<h2><span>$topNode.pageName</span></h2>\n\t#set($curPageCode = $this.eval(\"#!spring:cms.PageExp.PageProp('code')\"))\n\t<ul class=\"f666\">\n\t#if($topNode.children)\n\t\t#foreach($node in $topNode.children)\n\t\t\t<li><a href=\"${R_ROOT}$node.pageUrl\"\n\t\t\t\t#if($node.pageCode == $curPageCode ||($topNode.pageCode == $curPageCode && $velocityCount == 1)) \n\t\t\t\t  class=\"active\"\n\t\t\t\t#end\n\t\t\t>$node.pageName</a></li>\n\t\t#end\n\t#else\n\t\t<li><a href=\"${R_ROOT}$topNode.pageUrl\" class=\"active\">$topNode.pageName</a></li>\n\t#end\n\t</ul>\n</div>",
+		"type":"TMPL"
+	},
+	"code":"left-nav-menu",
+	"name":"左侧导航菜单",
+	"params":[]
+}

@@ -1,0 +1,18 @@
+{
+	"@type":"com.bokesoft.cms2.impl.buildin.modelio.vo.BlockVO",
+	"block":{
+		"@type":"com.bokesoft.cms2.model.blocks.TmplBlock",
+		"formulaText":"T(cms.PageExp).Local('href', T(cms.PageExp).RelContextRoot()+'/oa/workreport.jsp?billKey=OA_NewsDraftUI')",
+		"parameters":[],
+		"tmplText":"<iframe class=\"auto-fit-mid-height\" id=\"main-iframe\" name=\"main-iframe\" style=\"width:1000px;height:800px\" src=\"${href}\" ></iframe>",
+		"type":"TMPL"
+	},
+	"code":"LISTVIEW",
+	"name":"序时簿页面",
+	"params":[
+		{
+			"caption":"资源名",
+			"key":"staticFile"
+		}
+	]
+}

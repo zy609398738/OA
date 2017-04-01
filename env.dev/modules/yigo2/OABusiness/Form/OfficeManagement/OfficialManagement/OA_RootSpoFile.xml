@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="OA_RootSpoFile" Caption="一键发文" FormType="Entity" Platform="">
+    <DataSource>
+        <DataObject Key="OA_RootSpoFile" Caption="一键发文" NoPrefix="RS" PrimaryTableKey="OA_RootSpoFile_H" PrimaryType="Entity">
+            <TableCollection>
+                <Table Key="OA_RootSpoFile_H" Caption="一键发文" DBTableName="OA_RootSpoFile_H">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="NO" Caption="发文编号" DataType="Varchar"/>
+                    <Column Key="BillDate" Caption="发文日期" DataType="DateTime"/>
+                    <Column Key="Status" Caption="状态" DataType="Integer"/>
+                    <Column Key="Topic" Caption="发文标题" DataType="Varchar"/>
+                    <Column Key="DeptID" Caption="发文部门" DataType="Long"/>
+                    <Column Key="EmpID" Caption="发文人员" DataType="Long"/>
+                    <Column Key="ReminderDeg" Caption="催办等级" DataType="Integer"/>
+                    <Column Key="UrgencyDeg" Caption="文件缓急" DataType="Integer"/>
+                    <Column Key="WordSizeID" Caption="发文字号" DataType="Long"/>
+                    <Column Key="SecretL" Caption="文件密级" DataType="Integer"/>
+                    <Column Key="ReadTitle" Caption="阅办类型" DataType="Integer"/>
+                    <Column Key="FileTypeID" Caption="发文类型" DataType="Long"/>
+                    <Column Key="SubjectHead" Caption="主题词" DataType="Varchar"/>
+                    <Column Key="LordSend" Caption="主送机关" DataType="Varchar"/>
+                    <Column Key="CcAuthority" Caption="抄送机关" DataType="Varchar"/>
+                    <Column Key="Dispatching" Caption="封发" DataType="Integer"/>
+                    <Column Key="Proof" Caption="校对" DataType="Integer"/>
+                    <Column Key="NewsView" Caption="阅读权限" DataType="Varchar"/>
+                    <Column Key="Creator" Caption="创建人" DataType="Long"/>
+                    <Column Key="CreateTime" Caption="创建日期" DataType="DateTime"/>
+                    <Column Key="Modifier" Caption="修改人" DataType="Long"/>
+                    <Column Key="ModifyTime" Caption="修改日期" DataType="DateTime"/>
+                    <Column Key="BillKey" Caption="单据Key" DataType="Varchar"/>
+                    <Column Key="ClusterID" Caption="集团" DataType="Long"/>
+                    <Column Key="Checkin" Caption="核稿" DataType="Integer"/>
+                    <Column Key="InstanceID" Caption="流程标识" DataType="Long"/>
+                    <Column Key="WorkflowTypeDtlID" Caption="流程类别明细ID" DataType="Long"/>
+                    <Column Key="Deadline" Caption="保管期限" DataType="Integer"/>
+                </Table>
+                <Table Key="OA_RootSpoFile_Att" Caption="附件" DBTableName="OA_RootSpoFile_Att" TableMode="Detail">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="UploadTime" Caption="上传时间" DataType="DateTime"/>
+                    <Column Key="UploadOperator" Caption="上传人" DataType="Long"/>
+                    <Column Key="Path" Caption="上传路径" DataType="Varchar" Length="250"/>
+                    <Column Key="Name" Caption="上传文件名称" DataType="Varchar" Length="100"/>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="WORKITEM" Caption="WORKITEM" Tag="WORKITEM"/>
+        <Operation Key="BPM" Caption="BPM" Tag="BPM"/>
+        <Operation Key="Save" Caption="保存" RefKey="Save"/>
+        <Operation Key="Delete" Caption="删除" RefKey="Delete"/>
+        <Operation Key="Edit" Caption="编辑" RefKey="Edit"/>
+        <Operation Key="Cancel" Caption="取消" RefKey="Cancel"/>
+        <Operation Key="Close" Caption="关闭" RefKey="Close"/>
+        <Operation Key="ShowLog" Caption="审批记录" RefKey="ShowWFLog"/>
+    </OperationCollection>
+    <ScriptCollection>
+        <Script Key="Load" Caption="载入" Range="Action" Verb="Load">
+            <![CDATA[LoadData()]]>
+        </Script>
+    </ScriptCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板">
+                <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <TabPanel Caption="TabPanel1" Height="100%" Key="TabPanel1">
+                    <GridLayoutPanel Key="first_head" Height="pref" Padding="5px" OverflowY="Auto" Caption="基本信息">
+                        <TextEditor Key="NO" Caption="发文编号" BuddyKey="Lab_NO" X="1" Y="0" Enable="false">
+                            <DataBinding TableKey="OA_RootSpoFile_H" ColumnKey="NO"/>
+                        </TextEditor>
+                        <Label Key="Lab_NO" Caption="发文编号" X="0" Y="0"/>
+                        <DatePicker Key="BillDate" Caption="发文日期" BuddyKey="Lab_BillDate" X="3" Y="2">
+                            <DataBinding TableKey="OA_RootSpoFile_H" ColumnKey="BillDate" DefaultFormulaValue="ServerDate()"/>
+                        </DatePicker>
+                        <Label Key="Lab_BillDate" Caption="发文日期" X="2" Y="2"/>
+                        <ComboBox Key="Status" Caption="状态" BuddyKey="Lab_Status" X="3" Y="9" Visible="false" Enable="false" SourceType="Status" IntegerValue="true">
+                            <DataBinding TableKey="OA_RootSpoFile_H" ColumnKey="Status" DefaultValue="100"/>
+                        </ComboBox>
+                        <Label Key="Lab_Status" Caption="状态" X="2" Y="9"/>
+                        <TextEditor Key="Topic" Caption="发文标题" BuddyKey="Lab_Topic" X="1" Y="1" XSpan="3">
+                            <DataBinding TableKey="OA_RootSpoFile_H" ColumnKey="Topic" Required="true"/>
+                        </TextEditor>
+                        <Label Key="Lab_Topic" Caption="发文标题" X="0" Y="1"/>
+                        <Dict Key="DeptID" Caption="主办单位" BuddyKey="Lab_DeptID" X="1" Y="3" ItemKey="OA_Department">
+                            <DataBinding TableKey="OA_RootSpoFile_H" ColumnKey="DeptID" DefaultFormulaValue="GetDictValue('Operator', GetOperator(), 'SYS_Operator.DeptID')" Required="true"/>
+                        </Dict>
+                        <Label Key="Lab_DeptID" Caption="主办单位" X="0" Y="3"/>
+                        <Dict Key="EmpID" Caption="拟稿人" BuddyKey="Lab_EmpID" X="3" Y="3" ItemKey="OA_Employee">
+                            <DataBinding TableKey="OA_RootSpoFile_H" ColumnKey="EmpID" DefaultFormulaValue="GetDictValue('Operator', GetOperator(), 'SYS_Operator.EmpID')" Required="true">
+                                <ValueChanged>
+                                    <![CDATA[DeptID=GetDictValue('OA_Employee', EmpID, 'OA_Employee_H.DeptID')]]>
+                                </ValueChanged>
+                            </DataBinding>
+                        </Dict>
+                        <Label Key="Lab_EmpID" Caption="拟稿人" X="2" Y="3"/>
+                        <ComboBox Key="ReminderDeg" Caption="催办等级" BuddyKey="Lab_ReminderDeg" X="3" Y="9" Visible="false">
+                            <DataBinding TableKey="OA_RootSpoFile_H" ColumnKey="ReminderDeg"/>
+                            <Item Key="0" Value="0"/>
+                            <Item Caption="特急" Key="10" Value="10"/>
+                            <Item Caption="紧急" Key="20" Value="20"/>
+                            <Item Caption="一般" Key="30" Value="30"/>
+                        </ComboBox>
+                        <Label Key="Lab_ReminderDeg" Caption="催办等级" X="2" Y="9"/>
+                        <ComboBox Key="UrgencyDeg" Caption="文件缓急" BuddyKey="Lab_UrgencyDeg" X="3" Y="9" Visible="false">
+                            <DataBinding TableKey="OA_RootSpoFile_H" ColumnKey="UrgencyDeg" DefaultValue="0"/>
+                            <Item Key="0" Value="0"/>
+                            <Item Caption="特急" Key="10" Value="10"/>
+                            <Item Caption="紧急" Key="20" Value="20"/>
+                            <Item Caption="一般" Key="30" Value="30"/>
+                        </ComboBox>
+                        <Label Key="Lab_UrgencyDeg" Caption="文件缓急" X="2" Y="9"/>
+                        <Dict Key="WordSizeID" Caption="发文字号" BuddyKey="Lab_WordSizeID" X="3" Y="9" Visible="false" ItemKey="OA_WordSize">
+                            <DataBinding TableKey="OA_RootSpoFile_H" ColumnKey="WordSizeID"/>
+                        </Dict>
+                        <Label Key="Lab_WordSizeID" Caption="发文字号" X="2" Y="9"/>
+                        <ComboBox Key="SecretL" Caption="密级" BuddyKey="Lab_SecretL" X="3" Y="0">
+                            <DataBinding TableKey="OA_RootSpoFile_H" ColumnKey="SecretL"/>
+                            <Item Caption="机密" Key="10" Value="10"/>
+                            <Item Caption="非密" Key="20" Value="20"/>
+                            <Item Caption="秘密" Key="30" Value="30"/>
+                        </ComboBox>
+                        <Label Key="Lab_SecretL" Caption="密级" X="2" Y="0"/>
+                        <ComboBox Key="ReadTitle" Caption="阅办类型" BuddyKey="Lab_ReadTitle" X="3" Y="9" Visible="false">
+                            <DataBinding TableKey="OA_RootSpoFile_H" ColumnKey="ReadTitle"/>
+                            <Item Key="0" Value="0"/>
+                            <Item Caption="阅件" Key="10" Value="10"/>
+                            <Item Caption="办件" Key="20" Value="20"/>
+                        </ComboBox>
+                        <Label Key="Lab_ReadTitle" Caption="阅办类型" X="2" Y="9"/>
+                        <Dict Key="FileTypeID" Caption="发文类型" BuddyKey="Lab_FileTypeID" X="1" Y="4" ItemKey="OA_FileType">
+                            <DataBinding TableKey="OA_RootSpoFile_H" ColumnKey="FileTypeID" Required="true"/>
+                        </Dict>
+                        <Label Key="Lab_FileTypeID" Caption="发文类型" X="0" Y="4"/>
+                        <TextEditor Key="SubjectHead" Caption="主题词" BuddyKey="Lab_SubjectHead" X="3" Y="9" Visible="false">
+                            <DataBinding TableKey="OA_RootSpoFile_H" ColumnKey="SubjectHead"/>
+                        </TextEditor>
+                        <Label Key="Lab_SubjectHead" Caption="主题词" X="2" Y="9"/>
+                        <ComboBox Key="Dispatching" Caption="封发" BuddyKey="Lab_Dispatching" X="3" Y="9" Visible="false">
+                            <DataBinding TableKey="OA_RootSpoFile_H" ColumnKey="Dispatching"/>
+                            <Item Key="0" Value="0"/>
+                            <Item Caption="是" Key="10" Value="10"/>
+                            <Item Caption="否" Key="20" Value="20"/>
+                        </ComboBox>
+                        <Label Key="Lab_Dispatching" Caption="封发" X="2" Y="9"/>
+                        <ComboBox Key="Proof" Caption="校对" BuddyKey="Lab_Proof" X="3" Y="9" Visible="false">
+                            <DataBinding TableKey="OA_RootSpoFile_H" ColumnKey="Proof"/>
+                            <Item Key="0" Value="0"/>
+                            <Item Caption="是" Key="10" Value="10"/>
+                            <Item Caption="否" Key="20" Value="20"/>
+                        </ComboBox>
+                        <Label Key="Lab_Proof" Caption="校对" X="2" Y="9"/>
+                        <ComboBox Key="Checkin" Caption="核稿人" BuddyKey="Lab_Checkin" X="3" Y="4" Visible="false">
+                            <DataBinding TableKey="OA_RootSpoFile_H" ColumnKey="Checkin"/>
+                            <Item Caption="已核稿" Key="1" Value="1"/>
+                            <Item Caption="未核稿" Key="2" Value="2"/>
+                        </ComboBox>
+                        <Label Key="Lab_Checkin" Caption="核稿人" X="2" Y="4"/>
+                        <Dict Key="NewsView" Caption="阅读权限" BuddyKey="Lab_NewsView" X="1" Y="7" AllowMultiSelection="true" ItemKey="OA_Employee" XSpan="3" YSpan="2">
+                            <DataBinding TableKey="OA_RootSpoFile_H" ColumnKey="NewsView"/>
+                        </Dict>
+                        <Label Key="Lab_NewsView" Caption="阅读权限" X="0" Y="7"/>
+                        <ComboBox Key="Deadline" Caption="保管期限" BuddyKey="Lab_Deadline" X="1" Y="2" IntegerValue="true">
+                            <DataBinding TableKey="OA_RootSpoFile_H" ColumnKey="Deadline" DefaultValue="1"/>
+                            <Item Caption="永久" Key="10" Value="10"/>
+                            <Item Caption="长期" Key="20" Value="20"/>
+                            <Item Caption="短期" Key="30" Value="30"/>
+                        </ComboBox>
+                        <Label Key="Lab_Deadline" Caption="保管期限" X="0" Y="2"/>
+                        <Dict Key="LordSend" Caption="主送" BuddyKey="Lab_LordSend" X="1" Y="5" AllowMultiSelection="true" ItemKey="OA_Department" XSpan="3">
+                            <DataBinding TableKey="OA_RootSpoFile_H" ColumnKey="LordSend"/>
+                        </Dict>
+                        <Label Key="Lab_LordSend" Caption="主送" X="0" Y="5"/>
+                        <Dict Key="CcAuthority" Caption="抄送" BuddyKey="Lab_CcAuthority" X="1" Y="6" AllowMultiSelection="true" ItemKey="OA_Department" XSpan="3">
+                            <DataBinding TableKey="OA_RootSpoFile_H" ColumnKey="CcAuthority"/>
+                        </Dict>
+                        <Label Key="Lab_CcAuthority" Caption="抄送" X="0" Y="6"/>
+                        <Embed Caption="审批记录" FormKey="OA_BPM_Log" Key="BPM_Log" RootKey="Grid1" X="1" XSpan="3" Y="10" YSpan="5" Visible="false" BuddyKey="Lab_BPM_Log">
+                            <Var Key="ParentKey" Value="OA_RootSpoFile_H"/>
+                        </Embed>
+                        <Label Key="Label_BPM_Log" Caption="审批记录" X="0" Y="10"/>
+                        <Embed Caption="附件" FormKey="OA_Attachment" Key="OA_Attachment" RootKey="Grid2" X="1" XSpan="3" Y="15"/>
+                        <RowDefCollection RowGap="8">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="170px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="8">
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="50%"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="50%"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <GridLayoutPanel Key="SysTab" Caption="系统信息">
+                        <Dict Key="Creator" Caption="创建人" BuddyKey="Lab_Creator" X="1" Y="0" Enable="false" ItemKey="Operator" XSpan="2">
+                            <DataBinding TableKey="OA_RootSpoFile_H" ColumnKey="Creator" DefaultFormulaValue="GetOperator()"/>
+                        </Dict>
+                        <Label Key="Lab_Creator" Caption="创建人" X="0" Y="0"/>
+                        <Dict Key="Modifier" Caption="修改人" BuddyKey="Lab_Modifier" X="1" Y="1" Enable="false" ItemKey="Operator" XSpan="2">
+                            <DataBinding TableKey="OA_RootSpoFile_H" ColumnKey="Modifier" DefaultFormulaValue="GetOperator()"/>
+                        </Dict>
+                        <DatePicker Key="CreateTime" Caption="创建日期" BuddyKey="Lab_CreateTime" X="5" Y="0" Enable="false" XSpan="2">
+                            <DataBinding TableKey="OA_RootSpoFile_H" ColumnKey="CreateTime" DefaultFormulaValue="ServerDate()"/>
+                        </DatePicker>
+                        <Label Key="Lab_CreateTime" Caption="创建时间" X="4" Y="0"/>
+                        <Label Key="Lab_Modifier" Caption="修改人" X="0" Y="1"/>
+                        <DatePicker Key="ModifyTime" Caption="修改日期" BuddyKey="Lab_ModifyTime" X="5" Y="1" Enable="false" XSpan="2">
+                            <DataBinding TableKey="OA_RootSpoFile_H" ColumnKey="ModifyTime" DefaultFormulaValue="ServerDate()"/>
+                        </DatePicker>
+                        <Label Key="Lab_ModifyTime" Caption="修改时间" X="4" Y="1"/>
+                        <TextEditor Key="BillKey" Caption="单据Key" BuddyKey="Lab_BillKey" X="9" Y="0" XSpan="2">
+                            <DataBinding TableKey="OA_RootSpoFile_H" ColumnKey="BillKey" DefaultFormulaValue="GetFormKey()"/>
+                        </TextEditor>
+                        <Label Key="Lab_BillKey" Caption="单据Key" X="8" Y="0"/>
+                        <Dict Key="ClusterID" Caption="集团" BuddyKey="Lab_ClusterID" X="9" Y="1" Enable="false" ItemKey="Client" XSpan="2">
+                            <DataBinding TableKey="OA_RootSpoFile_H" ColumnKey="ClusterID"/>
+                        </Dict>
+                        <Label Key="Lab_ClusterID" Caption="集团" X="8" Y="1"/>
+                        <TextEditor Key="OID" Caption="OID" BuddyKey="Lab_OID" X="1" Y="2" Visible="false" XSpan="2">
+                            <DataBinding TableKey="OA_RootSpoFile_H" ColumnKey="OID"/>
+                        </TextEditor>
+                        <Label Key="Lab_OID" Caption="OID" X="0" Y="2"/>
+                        <TextEditor Key="WorkflowTypeDtlID" Caption="流程类别明细ID" BuddyKey="Lab_WorkflowTypeDtlID" X="9" Y="2" Visible="false" XSpan="2">
+                            <DataBinding TableKey="OA_RootSpoFile_H" ColumnKey="WorkflowTypeDtlID" DefaultFormulaValue="Para(&quot;WorkflowTypeDtlID&quot;)"/>
+                        </TextEditor>
+                        <Label Key="Lab_WorkflowTypeDtlID" Caption="流程类别明细ID" X="8" Y="2"/>
+                        <RowDefCollection RowGap="4">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="4">
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="33%"/>
+                            <ColumnDef Width="20px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="33%"/>
+                            <ColumnDef Width="20px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="34%"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                </TabPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+    <MacroCollection>
+        <Macro Key="OA_GetOperatorSelID">
+            <![CDATA[DBQueryValue("Select OID From OA_OperatorSel_H Where SourceKey=? and SourceID=? and Tag1=?", BillKey,OID,NewsView);]]>
+        </Macro>
+        <Macro Key="OA_ShowNewsViewOpt">
+            <![CDATA[SetPara("OperatorSelID", OA_GetOperatorSelID());
+IIF(GetPara("OperatorSelID")>0,
+    Open("OA_OperatorSel", GetPara("OperatorSelID"), "newtab","SourceKey:{BillKey},SourceID:{OID},Tag1:{NewsView}"),
+    New("OA_OperatorSel","newtab","SourceKey:{BillKey},SourceID:{OID},Tag1:{NewsView}")
+);]]>
+        </Macro>
+    </MacroCollection>
+</Form>

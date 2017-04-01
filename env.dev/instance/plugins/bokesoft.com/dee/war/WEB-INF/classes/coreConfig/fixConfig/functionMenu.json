@@ -1,0 +1,260 @@
+{
+	"common_config" : {
+		"text" : "公共配置",
+		"iconCls" : "gonggongpeizhi",
+		"items" : "left_accordion_ggpz_tree",
+		"storeId" : "ggpz_tree_store",
+		"index" : 0,
+		"value" : {
+			children : [{
+						"text" : "数据源",
+						"actionType" : "findGgpzStoreDataSource",
+						"children" : [],
+						"leaf" : false,
+						"type" : "DataSource.json"
+					}, {
+						"text" : "连接器",
+						"children" : [],
+						"actionType" : "findGgpzStoreConnector",
+						"leaf" : false,
+						"type" : "Connector.json"
+					}, {
+						"text" : "Spring对象",
+						"actionType" : "findGgpzStoreSpringBean",
+						"children" : [],
+						"leaf" : false,
+						"type" : "SpringBean.json"
+					}, {
+						"text" : "全局配置",
+						"actionType" : "findGgpzStoreGlobalSource",
+						"children" : [],
+						"leaf" : false,
+						"type" : "GlobalSource.json"
+					}, {
+						"text" : "Web服务映射",
+						"actionType" : "findGgpzStoreWSAMapping",
+						"children" : [],
+						"leaf" : false,
+						"type" : "WebServiceActionMapping.json"
+					},{
+						"text" : "Servlet映射",
+						"actionType" : "findGgpzStoreSAMapping",
+						"children" : [],
+						"leaf" : false,
+						"type" : "ServletActionMapping.json"
+					},{
+						"text" : "文件导入设置",
+						"actionType" : "findGgpzStoreVmFileImport",
+						"children" : [],
+						"leaf" : false,
+						"type" : "VmFileImport.json"
+					}]
+		}
+	},
+	"interface_config" : {
+		"items" : "left_accordion_jkpz_tree",
+		"iconCls" : "jiekoupeizhi",
+		"tools" : "[ {\"type\" : \"refresh\",\"xtype\" : \"tool\",\"qtip\" : \"刷新菜单\",\"handler\" : function (tool, event) {	if (left.items.items[1].collapsed) {left.items.items[1].expand();var left_accordion_jkpz_tree_store = getCmp('left_accordion_jkpz_tree').store;left_accordion_jkpz_tree_store.getRootNode().removeAll();left_accordion_jkpz_tree_store.load();}changePanel(center_interface());}}]",
+		"text" : "接口配置",
+		"index" : 1,
+		"value" : {
+			children : []
+		}
+	},
+	"interfce_manage" : {
+		"text" : "接口管理",
+		"index" : 3,
+		"items" : "left_accordion_InterfaceManager_tree",
+		"storeId" : "InterfaceManager_tree_store",
+		"iconCls" : "jiekouguanli",
+		"value" : {
+			children : [{
+						"text" : "生成运行文件",
+						"actionType" : "findInterfaceStore",
+						"leaf" : false,
+						"children" : []
+					}, {
+						"text" : "接口运行管理",
+						"actionType" : "refresh",
+						"leaf" : false,
+						"children" : []
+					}, {
+						"text" : "定时任务",
+						"actionType" : "timingTask",
+						"leaf" : false,
+						"children" : []
+					}, {
+						"text" : "同步",
+						"actionType" : "synchData",
+						"leaf" : false,
+						"children" : []
+					}]
+		}
+
+	},
+	"dataTemplate_config" : {
+		"text" : "辅助配置",
+		"index" : 2,
+		"items" : "left_accordion_dataTemplate_tree",
+		"storeId" : "dataTemplate_tree_store",
+		"iconCls" : "shujumoban",
+		"value" : {
+			children : [{
+						"text" : "接口预配置",
+						"actionType" : "YigoConfig",
+						"children" : [],
+						"leaf" : false
+					},{
+						"text" : "标准模版",
+						"actionType" : "standardTemplate",
+						"children" : [],
+						"leaf" : false
+					}, {
+						"text" : "自定义模版",
+						"actionType" : "customTemplate",
+						"children" : [],
+						"leaf" : false
+					}]
+		}
+	},
+	"exchange_center" : {
+		"text" : "交换中心",
+		"iconCls" : "jiaohuanzhongxin",
+		"items" : "left_exchange_center_tree",
+		"storeId" : "exchange_tree_store",
+		"iconCls" : "jiaohuanzhongxin",
+		"value" : {
+			children : [{
+						"text" : "交换代码",
+						"actionType" : "exchangecode",
+						"children" : [],
+						"leaf" : false
+					}, {
+						"text" : "交换群组",
+						"actionType" : "exchangegroup",
+						"children" : [],
+						"leaf" : false
+					}, {
+						"text" : "ActionType",
+						"actionType" : "exchangeAction",
+						"children" : [],
+						"leaf" : false
+					}, {
+						"text" : "接收事件",
+						"actionType" : "exchangeEvent",
+						"children" : [],
+						"leaf" : false
+					}, {
+						"text" : "备份查询",
+						"actionType" : "exchangeCopy",
+						"children" : [],
+						"leaf" : false
+					}]
+		}
+	},
+	"log_manage" : {
+		"text" : "日志管理",
+		"index" : 4,
+		"items" : "left_accordion_logManager_tree",
+		"storeId" : "logManager_tree_store",
+		"iconCls" : "rizhiguanli",
+		"value" : {
+			children : [{
+						"text" : "调试日志",
+						"actionType" : "debugLog",
+						"children" : [],
+						"leaf" : false
+					}, {
+						"text" : "配置加载异常日志",
+						"actionType" : "loadConfigLog",
+						"children" : [],
+						"leaf" : false
+					}, {
+						"text" : "运行异常日志",
+						"actionType" : "runtimeLog",
+						"children" : [],
+						"leaf" : false
+					}, {
+						"text" : "启动异常日志",
+						"actionType" : "startLog",
+						"children" : [],
+						"leaf" : false
+					}, {
+						"text" : "同步日志",
+						"actionType" : "synchroniseLog",
+						"children" : [],
+						"leaf" : false
+					}, {
+						"text" : "计划任务日志",
+						"actionType" : "timingTaskLog",
+						"children" : [],
+						"leaf" : false
+					}, {
+						"text" : "运行详细日志",
+						"actionType" : "detailLog",
+						"children" : [],
+						"leaf" : false
+					},{
+						"text" : "接口服务状态监控",
+						"actionType" : "interfaceMonitor",
+						"children" : [],
+						"leaf" : false
+					},{
+						"text" : "日志索引",
+						"actionType" : "interfaceIndex",
+						"children" : [],
+						"leaf" : false
+					}]
+		}
+	},
+	"permission_config" : {
+		"text" : "权限管理",
+		"index" : 5,
+		"items" : "left_accordion_permission_tree",
+		"storeId" : "permission_tree_store",
+		"iconCls" : "quanxianguanli",
+		"value" : {
+			children : [{
+						"text" : "操作员管理",
+						"actionType" : "findOperator",
+						"children" : [],
+						"leaf" : false
+					}, {
+						"text" : "角色管理",
+						"actionType" : "findRole",
+						"children" : [],
+						"leaf" : false
+					}]
+		}
+	},
+	"other_config" : {
+		"text" : "其他信息",
+		"index" : 6,
+		"items" : "left_accordion_info_tree",
+		"storeId" : "info_tree_store",
+		"iconCls" : "qitaxinxi",
+		"value" : {
+			children : [{
+						"text" : "系统信息",
+						"actionType" : "otherInfo",
+						"children" : [],
+						"leaf" : false
+					},{
+						"text" : "资源下载配置",
+						"actionType" : "sysResource",
+						"children" : [],
+						"leaf" : false
+					},{
+						"text" : "Ws和Http测试",
+						"actionType" : "wsAndHttpTest",
+						"children" : [],
+						"leaf" : false
+					},{
+						"text" : "Excel导入到数据库",
+						"actionType" : "excelImportToTable",
+						"children" : [],
+						"leaf" : false
+					}]
+		}
+	}
+}

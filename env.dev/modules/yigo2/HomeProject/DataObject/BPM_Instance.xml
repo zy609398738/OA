@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DataObject Caption="流程实例表" Key="BPM_Instance" PrimaryTableKey="BPM_Instance">
+	<TableCollection>
+		<Table Caption="流程实例表" DBTableName="BPM_Instance" Key="BPM_Instance" Persist="true">
+			<Column Caption="流程实例的唯一标识" DBColumnName="InstanceID" DataType="Long" Key="InstanceID" Persist="true"/>
+			<Column Caption="过程标识" DBColumnName="ProcessKey" DataType="Varchar" Key="ProcessKey" Persist="true"/>
+			<Column Caption="过程的版本" DBColumnName="VerID" DataType="Integer" Key="VerID" Persist="true"/>
+			<Column Caption="实例开始时间" DBColumnName="StartTime" DataType="DateTime" Key="StartTime" Persist="true"/>
+			<Column Caption="实例结束时间" DBColumnName="EndTime" DataType="DateTime" Key="EndTime" Persist="true"/>
+			<Column Caption="实例运行总时间" DBColumnName="CostTime" DataType="Long" Key="CostTime" Persist="true"/>
+			<Column Caption="实例的状态" DBColumnName="InstanceState" DataType="Integer" Key="InstanceState" Persist="true"/>
+			<Column Caption="关联数据对象定义的标识" DBColumnName="ObjectKey" DataType="Varchar" Key="ObjectKey" Persist="true"/>
+			<Column Caption="关联数据对象的数据标识" DBColumnName="OID" DataType="Long" Key="OID" Persist="true"/>
+			<Column Caption="表单的标识" DBColumnName="FormKey" DataType="Varchar" Key="FormKey" Persist="true"/>
+			<Column Caption="实例的模式" DBColumnName="InstanceMode" DataType="Integer" Key="InstanceMode" Persist="true"/>
+			<Column Caption="父实例的标识" DBColumnName="ParentIntanceID" DataType="Long" Key="ParentIntanceID" Persist="true"/>
+			<Column Caption="步骤的计数种子" DBColumnName="StepIDSeed" DataType="Integer" Key="StepIDSeed" Persist="true"/>
+			<Column Caption="标记的计数种子" DBColumnName="TokenIDSeed" DataType="Integer" Key="TokenIDSeed" Persist="true"/>
+		</Table>
+	</TableCollection>
+</DataObject>

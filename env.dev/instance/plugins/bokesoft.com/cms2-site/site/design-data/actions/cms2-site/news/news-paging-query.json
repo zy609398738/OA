@@ -1,0 +1,9 @@
+{
+	"@type":"com.bokesoft.cms2.model.Action",
+	"actionExp":"",
+	"actionUrl":"/cms2-site/news/paging-query.action",
+	"attributes":{"@type":"java.util.LinkedHashMap"},
+	"code":"news-paging-query",
+	"name":"新闻分页查询",
+	"notes":""
+}

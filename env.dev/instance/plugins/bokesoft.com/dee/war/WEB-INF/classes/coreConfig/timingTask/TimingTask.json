@@ -1,0 +1,80 @@
+[
+  {
+    "interfaces": "",
+    "modifytime": "2014-10-10 16:51:52",
+    "jobtype": "LogDeleteStatefulJob",
+    "taskname": "删除日志",
+    "service": "",
+    "desc": "定时删除日志",
+    "isSystem":true,
+    "enable": false,
+    "createtime": "2014-10-09 10:27:00",
+    "tasktype": false,
+    "task": [
+           {
+        "days": "*",
+        "seconds": "1",
+        "hours": "5",
+        "year": "*",
+        "crons": "1 1 5 * * ? *",
+        "minutes": "1",
+        "id": "",
+        "months": "*",
+        "weeks": "?"
+      }
+    ],
+    "id": "4028b88148f2b7dd0148f2bb17870000"
+  },
+  {
+    "interfaces": "",
+    "modifytime": "2014-10-10 16:20:25",
+    "taskname": "定时添加日志",
+    "jobtype": "LuceneLogAddStatefulJob",
+    "service": "",
+    "desc": "定时添加整合日志",
+    "isSystem":true,
+    "enable": false,
+    "createtime": "2014-09-28 10:52:41",
+    "tasktype": false,
+    "task": [
+      {
+        "days": "*",
+        "seconds": "2",
+        "hours": "*",
+        "year": "*",
+        "crons": "2 30 * * * ? *",
+        "minutes": "30",
+        "months": "*",
+        "id": "",
+        "weeks": "?"
+      }
+    ],
+    "id": "4028b88148ba2aa90148ba2ca7470000"
+  },
+  {
+    "interfaces": "",
+    "modifytime": "2015-09-17 17:11:09",
+    "taskname": "删除日志(不包括相关索引)",
+    "jobtype": "LogDeleteStatefulJobWithoutLucene",
+    "service": "",
+    "desc": "定时删除日志(不包括相关索引)",
+    "isSystem":true,
+    "enable": false,
+    "createtime": "2015-09-17 17:11:09",
+    "tasktype": false,
+    "task": [
+      {
+        "days": "18",
+        "seconds": "1",
+        "hours": "5",
+        "year": "*",
+        "crons": "1 1 5 18 1/3 ? *",
+        "minutes": "1",
+        "months": "1/3",
+        "id": "",
+        "weeks": "?"
+      }
+    ],
+    "id": "8181889a4fda9043014fda925ce60006"
+  }
+]

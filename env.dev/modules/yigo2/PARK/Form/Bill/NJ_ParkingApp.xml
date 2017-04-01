@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="NJ_ParkingApp" Caption="车位租赁" FormType="Entity">
+    <DataSource>
+        <DataObject Key="NJ_ParkingApp" Caption="车位租赁" NoPrefix="CWZL" PrimaryTableKey="NJ_SCM_LeaseContractHead" PrimaryType="Entity" ZeroPrefix="3">
+            <TableCollection>
+                <Table Key="NJ_SCM_LeaseContractHead" Caption="NJ_SCM_LeaseContractHead" DBTableName="NJ_SCM_LeaseContractHead">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="Status" Caption="状态" DataType="Integer"/>
+                    <Column Key="NO" Caption="NO" DataType="Varchar"/>
+                    <Column Key="BillDate" Caption="BillDate" DataType="DateTime"/>
+                    <Column Key="EmpID" Caption="EmpID" DataType="Long"/>
+                    <Column Key="Notes" Caption="Notes" DataType="Varchar"/>
+                    <Column Key="Creator" Caption="Creator" DataType="Long"/>
+                    <Column Key="CreateTime" Caption="CreateTime" DataType="DateTime"/>
+                    <Column Key="BillKey" Caption="BillKey" DataType="Varchar"/>
+                    <Column Key="ClusterID" Caption="ClusterID" DataType="Long"/>
+                    <Column Key="ModifyTime" Caption="ModifyTime" DataType="DateTime"/>
+                    <Column Key="Modifier" Caption="Modifier" DataType="Long"/>
+                    <Column Key="UsePeople" Caption="UsePeople" DataType="Varchar"/>
+                    <Column Key="CustomerId" Caption="CustomerId" DataType="Long" AccessControl="true"/>
+                    <Column Key="Term" Caption="租期(月)" DataType="Numeric" Precision="16" Scale="2"/>
+                    <Column Key="StartDate" Caption="起租日" DataType="DateTime"/>
+                    <Column Key="EndDate" Caption="到期日" DataType="DateTime"/>
+                    <Column Key="Rent" Caption="年租金" DataType="Numeric" Precision="16" Scale="2"/>
+                    <Column Key="PaymentMethod" Caption="支付方式" DataType="Integer"/>
+                    <Column Key="Bond" Caption="保证金" DataType="Numeric" Precision="16" Scale="2"/>
+                    <Column Key="ContactNumber" Caption="ContactNumber" DataType="Varchar"/>
+                    <Column Key="FirstPaymentDate" Caption="首付款日期" DataType="DateTime"/>
+                    <Column Key="GrowthMode" Caption="租金增长方式" DataType="Varchar"/>
+                    <Column Key="PlanRows" Caption="计划条数" DataType="Numeric" Precision="16" Scale="2"/>
+                    <Column Key="RoomNumber" Caption="房间号" DataType="Varchar"/>
+                </Table>
+                <Table Key="NJ_SCM_LeaseContractAM" Caption="NJ_SCM_LeaseContractAM" TableMode="Detail">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="UploadTime" Caption="上传时间" DataType="DateTime"/>
+                    <Column Key="UploadOperator" Caption="上传人" DataType="Long"/>
+                    <Column Key="Path" Caption="上传路径" DataType="Varchar"/>
+                    <Column Key="Name" Caption="上传文件名称" DataType="Varchar"/>
+                </Table>
+                <Table Key="NJ_SCM_LeaseContractPlan" Caption="NJ_SCM_LeaseContractPlan" TableMode="Detail">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="PlanDate" Caption="PlanDate" DataType="DateTime"/>
+                    <Column Key="PlanMoney" Caption="PlanMoney" DataType="Numeric" Precision="16" Scale="2"/>
+                    <Column Key="IncreaseMoney" Caption="IncreaseMoney" DataType="Numeric" Precision="16" Scale="2"/>
+                    <Column Key="ActualMoney" Caption="ActualMoney" DataType="Numeric" Precision="16" Scale="2"/>
+                </Table>
+                <Table Key="NJ_SCM_LeaseContractDtl" Caption="NJ_SCM_LeaseContractDtl" TableMode="Detail">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="Room" Caption="Room" DataType="Long" AccessControl="true"/>
+                    <Column Key="DtlNotes" Caption="DtlNotes" DataType="Varchar"/>
+                    <Column Key="MapKey" Caption="映射标识" DataType="Varchar"/>
+                    <Column Key="SrcOID" Caption="来源行标识" DataType="Long"/>
+                    <Column Key="SrcSOID" Caption="来源表单标识" DataType="Long"/>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="Save" Caption="保存" Visible="!ReadOnly()">
+            <Action>
+                <![CDATA[SaveData();UpdateView();
+DBUpdate('UPDATE NJ_SCM_LeaseContractHead SET RoomNumber=(select GROUP_CONCAT(c.Name) name from NJ_SCM_LeaseContractDtl b LEFT JOIN NJ_CP_ParkingLot c ON b.Room=c.OID WHERE b.SOID=?) WHERE OID=?', GetOID(), GetOID());]]>
+            </Action>
+        </Operation>
+        <Operation Key="Delete" Caption="删除" RefKey="Delete"/>
+        <Operation Key="Edit" Caption="编辑" RefKey="Edit"/>
+        <Operation Key="Lease" Caption="确认租赁" Visible="ReadOnly()&amp;&amp;Status!=200">
+            <Action>
+                <![CDATA[
+DBUpdate('update NJ_SCM_LeaseContractHead set status=200 where oid=?',GetOID());
+LoadData();]]>
+            </Action>
+        </Operation>
+        <Operation Key="CancelLease" Caption="取消租赁" Visible="ReadOnly()&amp;&amp;Status==200">
+            <Action>
+                <![CDATA[
+DBUpdate('update NJ_SCM_LeaseContractHead set status=100 where oid=?',GetOID());
+LoadData();]]>
+            </Action>
+        </Operation>
+        <Operation Key="Rent" Caption="合同退租" Visible="ReadOnly()&amp;&amp;Status!=340">
+            <Action>
+                <![CDATA[
+DBUpdate('update NJ_SCM_LeaseContractHead set status=340 where oid=?',GetOID());
+LoadData();]]>
+            </Action>
+        </Operation>
+        <Operation Key="CopyNew" Caption="合同续租" Visible="ReadOnly()&amp;&amp;Status==340">
+            <Action>
+                <![CDATA[CopyNew()]]>
+            </Action>
+        </Operation>
+        <Operation Key="Cancel" Caption="取消" RefKey="Cancel"/>
+        <Operation Key="Close" Caption="关闭" RefKey="Close"/>
+    </OperationCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板">
+                <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <SplitPanel Key="SplitPanel1" Orientation="Vertical" Height="100%" Caption="SplitPanel1">
+                    <TabPanel Caption="TabPanel1" Height="100%" Key="TabPanel1">
+                        <GridLayoutPanel Key="first_head" Height="pref" Padding="5px" Caption="基本信息">
+                            <TextEditor Key="NO" Caption="合同编号" BuddyKey="Lab_NO" X="2" Y="0" Enable="false">
+                                <DataBinding ColumnKey="NO" TableKey="NJ_SCM_LeaseContractHead"/>
+                            </TextEditor>
+                            <Label Key="Lab_NO" Caption="合同编号" X="1" Y="0"/>
+                            <DatePicker Key="BillDate" Caption="合同日期" BuddyKey="Lab_BillDate" X="5" Y="0" OnlyDate="true">
+                                <DataBinding ColumnKey="BillDate" DefaultFormulaValue="ServerDate();" TableKey="NJ_SCM_LeaseContractHead"/>
+                            </DatePicker>
+                            <Label Key="Lab_BillDate" Caption="合同日期" X="4" Y="0"/>
+                            <ComboBox Key="Status" Caption="单据状态" BuddyKey="Lab_Status" X="8" Y="0" Enable="false" SourceType="Status">
+                                <DataBinding ColumnKey="Status" TableKey="NJ_SCM_LeaseContractHead" DefaultValue="100"/>
+                            </ComboBox>
+                            <Label Key="Lab_Status" Caption="单据状态" X="7" Y="0"/>
+                            <Dict Key="EmpID" Caption="经办人" BuddyKey="Lab_EmpID" X="2" Y="5" ItemKey="OA_Employee">
+                                <DataBinding ColumnKey="EmpID" DefaultFormulaValue="GetDictValue('Operator', Creator, 'SYS_Operator.EmpID')" TableKey="NJ_SCM_LeaseContractHead"/>
+                            </Dict>
+                            <Label Key="Lab_EmpID" Caption="经办人" X="1" Y="5"/>
+                            <TextEditor Key="Notes" Caption="备注" BuddyKey="Lab_Notes" X="5" Y="5" XSpan="4">
+                                <DataBinding ColumnKey="Notes" TableKey="NJ_SCM_LeaseContractHead" ValueDependency="Room"/>
+                            </TextEditor>
+                            <Label Key="Lab_Notes" Caption="备注" X="4" Y="5"/>
+                            <Dict Key="CustomerId" Caption="租赁客户" BuddyKey="Lab_CustomerId" X="2" Y="1" ItemKey="NJ_CP_Customer">
+                                <DataBinding ColumnKey="CustomerId" TableKey="NJ_SCM_LeaseContractHead" Required="true"/>
+                            </Dict>
+                            <Label Key="Lab_CustomerId" Caption="租赁客户" X="1" Y="1"/>
+                            <TextEditor Key="UsePeople" Caption="联系人" BuddyKey="Lab_UsePeople" X="5" Y="1">
+                                <DataBinding ColumnKey="UsePeople" TableKey="NJ_SCM_LeaseContractHead"/>
+                            </TextEditor>
+                            <Label Key="Lab_UsePeople" Caption="联系人" X="4" Y="1"/>
+                            <NumberEditor Key="Term" Caption="租期(月)" BuddyKey="Lab_Term" X="2" Y="2" IntegerValue="true">
+                                <DataBinding ColumnKey="Term" TableKey="NJ_SCM_LeaseContractHead" Required="true">
+                                    <ValueChanged>
+                                        <![CDATA[EndDate=DateAdd(StartDate, 'm', Term);
+PlanRows=(PaymentMethod*Term)/12;
+ClearAllRows('Grid3');
+    var icount = PlanRows;
+    var i = 0;
+    while(i<icount)
+	{
+            IIF(i<1,
+                     SetCellValue('Grid3', i, 'PlanDate', FirstPaymentDate),
+                     SetCellValue('Grid3', i, 'PlanDate', DateAdd(FirstPaymentDate, 'm', i*12/PaymentMethod))
+                );
+            
+            SetCellValue('Grid3', i, 'PlanMoney', Rent/PaymentMethod);	
+            i = i + 1;
+        }]]>
+                                    </ValueChanged>
+                                </DataBinding>
+                            </NumberEditor>
+                            <Label Key="Lab_Term" Caption="租期(月)" X="1" Y="2"/>
+                            <DatePicker Key="StartDate" Caption="起租日" BuddyKey="Lab_StartDate" X="5" Y="2" OnlyDate="true">
+                                <DataBinding ColumnKey="StartDate" DefaultFormulaValue="ServerDate();" TableKey="NJ_SCM_LeaseContractHead" Required="true">
+                                    <ValueChanged>
+                                        <![CDATA[EndDate=DateAdd(StartDate, 'm', Term);]]>
+                                    </ValueChanged>
+                                </DataBinding>
+                            </DatePicker>
+                            <Label Key="Lab_StartDate" Caption="起租日" X="4" Y="2"/>
+                            <DatePicker Key="EndDate" Caption="到期日" BuddyKey="Lab_EndDate" X="8" Y="2" Enable="false" OnlyDate="true">
+                                <DataBinding ColumnKey="EndDate" TableKey="NJ_SCM_LeaseContractHead" Required="true"/>
+                            </DatePicker>
+                            <Label Key="Lab_EndDate" Caption="到期日" X="7" Y="2"/>
+                            <NumberEditor Key="Rent" Caption="年租金(元)" BuddyKey="Lab_Rent" X="2" Y="3">
+                                <DataBinding ColumnKey="Rent" TableKey="NJ_SCM_LeaseContractHead" Required="true"/>
+                            </NumberEditor>
+                            <Label Key="Lab_Rent" Caption="年租金(元)" X="1" Y="3"/>
+                            <ComboBox Key="PaymentMethod" Caption="支付方式" BuddyKey="Lab_PaymentMethod" X="8" Y="3" IntegerValue="true">
+                                <DataBinding ColumnKey="PaymentMethod" TableKey="NJ_SCM_LeaseContractHead" Required="true">
+                                    <ValueChanged>
+                                        <![CDATA[PlanRows=(PaymentMethod*Term)/12;
+ClearAllRows('Grid3');
+    var icount = PlanRows;
+    var i = 0;
+    while(i<icount)
+	{
+            IIF(i<1,
+                     SetCellValue('Grid3', i, 'PlanDate', FirstPaymentDate),
+                     SetCellValue('Grid3', i, 'PlanDate', DateAdd(FirstPaymentDate, 'm', i*12/PaymentMethod))
+                );
+            
+            SetCellValue('Grid3', i, 'PlanMoney', Rent/PaymentMethod);	
+            i = i + 1;
+        }]]>
+                                    </ValueChanged>
+                                </DataBinding>
+                                <Item Caption="年付" Key="1" Value="1"/>
+                                <Item Caption="半年付" Key="2" Value="2"/>
+                                <Item Caption="季付" Key="4" Value="4"/>
+                                <Item Caption="月付" Key="12" Value="12"/>
+                                <Item Caption="其他" Key="6" Value="6"/>
+                            </ComboBox>
+                            <Label Key="Lab_PaymentMethod" Caption="支付方式" X="7" Y="3"/>
+                            <NumberEditor Key="Bond" Caption="保证金" BuddyKey="Lab_Bond" X="2" Y="4">
+                                <DataBinding ColumnKey="Bond" TableKey="NJ_SCM_LeaseContractHead"/>
+                            </NumberEditor>
+                            <Label Key="Lab_Bond" Caption="保证金" X="1" Y="4"/>
+                            <TextEditor Key="ContactNumber" Caption="联系电话" BuddyKey="Lab_ContactNumber" X="8" Y="1">
+                                <DataBinding ColumnKey="ContactNumber" TableKey="NJ_SCM_LeaseContractHead"/>
+                            </TextEditor>
+                            <Label Key="Lab_ContactNumber" Caption="联系电话" X="7" Y="1"/>
+                            <DatePicker Key="FirstPaymentDate" Caption="首付款日期" BuddyKey="Lab_FirstPaymentDate" X="5" Y="3" OnlyDate="true">
+                                <DataBinding ColumnKey="FirstPaymentDate" DefaultFormulaValue="StartDate" TableKey="NJ_SCM_LeaseContractHead" ValueDependency="StartDate"/>
+                            </DatePicker>
+                            <Label Key="Lab_FirstPaymentDate" Caption="首付款日期" X="4" Y="3"/>
+                            <TextEditor Key="GrowthMode" Caption="租金增长方式" BuddyKey="Lab_GrowthMode" X="5" Y="4" XSpan="4">
+                                <DataBinding ColumnKey="GrowthMode" TableKey="NJ_SCM_LeaseContractHead"/>
+                            </TextEditor>
+                            <Label Key="Lab_GrowthMode" Caption="租金增长方式" X="4" Y="4"/>
+                            <NumberEditor Key="PlanRows" Caption="计划条数" BuddyKey="Lab_PlanRows" X="8" Y="5" Visible="false" IntegerValue="true" RoundingMode="ROUND_UP">
+                                <DataBinding ColumnKey="PlanRows" TableKey="NJ_SCM_LeaseContractHead"/>
+                            </NumberEditor>
+                            <Label Key="Lab_PlanRows" Caption="计划条数" X="7" Y="5"/>
+                            <TextEditor Key="RoomNumber" Caption="房间号" BuddyKey="Lab_RoomNumber" X="8" Y="5" Visible="false">
+                                <DataBinding ColumnKey="RoomNumber" TableKey="NJ_SCM_LeaseContractHead"/>
+                            </TextEditor>
+                            <Label Key="Lab_RoomNumber" Caption="房间号" X="7" Y="5"/>
+                            <RowDefCollection RowGap="4">
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="4">
+                                <ColumnDef Width="20px"/>
+                                <ColumnDef Width="80px"/>
+                                <ColumnDef Width="33%"/>
+                                <ColumnDef Width="20px"/>
+                                <ColumnDef Width="90px"/>
+                                <ColumnDef Width="33%"/>
+                                <ColumnDef Width="20px"/>
+                                <ColumnDef Width="80px"/>
+                                <ColumnDef Width="34%"/>
+                                <ColumnDef Width="20px"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                        <GridLayoutPanel Key="SysTab" Caption="系统信息">
+                            <Dict Key="Creator" Caption="创建人" BuddyKey="Lab_Creator" X="2" Y="0" Enable="false" ItemKey="Operator">
+                                <DataBinding ColumnKey="Creator" DefaultFormulaValue="GetOperator()" TableKey="NJ_SCM_LeaseContractHead"/>
+                            </Dict>
+                            <Label Key="Lab_Creator" Caption="创建人" X="1" Y="0"/>
+                            <Dict Key="Modifier" Caption="修改人" BuddyKey="Lab_Modifier" X="2" Y="1" Enable="false" ItemKey="Operator">
+                                <DataBinding ColumnKey="Modifier" DefaultFormulaValue="GetOperator()" TableKey="NJ_SCM_LeaseContractHead"/>
+                            </Dict>
+                            <DatePicker Key="CreateTime" Caption="创建日期" BuddyKey="Lab_CreateTime" X="5" Y="0" Enable="false">
+                                <DataBinding ColumnKey="CreateTime" DefaultFormulaValue="ServerDate()" TableKey="NJ_SCM_LeaseContractHead"/>
+                            </DatePicker>
+                            <Label Key="Lab_CreateTime" Caption="创建时间" X="4" Y="0"/>
+                            <Label Key="Lab_Modifier" Caption="修改人" X="1" Y="1"/>
+                            <DatePicker Key="ModifyTime" Caption="修改日期" BuddyKey="Lab_ModifyTime" X="5" Y="1" Enable="false">
+                                <DataBinding ColumnKey="ModifyTime" DefaultFormulaValue="ServerDate()" TableKey="NJ_SCM_LeaseContractHead"/>
+                            </DatePicker>
+                            <Label Key="Lab_ModifyTime" Caption="修改时间" X="4" Y="1"/>
+                            <TextEditor Key="BillKey" Caption="单据Key" BuddyKey="Lab_BillKey" X="8" Y="0">
+                                <DataBinding ColumnKey="BillKey" DefaultFormulaValue="GetFormKey()" TableKey="NJ_SCM_LeaseContractHead"/>
+                            </TextEditor>
+                            <Label Key="Lab_BillKey" Caption="单据Key" X="7" Y="0"/>
+                            <Dict Key="ClusterID" Caption="集团" BuddyKey="Lab_ClusterID" X="8" Y="1" Enable="false" ItemKey="Client">
+                                <DataBinding ColumnKey="ClusterID" TableKey="NJ_SCM_LeaseContractHead"/>
+                            </Dict>
+                            <Label Key="Lab_ClusterID" Caption="集团" X="7" Y="1"/>
+                            <RowDefCollection RowGap="4">
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="4">
+                                <ColumnDef Width="20px"/>
+                                <ColumnDef Width="80px"/>
+                                <ColumnDef Width="33%"/>
+                                <ColumnDef Width="20px"/>
+                                <ColumnDef Width="80px"/>
+                                <ColumnDef Width="33%"/>
+                                <ColumnDef Width="20px"/>
+                                <ColumnDef Width="80px"/>
+                                <ColumnDef Width="34%"/>
+                                <ColumnDef Width="20px"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                    </TabPanel>
+                    <TabPanel Caption="TabPanel2" Height="pref" Key="TabPanel2">
+                        <Grid Key="Grid1" Caption="车位信息" Height="pref">
+                            <GridColumnCollection>
+                                <GridColumn Key="Room" Caption="出租车位" Width="150px"/>
+                                <GridColumn Key="DtlNotes" Caption="备注" Width="300px"/>
+                            </GridColumnCollection>
+                            <GridRowCollection>
+                                <GridRow Key="row1" RowHeight="35" TableKey="NJ_SCM_LeaseContractDtl">
+                                    <GridCell Key="Room" Caption="出租车位" CellType="Dict" ItemKey="NJ_ParkingLot">
+                                        <DataBinding ColumnKey="Room" Required="true"/>
+                                    </GridCell>
+                                    <GridCell Key="DtlNotes" Caption="备注" CellType="TextEditor">
+                                        <DataBinding ColumnKey="DtlNotes"/>
+                                    </GridCell>
+                                </GridRow>
+                            </GridRowCollection>
+                        </Grid>
+                        <Grid Key="Grid3" Caption="收款计划">
+                            <GridColumnCollection>
+                                <GridColumn Key="PlanDate" Caption="应收日期" Width="150px"/>
+                                <GridColumn Key="PlanMoney" Caption="应收金额" Width="150px"/>
+                                <GridColumn Key="IncreaseMoney" Caption="增长租金" Width="150px"/>
+                                <GridColumn Key="ActualMoney" Caption="实际应收" Width="150px"/>
+                            </GridColumnCollection>
+                            <GridRowCollection>
+                                <GridRow Key="row1" RowHeight="35" TableKey="NJ_SCM_LeaseContractPlan">
+                                    <GridCell Key="PlanDate" Caption="应收日期" CellType="DatePicker" Format="yyyy-MM-dd">
+                                        <DataBinding ColumnKey="PlanDate"/>
+                                    </GridCell>
+                                    <GridCell Key="PlanMoney" Caption="应收金额" CellType="NumberEditor">
+                                        <DataBinding ColumnKey="PlanMoney"/>
+                                        <CellFormat HAlign="Right"/>
+                                    </GridCell>
+                                    <GridCell Key="IncreaseMoney" Caption="增长租金" CellType="NumberEditor">
+                                        <DataBinding ColumnKey="IncreaseMoney"/>
+                                        <CellFormat HAlign="Right"/>
+                                    </GridCell>
+                                    <GridCell Key="ActualMoney" Caption="实际应收" CellType="NumberEditor" Enable="false">
+                                        <DataBinding ColumnKey="ActualMoney" DefaultFormulaValue="PlanMoney+IncreaseMoney" ValueDependency="PlanMoney,IncreaseMoney"/>
+                                        <CellFormat HAlign="Right"/>
+                                    </GridCell>
+                                </GridRow>
+                            </GridRowCollection>
+                        </Grid>
+                        <Embed Caption="附件" Key="OA_Attachment" FormKey="OA_Attachment" RootKey="Grid2">
+                            <Var Key="ParentKey" Value="NJ_ParkingApp"/>
+                        </Embed>
+                    </TabPanel>
+                    <SplitSize Size="46%"/>
+                    <SplitSize Size="54%"/>
+                </SplitPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

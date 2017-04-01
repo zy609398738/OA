@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<BPM InitDate="2014.06.12 17:39:41 GMT+08:00">
+<DeployInfoCollection>
+	<DeployInfo InitDate="2014.06.12 17:39:41 GMT+08:00" Key="StockInAudit"/>
+	<DeployInfo InitDate="2014.06.12 17:39:41 GMT+08:00" Key="VacationRequestAudit"/>
+</DeployInfoCollection>
+<ProcessMapCollection>
+	<ProcessMap InitDate="2014.06.12 17:39:41 GMT+08:00" Key="StockIn" ProcessKey="StockInAudit" StartCaption="流程启动"/>
+	<ProcessMap InitDate="2014.06.12 17:39:41 GMT+08:00" Key="VacationRequest" ProcessKey="VacationRequestAudit" StartCaption="流程启动"/>
+</ProcessMapCollection>
+</BPM>

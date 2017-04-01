@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="NJ_UntreatedWarranty" Caption="未处理报修列表" FormType="Entity" AbbrCaption="未处理报修列表" InitState="Default">
+    <DataSource>
+        <DataObject Key="NJ_UntreatedWarranty" Caption="未处理报修列表" PrimaryTableKey="NJ_UntreatedWarranty" PrimaryType="Entity">
+            <TableCollection>
+                <Table Key="NJ_UntreatedWarranty" Caption="NJ_UntreatedWarranty" DBTableName="NJ_UntreatedWarranty" TableMode="Detail" SourceType="Query" Persist="false" OrderBy="RepairDate">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="MapCount" Caption="映射数量标记" DataType="Integer"/>
+                    <Column Key="MapKey" Caption="映射标识" DataType="Varchar"/>
+                    <Column Key="SrcOID" Caption="来源行标识" DataType="Long"/>
+                    <Column Key="SrcSOID" Caption="来源表单标识" DataType="Long"/>
+                    <Column Key="CustomerId" Caption="CustomerId" DataType="Long"/>
+                    <Column Key="UsePeople" Caption="UsePeople" DataType="Varchar"/>
+                    <Column Key="ContactNumber" Caption="ContactNumber" DataType="Varchar"/>
+                    <Column Key="RepairDate" Caption="RepairDate" DataType="DateTime"/>
+                    <Column Key="RepairContent" Caption="RepairContent" DataType="Varchar"/>
+                    <Statement>
+                        <![CDATA[select * from NJ_SCM_RepairHead WHERE oid NOT IN (select srcoid from NJ_SCM_RepairOrderHead)]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="WORKITEM" Caption="WORKITEM" Tag="WORKITEM"/>
+        <Operation Key="BPM" Caption="BPM" Tag="BPM"/>
+    </OperationCollection>
+    <ScriptCollection>
+        <Script Key="Load" Caption="载入" Description="载入事件" Range="Action" Verb="Load">
+            <![CDATA[
+		LoadData();ShowData()
+		]]>
+        </Script>
+    </ScriptCollection>
+    <Body HAlign="Center" Height="80%" PopHeight="80%" PopWidth="80%" Width="80%">
+        <Block>
+            <GridLayoutPanel Key="main" Height="100%">
+                <ToolBar Key="main_toolbar" X="0" Y="0">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <SplitPanel Key="main_split" Orientation="Vertical" Height="100%" X="0" Y="1">
+                    <GridLayoutPanel Key="query" Height="70px" Padding="5px" Caption="查询">
+                        <Button Key="Btn_find" Caption="查询" X="9" Y="0" Enable="true">
+                            <OnClick>
+                                <![CDATA[DealCondition();LoadData();ShowData();								]]>
+                            </OnClick>
+                        </Button>
+                        <Dict Key="CustomerId_cond" Caption="租赁客户" BuddyKey="Lab_CustomerId_cond" X="2" Y="0" Enable="true" AllowMultiSelection="true" ItemKey="NJ_CP_Customer">
+                            <Condition ColumnKey="CustomerId" TableKey="NJ_UntreatedWarranty" CondSign="in"/>
+                        </Dict>
+                        <Label Key="Lab_CustomerId_cond" Caption="客户" X="1" Y="0"/>
+                        <DatePicker Key="RepairDate1_cond" Caption="预约维修日期" BuddyKey="Lab_RepairDate1_cond" X="5" Y="0" Enable="true" OnlyDate="true">
+                            <Condition ColumnKey="RepairDate" TableKey="NJ_UntreatedWarranty" CondSign="between" Group="RepairDate" GroupHead="true"/>
+                        </DatePicker>
+                        <Label Key="Lab_RepairDate1_cond" Caption="预约维修日期" X="4" Y="0"/>
+                        <DatePicker Key="RepairDate2_cond" Caption="到" BuddyKey="Lab_RepairDate2_cond" X="7" Y="0" Enable="true" OnlyDate="true">
+                            <Condition ColumnKey="RepairDate" TableKey="NJ_UntreatedWarranty" CondSign="between" Group="RepairDate" GroupTail="true"/>
+                        </DatePicker>
+                        <Label Key="Lab_RepairDate2_cond" Caption="到" X="6" Y="0">
+                            <Format HAlign="Center"/>
+                        </Label>
+                        <Button Key="xt" Caption="下推" X="11" Y="0" Enable="true">
+                            <OnClick>
+                                <![CDATA[ViewMap('NJ_UntreatedWarranty_NJ_RepairOrder',false);
+Close();]]>
+                            </OnClick>
+                        </Button>
+                        <RowDefCollection RowHeight="25" RowGap="5">
+                            <RowDef/>
+                        </RowDefCollection>
+                        <ColumnDefCollection>
+                            <ColumnDef Width="20px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="33%"/>
+                            <ColumnDef Width="20px"/>
+                            <ColumnDef Width="90px"/>
+                            <ColumnDef Width="33%"/>
+                            <ColumnDef Width="20px"/>
+                            <ColumnDef Width="34%"/>
+                            <ColumnDef Width="10px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="10px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="20px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <Grid Key="Info" Caption="库存明细" NewEmptyRow="false" Enable="true" CanDelete="false" CanInsert="false" CanShift="false">
+                        <GridColumnCollection>
+                            <GridColumn Key="select" Caption="选择" Width="80px"/>
+                            <GridColumn Key="RepairDate" Caption="预约维修日期" Width="120px"/>
+                            <GridColumn Key="CustomerId" Caption="客户" Width="200px"/>
+                            <GridColumn Key="UsePeople" Caption="联系人" Width="80px"/>
+                            <GridColumn Key="ContactNumber" Caption="联系电话" Width="80px"/>
+                            <GridColumn Key="RepairContent" Caption="报修内容" Width="100px"/>
+                            <GridColumn Key="OID" Caption="OID" Width="80px" Visible="false"/>
+                        </GridColumnCollection>
+                        <GridRowCollection>
+                            <GridRow Key="R2" TableKey="NJ_UntreatedWarranty">
+                                <GridCell Key="select" Caption="选择" CellType="CheckBox" Enable="true" IsSelect="true">
+                                    <DataBinding>
+                                        <ValueChanged>
+                                            <![CDATA[if(GetCellValue("Grid1",-1,"Select") == 1){
+	var i = 0; 
+	var icount = GetRowCount("Grid1")-1;
+	while(i<icount){
+		SetCellValue("Grid1",i,"Select",0);
+	}
+	SetCellValue("Grid1",-1,"Select",1);
+}]]>
+                                        </ValueChanged>
+                                    </DataBinding>
+                                </GridCell>
+                                <GridCell Key="RepairDate" Caption="预约维修日期" CellType="DatePicker" Enable="false" Format="yyyy-MM-dd hh:mm:ss">
+                                    <DataBinding ColumnKey="RepairDate"/>
+                                </GridCell>
+                                <GridCell Key="CustomerId" Caption="客户" CellType="Dict" Enable="false" ItemKey="NJ_CP_Customer">
+                                    <DataBinding ColumnKey="CustomerId"/>
+                                </GridCell>
+                                <GridCell Key="UsePeople" Caption="联系人" CellType="TextEditor" Enable="false">
+                                    <DataBinding ColumnKey="UsePeople"/>
+                                </GridCell>
+                                <GridCell Key="ContactNumber" Caption="联系电话" CellType="TextEditor" Enable="false">
+                                    <DataBinding ColumnKey="ContactNumber"/>
+                                </GridCell>
+                                <GridCell Key="RepairContent" Caption="报修内容" CellType="TextEditor" Enable="false" MaxLength="4000">
+                                    <DataBinding ColumnKey="RepairContent"/>
+                                </GridCell>
+                                <GridCell Key="OID" Caption="OID" CellType="TextEditor">
+                                    <DataBinding ColumnKey="OID"/>
+                                </GridCell>
+                            </GridRow>
+                        </GridRowCollection>
+                    </Grid>
+                    <SplitSize Size="40px"/>
+                    <SplitSize Size="100%"/>
+                </SplitPanel>
+                <RowDefCollection RowHeight="25">
+                    <RowDef Height="0px"/>
+                    <RowDef Height="100%"/>
+                </RowDefCollection>
+                <ColumnDefCollection>
+                    <ColumnDef Width="100%"/>
+                </ColumnDefCollection>
+            </GridLayoutPanel>
+        </Block>
+    </Body>
+</Form>

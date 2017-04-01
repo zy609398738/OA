@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="OA_BusTripApplicationView" Caption="出差申请列表" FormType="View">
+    <DataSource>
+        <DataObject Key="OA_BusTripApplicationView" Caption="出差申请列表">
+            <TableCollection>
+                <Table Key="OA_BusTripApplicationView" Caption="出差申请列表" TableMode="Detail" SourceType="Query" Persist="false" DBTableName="OA_BusinessTrip">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="Area" Caption="出差地区" DataType="Long"/>
+                    <Column Key="BillDate" Caption="申请日期" DataType="DateTime"/>
+                    <Column Key="Status" Caption="状态" DataType="Integer"/>
+                    <Column Key="EndTime" Caption="结束时间" DataType="DateTime"/>
+                    <Column Key="StartTime" Caption="开始时间" DataType="DateTime"/>
+                    <Column Key="Department" Caption="部门" DataType="Long"/>
+                    <Column Key="Name" Caption="Name" DataType="Long"/>
+                    <Statement>
+                        <![CDATA[select * from (select * from OA_BusTripApplication_H order by BillDate desc) h]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="New" Caption="新增">
+            <Action>
+                <![CDATA[New("OA_BusTripApplication")]]>
+            </Action>
+        </Operation>
+        <Operation Key="Setfirst_headVisible" Caption="查询" RefKey="Setfirst_headVisible"/>
+    </OperationCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板">
+                <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <GridLayoutPanel Key="first_head" Padding="5px" Height="pref" Caption="基本信息" Visible="first_headVisible==1">
+                    <DatePicker Key="DatePicker1" Caption="出差开始时间" BuddyKey="Lab_DatePicker1" X="1" Y="0">
+                        <Condition Group="A" ColumnKey="StartTime" TableKey="OA_BusTripApplicationView" CondSign="between" GroupHead="true"/>
+                    </DatePicker>
+                    <Label Key="Lab_DatePicker1" Caption="出差开始时间" X="0" Y="0"/>
+                    <DatePicker Key="DatePicker2" Caption="到" BuddyKey="Lab_DatePicker2" X="4" Y="0">
+                        <Condition Group="A" GroupTail="true" ColumnKey="EndTime" TableKey="OA_BusTripApplicationView" CondSign="between"/>
+                    </DatePicker>
+                    <Label Key="Lab_DatePicker2" Caption="到" X="3" Y="0"/>
+                    <Dict Key="QueryEmpID" Caption="申请人" BuddyKey="Lab_QueryEmpID" X="7" Y="0" ItemKey="OA_Employee" XSpan="2"/>
+                    <Label Key="Lab_QueryEmpID" Caption="申请人" X="6" Y="0"/>
+                    <CheckBox Caption="头表可见" Key="first_headVisible" Visible="false" X="6" Y="1"/>
+                    <Button Key="Button1" Caption="查询" X="7" Y="1">
+                        <OnClick>
+                            <![CDATA[DealCondition();LoadData();ShowData();]]>
+                        </OnClick>
+                    </Button>
+                    <Button Key="Button2" Caption="重置" X="8" Y="1">
+                        <OnClick>
+                            <![CDATA[ResetCondition();]]>
+                        </OnClick>
+                    </Button>
+                    <RowDefCollection RowGap="8">
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="8">
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="33%"/>
+                        <ColumnDef Width="20px"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="33%"/>
+                        <ColumnDef Width="20px"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="17%"/>
+                        <ColumnDef Width="17%"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+                <ListView Caption="ListView1" Height="pref" Key="ListView1" PageLoadType="DB" TableKey="OA_BusTripApplicationView">
+                    <ListViewColumnCollection>
+                        <ListViewColumn Key="Name" Caption="申请人" ColumnType="Dict" DataColumnKey="Name" ItemKey="OA_Employee"/>
+                        <ListViewColumn Key="BillDate" Caption="申请日期" ColumnType="DatePicker" DataColumnKey="BillDate"/>
+                        <ListViewColumn Key="Area" Caption="出差地区" ColumnType="Dict" DataColumnKey="Area" ItemKey="OA_Area"/>
+                        <ListViewColumn Key="Department" Caption="部门" ColumnType="Dict" DataColumnKey="Department" ItemKey="OA_Department"/>
+                        <ListViewColumn Key="StartTime" Caption="出差开始时间" ColumnType="DatePicker" DataColumnKey="StartTime"/>
+                        <ListViewColumn Key="EndTime" Caption="出差结束时间" ColumnType="DatePicker" DataColumnKey="EndTime"/>
+                        <ListViewColumn Key="Status" Caption="状态" ColumnType="ComboBox" DataColumnKey="Status" SourceType="Status"/>
+                        <ListViewColumn Key="OID" Caption="OID" DataColumnKey="OID" Visible="false"/>
+                    </ListViewColumnCollection>
+                    <RowDblClick>
+                        <![CDATA[Open("OA_BusTripApplication",OID)]]>
+                    </RowDblClick>
+                </ListView>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

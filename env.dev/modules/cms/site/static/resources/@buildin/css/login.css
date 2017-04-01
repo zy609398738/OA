@@ -1,0 +1,226 @@
+﻿@charset "utf-8";
+/*
+@名称: login.css
+@功能: 中航国际登录样式
+*/
+body {
+    background-color: #fff;
+    color: #666;
+    font-family: "宋体", Arial,Verdana, Geneva, sans-serif;
+    font-size: 12px;
+    line-height: 18px;
+    text-align: center;
+}
+ .container{
+    width:100%;
+	border:0px;
+}
+.container .row{
+    width:100%;
+    margin: 0 auto;
+    text-align: left;
+}
+/*header*/
+#header{
+    height: 100px;
+    position: relative;
+    z-index: 1;
+	background: none;
+}
+.logo{
+    width:460px;
+}
+.login-system-panel{
+    width: 70px;
+    height: 30px;
+	margin-top:20px;
+	float:right;
+}
+.login-system-panel li{
+	width:20px ;
+	height:20px;
+	float:left;
+	margin: 0 5px;
+}
+.login-system-panel  .home{
+    background: url(../images/home-icons.png) no-repeat 0px 0px;
+}
+.login-system-panel  .collect {
+    background: url(../images/home-icons.png) no-repeat -48px 0px;
+}
+.login-system-panel a{
+	display:block;
+	width:100%;
+	height:100%;
+}
+/*header end*/
+/*mid*/
+#mid{
+    background: url(../images/login-body-bg.png) repeat-x 0 center #fff;
+    height: 600px;
+    position: relative;
+}
+/*
+#mid .row{
+	position:relative;
+	height:400px;	
+	background: url(../images/login-bd-bg.png) no-repeat;
+	top:220px;
+	float:left;
+}
+*/
+.login-form-box{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 670px;
+    margin-left: -335px;
+    height: 360px;
+    margin-top: -180px;
+    background: url(../images/login-form-bg.png) no-repeat center center;
+}
+.login-form-box form{
+    position: absolute;
+    top: 110px;
+    right: 106px;
+    width: 225px;
+    height: 268px;
+}
+.login-form-box p{
+	font-size: 15px;
+	font-weight: bold;
+}
+.login-form-box  .user-name{
+	margin-top: 16px;
+}
+.login-form-box  .pwd{
+	margin-top: 9px;
+}
+.login-form-box .authenticateCode{
+	margin-top: 22px;
+	position:relative;
+}
+.login-form-box .authenticateCode img{
+	position:relative;
+	top:7px;
+}
+.login-form-box  .memory{
+	margin-bottom: 10px;
+	font-size: 15px;
+	font-weight: bold;
+	margin-top: 31px;
+}
+
+.login-form-box .authenticateCode input{
+    width: 80px;
+    height: 26px;
+    line-height: 27px;
+	font-size:12px;
+    padding:0 5px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;	
+	border: 0px;
+	background:#fff;
+}
+
+.login-form-box .user-name input,
+.login-form-box .pwd input{
+    width: 168px;
+    height: 30px;
+    line-height: 30px;
+	font-size:12px;
+    padding-left:6px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;	
+	border: 0px;
+	background:transparent;
+}
+.login-form-box input{
+	outline: none;
+}
+
+.login-form-box .user-name input{
+    background: url(../images/login-icons.jpg) no-repeat 152px 4px #fff;
+}
+.login-form-box .pwd input{
+    background: url(../images/login-icons.jpg) no-repeat 152px -40px #fff;
+}
+.login-form-box .authenticateCode input{
+    background: url(../images/login-icons.jpg) no-repeat 152px  #fff;
+}
+.login-form-box input:focus{
+	border:0;
+}
+
+.login-form-box label span{
+    margin-left: 5px;
+}
+.login-form-box label input{
+    position: relative;
+    top:4px;
+    z-index: 1;
+	float: right;
+	right: 50px;
+	 background: url(../images/OFF.gif) no-repeat 0 0;
+}
+.login-form-box .login-btn,
+.login-form-box .regist-btn{
+    width:104px;
+    height: 36px;
+    border: none;
+    font-size: 14px;
+    cursor: pointer;
+    background: url(../images/login-btns.gif) no-repeat 0 0;
+    font-family: "Microsoft Yahei", "微软雅黑","宋体", Verdana, Arial, Geneva, sans-serif;
+}
+.login-form-box .login-btn{
+	margin-left: -7px;
+	margin-top: 10px;
+    width:228px;
+    height: 47px;
+    font-size: 16px;
+    background: url(../images/login-btns-new.gif) no-repeat 0 0;
+}
+.login-form-box .login-btn:hover{
+    background: url(../images/login-btns-new.gif) no-repeat 0 -49px;
+}
+.login-form-box .login-btn{
+       color: #fff;
+}
+.login-form-box .regist-btn{
+    background: url(../images/login-btns.gif) no-repeat 0 -36px;
+    color: #333;
+    margin-left: 40px;
+}
+.login-form-box .forgot-pwd{
+       margin-left: 100px;
+}
+.login-form-box .forgot-pwd:hover{
+    text-decoration: underline;
+}
+/*mid end*/
+/*bottom */
+#bottom{
+    height: 70px;
+    margin-top: -10px;
+    background: url(../images/item-head-bgs.png) repeat-x 0 -228px;
+    _background-image: none;
+    _background-color: #ededed;
+	border:0px;
+}
+#bottom p{
+    text-align: center;
+    padding: 15px 0;
+}
+/*bottom end*/
+#failedMsg{
+	height: 20px;
+	font-size: 11px;
+}
+.container .copy a{
+	text-decoration: underline;
+}
+
+#bottom {
+    color: #666;
+}

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Map Caption="文档管理到归档管理" Key="OA_Doc2OA_Archive" SrcDataObjectKey="OA_Doc" TgtDataObjectKey="OA_Archive">
+    <SourceTableCollection Height="240" Width="199" X="30" Y="30">
+        <SourceTable IsPrimary="true" Key="OA_Doc_H">
+            <SourceField Definition="Topic" TargetFieldKey="Topic" TargetTableKey="OA_Archive_H"/>
+            <SourceField Definition="BillKey" TargetFieldKey="SrcBillKey" TargetTableKey="OA_Archive_H"/>
+            <SourceField Definition="NO" TargetFieldKey="SrcBillNo" TargetTableKey="OA_Archive_H"/>
+            <SourceField Definition="OID" TargetFieldKey="SrcOID" TargetTableKey="OA_Archive_H"/>
+        </SourceTable>
+    </SourceTableCollection>
+    <TargetTableCollection Height="240" Width="224" X="435" Y="40">
+        <TargetTable IsPrimary="true" Key="OA_Archive_H">
+            <TargetField Definition="Topic"/>
+            <TargetField Definition="SrcBillKey"/>
+            <TargetField Definition="SrcBillNo"/>
+            <TargetField Definition="SrcOID"/>
+        </TargetTable>
+    </TargetTableCollection>
+</Map>

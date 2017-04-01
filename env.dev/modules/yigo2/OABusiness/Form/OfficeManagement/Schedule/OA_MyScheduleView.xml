@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="OA_MyScheduleView" Caption="我发起的日程列表" FormType="View">
+    <DataSource>
+        <DataObject Key="OA_MyScheduleView" Caption="我发起的日程列表">
+            <TableCollection>
+                <Table Key="OA_MySchedule_H" Caption="我发起的日程列表" SourceType="Query" Persist="false" TableMode="Detail">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="EmpID" Caption="创建人" DataType="Long"/>
+                    <Column Key="DeptID" Caption="创建部门" DataType="Long"/>
+                    <Column Key="ScheduleType" Caption="日程类型" DataType="Long"/>
+                    <Column Key="StartTime" Caption="开始时间" DataType="DateTime"/>
+                    <Column Key="EndTime" Caption="结束时间" DataType="DateTime"/>
+                    <Column Key="Topic" Caption="日程主题" DataType="Varchar"/>
+                    <Column Key="IsAllDay" Caption="全天" DataType="Integer"/>
+                    <Column Key="Document" Caption="日程内容" DataType="Varchar"/>
+                    <ParameterCollection>
+                        <Parameter Formula="GetOperator()"/>
+                    </ParameterCollection>
+                    <Statement>
+                        <![CDATA[select * from (select *  from OA_MySchedule_H  where creator=? order by billdate desc) h]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="New" Caption="新增">
+            <Action>
+                <![CDATA[New('OA_MySchedule')]]>
+            </Action>
+        </Operation>
+        <Operation Key="Setfirst_headVisible" Caption="查询" RefKey="Setfirst_headVisible"/>
+    </OperationCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板">
+                <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <GridLayoutPanel Key="first_head" Height="120px" Caption="基本信息" Visible="first_headVisible==1">
+                    <Dict Key="QueryScheduleType" Caption="日程类型" BuddyKey="Lab_QueryScheduleType" X="1" Y="2" AllowMultiSelection="true" ItemKey="OA_ScheduleType">
+                        <Condition ColumnKey="ScheduleType" TableKey="OA_MySchedule_H" CondSign="in"/>
+                    </Dict>
+                    <Label Key="Lab_QueryScheduleType" Caption="日程类型" X="0" Y="2"/>
+                    <Button Key="Query" Caption="查询" X="4" Y="0">
+                        <OnClick>
+                            <![CDATA[DealCondition();
+LoadData();
+ShowData();]]>
+                        </OnClick>
+                    </Button>
+                    <Button Key="Reset" Caption="重置" X="4" Y="1">
+                        <OnClick>
+                            <![CDATA[ResetCondition();]]>
+                        </OnClick>
+                    </Button>
+                    <TextEditor Key="QueryTopic" Caption="日程主题" BuddyKey="Lab_QueryTopic" X="3" Y="2">
+                        <Condition ColumnKey="Topic" TableKey="OA_MySchedule_H" CondSign="like"/>
+                    </TextEditor>
+                    <Label Key="Lab_QueryTopic" Caption="日程主题" X="2" Y="2"/>
+                    <DatePicker Key="QueryStartTime" Caption="开始时间从" BuddyKey="Lab_QueryStartTime" X="1" Y="0">
+                        <Condition ColumnKey="StartTime" TableKey="OA_MySchedule_H" CondSign="between" Group="a" GroupHead="true"/>
+                    </DatePicker>
+                    <Label Key="Lab_QueryStartTime" Caption="开始时间从" X="0" Y="0"/>
+                    <DatePicker Key="To" Caption="到" BuddyKey="Lab_To" X="3" Y="0">
+                        <Condition ColumnKey="StartTime" TableKey="OA_MySchedule_H" CondSign="between" Group="a" GroupTail="true"/>
+                    </DatePicker>
+                    <Label Key="Lab_To" Caption="到" X="2" Y="0"/>
+                    <DatePicker Key="QueryEndTime" Caption="结束日期从" BuddyKey="Lab_QueryEndTime" X="1" Y="1">
+                        <Condition ColumnKey="EndTime" TableKey="OA_MySchedule_H" CondSign="between" Group="b" GroupHead="true"/>
+                    </DatePicker>
+                    <Label Key="Lab_QueryEndTime" Caption="结束日期从" X="0" Y="1"/>
+                    <DatePicker Key="To2" Caption="到" BuddyKey="Lab_To2" X="3" Y="1">
+                        <Condition ColumnKey="EndTime" TableKey="OA_MySchedule_H" CondSign="between" Group="b" GroupTail="true"/>
+                    </DatePicker>
+                    <Label Key="Lab_To2" Caption="到" X="2" Y="1"/>
+                    <CheckBox Caption="表头可见" Key="first_headVisible" Visible="false" X="4" Y="2">
+                        <DataBinding DefaultValue="1"/>
+                    </CheckBox>
+                    <RowDefCollection RowGap="8">
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="8">
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="50%"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="50%"/>
+                        <ColumnDef Width="80px"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+                <ListView Caption="ListView1" Key="ListView1" PageLoadType="DB" TableKey="OA_MySchedule_H" Height="100%">
+                    <ListViewColumnCollection>
+                        <ListViewColumn Key="Topic" Caption="日程主题" DataColumnKey="Topic" Width="200px"/>
+                        <ListViewColumn Key="ScheduleType" Caption="日程类型" ColumnType="Dict" DataColumnKey="ScheduleType" Width="100px" ItemKey="OA_ScheduleType"/>
+                        <ListViewColumn Key="EmpID" Caption="创建人" ColumnType="Dict" DataColumnKey="EmpID" Width="100px" ItemKey="OA_Employee"/>
+                        <ListViewColumn Key="DeptID" Caption="创建部门" ColumnType="Dict" DataColumnKey="DeptID" Width="130px" ItemKey="OA_Department"/>
+                        <ListViewColumn Key="StartTime" Caption="开始时间" ColumnType="DatePicker" DataColumnKey="StartTime" Width="130px"/>
+                        <ListViewColumn Key="EndTime" Caption="结束时间" ColumnType="DatePicker" DataColumnKey="EndTime" Width="130px"/>
+                        <ListViewColumn Key="IsAllDay" Caption="全天" ColumnType="CheckBox" DataColumnKey="IsAllDay" Enable="false" Visible="false"/>
+                        <ListViewColumn Key="OID" Caption="OID" DataColumnKey="OID" Visible="false"/>
+                    </ListViewColumnCollection>
+                    <RowDblClick>
+                        <![CDATA[Open('OA_MySchedule', OID)]]>
+                    </RowDblClick>
+                </ListView>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+    <OnLoad>
+        <![CDATA[LoadData()]]>
+    </OnLoad>
+</Form>

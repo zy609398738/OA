@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="OA_ArchiveSet" Caption="归档设置" FormType="Dict">
+    <DataSource>
+        <DataObject Key="OA_ArchiveSet" Caption="归档设置" PrimaryTableKey="OA_ArchiveSet_H" SecondaryType="Dict" PrimaryType="Entity">
+            <TableCollection>
+                <Table Key="OA_ArchiveSet_H" Caption="归档设置" DBTableName="OA_ArchiveSet_H">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="Code" Caption="代码" DataType="Varchar"/>
+                    <Column Key="Name" Caption="名称" DataType="Varchar"/>
+                    <Column Key="NodeType" Caption="节点类型" DataType="Integer"/>
+                    <Column Key="ParentID" Caption="父节点" DataType="Long"/>
+                    <Column Key="Status" Caption="状态" DataType="Integer"/>
+                    <Column Key="Enable" Caption="启用标记" DataType="Integer" DefaultValue="1"/>
+                    <Column Key="TLeft" Caption="TLeft" DataType="Integer"/>
+                    <Column Key="TRight" Caption="TRight" DataType="Integer"/>
+                    <Column Key="ArchiveTypeID" Caption="归档分类" DataType="Long" Cache="true"/>
+                    <Column Key="Deadline" Caption="保管期限" DataType="Integer" Cache="true"/>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <ScriptCollection>
+        <Script Key="Load" Caption="载入" Description="载入事件" Range="Action" Verb="Load">
+            <![CDATA[LoadData()]]>
+        </Script>
+    </ScriptCollection>
+    <Body>
+        <Block>
+            <GridLayoutPanel Key="GridLayoutPanel1" Padding="5px" Caption="GridLayoutPanel1">
+                <TextEditor Key="Name" Caption="单据名称" BuddyKey="L_Name" X="3" Y="0">
+                    <DataBinding TableKey="OA_ArchiveSet_H" ColumnKey="Name" DefaultFormulaValue="GetCaption(&quot;Code&quot;);" Required="true" ValueDependency="Code"/>
+                </TextEditor>
+                <Label Key="L_Name" Caption="单据名称" X="2" Y="0"/>
+                <Dict Key="ArchiveTypeID" Caption="归档分类" BuddyKey="Lab_ArchiveTypeID" X="1" Y="1" ItemKey="OA_ArchiveType">
+                    <DataBinding TableKey="OA_ArchiveSet_H" ColumnKey="ArchiveTypeID" Required="true"/>
+                </Dict>
+                <Label Key="Lab_ArchiveTypeID" Caption="归档分类" X="0" Y="1"/>
+                <ComboBox Key="Code" Caption="归档单据" BuddyKey="Lab_Code" X="1" Y="0" SourceType="Formula">
+                    <DataBinding TableKey="OA_ArchiveSet_H" ColumnKey="Code" Required="true"/>
+                    <FormulaItems>
+                        <![CDATA[GetFormByType("Entity");]]>
+                    </FormulaItems>
+                </ComboBox>
+                <Label Key="Lab_Code" Caption="归档单据" X="0" Y="0"/>
+                <ComboBox Key="Deadline" Caption="保管期限" BuddyKey="Lab_Deadline" X="3" Y="1">
+                    <DataBinding TableKey="OA_ArchiveSet_H" ColumnKey="Deadline" CheckRule="Deadline&gt;0" Required="true" ErrorInfo="必填"/>
+                    <Item Caption="永久" Key="10" Value="10"/>
+                    <Item Caption="长期" Key="20" Value="20"/>
+                    <Item Caption="短期" Key="30" Value="30"/>
+                </ComboBox>
+                <Label Key="Lab_Deadline" Caption="保管期限" X="2" Y="1"/>
+                <RowDefCollection RowHeight="30" RowGap="6">
+                    <RowDef/>
+                    <RowDef/>
+                </RowDefCollection>
+                <ColumnDefCollection ColumnGap="20">
+                    <ColumnDef Width="80px"/>
+                    <ColumnDef Width="50%"/>
+                    <ColumnDef Width="80px"/>
+                    <ColumnDef Width="50%"/>
+                </ColumnDefCollection>
+            </GridLayoutPanel>
+        </Block>
+    </Body>
+</Form>

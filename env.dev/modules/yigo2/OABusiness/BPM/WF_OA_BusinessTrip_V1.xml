@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Process Caption="出差" IDSeed="19" Key="WF_OA_BusinessTrip">
+    <Begin Caption="开始节点" ID="1" Key="Begin1">
+        <TransitionCollection>
+            <SequenceFlow Caption="顺序流" ID="12" Key="SequenceFlow1" TargetNodeKey="State1"/>
+        </TransitionCollection>
+        <NodeGraphic Height="40" Width="40" X="64" Y="129"/>
+        <NodeAttachment/>
+    </Begin>
+    <End Caption="结束节点" ID="2" Key="End1">
+        <NodeGraphic Height="40" Width="40" X="996" Y="129"/>
+        <NodeAttachment/>
+    </End>
+    <State Caption="已提交" ID="3" Key="State1" Status="commited">
+        <TransitionCollection>
+            <SequenceFlow Caption="顺序流" ID="13" Key="SequenceFlow2" TargetNodeKey="Audit1"/>
+        </TransitionCollection>
+        <NodeGraphic Height="40" Width="40" X="167" Y="129"/>
+        <NodeAttachment/>
+        <ParticipatorCollection/>
+        <Perm/>
+    </State>
+    <Audit Caption="部门主任审批" ID="4" Key="Audit1">
+        <TransitionCollection>
+            <SequenceFlow Caption="顺序流" ID="14" Key="SequenceFlow3" TargetNodeKey="State2"/>
+        </TransitionCollection>
+        <NodeGraphic X="257" Y="124"/>
+        <NodeAttachment/>
+        <OperationCollection>
+            <Operation Key="WF_OA_Vacation_op1" Caption="审批">
+                <Action>
+                    <![CDATA[ShowModal("OA_AuditDialog","pWorkitemID:{GetActiveWorkitemID()}")]]>
+                </Action>
+            </Operation>
+        </OperationCollection>
+        <AssistanceCollection/>
+        <ParticipatorCollection/>
+        <TimerItemCollection/>
+        <Perm/>
+        <DirectAuditCondition/>
+    </Audit>
+    <State Caption="审批中" ID="5" Key="State2" Status="approving">
+        <TransitionCollection>
+            <SequenceFlow Caption="顺序流" ID="15" Key="SequenceFlow4" TargetNodeKey="Audit2"/>
+        </TransitionCollection>
+        <NodeGraphic Height="40" Width="40" X="408" Y="129"/>
+        <NodeAttachment/>
+        <ParticipatorCollection/>
+        <Perm/>
+    </State>
+    <Audit Caption="分管领导审批" ID="6" Key="Audit2">
+        <TransitionCollection>
+            <SequenceFlow Caption="顺序流" ID="16" Key="SequenceFlow5" TargetNodeKey="State3"/>
+        </TransitionCollection>
+        <NodeGraphic X="506" Y="124"/>
+        <NodeAttachment/>
+        <OperationCollection>
+            <Operation Key="WF_OA_Vacation_op1" Caption="审批">
+                <Action>
+                    <![CDATA[ShowModal("OA_AuditDialog","pWorkitemID:{GetActiveWorkitemID()}")]]>
+                </Action>
+            </Operation>
+        </OperationCollection>
+        <AssistanceCollection/>
+        <ParticipatorCollection/>
+        <TimerItemCollection/>
+        <Perm/>
+        <DirectAuditCondition/>
+    </Audit>
+    <Audit Caption="总经理审批" ID="7" Key="Audit3">
+        <TransitionCollection>
+            <SequenceFlow Caption="顺序流" ID="18" Key="SequenceFlow7" TargetNodeKey="State4"/>
+        </TransitionCollection>
+        <NodeGraphic X="737" Y="124"/>
+        <NodeAttachment/>
+        <OperationCollection>
+            <Operation Key="WF_OA_Vacation_op1" Caption="审批">
+                <Action>
+                    <![CDATA[ShowModal("OA_AuditDialog","pWorkitemID:{GetActiveWorkitemID()}")]]>
+                </Action>
+            </Operation>
+        </OperationCollection>
+        <AssistanceCollection/>
+        <ParticipatorCollection/>
+        <TimerItemCollection/>
+        <Perm/>
+        <DirectAuditCondition/>
+    </Audit>
+    <State Caption="审批中" ID="9" Key="State3" Status="approving">
+        <TransitionCollection>
+            <SequenceFlow Caption="顺序流" ID="17" Key="SequenceFlow6" TargetNodeKey="Audit3"/>
+        </TransitionCollection>
+        <NodeGraphic Height="40" Width="40" X="641" Y="129"/>
+        <NodeAttachment/>
+        <ParticipatorCollection/>
+        <Perm/>
+    </State>
+    <State Caption="已审批" ID="10" Key="State4" Status="approved">
+        <TransitionCollection>
+            <SequenceFlow Caption="顺序流" ID="19" Key="SequenceFlow8" TargetNodeKey="End1"/>
+        </TransitionCollection>
+        <NodeGraphic Height="40" Width="40" X="894" Y="129"/>
+        <NodeAttachment/>
+        <ParticipatorCollection/>
+        <Perm/>
+    </State>
+    <AttachmentCollection/>
+</Process>

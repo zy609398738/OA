@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="OA_ToReadList" Caption="待阅事项" FormType="View">
+    <DataSource>
+        <DataObject Key="OA_ToReadList" Caption="待阅事项">
+            <TableCollection>
+                <Table Key="OA_ToReadList" Caption="待阅事项" TableMode="Detail" SourceType="Query" Persist="false">
+                    <Column Key="WorkitemID" Caption="工作项标识" DataType="Long" DBColumnName="WorkitemID"/>
+                    <Column Key="WorkitemName" Caption="工作项名称" DataType="Varchar" DBColumnName="WorkitemName"/>
+                    <Column Key="CreatTime" Caption="创建时间" DataType="DateTime" DBColumnName="CreatTime"/>
+                    <Column Key="BillCreatTime" Caption="日期" DataType="DateTime"/>
+                    <Column Key="BillDate" Caption="单据日期" DataType="DateTime" DBColumnName="BillDate"/>
+                    <Column Key="BillNo" Caption="单据编号" DataType="Varchar" DBColumnName="BillNo"/>
+                    <Column Key="BusinessType" Caption="业务类型" DataType="Long"/>
+                    <Column Key="EmpID" Caption="申请人" DataType="Long"/>
+                    <Column Key="DeptID" Caption="申请部门" DataType="Long"/>
+                    <Column Key="Topic" Caption="主题" DataType="Varchar"/>
+                    <Column Key="BillOID" Caption="单据OID" DataType="Long"/>
+                    <Column Key="BillKey" Caption="单据Key" DataType="Varchar"/>
+                    <ParameterCollection>
+                        <Parameter DataType="Long" Formula="GetOperator()"/>
+                    </ParameterCollection>
+                    <Statement>
+                        <![CDATA[select r.*,m.DeptID ,m.EmpID,m.topic ,m.BillCreatTime from oa_read r join bpm_migration m on r.BillOID=m.BillOID where  r.readuser=? and  r.Status<>20]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="Setfirst_headVisible" Caption="查询" RefKey="Setfirst_headVisible"/>
+    </OperationCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="main">
+                <ToolBar Key="main_toolbar" Height="pref">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <GridLayoutPanel Key="GridLayoutPanel1" Height="80px" Padding="5px" Caption="GridLayoutPanel1" Visible="first_headVisible==1">
+                    <DatePicker Key="DatePicker1" Caption="申请日期" BuddyKey="Lab_DatePicker1" X="1" Y="0">
+                        <Condition ColumnKey="BillCreatTime" TableKey="OA_ToReadList" CondSign="between" Group="A" GroupHead="true"/>
+                    </DatePicker>
+                    <Label Key="Lab_DatePicker1" Caption="申请日期" X="0" Y="0"/>
+                    <Label Key="Label1" Caption="到" X="2" Y="0"/>
+                    <DatePicker Key="DatePicker2" Caption="到" X="3" Y="0">
+                        <Condition ColumnKey="BillCreatTime" TableKey="OA_ToReadList" CondSign="between" Group="A" GroupTail="true"/>
+                    </DatePicker>
+                    <TextEditor Key="TextEditor1" Caption="单据编号" BuddyKey="Lab_TextEditor1" X="6" Y="0">
+                        <Condition ColumnKey="BillNo" TableKey="OA_ToReadList" CondSign="="/>
+                    </TextEditor>
+                    <Label Key="Lab_TextEditor1" Caption="单据编号" X="5" Y="0"/>
+                    <TextEditor Key="Theme" Caption="主题" BuddyKey="Lab_Theme" X="9" Y="0">
+                        <Condition ColumnKey="Topic" TableKey="OA_ToReadList" CondSign="like"/>
+                    </TextEditor>
+                    <Label Key="Lab_Theme" Caption="主题" X="8" Y="0"/>
+                    <Button Key="Button1" Caption="查询" X="11" Y="0">
+                        <OnClick>
+                            <![CDATA[DealCondition();
+LoadData();
+ShowData();]]>
+                        </OnClick>
+                    </Button>
+                    <Dict Key="QueryEmpID" Caption="申请人" BuddyKey="Lab_QueryEmpID" X="6" Y="1" ItemKey="OA_Employee">
+                        <Condition ColumnKey="EmpID" TableKey="OA_ToReadList" CondSign="="/>
+                    </Dict>
+                    <Label Key="Lab_QueryEmpID" Caption="申请人" X="5" Y="1"/>
+                    <Dict Key="Department" Caption="申请部门" BuddyKey="Lab_Department" X="9" Y="1" ItemKey="OA_Department">
+                        <Condition ColumnKey="DeptID" TableKey="OA_ToReadList" CondSign="="/>
+                    </Dict>
+                    <Label Key="Lab_Department" Caption="申请部门" X="8" Y="1"/>
+                    <Button Key="Cancel" Caption="取消" X="11" Y="1">
+                        <OnClick>
+                            <![CDATA[ResetCondition();]]>
+                        </OnClick>
+                    </Button>
+                    <ComboBox Key="QueryBillCaption" Caption="业务类型" BuddyKey="Lab_QueryBillCaption" X="1" Y="1" SourceType="Formula" XSpan="3">
+                        <Condition ColumnKey="BillKey" TableKey="OA_ToReadList" CondSign="="/>
+                        <FormulaItems>
+                            <![CDATA[GetFormByType("Entity")]]>
+                        </FormulaItems>
+                    </ComboBox>
+                    <Label Key="Lab_QueryBillCaption" Caption="业务类型" X="0" Y="1"/>
+                    <CheckBox Caption="表头可见" Key="first_headVisible" Visible="false" X="11" Y="1">
+                        <DataBinding DefaultValue="1"/>
+                    </CheckBox>
+                    <RowDefCollection RowGap="5">
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="5">
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="16%"/>
+                        <ColumnDef Width="20px"/>
+                        <ColumnDef Width="17%"/>
+                        <ColumnDef Width="10px"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="33%"/>
+                        <ColumnDef Width="10px"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="34%"/>
+                        <ColumnDef Width="10px"/>
+                        <ColumnDef Width="80px"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+                <ListView Caption="ListView1" Height="100%" Key="ListView1" PageLoadType="DB" TableKey="OA_ToReadList">
+                    <ListViewColumnCollection>
+                        <ListViewColumn Key="BusinessType" Caption="业务类型" ColumnType="ComboBox" DataColumnKey="BillKey" Width="150px" SourceType="Formula">
+                            <FormulaItems>
+                                <![CDATA[GetFormByType("Entity")]]>
+                            </FormulaItems>
+                        </ListViewColumn>
+                        <ListViewColumn Key="Topic" Caption="主题" ColumnType="TextEditor" DataColumnKey="Topic" Width="500px"/>
+                        <ListViewColumn Key="EmpID" Caption="申请人" ColumnType="Dict" DataColumnKey="EmpID" ItemKey="OA_Employee"/>
+                        <ListViewColumn Key="DeptID" Caption="申请部门" ColumnType="Dict" DataColumnKey="DeptID" Width="150px" ItemKey="OA_Department"/>
+                        <ListViewColumn Key="BillCreatTime" Caption="申请日期" ColumnType="DatePicker" DataColumnKey="BillCreatTime" Width="120px"/>
+                        <ListViewColumn Key="BillKey" Caption="单据key" ColumnType="TextEditor" DataColumnKey="BillKey" Visible="false"/>
+                        <ListViewColumn Key="BillOID" Caption="源单据OID" DataColumnKey="BillOID" Visible="false"/>
+                    </ListViewColumnCollection>
+                    <RowDblClick>
+                        <![CDATA[Open(ToString(BillKey),BillOID)]]>
+                    </RowDblClick>
+                </ListView>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+    <OnLoad>
+        <![CDATA[LoadData()]]>
+    </OnLoad>
+</Form>

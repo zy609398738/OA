@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="NJ_AssetsIn" Caption="资产入库" FormType="Entity">
+    <DataSource>
+        <DataObject Key="NJ_AssetsIn" Caption="资产入库" NoPrefix="ZCRK" PrimaryTableKey="NJ_SCM_AssetsInHead" PrimaryType="Entity" ZeroPrefix="3">
+            <TableCollection>
+                <Table Key="NJ_SCM_AssetsInHead" Caption="NJ_SCM_AssetsInHead" DBTableName="NJ_SCM_AssetsInHead">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="NO" Caption="发布编号" DataType="Varchar"/>
+                    <Column Key="BillDate" Caption="发布日期" DataType="DateTime"/>
+                    <Column Key="Status" Caption="单据状态" DataType="Integer"/>
+                    <Column Key="Creator" Caption="创建人" DataType="Long"/>
+                    <Column Key="CreateTime" Caption="创建日期" DataType="DateTime"/>
+                    <Column Key="Modifier" Caption="修改人" DataType="Long"/>
+                    <Column Key="ModifyTime" Caption="修改日期" DataType="DateTime"/>
+                    <Column Key="BillKey" Caption="单据Key" DataType="Varchar"/>
+                    <Column Key="ClusterID" Caption="集团" DataType="Long"/>
+                    <Column Key="EmpID" Caption="经办人" DataType="Long"/>
+                    <Column Key="Notes" Caption="备注" DataType="Varchar"/>
+                    <Column Key="KeeperId" Caption="KeeperId" DataType="Long"/>
+                    <Column Key="BuyerId" Caption="采购员" DataType="Long"/>
+                    <Column Key="SumMoney" Caption="SumMoney" DataType="Numeric" Precision="16" Scale="2"/>
+                </Table>
+                <Table Key="NJ_SCM_AssetsInDtl" Caption="NJ_SCM_AssetsInDtl" TableMode="Detail">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="Amount" Caption="Amount" DataType="Integer"/>
+                    <Column Key="Price" Caption="Price" DataType="Numeric" Precision="16" Scale="2"/>
+                    <Column Key="Money" Caption="Money" DataType="Numeric" Precision="16" Scale="2"/>
+                    <Column Key="BuyDate" Caption="BuyDate" DataType="DateTime"/>
+                    <Column Key="DtlNotes" Caption="DtlNotes" DataType="Varchar"/>
+                    <Column Key="UNITID" Caption="UNITID" DataType="Long"/>
+                    <Column Key="Model" Caption="Model" DataType="Varchar"/>
+                    <Column Key="assetstypeid" Caption="assetstypeid" DataType="Long"/>
+                    <Column Key="AssetsId" Caption="AssetsId" DataType="Long"/>
+                    <Column Key="WareHouseId" Caption="WareHouseId" DataType="Long"/>
+                    <Column Key="MapCount" Caption="映射数量标记" DataType="Integer"/>
+                    <Column Key="Supplier" Caption="Supplier" DataType="Varchar"/>
+                    <Column Key="AssetNatureId" Caption="AssetNatureId" DataType="Long"/>
+                    <Column Key="OriginalValue" Caption="OriginalValue" DataType="Numeric" Precision="16" Scale="2"/>
+                    <Column Key="UsefulLife" Caption="UsefulLife" DataType="Integer"/>
+                    <Column Key="NetSalvage" Caption="NetSalvage" DataType="Numeric" Precision="16" Scale="2"/>
+                    <Column Key="MonthlyDepreciation" Caption="MonthlyDepreciation" DataType="Numeric" Precision="16" Scale="2"/>
+                </Table>
+                <Table Key="NJ_SCM_AssetCode" Caption="NJ_SCM_AssetCode" TableMode="Detail">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="AssetsBarId" Caption="AssetsBarId" DataType="Long"/>
+                    <Column Key="AssetsCode" Caption="AssetsCode" DataType="Varchar"/>
+                    <Column Key="Code" Caption="Code" DataType="Varchar"/>
+                    <Column Key="Sequence" Caption="Sequence" DataType="Integer"/>
+                    <Column Key="Amount" Caption="Amount" DataType="Integer"/>
+                    <Column Key="AssetsAmount" Caption="AssetsAmount" DataType="Integer"/>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="Save" Caption="保存" Visible="!ReadOnly()">
+            <Action>
+                <![CDATA[DBUpdate('delete from NJ_SCM_AssetCode WHERE SOID=?', GetOID());
+var icount = GetRowCount('Grid1');
+    var i = 0;
+    var j = 0;
+    var k = 0;
+    while(i<icount)
+	{
+            var i_AssetsId = GetCellValue('Grid1',i,'AssetsId');  
+            var i_Amount = GetCellValue('Grid1',i,'Amount');
+            var i_Sequence = ToInt(DBNamedQueryValue('QuerySequence',i_AssetsId))+1;
+	    k = k + i_Amount;		
+            while(j<k)
+		{
+                SetCellValue('Grid2', j, 'AssetsBarId', i_AssetsId,true);
+                SetCellValue('Grid2', j, 'Sequence', i_Sequence,true);
+                i_Sequence = i_Sequence + 1;
+                j = j + 1; 
+                }
+        i = i + 1;
+        }
+SaveData();UpdateView();]]>
+            </Action>
+        </Operation>
+        <Operation Key="Delete" Caption="删除" RefKey="Delete"/>
+        <Operation Key="Edit" Caption="编辑" RefKey="Edit"/>
+        <Operation Key="Cancel" Caption="取消" RefKey="Cancel"/>
+        <Operation Key="Print" Caption="打印" RefKey="Print"/>
+        <Operation Key="PrintPreview" Caption="打印预览" RefKey="PrintPreview"/>
+        <Operation Key="Close" Caption="关闭" RefKey="Close"/>
+    </OperationCollection>
+    <QueryCollection>
+        <Query Key="QuerySequence" Description="查询最大流水号">
+            <Statement>
+                <![CDATA[select max(coalesce(Sequence,0)) Sequence from NJ_SCM_AssetCode  where AssetsBarId=?]]>
+            </Statement>
+        </Query>
+    </QueryCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板">
+                <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <SplitPanel Key="SplitPanel1" Orientation="Vertical" Height="100%" Caption="SplitPanel1">
+                    <TabPanel Caption="TabPanel1" Height="100%" Key="TabPanel1">
+                        <GridLayoutPanel Key="first_head" Height="pref" Padding="5px" Caption="基本信息">
+                            <TextEditor Key="NO" Caption="入库编号" BuddyKey="Lab_NO" X="2" Y="0" Enable="false">
+                                <DataBinding ColumnKey="NO" TableKey="NJ_SCM_AssetsInHead"/>
+                            </TextEditor>
+                            <Label Key="Lab_NO" Caption="入库编号" X="1" Y="0"/>
+                            <DatePicker Key="BillDate" Caption="入库日期" BuddyKey="Lab_BillDate" X="5" Y="0" OnlyDate="true">
+                                <DataBinding ColumnKey="BillDate" DefaultFormulaValue="ServerDate();" TableKey="NJ_SCM_AssetsInHead"/>
+                            </DatePicker>
+                            <Label Key="Lab_BillDate" Caption="入库日期" X="4" Y="0"/>
+                            <ComboBox Key="Status" Caption="单据状态" BuddyKey="Lab_Status" X="8" Y="0" Enable="false" SourceType="Status">
+                                <DataBinding ColumnKey="Status" TableKey="NJ_SCM_AssetsInHead" DefaultValue="100"/>
+                            </ComboBox>
+                            <Label Key="Lab_Status" Caption="单据状态" X="7" Y="0"/>
+                            <Dict Key="EmpID" Caption="资产验收人" BuddyKey="Lab_EmpID" X="2" Y="1" ItemKey="OA_Employee">
+                                <DataBinding ColumnKey="EmpID" DefaultFormulaValue="GetDictValue('Operator', Creator, 'SYS_Operator.EmpID')" TableKey="NJ_SCM_AssetsInHead">
+                                    <ValueChanged>
+                                        <![CDATA[var v_ysr=ToLong(GetValue('EmpID'));
+var v_cgr=ToLong(GetValue('BuyerId'));
+if(v_ysr==v_cgr){
+  SetValue('EmpID', 0);
+  Confirm("采购人与资产验收人不能为同一人     ");
+};]]>
+                                    </ValueChanged>
+                                </DataBinding>
+                            </Dict>
+                            <Label Key="Lab_EmpID" Caption="资产验收人" X="1" Y="1"/>
+                            <TextEditor Key="Notes" Caption="备注" BuddyKey="Lab_Notes" X="5" Y="2" XSpan="4">
+                                <DataBinding ColumnKey="Notes" TableKey="NJ_SCM_AssetsInHead"/>
+                            </TextEditor>
+                            <Label Key="Lab_Notes" Caption="备注" X="4" Y="2"/>
+                            <Dict Key="KeeperId" Caption="资产管理员" BuddyKey="Lab_KeeperId" X="5" Y="1" ItemKey="OA_Employee">
+                                <DataBinding ColumnKey="KeeperId" TableKey="NJ_SCM_AssetsInHead" Required="true"/>
+                            </Dict>
+                            <Label Key="Lab_KeeperId" Caption="资产管理员" X="4" Y="1"/>
+                            <Dict Key="BuyerId" Caption="资产采购员" BuddyKey="Lab_BuyerId" X="8" Y="1" ItemKey="OA_Employee">
+                                <DataBinding ColumnKey="BuyerId" TableKey="NJ_SCM_AssetsInHead">
+                                    <ValueChanged>
+                                        <![CDATA[var v_ysr=ToLong(GetValue('EmpID'));
+var v_cgr=ToLong(GetValue('BuyerId'));
+if(v_ysr==v_cgr){
+  SetValue('BuyerId', 0);
+  Confirm("采购人与资产验收人不能为同一人     ");
+}]]>
+                                    </ValueChanged>
+                                </DataBinding>
+                            </Dict>
+                            <Label Key="Lab_BuyerId" Caption="资产采购员" X="7" Y="1"/>
+                            <NumberEditor Key="SumMoney" Caption="总金额" BuddyKey="Lab_SumMoney" X="2" Y="2" Enable="false">
+                                <DataBinding ColumnKey="SumMoney" DefaultFormulaValue="Sum('Money')" TableKey="NJ_SCM_AssetsInHead" ValueDependency="Money"/>
+                            </NumberEditor>
+                            <Label Key="Lab_SumMoney" Caption="总金额" X="1" Y="2"/>
+                            <RowDefCollection RowGap="4">
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="4">
+                                <ColumnDef Width="20px"/>
+                                <ColumnDef Width="80px"/>
+                                <ColumnDef Width="33%"/>
+                                <ColumnDef Width="20px"/>
+                                <ColumnDef Width="80px"/>
+                                <ColumnDef Width="33%"/>
+                                <ColumnDef Width="20px"/>
+                                <ColumnDef Width="80px"/>
+                                <ColumnDef Width="34%"/>
+                                <ColumnDef Width="20px"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                        <GridLayoutPanel Key="SysTab" Caption="系统信息">
+                            <Dict Key="Creator" Caption="创建人" BuddyKey="Lab_Creator" X="2" Y="0" Enable="false" ItemKey="Operator">
+                                <DataBinding ColumnKey="Creator" DefaultFormulaValue="GetOperator()" TableKey="NJ_SCM_AssetsInHead"/>
+                            </Dict>
+                            <Label Key="Lab_Creator" Caption="创建人" X="1" Y="0"/>
+                            <Dict Key="Modifier" Caption="修改人" BuddyKey="Lab_Modifier" X="2" Y="1" Enable="false" ItemKey="Operator">
+                                <DataBinding ColumnKey="Modifier" DefaultFormulaValue="GetOperator()" TableKey="NJ_SCM_AssetsInHead"/>
+                            </Dict>
+                            <DatePicker Key="CreateTime" Caption="创建日期" BuddyKey="Lab_CreateTime" X="5" Y="0" Enable="false">
+                                <DataBinding ColumnKey="CreateTime" DefaultFormulaValue="ServerDate()" TableKey="NJ_SCM_AssetsInHead"/>
+                            </DatePicker>
+                            <Label Key="Lab_CreateTime" Caption="创建时间" X="4" Y="0"/>
+                            <Label Key="Lab_Modifier" Caption="修改人" X="1" Y="1"/>
+                            <DatePicker Key="ModifyTime" Caption="修改日期" BuddyKey="Lab_ModifyTime" X="5" Y="1" Enable="false">
+                                <DataBinding ColumnKey="ModifyTime" DefaultFormulaValue="ServerDate()" TableKey="NJ_SCM_AssetsInHead"/>
+                            </DatePicker>
+                            <Label Key="Lab_ModifyTime" Caption="修改时间" X="4" Y="1"/>
+                            <TextEditor Key="BillKey" Caption="单据Key" BuddyKey="Lab_BillKey" X="8" Y="0">
+                                <DataBinding ColumnKey="BillKey" DefaultFormulaValue="GetFormKey()" TableKey="NJ_SCM_AssetsInHead"/>
+                            </TextEditor>
+                            <Label Key="Lab_BillKey" Caption="单据Key" X="7" Y="0"/>
+                            <Dict Key="ClusterID" Caption="集团" BuddyKey="Lab_ClusterID" X="8" Y="1" Enable="false" ItemKey="Client">
+                                <DataBinding ColumnKey="ClusterID" TableKey="NJ_SCM_AssetsInHead"/>
+                            </Dict>
+                            <Label Key="Lab_ClusterID" Caption="集团" X="7" Y="1"/>
+                            <RowDefCollection RowGap="4">
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="4">
+                                <ColumnDef Width="20px"/>
+                                <ColumnDef Width="80px"/>
+                                <ColumnDef Width="33%"/>
+                                <ColumnDef Width="20px"/>
+                                <ColumnDef Width="80px"/>
+                                <ColumnDef Width="33%"/>
+                                <ColumnDef Width="20px"/>
+                                <ColumnDef Width="80px"/>
+                                <ColumnDef Width="34%"/>
+                                <ColumnDef Width="20px"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                    </TabPanel>
+                    <TabPanel Caption="TabPanel2" Height="pref" Key="TabPanel2">
+                        <Grid Key="Grid1" Caption="资产信息" Height="pref">
+                            <GridColumnCollection>
+                                <GridColumn Key="AssetsId" Caption="资产名称" Width="80px"/>
+                                <GridColumn Key="WareHouseId" Caption="资产大类" Width="80px"/>
+                                <GridColumn Key="assetstypeid" Caption="资产类别" Width="80px"/>
+                                <GridColumn Key="AssetNatureId" Caption="资产性质" Width="80px"/>
+                                <GridColumn Key="Model" Caption="规格型号" Width="80px"/>
+                                <GridColumn Key="Supplier" Caption="供应商" Width="80px"/>
+                                <GridColumn Key="UNITID" Caption="计量单位" Width="80px"/>
+                                <GridColumn Key="Amount" Caption="数量" Width="80px"/>
+                                <GridColumn Key="Price" Caption="单价" Width="80px"/>
+                                <GridColumn Key="Money" Caption="金额" Width="80px"/>
+                                <GridColumn Key="BuyDate" Caption="购买日期" Width="80px"/>
+                                <GridColumn Key="OriginalValue" Caption="原值" Width="80px"/>
+                                <GridColumn Key="UsefulLife" Caption="折旧年限" Width="80px"/>
+                                <GridColumn Key="NetSalvage" Caption="净残值" Width="80px"/>
+                                <GridColumn Key="MonthlyDepreciation" Caption="月折旧额" Width="80px"/>
+                                <GridColumn Key="DtlNotes" Caption="备注" Width="80px"/>
+                            </GridColumnCollection>
+                            <GridRowCollection>
+                                <GridRow Key="row1" RowHeight="35" TableKey="NJ_SCM_AssetsInDtl">
+                                    <GridCell Key="AssetsId" Caption="资产名称" CellType="Dict" ItemKey="NJ_assets">
+                                        <DataBinding ColumnKey="AssetsId" Required="true">
+                                            <ValueChanged>
+                                                <![CDATA[SetCellValue('Grid1', -1, 'assetstypeid', GetDictValue('NJ_assets', AssetsId, 'NJ_CP_assets.assetstypeid'));
+SetCellValue('Grid1', -1, 'Model', GetDictValue('NJ_assets', AssetsId, 'NJ_CP_assets.Model'));
+SetCellValue('Grid1', -1, 'UNITID', GetDictValue('NJ_assets', AssetsId, 'NJ_CP_assets.UNITID'));
+SetCellValue('Grid1', -1, 'AssetNatureId', GetDictValue('NJ_assets', AssetsId, 'NJ_CP_assets.AssetNatureId'));
+SetCellValue('Grid1', -1, 'WareHouseId', GetDictValue('NJ_assets', AssetsId, 'NJ_CP_assets.WareHouseId'));]]>
+                                            </ValueChanged>
+                                        </DataBinding>
+                                    </GridCell>
+                                    <GridCell Key="WareHouseId" Caption="资产大类" CellType="Dict" Enable="false" ItemKey="NJ_WareHouse">
+                                        <DataBinding ColumnKey="WareHouseId"/>
+                                    </GridCell>
+                                    <GridCell Key="assetstypeid" Caption="资产类别" CellType="Dict" Enable="false" ItemKey="NJ_assetstype">
+                                        <DataBinding ColumnKey="assetstypeid"/>
+                                    </GridCell>
+                                    <GridCell Key="AssetNatureId" Caption="资产性质" CellType="Dict" Enable="false" ItemKey="NJ_AssetNature">
+                                        <DataBinding ColumnKey="AssetNatureId"/>
+                                    </GridCell>
+                                    <GridCell Key="Model" Caption="规格型号" CellType="TextEditor" Enable="false">
+                                        <DataBinding ColumnKey="Model"/>
+                                    </GridCell>
+                                    <GridCell Key="Supplier" Caption="供应商" CellType="TextEditor">
+                                        <DataBinding ColumnKey="Supplier"/>
+                                    </GridCell>
+                                    <GridCell Key="UNITID" Caption="计量单位" CellType="Dict" Enable="false" ItemKey="NJ_UNIT">
+                                        <DataBinding ColumnKey="UNITID"/>
+                                    </GridCell>
+                                    <GridCell Key="Amount" Caption="数量" CellType="NumberEditor" IntegerValue="true" Scale="0">
+                                        <DataBinding ColumnKey="Amount" Required="true">
+                                            <ValueChanged>
+                                                <![CDATA[Money=Amount*Price;
+SumMoney=Sum('Money')]]>
+                                            </ValueChanged>
+                                        </DataBinding>
+                                        <CellFormat HAlign="Right"/>
+                                    </GridCell>
+                                    <GridCell Key="Price" Caption="单价" CellType="NumberEditor">
+                                        <DataBinding ColumnKey="Price">
+                                            <ValueChanged>
+                                                <![CDATA[Money=Amount*Price;
+SumMoney=Sum('Money')]]>
+                                            </ValueChanged>
+                                        </DataBinding>
+                                        <CellFormat HAlign="Right"/>
+                                    </GridCell>
+                                    <GridCell Key="Money" Caption="金额" CellType="NumberEditor" Enable="false">
+                                        <DataBinding ColumnKey="Money" ValueDependency="Amount;Price"/>
+                                        <CellFormat HAlign="Right"/>
+                                    </GridCell>
+                                    <GridCell Key="BuyDate" Caption="购买日期" CellType="DatePicker" Format="yyyy-MM-dd" OnlyDate="true">
+                                        <DataBinding ColumnKey="BuyDate" DefaultFormulaValue="ServerDate()"/>
+                                    </GridCell>
+                                    <GridCell Key="OriginalValue" Caption="原值" CellType="NumberEditor" Scale="4">
+                                        <DataBinding ColumnKey="OriginalValue"/>
+                                        <CellFormat HAlign="Right"/>
+                                    </GridCell>
+                                    <GridCell Key="UsefulLife" Caption="折旧年限" CellType="NumberEditor" IntegerValue="true">
+                                        <DataBinding ColumnKey="UsefulLife"/>
+                                        <CellFormat HAlign="Right"/>
+                                    </GridCell>
+                                    <GridCell Key="NetSalvage" Caption="净残值" CellType="NumberEditor" Scale="4">
+                                        <DataBinding ColumnKey="NetSalvage"/>
+                                        <CellFormat HAlign="Right"/>
+                                    </GridCell>
+                                    <GridCell Key="MonthlyDepreciation" Caption="月折旧额" CellType="NumberEditor" Enable="false" Scale="4">
+                                        <DataBinding ColumnKey="MonthlyDepreciation" DefaultFormulaValue="IIF(UsefulLife==0,0,(OriginalValue-NetSalvage)/UsefulLife)" ValueDependency="OriginalValue,NetSalvage,UsefulLife"/>
+                                        <CellFormat HAlign="Right"/>
+                                    </GridCell>
+                                    <GridCell Key="DtlNotes" Caption="备注" CellType="TextEditor">
+                                        <DataBinding ColumnKey="DtlNotes"/>
+                                    </GridCell>
+                                </GridRow>
+                            </GridRowCollection>
+                        </Grid>
+                        <Grid Key="Grid2" Caption="编码信息" CanDelete="false" CanInsert="false" CanShift="false">
+                            <GridColumnCollection>
+                                <GridColumn Key="AssetsBarId" Caption="资产名称" Width="80px"/>
+                                <GridColumn Key="AssetsCode" Caption="资产编码" Width="80px"/>
+                                <GridColumn Key="Code" Caption="代码" Width="80px" Visible="false"/>
+                                <GridColumn Key="Sequence" Caption="流水号" Width="80px" Visible="false"/>
+                                <GridColumn Key="AssetsAmount" Caption="数量" Width="80px" Visible="false"/>
+                            </GridColumnCollection>
+                            <GridRowCollection>
+                                <GridRow Key="row1" RowHeight="35" TableKey="NJ_SCM_AssetCode">
+                                    <GridCell Key="AssetsBarId" Caption="资产名称" CellType="Dict" Enable="false" ItemKey="NJ_assets">
+                                        <DataBinding ColumnKey="AssetsBarId">
+                                            <ValueChanged>
+                                                <![CDATA[Code=GetDictValue('NJ_assets', AssetsBarId, 'NJ_CP_assets.Code');]]>
+                                            </ValueChanged>
+                                        </DataBinding>
+                                    </GridCell>
+                                    <GridCell Key="AssetsCode" Caption="资产编码" CellType="TextEditor" Enable="false">
+                                        <DataBinding ColumnKey="AssetsCode"/>
+                                    </GridCell>
+                                    <GridCell Key="Code" Caption="代码" CellType="TextEditor">
+                                        <DataBinding ColumnKey="Code"/>
+                                    </GridCell>
+                                    <GridCell Key="Sequence" Caption="流水号" CellType="NumberEditor" IntegerValue="true">
+                                        <DataBinding ColumnKey="Sequence">
+                                            <ValueChanged>
+                                                <![CDATA[AssetsCode=Code&Right("0000"&Sequence, 5)]]>
+                                            </ValueChanged>
+                                        </DataBinding>
+                                    </GridCell>
+                                    <GridCell Key="AssetsAmount" Caption="数量" CellType="NumberEditor" IntegerValue="true">
+                                        <DataBinding ColumnKey="AssetsAmount" DefaultValue="1"/>
+                                    </GridCell>
+                                </GridRow>
+                            </GridRowCollection>
+                        </Grid>
+                    </TabPanel>
+                    <SplitSize Size="27%"/>
+                    <SplitSize Size="73%"/>
+                </SplitPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

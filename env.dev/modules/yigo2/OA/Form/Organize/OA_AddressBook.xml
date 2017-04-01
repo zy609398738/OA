@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="OA_AddressBook" Caption="通讯录" FormType="View">
+    <DataSource>
+        <DataObject Key="OA_AddressBook" Caption="通讯录">
+            <TableCollection>
+                <Table Key="OA_Department_H" Caption="通讯录部门表" TableMode="Detail" SourceType="Query" Persist="false">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="Name" Caption="名称" DataType="Varchar"/>
+                    <Column Key="ORG_Level" Caption="层级" DataType="Integer"/>
+                </Table>
+                <Table Key="OA_Employee_H" Caption="通讯录人员表" TableMode="Detail" SourceType="Query" Persist="false" OrderBy="Code">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="Code" Caption="工号" DataType="Varchar"/>
+                    <Column Key="PositionID" Caption="主职务" DataType="Long"/>
+                    <Column Key="DepartmentID" Caption="所属部门" DataType="Long"/>
+                    <Column Key="Name" Caption="名称" DataType="Varchar"/>
+                    <Column Key="ORG_Level" Caption="层级" DataType="Integer"/>
+                    <Column Key="Tel" Caption="联系电话" DataType="Varchar"/>
+                    <Column Key="SMobile" Caption="电信短号" DataType="Varchar"/>
+                    <Column Key="Mobile1" Caption="手机" DataType="Varchar"/>
+                    <Statement>
+                        <![CDATA[select * from (select a.oid,a.Name,a.Code,b.PositionID,b.DepartmentID,a.Tel,a.SMobile,a.Mobile1  from oa_employee_h a ,oa_employee_d b where a.oid=b.SOID and b.MainPosition=1 )h]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="Setfirst_headVisible" Caption="查询" RefKey="Setfirst_headVisible"/>
+    </OperationCollection>
+    <QueryCollection>
+        <Query Key="queryDepartmentID" Description="查询部门ID">
+            <Statement>
+                <![CDATA[select a.oid,a.Name,a.Code,b.PositionID,b.DepartmentID,a.Tel,a.SMobile,a.Mobile1  from oa_employee_h a join oa_employee_d b on a.oid=b.SOID and b.MainPosition=1 where b.DepartmentID=?]]>
+            </Statement>
+            <ParameterCollection>
+                <Parameter DataType="Long"/>
+            </ParameterCollection>
+        </Query>
+        <Query Key="queryDeptMessage" Description="查询部门信息">
+            <Statement>
+                <![CDATA[select a.oid,a.Name,a.ORG_Level from OA_Department_H a]]>
+            </Statement>
+        </Query>
+    </QueryCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板">
+                <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <SplitPanel Key="SplitPanel2" Height="100%" Caption="SplitPanel2" Padding="5px">
+                    <Grid Key="Grid1" Caption="Grid1" NewEmptyRow="false" Enable="false" CanDelete="false" CanInsert="false">
+                        <GridColumnCollection>
+                            <GridColumn Key="DeptID" Caption="部门" Width="200px" TreeType="Dict"/>
+                            <GridColumn Key="Name" Caption="名称" Width="80px"/>
+                            <GridColumn Key="ORG_Level" Caption="层级" Width="80px"/>
+                        </GridColumnCollection>
+                        <GridRowCollection>
+                            <GridRow Key="row1" RowHeight="35" TableKey="OA_Department_H">
+                                <GridCell Key="DeptID" Caption="部门" CellType="Dict" Enable="false" ItemKey="OA_Department" Sort="Code">
+                                    <DataBinding ColumnKey="OID"/>
+                                </GridCell>
+                                <GridCell Key="Name" Caption="名称">
+                                    <DataBinding ColumnKey="Name"/>
+                                </GridCell>
+                                <GridCell Key="ORG_Level" Caption="层级" CellType="ComboBox">
+                                    <DataBinding ColumnKey="ORG_Level"/>
+                                    <Item Caption="集团" Key="1" Value="1"/>
+                                    <Item Caption="公司" Key="2" Value="2"/>
+                                    <Item Caption="部门" Key="3" Value="3"/>
+                                </GridCell>
+                            </GridRow>
+                        </GridRowCollection>
+                        <RowClick>
+                            <![CDATA[var ids=OA_GetIdExistsSql("OA_Department_H",DeptID,"d.OID");
+if(ids==""){
+    FillGridData('Grid2', DBNamedQuery("queryDepartmentID", DeptID), true);
+}else{
+    var sql="select a.oid,a.Name,a.Code,b.PositionID,b.DepartmentID,a.Tel,a.SMobile,a.Mobile1  from oa_employee_h a join oa_employee_d b on a.oid=b.SOID and b.MainPosition=1 join OA_Department_H d on b.DepartmentID=d.OID where "+ids;
+    FillGridData('Grid2', DBQuery(sql), true);
+}]]>
+                        </RowClick>
+                    </Grid>
+                    <FlexFlowLayoutPanel Key="FlexFlowLayoutPanel1" Caption="FlexFlowLayoutPanel1" Height="100%">
+                        <GridLayoutPanel Key="first_head" Height="40px" Caption="基本信息" Visible="first_headVisible==1" LeftPadding="5px">
+                            <Dict Key="QueryDepartment" Caption="部门" BuddyKey="Lab_QueryDepartment" X="1" Y="0" ItemKey="OA_Department" AllowMultiSelection="true">
+                                <Condition ColumnKey="DepartmentID" TableKey="OA_Employee_H" CondSign="in"/>
+                            </Dict>
+                            <Label Key="Lab_QueryDepartment" Caption="部门" X="0" Y="0"/>
+                            <Button Key="Query" Caption="查询" X="4" Y="0">
+                                <OnClick>
+                                    <![CDATA[DealCondition();
+LoadData();
+ShowData()]]>
+                                </OnClick>
+                            </Button>
+                            <Button Key="Reset" Caption="重置" X="5" Y="0">
+                                <OnClick>
+                                    <![CDATA[ResetCondition()]]>
+                                </OnClick>
+                            </Button>
+                            <CheckBox Caption="表头可见" Key="first_headVisible" Visible="false" X="1" Y="0">
+                                <DataBinding DefaultValue="1"/>
+                            </CheckBox>
+                            <Dict Key="QueryEmployee" Caption="人员" BuddyKey="Lab_QueryEmployee" X="3" Y="0" AllowMultiSelection="true" ItemKey="OA_Employee">
+                                <Condition ColumnKey="OID" TableKey="OA_Employee_H" CondSign="in"/>
+                            </Dict>
+                            <Label Key="Lab_QueryEmployee" Caption="人员" X="2" Y="0"/>
+                            <RowDefCollection RowGap="8">
+                                <RowDef Height="30px"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="8">
+                                <ColumnDef Width="80px"/>
+                                <ColumnDef Width="50%"/>
+                                <ColumnDef Width="80px"/>
+                                <ColumnDef Width="50%"/>
+                                <ColumnDef Width="80px"/>
+                                <ColumnDef Width="80px"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                        <Grid Key="Grid2" Caption="Grid2" NewEmptyRow="false" Enable="false" PageLoadType="UI" CanDelete="false" CanInsert="false" Height="100%">
+                            <GridColumnCollection>
+                                <GridColumn Key="EmpID" Caption="人员" Width="120px"/>
+                                <GridColumn Key="Code" Caption="工号" Width="80px"/>
+                                <GridColumn Key="Name_D" Caption="名称" Width="80px"/>
+                                <GridColumn Key="PositionID" Caption="主职务" Width="80px"/>
+                                <GridColumn Key="DepartmentID" Caption="所属部门" Width="150px"/>
+                                <GridColumn Key="Tel" Caption="联系电话" Width="100px"/>
+                                <GridColumn Key="SMobile" Caption="电信短号" Width="100px"/>
+                                <GridColumn Key="Mobile1" Caption="手机" Width="100px"/>
+                            </GridColumnCollection>
+                            <GridRowCollection>
+                                <GridRow Key="row1" RowHeight="35" TableKey="OA_Employee_H">
+                                    <GridCell Key="EmpID" Caption="人员" CellType="Dict" Enable="false" ItemKey="OA_Employee">
+                                        <DataBinding ColumnKey="OID"/>
+                                    </GridCell>
+                                    <GridCell Key="Code" Caption="工号">
+                                        <DataBinding ColumnKey="Code"/>
+                                    </GridCell>
+                                    <GridCell Key="Name_D" Caption="名称">
+                                        <DataBinding ColumnKey="Name"/>
+                                    </GridCell>
+                                    <GridCell Key="PositionID" Caption="主职务" CellType="Dict" Enable="false" ItemKey="OA_Duty">
+                                        <DataBinding ColumnKey="PositionID"/>
+                                    </GridCell>
+                                    <GridCell Key="DepartmentID" Caption="所属部门" CellType="Dict" Enable="false" ItemKey="OA_Department">
+                                        <DataBinding ColumnKey="DepartmentID"/>
+                                    </GridCell>
+                                    <GridCell Key="Tel" Caption="联系电话">
+                                        <DataBinding ColumnKey="Tel"/>
+                                    </GridCell>
+                                    <GridCell Key="SMobile" Caption="电信短号">
+                                        <DataBinding ColumnKey="SMobile"/>
+                                    </GridCell>
+                                    <GridCell Key="Mobile1" Caption="手机">
+                                        <DataBinding ColumnKey="Mobile1"/>
+                                    </GridCell>
+                                </GridRow>
+                            </GridRowCollection>
+                            <RowDblClick>
+                                <![CDATA[Open('OA_Employee', EmpID);]]>
+                            </RowDblClick>
+                        </Grid>
+                    </FlexFlowLayoutPanel>
+                    <SplitSize Size="405px"/>
+                    <SplitSize Size="100%"/>
+                </SplitPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+    <OnLoad>
+        <![CDATA[FillGridData("Grid1", DBNamedQuery("queryDeptMessage"));
+LoadData();]]>
+    </OnLoad>
+</Form>

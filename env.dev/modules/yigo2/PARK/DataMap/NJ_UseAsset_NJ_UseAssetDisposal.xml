@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Map Caption="在用资产下推在用资产处置" Key="NJ_UseAsset_NJ_UseAssetDisposal" SrcDataObjectKey="NJ_UseAsset" TgtDataObjectKey="NJ_UseAssetDisposal">
+    <SourceTableCollection Height="570" Width="247" X="30" Y="30">
+        <SourceTable Key="NJ_UseAsset" TargetTableKey="NJ_SCM_AssetCode" IsPrimary="true">
+            <SourceField Definition="assetstypeid" TargetFieldKey="assetstypeid"/>
+            <SourceField Definition="AssetsId" TargetFieldKey="AssetsId"/>
+            <SourceField Definition="Model" TargetFieldKey="Model"/>
+            <SourceField Definition="UNITID" TargetFieldKey="UNITID"/>
+            <SourceField Definition="WareHouseId" TargetFieldKey="WareHouseId"/>
+            <SourceField Definition="AssetNatureId" TargetFieldKey="AssetNatureId"/>
+            <SourceField Definition="AssetsCode" TargetFieldKey="AssetsCode"/>
+            <SourceField Definition="AssetsOID" TargetFieldKey="AssetsOID"/>
+            <SourceField Definition="UseEmpID" TargetFieldKey="UseEmpID" TargetTableKey="NJ_SCM_UseAssetDisposalHead"/>
+            <SourceField Definition="UseDeptID" TargetFieldKey="UseDeptID" TargetTableKey="NJ_SCM_UseAssetDisposalHead"/>
+            <SourceField Definition="UseType" TargetFieldKey="UseType" TargetTableKey="NJ_SCM_UseAssetDisposalHead"/>
+            <SourceField Definition="CustomerId" TargetFieldKey="CustomerId" TargetTableKey="NJ_SCM_UseAssetDisposalHead"/>
+            <SourceField Definition="EmpID" TargetFieldKey="EmpID" TargetTableKey="NJ_SCM_UseAssetDisposalHead"/>
+            <SourceField Definition="UsePeople" TargetFieldKey="UsePeople" TargetTableKey="NJ_SCM_UseAssetDisposalHead"/>
+            <SourceField Definition="Room" TargetFieldKey="Room" TargetTableKey="NJ_SCM_UseAssetDisposalHead"/>
+        </SourceTable>
+    </SourceTableCollection>
+    <TargetTableCollection Height="630" Width="518" X="312" Y="30">
+        <TargetTable Key="NJ_SCM_AssetCode" IsPrimary="true">
+            <TargetField Definition="assetstypeid"/>
+            <TargetField Definition="AssetsId"/>
+            <TargetField Definition="Model"/>
+            <TargetField Definition="UNITID"/>
+            <TargetField Definition="WareHouseId"/>
+            <TargetField Definition="AssetNatureId"/>
+            <TargetField Definition="AssetsCode"/>
+            <TargetField Definition="AssetsOID"/>
+        </TargetTable>
+        <TargetTable Key="NJ_SCM_UseAssetDisposalHead">
+            <TargetField Definition="UseEmpID"/>
+            <TargetField Definition="UseDeptID"/>
+            <TargetField Definition="UseType"/>
+            <TargetField Definition="CustomerId"/>
+            <TargetField Definition="EmpID"/>
+            <TargetField Definition="UsePeople"/>
+            <TargetField Definition="Room"/>
+        </TargetTable>
+    </TargetTableCollection>
+</Map>

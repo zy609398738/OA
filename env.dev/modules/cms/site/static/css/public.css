@@ -1,0 +1,16 @@
+@charset "utf-8";
+/*
+@名称: public
+@功能: 全网站公用的css（包含header,footer,nav,翻页,面包屑，tree等等）
+@使用方法: 继bootstrap.css之后引用；
+*/
+.aside-left{
+	width:300px;
+	float:left;
+}
+.newsarea{
+	width:1030px;
+	float:left;
+	height:100%;
+	overflow-y:scroll;
+}

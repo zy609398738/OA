@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Map Caption="合同收款情况下推合同收款" Key="NJ_Receivables_NJ_ContractPayment" SrcDataObjectKey="NJ_Receivables" TgtDataObjectKey="NJ_ContractPayment">
+    <SourceTableCollection Height="450" Width="283" X="30" Y="30">
+        <SourceTable Key="NJ_Receivables" IsPrimary="true" TargetTableKey="NJ_ContractPaymentDtl">
+            <SourceField Definition="EmpID" TargetFieldKey="EmpID" TargetTableKey="NJ_SCM_ContractPaymentHead"/>
+            <SourceField Definition="CustomerId" TargetFieldKey="CustomerId" TargetTableKey="NJ_SCM_ContractPaymentHead"/>
+            <SourceField Definition="UsePeople" TargetFieldKey="UsePeople" TargetTableKey="NJ_SCM_ContractPaymentHead"/>
+            <SourceField Definition="RoomNumber" TargetFieldKey="RoomNumber" TargetTableKey="NJ_SCM_ContractPaymentHead"/>
+            <SourceField Definition="TotalArea" TargetFieldKey="TotalArea" TargetTableKey="NJ_SCM_ContractPaymentHead"/>
+            <SourceField Definition="ContactNumber" TargetFieldKey="ContactNumber" TargetTableKey="NJ_SCM_ContractPaymentHead"/>
+            <SourceField Definition="PlanDate" TargetFieldKey="PlanDate"/>
+            <SourceField Definition="ActualMoney" TargetFieldKey="ActualMoney"/>
+            <SourceField Definition="ReceivedMoney" TargetFieldKey="ReceivedMoney"/>
+            <SourceField Definition="CollectionMoney" TargetFieldKey="CollectionMoney"/>
+            <SourceField Definition="OID" TargetFieldKey="SourceOID"/>
+        </SourceTable>
+    </SourceTableCollection>
+    <TargetTableCollection Height="510" Width="515" X="357" Y="30">
+        <TargetTable Key="NJ_SCM_ContractPaymentHead">
+            <TargetField Definition="EmpID"/>
+            <TargetField Definition="CustomerId"/>
+            <TargetField Definition="UsePeople"/>
+            <TargetField Definition="RoomNumber"/>
+            <TargetField Definition="TotalArea"/>
+            <TargetField Definition="ContactNumber"/>
+        </TargetTable>
+        <TargetTable Key="NJ_ContractPaymentDtl" IsPrimary="true">
+            <TargetField Definition="PlanDate"/>
+            <TargetField Definition="ActualMoney"/>
+            <TargetField Definition="ReceivedMoney"/>
+            <TargetField Definition="CollectionMoney"/>
+            <TargetField Definition="SourceOID"/>
+        </TargetTable>
+    </TargetTableCollection>
+</Map>

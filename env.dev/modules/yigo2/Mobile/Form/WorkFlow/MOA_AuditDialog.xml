@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="MOA_AuditDialog" FormType="View" Caption="审批对话框">
+    <Body PopHeight="pref" PopWidth="pref">
+        <Block>
+            <LinearLayoutPanel Caption="LinearLayoutPanel1" Key="LinearLayoutPanel1" Orientation="Vertical" OverflowY="Scroll" LeftMargin="5px" RightMargin="5px" LeftPadding="10px" RightPadding="10px">
+                <LinearLayoutPanel Caption="LinearLayoutPanel2" Height="40px" Key="LinearLayoutPanel2" Width="auto">
+                    <Label Key="Label1" Caption="下一步处理人" Height="auto" Width="100px">
+                        <Format HAlign="Left"/>
+                    </Label>
+                    <CheckListBox Caption="下一步处理人" Height="auto" Key="NextOpt" Width="auto" Weight="1.0" Visible="InvokeService(&quot;OA_GetWorkflowDesigneValue&quot;, false, false,Para(&quot;pWorkitemID&quot;),Para(&quot;workflowBillKey&quot;),Para(&quot;WorkflowTypeDtlID&quot;))==1" SourceType="Formula">
+                        <DataBinding CheckRule="if(IsVisible(&quot;NextOpt&quot;)==true&amp;&amp;InvokeService(&quot;OA_CheckEmptyMutilSel&quot;,false,false,NextOpt)){     false; }else{     true; };" ErrorInfo="请选择下一步处理人"/>
+                        <FormulaItems>
+                            <![CDATA[InvokeService("OA_GetDropItemByWorkItem",false,false,Para("pWorkitemID"),Para("workflowBillKey"),Para("WorkflowTypeDtlID"));]]>
+                        </FormulaItems>
+                    </CheckListBox>
+                    <HyperLink Caption="处理人选择" Height="pref" Key="HyperLink2" Width="90px">
+                        <Format ForeColor="#ff6666"/>
+                        <OnClick>
+                            <![CDATA[var ids=parent.InvokeService("OA_GetParticipatorList",true,false,Para("pWorkitemID"),Para("workflowBillKey"),Para("WorkflowTypeDtlID"));
+SetPara("ParticipatorIDs", ids);
+Show("MOA_ParticipatorSelect","newtab",{ParticipatorIDs:{Para('ParticipatorIDs')},NextOpt:{NextOpt}});
+]]>
+                        </OnClick>
+                    </HyperLink>
+                </LinearLayoutPanel>
+                <LinearLayoutPanel Caption="LinearLayoutPanel3" Height="40px" Key="LinearLayoutPanel3" Width="auto">
+                    <Label Key="Label2" Caption="常用意见" Height="pref" Width="100px">
+                        <Format HAlign="Left"/>
+                    </Label>
+                    <ComboBox Key="CommonUseContent" Caption="ComboBox1" SourceType="Query" Height="auto" Width="auto">
+                        <DataBinding>
+                            <ValueChanged>
+                                <![CDATA[SetValue("Opinion", CommonUseContent)]]>
+                            </ValueChanged>
+                        </DataBinding>
+                        <QueryDef>
+                            <Statement>
+                                <![CDATA[select  content,content as contentC from OA_AddViews where creator =?]]>
+                            </Statement>
+                            <ParameterCollection>
+                                <Parameter DataType="Long" Formula="GetOperator()"/>
+                            </ParameterCollection>
+                        </QueryDef>
+                    </ComboBox>
+                </LinearLayoutPanel>
+                <LinearLayoutPanel Caption="LinearLayoutPanel4" Height="pref" Key="LinearLayoutPanel4" Width="auto" Orientation="Vertical">
+                    <Label Key="Label3" Caption="处理意见" Height="40px" Width="100px"/>
+                    <LinearLayoutPanel Caption="LinearLayoutPanel5" Height="auto" Key="LinearLayoutPanel5" Orientation="Horizontal" Width="auto">
+                        <TextArea Key="Opinion" Caption="处理意见" Height="auto" Width="auto" Weight="1.0">
+                            <DataBinding CheckRule="if(Opinion==&quot;&quot; &amp;&amp; InvokeService(&quot;OA_GetWorkflowDesigneUserInfoCheck&quot;, false, false,Para(&quot;pWorkitemID&quot;),Para(&quot;workflowBillKey&quot;),Para(&quot;WorkflowTypeDtlID&quot;))==1){false;}else{true;};" ErrorInfo="&quot;请填写处理意见&quot;"/>
+                        </TextArea>
+                        <HyperLink Caption="保存常用意见" Height="auto" Key="HyperLink1" Width="100px">
+                            <Format ForeColor="#ff6666"/>
+                            <OnClick>
+                                <![CDATA[IIF(
+    DBQueryValue
+        ('select a.Content 
+            from OA_AddViews a 
+            where a.Content=? and Creator=?', GetValue('Opinion'),GetOperator())==GetValue('Opinion'),
+        Confirm('该意见已存在'),
+        DBUpdate('Insert into OA_AddViews (OID,SOID,POID,VERID,DVERID,Content,Creator,Status) values (?,OID,null,0,0,?,?,100)',
+ApplyNewOID(),GetValue('Opinion'),GetOperator())
+);]]>
+                            </OnClick>
+                        </HyperLink>
+                    </LinearLayoutPanel>
+                </LinearLayoutPanel>
+                <GridLayoutPanel Key="GridLayoutPanel1" Height="pref" Caption="GridLayoutPanel1" Width="pref">
+                    <Image Key="E_Signature" Caption="电子签名" X="0" Y="0" Stretch="true" XSpan="2" YSpan="5" HasBorder="true"/>
+                    <Button Key="Button2" Caption="签名" X="2" Y="4">
+                        <OnClick>
+                            <![CDATA[SetValue("E_Signature",GetDictValue("OA_Employee", GetDictValue('Operator', GetOperator(), 'SYS_Operator.EmpID'), "OA_Employee_H.E_Signature"));]]>
+                        </OnClick>
+                    </Button>
+                    <Button Key="Reset" Caption="重置" X="3" Y="4">
+                        <OnClick>
+                            <![CDATA[SetValue("E_Signature","");]]>
+                        </OnClick>
+                    </Button>
+                    <Button Key="Button4" Caption="通过" X="1" Y="5">
+                        <OnClick>
+                            <![CDATA[var x = Para("pWorkitemID");
+if(IsVisible("NextOpt")==false)
+{       
+        DBUpdate("Update bpm_log set E_Signature=? where workitemid=?", E_Signature,x);
+	parent.CommitWorkitem(-1,1,GetValue("Opinion"));
+	Close();
+}
+else{
+	UICheck();
+        
+            DBUpdate("Update bpm_log set E_Signature=? where workitemid=?", E_Signature,x);
+        
+	InvokeService("OA_SetNextParticipator",true,false,"SYS_OPERATOR",NextOpt,Para("workflowBillKey"),Para("workflowOID"),x,GetOperator());		
+	parent.CommitWorkitem(-1,1,GetValue("Opinion"));
+        Close();
+	}
+
+]]>
+                        </OnClick>
+                    </Button>
+                    <Button Key="Button5" Caption="驳回" X="2" Y="5">
+                        <OnClick>
+                            <![CDATA[
+			
+			parent.CommitWorkitem(-1,0,GetValue("Opinion"));Close();
+			
+			]]>
+                        </OnClick>
+                    </Button>
+                    <Button Key="cancel" Caption="取消" X="3" Y="5">
+                        <OnClick>
+                            <![CDATA[
+			
+			Close();
+			
+			]]>
+                        </OnClick>
+                    </Button>
+                    <RowDefCollection RowGap="5">
+                        <RowDef Height="37px"/>
+                        <RowDef Height="37px"/>
+                        <RowDef Height="37px"/>
+                        <RowDef Height="37px"/>
+                        <RowDef Height="37px"/>
+                        <RowDef Height="37px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="5">
+                        <ColumnDef Width="100px"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="80px"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+            </LinearLayoutPanel>
+        </Block>
+    </Body>
+</Form>

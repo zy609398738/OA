@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="V_Client" Caption="集团" FormType="Dict">
+    <DataSource RefObjectKey="Client"/>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root">
+                <TabPanel Key="body">
+                    <GridLayoutPanel Key="body_basic" Padding="8px" Caption="基本信息(&amp;B)">
+                        <Label Key="Inner_Code" Caption="代码" X="0" Y="0"/>
+                        <TextEditor Key="Code" Caption="代码" BuddyKey="Inner_Code" X="1" Y="0" Enable="!ReadOnly()&amp;&amp;com.bokesoft.erp.basis.common.DocumentNumberUI.docNumberFieldEnable('Code')" Visible="true" InvalidChars="%*\&quot;+?&gt;&lt;:'">
+                            <DataBinding TableKey="BK_Client" ColumnKey="Code" CheckRule="iifs(com.bokesoft.erp.basis.common.DocumentNumberUI.docNumberFieldEnable('Code')&amp;&amp;Value('Code')='', '采用外部给号编码规则，请输入代码', true, true)"/>
+                        </TextEditor>
+                        <Label Key="Inner_Name" Caption="名称" X="0" Y="1"/>
+                        <TextEditor Key="Name" Caption="名称" BuddyKey="Inner_Name" X="1" Y="1" Enable="!ReadOnly()" Visible="true">
+                            <DataBinding TableKey="BK_Client" ColumnKey="Name"/>
+                        </TextEditor>
+                        <Label Key="Inner_NodeType" Caption="结点类型" X="0" Y="3"/>
+                        <ComboBox Key="NodeType" Caption="结点类型" BuddyKey="Inner_NodeType" X="1" Y="3" Visible="false" Enable="!ReadOnly()&amp;&amp;Status&lt;0">
+                            <DataBinding TableKey="BK_Client" ColumnKey="NodeType"/>
+                        </ComboBox>
+                        <Label Key="Inner_CurrencyID" Caption="币种" X="0" Y="2"/>
+                        <Dict Key="CurrencyID" Caption="币种" BuddyKey="Inner_CurrencyID" X="1" Y="2" Enable="!ReadOnly()" Visible="true" ItemKey="Currency">
+                            <DataBinding TableKey="BK_Client" ColumnKey="CurrencyID" CheckRule="iifs(CurrencyID=-1, '请选择集团币种', true, true)"/>
+                        </Dict>
+                        <RowDefCollection RowGap="5">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="5">
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="330px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <GridLayoutPanel Key="body_system" Padding="8px" Caption="系统信息(&amp;D)">
+                        <Label Key="Inner_Status" Caption="结点状态" X="0" Y="0"/>
+                        <ComboBox Key="Status" Caption="结点状态" BuddyKey="Inner_Status" X="1" Y="0" Visible="true" Enable="false">
+                            <DataBinding TableKey="BK_Client" ColumnKey="Status"/>
+                        </ComboBox>
+                        <Label Key="Inner_CREATOR" Caption="创建人员" X="0" Y="1"/>
+                        <Dict Key="CREATOR" Caption="创建人员" BuddyKey="Inner_CREATOR" X="1" Y="1" Enable="false" Visible="true" ItemKey="Operator">
+                            <DataBinding TableKey="BK_Client" ColumnKey="CREATOR" DefaultFormulaValue="GetOperator()"/>
+                        </Dict>
+                        <Label Key="Inner_CREATETIME" Caption="创建时间" X="0" Y="2"/>
+                        <DatePicker Key="CREATETIME" Caption="创建时间" BuddyKey="Inner_CREATETIME" X="1" Y="2" Enable="false" Visible="true" OnlyDate="false">
+                            <DataBinding TableKey="BK_Client" ColumnKey="CREATETIME" DefaultFormulaValue="ServerDate()"/>
+                        </DatePicker>
+                        <Label Key="Inner_MODIFIER" Caption="修改人员" X="0" Y="3"/>
+                        <Dict Key="MODIFIER" Caption="修改人员" BuddyKey="Inner_MODIFIER" X="1" Y="3" Enable="false" Visible="true" ItemKey="Operator">
+                            <DataBinding TableKey="BK_Client" ColumnKey="MODIFIER" DefaultFormulaValue="GetOperator()"/>
+                        </Dict>
+                        <Label Key="Inner_MODIFYTIME" Caption="修改时间" X="0" Y="4"/>
+                        <DatePicker Key="MODIFYTIME" Caption="修改时间" BuddyKey="Inner_MODIFYTIME" X="1" Y="4" Enable="false" Visible="true" OnlyDate="false">
+                            <DataBinding TableKey="BK_Client" ColumnKey="MODIFYTIME" DefaultFormulaValue="ServerDate()"/>
+                        </DatePicker>
+                        <Label Key="Inner_Notes" Caption="备注" X="0" Y="5"/>
+                        <TextEditor Key="Notes" Caption="备注" BuddyKey="Inner_Notes" X="1" Y="5" Enable="!ReadOnly()" Visible="true">
+                            <DataBinding TableKey="BK_Client" ColumnKey="Notes"/>
+                        </TextEditor>
+                        <RowDefCollection RowGap="5">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="5">
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="330px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                </TabPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

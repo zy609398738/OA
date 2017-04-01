@@ -1,0 +1,149 @@
+#set( $R_ROOT = "$this.eval('#!spring:cms.PageExp.RelContextRoot()')" )
+<script type="text/javascript" src="/yigo/_$/resources/@buildin/js/lodash.min.js"></script>
+<script type="text/javascript" src="/yigo/_$/resources/@buildin/js/estorecommon.js"></script>
+<script type="text/javascript" src="/yigo/_$/resources/@buildin/js/jquery.paging.js"></script>
+<style>
+	.news-list-page td{
+  		text-align:center;
+    }
+</style>
+<div class="hr">
+   <input type="hidden" value="$!typecode" id="param_typecode" />
+   <input type="hidden" value="$!date" id="param_date" />
+</div>
+<div class="breadcrumb-box clearfix">
+  <input type = "hidden" id= "userid" name="userid" value="$userid">
+		<div class="news_list_title">
+          	新闻资讯
+  		</div>
+		<div class="filter fl_right">
+            <div class="filter_left">
+              <span class="back"><a href="$R_ROOT/index.page">返回首页</a></span>
+              <div class="category">
+              	<span class="category_text">全部分类</span>
+              </div>
+              <ul class="cate-content" style="display:none;">
+                 #foreach($line in $data)
+                    <li><a href="#" name="$line.CODE">$line.NAME</a></li>
+                 #end
+              </ul>
+              <span class="all"><a href="$R_ROOT/newslist.page">全部新闻</a></span>
+              <span class="filter-date">
+                <span class="one-week" name="week"><a>最近一周</a></span>
+                <span class="one-month" name="month"><a>最近一月</a></span>
+                <span class="half-year" name="year"><a>最近半年</a></span>
+              </span>
+             </div>
+		</div>
+</div>
+<div class="data-list">	
+<script type="text/template" class="newsList-template">
+          <% _.each(items, function(order){ %>
+              <div class="news_row">
+                  <% if(order.PATH){%>
+                  <div class="news_image_content">
+                  	  <img src="/yigo/a/cms2-yigo2-adapter/cms/view-yigo-file/<%= order.PATH %>" class="news-image"/>
+                  </div>
+                  <%}%>
+                  <div class="news-info f555">
+                      <h2><a href="$R_ROOT/news/newsview.page?id=<%= order.OID %>" class="f333" title="<%= order.TOPIC %>"><%= order.TOPIC %></a></h2>
+                      <p class="news-head f"><span><%=order.NEWSDATE%></span><span class="news-type"><b>·</b><%= order.TYPENAME %></span><span class="news-author"><b>·</b><%= order.AUTHOR %></span></p>
+					  <div class="news-content"><%= order.NEWSCONTENT %></div>
+                  </div>
+              </div>
+          <% }); %>
+</script>
+<div class="news-list-page"></div>
+<div class="newsListPager PagerView"></div>
+<script type="text/javascript">
+  (function($){
+	$(function(){
+		var blockId = "$this.eval("cms.PageExp.GlobalVarName({})", "" )";
+		var block = '#'+blockId.replace(/[.]/g,"\-");
+        var typecode=$('#param_typecode').val();
+        var date=$("#param_date").val();
+        var whereString='';
+        var searchWhere='';
+        if(date!=''){
+          switch (date)
+          {
+            case 'week':
+           		$(".one-week").addClass("filter_left_selected");
+              searchWhere=" ond.createtime>DATE_SUB(CURDATE(), INTERVAL 1 WEEK)";
+              break;
+            case 'month':
+           		$(".one-month").addClass("filter_left_selected");
+              searchWhere=" ond.createtime>DATE_SUB(CURDATE(), INTERVAL 1 MONTH)";
+              break;
+            default:
+           		$(".half-year").addClass("filter_left_selected");
+              searchWhere=" ond.createtime>DATE_SUB(CURDATE(), INTERVAL 0.5 YEAR)";
+          }
+        }
+   		if(typecode!=''){
+  			var opt=".breadcrumb-box .filter_left .cate-content a[name='"+typecode+"']";
+            var optNode=$(opt);
+  			optNode.addClass("filter_left_selected");
+            var name=optNode.text();
+  			var selectNode=$(".breadcrumb-box .filter_left .category .category_text")
+            selectNode.text(name);
+  			$(".breadcrumb-box .filter_left .category").addClass("cate-content_li_selected");
+  		}
+        if(typecode!=''&&date==''){
+           whereString=' where ont.code='+typecode; 
+        }
+        if(typecode==''&&date!=''){
+           whereString=' where '+searchWhere; 
+        }
+        if(typecode!=''&&date!=''){
+           whereString=' where ont.code='+typecode+' and ' +searchWhere; 
+        }
+  		if(typecode==''&&date==''){
+           $(".breadcrumb-box .filter_left .all").addClass("filter_left_selected");
+        }
+        $(".one-week,.one-month,.half-year").click(function(){
+           var date=$(this).attr('name');
+           if(typecode!=''){
+               location.href="$R_ROOT/newslist.page?date="+date+"&typecode="+typecode;
+           }else{
+           	   location.href="$R_ROOT/newslist.page?date="+date;
+           }
+        })
+        $(".breadcrumb-box .filter_left .cate-content a").each(function(){
+           $(this).click(function(){
+  				var type=$(this).attr('name');
+               if(date!=''){
+   					location.href="$R_ROOT/newslist.page?typecode="+type+"&date="+date;
+               }else{
+                    location.href="$R_ROOT/newslist.page?typecode="+type;
+               }
+           })
+        })
+              
+        $(".category").click(function(){
+    		$(".cate-content").show();
+    	})
+    	$(".filter_left").mouseleave(function(){
+    		$(".cate-content").hide();
+    	})
+		//分页查询方法
+		estoreCommon.pagingShow({
+			pager: block+" .newsListPager",
+			render: block+" .news-list-page",
+			tmpl: block+" .newsList-template",
+			format: '-[<ncnnn>]',
+			dataCallback: function(pageNo,callback){
+				var pager = this;
+				estoreCommon.postJson(
+					"$R_ROOT/news/pagesquery.action",
+					{pageNo:pageNo,whereString:whereString},
+					function(pageData){		
+						callback.call(pager,pageData);
+					}
+				);
+			}
+		});
+	});
+})(jQuery);
+ </script>
+</div>

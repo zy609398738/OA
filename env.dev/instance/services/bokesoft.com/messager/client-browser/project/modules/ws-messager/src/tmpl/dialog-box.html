@@ -1,0 +1,102 @@
+<div class="main" data-boke-messager-user="${userCode}">
+    <div class="tab">
+        <div class="avatar">
+		    <div class="head_status">
+				<img src="${userIcon || defMyselfIcon}" title="${userName}" alt="${userName}">
+				<i class="status"><img src="${states.online}" alt=""/></i>
+			</div>
+            <div class="pop-box user-state-panel">
+                <div class="pop_state">
+                    <img class="state_img" src="${states.online}">
+                    <select name="status" class="state_combobox">
+                        <option value="online">在线</option>
+                        <!--<option value="offline">离线</option>-->
+                        <option value="idle">离开</option>
+                        <option value="lurk">隐身</option>
+                        <option value="busy">忙碌</option>
+                    </select>
+                </div>
+                <div class="pop_img">
+					<img src="${userIcon || defMyselfIcon}" title="${userName||userCode}" alt="${userName}">
+				</div>
+                <h5><code>${userCode}</code><br/>${userName}</h5>
+            </div>
+        </div>
+        <ul>
+            <li class="tab-item select-li" title="聊天">
+                <a class="chat"  title="聊天" href="javascript:void(0)"><i class="web_wechat_tab_chat" ></i></a>
+            </li>
+            <li class="tab-item" title="通讯录">
+                <a class="chat" title="通讯录" href="javascript:void(0)"><i class="web_wechat_tab_friends"></i></a>
+            </li>
+        </ul>
+    </div>
+    <div class="user-list">
+        <div class="search_bar search-in-panel-sessions">
+            <i class="web_wechat_search"></i>
+            <input class="frm_search" type="text" placeholder="搜索对话">
+            <a class="button add-session" href="javascript:void(0)" title="新增对话"></a>
+            <div class="pop-box search-sessions-result">
+              <div class="search-path">
+                <span class="title">查找历史: "<code class="keywords"></code>" (</span>
+                <a class="current-user" href="javascript:void(0)">当前对话</a>
+                <span> | </span>
+                <a class="all-users" href="javascript:void(0)">全部对话</a>
+                <span>)</span>
+                <span class="in-session"> &gt;&gt; 对话历史 </span>
+              </div>
+              <div class="search-result"></div>
+              <div class="search-pager">
+			    <a class="prev" href="javascript:void(0)"></a>
+			    |
+			    <a class="next" href="javascript:void(0)"></a>
+			  </div>
+            </div>
+            <div class="pop-box add-session-panel">
+              <div class="title">请输入好友编号:</div>
+              <input class="user-code" type="text" />
+              <div class="error"></div>
+              <div class="buttons">
+                <a href="javascript:void(0)">开始对话</a>
+              </div>
+            </div>
+        </div>
+        <div class="scroll-wrapper chat_list item-sessions" data-boke-messager-user="${userCode}">
+           <!-- Include item-sessions.html -->
+        </div>
+    </div>
+    <div class="user-list hide">
+        <div class="search_bar search-in-panel-buddies" data-boke-messager-user="${userCode}">
+            <i class="web_wechat_search"></i>
+            <input  class="frm_search" type="text" placeholder="搜索好友">
+            <%if (pageBuddiesManager){%>
+              <a class="button manage-buddies" href="${pageBuddiesManager}" target="_blank" title="管理好友"></a>
+            <%}%>
+        </div>
+        <div class="scroll-wrapper chat_list item-buddies" data-boke-messager-user="${userCode}">
+           <!-- Include item-buddies.html -->
+        </div>
+    </div>
+    <div class="talk-box">
+        <div class="close-btn"><a href="javascript:void(0)"></a> </div>
+        <div class="head"><a href="javascript:void(0)">阿访</a></div>
+        <div class="chatContent"></div>
+        <div class="chatSenderController">
+            <div class="action">
+                <a class="button emojiBtn" href="javascript:void(0)" title="表情"></a>
+                <a class="button uploadBtn" href="javascript:void(0)" title="上传"></a>
+            </div>
+            <div class="chat_input">
+                <div class="chatTextarea" contenteditable="false"></div>
+            </div>
+            <div class="action_send">
+                <a class="button chatSendBtn" href="javascript:void(0)">发送</a>
+                <span class="desc">按下 <code>Shift+Enter</code> 换行</span>
+             </div>
+        </div>
+    </div>
+    <div class="popTips">
+        <span>黑名单内用户无法发送消息</span>
+    </div>
+</div>
+<a class="showMessage" href="javascript:void(0)">无消息</a>

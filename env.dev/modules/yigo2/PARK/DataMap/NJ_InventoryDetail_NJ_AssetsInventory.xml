@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Map Caption="库存余额下推库存资产盘点" Key="NJ_InventoryDetail_NJ_AssetsInventory" SrcDataObjectKey="NJ_InventoryDetail" TgtDataObjectKey="NJ_AssetsInventory">
+    <SourceTableCollection Height="330" Width="338" X="30" Y="30">
+        <SourceTable Key="NJ_InventoryDetail" IsPrimary="true" TargetTableKey="NJ_SCM_AssetsInventoryDtl">
+            <SourceField Definition="assetstypeid" TargetFieldKey="assetstypeid"/>
+            <SourceField Definition="AssetsId" TargetFieldKey="AssetsId"/>
+            <SourceField Definition="UNITID" TargetFieldKey="UNITID"/>
+            <SourceField Definition="Model" TargetFieldKey="Model"/>
+            <SourceField Definition="WareHouseId" TargetFieldKey="WareHouseId"/>
+            <SourceField Definition="AssetNatureId" TargetFieldKey="AssetNatureId"/>
+            <SourceField Definition="Amount" TargetFieldKey="BookAmount"/>
+            <SourceField Definition="Amount" TargetFieldKey="ActualAmount"/>
+        </SourceTable>
+    </SourceTableCollection>
+    <TargetTableCollection Height="360" Width="464" X="421" Y="30">
+        <TargetTable Key="NJ_SCM_AssetsInventoryDtl" IsPrimary="true">
+            <TargetField Definition="assetstypeid"/>
+            <TargetField Definition="AssetsId"/>
+            <TargetField Definition="UNITID"/>
+            <TargetField Definition="Model"/>
+            <TargetField Definition="WareHouseId"/>
+            <TargetField Definition="AssetNatureId"/>
+            <TargetField Definition="BookAmount"/>
+            <TargetField Definition="ActualAmount"/>
+        </TargetTable>
+    </TargetTableCollection>
+</Map>

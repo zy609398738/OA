@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Entry Caption="根" Key="root">
+    <Entry Caption="招商管理" Key="ParkManage">
+        <EntryItem Caption="招商门户" FormKey="ToDoList_ZS" Key="ToDoList_ZS" Type="Form"/>
+        <Entry Caption="意向管理" Key="yxgl">
+            <EntryItem Caption="看房申请" FormKey="NJ_HouseAppView" Key="NJ_HouseAppView" Type="Form"/>
+            <EntryItem Caption="意向登记" FormKey="NJ_PreOrderView" Key="PreOrderView" Type="Form"/>
+            <EntryItem Caption="资格审核" FormKey="NJ_EntryReviewView" Key="NJ_EntryReviewView" Type="Form"/>
+            <EntryItem Caption="企业入驻" FormKey="DictEdit" Key="Customer" Parameters="FormKey=Customer" Type="Form"/>
+        </Entry>
+        <Entry Caption="项目管理" Key="xmgl" Visible="false">
+            <EntryItem Caption="项目登记" FormKey="NJ_OrderView" Key="Order" Type="Form"/>
+        </Entry>
+        <Entry Caption="基础设置" Key="jcpz">
+            <EntryItem Caption="行业" FormKey="DictEdit" Key="Industry" Parameters="FormKey=Idustry" Type="Form"/>
+            <EntryItem Caption="园区" FormKey="DictEdit" Key="Park" Parameters="FormKey=Park" Type="Form"/>
+            <EntryItem Caption="楼栋" FormKey="DictEdit" Key="Building" Parameters="FormKey=Building" Type="Form"/>
+            <EntryItem Caption="房号" FormKey="DictEdit" Key="Room" Parameters="FormKey=Room" Type="Form"/>
+            <EntryItem Caption="车位" FormKey="DictEdit" Key="NJ_ParkingLot" Parameters="FormKey=NJ_ParkingLot" Type="Form"/>
+            <EntryItem Caption="项目分类" FormKey="DictEdit" Key="NJ_ProjectType" Parameters="FormKey=NJ_ProjectType" Type="Form"/>
+            <EntryItem Caption="房屋类别" FormKey="DictEdit" Key="HouseType" Parameters="FormKey=HouseType" Type="Form"/>
+        </Entry>
+    </Entry>
+</Entry>

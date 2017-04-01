@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Entry Caption="根" Key="root">
+    <Entry Caption="系统管理" Key="System">
+        <Entry Caption="权限管理" Key="Rigths">
+            <EntryItem Caption="用户管理" FormKey="DictEdit" Key="Operator" Parameters="FormKey=Operator" Type="Form"/>
+            <EntryItem Caption="角色管理" FormKey="DictEdit" Key="Role" Parameters="FormKey=Role" Type="Form"/>
+            <EntryItem Caption="用户权限设置" FormKey="OperatorRightsSet" Key="OperatorRightsSet" Type="Form"/>
+            <EntryItem Caption="角色权限设置" FormKey="RoleRightsSet" Key="RoleRightsSet" Type="Form"/>
+            <EntryItem Caption="密码设置" FormKey="DictEdit" Key="PassWordSet" Parameters="FormKey=PassWordSet" Type="Form" Visible="false"/>
+        </Entry>
+        <Entry Caption="系统功能" Key="SystemFunction">
+            <EntryItem Caption="登录管理" FormKey="OA_LoginInfo" Key="OA_LoginInfo" Type="Form"/>
+            <EntryItem Caption="字典导入导出" FormKey="DictionaryExportImport" Key="DictionaryExportImport" Type="Form" Visible="false"/>
+            <EntryItem Caption="业务日志" FormKey="SysLog" Key="SysLog" Type="Form" Visible="false"/>
+        </Entry>
+    </Entry>
+</Entry>

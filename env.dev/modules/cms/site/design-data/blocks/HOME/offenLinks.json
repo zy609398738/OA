@@ -1,0 +1,13 @@
+{
+	"@type":"com.bokesoft.cms2.impl.buildin.modelio.vo.BlockVO",
+	"block":{
+		"@type":"com.bokesoft.cms2.model.blocks.TmplBlock",
+		"notes":"",
+		"parameters":[],
+		"tmplText":"<h5><span>常用链接</span><span style=\"float:right;\">门户入口</span></h5>\n<ul class=\"fff clearfix\">\n    <li><a href=\"./?entrypath=OA/OA_PersonalUse/PaseUse/OA_ToDoList\" target=\"_blank\">个人事务</a></li>\n    <li><a href=\"./?entrypath=OA/OA_DocManagement/OA_DocView\" target=\"_blank\">文档管理</a></li>\n    <li><a href=\"./?entrypath=OA/OA_Information/OA_NewsDraftView\" target=\"_blank\">新闻管理</a></li>\n    <li><a href=\"./?entrypath=OA/OA_Meeting/OA_MeetingInSideView\" target=\"_blank\">会议管理</a></li>\n    <li><a href=\"./?entrypath=OA/OA_AddressBook/AddressBook\" target=\"_blank\">通信录管理</a></li>\n</ul>",
+		"type":"TMPL"
+	},
+	"code":"offenLinks",
+	"name":"首页常用链接",
+	"params":[]
+}

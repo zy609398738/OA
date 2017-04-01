@@ -1,0 +1,29 @@
+{
+	"@type":"com.bokesoft.cms2.impl.buildin.modelio.vo.PageVO",
+	"attributes":{"@type":"java.util.LinkedHashMap"},
+	"code":"LOGIN",
+	"deliveryVOs":[
+		{
+			"@type":"com.bokesoft.cms2.impl.buildin.modelio.vo.PageVO$DeliveryVO",
+			"areaCode":"login",
+			"blockCode":"PUBLIC.LOGINFORM",
+			"groupName":"",
+			"name":"登录界面",
+			"options":[
+				"Raw"
+			],
+			"parameters":{"@type":"java.util.HashMap"},
+			"sequence":"1"
+		}
+	],
+	"enabled":true,
+	"groups":[
+		{
+			"groupName":""
+		}
+	],
+	"name":"登录",
+	"title":"博科OA登录",
+	"tmplCode":"LOGIN.LOGIN-TPL",
+	"url":"/login.page"
+}

@@ -1,0 +1,13 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript">
+function formSubmit(inputName, inputValue) {
+	var form = document.getElementById("form1"); var input = form.children[0];
+	input.name = inputName; input.value = inputValue; form.submit();
+}
+function ff(){alert("this is inner page_s js function");}
+</script></head><body>
+<iframe id="ajaxiframe" src="about:blank" ></iframe>
+<iframe id="downloadiframe" src="about:blank" ></iframe>
+<form id="form1" style="display:none;">
+<input type="text" name="hehe" value="" /><input type="submit" />
+</form></body></html>

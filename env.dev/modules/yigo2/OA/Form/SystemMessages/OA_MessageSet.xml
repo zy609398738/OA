@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="OA_MessageSet" Caption="消息设置" FormType="Dict" Platform="">
+    <DataSource>
+        <DataObject Key="OA_MessageSet" Caption="消息设置" PrimaryTableKey="OA_MessageSet_H" SecondaryType="Dict" PrimaryType="Entity">
+            <TableCollection>
+                <Table Key="OA_MessageSet_H" Caption="消息设置" DBTableName="OA_MessageSet_H">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="Status" Caption="状态" DataType="Integer" DefaultValue="1"/>
+                    <Column Key="Enable" Caption="启用标记" DataType="Integer" DefaultValue="1"/>
+                    <Column Key="NodeType" Caption="节点类型" DataType="Integer" DefaultValue="0"/>
+                    <Column Key="ParentID" Caption="父节点" DataType="Long" DefaultValue="0"/>
+                    <Column Key="TLeft" Caption="左索引" DataType="Integer"/>
+                    <Column Key="TRight" Caption="右索引" DataType="Integer"/>
+                    <Column Key="Code" Caption="代码" DataType="Varchar" Length="50"/>
+                    <Column Key="Name" Caption="名称" DataType="Varchar" Length="50"/>
+                    <Column Key="Creator" Caption="创建人员" DataType="Long"/>
+                    <Column Key="CreateTime" Caption="创建时间" DataType="DateTime"/>
+                    <Column Key="Modifier" Caption="修改人员" DataType="Long"/>
+                    <Column Key="ModifyTime" Caption="修改时间" DataType="DateTime"/>
+                    <Column Key="Notes" Caption="备注" DataType="Varchar"/>
+                    <Column Key="BillKey" Caption="单据Key" DataType="Varchar"/>
+                    <Column Key="ClusterID" Caption="集团" DataType="Long"/>
+                    <Column Key="OrderNum" Caption="显示顺序" DataType="Integer"/>
+                    <Column Key="IsDefault" Caption="默认" DataType="Integer"/>
+                </Table>
+                <Table Key="OA_MessageSet_D" Caption="消息设置明细" DBTableName="OA_MessageSet_D" TableMode="Detail" ParentKey="OA_MessageSet_H">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="MessageType" Caption="消息类型" DataType="Varchar"/>
+                    <Column Key="IsSucceed" Caption="继续发送" DataType="Integer"/>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <UICheckRuleCollection>
+        <UICheckRule Description="检查发送类型是否为空" ErrorInfo="发送类型不能为空">
+            <![CDATA[GetRowCount("Dtl",false)>0;]]>
+        </UICheckRule>
+    </UICheckRuleCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="FlexFlowLayoutPanel1" Caption="FlexFlowLayoutPanel1">
+                <TabPanel Caption="TabPanel1" Height="100%" Key="TabPanel1">
+                    <SplitPanel Key="SplitPanel1" Orientation="Vertical" Caption="基本信息">
+                        <GridLayoutPanel Key="GridLayoutPanel1" Height="40px" Caption="GridLayoutPanel1" Width="100%">
+                            <TextEditor Key="Code" Caption="代码" BuddyKey="Lab_Code" X="1" Y="0">
+                                <DataBinding TableKey="OA_MessageSet_H" ColumnKey="Code" Required="true"/>
+                            </TextEditor>
+                            <Label Key="Lab_Code" Caption="代码" X="0" Y="0"/>
+                            <TextEditor Key="Name" Caption="名称" BuddyKey="Lab_Name" X="4" Y="0">
+                                <DataBinding TableKey="OA_MessageSet_H" ColumnKey="Name" Required="true"/>
+                            </TextEditor>
+                            <Label Key="Lab_Name" Caption="名称" X="3" Y="0"/>
+                            <CheckBox Caption="默认" Key="IsDefault" X="1" Y="1">
+                                <DataBinding TableKey="OA_MessageSet_H" ColumnKey="IsDefault">
+                                    <ValueChanged>
+                                        <![CDATA[if(IsDefault==1){
+    var sql = "update OA_MessageSet_H set IsDefault=0 where oid != ?";
+    DBUpdate(sql, GetOID());
+}]]>
+                                    </ValueChanged>
+                                </DataBinding>
+                            </CheckBox>
+                            <RowDefCollection RowGap="4">
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="4">
+                                <ColumnDef Width="80px"/>
+                                <ColumnDef Width="50%"/>
+                                <ColumnDef Width="20px"/>
+                                <ColumnDef Width="80px"/>
+                                <ColumnDef Width="50%"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                        <TabPanel Caption="TabPanel2" Key="TabPanel2">
+                            <Grid Key="Dtl" Caption="明细" Height="100%" Width="100%">
+                                <GridColumnCollection>
+                                    <GridColumn Key="MessageType" Caption="发送类型" Width="80px"/>
+                                </GridColumnCollection>
+                                <GridRowCollection>
+                                    <GridRow Key="row-0" TableKey="OA_MessageSet_D">
+                                        <GridCell Key="MessageType" Caption="发送类型" CellType="ComboBox" SourceType="Formula">
+                                            <DataBinding ColumnKey="MessageType" CheckRule="!IsControlNull(&quot;MessageType&quot;);" CheckDependency="MessageType" ErrorInfo="发送类型不能为空"/>
+                                            <FormulaItems>
+                                                <![CDATA[OA_GetDropItemsBySettings("SystemMessage|MessageType")]]>
+                                            </FormulaItems>
+                                        </GridCell>
+                                    </GridRow>
+                                </GridRowCollection>
+                            </Grid>
+                        </TabPanel>
+                        <SplitSize Size="100px"/>
+                        <SplitSize Size="100%"/>
+                    </SplitPanel>
+                    <GridLayoutPanel Key="SysTab" Height="1%" Caption="系统信息">
+                        <Dict Key="Creator" Caption="创建人员" BuddyKey="Lab_Creator" X="1" Y="0" Enable="false" ItemKey="Operator">
+                            <DataBinding TableKey="OA_MessageSet_H" ColumnKey="Creator" DefaultFormulaValue="GetOperator()" Required="true"/>
+                        </Dict>
+                        <Label Key="Lab_Creator" Caption="创建人员" X="0" Y="0"/>
+                        <Label Key="Lab_CreateTime" Caption="创建时间" X="3" Y="0"/>
+                        <DatePicker Key="CreateTime" Caption="创建时间" BuddyKey="Lab_CreateTime" X="4" Y="0" Enable="false">
+                            <DataBinding TableKey="OA_MessageSet_H" ColumnKey="CreateTime" DefaultFormulaValue="ServerDate()" Required="true"/>
+                        </DatePicker>
+                        <Label Key="Lab_Modifier" Caption="修改人员" X="0" Y="1"/>
+                        <Dict Key="Modifier" Caption="修改人员" BuddyKey="Lab_Modifier" X="1" Y="1" Enable="false" ItemKey="Operator">
+                            <DataBinding TableKey="OA_MessageSet_H" ColumnKey="Modifier" DefaultFormulaValue="GetOperator()" Required="true"/>
+                        </Dict>
+                        <Label Key="Lab_ModifyTime" Caption="修改时间" X="3" Y="1"/>
+                        <DatePicker Key="ModifyTime" Caption="修改时间" BuddyKey="Lab_ModifyTime" X="4" Y="1" Enable="false">
+                            <DataBinding TableKey="OA_MessageSet_H" ColumnKey="ModifyTime" DefaultFormulaValue="ServerDate()" Required="true"/>
+                        </DatePicker>
+                        <Label Key="Lab_Notes" Caption="备注" X="0" Y="2"/>
+                        <TextEditor Key="Notes" Caption="备注" BuddyKey="Lab_Notes" X="1" Y="2" XSpan="4">
+                            <DataBinding TableKey="OA_MessageSet_H" ColumnKey="Notes"/>
+                        </TextEditor>
+                        <TextEditor Key="BillKey" Caption="单据Key" BuddyKey="Lab_BillKey" X="1" Y="3" Enable="false">
+                            <DataBinding TableKey="OA_MessageSet_H" ColumnKey="BillKey" DefaultFormulaValue="GetFormKey()"/>
+                        </TextEditor>
+                        <Label Key="Lab_BillKey" Caption="单据Key" X="0" Y="3"/>
+                        <Dict Key="ClusterID" Caption="集团" BuddyKey="Lab_ClusterID" X="4" Y="3" Enable="false" ItemKey="Client">
+                            <DataBinding TableKey="OA_MessageSet_H" ColumnKey="ClusterID"/>
+                        </Dict>
+                        <Label Key="Lab_ClusterID" Caption="集团" X="3" Y="3"/>
+                        <RowDefCollection RowGap="4">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="4">
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="50%"/>
+                            <ColumnDef Width="20px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="50%"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                </TabPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

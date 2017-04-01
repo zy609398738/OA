@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="MOA_OfficalHomePage" Caption="公文管理界面" FormType="View">
+    <Body>
+        <Block>
+            <NavigationList Caption="模块列表" Key="ModelList" ColumnCount="4" AllEntryFilter="false" ImageScaleType="Fit_XY">
+                <NavigationItemCollection>
+                    <NavigationItem Caption="收文" Icon="Mobile_items.png" Key="MOA_ForeignLan">
+                        <![CDATA[Show("MOA_ForeignLanView");]]>
+                    </NavigationItem>
+                    <NavigationItem Caption="发文" Icon="Mobile_items.png" Key="MOA_SpoFile">
+                        <![CDATA[Show("MOA_SpoFileView");]]>
+                    </NavigationItem>
+                </NavigationItemCollection>
+            </NavigationList>
+        </Block>
+    </Body>
+</Form>

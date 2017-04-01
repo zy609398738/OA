@@ -1,0 +1,520 @@
+[{
+			'text' : 'JDBC',
+			'type' : 'Jdbc',
+			'attr' : [{
+						'name' : 'connector_ref',
+						'label' : '连接器',
+						'defaultValue' : '请选择',
+						'type' : 'Connector_Jdbc',
+						'require' : 'true'
+					}, {
+						'name' : 'queryKey',
+						'label' : 'SQL语句',
+						'defaultValue' : '请选择',
+						'type' : 'Connector_Jdbc/queries',
+						'require' : 'true'
+					}, {
+						'name' : 'pollingFrequency',
+						'label' : '轮询的间隔时间(毫秒)',
+						'defaultValue' : 600000,
+						'type' : 'number',
+						'require' : 'true'
+					}, {
+						'name' : 'transaction',
+						'label' : 'JDBC事务策略',
+						'type' : 'comboxTranscationType',
+						'defaultValue' : '请选择'
+					}, {
+						'name' : 'xaTransaction',
+						'label' : 'XA事务策略',
+						'type' : 'comboxTranscationType',
+						'defaultValue' : '请选择'
+					}, {
+						'name' : 'encoding',
+						'label' : 'encoding',
+						'type' : 'string',
+						'defaultValue' : 'UTF-8'
+					}]
+		}, {
+			'text' : 'Http',
+			'type' : 'Http',
+			'attr' : [{
+						'name' : 'host',
+						'label' : '服务器地址',
+						'defaultValue' : 'localhost',
+						'type' : 'string',
+						'require' : 'true'
+					}, {
+						'name' : 'port',
+						'label' : '端口',
+						'defaultValue' : '',
+						'type' : 'number',
+						'require' : 'true'
+					}, {
+						'name' : 'path',
+						'label' : 'Path',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'true'
+					}, {
+						'name' : 'contentType',
+						'label' : '内容类型',
+						'defaultValue' : 'text/plain;charset=utf8',
+						'type' : 'String'
+					}, {
+						'name' : 'connector_ref',
+						'label' : '连接器',
+						'defaultValue' : '请选择',
+						'defaultValue' : '81818796409fa2a301409fbdb653000e',
+						'type' : 'Connector_Http'
+					}, {
+						'name' : 'exchange_pattern',
+						'label' : '交换模式',
+						'defaultValue' : 'request-response',
+						'type' : 'comboExchangeType'
+					}, {
+						'name' : 'encoding',
+						'label' : 'encoding',
+						'type' : 'string',
+						'defaultValue' : 'UTF-8'
+					}]
+		}, {
+			'text' : 'Https',
+			'type' : 'Https',
+			'attr' : [{
+						'name' : 'host',
+						'label' : '服务器地址',
+						'defaultValue' : 'localhost',
+						'type' : 'string',
+						'require' : 'true'
+					}, {
+						'name' : 'port',
+						'label' : '端口',
+						'defaultValue' : '',
+						'type' : 'number',
+						'require' : 'true'
+					}, {
+						'name' : 'path',
+						'label' : 'Path',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'true'
+					}, {
+						'name' : 'connector_ref',
+						'label' : '连接器',
+						'defaultValue' : '请选择',
+						'type' : 'Connector_Https',
+						'require' : 'true'
+					}, {
+						'name' : 'contentType',
+						'label' : '内容类型',
+						'defaultValue' : 'text/plain;charset=utf8',
+						'type' : 'String'
+					}, {
+						'name' : 'exchange_pattern',
+						'label' : '交换模式',
+						'defaultValue' : 'request-response',
+						'type' : 'comboExchangeType'
+					}, {
+						'name' : 'encoding',
+						'label' : 'encoding',
+						'type' : 'string',
+						'defaultValue' : 'UTF-8'
+					}]
+		}, {
+			'text' : 'File',
+			'type' : 'File',
+			'attr' : [{
+						'name' : 'path',
+						'label' : '轮询目录',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'true'
+					}, {
+						'name' : 'pollingFrequency',
+						'label' : '轮询的间隔时间(毫秒)',
+						'defaultValue' : 100000,
+						'type' : 'number',
+						'require' : 'true'
+					}, {
+						'name' : 'filename_wildcard_filter',
+						'label' : '文件过滤(通配符)',
+						'defaultValue' : '*.xml',
+						'type' : 'String',
+						'require' : 'true'
+					}, {
+						'name' : 'filename_regex_filter',
+						'label' : '文件过滤(正则表达式)',
+						'defaultValue' : '',
+						'type' : 'String'
+					}, {
+						'name' : 'maxProcessFile',
+						'label' : '最大处理文件数',
+						'defaultValue' : '3',
+						'type' : 'number',
+						'require' : 'true'
+					}, {
+						'name' : 'connector_ref',
+						'label' : '连接器',
+						'defaultValue' : '请选择',
+						'type' : 'Connector_File',
+						'require' : 'true'
+					}, {
+						'name' : 'moveToDirectory',
+						'label' : '文件转移到目录(moveToDirectory)',
+						'defaultValue' : '',
+						'type' : 'String',
+						'require' : 'true'
+					}, {
+						'name' : 'moveToPattern',
+						'label' : '转移后文件名(moveToPattern)',
+						'defaultValue' : '#[header:originalFilename].temp',
+						'type' : 'String',
+						'require' : 'true'
+					}, {
+						'name' : 'file_read_subdir',
+						'label' : '读取文件子目录(file_read_subdir)',
+						'defaultValue' : '',
+						'type' : 'String'
+					}, {
+						'name' : 'file_move_subdir',
+						'label' : '移动文件子目录(file_move_subdir)',
+						'defaultValue' : '',
+						'type' : 'String'
+					}, {
+						'name' : 'encoding',
+						'label' : 'encoding',
+						'type' : 'string',
+						'defaultValue' : 'UTF-8'
+					}]
+		}, {
+			'text' : 'FTP',
+			'type' : 'FTP',
+			'attr' : [{
+						'name' : 'pollingFrequency',
+						'label' : '轮询的间隔时间(毫秒)',
+						'defaultValue' : 100000,
+						'type' : 'number',
+						'require' : 'true'
+					}, {
+						'name' : 'host',
+						'label' : '设置访问服务器',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'true'
+					}, {
+						'name' : 'port',
+						'label' : '端口',
+						'defaultValue' : 21,
+						'type' : 'number',
+						'require' : 'true'
+					}, {
+						'name' : 'user',
+						'label' : '用户名',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'true'
+					}, {
+						'name' : 'password',
+						'label' : '密码',
+						'defaultValue' : '',
+						'type' : 'String',
+						'require' : 'true'
+					}, {
+						'name' : 'filename_wildcard_filter',
+						'label' : '文件过滤(通配符)',
+						'defaultValue' : '*.xml',
+						'type' : 'String',
+						'require' : 'true'
+					}, {
+						'name' : 'filename_regex_filter',
+						'label' : '文件过滤(正则表达式)',
+						'defaultValue' : '',
+						'type' : 'String'
+					}, {
+						'name' : 'connector_ref',
+						'label' : '连接器',
+						'defaultValue' : '请选择',
+						'defaultValue' : '8181879640a428140140a485f1dd000d',
+						'type' : 'Connector_Ftp'
+					}, {
+						'name' : 'path',
+						'label' : '读取文件的路径(path)',
+						'defaultValue' : '',
+						'type' : 'String'
+					}, {
+						'name' : 'file_read_subdir',
+						'label' : '读取文件子目录(file_read_subdir)',
+						'defaultValue' : '',
+						'type' : 'String'
+					}, {
+						'name' : 'maxProcessFile',
+						'label' : '每次最大处理文件数',
+						'defaultValue' : 2,
+						'type' : 'number'
+					}, {
+						'name' : 'file_rename_suffix',
+						'label' : '文件读取后修改后缀为(file_rename_suffix)',
+						'defaultValue' : 'processing',
+						'type' : 'String'
+					}, {
+						'name' : 'moveFileSuffix',
+						'label' : '需要转移的文件后缀(moveFileSuffix)',
+						'defaultValue' : 'alreadyProcessed',
+						'type' : 'String'
+					}, {
+						'name' : 'already_read_folder',
+						'label' : '处理完文件转移目录(already_read_folder)',
+						'defaultValue' : 'processedFile',
+						'type' : 'String'
+					}, {
+						'name' : 'encoding',
+						'label' : 'encoding',
+						'type' : 'string',
+						'defaultValue' : 'UTF-8'
+					}]
+		}, {
+			'text' : 'SFTP',
+			'type' : 'SFTP',
+			'attr' : [{
+						'name' : 'pollingFrequency',
+						'label' : '轮询的间隔时间(毫秒)',
+						'defaultValue' : 100000,
+						'type' : 'number',
+						'require' : 'true'
+					}, {
+						'name' : 'address',
+						'label' : '服务器地址',
+						'defaultValue' : 'sftp://user:pass@ip:22/folder',
+						'type' : 'String',
+						'require' : 'true'
+					}, {
+						'name' : 'connector_ref',
+						'label' : '连接器',
+						'defaultValue' : '8181879640a428140140a4867f36000e',
+						'type' : 'Connector_SFtp',
+						'require' : 'true'
+					}, {
+						'name' : 'filename_wildcard_filter',
+						'label' : '文件过滤(通配符)',
+						'defaultValue' : '*.xml',
+						'type' : 'String',
+						'require' : 'true'
+					}, {
+						'name' : 'filename_regex_filter',
+						'label' : '文件过滤(正则表达式)',
+						'defaultValue' : '',
+						'type' : 'String'
+					}, {
+						'name' : 'file_rename_suffix',
+						'label' : '修改文件后缀',
+						'defaultValue' : 'reading',
+						'type' : 'String'
+					}, {
+						'name' : 'autoDelete',
+						'label' : '读取后是否删除',
+						'defaultValue' : '否',
+						'type' : 'comboxBoolean'
+					}, {
+						'name' : 'fileNameEncoding',
+						'label' : '文件名称编码',
+						'defaultValue' : 'GBK',
+						'type' : 'String'
+					}, {
+						'name' : 'maxProcessFile',
+						'label' : '每次最大处理文件数',
+						'defaultValue' : 2,
+						'type' : 'number'
+					}, {
+						'name' : 'moveFileSuffix',
+						'label' : '需要转移的文件后缀(moveFileSuffix)',
+						'defaultValue' : 'alreadyread',
+						'type' : 'String'
+					}, {
+						'name' : 'already_read_folder',
+						'label' : '处理完文件转移目录(already_read_folder)',
+						'defaultValue' : 'readedFile',
+						'type' : 'String'
+					}, {
+						'name' : 'file_read_subdir',
+						'label' : '读取文件子目录(file_read_subdir)',
+						'defaultValue' : '',
+						'type' : 'String'
+					}, {
+						'name' : 'identityFile',
+						'label' : '私钥文件路径(identityFile)',
+						'defaultValue' : '',
+						'type' : 'String'
+					}, {
+						'name' : 'passphrase',
+						'label' : '私钥密码(passphrase)',
+						'defaultValue' : '',
+						'type' : 'String'
+					}, {
+						'name' : 'encoding',
+						'label' : 'encoding',
+						'type' : 'string',
+						'defaultValue' : 'UTF-8'
+					}]
+		}, {
+			'text' : 'VM',
+			'type' : 'VM',
+			'attr' : [{
+						'name' : 'address',
+						'label' : 'address',
+						'defaultValue' : 'vm://',
+						'type' : 'string',
+						'require' : 'true'
+					}, {
+						'name' : 'exchange_pattern',
+						'label' : '交换模式',
+						'defaultValue' : 'request-response',
+						'type' : 'comboExchangeType'
+					}, {
+						'name' : 'encoding',
+						'label' : 'encoding',
+						'type' : 'string',
+						'defaultValue' : 'UTF-8'
+					}]
+		}, {
+			'text' : 'JMS',
+			'type' : 'JMS',
+			'attr' : [{
+						'name' : 'address',
+						'label' : 'address',
+						'defaultValue' : 'jms://queue:queueName/jms://topic:topicName',
+						'type' : 'string',
+						'require' : 'true'
+					},{
+						'name' : 'connector_ref',
+						'label' : '连接器',
+						'defaultValue' : '请选择',
+						'type' : 'Connector_JMS',
+						'require' : 'true'
+					}, {
+						'name' : 'pollingFrequency',
+						'label' : '主动监听间隔时间(毫秒)',
+						'defaultValue' : 100,
+						'type' : 'number'
+					},{
+						'name' : 'xaTransaction',
+						'label' : 'XA事务策略',
+						'type' : 'comboxTranscationType',
+						'defaultValue' : '请选择'
+					}, {
+						'name' : 'exchange_pattern',
+						'label' : '交换模式',
+						'defaultValue' : 'request-response',
+						'type' : 'comboExchangeType'
+					}, {
+						'name' : 'encoding',
+						'label' : 'encoding',
+						'type' : 'string',
+						'defaultValue' : 'UTF-8'
+					}]
+		}, {
+			'text' : 'POP3',
+			'type' : 'POP3',
+			'attr' : [{
+						'name' : 'user',
+						'label' : '用户',
+						'defaultValue' : '',
+						'type' : 'String',
+						'require' : 'true'
+					}, {
+						'name' : 'password',
+						'label' : '密码',
+						'defaultValue' : '',
+						'type' : 'String',
+						'require' : 'true'
+					}, {
+						'name' : 'host',
+						'label' : '服务器',
+						'defaultValue' : '',
+						'type' : 'String',
+						'require' : 'true'
+					}, {
+						'name' : 'port',
+						'label' : '端口',
+						'defaultValue' : 110,
+						'type' : 'number',
+						'require' : 'true'
+					},{
+						'name' : 'connector_ref',
+						'label' : '连接器',
+						'defaultValue' : '请选择',
+						'type' : 'Connector_POP3',
+						'require' : 'true'
+					}, {
+						'name' : 'encoding',
+						'label' : 'encoding',
+						'type' : 'string',
+						'defaultValue' : 'UTF-8'
+					}]
+		}, {
+			'text' : 'IMAP',
+			'type' : 'IMAP',
+			'attr' : [{
+						'name' : 'user',
+						'label' : '用户',
+						'defaultValue' : '',
+						'type' : 'String',
+						'require' : 'true'
+					}, {
+						'name' : 'password',
+						'label' : '密码',
+						'defaultValue' : '',
+						'type' : 'String',
+						'require' : 'true'
+					}, {
+						'name' : 'host',
+						'label' : '服务器',
+						'defaultValue' : 'imap.163.com',
+						'type' : 'String',
+						'require' : 'true'
+					}, {
+						'name' : 'port',
+						'label' : '端口',
+						'defaultValue' : 143,
+						'type' : 'number',
+						'require' : 'true'
+					},{
+						'name' : 'connector_ref',
+						'label' : '连接器',
+						'defaultValue' : '请选择',
+						'type' : 'Connector_IMAP',
+						'require' : 'true'
+					}, {
+						'name' : 'encoding',
+						'label' : 'encoding',
+						'type' : 'string',
+						'defaultValue' : 'UTF-8'
+					}]
+		}, {
+			'text' : 'TCP',
+			'type' : 'TCP',
+			'attr' : [{
+						'name' : 'host',
+						'label' : '服务器地址',
+						'defaultValue' : 'localhost',
+						'type' : 'string',
+						'require' : 'true'
+					}, {
+						'name' : 'port',
+						'label' : '端口',
+						'defaultValue' : '',
+						'type' : 'number',
+						'require' : 'true'
+					}, {
+						'name' : 'connector_ref',
+						'label' : '连接器',
+						'defaultValue' : '请选择',
+						'type' : 'Connector_TCP',
+						'require' : 'true'
+					}, {
+						'name' : 'exchange_pattern',
+						'label' : '交换模式',
+						'defaultValue' : 'request-response',
+						'type' : 'comboExchangeType'
+					}]
+		}]

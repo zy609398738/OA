@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="OA_WFTotalReport" Caption="流程统计表" FormType="Report" Platform="">
+    <DataSource>
+        <DataObject Key="OA_WFTotalReport" Caption="流程统计表">
+            <TableCollection>
+                <Table Key="OA_WFTotalReport" Caption="流程统计表" TableMode="Detail" SourceType="Interface" Persist="false" Impl="com.bokesoft.oa.mid.report.GetSumDataTable">
+                    <Column Key="creatTime" Caption="创建时间" DataType="DateTime"/>
+                    <Column Key="ProcessKey" Caption="流程名称" DataType="Varchar"/>
+                    <Column Key="UrgencyDeg" Caption="紧急程度" DataType="Integer"/>
+                    <Column Key="BillStatus" Caption="单据状态" DataType="Integer"/>
+                    <Column Key="InstanceState" Caption="流程状态" DataType="Integer"/>
+                    <Column Key="Amount" Caption="流程数量" DataType="Integer"/>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="Close" Caption="关闭界面" RefKey="Close"/>
+    </OperationCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板">
+                <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <GridLayoutPanel Key="first_head" Height="pref" Caption="基本信息">
+                    <DatePicker Key="DatePicker1" Caption="创建时间从" BuddyKey="Lab_DatePicker1" X="1" Y="0">
+                        <Condition ColumnKey="creatTime" TableKey="OA_WFTotalReport" CondSign="between" Group="A" GroupHead="true"/>
+                    </DatePicker>
+                    <Label Key="Lab_DatePicker1" Caption="创建时间从" X="0" Y="0"/>
+                    <DatePicker Key="DatePicker2" Caption="到" BuddyKey="Lab_DatePicker2" X="3" Y="0">
+                        <Condition ColumnKey="creatTime" TableKey="OA_WFTotalReport" CondSign="between" Group="A" GroupTail="true"/>
+                    </DatePicker>
+                    <Label Key="Lab_DatePicker2" Caption="到" X="2" Y="0"/>
+                    <CheckListBox BuddyKey="Lab_CheckListBox1" Caption="流程名称" Key="CheckListBox1" X="5" Y="0" SourceType="Formula">
+                        <Condition ColumnKey="ProcessKey" TableKey="OA_WFTotalReport" CondSign="in"/>
+                        <FormulaItems>
+                            <![CDATA[OA_GetDropItemByBPM()]]>
+                        </FormulaItems>
+                    </CheckListBox>
+                    <Label Key="Lab_CheckListBox1" Caption="流程名称" X="4" Y="0"/>
+                    <Button Key="Query" Caption="查询" X="6" Y="0">
+                        <OnClick>
+                            <![CDATA[DealCondition();
+LoadData();
+ShowData();]]>
+                        </OnClick>
+                    </Button>
+                    <CheckListBox BuddyKey="Lab_CheckListBox2" Caption="紧急程度" Key="CheckListBox2" X="1" Y="1">
+                        <Condition ColumnKey="UrgencyDeg" TableKey="OA_WFTotalReport" CondSign="in"/>
+                        <Item Caption="一般" Key="10" Value="10"/>
+                        <Item Caption="紧急" Key="20" Value="20"/>
+                        <Item Caption="特急" Key="30" Value="30"/>
+                        <Item Key="0" Value="0"/>
+                    </CheckListBox>
+                    <Label Key="Lab_CheckListBox2" Caption="紧急程度" X="0" Y="1"/>
+                    <CheckListBox BuddyKey="Lab_CheckListBox3" Caption="单据状态" Key="CheckListBox3" SourceType="Formula" X="3" Y="1">
+                        <Condition ColumnKey="BillStatus" TableKey="OA_WFTotalReport" CondSign="in"/>
+                        <FormulaItems>
+                            <![CDATA[OA_GetDropItemFromStatus()]]>
+                        </FormulaItems>
+                    </CheckListBox>
+                    <Label Key="Lab_CheckListBox3" Caption="单据状态" X="2" Y="1"/>
+                    <CheckListBox BuddyKey="Lab_CheckListBox4" Caption="流程状态" Key="CheckListBox4" X="5" Y="1">
+                        <Condition ColumnKey="InstanceState" TableKey="OA_WFTotalReport" CondSign="in"/>
+                        <Item Caption="未结束" Key="1" Value="1"/>
+                        <Item Caption="已结束" Key="2" Value="2"/>
+                        <Item Caption="已作废" Key="3" Value="3"/>
+                    </CheckListBox>
+                    <Label Key="Lab_CheckListBox4" Caption="流程状态" X="4" Y="1"/>
+                    <Button Key="Reset" Caption="重置" X="6" Y="1">
+                        <OnClick>
+                            <![CDATA[ResetCondition()]]>
+                        </OnClick>
+                    </Button>
+                    <RowDefCollection RowGap="8">
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="8">
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="33%"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="33%"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="34%"/>
+                        <ColumnDef Width="80px"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+                <Grid Key="Grid1" Caption="Grid1" NewEmptyRow="false" Height="100%" PageLoadType="DB">
+                    <GridColumnCollection>
+                        <GridColumn Key="ProcessKey" Caption="流程名称" Width="200px"/>
+                        <GridColumn Key="UrgencyDeg" Caption="紧急程度" Width="120px"/>
+                        <GridColumn Key="BillStatus" Caption="单据状态" Width="120px"/>
+                        <GridColumn Key="InstanceState" Caption="流程状态" Width="120px"/>
+                        <GridColumn Key="Amount" Caption="数量" Width="80px"/>
+                    </GridColumnCollection>
+                    <GridRowCollection>
+                        <GridRow Key="row1" RowHeight="35" TableKey="OA_WFTotalReport">
+                            <GridCell Key="ProcessKey" Caption="流程名称" CellType="ComboBox" SourceType="Formula">
+                                <DataBinding ColumnKey="ProcessKey"/>
+                                <FormulaItems>
+                                    <![CDATA[OA_GetDropItemByBPM()]]>
+                                </FormulaItems>
+                            </GridCell>
+                            <GridCell Key="UrgencyDeg" Caption="紧急程度" CellType="ComboBox">
+                                <DataBinding ColumnKey="UrgencyDeg"/>
+                                <Item Caption="一般" Key="10" Value="10"/>
+                                <Item Caption="紧急" Key="20" Value="20"/>
+                                <Item Caption="特急" Key="30" Value="30"/>
+                                <Item Key="0" Value="0"/>
+                            </GridCell>
+                            <GridCell Key="BillStatus" Caption="单据状态" CellType="ComboBox" SourceType="Formula">
+                                <DataBinding ColumnKey="BillStatus"/>
+                                <FormulaItems>
+                                    <![CDATA[OA_GetDropItemFromStatus()]]>
+                                </FormulaItems>
+                            </GridCell>
+                            <GridCell Key="InstanceState" Caption="流程状态" CellType="ComboBox">
+                                <DataBinding ColumnKey="InstanceState"/>
+                                <Item Caption="未结束" Key="1" Value="1"/>
+                                <Item Caption="已结束" Key="2" Value="2"/>
+                                <Item Caption="已作废" Key="3" Value="3"/>
+                            </GridCell>
+                            <GridCell Key="Amount" Caption="数量" CellType="NumberEditor" IntegerValue="true">
+                                <DataBinding DefaultValue="1" ColumnKey="Amount"/>
+                            </GridCell>
+                        </GridRow>
+                    </GridRowCollection>
+                </Grid>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

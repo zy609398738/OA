@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="OA_OptTemplate" Caption="审批操作模板" FormType="View" Platform="">
+    <DataSource>
+        <DataObject Key="OA_OptTemplate" Caption="审批操作模板" PrimaryTableKey="OA_OptTemplate">
+            <TableCollection>
+                <Table Key="OA_OptTemplate" Caption="审批操作模板" TableMode="Detail" SourceType="Query" Persist="false">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="OPTAudit" Caption="审批">
+            <Action>
+                <![CDATA[if(!ToBool(Para("IsMobile"))){
+    if(ContainsKey("WorkflowTypeDtlID")){
+        ShowModal("OA_AuditDialog","OptKey:{''},pWorkitemID:{GetActiveWorkitemID()},workflowOID:{GetOID()},workflowBillKey:{GetFormKey()},WorkflowTypeDtlID:{WorkflowTypeDtlID}")
+    }else{
+        ShowModal("OA_AuditDialog","OptKey:{''},pWorkitemID:{GetActiveWorkitemID()},workflowOID:{GetOID()},workflowBillKey:{GetFormKey()}")}
+}else{
+        Show("MOA_AuditDialog","newtab","pWorkitemID:{GetActiveWorkitemID()},workflowOID:{GetOID()},workflowBillKey:{GetFormKey()},WorkflowTypeDtlID:{WorkflowTypeDtlID}");
+}]]>
+            </Action>
+        </Operation>
+        <Operation Key="OPTCirculation" Caption="传阅" Visible="IIF(DBNamedQueryValue(&quot;queryCreator&quot;, GetOperator(),GetOID(),GetFormKey())==GetOperator(),true,false)&amp;&amp;(ToInt(Status)&gt;100)">
+            <Action>
+                <![CDATA[New('OA_CirculationDialog',"modal",{
+                            OID:{GetOID()},
+                            BillKey:{GetFormKey()},
+                            Creator:{GetOperator()}});
+]]>
+            </Action>
+        </Operation>
+        <Operation Key="OPTEndorse" Caption="加签">
+            <Action>
+                <![CDATA[ShowModal("OA_EndorseDialog","pWorkitemID:{GetActiveWorkitemID()}")]]>
+            </Action>
+        </Operation>
+        <Operation Key="OPTRestartInstance" Caption="流程重置">
+            <Action>
+                <![CDATA[SetValue("Status", 1100);
+SaveData();
+RestartInstance(GetActiveInstanceID());]]>
+            </Action>
+        </Operation>
+        <Operation Key="OPTKillInstance" Caption="流程作废">
+            <Action>
+                <![CDATA[SetValue("Status", 2000);
+SaveData();
+KillInstance(GetActiveInstanceID());
+]]>
+            </Action>
+        </Operation>
+        <Operation Key="OPTEndInstance" Caption="结束流程">
+            <Action>
+                <![CDATA[ShowModal("OA_EndInstanceDialog");]]>
+            </Action>
+        </Operation>
+        <Operation Key="OPTMeeting" Caption="会议审批">
+            <Action>
+                <![CDATA[CommitWorkitem(-1,1,"通过");
+var OptIDs=InvokeService("OA_GetOperatorIDsByEmp", true, false, Participants,",");
+var messages=InvokeService("OA_SendMessage", true, false,true, "OA",ServerDate(),GetOperator(),Topic,Notes,OptIDs,MessageSet,BillKey,NO,OID);
+if(messages){Confirm("发送成功")}
+else{"发送失败"}
+]]>
+            </Action>
+        </Operation>
+        <Operation Key="CommitAudit" Caption="提交审批">
+            <Action>
+                <![CDATA[CommitWorkitem(-1, 1, "")]]>
+            </Action>
+        </Operation>
+    </OperationCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板">
+                <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <GridLayoutPanel Key="first_head" Padding="5px" Height="pref" Caption="基本信息">
+                    <RowDefCollection RowGap="8">
+                        <RowDef Height="25px"/>
+                        <RowDef Height="25px"/>
+                        <RowDef Height="25px"/>
+                        <RowDef Height="25px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="8">
+                        <ColumnDef Width="5%"/>
+                        <ColumnDef Width="15%"/>
+                        <ColumnDef Width="61px"/>
+                        <ColumnDef Width="15%"/>
+                        <ColumnDef Width="5%"/>
+                        <ColumnDef Width="15%"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

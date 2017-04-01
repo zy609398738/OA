@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="MOA_NewsDraftView" Caption="新闻列表" FormType="View">
+    <DataSource>
+        <DataObject Key="MOA_NewsDraftView" Caption="新闻列表">
+            <TableCollection>
+                <Table Key="MOA_NewsDraftView" Caption="新闻列表" TableMode="Detail" SourceType="Query" Persist="false">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="Path" Caption="图片" DataType="Varchar"/>
+                    <Column Key="NewsSummy" Caption="新闻概要" DataType="Varchar"/>
+                    <Statement>
+                        <![CDATA[select h.oid,p.path ,h.NewsSummy from OA_NewsDraft_H  h join OA_NewsDraft_Pho p on h.oid = p.soid order by BillDate desc]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="New" Caption="新增">
+            <Action>
+                <![CDATA[New("MOA_NewsDraft")]]>
+            </Action>
+        </Operation>
+    </OperationCollection>
+    <Body>
+        <Block>
+            <LinearLayoutPanel Caption="LinearLayoutPanel1" Key="LinearLayoutPanel1" Orientation="Vertical" Width="pref">
+                <TableView Caption="TableView1" Height="pref" Key="TableView1" Width="pref">
+                    <TableRowCollection>
+                        <TableRow Key="row1" RowType="Detail" TableKey="MOA_NewsDraftView" TopMargin="10px">
+                            <LinearLayoutPanel Caption="LinearLayoutPanel2" Height="110px" Key="LinearLayoutPanel2" Width="auto">
+                                <Image Key="Path" Caption="图片" Enable="false" Height="100px" Width="100px">
+                                    <DataBinding ColumnKey="Path"/>
+                                </Image>
+                                <HyperLink Height="auto" Key="NewsSummy" Weight="1.0" Width="auto">
+                                    <DataBinding ColumnKey="NewsSummy"/>
+                                    <OnClick>
+                                        <![CDATA[Show("MOA_ShowNewsView","newtab",{URL:{"news/newsview.page?id="+OID}});]]>
+                                    </OnClick>
+                                </HyperLink>
+                                <Label Key="OID" Caption="OID" Visible="false" Height="auto" Width="100px">
+                                    <DataBinding ColumnKey="OID"/>
+                                </Label>
+                            </LinearLayoutPanel>
+                        </TableRow>
+                    </TableRowCollection>
+                </TableView>
+            </LinearLayoutPanel>
+        </Block>
+    </Body>
+    <OnLoad>
+        <![CDATA[LoadData();]]>
+    </OnLoad>
+</Form>

@@ -1,0 +1,14 @@
+{
+	"@type":"com.bokesoft.cms2.impl.buildin.modelio.vo.BlockVO",
+	"block":{
+		"@type":"com.bokesoft.cms2.model.blocks.TmplBlock",
+		"formulaText":"var operatorId=-1;\nif(cms.Yigo2MidExp.GetLoginOperator()){\n   operatorId=cms.Yigo2MidExp.GetLoginOperator();\n}\ncms.PageExp.Local('operatorId',operatorId);",
+		"notes":"",
+		"parameters":[],
+		"tmplText":" <!--头部 header-->\n <div class=\"span6 logo\">\n            <div class=\"block\">\n                <div class=\"content\">\n                    <a href=\"/yigo/home.page\"><img id=\"logo-img\" src=\"${staticRoot}/resources/@buildin/images/boke-logo.png\"></a>\n                </div>\n            </div>\n        </div>\n        <div class=\"span6 system-panel\">\n            <div class=\"block\">\n                <div class=\"content\">\n\t\t\t\t<!--\n\t\t\t\t\t<div class=\"dropdown\" id=\"change-theme\" title=\"换肤\">\n\t\t\t\t\t\t  <select name=\"one\" class=\"dropdown-select\" id=\"theme-select\">\n\t\t\t\t\t\t\t<option value=\"1\">蓝色</option>\n\t\t\t\t\t\t\t<option value=\"2\">橘色</option>\n\t\t\t\t\t\t\t<option value=\"3\">红色</option>\n\t\t\t\t\t\t  </select>\n\t\t\t\t\t\t  <span>换肤</span>\n\t\t\t\t\t </div>\n\t\t\t\t -->\t\t\t\n                    <ul>\n\t\t\t\t\t\t<!--<li class=\"icon2\"><a href=\"#\" title=\"消息\"></a></li>-->\n                        <!--<li class=\"icon1\"><a href=\"/Yigo/jforum.page\" title=\"论坛\"><i></i><span>论坛</span></a></li>-->\n\t\t\t\t\t\t<li class=\"icon3\"><a href=\"./?entrypath=OA/OA_PersonalUse/EmailManagement/OA_EmailInboxView\" title=\"邮件\" target=\"_blank\"><i></i><span>邮件</span></a></li>\n                        <!--<li class=\"icon1\"><a href=\"/Yigo/Message.page\" title=\"留言板\"><i></i><span>留言板</span></a></li>-->\n                        <li class=\"icon3\"><a href=\"./?entrypath=OA/OA_AddressBook/AddressBook\" title=\"通讯录\" target=\"_blank\"><i></i><span>通讯录</span></a></li>\n                        <li class=\"icon4\"><a href=\"./?entrypath=OA/OA_PersonalUse/PaseUse/OA_ToDoList\" title=\"管理\" target=\"_blank\"><i></i><span>管理</span></a></li>\n                        #if($operatorId!=-1)\n                          <li class=\"icon5\"><a href=\"./login.page\" title=\"退出\"><i></i><span>退出</span></a></li>\n                        #else\n                          <li class=\"login_icon\"><a href=\"./login.page\" title=\"登录\"><i></i><span>登录</span></a></li>\n                        #end\n                    </ul>\n                </div>\n            </div>\n        </div>\n<!--头部 header end-->",
+		"type":"TMPL"
+	},
+	"code":"header",
+	"name":"头部",
+	"params":[]
+}

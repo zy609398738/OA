@@ -1,0 +1,30 @@
+/* ::::: http://unicode.org/emoji/charts/emoji-list.css ::::: */
+
+.main { margin: 2em; font-family: Arial,Geneva,Helvetica,sans-serif; }
+table { clear: both; border-collapse: collapse; border: 1px solid silver; }
+td, th { border: 1px solid silver; vertical-align: top; }
+th { text-align: left; background-color: rgb(238, 238, 238); padding-top: 0.3em; padding-bottom: 0.3em; }
+.code { font-family: monospace; text-align: right; max-width: 8em; }
+.age, .default { text-align: center; }
+.andr { font-size: 100%; text-align: center; min-height: 24px; }
+.chars, .symb, .segoe { font-size: 36px; text-align: center; min-height: 32px; }
+img { width: 64px; height: auto; margin-top: 2px; margin-bottom: 2px; }
+.imga, .imgf { width: 36px; height: 36px; margin-top: 2px; margin-bottom: 2px; vertical-align: text-bottom; }
+.imgs { width: 18px; height: 18px; margin-top: 10px; margin-bottom: 2px; vertical-align: text-bottom; }
+.miss, .miss7 { text-align: center; vertical-align: top; margin-top: 3px; margin-bottom: 3px; color: gray; font-style: italic; font-size: 75%; }
+.cchars { text-align: center; width: 3em; }
+.rchars { text-align: right; }
+.chars, .charsSmall { text-decoration: none; color: rgb(204, 204, 204); font-family: "Noto Color Emoji","Apple Color Emoji","Segoe UI Emoji",Times,Symbola,Aegyptus,Code2000,Code2001,Code2002,Musica,serif,LastResort; }
+.chars { vertical-align: text-top; min-height: 20px; }
+body { margin: 0px; }
+.alt { background-color: rgb(252, 252, 255); }
+.aacButton { border: 1px solid silver; height: auto; width: auto; text-align: center; float: right; margin: 0px 0px 1em 1em; padding: 0.5em 0px 0px; }
+.aacImage { margin-left: auto; margin-right: auto; height: auto; width: auto; }
+A.bar { font-size: 100%; margin-left: 0.5em; }
+A.bar:link, A.bar:visited { font-size: 90%; color: rgb(255, 255, 254); }
+A.bar:active, A.bar:hover { font-size: 90%; color: rgb(255, 51, 51); }
+.icon { padding: 0px; margin: 0px; font-size: 110%; color: rgb(255, 255, 254); font-family: Arial,Geneva,sans-serif; background-color: rgb(153, 0, 0); text-align: left; font-weight: bold; }
+.gray { padding: 0px; margin: 0px; font-size: 50%; color: rgb(255, 255, 254); background-color: rgb(153, 153, 153); }
+.logo { border-style: none; height: 33px; width: 34px; margin: 2px; vertical-align: middle; }
+.copyright { text-align: center; margin-bottom: 60em; }
+H1 { font-size: 150%; }

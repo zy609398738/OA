@@ -1,0 +1,56 @@
+﻿@charset "utf-8";
+/*
+@名称: ovrange
+@功能: 橘色皮肤
+@使用方法：最后一个样式引入  
+*/
+#nav{
+	background: #ff9138;
+}
+#logo-img {
+	background: url(../../images/boke-logo.png) 0 0 no-repeat;
+}
+#nav  li.hover{
+	background-color: #ea6b06;
+}
+
+ul.tabbernav li.tabberactive a, ul.tabbernav li a:hover {
+	border-bottom-color: #ff9138;
+}
+.group_Train ul.tabbernav {
+	background-color: #ff9138;
+}
+.group_Train ul.tabbernav li a {
+	background-color: #ff9138;
+}
+ul.tabbernav li.tabberactive a, ul.tabbernav li a {
+	color: #666;
+}
+.group_Train ul.tabbernav li.tabberactive a {
+	background: #fff;
+	color: #666;
+	top:0;
+}
+.group_Train .tabbernav li.tabberactive a span {
+	background: url(../../images/ele-icons2.gif) 0 -33px no-repeat;
+}
+.ele-handle p a {
+	background: url(../../images/create-ele-btn-Orange.gif) no-repeat;
+}
+.ele-handle p span {
+	color: #ff9138;
+}
+.show-contrls li.hover {
+background-color: #ff9138;
+}
+#nav li ul{
+	background:url("../images/sj-down.gif") no-repeat center 2px #fff;
+	border:1px solid #ff9138;
+	border-bottom:2px solid #ff9138;
+}
+#nav li li a:hover {
+	color:#ff9138;
+}
+#bottom {
+	border-top-color: #ff9138;
+}

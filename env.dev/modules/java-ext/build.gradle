@@ -1,0 +1,15 @@
+defaultTasks 'devOpsDist'
+
+apply plugin: 'java'
+sourceCompatibility = 1.8
+compileJava.options.encoding = 'UTF-8'
+
+distsDirName = "${projectDir}/dist"
+apply from: "../../instance/infrastructure/gradle/boke-devops/boke-devops.gradle"
+
+devOpsApply from: "deps.gradle"
+
+devOpsDefineExports (
+	include: ["mail-*.jar","JNative*.jar","jodd-*.jar"],
+	exclude: []
+)

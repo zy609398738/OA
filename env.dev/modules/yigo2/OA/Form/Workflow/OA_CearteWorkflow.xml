@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="OA_CearteWorkflow" Caption="创建新流程" FormType="View" Platform="">
+    <DataSource>
+        <DataObject Key="OA_CearteWorkflow" Caption="创建新流程">
+            <TableCollection>
+                <Table Key="OA_WorkflowType_H" Caption="创建新流程部门表" TableMode="Detail" SourceType="Query" Persist="false">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="Name" Caption="名称" DataType="Varchar"/>
+                    <Statement>
+                        <![CDATA[select a.oid,a.Name from OA_WorkflowType_H a ]]>
+                    </Statement>
+                </Table>
+                <Table Key="OA_WorkflowType_D" Caption="创建新流程人员表" TableMode="Detail" SourceType="Query" Persist="false">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="BillKey" Caption="关联表单" DataType="Varchar"/>
+                    <Column Key="BillName" Caption="表单名称" DataType="Varchar"/>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板">
+                <SplitPanel Key="SplitPanel2" Height="100%" Caption="SplitPanel2" Padding="5px">
+                    <Grid Key="Grid1" Caption="Grid1" NewEmptyRow="false" Enable="false" PageLoadType="DB" CanDelete="false" CanInsert="false" Height="pref">
+                        <GridColumnCollection>
+                            <GridColumn Key="WorkflowTypeID" Caption="流程类别" Width="255px" TreeType="Dict"/>
+                            <GridColumn Key="Name" Caption="名称" Width="80px" Visible="false"/>
+                        </GridColumnCollection>
+                        <GridRowCollection>
+                            <GridRow Key="row1" RowHeight="35" TableKey="OA_WorkflowType_H">
+                                <GridCell Key="WorkflowTypeID" Caption="流程类别" CellType="Dict" Enable="false" ItemKey="OA_WorkflowType" Sort="Code">
+                                    <DataBinding ColumnKey="OID"/>
+                                </GridCell>
+                                <GridCell Key="Name" Caption="名称">
+                                    <DataBinding ColumnKey="Name"/>
+                                </GridCell>
+                            </GridRow>
+                        </GridRowCollection>
+                        <RowClick>
+                            <![CDATA[var querySOID="select d.oid,d.soid,d.BillKey,d.BillName from OA_WorkflowType_D d where d.SOID=?";
+FillGridData('Grid2',DBQuery(querySOID, WorkflowTypeID) , true)]]>
+                        </RowClick>
+                    </Grid>
+                    <FlexFlowLayoutPanel Key="FlexFlowLayoutPanel1" Caption="FlexFlowLayoutPanel1" Height="100%">
+                        <GridLayoutPanel Key="first_head" Height="80px" Padding="5px" Caption="基本信息">
+                            <Button Key="Query" Caption="查询" X="3" Y="0">
+                                <OnClick>
+                                    <![CDATA[DealCondition();
+ReloadGrid('Grid2', false)]]>
+                                </OnClick>
+                            </Button>
+                            <Button Key="Reset" Caption="重置" X="3" Y="1">
+                                <OnClick>
+                                    <![CDATA[ResetCondition()]]>
+                                </OnClick>
+                            </Button>
+                            <ComboBox Key="QueryBill" Caption="表单" BuddyKey="Lab_QueryBill" X="1" Y="0" SourceType="Formula" Editable="true">
+                                <Condition ColumnKey="BillKey" TableKey="OA_WorkflowType_D" CondSign="="/>
+                                <FormulaItems>
+                                    <![CDATA[GetFormByType("Entity")]]>
+                                </FormulaItems>
+                            </ComboBox>
+                            <Label Key="Lab_QueryBill" Caption="表单" X="0" Y="0"/>
+                            <RowDefCollection RowGap="8">
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="8">
+                                <ColumnDef Width="80px"/>
+                                <ColumnDef Width="100%"/>
+                                <ColumnDef Width="10px"/>
+                                <ColumnDef Width="80px"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                        <Grid Key="Grid2" Caption="Grid2" NewEmptyRow="false" Enable="false" PageLoadType="DB" CanDelete="false" CanInsert="false" Height="100%">
+                            <GridColumnCollection>
+                                <GridColumn Key="OID_D" Caption="明细ID" Width="80px" Visible="false"/>
+                                <GridColumn Key="SOID_D" Caption="流程类别" Width="120px"/>
+                                <GridColumn Key="BillKey_D" Caption="关联表单" Width="80px" Visible="false"/>
+                                <GridColumn Key="Name_D" Caption="创建新流程" Width="300px"/>
+                            </GridColumnCollection>
+                            <GridRowCollection>
+                                <GridRow Key="row1" RowHeight="35" TableKey="OA_WorkflowType_D">
+                                    <GridCell Key="OID_D" Caption="明细ID">
+                                        <DataBinding ColumnKey="OID"/>
+                                    </GridCell>
+                                    <GridCell Key="SOID_D" CellType="Dict" Caption="流程类别" ItemKey="OA_WorkflowType">
+                                        <DataBinding ColumnKey="SOID"/>
+                                    </GridCell>
+                                    <GridCell Key="BillKey_D" Caption="关联表单" CellType="ComboBox" SourceType="Formula">
+                                        <DataBinding ColumnKey="BillKey"/>
+                                        <FormulaItems>
+                                            <![CDATA[GetFormByType("Entity")]]>
+                                        </FormulaItems>
+                                    </GridCell>
+                                    <GridCell Key="Name_D" Caption="创建新流程" CellType="HyperLink" Enable="true">
+                                        <DataBinding ColumnKey="BillName"/>
+                                        <OnClick>
+                                            <![CDATA[New(BillKey_D, "newtab","WorkflowTypeDtlID:{OID_D}");]]>
+                                        </OnClick>
+                                    </GridCell>
+                                </GridRow>
+                            </GridRowCollection>
+                        </Grid>
+                    </FlexFlowLayoutPanel>
+                    <SplitSize Size="300px"/>
+                    <SplitSize Size="100%"/>
+                </SplitPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

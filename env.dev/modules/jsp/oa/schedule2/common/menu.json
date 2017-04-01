@@ -1,0 +1,14 @@
+{children:[
+	{id:'01',text:'我的会议',expanded:true,children:[
+		{id:'01-01',text:'我发起的',leaf:true,url:'Ext.calendar.view.MeetingGrid'},
+		{id:'01-02',text:'我参与的',leaf:true,url:'Ext.calendar.view.MeetingGrid'},
+	]},
+	{id:'02',text:'会议室',expanded:true,children:[
+		{id:'02-01',text:'新建会议室',leaf:true,url:'Ext.calendar.form.field.MeetingRoomForm'},
+		{id:'02-02',text:'会议室资源',expanded:true,children:[
+			{id:'02-02-01',text:'1号会议室',leaf:true,url:'Ext.calendar.view.RoomDetail'},
+			{id:'02-02-02',text:'2号会议室',leaf:true,url:'Ext.calendar.view.RoomDetail'},
+		]},
+	]},	
+	{id:'03',text:'列表',leaf:true,url:'Ext.calendar.form.field.MeetingRoomForm'}
+]} 

@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="MOA_EmailDeletedView" Caption="已删除邮件列表" FormType="View">
+    <DataSource>
+        <DataObject Key="MOA_EmailDeletedView" Caption="已删除邮件列表">
+            <TableCollection>
+                <Table Key="MOA_EmailDeletedView" Caption="已删除邮件列表" TableMode="Detail" SourceType="Query" Persist="false">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="NO" Caption="单据编号" DataType="Varchar"/>
+                    <Column Key="BillDate" Caption="单据日期" DataType="DateTime"/>
+                    <Column Key="Status" Caption="状态" DataType="Integer"/>
+                    <Column Key="EmailStatus" Caption="邮件状态" DataType="Varchar"/>
+                    <Column Key="Sender" Caption="发件人" DataType="Varchar"/>
+                    <Column Key="Topic" Caption="主题" DataType="Varchar"/>
+                    <Column Key="EmailTime" Caption="时间" DataType="DateTime"/>
+                    <Column Key="SelField" Caption="选择" DataType="Integer"/>
+                    <Column Key="EmailID" Caption="邮箱ID" DataType="Varchar"/>
+                    <ParameterCollection>
+                        <Parameter DataType="Long" Formula="GetOperator()"/>
+                    </ParameterCollection>
+                    <Statement>
+                        <![CDATA[select * from (select a.OID,a.NO,a.BillDate,a.Status,a.EmailStatus,a.EmailID,a.Sender,a.Topic,a.EmailTime from OA_EmailInBox_H a 
+where a.IsDelete=10 and a.OperatorID=? order by billdate desc) j]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="Delete" Caption="删除">
+            <Action>
+                <![CDATA[var i = 0;  
+var rowCount = GetRowCount('row1');     
+while(i<rowCount){
+	var IsSelect=GetCellValue('row1',i,'SelField'); 
+        var emailID = GetCellValue('row1', i, 'EmailID'); 
+        if(IsSelect==1){ 
+            if(emailID!=""){
+                  InvokeService("OA_DeleteServerEmailByIDS", true, false, GetOperator(),GetCellValue('row1', i, 'EmailID'));
+                  }
+        DBUpdate("delete from OA_EmailInbox_H  where OID=?", GetCellValue('row1', i, 'OID'));
+        DBUpdate("delete from OA_Attachment  where SOID=?", GetCellValue('row1', i, 'OID'));
+        } 
+        i = i + 1;
+};
+LoadData();]]>
+            </Action>
+        </Operation>
+    </OperationCollection>
+    <Body>
+        <Block>
+            <LinearLayoutPanel Caption="LinearLayoutPanel1" Key="LinearLayoutPanel1" Orientation="Vertical">
+                <GridLayoutPanel Key="GridLayoutPanel1" Height="80px" Caption="GridLayoutPanel1" Width="auto">
+                    <ComboBox Key="QueryEmailStatus" Caption="邮件状态" BuddyKey="Lab_QueryEmailStatus" X="1" Y="0" XSpan="4">
+                        <Condition ColumnKey="EmailStatus" TableKey="MOA_EmailDeletedView" CondSign="="/>
+                        <Item Caption="已读" Key="10" Value="10"/>
+                        <Item Caption="未读" Key="20" Value="20"/>
+                    </ComboBox>
+                    <Label Key="Lab_QueryEmailStatus" Caption="邮件状态" X="0" Y="0"/>
+                    <Button Key="Query" Caption="查询" X="0" Y="1" XSpan="2">
+                        <OnClick>
+                            <![CDATA[DealCondition();
+LoadData();
+ShowData();]]>
+                        </OnClick>
+                    </Button>
+                    <Button Key="Reset" Caption="重置" X="3" Y="1" XSpan="2">
+                        <OnClick>
+                            <![CDATA[ResetCondition()]]>
+                        </OnClick>
+                    </Button>
+                    <RowDefCollection RowGap="5">
+                        <RowDef Height="30px"/>
+                        <RowDef Height="35px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="5">
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="50%"/>
+                        <ColumnDef Width="20px"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="50%"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+                <TableView Caption="TableView1" Height="pref" Key="TableView1" Width="pref">
+                    <TableRowCollection>
+                        <TableRow Key="row1" RowType="Detail" TableKey="MOA_EmailDeletedView">
+                            <LinearLayoutPanel Caption="LinearLayoutPanel2" Key="LinearLayoutPanel2" Orientation="Vertical">
+                                <LinearLayoutPanel Caption="LinearLayoutPanel3" Height="40px" Key="LinearLayoutPanel3" Width="auto">
+                                    <CheckBox Height="auto" Key="SelField" Width="60px" IsSelect="true" Enable="true">
+                                        <DataBinding ColumnKey="SelField" TableKey="MOA_EmailDeletedView"/>
+                                    </CheckBox>
+                                    <TextEditor Key="Topic" Caption="主题" Enable="false" Height="auto" Width="0px" Weight="1.0" OnlyShow="true">
+                                        <DataBinding ColumnKey="Topic"/>
+                                    </TextEditor>
+                                </LinearLayoutPanel>
+                                <LinearLayoutPanel Caption="LinearLayoutPanel4" Height="40px" Key="LinearLayoutPanel4" Width="auto">
+                                    <TextEditor Key="NO" Caption="单据编号" Enable="false" Height="auto" Width="0px" Weight="1.0" OnlyShow="true">
+                                        <DataBinding ColumnKey="NO"/>
+                                    </TextEditor>
+                                    <DatePicker Key="BillDate" Caption="单据日期" Enable="false" Height="auto" OnlyDate="true" Width="0px" Weight="1.0" OnlyShow="true">
+                                        <DataBinding ColumnKey="BillDate"/>
+                                    </DatePicker>
+                                </LinearLayoutPanel>
+                                <LinearLayoutPanel Caption="LinearLayoutPanel5" Height="40px" Key="LinearLayoutPanel5" Width="auto">
+                                    <ComboBox Key="EmailStatus" Caption="邮件状态" Enable="false" Height="auto" Width="0px" Weight="1.0" OnlyShow="true">
+                                        <DataBinding ColumnKey="EmailStatus"/>
+                                        <Item Caption="已读" Key="10" Value="10"/>
+                                        <Item Caption="未读" Key="20" Value="20"/>
+                                    </ComboBox>
+                                    <TextEditor Key="Sender" Caption="发件人" Enable="false" Height="auto" Width="0px" Weight="1.0" OnlyShow="true">
+                                        <DataBinding ColumnKey="Sender"/>
+                                    </TextEditor>
+                                </LinearLayoutPanel>
+                                <LinearLayoutPanel Caption="LinearLayoutPanel6" Height="40px" Key="LinearLayoutPanel6" Width="auto">
+                                    <DatePicker Key="EmailTime" Caption="时间" Enable="false" Height="auto" Width="0px" Weight="1.0" OnlyShow="true">
+                                        <DataBinding ColumnKey="EmailTime"/>
+                                    </DatePicker>
+                                    <TextEditor Key="OID" Caption="OID" Visible="false" Height="pref" Width="pref">
+                                        <DataBinding ColumnKey="OID"/>
+                                    </TextEditor>
+                                    <TextEditor Key="EmailID" Caption="邮箱ID" Visible="false" Height="pref" Width="pref" OnlyShow="true">
+                                        <DataBinding ColumnKey="EmailID"/>
+                                    </TextEditor>
+                                </LinearLayoutPanel>
+                                <LinearLayoutPanel Caption="LinearLayoutPanel7" Height="40px" Key="LinearLayoutPanel7" Width="auto"/>
+                            </LinearLayoutPanel>
+                            <RowClick>
+                                <![CDATA[Open("MOA_EmailDeleted",OID);]]>
+                            </RowClick>
+                        </TableRow>
+                    </TableRowCollection>
+                </TableView>
+            </LinearLayoutPanel>
+        </Block>
+    </Body>
+    <OnLoad>
+        <![CDATA[LoadData()]]>
+    </OnLoad>
+</Form>

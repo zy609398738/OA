@@ -1,0 +1,60 @@
+{
+	"@type":"com.bokesoft.cms2.model.HtmlTmpl",
+	"code":"HOME-TPL",
+	"htmlText":"<!DOCTYPE html>\n<html lang=\"zh-CN\">\n<head>\n <meta http-equiv=\"X-UA-Compatible\" content=\"IE=EmulateIE8\" /> \n <meta charset=\"utf-8\">\n <title>博科协同办公管理系统首页模板</title>\n</head>\n<body class=\"home-page\">\n<div class=\"bootjs-box\">\n<div yigo-cms:block=\"static?staticFile=buildin/boot-js-home.vm\"/>\n</div>\n<!--头部-->\n<div class=\"container\" id=\"header\">\n <div class=\"row clearfix top_bg\">\n <div yigo-cms:block=\"static?staticFile=buildin/oa-default-header.html\"/>\n </div>\n</div>\n<!-- 菜单区域 -->\n<div id=\"nav\" class=\"container\">\n <div class=\"row\">\n <div yigo-cms:block=\"main-menu\"/>\n </div>\n</div>\n<!--主体-->\n<div class=\"container\" id=\"mid\">\n <div class=\"row clearfix\">\n <div class=\"span3 aside-left\">\n <div yigo-cms:area=\"left-sidebar\" />\n </div>\n <div class=\"span9 main\">\n <div class=\"row\">\n <div class=\"span6 center\">\n <div yigo-cms:area=\"content\" />\n </div>\n <div class=\"span3 aside-right\">\n <div yigo-cms:area=\"right-sidebar\" />\n </div>\n </div>\n </div>\n </div>\n</div>\n<!--主体end-->\n<!--常用链接-->\n<div class=\"container\" id=\"OffenLinksRow\">\n <div class=\"row\">\n <div class=\"span12\">\n <div yigo-cms:area=\"OffenLinksRow\" />\n </div>\n </div>\n</div>\n<!--常用链接end-->\n<!--尾部-->\n<div class=\"container\" id=\"bottom\">\n <div class=\"row\">\n <div class=\"span12\">\n <div yigo-cms:block=\"static?staticFile=buildin/oa-default-footer.html\"/>\n </div>\n </div>\n</div>\n<!--尾部end-->\n</body></html>",
+	"name":"主页模板",
+	"slices":[
+		{
+			"followHtml":"<!DOCTYPE html>\n<html lang=\"zh-CN\">\n<head>\n <meta http-equiv=\"X-UA-Compatible\" content=\"IE=EmulateIE8\" /> \n <meta charset=\"utf-8\">\n "
+		},
+		{
+			"code":"博科协同办公管理系统首页模板",
+			"followHtml":"\n</head>\n<body class=\"home-page\">\n<div class=\"bootjs-box\">\n",
+			"tag":"yigo-cms:title"
+		},
+		{
+			"code":"static?staticFile=buildin/boot-js-home.vm",
+			"followHtml":"\n</div>\n<!--头部-->\n<div class=\"container\" id=\"header\">\n <div class=\"row clearfix top_bg\">\n ",
+			"tag":"yigo-cms:block"
+		},
+		{
+			"code":"static?staticFile=buildin/oa-default-header.html",
+			"followHtml":"\n </div>\n</div>\n<!-- 菜单区域 -->\n<div id=\"nav\" class=\"container\">\n <div class=\"row\">\n ",
+			"tag":"yigo-cms:block"
+		},
+		{
+			"code":"main-menu",
+			"followHtml":"\n </div>\n</div>\n<!--主体-->\n<div class=\"container\" id=\"mid\">\n <div class=\"row clearfix\">\n <div class=\"span3 aside-left\">\n ",
+			"tag":"yigo-cms:block"
+		},
+		{
+			"code":"left-sidebar",
+			"followHtml":"\n </div>\n <div class=\"span9 main\">\n <div class=\"row\">\n <div class=\"span6 center\">\n ",
+			"name":"左边滑动条",
+			"tag":"yigo-cms:area"
+		},
+		{
+			"code":"content",
+			"followHtml":"\n </div>\n <div class=\"span3 aside-right\">\n ",
+			"name":"内容",
+			"tag":"yigo-cms:area"
+		},
+		{
+			"code":"right-sidebar",
+			"followHtml":"\n </div>\n </div>\n </div>\n </div>\n</div>\n<!--主体end-->\n<!--常用链接-->\n<div class=\"container\" id=\"OffenLinksRow\">\n <div class=\"row\">\n <div class=\"span12\">\n ",
+			"name":"右边滑动条",
+			"tag":"yigo-cms:area"
+		},
+		{
+			"code":"OffenLinksRow",
+			"followHtml":"\n </div>\n </div>\n</div>\n<!--常用链接end-->\n<!--尾部-->\n<div class=\"container\" id=\"bottom\">\n <div class=\"row\">\n <div class=\"span12\">\n ",
+			"name":"OffenLinksRow",
+			"tag":"yigo-cms:area"
+		},
+		{
+			"code":"static?staticFile=buildin/oa-default-footer.html",
+			"followHtml":"\n </div>\n </div>\n</div>\n<!--尾部end-->\n</body></html>",
+			"tag":"yigo-cms:block"
+		}
+	]
+}

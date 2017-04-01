@@ -1,0 +1,29 @@
+description 'Bokesoft Messager'
+group 'com.bokesoft.services.messager'
+version '1.0'
+
+defaultTasks 'devOpsDist'
+
+apply plugin: 'java'
+sourceCompatibility = 1.7
+compileJava.options.encoding = 'UTF-8'
+
+distsDirName = "${projectDir}/dist"
+apply from: "../../../../../infrastructure/gradle/boke-devops/boke-devops.gradle"
+
+devOpsApply from: "deps.gradle"
+
+devOpsDefineExports (
+	include: ["*.jar"], exclude: []
+)
+
+eclipse.project.name = "bokesoft-messager-main"
+
+//强制指定 jar 包的名字
+archivesBaseName = "boke-messager-main"
+
+//测试使用的依赖
+dependencies {
+	// https://mvnrepository.com/artifact/org.eclipse.jetty.websocket/websocket-client
+	testCompile group: 'org.eclipse.jetty.websocket', name: 'websocket-client', version: '9.2.2.v20140723'
+}

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Caption="利润中心" FormType="Dict" Key="V_ProfitCenter">
+    <DataSource RefObjectKey="ProfitCenter"/>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root">
+                <TabPanel Key="body">
+                    <GridLayoutPanel Key="body_basic" Padding="8px" Caption="基本信息(&amp;B)">
+                        <Label Key="Inner_Code" Caption="代码" X="0" Y="1"/>
+                        <TextEditor Key="Code" Caption="代码" BuddyKey="Inner_Code" X="1" Y="1" Visible="false" Enable="!ReadOnly()&amp;&amp;com.bokesoft.erp.basis.common.DocumentNumberUI.docNumberFieldEnable('Code')" InvalidChars="%*\&quot;+?&gt;&lt;:'">
+                            <DataBinding TableKey="BK_ProfitCenter" ColumnKey="Code" CheckRule="iifs(com.bokesoft.erp.basis.common.DocumentNumberUI.docNumberFieldEnable('Code')&amp;&amp;Value('Code')='', '采用外部给号编码规则，请输入代码', true, true)" DefaultFormulaValue="getProp('ControllingAreaID', 'Code')&amp;'_'&amp;Value('UseCode')"/>
+                        </TextEditor>
+                        <Label Key="Inner_Name" Caption="名称" X="0" Y="2"/>
+                        <TextEditor Key="Name" Caption="名称" BuddyKey="Inner_Name" X="1" Y="2" Visible="true" Enable="!ReadOnly()">
+                            <DataBinding TableKey="BK_ProfitCenter" ColumnKey="Name"/>
+                        </TextEditor>
+                        <Label Key="Inner_NodeType" Caption="结点类型" X="0" Y="8"/>
+                        <ComboBox Key="NodeType" Caption="结点类型" BuddyKey="Inner_NodeType" X="1" Y="8" Visible="false" Enable="!ReadOnly()&amp;&amp;Status&lt;0">
+                            <DataBinding TableKey="BK_ProfitCenter" ColumnKey="NodeType"/>
+                        </ComboBox>
+                        <Label Key="Inner_ControllingAreaID" Caption="成本控制范围" X="0" Y="0"/>
+                        <Dict Key="ControllingAreaID" Caption="成本控制范围" BuddyKey="Inner_ControllingAreaID" X="1" Y="0" Visible="true" Enable="false" ItemKey="ControllingArea">
+                            <DataBinding TableKey="BK_ProfitCenter" ColumnKey="ControllingAreaID" CheckRule="iifs(ControllingAreaID=-1, '请输入控制范围', true, true)" DefaultFormulaValue="iif(valuenoerror('HeadControllingAreaID')&gt;-1, Value('HeadControllingAreaID'), Value@Parent('HeadControllingAreaID'))"/>
+                        </Dict>
+                        <Label Key="Inner_ValidDateFrom" Caption="有效起始日" X="0" Y="3"/>
+                        <DatePicker Key="ValidDateFrom" Caption="有效起始日" BuddyKey="Inner_ValidDateFrom" X="1" Y="3" Visible="true" Enable="!ReadOnly()">
+                            <DataBinding TableKey="BK_ProfitCenter" ColumnKey="ValidDateFrom" DefaultFormulaValue="DateInt()"/>
+                        </DatePicker>
+                        <Label Key="Inner_ValidDateTo" Caption="有效结束日" X="0" Y="4"/>
+                        <DatePicker Key="ValidDateTo" Caption="有效结束日" BuddyKey="Inner_ValidDateTo" X="1" Y="4" Visible="true" Enable="!ReadOnly()">
+                            <DataBinding TableKey="BK_ProfitCenter" ColumnKey="ValidDateTo"/>
+                        </DatePicker>
+                        <CheckBox Caption="虚拟标识" Enable="false" Key="dummy" Visible="true" X="1" Y="7">
+                            <DataBinding TableKey="BK_ProfitCenter" ColumnKey="Dummy"/>
+                        </CheckBox>
+                        <Label Key="Inner_ProfitCenterGroupID" Caption="利润中心标准层次" X="0" Y="5"/>
+                        <Dict Key="ProfitCenterGroupID" Caption="利润中心标准层次" BuddyKey="Inner_ProfitCenterGroupID" X="1" Y="5" Visible="true" Enable="!ReadOnly()" ItemKey="ProfitCenterGroup">
+                            <DataBinding TableKey="BK_ProfitCenter" ColumnKey="ProfitCenterGroupID" CheckRule="iifs(ProfitCenterGroupID=-1, '请输入标准利润中心层次', true, true)" DefaultFormulaValue="iif(com.bokesoft.erp.basis.common.ViewFormula.getParentViewerKey()='ProfitCenterStandardHierarchy', iif(getUIVariable@parent('ItemKey')='ProfitCenterGroup', getSelectedItemId@parent(), dicValue('ProfitCenter', 'ProfitCenterGroupID', getSelectedItemId@parent())), -1)"/>
+                        </Dict>
+                        <Label Key="Inner_SegmentID" Caption="段" X="0" Y="6"/>
+                        <Dict Key="SegmentID" Caption="段" BuddyKey="Inner_SegmentID" X="1" Y="6" Visible="true" Enable="!ReadOnly()" ItemKey="FI_Segment">
+                            <DataBinding TableKey="BK_ProfitCenter" ColumnKey="SegmentID"/>
+                        </Dict>
+                        <Label Key="Inner_UseCode" Caption="代码" X="0" Y="1"/>
+                        <TextEditor Key="UseCode" Caption="代码" BuddyKey="Inner_UseCode" X="1" Y="1" Visible="true" Enable="!ReadOnly()&amp;&amp;com.bokesoft.erp.basis.common.DocumentNumberUI.docNumberFieldEnable('UseCode')" InvalidChars="%*\&quot;+?&gt;&lt;:'" MaxLength="100">
+                            <DataBinding TableKey="BK_ProfitCenter" ColumnKey="UseCode" CheckRule="iifs(com.bokesoft.erp.basis.common.DocumentNumberUI.docNumberFieldEnable('UseCode')&amp;&amp;Value('UseCode')='', '采用外部给号编码规则，请输入代码', true, true)"/>
+                        </TextEditor>
+                        <RowDefCollection RowGap="5">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="5">
+                            <ColumnDef Width="100px"/>
+                            <ColumnDef Width="330px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <GridLayoutPanel Key="TAB1" Padding="8px" Caption="公司代码分配">
+                        <Grid Key="grid0" X="0" Y="0">
+                            <GridColumnCollection>
+                                <GridColumn Key="CompanyCodeID" Caption="公司代码" Width="80px"/>
+                                <GridColumn Key="assigned" Caption="分配" Width="80px"/>
+                            </GridColumnCollection>
+                            <GridRowCollection>
+                                <GridRow Key="row1" TableKey="BK_ProfitCenter_CpyCodeDtl">
+                                    <GridCell Key="CompanyCodeID" Caption="公司代码" CellType="Dict" ItemKey="CompanyCode">
+                                        <DataBinding ColumnKey="companycodeid"/>
+                                    </GridCell>
+                                    <GridCell Key="assigned" Caption="分配" CellType="CheckBox">
+                                        <DataBinding ColumnKey="assigned"/>
+                                    </GridCell>
+                                </GridRow>
+                            </GridRowCollection>
+                        </Grid>
+                        <RowDefCollection RowGap="5">
+                            <RowDef Height="100%"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="5">
+                            <ColumnDef Width="100%"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <GridLayoutPanel Key="body_system" Padding="8px" Caption="系统信息(&amp;D)">
+                        <Label Key="Inner_ClientID" Caption="集团" X="0" Y="0"/>
+                        <Dict Key="ClientID" Caption="集团" BuddyKey="Inner_ClientID" X="1" Y="0" Visible="true" Enable="false" ItemKey="Client">
+                            <DataBinding TableKey="BK_ProfitCenter" ColumnKey="clientid" DefaultFormulaValue="getClientID()"/>
+                        </Dict>
+                        <Label Key="Inner_Status" Caption="结点状态" X="0" Y="1"/>
+                        <ComboBox Key="Status" Caption="结点状态" BuddyKey="Inner_Status" X="1" Y="1" Visible="true" Enable="false">
+                            <DataBinding TableKey="BK_ProfitCenter" ColumnKey="Status"/>
+                        </ComboBox>
+                        <Label Key="Inner_CreateByID" Caption="创建人员" X="0" Y="2"/>
+                        <Dict Key="CreateByID" Caption="创建人员" BuddyKey="Inner_CreateByID" X="1" Y="2" Visible="true" Enable="false" ItemKey="Operator">
+                            <DataBinding TableKey="BK_ProfitCenter" ColumnKey="CREATOR" DefaultFormulaValue="GetOperator()"/>
+                        </Dict>
+                        <Label Key="Inner_CreateTime" Caption="创建时间" X="0" Y="3"/>
+                        <DatePicker Key="CreateTime" Caption="创建时间" BuddyKey="Inner_CreateTime" X="1" Y="3" Visible="true" Enable="false" OnlyDate="false">
+                            <DataBinding TableKey="BK_ProfitCenter" ColumnKey="CREATETIME" DefaultFormulaValue="ServerDate()"/>
+                        </DatePicker>
+                        <Label Key="Inner_UpdateByID" Caption="修改人员" X="0" Y="4"/>
+                        <Dict Key="UpdateByID" Caption="修改人员" BuddyKey="Inner_UpdateByID" X="1" Y="4" Visible="true" Enable="false" ItemKey="Operator">
+                            <DataBinding TableKey="BK_ProfitCenter" ColumnKey="MODIFIER" DefaultFormulaValue="GetOperator()"/>
+                        </Dict>
+                        <Label Key="Inner_UpdateTime" Caption="修改时间" X="0" Y="5"/>
+                        <DatePicker Key="UpdateTime" Caption="修改时间" BuddyKey="Inner_UpdateTime" X="1" Y="5" Visible="true" Enable="false" OnlyDate="false">
+                            <DataBinding TableKey="BK_ProfitCenter" ColumnKey="MODIFYTIME" DefaultFormulaValue="ServerDate()"/>
+                        </DatePicker>
+                        <Label Key="Inner_Notes" Caption="备注" X="0" Y="6"/>
+                        <TextEditor Key="Notes" Caption="备注" BuddyKey="Inner_Notes" X="1" Y="6" Visible="true" Enable="!ReadOnly()">
+                            <DataBinding TableKey="BK_ProfitCenter" ColumnKey="Notes"/>
+                        </TextEditor>
+                        <RowDefCollection RowGap="5">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="5">
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="330px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                </TabPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

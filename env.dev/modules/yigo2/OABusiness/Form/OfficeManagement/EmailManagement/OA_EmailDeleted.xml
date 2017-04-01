@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="OA_EmailDeleted" Caption="已删除邮件" FormType="Entity" Platform="">
+    <DataSource>
+        <DataObject Key="OA_EmailDeleted" Caption="已删除邮件" NoPrefix="ED" PrimaryTableKey="OA_EmailDeleted_H" PrimaryType="Entity">
+            <TableCollection>
+                <Table Key="OA_EmailDeleted_H" Caption="已删除邮件" DBTableName="OA_EmailInbox_H">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="Sender" Caption="发件人" DataType="Varchar"/>
+                    <Column Key="Receiver" Caption="收件人" DataType="Varchar"/>
+                    <Column Key="CopyTo" Caption="抄送" DataType="Varchar"/>
+                    <Column Key="Topic" Caption="主题" DataType="Varchar"/>
+                    <Column Key="Isdelete" Caption="已删除" DataType="Integer"/>
+                    <Column Key="IsDust" Caption="是否垃圾文件" DataType="Integer"/>
+                    <Column Key="MailName" Caption="邮箱登陆名" DataType="Varchar"/>
+                    <Column Key="ContentPath" Caption="正文路径" DataType="Varchar"/>
+                    <Column Key="EmailStatus" Caption="邮箱状态" DataType="Integer"/>
+                    <Column Key="Content" Caption="正文" DataType="Text"/>
+                    <Column Key="NO" Caption="单据编号" DataType="Varchar"/>
+                    <Column Key="BillDate" Caption="单据日期" DataType="DateTime"/>
+                    <Column Key="Status" Caption="状态" DataType="Integer"/>
+                    <Column Key="EmailID" Caption="邮件ID" DataType="Varchar"/>
+                    <Column Key="EmailTime" Caption="时间" DataType="DateTime"/>
+                    <Column Key="IsDraft" Caption="是否草稿" DataType="Integer"/>
+                    <Column Key="OperatorID" Caption="操作ID" DataType="Long"/>
+                    <Column Key="ReceiverIds" Caption="收件人IDs" DataType="Varchar"/>
+                    <Column Key="CopyToIDs" Caption="抄送IDs" DataType="Varchar"/>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="Close" Caption="关闭界面" RefKey="Close"/>
+        <Operation Key="Reply" Caption="回复" Visible="false"/>
+        <Operation Key="ReplyAll" Caption="回复全部" Visible="false"/>
+        <Operation Key="Forward" Caption="转发" Visible="false"/>
+        <Operation Key="Delete" Caption="删除">
+            <Action>
+                <![CDATA[if(EmailID!=""){InvokeService("OA_DeleteServerEmailByIDS", true, false, GetOperator(),EmailID)}
+DBUpdate("delete from OA_EmailInbox_H  where OID=?", OID);
+DBUpdate("delete from OA_Attachment  where SOID=?", OID);
+Close();]]>
+            </Action>
+        </Operation>
+        <Operation Key="Last" Caption="上一封" Visible="false"/>
+        <Operation Key="Next" Caption="下一封" Visible="false"/>
+    </OperationCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板" OverflowY="Auto">
+                <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <GridLayoutPanel Key="first_head" Height="195px" Padding="5px" Caption="first_head">
+                    <TextEditor Key="Sender" Caption="发件人" BuddyKey="Lab_Sender" X="1" Y="0" XSpan="6">
+                        <DataBinding ColumnKey="Sender" TableKey="OA_EmailDeleted_H"/>
+                    </TextEditor>
+                    <Label Key="Lab_Sender" Caption="发件人" X="0" Y="0"/>
+                    <TextEditor Key="CopyTo" Caption="抄送" BuddyKey="Lab_CopyTo" X="1" Y="1" XSpan="6">
+                        <DataBinding ColumnKey="CopyTo" TableKey="OA_EmailDeleted_H"/>
+                    </TextEditor>
+                    <Label Key="Lab_CopyTo" Caption="抄送" X="0" Y="1"/>
+                    <TextEditor Key="Topic" Caption="主题" BuddyKey="Lab_Topic" X="1" Y="2" XSpan="6">
+                        <DataBinding ColumnKey="Topic" TableKey="OA_EmailDeleted_H"/>
+                    </TextEditor>
+                    <Label Key="Lab_Topic" Caption="主题" X="0" Y="2"/>
+                    <DatePicker Key="EmailTime" Caption="时间" BuddyKey="Lab_EmailTime" X="1" Y="3" XSpan="6">
+                        <DataBinding ColumnKey="EmailTime" TableKey="OA_EmailDeleted_H"/>
+                    </DatePicker>
+                    <Label Key="Lab_EmailTime" Caption="时间" X="0" Y="3"/>
+                    <HyperLink Caption="附件" Key="Attachment" X="1" Y="4">
+                        <OnClick>
+                            <![CDATA[if(AttachmentVisiable==0){
+SetValue("AttachmentVisiable",1);
+}else{
+SetValue("AttachmentVisiable",0);
+}]]>
+                        </OnClick>
+                    </HyperLink>
+                    <CheckBox Caption="附件可见" Key="AttachmentVisiable" X="2" Y="4" Visible="false"/>
+                    <Dict Key="OperatorID" Caption="操作ID" BuddyKey="Lab_OperatorID" X="4" Y="4" Visible="false" ItemKey="Operator">
+                        <DataBinding ColumnKey="OperatorID" TableKey="OA_EmailDeleted_H"/>
+                    </Dict>
+                    <Label Key="Lab_OperatorID" Caption="操作ID" X="3" Y="4"/>
+                    <ComboBox Key="IsDraft" Caption="是否草稿" BuddyKey="Lab_IsDraft" X="4" Y="4" Visible="false" IntegerValue="true">
+                        <DataBinding ColumnKey="IsDraft" TableKey="OA_EmailDeleted_H"/>
+                        <Item Caption="是" Key="10" Value="10"/>
+                        <Item Caption="否" Key="20" Value="20"/>
+                    </ComboBox>
+                    <Label Key="Lab_IsDraft" Caption="是否草稿" X="3" Y="4"/>
+                    <ComboBox Key="IsDelete" Caption="已删除" BuddyKey="Lab_IsDelete" X="4" Y="4" Visible="false" IntegerValue="true">
+                        <DataBinding ColumnKey="Isdelete" TableKey="OA_EmailDeleted_H"/>
+                        <Item Caption="是" Key="10" Value="10"/>
+                        <Item Caption="否" Key="20" Value="20"/>
+                    </ComboBox>
+                    <Label Key="Lab_IsDelete" Caption="已删除" X="3" Y="4"/>
+                    <TextEditor Key="OID" Caption="OID" BuddyKey="Lab_OID" X="4" Y="4" Visible="false">
+                        <DataBinding ColumnKey="OID" TableKey="OA_EmailDeleted_H"/>
+                    </TextEditor>
+                    <Label Key="Lab_OID" Caption="OID" X="3" Y="4"/>
+                    <TextEditor Key="ContentPath" Caption="正文路径" BuddyKey="Lab_ContentPath" X="4" Y="4" Visible="false">
+                        <DataBinding ColumnKey="ContentPath" TableKey="OA_EmailDeleted_H"/>
+                    </TextEditor>
+                    <Label Key="Lab_ContentPath" Caption="正文路径" X="3" Y="4"/>
+                    <ComboBox Key="isDust" Caption="是否垃圾邮件" BuddyKey="Lab_isDust" X="4" Y="4" Visible="false" IntegerValue="true">
+                        <DataBinding ColumnKey="IsDust" TableKey="OA_EmailDeleted_H"/>
+                        <Item Caption="是" Key="10" Value="10"/>
+                        <Item Caption="否" Key="20" Value="20"/>
+                    </ComboBox>
+                    <Label Key="Lab_isDust" Caption="是否垃圾邮件" X="3" Y="4"/>
+                    <TextEditor Key="EmailID" Caption="邮件ID" BuddyKey="Lab_EmailID" X="4" Y="4" Visible="false">
+                        <DataBinding ColumnKey="EmailID" TableKey="OA_EmailDeleted_H"/>
+                    </TextEditor>
+                    <Label Key="Lab_EmailID" Caption="邮件ID" X="3" Y="4"/>
+                    <ComboBox Key="EmailStatus" Caption="邮件状态" BuddyKey="Lab_EmailStatus" X="4" Y="4" Visible="false" IntegerValue="true">
+                        <DataBinding ColumnKey="EmailStatus" TableKey="OA_EmailDeleted_H"/>
+                        <Item Caption="已读" Key="10" Value="10"/>
+                        <Item Caption="未读" Key="20" Value="20"/>
+                    </ComboBox>
+                    <Label Key="Lab_EmailStatus" Caption="邮件状态" X="3" Y="4"/>
+                    <TextEditor Key="MailName" Caption="邮箱登陆名" BuddyKey="Lab_MailName" X="4" Y="4" Visible="false">
+                        <DataBinding ColumnKey="MailName" TableKey="OA_EmailDeleted_H"/>
+                    </TextEditor>
+                    <Label Key="Lab_MailName" Caption="邮箱登陆名" X="3" Y="4"/>
+                    <ComboBox Key="Status" Caption="状态" BuddyKey="Lab_Status" X="4" Y="4" SourceType="Status" Visible="false" IntegerValue="true">
+                        <DataBinding ColumnKey="Status" TableKey="OA_EmailDeleted_H" DefaultValue="100"/>
+                    </ComboBox>
+                    <Label Key="Lab_Status" Caption="状态" X="3" Y="4"/>
+                    <DatePicker Key="BillDate" Caption="单据日期" BuddyKey="Lab_BillDate" X="4" Y="4" Visible="false">
+                        <DataBinding ColumnKey="BillDate" TableKey="OA_EmailDeleted_H"/>
+                    </DatePicker>
+                    <Label Key="Lab_BillDate" Caption="单据日期" X="3" Y="4"/>
+                    <TextEditor Key="NO" Caption="单据编号" BuddyKey="Lab_NO" X="4" Y="4" Visible="false">
+                        <DataBinding ColumnKey="NO" TableKey="OA_EmailDeleted_H"/>
+                    </TextEditor>
+                    <Label Key="Lab_NO" Caption="单据编号" X="3" Y="4"/>
+                    <TextEditor Key="ReceiverIds" Caption="收件人IDs" BuddyKey="Lab_ReceiverIds" X="4" Y="4" Visible="false">
+                        <DataBinding ColumnKey="ReceiverIds" TableKey="OA_EmailDeleted_H"/>
+                    </TextEditor>
+                    <Label Key="Lab_ReceiverIds" Caption="收件人IDs" X="3" Y="4"/>
+                    <TextEditor Key="CopyToIDs" Caption="抄送IDs" BuddyKey="Lab_CopyToIDs" X="4" Y="4" Visible="false">
+                        <DataBinding ColumnKey="CopyToIDs" TableKey="OA_EmailDeleted_H"/>
+                    </TextEditor>
+                    <Label Key="Lab_CopyToIDs" Caption="抄送IDs" X="3" Y="4"/>
+                    <RowDefCollection RowGap="8">
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="8">
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="33%"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="33%"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="34%"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+                <GridLayoutPanel Key="GridLayoutPanel1" Height="185px" Padding="5px" Caption="GridLayoutPanel1" Visible="AttachmentVisiable==1||DBNamedQueryValue(&quot;QueryAtt&quot;, OID)&gt;0">
+                    <Embed Caption="附件" FormKey="OA_Attachment" Key="OA_Attachment" RootKey="Grid2" X="1" XSpan="5" Y="0">
+                        <Var Key="ParentKey" Value="OA_EmailDeleted_H"/>
+                    </Embed>
+                    <RowDefCollection RowGap="5">
+                        <RowDef Height="170px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="5">
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="33%"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="33%"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="34%"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+                <GridLayoutPanel Key="GridLayoutPanel2" Height="320px" Padding="5px" Caption="GridLayoutPanel2">
+                    <RichEditor BuddyKey="Lab_Content" Caption="正文" Key="Content" X="1" XSpan="5" Y="0" Enable="true" YSpan="8">
+                        <DataBinding ColumnKey="Content" TableKey="OA_EmailDeleted_H"/>
+                    </RichEditor>
+                    <Label Key="Lab_Content" Caption="正文" X="0" Y="0" YSpan="8"/>
+                    <TextEditor Key="Receiver" Caption="收件人" BuddyKey="Lab_Receiver" X="1" Y="8" XSpan="5">
+                        <DataBinding ColumnKey="Receiver" TableKey="OA_EmailDeleted_H"/>
+                    </TextEditor>
+                    <Label Key="Lab_Receiver" Caption="收件人" X="0" Y="8"/>
+                    <RowDefCollection RowGap="5">
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="5">
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="33%"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="33%"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="34%"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

@@ -1,0 +1,20 @@
+{
+	"@type":"com.bokesoft.cms2.impl.buildin.modelio.vo.BlockVO",
+	"block":{
+		"@type":"com.bokesoft.cms2.model.blocks.TmplBlock",
+		"formulaText":"cms.PageExp.Local(\n    \"data\",\n    cms.DataExp.QueryList(\"\n        select a.oid ,a.name,a.code,count(b.oid) as count from OA_NewsType_H a left join OA_NewsType_H b  on a.oid=b.parentid where a.oid<>-1 and a.parentid =0  group by  a.oid ,a.name,a.code order by a.code\n    \")\n)\n&cms.PageExp.Local(\n    \"data2\",\n    cms.DataExp.QueryList(\"\n        select a.oid ,a.name,a.code,a.parentid ,count(b.oid) as count from OA_NewsType_H a left join OA_NewsType_H b  on a.oid=b.parentid \nwhere a.parentid  in (select oid from OA_NewsType_H where  oid<>-1 and parentid =0 )\n group by  a.oid ,a.name,a.code,a.parentid order by a.code\n    \")\n)\n&cms.PageExp.Local(\n    \"data3\",\n    cms.DataExp.QueryList(\"\n        select a.oid ,a.name,a.code,a.parentid ,count(b.oid) as count from OA_NewsType_H a left join OA_NewsType_H b  on a.oid=b.parentid \nwhere a.parentid  in (select oid from OA_NewsType_H where  parentid  in (select oid from OA_NewsType_H where  oid<>-1 and parentid =0 ))\n group by  a.oid ,a.name,a.code,a.parentid order by a.code\n    \")\n)",
+		"notes":"",
+		"parameters":[],
+		"tmplText":"=cms.PageExp.ReadResourceText(\"cms:models/left-menu-list.html\")",
+		"type":"TMPL"
+	},
+	"code":"LEFT-MENU-LIST",
+	"name":"自定义三级分类",
+	"params":[
+		{
+			"caption":"标题",
+			"key":"title",
+			"type":"common"
+		}
+	]
+}

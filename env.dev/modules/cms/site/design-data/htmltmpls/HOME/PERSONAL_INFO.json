@@ -1,0 +1,18 @@
+{
+	"@type":"com.bokesoft.cms2.model.HtmlTmpl",
+	"code":"PERSONAL_INFO",
+	"htmlText":"<div yigo-cms:area=\"personalinfo\" />",
+	"name":"个人信息",
+	"notes":"个人信息啦。。。",
+	"slices":[
+		{
+			"followHtml":""
+		},
+		{
+			"code":"personalinfo",
+			"followHtml":"",
+			"name":"personalinfo",
+			"tag":"yigo-cms:area"
+		}
+	]
+}

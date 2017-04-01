@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="NJ_PaymentSituation" Caption="物业缴费余额" FormType="Entity" AbbrCaption="物业缴费余额" InitState="Default">
+    <DataSource>
+        <DataObject Key="NJ_PaymentSituation" Caption="物业缴费余额" PrimaryTableKey="NJ_PaymentSituation" PrimaryType="Entity">
+            <TableCollection>
+                <Table Key="NJ_PaymentSituation" Caption="NJ_PaymentSituation" DBTableName="NJ_PaymentSituation" TableMode="Detail" SourceType="Query" Persist="false" OrderBy="CustomerId,EndDate,ExpenseType">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="MapCount" Caption="映射数量标记" DataType="Integer"/>
+                    <Column Key="MapKey" Caption="映射标识" DataType="Varchar"/>
+                    <Column Key="SrcOID" Caption="来源行标识" DataType="Long"/>
+                    <Column Key="SrcSOID" Caption="来源表单标识" DataType="Long"/>
+                    <Column Key="CustomerId" Caption="CustomerId" DataType="Long"/>
+                    <Column Key="UsePeople" Caption="UsePeople" DataType="Varchar"/>
+                    <Column Key="RoomNumber" Caption="RoomNumber" DataType="Varchar"/>
+                    <Column Key="EmpID" Caption="EmpID" DataType="Long"/>
+                    <Column Key="TotalArea" Caption="TotalArea" DataType="Numeric" Precision="16" Scale="2"/>
+                    <Column Key="PlanDate" Caption="PlanDate" DataType="DateTime"/>
+                    <Column Key="ActualMoney" Caption="ActualMoney" DataType="Numeric" Precision="16" Scale="2"/>
+                    <Column Key="ReceivedMoney" Caption="ReceivedMoney" DataType="Numeric" Precision="16" Scale="2"/>
+                    <Column Key="CollectionMoney" Caption="CollectionMoney" DataType="Numeric" Precision="16" Scale="2"/>
+                    <Column Key="ContactNumber" Caption="ContactNumber" DataType="Varchar"/>
+                    <Column Key="EndDate" Caption="EndDate" DataType="DateTime"/>
+                    <Column Key="ExpenseType" Caption="ExpenseType" DataType="Long"/>
+                    <Column Key="StartDate" Caption="StartDate" DataType="DateTime"/>
+                    <Column Key="Unpaid" Caption="Unpaid" DataType="Numeric" Precision="16" Scale="2"/>
+                    <Column Key="Payable" Caption="Payable" DataType="Numeric" Precision="16" Scale="2"/>
+                    <Column Key="LateFee" Caption="LateFee" DataType="Numeric" Precision="16" Scale="2"/>
+                    <Column Key="TotalPayable" Caption="TotalPayable" DataType="Numeric" Precision="16" Scale="2"/>
+                    <Column Key="Payment" Caption="Payment" DataType="Numeric" Precision="16" Scale="2"/>
+                    <Column Key="NoContributions" Caption="NoContributions" DataType="Numeric" Precision="16" Scale="2"/>
+                    <Statement>
+                        <![CDATA[select a.CustomerId,UsePeople,a.ContactNumber,StartDate,EndDate,EmpID,a.RoomNumber,TotalArea,ExpenseType,Unpaid,Payable,LateFee,TotalPayable,d.Payment,TotalPayable-IFNULL(d.Payment,0) NoContributions ,b.OID from NJ_SCM_PaymentNoticeHead a LEFT JOIN NJ_SCM_PaymentNoticeCost b on a.OID=b.SOID LEFT JOIN (select max(a.BillDate) BillDate,CustomerId,RoomNumber from NJ_SCM_PaymentNoticeHead a LEFT JOIN NJ_SCM_PaymentNoticeCost b on a.OID=b.SOID GROUP BY CustomerId,RoomNumber) c ON a.BillDate=c.BillDate AND a.CustomerId=c.CustomerId AND a.RoomNumber=c.RoomNumber LEFT JOIN (select SourceOID,sum(Payment) Payment from NJ_SCM_PropertyPaymentCost group by SourceOID) d ON b.OID=d.SourceOID WHERE c.CustomerId IS NOT NULL AND TotalPayable-IFNULL(d.Payment,0)>0]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="WORKITEM" Caption="WORKITEM" Tag="WORKITEM"/>
+        <Operation Key="BPM" Caption="BPM" Tag="BPM"/>
+    </OperationCollection>
+    <ScriptCollection>
+        <Script Key="Load" Caption="载入" Description="载入事件" Range="Action" Verb="Load">
+            <![CDATA[
+		LoadData();ShowData()
+		]]>
+        </Script>
+    </ScriptCollection>
+    <Body HAlign="Center" Height="80%" PopHeight="80%" PopWidth="80%" Width="80%">
+        <Block>
+            <GridLayoutPanel Key="main" Height="100%">
+                <ToolBar Key="main_toolbar" X="0" Y="0">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <SplitPanel Key="main_split" Orientation="Vertical" Height="100%" X="0" Y="1">
+                    <GridLayoutPanel Key="query" Height="70px" Padding="5px" Caption="查询">
+                        <Button Key="Btn_find" Caption="查询" X="7" Y="0" Enable="true">
+                            <OnClick>
+                                <![CDATA[DealCondition();LoadData();ShowData();								]]>
+                            </OnClick>
+                        </Button>
+                        <Dict Key="CustomerId_cond" Caption="租赁客户" BuddyKey="Lab_CustomerId_cond" X="2" Y="0" Enable="true" AllowMultiSelection="true" ItemKey="NJ_CP_Customer">
+                            <Condition ColumnKey="CustomerId" TableKey="NJ_PaymentSituation" CondSign="in"/>
+                        </Dict>
+                        <Label Key="Lab_CustomerId_cond" Caption="租赁客户" X="1" Y="0"/>
+                        <TextEditor Key="RoomNumber_cond" Caption="房间号" BuddyKey="Lab_RoomNumber_cond" X="5" Y="0" Enable="true">
+                            <Condition ColumnKey="RoomNumber" TableKey="NJ_PaymentSituation" CondSign="like"/>
+                        </TextEditor>
+                        <Label Key="Lab_RoomNumber_cond" Caption="房间号" X="4" Y="0"/>
+                        <Button Key="xt" Caption="下推" X="9" Y="0" Enable="true">
+                            <OnClick>
+                                <![CDATA[ViewMap('NJ_PaymentSituation_NJ_PropertyPayment',false);
+Close();
+parent.SetValue('CustomerId',GetCellValue('Info', -1, 'CustomerId'));
+parent.SetValue('EmpID',GetCellValue('Info', -1, 'EmpID'));
+parent.SetValue('RoomNumber',GetCellValue('Info', -1, 'RoomNumber'));
+parent.SetValue('TotalArea',GetCellValue('Info', -1, 'TotalArea'));
+parent.SetValue('StartDate',GetCellValue('Info', -1, 'StartDate'));
+parent.SetValue('EndDate',GetCellValue('Info', -1, 'EndDate'));
+parent.SetValue('UsePeople',GetCellValue('Info', -1, 'UsePeople'));
+parent.SetValue('ContactNumber',GetCellValue('Info', -1, 'ContactNumber'));]]>
+                            </OnClick>
+                        </Button>
+                        <RowDefCollection RowHeight="25" RowGap="5">
+                            <RowDef/>
+                        </RowDefCollection>
+                        <ColumnDefCollection>
+                            <ColumnDef Width="20px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="50%"/>
+                            <ColumnDef Width="20px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="50%"/>
+                            <ColumnDef Width="20px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="10px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="20px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <Grid Key="Info" Caption="库存明细" NewEmptyRow="false" Enable="true" CanDelete="false" CanInsert="false" CanShift="false">
+                        <GridColumnCollection>
+                            <GridColumn Key="select" Caption="选择" Width="80px"/>
+                            <GridColumn Key="CustomerId" Caption="租赁客户" Width="80px"/>
+                            <GridColumn Key="UsePeople" Caption="联系人" Width="80px"/>
+                            <GridColumn Key="ContactNumber" Caption="联系电话" Width="80px"/>
+                            <GridColumn Key="RoomNumber" Caption="房间号" Width="80px"/>
+                            <GridColumn Key="TotalArea" Caption="总面积" Width="80px"/>
+                            <GridColumn Key="StartDate" Caption="费用开始" Width="80px"/>
+                            <GridColumn Key="EndDate" Caption="费用结束" Width="80px"/>
+                            <GridColumn Key="ExpenseType" Caption="收费项目" Width="80px"/>
+                            <GridColumn Key="Unpaid" Caption="累计欠款" Width="80px"/>
+                            <GridColumn Key="Payable" Caption="本期应缴" Width="80px"/>
+                            <GridColumn Key="LateFee" Caption="滞纳金" Width="80px"/>
+                            <GridColumn Key="TotalPayable" Caption="总应缴" Width="80px"/>
+                            <GridColumn Key="Payment" Caption="已缴款" Width="80px"/>
+                            <GridColumn Key="NoContributions" Caption="未缴款" Width="80px"/>
+                            <GridColumn Key="EmpID" Caption="收费员" Width="80px"/>
+                            <GridColumn Key="OID" Caption="OID " Width="80px" Visible="false"/>
+                        </GridColumnCollection>
+                        <GridRowCollection>
+                            <GridRow Key="R2" TableKey="NJ_PaymentSituation">
+                                <GridCell Key="select" Caption="选择" CellType="CheckBox" Enable="true" IsSelect="true"/>
+                                <GridCell Key="CustomerId" Caption="租赁客户" CellType="Dict" ItemKey="NJ_CP_Customer">
+                                    <DataBinding ColumnKey="CustomerId"/>
+                                </GridCell>
+                                <GridCell Key="UsePeople" Caption="联系人" CellType="TextEditor">
+                                    <DataBinding ColumnKey="UsePeople"/>
+                                </GridCell>
+                                <GridCell Key="ContactNumber" Caption="联系电话" CellType="TextEditor">
+                                    <DataBinding ColumnKey="ContactNumber"/>
+                                </GridCell>
+                                <GridCell Key="RoomNumber" Caption="房间号" CellType="TextEditor">
+                                    <DataBinding ColumnKey="RoomNumber"/>
+                                </GridCell>
+                                <GridCell Key="TotalArea" Caption="总面积" CellType="NumberEditor">
+                                    <DataBinding ColumnKey="TotalArea"/>
+                                </GridCell>
+                                <GridCell Key="StartDate" Caption="费用开始" CellType="DatePicker" Format="yyyy-MM-dd">
+                                    <DataBinding ColumnKey="StartDate"/>
+                                </GridCell>
+                                <GridCell Key="EndDate" Caption="费用结束" CellType="DatePicker" Format="yyyy-MM-dd">
+                                    <DataBinding ColumnKey="EndDate"/>
+                                </GridCell>
+                                <GridCell Key="ExpenseType" Caption="收费项目" CellType="Dict" ItemKey="NJ_ExpenseType">
+                                    <DataBinding ColumnKey="ExpenseType"/>
+                                </GridCell>
+                                <GridCell Key="Unpaid" Caption="累计欠款" CellType="NumberEditor">
+                                    <DataBinding ColumnKey="Unpaid"/>
+                                </GridCell>
+                                <GridCell Key="Payable" Caption="本期应缴" CellType="NumberEditor">
+                                    <DataBinding ColumnKey="Payable"/>
+                                    <CellFormat HAlign="Right"/>
+                                </GridCell>
+                                <GridCell Key="LateFee" Caption="滞纳金" CellType="NumberEditor">
+                                    <DataBinding ColumnKey="LateFee"/>
+                                    <CellFormat HAlign="Right"/>
+                                </GridCell>
+                                <GridCell Key="TotalPayable" Caption="总应缴" CellType="NumberEditor">
+                                    <DataBinding ColumnKey="TotalPayable"/>
+                                    <CellFormat HAlign="Right"/>
+                                </GridCell>
+                                <GridCell Key="Payment" Caption="已缴款" CellType="NumberEditor">
+                                    <DataBinding ColumnKey="Payment"/>
+                                    <CellFormat HAlign="Right"/>
+                                </GridCell>
+                                <GridCell Key="NoContributions" Caption="未缴款" CellType="NumberEditor">
+                                    <DataBinding ColumnKey="NoContributions"/>
+                                    <CellFormat HAlign="Right"/>
+                                </GridCell>
+                                <GridCell Key="EmpID" Caption="收费员" CellType="Dict" ItemKey="OA_Employee">
+                                    <DataBinding ColumnKey="EmpID"/>
+                                </GridCell>
+                                <GridCell Key="OID" Caption="OID " CellType="NumberEditor" IntegerValue="true">
+                                    <DataBinding ColumnKey="OID"/>
+                                </GridCell>
+                            </GridRow>
+                        </GridRowCollection>
+                    </Grid>
+                    <SplitSize Size="40px"/>
+                    <SplitSize Size="100%"/>
+                </SplitPanel>
+                <RowDefCollection RowHeight="25">
+                    <RowDef Height="0px"/>
+                    <RowDef Height="100%"/>
+                </RowDefCollection>
+                <ColumnDefCollection>
+                    <ColumnDef Width="100%"/>
+                </ColumnDefCollection>
+            </GridLayoutPanel>
+        </Block>
+    </Body>
+</Form>

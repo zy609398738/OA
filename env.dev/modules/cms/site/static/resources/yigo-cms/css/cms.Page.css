@@ -1,0 +1,166 @@
+﻿@charset"utf-8";
+/*弹出dialog*/
+.grayLayer{
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: #000;
+	z-index:9998;
+	filter:alpha(Opacity=40);
+	-moz-opacity:0.4;
+	opacity: 0.4;
+	_zoom:1;
+	_width:100%;
+	_height:1500px;
+	_background: #ccc;
+	_position: absolute;
+}
+.popupLayer{
+	border:1px solid #ccc;
+	background: url(../images/pop_bg.png) left top repeat-y #fff;
+	z-index:9999;
+	position: fixed;
+	_position: absolute;
+	left:50%;
+	overflow:hidden;
+}
+.popupContent{
+	padding-top:50px;
+	background: url(../images/contacts-pop-title.png) 20px 15px no-repeat;
+}
+.popupLayer a.close{
+	display:block;
+	width:30px;
+	height:18px;
+	background: url(../images/popupClose.gif) 0 0 no-repeat;
+	position:absolute;
+	top: 3px;
+	right: 8px;
+	cursor:pointer;
+}
+.popupLayer a.close:hover{
+	background: url(../images/popupClose2.gif) 0 0 no-repeat;
+}
+/*弹出dialog end*/
+
+/*多图片轮换 start*/
+.mainArea{
+	width:520px;
+	height: 346px;
+	margin:20px auto;
+	background:url(../images/loading.gif) no-repeat center center;
+	position:relative;
+}
+.mainArea .currentImg,
+.mainArea img{
+	width:520px;
+	height:346px;
+	_zoom:1;
+}
+.mainArea a.photo-left,
+.mainArea a.photo-right{
+	width: 50%;
+	height: 100%;
+	_height:346px;	
+	position: absolute;
+	top: 0;
+	z-index: 2;
+	background: transparent;
+	/*_background: red;*/	
+}
+.mainArea a.photo-left{
+	left: 0;
+}
+.mainArea a.photo-right{
+	right: 0;
+}
+.mainArea .title{
+	width: 100%;
+	height: 30px;
+	text-align:left;
+	line-height:30px;
+	position: absolute;
+	bottom: 0;
+	left:0;
+	z-index: 3;
+	background: url(../images/alpha.png) repeat;
+}
+.mainArea .title span{
+	color:#fff;
+	margin-left:10px;
+}
+
+.minPhotoList{
+	width:540px;
+	height:80px;
+	margin:10px auto;
+	padding:10px;
+	background:#eee;
+	position:relative;
+}
+.minPhotoList .photo-List{
+	width:500px;
+	height:80px;	
+	margin:0 auto;	
+	position:relative;
+	overflow:hidden;
+}
+.minPhotoList ul{
+	width:99999px;
+	height:80px;
+	position:absolute;
+	left:0;
+	top:0;
+}
+.minPhotoList ul li{
+	float:left;
+	width:100px;
+	height:80px;
+	list-style:none;
+	cursor: pointer;
+}
+.minPhotoList ul li img{
+	width:90px;
+	height:60px;
+}
+.minPhotoList ul li span{
+	display:block;
+	width:90px;
+	height:60px;
+	margin:0 auto;
+	text-align:center;
+}
+.minPhotoList ul li em{
+	font-style:normal;
+}
+.minPhotoList li.photo-Select span.titles {
+	background: #898989;
+	color: #FFF;
+}
+.minPhotoList li span.titles {
+	color: #666;
+	background: #ccc;	
+	font-size: 12px;
+	cursor: pointer;
+	margin-top:1px;
+}
+.minPhotoList a.photo-Up,
+.minPhotoList a.photo-Down{
+	position:absolute;
+	top:50%;
+	width: 13px;
+	height: 43px;
+	margin-top:-21px;
+	background: url(../images/toLeftRright.gif) no-repeat 0 0;
+}
+.minPhotoList a.photo-Up{
+	left:5px;
+	background: url(../images/toLeftRright.gif) no-repeat -16px 0;
+}
+.minPhotoList a.photo-Down{
+	right:5px;
+	background: url(../images/toLeftRright.gif) no-repeat 0 0;
+}
+/*多图片轮换 end*/

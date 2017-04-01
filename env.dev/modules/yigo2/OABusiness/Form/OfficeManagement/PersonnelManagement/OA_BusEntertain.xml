@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="OA_BusEntertain" Caption="业务招待" FormType="Entity">
+    <DataSource>
+        <DataObject Key="OA_BusEntertain" Caption="业务招待" NoPrefix="YZ" PrimaryTableKey="OA_BusEntertain_H" PrimaryType="Entity">
+            <TableCollection>
+                <Table Key="OA_BusEntertain_H" Caption="业务招待" DBTableName="OA_BusEntertain_H">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="EmpID" Caption="申请人" DataType="Long"/>
+                    <Column Key="DeptID" Caption="申请部门" DataType="Long"/>
+                    <Column Key="BillDate" Caption="申请日期" DataType="DateTime"/>
+                    <Column Key="Locale" Caption="地点" DataType="Varchar"/>
+                    <Column Key="VisitorNO" Caption="来宾人数" DataType="Integer"/>
+                    <Column Key="ReceptionDate" Caption="接待日期" DataType="DateTime"/>
+                    <Column Key="MeetingRoom" Caption="会议室" DataType="Integer"/>
+                    <Column Key="Computer" Caption="电脑" DataType="Integer"/>
+                    <Column Key="Projector" Caption="投影仪" DataType="Integer"/>
+                    <Column Key="Acoustics" Caption="音响" DataType="Integer"/>
+                    <Column Key="VoiceTube" Caption="话筒" DataType="Integer"/>
+                    <Column Key="UseCar" Caption="用车" DataType="Integer"/>
+                    <Column Key="Flower" Caption="花" DataType="Integer"/>
+                    <Column Key="Fruit" Caption="水果" DataType="Integer"/>
+                    <Column Key="Coffice" Caption="咖啡" DataType="Integer"/>
+                    <Column Key="Water" Caption="纯净水" DataType="Integer"/>
+                    <Column Key="Tea" Caption="茶水" DataType="Integer"/>
+                    <Column Key="MealFee" Caption="用餐费用" DataType="Numeric" Precision="16" Scale="2"/>
+                    <Column Key="HotelExpense" Caption="住宿费" DataType="Numeric" Precision="16" Scale="2"/>
+                    <Column Key="Notes" Caption="其他" DataType="Varchar"/>
+                    <Column Key="Creator" Caption="创建人" DataType="Long"/>
+                    <Column Key="CreateTime" Caption="创建日期" DataType="DateTime"/>
+                    <Column Key="Modifier" Caption="修改人" DataType="Long"/>
+                    <Column Key="ModifyTime" Caption="修改日期" DataType="DateTime"/>
+                    <Column Key="BillKey" Caption="单据Key" DataType="Varchar"/>
+                    <Column Key="ClusterID" Caption="集团" DataType="Long"/>
+                    <Column Key="InstanceID" Caption="流程标识" DataType="Long"/>
+                    <Column Key="WorkflowTypeDtlID" Caption="流程类别明细ID" DataType="Long"/>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="WORKITEM" Caption="WORKITEM" Tag="WORKITEM"/>
+        <Operation Key="BPM" Caption="BPM" Tag="BPM"/>
+        <Operation Key="Save" Caption="保存" RefKey="Save"/>
+        <Operation Key="Delete" Caption="删除" RefKey="Delete"/>
+        <Operation Key="Edit" Caption="编辑" RefKey="Edit"/>
+        <Operation Key="Cancel" Caption="取消" RefKey="Cancel"/>
+        <Operation Key="Close" Caption="关闭" RefKey="Close"/>
+        <Operation Key="ShowLog" Caption="审批记录" RefKey="ShowWFLog"/>
+    </OperationCollection>
+    <ScriptCollection>
+        <Script Key="Load" Caption="载入" Range="Action" Verb="Load">
+            <![CDATA[LoadData()]]>
+        </Script>
+    </ScriptCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板">
+                <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <TabPanel Caption="TabPanel1" Height="100%" Key="TabPanel1">
+                    <GridLayoutPanel Key="first_head" Padding="5px" Height="100%" Caption="基本信息">
+                        <Dict Key="EmpID" Caption="申请人" BuddyKey="Lab_EmpID" X="1" Y="0" ItemKey="OA_Employee" XSpan="7">
+                            <DataBinding TableKey="OA_BusEntertain_H" ColumnKey="EmpID" DefaultFormulaValue="GetDictValue('Operator', GetOperator(), 'SYS_Operator.EmpID')">
+                                <ValueChanged>
+                                    <![CDATA[DeptID=GetDictValue('OA_Employee', EmpID, 'OA_Employee_H.DeptID')]]>
+                                </ValueChanged>
+                            </DataBinding>
+                        </Dict>
+                        <Label Key="Lab_EmpID" Caption="申请人" X="0" Y="0"/>
+                        <Dict Key="DeptID" Caption="申请部门" BuddyKey="Lab_DeptID" X="9" Y="0" ItemKey="OA_Department" XSpan="2">
+                            <DataBinding TableKey="OA_BusEntertain_H" ColumnKey="DeptID" DefaultFormulaValue="GetDictValue('Operator', GetOperator(), 'SYS_Operator.DeptID')"/>
+                        </Dict>
+                        <Label Key="Lab_DeptID" Caption="申请部门" X="8" Y="0"/>
+                        <DatePicker Key="BillDate" Caption="申请日期" BuddyKey="Lab_BillDate" X="1" Y="1" XSpan="7">
+                            <DataBinding TableKey="OA_BusEntertain_H" ColumnKey="BillDate"/>
+                        </DatePicker>
+                        <Label Key="Lab_BillDate" Caption="申请日期" X="0" Y="1"/>
+                        <TextEditor Key="Locale" Caption="地点" BuddyKey="Lab_Locale" X="9" Y="1" XSpan="2">
+                            <DataBinding TableKey="OA_BusEntertain_H" ColumnKey="Locale"/>
+                        </TextEditor>
+                        <Label Key="Lab_Locale" Caption="地点" X="8" Y="1"/>
+                        <NumberEditor Key="VisitorNO" Caption="来宾人数" BuddyKey="Lab_VisitorNO" X="1" Y="2" IntegerValue="true" ShowZero="true" XSpan="7">
+                            <DataBinding TableKey="OA_BusEntertain_H" ColumnKey="VisitorNO"/>
+                        </NumberEditor>
+                        <Label Key="Lab_VisitorNO" Caption="来宾人数" X="0" Y="2"/>
+                        <DatePicker Key="ReceptionDate" Caption="接待日期" BuddyKey="Lab_ReceptionDate" X="9" Y="2" XSpan="2">
+                            <DataBinding TableKey="OA_BusEntertain_H" ColumnKey="ReceptionDate"/>
+                        </DatePicker>
+                        <Label Key="Lab_ReceptionDate" Caption="接待日期" X="8" Y="2"/>
+                        <Label Key="ReceptionReq" Caption="接待要求" X="0" Y="3"/>
+                        <CheckBox Caption="会议室" Key="MeetingRoom" X="1" Y="3">
+                            <DataBinding TableKey="OA_BusEntertain_H" ColumnKey="MeetingRoom"/>
+                        </CheckBox>
+                        <CheckBox Caption="电脑" Key="Computer" X="2" Y="3">
+                            <DataBinding TableKey="OA_BusEntertain_H" ColumnKey="Computer"/>
+                        </CheckBox>
+                        <CheckBox Caption="投影仪" Key="Projector" X="3" Y="3">
+                            <DataBinding TableKey="OA_BusEntertain_H" ColumnKey="Projector"/>
+                        </CheckBox>
+                        <CheckBox Caption="音响" Key="Acoustics" X="4" Y="3">
+                            <DataBinding TableKey="OA_BusEntertain_H" ColumnKey="Acoustics"/>
+                        </CheckBox>
+                        <CheckBox Caption="话筒" Key="VoiceTube" X="5" Y="3">
+                            <DataBinding TableKey="OA_BusEntertain_H" ColumnKey="VoiceTube"/>
+                        </CheckBox>
+                        <CheckBox Caption="用车" Key="UseCar" X="6" Y="3">
+                            <DataBinding TableKey="OA_BusEntertain_H" ColumnKey="UseCar"/>
+                        </CheckBox>
+                        <CheckBox Caption="花" Key="Flower" X="1" Y="4">
+                            <DataBinding TableKey="OA_BusEntertain_H" ColumnKey="Flower"/>
+                        </CheckBox>
+                        <CheckBox Caption="水果" Key="Fruit" X="2" Y="4">
+                            <DataBinding TableKey="OA_BusEntertain_H" ColumnKey="Fruit"/>
+                        </CheckBox>
+                        <CheckBox Caption="咖啡" Key="Coffice" X="3" Y="4">
+                            <DataBinding TableKey="OA_BusEntertain_H" ColumnKey="Coffice"/>
+                        </CheckBox>
+                        <CheckBox Caption="纯净水" Key="Water" X="4" Y="4">
+                            <DataBinding TableKey="OA_BusEntertain_H" ColumnKey="Water"/>
+                        </CheckBox>
+                        <CheckBox Caption="茶水" Key="Tea" X="5" Y="4">
+                            <DataBinding TableKey="OA_BusEntertain_H" ColumnKey="Tea"/>
+                        </CheckBox>
+                        <NumberEditor Key="MealFee" Caption="用餐费用" BuddyKey="Lab_MealFee" X="1" Y="5" XSpan="7">
+                            <DataBinding TableKey="OA_BusEntertain_H" ColumnKey="MealFee"/>
+                        </NumberEditor>
+                        <Label Key="Lab_MealFee" Caption="用餐费用" X="0" Y="5"/>
+                        <NumberEditor Key="HotelExpense" Caption="住宿费" BuddyKey="Lab_HotelExpense" X="9" Y="5" XSpan="2">
+                            <DataBinding TableKey="OA_BusEntertain_H" ColumnKey="HotelExpense"/>
+                        </NumberEditor>
+                        <Label Key="Lab_HotelExpense" Caption="住宿费" X="8" Y="5"/>
+                        <TextEditor Key="Notes" Caption="其他" BuddyKey="Lab_Notes" X="1" Y="6" XSpan="10">
+                            <DataBinding TableKey="OA_BusEntertain_H" ColumnKey="Notes"/>
+                        </TextEditor>
+                        <Label Key="Lab_Notes" Caption="其他" X="0" Y="6"/>
+                        <RowDefCollection RowGap="8">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="8">
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="60px"/>
+                            <ColumnDef Width="60px"/>
+                            <ColumnDef Width="60px"/>
+                            <ColumnDef Width="60px"/>
+                            <ColumnDef Width="60px"/>
+                            <ColumnDef Width="60px"/>
+                            <ColumnDef Width="50%"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="360px"/>
+                            <ColumnDef Width="50%"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <GridLayoutPanel Key="SysTab" Caption="系统信息">
+                        <Dict Key="Creator" Caption="创建人" BuddyKey="Lab_Creator" X="1" Y="0" Enable="false" ItemKey="Operator" XSpan="2">
+                            <DataBinding TableKey="OA_BusEntertain_H" ColumnKey="Creator" DefaultFormulaValue="GetOperator()"/>
+                        </Dict>
+                        <Label Key="Lab_Creator" Caption="创建人" X="0" Y="0"/>
+                        <Dict Key="Modifier" Caption="修改人" BuddyKey="Lab_Modifier" X="1" Y="1" Enable="false" ItemKey="Operator" XSpan="2">
+                            <DataBinding TableKey="OA_BusEntertain_H" ColumnKey="Modifier" DefaultFormulaValue="GetOperator()"/>
+                        </Dict>
+                        <DatePicker Key="CreateTime" Caption="创建日期" BuddyKey="Lab_CreateTime" X="5" Y="0" Enable="false" OnlyDate="false" XSpan="2">
+                            <DataBinding TableKey="OA_BusEntertain_H" ColumnKey="CreateTime" DefaultFormulaValue="ServerDate()"/>
+                        </DatePicker>
+                        <Label Key="Lab_CreateTime" Caption="创建时间" X="4" Y="0"/>
+                        <Label Key="Lab_Modifier" Caption="修改人" X="0" Y="1"/>
+                        <DatePicker Key="ModifyTime" Caption="修改日期" BuddyKey="Lab_ModifyTime" X="5" Y="1" Enable="false" OnlyDate="false" XSpan="2">
+                            <DataBinding TableKey="OA_BusEntertain_H" ColumnKey="ModifyTime" DefaultFormulaValue="ServerDate()"/>
+                        </DatePicker>
+                        <Label Key="Lab_ModifyTime" Caption="修改时间" X="4" Y="1"/>
+                        <TextEditor Key="BillKey" Caption="单据Key" BuddyKey="Lab_BillKey" X="9" Y="0" XSpan="2">
+                            <DataBinding TableKey="OA_BusEntertain_H" ColumnKey="BillKey" DefaultFormulaValue="GetFormKey()"/>
+                        </TextEditor>
+                        <Label Key="Lab_BillKey" Caption="单据Key" X="8" Y="0"/>
+                        <Dict Key="ClusterID" Caption="集团" BuddyKey="Lab_ClusterID" X="9" Y="1" Enable="false" ItemKey="Client" XSpan="2">
+                            <DataBinding TableKey="OA_BusEntertain_H" ColumnKey="ClusterID"/>
+                        </Dict>
+                        <Label Key="Lab_ClusterID" Caption="集团" X="8" Y="1"/>
+                        <TextEditor Key="OID" Caption="OID" BuddyKey="Lab_OID" X="1" Y="2" Visible="false" XSpan="2">
+                            <DataBinding TableKey="OA_BusEntertain_H" ColumnKey="OID"/>
+                        </TextEditor>
+                        <Label Key="Lab_OID" Caption="OID" X="0" Y="2"/>
+                        <TextEditor Key="WorkflowTypeDtlID" Caption="流程类别明细ID" BuddyKey="Lab_WorkflowTypeDtlID" X="9" Y="2" Visible="false" XSpan="2">
+                            <DataBinding TableKey="OA_BusEntertain_H" ColumnKey="WorkflowTypeDtlID" DefaultFormulaValue="Para(&quot;WorkflowTypeDtlID&quot;)"/>
+                        </TextEditor>
+                        <Label Key="Lab_WorkflowTypeDtlID" Caption="流程类别明细ID" X="8" Y="2"/>
+                        <RowDefCollection RowGap="4">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="4">
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="33%"/>
+                            <ColumnDef Width="20px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="33%"/>
+                            <ColumnDef Width="20px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="34%"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                </TabPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

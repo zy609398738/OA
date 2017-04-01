@@ -1,0 +1,58 @@
+[
+  {
+    "id": "userInfo",
+    "text": "查看用户信息",
+    "children": [],
+	"grade" : "1",
+	"leaf" : "true",
+	"icon" : "images/chaxun.png"
+  },
+  {
+    "id": "registrationApp",
+    "text": "查看注册应用信息",
+	"leaf" : "false",
+    "children": [
+      {
+        "id": "personalRegistrationApp",
+        "text": "查看个人注册应用",
+        "children": [],
+		"grade" : "1",
+        "leaf" : "true",
+		"icon" : "images/chaxun.png"
+      },
+      {
+        "id": "adminRegistrationApp",
+        "text": "查看全部注册应用",
+        "children": [],
+		"grade" : "5",
+		"leaf" : "true",
+		"icon" : "images/chaxun.png"
+      }
+    ],
+	"grade" : "1"
+  },
+  {
+    "id": "authorizationApp",
+    "text": "查看授权应用信息",
+	"leaf" : "false",
+    "children": [
+      {
+        "id": "personalAuthorizationApp",
+        "text": "查看个人授权应用",
+        "children": [],
+		"grade" : "1",
+		"leaf" : "true",
+		"icon" : "images/chaxun.png"
+      },
+      {
+        "id": "adminAuthorizationApp",
+        "text": "查看全部授权应用",
+        "children": [],
+		"grade" : "5",
+		"leaf" : "true",
+		"icon" : "images/chaxun.png"
+      }
+    ],
+	"grade" : "1"
+  }
+]

@@ -1,0 +1,844 @@
+@charset "utf-8";
+
+.bokesoft-messager {
+}
+.bokesoft-messager * {
+    margin: 0;
+    padding: 0;
+
+    scrollbar-face-color: #9bc630;
+    /*面子*/
+    scrollbar-arrow-color: #C0C0C0;
+    /*箭头*/
+    scrollbar-3dlight-color: #C0C0C0;
+    /*最外左*/
+    scrollbar-highlight-color: #FFFFFF;
+    /*左二*/
+    scrollbar-shadow-color: #FFFFFF;
+    /*右二*/
+    scrollbar-darkshadow-color: #C0C0C0;
+    /*右一*/
+    scrollbar-track-color: #f3f3f3;
+    /*滑道*/
+}
+
+/*滚动条整体*/
+.bokesoft-messager ::-webkit-scrollbar {
+    width: 6px !important;
+    /*滚动条宽度*/
+}
+
+/*滚动条按钮*/
+.bokesoft-messager ::-webkit-scrollbar-button {
+}
+
+.bokesoft-messager ::-webkit-scrollbar-track {
+    background-color: #f3f3f3;
+    /*滑道全部*/
+}
+
+.bokesoft-messager ::-webkit-scrollbar-track-piece {
+    background-color: #f3f3f3;
+    /*滑道*/
+    -webkit-border-radius: 4px;
+    /*滑道圆角宽度*/
+}
+
+.bokesoft-messager ::-webkit-scrollbar-thumb {
+    background-color: #eaeaea;
+    /*滑动条表面*/
+    border: solid 1px #C0C0C0;
+    /*滑动条边框*/
+    border-radius: 4px;
+    /*滑动条圆角宽度*/
+}
+
+/*横竖滚动条交角*/
+.bokesoft-messager ::-webkit-scrollbar-corner {
+    background-color: #eaeaea;
+}
+
+/*横竖滚动条交角图案*/
+.bokesoft-messager ::-webkit-resizer {
+    /*background-image: url(/public/img/resizer-inactive.png);*/
+    background-repeat: no-repeat;
+    background-position: bottom right;
+}
+
+/*鼠标滑过滑动条*/
+.bokesoft-messager ::-webkit-scrollbar-thumb:hover {
+    background-color: #babdc6;
+}
+
+.bokesoft-messager li {
+    list-style: none;
+}
+
+.bokesoft-messager .main {
+    width: 860px;
+    height: 590px;
+    background: #fff;
+    -moz-box-shadow: 0 0 3px #d3d3d3;/*firefox*/
+    -webkit-box-shadow: 0 0 3px #d3d3d3;/*safari或chrome*/
+    box-shadow: 0 0 3px #d3d3d3;/*opera或ie9*/
+    border: 1px solid #f5f5f5;
+    position: fixed;
+    left: 0;
+    top: 0;
+    display: none;
+}
+
+.bokesoft-messager .tab {
+    width: 75px;
+    background: #43b5e9;
+    height: 100%;
+    float: left;
+}
+
+.bokesoft-messager .avatar {
+    width: 35px;
+    height: 35px;
+    margin: 0 auto;
+    margin-top: 20px;
+    -moz-border-radius:3px;
+    -webkit-border-radius:3px;
+    border-radius:3px;
+    position: relative;
+}
+
+.bokesoft-messager .avatar .head_status{
+	position:relative;
+}
+
+.bokesoft-messager .avatar select{
+	width: 75px;
+    height: 22px;
+}
+
+.bokesoft-messager .avatar  .head_status img{
+    width: 35px;
+    height: 35px;
+	cursor: pointer;
+}
+.bokesoft-messager .avatar  .head_status .status{
+	position: absolute;
+    top: -3px;
+    right: 1px;
+}
+.bokesoft-messager .avatar  .head_status .status img{
+	width:12px;
+	height:12px;
+}
+
+.bokesoft-messager .avatar img {
+    width: 40px;
+    height: 40px;
+    overflow: hidden;
+}
+
+.bokesoft-messager .tab-item {
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.bokesoft-messager .tab-item .web_wechat_tab_chat {
+    --background: url(../images/sprite.png) 0 -2542px;
+    background: url(../images/sprite.png) 4px -2545px;
+    width: 35px;
+    height: 35px;
+    vertical-align: middle;
+    display: inline-block;
+}
+
+.bokesoft-messager .select-li .web_wechat_tab_chat {
+    --background-position: 0 -2491px;
+    background-position: 4px -2494px;
+}
+
+.bokesoft-messager .tab-item .web_wechat_tab_friends {
+    background: url(../images/sprite.png) 0 -2591px;
+    width: 35px;
+    height: 35px;
+    vertical-align: middle;
+    display: inline-block;
+}
+
+.bokesoft-messager .select-li .web_wechat_tab_friends {
+    background-position: 0 -2642px;
+}
+
+.bokesoft-messager .user-list {
+    width: 240px;
+    background: #FFF;
+    float: left;
+    padding-top:50px;
+    position: relative;
+    box-sizing: border-box;
+    height: 100%;
+}
+.bokesoft-messager .user-list .userhead_gray_mask{
+    -webkit-filter: grayscale(100%);
+    -moz-filter: grayscale(100%);
+    -ms-filter: grayscale(100%);
+    -o-filter: grayscale(100%);
+    filter: grayscale(100%);
+    filter: gray;
+}
+
+.bokesoft-messager .chat_list {
+    height: 100%;
+    overflow-y: auto;
+}
+
+.bokesoft-messager .search_bar {
+    position: absolute;
+    margin: 10px auto;
+    top:0;
+    left:0;
+    width:90%;
+    margin-left:5%;
+
+}
+.bokesoft-messager .search_bar  .search_result{
+	width: 86%;
+    z-index: 999;
+    background: #e0dede;
+}
+.bokesoft-messager .search_bar  .search_result span{
+	padding-left:9px;
+}
+.bokesoft-messager .search_bar  .search_result span b{
+	line-height: 40px;
+    padding-left: 20px;
+}
+.bokesoft-messager .search_bar .frm_search {
+    width: 83%;
+    border: 1px solid #ccc;
+    height: 25px;
+    line-height: 25px;
+    padding: 0px 3px;
+}
+.bokesoft-messager .search_bar a.button{
+    position: relative;
+    top:1px;
+    display: inline-block;
+    float: right;
+    height: 24px;
+    width: 24px;
+}
+.bokesoft-messager .search_bar a.add-session{
+    background: url("../images/sprite.png") no-repeat 0 -2698px;
+}
+.bokesoft-messager .search_bar a.manage-buddies{
+    background: url("../images/sprite.png") no-repeat -3px -403px;
+}
+.bokesoft-messager .web_wechat_search {
+    background: url("../images/sprite.png") no-repeat 0 3px;
+    display: inline-block;
+    position: absolute;
+    cursor: pointer;
+    width: 25px;
+    height: 20px;
+    top: 3px;
+    right: 36px;
+    z-index: 9;
+}
+
+.bokesoft-messager .chat_item{
+    cursor: pointer;
+    width:100%;
+    position: relative;
+}
+.bokesoft-messager .chat_group.collapse .chat_item{  /*组收起*/
+    display: none;
+}
+
+.bokesoft-messager .chat_item span {
+    height: 50px;
+    padding-left: 15px;
+    display: table-cell;
+    vertical-align: middle;
+	overflow:hidden;
+}
+.bokesoft-messager .disabled span{
+    color:#ccc;
+}
+.bokesoft-messager .disabled span img{
+    -webkit-filter: grayscale(100%);
+    -moz-filter: grayscale(100%);
+    -ms-filter: grayscale(100%);
+    -o-filter: grayscale(100%);
+    filter: grayscale(100%);
+    filter: gray;
+}
+.bokesoft-messager .popTips{
+    height: 50px;
+    display: none;
+    border: 1px solid #f2f2f2;
+    line-height: 50px;
+    padding: 0 5px;
+    text-align: center;
+    position: absolute;
+    bottom: 50%;
+    left: 50%;
+    font-size: 14px;
+    color: #ff0000;
+}
+.bokesoft-messager .chat_item .nickname_text{
+    text-overflow:ellipsis;
+}
+.bokesoft-messager .chat_item .nickname_text .user_name{
+	display:inline-block;
+	white-space:nowrap;
+	overflow:hidden;
+	text-overflow:ellipsis;
+	width:155px;
+}
+.bokesoft-messager .chat_item .nickname_text .news_date{
+    font-size: 10px;
+    font-style: normal;
+    position: absolute;
+    right: 5px;
+    top: 27px;
+    background-color: lightyellow;
+    opacity: 0.7;
+    padding: 1px 3px;
+    border-radius: 2px;
+}
+.bokesoft-messager .chat_item .latest_news{
+    max-width: 100px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 12px;
+    color: #666;
+	height: 18px;
+}
+.bokesoft-messager .pop-box{
+    display: none;
+    position:absolute;
+    z-index: 2;
+    padding: 24px;
+    background-color: lightyellow;
+    box-shadow:-1px 0 1px #eee, /*左边阴影*/
+               1px 0 1px #eee,  /*右边阴影*/
+               0 -1px 1px #eee, /*顶部阴影*/
+               0 1px 1px #eee;  /*底边阴影*/  ;
+    border-radius: 3px;
+}
+.bokesoft-messager .pop-box h5{
+    border-bottom: 1px solid #d2d2d2;
+    padding: 5px;
+}
+
+.bokesoft-messager .pop-box.user-state-panel{
+    width: 200px;
+    right:-255px;
+    top: 30px;
+}
+.bokesoft-messager .pop-box.user-state-panel .pop_img{
+    width: 35px;
+    height: 35px;
+    border-bottom: 1px solid #eee;
+	position:relative;
+}
+.bokesoft-messager .pop-box.user-state-panel .pop_state{
+    float: right;
+}
+.bokesoft-messager .pop-box.user-state-panel .pop_state .state_img{
+    width: 15px;
+    height: 15px;
+}
+
+.bokesoft-messager .pop-box.search-sessions-result{
+	font-size: 10pt;
+	width: 640px;
+    left: 0px;
+    top: 30px;
+}
+.bokesoft-messager .pop-box.search-sessions-result a{
+	color: SteelBlue;
+	cursor: pointer;
+	font-weight: bold;
+}
+.bokesoft-messager .pop-box.search-sessions-result a.disabled{
+	color: DarkGray;
+	cursor: default;
+	font-weight: normal;
+}
+.bokesoft-messager .pop-box.search-sessions-result .search-path{
+	padding: 6px;
+	border-bottom: 1px solid #d2d2d2;
+}
+.bokesoft-messager .pop-box.search-sessions-result .search-path a{
+	text-decoration: none;
+}
+.bokesoft-messager .pop-box.search-sessions-result .search-path code{
+	border: 1px solid #d2d2d2;
+	padding: 1px 3px;
+}
+.bokesoft-messager .pop-box.search-sessions-result .search-path span.in-session{
+	font-weight: bold;
+	display: none;
+}
+.bokesoft-messager .pop-box.search-sessions-result .message_history {
+	width: 100%;
+	height: 360px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+.bokesoft-messager .pop-box.search-sessions-result .message_history .history_item {
+	padding: 2px 12px;
+	cursor: pointer;
+}
+.bokesoft-messager .pop-box.search-sessions-result .message_history .history_item:hover{
+	font-weight: bold;
+	background-color: AliceBlue;
+}
+.bokesoft-messager .pop-box.search-sessions-result .message_history .time{
+	float: right;
+	font-style: italic;
+	font-size: 9pt;
+	color: darkgray;
+}
+.bokesoft-messager .pop-box.search-sessions-result .message_history .session{
+	white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+	font-size: 9pt;
+	color: darkgray;
+}
+.bokesoft-messager .pop-box.search-sessions-result .message_history .session .speak{
+	color: SteelBlue;
+}
+.bokesoft-messager .pop-box.search-sessions-result .message_history .session .listen{
+	color: BurlyWood;
+}
+.bokesoft-messager .pop-box.search-sessions-result .message_history .message{
+	padding-left: 12px;	
+}
+.bokesoft-messager .pop-box.search-sessions-result .search-pager{
+	font-size: 10pt;
+	padding: 12px;
+	text-align: right;
+}
+
+.bokesoft-messager .pop-box.add-session-panel{
+    width: 240px;
+    left: 194px;
+    top: 30px;
+    font-size: 10pt;
+}
+.bokesoft-messager .pop-box.add-session-panel a{
+	color: SteelBlue;
+	cursor: pointer;
+	font-weight: bold;
+}
+.bokesoft-messager .pop-box.add-session-panel .error{
+	color: red;
+}
+.bokesoft-messager .pop-box.add-session-panel input.user-code{
+    width: 100%;
+    border: 1px solid #ccc;
+    height: 25px;
+    line-height: 25px;
+    padding: 0px 3px;
+}
+.bokesoft-messager .pop-box.add-session-panel .buttons{
+	padding: 9px;
+	text-align: right;
+	font-size: 9pt;
+}
+
+.bokesoft-messager .chat_item img {
+    height: 35px;
+    width: 35px;
+    -moz-border-radius:3px;
+    -webkit-border-radius:3px;
+    border-radius:3px;
+    border:1px solid #f1f1f1;
+}
+.bokesoft-messager .chat_item .del_button{
+    position: absolute;
+    padding-left: 0px;
+    top:0;
+    right:0;
+    width:20px;
+    line-height: 30px;
+    font-size: 14px;
+    display: none;
+}
+.bokesoft-messager .chat_item.chat_active .del_button{
+    display: block;
+}
+.bokesoft-messager .chat_item .del_button a{
+    text-decoration: none;
+    display: inline-block;
+    width:20px;
+    height: 20px;
+    color:#666;
+}
+
+.bokesoft-messager .chat_item .count {
+    position: relative;
+    left:48px;
+    top: -45px;
+    color: #fff;
+    background: #ff0000;
+    height: 16px;
+    width:16px;
+    font-size: 14px;
+    text-align: center;
+    -moz-border-radius:50%;
+    -webkit-border-radius:50%;
+    border-radius:50%;
+}
+
+.bokesoft-messager .chat_item .count_0 { /*没有未读消息时不显示未读记录数*/
+    display: none;
+}
+
+.bokesoft-messager .chat_item  .chat_status{
+	position:relative;
+}
+
+.bokesoft-messager .chat_item  .chat_status .status{
+	position:absolute;
+	top:0;
+	right:-1px;
+}
+
+.bokesoft-messager .chat_item  .chat_status .status img{
+	width:10px;
+	height:10px;
+}
+
+.bokesoft-messager .chat_active {
+    background: #F5F5F5;
+}
+
+.bokesoft-messager .chat_active .count { /*当前活动的交互方不显示未读记录数*/
+    display: none;
+}
+
+.bokesoft-messager .hide {
+    display: none;
+}
+
+.bokesoft-messager .chat_head {
+    height: 30px;
+    line-height: 30px;
+    background: #f1f1f1;
+    text-align: center;
+    border-bottom: 1px solid #f2f2f2;
+    cursor: pointer;
+}
+
+.bokesoft-messager .chat_head i {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-left: 10px;
+    background: url("../images/sprite.png") no-repeat 0 -2349px;
+}
+
+.bokesoft-messager .chat_group.collapse .chat_head i {
+    background: url("../images/sprite.png") no-repeat 0 -783px;
+}
+.chat_group .userIcon{
+    position: relative;
+}
+.chat_group .userIcon .status{
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    right: 1px;
+    top: 1px;
+}
+.chat_group .userIcon .status img{
+    width: 100%;
+    height: 100%;
+}
+.bokesoft-messager .talk-box {
+    width: 542px;
+    height: 100%;
+    float: right;
+    position: relative;
+    padding:50px 0 175px;
+    box-sizing: border-box;
+    border-left: 1px solid #f5f5f5;
+}
+
+.bokesoft-messager .talk-box .close-btn{
+    background: url("../images/sprite.png") no-repeat 3px -32px;
+    display: block;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index:999;
+}
+.bokesoft-messager .talk-box .close-btn a {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.bokesoft-messager .talk-box .close-btn a:hover {
+    background: url("../images/sprite.png") no-repeat 3px -32px rgba(205, 205, 214, 0.4);
+}
+
+.bokesoft-messager .talk-box .head {
+    text-align: center;
+    height: 50px;
+    line-height: 50px;
+    font-size: 14px;
+    border-bottom:1px solid #f5f5f5;
+    position: absolute;
+    top:0;
+    left:0;
+    width:100%;
+}
+
+.bokesoft-messager .talk-box .chatContent {
+    height: 100%;
+    overflow-y: auto;
+    padding: 20px 60px 50px 50px;
+    border-bottom: 1px solid #d2d2d2;
+    box-sizing: border-box;
+}
+.bokesoft-messager .message-item{
+    margin-bottom:40px;
+}
+.bokesoft-messager .message-item .message-body{
+    padding: 10px;
+    text-align: left;
+    position: relative;
+    min-width: 110px;
+    overflow-wrap: break-word;
+    -moz-border-radius: 7px; /* Gecko browsers */
+    -webkit-border-radius: 7px; /* Webkit browsers */
+    border-radius: 7px; /* W3C syntax */
+}
+.bokesoft-messager .message-item .message-body:after{
+    position: absolute;
+    top: 50%;
+    border: 6px solid transparent;
+    content: " ";
+    margin-top: -6px;
+}
+.bokesoft-messager .message-item.self .message-body {
+    background-color: #cbeaf9;
+    float: right;
+}
+.bokesoft-messager .message-item.buddy .message-body {
+    background-color: #fff;
+    float: left;
+}
+.bokesoft-messager .message-item.self .message-body:after {
+    right: -10px;
+    border-left-color: #cbeaf9;
+    border-left-width: 4px;
+}
+.bokesoft-messager .message-item.buddy .message-body:after {
+    left: -10px;
+    border-right-color: #eee;
+    border-right-width: 4px;
+}
+
+.bokesoft-messager .message-item.buddy .message-body {
+    background-color: #eee;
+    text-align: right;
+    float: left;
+    margin-left:10px;
+}
+.bokesoft-messager .message-body .senderNick,
+.bokesoft-messager .message-body .msgTime{
+     position: absolute;
+     text-align: right;
+     color:#666;
+    width: 200px;
+    height:20px;
+    line-height:20px;
+    font-size: 10px;
+ }
+.bokesoft-messager .message-body .senderNick{
+    top:-22px;
+    right:0;
+    display: none;
+}
+.bokesoft-messager .message-body .msgTime{
+    bottom:-22px;
+    right:0;
+}
+.bokesoft-messager .message-body .userImg{
+    position: absolute;
+    top: 50%;
+    right: -50px;
+    border-radius: 5%;
+    width: 40px;
+    margin-top: -20px;
+    height: 40px;
+    background: #fff;
+    overflow: hidden;
+ }
+.bokesoft-messager .buddy .message-body .senderNick{
+    top:-22px;
+    right:auto;
+    left:0;
+    text-align: left;
+    display: none;
+}
+.bokesoft-messager .buddy .message-body .msgTime{
+    bottom:-22px;
+    right:auto;
+    left:0;
+    text-align: left;
+}
+.bokesoft-messager .buddy .message-body .userImg{
+    right: auto;
+    left:-50px;
+}
+.bokesoft-messager .message-body .userImg img{
+    width: 100%;
+    height: 100%;
+}
+.bokesoft-messager .message-body .pre{
+    word-break: break-all;
+}
+.bokesoft-messager .buddy .message-body .pre{
+    text-align: left;
+}
+.bokesoft-messager .message-body .image-message img{
+    max-height: 128px;
+    max-width: 300px;
+}
+.bokesoft-messager .message-body .file-message img{
+    max-height: 64px;
+    max-width: 64px;
+}
+.bokesoft-messager .message-body .percent{
+    position: static;
+    float: right;
+    margin-left: -30px;
+    width:40px;
+    height:40px;
+}
+.bokesoft-messager .percent .percentNum{
+    fill: #666666;
+    font-size: 12px;
+}
+.bokesoft-messager .talk-box .chatSenderController {
+    background: #fff;
+    border-top:1px solid #f5f5f5;
+    position: absolute;
+    width:100%;
+    bottom:0;
+    left:0;
+}
+
+.bokesoft-messager .chatTextarea {
+    outline:none;
+    padding: 6px;
+    margin: 6px;
+    margin-top: 0px;
+    width: 518px; /* 542-6*2-6*2 */
+    height: 60px;
+    line-height: 14px;
+    background: #fff;
+    border: none;
+	overflow-y: scroll;
+}
+
+.bokesoft-messager .talk-box .action {
+    padding: 6px;
+}
+
+.bokesoft-messager .action_send .button,
+.bokesoft-messager .action .button {
+    height: 30px;
+    font-size: 14px;
+    text-align: center;
+    line-height: 30px;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    text-decoration: none;
+    display: inline-block;
+    background: #44b5e9;
+    color: #FFFFFF;
+}
+.bokesoft-messager .action .emojiBtn{
+    background: url(../images/sprite.png) no-repeat 0 -796px;
+    width:30px;
+}
+.bokesoft-messager .action .uploadBtn{
+    background: url(../images/sprite.png) no-repeat 0 -1630px;
+    width:30px;
+}
+.bokesoft-messager .action_send{
+    height: 50px;
+    padding-right: 20px;
+}
+.bokesoft-messager .chatSendBtn {
+    width: 60px;
+    float: right;
+    border:1px solid #d2d2d2;
+}
+.bokesoft-messager .desc {
+    color: #777;
+    font-size: 0.75em;
+    line-height: 30px;
+    padding-right: 6px;
+    float: right;
+}
+
+.bokesoft-messager .chatSendBtn:hover {
+    background: #f3f3f3;
+    color:#333;
+}
+
+.bokesoft-messager .showMessage {
+    display: block;
+    width:200px;
+    height: 30px;
+    font-size: 16px;
+    text-align: center;
+    color: #fff;
+    text-decoration: none;
+    background: #43b5e9;
+    line-height: 30px;
+    font-family: "Microsoft YaHei UI";
+    position: fixed;
+    bottom: 3px;
+    right: 3px;
+    padding: 3px;
+}
+.bokesoft-messager .alerts{
+    background: url(../images/on.gif) no-repeat 40px 2px #43b5e9
+}
+
+.bokesoft-messager .main.moving .tab,
+.bokesoft-messager .main.moving .talk-box .head{
+    cursor: move;
+}
+
+
+/* 清理浮动 */
+.clearfix:before, .clearfix:after {
+    content: "";
+    display: table;
+}
+.clearfix:after{
+    content: "\20";
+    display: block;
+    height: 0;
+    font-size:0;
+    clear: both;
+    visibility: hidden;
+}
+.clearfix{
+    *zoom:1;/* for IE6 IE7 */
+}

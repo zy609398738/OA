@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="MOA_EmailHomePage" Caption="邮件管理界面" FormType="View">
+    <Body>
+        <Block>
+            <NavigationList Caption="模块列表" Key="ModelList" ColumnCount="4" AllEntryFilter="false" ImageScaleType="Fit_XY">
+                <NavigationItemCollection>
+                    <NavigationItem Caption="写邮件" Icon="Mobile_document.png" Key="MOA_EmailWrite">
+                        <![CDATA[New("MOA_EmailWrite")]]>
+                    </NavigationItem>
+                    <NavigationItem Caption="草稿箱" Icon="Mobile_items.png" Key="MOA_EmailDraftsView">
+                        <![CDATA[Show("MOA_EmailDraftsView");]]>
+                    </NavigationItem>
+                    <NavigationItem Caption="已删除" Icon="Mobile_items.png" Key="MOA_EmailDeletedView">
+                        <![CDATA[Show("MOA_EmailDeletedView");]]>
+                    </NavigationItem>
+                    <NavigationItem Caption="收件箱" Icon="Mobile_items.png" Key="MOA_EmailInboxView">
+                        <![CDATA[Show("MOA_EmailInboxView");]]>
+                    </NavigationItem>
+                    <NavigationItem Caption="发件箱" Icon="Mobile_items.png" Key="MOA_EmailOutboxView">
+                        <![CDATA[Show("MOA_EmailOutboxView");]]>
+                    </NavigationItem>
+                </NavigationItemCollection>
+            </NavigationList>
+        </Block>
+    </Body>
+</Form>

@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Caption="科目表" FormType="Dict" Key="V_AccountChart">
+    <DataSource RefObjectKey="AccountChart"/>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root">
+                <TabPanel Key="body">
+                    <GridLayoutPanel Key="body_basic" Padding="8px" Caption="基本信息(&amp;B)">
+                        <Label Key="Inner_Code" Caption="代码" X="0" Y="0"/>
+                        <TextEditor Key="Code" Caption="代码" BuddyKey="Inner_Code" X="1" Y="0" Visible="true" Enable="!ReadOnly()&amp;&amp;Status&lt;1&amp;&amp;com.bokesoft.erp.basis.common.DocumentNumberUI.docNumberFieldEnable('Code')" InvalidChars="%*\&quot;+?&gt;&lt;:'" XSpan="10">
+                            <DataBinding TableKey="BK_AccountChart" ColumnKey="Code" CheckRule="iifs(com.bokesoft.erp.basis.common.DocumentNumberUI.docNumberFieldEnable('Code')&amp;&amp;Value('Code')='', '采用外部给号编码规则，请输入代码', true, true)"/>
+                        </TextEditor>
+                        <Label Key="Inner_Name" Caption="名称" X="0" Y="1"/>
+                        <TextEditor Key="Name" Caption="名称" BuddyKey="Inner_Name" X="1" Y="1" Visible="true" Enable="!ReadOnly()" XSpan="10">
+                            <DataBinding TableKey="BK_AccountChart" ColumnKey="Name"/>
+                        </TextEditor>
+                        <Label Key="Inner_NodeType" Caption="结点类型" X="0" Y="1" Visible="false"/>
+                        <ComboBox Key="NodeType" Caption="结点类型" BuddyKey="Inner_NodeType" X="1" Y="1" Visible="false" Enable="!ReadOnly()&amp;&amp;Status&lt;0" XSpan="10">
+                            <DataBinding TableKey="BK_AccountChart" ColumnKey="NodeType"/>
+                        </ComboBox>
+                        <Label Key="Label1" Caption="科目格式" X="0" Y="2" Visible="true" Enable="false"/>
+                        <NumberEditor Key="AccountLength1" Caption="代码长度1" X="1" Y="2" Visible="true" Enable="!ReadOnly()&amp;&amp;com.bokesoft.erp.fi.dictionary.AccountFormulaUI.getAccountMaxLevel(getSelectedItemId(), true)&lt;1" Precision="0" Scale="0" IntegerValue="true">
+                            <DataBinding TableKey="BK_AccountChart" ColumnKey="AccountLength1"/>
+                        </NumberEditor>
+                        <NumberEditor Key="AccountLength2" Caption="代码长度2" X="2" Y="2" Visible="true" Enable="!ReadOnly()&amp;&amp;com.bokesoft.erp.fi.dictionary.AccountFormulaUI.getAccountMaxLevel(getSelectedItemId(), false)&lt;2" Precision="0" Scale="0" IntegerValue="true">
+                            <DataBinding TableKey="BK_AccountChart" ColumnKey="AccountLength2"/>
+                        </NumberEditor>
+                        <NumberEditor Key="AccountLength3" Caption="代码长度3" X="3" Y="2" Visible="true" Enable="!ReadOnly()&amp;&amp;com.bokesoft.erp.fi.dictionary.AccountFormulaUI.getAccountMaxLevel(getSelectedItemId(), false)&lt;3" Precision="0" Scale="0" IntegerValue="true">
+                            <DataBinding TableKey="BK_AccountChart" ColumnKey="AccountLength3"/>
+                        </NumberEditor>
+                        <NumberEditor Key="AccountLength4" Caption="代码长度4" X="4" Y="2" Visible="true" Enable="!ReadOnly()&amp;&amp;com.bokesoft.erp.fi.dictionary.AccountFormulaUI.getAccountMaxLevel(getSelectedItemId(), false)&lt;4" Precision="0" Scale="0" IntegerValue="true">
+                            <DataBinding TableKey="BK_AccountChart" ColumnKey="AccountLength4"/>
+                        </NumberEditor>
+                        <NumberEditor Key="AccountLength5" Caption="代码长度5" X="5" Y="2" Visible="true" Enable="!ReadOnly()&amp;&amp;com.bokesoft.erp.fi.dictionary.AccountFormulaUI.getAccountMaxLevel(getSelectedItemId(), false)&lt;5" Precision="0" Scale="0" IntegerValue="true">
+                            <DataBinding TableKey="BK_AccountChart" ColumnKey="AccountLength5"/>
+                        </NumberEditor>
+                        <NumberEditor Key="AccountLength6" Caption="代码长度6" X="6" Y="2" Visible="true" Enable="!ReadOnly()&amp;&amp;com.bokesoft.erp.fi.dictionary.AccountFormulaUI.getAccountMaxLevel(getSelectedItemId(), false)&lt;6" Precision="0" Scale="0" IntegerValue="true">
+                            <DataBinding TableKey="BK_AccountChart" ColumnKey="AccountLength6"/>
+                        </NumberEditor>
+                        <NumberEditor Key="AccountLength7" Caption="代码长度7" X="7" Y="2" Visible="true" Enable="!ReadOnly()&amp;&amp;com.bokesoft.erp.fi.dictionary.AccountFormulaUI.getAccountMaxLevel(getSelectedItemId(), false)&lt;7" Precision="0" Scale="0" IntegerValue="true">
+                            <DataBinding TableKey="BK_AccountChart" ColumnKey="AccountLength7"/>
+                        </NumberEditor>
+                        <NumberEditor Key="AccountLength8" Caption="代码长度8" X="8" Y="2" Visible="true" Enable="!ReadOnly()&amp;&amp;com.bokesoft.erp.fi.dictionary.AccountFormulaUI.getAccountMaxLevel(getSelectedItemId(), false)&lt;8" Precision="0" Scale="0" IntegerValue="true">
+                            <DataBinding TableKey="BK_AccountChart" ColumnKey="AccountLength8"/>
+                        </NumberEditor>
+                        <NumberEditor Key="AccountLength9" Caption="代码长度9" X="9" Y="2" Visible="true" Enable="!ReadOnly()&amp;&amp;com.bokesoft.erp.fi.dictionary.AccountFormulaUI.getAccountMaxLevel(getSelectedItemId(), false)&lt;9" Precision="0" Scale="0" IntegerValue="true">
+                            <DataBinding TableKey="BK_AccountChart" ColumnKey="AccountLength9"/>
+                        </NumberEditor>
+                        <NumberEditor Key="AccountLength10" Caption="代码长度10" X="10" Y="2" Visible="true" Enable="!ReadOnly()&amp;&amp;com.bokesoft.erp.fi.dictionary.AccountFormulaUI.getAccountMaxLevel(getSelectedItemId(), false)&lt;10" Precision="0" Scale="0" IntegerValue="true">
+                            <DataBinding TableKey="BK_AccountChart" ColumnKey="AccountLength10"/>
+                        </NumberEditor>
+                        <Label Key="Inner_ControllingIntegration" Caption="管理会计集成" X="0" Y="3"/>
+                        <ComboBox Key="ControllingIntegration" Caption="管理会计集成" BuddyKey="Inner_ControllingIntegration" X="1" Y="3" Visible="true" Enable="!ReadOnly()" XSpan="10">
+                            <DataBinding TableKey="BK_AccountChart" ColumnKey="ControllingIntegration"/>
+                        </ComboBox>
+                        <Label Key="Inner_GroupAccountChartID" Caption="集团科目表" X="0" Y="4"/>
+                        <Dict Key="GroupAccountChartID" Caption="集团科目表" BuddyKey="Inner_GroupAccountChartID" X="1" Y="4" Visible="true" Enable="!ReadOnly()" ItemKey="AccountChart" XSpan="10">
+                            <DataBinding TableKey="BK_AccountChart" ColumnKey="GroupAccountChartID"/>
+                        </Dict>
+                        <RowDefCollection RowGap="5">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="5">
+                            <ColumnDef Width="100px"/>
+                            <ColumnDef Width="40px"/>
+                            <ColumnDef Width="40px"/>
+                            <ColumnDef Width="40px"/>
+                            <ColumnDef Width="40px"/>
+                            <ColumnDef Width="40px"/>
+                            <ColumnDef Width="40px"/>
+                            <ColumnDef Width="40px"/>
+                            <ColumnDef Width="40px"/>
+                            <ColumnDef Width="40px"/>
+                            <ColumnDef Width="40px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <GridLayoutPanel Key="tab_DefaultCostElementCategory" Padding="8px" Caption="成本要素自动生成默认设置">
+                        <Grid Key="grid0" X="0" Y="0">
+                            <GridColumnCollection>
+                                <GridColumn Key="DeleteDtl" Caption="删除" Width="80px"/>
+                                <GridColumn Key="RowNo" Caption="行号" Width="80px"/>
+                                <GridColumn Key="FromAccountCode" Caption="科目从" Width="80px"/>
+                                <GridColumn Key="ToAccountCode" Caption="科目到" Width="80px"/>
+                                <GridColumn Key="CostElementCategory" Caption="成本要素类别" Width="80px"/>
+                            </GridColumnCollection>
+                            <GridRowCollection>
+                                <GridRow Key="row1" TableKey="BK_AutoCostElementCategory">
+                                    <GridCell Key="DeleteDtl" Caption="删除" CellType="TextEditor" MaxLength="100"/>
+                                    <GridCell Key="RowNo" Caption="行号">
+                                        <DataBinding ColumnKey="RowNo"/>
+                                    </GridCell>
+                                    <GridCell Key="FromAccountCode" Caption="科目从" CellType="TextEditor" MaxLength="100">
+                                        <DataBinding ColumnKey="FromAccountCode"/>
+                                    </GridCell>
+                                    <GridCell Key="ToAccountCode" Caption="科目到" CellType="TextEditor" MaxLength="100">
+                                        <DataBinding ColumnKey="ToAccountCode"/>
+                                    </GridCell>
+                                    <GridCell Key="CostElementCategory" Caption="成本要素类别" CellType="ComboBox">
+                                        <DataBinding ColumnKey="CostElementCategory"/>
+                                    </GridCell>
+                                </GridRow>
+                            </GridRowCollection>
+                        </Grid>
+                        <RowDefCollection RowGap="5">
+                            <RowDef Height="100%"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="5">
+                            <ColumnDef Width="100%"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <GridLayoutPanel Key="body_system" Padding="8px" Caption="系统信息(&amp;D)">
+                        <Label Key="Inner_Status" Caption="结点状态" X="0" Y="1"/>
+                        <ComboBox Key="Status" Caption="结点状态" BuddyKey="Inner_Status" X="1" Y="1" Visible="true" Enable="false">
+                            <DataBinding TableKey="BK_AccountChart" ColumnKey="Status"/>
+                        </ComboBox>
+                        <Dict Caption="创建人" ItemKey="Operator" Key="CREATOR" X="1" Y="2">
+                        <DataBinding ColumnKey="CREATOR" DefaultFormulaValue="GetOperator()" TableKey="BK_AccountChart"/>
+                    </Dict>
+                    <DatePicker Caption="创建时间" Format="yyyy-MM-dd HH:mm:ss" Key="CREATETIME" OnlyDate="false" X="1" Y="3">
+                        <DataBinding ColumnKey="CREATETIME" DefaultFormulaValue="ServerDate()" TableKey="BK_AccountChart"/>
+                    </DatePicker>
+                    <Dict Caption="修改人" ItemKey="Operator" Key="MODIFIER" X="1" Y="4">
+                        <DataBinding ColumnKey="MODIFIER" DefaultFormulaValue="GetOperator()" TableKey="BK_AccountChart"/>
+                    </Dict>
+                    <DatePicker Caption="修改时间" Format="yyyy-MM-dd HH:mm:ss" Key="MODIFYTIME" OnlyDate="false" X="1" Y="5">
+                        <DataBinding ColumnKey="MODIFYTIME" DefaultFormulaValue="ServerDate()" TableKey="BK_AccountChart"/>
+                    </DatePicker>
+                    <Label Caption="创建人" Key="L_CREATOR" X="0" Y="2"/>
+                    <Label Caption="创建时间" Key="L_CREATETIME" X="0" Y="3"/>
+                    <Label Caption="修改人" Key="L_MODIFIER" X="0" Y="4"/>
+                    <Label Caption="修改时间" Key="L_MODIFYTIME" X="0" Y="5"/>
+                        <Label Key="Inner_Notes" Caption="备注" X="0" Y="6"/>
+                        <TextEditor Key="Notes" Caption="备注" BuddyKey="Inner_Notes" X="1" Y="6" Visible="true" Enable="!ReadOnly()">
+                            <DataBinding TableKey="BK_AccountChart" ColumnKey="Notes"/>
+                        </TextEditor>
+                        <Label Key="Inner_ClientID" Caption="集团" X="0" Y="0"/>
+                        <Dict Key="ClientID" Caption="集团" BuddyKey="Inner_ClientID" X="1" Y="0" Visible="true" Enable="false" ItemKey="Client">
+                            <DataBinding TableKey="BK_AccountChart" DefaultFormulaValue="com.bokesoft.erp.basis.organization.ClientFormulaUI.getClientID()" ColumnKey="ClientID"/>
+                        </Dict>
+                        <RowDefCollection RowGap="5">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="5">
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="330px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                </TabPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

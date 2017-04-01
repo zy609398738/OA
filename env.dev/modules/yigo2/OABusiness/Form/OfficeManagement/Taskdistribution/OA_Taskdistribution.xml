@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="OA_Taskdistribution" Caption="任务派发" FormType="Entity" AliasKey="MOA_Taskdistribution">
+    <DataSource>
+        <DataObject Key="OA_Taskdistribution" Caption="任务派发" NoPrefix="ND" PrimaryTableKey="OA_Taskdistribution_H" PrimaryType="Entity">
+            <TableCollection>
+                <Table Key="OA_Taskdistribution_H" Caption="任务派发" DBTableName="OA_Taskdistribution_H">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="NO" Caption="单据编号" DataType="Varchar"/>
+                    <Column Key="BillDate" Caption="发布日期" DataType="DateTime"/>
+                    <Column Key="UrgencyDeg" Caption="紧急程度" DataType="Integer"/>
+                    <Column Key="Status" Caption="单据状态" DataType="Integer"/>
+                    <Column Key="Topic" Caption="主题" DataType="Varchar"/>
+                    <Column Key="DeptID" Caption="发布部门" DataType="Long"/>
+                    <Column Key="EmpID" Caption="作者" DataType="Long"/>
+                    <Column Key="RollingNews" Caption="新闻滚动" DataType="Integer"/>
+                    <Column Key="Creator" Caption="创建人" DataType="Long"/>
+                    <Column Key="CreateTime" Caption="创建日期" DataType="DateTime"/>
+                    <Column Key="Modifier" Caption="修改人" DataType="Long"/>
+                    <Column Key="ModifyTime" Caption="修改日期" DataType="DateTime"/>
+                    <Column Key="BillKey" Caption="单据Key" DataType="Varchar"/>
+                    <Column Key="ClusterID" Caption="集团" DataType="Long"/>
+                    <Column Key="InstanceID" Caption="流程标识" DataType="Long"/>
+                    <Column Key="ReceiveEmpID" Caption="接收人员" DataType="Long"/>
+                    <Column Key="ShareEmpID" Caption="共享人员" DataType="Varchar" Length="4000"/>
+                    <Column Key="Arrangement" Caption="工作安排" DataType="Varchar"/>
+                    <Column Key="Completion" Caption="完成情况" DataType="Varchar"/>
+                    <Column Key="Notes" Caption="备注" DataType="Varchar" Length="500"/>
+                    <Column Key="OutTime" Caption="到期时间" DataType="DateTime"/>
+                    <Column Key="FactEndDate" Caption="实际完成日期" DataType="DateTime"/>
+                    <Column Key="FactStartDate" Caption="实际开始时间" DataType="DateTime"/>
+                    <Column Key="PlanStartDate" Caption="计划开始日期" DataType="DateTime"/>
+                    <Column Key="PlanEndDate" Caption="计划结束时间" DataType="DateTime"/>
+                    <Column Key="WorkflowTypeDtlID" Caption="流程类别明细ID" DataType="Long"/>
+                    <Column Key="OptIDs" Caption="操作员ID" DataType="Varchar" Length="4000"/>
+                </Table>
+            </TableCollection>
+            <StatusTriggerCollection>
+                <StatusTrigger StatusKey="commited">
+                    <![CDATA[OA_Taskdistribution();]]>
+                </StatusTrigger>
+            </StatusTriggerCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="BPM" Caption="BPM" Tag="BPM" RefKey="BPM"/>
+        <Operation Key="WORKITEM" Caption="WORKITEM" Tag="WORKITEM" RefKey="WORKITEM"/>
+        <Operation Key="Save" Caption="保存" Visible="!ReadOnly()||(IsEnable(&quot;Topic&quot;))||(IsEnable(&quot;Notes&quot;))">
+            <Action>
+                <![CDATA[SaveData();
+UpdateView();]]>
+            </Action>
+        </Operation>
+        <Operation Key="Delete" Caption="删除" RefKey="Delete"/>
+        <Operation Key="Edit" Caption="编辑" RefKey="Edit"/>
+        <Operation Key="Cancel" Caption="取消" RefKey="Cancel"/>
+        <Operation Key="Close" Caption="关闭" RefKey="Close"/>
+        <Operation Key="Read" Caption="阅读记录" RefKey="Read"/>
+        <Operation Key="HaveRead" Caption="已阅" Visible="IIF(DBNamedQueryValue('queryStatus',GetOperator(),GetOID())==20,false,IIF(DBQueryValue(&quot;select a.ReadUser from oa_Read a where a.billoid=? and a.BillKey=? and a.ReadUser=?&quot;,GetOID(),GetFormKey(),GetOperator())==GetOperator(),true,false))">
+            <Action>
+                <![CDATA[ DBUpdate('Insert into oa_ReadRecord (OID,SOID,POID,VERID,DVERID,Reader,ReadTime,BillKey,BillOID) values (?,OID,null,0,0,?,?,?,?)',
+ApplyNewOID(),GetOperator(),Format(ServerDate(),"yyyy-MM-dd HH:mm:ss"),GetValue('BillKey'),GetOID());
+ DBUpdate('Update OA_read set status = 20,ReadTime=? where  readuser=? and billoid=?',Format(ServerDate(), "yyyy-MM-dd HH:mm:ss"),GetOperator(),GetOID());]]>
+            </Action>
+        </Operation>
+        <Operation Key="WFlog" Caption="审批记录" RefKey="ShowWFLog"/>
+        <Operation Key="Print" Caption="打印" RefKey="Print"/>
+    </OperationCollection>
+    <ScriptCollection>
+        <Script Key="Load" Caption="载入" Range="Action" Verb="">
+            <![CDATA[LoadData()]]>
+        </Script>
+    </ScriptCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板">
+                <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <TabPanel Caption="TabPanel1" Height="100%" Key="TabPanel1">
+                    <GridLayoutPanel Key="first_head" Height="100%" Padding="5px" OverflowY="Auto" Caption="基本信息">
+                        <TextEditor Key="NO" Caption="单据编号" BuddyKey="Lab_NO" X="1" Y="0" Enable="false">
+                            <DataBinding ColumnKey="NO" TableKey="OA_Taskdistribution_H"/>
+                        </TextEditor>
+                        <Label Key="Lab_NO" Caption="单据编号" X="0" Y="0"/>
+                        <DatePicker Key="BillDate" Caption="发布日期" BuddyKey="Lab_BillDate" X="4" Y="0" Enable="false">
+                            <DataBinding ColumnKey="BillDate" TableKey="OA_Taskdistribution_H" DefaultFormulaValue="ServerDate()"/>
+                        </DatePicker>
+                        <Label Key="Lab_BillDate" Caption="发布日期" X="3" Y="0"/>
+                        <ComboBox Key="UrgencyDeg" Caption="紧急程度" BuddyKey="Lab_UrgencyDeg" X="7" Y="0">
+                            <DataBinding ColumnKey="UrgencyDeg" TableKey="OA_Taskdistribution_H"/>
+                            <Item Caption="一般" Key="10" Value="10"/>
+                            <Item Caption="紧急" Key="20" Value="20"/>
+                            <Item Caption="特急" Key="30" Value="30"/>
+                            <Item Key="0" Value="0"/>
+                        </ComboBox>
+                        <Label Key="Lab_UrgencyDeg" Caption="紧急程度" X="6" Y="0"/>
+                        <TextEditor Key="Topic" Caption="主题" BuddyKey="Lab_Topic" X="1" Y="1" XSpan="7">
+                            <DataBinding ColumnKey="Topic" TableKey="OA_Taskdistribution_H" Required="true"/>
+                        </TextEditor>
+                        <Label Key="Lab_Topic" Caption="主题" X="0" Y="1"/>
+                        <Dict Key="DeptID" Caption="发布部门" BuddyKey="Lab_DeptID" X="1" Y="2" ItemKey="OA_Department">
+                            <DataBinding ColumnKey="DeptID" TableKey="OA_Taskdistribution_H" DefaultFormulaValue="GetDictValue('Operator', GetOperator(), 'SYS_Operator.DeptID')" Required="true"/>
+                        </Dict>
+                        <Label Key="Lab_DeptID" Caption="发布部门" X="0" Y="2"/>
+                        <Dict Key="EmpID" Caption="发布人员" BuddyKey="Lab_EmpID" X="4" Y="2" ItemKey="OA_Employee">
+                            <DataBinding ColumnKey="EmpID" TableKey="OA_Taskdistribution_H" DefaultFormulaValue="GetDictValue('Operator', GetOperator(), 'SYS_Operator.EmpID')" Required="true">
+                                <ValueChanged>
+                                    <![CDATA[DeptID=GetDictValue('OA_Employee', EmpID, 'OA_Employee_H.DeptID')]]>
+                                </ValueChanged>
+                            </DataBinding>
+                        </Dict>
+                        <Label Key="Lab_EmpID" Caption="发布人员" X="3" Y="2"/>
+                        <Dict Key="ReceiveEmpID" Caption="接收人员" BuddyKey="Lab_ReceiveEmpID" X="7" Y="2" ItemKey="OA_Employee">
+                            <DataBinding ColumnKey="ReceiveEmpID" TableKey="OA_Taskdistribution_H" Required="true"/>
+                        </Dict>
+                        <Label Key="Lab_ReceiveEmpID" Caption="接收人员" X="6" Y="2"/>
+                        <RichEditor BuddyKey="Lab_Arrangement" Caption="工作安排" Key="Arrangement" X="1" XSpan="7" Y="7" YSpan="5" Enable="True">
+                            <DataBinding ColumnKey="Arrangement" TableKey="OA_Taskdistribution_H"/>
+                        </RichEditor>
+                        <Label Key="Lab_Arrangement" Caption="工作安排" X="0" Y="7" YSpan="5"/>
+                        <RichEditor BuddyKey="Lab_Completion" Caption="完成情况" Key="Completion" X="1" XSpan="7" Y="13" YSpan="5" Enable="True">
+                            <DataBinding ColumnKey="Completion" TableKey="OA_Taskdistribution_H"/>
+                        </RichEditor>
+                        <Label Key="Lab_Completion" Caption="完成情况" X="0" Y="13" YSpan="5"/>
+                        <TextEditor Key="Notes" Caption="备注" BuddyKey="Lab_Notes" X="1" Y="18" XSpan="7">
+                            <DataBinding ColumnKey="Notes" TableKey="OA_Taskdistribution_H"/>
+                        </TextEditor>
+                        <Label Key="Lab_Notes" Caption="备注" X="0" Y="18"/>
+                        <DatePicker Key="OutTime" Caption="到期时间" BuddyKey="Lab_OutTime" X="7" Y="3">
+                            <DataBinding ColumnKey="OutTime" TableKey="OA_Taskdistribution_H"/>
+                        </DatePicker>
+                        <Label Key="Lab_OutTime" Caption="到期时间" X="6" Y="3"/>
+                        <DatePicker Key="FactEndDate" Caption="实际完成日期" BuddyKey="Lab_FactEndDate" X="4" Y="6" Enable="false" Visible="Status==1200">
+                            <DataBinding ColumnKey="FactEndDate" TableKey="OA_Taskdistribution_H"/>
+                        </DatePicker>
+                        <Label Key="Lab_FactEndDate" Caption="实际完成日期" X="3" Y="6" Visible="false"/>
+                        <DatePicker Key="FactStartDate" Caption="实际开始时间" BuddyKey="Lab_FactStartDate" X="1" Y="6" Enable="false" Visible="Status==1200">
+                            <DataBinding ColumnKey="FactStartDate" TableKey="OA_Taskdistribution_H"/>
+                        </DatePicker>
+                        <Label Key="Lab_FactStartDate" Caption="实际开始时间" X="0" Y="6" Visible="false"/>
+                        <DatePicker Key="PlanStartDate" Caption="计划开始日期" BuddyKey="Lab_PlanStartDate" X="1" Y="3">
+                            <DataBinding ColumnKey="PlanStartDate" TableKey="OA_Taskdistribution_H"/>
+                        </DatePicker>
+                        <Label Key="Lab_PlanStartDate" Caption="计划开始日期" X="0" Y="3"/>
+                        <DatePicker Key="PlanEndDate" Caption="计划结束时间" BuddyKey="Lab_PlanEndDate" X="4" Y="3">
+                            <DataBinding ColumnKey="PlanEndDate" TableKey="OA_Taskdistribution_H"/>
+                        </DatePicker>
+                        <Label Key="Lab_PlanEndDate" Caption="计划结束时间" X="3" Y="3"/>
+                        <TextArea Key="ShareEmpID" Caption="共享人员" BuddyKey="Lab_ShareEmpID" X="1" Y="4" XSpan="6" YSpan="2">
+                            <DataBinding ColumnKey="ShareEmpID" TableKey="OA_Taskdistribution_H"/>
+                        </TextArea>
+                        <Label Key="Lab_ShareEmpID" Caption="共享人员" X="0" Y="4"/>
+                        <HyperLink Caption="选择人员" Key="SelOpertors" X="7" Y="4">
+                            <OnClick>
+                                <![CDATA[OA_ShowShareEmpID();]]>
+                            </OnClick>
+                        </HyperLink>
+                        <TextArea Key="OptIDs" Caption="操作员ID" BuddyKey="Lab_OptIDs" X="1" Y="5" Visible="false" XSpan="6">
+                            <DataBinding ColumnKey="OptIDs" TableKey="OA_Taskdistribution_H"/>
+                        </TextArea>
+                        <Label Key="Lab_OptIDs" Caption="操作员ID" X="0" Y="5"/>
+                        <RowDefCollection RowGap="4">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="4">
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="33%"/>
+                            <ColumnDef Width="20px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="33%"/>
+                            <ColumnDef Width="20px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="34%"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <GridLayoutPanel Key="SysTab" Caption="系统信息">
+                        <Dict Key="Creator" Caption="创建人" BuddyKey="Lab_Creator" X="1" Y="0" Enable="false" ItemKey="Operator" XSpan="2">
+                            <DataBinding ColumnKey="Creator" TableKey="OA_Taskdistribution_H" DefaultFormulaValue="GetOperator()"/>
+                        </Dict>
+                        <Label Key="Lab_Creator" Caption="创建人" X="0" Y="0"/>
+                        <Dict Key="Modifier" Caption="修改人" BuddyKey="Lab_Modifier" X="1" Y="1" Enable="false" ItemKey="Operator" XSpan="2">
+                            <DataBinding ColumnKey="Modifier" TableKey="OA_Taskdistribution_H" DefaultFormulaValue="GetOperator()"/>
+                        </Dict>
+                        <DatePicker Key="CreateTime" Caption="创建日期" BuddyKey="Lab_CreateTime" X="5" Y="0" Enable="false" XSpan="2">
+                            <DataBinding ColumnKey="CreateTime" TableKey="OA_Taskdistribution_H"/>
+                        </DatePicker>
+                        <Label Key="Lab_CreateTime" Caption="创建时间" X="4" Y="0"/>
+                        <Label Key="Lab_Modifier" Caption="修改人" X="0" Y="1"/>
+                        <DatePicker Key="ModifyTime" Caption="修改日期" BuddyKey="Lab_ModifyTime" X="5" Y="1" Enable="false" XSpan="2">
+                            <DataBinding ColumnKey="ModifyTime" TableKey="OA_Taskdistribution_H" DefaultFormulaValue="ServerDate()"/>
+                        </DatePicker>
+                        <Label Key="Lab_ModifyTime" Caption="修改时间" X="4" Y="1"/>
+                        <TextEditor Key="BillKey" Caption="单据Key" BuddyKey="Lab_BillKey" X="1" Y="2" Visible="false" Enable="false" XSpan="2">
+                            <DataBinding ColumnKey="BillKey" TableKey="OA_Taskdistribution_H" DefaultFormulaValue="GetFormKey()"/>
+                        </TextEditor>
+                        <Label Key="Lab_BillKey" Caption="单据Key" X="0" Y="2" Visible="false"/>
+                        <Dict Key="ClusterID" Caption="集团" BuddyKey="Lab_ClusterID" X="9" Y="0" Enable="false" ItemKey="Client" XSpan="2">
+                            <DataBinding ColumnKey="ClusterID" TableKey="OA_Taskdistribution_H"/>
+                        </Dict>
+                        <Label Key="Lab_ClusterID" Caption="集团" X="8" Y="0"/>
+                        <ComboBox Key="Status" Caption="状态" BuddyKey="Lab_Status" X="9" Y="1" SourceType="Status" Enable="false" XSpan="2">
+                            <DataBinding ColumnKey="Status" TableKey="OA_Taskdistribution_H" DefaultValue="100"/>
+                        </ComboBox>
+                        <Label Key="Lab_Status" Caption="状态" X="8" Y="1"/>
+                        <TextEditor Key="OID" Caption="OID" BuddyKey="Lab_OID" X="5" Y="2" Visible="false" XSpan="2">
+                            <DataBinding ColumnKey="OID" TableKey="OA_Taskdistribution_H"/>
+                        </TextEditor>
+                        <Label Key="Lab_OID" Caption="OID" X="4" Y="2"/>
+                        <TextEditor Key="WorkflowTypeDtlID" Caption="流程类别明细ID" BuddyKey="Lab_WorkflowTypeDtlID" X="9" Y="2" Visible="false" XSpan="2">
+                            <DataBinding ColumnKey="WorkflowTypeDtlID" TableKey="OA_Taskdistribution_H" DefaultFormulaValue="Para(&quot;WorkflowTypeDtlID&quot;)"/>
+                        </TextEditor>
+                        <Label Key="Lab_WorkflowTypeDtlID" Caption="流程类别明细ID" X="8" Y="2"/>
+                        <RowDefCollection RowGap="4">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="4">
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="33%"/>
+                            <ColumnDef Width="20px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="33%"/>
+                            <ColumnDef Width="20px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="34%"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                </TabPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+    <MacroCollection>
+        <Macro Key="OA_ShowShareEmpID">
+            <![CDATA[SetPara("OperatorSelID", OA_GetShareEmpID());
+IIF(GetPara("OperatorSelID")>0,
+    Open("OA_OperatorSel", GetPara("OperatorSelID"), "modal","SourceKey:{BillKey},SourceID:{GetOID()},Tag1:{'ShareEmpID'},FieldKey1:{'ShareEmpID'},FieldKey2:{'OptIDs'}"),
+    New("OA_OperatorSel","modal","SourceKey:{BillKey},SourceID:{GetOID()},Tag1:{'ShareEmpID'},FieldKey1:{'ShareEmpID'},FieldKey2:{'OptIDs'}")
+);]]>
+        </Macro>
+        <Macro Key="OA_GetShareEmpID">
+            <![CDATA[DBQueryValue("Select OID From OA_OperatorSel_H Where SourceKey=? and SourceID=? and Tag1=?", BillKey,GetOID(),"ShareEmpID");]]>
+        </Macro>
+    </MacroCollection>
+</Form>

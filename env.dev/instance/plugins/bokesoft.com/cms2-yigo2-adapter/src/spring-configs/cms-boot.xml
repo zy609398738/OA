@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+                           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+                           ">
+
+    <!-- 定义 Yigo Backend 实现 -->
+    <bean id="backendWorkerProvider" class="com.bokesoft.r2.cms2.adapter.yigo2.Yigo2BackendWorkerProvider"/>
+    <!-- 定义包含 Yigo 公式支持的 ExpressionEvaluator 实现 -->
+    <bean id="expressionEvaluator" class="com.bokesoft.cms2.impl.ManagedExpressionEvaluator">
+        <property name="expressionEvaluators">
+             <list>
+                <bean class="com.bokesoft.r2.cms2.adapter.yigo2.Yigo2ExpressionEvaluator" lazy-init="true"/>
+                <bean class="com.bokesoft.cms2.formula.spel.CMSSpELEvaluator" lazy-init="true"/>
+             </list>
+        </property>
+        <property name="defaultExpressionEvaluator">
+            <bean class="com.bokesoft.r2.cms2.adapter.yigo2.Yigo2ExpressionEvaluator"/>
+        </property>
+    </bean>
+
+</beans>

@@ -1,0 +1,25 @@
+{
+	"@type":"com.bokesoft.cms2.impl.buildin.modelio.vo.BlockVO",
+	"block":{
+		"@type":"com.bokesoft.cms2.model.blocks.TmplBlock",
+		"formulaText":"",
+		"notes":"",
+		"parameters":[],
+		"tmplText":"",
+		"type":"TMPL"
+	},
+	"code":"news-paging-listview",
+	"name":"新闻分页显示区块",
+	"params":[
+		{
+			"caption":"新闻类型",
+			"key":"type",
+			"type":"common"
+		},
+		{
+			"caption":"页数",
+			"key":"pageSize",
+			"type":"common"
+		}
+	]
+}

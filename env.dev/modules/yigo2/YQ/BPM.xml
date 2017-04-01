@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<BPM InitDate="2016.08.15 10:35:55 CST">
+    <DeployInfoCollection>
+        <DeployInfo InitDate="2014.06.12 17:39:41 GMT+08:00" Key="WF_PreOrder"/>
+    </DeployInfoCollection>
+    <ProcessMapCollection>
+        <ProcessMap InitDate="2016.08.17 15:49:17 CST" Key="NJ_SCM_PreOrderHead" ProcessKey="WF_PreOrder" StartCaption="提交"/>
+    </ProcessMapCollection>
+</BPM>

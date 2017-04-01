@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="NJ_UseInventory" Caption="在用盘点情况" FormType="Entity" AbbrCaption="在用盘点情况" InitState="Default">
+    <DataSource>
+        <DataObject Key="NJ_UseInventory" Caption="在用盘点情况" PrimaryTableKey="NJ_UseInventory" PrimaryType="Entity">
+            <TableCollection>
+                <Table Key="NJ_UseInventory" Caption="NJ_UseInventory" DBTableName="NJ_UseInventory" TableMode="Detail" SourceType="Query" Persist="false" OrderBy="AssetsCode">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="AssetsId" Caption="AssetsId" DataType="Long"/>
+                    <Column Key="assetstypeid" Caption="assetstypeid" DataType="Long"/>
+                    <Column Key="Model" Caption="Model" DataType="Varchar"/>
+                    <Column Key="UNITID" Caption="UNITID" DataType="Long"/>
+                    <Column Key="WareHouseId" Caption="WareHouseId" DataType="Long"/>
+                    <Column Key="MapCount" Caption="映射数量标记" DataType="Integer"/>
+                    <Column Key="UseDeptID" Caption="UseDeptID" DataType="Long"/>
+                    <Column Key="UseEmpID" Caption="UseEmpID" DataType="Long"/>
+                    <Column Key="MapKey" Caption="映射标识" DataType="Varchar"/>
+                    <Column Key="SrcOID" Caption="来源行标识" DataType="Long"/>
+                    <Column Key="SrcSOID" Caption="来源表单标识" DataType="Long"/>
+                    <Column Key="UseType" Caption="UseType" DataType="Varchar"/>
+                    <Column Key="CustomerId" Caption="CustomerId" DataType="Long"/>
+                    <Column Key="Room" Caption="Room" DataType="Long"/>
+                    <Column Key="AssetsCode" Caption="AssetsCode" DataType="Varchar" SortType="Asc"/>
+                    <Column Key="AssetNatureId" Caption="AssetNatureId" DataType="Long"/>
+                    <Column Key="UsePeople" Caption="UsePeople" DataType="Varchar"/>
+                    <Column Key="AssetsOID" Caption="AssetsOID" DataType="Varchar"/>
+                    <Column Key="Amount" Caption="Amount" DataType="Integer"/>
+                    <Column Key="CheckDate" Caption="CheckDate" DataType="Long"/>
+                    <ParameterCollection>
+                        <Parameter DataType="Long" Formula="GetPara('CheckDate_cond')"/>
+                        <Parameter DataType="Long" Formula="GetPara('CheckDate_cond')"/>
+                    </ParameterCollection>
+                    <Statement>
+                        <![CDATA[SELECT UseType,UseEmpID,UseDeptID,CustomerId,UsePeople,Room,AssetsId,assetstypeid,WareHouseId,AssetNatureId,Model,UNITID,AssetsCode,CAST(Amount AS SIGNED)Amount,AssetsOID FROM (SELECT * from (select 2 UseType,-1 UseEmpID,-1 UseDeptID,a.CustomerId,a.UsePeople,a.Room,b.AssetsId,b.assetstypeid,b.WareHouseId,b.AssetNatureId,b.Model,b.UNITID,c.AssetsCode,0 Amount,c.OID AssetsOID FROM NJ_SCM_AssetBorrowHead a LEFT JOIN NJ_SCM_AssetBorrowDtl b ON a.oid=b.soid LEFT JOIN NJ_SCM_AssetCode c ON a.OID=c.SOID AND b.AssetsId=c.AssetsBarId UNION ALL select 2 UseType,-1 UseEmpID,-1 UseDeptID,a.CustomerId,a.UsePeople,a.Room,b.AssetsId,b.assetstypeid,b.WareHouseId,b.AssetNatureId,b.Model,b.UNITID,c.AssetsCode,0 Amount,c.OID AssetsOID FROM NJ_SCM_AssetLeasingHead a LEFT JOIN NJ_SCM_AssetLeasingDtl b ON a.oid=b.soid LEFT JOIN NJ_SCM_AssetCode c ON a.OID=c.SOID AND b.AssetsId=c.AssetsBarId UNION ALL select 1 UseType,a.UseEmpID,a.UseDeptID,-1 CustomerId,'' UsePeople,a.Room,b.AssetsId,b.assetstypeid,b.WareHouseId,b.AssetNatureId,b.Model,b.UNITID,c.AssetsCode,0 Amount,c.OID AssetsOID FROM NJ_SCM_AssetCollarHead a LEFT JOIN NJ_SCM_AssetCollarDtl b ON a.oid=b.soid LEFT JOIN NJ_SCM_AssetCode c ON a.OID=c.SOID AND b.AssetsId=c.AssetsBarId UNION ALL select 1 UseType,a.UseEmpID,a.UseDeptID,-1 CustomerId,'' UsePeople,a.Room,b.AssetsBarId,assetstypeid,WareHouseId,AssetNatureId,Model,UNITID,AssetsCode,0 Amount,b.OID AssetsOID from NJ_SCM_AssetTransferHead a LEFT JOIN NJ_SCM_AssetCode b ON a.OID=b.SOID UNION ALL select a.UseType,UseEmpID,UseDeptID,CustomerId,UsePeople,Room,b.AssetsBarId,assetstypeid,WareHouseId,AssetNatureId,Model,UNITID,AssetsCode,0 amount,b.OID AssetsOID from NJ_SCM_UseAssetInventoryHead a LEFT JOIN NJ_SCM_AssetCode b ON a.OID=b.SOID WHERE AssetsOID='') a WHERE AssetsOID NOT IN (SELECT ifnull(SrcOID,AssetsOID) FROM NJ_SCM_AssetCode WHERE ifnull(SrcOID,AssetsOID)>0) AND a.AssetsCode NOT IN (select DISTINCT AssetsCode from NJ_SCM_SweepCodeHead a left join NJ_SCM_SweepCodeDtl b on a.OID=b.SOID WHERE CheckDate=?) UNION ALL select DISTINCT d.UseType,d.UseEmpID,d.UseDeptID,d.CustomerId,d.UsePeople,b.room,c.AssetsBarId,e.assetstypeid,e.WareHouseId,e.AssetNatureId,e.Model,e.UNITID,b.AssetsCode,sum(c.AssetsAmount) Amount,'' AssetsOID from NJ_SCM_SweepCodeHead a left join NJ_SCM_SweepCodeDtl b on a.OID=b.SOID LEFT JOIN NJ_SCM_AssetCode c ON b.AssetsCode=c.AssetsCode LEFT JOIN nj_cp_assets e ON c.AssetsBarId=e.oid LEFT JOIN (SELECT DISTINCT UseType,UseEmpID,UseDeptID,CustomerId,UsePeople,Room from (select 2 UseType,-1 UseEmpID,-1 UseDeptID,a.CustomerId,a.UsePeople,a.Room,a.EmpID,b.AssetsId,b.assetstypeid,b.WareHouseId,b.AssetNatureId,b.Model,b.UNITID,c.AssetsCode,c.OID AssetsOID FROM NJ_SCM_AssetBorrowHead a LEFT JOIN NJ_SCM_AssetBorrowDtl b ON a.oid=b.soid LEFT JOIN NJ_SCM_AssetCode c ON a.OID=c.SOID AND b.AssetsId=c.AssetsBarId UNION ALL select 2 UseType,-1 UseEmpID,-1 UseDeptID,a.CustomerId,a.UsePeople,a.Room,a.EmpID,b.AssetsId,b.assetstypeid,b.WareHouseId,b.AssetNatureId,b.Model,b.UNITID,c.AssetsCode,c.OID AssetsOID FROM NJ_SCM_AssetLeasingHead a LEFT JOIN NJ_SCM_AssetLeasingDtl b ON a.oid=b.soid LEFT JOIN NJ_SCM_AssetCode c ON a.OID=c.SOID AND b.AssetsId=c.AssetsBarId UNION ALL select 1 UseType,a.UseEmpID,a.UseDeptID,-1 CustomerId,'' UsePeople,a.Room,a.EmpID,b.AssetsId,b.assetstypeid,b.WareHouseId,b.AssetNatureId,b.Model,b.UNITID,c.AssetsCode,c.OID AssetsOID FROM NJ_SCM_AssetCollarHead a LEFT JOIN NJ_SCM_AssetCollarDtl b ON a.oid=b.soid LEFT JOIN NJ_SCM_AssetCode c ON a.OID=c.SOID AND b.AssetsId=c.AssetsBarId UNION ALL select 1 UseType,a.UseEmpID,a.UseDeptID,-1 CustomerId,'' UsePeople,a.Room,a.EmpID,b.AssetsBarId,assetstypeid,WareHouseId,AssetNatureId,Model,UNITID,AssetsCode,b.OID AssetsOID from NJ_SCM_AssetTransferHead a LEFT JOIN NJ_SCM_AssetCode b ON a.OID=b.SOID UNION ALL select a.UseType,UseEmpID,UseDeptID,CustomerId,UsePeople,Room,-1 EmpID,b.AssetsBarId,assetstypeid,WareHouseId,AssetNatureId,Model,UNITID,AssetsCode,b.OID AssetsOID from NJ_SCM_UseAssetInventoryHead a LEFT JOIN NJ_SCM_AssetCode b ON a.OID=b.SOID WHERE AssetsOID='') a WHERE AssetsOID NOT IN (SELECT ifnull(SrcOID,AssetsOID) FROM NJ_SCM_AssetCode WHERE ifnull(SrcOID,AssetsOID)>0)) d ON b.Room=d.room WHERE CheckDate=? AND b.AssetsCode NOT IN (SELECT a.AssetsCode from (select 2 UseType,-1 UseEmpID,-1 UseDeptID,a.CustomerId,a.UsePeople,a.Room,b.AssetsId,b.assetstypeid,b.WareHouseId,b.AssetNatureId,b.Model,b.UNITID,c.AssetsCode,c.OID AssetsOID FROM NJ_SCM_AssetBorrowHead a LEFT JOIN NJ_SCM_AssetBorrowDtl b ON a.oid=b.soid LEFT JOIN NJ_SCM_AssetCode c ON a.OID=c.SOID AND b.AssetsId=c.AssetsBarId UNION ALL select 2 UseType,-1 UseEmpID,-1 UseDeptID,a.CustomerId,a.UsePeople,a.Room,b.AssetsId,b.assetstypeid,b.WareHouseId,b.AssetNatureId,b.Model,b.UNITID,c.AssetsCode,c.OID AssetsOID FROM NJ_SCM_AssetLeasingHead a LEFT JOIN NJ_SCM_AssetLeasingDtl b ON a.oid=b.soid LEFT JOIN NJ_SCM_AssetCode c ON a.OID=c.SOID AND b.AssetsId=c.AssetsBarId UNION ALL select 1 UseType,a.UseEmpID,a.UseDeptID,-1 CustomerId,'' UsePeople,a.Room,b.AssetsId,b.assetstypeid,b.WareHouseId,b.AssetNatureId,b.Model,b.UNITID,c.AssetsCode,c.OID AssetsOID FROM NJ_SCM_AssetCollarHead a LEFT JOIN NJ_SCM_AssetCollarDtl b ON a.oid=b.soid LEFT JOIN NJ_SCM_AssetCode c ON a.OID=c.SOID AND b.AssetsId=c.AssetsBarId UNION ALL select 1 UseType,a.UseEmpID,a.UseDeptID,-1 CustomerId,'' UsePeople,a.Room,b.AssetsBarId,assetstypeid,WareHouseId,AssetNatureId,Model,UNITID,AssetsCode,b.OID AssetsOID from NJ_SCM_AssetTransferHead a LEFT JOIN NJ_SCM_AssetCode b ON a.OID=b.SOID UNION ALL select a.UseType,UseEmpID,UseDeptID,CustomerId,UsePeople,Room,b.AssetsBarId,assetstypeid,WareHouseId,AssetNatureId,Model,UNITID,AssetsCode,b.OID AssetsOID from NJ_SCM_UseAssetInventoryHead a LEFT JOIN NJ_SCM_AssetCode b ON a.OID=b.SOID WHERE AssetsOID='') a WHERE AssetsOID NOT IN (SELECT ifnull(SrcOID,AssetsOID) FROM NJ_SCM_AssetCode WHERE ifnull(SrcOID,AssetsOID)>0)) GROUP BY d.UseType,d.UseEmpID,d.UseDeptID,d.CustomerId,d.UsePeople,b.room,c.AssetsBarId,e.assetstypeid,e.WareHouseId,e.AssetNatureId,e.Model,e.UNITID,b.AssetsCode) aa where AssetsId>0]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="WORKITEM" Caption="WORKITEM" Tag="WORKITEM"/>
+        <Operation Key="BPM" Caption="BPM" Tag="BPM"/>
+    </OperationCollection>
+    <ScriptCollection>
+        <Script Key="Load" Caption="载入" Description="载入事件" Range="Action" Verb="Load">
+            <![CDATA[
+		LoadData();ShowData()
+		]]>
+        </Script>
+    </ScriptCollection>
+    <Body HAlign="Center" Height="80%" PopHeight="80%" PopWidth="80%" Width="80%">
+        <Block>
+            <GridLayoutPanel Key="main" Height="100%">
+                <ToolBar Key="main_toolbar" X="0" Y="0">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <SplitPanel Key="main_split" Orientation="Vertical" Height="100%" X="0" Y="1">
+                    <GridLayoutPanel Key="query" Height="70px" Padding="5px" Caption="查询">
+                        <Button Key="Btn_find" Caption="查询" X="10" Y="0" Enable="true">
+                            <OnClick>
+                                <![CDATA[IIF(GetValue('CheckDate')>0,true,RaiseErr('请先选择盘点期数！'));
+DealCondition();LoadData();ShowData();								]]>
+                            </OnClick>
+                        </Button>
+                        <Button Key="XIATUI" Caption="下推" X="10" Y="1" Enable="true">
+                            <OnClick>
+                                <![CDATA[IIFS
+(
+GetPara('key')=='NJ_UseAssetInventory',ViewMap('NJ_UseInventory_NJ_UseAssetInventory',false)
+);
+Close();
+parent.SetValue('UseType',GetCellValue('Info', -1, 'UseType'));]]>
+                            </OnClick>
+                        </Button>
+                        <Dict Key="Room_cond" Caption="所在房间" BuddyKey="Lab_Room_cond" X="5" Y="1" Enable="true" AllowMultiSelection="true" ItemKey="NJ_CP_Room" Clearable="false">
+                            <Condition ColumnKey="Room" TableKey="NJ_UseInventory" CondSign="in"/>
+                        </Dict>
+                        <Label Key="Lab_Room_cond" Caption="所在房间" X="4" Y="1"/>
+                        <Dict Key="CustomerId_cond" Caption="客户" BuddyKey="Lab_CustomerId_cond" X="5" Y="0" Visible="UseType_cond==2" Enable="true" AllowMultiSelection="true" ItemKey="NJ_CP_Customer" Clearable="false">
+                            <Condition ColumnKey="CustomerId" TableKey="NJ_UseInventory" CondSign="in"/>
+                        </Dict>
+                        <Label Key="Lab_CustomerId_cond" Caption="客户" X="4" Y="0"/>
+                        <Dict Key="assetstypeid_cond" Caption="资产类别" BuddyKey="Lab_assetstypeid_cond" X="8" Y="0" Enable="true" AllowMultiSelection="true" ItemKey="NJ_assetstype" Clearable="false">
+                            <Condition ColumnKey="assetstypeid" TableKey="NJ_UseInventory" CondSign="in"/>
+                        </Dict>
+                        <Label Key="Lab_assetstypeid_cond" Caption="资产类别" X="7" Y="0"/>
+                        <ComboBox Key="UseType_cond" Caption="使用类型" BuddyKey="Lab_UseType_cond" X="2" Y="0" Enable="true" AsQuery="true" Clearable="false">
+                            <DataBinding DefaultValue="2">
+                                <ValueChanged>
+                                    <![CDATA[IIF(GetValue('CheckDate')>0,true,RaiseErr('请先选择盘点期数！'));
+DealCondition();LoadData();ShowData();]]>
+                                </ValueChanged>
+                            </DataBinding>
+                            <Condition ColumnKey="UseType" TableKey="NJ_UseInventory" CondSign="="/>
+                            <Item Caption="内部" Key="1" Value="1"/>
+                            <Item Caption="外部" Key="2" Value="2"/>
+                        </ComboBox>
+                        <Label Key="Lab_UseType_cond" Caption="使用类型" X="1" Y="0"/>
+                        <Dict Key="UseEmpID_cond" Caption="领用人" BuddyKey="Lab_UseEmpID_cond" X="5" Y="0" Visible="UseType_cond==1" Enable="true" AllowMultiSelection="true" ItemKey="OA_Employee" Clearable="false">
+                            <Condition ColumnKey="UseEmpID" TableKey="NJ_UseInventory" CondSign="in"/>
+                        </Dict>
+                        <Label Key="Lab_UseEmpID_cond" Caption="领用人" X="4" Y="0"/>
+                        <Dict Key="CheckDate" Caption="盘点期数 *" BuddyKey="Lab_CheckDate" X="2" Y="1" Enable="true" ItemKey="NJ_CheckDate" Clearable="false">
+                            <DataBinding Required="true">
+                                <ValueChanged>
+                                    <![CDATA[SetPara('CheckDate_cond', GetValue('CheckDate'));]]>
+                                </ValueChanged>
+                            </DataBinding>
+                        </Dict>
+                        <Label Key="Lab_CheckDate" Caption="盘点期数" X="1" Y="1"/>
+                        <RowDefCollection RowHeight="25" RowGap="5">
+                            <RowDef/>
+                            <RowDef/>
+                        </RowDefCollection>
+                        <ColumnDefCollection>
+                            <ColumnDef Width="20px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="33%"/>
+                            <ColumnDef Width="20px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="33%"/>
+                            <ColumnDef Width="20px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="34%"/>
+                            <ColumnDef Width="20px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="10px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="20px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <Grid Key="Info" Caption="库存明细" NewEmptyRow="false" Enable="true" CanDelete="false" CanInsert="false" CanShift="false">
+                        <GridColumnCollection>
+                            <GridColumn Key="UseType" Caption="使用类型" Width="80px"/>
+                            <GridColumn Key="CustomerId" Caption="客户" Visible="UseType_cond==2" Width="80px"/>
+                            <GridColumn Key="UsePeople" Caption="领用人" Visible="UseType_cond==2" Width="80px"/>
+                            <GridColumn Key="UseDeptID" Caption="领用部门" Visible="UseType_cond==1" Width="80px"/>
+                            <GridColumn Key="UseEmpID" Caption="领用人" Visible="UseType_cond==1" Width="80px"/>
+                            <GridColumn Key="Room" Caption="所在房间" Width="80px"/>
+                            <GridColumn Key="AssetsId" Caption="资产名称" Width="80px"/>
+                            <GridColumn Key="AssetsCode" Caption="资产编码" Width="80px"/>
+                            <GridColumn Key="WareHouseId" Caption="资产大类" Width="80px"/>
+                            <GridColumn Key="assetstypeid" Caption="资产类别" Width="80px"/>
+                            <GridColumn Key="AssetNatureId" Caption="资产性质" Width="80px"/>
+                            <GridColumn Key="Model" Caption="规格型号" Width="80px"/>
+                            <GridColumn Key="UNITID" Caption="计量单位" Width="80px"/>
+                            <GridColumn Key="AssetsOID" Caption="AssetsOID" Visible="false" Width="80px"/>
+                            <GridColumn Key="Amount" Caption="数量" Width="80px" Visible="false"/>
+                        </GridColumnCollection>
+                        <GridRowCollection>
+                            <GridRow Key="R2" TableKey="NJ_UseInventory">
+                                <GridCell Key="UseType" Caption="使用类型" CellType="ComboBox">
+                                    <DataBinding ColumnKey="UseType"/>
+                                    <Item Caption="内部" Key="1" Value="1"/>
+                                    <Item Caption="外部" Key="2" Value="2"/>
+                                </GridCell>
+                                <GridCell Key="CustomerId" Caption="客户" CellType="Dict" ItemKey="NJ_CP_Customer">
+                                    <DataBinding ColumnKey="CustomerId"/>
+                                </GridCell>
+                                <GridCell Key="UsePeople" Caption="领用人" CellType="TextEditor">
+                                    <DataBinding ColumnKey="UsePeople"/>
+                                </GridCell>
+                                <GridCell Key="UseDeptID" Caption="领用部门" CellType="Dict" ItemKey="OA_Department">
+                                    <DataBinding ColumnKey="UseDeptID"/>
+                                </GridCell>
+                                <GridCell Key="UseEmpID" Caption="领用人" CellType="Dict" ItemKey="OA_Employee">
+                                    <DataBinding ColumnKey="UseEmpID"/>
+                                </GridCell>
+                                <GridCell Key="Room" Caption="所在房间" CellType="Dict" ItemKey="NJ_CP_Room">
+                                    <DataBinding ColumnKey="Room"/>
+                                </GridCell>
+                                <GridCell Key="AssetsId" Caption="资产名称" CellType="Dict" ItemKey="NJ_assets">
+                                    <DataBinding ColumnKey="AssetsId"/>
+                                </GridCell>
+                                <GridCell Key="AssetsCode" Caption="资产编码" CellType="TextEditor">
+                                    <DataBinding ColumnKey="AssetsCode"/>
+                                </GridCell>
+                                <GridCell Key="WareHouseId" Caption="资产大类" CellType="Dict" ItemKey="NJ_WareHouse">
+                                    <DataBinding ColumnKey="WareHouseId"/>
+                                </GridCell>
+                                <GridCell Key="assetstypeid" Caption="资产类别" CellType="Dict" ItemKey="NJ_assetstype">
+                                    <DataBinding ColumnKey="assetstypeid"/>
+                                </GridCell>
+                                <GridCell Key="AssetNatureId" Caption="资产性质" CellType="Dict" ItemKey="NJ_AssetNature">
+                                    <DataBinding ColumnKey="AssetNatureId"/>
+                                </GridCell>
+                                <GridCell Key="Model" Caption="规格型号" CellType="TextEditor">
+                                    <DataBinding ColumnKey="Model"/>
+                                </GridCell>
+                                <GridCell Key="UNITID" Caption="计量单位" CellType="Dict" ItemKey="NJ_UNIT">
+                                    <DataBinding ColumnKey="UNITID"/>
+                                </GridCell>
+                                <GridCell Key="AssetsOID" Caption="AssetsOID" CellType="TextEditor">
+                                    <DataBinding ColumnKey="AssetsOID"/>
+                                </GridCell>
+                                <GridCell Key="Amount" Caption="数量" CellType="NumberEditor" IntegerValue="true">
+                                    <DataBinding ColumnKey="Amount"/>
+                                </GridCell>
+                            </GridRow>
+                        </GridRowCollection>
+                    </Grid>
+                    <SplitSize Size="70px"/>
+                    <SplitSize Size="100%"/>
+                </SplitPanel>
+                <RowDefCollection RowHeight="25">
+                    <RowDef Height="0px"/>
+                    <RowDef Height="100%"/>
+                </RowDefCollection>
+                <ColumnDefCollection>
+                    <ColumnDef Width="100%"/>
+                </ColumnDefCollection>
+            </GridLayoutPanel>
+        </Block>
+    </Body>
+</Form>

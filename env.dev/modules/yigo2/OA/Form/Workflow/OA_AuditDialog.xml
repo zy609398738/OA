@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Caption="审批对话框" Key="OA_AuditDialog">
+    <Body PopHeight="500px" PopWidth="600px">
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板">
+                <GridLayoutPanel Key="GridLayoutPanel1" Height="pref" Padding="5px" Caption="GridLayoutPanel1" Visible="IsVisible(&quot;NextOpt&quot;)==true">
+                    <CheckListBox BuddyKey="Lab_NextOpt" Caption="下一步处理人" Key="NextOpt" X="1" XSpan="3" Y="0" SourceType="Formula" Visible="InvokeService(&quot;OA_GetWorkflowDesigneValue&quot;, false, false,Para(&quot;pWorkitemID&quot;),Para(&quot;workflowBillKey&quot;),Para(&quot;WorkflowTypeDtlID&quot;))==1">
+                        <DataBinding CheckRule="if(IsVisible(&quot;NextOpt&quot;)==true&amp;&amp;InvokeService(&quot;OA_CheckEmptyMutilSel&quot;,false,false,NextOpt)){     false; }else{     true; };" ErrorInfo="请选择下一步处理人"/>
+                        <FormulaItems>
+                            <![CDATA[InvokeService("OA_GetDropItemByWorkItem",false,false,Para("pWorkitemID"),Para("workflowBillKey"),Para("WorkflowTypeDtlID"));]]>
+                        </FormulaItems>
+                    </CheckListBox>
+                    <Label Caption="下一步处理人" Key="Lab_NextOpt" X="0" Y="0"/>
+                    <HyperLink Caption="处理人选择" Key="ParticipatorSelect" X="4" Y="0">
+                        <OnClick>
+                            <![CDATA[var ids=parent.InvokeService("OA_GetParticipatorList",true,false,Para("pWorkitemID"),Para("workflowBillKey"),Para("WorkflowTypeDtlID"));
+SetPara("ParticipatorIDs", ids);
+ShowModal("OA_ParticipatorSelect","ParticipatorIDs:{Para('ParticipatorIDs')},NextOpt:{NextOpt}");]]>
+                        </OnClick>
+                    </HyperLink>
+                    <RowDefCollection RowGap="5">
+                        <RowDef Height="30px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="5">
+                        <ColumnDef Width="100px"/>
+                        <ColumnDef Width="100px"/>
+                        <ColumnDef Width="100px"/>
+                        <ColumnDef Width="100px"/>
+                        <ColumnDef Width="100px"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+                <GridLayoutPanel Caption="GridLayoutPanel0" Key="GridLayoutPanel0" Padding="5px" Height="pref">
+                    <TextArea Caption="处理意见" Enable="True" HAlign="Left" Key="Opinion" X="1" XSpan="4" Y="1" YSpan="2">
+                        <DataBinding CheckRule="if(Opinion==&quot;&quot; &amp;&amp; InvokeService(&quot;OA_GetWorkflowDesigneUserInfoCheck&quot;, false, false,Para(&quot;pWorkitemID&quot;),Para(&quot;workflowBillKey&quot;),Para(&quot;WorkflowTypeDtlID&quot;))==1){false;}else{true;};" ErrorInfo="&quot;请填写处理意见&quot;"/>
+                    </TextArea>
+                    <Button Caption="通过" Enable="True" Key="APPROVE" ShowText="false" X="2" Y="8">
+                        <OnClick>
+                            <![CDATA[var x = Para("pWorkitemID");
+if(IsVisible("NextOpt")==false)
+{       
+        DBUpdate("Update bpm_log set E_Signature=? where workitemid=?", E_Signature,x);
+	parent.CommitWorkitem(-1,1,GetValue("Opinion"));
+}
+else{
+	UICheck();
+        
+            DBUpdate("Update bpm_log set E_Signature=? where workitemid=?", E_Signature,x);
+        
+	InvokeService("OA_SetNextParticipator",true,false,"SYS_OPERATOR",NextOpt,Para("workflowBillKey"),Para("workflowOID"),x,GetOperator());		
+	parent.CommitWorkitem(-1,1,GetValue("Opinion"));
+	}
+InvokeService("OA_OptSendMessage", true, false, parent.GetFormKey(),Para("OptKey"),x,Para("workflowOID"),ServerDate(),Para("WorkflowTypeDtlID"));
+Close();
+
+
+]]>
+                        </OnClick>
+                    </Button>
+                    <Button Caption="驳回" Enable="True" Key="OPPOSE" ShowText="false" X="3" Y="8">
+                        <OnClick>
+                            <![CDATA[
+			
+			parent.CommitWorkitem(-1,0,GetValue("Opinion"));Close();
+			
+			]]>
+                        </OnClick>
+                    </Button>
+                    <Button Caption="取消" Enable="True" Key="cancel" X="4" Y="8">
+                        <OnClick>
+                            <![CDATA[
+			
+			Close();
+			
+			]]>
+                        </OnClick>
+                    </Button>
+                    <Label Caption="处理意见" Key="T_Opinion" X="0" Y="2"/>
+                    <Label Caption="常用意见" Key="Lab_CommonUseContent" X="0" Y="0"/>
+                    <ComboBox BuddyKey="Lab_CommonUseContent" Caption="常用意见" Key="CommonUseContent" X="1" XSpan="4" Y="0" SourceType="Query">
+                        <DataBinding>
+                            <ValueChanged>
+                                <![CDATA[SetValue("Opinion", CommonUseContent)]]>
+                            </ValueChanged>
+                        </DataBinding>
+                        <QueryDef>
+                            <Statement>
+                                <![CDATA[select content,content as content1 from OA_AddViews where creator =?]]>
+                            </Statement>
+                            <ParameterCollection>
+                                <Parameter DataType="Long" Formula="GetOperator()"/>
+                            </ParameterCollection>
+                        </QueryDef>
+                    </ComboBox>
+                    <Label Caption="提醒方式" Key="Lab_Warning" X="0" Y="7"/>
+                    <HyperLink Caption="保存常用意见" Key="SaveCommonViews" X="0" Y="1">
+                        <OnClick>
+                            <![CDATA[IIF(
+    DBQueryValue
+        ('select a.Content 
+            from OA_AddViews a 
+            where a.Content=? and Creator=?', GetValue('Opinion'),GetOperator())==GetValue('Opinion'),
+        Confirm('该意见已存在'),
+        DBUpdate('Insert into OA_AddViews (OID,SOID,POID,VERID,DVERID,Content,Creator,Status) values (?,OID,null,0,0,?,?,100)',
+ApplyNewOID(),GetValue('Opinion'),GetOperator())
+);]]>
+                        </OnClick>
+                    </HyperLink>
+                    <HyperLink Caption="维护常用意见" Key="OpenCommonViews" X="3" Y="7" Visible="false"/>
+                    <Label Caption="提示：审批提交后，您可以在【已办事宜】、【待办事项】中查看到审批单据" Key="Lab_Note" X="0" XSpan="5" Y="9"/>
+                    <Button Key="Button1" Caption="签名" X="4" Y="5">
+                        <OnClick>
+                            <![CDATA[SetValue("E_Signature",GetDictValue("OA_Employee", GetDictValue('Operator', GetOperator(), 'SYS_Operator.EmpID'), "OA_Employee_H.E_Signature"));]]>
+                        </OnClick>
+                    </Button>
+                    <Button Key="Reset" Caption="重置" X="4" Y="6">
+                        <OnClick>
+                            <![CDATA[SetValue("E_Signature","");]]>
+                        </OnClick>
+                    </Button>
+                    <Image Key="E_Signature" Caption="电子签名" X="1" Y="3" Enable="false" XSpan="3" YSpan="4" HasBorder="true"/>
+                    <Label Key="Lab_E_Signature" Caption="电子签名" X="0" Y="3"/>
+                    <RowDefCollection RowGap="4">
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                        <RowDef Height="90px"/>
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="4">
+                        <ColumnDef Width="100px"/>
+                        <ColumnDef Width="100px"/>
+                        <ColumnDef Width="100px"/>
+                        <ColumnDef Width="100px"/>
+                        <ColumnDef Width="100px"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

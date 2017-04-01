@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Caption="日历" FormType="Dict" Key="V_Calendar">
+    <DataSource RefObjectKey="Calendar"/>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root">
+                <TabPanel Key="body">
+                    <SplitPanel Key="P1" Orientation="Vertical" Caption="基本信息(&amp;B)">
+                        <GridLayoutPanel Key="T01" Padding="8px">
+                            <Label Key="Inner_WEEKDAY" Caption="WEEKDAY" X="2" Y="2"/>
+                            <TextEditor Key="WEEKDAY" Caption="WEEKDAY" BuddyKey="Inner_WEEKDAY" X="3" Y="2" Visible="false" Enable="false" InvalidChars="%*\&quot;+?&gt;&lt;:'" MaxLength="7">
+                                <DataBinding TableKey="BK_Calendar" ColumnKey="Weekday"/>
+                            </TextEditor>
+                            <Label Key="Inner_Code" Caption="日历代码" X="0" Y="0"/>
+                            <TextEditor Key="Code" Caption="日历代码" BuddyKey="Inner_Code" X="1" Y="0" Enable="!ReadOnly()&amp;&amp;com.bokesoft.erp.basis.common.DocumentNumberUI.docNumberFieldEnable('Code')" Visible="true" InvalidChars="%*\'&quot;+?&gt;&lt;:\&amp;" MaxLength="30">
+                                <DataBinding TableKey="BK_Calendar" ColumnKey="Code" CheckRule="iifs(com.bokesoft.erp.basis.common.DocumentNumberUI.docNumberFieldEnable('Code')&amp;&amp;Value('Code')='', '采用外部给号编码规则，请输入代码', true, true)"/>
+                            </TextEditor>
+                            <Label Key="Inner_Name" Caption="日历名称" X="2" Y="0"/>
+                            <TextEditor Key="Name" Caption="日历名称" BuddyKey="Inner_Name" X="3" Y="0" Enable="!ReadOnly()" Visible="true" InvalidChars="'&amp;" MaxLength="250">
+                                <DataBinding TableKey="BK_Calendar" ColumnKey="Name" CheckRule="Name&lt;&gt;''"/>
+                            </TextEditor>
+                            <Label Key="Inner_VALIDDATE" Caption="有效日期" X="0" Y="1"/>
+                            <DatePicker Key="VALIDDATE" Caption="有效日期" BuddyKey="Inner_VALIDDATE" X="1" Y="1" Visible="true" Enable="!ReadOnly()&amp;&amp;IsEmpty('ID')">
+                                <DataBinding TableKey="BK_Calendar" ColumnKey="ValidDateFrom" DefaultFormulaValue="DateInt()"/>
+                            </DatePicker>
+                            <Label Key="Inner_INVALIDDATE" Caption="到" X="2" Y="1"/>
+                            <DatePicker Key="INVALIDDATE" Caption="到" BuddyKey="Inner_INVALIDDATE" X="3" Y="1" Visible="true" Enable="!ReadOnly()&amp;&amp;IsEmpty('ID')">
+                                <DataBinding TableKey="BK_Calendar" ColumnKey="ValidDateEnd" DefaultFormulaValue="DateInt()"/>
+                            </DatePicker>
+                            <Label Key="Inner_NodeType" Caption="结点类型" X="0" Y="2"/>
+                            <ComboBox Key="NodeType" Caption="结点类型" BuddyKey="Inner_NodeType" X="1" Y="2" Visible="false" Enable="!ReadOnly()&amp;&amp;Status&lt;0">
+                                <DataBinding TableKey="BK_Calendar" ColumnKey="NodeType"/>
+                            </ComboBox>
+                            <RowDefCollection RowGap="5">
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="12px"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="5">
+                                <ColumnDef Width="80px"/>
+                                <ColumnDef Width="330px"/>
+                                <ColumnDef Width="80px"/>
+                                <ColumnDef Width="330px"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                        <TabPanel Key="P3">
+                            <SplitPanel Key="P2" Orientation="Vertical" Caption="日历设置">
+                                <GridLayoutPanel Key="TAB1" Padding="8px">
+                                    <CheckBox Caption="星期日" Key="Sunday" X="0" Y="1" Enable="!ReadOnly()" Visible="true">
+                                        <DataBinding DefaultFormulaValue="DicMid('Weekday', 1, 1)"/>
+                                    </CheckBox>
+                                    <CheckBox Caption="星期一" Key="Monday" X="1" Y="1" Enable="!ReadOnly()" Visible="true">
+                                        <DataBinding DefaultFormulaValue="DicMid('Weekday', 2, 1)"/>
+                                    </CheckBox>
+                                    <CheckBox Caption="星期二" Key="Tuesday" X="2" Y="1" Enable="!ReadOnly()" Visible="true">
+                                        <DataBinding DefaultFormulaValue="DicMid('Weekday', 3, 1)"/>
+                                    </CheckBox>
+                                    <CheckBox Caption="星期三" Key="Wednesday" X="3" Y="1" Enable="!ReadOnly()" Visible="true">
+                                        <DataBinding DefaultFormulaValue="DicMid('Weekday', 4, 1)"/>
+                                    </CheckBox>
+                                    <CheckBox Caption="星期四" Key="Thursday" X="4" Y="1" Enable="!ReadOnly()" Visible="true">
+                                        <DataBinding DefaultFormulaValue="DicMid('Weekday', 5, 1)"/>
+                                    </CheckBox>
+                                    <CheckBox Caption="星期五" Key="Friday" X="5" Y="1" Enable="!ReadOnly()" Visible="true">
+                                        <DataBinding DefaultFormulaValue="DicMid('Weekday', 6, 1)"/>
+                                    </CheckBox>
+                                    <CheckBox Caption="星期六" Key="Saturday" X="6" Y="1" Enable="!ReadOnly()" Visible="true">
+                                        <DataBinding DefaultFormulaValue="DicMid('Weekday', 7, 1)"/>
+                                    </CheckBox>
+                                    <Button Key="workbtn" Caption="工作日" X="3" Y="0" Visible="true" Enable="!ReadOnly()">
+                                        <OnClick>
+                                            <![CDATA[]]>
+                                        </OnClick>
+                                    </Button>
+                                    <Button Key="RestBtn" Caption="休息日" X="4" Y="0" Enable="!ReadOnly()" Visible="true">
+                                        <OnClick>
+                                            <![CDATA[]]>
+                                        </OnClick>
+                                    </Button>
+                                    <Label Key="Inner_Month" Caption="查询" X="0" Y="0"/>
+                                    <ComboBox Key="Month" Caption="查询" BuddyKey="Inner_Month" X="1" Y="0" Visible="true" Enable="!GetBillNewStatus()" XSpan="2"/>
+                                    <Label Key="lblTrigger" Caption="lblTrigger" X="5" Y="0" Visible="false" Enable="false">
+                                        <DataBinding DefaultFormulaValue="RunTriggers('lblTrigger')"/>
+                                    </Label>
+                                    <RowDefCollection RowGap="5">
+                                        <RowDef Height="30px"/>
+                                        <RowDef Height="30px"/>
+                                    </RowDefCollection>
+                                    <ColumnDefCollection ColumnGap="5">
+                                        <ColumnDef Width="80px"/>
+                                        <ColumnDef Width="80px"/>
+                                        <ColumnDef Width="80px"/>
+                                        <ColumnDef Width="80px"/>
+                                        <ColumnDef Width="80px"/>
+                                        <ColumnDef Width="80px"/>
+                                        <ColumnDef Width="80px"/>
+                                    </ColumnDefCollection>
+                                </GridLayoutPanel>
+                                <GridLayoutPanel Key="P4" Padding="8px">
+                                    <Grid Key="Grid0" X="0" Y="0">
+                                        <GridColumnCollection>
+                                            <GridColumn Key="xuanze" Caption="选择" Width="80px"/>
+                                            <GridColumn Key="RowNo" Caption="序号" Width="80px"/>
+                                            <GridColumn Key="Date" Caption="日期" Width="80px"/>
+                                            <GridColumn Key="DBDate" Caption="日期" Width="80px"/>
+                                            <GridColumn Key="Week" Caption="星期" Width="80px"/>
+                                            <GridColumn Key="DAYTYPE" Caption="工作\休息" Width="80px"/>
+                                        </GridColumnCollection>
+                                        <GridRowCollection>
+                                            <GridRow Key="row1" TableKey="BK_CalendarDay">
+                                                <GridCell Key="xuanze" Caption="选择" CellType="CheckBox"/>
+                                                <GridCell Key="RowNo" Caption="序号"/>
+                                                <GridCell Key="Date" Caption="日期" CellType="DatePicker"/>
+                                                <GridCell Key="DBDate" Caption="日期" CellType="DatePicker">
+                                                    <DataBinding ColumnKey="DBDate"/>
+                                                </GridCell>
+                                                <GridCell Key="Week" Caption="星期" CellType="TextEditor" MaxLength="100"/>
+                                                <GridCell Key="DAYTYPE" Caption="工作\休息" CellType="ComboBox">
+                                                    <DataBinding ColumnKey="DAYTYPE"/>
+                                                </GridCell>
+                                            </GridRow>
+                                        </GridRowCollection>
+                                    </Grid>
+                                    <RowDefCollection RowGap="5">
+                                        <RowDef Height="199px"/>
+                                    </RowDefCollection>
+                                    <ColumnDefCollection ColumnGap="5">
+                                        <ColumnDef Width="100%"/>
+                                    </ColumnDefCollection>
+                                </GridLayoutPanel>
+                                <SplitSize Size="70px"/>
+                                <SplitSize Size="100%"/>
+                            </SplitPanel>
+                        </TabPanel>
+                        <SplitSize Size="70px"/>
+                        <SplitSize Size="100%"/>
+                    </SplitPanel>
+                    <GridLayoutPanel Key="body_system" Padding="8px" Caption="系统信息(&amp;D)">
+                        <Label Key="Inner_ClientID" Caption="集团" X="0" Y="0"/>
+                        <Dict Key="ClientID" Caption="集团" BuddyKey="Inner_ClientID" X="1" Y="0" Enable="false" Visible="true" ItemKey="Client">
+                            <DataBinding TableKey="BK_Calendar" ColumnKey="ClientId" DefaultFormulaValue="getClientID()"/>
+                        </Dict>
+                        <Label Key="Inner_Status" Caption="结点状态" X="0" Y="1"/>
+                        <ComboBox Key="Status" Caption="结点状态" BuddyKey="Inner_Status" X="1" Y="1" Visible="true" Enable="false">
+                            <DataBinding TableKey="BK_Calendar" ColumnKey="Status"/>
+                        </ComboBox>
+                        <Dict Caption="创建人" ItemKey="Operator" Key="CREATOR" X="1" Y="2">
+                            <DataBinding TableKey="BK_Calendar" ColumnKey="CREATOR" DefaultFormulaValue="GetOperator()"/>
+                        </Dict>
+                        <DatePicker Caption="创建时间" Key="CREATETIME" OnlyDate="false" X="1" Y="3">
+                            <DataBinding TableKey="BK_Calendar" ColumnKey="CREATETIME" DefaultFormulaValue="ServerDate()"/>
+                        </DatePicker>
+                        <Dict Caption="修改人" ItemKey="Operator" Key="MODIFIER" X="1" Y="4">
+                            <DataBinding TableKey="BK_Calendar" ColumnKey="MODIFIER" DefaultFormulaValue="GetOperator()"/>
+                        </Dict>
+                        <DatePicker Caption="修改时间" Key="MODIFYTIME" OnlyDate="false" X="1" Y="5">
+                            <DataBinding TableKey="BK_Calendar" ColumnKey="MODIFYTIME" DefaultFormulaValue="ServerDate()"/>
+                        </DatePicker>
+                        <Label Caption="创建人" Key="L_CREATOR" X="0" Y="2"/>
+                        <Label Caption="创建时间" Key="L_CREATETIME" X="0" Y="3"/>
+                        <Label Caption="修改人" Key="L_MODIFIER" X="0" Y="4"/>
+                        <Label Caption="修改时间" Key="L_MODIFYTIME" X="0" Y="5"/>
+                        <Label Key="Inner_Notes" Caption="备注" X="0" Y="6"/>
+                        <TextEditor Key="Notes" Caption="备注" BuddyKey="Inner_Notes" X="1" Y="6" Enable="!ReadOnly()" Visible="true">
+                            <DataBinding TableKey="BK_Calendar" ColumnKey="Notes"/>
+                        </TextEditor>
+                        <RowDefCollection RowGap="5">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="5">
+                            <ColumnDef Width="100px"/>
+                            <ColumnDef Width="330px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                </TabPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

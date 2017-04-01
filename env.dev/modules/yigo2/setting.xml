@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Setting>
+    <Session SessionParaProcess="com.bokesoft.oa.mid.im.WebSession"/>
+    <Cluster Type=""/>
+    <Entry Style="Tree"/>
+    <BPMSetting QueryActiveWorkitem="true" QueryActiveStateWorkitem="false" BPMTemplatePath="com.bokesoft.oa.mid.wf.OaWfTemplate">
+        <DefaultBatchStateAction>
+            <![CDATA[]]>
+        </DefaultBatchStateAction>
+        <DefaultStateAction>
+            <![CDATA[]]>
+        </DefaultStateAction>
+        <DefaultAuditAction>
+            <![CDATA[]]>
+        </DefaultAuditAction>
+        <DefaultTaskAction>
+            <![CDATA[]]>
+        </DefaultTaskAction>
+        <DefaultCountersignAction>
+            <![CDATA[]]>
+        </DefaultCountersignAction>
+        <Table>
+            <Column Key="BillCreatTime" Caption="日期" DataType="DateTime"/>
+            <Column Key="BillStatus" Caption="状态" DataType="Integer"/>
+            <Column Key="EmpID" Caption="人员" DataType="Long"/>
+            <Column Key="BillCreator" Caption="创建人" DataType="Long"/>
+            <Column Key="Topic" Caption="主题" DataType="Varchar"/>
+            <Column Key="BillOID" Caption="BillOID" DataType="Long"/>
+            <Column Key="DeptID" Caption="部门" DataType="Long"/>
+            <Column Key="UrgencyDeg" Caption="紧急程度" DataType="Integer"/>
+            <Column Key="BillNo" Caption="单据编号" DataType="Varchar"/>
+            <Column Key="Migration" Caption="Migration" DataType="Varchar"/>
+            <Column Key="BILLSOID" Caption="BILLSOID" DataType="Long"/>
+        </Table>
+    </BPMSetting>
+    <Login/>
+    <MigrationSetting/>
+</Setting>

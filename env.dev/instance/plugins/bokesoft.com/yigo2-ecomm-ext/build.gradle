@@ -1,0 +1,18 @@
+description '电商部门的 Yigo2 扩展模块'
+group 'com.bokesoft.r2.yigo2.extension'
+version '1.0'
+
+defaultTasks 'devOpsDist'
+
+apply plugin: 'java'
+sourceCompatibility = 1.8
+compileJava.options.encoding = 'UTF-8'
+
+distsDirName = "${projectDir}/dist"
+apply from: "../../../infrastructure/gradle/boke-devops/boke-devops.gradle"
+
+devOpsApply from: "deps.gradle"
+
+devOpsDefineExports (
+	include: ["commons-lang3*.jar"], exclude: []
+)

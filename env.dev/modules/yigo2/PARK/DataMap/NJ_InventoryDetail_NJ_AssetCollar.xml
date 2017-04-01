@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Map Caption="库存明细下推资产领用" Key="NJ_InventoryDetail_NJ_AssetCollar" SrcDataObjectKey="NJ_InventoryDetail" TgtDataObjectKey="NJ_AssetCollar">
+    <SourceTableCollection Height="330" Width="338" X="0" Y="29">
+        <SourceTable IsPrimary="true" Key="NJ_InventoryDetail" TargetTableKey="NJ_SCM_AssetCollarDtl">
+            <SourceField Definition="AssetsId" TargetFieldKey="AssetsId"/>
+            <SourceField Definition="assetstypeid" TargetFieldKey="assetstypeid"/>
+            <SourceField Definition="Model" TargetFieldKey="Model"/>
+            <SourceField Definition="UNITID" TargetFieldKey="UNITID"/>
+            <SourceField Definition="Amount" TargetFieldKey="Amount"/>
+            <SourceField Definition="WareHouseId" TargetFieldKey="WareHouseId"/>
+            <SourceField Definition="AssetNatureId" TargetFieldKey="AssetNatureId"/>
+        </SourceTable>
+    </SourceTableCollection>
+    <TargetTableCollection Height="330" Width="396" X="372" Y="29">
+        <TargetTable Key="NJ_SCM_AssetCollarDtl" IsPrimary="true">
+            <TargetField Definition="AssetsId"/>
+            <TargetField Definition="assetstypeid"/>
+            <TargetField Definition="Model"/>
+            <TargetField Definition="UNITID"/>
+            <TargetField Definition="Amount"/>
+            <TargetField Definition="WareHouseId"/>
+            <TargetField Definition="AssetNatureId"/>
+        </TargetTable>
+    </TargetTableCollection>
+</Map>

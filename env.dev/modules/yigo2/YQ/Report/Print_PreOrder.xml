@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Report Caption="意向登记打印" FormKey="NJ_SCM_PreOrderHead" Key="Print_PreOrder" PageHeight="842" PageID="A4" PageWidth="595" PaperHeight="842" PaperID="A4" PaperWidth="595">
+    <DataSource>
+        <Table Key="NJ_SCM_PreOrderHead" Caption="NJ_SCM_PreOrderHead" SourceType="DataObject" DBTableKey="NJ_SCM_PreOrderHead">
+            <Field Caption="对象标识" Key="OID"/>
+            <Field Caption="主对象标识" Key="SOID"/>
+            <Field Caption="父对象标识" Key="POID"/>
+            <Field Caption="对象版本" Key="VERID"/>
+            <Field Caption="对象明细版本" Key="DVERID"/>
+            <Field Caption="发布编号" Key="NO"/>
+            <Field Caption="发布日期" Key="BillDate"/>
+            <Field Caption="单据状态" Key="Status"/>
+            <Field Caption="创建人" Key="Creator"/>
+            <Field Caption="创建日期" Key="CreateTime"/>
+            <Field Caption="修改人" Key="Modifier"/>
+            <Field Caption="修改日期" Key="ModifyTime"/>
+            <Field Caption="单据Key" Key="BillKey"/>
+            <Field Caption="集团" Key="ClusterID"/>
+            <Field Caption="经办人" Key="EmpID"/>
+            <Field Caption="所属园区" Key="ParkID"/>
+            <Field Caption="所属行业" Key="IndID"/>
+            <Field Caption="项目名称" Key="ProjName"/>
+            <Field Caption="项目来源" Key="ProjCome"/>
+            <Field Caption="项目种类" Key="ProjKind"/>
+            <Field Caption="意向客户" Key="ProjCustomer"/>
+            <Field Caption="投资金额" Key="ProjAmount"/>
+            <Field Caption="项目介绍" Key="NOTES"/>
+            <Field Caption="流程标识" Key="InstanceID"/>
+            <Field Caption="ProjRisk" Key="ProjRisk"/>
+        </Table>
+    </DataSource>
+    <Grid>
+        <Section Type="Paragraph">
+            <Columns>
+                <Column Width="67"/>
+                <Column Width="120"/>
+                <Column Width="77"/>
+                <Column Width="114"/>
+                <Column Width="40"/>
+                <Column Width="93"/>
+            </Columns>
+            <Rows>
+                <Row Height="43" BackColor="0xffffffff" Type="TableTitleHead">
+                    <Cell Key="title" MergedColumnSpan="-1" MergedRowSpan="-1">
+                        <Display>
+                            <Font Size="18" Name="System"/>
+                        </Display>
+                    </Cell>
+                    <Cell MergedColumnSpan="-1" MergedRowSpan="-1">
+                        <Display>
+                            <Font Size="18" Name="System"/>
+                        </Display>
+                    </Cell>
+                    <Cell Caption="意向登记单" IsMerged="true" IsMergedHead="true" Key="biaoti" MergedColumnSpan="4" MergedRowSpan="1">
+                        <Display HAlign="Left">
+                            <Font Size="18" Name="System" Bold="true"/>
+                        </Display>
+                    </Cell>
+                    <Cell IsMerged="true" MergedColumnSpan="1">
+                        <Display HAlign="Left">
+                            <Font Size="18" Name="System" Bold="true"/>
+                        </Display>
+                    </Cell>
+                    <Cell IsMerged="true" MergedColumnSpan="2">
+                        <Display HAlign="Left">
+                            <Font Size="18" Name="System" Bold="true"/>
+                        </Display>
+                    </Cell>
+                    <Cell IsMerged="true" MergedColumnSpan="3">
+                        <Display HAlign="Left">
+                            <Font Size="18" Name="System" Bold="true"/>
+                        </Display>
+                    </Cell>
+                </Row>
+                <Row Height="32" BackColor="0xffffffff" Type="DetailHead">
+                    <Cell Caption="流水号：" Key="l_liushuihao">
+                        <Display HAlign="Right"/>
+                    </Cell>
+                    <Cell Caption="流水号" Key="NO" SourceType="Field" FieldKey="NO" TableKey="NJ_SCM_PreOrderHead">
+                        <Display HAlign="Left"/>
+                    </Cell>
+                    <Cell Caption="单据日期：" Key="l_billdate">
+                        <Display HAlign="Right"/>
+                    </Cell>
+                    <Cell Caption="单据日期" FieldKey="BillDate" Key="billdate" SourceType="Field" TableKey="NJ_SCM_PreOrderHead">
+                        <Display HAlign="Left">
+                            <Format DataType="Date" FormatString="yyyy-MM-dd"/>
+                        </Display>
+                    </Cell>
+                    <Cell Caption="状态：" Key="l_status">
+                        <Display HAlign="Right"/>
+                    </Cell>
+                    <Cell Caption="状态" FieldKey="Status" Key="status" SourceType="Field" TableKey="NJ_SCM_PreOrderHead">
+                        <Display HAlign="Left">
+                            <Format DataType="List">
+                                <ListItem Text="调研" Value="1"/>
+                                <ListItem Text="洽谈" Value="2"/>
+                                <ListItem Text="建议" Value="3"/>
+                                <ListItem Text="申报" Value="4"/>
+                                <ListItem Text="立项" Value="5"/>
+                                <ListItem Text="选址" Value="6"/>
+                            </Format>
+                        </Display>
+                    </Cell>
+                </Row>
+                <Row Height="30" BackColor="0xffffffff" Type="DetailHead">
+                    <Cell Caption="入驻园区：">
+                        <Display HAlign="Right"/>
+                    </Cell>
+                    <Cell Caption="园区" FieldKey="ParkID" Key="prrkid" SourceType="Field" TableKey="NJ_SCM_PreOrderHead">
+                        <Display HAlign="Left">
+                            <Format DataType="Dict" FieldKeys="Name" ItemKey="NJ_CP_Park"/>
+                        </Display>
+                    </Cell>
+                    <Cell/>
+                    <Cell Caption="xs" Formula="GetValue(&quot;NO&quot;)" Key="xs" SourceType="Formula"/>
+                    <Cell/>
+                    <Cell/>
+                </Row>
+            </Rows>
+        </Section>
+    </Grid>
+</Report>

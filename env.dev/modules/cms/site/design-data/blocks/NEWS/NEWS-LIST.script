@@ -1,0 +1,19 @@
+cms.PageExp.Local("href", cms.PageExp.RelContextRoot()&"/news/newsview.page?id=");
+cms.PageExp.Local("userid", cms.Yigo2MidExp.GetLoginOperator());
+cms.PageExp.Local(
+    "data",
+    cms.DataExp.QueryList("
+        select a.oid ,a.name,a.code,count(b.oid) as count from OA_NewsType_H a left join OA_NewsType_H b  on a.oid=b.parentid where a.oid<>-1 and a.parentid =0  group by  a.oid ,a.name,a.code order by a.code
+    ")
+);
+var typecode='';
+if(cms.PageExp.UrlVar('typecode')){
+   typecode=cms.PageExp.UrlVar('typecode');
+}
+cms.PageExp.Local("typecode",typecode);
+var date='';
+if(cms.PageExp.Var('date')){
+   date=cms.PageExp.Var('date');
+}
+cms.PageExp.Local("date",date);
+

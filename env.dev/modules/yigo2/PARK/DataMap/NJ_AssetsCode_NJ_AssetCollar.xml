@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Map Caption="资产编码下推资产领用" Key="NJ_AssetsCode_NJ_AssetCollar" SrcDataObjectKey="NJ_AssetsCode" TgtDataObjectKey="NJ_AssetCollar">
+    <SourceTableCollection Height="180" Width="281" X="30" Y="30">
+        <SourceTable Key="NJ_AssetsCode" TargetTableKey="NJ_SCM_AssetCode" IsPrimary="true">
+            <SourceField Definition="AssetsBarId" TargetFieldKey="AssetsBarId"/>
+            <SourceField Definition="AssetsCode" TargetFieldKey="AssetsCode"/>
+        </SourceTable>
+    </SourceTableCollection>
+    <TargetTableCollection Height="180" Width="344" X="329" Y="30">
+        <TargetTable Key="NJ_SCM_AssetCode" IsPrimary="true">
+            <TargetField Definition="AssetsBarId"/>
+            <TargetField Definition="AssetsCode"/>
+        </TargetTable>
+    </TargetTableCollection>
+</Map>

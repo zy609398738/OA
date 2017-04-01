@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Caption="成本中心" FormType="Dict" Key="V_CostCenter">
+    <DataSource RefObjectKey="CostCenter"/>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root">
+                <TabPanel Key="body">
+                    <GridLayoutPanel Key="body_basic" Padding="8px" Caption="基本信息(&amp;B)">
+                        <Label Key="Inner_Code" Caption="代码" X="0" Y="1"/>
+                        <TextEditor Key="Code" Caption="代码" BuddyKey="Inner_Code" X="1" Y="1" Visible="false" Enable="!ReadOnly()" InvalidChars="%*\&quot;+?&gt;&lt;:'">
+                            <DataBinding TableKey="BK_CostCenter" ColumnKey="Code" DefaultFormulaValue="getProp('ControllingAreaID', 'Code')&amp;'_'&amp;Value('UseCode')"/>
+                        </TextEditor>
+                        <Label Key="Inner_Name" Caption="名称" X="0" Y="2"/>
+                        <TextEditor Key="Name" Caption="名称" BuddyKey="Inner_Name" X="1" Y="2" Visible="true" Enable="!ReadOnly()">
+                            <DataBinding TableKey="BK_CostCenter" ColumnKey="Name"/>
+                        </TextEditor>
+                        <Label Key="Inner_ControllingAreaID" Caption="控制范围" X="0" Y="0"/>
+                        <Dict Key="ControllingAreaID" Caption="控制范围" BuddyKey="Inner_ControllingAreaID" X="1" Y="0" Visible="true" Enable="ControllingAreaID=-1" ItemKey="ControllingArea">
+                            <DataBinding TableKey="BK_CostCenter" ColumnKey="ControllingAreaID" DefaultFormulaValue="iif(valuenoerror('HeadControllingAreaID')&gt;-1, Value('HeadControllingAreaID'), Value@Parent('HeadControllingAreaID'))" CheckRule="iifs(ControllingAreaID=-1, '请输入控制范围', true, true)"/>
+                        </Dict>
+                        <Label Key="Inner_NodeType" Caption="结点类型" X="0" Y="21"/>
+                        <ComboBox Key="NodeType" Caption="结点类型" BuddyKey="Inner_NodeType" X="1" Y="21" Visible="false" Enable="!ReadOnly()&amp;&amp;Status&lt;0">
+                            <DataBinding TableKey="BK_CostCenter" ColumnKey="NodeType"/>
+                        </ComboBox>
+                        <Label Key="Inner_CostCenterCategoryID" Caption="成本中心类别" X="0" Y="8"/>
+                        <Dict Key="CostCenterCategoryID" Caption="成本中心类别" BuddyKey="Inner_CostCenterCategoryID" X="1" Y="8" Visible="true" Enable="!ReadOnly()" ItemKey="ERP_CostCenterCategory">
+                            <DataBinding TableKey="BK_CostCenter" ColumnKey="CostCenterCategoryID" CheckRule="iifs(CostCenterCategoryID=-1, '请输入成本中心类别', true, true)"/>
+                        </Dict>
+                        <Label Key="Inner_CurrencyID" Caption="币种" X="0" Y="7"/>
+                        <Dict Key="CurrencyID" Caption="币种" BuddyKey="Inner_CurrencyID" X="1" Y="7" Visible="true" Enable="!ReadOnly()" ItemKey="Currency">
+                            <DataBinding TableKey="BK_CostCenter" ColumnKey="CurrencyID" CheckRule="iifs(CurrencyID=-1, '请输入币种', true, true)"/>
+                        </Dict>
+                        <CheckBox Caption="记录数量" Enable="!ReadOnly()" Key="RecordQuantity" Visible="true" X="1" Y="10">
+                            <DataBinding TableKey="BK_CostCenter" ColumnKey="RecordQuantity"/>
+                        </CheckBox>
+                        <Label Key="lbl3" Caption="锁定:" X="0" Y="12" Visible="true" Enable="false"/>
+                        <CheckBox Caption="实际初级成本" Enable="!ReadOnly()" Key="ActPrimaryCosts" Visible="true" X="1" Y="13">
+                            <DataBinding TableKey="BK_CostCenter" ColumnKey="actprimarycosts"/>
+                        </CheckBox>
+                        <CheckBox Caption="实际次级成本" Enable="!ReadOnly()" Key="ActSecondaryCosts" Visible="true" X="1" Y="14">
+                            <DataBinding TableKey="BK_CostCenter" ColumnKey="ActSecondaryCosts"/>
+                        </CheckBox>
+                        <CheckBox Caption="计划初级成本" Enable="!ReadOnly()" Key="PlanPrimaryCosts" Visible="true" X="1" Y="15">
+                            <DataBinding TableKey="BK_CostCenter" ColumnKey="planprimarycosts"/>
+                        </CheckBox>
+                        <CheckBox Caption="计划次级成本" Enable="!ReadOnly()" Key="PlanSecondaryCosts" Visible="true" X="1" Y="16">
+                            <DataBinding TableKey="BK_CostCenter" ColumnKey="plansecondarycosts"/>
+                        </CheckBox>
+                        <CheckBox Caption="实际销售收入" Enable="!ReadOnly()" Key="ActRevenues" Visible="true" X="1" Y="17">
+                            <DataBinding TableKey="BK_CostCenter" ColumnKey="actrevenues"/>
+                        </CheckBox>
+                        <CheckBox Caption="计划收入" Enable="!ReadOnly()" Key="PlanRevenues" Visible="true" X="1" Y="18">
+                            <DataBinding TableKey="BK_CostCenter" ColumnKey="planrevenues"/>
+                        </CheckBox>
+                        <CheckBox Caption="承诺管理" Enable="!ReadOnly()" Key="CommitUpdate" Visible="true" X="1" Y="11">
+                            <DataBinding TableKey="BK_CostCenter" ColumnKey="CommitUpdate"/>
+                        </CheckBox>
+                        <Label Key="Inner_ValidDateFrom" Caption="有效起始日" X="0" Y="3"/>
+                        <DatePicker Key="ValidDateFrom" Caption="有效起始日" BuddyKey="Inner_ValidDateFrom" X="1" Y="3" Visible="true" Enable="!ReadOnly()">
+                            <DataBinding TableKey="BK_CostCenter" ColumnKey="ValidDateFrom" DefaultFormulaValue="DateInt()"/>
+                        </DatePicker>
+                        <Label Key="Inner_ValidDateTo" Caption="有效结束日" X="0" Y="4"/>
+                        <DatePicker Key="ValidDateTo" Caption="有效结束日" BuddyKey="Inner_ValidDateTo" X="1" Y="4" Visible="true" Enable="!ReadOnly()">
+                            <DataBinding TableKey="BK_CostCenter" ColumnKey="ValidDateTo"/>
+                        </DatePicker>
+                        <Label Key="Inner_ResponsiblePersonID" Caption="负责人" X="0" Y="6"/>
+                        <Dict Key="ResponsiblePersonID" Caption="负责人" BuddyKey="Inner_ResponsiblePersonID" X="1" Y="6" Visible="true" Enable="!ReadOnly()" ItemKey="Operator">
+                            <DataBinding TableKey="BK_CostCenter" ColumnKey="ResponsiblePersonID"/>
+                        </Dict>
+                        <Label Key="Inner_FunctionalAreaID" Caption="功能范围" X="0" Y="20"/>
+                        <Dict Key="FunctionalAreaID" Caption="功能范围" BuddyKey="Inner_FunctionalAreaID" X="1" Y="20" Visible="true" Enable="!ReadOnly()" ItemKey="FunctionalArea">
+                            <DataBinding TableKey="BK_CostCenter" ColumnKey="FunctionalAreaID"/>
+                        </Dict>
+                        <Label Key="Inner_CostCenterGroupID" Caption="标准成本中心层次" X="0" Y="5"/>
+                        <Dict Key="CostCenterGroupID" Caption="标准成本中心层次" BuddyKey="Inner_CostCenterGroupID" X="1" Y="5" Visible="true" Enable="!ReadOnly()" ItemKey="CostCenterGroup">
+                            <DataBinding TableKey="BK_CostCenter" ColumnKey="CostCenterGroupID" DefaultFormulaValue="iif(com.bokesoft.erp.basis.common.ViewFormula.getParentViewerKey()='CostCenterStandardHierarchy', iif(getUIVariable@parent('ItemKey')='CostCenterGroup', getSelectedItemId@parent(), dicValue('CostCenter', 'CostCenterGroupID', getSelectedItemId@parent())), -1)" CheckRule="iifs(CostCenterGroupID=-1, '请输入标准成本中心层次', true, true)"/>
+                        </Dict>
+                        <Label Key="Inner_CompanyCodeID" Caption="公司代码" X="0" Y="9"/>
+                        <Dict Key="CompanyCodeID" Caption="公司代码" BuddyKey="Inner_CompanyCodeID" X="1" Y="9" Visible="true" Enable="!ReadOnly()" ItemKey="CompanyCode">
+                            <DataBinding TableKey="BK_CostCenter" ColumnKey="CompanyCodeID" CheckRule="iifs(CompanyCodeID=-1, '请输入公司代码', true, true)"/>
+                        </Dict>
+                        <Label Key="Inner_BusinessAreaID" Caption="业务范围" X="0" Y="19"/>
+                        <Dict Key="BusinessAreaID" Caption="业务范围" BuddyKey="Inner_BusinessAreaID" X="1" Y="19" Visible="true" Enable="!ReadOnly()" ItemKey="BusinessArea">
+                            <DataBinding TableKey="BK_CostCenter" ColumnKey="BusinessAreaID" CheckRule="iifs(GetProp('CompanyCodeID', 'BusinessAreaIndicator')=1&amp;&amp;businessAreaID=-1, '请输入业务范围', true, true)"/>
+                        </Dict>
+                        <Label Key="Inner_ProfitCenterID" Caption="利润中心" X="0" Y="22"/>
+                        <Dict Key="ProfitCenterID" Caption="利润中心" BuddyKey="Inner_ProfitCenterID" X="1" Y="22" Visible="true" Enable="!ReadOnly()" ItemKey="ProfitCenter">
+                            <DataBinding TableKey="BK_CostCenter" ColumnKey="ProfitCenterID"/>
+                        </Dict>
+                        <Label Key="Inner_UseCode" Caption="代码" X="0" Y="1"/>
+                        <TextEditor Key="UseCode" Caption="代码" BuddyKey="Inner_UseCode" X="1" Y="1" Visible="true" Enable="!ReadOnly()&amp;&amp;com.bokesoft.erp.basis.common.DocumentNumberUI.docNumberFieldEnable('UseCode')" InvalidChars="%*\&quot;+?&gt;&lt;:'" MaxLength="100">
+                            <DataBinding TableKey="BK_CostCenter" ColumnKey="UseCode" CheckRule="iifs(com.bokesoft.erp.basis.common.DocumentNumberUI.docNumberFieldEnable('UseCode')&amp;&amp;Value('UseCode')='', '采用外部给号编码规则，请输入代码', true, true)"/>
+                        </TextEditor>
+                        <RowDefCollection RowGap="5">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="5">
+                            <ColumnDef Width="100px"/>
+                            <ColumnDef Width="330px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <GridLayoutPanel Key="body_system" Padding="8px" Caption="系统信息(&amp;D)">
+                        <Label Key="Inner_Status" Caption="结点状态" X="0" Y="1"/>
+                        <ComboBox Key="Status" Caption="结点状态" BuddyKey="Inner_Status" X="1" Y="1" Visible="true" Enable="false">
+                            <DataBinding TableKey="BK_CostCenter" ColumnKey="Status"/>
+                        </ComboBox>
+                        <Label Key="Inner_CreateByID" Caption="创建人员" X="0" Y="2"/>
+                        <Dict Key="CreateByID" Caption="创建人员" BuddyKey="Inner_CreateByID" X="1" Y="2" Visible="true" Enable="false" ItemKey="Operator">
+                            <DataBinding TableKey="BK_CostCenter" ColumnKey="CREATOR" DefaultFormulaValue="GetOperator()"/>
+                        </Dict>
+                        <Label Key="Inner_CreateTime" Caption="创建时间" X="0" Y="3"/>
+                        <DatePicker Key="CreateTime" Caption="创建时间" BuddyKey="Inner_CreateTime" X="1" Y="3" Visible="true" Enable="false" OnlyDate="false">
+                            <DataBinding TableKey="BK_CostCenter" ColumnKey="CREATETIME" DefaultFormulaValue="ServerDate()"/>
+                        </DatePicker>
+                        <Label Key="Inner_UpdateByID" Caption="修改人员" X="0" Y="4"/>
+                        <Dict Key="UpdateByID" Caption="修改人员" BuddyKey="Inner_UpdateByID" X="1" Y="4" Visible="true" Enable="false" ItemKey="Operator">
+                            <DataBinding TableKey="BK_CostCenter" ColumnKey="MODIFIER" DefaultFormulaValue="GetOperator()"/>
+                        </Dict>
+                        <Label Key="Inner_UpdateTime" Caption="修改时间" X="0" Y="5"/>
+                        <DatePicker Key="UpdateTime" Caption="修改时间" BuddyKey="Inner_UpdateTime" X="1" Y="5" Visible="true" Enable="false" OnlyDate="false">
+                            <DataBinding TableKey="BK_CostCenter" ColumnKey="MODIFYTIME" DefaultFormulaValue="ServerDate()"/>
+                        </DatePicker>
+                        <Label Key="Inner_Notes" Caption="备注" X="0" Y="6"/>
+                        <TextEditor Key="Notes" Caption="备注" BuddyKey="Inner_Notes" X="1" Y="6" Visible="true" Enable="!ReadOnly()">
+                            <DataBinding TableKey="BK_CostCenter" ColumnKey="Notes"/>
+                        </TextEditor>
+                        <Label Key="Inner_ClientID" Caption="集团" X="0" Y="0"/>
+                        <Dict Key="ClientID" Caption="集团" BuddyKey="Inner_ClientID" X="1" Y="0" Visible="true" Enable="false" ItemKey="Client">
+                            <DataBinding TableKey="BK_CostCenter" ColumnKey="clientid" DefaultFormulaValue="com.bokesoft.erp.basis.organization.ClientFormulaUI.getClientID()"/>
+                        </Dict>
+                        <RowDefCollection RowGap="5">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="5">
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="330px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                </TabPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

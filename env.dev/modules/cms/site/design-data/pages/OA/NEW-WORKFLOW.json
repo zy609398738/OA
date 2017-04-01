@@ -1,0 +1,29 @@
+{
+	"@type":"com.bokesoft.cms2.impl.buildin.modelio.vo.PageVO",
+	"attributes":{"@type":"java.util.LinkedHashMap"},
+	"code":"NEW-WORKFLOW",
+	"deliveryVOs":[
+		{
+			"@type":"com.bokesoft.cms2.impl.buildin.modelio.vo.PageVO$DeliveryVO",
+			"areaCode":"content",
+			"blockCode":"HOME.CREATE-WORKFLOW",
+			"groupName":"",
+			"name":"新流程",
+			"options":[
+				"Raw"
+			],
+			"parameters":{"@type":"java.util.HashMap"},
+			"sequence":"1"
+		}
+	],
+	"enabled":true,
+	"groups":[
+		{
+			"groupName":""
+		}
+	],
+	"name":"新流程",
+	"title":"新流程",
+	"tmplCode":"ONLYCONTENT",
+	"url":"/new-workflow.page"
+}

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Map Caption="发文到归档管理" Key="OA_SpoFile2OA_Archive" SrcDataObjectKey="OA_SpoFile" TgtDataObjectKey="OA_Archive">
+    <SourceTableCollection Height="240" Width="194" X="30" Y="30">
+        <SourceTable Key="OA_SpoFile_H" IsPrimary="true">
+            <SourceField Definition="Topic" TargetFieldKey="Topic" TargetTableKey="OA_Archive_H"/>
+            <SourceField Definition="BillKey" TargetFieldKey="SrcBillKey" TargetTableKey="OA_Archive_H"/>
+            <SourceField Definition="NO" TargetFieldKey="SrcBillNo" TargetTableKey="OA_Archive_H"/>
+            <SourceField Definition="OID" TargetFieldKey="SrcOID" TargetTableKey="OA_Archive_H"/>
+        </SourceTable>
+    </SourceTableCollection>
+    <TargetTableCollection Height="240" Width="224" X="274" Y="30">
+        <TargetTable Key="OA_Archive_H" IsPrimary="true">
+            <TargetField Definition="Topic"/>
+            <TargetField Definition="SrcBillKey"/>
+            <TargetField Definition="SrcBillNo"/>
+            <TargetField Definition="SrcOID"/>
+        </TargetTable>
+    </TargetTableCollection>
+</Map>

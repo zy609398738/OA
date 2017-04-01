@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="OA_DoneReport" Caption="已办流程明细表" FormType="Report" Platform="">
+    <DataSource>
+        <DataObject Key="OA_DoneReport" Caption="已办流程明细表">
+            <TableCollection>
+                <Table Key="OA_DoneReport" Caption="已办流程明细表" TableMode="Detail" SourceType="Query" Persist="false">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="ProcessKey" Caption="流程名称" DataType="Varchar"/>
+                    <Column Key="Topic" Caption="主题" DataType="Varchar"/>
+                    <Column Key="EmpID" Caption="申请人员" DataType="Long"/>
+                    <Column Key="DeptID" Caption="申请部门" DataType="Long"/>
+                    <Column Key="creatTime" Caption="申请日期" DataType="DateTime"/>
+                    <Column Key="FormKey" Caption="业务类型" DataType="Varchar"/>
+                    <Statement>
+                        <![CDATA[select * from (
+select w.WorkitemID,topic,empid,deptid,BillStatus,i.FormKey as FormKey, i.ProcessKey as ProcessKey,w.creatTime
+from wf_workitem w  
+join bpm_log l on w.WorkitemID=l.WorkitemID 
+join BPM_Instance i on  l.instanceID=i.instanceID  
+join bpm_migration M on i.OID = m.BillOID   
+where l.WorkitemState=2  and l.WorkitemID 
+in(select MAX(WorkitemID) 
+from bpm_log ll 
+GROUP BY ll.InstanceID) and i.instancestate!=3 ORDER BY CreatTime desc) h]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板">
+                <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <GridLayoutPanel Key="first_head" Height="pref" Caption="基本信息">
+                    <DatePicker Key="From" Caption="申请日期" BuddyKey="Lab_From" X="1" Y="0">
+                        <Condition ColumnKey="creatTime" TableKey="OA_DoneReport" CondSign="between" Group="A" GroupHead="true"/>
+                    </DatePicker>
+                    <Label Key="Lab_From" Caption="申请日期" X="0" Y="0"/>
+                    <Label Key="Label1" Caption="到" X="2" Y="0"/>
+                    <DatePicker Key="To" Caption="到" X="3" Y="0">
+                        <Condition ColumnKey="creatTime" TableKey="OA_DoneReport" CondSign="between" Group="A" GroupTail="true"/>
+                    </DatePicker>
+                    <TextEditor Key="QueryTheme" Caption="主题" BuddyKey="Lab_QueryTheme" X="7" Y="0">
+                        <Condition ColumnKey="Topic" TableKey="OA_DoneReport" CondSign="like"/>
+                    </TextEditor>
+                    <Label Key="Lab_QueryTheme" Caption="主题" X="6" Y="0"/>
+                    <Button Key="Button1" Caption="查询" X="9" Y="0">
+                        <OnClick>
+                            <![CDATA[DealCondition();
+LoadData();
+ShowData();]]>
+                        </OnClick>
+                    </Button>
+                    <Dict Key="QueryApplicant" Caption="申请人" BuddyKey="Lab_QueryApplicant" X="5" Y="1" ItemKey="OA_Employee" AllowMultiSelection="true">
+                        <Condition ColumnKey="EmpID" TableKey="OA_DoneReport" CondSign="in"/>
+                    </Dict>
+                    <Label Key="Lab_QueryApplicant" Caption="申请人" X="4" Y="1"/>
+                    <Dict Key="QueryDeptID" Caption="申请部门" BuddyKey="Lab_QueryDeptID" X="5" Y="0" AllowMultiSelection="true" ItemKey="OA_Department">
+                        <Condition ColumnKey="DeptID" TableKey="OA_DoneReport" CondSign="in"/>
+                    </Dict>
+                    <Label Key="Lab_QueryDeptID" Caption="申请部门" X="4" Y="0"/>
+                    <Button Key="Reset" Caption="重置" X="9" Y="1">
+                        <OnClick>
+                            <![CDATA[ResetCondition();]]>
+                        </OnClick>
+                    </Button>
+                    <CheckListBox BuddyKey="Lab_CheckListBox1" Caption="业务类型" Key="CheckListBox1" X="1" XSpan="3" Y="1" SourceType="Formula">
+                        <Condition ColumnKey="FormKey" TableKey="OA_DoneReport" CondSign="in"/>
+                        <FormulaItems>
+                            <![CDATA[GetFormByType("Entity")]]>
+                        </FormulaItems>
+                    </CheckListBox>
+                    <Label Key="Lab_CheckListBox1" Caption="业务类型" X="0" Y="1"/>
+                    <RowDefCollection RowGap="5">
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="5">
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="16%"/>
+                        <ColumnDef Width="50px"/>
+                        <ColumnDef Width="17%"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="33%"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="34%"/>
+                        <ColumnDef Width="10px"/>
+                        <ColumnDef Width="80px"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+                <Grid Key="Grid1" Caption="Grid1" NewEmptyRow="false" Height="100%" PageLoadType="DB">
+                    <GridColumnCollection>
+                        <GridColumn Key="ProcessKey" Caption="流程名称" Width="200px"/>
+                        <GridColumn Key="FormKey" Caption="业务类型" Width="200px"/>
+                        <GridColumn Key="Topic" Caption="主题" Width="200px"/>
+                        <GridColumn Key="EmpID" Caption="申请人员" Width="150px"/>
+                        <GridColumn Key="DeptID" Caption="申请部门" Width="150px"/>
+                        <GridColumn Key="creatTime" Caption="申请日期" Width="150px"/>
+                    </GridColumnCollection>
+                    <GridRowCollection>
+                        <GridRow Key="row1" RowHeight="35" TableKey="OA_DoneReport">
+                            <GridCell Key="ProcessKey" Caption="流程名称" CellType="ComboBox" SourceType="Formula" CellSortType="None">
+                                <DataBinding ColumnKey="ProcessKey"/>
+                                <FormulaItems>
+                                    <![CDATA[OA_GetDropItemByBPM()]]>
+                                </FormulaItems>
+                            </GridCell>
+                            <GridCell Key="FormKey" Caption="业务类型" CellType="ComboBox" SourceType="Formula" CellSortType="None">
+                                <DataBinding ColumnKey="FormKey"/>
+                                <FormulaItems>
+                                    <![CDATA[GetFormByType("Entity")]]>
+                                </FormulaItems>
+                            </GridCell>
+                            <GridCell Key="Topic" Caption="主题" CellType="TextEditor" CellSortType="None">
+                                <DataBinding ColumnKey="Topic"/>
+                            </GridCell>
+                            <GridCell Key="EmpID" Caption="申请人员" CellType="Dict" ItemKey="OA_Employee" CellSortType="None">
+                                <DataBinding ColumnKey="EmpID"/>
+                            </GridCell>
+                            <GridCell Key="DeptID" Caption="申请部门" CellType="Dict" ItemKey="OA_Department" CellSortType="None">
+                                <DataBinding ColumnKey="DeptID"/>
+                            </GridCell>
+                            <GridCell Key="creatTime" Caption="申请日期" CellType="DatePicker" CellSortType="None">
+                                <DataBinding ColumnKey="creatTime"/>
+                            </GridCell>
+                        </GridRow>
+                    </GridRowCollection>
+                </Grid>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

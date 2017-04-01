@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Caption="区域" FormType="Dict" Key="V_Region">
+    <DataSource RefObjectKey="Region"/>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root">
+                <TabPanel Key="body">
+                    <GridLayoutPanel Key="body_basic" Padding="8px" Caption="基本信息(&amp;B)">
+                        <Label Key="Inner_Code" Caption="代码" X="0" Y="1"/>
+                        <TextEditor Key="Code" Caption="代码" BuddyKey="Inner_Code" X="1" Y="1" Visible="false" Enable="!ReadOnly()" InvalidChars="%*\&quot;+?&gt;&lt;:'">
+                            <DataBinding TableKey="BK_Region" ColumnKey="Code"/>
+                        </TextEditor>
+                        <Label Key="Inner_Name" Caption="名称" X="0" Y="2"/>
+                        <TextEditor Key="Name" Caption="名称" BuddyKey="Inner_Name" X="1" Y="2" Visible="true" Enable="!ReadOnly()">
+                            <DataBinding TableKey="BK_Region" ColumnKey="Name"/>
+                        </TextEditor>
+                        <Label Key="Inner_NodeType" Caption="结点类型" X="0" Y="4"/>
+                        <ComboBox Key="NodeType" Caption="结点类型" BuddyKey="Inner_NodeType" X="1" Y="4" Visible="false" Enable="!ReadOnly()&amp;&amp;Status&lt;0">
+                            <DataBinding TableKey="BK_Region" ColumnKey="NodeType"/>
+                        </ComboBox>
+                        <Label Key="Inner_CountryID" Caption="国家" X="0" Y="0"/>
+                        <Dict Key="CountryID" Caption="国家" BuddyKey="Inner_CountryID" X="1" Y="0" Visible="true" Enable="false" ItemKey="Country">
+                            <DataBinding TableKey="BK_Region" ColumnKey="CountryID" DefaultFormulaValue="value('HeadCountryID')"/>
+                        </Dict>
+                        <Label Key="Inner_ParentID" Caption="上级区域" X="0" Y="3"/>
+                        <Dict Key="ParentID" Caption="上级区域" BuddyKey="Inner_ParentID" X="1" Y="3" Visible="true" Enable="!ReadOnly()" ItemKey="Region">
+                            <DataBinding TableKey="BK_Region" ColumnKey="ParentID"/>
+                        </Dict>
+                        <Label Key="Inner_UseCode" Caption="代码" X="0" Y="1"/>
+                        <TextEditor Key="UseCode" Caption="代码" BuddyKey="Inner_UseCode" X="1" Y="1" Visible="true" Enable="!ReadOnly()&amp;&amp;com.bokesoft.erp.basis.common.DocumentNumberUI.docNumberFieldEnable('UseCode')" InvalidChars="%*\&quot;+?&gt;&lt;:'" MaxLength="100">
+                            <DataBinding TableKey="BK_Region" ColumnKey="UseCode" CheckRule="iifs(com.bokesoft.erp.basis.common.DocumentNumberUI.docNumberFieldEnable('UseCode')&amp;&amp;Value('UseCode')='', '采用外部给号编码规则，请输入代码', true, true)"/>
+                        </TextEditor>
+                        <RowDefCollection RowGap="5">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="5">
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="330px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <GridLayoutPanel Key="body_system" Padding="8px" Caption="系统信息(&amp;D)">
+                        <Label Key="Inner_ClientID" Caption="集团" X="0" Y="0"/>
+                        <Dict Key="ClientID" Caption="集团" BuddyKey="Inner_ClientID" X="1" Y="0" Visible="true" Enable="false" ItemKey="Client">
+                            <DataBinding TableKey="BK_Region" ColumnKey="clientid" DefaultFormulaValue="getClientID()"/>
+                        </Dict>
+                        <Label Key="Inner_Status" Caption="结点状态" X="0" Y="1"/>
+                        <ComboBox Key="Status" Caption="结点状态" BuddyKey="Inner_Status" X="1" Y="1" Visible="true" Enable="false">
+                            <DataBinding TableKey="BK_Region" ColumnKey="Status"/>
+                        </ComboBox>
+                        <Label Key="Inner_CreateByID" Caption="创建人员" X="0" Y="2"/>
+                        <Dict Key="CreateByID" Caption="创建人员" BuddyKey="Inner_CreateByID" X="1" Y="2" Visible="true" Enable="false" ItemKey="Operator">
+                            <DataBinding TableKey="BK_Region" ColumnKey="CREATOR" DefaultFormulaValue="GetOperator()"/>
+                        </Dict>
+                        <Label Key="Inner_CreateTime" Caption="创建时间" X="0" Y="3"/>
+                        <DatePicker Key="CreateTime" Caption="创建时间" BuddyKey="Inner_CreateTime" X="1" Y="3" Visible="true" Enable="false" OnlyDate="false">
+                            <DataBinding TableKey="BK_Region" ColumnKey="CREATETIME" DefaultFormulaValue="ServerDate()"/>
+                        </DatePicker>
+                        <Label Key="Inner_UpdateByID" Caption="修改人员" X="0" Y="4"/>
+                        <Dict Key="UpdateByID" Caption="修改人员" BuddyKey="Inner_UpdateByID" X="1" Y="4" Visible="true" Enable="false" ItemKey="Operator">
+                            <DataBinding TableKey="BK_Region" ColumnKey="MODIFIER" DefaultFormulaValue="GetOperator()"/>
+                        </Dict>
+                        <Label Key="Inner_UpdateTime" Caption="修改时间" X="0" Y="5"/>
+                        <DatePicker Key="UpdateTime" Caption="修改时间" BuddyKey="Inner_UpdateTime" X="1" Y="5" Visible="true" Enable="false" OnlyDate="false">
+                            <DataBinding TableKey="BK_Region" ColumnKey="MODIFYTIME" DefaultFormulaValue="ServerDate()"/>
+                        </DatePicker>
+                        <Label Key="Inner_Notes" Caption="备注" X="0" Y="6"/>
+                        <TextEditor Key="Notes" Caption="备注" BuddyKey="Inner_Notes" X="1" Y="6" Visible="true" Enable="!ReadOnly()">
+                            <DataBinding TableKey="BK_Region" ColumnKey="Notes"/>
+                        </TextEditor>
+                        <RowDefCollection RowGap="5">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="5">
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="330px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                </TabPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

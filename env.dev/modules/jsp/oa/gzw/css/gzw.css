@@ -1,0 +1,20 @@
+﻿#ws_content{
+	left:5px;
+	top:5px;
+
+}
+
+.map_text,.map_password,.map_textarea {
+
+	color: #000000;
+}
+.map_numtext {
+
+	color: #000000;
+}
+
+.y_toolbar{
+	-margin-left:3px;
+	-margin-top:2px;
+	background-color:#FCFBFB !important;
+}

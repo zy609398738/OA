@@ -1,0 +1,39 @@
+dependencies {
+	compile "javax.servlet:javax.servlet-api:3.1.0"
+	compile 'javax.servlet.jsp.jstl:javax.servlet.jsp.jstl-api:1.2.1'
+	
+	compile 'aopalliance:aopalliance:1.0'
+	compile 'org.aspectj:aspectjweaver:1.8.5'
+	
+	compile 'org.apache.commons:commons-lang3:3.4'
+	compile 'com.alibaba:fastjson:1.2.5'
+	compile 'com.google.guava:guava:18.0'
+	compile 'dom4j:dom4j:1.6.1'
+	compile 'org.jsoup:jsoup:1.7.3'
+	compile 'org.apache.velocity:velocity-tools:2.0'
+	
+	compile 'org.slf4j:slf4j-api:1.7.7'
+	compile 'org.slf4j:slf4j-log4j12:1.7.7'
+	compile 'log4j:log4j:1.2.17'
+	compile 'org.slf4j:jcl-over-slf4j:1.7.7'
+	
+	compile 'org.springframework:spring-aop:4.1.6.RELEASE'
+	compile 'org.springframework:spring-aspects:4.1.6.RELEASE'
+	compile 'org.springframework:spring-beans:4.1.6.RELEASE'
+	compile 'org.springframework:spring-context:4.1.6.RELEASE'
+	compile 'org.springframework:spring-context-support:4.1.6.RELEASE'
+	compile 'org.springframework:spring-core:4.1.6.RELEASE'
+	compile 'org.springframework:spring-expression:4.1.6.RELEASE'
+	compile 'org.springframework:spring-web:4.1.6.RELEASE'
+	compile 'org.springframework:spring-webmvc:4.1.6.RELEASE'
+	
+	compile 'org.joda:joda-convert:1.2'
+	compile 'joda-time:joda-time:2.2'
+	compile 'oro:oro:2.0.8'
+	compile 'sslext:sslext:1.2-0'
+	
+	// https://mvnrepository.com/artifact/com.novartis.opensource/jsqlparser
+	compile group: 'com.novartis.opensource', name: 'jsqlparser', version: '0.9.6.1'
+	
+	compile devOpsFileTree(dir: "dist/jars", include: ['*.jar'])
+}

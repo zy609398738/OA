@@ -1,0 +1,238 @@
+[ {
+	'text' : 'Http',
+	'type' : 'Http'
+}, {
+	'text' : 'Https',
+	'type' : 'Https',
+	'attr' : [ {
+		'name' : 'keystorepath',
+		'fieldLabel' : 'keyStore路径'
+	}, {
+		'name' : 'keystorepassword',
+		'fieldLabel' : 'keyStore密码'
+	}, {
+		'name' : 'keypassword',
+		'fieldLabel' : 'key密码'
+	}, {
+		'name' : 'keyalias',
+		'fieldLabel' : '指定key别名'
+	},{
+		'name' : 'truststorepath',
+		'fieldLabel' : 'truststore路径'
+	}, {
+		'name' : 'truststorepassword',
+		'fieldLabel' : 'trustStore密码'
+	}]
+}, {
+	'text' : 'Ftp',
+	'type' : 'Ftp'
+}, {
+	'text' : 'SFtp',
+	'type' : 'SFtp'
+}, {
+	'text' : 'File',
+	'type' : 'File',
+	'attr' : [ {
+		'xtype' : 'Boolean',
+		'name' : 'autoDelete',
+		'fieldLabel' : 'autoDelete',
+		'value' : 'false'
+	}, {
+		'xtype' : 'Boolean',
+		'name' : 'streaming',
+		'fieldLabel' : 'streaming',
+		'value' : 'false'
+	} ]
+}, {
+	'text' : 'Axis',
+	'type' : 'Axis'
+}, {
+	'text' : 'Jdbc',
+	'type' : 'Jdbc',
+	'attr' : [ {
+		'fieldLabel' : '数据源',
+		'xtype' : 'combobox',
+		'type' : 'DataSource',
+		'name' : 'dataSourceRef',
+		'allowBlank':false
+	}, {
+		'xtype' : 'Boolean',
+		'name' : 'transactionPerMessage',
+		'fieldLabel' : 'tPerMessage',
+		'value' : 'false'
+	} ]
+}, {
+	'text' : 'JMS',
+	'type' : 'JMS',
+	'attr' : [ {
+		'name' : 'username',
+		'fieldLabel' : '用户名'
+	}, {
+		'name' : 'password',
+		'fieldLabel' : '密码'
+	}, {
+		'xtype' : 'numberfield',
+		'name' : 'maxRedelivery',
+		'fieldLabel' : '最大重新传递数'
+	}, {
+		'xtype' : 'combobox',
+		'type' : 'SpringBean_com.ibm.mq.jms.MQXAQueueConnectionFactory,SpringBean_com.ibm.mq.jms.MQQueueConnectionFactory,SpringBean_com.ibm.mq.jms.MQTopicConnectionFactory,SpringBean_com.ibm.mq.jms.MQXATopicConnectionFactory,SpringBean_org.apache.activemq.ActiveMQXAConnectionFactory,SpringBean_org.apache.activemq.ActiveMQConnectionFactory',
+		'name' : 'connectionFactory_ref',
+		'isRef':'true',
+		'fieldLabel' : '连接工厂'
+	}, {
+		'xtype' : 'numberfield',
+		'name' : 'numberOfConsumers',
+		'fieldLabel' : '消费者数量'
+	}, {
+		'name' : 'jndiProviderUrl',
+		'fieldLabel' : 'weblogic JNDI地址',
+		'value':'t3://localhost:7001'
+	}, {
+		'name' : 'connectionFactoryJndiName',
+		'fieldLabel' : '链接工厂的JNDI名字'
+	}, {
+		'xtype' : 'Boolean',
+		'name' : 'jndiDestinations',
+		'fieldLabel' : 'jndiDestinations'
+	}, {
+		'xtype' : 'Boolean',
+		'name' : 'forceJndiDestinations',
+		'fieldLabel' : '强制JNDI目的地'
+	}, {
+		'name' : 'jndiInitialFactory',
+		'fieldLabel' : 'JNDI初始工厂',
+		'value':'weblogic.jndi.WLInitialContextFactory'
+	}, {
+		'name' : 'specification',
+		'fieldLabel' : 'specification'
+	}, {
+		'name' : 'clientId',
+		'fieldLabel' : 'clientId'
+	}, {
+		'xtype' : 'Boolean',
+		'name' : 'durable',
+		'fieldLabel' : '是否持久订阅主题'
+	}, {
+		'xtype' : 'Boolean',
+		'name' : 'persistentDelivery',
+		'fieldLabel' : '是否发送持久化消息'
+	}]
+}, {
+	'text' : 'POP3',
+	'type' : 'POP3',
+	'attr' : [ {
+		'xtype' : 'numberfield',
+		'name' : 'checkFrequency',
+		'fieldLabel' : '检查周期(毫秒)'
+	}, {
+		'xtype' : 'Boolean',
+		'name' : 'deleteReadMessages',
+		'value':'false',
+		'fieldLabel' : '读取后是否删除'
+	} ]
+}, {
+	'text' : 'IMAP',
+	'type' : 'IMAP',
+	'attr' : [  {
+		'name' : 'mailboxFolder',
+		'fieldLabel' : '读取邮箱文件夹',
+		'value' : 'INBOX'
+	},{
+		'xtype' : 'numberfield',
+		'name' : 'checkFrequency',
+		'fieldLabel' : '检查周期(毫秒)',
+		'value' : 600000,
+		'allowBlank':false
+	}, {
+		'xtype' : 'Boolean',
+		'name' : 'deleteReadMessages',
+		'value':'false',
+		'fieldLabel' : '读取后是否删除'
+	} , {
+		'name' : 'moveToFolder',
+		'value':'backup',
+		'fieldLabel' : '移动到邮箱文件夹'
+	} ]
+}, {
+	'text' : 'SMTP',
+	'type' : 'SMTP',
+	'attr' : [ {
+		'xtype' : 'Boolean',
+		'name' : 'contentType',
+		'fieldLabel' : '邮件内容是网页',
+		'value' : 'false'
+	}]
+}, {
+	'text' : 'TCP',
+	'type' : 'TCP',
+	'attr' : [  
+	{
+		'xtype' : 'numberfield',
+		'name' : 'sendBufferSize',
+		'fieldLabel' : '发送缓存区',
+		'value' : 8192,
+		'allowBlank':false
+	},
+	{
+		'xtype' : 'numberfield',
+		'name' : 'receiveBufferSize',
+		'fieldLabel' : '接收缓存区',
+		'value' : 8192,
+		'allowBlank':false
+	},
+	{
+		'xtype' : 'numberfield',
+		'name' : 'receiveBacklog',
+		'fieldLabel' : '接收队列长度',
+		'value' : 50,
+		'allowBlank':false
+	},
+	{
+		'xtype' : 'Boolean',
+		'name' : 'sendTcpNoDelay',
+		'fieldLabel' : '是否放弃延迟机制',
+		'value' : 'false'
+	},{
+		'xtype' : 'numberfield',
+		'name' : 'socketSoLinger',
+		'fieldLabel' : '关闭连接时继续发送消息(秒)',
+		'value' : 0,
+		'allowBlank':false
+	}, {
+		'xtype' : 'Boolean',
+		'name' : 'keepSendSocketOpen',
+		'value':'false',
+		'fieldLabel' : '发送完成之后是否保持连接'
+	} , {
+		'xtype' : 'Boolean',
+		'name' : 'keepAlive',
+		'value':'false',
+		'fieldLabel' : '是否定期验证服务器'
+	} , {
+		'xtype' : 'Boolean',
+		'name' : 'reuseAddress',
+		'value':'true',
+		'fieldLabel' : '是否允许重复绑定'
+	},
+	{
+		'xtype' : 'numberfield',
+		'name' : 'clientSoTimeout',
+		'fieldLabel' : '客户端超时',
+		'value' : 0,
+		'allowBlank':false
+	},
+	{
+		'xtype' : 'numberfield',
+		'name' : 'serverSoTimeout',
+		'fieldLabel' : '服务端超时',
+		'value' : 0,
+		'allowBlank':false
+	}, {
+		'xtype' : 'combobox',
+		'type' : 'eof-protocol,xml-eof-protocol,streaming-protocol',
+		'isRef':'false',
+		'name' : 'protocol',
+		'fieldLabel' : 'PROTOCOL-TYPE选择'
+	}]
+} ]

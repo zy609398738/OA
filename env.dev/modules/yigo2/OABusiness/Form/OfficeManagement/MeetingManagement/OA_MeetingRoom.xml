@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="OA_MeetingRoom" Caption="会议室资源" FormType="Dict">
+    <DataSource>
+        <DataObject Key="OA_MeetingRoom" Caption="会议室资源" PrimaryTableKey="OA_MeetingRoom_H" SecondaryType="Dict" PrimaryType="Entity">
+            <TableCollection>
+                <Table Key="OA_MeetingRoom_H" Caption="会议室资源" DBTableName="OA_MeetingRoom_H">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="Code" Caption="代码" DataType="Varchar"/>
+                    <Column Key="Name" Caption="名称" DataType="Varchar"/>
+                    <Column Key="NodeType" Caption="节点类型" DataType="Integer"/>
+                    <Column Key="ParentID" Caption="父节点" DataType="Long"/>
+                    <Column Key="Status" Caption="状态" DataType="Integer"/>
+                    <Column Key="Enable" Caption="启用标记" DataType="Integer" DefaultValue="1"/>
+                    <Column Key="TLeft" Caption="TLeft" DataType="Integer"/>
+                    <Column Key="TRight" Caption="TRight" DataType="Integer"/>
+                    <Column Caption="创建人员" DataType="Long" Key="Creator"/>
+                    <Column Caption="创建时间" DataType="DateTime" Key="CreateTime"/>
+                    <Column Caption="修改人员" DataType="Long" Key="Modifier"/>
+                    <Column Caption="修改时间" DataType="DateTime" Key="ModifyTime"/>
+                    <Column Caption="备注" DataType="Varchar" Key="Notes"/>
+                    <Column Caption="单据Key" DataType="Varchar" Key="BillKey"/>
+                    <Column Caption="集团" DataType="Long" Key="ClusterID"/>
+                    <Column Key="EmpID" Caption="负责人" DataType="Long"/>
+                    <Column Key="DeptID" Caption="负责部门" DataType="Long"/>
+                    <Column Key="Phone" Caption="联系电话" DataType="Varchar"/>
+                    <Column Key="GalleryFul" Caption="容纳人数" DataType="Integer" Precision="16" Scale="0"/>
+                    <Column Key="Image1" Caption="缩略图" DataType="Varchar"/>
+                    <Column Key="Details" Caption="描述" DataType="Varchar" Length="4000"/>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <ScriptCollection>
+        <Script Key="Load" Caption="载入" Description="载入事件" Range="Action" Verb="Load">
+            <![CDATA[LoadData()]]>
+        </Script>
+    </ScriptCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Caption="FlexFlowLayoutPanel1" Key="FlexFlowLayoutPanel1">
+                <TabPanel Caption="TabPanel1" Key="TabPanel1" Height="100%">
+                    <GridLayoutPanel Key="GridLayoutPanel1" Padding="5px" Caption="基本信息">
+                        <TextEditor Key="Code" Caption="代码" BuddyKey="L_Code" X="1" Y="0">
+                            <DataBinding ColumnKey="Code" TableKey="OA_MeetingRoom_H" Required="true"/>
+                        </TextEditor>
+                        <Label Key="L_Code" Caption="代码" X="0" Y="0"/>
+                        <TextEditor Key="Name" Caption="会议室名称" BuddyKey="L_Name" X="4" Y="0">
+                            <DataBinding ColumnKey="Name" TableKey="OA_MeetingRoom_H" Required="true"/>
+                        </TextEditor>
+                        <Label Key="L_Name" Caption="会议室名称" X="3" Y="0"/>
+                        <Dict Key="EmpID" Caption="负责人" BuddyKey="Lab_EmpID" X="1" Y="1" ItemKey="OA_Employee">
+                            <DataBinding ColumnKey="EmpID" TableKey="OA_MeetingRoom_H" DefaultFormulaValue="GetDictValue('Operator', GetOperator(), 'SYS_Operator.EmpID')">
+                                <ValueChanged>
+                                    <![CDATA[DeptID=GetDictValue('OA_Employee', EmpID, 'OA_Employee_H.DeptID')]]>
+                                </ValueChanged>
+                            </DataBinding>
+                        </Dict>
+                        <Label Key="Lab_EmpID" Caption="负责人" X="0" Y="1"/>
+                        <Dict Key="DeptID" Caption="负责部门" BuddyKey="Lab_DeptID" X="4" Y="1" Enable="false" ItemKey="OA_Department">
+                            <DataBinding ColumnKey="DeptID" TableKey="OA_MeetingRoom_H" DefaultFormulaValue="GetDictValue('Operator', GetOperator(), 'SYS_Operator.DeptID')"/>
+                        </Dict>
+                        <Label Key="Lab_DeptID" Caption="负责部门" X="3" Y="1"/>
+                        <TextEditor Key="Phone" Caption="联系电话" BuddyKey="Lab_Phone" X="1" Y="2">
+                            <DataBinding ColumnKey="Phone" TableKey="OA_MeetingRoom_H"/>
+                        </TextEditor>
+                        <Label Key="Lab_Phone" Caption="联系电话" X="0" Y="2"/>
+                        <NumberEditor Key="GalleryFul" Caption="容纳人数" BuddyKey="Lab_GalleryFul" X="4" Y="2" Scale="0" IntegerValue="true">
+                            <DataBinding ColumnKey="GalleryFul" TableKey="OA_MeetingRoom_H"/>
+                        </NumberEditor>
+                        <Label Key="Lab_GalleryFul" Caption="容纳人数" X="3" Y="2"/>
+                        <Image Key="Image1" Caption="Image1" X="5" Y="1" YSpan="5" HasBorder="true">
+                            <DataBinding ColumnKey="Image1" TableKey="OA_MeetingRoom_H"/>
+                        </Image>
+                        <Label Key="Label1" Caption="缩略图" X="5" Y="0"/>
+                        <TextArea Key="Details" Caption="描述" BuddyKey="Lab_Details" X="1" Y="3" XSpan="4" YSpan="3">
+                            <DataBinding ColumnKey="Details" TableKey="OA_MeetingRoom_H"/>
+                        </TextArea>
+                        <Label Key="Lab_Details" Caption="描述" X="0" Y="3" YSpan="3"/>
+                        <RowDefCollection RowGap="4">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="4">
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="50%"/>
+                            <ColumnDef Width="20px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="50%"/>
+                            <ColumnDef Width="160px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <GridLayoutPanel Caption="系统信息" Height="1%" Key="SysTab">
+                        <Dict BuddyKey="Lab_Creator" Caption="创建人员" Enable="false" ItemKey="Operator" Key="Creator" X="1" Y="0">
+                            <DataBinding ColumnKey="Creator" TableKey="OA_MeetingRoom_H" DefaultFormulaValue="GetOperator()" Required="true"/>
+                        </Dict>
+                        <Label Caption="创建人员" Key="Lab_Creator" X="0" Y="0"/>
+                        <Label Caption="创建时间" Key="Lab_CreateTime" X="3" Y="0"/>
+                        <DatePicker BuddyKey="Lab_CreateTime" Caption="创建时间" Enable="false" Key="CreateTime" OnlyDate="false" X="4" Y="0">
+                            <DataBinding ColumnKey="CreateTime" TableKey="OA_MeetingRoom_H" DefaultFormulaValue="ServerDate()" Required="true"/>
+                        </DatePicker>
+                        <Label Caption="修改人员" Key="Lab_Modifier" X="0" Y="1"/>
+                        <Dict BuddyKey="Lab_Modifier" Caption="修改人员" Enable="false" ItemKey="Operator" Key="Modifier" X="1" Y="1">
+                            <DataBinding ColumnKey="Modifier" TableKey="OA_MeetingRoom_H" DefaultFormulaValue="GetOperator()" Required="true"/>
+                        </Dict>
+                        <Label Caption="修改时间" Key="Lab_ModifyTime" X="3" Y="1"/>
+                        <DatePicker BuddyKey="Lab_ModifyTime" Caption="修改时间" Enable="false" Key="ModifyTime" OnlyDate="false" X="4" Y="1">
+                            <DataBinding ColumnKey="ModifyTime" TableKey="OA_MeetingRoom_H" DefaultFormulaValue="ServerDate()" Required="true"/>
+                        </DatePicker>
+                        <Label Caption="备注" Key="Lab_Notes" X="0" Y="2"/>
+                        <TextEditor BuddyKey="Lab_Notes" Caption="备注" Key="Notes" X="1" XSpan="4" Y="2">
+                            <DataBinding ColumnKey="Notes" TableKey="OA_MeetingRoom_H"/>
+                        </TextEditor>
+                        <TextEditor BuddyKey="Lab_BillKey" Caption="单据Key" Enable="false" Key="BillKey" X="1" Y="3">
+                            <DataBinding ColumnKey="BillKey" TableKey="OA_MeetingRoom_H" DefaultFormulaValue="GetFormKey()"/>
+                        </TextEditor>
+                        <Label Caption="单据Key" Key="Lab_BillKey" X="0" Y="3"/>
+                        <Dict BuddyKey="Lab_ClusterID" Caption="集团" Enable="false" ItemKey="Client" Key="ClusterID" X="4" Y="3">
+                            <DataBinding ColumnKey="ClusterID" TableKey="OA_MeetingRoom_H"/>
+                        </Dict>
+                        <Label Caption="集团" Key="Lab_ClusterID" X="3" Y="3"/>
+                        <RowDefCollection RowGap="4">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="4">
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="50%"/>
+                            <ColumnDef Width="20px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="50%"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                </TabPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

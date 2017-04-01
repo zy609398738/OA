@@ -1,0 +1,6 @@
+dependencies {
+  compile 'commons-io:commons-io:2.4'
+  compile devOpsFileTree(dir: "dist/jars", include: ['*.jar'])
+}
+
+devOpsApply from: "../cms2/cms2.gradle"

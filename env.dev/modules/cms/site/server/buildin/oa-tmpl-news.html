@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <title>中航国际OA新闻列表页面</title>
+</head>
+<body class="news-page">
+<div class="bootjs-box"><!--此处只为加载js等文件，故设置其：height:0-->
+    <div yigo-cms:block="static?staticFile=buildin/boot-js.vm"/>
+</div>
+<!--头部 header-->
+<div class="container" id="header">
+    <div class="row clearfix">
+		<div yigo-cms:block="static?staticFile=buildin/oa-default-header.html"/>
+    </div>
+</div>
+<!--头部 header end-->
+
+<!-- 菜单区域 -->
+<div id="nav" class="container">
+	<div class="row">
+		<div yigo-cms:block="main-menu"/>
+	</div>
+</div>
+<!--主体-->
+<div class="container com-news" id="mid">
+    <div class="row clearfix">
+
+        <div class="span3 aside-left f666">
+            <div yigo-cms:area="left-sidebar" />
+        </div>
+
+        <div class="span9 main">
+		    <!--子页右侧的内容在这里 start-->
+			<div yigo-cms:area="content"/>
+			<!--子页右侧的内容在这里 end-->
+        </div>
+
+    </div>
+</div>
+<!--主体 end-->
+
+<!--尾部 bottom-->
+<div class="container" id="bottom">
+    <div class="row">
+        <div class="span12">
+           <div yigo-cms:block="static?staticFile=buildin/oa-default-footer.html"/>
+        </div>
+    </div>
+</div>
+<!--尾部 bottom end-->
+
+<!--[if IE 6]>
+<script type="text/javascript">
+	function ie6_min_width(){	//解决ie6不兼容min-width
+			if($(window).width() <= 1024){
+				$('body').addClass('ie6');  
+			}
+			else{
+				$('body').removeClass('ie6'); 
+			}
+	}
+    $(function(){ie6_min_width();});	
+	$(window).resize(function(){ie6_min_width();});	
+</script>
+<![endif]-->
+</body>
+</html>

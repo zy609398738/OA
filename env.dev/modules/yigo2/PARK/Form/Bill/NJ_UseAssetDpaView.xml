@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="NJ_UseAssetDpaView" Caption="在用资产处置序时簿" FormType="View">
+    <DataSource>
+        <DataObject Key="NJ_UseAssetDpaView" Caption="在用资产处置序时簿">
+            <TableCollection>
+                <Table Key="NJ_SCM_UseAssetDisposalHead" Caption="NJ_SCM_UseAssetDisposalHead" DBTableName="NJ_SCM_UseAssetDisposalHead" TableMode="Detail" SourceType="Query" Persist="false">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="NO" Caption="发布编号" DataType="Varchar"/>
+                    <Column Key="BillDate" Caption="发布日期" DataType="DateTime"/>
+                    <Column Key="Status" Caption="单据状态" DataType="Integer"/>
+                    <Column Key="EmpID" Caption="经办人" DataType="Long"/>
+                    <Column Key="UseEmpID" Caption="UseEmpID" DataType="Long"/>
+                    <Column Key="DisposalTypeId" Caption="DisposalTypeId" DataType="Long"/>
+                    <Column Key="UseType" Caption="UseType" DataType="Varchar" Length="0"/>
+                    <Column Key="CustomerId" Caption="CustomerId" DataType="Long"/>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="ViewNewBill" Caption="新增" RefKey="ViewNewBill"/>
+        <Operation Key="Refresh" Caption="刷新" RefKey="Refresh"/>
+    </OperationCollection>
+    <Body>
+        <Block>
+            <SplitPanel Key="SplitPanel1" Orientation="Vertical" Height="pref" Caption="SplitPanel1">
+                <GridLayoutPanel Key="GridLayoutPanel1" Height="pref" Caption="GridLayoutPanel1">
+                    <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1" X="0" XSpan="9" Y="0">
+                        <ToolBarItemCollection/>
+                    </ToolBar>
+                    <DatePicker Key="Date1_cond" Caption="处置日期" BuddyKey="Lab_Date1_cond" X="2" Y="1" Clearable="false" OnlyDate="true">
+                        <Condition ColumnKey="BillDate" TableKey="NJ_SCM_UseAssetDisposalHead" CondSign="between" Group="dategroup" GroupHead="true"/>
+                    </DatePicker>
+                    <Label Key="Lab_Date1_cond" Caption="处置日期" X="1" Y="1"/>
+                    <DatePicker Key="Date2_cond" Caption="到" BuddyKey="Lab_Date2_cond" X="5" Y="1" Clearable="false" OnlyDate="true">
+                        <Condition ColumnKey="BillDate" TableKey="NJ_SCM_UseAssetDisposalHead" CondSign="between" Group="dategroup" GroupTail="true"/>
+                    </DatePicker>
+                    <Label Key="Lab_Date2_cond" Caption="到" X="4" Y="1"/>
+                    <Button Key="cx" Caption="查询" X="7" Y="1">
+                        <OnClick>
+                            <![CDATA[DealCondition();LoadData();ShowData();]]>
+                        </OnClick>
+                    </Button>
+                    <Button Key="cz" Caption="重置" X="7" Y="2">
+                        <OnClick>
+                            <![CDATA[ResetCondition();]]>
+                        </OnClick>
+                    </Button>
+                    <CheckListBox BuddyKey="Lab_Status_cond" Caption="状态" Key="Status_cond" SourceType="Status" X="5" Y="2">
+                        <Condition ColumnKey="Status" TableKey="NJ_SCM_UseAssetDisposalHead" CondSign="in"/>
+                    </CheckListBox>
+                    <Label Key="Lab_Status_cond" Caption="状态" X="4" Y="2"/>
+                    <Dict Key="UseEmpID_cond" Caption="使用人" BuddyKey="Lab_UseEmpID_cond" X="5" Y="3" Visible="UseType_cond==1" AllowMultiSelection="true" ItemKey="OA_Employee" Clearable="false">
+                        <Condition ColumnKey="UseEmpID" TableKey="NJ_SCM_UseAssetDisposalHead" CondSign="in"/>
+                    </Dict>
+                    <Label Key="Lab_UseEmpID_cond" Caption="使用人" X="4" Y="3"/>
+                    <Dict Key="DisposalTypeId_cond" Caption="处置方式" BuddyKey="Lab_DisposalTypeId_cond" X="2" Y="3" AllowMultiSelection="true" Clearable="false" ItemKey="NJ_DisposalType">
+                        <Condition ColumnKey="DisposalTypeId" TableKey="NJ_SCM_UseAssetDisposalHead" CondSign="in"/>
+                    </Dict>
+                    <Label Key="Lab_DisposalTypeId_cond" Caption="处置方式" X="1" Y="3"/>
+                    <ComboBox Key="UseType_cond" Caption="使用类型" BuddyKey="Lab_UseType_cond" X="2" Y="2" Clearable="false">
+                        <DataBinding DefaultValue="2">
+                            <ValueChanged>
+                                <![CDATA[DealCondition();LoadData();ShowData();]]>
+                            </ValueChanged>
+                        </DataBinding>
+                        <Condition ColumnKey="UseType" TableKey="NJ_SCM_UseAssetDisposalHead" CondSign="="/>
+                        <Item Caption="内部" Key="1" Value="1"/>
+                        <Item Caption="外部" Key="2" Value="2"/>
+                    </ComboBox>
+                    <Label Key="Lab_UseType_cond" Caption="使用类型" X="1" Y="2"/>
+                    <Dict Key="CustomerId_cond" Caption="客户" BuddyKey="Lab_CustomerId_cond" X="5" Y="3" Visible="UseType_cond==2" AllowMultiSelection="true" Clearable="false" ItemKey="NJ_CP_Customer">
+                        <Condition ColumnKey="CustomerId" TableKey="NJ_SCM_UseAssetDisposalHead" CondSign="in"/>
+                    </Dict>
+                    <Label Key="Lab_CustomerId_cond" Caption="客户" X="4" Y="3"/>
+                    <RowDefCollection RowGap="5">
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="5">
+                        <ColumnDef Width="20px"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="50%"/>
+                        <ColumnDef Width="20px"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="50%"/>
+                        <ColumnDef Width="20px"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="20px"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+                <ListView Caption="ListView1" Height="100%" Key="ListView1" PageLoadType="DB" TableKey="NJ_SCM_UseAssetDisposalHead">
+                    <ListViewColumnCollection>
+                        <ListViewColumn Key="NO" Caption="处置编号" DataColumnKey="NO" Width="120px"/>
+                        <ListViewColumn Key="BillDate" Caption="处置日期" ColumnType="DatePicker" DataColumnKey="BillDate" Width="90px" OnlyDate="true"/>
+                        <ListViewColumn Key="Status" Caption="单据状态" ColumnType="ComboBox" DataColumnKey="Status" SourceType="Status"/>
+                        <ListViewColumn Key="UseType" Caption="使用类型" ColumnType="ComboBox" DataColumnKey="UseType">
+                            <Item Caption="内部" Key="1" Value="1"/>
+                            <Item Caption="外部" Key="2" Value="2"/>
+                        </ListViewColumn>
+                        <ListViewColumn Key="UseEmpID" Caption="使用人" ColumnType="Dict" DataColumnKey="UseEmpID" Visible="UseType_cond==1" ItemKey="OA_Employee"/>
+                        <ListViewColumn Key="CustomerId" Caption="客户" ColumnType="Dict" DataColumnKey="CustomerId" Visible="UseType_cond==2" Width="200px" ItemKey="NJ_CP_Customer"/>
+                        <ListViewColumn Key="EmpID" Caption="资产管理员" ColumnType="Dict" DataColumnKey="EmpID" ItemKey="OA_Employee"/>
+                        <ListViewColumn Key="DisposalTypeId" Caption="处置方式" ColumnType="Dict" DataColumnKey="DisposalTypeId" ItemKey="NJ_DisposalType"/>
+                        <ListViewColumn Key="OID" Caption="OID" DataColumnKey="OID" Visible="false"/>
+                    </ListViewColumnCollection>
+                    <RowDblClick>
+                        <![CDATA[Open(C_GetBillKey(),OID)]]>
+                    </RowDblClick>
+                </ListView>
+                <SplitSize Size="150px"/>
+                <SplitSize Size="100%"/>
+            </SplitPanel>
+        </Block>
+    </Body>
+    <MacroCollection>
+        <Macro Key="C_GetBillKey">
+            <![CDATA[{NJ_UseAssetDisposal}]]>
+        </Macro>
+    </MacroCollection>
+</Form>

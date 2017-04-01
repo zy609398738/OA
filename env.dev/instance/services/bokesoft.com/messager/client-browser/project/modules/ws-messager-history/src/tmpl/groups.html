@@ -1,0 +1,6 @@
+<ul class="msg-user-group">
+    <li class="msg-user-group-item active">最近联系人(10)</li>
+    <% _.forEach(groups, function(group) { %>
+    <li class="msg-user-group-item" data-group-code="${group.groupCode}">${group.groupName}</li>
+    <% }); %>
+</ul>

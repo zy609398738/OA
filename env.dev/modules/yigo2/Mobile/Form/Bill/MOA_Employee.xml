@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="MOA_Employee" Caption="个人信息" FormType="View">
+    <ScriptCollection>
+        <Script Key="Load" Caption="载入" Description="载入事件" Range="Action" Verb="Load">
+            <![CDATA[LoadData();ShowData()]]>
+        </Script>
+    </ScriptCollection>
+    <Body>
+        <Block>
+            <LinearLayoutPanel Caption="LinearLayoutPanel1" Key="LinearLayoutPanel1" Orientation="Vertical">
+                <LinearLayoutPanel Caption="LinearLayoutPanel2" Height="pref" Key="LinearLayoutPanel2" Width="pref">
+                    <Image Key="Photo" Caption="照片" ResourceType="Data" HasBorder="true" Height="auto" Width="auto" ImageScaleType="Fit_Center" Weight="1.0"/>
+                </LinearLayoutPanel>
+                <LinearLayoutPanel Caption="LinearLayoutPanel3" Height="40px" Key="LinearLayoutPanel3" Width="auto">
+                    <Label Key="Lab_Code" Caption="工号" Height="auto" Width="80px">
+                        <Format HAlign="Left"/>
+                    </Label>
+                    <TextEditor Key="Code" Caption="工号" BuddyKey="Lab_Code" Enable="false" Height="pref" Width="auto">
+                        <DataBinding DefaultFormulaValue="GetDictValue('OA_Employee', GetDictValue('Operator',GetOperator(),'SYS_Operator.EmpID'), 'OA_Employee_H.Code')"/>
+                    </TextEditor>
+                </LinearLayoutPanel>
+                <LinearLayoutPanel Caption="LinearLayoutPanel10" Height="40px" Key="LinearLayoutPanel10" Width="auto">
+                    <Label Key="Lab_Name" Caption="姓名" Height="auto" Width="80px">
+                        <Format HAlign="Left"/>
+                    </Label>
+                    <TextEditor Key="Name" Caption="姓名" Enable="false" BuddyKey="Lab_Name" Height="pref" Width="auto" Weight="1.0">
+                        <DataBinding DefaultFormulaValue="GetDictValue('OA_Employee', GetDictValue('Operator',GetOperator(),'SYS_Operator.EmpID'), 'OA_Employee_H.Name')"/>
+                    </TextEditor>
+                </LinearLayoutPanel>
+                <LinearLayoutPanel Caption="LinearLayoutPanel5" Height="40px" Key="LinearLayoutPanel5" Width="auto">
+                    <Label Key="Lab_DeptID" Caption="部门" Height="auto" Width="80px"/>
+                    <Dict Key="DeptID" Caption="部门" BuddyKey="Lab_DeptID" Enable="false" Height="auto" ItemKey="OA_Department" Width="auto">
+                        <DataBinding DefaultFormulaValue="GetDictValue('OA_Employee', GetDictValue('Operator',GetOperator(),'SYS_Operator.EmpID'), 'OA_Employee_H.DeptID')"/>
+                    </Dict>
+                </LinearLayoutPanel>
+                <LinearLayoutPanel Caption="LinearLayoutPanel4" Height="40px" Key="LinearLayoutPanel4" Width="auto">
+                    <Label Key="Lab_Mobile1" Caption="手机号" Height="auto" Width="80px">
+                        <Format HAlign="Left"/>
+                    </Label>
+                    <TextEditor Key="Mobile1" Caption="手机号" BuddyKey="Lab_Mobile1" Enable="Visiable_Mobile1==1" Height="pref" Width="auto" Weight="1.0">
+                        <DataBinding DefaultFormulaValue="GetDictValue('OA_Employee', GetDictValue('Operator',GetOperator(),'SYS_Operator.EmpID'), 'OA_Employee_H.Mobile1')"/>
+                    </TextEditor>
+                    <HyperLink Caption="修改" Height="auto" Key="Modify_Name" Width="50px" Visible="Visiable_Mobile1==0">
+                        <OnClick>
+                            <![CDATA[SetValue("Visiable_Mobile1", 1);]]>
+                        </OnClick>
+                    </HyperLink>
+                    <HyperLink Caption="保存" Height="auto" Key="Save_Name" Width="50px" Visible="Visiable_Mobile1==1">
+                        <OnClick>
+                            <![CDATA[DBUpdate("Update OA_Employee_H set Mobile1=? Where OID=?", Mobile1,GetDictValue('Operator',GetOperator(),'SYS_Operator.EmpID'));
+SetValue("Visiable_Mobile1", 0);
+OA_RefreshDictItem("OA_Employee",GetDictValue('Operator',GetOperator(),'SYS_Operator.EmpID'));
+]]>
+                        </OnClick>
+                    </HyperLink>
+                    <CheckBox Caption="修改手机号" Height="pref" Key="Visiable_Mobile1" Visible="false" Width="pref"/>
+                </LinearLayoutPanel>
+                <LinearLayoutPanel Caption="LinearLayoutPanel6" Height="40px" Key="LinearLayoutPanel6" Width="auto">
+                    <Label Key="Lab_Email" Caption="邮箱" Height="auto" Width="80px"/>
+                    <TextEditor Key="Email" Caption="邮箱" BuddyKey="Lab_Email" Enable="Visiable_Email==1" Height="auto" Width="auto" Weight="1.0">
+                        <DataBinding DefaultFormulaValue="GetDictValue('OA_Employee', GetDictValue('Operator',GetOperator(),'SYS_Operator.EmpID'), 'OA_Employee_H.Email')"/>
+                    </TextEditor>
+                    <HyperLink Caption="修改" Height="auto" Key="Modify_Email" Width="50px" Visible="Visiable_Email==0">
+                        <OnClick>
+                            <![CDATA[SetValue("Visiable_Email", 1);]]>
+                        </OnClick>
+                    </HyperLink>
+                    <HyperLink Caption="保存" Height="auto" Key="Save_Email" Width="50px" Visible="Visiable_Email==1">
+                        <OnClick>
+                            <![CDATA[DBUpdate("Update OA_Employee_H set Email=? Where OID=?", Email,GetDictValue('Operator',GetOperator(),'SYS_Operator.EmpID'));
+SetValue("Visiable_Email", 0);
+OA_RefreshDictItem("OA_Employee",GetDictValue('Operator',GetOperator(),'SYS_Operator.EmpID'));
+]]>
+                        </OnClick>
+                    </HyperLink>
+                    <CheckBox Caption="修改邮箱" Height="pref" Key="Visiable_Email" Visible="false" Width="pref"/>
+                </LinearLayoutPanel>
+                <LinearLayoutPanel Caption="LinearLayoutPanel7" Height="40px" Key="LinearLayoutPanel7" Width="auto">
+                    <HyperLink Caption="修改密码" Height="auto" Key="ModifyPassWord" Width="auto" Weight="1.0">
+                        <Format HAlign="Center"/>
+                        <OnClick>
+                            <![CDATA[Show("MOA_ChangePassWord")]]>
+                        </OnClick>
+                    </HyperLink>
+                </LinearLayoutPanel>
+                <LinearLayoutPanel Caption="LinearLayoutPanel8" Height="40px" Key="LinearLayoutPanel8" Width="auto">
+                    <Button Key="Logout" Caption="退出登录" Height="auto" Weight="1.0" Width="auto">
+                        <Format HAlign="Center">
+                            <Font Bold="true"/>
+                        </Format>
+                        <OnClick>
+                            <![CDATA[Logout()]]>
+                        </OnClick>
+                    </Button>
+                </LinearLayoutPanel>
+            </LinearLayoutPanel>
+        </Block>
+    </Body>
+    <OnLoad>
+        <![CDATA[SetValue("Photo", GetDictValue('OA_Employee', GetDictValue('Operator',GetOperator(),'SYS_Operator.EmpID'), 'OA_Employee_H.Photo'))]]>
+    </OnLoad>
+</Form>

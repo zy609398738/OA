@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="@dimen/bkim_bottom_bar_height"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+    <FrameLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <com.bokesoft.ecomm.im.orig.view.BKIMRecordButton
+            android:id="@+id/input_bar_btn_record"
+            style="@style/bkim_input_bar_record_button_style"
+            android:visibility="gone"/>
+
+        <EditText
+            android:id="@+id/input_bar_et_content"
+            style="@style/bkim_input_bar_edittext_style"/>
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center">
+
+        <ImageButton
+            android:id="@+id/input_bar_btn_keyboard"
+            style="@style/bkim_input_bar_button_style"
+            android:src="@drawable/bkim_bottom_bar_keyboard_button_bg"
+            android:visibility="gone"/>
+
+        <ImageButton
+            android:id="@+id/input_bar_btn_send_text"
+            style="@style/bkim_input_bar_button_style"
+            android:src="@drawable/bkim_bottom_bar_send_button_bg"
+            android:visibility="gone"/>
+
+        <ImageButton
+            android:id="@+id/input_bar_btn_voice"
+            style="@style/bkim_input_bar_button_style"
+            android:src="@drawable/bkim_bottom_bar_voice_button_bg"/>
+    </FrameLayout>
+</LinearLayout>

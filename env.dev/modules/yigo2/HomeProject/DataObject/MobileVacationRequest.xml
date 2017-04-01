@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DataObject Caption="独立请假单数据源" Key="MobileVacationRequest" PrimaryTableKey="VacationRequest" PrimaryType="Entity">
+	<TableCollection>
+		<Table Caption="请假单基本信息" DBTableName="VacationRequest" Key="VacationRequest" Persist="true" TableMode="Head">
+			<Column Caption="对象标识" DBColumnName="OID" DataType="Long" Key="OID" Persist="true"/>
+			<Column Caption="父对象标识" DBColumnName="POID" DataType="Long" Key="POID" Persist="true"/>
+			<Column Caption="主对象标识" DBColumnName="SOID" DataType="Long" Key="SOID" Persist="true"/>
+			<Column Caption="对象版本" DBColumnName="VERID" DataType="Integer" Key="VERID" Persist="true"/>
+			<Column Caption="对象明细版本" DBColumnName="DVERID" DataType="Integer" Key="DVERID" Persist="true"/>
+			<Column Caption="单据状态" DBColumnName="STATUS" DataType="Integer" Key="STATUS" Persist="true"/>
+			<Column Caption="工号" DataType="Varchar" Key="IDNumber" Length="50" Persist="true"/>
+			<Column Caption="姓名" DBColumnName="Name" DataType="Varchar" Key="Name" Length="50" Persist="true"/>
+			<Column Caption="开始时间" DataType="DateTime" Key="FromTime" Persist="true"/>
+			<Column Caption="结束时间" DataType="DateTime" Key="ToTime" Persist="true"/>
+			<Column Caption="事由" DataType="Varchar" Key="Reason" Length="250" Persist="true"/>
+			<Column Caption="类型" DataType="Integer" Key="Type" Persist="true"/>
+			<Column Caption="总计" DataType="Integer" Key="DayCount" Persist="true"/>
+		</Table>
+	</TableCollection>
+</DataObject>

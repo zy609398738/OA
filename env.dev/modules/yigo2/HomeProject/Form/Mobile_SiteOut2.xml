@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Caption="待办事项" Key="Mobile_SiteOut2">
+    <DataSource>
+        <DataObject Caption="待办事项" Key="Mobile_SiteOut2"  PrimaryType="Entity">
+            <TableCollection>
+                <Table Caption="待办事项" DBTableName="Mobile_SiteOut2" Key="Mobile_SiteOut2" Persist="false" SourceType="Query" TableMode="Detail">
+                    <Column Caption="对象标识" DataType="Long" Key="OID"/>
+                    <Column Caption="主题" DataType="Varchar" Key="Topic" Length="255"/>
+                    <Column Caption="工作项" DataType="Long" Key="WorkitemID" Length="255"/>
+                    <Statement><![CDATA[
+    select oid,Topic,WorkitemID from (select 
+BPM_Instance.ProcessKey as ProcessKey,
+BPM_Instance.formkey as formkey,
+BPM_Instance.oid as oid,
+bpm_workiteminfo.ParentWorkitemID,
+Topic,UrgencyDeg,EmpID,DeptID,BillStatus,BillCreatTime,
+WF_Workitem.WorkitemID,
+WF_Workitem.workItemName 
+from WF_Workitem 
+join WF_Participator on WF_Workitem.WorkitemID=WF_Participator.WorkitemID 
+join BPM_Log on WF_Workitem.WorkitemID=BPM_Log.WorkitemID 
+join bpm_workiteminfo on wf_workitem.WorkitemID=bpm_workiteminfo.WorkitemID 
+join BPM_Instance on  BPM_Log.instanceID=BPM_Instance.instanceID
+join BPM_Migration on  BPM_Instance.OID=BPM_Migration.BillOID
+where WF_Participator.OperatorID=? order by UrgencyDeg desc,BillCreatTime asc ) h   
+                ]]>
+                    </Statement>
+                    <ParameterCollection>
+                        <Parameter DataType="Long" Formula="GetPara('v_opt')"/>
+                    </ParameterCollection>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <QueryCollection>
+        <Query Key="query_SiteOut" Description="待办事项">
+            <Statement>
+                <![CDATA[
+    select oid,Topic,WorkitemID from (select 
+BPM_Instance.ProcessKey as ProcessKey,
+BPM_Instance.formkey as formkey,
+BPM_Instance.oid as oid,
+bpm_workiteminfo.ParentWorkitemID,
+Topic,UrgencyDeg,EmpID,DeptID,BillStatus,BillCreatTime,
+WF_Workitem.WorkitemID,
+WF_Workitem.workItemName 
+from WF_Workitem 
+join WF_Participator on WF_Workitem.WorkitemID=WF_Participator.WorkitemID 
+join BPM_Log on WF_Workitem.WorkitemID=BPM_Log.WorkitemID 
+join bpm_workiteminfo on wf_workitem.WorkitemID=bpm_workiteminfo.WorkitemID 
+join BPM_Instance on  BPM_Log.instanceID=BPM_Instance.instanceID
+join BPM_Migration on  BPM_Instance.OID=BPM_Migration.BillOID
+where WF_Participator.OperatorID=? order by UrgencyDeg desc,BillCreatTime asc ) h
+                ]]>
+            </Statement>
+            <ParameterCollection>
+                <Parameter DataType="Long"/>
+            </ParameterCollection>
+        </Query>
+    </QueryCollection> 
+    <Body> 
+        <Block>
+            <LinearLayoutPanel Key="main" Orientation="VERTICAL">
+                <GridLayoutPanel Key="head" NeedScroll="true">
+                    <Label Key="lab_title" Caption="待办事项" X="1" Y="0" XSpan="5" HAlign="center" VAlign="center">
+                        <Format BackColor="" ForeColor="" >
+                            <Font Bold="true" Italic="" Name="黑体" Size="12" />
+                        </Format>
+                    </Label>
+                    <Label Key="fullname"  X="1" Y="1" XSpan="5"  Visible="true" HAlign="center">
+                        <DataBinding DefaultFormulaValue="root.GetPara('S_fullname')" />
+                    </Label>
+                    <Label Key="lab_qty" Caption="" X="1" Y="2" XSpan="2" HAlign="center" VAlign="center">
+                        <Format BackColor="#9BCD9B" ForeColor="red" >
+                            <Font Bold="" Italic="" Name="黑体" Size="" />
+                        </Format>
+                    </Label>
+                    <Button Caption="查询" Key="Query" X="4" Y="2" XSpan="2">
+                        <Format BackColor="#9BCD9B" ForeColor="" >  </Format>
+                        <OnClick>
+                            <![CDATA[ 
+                            DO_Query();
+                            ]]>
+                        </OnClick>
+                    </Button>
+                    <Grid Caption="待办事项" Key="Info" X="1" Y="3" XSpan="5" ShowRowHead="true">
+                        <GridColumnCollection>
+						    <GridColumn Caption="审批"  Key="fix_btn" Width="10dp" ColumnType="Fix"/>
+                            <GridColumn Caption="主题"  Key="fix_Topic" Width="50dp" Enable="true" ColumnType="Fix"/>
+                            <GridColumn Caption="工作项"  Key="fix_WorkitemID" Width="50dp" Visible="false" ColumnType="Fix"/>
+                        </GridColumnCollection>
+                        <GridRowCollection>
+                            <GridRow Key="R2" RowType="Detail" RowHeight="50" TableKey="Mobile_SiteOut2" >
+                                <GridCell Caption="审批" CellType="Button" Key="btn" MaxLength="255" Icon="Mobile_check.png"> 
+                                    <OnClick>
+                                        <![CDATA[
+
+                                        OpenWorkitem(WorkitemID);
+                                        ]]>
+                                    </OnClick>
+                                </GridCell>
+                                <GridCell Caption="主题" CellType="TextEditor" Key="Topic" MaxLength="255"> 
+                                </GridCell>
+                                <GridCell Caption="工作项" CellType="NumberEditor" Key="WorkitemID" Precision="16" Scale="0">							
+                                </GridCell> 
+                            </GridRow>
+                        </GridRowCollection> 
+                    </Grid>
+                    <RowDefCollection>
+                        <RowDef Height="50dp"/>
+                        <RowDef Height="30dp"/>
+                        <RowDef Height="40dp"/>
+                        <RowDef Height="100%"/>
+                        <RowDef Height="10dp"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection>
+                        <ColumnDef Width="10dp"/>
+                        <ColumnDef Width="60dp"/>
+                        <ColumnDef Width="50%"/>
+                        <ColumnDef Width="10dp"/>
+                        <ColumnDef Width="50%"/>
+                        <ColumnDef Width="60dp"/>
+                        <ColumnDef Width="10dp"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+                
+                <LinearLayoutPanel Key="ctrlList" Orientation="HORIZONTAL">
+                    
+                </LinearLayoutPanel>
+                
+            </LinearLayoutPanel>
+        </Block>
+    </Body>
+    <MacroCollection>
+        <Macro Caption="确认" Key="DO_Query" >
+            <![CDATA[
+            var j = 0;
+            var qty = GetPara("S_qty");
+            while(j<qty){
+                DeleteRow("Info",0);
+                j = j + 1;
+            }
+
+            var v_opt = GetOperator();
+            var i = 0;
+            var vlist = DBNamedQuery("query_SiteOut",v_opt);
+            vlist.beforefirst();
+            while(vlist.next()){
+                var v_Topic = vlist.Topic;
+                var v_WorkitemID = vlist.WorkitemID;
+                InsertRow("Info",0);
+                SetCellValue("Info",0,"Topic",v_Topic,false);
+                SetCellValue("Info",0,"WorkitemID",v_WorkitemID,false);
+                i = i + 1;
+            }
+            SetPara("S_qty",i);
+            SetValue("lab_qty","共"&ToLong(i)&"件");
+            ]]>
+        </Macro>
+    </MacroCollection>
+</Form>

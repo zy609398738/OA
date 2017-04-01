@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<AppDef>
+	<StatusInfo>
+		<StatusInfoItem Key="Info" Caption="新华资产" FormulaCaption="GetDictValue('OA_Department',SessionPara('OrgID'),'OA_Department_H.Name')"/>
+	</StatusInfo>
+</AppDef>

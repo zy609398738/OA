@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Caption="操作员" FormType="Dict" Key="Operator" Platform="">
+    <DataSource>
+        <DataObject Caption="操作员" Key="Operator" PrimaryTableKey="SYS_Operator" PrimaryType="Entity" SecondaryType="Dict">
+            <TableCollection>
+                <Table Caption="基本信息" DBTableName="SYS_Operator" Key="SYS_Operator">
+                    <Column Caption="对象标识" DBColumnName="OID" DataType="Long" Key="OID"/>
+                    <Column Caption="父对象标识" DBColumnName="POID" DataType="Long" Key="POID"/>
+                    <Column Caption="主对象标识" DBColumnName="SOID" DataType="Long" Key="SOID"/>
+                    <Column Caption="对象版本" DBColumnName="VERID" DataType="Integer" Key="VERID"/>
+                    <Column Caption="对象明细版本" DBColumnName="DVERID" DataType="Integer" Key="DVERID"/>
+                    <Column Caption="状态" DataType="Integer" DefaultValue="0" Key="Status"/>
+                    <Column Caption="启用标记" DataType="Integer" DefaultValue="1" Key="Enable"/>
+                    <Column Caption="NodeType" DataType="Integer" DefaultValue="0" Key="NodeType"/>
+                    <Column Caption="父节点" DataType="Long" DefaultValue="0" Key="ParentID"/>
+                    <Column Caption="TLeft" DataType="Integer" Key="TLeft"/>
+                    <Column Caption="TRight" DataType="Integer" Key="TRight"/>
+                    <Column Caption="代码" DataType="Varchar" Key="Code" Length="50"/>
+                    <Column Caption="名称" DBColumnName="Name" DataType="Varchar" Key="Name" Length="50" Cache="true"/>
+                    <Column Caption="密码" DBColumnName="Password" DataType="Varchar" Key="Password" Length="512"/>
+                    <Column Caption="对应职员" DataType="Long" Key="EmpID" Cache="true"/>
+                    <Column Caption="对应部门" DataType="Long" Key="DeptID" Cache="true"/>
+                    <Column Key="OptType" DataType="Integer" Caption="类型"/>
+                    <Column Key="SelField" Caption="选择" DataType="Integer"/>
+                    <Column Key="PositionID" Caption="职务" DataType="Long"/>
+                </Table>
+                <Table Caption="基本信息" DBTableName="SYS_OperatorRole" Key="SYS_OperatorRole" TableMode="Detail">
+                    <Column Caption="对象标识" DBColumnName="OID" DataType="Long" Key="OID"/>
+                    <Column Caption="父对象标识" DBColumnName="POID" DataType="Long" Key="POID"/>
+                    <Column Caption="主对象标识" DBColumnName="SOID" DataType="Long" Key="SOID"/>
+                    <Column Caption="对象版本" DBColumnName="VERID" DataType="Integer" Key="VERID"/>
+                    <Column Caption="对象明细版本" DBColumnName="DVERID" DataType="Integer" Key="DVERID"/>
+                    <Column Caption="序号" DataType="Integer" Key="Sequence"/>
+                    <Column Caption="角色" DataType="Long" Key="Role"/>
+                </Table>
+            </TableCollection>
+            <PreSaveProcess>
+                <Process Description="保存前设置">
+                    <![CDATA[
+					
+						if (Length(SYS_Operator.Password)==0) {
+							SYS_Operator.Password=EncryptPassword("");
+						}
+						
+				]]>
+                </Process>
+            </PreSaveProcess>
+            <OIDFilter/>
+        </DataObject>
+    </DataSource>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="main">
+                <SplitPanel Height="100%" Key="main_split" Orientation="Vertical">
+                    <GridLayoutPanel Height="100%" Key="basis" Padding="5px">
+                        <Label Caption="登录名" Key="L_Code" X="0" Y="0"/>
+                        <TextEditor Caption="登录名" Key="Code" X="1" Y="0">
+                            <DataBinding ColumnKey="Code" TableKey="SYS_Operator"/>
+                        </TextEditor>
+                        <Label Caption="姓名" Key="L_Name" X="0" Y="1"/>
+                        <TextEditor Caption="姓名" Key="Name" X="1" Y="1">
+                            <DataBinding ColumnKey="Name" TableKey="SYS_Operator"/>
+                        </TextEditor>
+                        <Dict BuddyKey="Lab_EmpID" Caption="对应职员" ItemKey="OA_Employee" Key="EmpID" X="1" Y="2">
+                            <DataBinding ColumnKey="EmpID" TableKey="SYS_Operator"/>
+                        </Dict>
+                        <Label Caption="对应职员" Key="Lab_EmpID" X="0" Y="2"/>
+                        <Dict BuddyKey="Lab_DeptID" Caption="对应部门" ItemKey="OA_Department" Key="DeptID" X="1" Y="3">
+                            <DataBinding ColumnKey="DeptID" TableKey="SYS_Operator"/>
+                        </Dict>
+                        <Label Caption="对应部门" Key="Lab_DeptID" X="0" Y="3"/>
+                        <RowDefCollection RowGap="5" RowHeight="25">
+                            <RowDef/>
+                            <RowDef/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection>
+                            <ColumnDef Width="50%"/>
+                            <ColumnDef Width="50%"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <Grid Key="role_grid">
+                        <GridColumnCollection>
+                            <GridColumn Caption="角色" Key="L_Role" Visible="true" Width="80px"/>
+                        </GridColumnCollection>
+                        <GridRowCollection>
+                            <GridRow Key="R1" RowHeight="30" TableKey="SYS_OperatorRole">
+                                <GridCell Caption="角色" CellType="Dict" ItemKey="Role" Key="Role">
+                                    <DataBinding ColumnKey="Role"/>
+                                </GridCell>
+                            </GridRow>
+                        </GridRowCollection>
+                    </Grid>
+                    <SplitSize Size="50%"/>
+                    <SplitSize Size="50%"/>
+                </SplitPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

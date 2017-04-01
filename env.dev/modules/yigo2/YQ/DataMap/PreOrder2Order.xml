@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Map Caption="意向登记下推项目登记" Key="PreOrder2Order" SrcDataObjectKey="NJ_SCM_PreOrderHead" TgtDataObjectKey="NJ_SCM_OrderHead">
+    <SourceTableCollection Height="420" Width="398" X="30" Y="30">
+        <SourceTable IsPrimary="true" Key="NJ_SCM_PreOrderHead" TargetTableKey="NJ_SCM_OrderHead">
+			<SourceField Definition="OID" TargetFieldKey="SrcOID" EdgeType="Focus" TargetTableKey="NJ_SCM_OrderHead"/>
+            <SourceField Definition="EmpID" TargetFieldKey="EmpID" TargetTableKey="NJ_SCM_OrderHead"/>
+            <SourceField Definition="ParkID" TargetFieldKey="ParkID" TargetTableKey="NJ_SCM_OrderHead"/>
+            <SourceField Definition="IndID" TargetFieldKey="IndID" TargetTableKey="NJ_SCM_OrderHead"/>
+            <SourceField Definition="ProjName" TargetFieldKey="ProjName" TargetTableKey="NJ_SCM_OrderHead"/>
+            <SourceField Definition="ProjCome" TargetFieldKey="ProjCome" TargetTableKey="NJ_SCM_OrderHead"/>
+            <SourceField Definition="ProjKind" TargetFieldKey="ProjKind" TargetTableKey="NJ_SCM_OrderHead"/>
+            <SourceField Definition="ProjCustomer" TargetFieldKey="ProjCustomer" TargetTableKey="NJ_SCM_OrderHead"/>
+            <SourceField Definition="ProjAmount" TargetFieldKey="ProjAmount" TargetTableKey="NJ_SCM_OrderHead"/>
+            <SourceField Definition="ProjRisk" TargetFieldKey="ProjRisk" TargetTableKey="NJ_SCM_OrderHead"/>			
+        </SourceTable>
+    </SourceTableCollection>
+    <TargetTableCollection Height="420" Width="351" X="480" Y="27">
+        <TargetTable IsPrimary="true" Key="NJ_SCM_OrderHead">
+			<TargetField Definition="SrcOID"/>
+            <TargetField Definition="EmpID"/>
+            <TargetField Definition="ParkID"/>
+            <TargetField Definition="IndID"/>
+            <TargetField Definition="ProjName"/>
+            <TargetField Definition="ProjCome"/>
+            <TargetField Definition="ProjKind"/>
+            <TargetField Definition="ProjCustomer"/>
+            <TargetField Definition="ProjAmount"/>
+            <TargetField Definition="ProjRisk"/>
+        </TargetTable>
+    </TargetTableCollection>
+</Map>

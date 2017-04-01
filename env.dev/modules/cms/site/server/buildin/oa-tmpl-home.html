@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8" />   <!--必须, 否则在 IE9 中 嵌入的 MAP Portal.jsp 导航菜单会失效-->
+    <meta charset="utf-8">
+    <title>中航国际OA系统首页模板</title>
+</head>
+<body class="home-page">
+<div class="bootjs-box"><!--此处只为加载js等文件，故设置其：height:0-->
+    <div yigo-cms:block="static?staticFile=buildin/boot-js-home.vm"/>
+</div>
+<!--头部 header-->
+<div class="container" id="header">
+    <div class="row clearfix">
+		<div yigo-cms:block="static?staticFile=buildin/oa-default-header.html"/>
+    </div>
+</div>
+<!--头部 header end-->
+<!-- 菜单区域 -->
+<div id="nav" class="container">
+	<div class="row">
+		<div yigo-cms:block="main-menu"/>
+	</div>
+</div>
+<!--主体-->
+<div class="container" id="mid">
+    <div class="row clearfix">
+
+        <div class="span3 aside-left">
+            <!-- 左侧侧边栏所在的区域 -->
+            <div yigo-cms:area="left-sidebar" />
+        </div>
+
+        <div class="span9 main">
+            <!--子页右侧的内容在这里 start-->
+            <!-- 这是“滚动新闻”所在的区域 -->
+            <div class="row">
+                <div yigo-cms:area="rolling-news" />
+            </div>
+            <div class="row">
+                <div class="span6 center">
+                    <!-- 主内容区域 -->
+                    <div yigo-cms:area="content" />
+                </div>
+                <div class="span3 aside-right">
+                    <!-- 右侧侧边栏所在的区域 -->
+                    <div yigo-cms:area="right-sidebar" />
+                </div>
+            </div>
+            <!--子页右侧的内容在这里 end-->
+        </div>
+
+    </div>
+</div>
+<!--主体 end-->
+
+<!--尾部 bottom-->
+<div class="container" id="bottom">
+    <div class="row">
+        <div class="span12">
+           <div yigo-cms:block="static?staticFile=buildin/oa-default-footer.html"/>
+        </div>
+    </div>
+</div>
+<!--尾部 bottom end-->
+
+<!--[if IE 6]>
+<script type="text/javascript">
+	function ie6_min_width(){	//解决ie6不兼容min-width
+			if($(window).width() <= 1024){
+				$('body').addClass('ie6');  
+			}
+			else{
+				$('body').removeClass('ie6'); 
+			}
+	}
+    $(function(){ie6_min_width();});	
+	$(window).resize(function(){ie6_min_width();});	
+</script>
+<![endif]-->
+</body>
+</html>

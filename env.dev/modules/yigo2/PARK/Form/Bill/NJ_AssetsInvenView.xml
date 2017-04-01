@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="NJ_AssetsInvenView" Caption="库存资产盘点序时簿" FormType="View">
+    <DataSource>
+        <DataObject Key="NJ_AssetsInvenView" Caption="库存资产盘点序时簿">
+            <TableCollection>
+                <Table Key="NJ_SCM_AssetsInventoryHead" Caption="NJ_SCM_AssetsInventoryHead" DBTableName="NJ_SCM_AssetsInventoryHead" TableMode="Detail" SourceType="Query" Persist="false">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="NO" Caption="发布编号" DataType="Varchar"/>
+                    <Column Key="BillDate" Caption="发布日期" DataType="DateTime"/>
+                    <Column Key="Status" Caption="单据状态" DataType="Integer"/>
+                    <Column Key="EmpID" Caption="经办人" DataType="Long"/>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="ViewNewBill" Caption="新增" RefKey="ViewNewBill"/>
+        <Operation Key="Refresh" Caption="刷新" RefKey="Refresh"/>
+    </OperationCollection>
+    <Body>
+        <Block>
+            <SplitPanel Key="SplitPanel1" Orientation="Vertical" Height="pref" Caption="SplitPanel1">
+                <GridLayoutPanel Key="GridLayoutPanel1" Height="pref" Caption="GridLayoutPanel1">
+                    <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1" X="0" XSpan="9" Y="0">
+                        <ToolBarItemCollection/>
+                    </ToolBar>
+                    <DatePicker Key="Date1_cond" Caption="盘点日期" BuddyKey="Lab_Date1_cond" X="2" Y="1" Clearable="false" OnlyDate="true">
+                        <Condition ColumnKey="BillDate" TableKey="NJ_SCM_AssetsInventoryHead" CondSign="between" Group="dategroup" GroupHead="true"/>
+                    </DatePicker>
+                    <Label Key="Lab_Date1_cond" Caption="盘点日期" X="1" Y="1"/>
+                    <DatePicker Key="Date2_cond" Caption="到" BuddyKey="Lab_Date2_cond" X="5" Y="1" Clearable="false" OnlyDate="true">
+                        <Condition ColumnKey="BillDate" TableKey="NJ_SCM_AssetsInventoryHead" CondSign="between" Group="dategroup" GroupTail="true"/>
+                    </DatePicker>
+                    <Label Key="Lab_Date2_cond" Caption="到" X="4" Y="1"/>
+                    <Dict Key="EmpID_cond" Caption="盘点人员" BuddyKey="Lab_EmpID_cond" X="2" Y="2" AllowMultiSelection="true" ItemKey="OA_Employee" Clearable="false">
+                        <Condition ColumnKey="EmpID" TableKey="NJ_SCM_AssetsInventoryHead" CondSign="in"/>
+                    </Dict>
+                    <Label Key="Lab_EmpID_cond" Caption="盘点人员" X="1" Y="2"/>
+                    <Button Key="cx" Caption="查询" X="7" Y="1">
+                        <OnClick>
+                            <![CDATA[DealCondition();LoadData();ShowData();]]>
+                        </OnClick>
+                    </Button>
+                    <Button Key="cz" Caption="重置" X="7" Y="2">
+                        <OnClick>
+                            <![CDATA[ResetCondition();]]>
+                        </OnClick>
+                    </Button>
+                    <CheckListBox BuddyKey="Lab_Status_cond" Caption="状态" Key="Status_cond" SourceType="Status" X="5" Y="2">
+                        <Condition ColumnKey="Status" TableKey="NJ_SCM_AssetsInventoryHead" CondSign="in"/>
+                    </CheckListBox>
+                    <Label Key="Lab_Status_cond" Caption="状态" X="4" Y="2"/>
+                    <RowDefCollection RowGap="5">
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="5">
+                        <ColumnDef Width="20px"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="50%"/>
+                        <ColumnDef Width="20px"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="50%"/>
+                        <ColumnDef Width="20px"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="20px"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+                <ListView Caption="ListView1" Height="100%" Key="ListView1" PageLoadType="DB" TableKey="NJ_SCM_AssetsInventoryHead">
+                    <ListViewColumnCollection>
+                        <ListViewColumn Key="NO" Caption="盘点编号" DataColumnKey="NO" Width="120px"/>
+                        <ListViewColumn Key="BillDate" Caption="盘点日期" ColumnType="DatePicker" DataColumnKey="BillDate" Width="90px" OnlyDate="true"/>
+                        <ListViewColumn Key="Status" Caption="单据状态" ColumnType="ComboBox" DataColumnKey="Status" SourceType="Status"/>
+                        <ListViewColumn Key="EmpID" Caption="盘点人员" ColumnType="Dict" DataColumnKey="EmpID" ItemKey="OA_Employee"/>
+                        <ListViewColumn Key="OID" Caption="OID" DataColumnKey="OID" Visible="false"/>
+                    </ListViewColumnCollection>
+                    <RowDblClick>
+                        <![CDATA[Open(C_GetBillKey(),OID)]]>
+                    </RowDblClick>
+                </ListView>
+                <SplitSize Size="110px"/>
+                <SplitSize Size="100%"/>
+            </SplitPanel>
+        </Block>
+    </Body>
+    <OnLoad>
+        <![CDATA[LoadData();]]>
+    </OnLoad>
+    <MacroCollection>
+        <Macro Key="C_GetBillKey">
+            <![CDATA[{NJ_AssetsInventory}]]>
+        </Macro>
+    </MacroCollection>
+</Form>

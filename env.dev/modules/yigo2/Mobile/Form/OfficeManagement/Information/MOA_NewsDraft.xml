@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="MOA_NewsDraft" Caption="新闻发布" FormType="Entity" AliasKey="OA_NewsDraft">
+    <DataSource>
+        <DataObject Key="MOA_NewsDraft" Caption="新闻发布" PrimaryTableKey="MOA_NewsDraft" PrimaryType="Entity">
+            <TableCollection>
+                <Table Key="MOA_NewsDraft" Caption="新闻发布" DBTableName="OA_NewsDraft_H">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="NO" Caption="单据编号" DataType="Varchar"/>
+                    <Column Key="BillDate" Caption="发布日期" DataType="DateTime"/>
+                    <Column Key="UrgencyDeg" Caption="紧急程度" DataType="Integer"/>
+                    <Column Key="Topic" Caption="主题" DataType="Varchar"/>
+                    <Column Key="EmpID" Caption="作者" DataType="Long"/>
+                    <Column Key="DeptID" Caption="发布部门" DataType="Long"/>
+                    <Column Key="NewsType" Caption="新闻分类" DataType="Long"/>
+                    <Column Key="NewsSource" Caption="NewsSource" DataType="Varchar"/>
+                    <Column Key="NewsDate" Caption="NewsDate" DataType="Numeric" Precision="16" Scale="2"/>
+                    <Column Key="NewsSummy" Caption="新闻概要" DataType="Varchar" Length="4000"/>
+                    <Column Key="NewsContent" Caption="新闻内容" DataType="Varchar" Length="4000"/>
+                    <Column Key="Creator" Caption="创建人" DataType="Long"/>
+                    <Column Key="CreateTime" Caption="创建时间" DataType="DateTime"/>
+                    <Column Key="Modifier" Caption="修改人" DataType="Long"/>
+                    <Column Key="ModifyTime" Caption="修改时间" DataType="DateTime"/>
+                    <Column Key="BillKey" Caption="单据名称" DataType="Varchar"/>
+                    <Column Key="WorkflowTypeDtlID" Caption="流程类别明细ID" DataType="Long"/>
+                    <Column Key="Status" Caption="状态" DataType="Integer"/>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="BPM" Caption="BPM" Tag="BPM" RefKey="BPM"/>
+        <Operation Key="WORKITEM" Caption="WORKITEM" Tag="WORKITEM" RefKey="WORKITEM"/>
+        <Operation Key="Save" Caption="保存" Visible="!ReadOnly()">
+            <Action>
+                <![CDATA[SaveData();]]>
+            </Action>
+        </Operation>
+        <Operation Key="Delete" Caption="删除" RefKey="Delete"/>
+        <Operation Key="Edit" Caption="编辑" RefKey="Edit"/>
+        <Operation Key="Cancel" Caption="取消" RefKey="Cancel"/>
+        <Operation Key="Close" Caption="关闭" RefKey="Close"/>
+        <Operation Key="ShowLog" Caption="审批记录" RefKey="ShowWFLog"/>
+    </OperationCollection>
+    <ScriptCollection>
+        <Script Key="LoadData" Caption="载入" Range="Action" Verb="Load">
+            <![CDATA[LoadData();SetPara("IsMobile",true);]]>
+        </Script>
+    </ScriptCollection>
+    <Body>
+        <Block>
+            <TableView Caption="TableView1" Key="TableView1" Padding="10px" Visible="true">
+                <Format BackColor="#e6e6e6"/>
+                <TableRowCollection>
+                    <TableRow Key="row1" ShowFirstMargin="true" TopMargin="10px">
+                        <LinearLayoutPanel Caption="LinearLayoutPanel2" Height="40px" Key="LinearLayoutPanel2" Width="auto">
+                            <Label Key="Lab_NO" Caption="单据编号" Height="auto" Width="100px">
+                                <Format HAlign="Center"/>
+                            </Label>
+                            <TextEditor Key="NO" Caption="单据编号" BuddyKey="Lab_NO" Height="pref" Width="auto">
+                                <DataBinding TableKey="MOA_NewsDraft" ColumnKey="NO"/>
+                                <Format HAlign="Center"/>
+                            </TextEditor>
+                        </LinearLayoutPanel>
+                    </TableRow>
+                    <TableRow Key="row2" TopMargin="10px">
+                        <LinearLayoutPanel Caption="LinearLayoutPanel3" Height="40px" Key="LinearLayoutPanel3" Width="auto">
+                            <Label Key="Label1" Caption="发布日期" Height="auto" Width="100px">
+                                <Format HAlign="Center"/>
+                            </Label>
+                            <DatePicker Key="BillDate" Caption="DatePicker1" BuddyKey="Label1" Height="pref" Width="auto">
+                                <DataBinding TableKey="MOA_NewsDraft" ColumnKey="BillDate"/>
+                                <Format HAlign="Center"/>
+                            </DatePicker>
+                        </LinearLayoutPanel>
+                    </TableRow>
+                    <TableRow Key="row3" TopMargin="10px">
+                        <LinearLayoutPanel Caption="LinearLayoutPanel4" Height="40px" Key="LinearLayoutPanel4" Width="auto">
+                            <Label Key="Label2" Caption="紧急程度" Height="auto" Width="100px">
+                                <Format HAlign="Center"/>
+                            </Label>
+                            <ComboBox Key="UrgencyDeg" Caption="紧急程度" BuddyKey="Label2" Height="pref" Width="auto">
+                                <DataBinding TableKey="MOA_NewsDraft" ColumnKey="UrgencyDeg"/>
+                                <Format HAlign="Center"/>
+                                <Item Caption="一般" Key="10" Value="10"/>
+                                <Item Caption="紧急" Key="20" Value="20"/>
+                                <Item Caption="特急" Key="30" Value="30"/>
+                            </ComboBox>
+                        </LinearLayoutPanel>
+                    </TableRow>
+                    <TableRow Key="row4" TopMargin="10px">
+                        <LinearLayoutPanel Caption="LinearLayoutPanel5" Height="40px" Key="LinearLayoutPanel5" Width="auto">
+                            <Label Key="Label3" Caption="主题" Height="auto" Width="100px">
+                                <Format HAlign="Center"/>
+                            </Label>
+                            <TextArea Key="Topic" Caption="主题" BuddyKey="Label3" Height="auto" Width="auto" Weight="1.0">
+                                <DataBinding TableKey="MOA_NewsDraft" ColumnKey="Topic" Required="true"/>
+                            </TextArea>
+                        </LinearLayoutPanel>
+                    </TableRow>
+                    <TableRow Key="row5" TopMargin="10px">
+                        <LinearLayoutPanel Caption="LinearLayoutPanel5" Height="40px" Key="LinearLayoutPanel6" Width="auto">
+                            <Label Key="Label4" Caption="作者" Height="auto" Width="100px">
+                                <Format HAlign="Center"/>
+                            </Label>
+                            <Dict Key="EmpID" Caption="作者" BuddyKey="Label4" Height="pref" Width="auto" ItemKey="OA_Employee">
+                                <DataBinding TableKey="MOA_NewsDraft" ColumnKey="EmpID"/>
+                                <Format HAlign="Center"/>
+                            </Dict>
+                        </LinearLayoutPanel>
+                    </TableRow>
+                    <TableRow Key="row6" TopMargin="10px">
+                        <LinearLayoutPanel Caption="LinearLayoutPanel5" Height="40px" Key="LinearLayoutPanel7" Width="auto">
+                            <Label Key="Label5" Caption="发布部门" Height="auto" Width="100px">
+                                <Format HAlign="Center"/>
+                            </Label>
+                            <Dict Key="DeptID" Caption="发布部门" BuddyKey="Label5" Height="pref" ItemKey="OA_Department" Width="auto">
+                                <DataBinding TableKey="MOA_NewsDraft" ColumnKey="DeptID"/>
+                                <Format HAlign="Center"/>
+                            </Dict>
+                        </LinearLayoutPanel>
+                    </TableRow>
+                    <TableRow Key="row7" TopMargin="10px">
+                        <LinearLayoutPanel Caption="LinearLayoutPanel5" Height="40px" Key="LinearLayoutPanel8" Width="auto">
+                            <Label Key="Label6" Caption="新闻类别" Height="auto" Width="100px">
+                                <Format HAlign="Center"/>
+                            </Label>
+                            <Dict Key="NewsType" Caption="新闻分类" BuddyKey="Label6" Height="pref" ItemKey="OA_NewsType" Width="auto">
+                                <DataBinding TableKey="MOA_NewsDraft" ColumnKey="NewsType"/>
+                                <Format HAlign="Center"/>
+                            </Dict>
+                        </LinearLayoutPanel>
+                    </TableRow>
+                    <TableRow Key="row8" TopMargin="10px">
+                        <LinearLayoutPanel Caption="LinearLayoutPanel9" Height="40px" Key="LinearLayoutPanel9" Width="auto">
+                            <Label Key="Label7" Caption="新闻来源" Height="auto" Width="100px">
+                                <Format HAlign="Center"/>
+                            </Label>
+                            <TextEditor Key="NewsSource" Caption="新闻来源" BuddyKey="Label7" Height="pref" Width="auto">
+                                <DataBinding TableKey="MOA_NewsDraft" ColumnKey="NewsSource"/>
+                                <Format HAlign="Center"/>
+                            </TextEditor>
+                        </LinearLayoutPanel>
+                    </TableRow>
+                    <TableRow Key="row9" TopMargin="10px">
+                        <LinearLayoutPanel Caption="LinearLayoutPanel10" Height="40px" Key="LinearLayoutPanel10" Width="auto">
+                            <Label Key="Label8" Caption="有效期(天)" Height="auto" Width="100px">
+                                <Format HAlign="Center"/>
+                            </Label>
+                            <NumberEditor Key="NewsDate" Caption="有效期(天)" BuddyKey="Label8" Height="pref" Width="auto">
+                                <DataBinding TableKey="MOA_NewsDraft" ColumnKey="NewsDate"/>
+                                <Format HAlign="Center"/>
+                            </NumberEditor>
+                        </LinearLayoutPanel>
+                    </TableRow>
+                    <TableRow Key="row10" TopMargin="10px">
+                        <LinearLayoutPanel Caption="LinearLayoutPanel13" Height="auto" Key="LinearLayoutPanel13" Width="auto">
+                            <Label Key="Label11" Caption="新闻概要" Height="auto" Width="100px">
+                                <Format HAlign="Center"/>
+                            </Label>
+                            <TextArea Key="NewsSummy" Caption="新闻概要" BuddyKey="Label11" Height="auto" Width="auto">
+                                <DataBinding TableKey="MOA_NewsDraft" ColumnKey="NewsSummy"/>
+                            </TextArea>
+                        </LinearLayoutPanel>
+                    </TableRow>
+                    <TableRow Key="row11" TopMargin="10px">
+                        <LinearLayoutPanel Caption="LinearLayoutPanel12" Height="auto" Key="LinearLayoutPanel12" Width="auto">
+                            <Label Key="Label10" Caption="新闻内容" Height="auto" Width="100px">
+                                <Format HAlign="Center"/>
+                            </Label>
+                            <TextArea Key="NewsContent" Caption="新闻内容" BuddyKey="Label10" Height="auto" Width="auto">
+                                <DataBinding TableKey="MOA_NewsDraft" ColumnKey="NewsContent"/>
+                            </TextArea>
+                        </LinearLayoutPanel>
+                    </TableRow>
+                    <TableRow Key="row12" TopMargin="10px">
+                        <LinearLayoutPanel Caption="LinearLayoutPanel11" Height="0px" Key="LinearLayoutPanel11" Width="auto" Visible="false">
+                            <Dict Key="Creator" Caption="创建人" BuddyKey="Lab_Creator" Height="auto" ItemKey="Operator" Width="auto">
+                                <DataBinding TableKey="MOA_NewsDraft" ColumnKey="Creator" DefaultFormulaValue="GetOperator()"/>
+                            </Dict>
+                            <DatePicker Key="CreateTime" Caption="创建日期" BuddyKey="Lab_CreateTime" Height="auto" Width="auto">
+                                <DataBinding TableKey="MOA_NewsDraft" ColumnKey="CreateTime" DefaultFormulaValue="ServerDate()"/>
+                            </DatePicker>
+                            <Dict Key="Modifier" Caption="修改人" BuddyKey="Lab_Modifier" Height="auto" ItemKey="Operator" Width="auto">
+                                <DataBinding TableKey="MOA_NewsDraft" ColumnKey="Modifier" DefaultFormulaValue="GetOperator()"/>
+                            </Dict>
+                            <DatePicker Key="ModifyTime" Caption="修改日期" BuddyKey="Lab_ModifyTime" Height="auto" Width="auto">
+                                <DataBinding TableKey="MOA_NewsDraft" ColumnKey="ModifyTime" DefaultFormulaValue="ServerDate()"/>
+                            </DatePicker>
+                            <TextEditor Key="BillKey" Caption="单据Key" BuddyKey="Lab_BillKey" Height="auto" Width="auto">
+                                <DataBinding TableKey="MOA_NewsDraft" ColumnKey="BillKey" DefaultFormulaValue="GetFormKey()"/>
+                            </TextEditor>
+                            <TextEditor Key="OID" Caption="OID" BuddyKey="Lab_OID" Height="auto" Width="auto">
+                                <DataBinding TableKey="MOA_NewsDraft" ColumnKey="OID" DefaultFormulaValue="GetOID()"/>
+                            </TextEditor>
+                            <TextEditor Key="WorkflowTypeDtlID" Caption="流程明细版本ID" BuddyKey="Lab_WorkflowTypeDtlID" Height="auto" Width="auto">
+                                <DataBinding TableKey="MOA_NewsDraft" ColumnKey="WorkflowTypeDtlID" DefaultFormulaValue="Para(&quot;WorkflowTypeDtlID&quot;)"/>
+                            </TextEditor>
+                            <ComboBox Key="Status" Caption="状态" SourceType="Status" Height="pref" Width="pref">
+                                <DataBinding TableKey="MOA_NewsDraft" ColumnKey="Status"/>
+                            </ComboBox>
+                        </LinearLayoutPanel>
+                    </TableRow>
+                </TableRowCollection>
+            </TableView>
+        </Block>
+    </Body>
+</Form>

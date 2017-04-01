@@ -1,0 +1,20 @@
+{
+	"@type":"com.bokesoft.cms2.impl.buildin.modelio.vo.BlockVO",
+	"block":{
+		"@type":"com.bokesoft.cms2.model.blocks.TmplBlock",
+		"formulaText":"#!spring\nT(cms2.designer.BlockToolkit).NormalizeHtmlValue('contentRichText')",
+		"notes":"",
+		"parameters":[],
+		"tmplText":"<div>\n  $contentRichText\n</div>",
+		"type":"TMPL"
+	},
+	"code":"richtext-area",
+	"name":"富文本内容区域",
+	"params":[
+		{
+			"caption":"页面内容富文本",
+			"key":"contentRichText",
+			"type":"html"
+		}
+	]
+}

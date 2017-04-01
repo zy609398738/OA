@@ -1,0 +1,14 @@
+{
+	"@type":"com.bokesoft.cms2.impl.buildin.modelio.vo.BlockVO",
+	"block":{
+		"@type":"com.bokesoft.cms2.model.blocks.TmplBlock",
+		"formulaText":"cms.PageExp.Local('userid',cms.Yigo2MidExp.GetLoginOperator());\ncms.PageExp.Local(\n    'data',\n    cms.DataExp.QueryList({\n      SELECT onews.oid as id, onh.name AS col1,onews.topic as col2 ,sys.name  as col3,date_format(onews.CreateTime,'%Y-%m-%d') AS col4 ,onews.newscontent as mynews FROM \n      oa_newsdraft_h  onews left join oa_newstype_h onh on onh.oid=onews.newstypeid   left join sys_operator  sys on  sys.oid=onews.Creator where  onews.oid=${id} \n}));\ncms.PageExp.Local('newsview','true');\ncms.PageExp.Local(\n    'preid',\n    cms.DataExp.QueryList({\n       select * from (select oid as preid from oa_newsdraft_h where oid<${id} order by oid desc limit 1) news\n}));\ncms.PageExp.Local(\n    'nextid',\n    cms.DataExp.QueryList({\n       select * from (select oid as nextid from oa_newsdraft_h where oid>${id} order by oid limit 1) news  \n}));",
+		"notes":"",
+		"parameters":[],
+		"tmplText":"#if( $newsview==true)\n     #foreach( $line in $data ) \n\t<div class=\"row clearfix\">\n\t\t<div class=\"news-content\">\n\t\t\t<h1>$esc.html($line.COL2)</h1>\n\t\t\t<div class=\"publish-time\">\n            \t<span class=\"author\">作者：$esc.html($line.COL3)</span>\n            \t<span class=\"time\">日期：$esc.html($line.COL4)</span>\n            \t<span class=\"fontsize\">字号：<a href=\"javascript:void(0)\" size=\"12\">小</a><a href=\"javascript:void(0)\" size=\"14\" class=\"hover\">中</a><a href=\"javascript:void(0)\" size=\"18\">大</a></span>\n         \t</div>\n         \t<div class=\"row news-detail-head f333 clearfix\">\n         \t\t<div class=\"new-breadcrumb\">\n                \t<a href=\"../index.page\" class=\"back news-icon\">返回首页</a>\n               \t\t<a href=\"../newslist.page\" class=\"newslist news-icon\">新闻列表</a>\n            \t</div>\n         \t</div>\n         \t<div class=\"photoShowArea\" id=\"photoShowArea\"> </div>\n         \t<div class=\"new-detail-body\"> \n              #if( $line.MYNEWS )\n                 $line.MYNEWS \n              #end\n          \t</div>\n\t\t\t<div class=\"row news-detail-bottom f333 clearfix\">\n         \t\t<div class=\"news-breadcrumb\">\n           \t\t#foreach( $line in $preid )\n           \t\t\t<a href=\"../news/newsview.page?id=$line.PREID\" class=\"pre news-icon\">上一篇</a>\n           \t\t#end\n           \t\t#foreach( $line in $nextid )\n           \t\t\t<a href=\"../news/newsview.page?id=$line.NEXTID\" class=\"next news-icon\">下一篇</a>\n           \t\t#end\n         \t\t</div>\n      \t\t</div>\n\t\t</div>\n\t</div>\n    #end\n#else\n    <script>\n        alert(\"您没有权限访问该页面\");\n        history.go(-1);\n    </script>\n#end",
+		"type":"TMPL"
+	},
+	"code":"NEWS-CONTENT",
+	"name":"新闻内容",
+	"params":[]
+}

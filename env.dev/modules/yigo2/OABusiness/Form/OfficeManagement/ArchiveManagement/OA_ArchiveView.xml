@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="OA_ArchiveView" Caption="归档管理列表" FormType="View">
+    <DataSource>
+        <DataObject Key="OA_ArchiveView" Caption="归档管理列表">
+            <TableCollection>
+                <Table Key="OA_Archive_H" Caption="归档管理列表" DBTableName="OA_Archive_H" TableMode="Detail" SourceType="Query" Persist="false">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="NO" Caption="归档编号" DataType="Varchar"/>
+                    <Column Key="BillDate" Caption="归档日期" DataType="Date"/>
+                    <Column Key="Status" Caption="状态" DataType="Integer"/>
+                    <Column Key="BillKey" Caption="单据配置" DataType="Varchar"/>
+                    <Column Key="ArchiveTypeID" Caption="归档分类" DataType="Long"/>
+                    <Column Key="Deadline" Caption="保管期限" DataType="Integer"/>
+                    <Column Key="SrcBillKey" Caption="归档单据类型" DataType="Varchar"/>
+                    <Column Key="SrcBillNo" Caption="归档单据编号" DataType="Varchar"/>
+                    <Column Key="SrcOID" Caption="归档单据标识" DataType="Long"/>
+                    <Column Key="EmpID" Caption="归档人员" DataType="Long"/>
+                    <Column Key="DeptID" Caption="归档部门" DataType="Long"/>
+                    <Statement>
+                        <![CDATA[select * from (SELECT a.OID,a.SOID,a.NO,a.BillDate,a.Status,a.BillKey,a.ArchiveTypeID,a.Deadline,a.SrcBillKey,a.SrcBillNo,a.SrcOID,a.EmpID,a.DeptID 
+FROM  OA_Archive_H a ORDER BY a.BillDate DESC,a.Deadline DESC,a.ArchiveTypeID ASC ) h]]>
+                    </Statement>
+                </Table>
+                <Table Key="OA_ArchiveType_H" Caption="归档分类" Persist="false" TableMode="Detail">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="Setfirst_headVisible" Caption="查询" RefKey="Setfirst_headVisible"/>
+    </OperationCollection>
+    <QueryCollection>
+        <Query Key="SelectArchiveByArchiveTypeID" Description="根据归档类别查询归档单据">
+            <Statement>
+                <![CDATA[SELECT a.OID,a.SOID,a.NO,a.BillDate,a.Status,a.BillKey,a.ArchiveTypeID,a.Deadline,a.SrcBillKey,a.SrcBillNo,a.SrcOID,a.EmpID,a.DeptID 
+FROM  OA_Archive_H a WHERE a.ArchiveTypeID=? ORDER BY a.BillDate,a.ArchiveTypeID,a.Deadline ASC ]]>
+            </Statement>
+        </Query>
+    </QueryCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板">
+                <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <SplitPanel Key="SplitPanel1" Height="100%" Caption="SplitPanel1">
+                    <Grid Key="Grid1" Caption="Grid1" NewEmptyRow="false" Enable="false" CanDelete="false" CanInsert="false">
+                        <GridColumnCollection>
+                            <GridColumn Key="ArchiveTypeID_G" Caption="归档分类" Width="250px" TreeType="Dict"/>
+                        </GridColumnCollection>
+                        <GridRowCollection>
+                            <GridRow Key="row1" RowHeight="35" TableKey="OA_ArchiveType_H">
+                                <GridCell Key="ArchiveTypeID_G" Caption="归档分类" CellType="Dict" ItemKey="OA_ArchiveType">
+                                    <DataBinding ColumnKey="OID"/>
+                                </GridCell>
+                            </GridRow>
+                        </GridRowCollection>
+                        <RowClick>
+                            <![CDATA[var ids=OA_GetIdExistsSql("OA_ArchiveType_H",ArchiveTypeID_G,"d.OID");
+if(ids==""){
+    FillGridData("Grid2", DBNamedQuery("SelectArchiveByArchiveTypeID",ArchiveTypeID_G), true);
+}else{
+    var sql="SELECT a.OID,a.SOID,a.NO,a.BillDate,a.Status,a.BillKey,a.ArchiveTypeID,a.Deadline,a.SrcBillKey,a.SrcBillNo,a.SrcOID,a.EmpID,a.DeptID 
+FROM  OA_Archive_H a join OA_ArchiveType_H d on a.ArchiveTypeID=d.OID  where "+ids+" ORDER BY a.BillDate DESC,a.Deadline DESC,a.ArchiveTypeID ASC";
+    FillGridData('Grid2', DBQuery(sql), true);
+}]]>
+                        </RowClick>
+                    </Grid>
+                    <FlexFlowLayoutPanel Key="FlexFlowLayoutPanel1" Caption="FlexFlowLayoutPanel1" Height="pref">
+                        <GridLayoutPanel Key="GridLayoutPanel1" Height="120px" Caption="GridLayoutPanel1" Visible="first_headVisible==1">
+                            <TextEditor Key="NO_Q" Caption="归档编号" BuddyKey="Lab_NO_Q" X="1" Y="0">
+                                <Condition ColumnKey="NO" TableKey="OA_Archive_H" CondSign="like"/>
+                            </TextEditor>
+                            <Label Key="Lab_NO_Q" Caption="归档编号" X="0" Y="0"/>
+                            <DatePicker Key="BillDateBegin_Q" Caption="归档日期" BuddyKey="Lab_BillDateBegin_Q" X="3" Y="0" OnlyDate="true">
+                                <Condition ColumnKey="BillDate" TableKey="OA_Archive_H" CondSign="between" Group="aa" GroupHead="true"/>
+                            </DatePicker>
+                            <Label Key="Lab_BillDateBegin_Q" Caption="归档日期" X="2" Y="0"/>
+                            <DatePicker Key="BillDateEnd_Q" Caption="到" BuddyKey="Lab_BillDateEnd_Q" X="5" Y="0">
+                                <Condition ColumnKey="BillDate" TableKey="OA_Archive_H" CondSign="between" Group="aa" GroupTail="true"/>
+                            </DatePicker>
+                            <Label Key="Lab_BillDateEnd_Q" Caption="到" X="4" Y="0"/>
+                            <ComboBox Key="Status_Q" Caption="状态" BuddyKey="Lab_Status_Q" X="1" Y="1" SourceType="Formula">
+                                <Condition ColumnKey="Status" TableKey="OA_Archive_H" CondSign="="/>
+                                <FormulaItems>
+                                    <![CDATA[OA_GetDropItemFromStatus();]]>
+                                </FormulaItems>
+                            </ComboBox>
+                            <Label Key="Lab_Status_Q" Caption="状态" X="0" Y="1"/>
+                            <Dict Key="EmpID_Q" Caption="归档人员" BuddyKey="Lab_EmpID_Q" X="3" Y="1" ItemKey="OA_Employee" AllowMultiSelection="true">
+                                <Condition ColumnKey="EmpID" TableKey="OA_Archive_H" CondSign="in"/>
+                            </Dict>
+                            <Label Key="Lab_EmpID_Q" Caption="归档人员" X="2" Y="1"/>
+                            <Dict Key="DeptID_Q" Caption="归档部门" BuddyKey="Lab_DeptID_Q" X="5" Y="1" ItemKey="OA_Department" AllowMultiSelection="true">
+                                <Condition ColumnKey="DeptID" TableKey="OA_Archive_H" CondSign="in"/>
+                            </Dict>
+                            <Label Key="Lab_DeptID_Q" Caption="归档部门" X="4" Y="1"/>
+                            <Dict Key="ArchiveTypeID_Q" Caption="归档分类" BuddyKey="Lab_ArchiveTypeID_Q" X="1" Y="2" ItemKey="OA_ArchiveType" AllowMultiSelection="true">
+                                <Condition ColumnKey="ArchiveTypeID" TableKey="OA_Archive_H" CondSign="in"/>
+                            </Dict>
+                            <Label Key="Lab_ArchiveTypeID_Q" Caption="归档分类" X="0" Y="2"/>
+                            <CheckListBox BuddyKey="Lab_Deadline_Q" Caption="保管期限" Key="Deadline_Q" X="3" Y="2">
+                                <Condition ColumnKey="Deadline" TableKey="OA_Archive_H" CondSign="in"/>
+                                <Item Caption="永久" Key="10" Value="10"/>
+                                <Item Caption="长期" Key="20" Value="20"/>
+                                <Item Caption="短期" Key="30" Value="30"/>
+                            </CheckListBox>
+                            <Label Key="Lab_Deadline_Q" Caption="保管期限" X="2" Y="2"/>
+                            <Button Key="Query" Caption="查询" X="6" Y="0">
+                                <OnClick>
+                                    <![CDATA[DealCondition();
+LoadData();
+ShowData();]]>
+                                </OnClick>
+                            </Button>
+                            <Button Key="Reset" Caption="重置" X="6" Y="1">
+                                <OnClick>
+                                    <![CDATA[ResetCondition();]]>
+                                </OnClick>
+                            </Button>
+                            <CheckBox Caption="表头可见" Key="first_headVisible" X="4" Y="2" Visible="false">
+                                <DataBinding DefaultValue="1"/>
+                            </CheckBox>
+                            <RowDefCollection RowGap="5">
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="5">
+                                <ColumnDef Width="80px"/>
+                                <ColumnDef Width="33%"/>
+                                <ColumnDef Width="80px"/>
+                                <ColumnDef Width="33%"/>
+                                <ColumnDef Width="80px"/>
+                                <ColumnDef Width="34%"/>
+                                <ColumnDef Width="80px"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                        <Grid Key="Grid2" Caption="Grid2" NewEmptyRow="false" Height="100%" PageLoadType="UI" CanDelete="false" CanInsert="false">
+                            <GridColumnCollection>
+                                <GridColumn Key="OID" Caption="OID" Visible="false" Width="80px"/>
+                                <GridColumn Key="NO" Caption="归档编号" Width="130px"/>
+                                <GridColumn Key="BillDate" Caption="归档日期" Width="100px"/>
+                                <GridColumn Key="Status" Caption="状态" Width="80px"/>
+                                <GridColumn Key="BillKey" Caption="单据配置" Visible="false" Width="120px"/>
+                                <GridColumn Key="ArchiveTypeID" Caption="归档分类" Width="130px"/>
+                                <GridColumn Key="Deadline" Caption="保管期限" Width="80px"/>
+                                <GridColumn Key="SrcBillKey" Caption="归档单据类型" Width="130px"/>
+                                <GridColumn Key="SrcBillNo" Caption="归档单据编号" Width="130px"/>
+                                <GridColumn Key="SrcOID" Caption="归档单据标识" Visible="false" Width="80px"/>
+                            </GridColumnCollection>
+                            <GridRowCollection>
+                                <GridRow Key="row1" RowHeight="35" TableKey="OA_Archive_H">
+                                    <GridCell Key="OID" Caption="OID" CellType="NumberEditor" Scale="0">
+                                        <DataBinding ColumnKey="OID"/>
+                                    </GridCell>
+                                    <GridCell Key="NO" Caption="归档编号" CellType="TextEditor" Enable="false">
+                                        <DataBinding ColumnKey="NO"/>
+                                    </GridCell>
+                                    <GridCell Key="BillDate" Caption="归档日期" CellType="DatePicker" Enable="false" Format="yyyy-MM-dd" OnlyDate="true">
+                                        <DataBinding ColumnKey="BillDate"/>
+                                    </GridCell>
+                                    <GridCell Key="Status" Caption="状态" CellType="ComboBox" Enable="false" SourceType="Status">
+                                        <DataBinding ColumnKey="Status"/>
+                                    </GridCell>
+                                    <GridCell Key="BillKey" Caption="单据配置" CellType="TextEditor">
+                                        <DataBinding ColumnKey="BillKey"/>
+                                    </GridCell>
+                                    <GridCell Key="ArchiveTypeID" Caption="归档分类" CellType="Dict" Enable="false" ItemKey="OA_ArchiveType">
+                                        <DataBinding ColumnKey="ArchiveTypeID"/>
+                                    </GridCell>
+                                    <GridCell Key="Deadline" Caption="保管期限" CellType="ComboBox" Enable="false">
+                                        <DataBinding ColumnKey="Deadline"/>
+                                        <Item Caption="永久" Key="10" Value="10"/>
+                                        <Item Caption="长期" Key="20" Value="20"/>
+                                        <Item Caption="短期" Key="30" Value="30"/>
+                                    </GridCell>
+                                    <GridCell Key="SrcBillKey" Caption="归档单据类型" CellType="TextEditor" Enable="false">
+                                        <DataBinding ColumnKey="SrcBillKey"/>
+                                    </GridCell>
+                                    <GridCell Key="SrcBillNo" Caption="归档单据编号" CellType="HyperLink" Enable="true">
+                                        <DataBinding ColumnKey="SrcBillNo"/>
+                                        <OnClick>
+                                            <![CDATA[Open(SrcBillKey, SrcOID)]]>
+                                        </OnClick>
+                                    </GridCell>
+                                    <GridCell Key="SrcOID" Caption="归档单据标识" CellType="NumberEditor" Scale="0">
+                                        <DataBinding ColumnKey="SrcOID"/>
+                                    </GridCell>
+                                </GridRow>
+                            </GridRowCollection>
+                            <RowDblClick>
+                                <![CDATA[Open(BillKey, OID)]]>
+                            </RowDblClick>
+                        </Grid>
+                    </FlexFlowLayoutPanel>
+                    <SplitSize Size="300px"/>
+                    <SplitSize Size="100%"/>
+                </SplitPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

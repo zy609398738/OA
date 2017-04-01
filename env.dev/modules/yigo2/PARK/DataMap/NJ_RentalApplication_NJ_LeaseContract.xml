@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Map Caption="租房申请下推租赁合同" Key="NJ_RentalApplication_NJ_LeaseContract" SrcDataObjectKey="NJ_RentalApplication" TgtDataObjectKey="NJ_LeaseContract">
+    <SourceTableCollection Height="480" Width="522" X="30" Y="30">
+        <SourceTable Key="NJ_SCM_RentalApplicationDtl" IsPrimary="true" TargetTableKey="NJ_SCM_LeaseContractDtl">
+            <SourceField Definition="Area" TargetFieldKey="Area" EdgeType="Focus" Editable="false"/>
+            <SourceField Definition="Room" TargetFieldKey="Room" Editable="false"/>
+            <SourceField Definition="RentalUse" TargetFieldKey="RentalUse" Editable="false"/>
+        </SourceTable>
+        <SourceTable Key="NJ_SCM_RentalApplicationHead" TargetTableKey="NJ_SCM_LeaseContractHead">
+            <SourceField Definition="EmpID" TargetFieldKey="EmpID"/>
+            <SourceField Definition="UsePeople" TargetFieldKey="UsePeople"/>
+            <SourceField Definition="CustomerId" TargetFieldKey="CustomerId" Editable="false"/>
+            <SourceField Definition="Term" TargetFieldKey="Term"/>
+            <SourceField Definition="StartDate" TargetFieldKey="StartDate"/>
+            <SourceField Definition="EndDate" TargetFieldKey="EndDate"/>
+            <SourceField Definition="ContactNumber" TargetFieldKey="ContactNumber"/>
+        </SourceTable>
+    </SourceTableCollection>
+    <TargetTableCollection Height="480" Width="469" X="632" Y="30">
+        <TargetTable Key="NJ_SCM_LeaseContractHead">
+            <TargetField Definition="EmpID"/>
+            <TargetField Definition="UsePeople"/>
+            <TargetField Definition="CustomerId"/>
+            <TargetField Definition="Term"/>
+            <TargetField Definition="StartDate"/>
+            <TargetField Definition="EndDate"/>
+            <TargetField Definition="ContactNumber"/>
+        </TargetTable>
+        <TargetTable Key="NJ_SCM_LeaseContractDtl" IsPrimary="true">
+            <TargetField Definition="Area"/>
+            <TargetField Definition="Room"/>
+            <TargetField Definition="RentalUse"/>
+        </TargetTable>
+    </TargetTableCollection>
+</Map>

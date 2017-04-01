@@ -1,0 +1,9 @@
+{
+	"@type":"com.bokesoft.cms2.model.Action",
+	"actionExp":"oa.IMAction.userinfo()",
+	"actionUrl":"/im-service/userinfo.action",
+	"attributes":{"@type":"java.util.LinkedHashMap"},
+	"code":"IM-USERINFO",
+	"name":"返回用户信息",
+	"notes":""
+}

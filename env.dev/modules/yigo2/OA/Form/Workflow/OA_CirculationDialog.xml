@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="OA_CirculationDialog" Caption="传阅对话框" FormType="Entity">
+    <DataSource>
+        <DataObject Key="OA_CirculationDialog" Caption="传阅对话框" PrimaryTableKey="OA_CirculationDialog" PrimaryType="Entity">
+            <TableCollection>
+                <Table Key="OA_CirculationDialog" Caption="传阅对话框" DBTableName="OA_CirculationDialog">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="Status" Caption="状态" DataType="Integer" DefaultValue="0"/>
+                    <Column Key="SendUser" Caption="传阅者" DataType="Long"/>
+                    <Column Key="ReadTime" Caption="阅读时间" DataType="Date"/>
+                    <Column Key="SendTime" Caption="传阅时间" DataType="Date"/>
+                    <Column Key="WorkitemID" Caption="工作项标识" DataType="Long"/>
+                    <Column Key="Opinion" Caption="常用意见" DataType="Varchar"/>
+                    <Column Key="BillKey" Caption="单据Key" DataType="Varchar"/>
+                    <Column Key="BillOID" Caption="BillOID" DataType="Long"/>
+                    <Column Key="ReadUser" Caption="选择阅读人员" DataType="Varchar" Length="4000"/>
+                    <Column Key="OptIDs" Caption="被选人ID" DataType="Varchar" Length="4000"/>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="Save" Caption="保存">
+            <Action>
+                <![CDATA[SaveData();
+Close()]]>
+            </Action>
+        </Operation>
+        <Operation Key="Cancel" Caption="取消">
+            <Action>
+                <![CDATA[Cancel()]]>
+            </Action>
+        </Operation>
+    </OperationCollection>
+    <Body PopHeight="500px" PopWidth="600px">
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板" Padding="0px">
+                <GridLayoutPanel Key="GridLayoutPanel0" Padding="5px" Height="100%" Caption="GridLayoutPanel0">
+                    <Button Key="APPROVE" Caption="确定" X="2" Y="6" Enable="True">
+                        <OnClick>
+                            <![CDATA[SaveData();
+EvalMidExp(true,'CirculationDialog()');
+Close()]]>
+                        </OnClick>
+                    </Button>
+                    <Button Key="cancel" Caption="取消" X="3" Y="6" Enable="True">
+                        <OnClick>
+                            <![CDATA[
+			
+			Close();
+			
+			]]>
+                        </OnClick>
+                    </Button>
+                    <Label Key="Lab_CommonUseContent" Caption="常用意见" X="0" Y="2"/>
+                    <ComboBox Key="CommonUseContent" Caption="常用意见" BuddyKey="Lab_CommonUseContent" X="1" Y="2" SourceType="Query" XSpan="3">
+                        <DataBinding>
+                            <ValueChanged>
+                                <![CDATA[SetValue("Opinion", CommonUseContent)]]>
+                            </ValueChanged>
+                        </DataBinding>
+                        <QueryDef>
+                            <Statement>
+                                <![CDATA[select content from OA_AddViews where creator =?]]>
+                            </Statement>
+                            <ParameterCollection>
+                                <Parameter DataType="Long" Formula="GetOperator()"/>
+                            </ParameterCollection>
+                        </QueryDef>
+                    </ComboBox>
+                    <Label Key="Lab_Warning" Caption="提醒方式" X="0" Y="5" Visible="false"/>
+                    <HyperLink Caption="保存常用意见" Key="SaveCommonViews" X="0" Y="3">
+                        <OnClick>
+                            <![CDATA[IIF(
+    DBQueryValue
+        ('select a.Content 
+            from OA_AddViews a 
+            where a.Content=? and Creator=?', GetValue('Opinion'),GetOperator())==GetValue('Opinion'),
+        Confirm('该意见已存在'),
+        DBUpdate('Insert into OA_AddViews (OID,SOID,POID,VERID,DVERID,Content,Creator,Status) values (?,OID,null,0,0,?,?,100)',
+ApplyNewOID(),GetValue('Opinion'),GetOperator())
+);]]>
+                        </OnClick>
+                    </HyperLink>
+                    <HyperLink Caption="维护常用意见" Key="OpenCommonViews" X="3" Y="7" Visible="false">
+                        <OnClick>
+                            <![CDATA[ShowModal('OA_CommonViews')]]>
+                        </OnClick>
+                    </HyperLink>
+                    <Label Key="Lab_Note" Caption="提示：审批提交后，您可以在【已办事宜】中查看到审批单据" X="0" Y="7" XSpan="4"/>
+                    <TextEditor Key="Opinion" Caption="处理意见" BuddyKey="Lab_Opinion" X="1" Y="3" XSpan="3" YSpan="3">
+                        <DataBinding ColumnKey="Opinion" TableKey="OA_CirculationDialog"/>
+                    </TextEditor>
+                    <Label Key="Lab_Opinion" Caption="处理意见" X="0" Y="4"/>
+                    <DatePicker Key="SendTime" Caption="创建时间" X="0" Y="6" Visible="false" OnlyDate="false">
+                        <DataBinding ColumnKey="SendTime" TableKey="OA_CirculationDialog" DefaultFormulaValue="ServerDate()"/>
+                    </DatePicker>
+                    <Dict Key="SendUser" Caption="传阅人" X="1" Y="6" Visible="false" ItemKey="Operator">
+                        <DataBinding ColumnKey="SendUser" TableKey="OA_CirculationDialog" DefaultFormulaValue="Para(&quot;Creator&quot;)"/>
+                    </Dict>
+                    <TextEditor Key="BillKey" Caption="单据Key" X="0" Y="6" Visible="false">
+                        <DataBinding ColumnKey="BillKey" TableKey="OA_CirculationDialog" DefaultFormulaValue="Para(&quot;BillKey&quot;)"/>
+                    </TextEditor>
+                    <TextEditor Key="BillOID" Caption="OID" X="1" Y="6" Visible="false">
+                        <DataBinding ColumnKey="BillOID" TableKey="OA_CirculationDialog" DefaultFormulaValue="Para(&quot;OID&quot;)"/>
+                    </TextEditor>
+                    <TextArea Key="ReadUser" Caption="选择阅读人员" BuddyKey="Lab_ReadUser" X="1" Y="0" XSpan="2" YSpan="2">
+                        <DataBinding ColumnKey="ReadUser" TableKey="OA_CirculationDialog"/>
+                    </TextArea>
+                    <Label Key="Lab_ReadUser" Caption="选择阅读人员" X="0" Y="0"/>
+                    <HyperLink Caption="选择人员" Key="SelOpts" X="3" Y="0">
+                        <OnClick>
+                            <![CDATA[OA_ShowReadUser()]]>
+                        </OnClick>
+                    </HyperLink>
+                    <TextArea Key="OptIDs" Caption="被选人ID" BuddyKey="Lab_OptIDs" X="1" Y="1" Visible="false" XSpan="2">
+                        <DataBinding ColumnKey="OptIDs" TableKey="OA_CirculationDialog"/>
+                    </TextArea>
+                    <Label Key="Lab_OptIDs" Caption="被选人ID" X="0" Y="1"/>
+                    <RowDefCollection RowGap="4">
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                        <RowDef Height="60px"/>
+                        <RowDef Height="30px"/>
+                        <RowDef Height="25px"/>
+                        <RowDef Height="30px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="4">
+                        <ColumnDef Width="100px"/>
+                        <ColumnDef Width="100%"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="80px"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+    <MacroCollection>
+        <Macro Key="OA_ShowReadUser">
+            <![CDATA[SetPara("OperatorSelID", OA_GetReadUser());
+IIF(GetPara("OperatorSelID")>0,
+    Open("OA_OperatorSel", GetPara("OperatorSelID"), "modal","SourceKey:{BillKey},SourceID:{GetOID()},Tag1:{'ReadUser'},FieldKey1:{'ReadUser'},FieldKey2:{'OptIDs'}"),
+    New("OA_OperatorSel","modal","SourceKey:{BillKey},SourceID:{GetOID()},Tag1:{'ReadUser'},FieldKey1:{'ReadUser'},FieldKey2:{'OptIDs'}")
+);]]>
+        </Macro>
+        <Macro Key="OA_GetReadUser">
+            <![CDATA[DBQueryValue("Select OID From OA_OperatorSel_H Where SourceKey=? and SourceID=? and Tag1=?", BillKey,GetOID(),"ReadUser");]]>
+        </Macro>
+    </MacroCollection>
+</Form>

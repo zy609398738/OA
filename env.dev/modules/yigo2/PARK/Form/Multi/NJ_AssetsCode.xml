@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="NJ_AssetsCode" Caption="资产编码" FormType="Entity" AbbrCaption="资产编码" InitState="Default">
+    <DataSource>
+        <DataObject Key="NJ_AssetsCode" Caption="资产编码" PrimaryTableKey="NJ_AssetsCode" PrimaryType="Entity">
+            <TableCollection>
+                <Table Key="NJ_AssetsCode" Caption="NJ_AssetsCode" DBTableName="NJ_AssetsCode" TableMode="Detail" SourceType="Query" Persist="false" OrderBy="AssetsCode">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="MapCount" Caption="映射数量标记" DataType="Integer"/>
+                    <Column Key="AssetsBarId" Caption="AssetsBarId" DataType="Long"/>
+                    <Column Key="AssetsCode" Caption="AssetsCode" DataType="Varchar"/>
+                    <Column Key="AssetsAmount" Caption="AssetsAmount" DataType="Integer"/>
+                    <ParameterCollection>
+                        <Parameter DataType="Long" Formula="GetPara(&quot;Assets&quot;)"/>
+                    </ParameterCollection>
+                    <Statement>
+                        <![CDATA[SELECT * FROM (select AssetsBarId,AssetsCode,CAST(sum(AssetsAmount) AS SIGNED) AssetsAmount from NJ_SCM_AssetCode GROUP BY AssetsBarId,AssetsCode) a where AssetsAmount>0 AND AssetsBarId=?]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="WORKITEM" Caption="WORKITEM" Tag="WORKITEM"/>
+        <Operation Key="BPM" Caption="BPM" Tag="BPM"/>
+    </OperationCollection>
+    <ScriptCollection>
+        <Script Key="Load" Caption="载入" Description="载入事件" Range="Action" Verb="Load">
+            <![CDATA[
+		LoadData();ShowData()
+		]]>
+        </Script>
+    </ScriptCollection>
+    <Body HAlign="Center" Height="80%" PopHeight="80%" PopWidth="80%" Width="80%">
+        <Block>
+            <GridLayoutPanel Key="main" Height="100%">
+                <ToolBar Key="main_toolbar" X="0" Y="0">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <SplitPanel Key="main_split" Orientation="Vertical" Height="100%" X="0" Y="1">
+                    <GridLayoutPanel Key="query" Height="70px" Padding="5px" Caption="查询">
+                        <Button Key="XIATUI" Caption="下推" X="4" Y="0" Enable="true" Visible="Length(GetPara('key'))&gt;0">
+                            <OnClick>
+                                <![CDATA[IIF(FYHJ==GetPara('_Amount'),true,RaiseErr('选中数量必须等于资产数量，请检查!'));
+IIFS
+(
+GetPara('key')=='NJ_AssetCollar', ViewMap('NJ_AssetsCode_NJ_AssetCollar',false),
+GetPara('key')=='NJ_AssetLeasing', ViewMap('NJ_AssetsCode_NJ_AssetLeasing',false),
+GetPara('key')=='NJ_AssetBorrow', ViewMap('NJ_AssetsCode_NJ_AssetBorrow',false),
+GetPara('key')=='NJ_InAssetDisposal', ViewMap('NJ_AssetsCode_NJ_InAssetDisposal',false),
+GetPara('key')=='NJ_AssetsInventory', ViewMap('NJ_AssetsCode_NJ_AssetsInventory',false)
+);
+Close();]]>
+                            </OnClick>
+                        </Button>
+                        <Label Key="Lab_FYHJ" Caption="合计：" X="1" Y="0" Visible="Length(GetPara('key'))&gt;0">
+                            <Format ForeColor="#cc3333">
+                                <Font Bold="true" Italic="true"/>
+                            </Format>
+                        </Label>
+                        <NumberEditor Key="FYHJ" Caption="费用合计" BuddyKey="Lab_FYHJ" X="2" Y="0" Enable="False" Visible="Length(GetPara('key'))&gt;0" Scale="0">
+                            <Format ForeColor="#cc3333">
+                                <Font Bold="true" Italic="true"/>
+                            </Format>
+                        </NumberEditor>
+                        <RowDefCollection RowHeight="25" RowGap="5">
+                            <RowDef/>
+                        </RowDefCollection>
+                        <ColumnDefCollection>
+                            <ColumnDef Width="20px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="50%"/>
+                            <ColumnDef Width="20px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="50%"/>
+                            <ColumnDef Width="20px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="10px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="20px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <Grid Key="Info" Caption="库存明细" NewEmptyRow="false" Enable="true" CanDelete="false" CanInsert="false" CanShift="false">
+                        <GridColumnCollection>
+                            <GridColumn Key="c1" Caption="选择" Enable="false" Width="76px" Visible="Length(GetPara(&quot;key&quot;))&gt;0"/>
+                            <GridColumn Key="AssetsBarId" Caption="资产名称" Width="80px"/>
+                            <GridColumn Key="AssetsCode" Caption="资产编号" Width="80px"/>
+                            <GridColumn Key="AssetsAmount" Caption="数量" Width="80px" Visible="false" FormulaCaption="false"/>
+                        </GridColumnCollection>
+                        <GridRowCollection>
+                            <GridRow Key="R2" TableKey="NJ_AssetsCode">
+                                <GridCell Key="select" Caption="选择" CellType="CheckBox" Enable="true" IsSelect="true">
+                                    <DataBinding>
+                                        <ValueChanged>
+                                            <![CDATA[var sum_select=0;
+loop 'Info' (select)  
+{   
+sum_select =sum_select+AssetsAmount;
+};
+IIF(sum_select>GetPara('_Amount'),Confirm('选中数量不能大于资产数量，请检查!     '),true);
+SetValue("FYHJ",sum_select);]]>
+                                        </ValueChanged>
+                                    </DataBinding>
+                                </GridCell>
+                                <GridCell Key="AssetsBarId" Caption="资产名称" CellType="Dict" Enable="false" ItemKey="NJ_assets">
+                                    <DataBinding ColumnKey="AssetsBarId"/>
+                                </GridCell>
+                                <GridCell Key="AssetsCode" Caption="资产编号" CellType="TextEditor" Enable="false">
+                                    <DataBinding ColumnKey="AssetsCode"/>
+                                </GridCell>
+                                <GridCell Key="AssetsAmount" Caption="数量" CellType="NumberEditor" IntegerValue="true">
+                                    <DataBinding ColumnKey="AssetsAmount"/>
+                                </GridCell>
+                            </GridRow>
+                        </GridRowCollection>
+                    </Grid>
+                    <SplitSize Size="40px"/>
+                    <SplitSize Size="100%"/>
+                </SplitPanel>
+                <RowDefCollection RowHeight="25">
+                    <RowDef Height="0px"/>
+                    <RowDef Height="100%"/>
+                </RowDefCollection>
+                <ColumnDefCollection>
+                    <ColumnDef Width="100%"/>
+                </ColumnDefCollection>
+            </GridLayoutPanel>
+        </Block>
+    </Body>
+    <OnLoad>
+        <![CDATA[DealCondition();LoadData();ShowData();]]>
+    </OnLoad>
+</Form>

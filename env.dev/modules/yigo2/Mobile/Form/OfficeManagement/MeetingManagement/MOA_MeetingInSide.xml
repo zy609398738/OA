@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="MOA_MeetingInSide" Caption="内部会议表单" FormType="Entity">
+    <DataSource>
+        <DataObject Key="MOA_MeetingInSide" Caption="内部会议表单" PrimaryTableKey="MOA_MeetingInSide_H" NoPrefix="MMT" PrimaryType="Entity">
+            <TableCollection>
+                <Table Key="MOA_MeetingInSide_H" Caption="内部会议表单" DBTableName="OA_MeetingInSide_H">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="Topic" Caption="会议主题" DataType="Varchar"/>
+                    <Column Key="MeetingType" Caption="会议类型" DataType="Long"/>
+                    <Column Key="EmpID" Caption="申请人" DataType="Long"/>
+                    <Column Key="DeptID" Caption="申请部门" DataType="Long"/>
+                    <Column Key="EmpIDPhone" Caption="申请人联系方式" DataType="Varchar"/>
+                    <Column Key="MeetingRoom" Caption="开会地点" DataType="Long"/>
+                    <Column Key="StartTime" Caption="开始时间" DataType="DateTime"/>
+                    <Column Key="EndTime" Caption="结束时间" DataType="DateTime"/>
+                    <Column Key="Moderator" Caption="会议主持人" DataType="Long"/>
+                    <Column Key="Recorder" Caption="会议纪要录入人员" DataType="Long"/>
+                    <Column Key="Participants" Caption="参与人员" DataType="Varchar"/>
+                    <Column Key="Partake" Caption="会议共享" DataType="Varchar"/>
+                    <Column Key="BillDate" Caption="申请日期" DataType="DateTime"/>
+                    <Column Key="AllDay" Caption="全天" DataType="Integer"/>
+                    <Column Key="MessageSet" Caption="发送方式" DataType="Long"/>
+                    <Column Key="NO" Caption="单据编号" DataType="Varchar"/>
+                    <Column Key="Status" Caption="状态" DataType="Integer"/>
+                    <Column Caption="创建人" DataType="Long" Key="Creator"/>
+                    <Column Caption="创建日期" DataType="DateTime" Key="CreateTime"/>
+                    <Column Caption="修改人" DataType="Long" Key="Modifier"/>
+                    <Column Caption="修改日期" DataType="DateTime" Key="ModifyTime"/>
+                    <Column Caption="单据Key" DataType="Varchar" Key="BillKey"/>
+                    <Column Caption="集团" DataType="Long" Key="ClusterID"/>
+                    <Column Key="InstanceID" Caption="流程标识" DataType="Long"/>
+                    <Column Key="Matter" Caption="会议纪要" DataType="Varchar"/>
+                    <Column Key="Notes" Caption="备注" DataType="Varchar" Length="4000"/>
+                    <Column Key="WorkflowTypeDtlID" Caption="流程类别明细ID" DataType="Long"/>
+                    <Column Key="UrgencyDeg" Caption="紧急程度" DataType="Integer"/>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="WORKITEM" Caption="WORKITEM" Tag="WORKITEM"/>
+        <Operation Key="BPM" Caption="BPM" Tag="BPM"/>
+        <Operation Key="Save" Caption="保存" Visible="!ReadOnly()">
+            <Action>
+                <![CDATA[IIF(TimeUse()>0,
+      Confirm('抱歉会议室已被占用'), 
+      SaveData());]]>
+            </Action>
+        </Operation>
+        <Operation Key="Delete" Caption="删除" RefKey="Delete"/>
+        <Operation Key="Edit" Caption="编辑" RefKey="Edit"/>
+        <Operation Key="Cancel" Caption="取消" RefKey="Cancel"/>
+        <Operation Key="Close" Caption="关闭" RefKey="Close"/>
+        <Operation Key="Print" Caption="打印" RefKey="Print"/>
+    </OperationCollection>
+    <ScriptCollection>
+        <Script Key="Load" Caption="载入" Range="Action" Verb="Load">
+            <![CDATA[LoadData();SetPara("IsMobile",true);]]>
+        </Script>
+    </ScriptCollection>
+    <QueryCollection>
+        <Query Key="QuerySender" Description="根据操作员查询邮箱">
+            <Statement>
+                <![CDATA[select a.Email from OA_EmailSet_H a where a.IsDefault=1 and a.OperatorID=?]]>
+            </Statement>
+        </Query>
+        <Query Key="SelectOptIDs" Description="根据参与人员查询对应操作员">
+            <Statement>
+                <![CDATA[select a.OID from SYS_Operator a join OA_Employee_H b on a.EmpID=b.OID where b.OID in ?]]>
+            </Statement>
+        </Query>
+    </QueryCollection>
+    <UICheckRuleCollection>
+        <UICheckRule Description="结束时间大于开始时间" ErrorInfo="结束时间大于开始时间">
+            <![CDATA[EndTime>StartTime]]>
+        </UICheckRule>
+    </UICheckRuleCollection>
+    <Body>
+        <Block>
+            <TableView Caption="TableView1" Height="pref" Key="TableView1">
+                <TableRowCollection>
+                    <TableRow Key="row1">
+                        <LinearLayoutPanel Caption="LinearLayoutPanel1" Key="LinearLayoutPanel1" Height="40px" Width="auto">
+                            <Label Key="Lab_Topic" Caption="会议主题" Height="auto" Width="80px"/>
+                            <TextEditor Key="Topic" Caption="会议主题" BuddyKey="Lab_Topic" Height="auto" Width="auto">
+                                <DataBinding TableKey="MOA_MeetingInSide_H" ColumnKey="Topic" Required="true"/>
+                            </TextEditor>
+                        </LinearLayoutPanel>
+                    </TableRow>
+                    <TableRow Key="row2">
+                        <LinearLayoutPanel Caption="LinearLayoutPanel2" Key="LinearLayoutPanel2" Height="40px" Width="auto">
+                            <Label Key="Lab_MeetingType" Caption="会议类型" Height="auto" Width="80px"/>
+                            <Dict Key="MeetingType" Caption="会议类型" BuddyKey="Lab_MeetingType" Height="auto" ItemKey="OA_MeetingType" Width="auto">
+                                <DataBinding TableKey="MOA_MeetingInSide_H" ColumnKey="MeetingType" Required="true"/>
+                            </Dict>
+                        </LinearLayoutPanel>
+                    </TableRow>
+                    <TableRow Key="row3">
+                        <LinearLayoutPanel Caption="LinearLayoutPanel3" Key="LinearLayoutPanel3" Height="40px" Width="auto">
+                            <Label Key="Lab_EmpID" Caption="申请人" Height="auto" Width="80px"/>
+                            <Dict Key="EmpID" Caption="申请人" BuddyKey="Lab_EmpID" Height="auto" ItemKey="OA_Employee" Width="auto">
+                                <DataBinding TableKey="MOA_MeetingInSide_H" ColumnKey="EmpID" DefaultFormulaValue="GetDictValue('Operator', GetOperator(), 'SYS_Operator.EmpID')" Required="true">
+                                    <ValueChanged>
+                                        <![CDATA[DeptID=GetDictValue('OA_Employee', EmpID, 'OA_Employee_H.DeptID')]]>
+                                    </ValueChanged>
+                                </DataBinding>
+                            </Dict>
+                        </LinearLayoutPanel>
+                    </TableRow>
+                    <TableRow Key="row4">
+                        <LinearLayoutPanel Caption="LinearLayoutPanel4" Key="LinearLayoutPanel4" Height="40px" Width="auto">
+                            <Label Key="Lab_DeptID" Caption="申请部门" Height="auto" Width="80px"/>
+                            <Dict Key="DeptID" Caption="申请部门" BuddyKey="Lab_DeptID" Height="auto" ItemKey="OA_Department" Width="auto">
+                                <DataBinding TableKey="MOA_MeetingInSide_H" ColumnKey="DeptID" DefaultFormulaValue="GetDictValue('Operator', GetOperator(), 'SYS_Operator.DeptID')" Required="true"/>
+                            </Dict>
+                        </LinearLayoutPanel>
+                    </TableRow>
+                    <TableRow Key="row5">
+                        <LinearLayoutPanel Caption="LinearLayoutPanel5" Key="LinearLayoutPanel5" Height="40px" Width="auto">
+                            <Label Key="Lab_EmpIDPhone" Caption="申请人联系方式" Height="auto" Width="80px"/>
+                            <TextEditor Key="EmpIDPhone" Caption="申请人联系方式" BuddyKey="Lab_EmpIDPhone" Height="auto" Width="auto">
+                                <DataBinding TableKey="MOA_MeetingInSide_H" ColumnKey="EmpIDPhone" DefaultFormulaValue="GetDictValue(&quot;OA_Employee&quot;,EmpID, &quot;OA_Employee_H.Mobile1&quot;)"/>
+                            </TextEditor>
+                        </LinearLayoutPanel>
+                    </TableRow>
+                    <TableRow Key="row6">
+                        <LinearLayoutPanel Caption="LinearLayoutPanel6" Key="LinearLayoutPanel6" Height="40px" Width="auto">
+                            <Label Key="Lab_MeetingRoom" Caption="开会地点" Height="auto" Width="80px"/>
+                            <Dict Key="MeetingRoom" Caption="开会地点" BuddyKey="Lab_MeetingRoom" Height="auto" ItemKey="OA_MeetingRoom" Width="auto">
+                                <DataBinding TableKey="MOA_MeetingInSide_H" ColumnKey="MeetingRoom" Required="true"/>
+                            </Dict>
+                        </LinearLayoutPanel>
+                    </TableRow>
+                    <TableRow Key="row7">
+                        <LinearLayoutPanel Caption="LinearLayoutPanel7" Key="LinearLayoutPanel7" Height="40px" Width="auto">
+                            <Label Key="Lab_StartTime" Caption="开始时间" Height="auto" Width="80px"/>
+                            <DatePicker Key="StartTime" Caption="开始时间" BuddyKey="Lab_StartTime" Height="auto" Width="auto">
+                                <DataBinding TableKey="MOA_MeetingInSide_H" ColumnKey="StartTime" DefaultFormulaValue="ServerDate()" Required="true"/>
+                            </DatePicker>
+                        </LinearLayoutPanel>
+                    </TableRow>
+                    <TableRow Key="row8">
+                        <LinearLayoutPanel Caption="LinearLayoutPanel8" Key="LinearLayoutPanel8" Height="40px" Width="auto">
+                            <Label Key="Lab_EndTime" Caption="结束时间" Height="auto" Width="80px"/>
+                            <DatePicker Key="EndTime" Caption="结束时间" BuddyKey="Lab_EndTime" Height="auto" Width="auto">
+                                <DataBinding TableKey="MOA_MeetingInSide_H" ColumnKey="EndTime" DefaultFormulaValue="DateAdd(ServerDate(), &quot;h&quot;, 2);"/>
+                            </DatePicker>
+                            <CheckBox Caption="全天" Height="pref" Key="AllDay" Visible="false" Width="pref">
+                                <DataBinding TableKey="MOA_MeetingInSide_H" ColumnKey="AllDay"/>
+                            </CheckBox>
+                        </LinearLayoutPanel>
+                    </TableRow>
+                    <TableRow Key="row9">
+                        <LinearLayoutPanel Caption="LinearLayoutPanel9" Key="LinearLayoutPanel9" Height="40px" Width="auto">
+                            <Label Key="Lab_Moderator" Caption="会议主持人" Height="auto" Width="80px"/>
+                            <Dict Key="Moderator" Caption="会议主持人" BuddyKey="Lab_Moderator" Height="auto" ItemKey="OA_Employee" Width="auto">
+                                <DataBinding TableKey="MOA_MeetingInSide_H" ColumnKey="Moderator" Required="true"/>
+                            </Dict>
+                        </LinearLayoutPanel>
+                    </TableRow>
+                    <TableRow Key="row10">
+                        <LinearLayoutPanel Caption="LinearLayoutPanel10" Key="LinearLayoutPanel10" Height="40px" Width="auto">
+                            <Label Key="Lab_Recorder" Caption="会议纪要人员" Height="auto" Width="80px"/>
+                            <Dict Key="Recorder" Caption="会议纪要人员" BuddyKey="Lab_Recorder" Height="auto" ItemKey="OA_Employee" Width="auto">
+                                <DataBinding TableKey="MOA_MeetingInSide_H" ColumnKey="Recorder"/>
+                            </Dict>
+                        </LinearLayoutPanel>
+                    </TableRow>
+                    <TableRow Key="row11">
+                        <LinearLayoutPanel Caption="LinearLayoutPanel11" Key="LinearLayoutPanel11" Height="40px" Width="auto">
+                            <Label Key="Lab_UrgencyDeg" Caption="紧急程度" Height="auto" Width="80px"/>
+                            <ComboBox Key="UrgencyDeg" Caption="紧急程度" BuddyKey="Lab_UrgencyDeg" Height="auto" Width="auto">
+                                <DataBinding TableKey="MOA_MeetingInSide_H" ColumnKey="UrgencyDeg"/>
+                                <Item Caption="一般" Key="10" Value="10"/>
+                                <Item Caption="紧急" Key="20" Value="20"/>
+                                <Item Caption="特急" Key="30" Value="30"/>
+                            </ComboBox>
+                        </LinearLayoutPanel>
+                    </TableRow>
+                    <TableRow Key="row12">
+                        <LinearLayoutPanel Caption="LinearLayoutPanel12" Key="LinearLayoutPanel12" Height="40px" Width="auto">
+                            <Label Key="Lab_Participants" Caption="参与人员" Height="auto" Width="80px"/>
+                            <CheckListBox Caption="参与人员" Height="auto" Key="Participants" Width="auto" SourceType="Formula">
+                                <DataBinding TableKey="MOA_MeetingInSide_H" ColumnKey="Participants" Required="true"/>
+                                <FormulaItems>
+                                    <![CDATA[var sql="select OID,Name from OA_Employee_H ORDER BY TLeft";
+InvokeService("OA_GetDropStrBySql", true, false,sql,"OID","Name");]]>
+                                </FormulaItems>
+                            </CheckListBox>
+                        </LinearLayoutPanel>
+                    </TableRow>
+                    <TableRow Key="row13">
+                        <LinearLayoutPanel Caption="LinearLayoutPanel13" Key="LinearLayoutPanel13" Height="40px" Width="auto">
+                            <Label Key="Lab_Partake" Caption="共享人员" Height="auto" Width="80px"/>
+                            <CheckListBox Caption="会议共享" Height="auto" Key="Partake" Width="auto" SourceType="Formula">
+                                <DataBinding TableKey="MOA_MeetingInSide_H" ColumnKey="Partake"/>
+                                <FormulaItems>
+                                    <![CDATA[var sql="select OID,Name from OA_Employee_H ORDER BY TLeft";
+InvokeService("OA_GetDropStrBySql", true, false,sql,"OID","Name");]]>
+                                </FormulaItems>
+                            </CheckListBox>
+                        </LinearLayoutPanel>
+                    </TableRow>
+                    <TableRow Key="row14">
+                        <LinearLayoutPanel Caption="LinearLayoutPanel14" Key="LinearLayoutPanel14" Height="40px" Width="auto">
+                            <Label Key="Lab_MessageSet" Caption="发送方式" Height="auto" Width="80px"/>
+                            <Dict Key="MessageSet" Caption="发送方式" BuddyKey="Lab_MessageSet" Height="auto" ItemKey="OA_MessageSet" Width="auto">
+                                <DataBinding TableKey="MOA_MeetingInSide_H" ColumnKey="MessageSet" Required="true"/>
+                            </Dict>
+                        </LinearLayoutPanel>
+                    </TableRow>
+                    <TableRow Key="row15">
+                        <LinearLayoutPanel Caption="LinearLayoutPanel15" Key="LinearLayoutPanel15" Height="120px" Width="auto">
+                            <Label Key="Lab_Notes" Caption="备注" Height="auto" Width="80px"/>
+                            <TextArea Key="Notes" Caption="备注" BuddyKey="Lab_Notes" Height="auto" Width="auto">
+                                <DataBinding TableKey="MOA_MeetingInSide_H" ColumnKey="Notes"/>
+                            </TextArea>
+                        </LinearLayoutPanel>
+                    </TableRow>
+                    <TableRow Key="row16">
+                        <LinearLayoutPanel Caption="LinearLayoutPanel16" Key="LinearLayoutPanel16" Height="160px" Width="auto">
+                            <Label Key="Lab_Matter" Caption="会议纪要" Height="auto" Width="80px"/>
+                            <TextArea Key="Matter" Caption="会议纪要" BuddyKey="Lab_Matter" Height="auto" Width="auto">
+                                <DataBinding TableKey="MOA_MeetingInSide_H" ColumnKey="Matter"/>
+                            </TextArea>
+                        </LinearLayoutPanel>
+                    </TableRow>
+                    <TableRow Key="row17">
+                        <LinearLayoutPanel Caption="LinearLayoutPanel17" Key="LinearLayoutPanel17" Visible="false">
+                            <DatePicker Key="BillDate" Caption="申请日期" Height="pref" Width="pref">
+                                <DataBinding TableKey="MOA_MeetingInSide_H" ColumnKey="BillDate"/>
+                            </DatePicker>
+                            <Dict Key="Creator" Caption="创建人" Height="pref" ItemKey="Operator" Width="pref">
+                                <DataBinding TableKey="MOA_MeetingInSide_H" ColumnKey="Creator" DefaultFormulaValue="GetOperator()"/>
+                            </Dict>
+                            <DatePicker Key="CreateTime" Caption="创建日期" Height="pref" Width="pref">
+                                <DataBinding TableKey="MOA_MeetingInSide_H" ColumnKey="CreateTime" DefaultFormulaValue="ServerDate()"/>
+                            </DatePicker>
+                            <TextEditor Key="BillKey" Caption="TextEditor1" Height="pref" Width="pref">
+                                <DataBinding TableKey="MOA_MeetingInSide_H" ColumnKey="BillKey" DefaultFormulaValue="GetFormKey()"/>
+                            </TextEditor>
+                            <Dict Key="Modifier" Caption="修改人" Height="pref" ItemKey="Operator" Width="pref">
+                                <DataBinding TableKey="MOA_MeetingInSide_H" ColumnKey="Modifier" DefaultFormulaValue="GetOperator()"/>
+                            </Dict>
+                            <DatePicker Key="ModifyTime" Caption="DatePicker1" Height="pref" Width="pref">
+                                <DataBinding TableKey="MOA_MeetingInSide_H" ColumnKey="ModifyTime" DefaultFormulaValue="ServerDate()"/>
+                            </DatePicker>
+                            <Dict Key="ClusterID" Caption="集团" Height="pref" ItemKey="Client" Width="pref">
+                                <DataBinding TableKey="MOA_MeetingInSide_H" ColumnKey="ClusterID"/>
+                            </Dict>
+                            <ComboBox Key="Status" Caption="状态" SourceType="Status" Height="pref" Width="pref">
+                                <DataBinding TableKey="MOA_MeetingInSide_H" ColumnKey="Status" DefaultValue="100"/>
+                            </ComboBox>
+                            <TextEditor Key="NO" Caption="单据编号" Height="pref" Width="pref">
+                                <DataBinding TableKey="MOA_MeetingInSide_H" ColumnKey="NO"/>
+                            </TextEditor>
+                            <TextEditor Key="WorkflowTypeDtlID" Caption="TextEditor1" Height="pref" Width="pref">
+                                <DataBinding TableKey="MOA_MeetingInSide_H" ColumnKey="WorkflowTypeDtlID" DefaultFormulaValue="Para(&quot;WorkflowTypeDtlID&quot;)"/>
+                            </TextEditor>
+                            <TextEditor Key="OID" Caption="OID" Height="pref" Width="pref">
+                                <DataBinding TableKey="MOA_MeetingInSide_H" ColumnKey="OID"/>
+                            </TextEditor>
+                        </LinearLayoutPanel>
+                    </TableRow>
+                </TableRowCollection>
+            </TableView>
+        </Block>
+    </Body>
+    <MacroCollection>
+        <Macro Key="TimeUse">
+            <![CDATA[DBQueryValue("select count(oid) from (select oid from OA_MeetingInSide_h a where a.MeetingRoom=? and ((a.StartTime>? and a.StartTime<?) or (a.EndTime>? and a.EndTime<?) or(a.StartTime<? and a.EndTime>?))
+ union select oid from OA_MeetingOutSide_h a where a.MeetingRoom=? and ((a.StartTime>? and a.StartTime<?) or (a.EndTime>? and a.EndTime<?) or(a.StartTime<? and a.EndTime>?)))j", 
+MeetingRoom,StartTime,EndTime,StartTime,EndTime,StartTime,EndTime,MeetingRoom,StartTime,EndTime,StartTime,EndTime,StartTime,EndTime);]]>
+        </Macro>
+    </MacroCollection>
+</Form>

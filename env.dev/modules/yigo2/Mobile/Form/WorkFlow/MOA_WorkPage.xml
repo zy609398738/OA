@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="MOA_WorkPage" Caption="工作界面" FormType="View">
+    <Body PopHeight="60%" PopWidth="60%">
+        <Block>
+            <NavigationList AllEntryFilter="false" Caption="工作界面列表" ColumnCount="4" ImageScaleType="Fit_XY" Key="WorkList">
+                <NavigationItemCollection>
+                    <NavigationItem Caption="事项" Icon="Mobile_Panel.png" Key="MyItem">
+                        <![CDATA[Show("MOA_MyItem");]]>
+                    </NavigationItem>
+                    <NavigationItem Caption="邮件" Icon="Mobile_Panel.png" Key="Email">
+                        <![CDATA[Show("MOA_EmailHomePage")]]>
+                    </NavigationItem>
+                    <NavigationItem Caption="公文" Icon="Mobile_Panel.png" Key="OfficalHomePage">
+                        <![CDATA[Show("MOA_OfficalHomePage");]]>
+                    </NavigationItem>
+                    <NavigationItem Caption="日程" Icon="Mobile_Panel.png" Key="MySchedulelHomePage">
+                        <![CDATA[Show("MOA_MySchedulelHomePage");]]>
+                    </NavigationItem>
+                    <NavigationItem Caption="任务" Icon="Mobile_items.png" Key="RejectList">
+                        <![CDATA[Show("MOA_TaskdistributionView");]]>
+                    </NavigationItem>
+                    <NavigationItem Caption="会议" Icon="Mobile_Panel.png" Key="MeetingHomePage">
+                        <![CDATA[Show("MOA_MeetingHomePage")]]>
+                    </NavigationItem>
+                </NavigationItemCollection>
+            </NavigationList>
+        </Block>
+    </Body>
+</Form>

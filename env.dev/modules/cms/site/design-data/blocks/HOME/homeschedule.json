@@ -1,0 +1,13 @@
+{
+	"@type":"com.bokesoft.cms2.impl.buildin.modelio.vo.BlockVO",
+	"block":{
+		"@type":"com.bokesoft.cms2.model.blocks.TmplBlock",
+		"notes":"",
+		"parameters":[],
+		"tmplText":"<div class=\"schedule-panel\">\n\t<iframe id=\"data-iframe\" marginheight=0 marginwidth=0 frameborder=0 src=\"/yigo/jsp/oa/schedule/index.html\" style=\"width:100%;height:435px;overfow-x:hidden;\">\n    </iframe> \n</div>\n<div id=\"schedule-content\" style=\"display:none;\">\n   \n</div>",
+		"type":"TMPL"
+	},
+	"code":"homeschedule",
+	"name":"首页日程",
+	"params":[]
+}

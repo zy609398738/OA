@@ -1,0 +1,29 @@
+{
+	"@type":"com.bokesoft.cms2.impl.buildin.modelio.vo.PageVO",
+	"attributes":{"@type":"java.util.LinkedHashMap"},
+	"code":"NAVIGATION",
+	"deliveryVOs":[
+		{
+			"@type":"com.bokesoft.cms2.impl.buildin.modelio.vo.PageVO$DeliveryVO",
+			"areaCode":"content",
+			"blockCode":"YIGO.NAVIGATION",
+			"groupName":"",
+			"name":"导航栏",
+			"options":[
+				"Raw"
+			],
+			"parameters":{"@type":"java.util.HashMap"},
+			"sequence":"1"
+		}
+	],
+	"enabled":true,
+	"groups":[
+		{
+			"groupName":""
+		}
+	],
+	"name":"导航栏",
+	"title":"导航栏设置",
+	"tmplCode":"HOME.NAVIGATION",
+	"url":"/navigation.page"
+}

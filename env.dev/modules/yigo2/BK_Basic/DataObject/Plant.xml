@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<DataObject Caption="工厂" Key="Plant" PrimaryTableKey="BK_Plant" PrimaryType="Entity" SecondaryType="Dict">
+    <TableCollection>
+        <Table Caption="Plant" DBTableName="BK_Plant" Key="BK_Plant">
+            <Column Caption="对象标识" DataType="Long" Key="OID"/>
+            <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+            <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+            <Column Caption="对象版本" DataType="Integer" Key="VERID"/>
+            <Column Caption="对象明细版本" DataType="Integer" Key="DVERID"/>
+            <Column Caption="节点类型" DataType="Integer" Key="NodeType"/>
+            <Column Caption="状态" DataType="Integer" Key="Status"/>
+            <Column Caption="启用标记" DataType="Integer" Key="Enable" DefaultValue="1"/>
+            <Column Caption="父节点" DataType="Long" Key="ParentID"/>
+            <Column Caption="TLeft" DataType="Integer" Key="TLeft"/>
+            <Column Caption="TRight" DataType="Integer" Key="TRight"/>
+            <Column Caption="创建人" DataType="Long" Key="CREATOR"/>
+            <Column Caption="创建时间" DataType="DateTime" Key="CREATETIME"/>
+            <Column Caption="修改人" DataType="Long" Key="MODIFIER"/>
+            <Column Caption="修改时间" DataType="DateTime" Key="MODIFYTIME"/>
+            <Column Caption="代码" DataType="Varchar" Key="Code" Length="100"/>
+            <Column Caption="名称" DataType="Varchar" Key="Name" Length="200"/>
+            <Column Caption="所属公司" DataType="Long" Key="CompanyCodeID"/>
+            <Column Caption="默认采购组织" DataType="Long" Key="PurchasingOrganizationID"/>
+            <Column Caption="日历" DataType="Long" Key="PlantCalendarId"/>
+            <Column Caption="国家地区" DataType="Long" Key="CountryID"/>
+            <Column Key="Notes" Caption="备注" DataType="Varchar"/>
+            <Column Key="clientid" Caption="集团" DataType="Long"/>
+            <Column Key="StreetAddress" Caption="街道地址" DataType="Varchar" Length="100"/>
+            <Column Key="RoomNumber" Caption="门牌号" DataType="Varchar" Length="100"/>
+            <Column Key="PostalCode" Caption="邮政编码" DataType="Varchar" Length="100"/>
+            <Column Key="City" Caption="城市" DataType="Varchar" Length="100"/>
+            <Column Key="RegionID" Caption="地区" DataType="Long"/>
+            <Column Key="PostOfficeBox" Caption="邮政信箱" DataType="Varchar" Length="100"/>
+            <Column Key="PostalCodeDtl" Caption="邮政编码" DataType="Varchar" Length="100"/>
+            <Column Key="Language" Caption="语言" DataType="Varchar" Length="100"/>
+            <Column Key="Call" Caption="电话" DataType="Varchar" Length="100"/>
+            <Column Key="TelephoneExtension" Caption="分机号" DataType="Varchar" Length="100"/>
+            <Column Key="MobilePhone" Caption="移动电话" DataType="Varchar" Length="100"/>
+            <Column Key="Fax" Caption="传真" DataType="Varchar" Length="100"/>
+            <Column Key="FaxExtension" Caption="分机号" DataType="Varchar" Length="100"/>
+        </Table>
+    </TableCollection>
+</DataObject>

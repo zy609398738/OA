@@ -1,0 +1,175 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<title>ideawu - PagerView - 分页控件</title>
+	<link rel="stylesheet" type="text/css" href="style.css" />
+	<link rel="stylesheet" type="text/css" href="jquery-ui-1.7.2.custom.css" />
+	<script type="text/javascript" src="scripts/jquery.js"></script>
+	<script type="text/javascript" src="scripts/jquery-ui-1.7.2.custom.min.js"></script>
+	<script type="text/javascript" src="scripts/PagerView.js"></script>
+	<script type="text/javascript" src="scripts/TableView.js"></script>
+	<script type="text/javascript" src="scripts/SelectorView.js"></script>
+	<script type="text/javascript" src="scripts/common.js"></script>
+</head>
+<body>
+
+
+<script type="text/javascript">
+<!--
+$(function(){
+	$('#tabs').tabs();
+});
+//-->
+</script>
+
+<h1 class="title1">PagerView - 分页控件</h1>
+
+
+<div id="menu">
+	<ul>
+		<li><a href="index.html">Home</a></li>
+		<li><a href="PagerView.html">PagerView</a></li>
+		<li><a href="TableView.html">TableView</a></li>
+		<li><a href="SelectorView.html">SelectorView</a></li>
+		<li><a href="Style.html">CSS样式表</a></li>
+		<li><a href="api/index.html">API文档</a></li>
+		<li><a href="js-datagrid.zip">下载</a></li>
+	</ul>
+</div>
+<div style="clear: both;"></div>
+
+
+
+<h2 class="title2">介绍</h2>
+
+<p>
+PagerView是一个JavaScript分页视图控件, 使用原生的JavaScript代码编写而成. 重写onclick方法, 获取翻页事件, 可用来向服务器端发起AJAX请求.
+</p>
+
+<h2 class="title2">示例</h2>
+
+<div id="tabs">
+	<ul>
+		<li><a href="#tabs-1">Demo</a></li>
+		<li><a href="#tabs-2">源码</a></li>
+	</ul>
+	<div id="tabs-1" style="background: #fff;">
+		<div id="pager">
+		</div>
+		<div id="info">
+		</div>
+
+		<script type="text/javascript">
+		<!--
+		var pager = new PagerView('pager');
+		pager.itemCount = 301;
+		pager.size = 5;
+		pager.onclick = function(index){
+			document.getElementById('info').innerHTML = '现在翻到第' + index + '页';
+		};
+		pager.render();
+		//-->
+		</script>
+	</div>
+	<div id="tabs-2">
+<pre>
+&lt;div id="pager"&gt;&lt;/div&gt;
+&lt;div id="info"&gt;&lt;/div&gt;
+
+&lt;script type="text/javascript"&gt;
+&lt;!--
+var pager = new PagerView('pager');
+pager.itemCount = 301;
+pager.size = 5;
+pager.onclick = function(index){
+	document.getElementById('info').innerHTML = '现在翻到第' + index + '页';
+};
+pager.render();
+//--&gt;
+&lt;/script&gt;
+</pre>
+	</div>
+</div>
+
+
+<h2 class="title2">API文档</h2>
+
+<p><a href="api/symbols/PagerView.html">查看API文档</a></p>
+
+
+<h2 class="title2">开发指导</h2>
+
+<h3 class="title3">创建</h3>
+
+<p>PagerView生成分页控件的HTML代码, 添加到指定的节点当中. 这个节点一般是div节点. 创建一个PagerView的实例后, 需要设置itemCount(记录条数), size(每页显示记录数), 然后调用render()方法将控件渲染到页面上.</p>
+
+<pre>
+&lt;div id="pager"&gt;&lt;/div&gt;
+
+&lt;script type="text/javascript"&gt;
+&lt;!--
+var pager = new PagerView('pager');
+pager.itemCount = 301;
+pager.size = 5;
+pager.render();
+//--&gt;
+&lt;/script&gt;
+</pre>
+
+<h3 class="title3">翻页事件</h3>
+
+<p>分页控件可以独立运行, 更新自身. 但往往需要捕获翻页事件, 向服务器端获取数据. 只需要将翻页事件的回调函数赋值给onclick属性, 即可在发生翻页事件时调用. 这样的回调函数接受一个参数, 表明当前需要显示第几页.</p>
+
+<pre>
+&lt;script type="text/javascript"&gt;
+&lt;!--
+pager.onclick = function(index){
+	// 从服务器端获取数据.
+};
+//--&gt;
+&lt;/script&gt;
+</pre>
+
+<p>PagerView本身能自动在翻页事件后更新自身, 如果需要取消翻页事件, 只需要在分页回调函数中返回false. 如果数据的总数是保持不变的, 只需要设置一次itemCount属性即可; 若总数变化, 如变更了查询条件, 则需要在回调函数中更新设置itemCount.</p>
+
+<pre>
+&lt;script type="text/javascript"&gt;
+&lt;!--
+pager.onclick = function(index){
+	if(server failed){ // 获取数据失败, 不要更新分页控件.
+		return false;
+	}
+};
+//--&gt;
+&lt;/script&gt;
+</pre>
+
+
+<h3 class="title3">其它: 3行代码的分页算法</h3>
+
+<p>有没有想过, 只用3行代码, 不仅仅是JavaScript, 包括PHP/Java/Python等语言的默认功能(默认库), 都只使用3行代码, 就可计算出分页按钮的起止页码. 我在一个偶然的时候想到这3行代码, 发现它们实现了一个严谨且简单的逻辑:</p>
+
+<pre>
+start = Math.max(1, index - parseInt(maxButtons/2));
+end = Math.min(pageCount, start + maxButtons - 1);
+start = Math.max(1, end - maxButtons + 1);
+
+// index: 当前页码
+// maxButtons: 显示的最多页码数
+// pageCount: 最大页码数, 从1计数
+// start: 当前要显示的开始页面
+// end: 当前要显示的开始页面
+</pre>
+
+
+<div id="footer" style="margin-top: 20px;">
+	Copyright&copy;2009 <b>idea's web</b>. All rights reserved. | <a href="http://www.ideawu.net">www.ideawu.net</a>
+
+	<script language="javascript" type="text/javascript" src="http://js.users.51.la/414722.js"></script>
+</div>
+
+
+
+</body>
+</html>

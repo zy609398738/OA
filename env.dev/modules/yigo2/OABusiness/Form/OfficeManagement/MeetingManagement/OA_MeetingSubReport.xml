@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="OA_MeetingSubReport" Caption="会议统计表" FormType="View" Platform="">
+    <DataSource>
+        <DataObject Key="OA_MeetingSubReport" Caption="会议统计表">
+            <TableCollection>
+                <Table Key="OA_MeetingSubReport" Caption="会议统计表" TableMode="Detail" SourceType="Interface" Persist="false" Impl="com.bokesoft.oa.mid.report.GetSumDataTable">
+                    <Column Key="MeetingRoom" Caption="开会地点" DataType="Long"/>
+                    <Column Key="MeetingType" Caption="会议类型" DataType="Long"/>
+                    <Column Key="EmpID" Caption="申请人" DataType="Long"/>
+                    <Column Key="DeptID" Caption="申请部门" DataType="Long"/>
+                    <Column Key="StartTime" Caption="开始时间" DataType="DateTime"/>
+                    <Column Key="EndTime" Caption="结束时间" DataType="DateTime"/>
+                    <Column Key="Moderator" Caption="会议主持人" DataType="Long"/>
+                    <Column Key="UrgencyDeg" Caption="紧急程度" DataType="Integer"/>
+                    <Column Key="BillDate" Caption="申请日期" DataType="DateTime"/>
+                    <Column Key="Amount" Caption="会议数量" DataType="Integer"/>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="Print" Caption="打印"/>
+    </OperationCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板">
+                <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <GridLayoutPanel Key="first_head" Height="160px" Caption="基本信息">
+                    <DatePicker Key="BillDateFrom" Caption="申请日期 从" BuddyKey="Lab_BillDateFrom" X="3" Y="1">
+                        <Condition ColumnKey="BillDate" TableKey="OA_MeetingSubReport" CondSign="between" Group="aa" GroupHead="true"/>
+                    </DatePicker>
+                    <Label Key="Lab_BillDateFrom" Caption="申请日期 从" X="2" Y="1"/>
+                    <DatePicker Key="BillDateTo" Caption="到" BuddyKey="Lab_BillDateTo" X="5" Y="1">
+                        <Condition ColumnKey="BillDate" TableKey="OA_MeetingSubReport" CondSign="between" Group="aa" GroupTail="true"/>
+                    </DatePicker>
+                    <Label Key="Lab_BillDateTo" Caption="到" X="4" Y="1"/>
+                    <DatePicker Key="StartFrom" Caption="开始时间 从" BuddyKey="Lab_StartFrom" X="1" Y="2">
+                        <Condition ColumnKey="StartTime" TableKey="OA_MeetingSubReport" CondSign="between" Group="bb" GroupHead="true"/>
+                    </DatePicker>
+                    <Label Key="Lab_StartFrom" Caption="开始时间 从" X="0" Y="2"/>
+                    <DatePicker Key="StartTo" Caption="到" BuddyKey="Lab_StartTo" X="3" Y="2">
+                        <Condition ColumnKey="StartTime" TableKey="OA_MeetingSubReport" CondSign="between" Group="bb" GroupTail="true"/>
+                    </DatePicker>
+                    <Label Key="Lab_StartTo" Caption="到" X="2" Y="2"/>
+                    <DatePicker Key="EndFrom" Caption="结束时间 从" BuddyKey="Lab_EndFrom" X="1" Y="3">
+                        <Condition ColumnKey="EndTime" TableKey="OA_MeetingSubReport" CondSign="between" Group="cc" GroupHead="true"/>
+                    </DatePicker>
+                    <Label Key="Lab_EndFrom" Caption="结束时间 从" X="0" Y="3"/>
+                    <DatePicker Key="EndTo" Caption="到" BuddyKey="Lab_EndTo" X="3" Y="3">
+                        <Condition ColumnKey="EndTime" TableKey="OA_MeetingSubReport" CondSign="between" Group="cc" GroupTail="true"/>
+                    </DatePicker>
+                    <Label Key="Lab_EndTo" Caption="到" X="2" Y="3"/>
+                    <Dict Key="QueryMeetingType" Caption="会议类型" BuddyKey="Lab_QueryMeetingType" X="3" Y="0" AllowMultiSelection="true" ItemKey="OA_MeetingType">
+                        <Condition ColumnKey="MeetingType" TableKey="OA_MeetingSubReport" CondSign="in"/>
+                    </Dict>
+                    <Label Key="Lab_QueryMeetingType" Caption="会议类型" X="2" Y="0"/>
+                    <Dict Key="QueryMeetingRoom" Caption="开会地点" BuddyKey="Lab_QueryMeetingRoom" X="1" Y="0" AllowMultiSelection="true" ItemKey="OA_MeetingRoom">
+                        <Condition ColumnKey="MeetingRoom" TableKey="OA_MeetingSubReport" CondSign="in"/>
+                    </Dict>
+                    <Label Key="Lab_QueryMeetingRoom" Caption="开会地点" X="0" Y="0"/>
+                    <Dict Key="QueryEmpID" Caption="申请人" BuddyKey="Lab_QueryEmpID" X="5" Y="0" AllowMultiSelection="true" ItemKey="OA_Employee">
+                        <Condition ColumnKey="EmpID" TableKey="OA_MeetingSubReport" CondSign="in"/>
+                    </Dict>
+                    <Label Key="Lab_QueryEmpID" Caption="申请人" X="4" Y="0"/>
+                    <Dict Key="QueryDeptID" Caption="申请部门" BuddyKey="Lab_QueryDeptID" X="1" Y="1" AllowMultiSelection="true" ItemKey="OA_Department">
+                        <Condition ColumnKey="DeptID" TableKey="OA_MeetingSubReport" CondSign="in"/>
+                    </Dict>
+                    <Label Key="Lab_QueryDeptID" Caption="申请部门" X="0" Y="1"/>
+                    <CheckListBox BuddyKey="Lab_QueryUrgencyDeg" Caption="紧急程度" Key="QueryUrgencyDeg" X="5" Y="3">
+                        <Condition ColumnKey="UrgencyDeg" TableKey="OA_MeetingSubReport" CondSign="in"/>
+                        <Item Caption="一般" Key="10" Value="10"/>
+                        <Item Caption="紧急" Key="20" Value="20"/>
+                        <Item Caption="特急" Key="30" Value="30"/>
+                    </CheckListBox>
+                    <Label Key="Lab_QueryUrgencyDeg" Caption="紧急程度" X="4" Y="3"/>
+                    <Button Key="Query" Caption="查询" X="6" Y="0">
+                        <OnClick>
+                            <![CDATA[DealCondition();
+LoadData();
+ShowData();]]>
+                        </OnClick>
+                    </Button>
+                    <Button Key="Reset" Caption="重置" X="6" Y="1">
+                        <OnClick>
+                            <![CDATA[ResetCondition()]]>
+                        </OnClick>
+                    </Button>
+                    <Dict Key="QueryModerator" Caption="会议主持人" BuddyKey="Lab_QueryModerator" X="5" Y="2" AllowMultiSelection="true" ItemKey="OA_Employee">
+                        <Condition ColumnKey="Moderator" TableKey="OA_MeetingSubReport" CondSign="in"/>
+                    </Dict>
+                    <Label Key="Lab_QueryModerator" Caption="会议主持人" X="4" Y="2"/>
+                    <RowDefCollection RowGap="8">
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="8">
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="33%"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="33%"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="34%"/>
+                        <ColumnDef Width="80px"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+                <Grid Key="Grid1" Caption="Grid1" NewEmptyRow="false" Enable="false" CanDelete="false" CanInsert="false" Height="100%" PageLoadType="UI">
+                    <GridColumnCollection>
+                        <GridColumn Key="MeetingRoom" Caption="开会地点" Width="130px"/>
+                        <GridColumn Key="MeetingType" Caption="会议类型" Width="130px"/>
+                        <GridColumn Key="EmpID" Caption="申请人" Width="130px"/>
+                        <GridColumn Key="DeptID" Caption="申请部门" Width="130px"/>
+                        <GridColumn Key="Moderator" Caption="会议主持人" Width="130px"/>
+                        <GridColumn Key="UrgencyDeg" Caption="紧急程度" Width="80px"/>
+                        <GridColumn Key="Amount" Caption="会议数量" Width="80px"/>
+                    </GridColumnCollection>
+                    <GridRowCollection>
+                        <GridRow Key="row1" RowHeight="35" TableKey="OA_MeetingSubReport">
+                            <GridCell Key="MeetingRoom" Caption="开会地点" CellType="Dict" ItemKey="OA_MeetingRoom">
+                                <DataBinding ColumnKey="MeetingRoom"/>
+                            </GridCell>
+                            <GridCell Key="MeetingType" Caption="会议类型" CellType="Dict" ItemKey="OA_MeetingType">
+                                <DataBinding ColumnKey="MeetingType"/>
+                            </GridCell>
+                            <GridCell Key="EmpID" Caption="申请人" CellType="Dict" ItemKey="OA_Employee">
+                                <DataBinding ColumnKey="EmpID"/>
+                            </GridCell>
+                            <GridCell Key="DeptID" Caption="申请部门" CellType="Dict" ItemKey="OA_Department">
+                                <DataBinding ColumnKey="DeptID"/>
+                            </GridCell>
+                            <GridCell Key="Moderator" Caption="会议主持人" CellType="Dict" ItemKey="OA_Employee">
+                                <DataBinding ColumnKey="Moderator"/>
+                            </GridCell>
+                            <GridCell Key="UrgencyDeg" Caption="紧急程度" CellType="ComboBox">
+                                <DataBinding ColumnKey="UrgencyDeg"/>
+                                <Item Key="0" Value="0"/>
+                                <Item Caption="一般" Key="10" Value="10"/>
+                                <Item Caption="紧急" Key="20" Value="20"/>
+                                <Item Caption="特急" Key="30" Value="30"/>
+                            </GridCell>
+                            <GridCell Key="Amount" Caption="会议数量" CellType="NumberEditor" IntegerValue="true">
+                                <DataBinding ColumnKey="Amount"/>
+                            </GridCell>
+                        </GridRow>
+                    </GridRowCollection>
+                </Grid>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

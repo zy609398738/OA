@@ -1,0 +1,779 @@
+{
+	"common_config" : {
+		"key" : "common_config",
+		"text" : "公共配置",
+		"checked" : false,
+		"children" : [{
+					"text" : "数据源",
+					"actionType" : "findGgpzStoreDataSource",
+					"checked" : false,
+					"children" : [{
+								"text" : "新增",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "savePdDataSource"
+							}, {
+								"text" : "修改",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "updatePdDataSource"
+							}, {
+								"text" : "删除",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "delPublicDeploy"
+							}, {
+								"text" : "查看",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "findPdDataSource"
+							}],
+					"leaf" : false
+				}, {
+					"text" : "连接器",
+					"checked" : false,
+					"actionType" : "findGgpzStoreConnector",
+					"children" : [{
+								"text" : "新增",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "savePdConnector"
+							}, {
+								"text" : "修改",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "updatePdConnector"
+							}, {
+								"text" : "删除",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "delPublicDeploy"
+							}, {
+								"text" : "查看",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "findPdConnector"
+							}],
+					"leaf" : false
+				}, {
+					"text" : "Spring对象",
+					"actionType" : "findGgpzStoreSpringBean",
+					"checked" : false,
+					"children" : [{
+								"text" : "新增",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "saveSpringBean"
+							}, {
+								"text" : "修改",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "updateSpringBean"
+							}, {
+								"text" : "删除",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "delPublicDeploy"
+							}, {
+								"text" : "查看",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "findSpringBean"
+							}],
+					"leaf" : false
+				}, {
+					"text" : "全局配置",
+					"actionType" : "findGgpzStoreGlobalSource",
+					"checked" : false,
+					"children" : [{
+								"text" : "新增",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "newGlobalSource"
+							}, {
+								"text" : "删除",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "delPublicDeploy"
+							}, {
+								"text" : "保存",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "saveOrUpdateGlobalSource"
+							}],
+					"leaf" : false
+				}, {
+					"text" : "Web服务映射",
+					"actionType" : "findGgpzStoreWSAMapping",
+					"checked" : false,
+					"children" : [{
+								"text" : "新增",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "newWSAMapping"
+							}, {
+								"text" : "删除",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "delPublicDeploy"
+							}, {
+								"text" : "保存",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "saveOrUpdateWSAMapping"
+							}],
+					"leaf" : false
+				}, {
+					"text" : "Servlet映射",
+					"actionType" : "findGgpzStoreSAMapping",
+					"checked" : false,
+					"children" : [{
+								"text" : "新增",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "newWSAMapping"
+							}, {
+								"text" : "删除",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "delPublicDeploy"
+							}, {
+								"text" : "保存",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "saveOrUpdateWSAMapping"
+							}],
+					"leaf" : false
+				}, {
+					"text" : "文件导入设置",
+					"actionType" : "findGgpzStoreVmFileImport",
+					"checked" : false,
+					"children" : [{
+								"text" : "新增",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "newWSAMapping"
+							}, {
+								"text" : "删除",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "delPublicDeploy"
+							}, {
+								"text" : "保存",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "saveOrUpdateWSAMapping"
+							}],
+					"leaf" : false
+				}]
+	},
+	"interface_config" : {
+		"key" : "interface_config",
+		"checked" : false,
+		"text" : "接口配置",
+		"leaf" : false,
+		"children" : [{
+					"text" : "Interface",
+					"checked" : false,
+					"actionType" : "findInterfaceStore",
+					"leaf" : false,
+					"children" : [{
+								"text" : "新建接口",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "saveInterface"
+							}, {
+								"text" : "修改接口",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "updateInterface"
+							}, {
+								"text" : "删除接口",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "delInterface"
+							}, {
+								"text" : "复制接口",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "copyInterface"
+							}, {
+								"text" : "复制服务",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "copyService"
+							}, {
+								"text" : "新增服务",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "saveProcessor"
+							}, {
+								"text" : "修改服务",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "updateProcessor"
+							}, {
+								"text" : "删除服务",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "delProcessor"
+							}, {
+								"text" : "上移流程节点",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "upTransformerItem"
+							}, {
+								"text" : "下移流程节点",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "downTransformerItem"
+							}, {
+								"text" : "复制流程节点",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "copyMessageprocessor"
+							}, {
+								"text" : "保存流程节点",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "savePropertyGrid"
+							}]
+				}]
+	},
+	"interfce_manage" : {
+		"text" : "接口管理",
+		"key" : "interfce_manage",
+		"checked" : false,
+		"children" : [{
+					"text" : "生成运行文件",
+					"actionType" : "findInterfaceStore",
+					"checked" : false,
+					"leaf" : false,
+					"children" : [{
+								"text" : "调试模式",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "build_debug"
+							}, {
+								"text" : "运行模式",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "build_run"
+							}, {
+								"text" : "删除运行文件",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "build_del"
+							}]
+				}, {
+					"text" : "接口运行管理",
+					"actionType" : "refresh",
+					"checked" : false,
+					"leaf" : false,
+					"children" : [{
+								"text" : "重新加载所有接口",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "reload"
+							}, {
+								"text" : "刷新",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "refresh"
+							}]
+				}, {
+					"text" : "定时任务",
+					"actionType" : "timingTask",
+					"checked" : false,
+					"leaf" : false,
+					"children" : [{
+								"text" : "新增",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "saveTimingTask"
+							}, {
+								"text" : "修改",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "updateTimingTask"
+							}, {
+								"text" : "删除",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "delTimingTask"
+							}]
+				}, {
+					"text" : "同步",
+					"checked" : false,
+					"actionType" : "synchData",
+					"leaf" : false,
+					"children" : [{
+								"text" : "开始同步",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "synchData"
+							}]
+				}]
+	},
+	"dataTemplate_config" : {
+		"text" : "辅助配置",
+		"key" : "dataTemplate_config",
+		"checked" : false,
+		"children" : [{
+					"text" : "接口预配置",
+					"actionType" : "YigoConfig",
+					"checked" : false,
+					"leaf" : false,
+					"children" : [{
+								"text" : "新增",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "add"
+							}, {
+								"text" : "修改",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "update"
+							}, {
+								"text" : "删除",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "del"
+							}, {
+								"text" : "生成到接口配置",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "create"
+							}]
+				},{
+					"text" : "标准模版",
+					"actionType" : "standardTemplate",
+					"checked" : false,
+					"leaf" : false,
+					"children" : [{
+								"text" : "查看",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "look"
+							}]
+				}, {
+					"text" : "自定义模版",
+					"actionType" : "customTemplate",
+					"checked" : false,
+					"leaf" : false,
+					"children" : [{
+								"text" : "新增",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "add"
+							}, {
+								"text" : "修改",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "update"
+							}, {
+								"text" : "删除",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "del"
+							}]
+				}]
+	},
+	"exchange_center" : {
+		"text" : "交换中心",
+		"key" : "exchange_center",
+		"checked" : false,
+		"children" : [{
+					"text" : "交换代码",
+					"actionType" : "exchangecode",
+					"checked" : false,
+					"leaf" : false,
+					"children" : [{
+								"text" : "新增",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "addexchange"
+							}, {
+								"text" : "修改",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "changeexchange"
+							}, {
+								"text" : "删除",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "delexchange"
+							}]
+				}, {
+					"text" : "交换群组",
+					"actionType" : "exchangegroup",
+					"checked" : false,
+					"children" : [{
+								"text" : "新增",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "addexchangeGroup"
+							}, {
+								"text" : "修改",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "changeexchangeGroup"
+							}, {
+								"text" : "删除",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "delexchangeGroup"
+							}]
+				}, {
+					"text" : "ActionType",
+					"checked" : false,
+					"actionType" : "exchangeAction",
+					"children" : [{
+								"text" : "新增",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "addexchangeAction"
+							}, {
+								"text" : "修改",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "changeexchangeAction"
+							}, {
+								"text" : "删除",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "delexchangeAction"
+							}]
+				}, {
+					"text" : "接收事件",
+					"checked" : false,
+					"actionType" : "exchangeEvent",
+					"children" : [{
+								"text" : "查询",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "findexchangeEvent"
+							}, {
+								"text" : "查看",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "getexchangeEvent"
+							}, {
+								"text" : "删除",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "delexchangeEvent"
+							}]
+				}, {
+					"text" : "备份查询",
+					"checked" : false,
+					"actionType" : "exchangeCopy",
+					"children" : [{
+								"text" : "查询",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "findexchangeCopy"
+							}, {
+								"text" : "查看",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "getexchangeCopy"
+							}, {
+								"text" : "删除",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "delexchangeCopy"
+							}]
+				}]
+	},
+	"log_manage" : {
+		"text" : "日志管理",
+		"key" : "log_manage",
+		"checked" : false,
+		"children" : [{
+					"text" : "调试日志",
+					"checked" : false,
+					"actionType" : "debugLog",
+					"children" : [{
+								"text" : "查询",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "findLog"
+							}, {
+								"text" : "查看",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "findDebugLogDetail"
+							}, {
+								"text" : "删除",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "deleteLog"
+							}],
+					"leaf" : false
+				}, {
+					"text" : "配置加载异常日志",
+					"checked" : false,
+					"actionType" : "loadConfigLog",
+					"children" : [{
+								"text" : "查询",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "findLog"
+							}, {
+								"text" : "查看",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "findLogContent"
+							}, {
+								"text" : "删除",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "deleteLog"
+							}],
+					"leaf" : false
+				}, {
+					"text" : "运行异常日志",
+					"actionType" : "runtimeLog",
+					"checked" : false,
+					"children" : [{
+								"text" : "查询",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "findLog"
+							}, {
+								"text" : "查看",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "findLogContent"
+							}, {
+								"text" : "删除",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "deleteLog"
+							}],
+					"leaf" : false
+				}, {
+					"text" : "启动异常日志",
+					"actionType" : "startLog",
+					"checked" : false,
+					"children" : [{
+								"text" : "查询",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "findLog"
+							}, {
+								"text" : "查看",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "findLogContent"
+							}, {
+								"text" : "删除",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "deleteLog"
+							}],
+					"leaf" : false
+				}, {
+					"text" : "同步日志",
+					"actionType" : "synchroniseLog",
+					"checked" : false,
+					"children" : [{
+								"text" : "查询",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "findLog"
+							}, {
+								"text" : "查看",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "findLogContent"
+							}, {
+								"text" : "删除",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "deleteLog"
+							}],
+					"leaf" : false
+				}, {
+					"text" : "计划任务日志",
+					"actionType" : "timingTaskLog",
+					"checked" : false,
+					"children" : [{
+								"text" : "查询",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "findLog"
+							}, {
+								"text" : "查看",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "findLogContent"
+							}, {
+								"text" : "删除",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "deleteLog"
+							}],
+					"leaf" : false
+				}, {
+					"text" : "运行详细日志",
+					"actionType" : "detailLog",
+					"checked" : false,
+					"leaf" : true
+				}, {
+					"text" : "接口服务状态监控",
+					"actionType" : "interfaceMonitor",
+					"checked" : false,
+					"leaf" : true
+				}, {
+					"text" : "日志索引",
+					"actionType" : "interfaceIndex",
+					"checked" : false,
+					"leaf" : true
+				}]
+	},
+	"permission_config" : {
+		"text" : "权限管理",
+		"key" : "permission_config",
+		"checked" : false,
+		"children" : [{
+					"text" : "操作员管理",
+					"actionType" : "findOperator",
+					"checked" : false,
+					"children" : [{
+								"text" : "新增操作员",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "saveOperator"
+							}, {
+								"text" : "修改操作员",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "updateOperator"
+							}, {
+								"text" : "删除操作员",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "deletePermission"
+							}, {
+								"text" : "修改密码",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "alterOperatorPassword"
+							}],
+					"leaf" : false
+				}, {
+					"text" : "角色管理",
+					"actionType" : "findRole",
+					"checked" : false,
+					"children" : [{
+								"text" : "新增角色",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "saveRole"
+							}, {
+								"text" : "修改角色",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "updateRole"
+							}, {
+								"text" : "删除角色",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "deletePermission"
+							}],
+					"leaf" : false
+				}]
+	},
+	"other_config" : {
+		"text" : "其他信息",
+		"key" : "other_config",
+		"checked" : false,
+		"children" : [{
+					"text" : "系统信息",
+					"checked" : false,
+					"actionType" : "otherInfo",
+					"leaf" : false,
+					"children" : [{
+								"text" : "修改是否同步",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "setSynAccept"
+							}]
+				}, {
+					"text" : "资源下载配置",
+					"checked" : false,
+					"actionType" : "sysResource",
+					"leaf" : false,
+					"children" : [{
+								"text" : "新增",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "add"
+							}, {
+								"text" : "删除",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "del"
+							}, {
+								"text" : "保存",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "save"
+							}, {
+								"text" : "查看下载地址",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "findDownloadUrl"
+							}]
+				}, {
+					"text" : "Ws和Http测试",
+					"checked" : false,
+					"actionType" : "wsAndHttpTest",
+					"leaf" : false,
+					"children" : [{
+								"text" : "查看缓存日志",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "cacheLog"
+							}, {
+								"text" : "持久化",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "persistence"
+							}, {
+								"text" : "查看持久化日志",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "persistenceLog"
+							}, {
+								"text" : "删除",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "del"
+							}]
+				}, {
+					"text" : "Excel导入到数据库",
+					"checked" : false,
+					"actionType" : "excelImportToTable",
+					"leaf" : false,
+					"children" : [{
+								"text" : "新增",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "add"
+							}, {
+								"text" : "保存",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "update"
+							}, {
+								"text" : "删除",
+								"checked" : false,
+								"leaf" : true,
+								"actionType" : "del"
+							}]
+				}]
+	}
+}

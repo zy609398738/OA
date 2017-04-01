@@ -1,0 +1,12 @@
+{
+	"@type":"com.bokesoft.cms2.impl.buildin.modelio.vo.PageVO",
+	"attributes":{"@type":"java.util.LinkedHashMap"},
+	"code":"@index",
+	"deliveryVOs":[],
+	"enabled":true,
+	"groups":[],
+	"name":"信息中心",
+	"title":"信息中心",
+	"tmplCode":"HOME.HOME-TPL",
+	"url":"/news.page"
+}

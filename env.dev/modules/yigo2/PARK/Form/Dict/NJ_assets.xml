@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="NJ_assets" Caption="资产" FormType="Dict">
+    <DataSource>
+        <DataObject Key="NJ_assets" Caption="资产" PrimaryTableKey="NJ_CP_assets" SecondaryType="Dict" PrimaryType="Entity">
+            <TableCollection>
+                <Table Key="NJ_CP_assets" Caption="NJ_CP_assets" DBTableName="NJ_CP_assets">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="Status" Caption="状态" DataType="Integer" DefaultValue="1"/>
+                    <Column Key="Creator" Caption="创建人员" DataType="Long"/>
+                    <Column Key="CreateTime" Caption="创建时间" DataType="DateTime"/>
+                    <Column Key="Modifier" Caption="修改人员" DataType="Long"/>
+                    <Column Key="ModifyTime" Caption="修改时间" DataType="DateTime"/>
+                    <Column Key="Notes" Caption="备注" DataType="Varchar"/>
+                    <Column Key="BillKey" Caption="单据Key" DataType="Varchar"/>
+                    <Column Key="ClusterID" Caption="集团" DataType="Long"/>
+                    <Column Key="Code" Caption="代码" DataType="Varchar" Length="50"/>
+                    <Column Key="Name" Caption="名称" DataType="Varchar" Length="100"/>
+                    <Column Key="Enable" Caption="启用标记" DataType="Integer"/>
+                    <Column Key="ParentID" Caption="父节点" DataType="Long"/>
+                    <Column Key="NodeType" Caption="节点类型" DataType="Integer"/>
+                    <Column Key="TLeft" Caption="TLeft" DataType="Integer"/>
+                    <Column Key="TRight" Caption="TRight" DataType="Integer"/>
+                    <Column Key="ShortName" Caption="简称" DataType="Varchar" Cache="true"/>
+                    <Column Key="Model" Caption="规格型号" DataType="Varchar" Cache="true"/>
+                    <Column Key="StripeCode" Caption="条形码" DataType="Varchar" Cache="true"/>
+                    <Column Key="UNITID" Caption="计量单位" DataType="Long" Cache="true"/>
+                    <Column Key="assetstypeid" Caption="资产类别" DataType="Long" Cache="true"/>
+                    <Column Key="AssetNatureId" Caption="资产性质" DataType="Long" Cache="true"/>
+                    <Column Key="WareHouseId" Caption="资产大类" DataType="Long" Cache="true"/>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="FlexFlowLayoutPanel1" Caption="FlexFlowLayoutPanel1">
+                <TabPanel Caption="TabPanel1" Height="100%" Key="TabPanel1">
+                    <GridLayoutPanel Key="GridLayoutPanel1" Caption="基本信息">
+                        <TextEditor Key="Code" Caption="资产代码" BuddyKey="Lab_Code" X="1" Y="0">
+                            <DataBinding TableKey="NJ_CP_assets" ColumnKey="Code" Required="true"/>
+                        </TextEditor>
+                        <Label Key="Lab_Code" Caption="资产代码" X="0" Y="0"/>
+                        <TextEditor Key="Name" Caption="资产名称" BuddyKey="Lab_Name" X="4" Y="0">
+                            <DataBinding TableKey="NJ_CP_assets" ColumnKey="Name" Required="true"/>
+                        </TextEditor>
+                        <Label Key="Lab_Name" Caption="资产名称" X="3" Y="0"/>
+                        <TextEditor Key="ShortName" Caption="简称" BuddyKey="Lab_ShortName" X="4" Y="1">
+                            <DataBinding TableKey="NJ_CP_assets" ColumnKey="ShortName"/>
+                        </TextEditor>
+                        <Label Key="Lab_ShortName" Caption="简称" X="3" Y="1"/>
+                        <TextEditor Key="Model" Caption="规格型号" BuddyKey="Lab_Model" X="1" Y="1">
+                            <DataBinding TableKey="NJ_CP_assets" ColumnKey="Model" DefaultValue=" "/>
+                        </TextEditor>
+                        <Label Key="Lab_Model" Caption="规格型号" X="0" Y="1"/>
+                        <TextEditor Key="StripeCode" Caption="条形码" BuddyKey="Lab_StripeCode" X="4" Y="2">
+                            <DataBinding TableKey="NJ_CP_assets" ColumnKey="StripeCode"/>
+                        </TextEditor>
+                        <Label Key="Lab_StripeCode" Caption="条形码" X="3" Y="2"/>
+                        <Dict Key="UNITID" Caption="计量单位" BuddyKey="Lab_UNITID" X="1" Y="2" ItemKey="NJ_UNIT">
+                            <DataBinding TableKey="NJ_CP_assets" ColumnKey="UNITID"/>
+                        </Dict>
+                        <Label Key="Lab_UNITID" Caption="计量单位" X="0" Y="2"/>
+                        <Dict Key="assetstypeid" Caption="资产类别" BuddyKey="Lab_assetstypeid" X="1" Y="4" ItemKey="NJ_assetstype">
+                            <DataBinding TableKey="NJ_CP_assets" ColumnKey="assetstypeid"/>
+                        </Dict>
+                        <Label Key="Lab_assetstypeid" Caption="资产类别" X="0" Y="4"/>
+                        <Dict Key="ParentID" Caption="上级节点" BuddyKey="Lab_ParentID" X="4" Y="4" ItemKey="NJ_assets">
+                            <DataBinding TableKey="NJ_CP_assets" ColumnKey="ParentID"/>
+                        </Dict>
+                        <Label Key="Lab_ParentID" Caption="上级节点" X="3" Y="4"/>
+                        <ComboBox Key="NodeType" Caption="节点类型" BuddyKey="Lab_NodeType" X="4" Y="3">
+                            <DataBinding TableKey="NJ_CP_assets" ColumnKey="NodeType" DefaultValue="0"/>
+                            <Item Caption="明细节点" Key="0" Value="0"/>
+                            <Item Caption="汇总节点" Key="1" Value="1"/>
+                        </ComboBox>
+                        <Label Key="Lab_NodeType" Caption="节点类型" X="3" Y="3"/>
+                        <Dict Key="AssetNatureId" Caption="资产性质" BuddyKey="Lab_AssetNatureId" X="1" Y="5" ItemKey="NJ_AssetNature">
+                            <DataBinding TableKey="NJ_CP_assets" ColumnKey="AssetNatureId"/>
+                        </Dict>
+                        <Label Key="Lab_AssetNatureId" Caption="资产性质" X="0" Y="5"/>
+                        <Dict Key="WareHouseId" Caption="资产大类" BuddyKey="Lab_WareHouseId" X="1" Y="3" ItemKey="NJ_WareHouse">
+                            <DataBinding TableKey="NJ_CP_assets" ColumnKey="WareHouseId"/>
+                        </Dict>
+                        <Label Key="Lab_WareHouseId" Caption="资产大类" X="0" Y="3"/>
+                        <RowDefCollection RowGap="4">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="4">
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="50%"/>
+                            <ColumnDef Width="20px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="50%"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <GridLayoutPanel Key="SysTab" Height="1%" Caption="系统信息">
+                        <Dict Key="Creator" Caption="创建人员" BuddyKey="Lab_Creator" X="1" Y="0" Enable="false" ItemKey="Operator">
+                            <DataBinding TableKey="NJ_CP_assets" ColumnKey="Creator" DefaultFormulaValue="GetOperator()" Required="true"/>
+                        </Dict>
+                        <Label Key="Lab_Creator" Caption="创建人员" X="0" Y="0"/>
+                        <Label Key="Lab_CreateTime" Caption="创建时间" X="3" Y="0"/>
+                        <DatePicker Key="CreateTime" Caption="创建时间" BuddyKey="Lab_CreateTime" X="4" Y="0" Enable="false" OnlyDate="false">
+                            <DataBinding TableKey="NJ_CP_assets" ColumnKey="CreateTime" DefaultFormulaValue="ServerDate()" Required="true"/>
+                        </DatePicker>
+                        <Label Key="Lab_Modifier" Caption="修改人员" X="0" Y="1"/>
+                        <Dict Key="Modifier" Caption="修改人员" BuddyKey="Lab_Modifier" X="1" Y="1" Enable="false" ItemKey="Operator">
+                            <DataBinding TableKey="NJ_CP_assets" ColumnKey="Modifier" DefaultFormulaValue="GetOperator()" Required="true"/>
+                        </Dict>
+                        <Label Key="Lab_ModifyTime" Caption="修改时间" X="3" Y="1"/>
+                        <DatePicker Key="ModifyTime" Caption="修改时间" BuddyKey="Lab_ModifyTime" X="4" Y="1" Enable="false" OnlyDate="false">
+                            <DataBinding TableKey="NJ_CP_assets" ColumnKey="ModifyTime" DefaultFormulaValue="ServerDate()" Required="true"/>
+                        </DatePicker>
+                        <Label Key="Lab_Notes" Caption="备注" X="0" Y="2"/>
+                        <TextEditor Key="Notes" Caption="备注" BuddyKey="Lab_Notes" X="1" Y="2" XSpan="4">
+                            <DataBinding TableKey="NJ_CP_assets" ColumnKey="Notes"/>
+                        </TextEditor>
+                        <TextEditor Key="BillKey" Caption="单据Key" BuddyKey="Lab_BillKey" X="1" Y="3" Enable="false">
+                            <DataBinding TableKey="NJ_CP_assets" ColumnKey="BillKey" DefaultFormulaValue="GetFormKey()"/>
+                        </TextEditor>
+                        <Label Key="Lab_BillKey" Caption="单据Key" X="0" Y="3"/>
+                        <Dict Key="ClusterID" Caption="集团" BuddyKey="Lab_ClusterID" X="4" Y="3" Enable="false" ItemKey="Client">
+                            <DataBinding TableKey="NJ_CP_assets" ColumnKey="ClusterID"/>
+                        </Dict>
+                        <Label Key="Lab_ClusterID" Caption="集团" X="3" Y="3"/>
+                        <RowDefCollection RowGap="4">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="4">
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="50%"/>
+                            <ColumnDef Width="20px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="50%"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                </TabPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

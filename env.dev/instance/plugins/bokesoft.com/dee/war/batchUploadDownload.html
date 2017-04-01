@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+
+<title>多文件上传</title>
+
+<!-- css -->
+		<style type="text/css">  
+			.input{  
+			   border-color:#FF0000;  
+			   border-style:solid;  
+			}
+			.table{
+			  width:60%;
+			  border-collapse:collapse;
+			  border:1px solid #ABCDE8;
+			}
+			.intable{
+			  width:100%;
+			  border-collapse:collapse;
+			  border:1px solid #ABCDE8;
+			}
+			.tableth{
+			  font-size:1.1em;
+			  text-align:center;
+			  padding-top:5px;
+			  background-color:#ABCDE8;
+			  color:#ffffff;
+			  padding:3px 7px 2px 7px;
+			}
+			.tabletr{
+			  color:#000000;
+			  background-color:#ECF5FF;
+			  border:1px solid #ABCDE8;
+			}
+			.tabletd{
+			  font-size:1em;
+			  border:1px solid #ABCDE8;
+			}
+		</style>
+		
+	<!-- CSS goes in the document HEAD or added to your external stylesheet -->
+	<style type="text/css">
+		.altrowstable {
+			font-family: verdana,arial,sans-serif;
+			font-size:11px;
+			width:550px;
+			color:#333333;
+			border-width: 1px;
+			border-color: #a9c6c9;
+			border-collapse: collapse;
+		}
+		.altrowstable tr td{
+    		height : 20px;
+    		line-height : 20px;
+		}
+		.altrowstable th {
+			border-width: 0px;
+			padding: 3px;
+			border-style: solid;
+			border-color: #a9c6c9;
+			background-color:#EAECEC;
+		}
+		.altrowstable td {
+			border-width: 0px 0px 1px 0px;
+			padding: 3px;
+			border-width:1px;
+			border-style: solid;
+			border-color: #EDEDED;
+			
+		}
+		.oddrowcolor{
+			background-color:#FFFFFF;
+		}
+		.evenrowcolor{
+			background-color:#FAFAFA;
+		}
+		.mySpan{
+			height:30px ;
+			font-size: 12px;
+			padding-left: 15px;
+			padding-top: 5px;
+		}
+		a{
+			text-decoration: none;
+			color: black;
+		}
+		a:hover{
+			border: 1px solid #80A4D0;
+			background-color: #D4EAFE;
+		}
+		.delete:hover{
+			background-color: #D4EAFE;
+		}
+	</style>
+	
+
+<!-- production -->
+<script type="text/javascript" src="js/plupload/plupload.full.min.js"></script>
+<script type="text/javascript" src="js/plupload/i18n/zh_CN.js"></script>
+
+<script type="text/javascript">
+	function lookUpAttach(){
+		window.location.href='UploadOrDownloadServlet?op=getFileListByBillId&billId=' + getUrlParam('billId');
+	}
+	function createRows(file){
+		var table = document.getElementById("filelist");
+		var rowSize = table.rows.length;
+		var newRow = table.insertRow(rowSize);
+		newRow.setAttribute("class","table");
+		var newCell = newRow.insertCell(0);
+		newCell.innerHTML = file.name; //单元格内的内容
+		newCell.setAttribute("class","tabletd");
+		newCell.setAttribute("width","50%");
+		//newCell.setAttribute("align","right");
+		newCell = newRow.insertCell(1);
+		newCell.innerHTML = plupload.formatSize(file.size); //单元格内的内容
+		newCell.setAttribute("class","tabletd");
+		newCell.setAttribute("width","20%");
+		//newCell.setAttribute("align","right");
+		newCell = newRow.insertCell(2);
+		newCell.innerHTML = "<div id='"+file.id+"'><b>0%</b></div>"; //单元格内的内容
+		newCell.setAttribute("class","tabletd");
+		newCell.setAttribute("width","20%");
+		//newCell.setAttribute("align","right");
+		newCell = newRow.insertCell(3);
+		newCell.innerHTML = "<Button id='"+file.id+"_delete' >删除</Button>"; //单元格内的内容
+		newCell.setAttribute("class","tabletd");
+		newCell.setAttribute("width","10%");
+	}
+</script>
+	
+</head>
+
+<body style="font: 13px Verdana; background: #eee; color: #333;">
+<div id="drop_element" style="width:1000px;height: 800px;"><!--
+拖拽文件进行上传
+-->
+<div id="mySpace" style="margin: 0 auto;width:600px;">
+
+
+<div id="container" class="plupload_container">
+	
+    <table class="table" style="width: 600px;" id="myTable1">
+		<tr class="tabletr">
+			<th colspan="2" class="tableth">单据附件上传</th>
+		</tr>
+		<tr>
+			<td align="right" width="25%" class="tabletd">
+				<div align="right" style="font-size: 11pt">
+					选择文件：
+				</div>
+			</td>
+			<td width="75%" class="tabletd">
+				<button id="pickfiles">浏览</button>
+			</td>
+		</tr>
+		<tr class="table">
+			<td valign="top">
+				&nbsp;
+			</td>
+			<td align="right" width="25%" class="tabletd">
+				<button id="uploadfiles">开始上传</button>
+				<!--<button onclick="lookUpAttach();">查看已上传的附件</button>-->
+			</td>
+		</tr>
+	</table>
+</div>
+<br />
+<!--<div id="filelist">Your browser doesn't have Flash, Silverlight or HTML5 support.</div>-->
+
+<div id="result" style="overflow-x:hidden;overflow-y:scroll;height:150px;width:600px;">
+	<table class="intable" id="filelist" style="table-layout:fixed;font-size:12px;">
+		<tr class="tabletr">
+			<td width="40%"></td>
+			<td width="20%"></td>
+			<td width="20%"></td>
+			<td width="20%"></td>
+		</tr>
+		<tr class="tabletr">
+			<th colspan="4" class="tableth" style="font-size:20px;">文件列表</th>
+		</tr>
+		<tr class="table" style="font-weight: bold">
+			<td colspan="" class="tabletd">文件名称</td>
+			<td colspan="" class="tabletd" >文件大小</td>
+			<td colspan="" class="tabletd">进度</td>
+			<td colspan="" class="tabletd">操作</td>
+		</tr>
+		
+	</table>
+</div>
+<script type="text/javascript">
+// Custom example logic
+var billId;
+
+var uploader = new plupload.Uploader({
+	runtimes : 'html5,flash,silverlight,html4',
+	browse_button : 'pickfiles', // you can pass in id...
+	drop_element : "drop_element",
+	container: document.getElementById('container'), // ... or DOM Element itself
+	url : 'UploadOrDownloadServlet?op=fileUpload&billId=' + getUrlParam('billId'),
+	//multipart_params: {
+	//	billId: getUrlParam('billId')
+	//},
+	flash_swf_url : 'js/plupload/Moxie.swf',
+	silverlight_xap_url : 'js/plupload/Moxie.xap',
+	filters : {
+		//设置控制上传文件单个大小
+		max_file_size : '50mb',
+		//设置控制选取上传文件的后缀过滤
+		mime_types: [
+			/*
+			{title : "files", extensions : "jpg,jpeg,png,gif,bmp,doc,docx,ppt,pptx,xls,xlsx,txt,xml"},
+			*/
+		]
+	},
+	init: {
+		PostInit: function() {
+			document.getElementById('uploadfiles').onclick = function() {
+				if(getUrlParam('billId')==undefined || getUrlParam('billId')==''){
+					alert("没有传递单据号,无法上传!");
+					return false;
+				}
+				uploader.start();
+				return false;
+			};
+			
+		},
+		
+		FilesAdded: function(up, files) {
+			var i=0;
+			plupload.each(files, function(file) {
+				createRows(file);
+				document.getElementById(file.id+'_delete').onclick = function() {
+					up.removeFile(file);
+					var row = this.parentElement.parentElement;
+					var table = row.parentElement;
+					table.removeChild(row);
+				};
+			});
+			
+			
+		},
+		FilesRemoved: function(up, files) {
+			plupload.each(files, function(file) {
+				//alert(file.id);
+			});
+		},
+		//一个文件上传前
+		BeforeUpload:function(up,file) {
+			document.getElementById(file.id+'_delete').disabled = 'true';
+		},
+		//一个文件上传完成
+		FileUploaded:function(up,file,responseObject) {
+			if(responseObject.response=="notCorrectFileSystemFolder"){
+				up.stop();
+				document.getElementById(file.id+'_delete').disabled = '';
+				document.getElementById(file.id).getElementsByTagName('b')[0].innerHTML = "<span>0%</span>";
+				up.refresh();
+				alert("上传文件目录设置不正确!!");
+			}
+		},
+		//上传完成执行ajax请求回写该单据全部已上传的文件
+		UploadComplete:function(up, files) {
+			//alert($("#"+files[0].id).html());
+			//alert("complete!!!");
+			loadFileList();
+		},
+		
+		UploadProgress: function(up, file) {
+			document.getElementById(file.id).getElementsByTagName('b')[0].innerHTML = '<span>' + file.percent + "%</span>";
+		},
+		Error: function(up, err) {
+			document.getElementById('console').innerHTML += "\nError #" + err.code + ": " + err.message;
+		}
+	}
+});
+uploader.init();
+
+//根据paramKey获取响应的paramValue 如?paramKey=paramValue
+function getUrlParam(param){
+    var url = location.search; //获取url中"?"符后的字串
+    var paramKey;
+    if (url.indexOf("?") != -1) {
+        var str = url.substr(1);
+        if (str.indexOf("&") != -1) {
+            strs = str.split("&");
+            for (var i = 0; i < strs.length; i++) {
+                if(strs[i].split("=")[0]==param){
+               	 	paramKey = unescape(strs[i].split("=")[1]);
+					break;
+                }
+            }
+        } else {
+            var key = str.substring(0,str.indexOf("="));
+            if(key==param){
+            	var value = str.substr(str.indexOf("=")+1);
+            	paramKey = decodeURI(value);
+            }
+        }
+    }
+    return paramKey;
+}
+</script>
+
+
+	<!-- Javascript goes in the document HEAD -->
+	<script type="text/javascript">
+		function altRows(id){
+			if(document.getElementsByTagName){  
+				
+				var table = document.getElementById(id);  
+				var rows = table.getElementsByTagName("tr"); 
+				 
+				for(i = 0; i < rows.length; i++){  
+					if(i % 2 == 0){
+						alert(11);
+						rows[i].style.backgroundColor = "#FAFAFA"
+					}else{
+						//background-color:#FFFFFF;
+						rows[i].style.backgroundColor = "#FFFFFF"
+						//rows[i].className = "oddrowcolor";
+					}      
+				}
+			}
+		}
+		function hoverOn(tr){
+			var rowIndex = tr.rowIndex;
+			tr.style.backgroundColor = '#EFEFEF';
+		}
+		
+		function hoverOut(tr){
+			var rowIndex = tr.rowIndex;
+			if(rowIndex % 2 ==0){
+				tr.style.backgroundColor = '#FAFAFA';
+			}else{
+				tr.style.backgroundColor = '#FFFFFF';
+			}
+		}
+		
+		window.onload=function(){
+			altRows('fileListFile');
+		}
+
+		
+	</script>
+
+    <script type="text/javascript">
+    	//扩展replaceAll方法
+		 //全选或者全不选
+		function checkAll(headCheckbox,name){
+			var headCheckbox = document.getElementById(headCheckbox);
+			var checkboies = document.getElementsByName(name);
+			if(checkboies!=null && checkboies.length>0){
+				if(headCheckbox.checked){
+					for(var i=0; i<checkboies.length; i++){
+						//if(checkboies[i].checked){
+						checkboies[i].checked = true;	
+						//}
+					}
+				}else{
+					for(var i=0; i<checkboies.length; i++){
+						//if(checkboies[i].checked){
+						checkboies[i].checked = false;	
+						//}
+					}
+				}	
+			}
+		}
+		//反选
+		function checkReverse(name){
+			//var headCheckbox = document.getElementById("headCheckbox");
+			var checkboies = document.getElementsByName(name);
+			if(checkboies!=null && checkboies.length>0){
+				for(var i=0; i<checkboies.length; i++){
+					if(checkboies[i].checked){
+						checkboies[i].checked = false;	
+					}else{
+						checkboies[i].checked = true;
+					}
+				}
+			}
+		}
+
+		//执行删除附件
+		function deleteAttachment(fileName,deleteFile){
+			if(window.confirm("确定要删除[" + fileName + "]吗?")){
+				//deleteFile(billId,fileName,deleteFile);
+				fileName=fileName.replace(/\+/g,"%2B").replace(/\&/g,"%26");
+				sendAjaxRequestToDel(fileName,deleteFile);
+			}
+		}
+		//批量删除
+		function batchDelete(batchDelete){
+			var checkeds = getChecked();
+			if(checkeds==""){
+				alert("请至少选择一个!!");
+				return ;
+			}
+			if(window.confirm("确定要删除所选附件吗?")){
+				checkeds=checkeds.replace(/\+/g,"%2B").replace(/\&/g,"%26");
+				sendAjaxRequestToDel(checkeds,batchDelete);
+			}
+		}
+		
+    	
+    	//跳到下载操作
+    	function download(billId,fileName, downloadFile){
+			var form = document.getElementById("myForm");
+			document.getElementById("billId").value=billId;
+			document.getElementById("op").value=downloadFile;
+			form.action="UploadOrDownloadServlet";
+			document.getElementById("fileName").value=fileName;
+			form.submit();
+       	}
+		//获取选中的待下载选项
+       	function getChecked(){
+			var checkboies = document.getElementsByName("check");
+			var fileNames ="";
+			if(checkboies!=null && checkboies.length>0){
+				for(var i=0; i<checkboies.length; i++){
+					//alert(checkboies[i].value);
+					if(checkboies[i].checked && checkboies[i].value!=""){
+						//alert(i+"---选中");
+						fileNames += ">"+checkboies[i].value;
+					}
+				}
+			}
+			//alert(fileNames);
+			return fileNames;
+        }
+		//跳到打包下载操作
+		function batchDownload( downloadFile){
+			var checkeds = getChecked();
+			if(checkeds==""){
+				alert("请至少选择一个!!");
+				return ;
+			}
+			download(getUrlParam('billId'), checkeds, downloadFile);
+		}
+        
+    </script>
+    
+    <!-- ajax请求 -->
+    <script type="text/javascript"><!--
+	    var XMLHttpReq;  
+		function createXMLHttpRequest() {  
+			try {  
+				XMLHttpReq = new ActiveXObject("Msxml2.XMLHTTP");//IE高版本创建XMLHTTP  
+			}catch(E) {  
+					try {  
+	    			XMLHttpReq = new ActiveXObject("Microsoft.XMLHTTP");//IE低版本创建XMLHTTP  
+				}catch(E){  
+	    		XMLHttpReq = new XMLHttpRequest();//兼容非IE浏览器，直接创建XMLHTTP对象  
+				}  
+			}
+		}
+		//列表显示
+		function sendAjaxRequest(url) {  
+		    createXMLHttpRequest();                           //创建XMLHttpRequest对象  
+		    XMLHttpReq.open("post", url, true);  
+		    XMLHttpReq.onreadystatechange = processResponse; //指定响应函数  
+			//setTimeout();
+		    XMLHttpReq.send(null);  
+		}
+		
+		
+		function processResponse() {  
+			if (XMLHttpReq.readyState == 4) {  
+    			if (XMLHttpReq.status == 200) {  
+        			var text = XMLHttpReq.responseText; 
+					var textObj = eval('(' + text + ')');
+					var fileList = textObj['fileList'];
+					var table = document.getElementById("fileListFile");
+					
+					if(fileList!=null && fileList!='' && fileList.length>0){
+						deleteRows(table);
+						for(var i=0; i<fileList.length; i++){
+							var file = fileList[i];
+							insertFile(table,file,i);
+						}
+					}else{
+						deleteRows(table);
+						var newRow = table.insertRow(0);
+						newRow.style.backgroundColor = '#FAFAFA';
+						newRow.setAttribute("colspan","4");
+						newRow.setAttribute("style","text-align: center;");
+						var newCell = newRow.insertCell(0);
+						newCell.innerHTML = "该单据没有添加任何附件!!";
+					}
+    			}  
+			}  
+		}
+
+		//删除附件
+		function sendAjaxRequestToDel(fileName,deleteFile) {  
+		    createXMLHttpRequest(); 
+		    var url = "UploadOrDownloadServlet"; 
+		    XMLHttpReq.open("post", url, true);
+		    XMLHttpReq.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		    XMLHttpReq.onreadystatechange = processResponseToDel; //指定响应函数  
+			//setTimeout();
+			//设置请求参数
+			var param = "billId="+getUrlParam('billId')+"&fileName="+fileName+"&op="+deleteFile
+		    XMLHttpReq.send(param);
+		}
+		//sendAjaxRequestToDel的回调函数
+		function processResponseToDel() {  
+			if (XMLHttpReq.readyState == 4) {  
+    			if (XMLHttpReq.status == 200) {  
+        			var text = XMLHttpReq.responseText; 
+					if(text=='ok'){
+						//alert("success");
+						loadFileList();
+					}else if(text=='error'){
+						alert("删除失败,请刷新后重新操作!!!");
+					}
+    			}  
+			}  
+		}
+		
+		function deleteRows(table){
+			var rowSize = table.rows.length;
+			for(var i=0; i<rowSize; rowSize--){
+				table.deleteRow(i);
+			}
+		}
+		
+		function insertFile(table,file,i){
+			var newRow = table.insertRow(i);
+			if(i%2==0){
+				newRow.style.backgroundColor = '#FAFAFA';
+			}else{
+				newRow.style.backgroundColor = '#FFFFFF';
+			}
+			newRow.setAttribute("onmouseover","hoverOn(this)");
+			newRow.setAttribute("onmouseout","hoverOut(this)");
+			var newCell = newRow.insertCell(0);
+			newCell.setAttribute("style","border-top:1px solid #FAFAFA;border-right: 1px solid #C5C5C5;text-align: center");
+			newCell.setAttribute("width","10%");
+			newCell.setAttribute("align","center");
+			//var checkbox = document.createElement("input");
+			//checkbox.type = "checkbox";
+			//checkbox.name = "check";
+			//checkbox.value = file['fileName'];
+			//newCell.appendChild(checkbox);
+			var checkbox = "<input type='checkbox' name='check' value='"+file['fileName']+"'/>";
+			newCell.innerHTML = checkbox;
+			newCell = newRow.insertCell(1);
+			newCell.setAttribute("style","border-top:1px solid #FAFAFA;border-right: 1px solid #C5C5C5;width:10%");
+			newCell.setAttribute("width","10%");
+			newCell.innerHTML = i+1;
+			newCell = newRow.insertCell(2);
+			newCell.setAttribute("style","width:60%;border-right: 1px solid #C5C5C5;");
+			newCell.innerHTML = file['fileName'];
+			newCell.setAttribute("width","60%");
+			newCell = newRow.insertCell(3);
+			newCell.setAttribute("style","width:20%;border-right: 1px solid #C5C5C5;text-align: center;");
+			var billId = getUrlParam('billId');
+			newCell.setAttribute("width","20%");
+			newCell.setAttribute("align","center");
+			var fileName = file['fileName'];
+			var funDown = "javascript:download('"+billId+"','"+fileName+"','downloadFile')";
+			var funDelete = "javascript:deleteAttachment('"+fileName+"','deleteFile')";
+			//var toView = "UploadOrDownloadServlet?op=toView&fileName=" + fileName + "&billId=" + billId;
+			var toView = "javascript:toView('"+billId+"','"+fileName+"','toView')";
+			var flag = isShow(fileName);
+			if(flag && isIE(fileName)){
+				newCell.innerHTML = "<a href=\""+funDown+"\">下载 </a> | <a href=\""+funDelete+"\">删除 </a> | <span id='lookUp'><a href=\""+toView+"\">查看 </a><span>";
+			}else{
+				newCell.innerHTML = "<a href=\""+funDown+"\">下载 </a> | <a href=\""+funDelete+"\">删除 </a>";
+			}
+		}
+
+
+		// 弹窗
+		
+		function toView(billId,fileName, toView){
+			window.open('UploadOrDownloadServlet?billId='+billId+"&fileName="+urlencode(urlencode(fileName))+"&op="+toView,"_blank",'width=700,height=400,menubar=no,scrollbars=no,resizable=yes,location=no');
+		}
+		
+		function urlencode (str) {  
+		    str = (str + '').toString();   
+		    return encodeURIComponent(str).replace(/!/g, '%21').replace(/'/g, '%27').replace(/\(/g, '%28').  
+		    replace(/\)/g, '%29').replace(/\*/g, '%2A').replace(/%20/g, '+');  
+		} 
+		//根据附件的后缀名来判断是否可查看附件...
+		function isShow(fileName){
+			var suffixs = "txt|pdf|jpg|bmp|jpeg|png|ico|gif|xls|xlsx|doc|docx|ppt|pptx";
+			var index = fileName.lastIndexOf(".");
+			var fileNameSuffix = fileName.substring(index+1).toLowerCase();
+			var ss = suffixs.split("|");
+			for(var i=0; i<ss.length; i++){
+				var suffix = ss[i];
+				
+				if(suffix == fileNameSuffix){
+					return true;
+				}
+			}
+			return false;
+		}
+
+		//如果是IE以下后缀文件则显示查看按钮
+		function isIE(fileName){  
+
+			//alert(window.ActiveXObject);
+			//alert("ActiveXObject" in window);
+			//alert(!!window.ActiveXObject || "ActiveXObject" in window)
+            if (!!window.ActiveXObject || "ActiveXObject" in window){
+                return true;
+            }
+			var suffixs = "xls|xlsx|doc|docx|ppt|pptx";
+			var index = fileName.lastIndexOf(".");
+			var fileNameSuffix = fileName.substring(index+1).toLowerCase();
+			var ss = suffixs.split("|");
+			for(var i=0; i<ss.length; i++){
+				var suffix = ss[i];
+				if(suffix == fileNameSuffix){
+					return false;	
+				}
+			}
+			return true;
+		 }
+		
+		//查看附件
+		/*
+		function toView(billId,fileName, toView){
+			var form = document.getElementById("myForm");
+			form.target="_blank";
+			//form.target = "toView";
+			document.getElementById("billId").value=billId;
+			document.getElementById("op").value=toView;
+			form.action="UploadOrDownloadServlet";
+			document.getElementById("fileName").value=fileName;
+			form.submit();
+		}
+		*/
+		function loadFileList(){
+			sendAjaxRequest("UploadOrDownloadServlet?op=getFileListByBillId&billId="+getUrlParam('billId'));
+		}
+		window.onload = function (){
+			var div = document.getElementById("mySpace");
+			var bodyWidth = document.body.clientWidth;
+			div.style.width = (bodyWidth-100) + "px";
+			document.getElementById("myTable1").style.width=(bodyWidth-100) + "px";
+			document.getElementById("result").style.width=(bodyWidth-100) + "px";
+			document.getElementById("allFileList").style.width=(bodyWidth-100) + "px";
+			document.getElementById("myTable2").style.width=(bodyWidth-150) + "px";
+			document.getElementById("myDiv1").style.width=(bodyWidth-126) + "px";
+			document.getElementById("fileListFile").style.width=(bodyWidth-150) + "px";
+
+			//if(document.body.clientWidth>=600){
+			div.style.width = (document.body.clientWidth-100)+"px";
+		   	div.style.marginLeft=(document.body.clientWidth/2-div.offsetWidth/2)+"px";
+			//}
+		   	//div.style.width=document.body.clientWidth+"px";
+		   	//alert(div.style.width);
+			loadFileList();
+		}
+		window.onresize = function(){
+			var div = document.getElementById("mySpace");
+			var bodyWidth = document.body.clientWidth;
+			div.style.width = (bodyWidth-100) + "px";
+			document.getElementById("myTable1").style.width=(bodyWidth-100) + "px";
+			document.getElementById("result").style.width=(bodyWidth-100) + "px";
+			document.getElementById("allFileList").style.width=(bodyWidth-100) + "px";
+			document.getElementById("myTable2").style.width=(bodyWidth-150) + "px";
+			document.getElementById("myDiv1").style.width=(bodyWidth-126) + "px";
+			document.getElementById("fileListFile").style.width=(bodyWidth-150) + "px";
+			//if(document.body.clientWidth>=600){
+			div.style.width = (document.body.clientWidth-100)+"px";
+		   	div.style.marginLeft=(document.body.clientWidth/2-div.offsetWidth/2)+"px";
+		}
+		//window.onload=loadFileList;
+    --></script>
+	<div id="allFileList" style="width: 600px;height:300px; border: 1px solid;border-color: #98BCE8;background-color: #DFE9F6; margin-top: 20px;">
+	  		<div style="background-color:#BCD2EE;height: 25px;border-bottom:1px solid #98BCE8;">
+	  			<span style="font:14px ;font-family: Microsoft YaHei!important;padding-left: 10px;" >附件列表</span>
+	  		</div>
+	  		
+  			<div id="myDiv1" style="width: 574px; border: 1px solid #99BCE8;margin-top: 4px;margin-left: 4px;">
+  				<div style="height: 30px;border-bottom:1px solid #98BCE8;">
+  					<span class="mySpan">
+  						<span>
+	  						<a href="javascript:batchDownload('batchDownloadFile');">
+	  							打包下载附件
+	  						</a>
+  						</span>
+  						<!--<span onclick="isShow('abc.doc');">测试区域</span>-->
+  						<span style="margin-left: 20px;">
+  							全选:<input type="checkbox" id="hCheckbox" value="" name="check" onclick="checkAll('hCheckbox','check');">
+  						</span>
+  						<span style="margin-left: 20px;">
+  							反选:<input type="checkbox" onclick="checkReverse('check');">
+  						</span>
+  						<span style="margin-left: 20px;">
+  							<a href="javascript:batchDelete('batchDelete');">
+	  							删除选中附件
+	  						</a>
+  						</span>
+  					</span>
+  					
+  				</div>
+  				
+		       	<table class="altrowstable" id="myTable2" >
+					<tr>
+						<th width="10%" align="center" style="border-right: 1px solid #C5C5C5;border-bottom: 1px solid #C5C5C5;"><span onclick="checkAll('headCheckbox','check');"><input type="checkbox" value="" id="headCheckbox" name="check"/></span></th>
+						<th width="10%" style="border-right: 1px solid #C5C5C5;border-bottom: 1px solid #C5C5C5;"></th>
+		   				<th width="60%" style="border-right: 1px solid #C5C5C5;border-bottom: 1px solid #C5C5C5;">文件名称</th>
+		   				<th width="20%" align="center" style="border-bottom: 1px solid #C5C5C5;width: 20%">操作</th>
+					</tr>
+				</table>
+				<div style="height: 180px;overflow-y:scroll;" >
+					<table id="fileListFile" class="altrowstable" >
+					</table>
+				</div>
+			</div>
+    	</div>
+    	</div>
+    <form action="" method="post" id="myForm" >
+		<input type="hidden" name="billId" id="billId"/>
+		<input type="hidden" name="op" id="op" />
+		<input type="hidden" name="fileName" id="fileName"/>
+    </form>
+    </div>
+</body>
+</html>

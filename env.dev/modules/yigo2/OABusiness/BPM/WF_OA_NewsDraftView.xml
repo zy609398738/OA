@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Process Caption="新闻发布审批流程" IDSeed="18" Key="WF_OA_NewsDraftView" FormKey="OA_NewsDraft">
+    <Begin Caption="开始节点" ID="1" Key="Begin1">
+        <TransitionCollection>
+            <SequenceFlow Caption="顺序流" ID="4" Key="SequenceFlow1" TargetNodeKey="State1"/>
+        </TransitionCollection>
+        <NodeGraphic X="80" Y="342" Height="40" Width="40"/>
+        <NodeAttachment/>
+    </Begin>
+    <End Caption="结束节点" ID="2" Key="End1">
+        <NodeGraphic X="624" Y="342" Height="40" Width="40"/>
+        <NodeAttachment/>
+    </End>
+    <Audit Caption="一审" ID="3" Key="Audit1">
+        <TransitionCollection>
+            <SequenceFlow Caption="顺序流" ID="6" Key="SequenceFlow2" TargetNodeKey="Decision1"/>
+            <SequenceFlow Caption="顺序流" Condition="False" ID="16" Key="SequenceFlow8" TargetNodeKey="State3"/>
+        </TransitionCollection>
+        <NodeGraphic X="247" Y="337"/>
+        <NodeAttachment/>
+        <OperationCollection>
+            <Operation Caption="一审" Key="op1">
+                <Action>
+                    <![CDATA[ShowModal("OA_AuditDialog","pWorkitemID:{GetActiveWorkitemID()}")]]>
+                </Action>
+            </Operation>
+        </OperationCollection>
+        <AssistanceCollection/>
+        <ParticipatorCollection>
+            <Dictionary ItemID="21" ItemKey="Operator"/>
+        </ParticipatorCollection>
+        <TimerItemCollection/>
+        <Perm/>
+        <DirectAuditCondition/>
+    </Audit>
+    <Decision Caption="是否紧急" Condition="GetValue(&quot;UrgencyDeg&quot;)&gt;10" ID="5" Key="Decision1">
+        <TransitionCollection>
+            <SequenceFlow Caption="顺序流" ID="8" Key="SequenceFlow3" TargetNodeKey="Audit2" Condition="false"/>
+            <SequenceFlow Caption="顺序流" ID="10" Key="SequenceFlow5" TargetNodeKey="State2">
+                <TransitionGraphic LineStyle="ChamferCurveVOne"/>
+            </SequenceFlow>
+        </TransitionCollection>
+        <NodeGraphic X="395" Y="233" Width="50"/>
+        <NodeAttachment/>
+    </Decision>
+    <Audit Caption="二审" ID="7" Key="Audit2">
+        <TransitionCollection>
+            <SequenceFlow Caption="顺序流" ID="9" Key="SequenceFlow4" TargetNodeKey="State2"/>
+            <SequenceFlow Caption="顺序流" Condition="False" ID="17" Key="SequenceFlow9" TargetNodeKey="State3"/>
+        </TransitionCollection>
+        <NodeGraphic X="380" Y="337"/>
+        <NodeAttachment/>
+        <OperationCollection>
+            <Operation Caption="二审" Key="op1">
+                <Action>
+                    <![CDATA[ShowModal("OA_AuditDialog","pWorkitemID:{GetActiveWorkitemID()}")]]>
+                </Action>
+            </Operation>
+        </OperationCollection>
+        <AssistanceCollection/>
+        <ParticipatorCollection>
+            <Dictionary ItemID="21" ItemKey="Operator"/>
+        </ParticipatorCollection>
+        <TimerItemCollection/>
+        <Perm/>
+        <DirectAuditCondition/>
+    </Audit>
+    <State Caption="审批中" ID="11" Key="State1" Status="approving">
+        <TransitionCollection>
+            <SequenceFlow Caption="顺序流" ID="13" Key="SequenceFlow6" TargetNodeKey="Audit1"/>
+        </TransitionCollection>
+        <NodeGraphic X="169" Y="342" Height="40" Width="40"/>
+        <NodeAttachment/>
+        <ParticipatorCollection/>
+        <Perm/>
+    </State>
+    <State Caption="审批通过" ID="12" Key="State2" Status="approved">
+        <TransitionCollection>
+            <SequenceFlow Caption="顺序流" ID="14" Key="SequenceFlow7" TargetNodeKey="End1"/>
+        </TransitionCollection>
+        <NodeGraphic X="512" Y="342" Height="40" Width="40"/>
+        <NodeAttachment/>
+        <ParticipatorCollection/>
+        <Perm/>
+    </State>
+    <State Caption="否决" ID="15" Key="State3" Status="reject">
+        <TransitionCollection>
+            <SequenceFlow Caption="顺序流" ID="18" Key="SequenceFlow10" TargetNodeKey="End1">
+                <TransitionGraphic LineStyle="ChamferCurveVOne"/>
+            </SequenceFlow>
+        </TransitionCollection>
+        <NodeGraphic X="400" Y="459" Height="40" Width="40"/>
+        <NodeAttachment/>
+        <ParticipatorCollection/>
+        <Perm/>
+    </State>
+    <DMTable>
+        <Field Key="BillCreatTime" SourceFieldKey="BillDate"/>
+        <Field Key="BillStatus" SourceFieldKey="Status"/>
+        <Field Key="EmpID" SourceFieldKey="EmpID"/>
+        <Field Key="BillCreator" SourceFieldKey="Creator"/>
+        <Field Key="Topic" SourceFieldKey="Topic"/>
+        <Field Key="BillOID" SourceFieldKey="OID"/>
+        <Field Key="DeptID" SourceFieldKey="DeptID"/>
+        <Field Key="UrgencyDeg" SourceFieldKey="UrgencyDeg"/>
+    </DMTable>
+    <AttachmentCollection/>
+</Process>

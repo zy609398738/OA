@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="OA_CommonLink" Caption="常用链接" FormType="Entity">
+    <DataSource>
+        <DataObject Key="OA_CommonLink" Caption="常用链接" PrimaryTableKey="OA_CommonLink_H" NoPrefix="CL" PrimaryType="Entity">
+            <TableCollection>
+                <Table Key="OA_CommonLink_H" Caption="常用链接" DBTableName="OA_CommonLink_H">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="NO" Caption="发布编号" DataType="Varchar"/>
+                    <Column Key="BillDate" Caption="发布日期" DataType="DateTime"/>
+                    <Column Key="Status" Caption="单据状态" DataType="Integer"/>
+                    <Column Key="Topic" Caption="主题" DataType="Varchar"/>
+                    <Column Key="IsToTop" Caption="是否置顶" DataType="Integer"/>
+                    <Column Key="Address" Caption="链接地址" DataType="Varchar"/>
+                    <Column Key="LinkOrder" Caption="链接显示顺序" DataType="Varchar"/>
+                    <Column Caption="创建人" DataType="Long" Key="Creator"/>
+                    <Column Caption="创建日期" DataType="DateTime" Key="CreateTime"/>
+                    <Column Caption="修改人" DataType="Long" Key="Modifier"/>
+                    <Column Caption="修改日期" DataType="DateTime" Key="ModifyTime"/>
+                    <Column Caption="单据Key" DataType="Varchar" Key="BillKey"/>
+                    <Column Caption="集团" DataType="Long" Key="ClusterID"/>
+                    <Column Key="Image1" Caption="链接图片" DataType="Varchar"/>
+                    <Column Key="Notes" Caption="图片说明" DataType="Varchar"/>
+                    <Column Key="DeptID" Caption="部门" DataType="Long"/>
+                    <Column Key="EmpID" Caption="创建人" DataType="Long"/>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="Save" Caption="保存" RefKey="Save"/>
+        <Operation Key="Delete" Caption="删除" RefKey="Delete"/>
+        <Operation Key="Edit" Caption="编辑" RefKey="Edit"/>
+        <Operation Key="Cancel" Caption="取消" RefKey="Cancel"/>
+        <Operation Key="Close" Caption="关闭" RefKey="Close"/>
+    </OperationCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板">
+                <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <TabPanel Caption="TabPanel1" Height="100%" Key="TabPanel1">
+                    <GridLayoutPanel Key="first_head" Padding="5px" Height="pref" Caption="基本信息">
+                        <TextEditor Key="NO" Caption="发布编号" BuddyKey="Lab_NO" X="1" Y="0" Enable="false" XSpan="2">
+                            <DataBinding ColumnKey="NO" TableKey="OA_CommonLink_H"/>
+                        </TextEditor>
+                        <Label Key="Lab_NO" Caption="发布编号" X="0" Y="0"/>
+                        <DatePicker Key="BillDate" Caption="发布日期" BuddyKey="Lab_BillDate" X="5" Y="0" Enable="false" XSpan="2">
+                            <DataBinding ColumnKey="BillDate" TableKey="OA_CommonLink_H"/>
+                        </DatePicker>
+                        <Label Key="Lab_BillDate" Caption="发布日期" X="4" Y="0"/>
+                        <ComboBox Key="Status" Caption="单据状态" BuddyKey="Lab_Status" X="9" Y="0" Enable="false" SourceType="Status" XSpan="2">
+                            <DataBinding ColumnKey="Status" TableKey="OA_CommonLink_H" DefaultValue="100"/>
+                        </ComboBox>
+                        <Label Key="Lab_Status" Caption="单据状态" X="8" Y="0"/>
+                        <TextEditor Key="Topic" Caption="主题" BuddyKey="Lab_Topic" X="1" Y="1" XSpan="6">
+                            <DataBinding ColumnKey="Topic" TableKey="OA_CommonLink_H"/>
+                        </TextEditor>
+                        <Label Key="Lab_Topic" Caption="主题" X="0" Y="1"/>
+                        <CheckBox Caption="是否置顶" Key="IsToTop" X="9" XSpan="2" Y="1">
+                            <DataBinding ColumnKey="IsToTop" TableKey="OA_CommonLink_H"/>
+                        </CheckBox>
+                        <TextEditor Key="Address" Caption="链接地址" BuddyKey="Lab_Address" X="1" Y="2" XSpan="6">
+                            <DataBinding ColumnKey="Address" TableKey="OA_CommonLink_H"/>
+                        </TextEditor>
+                        <Label Key="Lab_Address" Caption="链接地址" X="0" Y="2"/>
+                        <TextEditor Key="LinkOrder" Caption="链接显示顺序" BuddyKey="Lab_LinkOrder" X="9" Y="2" XSpan="2">
+                            <DataBinding ColumnKey="LinkOrder" TableKey="OA_CommonLink_H"/>
+                        </TextEditor>
+                        <Label Key="Lab_LinkOrder" Caption="链接显示顺序" X="8" Y="2"/>
+                        <Image Key="Image1" Caption="链接图片" BuddyKey="Lab_Image1" X="1" Y="3" XSpan="2" HasBorder="true" YSpan="2">
+                            <DataBinding ColumnKey="Image1" TableKey="OA_CommonLink_H"/>
+                        </Image>
+                        <Label Key="Lab_Image1" Caption="链接图片" X="0" Y="3" YSpan="2"/>
+                        <TextEditor Key="Notes" Caption="图片说明" BuddyKey="Lab_Notes" X="5" Y="3" XSpan="2" YSpan="2">
+                            <DataBinding ColumnKey="Notes" TableKey="OA_CommonLink_H"/>
+                        </TextEditor>
+                        <Label Key="Lab_Notes" Caption="图片说明" X="4" Y="3" YSpan="2"/>
+                        <Dict Key="DeptID" Caption="部门" BuddyKey="Lab_DeptID" X="9" Y="3" Visible="false" ItemKey="OA_Department" XSpan="2">
+                            <DataBinding ColumnKey="DeptID" TableKey="OA_CommonLink_H" DefaultFormulaValue="GetDictValue('Operator', GetOperator(), 'SYS_Operator.DeptID')"/>
+                        </Dict>
+                        <Label Key="Lab_DeptID" Caption="部门" X="8" Y="3"/>
+                        <Dict Key="EmpID" Caption="创建人" BuddyKey="Lab_EmpID" X="9" Y="3" ItemKey="OA_Employee" XSpan="2">
+                            <DataBinding ColumnKey="EmpID" TableKey="OA_CommonLink_H" DefaultFormulaValue="GetDictValue('Operator', Creator, 'SYS_Operator.EmpID')">
+                                <ValueChanged>
+                                    <![CDATA[DeptID=GetDictValue('OA_Employee', EmpID, 'OA_Employee_H.DeptID')]]>
+                                </ValueChanged>
+                            </DataBinding>
+                        </Dict>
+                        <Label Key="Lab_EmpID" Caption="创建人" X="8" Y="3"/>
+                        <RowDefCollection RowGap="4">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="4">
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="33%"/>
+                            <ColumnDef Width="20px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="33%"/>
+                            <ColumnDef Width="20px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="34%"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <GridLayoutPanel Caption="系统信息" Key="SysTab">
+                        <Dict BuddyKey="Lab_Creator" Caption="创建人" Enable="false" ItemKey="Operator" Key="Creator" X="1" XSpan="2" Y="0">
+                            <DataBinding ColumnKey="Creator" TableKey="OA_CommonLink_H" DefaultFormulaValue="GetOperator()"/>
+                        </Dict>
+                        <Label Caption="创建人" Key="Lab_Creator" X="0" Y="0"/>
+                        <Dict BuddyKey="Lab_Modifier" Caption="修改人" Enable="false" ItemKey="Operator" Key="Modifier" X="1" XSpan="2" Y="1">
+                            <DataBinding ColumnKey="Modifier" TableKey="OA_CommonLink_H" DefaultFormulaValue="GetOperator()"/>
+                        </Dict>
+                        <DatePicker BuddyKey="Lab_CreateTime" Caption="创建日期" Enable="false" Key="CreateTime" X="5" XSpan="2" Y="0">
+                            <DataBinding ColumnKey="CreateTime" TableKey="OA_CommonLink_H" DefaultFormulaValue="ServerDate()"/>
+                        </DatePicker>
+                        <Label Caption="创建时间" Key="Lab_CreateTime" X="4" Y="0"/>
+                        <Label Caption="修改人" Key="Lab_Modifier" X="0" Y="1"/>
+                        <DatePicker BuddyKey="Lab_ModifyTime" Caption="修改日期" Enable="false" Key="ModifyTime" X="5" XSpan="2" Y="1">
+                            <DataBinding ColumnKey="ModifyTime" TableKey="OA_CommonLink_H" DefaultFormulaValue="ServerDate()"/>
+                        </DatePicker>
+                        <Label Caption="修改时间" Key="Lab_ModifyTime" X="4" Y="1"/>
+                        <TextEditor BuddyKey="Lab_BillKey" Caption="单据Key" Key="BillKey" X="9" XSpan="2" Y="0">
+                            <DataBinding ColumnKey="BillKey" TableKey="OA_CommonLink_H" DefaultFormulaValue="GetFormKey()"/>
+                        </TextEditor>
+                        <Label Caption="单据Key" Key="Lab_BillKey" X="8" Y="0"/>
+                        <Dict BuddyKey="Lab_ClusterID" Caption="集团" Enable="false" ItemKey="Client" Key="ClusterID" X="9" XSpan="2" Y="1">
+                            <DataBinding ColumnKey="ClusterID" TableKey="OA_CommonLink_H"/>
+                        </Dict>
+                        <Label Caption="集团" Key="Lab_ClusterID" X="8" Y="1"/>
+                        <RowDefCollection RowGap="4">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="4">
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="33%"/>
+                            <ColumnDef Width="20px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="33%"/>
+                            <ColumnDef Width="20px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="34%"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                </TabPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test: ws-messager</title>
+    <script src="../dist/bundle.bokesoft-messager.js"></script>
+</head>
+<body>
+    <h1>Test: ws-messager</h1>
+    <p><i>Run <u><code>node test-server.js</code></u> at module root path, then open <u><code>http://localhost:8080/web-test/test.html</code></u> to run test.</i></p>
+    <hr/>
+
+    <div id="box" class="bokesoft-messager" style=" border:red 1px solid; padding: 12px">
+        <h2 style="text-align: center">Test region</h2>
+    </div>
+    <hr/>
+    <select id="boke-test-00X">
+        <option value="">(不指定)</option>
+        <option value="boke-test-002">模拟用户 2</option>
+        <option value="boke-test-003">模拟用户 3</option>
+        <option value="boke-test-005">模拟用户 5</option>
+        <option value="boke-test-007">模拟用户 7</option>
+    </select>
+    | <a href="javascript:IM_SetupMessager()">[初始化 Messager]</a>
+    | <a href="javascript:IM_PopupWithUserCode('boke-test-002')">[连接到测试用户 002]</a>
+</body>
+</html>

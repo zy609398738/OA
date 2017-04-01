@@ -1,0 +1,70 @@
+{
+	"@type":"com.bokesoft.cms2.model.HtmlTmpl",
+	"code":"oa-index",
+	"htmlText":"<!DOCTYPE html>\n<html lang=\"zh-CN\">\n<head>\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=EmulateIE8\" />   \n    <meta charset=\"utf-8\">\n    <title>上海博科协同OA系统首页模板</title>\n    <style> \n       .container {\n            width:100% !important;\n       }\n       #mid .main {\n            float:left !important;\n            margin-left: 0px !important;\n            margin-top: 0px !important;\n       }\n    </style>\n  \t<link rel=\"Stylesheet\" type=\"text/css\" href=\"$staticRoot/css/index.css\">\n</head>\n<body class=\"home-page\">\n<div yigo-cms:block=\"static2\"/>\n<!--主体-->\n<div class=\"container\" id=\"mid\">\n  \t<div class=\"row clearfix statisticInfo\">\n        <div yigo-cms:area=\"statisticInfoArea\" />\n    </div>\n    <div class=\"row clearfix first\">\n    \t<div class=\"span3 aside-left\">\n            <div yigo-cms:area=\"first-left\" />\n        </div>\n        <div class=\"span9 right-todo\"> \n            <div yigo-cms:area=\"first-right\" />\n        </div>\n    </div>\n    <div class=\"row clearfix cent\">\n        <div class=\"span3 aside-left\">\n            <div yigo-cms:area=\"left-sidebar\" />\n        </div>\n        <div class=\"span9 main\">\n            <div class=\"row\">\n                <div class=\"span6 center\">\n                    <div yigo-cms:area=\"content\" />\n                </div>\n                <div class=\"span3 aside-right\">\n                    <div yigo-cms:area=\"right-sidebar\" />\n                </div>\n            </div>\n        </div>\n    </div>\n    <div class=\"row clearfix sec\">\n    \t<div class=\"span3 aside-left\">\n            <div yigo-cms:area=\"sec-left\" />\n        </div>\n        <div class=\"span9\"> \n            <div yigo-cms:area=\"sec-right\" />\n        </div>\n    </div>\n</div>\n<!--主体end-->\n</body>\n</html>",
+	"name":"只包含content的首页模板",
+	"notes":"只包含content，用于oa后台",
+	"slices":[
+		{
+			"followHtml":"<!DOCTYPE html>\n<html lang=\"zh-CN\">\n<head>\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=EmulateIE8\" />   \n    <meta charset=\"utf-8\">\n    "
+		},
+		{
+			"code":"上海博科协同OA系统首页模板",
+			"followHtml":"\n    <style> \n       .container {\n            width:100% !important;\n       }\n       #mid .main {\n            float:left !important;\n            margin-left: 0px !important;\n            margin-top: 0px !important;\n       }\n    </style>\n  \t<link rel=\"Stylesheet\" type=\"text/css\" href=\"$staticRoot/css/index.css\">\n</head>\n<body class=\"home-page\">\n",
+			"tag":"yigo-cms:title"
+		},
+		{
+			"code":"static2",
+			"followHtml":"\n<!--主体-->\n<div class=\"container\" id=\"mid\">\n  \t<div class=\"row clearfix statisticInfo\">\n        ",
+			"tag":"yigo-cms:block"
+		},
+		{
+			"code":"statisticInfoArea",
+			"followHtml":"\n    </div>\n    <div class=\"row clearfix first\">\n    \t<div class=\"span3 aside-left\">\n            ",
+			"name":"statisticInfo",
+			"tag":"yigo-cms:area"
+		},
+		{
+			"code":"first-left",
+			"followHtml":"\n        </div>\n        <div class=\"span9 right-todo\"> \n            ",
+			"name":"ban",
+			"tag":"yigo-cms:area"
+		},
+		{
+			"code":"first-right",
+			"followHtml":"\n        </div>\n    </div>\n    <div class=\"row clearfix cent\">\n        <div class=\"span3 aside-left\">\n            ",
+			"name":"todo",
+			"tag":"yigo-cms:area"
+		},
+		{
+			"code":"left-sidebar",
+			"followHtml":"\n        </div>\n        <div class=\"span9 main\">\n            <div class=\"row\">\n                <div class=\"span6 center\">\n                    ",
+			"name":"left",
+			"tag":"yigo-cms:area"
+		},
+		{
+			"code":"content",
+			"followHtml":"\n                </div>\n                <div class=\"span3 aside-right\">\n                    ",
+			"name":"content",
+			"tag":"yigo-cms:area"
+		},
+		{
+			"code":"right-sidebar",
+			"followHtml":"\n                </div>\n            </div>\n        </div>\n    </div>\n    <div class=\"row clearfix sec\">\n    \t<div class=\"span3 aside-left\">\n            ",
+			"name":"right",
+			"tag":"yigo-cms:area"
+		},
+		{
+			"code":"sec-left",
+			"followHtml":"\n        </div>\n        <div class=\"span9\"> \n            ",
+			"name":"mail",
+			"tag":"yigo-cms:area"
+		},
+		{
+			"code":"sec-right",
+			"followHtml":"\n        </div>\n    </div>\n</div>\n<!--主体end-->\n</body>\n</html>",
+			"name":"schedule",
+			"tag":"yigo-cms:area"
+		}
+	]
+}

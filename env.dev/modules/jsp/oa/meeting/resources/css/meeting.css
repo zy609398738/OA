@@ -1,0 +1,219 @@
+/*重置ie滚动条样式  2013.11.5 */
+*{
+	scrollbar-face-color：#fff;		 		/*滚动条凸出部分的颜色 */
+	scrollbar-3dlight-color:#d8d8d8;		/*滚动条亮边的颜色 */
+	scrollbar-shadow-color: #d8d8d8;		/*立体滚动条阴影的颜色 */
+	scrollbar-highlight-color: #ffffff;		/*滚动条空白部分的颜色 */
+	scrollbar-darkshadow-color: #ffffff;	/*滚动条强阴影的颜色 */
+	scrollbar-arrow-color: #79a8bf;			/*上下按钮上三角箭头的颜色 */
+	scrollbar-track-color: #f6f6f6; 		/*滚动条的背景颜色*/
+	/*SCROLLBAR-BASE-COLOR: #FFFFF0			滚动条的基本颜色*/
+}
+
+body{
+background:url(../images/body-bg.jpg)!important;
+}
+#meeting-left{
+	float:left;
+	width:210px;
+	margin-top:10px;
+	height:540px;
+	background:#fff;
+}
+#meeting-left h2 {
+	height: 10px;
+	margin: 15px auto 25px;
+	border-bottom: 1px solid #ccc;
+	width: 85%;
+}
+#meeting-left h2 span {
+font-size: 16px;
+color: #3a3a3a;
+font-weight: bold;
+background: url(../images/left-menu-h2-bg-icons.png) no-repeat 0px -68px #fff;
+padding: 5px;
+padding-left: 25px;
+margin-top: 5px;
+}
+#meeting-right{
+	float:right;
+	width:970px;
+	margin-top:10px;
+	background:#fff;
+}
+#meeting-right iframe{
+	width:100%;
+	height:500px;
+	border:0px solid #ccc;
+}
+#meeting-left-tree{
+padding: 0 15px;
+}
+.ext-color-1,
+.x-ie .ext-color-1-ad,
+.x-opera .ext-color-1-ad {
+	color: black;
+}
+.ext-cal-day-col .ext-color-1,
+.ext-dd-drag-proxy .ext-color-1,
+.ext-color-1-ad,
+.ext-color-1-ad .ext-cal-evm,
+.ext-color-1 .ext-cal-picker-icon,
+.ext-color-1-x dl,
+.ext-color-1-x .ext-cal-evb {
+	background: black;
+}
+.ext-color-1-x .ext-cal-evb,
+.ext-color-1-ad .ext-cal-evm,
+.ext-color-1-ad,
+.ext-color-1-x dl {
+    border-color: black;
+}
+
+.ext-color-2,
+.x-ie .ext-color-2-ad,
+.x-opera .ext-color-2-ad {
+	color: #306da6;
+}
+.ext-cal-day-col .ext-color-2,
+.ext-dd-drag-proxy .ext-color-2,
+.ext-color-2-ad,
+.ext-color-2-ad .ext-cal-evm,
+.ext-color-2 .ext-cal-picker-icon,
+.ext-color-2-x dl,
+.ext-color-2-x .ext-cal-evb {
+	background: #306da6;
+}
+.ext-color-2-x .ext-cal-evb,
+.ext-color-2-ad .ext-cal-evm,
+.ext-color-2-ad,
+.ext-color-2-x dl {
+    border-color: #306da6;
+}
+.ext-color-3,
+.x-ie .ext-color-3-ad,
+.x-opera .ext-color-3-ad {
+    color: #86a723;
+}
+.ext-cal-day-col .ext-color-3,
+.ext-dd-drag-proxy .ext-color-3,
+.ext-color-3-ad,
+.ext-color-3-ad .ext-cal-evm,
+.ext-color-3 .ext-cal-picker-icon,
+.ext-color-3-x dl,
+.ext-color-3-x .ext-cal-evb {
+    background: #86a723;
+}
+.ext-color-3-x .ext-cal-evb,
+.ext-color-3-ad .ext-cal-evm,
+.ext-color-3-ad,
+.ext-color-3-x dl {
+    border-color: #86a723;
+}
+
+.ext-color-4,
+.x-ie .ext-color-4-ad,
+.x-opera .ext-color-4-ad {
+    color: #b6a980;
+	text-decoration: line-through !important;
+}
+.ext-cal-day-col .ext-color-4,
+.ext-dd-drag-proxy .ext-color-4,
+.ext-color-4-ad,
+.ext-color-4-ad .ext-cal-evm,
+.ext-color-4 .ext-cal-picker-icon,
+.ext-color-4-x dl,
+.ext-color-4-x .ext-cal-evb {
+    background: #b6a980;
+	text-decoration: line-through;
+}
+.ext-color-4-x .ext-cal-evb,
+.ext-color-4-ad .ext-cal-evm,
+.ext-color-4-ad,
+.ext-color-4-x dl {
+    border-color: #b6a980;
+	text-decoration: line-through;
+}
+
+.ext-color-5,
+.x-ie .ext-color-5-ad,
+.x-opera .ext-color-5-ad {
+	color: darkgray;
+}
+.ext-cal-day-col .ext-color-5,
+.ext-dd-drag-proxy .ext-color-5,
+.ext-color-5-ad,
+.ext-color-5-ad .ext-cal-evm,
+.ext-color-5 .ext-cal-picker-icon,
+.ext-color-5-x dl,
+.ext-color-5-x .ext-cal-evb {
+	background: darkgray;
+}
+.ext-color-5-x .ext-cal-evb,
+.ext-color-5-ad .ext-cal-evm,
+.ext-color-5-ad,
+.ext-color-5-x dl {
+    border-color: darkgray;
+}
+
+.left-color-detail{
+	color: #fff;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	overflow: hidden;
+	padding: 2px 1px 2px 5px;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	border: 0;
+	font-size: 11px;
+	font-family: Verdana,sans-serif;
+	width:15px;
+}
+.left-color-font{
+	font-size: 10px;
+	font-family: Verdana,sans-serif;
+	padding-left: 5px;
+}
+.left-color-1 {
+	border-color : black;
+	background: black;
+}
+.left-color-2 {
+	border-color : #306da6;
+	background: #306da6;
+}
+.left-color-3 {
+	border-color : #86a723;
+	background: #86a723;
+}
+.left-color-4 {
+	border-color : #b6a980;
+	background: #b6a980;
+	text-decoration: line-through;
+}
+.left-color-5 {
+	border-color : darkgray;
+	background: darkgray;
+}
+.leaf {
+	width: 16px;
+	background-image: url(images/tree/leaf.png);
+}
+#meeting-left-tree .x-grid-tree-node-expanded .x-tree-icon-parent{
+	background: url(../images/zTreeStandard.gif) no-repeat -110px -15px;
+	width: 18px;
+}
+#meeting-left-tree .x-tree-icon-leaf {
+	width: 18px;
+	background: url(../images/zTreeStandard.gif) no-repeat -110px -31px;
+}
+#meeting-left-tree .x-tree-icon-parent {
+	width: 18px;
+	background: url(../images/zTreeStandard.gif) no-repeat -110px 0px;
+}
+#meeting-left-tree  .x-tree-lines .x-tree-elbow-plus {
+	background: url(../images/zTreeStandard.gif) no-repeat  -74px 3px;
+}
+#meeting-left-tree  .x-tree-lines .x-grid-tree-node-expanded .x-tree-elbow-plus{
+	background: url(../images/zTreeStandard.gif) no-repeat   -92px 4px;
+}

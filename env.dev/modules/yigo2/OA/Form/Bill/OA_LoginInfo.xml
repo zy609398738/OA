@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="OA_LoginInfo" Caption="登录记录" FormType="Entity" Platform="">
+    <DataSource>
+        <DataObject Key="OA_LoginInfo" Caption="登录记录" PrimaryType="Entity">
+            <TableCollection>
+                <Table Key="OA_LoginInfo" Caption="登录记录" SourceType="Query" Persist="false" TableMode="Detail">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="Operator" Caption="用户" DataType="Long"/>
+                    <Column Key="HappenTime" Caption="时间" DataType="DateTime"/>
+                    <Column Key="IP" Caption="地址" DataType="Varchar"/>
+                    <Column Key="Host" Caption="机器名" DataType="Varchar"/>
+                    <Column Key="Port" Caption="端口号" DataType="Varchar" Precision="16" Scale="2"/>
+                    <Statement>
+                        <![CDATA[select * from (select OID,Operator,HappenTime,IP,Host,Port from sys_sessionlog where HappenTime>CURDATE() ORDER BY HappenTime DESC) h]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="Setfirst_headVisible" Caption="查询" RefKey="Setfirst_headVisible"/>
+    </OperationCollection>
+    <QueryCollection>
+        <Query Key="LoginInfo" Description="查询登录记录">
+            <Statement>
+                <![CDATA[select OID,Operator,HappenTime,IP,Host,Port from sys_sessionlog where HappenTime>=? and HappenTime<=? ORDER BY HappenTime DESC]]>
+            </Statement>
+        </Query>
+    </QueryCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板">
+                <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <GridLayoutPanel Key="GridLayoutPanel1" Height="40px" Caption="GridLayoutPanel1" Visible="first_headVisible==1">
+                    <DatePicker Key="From" Caption="登录时间 从" BuddyKey="Lab_From" X="1" Y="0">
+                        <DataBinding>
+                            <ValueChanged>
+                                <![CDATA[To=ServerDate();]]>
+                            </ValueChanged>
+                        </DataBinding>
+                        <Condition Group="aa" ColumnKey="HappenTime" TableKey="OA_LoginInfo" CondSign="between" GroupHead="true"/>
+                    </DatePicker>
+                    <Label Key="Lab_From" Caption="登录时间 从" X="0" Y="0"/>
+                    <DatePicker Key="To" Caption="到" BuddyKey="Lab_To" X="3" Y="0">
+                        <Condition Group="aa" GroupTail="true" ColumnKey="HappenTime" TableKey="OA_LoginInfo" CondSign="between"/>
+                    </DatePicker>
+                    <Label Key="Lab_To" Caption="到" X="2" Y="0"/>
+                    <Button Key="Query" Caption="查询" X="4" Y="0">
+                        <OnClick>
+                            <![CDATA[FillGridData("Grid1", DBNamedQuery('LoginInfo', GetValue('From'), GetValue('To')), true);]]>
+                        </OnClick>
+                    </Button>
+                    <Button Key="Reset" Caption="重置" X="5" Y="0">
+                        <OnClick>
+                            <![CDATA[ResetCondition();]]>
+                        </OnClick>
+                    </Button>
+                    <CheckBox Caption="表头可见" Key="first_headVisible" X="1" Y="1" Visible="false"/>
+                    <RowDefCollection RowGap="5">
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="5">
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="50%"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="50%"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="80px"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+                <Grid Key="Grid1" Caption="Grid1" NewEmptyRow="false" RowAlterable="false" PageLoadType="UI" Height="100%">
+                    <GridColumnCollection>
+                        <GridColumn Key="Operator" Caption="用户" Width="120px"/>
+                        <GridColumn Key="HappenTime" Caption="时间" Width="160px"/>
+                        <GridColumn Key="IP" Caption="地址" Width="100px"/>
+                        <GridColumn Key="Host" Caption="机器名" Width="80px"/>
+                        <GridColumn Key="Port" Caption="端口号" Width="80px"/>
+                        <GridColumn Key="OID" Caption="OID" Width="80px"/>
+                        <GridColumn Key="Delete" Caption="清除记录" Width="80px" Visible="false"/>
+                    </GridColumnCollection>
+                    <GridRowCollection>
+                        <GridRow Key="row1" RowHeight="35" TableKey="OA_LoginInfo">
+                            <GridCell Key="Operator" Caption="用户" CellType="Dict" Enable="false" ItemKey="Operator">
+                                <DataBinding ColumnKey="Operator"/>
+                            </GridCell>
+                            <GridCell Key="HappenTime" Caption="时间" CellType="DatePicker" Enable="false">
+                                <DataBinding ColumnKey="HappenTime"/>
+                            </GridCell>
+                            <GridCell Key="IP" Caption="地址">
+                                <DataBinding ColumnKey="IP"/>
+                            </GridCell>
+                            <GridCell Key="Host" Caption="机器名">
+                                <DataBinding ColumnKey="Host"/>
+                            </GridCell>
+                            <GridCell Key="Port" Caption="端口号">
+                                <DataBinding ColumnKey="Port"/>
+                            </GridCell>
+                            <GridCell Key="OID" Caption="OID">
+                                <DataBinding ColumnKey="OID"/>
+                            </GridCell>
+                            <GridCell Key="Delete" Caption="清除记录" CellType="Button">
+                                <OnClick>
+                                    <![CDATA[DBUpdate('delete from sys_sessionlog where OID=?', OID);
+DeleteRow('Grid1',-1);]]>
+                                </OnClick>
+                            </GridCell>
+                        </GridRow>
+                    </GridRowCollection>
+                </Grid>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+    <OnLoad>
+        <![CDATA[LoadData()]]>
+    </OnLoad>
+</Form>

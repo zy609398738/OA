@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="MOA_MySchedulelHomePage" Caption="日程管理界面" FormType="View">
+    <Body>
+        <Block>
+            <NavigationList Caption="模块列表" Key="ModelList" ColumnCount="4" AllEntryFilter="false" ImageScaleType="Fit_XY">
+                <NavigationItemCollection>
+                    <NavigationItem Caption="我的日程列表" Icon="Mobile_items.png" Key="MOA_MyScheduleView">
+                        <![CDATA[Show("MOA_MyScheduleView");]]>
+                    </NavigationItem>
+                </NavigationItemCollection>
+            </NavigationList>
+        </Block>
+    </Body>
+</Form>

@@ -1,0 +1,20 @@
+{
+	"@type":"com.bokesoft.cms2.impl.buildin.modelio.vo.BlockVO",
+	"block":{
+		"@type":"com.bokesoft.cms2.model.blocks.TmplBlock",
+		"formulaText":"cms.PageExp.Local('typecodes',cms.PageExp.Var('typecodes'));\ncms.PageExp.Local(\n\t\"data\",cms.DataExp.QueryList(\"select name from oa_newstype_h where code in (\"&cms.PageExp.Local('typecodes')&\") ORDER BY code\")\n)",
+		"notes":"",
+		"parameters":[],
+		"tmplText":"#foreach($title in $data)\n   <span>$title.NAME</span>\n#end",
+		"type":"TMPL"
+	},
+	"code":"NEWS_TITLE",
+	"name":"新闻标题",
+	"params":[
+		{
+			"caption":"typecodes",
+			"key":"typecodes",
+			"type":"common"
+		}
+	]
+}

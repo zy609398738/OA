@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="MOA_MyScheduleView" Caption="我的日程列表" FormType="View">
+    <DataSource>
+        <DataObject Key="MOA_MyScheduleView" Caption="我的日程列表">
+            <TableCollection>
+                <Table Key="MOA_MyScheduleView" Caption="我的日程列表" TableMode="Detail" SourceType="Query" Persist="false">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="EmpID" Caption="创建人" DataType="Long"/>
+                    <Column Key="DeptID" Caption="创建部门" DataType="Long"/>
+                    <Column Key="ScheduleType" Caption="日程类型" DataType="Long"/>
+                    <Column Key="StartTime" Caption="开始时间" DataType="DateTime"/>
+                    <Column Key="EndTime" Caption="结束时间" DataType="DateTime"/>
+                    <Column Key="Topic" Caption="日程主题" DataType="Varchar"/>
+                    <ParameterCollection>
+                        <Parameter Formula="GetOperator()"/>
+                    </ParameterCollection>
+                    <Statement>
+                        <![CDATA[select * from (select *  from OA_MySchedule_H  where creator=? order by billdate desc) h]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="New" Caption="新增">
+            <Action>
+                <![CDATA[New('MOA_MySchedule')]]>
+            </Action>
+        </Operation>
+    </OperationCollection>
+    <Body>
+        <Block>
+            <LinearLayoutPanel Caption="LinearLayoutPanel1" Key="LinearLayoutPanel1" Orientation="Vertical">
+                <GridLayoutPanel Key="GridLayoutPanel1" Height="120px" Caption="GridLayoutPanel1" Width="auto">
+                    <Button Key="Query" Caption="查询" X="0" Y="2" XSpan="2">
+                        <OnClick>
+                            <![CDATA[DealCondition();
+LoadData();
+ShowData();]]>
+                        </OnClick>
+                    </Button>
+                    <Button Key="Reset" Caption="重置" X="3" Y="2" XSpan="2">
+                        <OnClick>
+                            <![CDATA[ResetCondition();]]>
+                        </OnClick>
+                    </Button>
+                    <CheckListBox BuddyKey="Lab_QueryScheduleType" Caption="日程类型" Key="QueryScheduleType" X="1" XSpan="4" Y="0" SourceType="Formula">
+                        <Condition ColumnKey="ScheduleType" TableKey="MOA_MyScheduleView" CondSign="in"/>
+                        <FormulaItems>
+                            <![CDATA[var sql="select OID,Name from OA_ScheduleType_H ORDER BY TLeft";
+InvokeService("OA_GetDropStrBySql", true, false,sql,"OID","Name");]]>
+                        </FormulaItems>
+                    </CheckListBox>
+                    <Label Key="Lab_QueryScheduleType" Caption="日程类型" X="0" Y="0"/>
+                    <TextEditor Key="QueryTopic" Caption="日程主题" BuddyKey="Lab_QueryTopic" X="1" Y="1" XSpan="4">
+                        <Condition ColumnKey="Topic" TableKey="MOA_MyScheduleView" CondSign="like"/>
+                    </TextEditor>
+                    <Label Key="Lab_QueryTopic" Caption="日程主题" X="0" Y="1"/>
+                    <RowDefCollection RowGap="5">
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                        <RowDef Height="35px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="5">
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="50%"/>
+                        <ColumnDef Width="20px"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="50%"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+                <TableView Caption="TableView1" Height="pref" Key="TableView1" Width="pref">
+                    <TableRowCollection>
+                        <TableRow Key="row1" RowType="Detail" TableKey="MOA_MyScheduleView">
+                            <LinearLayoutPanel Caption="LinearLayoutPanel2" Key="LinearLayoutPanel2" Orientation="Vertical">
+                                <LinearLayoutPanel Caption="LinearLayoutPanel3" Height="40px" Key="LinearLayoutPanel3" Width="auto">
+                                    <TextEditor Key="Topic" Caption="日程主题" Enable="false" Height="auto" Width="0px" Weight="1.0" OnlyShow="true">
+                                        <DataBinding ColumnKey="Topic"/>
+                                    </TextEditor>
+                                    <TextEditor Key="OID" Caption="OID" Visible="false" Height="pref" Width="pref">
+                                        <DataBinding ColumnKey="OID"/>
+                                    </TextEditor>
+                                </LinearLayoutPanel>
+                                <LinearLayoutPanel Caption="LinearLayoutPanel4" Height="40px" Key="LinearLayoutPanel4" Width="auto">
+                                    <Dict Key="EmpID" Caption="创建人" Enable="false" Height="auto" ItemKey="OA_Employee" Width="0px" Weight="1.0" OnlyShow="true">
+                                        <DataBinding ColumnKey="EmpID"/>
+                                    </Dict>
+                                    <Dict Key="DeptID" Caption="创建部门" Enable="false" Height="auto" ItemKey="OA_Department" Width="0px" Weight="1.0" OnlyShow="true">
+                                        <DataBinding ColumnKey="DeptID"/>
+                                    </Dict>
+                                </LinearLayoutPanel>
+                                <LinearLayoutPanel Caption="LinearLayoutPanel5" Height="40px" Key="LinearLayoutPanel5" Width="auto">
+                                    <DatePicker Key="StartTime" Caption="开始时间" Enable="false" Height="auto" Width="0px" Weight="1.0" OnlyShow="true">
+                                        <DataBinding ColumnKey="StartTime"/>
+                                    </DatePicker>
+                                    <DatePicker Key="EndTime" Caption="结束时间" Enable="false" Height="auto" Width="0px" Weight="1.0" OnlyShow="true">
+                                        <DataBinding ColumnKey="EndTime"/>
+                                    </DatePicker>
+                                </LinearLayoutPanel>
+                                <LinearLayoutPanel Caption="LinearLayoutPanel6" Height="40px" Key="LinearLayoutPanel6" Width="auto">
+                                    <Dict Key="ScheduleType" Caption="日程类型" Enable="false" Height="auto" ItemKey="OA_ScheduleType" Width="0px" Weight="1.0" OnlyShow="true">
+                                        <DataBinding ColumnKey="ScheduleType"/>
+                                    </Dict>
+                                </LinearLayoutPanel>
+                            </LinearLayoutPanel>
+                            <RowClick>
+                                <![CDATA[Open("MOA_MySchedule",OID);]]>
+                            </RowClick>
+                        </TableRow>
+                    </TableRowCollection>
+                </TableView>
+            </LinearLayoutPanel>
+        </Block>
+    </Body>
+    <OnLoad>
+        <![CDATA[LoadData()]]>
+    </OnLoad>
+</Form>

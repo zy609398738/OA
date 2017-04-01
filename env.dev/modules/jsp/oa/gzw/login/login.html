@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" class="login">
+<head>
+    <title>重庆市公安局——办公自动化系统登录</title>
+	<link rel="Stylesheet" href="../css/reset.css" />
+    <link rel="Stylesheet" href="../css/login.css" />
+</head>
+<body class="login">
+<!--因未拿到psd图片，此页面的background是图片1px横向平铺repeat-x;-->
+<!--login start-->
+<div class="row mid clearfix">
+	<div class="container">
+		<div class="block login_box">
+            <div class="banner-show" id="js">
+                <ul>
+                    <li style="display: block;"><a href="#"><img src="../images/banner/banner01.jpg" alt=""></a></li>
+                    <li style="display: none;"><a href="#"><img src="../images/banner/banner02.jpg" alt=""></a></li>
+                    <li style="display: none;"><a href="#"><img src="../images/banner/banner03.jpg" alt=""></a></li>
+                    <li style="display: none;"><a href="#"><img src="../images/banner/banner04.jpg" alt=""></a></li>
+                    <li style="display: none;"><a href="#"><img src="../images/banner/banner05.jpg" alt=""></a></li>
+                    <li style="display: none;"><a href="#"><img src="../images/banner/banner06.jpg" alt=""></a></li>
+                </ul>
+                <div class="banner-show-index" id="jsNav">
+                    <div class="numbers">
+                        <a class="trigger imgSelected">1</a>
+                        <a class="trigger">2</a>
+                        <a class="trigger">3</a>
+                        <a class="trigger">4</a>
+                        <a class="trigger">5</a>
+                        <a class="trigger">6</a>
+                    </div>
+                </div>
+                <!--<div class="alpha"></div>-->
+            </div>
+			<div class="form_box f12">
+				 <div class="system-tip">
+                     <span class="tip">系统提示：</span>
+                     <marquee class="marquee" Behaviour="Scroll" scrollamount="2" direction="left" >欢迎登录YiCo平台，今天是<i id="date"></i></marquee>
+                 </div>
+				<form>
+					<p><label>用户代码</label><input type="text"/></p>
+					<p><label>登录密码</label><input type="password"/></p>
+					<p class="btns fontyh fff">
+                            <input type="submit" class="Certificate_login" value="PKI数字证书登录" />
+							<input type="submit" class="normal_login" value="登录" />
+					</p>
+				</form>
+				<p class="login_links pr_15 f039"><a>设置IE主页</a><a>收藏地址</a></p>
+			</div>	
+			<div class="login_bottom">
+				<p class="fl_left pl_10"><span>©2012 BOKE All Rights Reserved</span>|<span>服务热线：400-720-3088</span>|<span><a href="#">控件下载</a></span></p>
+				<p class="fl_right pr_30">建议用1024*768分辨率和IE浏览器</p>
+			</div>
+		</div>
+	</div>	
+</div>
+<!--login end-->
+<script type="text/javascript" src="../js/jquery-1.8.2.min.js"></script>
+<script type="text/javascript" src="../js/banner_show.js"></script>
+<script type="text/javascript">
+    $(function(){
+        var d = new Date();
+        var string= d.getFullYear()+"年"+ (d.getMonth()+1).toString()+"月"+ d.getDate()+"日";
+        $("#date").html(string);
+    })
+</script>
+</body>
+</html>

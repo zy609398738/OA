@@ -1,0 +1,32 @@
+{
+	"@type":"com.bokesoft.cms2.impl.buildin.modelio.vo.PageVO",
+	"attributes":{"@type":"java.util.LinkedHashMap"},
+	"code":"@index",
+	"deliveryVOs":[
+		{
+			"@type":"com.bokesoft.cms2.impl.buildin.modelio.vo.PageVO$DeliveryVO",
+			"areaCode":"main-menu",
+			"blockCode":"PUBLIC.MAIN-MENU",
+			"groupName":"",
+			"name":"首页菜单",
+			"options":[
+				"Raw"
+			],
+			"parameters":{"@type":"java.util.HashMap"},
+			"sequence":"1"
+		}
+	],
+	"enabled":true,
+	"groups":[
+		{
+			"groupName":""
+		},
+		{
+			"groupName":""
+		}
+	],
+	"name":"首页",
+	"title":"首页",
+	"tmplCode":"HOME.OA-HOME",
+	"url":"/home01.page"
+}

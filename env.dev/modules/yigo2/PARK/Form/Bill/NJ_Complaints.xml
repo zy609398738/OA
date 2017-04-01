@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="NJ_Complaints" Caption="客户投诉" FormType="Entity">
+    <DataSource>
+        <DataObject Key="NJ_Complaints" Caption="客户投诉" NoPrefix="KHTS" PrimaryTableKey="NJ_SCM_ComplaintsHead" PrimaryType="Entity" ZeroPrefix="3">
+            <TableCollection>
+                <Table Key="NJ_SCM_ComplaintsHead" Caption="NJ_SCM_ComplaintsHead" DBTableName="NJ_SCM_ComplaintsHead">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="Status" Caption="状态" DataType="Integer"/>
+                    <Column Key="NO" Caption="NO" DataType="Varchar"/>
+                    <Column Key="BillDate" Caption="BillDate" DataType="DateTime"/>
+                    <Column Key="EmpID" Caption="EmpID" DataType="Long"/>
+                    <Column Key="Notes" Caption="Notes" DataType="Varchar"/>
+                    <Column Key="Creator" Caption="Creator" DataType="Long"/>
+                    <Column Key="CreateTime" Caption="CreateTime" DataType="DateTime"/>
+                    <Column Key="BillKey" Caption="BillKey" DataType="Varchar"/>
+                    <Column Key="ClusterID" Caption="ClusterID" DataType="Long"/>
+                    <Column Key="ModifyTime" Caption="ModifyTime" DataType="DateTime"/>
+                    <Column Key="Modifier" Caption="Modifier" DataType="Long"/>
+                    <Column Key="UsePeople" Caption="UsePeople" DataType="Varchar"/>
+                    <Column Key="CustomerId" Caption="CustomerId" DataType="Long"/>
+                    <Column Key="ContactNumber" Caption="ContactNumber" DataType="Varchar"/>
+                    <Column Key="RepairContent" Caption="RepairContent" DataType="Varchar" Length="4000"/>
+                    <Column Key="result" Caption="处理结果" DataType="Varchar" Length="4000"/>
+                    <Column Key="Opinion" Caption="投诉人意见" DataType="Varchar"/>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="Save" Caption="保存" RefKey="Save"/>
+        <Operation Key="Delete" Caption="删除" RefKey="Delete"/>
+        <Operation Key="Edit" Caption="编辑" RefKey="Edit"/>
+        <Operation Key="Cancel" Caption="取消" RefKey="Cancel"/>
+        <Operation Key="Close" Caption="关闭" RefKey="Close"/>
+    </OperationCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板">
+                <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <SplitPanel Key="SplitPanel1" Orientation="Vertical" Height="100%" Caption="SplitPanel1">
+                    <TabPanel Caption="TabPanel1" Height="100%" Key="TabPanel1">
+                        <GridLayoutPanel Key="first_head" Height="pref" Padding="5px" Caption="基本信息">
+                            <TextEditor Key="NO" Caption="投诉编号" BuddyKey="Lab_NO" X="2" Y="0" Enable="false">
+                                <DataBinding TableKey="NJ_SCM_ComplaintsHead" ColumnKey="NO"/>
+                            </TextEditor>
+                            <Label Key="Lab_NO" Caption="投诉编号" X="1" Y="0"/>
+                            <DatePicker Key="BillDate" Caption="投诉日期" BuddyKey="Lab_BillDate" X="5" Y="0" OnlyDate="true">
+                                <DataBinding TableKey="NJ_SCM_ComplaintsHead" ColumnKey="BillDate" DefaultFormulaValue="ServerDate();"/>
+                            </DatePicker>
+                            <Label Key="Lab_BillDate" Caption="投诉日期" X="4" Y="0"/>
+                            <ComboBox Key="Status" Caption="单据状态" BuddyKey="Lab_Status" X="8" Y="0" Enable="false" SourceType="Status">
+                                <DataBinding TableKey="NJ_SCM_ComplaintsHead" ColumnKey="Status" DefaultValue="100"/>
+                            </ComboBox>
+                            <Label Key="Lab_Status" Caption="单据状态" X="7" Y="0"/>
+                            <Dict Key="EmpID" Caption="受理人" BuddyKey="Lab_EmpID" X="2" Y="3" ItemKey="OA_Employee">
+                                <DataBinding TableKey="NJ_SCM_ComplaintsHead" ColumnKey="EmpID" DefaultFormulaValue="GetDictValue('Operator', Creator, 'SYS_Operator.EmpID')"/>
+                            </Dict>
+                            <Label Key="Lab_EmpID" Caption="受理人" X="1" Y="3"/>
+                            <TextEditor Key="Notes" Caption="备注" BuddyKey="Lab_Notes" X="5" Y="3" XSpan="4">
+                                <DataBinding TableKey="NJ_SCM_ComplaintsHead" ColumnKey="Notes" ValueDependency="Room"/>
+                            </TextEditor>
+                            <Label Key="Lab_Notes" Caption="备注" X="4" Y="3"/>
+                            <Dict Key="CustomerId" Caption="客户 *" BuddyKey="Lab_CustomerId" X="2" Y="1" ItemKey="NJ_CP_Customer">
+                                <DataBinding TableKey="NJ_SCM_ComplaintsHead" ColumnKey="CustomerId" Required="true"/>
+                            </Dict>
+                            <Label Key="Lab_CustomerId" Caption="客户" X="1" Y="1"/>
+                            <TextEditor Key="UsePeople" Caption="投诉人" BuddyKey="Lab_UsePeople" X="5" Y="1">
+                                <DataBinding TableKey="NJ_SCM_ComplaintsHead" ColumnKey="UsePeople"/>
+                            </TextEditor>
+                            <Label Key="Lab_UsePeople" Caption="投诉人" X="4" Y="1"/>
+                            <TextEditor Key="ContactNumber" Caption="联系电话" BuddyKey="Lab_ContactNumber" X="8" Y="1">
+                                <DataBinding TableKey="NJ_SCM_ComplaintsHead" ColumnKey="ContactNumber"/>
+                            </TextEditor>
+                            <Label Key="Lab_ContactNumber" Caption="联系电话" X="7" Y="1"/>
+                            <TextArea Key="RepairContent" Caption="投诉内容" BuddyKey="Lab_RepairContent" X="2" Y="2" XSpan="7">
+                                <DataBinding TableKey="NJ_SCM_ComplaintsHead" ColumnKey="RepairContent"/>
+                            </TextArea>
+                            <Label Key="Lab_RepairContent" Caption="投诉内容" X="1" Y="2"/>
+                            <TextArea Key="result" Caption="处理结果" BuddyKey="Lab_result" X="2" Y="4" XSpan="7">
+                                <DataBinding TableKey="NJ_SCM_ComplaintsHead" ColumnKey="result"/>
+                            </TextArea>
+                            <Label Key="Lab_result" Caption="处理结果" X="1" Y="4"/>
+                            <TextEditor Key="Opinion" Caption="投诉人意见" BuddyKey="Lab_Opinion" X="2" Y="5" XSpan="7">
+                                <DataBinding TableKey="NJ_SCM_ComplaintsHead" ColumnKey="Opinion"/>
+                            </TextEditor>
+                            <Label Key="Lab_Opinion" Caption="投诉人意见" X="1" Y="5"/>
+                            <RowDefCollection RowGap="4">
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="60px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="60px"/>
+                                <RowDef Height="30px"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="4">
+                                <ColumnDef Width="20px"/>
+                                <ColumnDef Width="80px"/>
+                                <ColumnDef Width="33%"/>
+                                <ColumnDef Width="20px"/>
+                                <ColumnDef Width="80px"/>
+                                <ColumnDef Width="33%"/>
+                                <ColumnDef Width="20px"/>
+                                <ColumnDef Width="80px"/>
+                                <ColumnDef Width="34%"/>
+                                <ColumnDef Width="20px"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                        <GridLayoutPanel Key="SysTab" Caption="系统信息">
+                            <Dict Key="Creator" Caption="创建人" BuddyKey="Lab_Creator" X="2" Y="0" Enable="false" ItemKey="Operator">
+                                <DataBinding TableKey="NJ_SCM_ComplaintsHead" ColumnKey="Creator" DefaultFormulaValue="GetOperator()"/>
+                            </Dict>
+                            <Label Key="Lab_Creator" Caption="创建人" X="1" Y="0"/>
+                            <Dict Key="Modifier" Caption="修改人" BuddyKey="Lab_Modifier" X="2" Y="1" Enable="false" ItemKey="Operator">
+                                <DataBinding TableKey="NJ_SCM_ComplaintsHead" ColumnKey="Modifier" DefaultFormulaValue="GetOperator()"/>
+                            </Dict>
+                            <DatePicker Key="CreateTime" Caption="创建日期" BuddyKey="Lab_CreateTime" X="5" Y="0" Enable="false">
+                                <DataBinding TableKey="NJ_SCM_ComplaintsHead" ColumnKey="CreateTime" DefaultFormulaValue="ServerDate()"/>
+                            </DatePicker>
+                            <Label Key="Lab_CreateTime" Caption="创建时间" X="4" Y="0"/>
+                            <Label Key="Lab_Modifier" Caption="修改人" X="1" Y="1"/>
+                            <DatePicker Key="ModifyTime" Caption="修改日期" BuddyKey="Lab_ModifyTime" X="5" Y="1" Enable="false">
+                                <DataBinding TableKey="NJ_SCM_ComplaintsHead" ColumnKey="ModifyTime" DefaultFormulaValue="ServerDate()"/>
+                            </DatePicker>
+                            <Label Key="Lab_ModifyTime" Caption="修改时间" X="4" Y="1"/>
+                            <TextEditor Key="BillKey" Caption="单据Key" BuddyKey="Lab_BillKey" X="8" Y="0">
+                                <DataBinding TableKey="NJ_SCM_ComplaintsHead" ColumnKey="BillKey" DefaultFormulaValue="GetFormKey()"/>
+                            </TextEditor>
+                            <Label Key="Lab_BillKey" Caption="单据Key" X="7" Y="0"/>
+                            <Dict Key="ClusterID" Caption="集团" BuddyKey="Lab_ClusterID" X="8" Y="1" Enable="false" ItemKey="Client">
+                                <DataBinding TableKey="NJ_SCM_ComplaintsHead" ColumnKey="ClusterID"/>
+                            </Dict>
+                            <Label Key="Lab_ClusterID" Caption="集团" X="7" Y="1"/>
+                            <RowDefCollection RowGap="4">
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="4">
+                                <ColumnDef Width="20px"/>
+                                <ColumnDef Width="80px"/>
+                                <ColumnDef Width="33%"/>
+                                <ColumnDef Width="20px"/>
+                                <ColumnDef Width="80px"/>
+                                <ColumnDef Width="33%"/>
+                                <ColumnDef Width="20px"/>
+                                <ColumnDef Width="80px"/>
+                                <ColumnDef Width="34%"/>
+                                <ColumnDef Width="20px"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                    </TabPanel>
+                    <SplitSize Size="100%"/>
+                </SplitPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

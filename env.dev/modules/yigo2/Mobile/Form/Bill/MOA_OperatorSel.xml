@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="MOA_OperatorSel" Caption="人员选择" FormType="Entity" InitState="Default">
+    <DataSource>
+        <DataObject Key="MOA_OperatorSel" Caption="人员选择" PrimaryTableKey="OA_OperatorSel_H" NoPrefix="OS" PrimaryType="Entity">
+            <TableCollection>
+                <Table Key="OA_OperatorSel_H" Caption="人员选择" DBTableName="OA_OperatorSel_H">
+                    <Column Caption="对象标识" DataType="Long" Key="OID"/>
+                    <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+                    <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+                    <Column Caption="对象版本" DataType="Integer" Key="VERID"/>
+                    <Column Caption="对象明细版本" DataType="Integer" Key="DVERID"/>
+                    <Column Key="NO" Caption="单据编号" DataType="Varchar"/>
+                    <Column Caption="发布日期" DataType="Date" Key="BillDate"/>
+                    <Column Caption="单据状态" DataType="Integer" Key="Status"/>
+                    <Column Caption="创建人" DataType="Long" Key="Creator"/>
+                    <Column Caption="创建日期" DataType="DateTime" Key="CreateTime"/>
+                    <Column Caption="修改人" DataType="Long" Key="Modifier"/>
+                    <Column Caption="修改日期" DataType="DateTime" Key="ModifyTime"/>
+                    <Column Caption="单据Key" DataType="Varchar" Key="BillKey"/>
+                    <Column Caption="集团" DataType="Long" Key="ClusterID"/>
+                    <Column Caption="源表单ID" DataType="Long" Key="SourceID"/>
+                    <Column Caption="源表单Key" DataType="Varchar" Key="SourceKey" Length="50"/>
+                    <Column Caption="Tag1" DataType="Varchar" Key="Tag1" Length="50"/>
+                    <Column Caption="Tag2" DataType="Varchar" Key="Tag2" Length="50"/>
+                    <Column Caption="Tag3" DataType="Varchar" Key="Tag3" Length="50"/>
+                    <Column Caption="Tag4" DataType="Varchar" Key="Tag4" Length="50"/>
+                    <Column Caption="选择结果描述" DataType="Varchar" Key="OptDesc" Length="1000"/>
+                    <Column Caption="公式" DataType="Varchar" Key="Formula" Length="1000"/>
+                    <Column Key="OptIDs" Caption="操作员ids" DataType="Varchar" Length="4000"/>
+                </Table>
+                <Table Key="OA_OperatorSel_D" Caption="人员选择明细" DBTableName="OA_OperatorSel_D" TableMode="Detail">
+                    <Column Caption="对象标识" DataType="Long" Key="OID"/>
+                    <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+                    <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+                    <Column Caption="对象版本" DataType="Integer" Key="VERID"/>
+                    <Column Caption="对象明细版本" DataType="Integer" Key="DVERID"/>
+                    <Column Caption="序号" DataType="Integer" Key="Sequence"/>
+                    <Column Caption="标识" DataType="Long" Key="OptID"/>
+                    <Column Caption="类型" DataType="Integer" Key="OptType"/>
+                    <Column Caption="表单Key" DataType="Varchar" Key="BillKey" Length="50"/>
+                    <Column Caption="名称" DataType="Varchar" Key="Name"/>
+                    <Column Key="SelField" Caption="选择字段" DataType="Integer"/>
+                </Table>
+                <Table Caption="人员" Key="SYS_Operator" Persist="false" TableMode="Detail" SourceType="Query">
+                    <Column Caption="对象标识" DataType="Long" Key="OID"/>
+                    <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+                    <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+                    <Column Caption="对象版本" DataType="Integer" Key="VERID"/>
+                    <Column Caption="对象明细版本" DataType="Integer" Key="DVERID"/>
+                    <Column Key="SelField" Caption="选择字段" DataType="Integer"/>
+                    <Column Caption="代码" DataType="Varchar" Key="Code" Length="50"/>
+                    <Column Caption="名称" DataType="Varchar" Key="Name" Length="50"/>
+                    <Column Caption="类型" DataType="Integer" Key="OptType"/>
+                    <Column Caption="职务" DataType="Long" Key="PositionID"/>
+                    <Column Caption="部门" DataType="Long" Key="DeptID"/>
+                    <Column Key="EmpID" Caption="人员" DataType="Long"/>
+                    <TableFilter>
+                        <![CDATA[1=?]]>
+                    </TableFilter>
+                    <ParameterCollection>
+                        <Parameter DataType="Integer" Formula="GetPara(&quot;paraKey1&quot;)"/>
+                    </ParameterCollection>
+                    <Statement>
+                        <![CDATA[select * from (select o.empid,o.oid,o.code,o.name,d.PositionID,o.DeptID,3 as OptType from SYS_Operator o join OA_Employee_H h on o.empid = h.oid join OA_Employee_D d on h.oid = d.soid) j]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="Confirm" Caption="确定">
+            <Action>
+                <![CDATA[if(IsNull(Para("FieldKey2")) || Para("FieldKey2")==""){
+    parent.SetCellValue('Dtl', -1, Para("FieldKey1"), OptDesc);
+}else{
+    parent.SetValue(Para("FieldKey1"), OptDesc);
+    parent.SetValue(Para("FieldKey2"), OptIDs);
+}
+SaveData();
+Close();]]>
+            </Action>
+        </Operation>
+        <Operation Key="Cancel" Caption="取消">
+            <Action>
+                <![CDATA[Close();]]>
+            </Action>
+        </Operation>
+    </OperationCollection>
+    <QueryCollection>
+        <Query Key="queryDept">
+            <Statement>
+                <![CDATA[select oid,name,ORG_Level-1 as OptType from OA_Department_H order by code]]>
+            </Statement>
+        </Query>
+        <Query Key="queryempid">
+            <Statement>
+                <![CDATA[select empid from SYS_Operator where oid=?]]>
+            </Statement>
+            <ParameterCollection>
+                <Parameter DataType="Long"/>
+            </ParameterCollection>
+        </Query>
+    </QueryCollection>
+    <Body>
+        <Block>
+            <LinearLayoutPanel Caption="LinearLayoutPanel1" Key="LinearLayoutPanel1" Orientation="Vertical" Padding="10px">
+                <Format BackColor="#e6e6e6"/>
+                <GridLayoutPanel Key="GridLayoutPanel1" Height="100px" Caption="GridLayoutPanel1" Width="auto">
+                    <CheckListBox BuddyKey="Lab_DeptID_Cond" Caption="行政组织" Key="DeptID_Cond" X="1" Y="0" SourceType="Formula" XSpan="4" Enable="true">
+                        <Condition ColumnKey="DeptID" TableKey="SYS_Operator" CondSign="in"/>
+                        <FormulaItems>
+                            <![CDATA[var sql="select OID,Name from oa_department_h ORDER BY TLeft";
+InvokeService("OA_GetDropStrBySql", true, false,sql,"OID","Name");]]>
+                        </FormulaItems>
+                    </CheckListBox>
+                    <Label Key="Lab_DeptID_Cond" Caption="行政组织" X="0" Y="0"/>
+                    <TextEditor Key="OptID_Cond" Caption="人员名称" BuddyKey="Lab_OptID_Cond" X="1" Y="1" Enable="true" XSpan="4">
+                        <Format HAlign="Center">
+                            <Font Size="14"/>
+                        </Format>
+                        <Condition ColumnKey="Name" TableKey="SYS_Operator" CondSign="like"/>
+                    </TextEditor>
+                    <Label Key="Lab_OptID_Cond" Caption="人员名称" X="0" Y="1"/>
+                    <Button Key="Query" Caption="查询" X="0" Y="2" Enable="true" XSpan="2">
+                        <OnClick>
+                            <![CDATA[DealCondition();
+ReloadTable("SYS_Operator");
+RefreshControl("TableView1");]]>
+                        </OnClick>
+                    </Button>
+                    <Button Key="Reset" Caption="重置" X="3" Y="2" Enable="true" XSpan="2">
+                        <OnClick>
+                            <![CDATA[ResetCondition()]]>
+                        </OnClick>
+                    </Button>
+                    <NumberEditor Key="NumberEditor1" Caption="NumberEditor1" X="2" Y="2" Visible="false" Scale="0">
+                        <DataBinding DefaultValue="1"/>
+                    </NumberEditor>
+                    <RowDefCollection RowGap="5">
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                        <RowDef Height="35px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="5">
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="50%"/>
+                        <ColumnDef Width="20px"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="50%"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+                <TableView Caption="TableView1" Height="pref" Key="TableView1" Width="pref">
+                    <TableRowCollection>
+                        <TableRow Key="row1" RowType="Detail" ShowFirstMargin="true" TableKey="SYS_Operator" TopMargin="10px">
+                            <LinearLayoutPanel Caption="LinearLayoutPanel2" Key="LinearLayoutPanel2" Orientation="Vertical" Height="auto">
+                                <LinearLayoutPanel Caption="LinearLayoutPanel3" Height="40px" Key="LinearLayoutPanel3" Width="auto">
+                                    <CheckBox Caption="选择" Height="auto" IsSelect="true" Key="Opt_Sel" Width="0px" Weight="1.0" Enable="true">
+                                        <DataBinding TableKey="OA_OperatorSel_H" ColumnKey="SelField"/>
+                                    </CheckBox>
+                                    <Dict Key="Opt_OptID" Caption="人员" Visible="false" Height="auto" Width="0px" ItemKey="Operator">
+                                        <DataBinding TableKey="OA_OperatorSel_H" ColumnKey="EmpID"/>
+                                    </Dict>
+                                    <TextEditor Key="Opt_Code" Caption="工号" Height="auto" Width="0px" Weight="1.0">
+                                        <DataBinding TableKey="OA_OperatorSel_H" ColumnKey="Code"/>
+                                        <Format BackColor="#ffffff">
+                                            <Font Size="14"/>
+                                        </Format>
+                                    </TextEditor>
+                                </LinearLayoutPanel>
+                                <LinearLayoutPanel Caption="LinearLayoutPanel4" Height="40px" Key="LinearLayoutPanel4" Width="auto">
+                                    <TextEditor Key="Opt_Name" Caption="名称" Height="auto" Width="0px" Weight="1.0">
+                                        <DataBinding TableKey="OA_OperatorSel_H" ColumnKey="Name"/>
+                                        <Format BackColor="#ffffff">
+                                            <Font Size="14"/>
+                                        </Format>
+                                    </TextEditor>
+                                    <Dict Key="Opt_Postion" Caption="职务" Height="auto" ItemKey="OA_Duty" Width="0px" Weight="1.0">
+                                        <DataBinding TableKey="OA_OperatorSel_H" ColumnKey="PositionID"/>
+                                    </Dict>
+                                </LinearLayoutPanel>
+                                <LinearLayoutPanel Caption="LinearLayoutPanel5" Height="40px" Key="LinearLayoutPanel5" Width="auto">
+                                    <Dict Key="Opt_Dept" Caption="所属部门" Height="auto" ItemKey="OA_Department" Width="0px" Weight="1.0">
+                                        <DataBinding TableKey="OA_OperatorSel_H" ColumnKey="DeptID"/>
+                                    </Dict>
+                                    <ComboBox Key="Opt_OptType" Caption="类型" Height="auto" Width="0px" Weight="1.0">
+                                        <DataBinding TableKey="OA_OperatorSel_H" ColumnKey="OptType"/>
+                                        <Format BackColor="#ffffff" HAlign="Left"/>
+                                        <Item Caption="集团" Key="0" Value="0"/>
+                                        <Item Caption="公司" Key="1" Value="1"/>
+                                        <Item Caption="部门" Key="2" Value="2"/>
+                                        <Item Caption="人员" Key="3" Value="3"/>
+                                        <Item Caption="规则" Key="4" Value="4"/>
+                                        <Item Caption="群组" Key="5" Value="5"/>
+                                    </ComboBox>
+                                </LinearLayoutPanel>
+                            </LinearLayoutPanel>
+                        </TableRow>
+                        <TableRow Key="row2" TopMargin="10px">
+                            <LinearLayoutPanel Caption="LinearLayoutPanel6" Key="LinearLayoutPanel6" Height="40px" Width="auto">
+                                <Button Key="Add" Caption="添加-&gt;" Enable="true" Height="auto" Width="0px" Weight="1.0">
+                                    <OnClick>
+                                        <![CDATA[ReplaceTable("OA_OperatorSel_D", InvokeService("OA_AddOperatorSelResult",true,false));
+RefreshControl("TableView1");
+OptDesc=OA_GetValueStrByCol("OA_OperatorSel_D","Name","，");
+OptIDs=OA_GetValueStrByCol("OA_OperatorSel_D","OptID",",");]]>
+                                    </OnClick>
+                                </Button>
+                                <Button Key="Del" Caption="&lt;-删除" Enable="true" Height="auto" Width="0px" Weight="1.0">
+                                    <OnClick>
+                                        <![CDATA[ReplaceTable("OA_OperatorSel_D", InvokeService("OA_DeleteSelectRow",true,false,"OA_OperatorSel_D","SelField"));
+RefreshControl("TableView1");
+OptDesc=OA_GetValueStrByCol("OA_OperatorSel_D","Name","，");
+OptIDs=OA_GetValueStrByCol("OA_OperatorSel_D","OptID",",");]]>
+                                    </OnClick>
+                                </Button>
+                            </LinearLayoutPanel>
+                        </TableRow>
+                        <TableRow Key="OA_OperatorSel_D" RowType="Detail" ShowFirstMargin="true" TableKey="OA_OperatorSel_D" TopMargin="10px">
+                            <LinearLayoutPanel Caption="LinearLayoutPanel8" Height="auto" Key="LinearLayoutPanel8" Orientation="Vertical">
+                                <LinearLayoutPanel Caption="LinearLayoutPanel7" Key="LinearLayoutPanel7" Height="40px" Width="auto">
+                                    <CheckBox Caption="选择" Height="auto" IsSelect="true" Key="Sel" Width="0px" Weight="1.0" Enable="true">
+                                        <DataBinding TableKey="OA_OperatorSel_H" ColumnKey="SelField"/>
+                                    </CheckBox>
+                                    <ComboBox Key="OptType" Caption="类型" Height="auto" Width="0px" Weight="1.0">
+                                        <DataBinding TableKey="OA_OperatorSel_H" ColumnKey="OptType"/>
+                                        <Format BackColor="#ffffff" HAlign="Left"/>
+                                        <Item Caption="集团" Key="0" Value="0"/>
+                                        <Item Caption="公司" Key="1" Value="1"/>
+                                        <Item Caption="部门" Key="2" Value="2"/>
+                                        <Item Caption="人员" Key="3" Value="3"/>
+                                        <Item Caption="规则" Key="4" Value="4"/>
+                                        <Item Caption="群组" Key="5" Value="5"/>
+                                    </ComboBox>
+                                </LinearLayoutPanel>
+                                <LinearLayoutPanel Caption="LinearLayoutPanel9" Height="40px" Key="LinearLayoutPanel9" Width="auto">
+                                    <TextEditor Key="Name" Caption="名称" Height="auto" Width="0px" Weight="1.0">
+                                        <DataBinding TableKey="OA_OperatorSel_H" ColumnKey="Name"/>
+                                        <Format BackColor="#ffffff">
+                                            <Font Size="14"/>
+                                        </Format>
+                                    </TextEditor>
+                                    <TextEditor Key="OptID" Caption="标识ID" Visible="false" Height="auto" Width="0px">
+                                        <DataBinding TableKey="OA_OperatorSel_H" ColumnKey="OptID"/>
+                                    </TextEditor>
+                                </LinearLayoutPanel>
+                            </LinearLayoutPanel>
+                        </TableRow>
+                        <TableRow Key="row4" TopMargin="10px">
+                            <LinearLayoutPanel Caption="LinearLayoutPanel11" Key="LinearLayoutPanel11" Orientation="Vertical" Visible="false">
+                                <LinearLayoutPanel Caption="LinearLayoutPanel10" Key="LinearLayoutPanel10" Height="pref">
+                                    <TextEditor Key="NO" Caption="单据编号" Height="pref" Width="pref">
+                                        <DataBinding TableKey="OA_OperatorSel_H" ColumnKey="NO"/>
+                                    </TextEditor>
+                                    <DatePicker Key="BillDate" Caption="发布日期" Height="pref" Width="pref">
+                                        <DataBinding TableKey="OA_OperatorSel_H" ColumnKey="BillDate"/>
+                                    </DatePicker>
+                                    <ComboBox Key="Status" Caption="单据状态" SourceType="Status" Height="pref" Width="pref">
+                                        <DataBinding TableKey="OA_OperatorSel_H" ColumnKey="Status"/>
+                                    </ComboBox>
+                                    <TextEditor Key="SourceKey" Caption="来源单据Key" Height="pref" Width="pref">
+                                        <DataBinding TableKey="OA_OperatorSel_H" ColumnKey="SourceKey" DefaultFormulaValue="Para(&quot;SourceKey&quot;)"/>
+                                    </TextEditor>
+                                    <TextEditor Key="SourceID" Caption="来源表单ID" Height="pref" Width="pref">
+                                        <DataBinding TableKey="OA_OperatorSel_H" ColumnKey="SourceID" DefaultFormulaValue="Para(&quot;SourceID&quot;)"/>
+                                    </TextEditor>
+                                    <TextEditor Key="Tag1" Caption="判断标识1" Height="pref" Width="pref">
+                                        <DataBinding TableKey="OA_OperatorSel_H" ColumnKey="Tag1" DefaultFormulaValue="Para(&quot;Tag1&quot;)"/>
+                                    </TextEditor>
+                                    <TextEditor Key="Tag2" Caption="判断标识2" Height="pref" Width="pref">
+                                        <DataBinding TableKey="OA_OperatorSel_H" ColumnKey="Tag2" DefaultFormulaValue="Para(&quot;Tag2&quot;)"/>
+                                    </TextEditor>
+                                    <TextEditor Key="Tag3" Caption="判断标识3" Height="pref" Width="pref">
+                                        <DataBinding TableKey="OA_OperatorSel_H" ColumnKey="Tag3" DefaultFormulaValue="Para(&quot;Tag3&quot;)"/>
+                                    </TextEditor>
+                                    <TextEditor Key="Tag4" Caption="判断标识4" Height="pref" Width="pref">
+                                        <DataBinding TableKey="OA_OperatorSel_H" ColumnKey="Tag4" DefaultFormulaValue="Para(&quot;Tag4&quot;)"/>
+                                    </TextEditor>
+                                    <TextArea Key="OptDesc" Caption="选择结果描述" Height="pref" Width="pref">
+                                        <DataBinding TableKey="OA_OperatorSel_H" ColumnKey="OptDesc"/>
+                                    </TextArea>
+                                    <TextArea Key="OptIDs" Caption="操作员IDs" Height="pref" Width="pref">
+                                        <DataBinding TableKey="OA_OperatorSel_H" ColumnKey="OptIDs"/>
+                                    </TextArea>
+                                    <TextArea Key="Formula" Caption="公式" Height="pref" Width="pref">
+                                        <DataBinding TableKey="OA_OperatorSel_H" ColumnKey="Formula"/>
+                                    </TextArea>
+                                </LinearLayoutPanel>
+                                <LinearLayoutPanel Caption="LinearLayoutPanel12" Height="pref" Key="LinearLayoutPanel12" Width="pref">
+                                    <Dict Key="Creator" Caption="创建人" Height="pref" ItemKey="Operator" Width="pref">
+                                        <DataBinding TableKey="OA_OperatorSel_H" ColumnKey="Creator" DefaultFormulaValue="GetOperator()"/>
+                                    </Dict>
+                                    <DatePicker Key="CreateTime" Caption="创建日期" Height="pref" Width="pref">
+                                        <DataBinding TableKey="OA_OperatorSel_H" ColumnKey="CreateTime" DefaultFormulaValue="ServerDate()"/>
+                                    </DatePicker>
+                                    <TextEditor Key="BillKey" Caption="单据Key" Height="pref" Width="pref">
+                                        <DataBinding TableKey="OA_OperatorSel_H" ColumnKey="BillKey" DefaultFormulaValue="GetFormKey()"/>
+                                    </TextEditor>
+                                    <Dict Key="Modifier" Caption="修改人" Height="pref" ItemKey="Operator" Width="pref">
+                                        <DataBinding TableKey="OA_OperatorSel_H" ColumnKey="Modifier" DefaultFormulaValue="GetOperator()"/>
+                                    </Dict>
+                                    <DatePicker Key="ModifyTime" Caption="修改日期" Height="pref" Width="pref">
+                                        <DataBinding TableKey="OA_OperatorSel_H" ColumnKey="ModifyTime" DefaultFormulaValue="ServerDate()"/>
+                                    </DatePicker>
+                                    <Dict Key="ClusterID" Caption="集团" Height="pref" ItemKey="Client" Width="pref">
+                                        <DataBinding TableKey="OA_OperatorSel_H" ColumnKey="ClusterID"/>
+                                    </Dict>
+                                </LinearLayoutPanel>
+                            </LinearLayoutPanel>
+                        </TableRow>
+                    </TableRowCollection>
+                </TableView>
+            </LinearLayoutPanel>
+        </Block>
+    </Body>
+    <OnPostShow>
+        <![CDATA[if(Para("SourceKey")=="OA_WorkflowDesigne_Ex" && GetOperationState()==1){
+    var hSql = "Select h.OptDesc,h.OptIDs,h.Formula From OA_OperatorSel_H h 
+    Where SourceKey=? and Tag1=? and Tag2=?";
+    var hdt=DBQuery(hSql,"OA_WorkflowDesigne",Para("Tag1"),Para("Tag2"));
+    SetValue("OptDesc", hdt.OptDesc);
+    SetValue("OptIDs", hdt.OptIDs);
+    SetValue("Formula", hdt.Formula);
+    var dSql = "Select d.OptType,d.Name,d.OptID From OA_OperatorSel_H h join OA_OperatorSel_d d 
+    Where h.oid = d.soid and SourceKey=? and Tag1=? and Tag2=?";
+    ReplaceTable("OA_OperatorSel_D", DBQuery(dSql,"OA_WorkflowDesigne",Para("Tag1"),Para("Tag2")));
+    RefreshControl('TableView1')
+}]]>
+    </OnPostShow>
+    <FormParaCollection>
+        <FormPara DataType="Integer" Formula="ToInt(NumberEditor1)" Key="paraKey1" Type="Formula"/>
+    </FormParaCollection>
+</Form>

@@ -1,0 +1,228 @@
+<script src="${staticRoot}/resources/js-datagrid/scripts/query.js" type="text/javascript"></script>
+<script src="${staticRoot}/resources/js-datagrid/scripts/cookie.js" type="text/javascript"></script>
+<script type="text/javascript">
+	function checkall(){
+		var chkall = document.getElementById("chk_all");
+		var chknews = document.getElementsByName("chknews");
+		for(var i=0;i<chknews.length;i++){
+			chknews[i].checked = chkall.checked;
+		}
+	}
+	
+	function toModify(url){
+		var newsid="";
+		var chknews = document.getElementsByName("chknews");
+		for(var i=0;i<chknews.length;i++){
+			if(chknews[i].checked){
+				newsid = chknews[i].value;
+				break;
+			}
+		}
+		if(newsid==""){
+			alert("请选中需要修改的条目");
+			return;
+		}
+		window.open(url+"?id="+newsid);
+	}
+	
+	function del(){
+		var newsStr="";
+		var chknews = document.getElementsByName("chknews");
+		for(var i=0;i<chknews.length;i++){
+			if(chknews[i].checked){
+				newsStr += chknews[i].value + ",";
+			}
+		}
+		newsStr=newsStr.substring(0,newsStr.length-1);
+		if(newsStr==""){
+			alert("请选中需要删除的条目");
+			return;
+		}
+		if (confirm("是否确认删除这些信息？")) {
+			$.ajax({
+					type:"POST",
+					async: true,        //异步
+					contentType:"application/x-www-form-urlencoded; charset=UTF-8", //发送至服务器的数据类型, 这个是默认值
+					url:"/Yigo/deleteNews.action",     //要访问的后台地址，如："/demo/popup.page"
+					data:{
+						newsStr:newsStr
+					},
+					dataType:'text',    //服务器返回的数据类型
+					success:function(htmlText){    
+					   window.location.reload();  
+					},
+					error:function(error){    
+						//alert("error"); //FIXME: 错误处理太草率
+					}
+				});
+		}
+	}
+	
+	function changePageSize(n){
+		addCookie("newsListPageSize",n,1000);
+		refreshDelivery();
+	}
+</script>
+ <div class="breadcrumb-box clearfix">
+  <input type = "hidden" id= "userid" name="userid" value="$userid">
+		<div class="breadcrumb fl_left"><a href="/Yigo/home.page">首页</a>
+		&gt;#if ($navs.size() == 1 ) 
+				#foreach( $nn in $navs )
+					$nn.NAME
+				  #end
+			#else <span>党群中心</span> #end </div>
+		<div class="filter fl_right">
+			<form>
+				<select id="selectKey" class="select-filter">
+					<option value="col1" #if($selectKey=="col1") selected #end>按分类</option>
+					<option value="col2" #if($selectKey=="col2") selected #end>按标题</option>
+					<option value="col3" #if($selectKey=="col3") selected #end>按作者</option>
+					<option value="col4" #if($selectKey=="col4") selected #end>按日期</option>
+				</select>
+				<input class="txt" id="keyword" type="text" 
+				#if($keyword) value="$keyword" #else value="请输入关键字" #end onclick="javascript:if(this.value=='请输入关键字'){this.value='';}" onblur="javascript:if(this.value==''){this.value='请输入关键字';}">
+				<input class="btn" type="button" value="搜索" onclick="queryResult(2,'.newsarea')">
+			</form>
+		</div>
+</div>
+
+
+<div class="hr mb_5">
+	 #if($typecode)<input type="hidden" value="$typecode" id="param_typecode" />#end
+   #if($keyword)<input type="hidden" value="$keyword" id="param_keyword" />#end
+   #if($selectKey)<input type="hidden" value="$selectKey" id="param_selectKey" />#end
+</div>
+<div class="toolbar-btns clearfix">
+<a id="newbutton" href="$addhref" target="_blank" class="create"><span>新建</span><b></b></a>
+<a id="deletebutton" href="javascript:del()" class="del"><span>删除</span><b></b></a>
+<a id="modifybutton" href="javascript:toModify('$modifyhref')" class="edit"><span>修改</span><b></b></a>
+</div>
+<div class="data-list">	
+  
+<table class="f666">
+                            <tr class="table-head">
+                                <td style="width:50px;"><input id="chk_all" type="checkbox" onchange="checkall()"></td>
+   #if( $Caption1)<td style="width:100px;">$esc.html($Caption1)</td>#end
+   #if( $Caption2)<td>$esc.html($Caption2)</td>#end
+   #if( $Caption3)<td style="width:100px;">$esc.html($Caption3)</td>#end
+   #if( $Caption4)<td style="width:100px;">$esc.html($Caption4)</td>#end
+
+        </tr>
+		#if($data.size()>0)
+			#foreach( $line in $data )
+				<tr><td class="check"><input name="chknews" type="checkbox" value="$line.ID"></td>
+				#if ($line.ID)
+									#if( $Caption1 )
+									<td  class="belong">
+										<a href="$href$line.ID&billkey=OA_NewsDraft&tablekey=OA_NewsDraft" #if($target) target="$target" #end>$esc.html($line.COL1)</a>
+									</td>#end
+									#if( $Caption2 )
+									<td class="new-title">
+										<a href="$href$line.ID&billkey=OA_NewsDraft&tablekey=OA_NewsDraft" #if($target) target="$target" #end>$esc.html($line.COL2) </a>
+										#if(($line.COL5)=="true")<i class="new"></i>#end
+									</td>#end
+									#if( $Caption3 )<td class="author">
+										<a href="$href$line.ID&billkey=OA_NewsDraft&tablekey=OA_NewsDraft" #if($target) target="$target" #end>$esc.html($line.COL3)</a>
+									</td>#end
+									#if( $Caption4 )<td class="time">
+										<a href="$href$line.ID&billkey=OA_NewsDraft&tablekey=OA_NewsDraft" #if($target) target="$target" #end>$esc.html($line.COL4)</a>
+										</td>#end
+									#if( $line.CODE == "01" && $deptid == 188082 )
+											<td class="time">
+												<a href="$modifyhref?id=$line.ID" #if($target) target="_self" #end>修改</a>
+											</td>
+									#end
+									#else
+										#if( $Caption1 )<td>$esc.html($line.COL1)</td>#end
+										#if( $Caption2 )<td><a href="$href$line.ID&billkey=OA_NewsDraft&tablekey=OA_NewsDraft" #if($target) target="$target" #end>$esc.html($line.COL2)</a></td>#end
+										#if( $Caption3 )<td>$esc.html($line.COL3)</td>#end
+					 #if( $Caption4 )<td>$esc.html($line.COL4)</td>#end
+								#end
+							</tr>
+			#end 
+		#else
+			<tr> <td class="check">暂无数据</td></tr>
+		#end 
+    </table>
+    <div class="pagination">     
+## 与 cms.DataExp.QueryPage() 公式相匹配的 Pager
+
+## 获得分页的一些参数
+#set ( $CurPageNo = $QueryPage_CUR_PAGE_NO+1 )
+#set ( $PageSize = $QueryPage_PAGE_SIZE )
+#set ( $TotalRecords = $QueryPage_TOTAL_RECORDS )
+
+## 全局的 URL 请求参数, 用于传递跳转到某一页的 url
+#set ( $RequestPageNoVar = $this.eval("cms.PageExp.GlobalVarName(cms.DataExp.QueryPage_VAR_CUR_PAGE_NO())", "" ) )
+#set ( $RequestPageSizeVar = $this.eval("cms.PageExp.GlobalVarName(cms.DataExp.QueryPage_VAR_PAGE_SIZE())", "" ) )
+#set ( $BlockId = $this.eval("cms.PageExp.GlobalVarName({})", "" ) )
+#set ( $pagerDivId = $this.eval("cms.PageExp.GlobalVarName({$id})", "" ) )
+
+## 全局的 URL 请求参数, 用于传递跳转到某一页的 url
+#set ( $RequestPageNoVar = $cms.PageExp.GlobalVarName("$cms.DataExp.QueryPage_VAR_CUR_PAGE_NO()") )
+
+## 最基础的 Javascript Pagination, 基于 http://www.ideawu.net/person/two-column-selector/PagerView.html 实现
+
+    <script type="text/javascript" src="${staticRoot}/resources/js-datagrid/scripts/PagerView.js"></script>
+    <div id="$pagerDivId"></div>
+		
+<br/>
+    <script type="text/javascript">
+    $(function(){
+	function navToPage(pNo) {
+	    var deliveryNo = $this.currentDelivery().getSequence();    //当前 delivery 的序号		
+	    var pagesize = document.getElementById("${pagerDivId}.selectsize").value; ////当前 page 的size	
+					  var httpParams;
+	    //设置cookie
+		var exdate=new Date();
+		exdate.setYear(exdate.getDate()+365);
+		document.cookie ="personpagesize"+ "=" +escape(pagesize)+";expires="+exdate.toGMTString();
+
+	    var httpParams = {
+			deliveryRowNo: deliveryNo,
+			"$esc.javascript($RequestPageNoVar)": pNo,
+			"$esc.javascript($RequestPageSizeVar)": pagesize,
+			"typecode":$("#param_typecode").val(),
+			"keyword":$("#param_keyword").val(),
+			"selectKey":$("#param_selectKey").val()
+	    }
+   	
+	    $.ajax({
+		type:"POST",
+		async: true,
+		contentType:"application/x-www-form-urlencoded; charset=UTF-8",  //发送至服务器的数据类型, 这个是默认值					
+		url:location.pathname,
+		data:httpParams,
+		dataType:'text',
+		success:function(htmlText){					     
+			if($(document.getElementById("$BlockId")).parents(".delivery").length>0){
+				$(document.getElementById("$BlockId")).parents(".delivery").html(htmlText);
+			}else {
+				$(document.getElementById("$BlockId")).parent().html(htmlText);
+			}		
+		},
+		error:function(XMLHttpRequest, textStatus, errorThrown) {
+			alert("页面请求失败！\r\n\r\nHttp状态码："+XMLHttpRequest.status);   //弹出错误信息
+		}
+	    });
+	}
+		
+
+        var pager = new PagerView("$pagerDivId");
+     		   pager.itemCount = $TotalRecords;
+            pager.size = $PageSize;
+      	   pager.index = $CurPageNo;
+       	   pager.onclick = function(index){
+	    									navToPage(index - 1);
+      				 			 };
+
+	
+        pager.render();
+
+	
+    });
+    </script>
+
+
+    </div>
+</div>

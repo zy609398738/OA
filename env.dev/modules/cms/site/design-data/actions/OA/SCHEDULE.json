@@ -1,0 +1,9 @@
+{
+	"@type":"com.bokesoft.cms2.model.Action",
+	"actionExp":"oa.TodoMidExp.querySchedulePlans();",
+	"actionUrl":"/queryCalendar.action",
+	"attributes":{"@type":"java.util.LinkedHashMap"},
+	"code":"SCHEDULE",
+	"name":"日程日历",
+	"notes":""
+}

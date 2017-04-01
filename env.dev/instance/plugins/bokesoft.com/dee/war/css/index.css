@@ -1,0 +1,11 @@
+﻿@CHARSET "UTF-8";
+
+body {
+	background: #dfe8f6;
+}
+
+.welcome {
+	padding-top: 200px;
+	font-size: 20;
+	text-align: center;
+}

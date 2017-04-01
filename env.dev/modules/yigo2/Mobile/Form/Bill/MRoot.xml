@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="MRoot" Caption="登录界面" Authenticate="false">
+    <!-- <EventHandlerCollection>
+			<EventHandler Key="SessionChanged" Trigger="Show" MergeEvent="True">
+			<![CDATA[ShowToast('aa');SetSelectIndex('root',1)]]>
+			</EventHandler>
+		</EventHandlerCollection>  -->
+    <Body>
+        <Block>
+            <Container Key="root" Caption="根容器">
+                <TabGroup>
+                    <TabItem Text="待办" FormKey="MOA_ToDoList"/>
+                    <TabItem Text="消息" FormKey="MOA_Employee"/>
+                    <TabItem Text="新闻" FormKey="MOA_NewsDraftView"/>
+                    <TabItem Text="工作" FormKey="MOA_WorkPage"/>
+                    <TabItem Text="我的" FormKey="MOA_Employee"/>
+                </TabGroup>
+            </Container>
+        </Block>
+    </Body>
+</Form>

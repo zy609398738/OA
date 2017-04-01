@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Caption="新闻类别" FormType="Dict" Key="OA_NewsType">
+    <DataSource>
+        <DataObject Key="OA_NewsType" Caption="信息类别" PrimaryTableKey="OA_NewsType_H" SecondaryType="Dict" PrimaryType="Entity">
+            <TableCollection>
+                <Table Caption="基本信息" DBTableName="OA_NewsType_H" Key="OA_NewsType_H">
+                    <Column Caption="对象标识" DataType="Long" Key="OID"/>
+                    <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+                    <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+                    <Column Caption="对象版本" DataType="Integer" Key="VERID"/>
+                    <Column Caption="对象明细版本" DataType="Integer" Key="DVERID"/>
+                    <Column Caption="状态" DataType="Integer" DefaultValue="1" Key="Status"/>
+                    <Column Caption="启用标记" DataType="Integer" Key="Enable" DefaultValue="1"/>
+                    <Column Caption="节点类型" DataType="Integer" DefaultValue="0" Key="NodeType"/>
+                    <Column Caption="父节点" DataType="Long" DefaultValue="0" Key="ParentID"/>
+                    <Column Caption="左索引" DataType="Integer" Key="TLeft"/>
+                    <Column Caption="右索引" DataType="Integer" Key="TRight"/>
+                    <Column Caption="代码" DataType="Varchar" Key="Code" Length="50"/>
+                    <Column Caption="名称" DataType="Varchar" Key="Name" Length="50"/>
+                    <Column Caption="创建人员" DataType="Long" Key="Creator"/>
+                    <Column Caption="创建时间" DataType="DateTime" Key="CreateTime"/>
+                    <Column Caption="修改人员" DataType="Long" Key="Modifier"/>
+                    <Column Caption="修改时间" DataType="DateTime" Key="ModifyTime"/>
+                    <Column Caption="备注" DataType="Varchar" Key="Notes"/>
+                    <Column Caption="单据Key" DataType="Varchar" Key="BillKey"/>
+                    <Column Caption="集团" DataType="Long" Key="ClusterID"/>
+                    <Column Caption="外文备注" DataType="Varchar" Key="ForeignNotes" Length="500"/>
+                    <Column Caption="是否可以评论" DataType="Integer" Key="CommentPrem"/>
+                    <Column Caption="新建权限" DataType="Varchar" Key="AddNewsType" Length="200"/>
+                    <Column Caption="阅读权限" DataType="Varchar" Key="NewsTypeView" Length="200"/>
+                    <Column Caption="修改权限" DataType="Varchar" Key="UpdateNewsType" Length="200"/>
+                    <Column Key="CMSTag" Caption="页面显示" DataType="Varchar"/>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Caption="FlexFlowLayoutPanel1" Key="FlexFlowLayoutPanel1">
+                <TabPanel Caption="TabPanel1" Height="100%" Key="TabPanel1">
+                    <GridLayoutPanel Caption="基本信息" Key="GridLayoutPanel1">
+                        <TextEditor BuddyKey="Lab_Code" Caption="代码" Key="Code" X="1" Y="0">
+                            <DataBinding ColumnKey="Code" TableKey="OA_NewsType_H" Required="true"/>
+                        </TextEditor>
+                        <Label Caption="代码" Key="Lab_Code" X="0" Y="0"/>
+                        <TextEditor BuddyKey="Lab_Name" Caption="名称" Key="Name" X="4" Y="0">
+                            <DataBinding ColumnKey="Name" TableKey="OA_NewsType_H" Required="true"/>
+                        </TextEditor>
+                        <Label Caption="名称" Key="Lab_Name" X="3" Y="0"/>
+                        <ComboBox BuddyKey="Lab_NodeType" Caption="节点类型" Key="NodeType" X="1" Y="1">
+                            <DataBinding ColumnKey="NodeType" TableKey="OA_NewsType_H"/>
+                            <Item Caption="明细节点" Key="0" Value="0"/>
+                            <Item Caption="汇总节点" Key="1" Value="1"/>
+                        </ComboBox>
+                        <Label Caption="节点类型" Key="Lab_NodeType" X="0" Y="1"/>
+                        <Dict BuddyKey="Lab_ParentID" Caption="所属目录" ItemKey="OA_NewsType" Key="ParentID" X="4" Y="1">
+                            <DataBinding ColumnKey="ParentID" TableKey="OA_NewsType_H"/>
+                        </Dict>
+                        <Label Caption="所属目录" Key="Lab_ParentID" X="3" Y="1"/>
+                        <ComboBox BuddyKey="Lab_CommentPrem" Caption="是否可以评论" Key="CommentPrem" X="1" Y="2">
+                            <DataBinding ColumnKey="CommentPrem" TableKey="OA_NewsType_H"/>
+                            <Item Caption="是" Key="1" Value="1"/>
+                            <Item Caption="否" Key="2" Value="2"/>
+                        </ComboBox>
+                        <Label Caption="是否可以评论" Key="Lab_CommentPrem" X="0" Y="2"/>
+                        <TextEditor BuddyKey="Lab_NewsTypeView" Caption="阅读权限" Key="NewsTypeView" SelectOnFocus="false" X="1" XSpan="4" Y="6" Visible="false" YSpan="2">
+                            <DataBinding ColumnKey="NewsTypeView" TableKey="OA_NewsType_H"/>
+                        </TextEditor>
+                        <Label Caption="阅读权限" Key="Lab_NewsTypeView" X="0" Y="6"/>
+                        <TextEditor BuddyKey="Lab_UpdateNewsType" Caption="修改权限" Key="UpdateNewsType" X="1" XSpan="4" Y="8" Visible="false" YSpan="2">
+                            <DataBinding ColumnKey="UpdateNewsType" TableKey="OA_NewsType_H"/>
+                        </TextEditor>
+                        <Label Caption="修改权限" Key="Lab_UpdateNewsType" X="0" Y="8"/>
+                        <HyperLink Caption="选择" Key="NewSel" X="5" Y="5" Visible="false">
+                            <DataBinding DefaultValue="选择"/>
+                        </HyperLink>
+                        <HyperLink Caption="选择" Key="ReadSel" X="5" Y="7" Visible="false">
+                            <DataBinding DefaultValue="选择"/>
+                        </HyperLink>
+                        <HyperLink Caption="选择" Key="ModSel" X="5" Y="9" Visible="false">
+                            <DataBinding DefaultValue="选择"/>
+                        </HyperLink>
+                        <TextArea BuddyKey="Lab_AddNewsType" Caption="新建权限" Key="AddNewsType" X="1" XSpan="4" Y="4" Visible="false" YSpan="2">
+                            <DataBinding ColumnKey="AddNewsType" TableKey="OA_NewsType_H"/>
+                        </TextArea>
+                        <Label Caption="新建权限" Key="Lab_AddNewsType" X="0" Y="4"/>
+                        <ComboBox Key="CMSTag" Caption="页面显示位置" BuddyKey="Lab_CMSTag" X="4" Y="2">
+                            <DataBinding ColumnKey="CMSTag" TableKey="OA_NewsType_H" Required="true"/>
+                            <Item Caption="位于新闻动态区块" Key="1" Value="1"/>
+                            <Item Caption="位于通知公告区块" Key="2" Value="2"/>
+                        </ComboBox>
+                        <Label Key="Lab_CMSTag" Caption="页面显示位置" X="3" Y="2"/>
+                        <RowDefCollection RowGap="4">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="31px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="4">
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="50%"/>
+                            <ColumnDef Width="20px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="50%"/>
+                            <ColumnDef Width="80px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <GridLayoutPanel Caption="系统信息" Height="1%" Key="SysTab">
+                        <Dict BuddyKey="Lab_Creator" Caption="创建人员" Enable="false" ItemKey="Operator" Key="Creator" X="1" Y="0">
+                            <DataBinding ColumnKey="Creator" TableKey="OA_NewsType_H" DefaultFormulaValue="GetOperator()" Required="true"/>
+                        </Dict>
+                        <Label Caption="创建人员" Key="Lab_Creator" X="0" Y="0"/>
+                        <Label Caption="创建时间" Key="Lab_CreateTime" X="3" Y="0"/>
+                        <DatePicker BuddyKey="Lab_CreateTime" Caption="创建时间" Enable="false" Key="CreateTime" X="4" Y="0">
+                            <DataBinding ColumnKey="CreateTime" TableKey="OA_NewsType_H" DefaultFormulaValue="ServerDate()" Required="true"/>
+                        </DatePicker>
+                        <Label Caption="修改人员" Key="Lab_Modifier" X="0" Y="1"/>
+                        <Dict BuddyKey="Lab_Modifier" Caption="修改人员" Enable="false" ItemKey="Operator" Key="Modifier" X="1" Y="1">
+                            <DataBinding ColumnKey="Modifier" TableKey="OA_NewsType_H" DefaultFormulaValue="GetOperator()" Required="true"/>
+                        </Dict>
+                        <Label Caption="修改时间" Key="Lab_ModifyTime" X="3" Y="1"/>
+                        <DatePicker BuddyKey="Lab_ModifyTime" Caption="修改时间" Enable="false" Key="ModifyTime" X="4" Y="1">
+                            <DataBinding ColumnKey="ModifyTime" TableKey="OA_NewsType_H" DefaultFormulaValue="ServerDate()" Required="true"/>
+                        </DatePicker>
+                        <Label Caption="备注" Key="Lab_Notes" X="0" Y="2"/>
+                        <TextEditor BuddyKey="Lab_Notes" Caption="备注" Key="Notes" X="1" XSpan="4" Y="2">
+                            <DataBinding ColumnKey="Notes" TableKey="OA_NewsType_H"/>
+                        </TextEditor>
+                        <TextEditor BuddyKey="Lab_BillKey" Caption="单据Key" Enable="false" Key="BillKey" X="1" Y="3">
+                            <DataBinding ColumnKey="BillKey" TableKey="OA_NewsType_H" DefaultFormulaValue="GetFormKey()"/>
+                        </TextEditor>
+                        <Label Caption="单据Key" Key="Lab_BillKey" X="0" Y="3"/>
+                        <Dict BuddyKey="Lab_ClusterID" Caption="集团" Enable="false" ItemKey="Client" Key="ClusterID" X="4" Y="3">
+                            <DataBinding ColumnKey="ClusterID" TableKey="OA_NewsType_H"/>
+                        </Dict>
+                        <Label Caption="集团" Key="Lab_ClusterID" X="3" Y="3"/>
+                        <RowDefCollection RowGap="4">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="4">
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="50%"/>
+                            <ColumnDef Width="20px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="50%"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                </TabPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

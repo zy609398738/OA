@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Map Caption="在用资产下推资产维修" Key="NJ_UseAsset_NJ_AssetMaintenance" SrcDataObjectKey="NJ_UseAsset" TgtDataObjectKey="NJ_AssetMaintenance">
+    <SourceTableCollection Height="540" Width="247" X="30" Y="30">
+        <SourceTable Key="NJ_UseAsset" IsPrimary="true" TargetTableKey="NJ_SCM_AssetMaintenanceDtl">
+            <SourceField Definition="AssetsId" TargetFieldKey="AssetsId"/>
+            <SourceField Definition="assetstypeid" TargetFieldKey="assetstypeid"/>
+            <SourceField Definition="Model" TargetFieldKey="Model"/>
+            <SourceField Definition="UNITID" TargetFieldKey="UNITID"/>
+            <SourceField Definition="WareHouseId" TargetFieldKey="WareHouseId"/>
+            <SourceField Definition="AssetNatureId" TargetFieldKey="AssetNatureId"/>
+            <SourceField Definition="AssetsCode" TargetFieldKey="AssetsCode"/>
+            <SourceField Definition="UseDeptID" TargetFieldKey="UseDeptID" TargetTableKey="NJ_SCM_AssetMaintenanceHead"/>
+            <SourceField Definition="UseEmpID" TargetFieldKey="UseEmpID" TargetTableKey="NJ_SCM_AssetMaintenanceHead"/>
+            <SourceField Definition="EmpID" TargetFieldKey="EmpID" TargetTableKey="NJ_SCM_AssetMaintenanceHead"/>
+            <SourceField Definition="Room" TargetFieldKey="Room" TargetTableKey="NJ_SCM_AssetMaintenanceHead"/>
+            <SourceField Definition="CustomerId" TargetFieldKey="CustomerId" TargetTableKey="NJ_SCM_AssetMaintenanceHead"/>
+            <SourceField Definition="UseType" TargetFieldKey="UseType" TargetTableKey="NJ_SCM_AssetMaintenanceHead"/>
+            <SourceField Definition="UsePeople" TargetFieldKey="UsePeople" TargetTableKey="NJ_SCM_AssetMaintenanceHead"/>
+        </SourceTable>
+    </SourceTableCollection>
+    <TargetTableCollection Height="600" Width="529" X="321" Y="30">
+        <TargetTable Key="NJ_SCM_AssetMaintenanceDtl" IsPrimary="true">
+            <TargetField Definition="AssetsId"/>
+            <TargetField Definition="assetstypeid"/>
+            <TargetField Definition="Model"/>
+            <TargetField Definition="UNITID"/>
+            <TargetField Definition="WareHouseId"/>
+            <TargetField Definition="AssetNatureId"/>
+            <TargetField Definition="AssetsCode"/>
+        </TargetTable>
+        <TargetTable Key="NJ_SCM_AssetMaintenanceHead">
+            <TargetField Definition="UseDeptID"/>
+            <TargetField Definition="UseEmpID"/>
+            <TargetField Definition="EmpID"/>
+            <TargetField Definition="Room"/>
+            <TargetField Definition="CustomerId"/>
+            <TargetField Definition="UseType"/>
+            <TargetField Definition="UsePeople"/>
+        </TargetTable>
+    </TargetTableCollection>
+</Map>

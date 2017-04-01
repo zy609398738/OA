@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="OA_CommentFTemplate" Caption="评论模板" FormType="Template">
+    <DataSource>
+        <DataObject Key="OA_CommentTemplate" Caption="评论模板">
+            <TableCollection>
+                <Table Key="OA_CommentTemplate" Caption="评论模板" TableMode="Detail" SourceType="Query" Persist="false">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="Commentators" Caption="发表人员" DataType="Long"/>
+                    <Column Key="RemarkContent" Caption="评论内容" DataType="Varchar" Length="4000"/>
+                    <Column Key="CommentTime" Caption="评论时间" DataType="DateTime"/>
+                    <ParameterCollection>
+                        <Parameter DataType="Long" Formula="GetOID()"/>
+                    </ParameterCollection>
+                    <Statement>
+                        <![CDATA[select 
+Commentators, RemarkContent,CommentTime
+from OA_CommentContent where SrcBillOID = ? order by CommentTime desc]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root1" Caption="根面板">
+                <GridLayoutPanel Key="BasicInfo" Height="pref" Padding="5px" Caption="基本信息">
+                    <Label Key="Label1" Caption="共有评论" X="0" Y="0">
+                        <Format HAlign="Left"/>
+                    </Label>
+                    <Label Key="Label2" Caption="条" X="2" Y="0"/>
+                    <HyperLink Caption="数量" Key="Number" X="1" Y="0">
+                        <DataBinding DefaultFormulaValue="var sql = &quot;select count(oid) from OA_CommentContent where srcbilloid = ?&quot;; SetValue(&quot;Number&quot;,DBQueryValue(sql,GetOID()));"/>
+                    </HyperLink>
+                    <CheckBox Caption="评论列表可见" Key="first_headVisible" X="3" Y="2" Visible="false">
+                        <DataBinding DefaultValue="1"/>
+                    </CheckBox>
+                    <TextArea Key="DeliverContent" Caption="发表评论:" BuddyKey="Lab_DeliverContent" X="1" Y="1" Enable="GetValue(&quot;Status&quot;)&gt;=1200" XSpan="4"/>
+                    <Label Key="Lab_DeliverContent" Caption="发表评论:" X="0" Y="1"/>
+                    <Button Key="Deliver" Caption="发表" X="1" Y="2" Enable="true" XSpan="2">
+                        <OnClick>
+                            <![CDATA[if(GetOperator()>0){
+    var content=GetValue('DeliverContent');
+    if(!IsNull(content) && Length(content)>0){
+        DBUpdate('Insert into OA_CommentContent (OID,SOID,POID,VERID,DVERID,Commentators,SrcBillOID,RemarkContent,CommentTime) values (?,OID,null,0,0,?,?,?,?)',
+ApplyNewOID(),GetOperator(),GetOID(),content,Format(ServerDate(), "yyyy-MM-dd HH:mm:ss"));
+
+    LoadData();
+    if(Commented==1){
+        InvokeService("OA_SendMessage", true, false,false, "OA",DeliverTime,GetOperator(),"发表评论："&Topic,content,ToString(Creator),-1,BillKey,NO,OID);
+    }
+    SetValue("DeliverContent","");
+}
+else{
+       RaiseErr("请填写评论内容!")}
+}else{
+        RaiseErr("请先登录!")}]]>
+                        </OnClick>
+                    </Button>
+                    <HyperLink Caption="收起评论" Key="HyperLink1" X="0" Y="3" Visible="first_headVisible==1" Enable="true">
+                        <Format HAlign="Left"/>
+                        <OnClick>
+                            <![CDATA[SetValue("first_headVisible",0);]]>
+                        </OnClick>
+                    </HyperLink>
+                    <HyperLink Caption="显示评论" Key="HyperLink2" X="0" Y="3" Visible="first_headVisible==0" Enable="true">
+                        <Format HAlign="Left"/>
+                        <OnClick>
+                            <![CDATA[SetValue("first_headVisible",1);]]>
+                        </OnClick>
+                    </HyperLink>
+                    <DatePicker Key="DeliverTime" Caption="发表时间" X="4" Y="0" Visible="false">
+                        <DataBinding DefaultFormulaValue="ServerDate()"/>
+                    </DatePicker>
+                    <RowDefCollection RowGap="8">
+                        <RowDef Height="30px"/>
+                        <RowDef Height="90px"/>
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="8">
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="30px"/>
+                        <ColumnDef Width="50px"/>
+                        <ColumnDef Width="100%"/>
+                        <ColumnDef Width="80px"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+                <ListView Caption="ListView1" Height="pref" Key="ListView1" TableKey="OA_CommentTemplate" Enable="false" Visible="first_headVisible==1">
+                    <ListViewColumnCollection>
+                        <ListViewColumn Key="Commentators" Caption="发表人员" ColumnType="Dict" DataColumnKey="Commentators" Width="100px" ItemKey="Operator"/>
+                        <ListViewColumn Key="RemarkContent" Caption="评论内容" DataColumnKey="RemarkContent" Width="800px"/>
+                        <ListViewColumn Key="Time" Caption="评论时间" ColumnType="DatePicker" DataColumnKey="CommentTime" Width="200px"/>
+                    </ListViewColumnCollection>
+                </ListView>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

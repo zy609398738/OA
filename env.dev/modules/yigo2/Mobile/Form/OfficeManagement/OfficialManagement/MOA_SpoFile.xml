@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="MOA_SpoFile" Caption="发文" FormType="Entity" AliasKey="OA_SpoFile">
+    <DataSource>
+        <DataObject Key="MOA_SpoFile" Caption="发文" PrimaryTableKey="MOA_SpoFile_H" NoPrefix="MSF" PrimaryType="Entity">
+            <TableCollection>
+                <Table Key="MOA_SpoFile_H" Caption="发文" DBTableName="OA_SpoFile_H">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="NO" Caption="发文编号" DataType="Varchar"/>
+                    <Column Key="BillDate" Caption="发文日期" DataType="DateTime"/>
+                    <Column Key="Status" Caption="状态" DataType="Integer"/>
+                    <Column Key="Topic" Caption="发文标题" DataType="Varchar"/>
+                    <Column Key="DeptID" Caption="发文部门" DataType="Long"/>
+                    <Column Key="EmpID" Caption="发文人员" DataType="Long"/>
+                    <Column Key="ReminderDeg" Caption="催办等级" DataType="Integer"/>
+                    <Column Key="UrgencyDeg" Caption="文件缓急" DataType="Integer"/>
+                    <Column Key="WordSizeID" Caption="发文字号" DataType="Long"/>
+                    <Column Key="SecretL" Caption="文件密级" DataType="Integer"/>
+                    <Column Key="ReadTitle" Caption="阅办类型" DataType="Integer"/>
+                    <Column Key="FileTypeID" Caption="发文类型" DataType="Long"/>
+                    <Column Key="SubjectHead" Caption="主题词" DataType="Varchar"/>
+                    <Column Key="LordSend" Caption="主送机关" DataType="Varchar"/>
+                    <Column Key="CcAuthority" Caption="抄送机关" DataType="Varchar"/>
+                    <Column Key="Dispatching" Caption="封发" DataType="Integer"/>
+                    <Column Key="Proof" Caption="校对" DataType="Integer"/>
+                    <Column Key="Creator" Caption="创建人" DataType="Long"/>
+                    <Column Key="CreateTime" Caption="创建日期" DataType="DateTime"/>
+                    <Column Key="Modifier" Caption="修改人" DataType="Long"/>
+                    <Column Key="ModifyTime" Caption="修改日期" DataType="DateTime"/>
+                    <Column Key="BillKey" Caption="单据Key" DataType="Varchar"/>
+                    <Column Key="ClusterID" Caption="集团" DataType="Long"/>
+                    <Column Key="Checkin" Caption="核稿" DataType="Integer"/>
+                    <Column Key="InstanceID" Caption="流程标识" DataType="Long"/>
+                    <Column Key="WorkflowTypeDtlID" Caption="流程类别明细ID" DataType="Long"/>
+                    <Column Key="Deadline" Caption="保管期限" DataType="Integer"/>
+                    <Column Key="ViewAcl" Caption="阅读权限" DataType="Varchar" Length="4000"/>
+                    <Column Key="OptIDs" Caption="参与者ids" DataType="Varchar" Length="4000"/>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="WORKITEM" Caption="WORKITEM" Tag="WORKITEM"/>
+        <Operation Key="BPM" Caption="BPM" Tag="BPM"/>
+        <Operation Key="Save" Caption="保存" RefKey="Save"/>
+        <Operation Key="Delete" Caption="删除" RefKey="Delete"/>
+        <Operation Key="Edit" Caption="编辑" RefKey="Edit"/>
+        <Operation Key="Cancel" Caption="取消" RefKey="Cancel"/>
+        <Operation Key="Close" Caption="关闭" RefKey="Close"/>
+        <Operation Key="MOA_BPM_Log" Caption="审批记录">
+            <Action>
+                <![CDATA[Show('MOA_BPM_Log');]]>
+            </Action>
+        </Operation>
+    </OperationCollection>
+    <ScriptCollection>
+        <Script Key="Load" Caption="载入" Range="Action" Verb="Load">
+            <![CDATA[LoadData();SetPara("IsMobile",true);]]>
+        </Script>
+    </ScriptCollection>
+    <Body>
+        <Block>
+            <TableView Caption="TableView1" Key="TableView1" Padding="10px">
+                <Format BackColor="#e6e6e6"/>
+                <TableRowCollection>
+                    <TableRow Key="row1" ShowFirstMargin="true" TopMargin="10px">
+                        <LinearLayoutPanel Caption="LinearLayoutPanel1" Key="LinearLayoutPanel1" Height="40px" Width="auto">
+                            <Label Key="Lab_Topic" Caption="发文标题" Height="auto" Width="80px"/>
+                            <TextEditor Key="Topic" Caption="发文标题" BuddyKey="Lab_Topic" Height="auto" Width="auto">
+                                <DataBinding TableKey="MOA_SpoFile_H" ColumnKey="Topic" Required="true"/>
+                                <Format>
+                                    <Font Size="14"/>
+                                </Format>
+                            </TextEditor>
+                        </LinearLayoutPanel>
+                    </TableRow>
+                    <TableRow Key="row2" TopMargin="10px">
+                        <LinearLayoutPanel Caption="LinearLayoutPanel2" Key="LinearLayoutPanel2" Height="40px" Width="auto">
+                            <Label Key="Lab_SecretL" Caption="密级" Height="auto" Width="80px"/>
+                            <ComboBox Key="SecretL" Caption="密级" BuddyKey="Lab_SecretL" Height="auto" Width="auto">
+                                <DataBinding TableKey="MOA_SpoFile_H" ColumnKey="SecretL"/>
+                                <Format BackColor="#ffffff" HAlign="Left"/>
+                                <Item Key="0" Value="0"/>
+                                <Item Caption="机密" Key="10" Value="10"/>
+                                <Item Caption="非密" Key="20" Value="20"/>
+                                <Item Caption="秘密" Key="30" Value="30"/>
+                            </ComboBox>
+                        </LinearLayoutPanel>
+                    </TableRow>
+                    <TableRow Key="row3" TopMargin="10px">
+                        <LinearLayoutPanel Caption="LinearLayoutPanel3" Key="LinearLayoutPanel3" Height="40px" Width="auto">
+                            <Label Key="Lab_Deadline" Caption="保管期限" Height="auto" Width="80px"/>
+                            <ComboBox Key="Deadline" Caption="保管期限" BuddyKey="Lab_Deadline" Height="auto" Width="auto">
+                                <DataBinding TableKey="MOA_SpoFile_H" ColumnKey="Deadline" DefaultValue="10"/>
+                                <Format BackColor="#ffffff" HAlign="Left"/>
+                                <Item Caption="永久" Key="10" Value="10"/>
+                                <Item Caption="长期" Key="20" Value="20"/>
+                                <Item Caption="短期" Key="30" Value="30"/>
+                            </ComboBox>
+                        </LinearLayoutPanel>
+                    </TableRow>
+                    <TableRow Key="row4" TopMargin="10px">
+                        <LinearLayoutPanel Caption="LinearLayoutPanel4" Key="LinearLayoutPanel4" Height="40px" Width="auto">
+                            <Label Key="Lab_BillDate" Caption="发文日期" Height="auto" Width="80px"/>
+                            <DatePicker Key="BillDate" Caption="发文日期" BuddyKey="Lab_BillDate" Enable="false" Height="auto" Width="auto">
+                                <DataBinding TableKey="MOA_SpoFile_H" ColumnKey="BillDate" DefaultFormulaValue="ServerDate()"/>
+                                <Format BackColor="#ffffff" HAlign="Left"/>
+                            </DatePicker>
+                        </LinearLayoutPanel>
+                    </TableRow>
+                    <TableRow Key="row5" TopMargin="10px">
+                        <LinearLayoutPanel Caption="LinearLayoutPanel5" Key="LinearLayoutPanel5" Height="40px" Width="auto">
+                            <Label Key="Lab_DeptID" Caption="主办单位" Height="auto" Width="80px"/>
+                            <Dict Key="DeptID" Caption="主办单位" BuddyKey="Lab_DeptID" Height="auto" ItemKey="OA_Department" Width="auto">
+                                <DataBinding TableKey="MOA_SpoFile_H" ColumnKey="DeptID" DefaultFormulaValue="GetDictValue('Operator', GetOperator(), 'SYS_Operator.DeptID')" Required="true"/>
+                                <Format>
+                                    <Font Size="14"/>
+                                </Format>
+                            </Dict>
+                        </LinearLayoutPanel>
+                    </TableRow>
+                    <TableRow Key="row6" TopMargin="10px">
+                        <LinearLayoutPanel Caption="LinearLayoutPanel6" Key="LinearLayoutPanel6" Height="40px" Width="auto">
+                            <Label Key="Lab_EmpID" Caption="拟稿人" Height="auto" Width="80px"/>
+                            <Dict Key="EmpID" Caption="拟稿人" BuddyKey="Lab_EmpID" Height="auto" ItemKey="OA_Employee" Width="auto">
+                                <DataBinding TableKey="MOA_SpoFile_H" ColumnKey="EmpID" DefaultFormulaValue="GetDictValue('Operator', GetOperator(), 'SYS_Operator.EmpID')" Required="true">
+                                    <ValueChanged>
+                                        <![CDATA[DeptID=GetDictValue('OA_Employee', EmpID, 'OA_Employee_H.DeptID')]]>
+                                    </ValueChanged>
+                                </DataBinding>
+                                <Format>
+                                    <Font Size="14"/>
+                                </Format>
+                            </Dict>
+                        </LinearLayoutPanel>
+                    </TableRow>
+                    <TableRow Key="row7" TopMargin="10px">
+                        <LinearLayoutPanel Caption="LinearLayoutPanel7" Key="LinearLayoutPanel7" Height="40px" Width="auto">
+                            <Label Key="Lab_FileTypeID" Caption="发文类型" Height="auto" Width="80px"/>
+                            <Dict Key="FileTypeID" Caption="发文类型" Height="auto" ItemKey="OA_FileType" Width="auto">
+                                <DataBinding TableKey="MOA_SpoFile_H" ColumnKey="FileTypeID"/>
+                                <Format>
+                                    <Font Size="14"/>
+                                </Format>
+                            </Dict>
+                        </LinearLayoutPanel>
+                    </TableRow>
+                    <TableRow Key="row8" TopMargin="10px">
+                        <LinearLayoutPanel Caption="LinearLayoutPanel9" Key="LinearLayoutPanel9" Height="40px" Width="auto">
+                            <Label Key="Lab_LordSend" Caption="主送" Height="auto" Width="80px"/>
+                            <CheckListBox Caption="主送" Height="auto" Key="LordSend" SourceType="Formula" Width="auto">
+                                <DataBinding TableKey="MOA_SpoFile_H" ColumnKey="LordSend"/>
+                                <Format BackColor="#ffffff" HAlign="Left"/>
+                                <FormulaItems>
+                                    <![CDATA[var sql="select OID,Name from oa_department_h ORDER BY TLeft";
+InvokeService("OA_GetDropStrBySql", true, false,sql,"OID","Name");]]>
+                                </FormulaItems>
+                            </CheckListBox>
+                        </LinearLayoutPanel>
+                    </TableRow>
+                    <TableRow Key="row9" TopMargin="10px">
+                        <LinearLayoutPanel Caption="LinearLayoutPanel10" Key="LinearLayoutPanel10" Height="40px" Width="auto">
+                            <Label Key="Lab_CcAuthority" Caption="抄送" Height="auto" Width="80px"/>
+                            <CheckListBox Caption="抄送" Height="auto" Key="CcAuthority" SourceType="Formula" Width="auto">
+                                <DataBinding TableKey="MOA_SpoFile_H" ColumnKey="CcAuthority"/>
+                                <Format BackColor="#ffffff" HAlign="Left"/>
+                                <FormulaItems>
+                                    <![CDATA[var sql="select OID,Name from oa_department_h ORDER BY TLeft";
+InvokeService("OA_GetDropStrBySql", true, false,sql,"OID","Name");]]>
+                                </FormulaItems>
+                            </CheckListBox>
+                        </LinearLayoutPanel>
+                    </TableRow>
+                    <TableRow Key="row10" TopMargin="10px">
+                        <LinearLayoutPanel Caption="LinearLayoutPanel11" Key="LinearLayoutPanel11" Height="80px" Width="auto">
+                            <Label Key="Lab_ViewAcl" Caption="阅读权限" Height="30px" Width="80px">
+                                <Format VAlign="Top"/>
+                            </Label>
+                            <TextArea Key="ViewAcl" Caption="阅读权限" BuddyKey="Lab_ViewAcl" Enable="false" Height="auto" Width="auto" Weight="1.0">
+                                <DataBinding TableKey="MOA_SpoFile_H" ColumnKey="ViewAcl"/>
+                                <Format>
+                                    <Font Size="14"/>
+                                </Format>
+                            </TextArea>
+                            <HyperLink Caption="人员选择" Height="30px" Key="EmpSelect" Width="60px">
+                                <Format VAlign="Top"/>
+                                <OnClick>
+                                    <![CDATA[OA_ShowEmpSelectOpt();]]>
+                                </OnClick>
+                            </HyperLink>
+                        </LinearLayoutPanel>
+                    </TableRow>
+                    <TableRow Key="row11">
+                        <LinearLayoutPanel Caption="LinearLayoutPanel8" Key="LinearLayoutPanel8" Height="0px" Width="auto" Visible="false">
+                            <Label Key="Lab_Checkin" Caption="核稿人" Height="auto" Width="80px"/>
+                            <Dict Key="Checkin" Caption="核稿人" BuddyKey="Lab_Checkin" Height="auto" ItemKey="OA_Employee" Width="auto">
+                                <DataBinding TableKey="MOA_SpoFile_H" ColumnKey="Checkin"/>
+                            </Dict>
+                        </LinearLayoutPanel>
+                    </TableRow>
+                    <TableRow Key="row12">
+                        <LinearLayoutPanel Caption="LinearLayoutPanel12" Key="LinearLayoutPanel12" Height="0px" Width="auto" Visible="false">
+                            <ComboBox Key="Status" Caption="状态" SourceType="Status" Height="pref" Width="pref">
+                                <DataBinding TableKey="MOA_SpoFile_H" ColumnKey="Status" DefaultValue="100"/>
+                            </ComboBox>
+                            <ComboBox Key="ReminderDeg" Caption="催办等级" Height="pref" Width="pref">
+                                <DataBinding TableKey="MOA_SpoFile_H" ColumnKey="ReminderDeg"/>
+                                <Item Caption="特急" Key="10" Value="10"/>
+                                <Item Caption="紧急" Key="20" Value="20"/>
+                                <Item Caption="一般" Key="30" Value="30"/>
+                            </ComboBox>
+                            <Dict Key="WordSizeID" Caption="发文字号" Height="pref" ItemKey="OA_WordSize" Width="pref">
+                                <DataBinding TableKey="MOA_SpoFile_H" ColumnKey="WordSizeID"/>
+                            </Dict>
+                            <ComboBox Key="UrgencyDeg" Caption="文件缓急" Height="pref" Width="pref">
+                                <DataBinding TableKey="MOA_SpoFile_H" ColumnKey="UrgencyDeg"/>
+                                <Item Caption="特急" Key="10" Value="10"/>
+                                <Item Caption="紧急" Key="20" Value="20"/>
+                                <Item Caption="一般" Key="30" Value="30"/>
+                            </ComboBox>
+                            <ComboBox Key="ReadTitle" Caption="阅办类型" Height="pref" Width="pref">
+                                <DataBinding TableKey="MOA_SpoFile_H" ColumnKey="ReadTitle"/>
+                                <Item Caption="阅件" Key="10" Value="10"/>
+                                <Item Caption="办件" Key="20" Value="20"/>
+                            </ComboBox>
+                            <TextEditor Key="SubjectHead" Caption="主题词" Height="pref" Width="pref">
+                                <DataBinding TableKey="MOA_SpoFile_H" ColumnKey="SubjectHead"/>
+                            </TextEditor>
+                            <ComboBox Key="Dispatching" Caption="封发" Height="pref" Width="pref">
+                                <DataBinding TableKey="MOA_SpoFile_H" ColumnKey="Dispatching"/>
+                                <Item Caption="是" Key="10" Value="10"/>
+                                <Item Caption="否" Key="20" Value="20"/>
+                            </ComboBox>
+                            <ComboBox Key="Proof" Caption="校对" Height="pref" Width="pref">
+                                <DataBinding TableKey="MOA_SpoFile_H" ColumnKey="Proof"/>
+                                <Item Caption="是" Key="10" Value="10"/>
+                                <Item Caption="否" Key="20" Value="20"/>
+                            </ComboBox>
+                        </LinearLayoutPanel>
+                    </TableRow>
+                    <TableRow Key="row13">
+                        <LinearLayoutPanel Caption="LinearLayoutPanel13" Key="LinearLayoutPanel13" Height="0px" Width="auto" Visible="false">
+                            <Dict Key="Creator" Caption="创建人" Height="pref" ItemKey="Operator" Width="pref">
+                                <DataBinding TableKey="MOA_SpoFile_H" ColumnKey="Creator" DefaultFormulaValue="GetOperator()"/>
+                            </Dict>
+                            <DatePicker Key="CreateTime" Caption="创建日期" Height="pref" Width="pref">
+                                <DataBinding TableKey="MOA_SpoFile_H" ColumnKey="CreateTime" DefaultFormulaValue="ServerDate()"/>
+                            </DatePicker>
+                            <Dict Key="Modifier" Caption="修改人" Height="pref" Width="pref" ItemKey="Operator">
+                                <DataBinding TableKey="MOA_SpoFile_H" ColumnKey="Modifier" DefaultFormulaValue="GetOperator()"/>
+                            </Dict>
+                            <DatePicker Key="ModifyTime" Caption="修改日期" Height="pref" Width="pref">
+                                <DataBinding TableKey="MOA_SpoFile_H" ColumnKey="ModifyTime" DefaultFormulaValue="ServerDate()"/>
+                            </DatePicker>
+                            <TextEditor Key="BillKey" Caption="单据Key" Height="pref" Width="pref">
+                                <DataBinding TableKey="MOA_SpoFile_H" ColumnKey="BillKey" DefaultFormulaValue="GetFormKey()"/>
+                            </TextEditor>
+                            <TextEditor Key="OID" Caption="OID" Height="pref" Width="pref">
+                                <DataBinding TableKey="MOA_SpoFile_H" ColumnKey="OID" DefaultFormulaValue="GetOID()"/>
+                            </TextEditor>
+                            <TextEditor Key="WorkflowTypeDtlID" Caption="流程类别明细ID" Height="pref" Width="pref">
+                                <DataBinding TableKey="MOA_SpoFile_H" ColumnKey="WorkflowTypeDtlID" DefaultFormulaValue="Para(&quot;WorkflowTypeDtlID&quot;)"/>
+                            </TextEditor>
+                        </LinearLayoutPanel>
+                    </TableRow>
+                </TableRowCollection>
+            </TableView>
+        </Block>
+    </Body>
+    <MacroCollection>
+        <Macro Key="OA_ShowEmpSelectOpt">
+            <![CDATA[SetPara("OperatorSelID", OA_GetOperatorSelID());
+IIF(GetPara("OperatorSelID")>0,
+    Open("MOA_OperatorSel", GetPara("OperatorSelID"), "newtab","SourceKey:{BillKey},SourceID:{GetOID()},Tag1:{'ViewAcl'},FieldKey1:{'ViewAcl'},FieldKey2:{'OptIDs'}"),
+    New("MOA_OperatorSel","newtab","SourceKey:{BillKey},SourceID:{GetOID()},Tag1:{'ViewAcl'},FieldKey1:{'ViewAcl'},FieldKey2:{'OptIDs'}")
+);]]>
+        </Macro>
+        <Macro Key="OA_GetOperatorSelID">
+            <![CDATA[DBQueryValue("Select OID From OA_OperatorSel_H Where SourceKey=? and SourceID=? and Tag1=? ", BillKey,GetOID(),"ViewAcl");]]>
+        </Macro>
+    </MacroCollection>
+</Form>

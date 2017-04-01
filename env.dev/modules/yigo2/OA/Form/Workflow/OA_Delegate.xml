@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="OA_Delegate" Caption="代理设置" FormType="View">
+    <DataSource>
+        <DataObject Key="OA_Delegate" Caption="代理设置">
+            <TableCollection>
+                <Table Key="OA_AddDelegate" Caption="代理设置" TableMode="Detail" SourceType="Query" DBTableName="OA_AddDelegate">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="WorkFlowName" Caption="WorkFlowName" DataType="Long"/>
+                    <Column Key="Warranty" Caption="Warranty" DataType="Long"/>
+                    <Column Key="Agent" Caption="Agent" DataType="Long"/>
+                    <Column Key="StartDate" Caption="StartDate" DataType="DateTime"/>
+                    <Column Key="EndDate" Caption="EndDate" DataType="DateTime"/>
+                    <Column Key="BillDate" Caption="BillDate" DataType="DateTime"/>
+                    <Column Key="Status" Caption="Status" DataType="Varchar"/>
+                    <Column Key="Creator" Caption="Creator" DataType="Long"/>
+                    <ParameterCollection>
+                        <Parameter DataType="Long" Formula="GetOperator()"/>
+                    </ParameterCollection>
+                    <Statement>
+                        <![CDATA[select * from OA_Delegate where creator=?]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="New" Caption="新增代理">
+            <Action>
+                <![CDATA[New('OA_AddDelegate');]]>
+            </Action>
+        </Operation>
+        <Operation Key="Close" Caption="关闭界面">
+            <Action>
+                <![CDATA[Close()]]>
+            </Action>
+        </Operation>
+    </OperationCollection>
+    <ScriptCollection>
+        <Script Key="Load" Caption="载入" Range="Action" Verb="Load">
+            <![CDATA[LoadData()]]>
+        </Script>
+    </ScriptCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板">
+                <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <ListView Caption="ListView1" Height="100%" Key="ListView1" PageLoadType="DB" TableKey="OA_AddDelegate">
+                    <ListViewColumnCollection>
+                        <ListViewColumn Key="WorkFlowName" Caption="流程名称" ColumnType="Dict" DataColumnKey="WorkFlowName" ItemKey="OA_Workflow"/>
+                        <ListViewColumn Key="Warranty" Caption="指定方" ColumnType="Dict" DataColumnKey="Warranty" ItemKey="Operator"/>
+                        <ListViewColumn Key="Agent" Caption="代理方" ColumnType="Dict" DataColumnKey="Agent" Width="74px" ItemKey="Operator"/>
+                        <ListViewColumn Key="StartDate" Caption="起始时间" ColumnType="DatePicker" DataColumnKey="StartDate"/>
+                        <ListViewColumn Key="EndDate" Caption="截止时间" ColumnType="DatePicker" DataColumnKey="EndDate"/>
+                        <ListViewColumn Key="BillDate" Caption="创建时间" ColumnType="DatePicker" DataColumnKey="BillDate"/>
+                        <ListViewColumn Key="Status" Caption="状态" ColumnType="ComboBox" DataColumnKey="Status" Enable="true">
+                            <Item Caption="停用" Key="0" Value="false"/>
+                            <Item Caption="启用" Key="1" Value="true"/>
+                        </ListViewColumn>
+                        <ListViewColumn Key="Creator" Caption="创建人" ColumnType="Dict" DataColumnKey="Creator" Visible="false" ItemKey="Operator"/>
+                        <ListViewColumn Key="OID" Caption="OID" DataColumnKey="OID" Visible="false"/>
+                    </ListViewColumnCollection>
+                    <RowDblClick>
+                        <![CDATA[Open('OA_AddDelegate',OID)]]>
+                    </RowDblClick>
+                </ListView>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+    <OnLoad>
+        <![CDATA[LoadData()]]>
+    </OnLoad>
+</Form>

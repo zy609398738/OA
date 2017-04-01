@@ -1,0 +1,21 @@
+{
+	"@type":"com.bokesoft.cms2.impl.buildin.modelio.vo.BlockVO",
+	"block":{
+		"@type":"com.bokesoft.cms2.model.blocks.TmplBlock",
+		"formulaText":"",
+		"notes":"",
+		"parameters":[],
+		"tmplText":"",
+		"type":"TMPL"
+	},
+	"code":"news-listview",
+	"name":"新闻列表区块",
+	"notes":"",
+	"params":[
+		{
+			"caption":"类型",
+			"key":"type",
+			"type":"common"
+		}
+	]
+}

@@ -1,0 +1,64 @@
+<style>
+.OA-NAVIGATION{
+  	background-color: #ffffff;
+}
+.logo-text-one{
+    float: left;
+ 	font-size: 100%;
+	font-weight: bold;
+	color: #303030;
+	line-height: 100%;
+	text-indent: 10px;
+	margin-left:40px;
+	margin-top: 2px;
+	padding: 6px;
+}
+  .logo-text-one a{
+	color: #787a92;
+	cursor: pointer;
+}
+
+.logo-text-one-back{
+	color: #4f8bf9;
+}
+
+.logo-text-one-back a{
+	color: #4f8bf9;
+}
+
+.logo-text-one .icon{
+	width: 29px;
+    height: 26px;
+    display: inline-block;
+	margin-top: 5px;
+}
+</style>
+<table>
+    <tr>
+      <td>
+     #foreach($line in $data)
+        <style>
+          .logo-text-one .icon_$line.CODE{
+              background:url($line.ICON) 5px 0 no-repeat;
+          }
+          .logo-text-one-back .icon_$line.CODE{
+              background:url($line.SELICON) 5px 0 no-repeat;
+          }
+		</style>
+        <div class="logo-text-one">
+          <a onclick="parent.reloadAndOpenEntry('$line.ENTRY','$line.OPENENTRY')">
+            <span class="icon icon_$line.CODE">
+            </span>
+            <br>$line.NAME
+          </a>
+        </div> 
+	#end
+      </td>
+    </tr>
+</table>
+<script>
+		    $(".logo-text-one").eq(0).addClass("logo-text-one-back");
+		    $(".logo-text-one a").click(function(){
+		    	$(this).parent().addClass("logo-text-one-back").siblings().removeClass("logo-text-one-back");
+		    });
+</script>

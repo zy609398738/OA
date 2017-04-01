@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<configlist>
+	<!-- 是否调试状态 -->
+	<IsDebug>true</IsDebug>
+	<value>system_message.xml</value>
+	<value>report.xml</value>
+	<value>navigation.xml</value>
+</configlist>

@@ -1,0 +1,248 @@
+@charset "utf-8";
+ * {
+    margin: 0;
+    padding: 0;
+}
+ li {
+    list-style: none;
+}
+ * {
+    scrollbar-face-color: #9bc630;
+    /*面子*/
+    scrollbar-arrow-color: #C0C0C0;
+    /*箭头*/
+    scrollbar-3dlight-color: #C0C0C0;
+    /*最外左*/
+    scrollbar-highlight-color: #FFFFFF;
+    /*左二*/
+    scrollbar-shadow-color: #FFFFFF;
+    /*右二*/
+    scrollbar-darkshadow-color: #C0C0C0;
+    /*右一*/
+    scrollbar-track-color: #f3f3f3;
+    /*滑道*/
+}
+/*滚动条整体*/
+ ::-webkit-scrollbar {
+    width: 6px !important;
+    /*滚动条宽度*/
+}
+
+/*滚动条按钮*/
+ ::-webkit-scrollbar-button {
+}
+ ::-webkit-scrollbar-track {
+    background-color: #f3f3f3;
+    /*滑道全部*/
+}
+ ::-webkit-scrollbar-track-piece {
+    background-color: #f3f3f3;
+    /*滑道*/
+    -webkit-border-radius: 4px;
+    /*滑道圆角宽度*/
+}
+ ::-webkit-scrollbar-thumb {
+    background-color: #eaeaea;
+    /*滑动条表面*/
+    border: solid 1px #C0C0C0;
+    /*滑动条边框*/
+    border-radius: 4px;
+    /*滑动条圆角宽度*/
+}
+/*横竖滚动条交角*/
+ ::-webkit-scrollbar-corner {
+    background-color: #eaeaea;
+}
+/*横竖滚动条交角图案*/
+ ::-webkit-resizer {
+    /*background-image: url(/public/img/resizer-inactive.png);*/
+    background-repeat: no-repeat;
+    background-position: bottom right;
+}
+
+/*鼠标滑过滑动条*/
+ ::-webkit-scrollbar-thumb:hover {
+    background-color: #babdc6;
+}
+
+/* 最小寬度 */
+ .msg-box{
+     min-width:600px;
+     border:#d2d2d2 solid 1px;
+     box-shadow: 3px 3px 3px #333;
+ }
+ .msg-box .msg-nav{
+     height: 30px;
+     line-height: 30px;
+     background: #3e3e40;
+ }
+ .msg-box .msg-nav h3{
+     font-size: 14px;
+     color:#fff;
+     margin-left:20px;
+     float:left;
+ }
+
+.msg-box .msg-nav .search_bar {
+    position: relative;
+    float: right;
+
+}
+
+.msg-box .msg-nav .search_bar .frm_search {
+    width: 200px;
+    margin: 0 10px;
+    padding: 3px;
+}
+
+.msg-box .msg-nav .search_bar .web_wechat_search {
+    background: url("../images/sprite.png") no-repeat 0 -3px;
+    display: inline-block;
+    position: absolute;
+    cursor: pointer;
+    width: 25px;
+    height: 20px;
+    top: 3px;
+    right: 12px;
+    z-index: 1;
+}
+
+.msg-container{
+    font-size: 14px;
+    font-family: "Microsoft YaHei UI";
+    width:100%;
+    height: 600px;
+}
+
+.msg-user-group-list{
+    background: #dcdddf;
+    width:150px;
+    height: 100%;
+    float: left;
+    text-align: center;
+}
+
+.msg-user-group-item{
+    height: 30px;
+    line-height: 30px;
+    padding-left: 20px;
+    cursor: pointer;
+}
+.msg-user-group-item:hover{
+    background: #d2d2d2;
+}
+.msg-user-group-list .active{
+    background: #f0f0f0;
+}
+
+.msg-user-list .user-list{
+    overflow-y: auto;
+    height: 560px;
+}
+
+.msg-user-list .user-list .active{
+    background: #fff;
+}
+
+.msg-user-list .user-list-item{
+    height: 30px;
+    padding-left: 20px;
+    cursor: pointer;
+}
+.msg-user-list .user-list-item:hover{
+    background: #e0e0e0;
+}
+.msg-user-list .user-list-item img{
+    width:20px;
+    height: 20px;
+    margin-right:10px;
+    position: relative;
+    top:5px;
+}
+
+.msg-user-list{
+    background: #f0f0f0;
+    width:240px;
+    height: 100%;
+    float: left;
+}
+
+.msg-detail{
+    width:auto;
+    margin-left:390px;
+    position: relative;
+}
+
+.msg-detail-nav{
+    height: 20px;
+    padding-left: 20px;
+}
+
+.msg-detail-content{
+    height: 560px;
+    overflow-y:  auto;
+}
+
+.msg-detail-content .msg-detail-content-item{
+    border:1px solid #fff;
+}
+
+.msg-detail-content .clicked{
+    background: #ffeec3;
+    border:1px solid #d2d2d2;
+}
+.msg-detail-content p{
+    line-height: 20px;
+    padding-left: 20px;
+}
+
+.msg-detail-date{
+    color:#7ec722;
+}
+.msg-detail-content .date-bar{
+    width:400px;
+    height: 20px;
+    text-align: center;
+    line-height: 20px;
+    margin:0 auto;
+}
+.msg-detail-content .date-bar span{
+    margin-right:20px;
+    margin-left:20px;
+}
+.msg-detail-content .date-bar .date-bar-left{
+    border-bottom: 1px solid #d2d2d2;
+    display: inline-block;
+    width:100px;
+}
+.msg-detail-content .date-bar .date-bar-right{
+    border-bottom: 1px solid #d2d2d2;
+    display: inline-block;
+    width:100px;
+}
+
+.cur-buddy-name{
+    margin:0 5px;
+    color:#f00;
+}
+
+.datepicker-box{
+    position: absolute;
+    left:20px;
+    bottom: 0;
+}
+.datepickerIcon{
+    background: url("../images/datePicker.png") no-repeat left;
+    border:none;
+    cursor: pointer;
+    padding-left: 20px;
+    outline:none;
+}
+.datepickerIcon:focus{
+
+}
+.xdsoft_datetimepicker{
+    right:auto!important;
+    left:400px!important;
+    top:370px!important;
+}

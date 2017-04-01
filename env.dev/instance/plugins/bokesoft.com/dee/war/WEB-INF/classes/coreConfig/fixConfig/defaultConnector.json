@@ -1,0 +1,49 @@
+[
+  {
+    "id": "81818796409fa2a301409fbdb653000e",
+    "text": "bokedee_default_http_connector",
+    "description": "bokedee默认http连接器",
+    "smallType": "Http",
+    "isSystem": true,
+    "queries": null,
+    "bigType": "Connector.json"
+  },
+  {
+    "id": "8181879640a3b27d0140a40930d00026",
+    "text": "bokedee_default_axis_connector",
+    "description": "bokedee默认axis连接器",
+    "smallType": "Axis",
+    "isSystem": true,
+    "queries": null,
+    "bigType": "Connector.json"
+  },
+  {
+    "id": "8181879640a428140140a485f1dd000d",
+    "text": "bokedee_default_ftp_connector",
+    "description": "bokedee默认ftp连接器",
+    "smallType": "Ftp",
+    "queries": null,
+    "isSystem": true,
+    "bigType": "Connector.json"
+  },
+  {
+    "id": "8181879640a428140140a4867f36000e",
+    "text": "bokedee_default_sftp_connector",
+    "description": "bokedee默认sftp连接器",
+    "smallType": "SFtp",
+    "queries": null,
+    "isSystem": true,
+    "bigType": "Connector.json"
+  },
+   {
+    "id": "8181879df6a4281sdf34a4867f36000f",
+    "text": "bokedee_default_smtp_connector",
+    "description": "bokedee默认smtp连接器",
+    "smallType": "SMTP",
+    "queries": null,
+    "isSystem": true,
+	"contentType":"true",
+    "bigType": "Connector.json"
+  }
+  
+]

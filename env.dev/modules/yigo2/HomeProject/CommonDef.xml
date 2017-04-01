@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<CommonDef>
+	<ScriptCollection>
+		<Script Key="Load" Caption="载入" Description="载入事件" Range="Action" Verb="Load">
+		<![CDATA[
+LoadData();
+ShowData()
+			]]>	
+		</Script>
+	</ScriptCollection>
+	<ComponentSetting/>
+	<StatusCollection>
+		<Status Key="Init" Caption="初始" Value="0"/>
+		<Status Key="Auditing" Caption="审批中" Value="1" />
+		<Status Key="Audited" Caption="审批通过" Value="2" />
+		<Status Key="Denied" Caption="否决" Value="-1" />
+	</StatusCollection>
+	
+	
+</CommonDef>

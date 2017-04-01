@@ -1,0 +1,210 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<settings>
+		<!-- 报表设置 -->
+		<map name="Report">
+			<!-- 汇总报表 -->
+			<map name="Sum">
+				<!-- 配置的Key -->
+
+				<!-- 收文统计表 -->
+				<map name="OA_ForLanSubReport">
+					<!-- 汇总Sql语句 -->
+					<property name="Sql"><![CDATA[select * from OA_ForeignLan_H]]></property>
+					<!-- 不参与分组汇总字段 -->
+					<property name="NoGroup">BillDate</property>
+					<!-- 汇总数量字段 -->
+					<property name="SumColName">Amount</property>
+					<!-- 汇总方式 -->
+					<property name="SumType">Count</property>
+				</map>
+
+				<!-- 发文统计表 -->
+				<map name="OA_SpoFileSubReport">
+					<!-- 汇总Sql语句 -->
+					<property name="Sql"><![CDATA[select * from OA_SpoFile_H]]></property>
+					<!-- 不参与分组汇总字段 -->
+					<property name="NoGroup">BillDate</property>
+					<!-- 汇总数量字段 -->
+					<property name="SumColName">Amount</property>
+					<!-- 汇总方式 -->
+					<property name="SumType">Count</property>
+				</map>
+
+				<!-- 文档统计表 -->
+				<map name="OA_DocSubReport">
+					<!-- 汇总Sql语句 -->
+					<property name="Sql"><![CDATA[select * from OA_Doc_H]]></property>
+					<!-- 不参与分组汇总字段 -->
+					<property name="NoGroup">BillDate</property>
+					<!-- 汇总数量字段 -->
+					<property name="SumColName">Amount</property>
+					<!-- 汇总方式 -->
+					<property name="SumType">Count</property>
+				</map>
+
+				<!-- 会议统计表 -->
+				<map name="OA_MeetingSubReport">
+					<!-- 汇总Sql语句 -->
+					<property name="Sql"><![CDATA[select * from OA_MeetingInSide_H]]></property>
+					<!-- 不参与分组汇总字段 -->
+					<property name="NoGroup">BillDate,StartTime,EndTime</property>
+					<!-- 汇总数量字段 -->
+					<property name="SumColName">Amount</property>
+					<!-- 汇总方式 -->
+					<property name="SumType">Count</property>
+				</map>
+
+				<!-- 日程统计表 -->
+				<map name="OA_ScheduleSubReport">
+					<!-- 汇总Sql语句 -->
+					<property name="Sql"><![CDATA[select * from OA_MySchedule_H]]></property>
+					<!-- 不参与分组汇总字段 -->
+					<property name="NoGroup">BillDate</property>
+					<!-- 汇总数量字段 -->
+					<property name="SumColName">Amount</property>
+					<!-- 汇总方式 -->
+					<property name="SumType">Count</property>
+				</map>
+				
+				<!-- 新闻统计报表 -->
+				<map name="OA_InfoTatolReport">
+					<!-- 汇总Sql语句 -->
+					<property name="Sql"><![CDATA[select *  from OA_NewsDraft_H]]></property>
+					<!-- 不参与分组汇总字段 -->
+					<property name="NoGroup">BillDate</property>
+					<!-- 汇总数量字段 -->
+					<property name="SumColName">Amount</property>
+					<!-- 汇总方式 -->
+					<property name="SumType">Count</property>
+					<!-- 空值需特殊处理的字段集合 -->
+				</map>
+				
+				<!-- 任务统计报表 -->
+				<map name="OA_TaskReportCount">
+					<!-- 汇总Sql语句 -->
+					<property name="Sql"><![CDATA[select * from OA_Taskdistribution_H]]></property>
+					<!-- 不参与分组汇总字段 -->
+					<property name="NoGroup">FactEndDate</property>
+					<!-- 汇总数量字段 -->
+					<property name="SumColName">Amount</property>
+					<!-- 汇总方式 -->
+					<property name="SumType">Count</property>
+				</map>
+				
+				<!-- 传阅统计报表 -->
+				<map name="OA_ReadTotalReport">
+					<!-- 汇总Sql语句 -->
+					<property name="Sql"><![CDATA[select (case when ISNULL(r.status)  then 0 else r.Status end)as status,r.ReadTime,r.BillKey 
+					from oa_read r join bpm_migration m on r.BillOID=m.BillOID]]></property>
+					<!-- 不参与分组汇总字段 -->
+					<property name="NoGroup">ReadTime</property>
+					<!-- 汇总数量字段 -->
+					<property name="SumColName">Amount</property>
+					<!-- 汇总方式 -->
+					<property name="SumType">Count</property>
+					<!-- 空值需特殊处理的字段集合 -->
+				</map>
+				
+				<!-- 流程统计报表 -->
+				<map name="OA_WFTotalReport">
+					<!-- 汇总Sql语句 -->
+					<property name="Sql"><![CDATA[select UrgencyDeg,BillStatus,i.ProcessKey,i.instancestate,W.creatTime  
+					from wf_workitem w join bpm_workiteminfo bw on w.WorkitemID=bw.WorkitemID join bpm_instance i on bw.InstanceID=i.InstanceID 
+					join BPM_migration m on i.OID=m.BillOID 
+					where  bw.WorkitemID IN (
+					select max(WorkitemID) from bpm_workiteminfo bpw GROUP BY bpw.InstanceID)]]></property>
+					<!-- 不参与分组汇总字段 -->
+					<property name="NoGroup">creatTime</property>
+					<!-- 汇总数量字段 -->
+					<property name="SumColName">Amount</property>
+					<!-- 汇总方式 -->
+					<property name="SumType">Count</property>
+				</map>
+
+				<!-- 已办流程统计报表 -->
+				<map name="OA_DoneTolReport">
+					<!-- 汇总Sql语句 -->
+					<property name="Sql"><![CDATA[select * from (select BillStatus,UrgencyDeg,i.FormKey as FormKey, i.ProcessKey as ProcessKey,w.creatTime 
+					from wf_workitem w  
+					join bpm_log l on w.WorkitemID=l.WorkitemID 
+					join BPM_Instance i on  l.instanceID=i.instanceID  
+					join bpm_migration M on i.OID = m.BillOID   
+					where l.WorkitemState=2  and l.WorkitemID 
+					in(select MAX(WorkitemID) 
+					from bpm_log ll 
+					GROUP BY ll.InstanceID) and i.instancestate!=3 ) h]]></property>
+					<!-- 不参与分组汇总字段 -->
+					<property name="NoGroup">creatTime</property>
+					<!-- 汇总数量字段 -->
+					<property name="SumColName">Amount</property>
+					<!-- 汇总方式 -->
+					<property name="SumType">Count</property>
+					<!-- 空值需特殊处理的字段集合 -->
+				</map>
+
+				<!-- 结束流程统计报表 -->
+				<map name="OA_EndTolReport">
+					<!-- 汇总Sql语句 -->
+					<property name="Sql"><![CDATA[select UrgencyDeg,BillStatus,i.ProcessKey as ProcessKey,i.FormKey as FormKey,W.creatTime  from wf_workitem w join bpm_workiteminfo bw on w.WorkitemID=bw.WorkitemID join bpm_instance i on bw.InstanceID=i.InstanceID join BPM_migration m on i.OID=m.BillOID where bw.WorkitemID IN (select max(ParentWorkitemID) from bpm_workiteminfo bpw GROUP BY bpw.InstanceID) and i.instancestate = 2]]></property>
+					<!-- 不参与分组汇总字段 -->
+					<property name="NoGroup">creatTime</property>
+					<!-- 汇总数量字段 -->
+					<property name="SumColName">Amount</property>
+					<!-- 汇总方式 -->
+					<property name="SumType">Count</property>
+				</map>
+
+				<!-- 驳回流程统计报表 -->
+				<map name="OA_RejectTolReport">
+					<!-- 汇总Sql语句 -->
+					<property name="Sql"><![CDATA[select * from (SELECT topic,EmpID, DeptID,max(WF_Workitem.WorkitemID) as workitemid,WF_Workitem.creatTime AS creatTime,BPM_Instance.ProcessKey as ProcessKey,BPM_Instance.formkey AS formkey, BPM_Instance.oid AS oid FROM WF_Workitem 
+					JOIN BPM_Log ON WF_Workitem.WorkitemID = BPM_Log.WorkitemID 
+					JOIN bpm_workiteminfo ON wf_workitem.WorkitemID=bpm_workiteminfo.WorkitemID 
+					JOIN BPM_Instance ON BPM_Log.instanceID = BPM_Instance.instanceID 
+					join BPM_Migration on  BPM_Instance.OID=BPM_Migration.BillOID
+					WHERE BPM_Instance.OID =BPM_Migration.Billoid AND WF_Workitem.AuditResult = 0 
+					GROUP BY topic,EmpID,DeptID,WF_Workitem.creatTime,BPM_Instance.ProcessKey ) k ]]></property>
+					<!-- 不参与分组汇总字段 -->
+					<property name="NoGroup">creatTime</property>
+					<!-- 汇总数量字段 -->
+					<property name="SumColName">Amount</property>
+					<!-- 汇总方式 -->
+					<property name="SumType">Count</property>
+				</map>
+
+				<!-- 待办流程统计报表 -->
+				<map name="OA_ToDoListTolReport">
+					<!-- 汇总Sql语句 -->
+					<property name="Sql"><![CDATA[select * from (select BPM_Instance.ProcessKey as ProcessKey,BPM_Instance.formkey as formkey,
+					UrgencyDeg,BillStatus,BillCreatTime 
+					from WF_Workitem 
+					join WF_Participator on WF_Workitem.WorkitemID=WF_Participator.WorkitemID 
+					join BPM_Log on WF_Workitem.WorkitemID=BPM_Log.WorkitemID 
+					join bpm_workiteminfo on wf_workitem.WorkitemID=bpm_workiteminfo.WorkitemID 
+					join BPM_Instance on  BPM_Log.instanceID=BPM_Instance.instanceID
+					join BPM_Migration on  BPM_Instance.OID=BPM_Migration.BillOID) h]]></property>
+					<!-- 不参与分组汇总字段 -->
+					<property name="NoGroup">BillCreatTime</property>
+					<!-- 汇总数量字段 -->
+					<property name="SumColName">Amount</property>
+					<!-- 汇总方式 -->
+					<property name="SumType">Count</property>
+				</map>
+
+				<!-- 工作计划统计报表 -->
+				<map name="OA_WPTotalReport">
+					<!-- 汇总Sql语句 -->
+					<property name="Sql"><![CDATA[Select OID,SOID,POID,VERID,DVERID,SourceBillID,No,GroupID,Week,WeekCode,DateBegin,DateEnd,Status,isPushed From
+					(Select H.OID,H.SOID,H.POID,H.VERID,H.DVERID,H.SourceBillID,H.No,H.GroupID,H.Week,W.Code As WeekCode,W.DateBegin,W.DateEnd,H.Status,H.isPushed From OA_weeklyreport H Join OA_Week W On H.Week=W.SOID) D]]></property>
+					<!-- 不参与分组汇总字段 -->
+					<property name="NoGroup">DateBegin,DateEnd</property>
+					<!-- 汇总数量字段 -->
+					<property name="SumColName">Amount</property>
+					<!-- 汇总方式 -->
+					<property name="SumType">Count</property>
+				</map>
+			</map>
+		</map>
+	</settings>
+</config>

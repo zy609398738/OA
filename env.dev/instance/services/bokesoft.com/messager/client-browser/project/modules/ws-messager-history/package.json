@@ -1,0 +1,32 @@
+{
+  "name": "ws-messager-history",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "svn",
+    "url": "svn+https://dev.bokesoft.com/svn/Yigo-redist/trunk/Yigo2-redist/instance/services/bokesoft.com/messager/client-browser/project/modules/ws-messager-history"
+  },
+  "author": "bokesoft.com",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://dev.bokesoft.com:9443/trac/ecomm"
+  },
+  "homepage": "https://dev.bokesoft.com:9443/trac/ecomm",
+  "dependencies": {
+    "JSON2": "^0.1.0",
+    "boke-cms-ajax": "file:../../../modules/bokesoft.com/cms/boke-cms-ajax",
+    "boke-cms-pagination": "file:../../../modules/bokesoft.com/cms/boke-cms-pagination",
+    "es5-shim": "^4.5.9",
+    "jquery": "^1.12.2",
+    "jquery-datetimepicker": "^2.5.4",
+    "lodash": "^3.10.1",
+    "websocket": "file:../websocket"
+  },
+  "devDependencies": {
+    "webpack-dev-web-test": "../../../modules/supports/webpack-dev-web-test"
+  }
+}

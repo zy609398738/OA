@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Enhance>
+	<ExtMidFunction>
+		<MidFunction Description="OA中间层扩展公式" Provider="com.bokesoft.oa.mid.OAMidFunctionProvider"/>
+		<MidFunction Description="CMS2.0 中间层扩展公式" Provider="com.bokesoft.r2.cms2.adapter.yigo2.formula.CMS2FuncRegistry"/>
+		<MidFunction Description="中间层扩展公式" Provider="com.bokesoft.oa.mid.wf.FunctionsProvider"/>
+		<MidFunction Description="OA扩展公式" Provider="com.bokesoft.oa.mid.formula.OAFuncRegistery"/>
+	</ExtMidFunction>
+
+    <ExtService>
+		 <Service Name="OA_FillListByBPM" Description="根据流程填充流程的列表" Impl="com.bokesoft.oa.mid.wf.FillListByBPM"/>
+		 <Service Name="OA_GetDropItemByBPM" Description="获得所有流程的下拉字符串" Impl="com.bokesoft.oa.mid.wf.GetDropItemByBPM"/>
+		 <Service Name="OA_GetAuditNodeByBPM" Description="获得流程中所有审批节点的下拉字符串" Impl="com.bokesoft.oa.mid.wf.GetAuditNodeByBPM"/>
+		 <Service Name="OA_GetWorkflowAttribute" Description="获得流程的属性" Impl="com.bokesoft.oa.mid.wf.GetWorkflowAttribute"/>
+		 <Service Name="OA_AddOperatorSelResult" Description="获得人员选择结果的列表" Impl="com.bokesoft.oa.mid.wf.GetOperatorSelResult"/>
+		 <Service Name="OA_CopySelectRow" Description="复制选中的数据行到另一个数据表" Impl="com.bokesoft.oa.mid.CopySelectRow"/>
+		 <Service Name="OA_DeleteSelectRow" Description="删除选中的数据行" Impl="com.bokesoft.oa.mid.DeleteSelectRow"/>
+		 <Service Name="OA_GetValueStrByCol" Description="根据列名获得列内容的字符串" Impl="com.bokesoft.oa.mid.GetValueStrByCol"/>
+		 <Service Name="OA_GenOperator" Description="根据人员同步操作员" Impl="com.bokesoft.oa.mid.GenOperator"/>	 
+		 <Service Name="OA_WorkPlan" Description="传阅工作计划" Impl="com.bokesoft.oa.mid.WorkPlan"/>
+		 <Service Name="OA_GenOperatorAll" Description="根据人员全部同步操作员" Impl="com.bokesoft.oa.mid.GenOperatorAll"/>
+		 <Service Name="OA_GetDoReadCount" Description="待办事项访问量" Impl="com.bokesoft.oa.mid.GetDoReadCount"/>
+		 <Service Name="OA_CheckEmailConnect" Description="检查是否连接上邮件服务器" Impl="com.bokesoft.oa.mid.email.CheckEmailConnect"/>
+		 <Service Name="OA_SendEmailToServer" Description="将邮件发送到邮件服务器" Impl="com.bokesoft.oa.mid.email.SendEmailToServer"/>
+		 <Service Name="OA_ReceiveEmail" Description="接收邮件" Impl="com.bokesoft.oa.mid.email.ReceiveEmail"/>
+		 <Service Name="OA_DeleteServerEmailByIDS" Description="删除邮件" Impl="com.bokesoft.oa.mid.email.DeleteServerEmailByIDS"/>
+		 <Service Name="OA_GetSelectRowColumn" Description="获得选择行指定列值的字符串" Impl="com.bokesoft.oa.mid.GetSelectRowColumn"/>
+		 <Service Name="OA_SendEmailByOptSplit" Description="根据参与人员发送邮件" Impl="com.bokesoft.oa.mid.email.SendEmailByOptSplit"/>
+		 <Service Name="OA_LoadFileToString" Description="读取文件返回文件内容的字符串" Impl="com.bokesoft.oa.mid.file.LoadFileToString"/>
+		 <Service Name="OA_UploadStringToFile" Description="将字符串上传为指定文件" Impl="com.bokesoft.oa.mid.file.UploadStringToFile"/>
+		 <Service Name="OA_Ceb2Pdf" Description="ceb文件格式转换成pdf文件格式" Impl="com.bokesoft.oa.mid.file.Ceb2Pdf"/>
+		 <Service Name="OA_GetWorkflowDesigneValue" Description="获取流程设计中下一步审批人的值" Impl="com.bokesoft.oa.mid.wf.GetWorkflowDesigneValue"/>
+		 <Service Name="OA_GetWorkflowDesigneUserInfoCheck" Description="获取流程设计中审批意见必填的值" Impl="com.bokesoft.oa.mid.wf.GetWorkflowDesigneUserInfoCheck"/>
+		 <Service Name="OA_GetValueStrBySql" Description="根据列名获得查询内容的字符串" Impl="com.bokesoft.oa.mid.GetValueStrBySql"/>
+		 <Service Name="OA_GetValueStrByMutilSel" Description="根据列名分割获得的查询内容的字符串取得对应OID" Impl="com.bokesoft.oa.mid.GetValueStrByMutilSel"/>
+		 <Service Name="OA_GetOperatorIDsByEmp" Description="根据人员多选字典选择内容列表对象取得对应操作员OID字符串" Impl="com.bokesoft.oa.mid.GetOperatorIDsByEmp"/>
+		 <Service Name="OA_CheckEmptyMutilSel" Description="判断下一步处理人是否为空" Impl="com.bokesoft.oa.mid.CheckEmptyMutilSel"/>
+		 <Service Name="OA_GetIdSql" Description="获取ID的SQL语句" Impl="com.bokesoft.oa.mid.GetIdSql"/>
+		 <Service Name="OA_GetIdExistsSql" Description="获取判断ID是否存在的SQL语句" Impl="com.bokesoft.oa.mid.GetIdExistsSql"/>
+		 <Service Name="OA_GetIdExistsSqlIncludeAll" Description="获取判断ID是否存在的SQL语句，包括所有父节点" Impl="com.bokesoft.oa.mid.GetIdExistsSqlIncludeAll"/>
+		 <Service Name="OA_GetParticipatorList" Description="获得当前流程的参与者列表" Impl="com.bokesoft.oa.mid.wf.GetParticipatorList"/>
+		 <Service Name="OA_SetNextParticipator" Description="设置下一步参与者" Impl="com.bokesoft.oa.mid.wf.SetNextParticipator"/>
+		 <Service Name="OA_GetParticipatorSql" Description="获得查询参与者ID的Sql" Impl="com.bokesoft.oa.mid.wf.GetParticipatorSql"/>
+		 <Service Name="OA_GetDropStrBySql" Description="根据列名获得查询内容的下拉字符串" Impl="com.bokesoft.oa.mid.GetDropStrBySql"/>
+		 <Service Name="OA_GetDropItemByWorkItem" Description="根据流程项目获得流程的参与者下拉字符串" Impl="com.bokesoft.oa.mid.wf.GetDropItemByWorkItem"/>
+		 <Service Name="OA_GetParticipatorIDs" Description="获取操作员ID字符串" Impl="com.bokesoft.oa.mid.wf.GetParticipatorIDs"/>
+		 <Service Name="OA_PreviewAttchment" Description="获取附件路径" Impl="com.bokesoft.oa.mid.PreviewAttchment"/>
+		 <Service Name="OA_ElectronicSeal" Description="获取路径" Impl="com.bokesoft.oa.mid.ElectronicSeal"/>
+		 <Service Name="OA_DeleteBillByOID" Description="根据OID删除单据" Impl="com.bokesoft.oa.mid.DeleteBillByOID"/>
+		 <Service Name="OA_GetOperationDropItem" Description="获得操作的下拉字符串" Impl="com.bokesoft.oa.mid.wf.GetOperationDropItem"/>
+		 <Service Name="OA_SetOperationByKey" Description="根据操作模板设置操作" Impl="com.bokesoft.oa.mid.wf.SetOperationByKey"/>
+		 <Service Name="OA_MailboxFormatCheck" Description="邮箱格式校验" Impl="com.bokesoft.oa.mid.email.MailboxFormatCheck"/>
+		 <Service Name="OA_SendMessage" Description="发送系统消息" Impl="com.bokesoft.oa.mid.message.SendMessage"/>
+		 <Service Name="OA_GetDropItemsBySettings" Description="根据参数设置获得下拉字符串" Impl="com.bokesoft.oa.config.GetDropItemsBySettings"/>
+		 <Service Name="OA_GetPropertyBySettings" Description="根据参数设置获得属性值" Impl="com.bokesoft.oa.config.GetPropertyBySettings"/>
+		 <Service Name="OA_GetShowStringBySettings" Description="根据参数设置获得说明字符串" Impl="com.bokesoft.oa.config.GetShowStringBySettings"/>
+		 <Service Name="OA_OptSendMessage" Description="审批操作通过之后发送消息" Impl="com.bokesoft.oa.mid.wf.OptSendMessage"/>
+		 <Service Name="OA_DeleteFile" Description="删除文件" Impl="com.bokesoft.oa.mid.file.DeleteFile"/>
+		 <Service Name="OA_GetMainTableName" Description="获得主表名称" Impl="com.bokesoft.oa.mid.GetMainTableName"/>
+		 <Service Name="OA_RefreshDictItem" Description="刷新字典字段的缓存信息" Impl="com.bokesoft.oa.mid.RefreshDictItem"/>
+    </ExtService>
+</Enhance>

@@ -1,0 +1,15 @@
+{
+	"@type":"com.bokesoft.cms2.impl.buildin.modelio.vo.BlockVO",
+	"block":{
+		"@type":"com.bokesoft.cms2.model.blocks.TmplBlock",
+		"parameters":[],
+		"tmplText":"#parse( $staticFile )",
+		"type":"TMPL"
+	},
+	"code":"STATIC",
+	"name":"静态引用",
+	"params":[{
+				"caption":"资源名",
+				"key":"staticFile"
+			}]
+}

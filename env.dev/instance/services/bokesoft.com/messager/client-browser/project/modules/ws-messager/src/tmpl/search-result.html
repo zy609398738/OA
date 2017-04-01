@@ -1,0 +1,18 @@
+<div class="message_history">
+  <% _.forEach(messages, function(msg) { %>
+      <div class="history_item" data-timestamp="${msg.timestamp}" data-sender="${msg.sender}" data-receiver="${msg.receiver}">
+          <div class="time" title="${(new Date(msg.timestamp)).toLocaleString()}">${moment(msg.timestamp).fromNow()}</div>
+          <%if(self==msg.sender){%>
+			<div class="session">对
+			    <code class="speak" data-user-code="${msg.receiver}">${msg.receiverName||msg.receiver}</code>
+			    说:</div>
+          <%}%>
+          <%if(self!=msg.sender){%>
+			<div class="session">
+			    <code class="listen" data-user-code="${msg.sender}">${msg.senderName||msg.sender}</code>
+			    说:</div>
+          <%}%>
+          <div class="message">${printMessage(msg)}</div>
+      </div>
+  <% }) %>
+</div>

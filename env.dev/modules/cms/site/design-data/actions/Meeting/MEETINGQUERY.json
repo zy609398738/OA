@@ -1,0 +1,9 @@
+{
+	"@type":"com.bokesoft.cms2.model.Action",
+	"actionExp":"oa.TodoMidExp.queryMeeting();",
+	"actionUrl":"/meeting/meetingquery.action",
+	"attributes":{"@type":"java.util.LinkedHashMap"},
+	"code":"MEETINGQUERY",
+	"name":"会议查询",
+	"notes":""
+}

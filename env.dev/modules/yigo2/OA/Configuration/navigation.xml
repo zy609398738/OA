@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<settings>
+		<!-- 导航栏 -->
+		<map name="Navigation">
+			<!-- 协同办公 -->
+			<map name="OABusiness">
+				<!-- 名称 -->
+				<property name="Name">协同办公</property>
+				<!-- 图标 -->
+				<property name="Icon"><![CDATA[_$/images/main/NAV_OA.png]]></property>
+				<!-- 图标 -->
+				<property name="SelIcon"><![CDATA[_$/images/main/NAV_OA_B.png]]></property>
+				<!-- 菜单路径 -->
+				<property name="Entry"><![CDATA[OABusiness/OA]]></property>
+				<!-- 默认打开路径 -->
+				<property name="OpenEntry"><![CDATA[OABusiness/OA/OA_Index]]></property>
+			</map>
+			<!-- 物业管理 -->
+			<map name="wygl">
+				<!-- 名称 -->
+				<property name="Name">物业管理</property>
+				<property name="Icon"><![CDATA[_$/images/main/NAV_wygl.png]]></property>
+				<property name="SelIcon"><![CDATA[_$/images/main/NAV_wygl_B.png]]></property>
+				<property name="Entry"><![CDATA[PARK/wygl]]></property>
+				<property name="OpenEntry"><![CDATA[PARK/wygl/NJ_PaymentReport]]></property>
+			</map>
+			<!-- 资产管理 -->
+			<map name="zcgl">
+				<!-- 名称 -->
+				<property name="Name">资产管理</property>
+				<property name="Icon"><![CDATA[_$/images/main/NAV_zcgl.png]]></property>
+				<property name="SelIcon"><![CDATA[_$/images/main/NAV_zcgl_B.png]]></property>
+				<property name="Entry"><![CDATA[PARK/zcgl]]></property>
+				<property name="OpenEntry"><![CDATA[PARK/zcgl/NJ_LEWReport]]></property>
+			</map>
+			<!-- 招商管理 -->
+			<map name="ParkManage">
+				<!-- 名称 -->
+				<property name="Name">招商管理</property>
+				<property name="Icon"><![CDATA[_$/images/main/NAV_ParkManage.png]]></property>
+				<property name="SelIcon"><![CDATA[_$/images/main/NAV_ParkManage_B.png]]></property>
+				<property name="Entry"><![CDATA[YQ/ParkManage]]></property>
+				<property name="OpenEntry"><![CDATA[YQ/ParkManage/ToDoList_ZS]]></property>
+			</map>
+			<!-- 系统管理 -->
+			<map name="System">
+				<!-- 名称 -->
+				<property name="Name">系统管理</property>
+				<property name="Icon"><![CDATA[_$/images/main/NAV_System.png]]></property>
+				<property name="SelIcon"><![CDATA[_$/images/main/NAV_System_B.png]]></property>
+				<property name="Entry"><![CDATA[Common/System]]></property>
+				<property name="OpenEntry"><![CDATA[Common/System/SystemFunction/OA_LoginInfo]]></property>
+			</map>
+		</map>
+	</settings>
+</config>

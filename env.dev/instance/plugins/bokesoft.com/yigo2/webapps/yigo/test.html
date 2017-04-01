@@ -1,0 +1,206 @@
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	    <meta http-equiv="Content-Type" content="application/x-javascript;charset=UTF-8">
+		<!--css引用-->
+        <!-- <link rel="stylesheet" href="yesui/ui/plugin/css/jquery-ui.css">
+        <link rel="stylesheet" href="yesui/ui/plugin/css/ui.jqgrid.css">
+        <link rel="stylesheet" href="yesui/ui/plugin/css/fullcalendar/fullcalendar.css">
+        <link rel="stylesheet" href="yesui/ui/plugin/css/jquery.ui.dict.css">
+        <link rel="stylesheet" href="yesui/ui/plugin/css/jquery.ui.listview.css">
+        <link rel="stylesheet" href="yesui/ui/plugin/css/jquery.ui.maskinput.css">
+        <link rel="stylesheet" href="yesui/ui/plugin/css/jquery.ui.menubar.css">
+        <link rel="stylesheet" href="yesui/ui/plugin/css/jquery.ui.toolbar.css">
+        <link rel="stylesheet" href="yesui/ui/plugin/css/jquery.ui.treeview.css">
+        <link rel="stylesheet" href="yesui/ui/plugin/css/default/jquery.treeTable.css">
+        
+        <link rel="stylesheet" href="yesui/ui/res/css/blue/main.css">
+        <link rel="stylesheet" href="yesui/ui/res/css/blue/corecolor.css">
+        <link rel="stylesheet" href="yesui/ui/res/css/grey/main.css">
+        <link rel="stylesheet" href="yesui/ui/res/css/grey/corecolor.css">
+        <link rel="stylesheet" href="yesui/ui/res/css/login.css">
+        <link rel="stylesheet" href="yesui/ui/res/css/core.css">
+        <link rel="stylesheet" href="yesui/ui/res/css/orange/main.css">
+        <link rel="stylesheet" href="yesui/ui/res/css/orange/corecolor.css"> 
+        
+        <link rel="stylesheet" href="yesui/ui/plugin/css/bootstrap/bootstrap2.css">
+        <link rel="stylesheet" href="yesui/ui/plugin/css/datepicker/css/layout.css" />
+        <link rel="stylesheet" href="yesui/ui/plugin/css/datepicker/css/datepicker.css"/>
+        <link rel="stylesheet" href="yesui/ui/plugin/css/smartspin/smartspinner.css"/>
+		<link rel="stylesheet" href="yesui/ui/plugin/css/modaldialog/css/jquery.modaldialog.css" />
+		<link rel="stylesheet" href="yesui/ui/plugin/css/paginationjs/pagination.css" />
+ -->
+	    <script type="text/javascript" src="yesui/jquery/jquery-1.10.2.js"></script>
+	 <!--    <script type="text/javascript" src="yesui/ui/plugin/js/jquery.cookie.js"></script>
+	    <script type="text/javascript" src="yesui/ui/plugin/js/jquery.json-2.3.min.js"></script>
+	    <script type="text/javascript" src="yesui/ui/yes-ui.js"></script>
+	    <script type="text/javascript" src="yesui/ui/plugin/js/jqgrid/grid.locale-cn.js"></script>
+	    <script type="text/javascript" src="yesui/ui/plugin/js/jqgrid/jquery.jqGrid.src.js"></script>
+        <script type="text/javascript" src="yesui/ui/plugin/js/ajaxfileupload.js"></script>
+	     
+	    <script type="text/javascript" src="yesui/ui/plugin/js/ui-extend/jquery.placeholder.js"></script>
+	    <script type="text/javascript" src="yesui/ui/plugin/js/ui-extend/jquery.ui.treeTable.js"></script>
+
+        <script type="text/javascript" src="yesui/base/jsext.js"></script>
+	    <script type="text/javascript" src="yesui/base/jQueryExt.js"></script>
+	    <script type="text/javascript" src="yesui/svr/svrmgr.js"></script>
+	    <script type="text/javascript" src="yesui/svr/proxyhandler.js"></script>
+	    <script type="text/javascript" src="yesui/svr/request.js"></script>
+	    <script type="text/javascript" src="yesui/expr/parser.js"></script>
+	    <script type="text/javascript" src="yesui/ui/fun/viewBaseFunction.js"></script>
+	    <script type="text/javascript" src="yesui/ui/vparser.js"></script>
+	    <script type="text/javascript" src="yesui/ui/form.js"></script>
+	    <script type="text/javascript" src="yesui/ui/formstack.js"></script>
+	    <script type="text/javascript" src="yesui/ui/component/componentmgr.js"></script>
+	    <script type="text/javascript" src="yesui/ui/component/component.js"></script>
+	    <script type="text/javascript" src="yesui/ui/component/control/menu.js"></script>
+	    <script type="text/javascript" src="yesui/ui/component/control/toolbar.js"></script>
+	    <script type="text/javascript" src="yesui/ui/component/control/treemenubar.js"></script>
+	    <script type="text/javascript" src="yesui/ui/component/control/control.js"></script>
+	    <script type="text/javascript" src="yesui/ui/component/control/databinding.js"></script>
+	    <script type="text/javascript" src="yesui/ui/component/control/button.js"></script>
+	    <script type="text/javascript" src="yesui/ui/component/control/buttongroup.js"></script>
+	    <script type="text/javascript" src="yesui/ui/component/control/dropdownbutton.js"></script>
+	    <script type="text/javascript" src="yesui/ui/component/control/splitbutton.js"></script>
+	    <script type="text/javascript" src="yesui/ui/component/control/calendar.js"></script>
+	    <script type="text/javascript" src="yesui/ui/component/control/checkbox.js"></script>
+	    <script type="text/javascript" src="yesui/ui/component/control/combobox.js"></script>
+	    <script type="text/javascript" src="yesui/ui/component/control/databinding.js"></script>
+	    <script type="text/javascript" src="yesui/ui/component/control/datepicker.js"></script>
+	    <script type="text/javascript" src="yesui/ui/component/control/dict.js"></script>
+	    <script type="text/javascript" src="yesui/ui/component/control/dicttree.js"></script>
+	    <script type="text/javascript" src="yesui/ui/component/control/dictview.js"></script>
+	    <script type="text/javascript" src="yesui/ui/component/grid/grid.js"></script>
+	    <script type="text/javascript" src="yesui/ui/component/control/chart.js"></script>
+	    <script type="text/javascript" src="yesui/ui/component/control/hyperlink.js"></script>
+	    <script type="text/javascript" src="yesui/ui/component/control/imagelist.js"></script>
+	    <script type="text/javascript" src="yesui/ui/component/control/label.js"></script>
+	    <script type="text/javascript" src="yesui/ui/component/control/listview.js"></script>
+	    <script type="text/javascript" src="yesui/ui/component/control/numbereditor.js"></script>
+	    <script type="text/javascript" src="yesui/ui/component/control/image.js"></script>
+	    <script type="text/javascript" src="yesui/ui/component/control/radiobutton.js"></script>
+	    <script type="text/javascript" src="yesui/ui/component/control/texteditor.js"></script>
+	    <script type="text/javascript" src="yesui/ui/component/control/textbutton.js"></script>
+	    <script type="text/javascript" src="yesui/ui/component/control/statusbar.js"></script>
+	    <script type="text/javascript" src="yesui/ui/component/control/treeview.js"></script>
+	    <script type="text/javascript" src="yesui/ui/component/control/passwordeditor.js"></script>
+	    <script type="text/javascript" src="yesui/ui/component/control/userinfopane.js"></script>
+	    <script type="text/javascript" src="yesui/ui/component/control/tree.js"></script>
+	    <script type="text/javascript" src="yesui/ui/component/control/attachment.js"></script>
+	    <script type="text/javascript" src="yesui/ui/component/control/separator.js"></script>
+	    <script type="text/javascript" src="yesui/ui/component/layout/autolayout.js"></script>
+	    <script type="text/javascript" src="yesui/ui/component/layout/borderlayout.js"></script>
+	    <script type="text/javascript" src="yesui/ui/component/layout/columnlayout.js"></script>
+	    <script type="text/javascript" src="yesui/ui/component/layout/fluidcolumnlayout.js"></script>
+	    <script type="text/javascript" src="yesui/ui/component/layout/gridlayout.js"></script>
+	    <script type="text/javascript" src="yesui/ui/component/layout/tabslayout.js"></script>
+	    <script type="text/javascript" src="yesui/ui/component/layout/splitlayout.js"></script>
+	    <script type="text/javascript" src="yesui/ui/component/layout/flexflowlayout.js"></script>
+	    <script type="text/javascript" src="yesui/ui/component/layout/tablelayout.js"></script>
+	    <script type="text/javascript" src="yesui/ui/component/layout/fluidtablelayout.js"></script>
+	    <script type="text/javascript" src="yesui/ui/component/panel/panel.js"></script>
+	    <script type="text/javascript" src="yesui/ui/component/panel/borderlayoutpanel.js"></script>
+	    <script type="text/javascript" src="yesui/ui/component/panel/columnlayoutpanel.js"></script>
+	    <script type="text/javascript" src="yesui/ui/component/panel/flowlayoutpanel.js"></script>
+	    <script type="text/javascript" src="yesui/ui/component/panel/flexflowlayoutpanel.js"></script>
+	    <script type="text/javascript" src="yesui/ui/component/panel/fluidcolumnlayoutpanel.js"></script>
+	    <script type="text/javascript" src="yesui/ui/component/panel/gridlayoutpanel.js"></script>
+	    <script type="text/javascript" src="yesui/ui/component/panel/splitpanel.js"></script>
+	    <script type="text/javascript" src="yesui/ui/component/panel/tabpanel.js"></script>
+	    <script type="text/javascript" src="yesui/ui/component/panel/tabpanelex.js"></script>
+	    <script type="text/javascript" src="yesui/ui/component/panel/treepanel.js"></script>
+	    <script type="text/javascript" src="yesui/ui/component/panel/tabcontainer.js"></script>
+	    <script type="text/javascript" src="yesui/ui/component/panel/tabexcontainer.js"></script>
+	    <script type="text/javascript" src="yesui/ui/component/panel/stackcontainer.js"></script>
+	    <script type="text/javascript" src="yesui/ui/component/panel/fluidtablelayoutpanel.js"></script>
+
+		<script type="text/javascript" src="yesui/ui/plugin/js/flotr/lib/bean-min.js"></script>
+		<script type="text/javascript" src="yesui/ui/plugin/js/flotr/lib/underscore-min.js"></script>
+		<script type="text/javascript" src="yesui/ui/plugin/js/flotr/js/Flotr.js"></script>
+		<script type="text/javascript" src="yesui/ui/plugin/js/flotr/js/DefaultOptions.js"></script>
+		<script type="text/javascript" src="yesui/ui/plugin/js/flotr/js/Color.js"></script>
+		<script type="text/javascript" src="yesui/ui/plugin/js/flotr/js/Date.js"></script>
+		<script type="text/javascript" src="yesui/ui/plugin/js/flotr/js/DOM.js"></script>
+		<script type="text/javascript" src="yesui/ui/plugin/js/flotr/js/EventAdapter.js"></script>
+		<script type="text/javascript" src="yesui/ui/plugin/js/flotr/js/Text.js"></script>
+		<script type="text/javascript" src="yesui/ui/plugin/js/flotr/js/Graph.js"></script>
+		<script type="text/javascript" src="yesui/ui/plugin/js/flotr/js/Axis.js"></script>
+		<script type="text/javascript" src="yesui/ui/plugin/js/flotr/js/Series.js"></script>
+		<script type="text/javascript" src="yesui/ui/plugin/js/flotr/js/Series.js"></script>
+		<script type="text/javascript" src="yesui/ui/plugin/js/flotr/js/types/lines.js"></script>
+		<script type="text/javascript" src="yesui/ui/plugin/js/flotr/js/types/bars.js"></script>
+		<script type="text/javascript" src="yesui/ui/plugin/js/flotr/js/types/points.js"></script>
+		<script type="text/javascript" src="yesui/ui/plugin/js/flotr/js/types/pie.js"></script>
+		<script type="text/javascript" src="yesui/ui/plugin/js/flotr/js/types/candles.js"></script>
+		<script type="text/javascript" src="yesui/ui/plugin/js/flotr/js/types/markers.js"></script>
+		<script type="text/javascript" src="yesui/ui/plugin/js/flotr/js/types/radar.js"></script>
+		<script type="text/javascript" src="yesui/ui/plugin/js/flotr/js/types/bubbles.js"></script>
+		<script type="text/javascript" src="yesui/ui/plugin/js/flotr/js/types/gantt.js"></script>
+		<script type="text/javascript" src="yesui/ui/plugin/js/flotr/js/types/timeline.js"></script>
+		<script type="text/javascript" src="yesui/ui/plugin/js/flotr/js/plugins/download.js"></script>
+		<script type="text/javascript" src="yesui/ui/plugin/js/flotr/js/plugins/selection.js"></script>
+		<script type="text/javascript" src="yesui/ui/plugin/js/flotr/js/plugins/spreadsheet.js"></script>
+		<script type="text/javascript" src="yesui/ui/plugin/js/flotr/js/plugins/grid.js"></script>
+		<script type="text/javascript" src="yesui/ui/plugin/js/flotr/js/plugins/hit.js"></script>
+		<script type="text/javascript" src="yesui/ui/plugin/js/flotr/js/plugins/crosshair.js"></script>
+		<script type="text/javascript" src="yesui/ui/plugin/js/flotr/js/plugins/labels.js"></script>
+		<script type="text/javascript" src="yesui/ui/plugin/js/flotr/js/plugins/legend.js"></script>
+		<script type="text/javascript" src="yesui/ui/plugin/js/flotr/js/plugins/titles.js"></script>
+		
+	   	<script type="text/javascript" src="yesui/ui/plugin/js/datepicker/js/datepicker.js"></script>
+    	<script type="text/javascript" src="yesui/ui/plugin/js/datepicker/js/eye.js"></script>
+    	<script type="text/javascript" src="yesui/ui/plugin/js/datepicker/js/utils.js"></script>
+    	<script type="text/javascript" src="yesui/ui/plugin/js/smartspin/smartspinner.js"></script>
+    	
+		<script type="text/javascript" src="yesui/ui/plugin/js/modaldialog/js/modaldialog.js"> </script>
+		<script type="text/javascript" src="yesui/ui/plugin/js/paginationjs/pagination.js"> </script>
+		 -->
+		<style type="text/css">
+			* {
+				padding: 0;
+				margin: 0
+			}
+			
+			body * {
+			    box-sizing: border-box; /* border和padding包含在width/height中  */
+			    -moz-box-sizing: border-box;
+			    -webkit-box-sizing: border-box;
+			    margin: 0;
+			    padding: 0;
+			}
+			input {
+				margin: 0;
+				padding: 0;
+				border: 0;
+				outline: 0;
+				vertical-align: middle;
+				
+			}
+			.indent_est {
+				box-sizing: content-box;
+				text-indent: 15px;
+			}
+			
+			a {
+				width: 50px;
+				height: 30px;
+				border: 1px solid red;
+			}
+			div {
+				width: 300px;
+				height: 100px;
+				border: 1px solid green;
+			}
+		</style>
+		<script type="text/javascript">
+
+				
+		</script>
+	</head>
+	<body>
+		<div style="align: center;">
+			<a>重新</a>
+			<a>操作</a>
+		</div>
+	</body>
+</html>

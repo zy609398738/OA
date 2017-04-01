@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="MOA_TaskdistributionView" Caption="任务派发列表" FormType="View">
+    <DataSource>
+        <DataObject Key="MOA_TaskdistributionView" Caption="任务派发列表">
+            <TableCollection>
+                <Table Key="MOA_TaskdistributionView" Caption="任务派发列表" TableMode="Detail" SourceType="Query" Persist="false" DBTableName="OA_Taskdistribution_H">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="Topic" Caption="主题" DataType="Varchar"/>
+                    <Column Key="EmpID" Caption="发布人员" DataType="Long"/>
+                    <Column Key="UrgencyDeg" Caption="紧急程度" DataType="Integer"/>
+                    <Column Key="BillDate" Caption="发布日期" DataType="DateTime"/>
+                    <ParameterCollection>
+                        <Parameter DataType="Long" Formula="GetOperator()"/>
+                        <Parameter DataType="Varchar" Formula="GetPara(&quot;ShareEmpID&quot;)"/>
+                        <Parameter DataType="Long" Formula="GetOperator()"/>
+                    </ParameterCollection>
+                    <Statement>
+                        <![CDATA[select * from (select * from OA_Taskdistribution_H  where (Creator=? or CONCAT(',',OptIDs,',') like ?) or ReceiveEmpID=(select empid from sys_operator where oid=?)  order by UrgencyDeg desc,BillDate desc)h]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="New" Caption="新增">
+            <Action>
+                <![CDATA[New("MOA_Taskdistribution")]]>
+            </Action>
+        </Operation>
+    </OperationCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板">
+                <GridLayoutPanel Key="GridLayoutPanel1" Height="100px" Caption="GridLayoutPanel1" Width="auto" Margin="5px">
+                    <DatePicker Key="From" Caption="收文日期从" BuddyKey="Lab_From" X="1" Y="0" XSpan="4">
+                        <Condition Group="aa" ColumnKey="BillDate" TableKey="MOA_TaskdistributionView" CondSign="between" GroupHead="true"/>
+                    </DatePicker>
+                    <Label Key="Lab_From" Caption="发布日期 从" X="0" Y="0">
+                        <Format HAlign="Right"/>
+                    </Label>
+                    <DatePicker Key="To" Caption="到" BuddyKey="Lab_To" X="1" Y="1" XSpan="4">
+                        <Condition Group="aa" ColumnKey="BillDate" TableKey="MOA_TaskdistributionView" CondSign="between" GroupTail="true"/>
+                    </DatePicker>
+                    <Label Key="Lab_To" Caption="到" X="0" Y="1">
+                        <Format HAlign="Right"/>
+                    </Label>
+                    <Button Key="Query" Caption="查询" X="0" Y="2" XSpan="2">
+                        <OnClick>
+                            <![CDATA[DealCondition();
+LoadData();
+ShowData();]]>
+                        </OnClick>
+                    </Button>
+                    <Button Key="Reset" Caption="重置" X="3" Y="2" XSpan="2">
+                        <OnClick>
+                            <![CDATA[ResetCondition()]]>
+                        </OnClick>
+                    </Button>
+                    <RowDefCollection RowGap="5">
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                        <RowDef Height="35px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="5">
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="50%"/>
+                        <ColumnDef Width="20px"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="50%"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+                <TableView Caption="TableView1" Height="pref" Key="TableView1" Width="pref">
+                    <TableRowCollection>
+                        <TableRow Key="AAA" RowType="Detail" TableKey="MOA_TaskdistributionView">
+                            <LinearLayoutPanel Caption="LinearLayoutPanel2" Key="LinearLayoutPanel2" Orientation="Vertical">
+                                <LinearLayoutPanel Caption="LinearLayoutPanel3" Height="40px" Key="LinearLayoutPanel3" Width="auto">
+                                    <TextEditor Key="Topic" Caption="主题" Enable="false" Height="auto" Width="auto" Weight="1.0">
+                                        <DataBinding ColumnKey="Topic" TableKey="MOA_TaskdistributionView"/>
+                                    </TextEditor>
+                                    <Label Key="OID" Caption="OID" Visible="FALSE" Height="pref" Width="pref">
+                                        <DataBinding ColumnKey="OID" TableKey="MOA_TaskdistributionView"/>
+                                    </Label>
+                                </LinearLayoutPanel>
+                                <LinearLayoutPanel Caption="LinearLayoutPanel4" Height="40px" Key="LinearLayoutPanel4" Width="auto">
+                                    <Dict Key="EmpID" Caption="发布人员" Enable="false" Height="auto" ItemKey="OA_Employee" Width="auto" Weight="1.0">
+                                        <DataBinding ColumnKey="EmpID"/>
+                                        <Format HAlign="Center"/>
+                                    </Dict>
+                                    <ComboBox Key="UrgencyDeg" Caption="紧急程度" Enable="false" Height="auto" Width="auto" Weight="1.0">
+                                        <DataBinding ColumnKey="UrgencyDeg" TableKey="MOA_TaskdistributionView"/>
+                                        <Format HAlign="Center"/>
+                                        <Item Caption="一般" Key="10" Value="10"/>
+                                        <Item Caption="紧急" Key="20" Value="20"/>
+                                        <Item Caption="特急" Key="30" Value="30"/>
+                                    </ComboBox>
+                                </LinearLayoutPanel>
+                                <LinearLayoutPanel Caption="LinearLayoutPanel5" Height="40px" Key="LinearLayoutPanel5" Width="auto">
+                                    <DatePicker Key="BillDate" Caption="发布日期" Enable="false" Height="auto" Width="auto" Weight="1.0">
+                                        <DataBinding ColumnKey="BillDate"/>
+                                        <Format HAlign="Center"/>
+                                    </DatePicker>
+                                </LinearLayoutPanel>
+                            </LinearLayoutPanel>
+                            <RowClick>
+                                <![CDATA[Open("MOA_Taskdistribution", OID)]]>
+                            </RowClick>
+                        </TableRow>
+                    </TableRowCollection>
+                </TableView>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+    <OnLoad>
+        <![CDATA[LoadData();]]>
+    </OnLoad>
+</Form>

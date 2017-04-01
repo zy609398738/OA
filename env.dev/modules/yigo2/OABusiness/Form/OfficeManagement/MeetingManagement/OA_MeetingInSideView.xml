@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="OA_MeetingInSideView" Caption="内部会议表单列表" FormType="View">
+    <DataSource>
+        <DataObject Key="OA_MeetingInSideView" Caption="内部会议表单列表">
+            <TableCollection>
+                <Table Key="OA_MeetingInSide_H" Caption="内部会议表单列表" TableMode="Detail" SourceType="Query" Persist="false">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="Topic" Caption="会议主题" DataType="Varchar"/>
+                    <Column Key="MeetingType" Caption="会议类型" DataType="Long"/>
+                    <Column Key="EmpID" Caption="申请人" DataType="Long"/>
+                    <Column Key="DeptID" Caption="申请部门" DataType="Long"/>
+                    <Column Key="EmpIDPhone" Caption="申请人联系方式" DataType="Varchar"/>
+                    <Column Key="MeetingRoom" Caption="开会地点" DataType="Long"/>
+                    <Column Key="BillDate" Caption="申请日期" DataType="DateTime"/>
+                    <Column Key="UrgencyDeg" Caption="紧急程度" DataType="Integer"/>
+                    <Statement>
+                        <![CDATA[select * from (select *  from OA_MeetingInSide_H order by BillDate desc) h]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="New" Caption="新增">
+            <Action>
+                <![CDATA[New('OA_MeetingInSide');]]>
+            </Action>
+        </Operation>
+        <Operation Key="Setfirst_headVisible" Caption="查询" RefKey="Setfirst_headVisible"/>
+    </OperationCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板">
+                <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <GridLayoutPanel Key="first_head" Height="80px" Caption="基本信息" Visible="first_headVisible==1">
+                    <DatePicker Key="From" Caption="申请日期 从" BuddyKey="Lab_From" X="1" Y="0">
+                        <Condition ColumnKey="BillDate" TableKey="OA_MeetingInSide_H" CondSign="between" Group="a" GroupHead="true"/>
+                    </DatePicker>
+                    <Label Key="Lab_From" Caption="申请日期 从" X="0" Y="0"/>
+                    <DatePicker Key="To" Caption="到" BuddyKey="Lab_To" X="3" Y="0">
+                        <Condition ColumnKey="BillDate" TableKey="OA_MeetingInSide_H" CondSign="between" Group="a" GroupTail="true"/>
+                    </DatePicker>
+                    <Label Key="Lab_To" Caption="到" X="2" Y="0"/>
+                    <Dict Key="QueryEmpID" Caption="申请人" BuddyKey="Lab_QueryEmpID" X="1" Y="1" AllowMultiSelection="true" ItemKey="OA_Employee">
+                        <Condition ColumnKey="EmpID" TableKey="OA_MeetingInSide_H" CondSign="in"/>
+                    </Dict>
+                    <Label Key="Lab_QueryEmpID" Caption="申请人" X="0" Y="1"/>
+                    <Dict Key="QueryDeptID" Caption="申请部门" BuddyKey="Lab_QueryDeptID" X="3" Y="1" ItemKey="OA_Department">
+                        <Condition ColumnKey="DeptID" TableKey="OA_MeetingInSide_H" CondSign="in"/>
+                    </Dict>
+                    <Label Key="Lab_QueryDeptID" Caption="申请部门" X="2" Y="1"/>
+                    <Button Key="Query" Caption="查询" X="6" Y="0">
+                        <OnClick>
+                            <![CDATA[DealCondition();
+LoadData();
+ShowData();]]>
+                        </OnClick>
+                    </Button>
+                    <Button Key="Reset" Caption="重置" X="6" Y="1">
+                        <OnClick>
+                            <![CDATA[ResetCondition();]]>
+                        </OnClick>
+                    </Button>
+                    <Dict Key="QueryMeetingRoom" Caption="开会地点" BuddyKey="Lab_QueryMeetingRoom" X="5" Y="0" AllowMultiSelection="true" ItemKey="OA_MeetingRoom">
+                        <Condition ColumnKey="MeetingRoom" TableKey="OA_MeetingInSide_H" CondSign="in"/>
+                    </Dict>
+                    <Label Key="Lab_QueryMeetingRoom" Caption="开会地点" X="4" Y="0"/>
+                    <CheckBox Caption="头表可见" Key="first_headVisible" Visible="false" X="4" Y="1">
+                        <DataBinding DefaultValue="1"/>
+                    </CheckBox>
+                    <RowDefCollection RowGap="8">
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="8">
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="33%"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="33%"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="34%"/>
+                        <ColumnDef Width="80px"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+                <ListView Caption="ListView1" Key="ListView1" PageLoadType="DB" TableKey="OA_MeetingInSide_H" Height="100%">
+                    <ListViewColumnCollection>
+                        <ListViewColumn Key="Topic" Caption="会议主题" DataColumnKey="Topic" Width="200px"/>
+                        <ListViewColumn Key="MeetingType" Caption="会议类型" ColumnType="Dict" DataColumnKey="MeetingType" Width="100px" ItemKey="OA_MeetingType"/>
+                        <ListViewColumn Key="UrgencyDeg" Caption="紧急程度" ColumnType="ComboBox" DataColumnKey="UrgencyDeg" IntegerValue="true">
+                            <Item Key="0" Value="0"/>
+                            <Item Caption="一般" Key="10" Value="10"/>
+                            <Item Caption="紧急" Key="20" Value="20"/>
+                            <Item Caption="特急" Key="30" Value="30"/>
+                        </ListViewColumn>
+                        <ListViewColumn Key="EmpID" Caption="申请人" ColumnType="Dict" DataColumnKey="EmpID" Width="100px" ItemKey="OA_Employee"/>
+                        <ListViewColumn Key="DeptID" Caption="申请部门" ColumnType="Dict" DataColumnKey="DeptID" Width="130px" ItemKey="OA_Department"/>
+                        <ListViewColumn Key="EmpIDPhone" Caption="申请人联系方式" DataColumnKey="EmpIDPhone" Width="150px"/>
+                        <ListViewColumn Key="MeetingRoom" Caption="开会地点" ColumnType="Dict" DataColumnKey="MeetingRoom" Width="120px" ItemKey="OA_MeetingRoom"/>
+                        <ListViewColumn Key="BillDate" Caption="申请日期" ColumnType="DatePicker" DataColumnKey="BillDate" Width="130px"/>
+                        <ListViewColumn Key="OID" Caption="OID" DataColumnKey="OID" Visible="false"/>
+                    </ListViewColumnCollection>
+                    <RowDblClick>
+                        <![CDATA[Open('OA_MeetingInSide', OID)]]>
+                    </RowDblClick>
+                </ListView>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+    <OnLoad>
+        <![CDATA[LoadData()]]>
+    </OnLoad>
+</Form>

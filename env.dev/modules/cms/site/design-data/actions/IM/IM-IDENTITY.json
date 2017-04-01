@@ -1,0 +1,9 @@
+{
+	"@type":"com.bokesoft.cms2.model.Action",
+	"actionExp":"oa.IMAction.identity()",
+	"actionUrl":"/im-service/identity.action",
+	"attributes":{"@type":"java.util.LinkedHashMap"},
+	"code":"IM-IDENTITY",
+	"name":"返回当前用户身份认证信息",
+	"notes":""
+}

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="OA_AddViews" Caption="新增常用意见" FormType="Entity">
+    <DataSource>
+        <DataObject Key="OA_AddViews" Caption="新增常用意见" PrimaryTableKey="OA_AddViews" PrimaryType="Entity">
+            <TableCollection>
+                <Table Key="OA_AddViews" Caption="新增常用意见" DBTableName="OA_AddViews">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="Content" Caption="Content" DataType="Varchar" Length="4000"/>
+                    <Column Key="Creator" Caption="制单人" DataType="Long"/>
+                    <Column Key="Status" DataType="Integer" Caption="状态"/>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="Save" Caption="保存" Visible="!ReadOnly()">
+            <Action>
+                <![CDATA[SaveData();
+UpdateView();
+Close()]]>
+            </Action>
+        </Operation>
+        <Operation Key="Close" Caption="关闭界面">
+            <Action>
+                <![CDATA[Close()]]>
+            </Action>
+        </Operation>
+        <Operation Key="Edit" Caption="编辑">
+            <Action>
+                <![CDATA[Edit()]]>
+            </Action>
+        </Operation>
+        <Operation Key="Delete" Caption="删除" RefKey="Delete"/>
+    </OperationCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板">
+                <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <GridLayoutPanel Key="first_head" Padding="5px" Height="pref" Caption="基本信息">
+                    <TextEditor Key="Content" Caption="内容" BuddyKey="Lab_Content" X="1" Y="0" XSpan="3">
+                        <DataBinding TableKey="OA_AddViews" ColumnKey="Content"/>
+                    </TextEditor>
+                    <Label Key="Lab_Content" Caption="内容" X="0" Y="0"/>
+                    <Dict Key="Creator" Caption="制单人" BuddyKey="Lab_Creator" X="3" Y="1" Visible="false" ItemKey="Operator">
+                        <DataBinding TableKey="OA_AddViews" ColumnKey="Creator" DefaultFormulaValue="GetOperator()"/>
+                    </Dict>
+                    <Label Key="Lab_Creator" Caption="制单人" X="2" Y="1"/>
+                    <ComboBox Key="Status" Caption="状态" BuddyKey="Lab_Status" X="1" Y="1" Visible="false" SourceType="Status">
+                        <DataBinding TableKey="OA_AddViews" ColumnKey="Status" DefaultValue="100"/>
+                    </ComboBox>
+                    <Label Key="Lab_Status" Caption="状态" X="0" Y="1"/>
+                    <RowDefCollection RowGap="8">
+                        <RowDef Height="25px"/>
+                        <RowDef Height="25px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="8">
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="100%"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="80px"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+    <OnLoad>
+        <![CDATA[]]>
+    </OnLoad>
+</Form>

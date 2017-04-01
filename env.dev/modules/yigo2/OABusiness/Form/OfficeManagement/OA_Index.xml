@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="OA_Index" Caption="办公门户">
+    <Body PopHeight="100%" PopWidth="100%">
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板">
+                <WebBrowser Key="Index" Height="100%">
+                    <DataBinding DefaultFormulaValue="Para('URL')"/>
+                </WebBrowser>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

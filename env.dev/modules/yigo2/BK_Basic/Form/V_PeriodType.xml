@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Caption="会计期方案" FormType="Dict" Key="V_PeriodType">
+    <DataSource RefObjectKey="PeriodType"/>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root">
+                <TabPanel Key="body">
+                    <GridLayoutPanel Key="body_basic" Padding="8px" Caption="基本信息(&amp;B)">
+                        <Label Key="Inner_Code" Caption="代码" X="0" Y="0"/>
+                        <TextEditor Key="Code" Caption="代码" BuddyKey="Inner_Code" X="1" Y="0" Visible="true" Enable="!ReadOnly()&amp;&amp;com.bokesoft.erp.basis.common.DocumentNumberUI.docNumberFieldEnable('Code')" InvalidChars="%*\&quot;+?&gt;&lt;:'">
+                            <DataBinding TableKey="BK_PeriodType" ColumnKey="Code" CheckRule="iifs(com.bokesoft.erp.basis.common.DocumentNumberUI.docNumberFieldEnable('Code')&amp;&amp;Value('Code')='', '采用外部给号编码规则，请输入代码', true, true)"/>
+                        </TextEditor>
+                        <Label Key="Inner_Name" Caption="名称" X="0" Y="1"/>
+                        <TextEditor Key="Name" Caption="名称" BuddyKey="Inner_Name" X="1" Y="1" Visible="true" Enable="!ReadOnly()">
+                            <DataBinding TableKey="BK_PeriodType" ColumnKey="Name"/>
+                        </TextEditor>
+                        <CheckBox Caption="年度相关" Enable="!ReadOnly()" Key="YearDependent" Visible="true" X="1" Y="2">
+                            <DataBinding TableKey="BK_PeriodType" ColumnKey="YearDependent"/>
+                        </CheckBox>
+                        <CheckBox Caption="日历相关" Enable="!ReadOnly()" Key="CalendarYear" Visible="true" X="1" Y="3">
+                            <DataBinding TableKey="BK_PeriodType" ColumnKey="CalendarYear"/>
+                        </CheckBox>
+                        <Label Key="Inner_PeriodCount" Caption="期间数" X="0" Y="4"/>
+                        <NumberEditor Key="PeriodCount" Caption="期间数" BuddyKey="Inner_PeriodCount" X="1" Y="4" Visible="true" Enable="YearDependent=1" IntegerValue="true" Precision="0" Scale="0">
+                            <DataBinding TableKey="BK_PeriodType" ColumnKey="PeriodCount" CheckRule="iifs(YearDependent=1&amp;&amp;PeriodCount&lt;=0||PeriodCount&gt;999, '期间数应大于0并且小于等于999', true, true)"/>
+                        </NumberEditor>
+                        <Label Key="Inner_SpecialPeriodCount" Caption="特殊期间数" X="0" Y="5"/>
+                        <NumberEditor Key="SpecialPeriodCount" Caption="特殊期间数" BuddyKey="Inner_SpecialPeriodCount" X="1" Y="5" Visible="true" Enable="!ReadOnly()" IntegerValue="true" Precision="0" Scale="0">
+                            <DataBinding TableKey="BK_PeriodType" ColumnKey="SpecialPeriodCount" CheckRule="SpecialPeriodCount&gt;0"/>
+                        </NumberEditor>
+                        <Label Key="Inner_NodeType" Caption="结点类型" X="0" Y="6"/>
+                        <ComboBox Key="NodeType" Caption="结点类型" BuddyKey="Inner_NodeType" X="1" Y="6" Visible="false" Enable="!ReadOnly()&amp;&amp;Status&lt;0">
+                            <DataBinding TableKey="BK_PeriodType" ColumnKey="NodeType"/>
+                        </ComboBox>
+                        <RowDefCollection RowGap="5">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="5">
+                            <ColumnDef Width="100px"/>
+                            <ColumnDef Width="330px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <GridLayoutPanel Key="tab_periodDtl" Padding="8px" Caption="期间明细">
+                        <Label Key="Inner_Year" Caption="年份" X="1" Y="0"/>
+                        <ComboBox Key="Year" Caption="年份" BuddyKey="Inner_Year" X="2" Y="0" Visible="true" Enable="true"/>
+                        <Grid Key="grid10" X="0" XSpan="3" Y="1">
+                            <GridColumnCollection>
+                                <GridColumn Key="YearValue" Caption="年" Width="80px"/>
+                                <GridColumn Key="MonthValue" Caption="月" Width="80px"/>
+                                <GridColumn Key="DayValue" Caption="日" Width="80px"/>
+                                <GridColumn Key="PeriodID" Caption="期间" Width="80px"/>
+                                <GridColumn Key="YearShift" Caption="年差异" Width="80px"/>
+                            </GridColumnCollection>
+                            <GridRowCollection>
+                                <GridRow Key="row1" TableKey="BK_PeriodTypeDtl">
+                                    <GridCell Key="YearValue" Caption="年">
+                                        <DataBinding ColumnKey="yearvalue"/>
+                                    </GridCell>
+                                    <GridCell Key="MonthValue" Caption="月">
+                                        <DataBinding ColumnKey="monthvalue"/>
+                                    </GridCell>
+                                    <GridCell Key="DayValue" Caption="日">
+                                        <DataBinding ColumnKey="dayvalue"/>
+                                    </GridCell>
+                                    <GridCell Key="PeriodID" Caption="期间">
+                                        <DataBinding ColumnKey="periodid"/>
+                                    </GridCell>
+                                    <GridCell Key="YearShift" Caption="年差异">
+                                        <DataBinding ColumnKey="yearshift"/>
+                                    </GridCell>
+                                </GridRow>
+                            </GridRowCollection>
+                        </Grid>
+                        <RowDefCollection RowGap="5">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="100%"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="5">
+                            <ColumnDef Width="8px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="330px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <GridLayoutPanel Key="body_system" Padding="8px" Caption="系统信息(&amp;D)">
+                        <Label Key="Inner_Status" Caption="结点状态" X="0" Y="1"/>
+                        <ComboBox Key="Status" Caption="结点状态" BuddyKey="Inner_Status" X="1" Y="1" Visible="true" Enable="false">
+                            <DataBinding TableKey="BK_PeriodType" ColumnKey="Status"/>
+                        </ComboBox>
+                        <Label Key="Inner_CreateByID" Caption="创建人员" X="0" Y="2"/>
+                        <Dict Key="CreateByID" Caption="创建人员" BuddyKey="Inner_CreateByID" X="1" Y="2" Visible="true" Enable="false" ItemKey="Operator">
+                            <DataBinding TableKey="BK_PeriodType" ColumnKey="CREATOR" DefaultFormulaValue="GetOperator()"/>
+                        </Dict>
+                        <Label Key="Inner_CreateTime" Caption="创建时间" X="0" Y="3"/>
+                        <DatePicker Key="CreateTime" Caption="创建时间" BuddyKey="Inner_CreateTime" X="1" Y="3" Visible="true" Enable="false" OnlyDate="false">
+                            <DataBinding TableKey="BK_PeriodType" ColumnKey="CREATETIME" DefaultFormulaValue="ServerDate()"/>
+                        </DatePicker>
+                        <Label Key="Inner_UpdateByID" Caption="修改人员" X="0" Y="4"/>
+                        <Dict Key="UpdateByID" Caption="修改人员" BuddyKey="Inner_UpdateByID" X="1" Y="4" Visible="true" Enable="false" ItemKey="Operator">
+                            <DataBinding TableKey="BK_PeriodType" ColumnKey="MODIFIER" DefaultFormulaValue="GetOperator()"/>
+                        </Dict>
+                        <Label Key="Inner_UpdateTime" Caption="修改时间" X="0" Y="5"/>
+                        <DatePicker Key="UpdateTime" Caption="修改时间" BuddyKey="Inner_UpdateTime" X="1" Y="5" Visible="true" Enable="false" OnlyDate="false">
+                            <DataBinding TableKey="BK_PeriodType" ColumnKey="MODIFYTIME" DefaultFormulaValue="ServerDate()"/>
+                        </DatePicker>
+                        <Label Key="Inner_Notes" Caption="备注" X="0" Y="6"/>
+                        <TextEditor Key="Notes" Caption="备注" BuddyKey="Inner_Notes" X="1" Y="6" Visible="true" Enable="!ReadOnly()">
+                            <DataBinding TableKey="BK_PeriodType" ColumnKey="Notes"/>
+                        </TextEditor>
+                        <Label Key="Inner_ClientID" Caption="集团" X="0" Y="0"/>
+                        <Dict Key="ClientID" Caption="集团" BuddyKey="Inner_ClientID" X="1" Y="0" Visible="true" Enable="false" ItemKey="Client">
+                            <DataBinding TableKey="BK_PeriodType" ColumnKey="clientid" DefaultFormulaValue="getClientID()"/>
+                        </Dict>
+                        <RowDefCollection RowGap="5">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="5">
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="330px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                </TabPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

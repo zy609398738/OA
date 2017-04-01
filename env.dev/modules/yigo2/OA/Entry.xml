@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Entry Caption="根" Key="root">
+    <Entry Caption="协同功能" Key="OA" Visible="false">
+        <Entry Caption="组织结构" Key="OA_Organize">
+            <EntryItem Caption="集团" FormKey="DictEdit" Key="V_Client" Parameters="FormKey=V_Client" Type="Form" Visible="false"/>
+            <EntryItem Caption="公司" FormKey="DictEdit" Key="V_CompanyCode" Parameters="FormKey=V_CompanyCode" Type="Form" Visible="false"/>
+            <EntryItem Caption="部门" FormKey="DictEdit" Key="OA_Department" Parameters="FormKey=OA_Department" Type="Form"/>
+            <EntryItem Caption="人员" FormKey="DictEdit" Key="OA_Employee" Parameters="FormKey=OA_Employee" Type="Form"/>
+            <EntryItem Caption="职务" FormKey="DictEdit" Key="OA_Duty" Parameters="FormKey=OA_Duty" Type="Form"/>
+        </Entry>
+        <Entry Caption="消息管理" Key="OA_SystemMessages">
+            <EntryItem Caption="消息发送列表 " FormKey="OA_SendMessagesView" Key="OA_SendMessagesView" Type="Form"/>
+            <EntryItem Caption="消息接收列表" FormKey="OA_ReceiveMessagesView" Key="OA_ReceiveMessagesView" Type="Form"/>
+            <EntryItem Caption="发送结果列表" FormKey="OA_SendResultView" Key="OA_SendResultView" Type="Form"/>
+        </Entry>
+        <Entry Caption="通讯录管理" Key="OA_AddressBook">
+            <EntryItem Caption="通讯录" FormKey="OA_AddressBook" Key="OA_AddressBook" Type="Form"/>
+        </Entry>
+        <Entry Caption="电子审批" Key="OA_Approval">
+            <EntryItem Caption="创建新流程" FormKey="OA_CearteWorkflow" Key="OA_CearteWorkflow" Type="Form"/>
+            <Entry Caption="流程管理" Key="OA_BPM">
+                <EntryItem Caption="流程设置" FormKey="OA_WorkflowSet" Key="OA_WorkflowSet" Type="Form"/>
+                <EntryItem Caption="流程定义" FormKey="DictEdit" Key="OA_Workflow" Parameters="FormKey=OA_Workflow" Type="Form"/>
+                <EntryItem Caption="流程类别" FormKey="DictEdit" Key="OA_WorkflowType" Parameters="FormKey=OA_WorkflowType" Type="Form"/>
+            </Entry>
+            <Entry Caption="审批权限" Key="OA_OfficeRights">
+                <EntryItem Caption="人员选择群组" FormKey="DictEdit" Key="OA_OptPublic" Parameters="FormKey=OA_OptPublic" Type="Form"/>
+                <EntryItem Caption="人员选择规则" FormKey="DictEdit" Key="OA_OptRule" Parameters="FormKey=OA_OptRule" Type="Form"/>
+            </Entry>
+            <Entry Caption="审批设置" Key="OA_AuditSet">
+                <EntryItem Caption="审批操作" FormKey="DictEdit" Key="OA_OptModule" Parameters="FormKey=OA_OptModule" Type="Form"/>
+                <EntryItem Caption="常用意见" FormKey="OA_CommonViews" Key="OA_CommonViews" Type="Form"/>
+                <EntryItem Caption="代理设置" FormKey="Delegate" Key="Delegate" Type="Form"/>
+            </Entry>
+        </Entry>
+        <Entry Caption="办公设置" Key="OA_OfficeManagement">
+            <EntryItem Caption="消息设置" FormKey="DictEdit" Key="OA_MessageSet" Parameters="FormKey=OA_MessageSet" Type="Form"/>
+            <EntryItem Caption="常用链接" FormKey="OA_CommonLinkView" Key="OA_CommonLinkView" Type="Form"/>
+            <EntryItem Caption="印章名称" FormKey="DictEdit" Key="OA_Seal" Parameters="FormKey=OA_Seal" Type="Form"/>
+        </Entry>
+    </Entry>
+</Entry>

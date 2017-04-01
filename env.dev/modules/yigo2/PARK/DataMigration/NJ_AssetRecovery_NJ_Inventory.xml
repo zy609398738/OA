@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<DataMigration Caption="资产收回到库存余额迁移" Key="NJ_AssetRecovery_NJ_Inventory" SrcDataObjectKey="NJ_AssetRecovery" TgtDataObjectKey="NJ_Inventory" StatusFieldKey="Status" StatusValue="100">
+    <SourceTableCollection Height="330" Width="344" X="30" Y="30">
+        <SourceTable IsPrimary="true" TableKey="NJ_SCM_AssetCode">
+            <SourceField Definition="AssetsBarId" OpSign="Assign" TargetFieldKey="AssetsId" TargetTableKey="NJ_Inventory"/>
+            <SourceField Definition="AssetsAmount" TargetFieldKey="Amount" TargetTableKey="NJ_Inventory"/>
+            <SourceField Definition="WareHouseId" TargetFieldKey="WareHouseId" TargetTableKey="NJ_Inventory"/>
+            <SourceField Definition="assetstypeid" OpSign="Assign" TargetFieldKey="assetstypeid" TargetTableKey="NJ_Inventory"/>
+            <SourceField Definition="Model" TargetFieldKey="Model" TargetTableKey="NJ_Inventory"/>
+            <SourceField Definition="UNITID" OpSign="Assign" TargetFieldKey="UNITID" TargetTableKey="NJ_Inventory"/>
+            <SourceField Definition="AssetNatureId" OpSign="Assign" TargetFieldKey="AssetNatureId" TargetTableKey="NJ_Inventory"/>
+            <SourceField Definition="Model" OpSign="Assign" TargetFieldKey="Model" TargetTableKey="NJ_Inventory"/>
+        </SourceTable>
+    </SourceTableCollection>
+    <TargetTableCollection Height="330" Width="227" X="434" Y="30">
+        <TargetTable TableKey="NJ_Inventory">
+            <TargetField FieldKey="AssetsId"/>
+            <TargetField FieldKey="Amount"/>
+            <TargetField FieldKey="WareHouseId"/>
+            <TargetField FieldKey="assetstypeid"/>
+            <TargetField FieldKey="Model"/>
+            <TargetField FieldKey="UNITID"/>
+            <TargetField FieldKey="AssetNatureId"/>
+        </TargetTable>
+    </TargetTableCollection>
+</DataMigration>

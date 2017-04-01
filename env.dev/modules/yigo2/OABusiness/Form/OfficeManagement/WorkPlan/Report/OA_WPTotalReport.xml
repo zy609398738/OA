@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="OA_WPTotalReport" Caption="工作计划统计表" FormType="Report" Platform="">
+    <DataSource>
+        <DataObject Key="OA_WPTotalReport" Caption="工作计划统计表">
+            <TableCollection>
+                <Table Key="OA_WPTotalReport" Caption="工作计划统计表" TableMode="Detail" SourceType="Interface" Persist="false" Impl="com.bokesoft.oa.mid.report.GetSumDataTable">
+                    <Column Key="Status" Caption="状态" DataType="Integer"/>
+                    <Column Key="GroupID" Caption="小组" DataType="Long"/>
+                    <Column Key="Week" Caption="周期" DataType="Long"/>
+                    <Column Key="DateBegin" Caption="开始时间" DataType="DateTime"/>
+                    <Column Key="isPushed" Caption="已完成" DataType="Integer"/>
+                    <Column Key="DateEnd" Caption="结束日期" DataType="DateTime"/>
+                    <Column Key="Amount" Caption="工作计划数量" DataType="Integer"/>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="Close" Caption="关闭界面" RefKey="Close"/>
+    </OperationCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板" Height="100px" Padding="5px">
+                <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <GridLayoutPanel Key="first_head" Height="pref" Caption="基本信息" Margin="5px">
+                    <CheckListBox BuddyKey="Lab_CheckListBox1" Caption="单据状态" Key="CheckListBox1" X="1" Y="0" SourceType="Formula">
+                        <DataBinding DefaultValue="0&quot;&quot;"/>
+                        <Condition ColumnKey="Status" TableKey="OA_WPTotalReport" CondSign="in"/>
+                        <FormulaItems>
+                            <![CDATA[OA_GetDropItemFromStatus()]]>
+                        </FormulaItems>
+                    </CheckListBox>
+                    <Label Key="Lab_CheckListBox1" Caption="单据状态" X="0" Y="0"/>
+                    <Dict Key="Dict1" Caption="工作小组" BuddyKey="Lab_Dict1" X="3" Y="0" AllowMultiSelection="true" ItemKey="OA_Group">
+                        <Condition ColumnKey="GroupID" TableKey="OA_WPTotalReport" CondSign="in"/>
+                    </Dict>
+                    <Label Key="Lab_Dict1" Caption="工作小组" X="2" Y="0"/>
+                    <Dict Key="Dict2" Caption="工作周期" BuddyKey="Lab_Dict2" X="5" Y="0" AllowMultiSelection="true" ItemKey="OA_Week">
+                        <Condition ColumnKey="Week" TableKey="OA_WPTotalReport" CondSign="in"/>
+                    </Dict>
+                    <Label Key="Lab_Dict2" Caption="工作周期" X="4" Y="0"/>
+                    <DatePicker Key="DatePicker1" Caption="开始工作日期" BuddyKey="Lab_DatePicker1" X="1" Y="1">
+                        <Condition ColumnKey="DateBegin" TableKey="OA_WPTotalReport" CondSign="between" Group="B" GroupHead="true"/>
+                    </DatePicker>
+                    <Label Key="Lab_DatePicker1" Caption="开始工作日期从" X="0" Y="1"/>
+                    <DatePicker Key="DatePicker2" Caption="结束工作日期从" BuddyKey="Lab_DatePicker2" X="1" Y="2">
+                        <Condition ColumnKey="DateEnd" TableKey="OA_WPTotalReport" CondSign="between" Group="E" GroupHead="true"/>
+                    </DatePicker>
+                    <Label Key="Lab_DatePicker2" Caption="结束工作日期从" X="0" Y="2"/>
+                    <CheckBox Caption="已完成" Key="CheckBox1" X="4" Y="1">
+                        <Condition ColumnKey="isPushed" TableKey="OA_WPTotalReport" CondSign="="/>
+                    </CheckBox>
+                    <Button Key="Query" Caption="查询" X="6" Y="0">
+                        <OnClick>
+                            <![CDATA[DealCondition();
+LoadData();
+ShowData();]]>
+                        </OnClick>
+                    </Button>
+                    <Button Key="Reset" Caption="重置" X="6" Y="1">
+                        <OnClick>
+                            <![CDATA[ResetCondition()]]>
+                        </OnClick>
+                    </Button>
+                    <DatePicker Key="TO1" Caption="到" BuddyKey="Lab_TO1" X="3" Y="1">
+                        <Condition ColumnKey="DateBegin" TableKey="OA_WPTotalReport" CondSign="between" Group="B" GroupTail="true"/>
+                    </DatePicker>
+                    <Label Key="Lab_TO1" Caption="到" X="2" Y="1"/>
+                    <DatePicker Key="TO2" Caption="到" BuddyKey="Lab_TO2" X="3" Y="2">
+                        <Condition ColumnKey="DateEnd" TableKey="OA_WPTotalReport" CondSign="between" Group="E" GroupTail="true"/>
+                    </DatePicker>
+                    <Label Key="Lab_TO2" Caption="到" X="2" Y="2"/>
+                    <RowDefCollection RowGap="8">
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="8">
+                        <ColumnDef Width="100px"/>
+                        <ColumnDef Width="33%"/>
+                        <ColumnDef Width="100px"/>
+                        <ColumnDef Width="33%"/>
+                        <ColumnDef Width="100px"/>
+                        <ColumnDef Width="34%"/>
+                        <ColumnDef Width="80px"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+                <Grid Key="Grid1" Caption="Grid1" NewEmptyRow="false" Enable="false" Height="100%" PageLoadType="DB" Width="pref">
+                    <GridColumnCollection>
+                        <GridColumn Key="Status" Caption="单据状态" Width="80px"/>
+                        <GridColumn Key="GroupID" Caption="工作小组" Width="150px"/>
+                        <GridColumn Key="Week" Caption="工作周期" Width="150px"/>
+                        <GridColumn Key="isPushed" Caption="已完成" Width="80px"/>
+                        <GridColumn Key="Amount" Caption="工作计划数量" Width="80px"/>
+                    </GridColumnCollection>
+                    <GridRowCollection>
+                        <GridRow Key="row1" RowHeight="35" TableKey="OA_WPTotalReport">
+                            <GridCell Key="Status" Caption="单据状态" CellType="ComboBox" SourceType="Formula">
+                                <DataBinding ColumnKey="Status"/>
+                                <FormulaItems>
+                                    <![CDATA[OA_GetDropItemFromStatus()]]>
+                                </FormulaItems>
+                            </GridCell>
+                            <GridCell Key="GroupID" Caption="工作小组" CellType="Dict" ItemKey="OA_Group">
+                                <DataBinding ColumnKey="GroupID"/>
+                            </GridCell>
+                            <GridCell Key="Week" Caption="工作周期" CellType="Dict" ItemKey="OA_Week">
+                                <DataBinding ColumnKey="Week"/>
+                            </GridCell>
+                            <GridCell Key="isPushed" Caption="已完成" CellType="CheckBox" CellSortType="None">
+                                <DataBinding ColumnKey="isPushed"/>
+                            </GridCell>
+                            <GridCell Key="Amount" Caption="工作计划数量" CellType="NumberEditor" IntegerValue="true">
+                                <DataBinding ColumnKey="Amount"/>
+                            </GridCell>
+                        </GridRow>
+                    </GridRowCollection>
+                </Grid>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="OA_EmailOutboxView" Caption="发件箱列表" FormType="View">
+    <DataSource>
+        <DataObject Key="OA_EmailOutboxView" Caption="发件箱列表">
+            <TableCollection>
+                <Table Key="OA_EmailOutbox_H" Caption="发件箱列表" SourceType="Query" Persist="false" TableMode="Detail">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="NO" Caption="单据编号" DataType="Varchar"/>
+                    <Column Key="BillDate" Caption="单据日期" DataType="DateTime"/>
+                    <Column Key="Status" Caption="状态" DataType="Integer"/>
+                    <Column Key="Sender" Caption="发件人" DataType="Varchar"/>
+                    <Column Key="Topic" Caption="主题" DataType="Varchar"/>
+                    <Column Key="EmailStatus" Caption="邮件状态" DataType="Varchar"/>
+                    <Column Key="EmailTime" Caption="时间" DataType="DateTime"/>
+                    <Column Key="Select" Caption="选择" DataType="Integer"/>
+                    <ParameterCollection>
+                        <Parameter DataType="Long" Formula="GetOperator()"/>
+                    </ParameterCollection>
+                    <Statement>
+                        <![CDATA[select * from (select * from OA_EmailInbox_H
+ where EmailID is NULL and IsDraft=20 and IsDelete=20 and OperatorID=? order by billdate desc)h]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="DeleteAll" Caption="删除">
+            <Action>
+                <![CDATA[var i = 0;  
+var rowCount = GetRowCount('ListView1');     
+while(i<rowCount){
+	var IsSelect=GetCellValue('ListView1',i,'Select');     
+        if(IsSelect==1){ 
+          DBUpdate("Update OA_EmailInBox_H a set a.IsDelete=10 where a.OID=?", GetCellValue('ListView1',i,'OID'));
+        } 
+        i = i + 1;
+};
+LoadData();]]>
+            </Action>
+        </Operation>
+        <Operation Key="Setfirst_headVisible" Caption="查询" RefKey="Setfirst_headVisible"/>
+    </OperationCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板">
+                <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <GridLayoutPanel Key="first_head" Height="40px" Caption="基本信息" Visible="first_headVisible==1">
+                    <DatePicker Key="From" Caption="单据日期 从" BuddyKey="Lab_From" X="1" Y="0">
+                        <Condition ColumnKey="BillDate" TableKey="OA_EmailOutbox_H" CondSign="between" Group="a" GroupHead="true"/>
+                    </DatePicker>
+                    <Label Key="Lab_From" Caption="单据日期 从" X="0" Y="0"/>
+                    <DatePicker Key="To" Caption="到" BuddyKey="Lab_To" X="3" Y="0">
+                        <Condition ColumnKey="BillDate" TableKey="OA_EmailOutbox_H" CondSign="between" Group="a" GroupTail="true"/>
+                    </DatePicker>
+                    <Label Key="Lab_To" Caption="到" X="2" Y="0"/>
+                    <Button Key="Query" Caption="查询" X="4" Y="0">
+                        <OnClick>
+                            <![CDATA[DealCondition();
+LoadData();
+ShowData();]]>
+                        </OnClick>
+                    </Button>
+                    <Button Key="Reset" Caption="重置" X="5" Y="0">
+                        <OnClick>
+                            <![CDATA[ResetCondition();]]>
+                        </OnClick>
+                    </Button>
+                    <CheckBox Caption="头表可见" Key="first_headVisible" Visible="false" X="1" Y="0">
+                        <DataBinding DefaultValue="1"/>
+                    </CheckBox>
+                    <RowDefCollection RowGap="8">
+                        <RowDef Height="30px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="8">
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="50%"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="50%"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="80px"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+                <ListView Caption="ListView1" Key="ListView1" PageLoadType="DB" TableKey="OA_EmailOutbox_H" Height="100%">
+                    <ListViewColumnCollection>
+                        <ListViewColumn Key="Select" Caption="选择" ColumnType="CheckBox" DataColumnKey="Select" IsSelect="true"/>
+                        <ListViewColumn Key="NO" Caption="单据编号" DataColumnKey="NO" Width="150px"/>
+                        <ListViewColumn Key="BillDate" Caption="单据日期" ColumnType="DatePicker" DataColumnKey="BillDate" Width="130px"/>
+                        <ListViewColumn Key="Status" Caption="状态" ColumnType="ComboBox" DataColumnKey="Status" IntegerValue="true" SourceType="Status"/>
+                        <ListViewColumn Key="Sender" Caption="发件人" DataColumnKey="Sender" Width="160px"/>
+                        <ListViewColumn Key="Topic" Caption="主题" DataColumnKey="Topic" Width="200px"/>
+                        <ListViewColumn Key="EmailTime" Caption="时间" ColumnType="DatePicker" DataColumnKey="EmailTime" Width="130px"/>
+                        <ListViewColumn Key="OID" Caption="OID" DataColumnKey="OID" Visible="false"/>
+                    </ListViewColumnCollection>
+                    <RowDblClick>
+                        <![CDATA[Open('OA_EmailOutbox', OID)]]>
+                    </RowDblClick>
+                </ListView>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+    <OnLoad>
+        <![CDATA[LoadData()]]>
+    </OnLoad>
+</Form>

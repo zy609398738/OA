@@ -1,0 +1,6 @@
+cms.PageExp.Local(
+	"data",
+    cms.DataExp.QueryList("
+		select name,photo from oa_employee_h where oid="&oa.TodoMidExp.queryEmpIDByID(cms.Yigo2MidExp.GetLoginOperator())
+    )
+)

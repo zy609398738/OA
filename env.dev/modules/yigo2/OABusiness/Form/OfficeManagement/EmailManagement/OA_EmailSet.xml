@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="OA_EmailSet" Caption="邮件设置" FormType="Entity" Platform="">
+    <DataSource>
+        <DataObject Key="OA_EmailSet" Caption="邮件设置" PrimaryTableKey="OA_EmailSet_H" NoPrefix="ES" PrimaryType="Entity">
+            <TableCollection>
+                <Table Key="OA_EmailSet_H" Caption="邮件设置" DBTableName="OA_EmailSet_H">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="NO" Caption="单据编号" DataType="Varchar"/>
+                    <Column Key="BillDate" Caption="单据日期" DataType="DateTime"/>
+                    <Column Key="Status" Caption="状态" DataType="Integer"/>
+                    <Column Key="ReceiverHost" Caption="接收邮件（POP3）地址" DataType="Varchar"/>
+                    <Column Key="SenderHost" Caption="发送邮件（SMTP）地址" DataType="Varchar"/>
+                    <Column Key="ReceiverPort" Caption="接收邮件（POP3）" DataType="Integer"/>
+                    <Column Key="SenderPort" Caption="发送邮件（SMTP）" DataType="Integer"/>
+                    <Column Key="UserName" Caption="用户名" DataType="Varchar"/>
+                    <Column Key="Email" Caption="电子邮件地址" DataType="Varchar"/>
+                    <Column Key="OperatorID" Caption="操作ID" DataType="Varchar"/>
+                    <Column Key="AutoReceive" Caption="自动接收" DataType="Integer"/>
+                    <Column Key="AutoReceRate" Caption="自动接收频率" DataType="Varchar"/>
+                    <Column Key="Creator" Caption="创建人" DataType="Long"/>
+                    <Column Key="CreateTime" Caption="创建日期" DataType="DateTime"/>
+                    <Column Key="Modifier" Caption="修改人" DataType="Long"/>
+                    <Column Key="ModifyTime" Caption="修改日期" DataType="DateTime"/>
+                    <Column Key="BillKey" Caption="单据Key" DataType="Varchar"/>
+                    <Column Key="ClusterID" Caption="集团" DataType="Long"/>
+                    <Column Key="IsDefault" Caption="默认" DataType="Integer"/>
+                    <Column Key="Password" Caption="密码" DataType="Varchar"/>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="Save" Caption="保存" RefKey="Save"/>
+        <Operation Key="Delete" Caption="删除" RefKey="Delete"/>
+        <Operation Key="Edit" Caption="编辑" RefKey="Edit"/>
+        <Operation Key="Cancel" Caption="取消" RefKey="Cancel"/>
+        <Operation Key="Close" Caption="关闭" RefKey="Close"/>
+    </OperationCollection>
+    <ScriptCollection>
+        <Script Key="Load" Caption="载入" Range="Action" Verb="Load">
+            <![CDATA[LoadData()]]>
+        </Script>
+    </ScriptCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板">
+                <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <TabPanel Caption="TabPanel1" Height="100%" Key="TabPanel1">
+                    <GridLayoutPanel Key="first_head" Padding="5px" Height="100%" OverflowY="Auto" Caption="基本信息">
+                        <Label Key="EmailServerSet" Caption="邮件接收服务器" X="0" Y="0" XSpan="2">
+                            <Format>
+                                <Font Size="12"/>
+                            </Format>
+                        </Label>
+                        <TextEditor Key="ReceiverHost" Caption="接收邮件（POP3）地址" BuddyKey="Lab_ReceiverHost" X="2" Y="1">
+                            <DataBinding TableKey="OA_EmailSet_H" ColumnKey="ReceiverHost"/>
+                        </TextEditor>
+                        <Label Key="Lab_ReceiverHost" Caption="接收邮件（POP3）地址" X="0" Y="1" XSpan="2"/>
+                        <TextEditor Key="SenderHost" Caption="发送邮件（SMTP）地址" BuddyKey="Lab_SenderHost" X="5" Y="1">
+                            <DataBinding TableKey="OA_EmailSet_H" ColumnKey="SenderHost"/>
+                        </TextEditor>
+                        <Label Key="Lab_SenderHost" Caption="发送邮件（SMTP）地址" X="3" Y="1" XSpan="2"/>
+                        <Label Key="ServerPort" Caption="服务器端口号" X="0" Y="2" XSpan="2"/>
+                        <NumberEditor Key="ReceiverPort" Caption="接收邮件（POP3）" BuddyKey="Lab_ReceiverPort" X="2" Y="3" IntegerValue="true">
+                            <DataBinding TableKey="OA_EmailSet_H" ColumnKey="ReceiverPort"/>
+                        </NumberEditor>
+                        <Label Key="Lab_ReceiverPort" Caption="接收邮件（POP3）" X="0" Y="3" XSpan="2"/>
+                        <NumberEditor Key="SenderPort" Caption="发送邮件（SMTP）" BuddyKey="Lab_SenderPort" X="5" Y="3" IntegerValue="true">
+                            <DataBinding TableKey="OA_EmailSet_H" ColumnKey="SenderPort"/>
+                        </NumberEditor>
+                        <Label Key="Lab_SenderPort" Caption="发送邮件（SMTP）" X="3" Y="3" XSpan="2"/>
+                        <Label Key="UserInfo" Caption="用户信息" X="0" Y="4" XSpan="2"/>
+                        <TextEditor Key="UserName" Caption="用户名" BuddyKey="Lab_UserName" X="2" Y="5">
+                            <DataBinding TableKey="OA_EmailSet_H" ColumnKey="UserName"/>
+                        </TextEditor>
+                        <Label Key="Lab_UserName" Caption="用户名" X="0" Y="5" XSpan="2"/>
+                        <TextEditor Key="Email" Caption="电子邮件地址" BuddyKey="Lab_Email" X="2" Y="6">
+                            <DataBinding TableKey="OA_EmailSet_H" ColumnKey="Email"/>
+                        </TextEditor>
+                        <Label Key="Lab_Email" Caption="电子邮件地址" X="0" Y="6" XSpan="2"/>
+                        <TextEditor Key="OperatorID" Caption="操作ID" BuddyKey="Lab_OperatorID" X="5" Y="6" Visible="false">
+                            <DataBinding TableKey="OA_EmailSet_H" ColumnKey="OperatorID" DefaultFormulaValue="GetOperator();"/>
+                        </TextEditor>
+                        <Label Key="Lab_OperatorID" Caption="操作ID" X="3" Y="6" XSpan="2"/>
+                        <Label Key="Other" Caption="其他设置" X="0" Y="7"/>
+                        <CheckBox Caption="自动接收" Key="AutoReceive" X="0" Y="8">
+                            <DataBinding TableKey="OA_EmailSet_H" ColumnKey="AutoReceive"/>
+                        </CheckBox>
+                        <ComboBox Key="AutoReceRate" Caption="接收频率" BuddyKey="Lab_AutoReceRate" X="2" Y="8" Visible="false" Height="pref">
+                            <DataBinding TableKey="OA_EmailSet_H" ColumnKey="AutoReceRate" DefaultValue="1800000"/>
+                            <Item Caption="30分钟" Key="1800000" Value="1800000"/>
+                        </ComboBox>
+                        <Label Key="Lab_AutoReceRate" Caption="接收频率" X="1" Y="8"/>
+                        <Button Key="TestConn" Caption="测试连接" X="3" Y="8" Enable="true">
+                            <OnClick>
+                                <![CDATA[IIF(InvokeService("OA_CheckEmailConnect", true, false,OperatorID),
+     Confirm("连接成功"), 
+     Confirm("连接失败，请检查配置"))]]>
+                            </OnClick>
+                        </Button>
+                        <ComboBox Key="IsDefault" Caption="默认" BuddyKey="Lab_IsDefault" X="5" Y="0" Visible="false" IntegerValue="true">
+                            <DataBinding TableKey="OA_EmailSet_H" ColumnKey="IsDefault" DefaultValue="0"/>
+                            <Item Caption="是" Key="1" Value="1"/>
+                            <Item Caption="否" Key="0" Value="0"/>
+                        </ComboBox>
+                        <Label Key="Lab_IsDefault" Caption="默认" X="3" Y="0"/>
+                        <PasswordEditor Key="Password" Caption="密码" BuddyKey="Lab_Password" X="5" Y="5">
+                            <DataBinding TableKey="OA_EmailSet_H" ColumnKey="Password"/>
+                        </PasswordEditor>
+                        <Label Key="Lab_Password" Caption="密码" X="3" Y="5" XSpan="2"/>
+                        <RowDefCollection RowGap="8">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="8">
+                            <ColumnDef Width="100px"/>
+                            <ColumnDef Width="70px"/>
+                            <ColumnDef Width="50%"/>
+                            <ColumnDef Width="100px"/>
+                            <ColumnDef Width="70px"/>
+                            <ColumnDef Width="50%"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <GridLayoutPanel Key="SysTab" Caption="系统信息">
+                        <Dict Key="Creator" Caption="创建人" BuddyKey="Lab_Creator" X="1" Y="0" Enable="false" ItemKey="Operator" XSpan="2">
+                            <DataBinding TableKey="OA_EmailSet_H" ColumnKey="Creator" DefaultFormulaValue="GetOperator()"/>
+                        </Dict>
+                        <Label Key="Lab_Creator" Caption="创建人" X="0" Y="0"/>
+                        <Dict Key="Modifier" Caption="修改人" BuddyKey="Lab_Modifier" X="1" Y="1" Enable="false" ItemKey="Operator" XSpan="2">
+                            <DataBinding TableKey="OA_EmailSet_H" ColumnKey="Modifier" DefaultFormulaValue="GetOperator()"/>
+                        </Dict>
+                        <DatePicker Key="CreateTime" Caption="创建日期" BuddyKey="Lab_CreateTime" X="5" Y="0" Enable="false" XSpan="2">
+                            <DataBinding TableKey="OA_EmailSet_H" ColumnKey="CreateTime" DefaultFormulaValue="ServerDate()"/>
+                        </DatePicker>
+                        <Label Key="Lab_CreateTime" Caption="创建时间" X="4" Y="0"/>
+                        <Label Key="Lab_Modifier" Caption="修改人" X="0" Y="1"/>
+                        <DatePicker Key="ModifyTime" Caption="修改日期" BuddyKey="Lab_ModifyTime" X="5" Y="1" Enable="false" XSpan="2">
+                            <DataBinding TableKey="OA_EmailSet_H" ColumnKey="ModifyTime" DefaultFormulaValue="ServerDate()"/>
+                        </DatePicker>
+                        <Label Key="Lab_ModifyTime" Caption="修改时间" X="4" Y="1"/>
+                        <TextEditor Key="BillKey" Caption="单据Key" BuddyKey="Lab_BillKey" X="9" Y="0" XSpan="2">
+                            <DataBinding TableKey="OA_EmailSet_H" ColumnKey="BillKey" DefaultFormulaValue="GetFormKey()"/>
+                        </TextEditor>
+                        <Label Key="Lab_BillKey" Caption="单据Key" X="8" Y="0"/>
+                        <Dict Key="ClusterID" Caption="集团" BuddyKey="Lab_ClusterID" X="9" Y="1" Enable="false" ItemKey="Client" XSpan="2">
+                            <DataBinding TableKey="OA_EmailSet_H" ColumnKey="ClusterID"/>
+                        </Dict>
+                        <Label Key="Lab_ClusterID" Caption="集团" X="8" Y="1"/>
+                        <TextEditor Key="NO" Caption="单据编号" BuddyKey="Lab_NO" X="1" Y="2" Enable="false" XSpan="2">
+                            <DataBinding TableKey="OA_EmailSet_H" ColumnKey="NO"/>
+                        </TextEditor>
+                        <Label Key="Lab_NO" Caption="单据编号" X="0" Y="2"/>
+                        <DatePicker Key="BillDate" Caption="单据日期" BuddyKey="Lab_BillDate" X="5" Y="2" XSpan="2">
+                            <DataBinding TableKey="OA_EmailSet_H" ColumnKey="BillDate"/>
+                        </DatePicker>
+                        <Label Key="Lab_BillDate" Caption="单据日期" X="4" Y="2"/>
+                        <ComboBox Key="Status" Caption="单据状态" BuddyKey="Lab_Status" X="9" Y="2" SourceType="Status" XSpan="2" IntegerValue="true">
+                            <DataBinding TableKey="OA_EmailSet_H" ColumnKey="Status" DefaultValue="100"/>
+                        </ComboBox>
+                        <Label Key="Lab_Status" Caption="单据状态" X="8" Y="2"/>
+                        <RowDefCollection RowGap="4">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="4">
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="33%"/>
+                            <ColumnDef Width="20px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="33%"/>
+                            <ColumnDef Width="20px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="34%"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                </TabPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Map Caption="资产借用余额到资产归还" Key="NJ_BorrowBalance_NJ_AssetsReturn" SrcDataObjectKey="NJ_BorrowBalance" TgtDataObjectKey="NJ_AssetsReturn">
+    <SourceTableCollection Height="450" Width="331" X="30" Y="30">
+        <SourceTable Key="NJ_BorrowBalance" IsPrimary="true" TargetTableKey="NJ_SCM_AssetCode">
+            <SourceField Definition="EmpID" TargetFieldKey="EmpID" TargetTableKey="NJ_SCM_AssetsReturnHead"/>
+            <SourceField Definition="UsePeople" TargetFieldKey="UsePeople" TargetTableKey="NJ_SCM_AssetsReturnHead"/>
+            <SourceField Definition="CustomerId" TargetFieldKey="CustomerId" TargetTableKey="NJ_SCM_AssetsReturnHead"/>
+            <SourceField Definition="assetstypeid" TargetFieldKey="assetstypeid"/>
+            <SourceField Definition="AssetsId" TargetFieldKey="AssetsBarId"/>
+            <SourceField Definition="Model" TargetFieldKey="Model"/>
+            <SourceField Definition="UNITID" TargetFieldKey="UNITID"/>
+            <SourceField Definition="WareHouseId" TargetFieldKey="WareHouseId"/>
+            <SourceField Definition="AssetNatureId" TargetFieldKey="AssetNatureId"/>
+            <SourceField Definition="AssetsCode" TargetFieldKey="AssetsCode"/>
+            <SourceField Definition="AssetsOID" TargetFieldKey="AssetsOID"/>
+        </SourceTable>
+    </SourceTableCollection>
+    <TargetTableCollection Height="510" Width="456" X="381" Y="30">
+        <TargetTable Key="NJ_SCM_AssetCode" IsPrimary="true">
+            <TargetField Definition="assetstypeid"/>
+            <TargetField Definition="AssetsBarId"/>
+            <TargetField Definition="Model"/>
+            <TargetField Definition="UNITID"/>
+            <TargetField Definition="WareHouseId"/>
+            <TargetField Definition="AssetNatureId"/>
+            <TargetField Definition="AssetsCode"/>
+            <TargetField Definition="AssetsOID"/>
+        </TargetTable>
+        <TargetTable Key="NJ_SCM_AssetsReturnHead">
+            <TargetField Definition="EmpID"/>
+            <TargetField Definition="UsePeople"/>
+            <TargetField Definition="CustomerId"/>
+        </TargetTable>
+    </TargetTableCollection>
+</Map>

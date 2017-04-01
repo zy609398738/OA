@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Entry Caption="根" Key="root">
+    <Entry Caption="测试维护" Icon="Bill.png" Key="OA_00_TestMaintain" Visible="false">
+        <EntryItem Caption="单据模板" FormKey="BillTemp" Key="BillTemp" Type="Form"/>
+        <EntryItem Caption="单据列表模板" FormKey="BillTempView" Key="BillTempView" Type="Form"/>
+        <EntryItem Caption="字典模板" FormKey="DictEdit" Key="DictTemp" Parameters="FormKey=DictTemp" Type="Form"/>
+        <EntryItem Caption="字典(带明细)模板" FormKey="DictEdit" Key="DictTempDetail" Parameters="FormKey=DictTempDetail" Type="Form"/>
+    </Entry>
+</Entry>

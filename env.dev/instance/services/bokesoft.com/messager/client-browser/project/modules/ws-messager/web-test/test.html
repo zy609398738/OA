@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test: ws-messager</title>
+    <script src="./test-bundle.js"></script>
+    <style>
+        #test-area select {
+            width: 100px;
+            height: 30px;
+        }
+        #test-area table {
+            border-collapse: collapse;
+            border: none;
+        }
+        #test-area td, #test-area th {
+            border: solid gray 1px;
+            height: 32px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Test: ws-messager</h1>
+    <p><i>Run <u><code>node test-server.js</code></u> at module root path, then open <u><code>http://localhost:8080/web-test/test.html</code></u> to run test.</i></p>
+    <hr/>
+	<div id="test-area">
+	    <div id="box" class="bokesoft-messager" style=" border:red 1px solid; padding: 12px">
+	        <h2 style="text-align: center">Test region</h2>
+	    </div>
+	    <hr/>
+		<div>
+			<h2>IM测试</h2>
+			<table>
+			  <tr>
+			    <th>指定用户初始化</th>
+			    <td>
+					<select id="boke-test-00X">
+						<option value="">(不指定)</option>
+						<option value="boke-test-002">测试用户2</option>
+						<option value="boke-test-003">测试用户3</option>
+						<option value="boke-test-005">测试用户5-上海博科资讯股份有限公司</option>
+						<option value="boke-test-007">测试用户7</option>
+					</select>
+			    </td>
+			    <td><a href="javascript:testSetupMessager()">[初始化 Messager]</a></td>
+			  </tr>
+			  <tr>
+			    <th>与指定用户聊天</th>
+			    <td></td>
+			    <td><a href="javascript:testPopupWithUserCode()">[连接到测试用户 002]</a></td>
+			  </tr>
+			  <tr>
+			    <th>当前会话的 token</th>
+			    <td><input id="boke-test-tokenX" readonly="readonly" style="width: 200px"/></td>
+			    <td><a href="javascript:testClearToken()">[清除 Token]</a></td>
+			  </tr>
+			</table>
+		</div>
+		<hr/>
+		<div>
+			<h2>黑名单测试</h2>
+			<table border="1">
+			  <tr>
+				<th colspan="4">加黑名单(服务端API)</th>
+			  </tr>
+			  <tr>
+				<th>UserCode</th>
+				<th>黑名单</th>
+				<th>单行操作</th>
+				<th>整体操作</th>
+			  </tr>
+			  <tr>
+				<td>
+					<select id="boke-test-0X0">
+						<option value="">(不指定)</option>
+						<option value="boke-test-001">测试用户1</option>
+						<option value="boke-test-002">测试用户2</option>
+						<option value="boke-test-003">测试用户3</option>
+						<option value="boke-test-004">测试用户4</option>
+					</select>
+				</td>
+				<td>
+					<select id="boke-test-1X0">
+						<option value="">(不指定)</option>
+						<option value="boke-test-001">测试用户1</option>
+						<option value="boke-test-002">测试用户2</option>
+						<option value="boke-test-003">测试用户3</option>
+						<option value="boke-test-004">测试用户4</option>
+					</select>
+					<select id="boke-test-2X0">
+						<option value="">(不指定)</option>
+						<option value="boke-test-005">测试用户5</option>
+						<option value="boke-test-006">测试用户6</option>
+						<option value="boke-test-007">测试用户7</option>
+						<option value="boke-test-008">测试用户8</option>
+					</select>
+				</td>
+				<td><a href="javascript:testUpdateBlacklist(0)">[更新黑名单]</a></td>
+				<td rowspan="2"><a href="javascript:testOverwriteBlacklist()">[更新黑名单(覆盖)]</a></td>
+			  </tr>
+			  <tr>
+				<td>
+					<select id="boke-test-0X1">
+					<option value="">(不指定)</option>
+					<option value="boke-test-005">测试用户5</option>
+					<option value="boke-test-006">测试用户6</option>
+					<option value="boke-test-007">测试用户7</option>
+					<option value="boke-test-008">测试用户8</option>
+					</select>
+				</td>
+				<td>
+					<select id="boke-test-1X1">
+					<option value="">(不指定)</option>
+					<option value="boke-test-001">测试用户1</option>
+					<option value="boke-test-002">测试用户2</option>
+					<option value="boke-test-003">测试用户3</option>
+					<option value="boke-test-004">测试用户4</option>
+					</select>
+					<select id="boke-test-2X1">
+					<option value="">(不指定)</option>
+					<option value="boke-test-005">测试用户5</option>
+					<option value="boke-test-006">测试用户6</option>
+					<option value="boke-test-007">测试用户7</option>
+					<option value="boke-test-008">测试用户8</option>
+					</select>				
+				</td>
+				<td><a href="javascript:testUpdateBlacklist(1)">[更新黑名单]</a></td>
+			  </tr>
+			</table>
+		</div>
+	</div>
+</body>
+</html>

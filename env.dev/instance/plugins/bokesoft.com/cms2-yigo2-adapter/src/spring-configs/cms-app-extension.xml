@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+                           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+                           http://www.bokesoft.com/spring/schema/util http://www.bokesoft.com/spring/schema/boke-util.xsd
+                           http://www.bokesoft.com/spring/schema/context http://www.bokesoft.com/spring/schema/boke-context.xsd
+                           ">
+    <!-- 配置 Yigo 登录用户的适配器;
+         在实际项目中，可以根据需要重新定义这个 bean, 只要其 ID 是 ”cmsIdentityAdapter“, 即可替换系统默认的适配器
+     -->
+    <bean id="cmsIdentityAdapter" class="com.bokesoft.r2.cms2.adapter.yigo2.support.DefaultYigo2IdentityAdapter"/>
+    
+	<!-- 内置的一些扩展 Action 定义, 主要是和读取 Yigo 2.0 Solution 子目录 /Data 下的文件相关 -->
+    <bean class="com.bokesoft.r2.cms2.adapter.yigo2.support.BuildinExtendActionReader"/>
+    
+    <!-- 替换内置的 "designerActionAccessListener"(BuildinDesignerActionAccessListener),
+         支持与 Yigo 2.0 权限模型相关的 CMS 设计器权限控制
+     -->
+    <bean id="designerActionAccessListener"
+          class="com.bokesoft.r2.cms2.adapter.yigo2.support.Yigo2DesignerActionAccessListener"/>
+</beans>

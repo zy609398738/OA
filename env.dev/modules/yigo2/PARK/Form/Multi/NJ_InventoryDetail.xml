@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="NJ_InventoryDetail" Caption="库存资产" FormType="Entity" AbbrCaption="库存资产" InitState="Default" ViewKey="NJ_InventoryDetailView">
+    <DataSource>
+        <DataObject Key="NJ_InventoryDetail" Caption="库存资产" PrimaryTableKey="NJ_InventoryDetail" PrimaryType="Entity">
+            <TableCollection>
+                <Table Key="NJ_InventoryDetail" Caption="NJ_InventoryDetail" DBTableName="NJ_InventoryDetail" TableMode="Detail" SourceType="Query" Persist="false">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="AssetsId" Caption="AssetsId" DataType="Long"/>
+                    <Column Key="assetstypeid" Caption="assetstypeid" DataType="Long"/>
+                    <Column Key="Model" Caption="Model" DataType="Varchar"/>
+                    <Column Key="UNITID" Caption="UNITID" DataType="Long"/>
+                    <Column Key="Amount" Caption="Amount" DataType="Integer"/>
+                    <Column Key="WareHouseId" Caption="WareHouseId" DataType="Long"/>
+                    <Column Key="MapCount" Caption="映射数量标记" DataType="Integer"/>
+                    <Column Key="AssetNatureId" Caption="AssetNatureId" DataType="Long"/>
+                    <Statement>
+                        <![CDATA[select * FROM NJ_Inventory WHERE amount>0]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="WORKITEM" Caption="WORKITEM" Tag="WORKITEM"/>
+        <Operation Key="BPM" Caption="BPM" Tag="BPM"/>
+    </OperationCollection>
+    <ScriptCollection>
+        <Script Key="Load" Caption="载入" Description="载入事件" Range="Action" Verb="Load">
+            <![CDATA[
+		LoadData();ShowData()
+		]]>
+        </Script>
+    </ScriptCollection>
+    <Body HAlign="Center" Height="80%" PopHeight="80%" PopWidth="80%" Width="80%">
+        <Block>
+            <GridLayoutPanel Key="main" Height="100%">
+                <ToolBar Key="main_toolbar" X="0" Y="0">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <SplitPanel Key="main_split" Orientation="Vertical" Height="100%" X="0" Y="1">
+                    <GridLayoutPanel Key="query" Height="70px" Padding="5px" Caption="查询">
+                        <Button Key="Btn_find" Caption="查询" X="7" Y="0" Enable="true">
+                            <OnClick>
+                                <![CDATA[DealCondition();LoadData();ShowData();								]]>
+                            </OnClick>
+                        </Button>
+                        <Button Key="XIATUI" Caption="下推" X="7" Y="1" Enable="true" Visible="Length(GetPara('key'))&gt;0;">
+                            <OnClick>
+                                <![CDATA[IIFS
+(
+GetPara('key')=='NJ_AssetBorrow', ViewMap('NJ_InventoryDetail_NJ_AssetBorrow',false),
+GetPara('key')=='NJ_AssetTransfer', ViewMap('NJ_InventoryDetail_NJ_AssetTransfer',false),
+GetPara('key')=='NJ_InAssetDisposal', ViewMap('NJ_InventoryDetail_NJ_InAssetDisposal',false),
+GetPara('key')=='NJ_AssetCollar', ViewMap('NJ_InventoryDetail_NJ_AssetCollar',false),
+GetPara('key')=='NJ_AssetsInventory', ViewMap('NJ_InventoryDetail_NJ_AssetsInventory',false),
+GetPara('key')=='NJ_AssetLeasing', ViewMap('NJ_InventoryDetail_NJ_AssetLeasing',false)
+);
+Close();]]>
+                            </OnClick>
+                        </Button>
+                        <Label Key="Lab_FYHJ" Caption="合计：" X="4" Y="1" Visible="Length(GetPara('key'))&gt;0;">
+                            <Format ForeColor="#cc3333">
+                                <Font Bold="true" Italic="true"/>
+                            </Format>
+                        </Label>
+                        <NumberEditor Key="FYHJ" Caption="费用合计" BuddyKey="Lab_FYHJ" X="5" Y="1" Enable="False" Visible="Length(GetPara('key'))&gt;0;" Scale="0">
+                            <Format ForeColor="#cc3333">
+                                <Font Bold="true" Italic="true"/>
+                            </Format>
+                        </NumberEditor>
+                        <Dict Key="AssetsId_cond" Caption="资产名称" BuddyKey="Lab_AssetsId_cond" X="2" Y="0" Enable="true" AllowMultiSelection="true" Clearable="false" ItemKey="NJ_assets">
+                            <Condition ColumnKey="AssetsId" TableKey="NJ_InventoryDetail" CondSign="in"/>
+                        </Dict>
+                        <Label Key="Lab_AssetsId_cond" Caption="资产名称" X="1" Y="0"/>
+                        <Dict Key="WareHouseId_cond" Caption="资产大类" BuddyKey="Lab_WareHouseId_cond" X="5" Y="0" Enable="true" AllowMultiSelection="true" Clearable="false" ItemKey="NJ_WareHouse">
+                            <Condition ColumnKey="WareHouseId" TableKey="NJ_InventoryDetail" CondSign="in"/>
+                        </Dict>
+                        <Label Key="Lab_WareHouseId_cond" Caption="资产大类" X="4" Y="0"/>
+                        <Dict Key="assetstypeid_cond" Caption="资产类别" BuddyKey="Lab_assetstypeid_cond" X="2" Y="1" Enable="true" AllowMultiSelection="true" ItemKey="NJ_assetstype" Clearable="false">
+                            <Condition ColumnKey="assetstypeid" TableKey="NJ_InventoryDetail" CondSign="in"/>
+                        </Dict>
+                        <Label Key="Lab_assetstypeid_cond" Caption="资产类别" X="1" Y="1"/>
+                        <Button Key="dc" Caption="导出" X="9" Y="1" Enable="true">
+                            <OnClick>
+                                <![CDATA[UIExportExcel(true);
+Confirm("导出成功！               ")]]>
+                            </OnClick>
+                        </Button>
+                        <Button Key="cz" Caption="重置" X="9" Y="0" Enable="true">
+                            <OnClick>
+                                <![CDATA[ResetCondition();]]>
+                            </OnClick>
+                        </Button>
+                        <RowDefCollection RowHeight="25" RowGap="5">
+                            <RowDef/>
+                            <RowDef/>
+                        </RowDefCollection>
+                        <ColumnDefCollection>
+                            <ColumnDef Width="20px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="50%"/>
+                            <ColumnDef Width="20px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="50%"/>
+                            <ColumnDef Width="20px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="10px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="20px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <Grid Key="Info" Caption="库存明细" NewEmptyRow="false" Enable="true" CanDelete="false" CanInsert="false" CanShift="false">
+                        <GridColumnCollection>
+                            <GridColumn Key="c1" Caption="选择" Enable="false" Width="76px" Visible="Length(GetPara('key'))&gt;0;"/>
+                            <GridColumn Key="AssetsId" Caption="资产名称" Width="80px"/>
+                            <GridColumn Key="cxbm" Caption="查看编码" Width="80px"/>
+                            <GridColumn Key="WareHouseId" Caption="资产大类" Width="80px"/>
+                            <GridColumn Key="assetstypeid" Caption="资产类别" Width="80px"/>
+                            <GridColumn Key="AssetNatureId" Caption="资产性质" Width="80px"/>
+                            <GridColumn Key="Model" Caption="规格型号" Width="80px"/>
+                            <GridColumn Key="UNITID" Caption="计量单位" Width="80px"/>
+                            <GridColumn Key="Amount" Caption="库存数量" Width="80px" Visible="false"/>
+                            <GridColumn Key="kcsl" Caption="库存数量" Width="80px"/>
+                            <GridColumn Key="lysl" Caption="下推数量" Width="80px" Visible="Length(GetPara('key'))&gt;0;"/>
+                        </GridColumnCollection>
+                        <GridRowCollection>
+                            <GridRow Key="R2" TableKey="NJ_InventoryDetail">
+                                <GridCell Key="select" Caption="选择" CellType="CheckBox" Enable="true" IsSelect="true">
+                                    <DataBinding>
+                                        <ValueChanged>
+                                            <![CDATA[var sum_select=0;
+loop 'Info' (select)  
+{   
+sum_select =sum_select+lysl;
+};
+SetValue("FYHJ",sum_select); ]]>
+                                        </ValueChanged>
+                                    </DataBinding>
+                                </GridCell>
+                                <GridCell Key="AssetsId" Caption="资产名称" CellType="Dict" Enable="false" ItemKey="NJ_assets">
+                                    <DataBinding ColumnKey="AssetsId"/>
+                                </GridCell>
+                                <GridCell Key="cxbm" Caption="查看编码" CellType="Button" Enable="true">
+                                    <OnClick>
+                                        <![CDATA[ShowModal("NJ_AssetsCode", {key:{1},Assets:{AssetsId},_Amount:{Amount}});]]>
+                                    </OnClick>
+                                </GridCell>
+                                <GridCell Key="WareHouseId" Caption="资产大类" CellType="Dict" Enable="false" ItemKey="NJ_WareHouse">
+                                    <DataBinding ColumnKey="WareHouseId"/>
+                                </GridCell>
+                                <GridCell Key="assetstypeid" Caption="资产类别" CellType="Dict" Enable="false" ItemKey="NJ_assetstype">
+                                    <DataBinding ColumnKey="assetstypeid"/>
+                                </GridCell>
+                                <GridCell Key="AssetNatureId" Caption="资产性质" CellType="Dict" Enable="false" ItemKey="NJ_AssetNature">
+                                    <DataBinding ColumnKey="AssetNatureId"/>
+                                </GridCell>
+                                <GridCell Key="Model" Caption="规格型号" CellType="TextEditor" Enable="false">
+                                    <DataBinding ColumnKey="Model"/>
+                                </GridCell>
+                                <GridCell Key="UNITID" Caption="计量单位" CellType="Dict" Enable="false" ItemKey="NJ_UNIT">
+                                    <DataBinding ColumnKey="UNITID"/>
+                                </GridCell>
+                                <GridCell Key="Amount" Caption="库存数量" CellType="NumberEditor" Enable="false" Scale="0" IntegerValue="true">
+                                    <DataBinding ColumnKey="Amount"/>
+                                    <CellFormat HAlign="Right"/>
+                                </GridCell>
+                                <GridCell Key="kcsl" Caption="库存数量" CellType="NumberEditor" Enable="false" IntegerValue="true">
+                                    <DataBinding ColumnKey="Amount"/>
+                                    <CellFormat HAlign="Right"/>
+                                </GridCell>
+                                <GridCell Key="lysl" Caption="下推数量" CellType="NumberEditor" Enable="true" IntegerValue="true">
+                                    <DataBinding>
+                                        <ValueChanged>
+                                            <![CDATA[IIF(lysl>0, IIF(kcsl<lysl,Confirm('领用数量不能大于库存数量，请检查！')&lysl=0&Amount=kcsl,Amount=lysl), true);
+var sum_select=0;
+loop 'Info' (select)  
+{   
+sum_select =sum_select+lysl;
+};
+SetValue("FYHJ",sum_select); ]]>
+                                        </ValueChanged>
+                                    </DataBinding>
+                                    <CellFormat HAlign="Right"/>
+                                </GridCell>
+                            </GridRow>
+                        </GridRowCollection>
+                    </Grid>
+                    <SplitSize Size="70px"/>
+                    <SplitSize Size="100%"/>
+                </SplitPanel>
+                <RowDefCollection RowHeight="25">
+                    <RowDef Height="0px"/>
+                    <RowDef Height="100%"/>
+                </RowDefCollection>
+                <ColumnDefCollection>
+                    <ColumnDef Width="100%"/>
+                </ColumnDefCollection>
+            </GridLayoutPanel>
+        </Block>
+    </Body>
+</Form>

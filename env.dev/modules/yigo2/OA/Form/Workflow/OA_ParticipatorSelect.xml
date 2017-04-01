@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="OA_ParticipatorSelect" Caption="处理人选择">
+    <DataSource>
+        <DataObject Key="OA_ParticipatorSelect" Caption="处理人选择">
+            <TableCollection>
+                <Table Key="OA_ParticipatorSelect" Caption="处理人选择" TableMode="Detail" SourceType="Query" Persist="false">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="SelField" Caption="选择" DataType="Integer"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="CODE" DataType="Varchar" Caption="代码"/>
+                    <Column Key="NAME" Caption="名称" DataType="Varchar"/>
+                    <Statement>
+                        <![CDATA[select 0 SelField,OID,CODE,NAME from sys_operator where 1=2]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <Body PopHeight="600px" PopWidth="350px">
+        <Block>
+            <SplitPanel Key="SplitPanel1" Orientation="Vertical" Caption="SplitPanel1">
+                <Grid Key="Grid1" Caption="Grid1" Enable="false" NewEmptyRow="false">
+                    <GridColumnCollection>
+                        <GridColumn Key="SelField" Caption="选择" Width="80px"/>
+                        <GridColumn Key="OID" Caption="操作员" Width="80px" Visible="false"/>
+                        <GridColumn Key="NAME" Caption="名称" Width="80px"/>
+                        <GridColumn Key="Code" Caption="代码" Width="80px"/>
+                    </GridColumnCollection>
+                    <GridRowCollection>
+                        <GridRow Key="row1" RowHeight="35" TableKey="OA_ParticipatorSelect">
+                            <GridCell Key="SelField" Caption="选择" CellType="CheckBox" Enable="true" IsSelect="true">
+                                <DataBinding ColumnKey="SelField"/>
+                            </GridCell>
+                            <GridCell Key="OID" Caption="操作员" CellType="Dict" ItemKey="Operator">
+                                <DataBinding ColumnKey="OID"/>
+                            </GridCell>
+                            <GridCell Key="NAME" Caption="名称">
+                                <DataBinding ColumnKey="NAME"/>
+                            </GridCell>
+                            <GridCell Key="Code" Caption="代码">
+                                <DataBinding ColumnKey="CODE"/>
+                            </GridCell>
+                        </GridRow>
+                    </GridRowCollection>
+                </Grid>
+                <GridLayoutPanel Key="GridLayoutPanel1" Caption="GridLayoutPanel1">
+                    <Button Key="OK" Caption="确定" X="1" Y="0">
+                        <OnClick>
+                            <![CDATA[var ids=InvokeService("OA_GetSelectRowColumn",true,false,"OA_ParticipatorSelect","SelField","OID",",");
+parent.SetValue("NextOpt", ids);
+Close();]]>
+                        </OnClick>
+                    </Button>
+                    <Button Key="Cancel" Caption="取消" X="2" Y="0">
+                        <OnClick>
+                            <![CDATA[Close();]]>
+                        </OnClick>
+                    </Button>
+                    <RowDefCollection RowGap="5">
+                        <RowDef Height="30px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="5">
+                        <ColumnDef Width="100%"/>
+                        <ColumnDef Width="100px"/>
+                        <ColumnDef Width="100px"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+                <SplitSize Size="100%"/>
+                <SplitSize Size="30px"/>
+            </SplitPanel>
+        </Block>
+    </Body>
+    <OnPostShow>
+        <![CDATA[if(IsNull(Para("ParticipatorIDs")) || Para("ParticipatorIDs")==""){
+    SetPara("ParticipatorIDs", -1); 
+}
+
+if(IsNull(Para("NextOpt")) || Para("NextOpt")==""){
+    SetPara("NextOpt", -1);
+}
+
+var sql="select coalesce(SelField,0) SelField,o.OID,o.CODE,o.NAME 
+from (Select OID,CODE,NAME from sys_operator 
+    where OID in ("&Para("ParticipatorIDs")&")) o 
+left join (select 1 SelField,OID from sys_operator 
+    where OID in ("&Para("NextOpt")&")) s on o.OID=s.OID 
+order by convert(o.name using gbk) asc";
+
+FillGridData("Grid1", DBQuery(sql));
+]]>
+    </OnPostShow>
+</Form>

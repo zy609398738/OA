@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="OA_SpoFileView" Caption="发文列表" FormType="View">
+    <DataSource>
+        <DataObject Key="OA_SpoFileView" Caption="发文列表">
+            <TableCollection>
+                <Table Key="OA_SpoFile_H" Caption="发文列表" TableMode="Detail" SourceType="Query" Persist="false">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="NO" Caption="发文编号" DataType="Varchar"/>
+                    <Column Key="Status" Caption="状态" DataType="Integer"/>
+                    <Column Key="BillDate" Caption="发文日期" DataType="DateTime"/>
+                    <Column Key="Topic" Caption="发文标题" DataType="Varchar"/>
+                    <Column Key="SubjectHead" Caption="主题词" DataType="Varchar"/>
+                    <Column Key="LordSend" Caption="主送机关" DataType="Varchar"/>
+                    <Column Key="CcAuthority" Caption="抄送机关" DataType="Varchar"/>
+                    <Column Key="Proof" Caption="校对" DataType="Integer"/>
+                    <Column Key="Dispatching" Caption="封发" DataType="Integer"/>
+                    <Column Key="DeptID" Caption="发文部门" DataType="Long"/>
+                    <Column Key="EmpID" Caption="发文人员" DataType="Long"/>
+                    <Column Key="Creator" Caption="创建人员" DataType="Long"/>
+                    <ParameterCollection>
+                        <Parameter Formula="GetOperator();"/>
+                        <Parameter Formula="GetPara('ViewAcl')"/>
+                    </ParameterCollection>
+                    <Statement>
+                        <![CDATA[select * from (select *  from OA_SpoFile_H where (Creator=? or CONCAT(',',OptIDs,',') like ? )order by BillDate desc) h]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="New" Caption="拟稿">
+            <Action>
+                <![CDATA[New('OA_SpoFile');]]>
+            </Action>
+        </Operation>
+        <Operation Key="Setfirst_headVisible" Caption="查询" RefKey="Setfirst_headVisible"/>
+    </OperationCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板">
+                <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <GridLayoutPanel Key="first_head" Height="40px" Caption="基本信息" Visible="first_headVisible==1">
+                    <DatePicker Key="From" Caption="发文日期 从" BuddyKey="Lab_From" X="1" Y="0">
+                        <Condition ColumnKey="BillDate" TableKey="OA_SpoFile_H" CondSign="between" Group="aa" GroupHead="true"/>
+                    </DatePicker>
+                    <Label Key="Lab_From" Caption="发文日期 从" X="0" Y="0"/>
+                    <DatePicker Key="To" Caption="到" BuddyKey="Lab_To" X="3" Y="0">
+                        <Condition ColumnKey="BillDate" TableKey="OA_SpoFile_H" CondSign="between" Group="aa" GroupTail="true"/>
+                    </DatePicker>
+                    <Label Key="Lab_To" Caption="到" X="2" Y="0"/>
+                    <Button Key="Query" Caption="查询" X="6" Y="0">
+                        <OnClick>
+                            <![CDATA[DealCondition();
+LoadData();
+ShowData();]]>
+                        </OnClick>
+                    </Button>
+                    <Button Key="Reset" Caption="重置" X="7" Y="0">
+                        <OnClick>
+                            <![CDATA[ResetCondition();]]>
+                        </OnClick>
+                    </Button>
+                    <CheckListBox BuddyKey="Lab_QueryStatus" Caption="状态" Key="QueryStatus" X="1" Y="1" Visible="false">
+                        <Condition ColumnKey="Status" TableKey="OA_SpoFile_H" CondSign="in"/>
+                    </CheckListBox>
+                    <Label Key="Lab_QueryStatus" Caption="状态" X="0" Y="1"/>
+                    <Dict Key="QueryCreator" Caption="创建人员" BuddyKey="Lab_QueryCreator" X="5" Y="0" ItemKey="Operator" AllowMultiSelection="true">
+                        <Condition ColumnKey="Creator" TableKey="OA_SpoFile_H" CondSign="in"/>
+                    </Dict>
+                    <Label Key="Lab_QueryCreator" Caption="创建人员" X="4" Y="0"/>
+                    <CheckListBox BuddyKey="Lab_QueryProof" Caption="校对" Key="QueryProof" X="1" Y="1" Visible="false">
+                        <Condition ColumnKey="Proof" TableKey="OA_SpoFile_H" CondSign="in"/>
+                        <Item Key="0" Value="0"/>
+                        <Item Caption="是" Key="10" Value="10"/>
+                        <Item Caption="否" Key="20" Value="20"/>
+                    </CheckListBox>
+                    <Label Key="Lab_QueryProof" Caption="校对" X="0" Y="1"/>
+                    <CheckListBox BuddyKey="Lab_QueryDispatching" Caption="封发" Key="QueryDispatching" X="1" Y="1" Visible="false">
+                        <Condition ColumnKey="Dispatching" TableKey="OA_SpoFile_H" CondSign="in"/>
+                        <Item Key="0" Value="0"/>
+                        <Item Caption="是" Key="10" Value="10"/>
+                        <Item Caption="否" Key="20" Value="20"/>
+                    </CheckListBox>
+                    <Label Key="Lab_QueryDispatching" Caption="封发" X="0" Y="1"/>
+                    <CheckBox Caption="表头可见" Key="first_headVisible" Visible="false" X="2" Y="1">
+                        <DataBinding DefaultValue="1"/>
+                    </CheckBox>
+                    <RowDefCollection RowGap="8">
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="8">
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="33%"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="33%"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="34%"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="80px"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+                <ListView Caption="ListView1" Key="ListView1" PageLoadType="DB" TableKey="OA_SpoFile_H" Height="100%">
+                    <ListViewColumnCollection>
+                        <ListViewColumn Key="NO" Caption="发文编号" DataColumnKey="NO" Width="150px"/>
+                        <ListViewColumn Key="Status" Caption="状态" ColumnType="ComboBox" DataColumnKey="Status" Visible="false" IntegerValue="true" SourceType="Status"/>
+                        <ListViewColumn Key="BillDate" Caption="发文日期" ColumnType="DatePicker" DataColumnKey="BillDate" Width="130px"/>
+                        <ListViewColumn Key="Topic" Caption="发文标题" DataColumnKey="Topic" Width="200px"/>
+                        <ListViewColumn Key="SubjectHead" Caption="主题词" DataColumnKey="SubjectHead" Visible="false" Width="200px"/>
+                        <ListViewColumn Key="Proof" Caption="校对" ColumnType="ComboBox" DataColumnKey="Proof" Visible="false">
+                            <Item Key="0" Value="0"/>
+                            <Item Caption="是" Key="10" Value="10"/>
+                            <Item Caption="否" Key="20" Value="20"/>
+                        </ListViewColumn>
+                        <ListViewColumn Key="Dispatching" Caption="封发" ColumnType="ComboBox" DataColumnKey="Dispatching" Visible="false">
+                            <Item Key="0" Value="0"/>
+                            <Item Caption="是" Key="10" Value="10"/>
+                            <Item Caption="否" Key="20" Value="20"/>
+                        </ListViewColumn>
+                        <ListViewColumn Key="DeptID" Caption="发文部门" ColumnType="Dict" DataColumnKey="DeptID" Width="130px" ItemKey="OA_Department"/>
+                        <ListViewColumn Key="EmpID" Caption="发文人员" ColumnType="Dict" DataColumnKey="EmpID" Width="100px" ItemKey="OA_Employee"/>
+                        <ListViewColumn Key="Creator" Caption="创建人员" ColumnType="Dict" DataColumnKey="Creator" Width="100px" ItemKey="Operator"/>
+                        <ListViewColumn Key="OID" Caption="OID" DataColumnKey="OID" Visible="false"/>
+                    </ListViewColumnCollection>
+                    <RowDblClick>
+                        <![CDATA[Open('OA_SpoFile', OID)]]>
+                    </RowDblClick>
+                </ListView>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+    <OnLoad>
+        <![CDATA[LoadData()]]>
+    </OnLoad>
+    <FormParaCollection>
+        <FormPara DataType="Varchar" Formula="'%,' &amp; ToString(GetOperator()) &amp; ',%';" Key="ViewAcl" Type="Formula"/>
+    </FormParaCollection>
+</Form>

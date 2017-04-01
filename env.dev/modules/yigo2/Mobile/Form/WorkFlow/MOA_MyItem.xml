@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="MOA_MyItem" Caption="个人事项" FormType="View">
+    <Body PopHeight="60%" PopWidth="60%">
+        <Block>
+            <NavigationList Caption="模块列表" Key="ModelList" ColumnCount="4" AllEntryFilter="false" Height="60%" Width="60%" ImageScaleType="Fit_XY">
+                <NavigationItemCollection>
+                    <NavigationItem Caption="已办事项" Key="MyList" Icon="Mobile_items.png">
+                        <![CDATA[Show("MOA_MyList");]]>
+                    </NavigationItem>
+                    <NavigationItem Caption="待办事项" Key="ToDoList" Icon="Mobile_items.png">
+                        <![CDATA[Show("MOA_ToDoList");]]>
+                    </NavigationItem>
+                    <NavigationItem Caption="结束事项" Key="EndList" Icon="Mobile_items.png">
+                        <![CDATA[Show("MOA_EndList");]]>
+                    </NavigationItem>
+                    <NavigationItem Caption="已发事项" Key="SendList" Icon="Mobile_items.png">
+                        <![CDATA[Show("MOA_SendList");]]>
+                    </NavigationItem>
+                    <NavigationItem Caption="驳回事项" Key="RejectList" Icon="Mobile_items.png">
+                        <![CDATA[Show("MOA_RejectList");]]>
+                    </NavigationItem>
+                </NavigationItemCollection>
+            </NavigationList>
+        </Block>
+    </Body>
+</Form>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="MOA_MeetingHomePage" Caption="会议管理界面" FormType="View">
+    <Body>
+        <Block>
+            <NavigationList Caption="模块列表" Key="ModelList" ColumnCount="4" AllEntryFilter="false" ImageScaleType="Fit_XY">
+                <NavigationItemCollection>
+                    <NavigationItem Caption="会议列表" Icon="Mobile_items.png" Key="MOA_MeetingInSideView">
+                        <![CDATA[Show("MOA_MeetingInSideView");]]>
+                    </NavigationItem>
+                    <NavigationItem Caption="我参与的" Icon="Mobile_items.png" Key="MOA_ParticipantMList">
+                        <![CDATA[Show("MOA_ParticipantMList");]]>
+                    </NavigationItem>
+                    <NavigationItem Caption="共享给我的" Icon="Mobile_items.png" Key="MOA_SharedMList">
+                        <![CDATA[Show("MOA_SharedMList");]]>
+                    </NavigationItem>
+                    <NavigationItem Caption="我发起的" Icon="Mobile_items.png" Key="MOA_SponsorMList">
+                        <![CDATA[Show("MOA_SponsorMList");]]>
+                    </NavigationItem>
+                </NavigationItemCollection>
+            </NavigationList>
+        </Block>
+    </Body>
+</Form>

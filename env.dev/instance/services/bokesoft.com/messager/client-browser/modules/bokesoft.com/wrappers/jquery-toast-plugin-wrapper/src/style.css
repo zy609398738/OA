@@ -1,0 +1,41 @@
+a {
+	color:#3C6E31;
+	text-decoration: underline;
+ }
+a:hover {
+	background-color:#3C6E31;
+	color:white;
+}
+
+ul.ztree {
+	margin-top: 10px;
+	border: 1px solid #617775;
+	background: #f0f6e4;
+	width:220px;
+	height:360px;
+	overflow-y:scroll;
+	overflow-x:auto;
+}
+
+/* ruler */
+div.ruler {
+	height:20px; 
+	width:220px; 
+	background-color:#f0f6e4;
+	border: 1px solid #333; 
+	margin-bottom: 5px; 
+	cursor: pointer
+}
+div.ruler div.cursor {
+	height:20px; 
+	width:30px; 
+	background-color:#3C6E31; 
+	color:white; 
+	text-align: right;
+	padding-right: 5px; 
+	cursor: pointer
+}
+
+.test{
+	margin-bottom:30px;
+}

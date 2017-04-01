@@ -1,0 +1,73 @@
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	    <meta http-equiv="Content-Type" content="application/x-javascript;charset=UTF-8">
+	    <script type="text/javascript" src="common/jquery/jquery-1.10.2.js"></script>
+		<script type="text/javascript" src="common/jquery/jstz-1.0.4.min.js"></script>
+		<style type="text/css">
+			* {
+				padding: 0;
+				margin: 0
+			}
+			
+		</style>
+		
+		
+		<script type="text/javascript">
+		   function AddListeners (){
+		     var elemToCheck = document.getElementById("myDiv");
+		       if(elemToCheck.addEventListener){ // Firefox, Opera and Safari
+		           elemToCheck.addEventListener('DOMAttrModified', OnAttrModified, false);
+		       } else if(elemToCheck.attachEvent){  // Internet Explorer
+		           elemToCheck.attachEvent('onpropertychange', OnAttrModified);
+		       }  
+		   }  
+		      
+		   function OnAttrModified (event) {  
+		      var txt = "";  
+		      if (event.attrChange) {  
+		         // Firefox, Safari, Opera  
+		         txt += "The element: " + event.target;  
+		         txt += "\nproperty: " + event.attrName;  
+		         txt += "\noriginal value: " + event.prevValue;  
+		         txt += "\n changed to: " + event.newValue;  
+		       } else {  
+		          // Internet Explorer  
+		          txt += "The element: " + event.srcElement.tagName;  
+		          txt += "\nproperty: " + event.propertyName;  
+		     
+		          var elem = event.srcElement;  
+		          txt += "\nchanged value: " + elem.attributes[event.propertyName].value;  
+		       }  
+		          alert (txt);  
+		    }  
+		      
+		    function ChangeDDD () {  
+		       var div = document.getElementById ("myDiv");
+		       var nv=Math.random()+"";
+		       //$(div).attr("ddd", "true");
+		       div.setAttribute("ddd", "true");
+		       
+		       div.innerHTML = "true......";
+		    }  
+		    function ChangeDDD2 () {  
+		       var div = document.getElementById ("myDiv");
+		       var nv=Math.random()+"";
+		       $(div).attr("ddd", "false");
+
+		       div.innerHTML = "false......";
+		       
+		    }  
+	  </script> 
+	  
+	</head>
+	
+	<body onload="AddListeners();"> 
+	  <button onclick="ChangeDDD();">===attr true===</button> 
+	  <button onclick="ChangeDDD2();">===attr false===</button> 
+	  <div id="myDiv" class="Old Attribute"> 
+	    231111111111 
+	    
+	  </div> 
+	</body> 
+</html>

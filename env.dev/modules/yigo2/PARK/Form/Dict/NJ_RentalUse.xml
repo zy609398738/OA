@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="NJ_RentalUse" Caption="租赁用途" FormType="Dict">
+    <DataSource>
+        <DataObject Key="NJ_RentalUse" Caption="租赁用途" PrimaryTableKey="NJ_CP_RentalUse" SecondaryType="Dict" PrimaryType="Entity">
+            <TableCollection>
+                <Table Key="NJ_CP_RentalUse" Caption="NJ_CP_RentalUse" DBTableName="NJ_CP_RentalUse">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="Status" Caption="状态" DataType="Integer" DefaultValue="1"/>
+                    <Column Key="Creator" Caption="创建人员" DataType="Long"/>
+                    <Column Key="CreateTime" Caption="创建时间" DataType="DateTime"/>
+                    <Column Key="Modifier" Caption="修改人员" DataType="Long"/>
+                    <Column Key="ModifyTime" Caption="修改时间" DataType="DateTime"/>
+                    <Column Key="Notes" Caption="备注" DataType="Varchar"/>
+                    <Column Key="BillKey" Caption="单据Key" DataType="Varchar"/>
+                    <Column Key="ClusterID" Caption="集团" DataType="Long"/>
+                    <Column Key="Code" Caption="代码" DataType="Varchar" Length="50"/>
+                    <Column Key="Name" Caption="名称" DataType="Varchar" Length="100"/>
+                    <Column Key="Enable" Caption="启用标记" DataType="Integer"/>
+                    <Column Key="ParentID" Caption="父节点" DataType="Long"/>
+                    <Column Key="NodeType" Caption="节点类型" DataType="Integer"/>
+                    <Column Key="TLeft" Caption="TLeft" DataType="Integer"/>
+                    <Column Key="TRight" Caption="TRight" DataType="Integer"/>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="FlexFlowLayoutPanel1" Caption="FlexFlowLayoutPanel1">
+                <TabPanel Caption="TabPanel1" Height="100%" Key="TabPanel1">
+                    <GridLayoutPanel Key="GridLayoutPanel1" Caption="基本信息">
+                        <TextEditor Key="Code" Caption="代码" BuddyKey="Lab_Code" X="1" Y="0">
+                            <DataBinding TableKey="NJ_CP_RentalUse" ColumnKey="Code" Required="true"/>
+                        </TextEditor>
+                        <Label Key="Lab_Code" Caption="代码" X="0" Y="0"/>
+                        <TextEditor Key="Name" Caption="名称" BuddyKey="Lab_Name" X="4" Y="0">
+                            <DataBinding TableKey="NJ_CP_RentalUse" ColumnKey="Name" Required="true"/>
+                        </TextEditor>
+                        <Label Key="Lab_Name" Caption="名称" X="3" Y="0"/>
+                        <RowDefCollection RowGap="4">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="4">
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="50%"/>
+                            <ColumnDef Width="20px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="50%"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <GridLayoutPanel Key="SysTab" Height="1%" Caption="系统信息">
+                        <Dict Key="Creator" Caption="创建人员" BuddyKey="Lab_Creator" X="1" Y="0" Enable="false" ItemKey="Operator">
+                            <DataBinding TableKey="NJ_CP_RentalUse" ColumnKey="Creator" DefaultFormulaValue="GetOperator()" Required="true"/>
+                        </Dict>
+                        <Label Key="Lab_Creator" Caption="创建人员" X="0" Y="0"/>
+                        <Label Key="Lab_CreateTime" Caption="创建时间" X="3" Y="0"/>
+                        <DatePicker Key="CreateTime" Caption="创建时间" BuddyKey="Lab_CreateTime" X="4" Y="0" Enable="false" OnlyDate="false">
+                            <DataBinding TableKey="NJ_CP_RentalUse" ColumnKey="CreateTime" DefaultFormulaValue="ServerDate()" Required="true"/>
+                        </DatePicker>
+                        <Label Key="Lab_Modifier" Caption="修改人员" X="0" Y="1"/>
+                        <Dict Key="Modifier" Caption="修改人员" BuddyKey="Lab_Modifier" X="1" Y="1" Enable="false" ItemKey="Operator">
+                            <DataBinding TableKey="NJ_CP_RentalUse" ColumnKey="Modifier" DefaultFormulaValue="GetOperator()" Required="true"/>
+                        </Dict>
+                        <Label Key="Lab_ModifyTime" Caption="修改时间" X="3" Y="1"/>
+                        <DatePicker Key="ModifyTime" Caption="修改时间" BuddyKey="Lab_ModifyTime" X="4" Y="1" Enable="false" OnlyDate="false">
+                            <DataBinding TableKey="NJ_CP_RentalUse" ColumnKey="ModifyTime" DefaultFormulaValue="ServerDate()" Required="true"/>
+                        </DatePicker>
+                        <Label Key="Lab_Notes" Caption="备注" X="0" Y="2"/>
+                        <TextEditor Key="Notes" Caption="备注" BuddyKey="Lab_Notes" X="1" Y="2" XSpan="4">
+                            <DataBinding TableKey="NJ_CP_RentalUse" ColumnKey="Notes"/>
+                        </TextEditor>
+                        <TextEditor Key="BillKey" Caption="单据Key" BuddyKey="Lab_BillKey" X="1" Y="3" Enable="false">
+                            <DataBinding TableKey="NJ_CP_RentalUse" ColumnKey="BillKey" DefaultFormulaValue="GetFormKey()"/>
+                        </TextEditor>
+                        <Label Key="Lab_BillKey" Caption="单据Key" X="0" Y="3"/>
+                        <Dict Key="ClusterID" Caption="集团" BuddyKey="Lab_ClusterID" X="4" Y="3" Enable="false" ItemKey="Client">
+                            <DataBinding TableKey="NJ_CP_RentalUse" ColumnKey="ClusterID"/>
+                        </Dict>
+                        <Label Key="Lab_ClusterID" Caption="集团" X="3" Y="3"/>
+                        <RowDefCollection RowGap="4">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="4">
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="50%"/>
+                            <ColumnDef Width="20px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="50%"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                </TabPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

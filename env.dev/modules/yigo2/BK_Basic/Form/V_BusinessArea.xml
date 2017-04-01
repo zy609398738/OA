@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Caption="业务范围" FormType="Dict" Key="V_BusinessArea">
+    <DataSource RefObjectKey="BusinessArea"/>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root">
+				<TabPanel Key="body">
+                    <GridLayoutPanel Key="body_basic" Padding="8px" Caption="基本信息(&amp;B)">
+                        <Label Key="Inner_Code" Caption="代码" X="0" Y="0"/>
+                        <TextEditor Key="Code" Caption="代码" BuddyKey="Inner_Code" X="1" Y="0" Visible="true" Enable="!ReadOnly()&amp;&amp;com.bokesoft.erp.basis.common.DocumentNumberUI.docNumberFieldEnable('Code')" InvalidChars="%*\&quot;+?&gt;&lt;:'">
+                            <DataBinding TableKey="BK_BusinessArea" ColumnKey="Code" CheckRule="iifs(com.bokesoft.erp.basis.common.DocumentNumberUI.docNumberFieldEnable('Code')&amp;&amp;Value('Code')='', '采用外部给号编码规则，请输入代码', true, true)"/>
+                        </TextEditor>
+                        <Label Key="Inner_Name" Caption="名称" X="0" Y="1"/>
+                        <TextEditor Key="Name" Caption="名称" BuddyKey="Inner_Name" X="1" Y="1" Visible="true" Enable="!ReadOnly()">
+                            <DataBinding TableKey="BK_BusinessArea" ColumnKey="Name"/>
+                        </TextEditor>
+                        <Label Key="Inner_NodeType" Caption="结点类型" X="0" Y="2"/>
+                        <ComboBox Key="NodeType" Caption="结点类型" BuddyKey="Inner_NodeType" X="1" Y="2" Visible="false" Enable="!ReadOnly()&amp;&amp;Status&lt;0">
+                            <DataBinding TableKey="BK_BusinessArea" ColumnKey="NodeType"/>
+                        </ComboBox>
+                        <RowDefCollection RowGap="5">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="5">
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="330px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <GridLayoutPanel Key="body_system" Padding="8px" Caption="系统信息(&amp;D)">
+                        <Label Key="Inner_ClientID" Caption="集团" X="0" Y="0"/>
+                        <Dict Key="ClientID" Caption="集团" BuddyKey="Inner_ClientID" X="1" Y="0" Visible="true" Enable="false" ItemKey="Client">
+                            <DataBinding TableKey="BK_BusinessArea" ColumnKey="ClientId" DefaultFormulaValue="getClientID()"/>
+                        </Dict>
+                        <Label Key="Inner_Status" Caption="结点状态" X="0" Y="1"/>
+                        <ComboBox Key="Status" Caption="结点状态" BuddyKey="Inner_Status" X="1" Y="1" Visible="true" Enable="false">
+                            <DataBinding TableKey="BK_BusinessArea" ColumnKey="Status"/>
+                        </ComboBox>
+                        <Dict Caption="创建人" ItemKey="Operator" Key="CREATOR" X="1" Y="2">
+                        <DataBinding ColumnKey="CREATOR" DefaultFormulaValue="GetOperator()"
+                            TableKey="BK_BusinessArea"/>
+                    </Dict>
+                    <DatePicker Caption="创建时间" Format="yyyy-MM-dd HH:mm:ss" Key="CREATETIME"
+                        OnlyDate="false" X="1" Y="3">
+                        <DataBinding ColumnKey="CREATETIME" DefaultFormulaValue="ServerDate()"
+                            TableKey="BK_BusinessArea"/>
+                    </DatePicker>
+                    <Dict Caption="修改人" ItemKey="Operator" Key="MODIFIER" X="1" Y="4">
+                        <DataBinding ColumnKey="MODIFIER" DefaultFormulaValue="GetOperator()"
+                            TableKey="BK_BusinessArea"/>
+                    </Dict>
+                    <DatePicker Caption="修改时间" Format="yyyy-MM-dd HH:mm:ss" Key="MODIFYTIME"
+                        OnlyDate="false" X="1" Y="5">
+                        <DataBinding ColumnKey="MODIFYTIME" DefaultFormulaValue="ServerDate()"
+                            TableKey="BK_BusinessArea"/>
+                    </DatePicker>
+                    <Label Caption="创建人" Key="L_CREATOR" X="0" Y="2"/>
+                    <Label Caption="创建时间" Key="L_CREATETIME" X="0" Y="3"/>
+                    <Label Caption="修改人" Key="L_MODIFIER" X="0" Y="4"/>
+                    <Label Caption="修改时间" Key="L_MODIFYTIME" X="0" Y="5"/>
+                        <Label Key="Inner_Notes" Caption="备注" X="0" Y="6"/>
+                        <TextEditor Key="Notes" Caption="备注" BuddyKey="Inner_Notes" X="1" Y="6" Visible="true" Enable="!ReadOnly()">
+                            <DataBinding TableKey="BK_BusinessArea" ColumnKey="Notes"/>
+                        </TextEditor>
+                        <RowDefCollection RowGap="5">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="5">
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="330px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                </TabPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

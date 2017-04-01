@@ -1,0 +1,40 @@
+---
+# 注意: docker-compose 相关命令默认是在包含 docker-compose.yml 的目录下执行。
+#     docker-compose up :         创建容器并启动(不使用 -d 参数时在前台运行, Ctrl-C 停止)
+#     docker-compose start/stop : 启动/停止 当然服务的所有容器
+#     docker-compose rm :         删除当前服务的所有容器
+#     docker-compose logs :       查看日志(支持 -f 参数)
+#     docker-compose ps :         类似 docker ps
+version: '2'
+services:
+    yigo:
+        image: boke-general-env-yigo:1.0
+        command: "/app/profiles/oa-dev/docker.sh"
+        ports:
+            - "50001:8080"
+        volumes:
+            - ./../../oademo:/app
+        environment:
+            - DBSERVER=yigo-db:3306
+            - DBNAME=yigo
+            - DB_USERNAME=root
+            - DB_PASSWORD=20161029
+            - LANG=zh_CN.UTF-8      #支持在 docker logs 中输出中文字符
+            - LC_ALL="zh_CN.UTF-8" 
+            - TZ=Asia/Shanghai      #修正容器时区
+            - oauserID=1001
+        links:
+            - yigo-db        #通过 link 的方式访问数据库, 那么数据库就不用 export 3306 端口
+
+    yigo-db:
+        image: boke-mysql:1.1
+        volumes:
+            - ./runtime:/data
+            - ./dbback:/app
+        environment:
+            - MYSQL_ROOT_PWD=20161029
+            - |
+              MYSQL_INIT_SQL=CREATE SCHEMA `yigo` DEFAULT CHARACTER SET utf8;
+                    use yigo;
+                    source /app/oa.sql;
+

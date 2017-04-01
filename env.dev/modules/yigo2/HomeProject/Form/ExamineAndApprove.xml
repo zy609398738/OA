@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Form Key="ExamineAndApprove" Caption="审批界面">
+	<Body>     
+		<Block>
+			<LinearLayoutPanel
+				Key="LinearLayoutPanel1"
+				Orientation="VERTICAL">
+				
+				
+				
+			</LinearLayoutPanel>
+		</Block>    
+	</Body>
+</Form>

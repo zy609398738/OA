@@ -1,0 +1,193 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<title>SelectorView - 两栏选择器</title>
+	<link rel="stylesheet" type="text/css" href="style.css" />
+	<link rel="stylesheet" type="text/css" href="jquery-ui-1.7.2.custom.css" />
+	<script type="text/javascript" src="scripts/jquery.js"></script>
+	<script type="text/javascript" src="scripts/jquery-ui-1.7.2.custom.min.js"></script>
+	<script type="text/javascript" src="scripts/PagerView.js"></script>
+	<script type="text/javascript" src="scripts/TableView.js"></script>
+	<script type="text/javascript" src="scripts/SelectorView.js"></script>
+	<script type="text/javascript" src="scripts/common.js"></script>
+
+<style type="text/css">
+#sel_div{
+	margin: 6px 2px;
+	padding: 4px;
+	border: 1px solid #999;
+}
+</style>
+</head>
+<body>
+
+
+<script type="text/javascript">
+<!--
+$(function(){
+	$('#tabs').tabs();
+});
+//-->
+</script>
+
+<h1 class="title1">SelectorView - 两栏选择器</h1>
+
+<div id="menu">
+	<ul>
+		<li><a href="index.html">Home</a></li>
+		<li><a href="PagerView.html">PagerView</a></li>
+		<li><a href="TableView.html">TableView</a></li>
+		<li><a href="SelectorView.html">SelectorView</a></li>
+		<li><a href="Style.html">CSS样式表</a></li>
+		<li><a href="api/index.html">API文档</a></li>
+		<li><a href="js-datagrid.zip">下载</a></li>
+	</ul>
+</div>
+<div style="clear: both;"></div>
+
+
+
+<h2 class="title2">介绍</h2>
+
+<p>SelectorView是一个用于显示两栏(备选框, 已选框)选择器控件的JavaScript控件. </p>
+
+<h2 class="title2">示例</h2>
+
+<div id="tabs">
+	<ul>
+		<li><a href="#tabs-1">Demo</a></li>
+		<li><a href="#tabs-2">源码</a></li>
+	</ul>
+	<div id="tabs-1" style="background: #fff;">
+
+<div id="sel_div"></div>
+
+<script type="text/javascript">
+<!--
+var sel = new SelectorView('sel_div');
+sel.src.header = {
+	id			: 'Id',
+	name		: 'Name',
+	name_cn		: '中文名',
+	text		: 'Text'
+};
+sel.dst.header = {
+	id			: 'Id',
+	name		: 'Name',
+	name_cn		: '中文名'
+};
+sel.src.dataKey = 'id';
+sel.src.title = '可选';
+sel.src.display.filter = true;
+sel.src.display.pager = true;
+sel.src.pager.size = 22;
+sel.src.pager.maxButtons = 5;
+
+sel.dst.dataKey = 'id';
+sel.dst.title = '已选';
+sel.render();
+
+var arr = [];
+var i = 0;
+for(var n=0; n<20; n++){
+	arr.push({id: i++, name: 'None', name_cn: '幽灵', text: 'None'});
+	arr.push({id: i++, name: 'Tom', name_cn: '汤姆', text: 'Tomcat'});
+	arr.push({id: i++, name: 'Jerry', name_cn: '杰瑞', text: 'Jerrimy'});
+	arr.push({id: i++, name: 'Jim', name_cn: '吉姆', text: 'System Engineer'});
+	arr.push({id: i++, name: 'Lucy', name_cn: '露西', text: 'Lucy & Lily'});
+	arr.push({id: i++, name: 'Jessmine', name_cn: 'Jessmine', text: 'Jessmine is a girl'});
+	arr.push({id: i++, name: 'Ta', name_cn: '他/她', text: '他/她'});
+	arr.push({id: i++, name: 'ideawu', name_cn: '我', text: '<a href="http://www.ideawu.net/">http://www.ideawu.net/</a>'});
+}
+
+sel.src.addRange(arr);
+//-->
+</script>
+	</div>
+	<div id="tabs-2">
+<pre>
+&lt;div id="sel_div"&gt;&lt;/div&gt;
+
+&lt;script type="text/javascript"&gt;
+&lt;!--
+var sel = new SelectorView('sel_div');
+sel.src.header = {
+	id			: 'Id',
+	name		: 'Name',
+	name_cn		: '中文名',
+	text		: 'Text'
+};
+sel.dst.header = {
+	id			: 'Id',
+	name		: 'Name',
+	name_cn		: '中文名'
+};
+sel.src.dataKey = 'id';
+sel.src.title = '可选';
+
+sel.dst.dataKey = 'id';
+sel.dst.title = '已选';
+sel.render();
+
+var input_html = '...';
+sel.src.add({id: 0, name: 'None', name_cn: '幽灵', text: 'None'});
+sel.src.add({id: 1, name: 'Tom', name_cn: '汤姆', text: 'Tomcat'});
+//--&gt;
+&lt;/script&gt;
+</pre>
+	</div>
+</div>
+
+
+<h2 class="title2">API文档</h2>
+
+<p><a href="api/symbols/SelectorView.html">查看API文档</a></p>
+
+
+<h2 class="title2">开发指导</h2>
+
+<h3 class="title3">创建</h3>
+
+<p>SelectorView由两个TableView而成组合, 备选框命名为src, 已选框命名为dst. 所以, 创建SelectorView, 相当于创建两个TableView的过程:</p>
+
+<pre>
+&lt;div id="table_div"&gt;&lt;/div&gt;
+
+&lt;script type="text/javascript"&gt;
+&lt;!--
+var sel = new SelectorView('sel_div');
+sel.src.header = {
+	id			: 'Id',
+	name		: 'Name',
+	name_cn		: '中文名',
+	text		: 'Text'
+};
+sel.dst.header = {
+	id			: 'Id',
+	name		: 'Name',
+	name_cn		: '中文名'
+};
+sel.src.dataKey = 'id';
+sel.src.title = '可选';
+
+sel.dst.dataKey = 'id';
+sel.dst.title = '已选';
+sel.render();
+//--&gt;
+&lt;/script&gt;
+</pre>
+
+
+
+
+<div id="footer" style="margin-top: 20px;">
+	Copyright&copy;2009 <b>idea's web</b>. All rights reserved. | <a href="http://www.ideawu.net">www.ideawu.net</a>
+
+	<script language="javascript" type="text/javascript" src="http://js.users.51.la/414722.js"></script>
+</div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="V_UnitDictEdit" Caption="计量单位编辑" FormulaAbbrCaption="Para('EntryCaption')" FormulaCaption="Para('EntryCaption')">
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="main">
+                <ToolBar Key="main_toolbar" Height="pref">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <SplitPanel Key="Split" Height="100%">
+                    <FlexFlowLayoutPanel Key="DictViewPanel">
+                        <GridLayoutPanel Key="dicHead" Padding="8px">
+                            <Label Key="Inner_UnitSystem1" Caption="尺寸" X="0" Y="0"/>
+                            <Dict Key="UnitSystem1" Caption="尺寸" BuddyKey="Inner_UnitSystem1" X="1" Y="0" Visible="true;" Enable="ReadOnly();" ItemKey="UnitSystem">
+                                <DataBinding DefaultFormulaValue="iif(existsUIVariable('lastUnitSystem'), getUIVariable('lastUnitSystem'), ERAF_GetDicFirstDetailID('UnitSystem1'));">
+                                    <ValueChanged>
+                                        <![CDATA[setUIVariable('lastUnitSystem', value('UnitSystem1'));init();;setvalue('UnitSystemID', value('UnitSystem1'));;]]>
+                                    </ValueChanged>
+                                </DataBinding>
+                            </Dict>
+                            <RowDefCollection RowGap="5">
+                                <RowDef Height="30px"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="5">
+                                <ColumnDef Width="30%"/>
+                                <ColumnDef Width="70%"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                        <DictView FormulaItemKey="GetDataObjectKey(Para('FormKey'))" Height="100%" Key="DictView">
+                            <FocusRowChanged>
+                                <![CDATA[OpenDict(Para('FormKey'),GetSelectedValue('DictView','OID'),'Container');]]>
+                            </FocusRowChanged>
+                            <ItemFilter ItemKey="ERP_Unit">
+                                <Filter Type="FieldValue">
+                                    <FilterValue FieldKey="UnitSystem" RefValue="UnitSystem1" Type="Field"/>
+                                </Filter>
+                            </ItemFilter>
+                        </DictView>
+                    </FlexFlowLayoutPanel>
+                    <FlexFlowLayoutPanel Key="DictPanel">
+                        <Container Height="100%" Key="Container" MergeOperation="true" Style="Stack"/>
+                    </FlexFlowLayoutPanel>
+                    <SplitSize Size="30%"/>
+                    <SplitSize Size="70%"/>
+                </SplitPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+    <OnLoad>
+        <![CDATA[OpenDict(Para('FormKey'),-1,'Container')]]>
+    </OnLoad>
+</Form>

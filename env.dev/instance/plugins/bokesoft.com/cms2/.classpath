@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="dist/jars/cms2-adapter-base-2.0.0-SNAPSHOT.jar" sourcepath="dist/srcs/cms2-adapter-base-2.0.0-SNAPSHOT-sources.jar"/>
+	<classpathentry kind="lib" path="dist/jars/cms2-core-2.0.0-SNAPSHOT.jar" sourcepath="dist/srcs/cms2-core-2.0.0-SNAPSHOT-sources.jar"/>
+	<classpathentry kind="lib" path="dist/jars/cms2-designer-2.0.0-SNAPSHOT.jar" sourcepath="dist/srcs/cms2-designer-2.0.0-SNAPSHOT-sources.jar"/>
+	<classpathentry kind="lib" path="dist/jars/cms2-formula-2.0.0-SNAPSHOT.jar" sourcepath="dist/srcs/cms2-formula-2.0.0-SNAPSHOT-sources.jar"/>
+	<classpathentry kind="lib" path="dist/jars/cms2-impl-default-2.0.0-SNAPSHOT.jar" sourcepath="dist/srcs/cms2-impl-default-2.0.0-SNAPSHOT-sources.jar"/>
+	<classpathentry kind="lib" path="dist/jars/cms2-spi-2.0.0-SNAPSHOT.jar" sourcepath="dist/srcs/cms2-spi-2.0.0-SNAPSHOT-sources.jar"/>
+	<classpathentry kind="lib" path="dist/jars/cms2-web-2.0.0-SNAPSHOT.jar" sourcepath="dist/srcs/cms2-web-2.0.0-SNAPSHOT-sources.jar"/>
+	<classpathentry kind="lib" path="dist/jars/ext-spring-2.0.0-SNAPSHOT.jar" sourcepath="dist/srcs/ext-spring-2.0.0-SNAPSHOT-sources.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

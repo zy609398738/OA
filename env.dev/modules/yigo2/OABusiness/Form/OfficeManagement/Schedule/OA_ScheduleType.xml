@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="OA_ScheduleType" Caption="日程类别" FormType="Dict">
+    <DataSource>
+        <DataObject Key="OA_ScheduleType" Caption="日程类别" PrimaryTableKey="OA_ScheduleType_H" SecondaryType="Dict" PrimaryType="Entity">
+            <TableCollection>
+                <Table Key="OA_ScheduleType_H" Caption="日程类别" DBTableName="OA_ScheduleType_H">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="Code" Caption="代码" DataType="Varchar" Length="50"/>
+                    <Column Key="Name" Caption="名称" DataType="Varchar" Length="100"/>
+                    <Column Key="Status" Caption="状态" DataType="Integer"/>
+                    <Column Key="Enable" Caption="启用标记" DataType="Integer" DefaultValue="1"/>
+                    <Column Key="ParentID" Caption="父节点" DataType="Long"/>
+                    <Column Key="NodeType" Caption="节点类型" DataType="Integer"/>
+                    <Column Key="TLeft" Caption="TLeft" DataType="Integer"/>
+                    <Column Key="TRight" Caption="TRight" DataType="Integer"/>
+                    <Column Key="Details" Caption="描述" DataType="Varchar"/>
+                    <Column Caption="创建人员" DataType="Long" Key="Creator"/>
+                    <Column Caption="创建时间" DataType="DateTime" Key="CreateTime"/>
+                    <Column Caption="修改人员" DataType="Long" Key="Modifier"/>
+                    <Column Caption="修改时间" DataType="DateTime" Key="ModifyTime"/>
+                    <Column Caption="备注" DataType="Varchar" Key="Notes"/>
+                    <Column Caption="单据Key" DataType="Varchar" Key="BillKey"/>
+                    <Column Caption="集团" DataType="Long" Key="ClusterID"/>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <ScriptCollection>
+        <Script Key="Load" Caption="载入" Description="载入事件" Range="Action" Verb="Load">
+            <![CDATA[LoadData();ShowData()]]>
+        </Script>
+    </ScriptCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板">
+                <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <TabPanel Caption="TabPanel1" Height="100%" Key="TabPanel1">
+                    <GridLayoutPanel Key="first_head" Padding="5px" Height="100%" Caption="基本信息">
+                        <TextEditor Key="Code" Caption="代码" BuddyKey="Lab_Code" X="1" Y="0">
+                            <DataBinding ColumnKey="Code" TableKey="OA_ScheduleType_H"/>
+                        </TextEditor>
+                        <Label Key="Lab_Code" Caption="代码" X="0" Y="0"/>
+                        <TextEditor Key="Name" Caption="名称" BuddyKey="Lab_Name" X="4" Y="0">
+                            <DataBinding ColumnKey="Name" TableKey="OA_ScheduleType_H"/>
+                        </TextEditor>
+                        <Label Key="Lab_Name" Caption="名称" X="3" Y="0"/>
+                        <TextEditor Key="Details" Caption="描述" BuddyKey="Lab_Details" X="1" Y="2" XSpan="4" YSpan="2">
+                            <DataBinding ColumnKey="Details" TableKey="OA_ScheduleType_H"/>
+                        </TextEditor>
+                        <Label Key="Lab_Details" Caption="描述" X="0" Y="2" YSpan="2"/>
+                        <ComboBox Key="NodeType" Caption="节点类型" BuddyKey="Lab_NodeType" X="1" Y="1">
+                            <DataBinding ColumnKey="NodeType" TableKey="OA_ScheduleType_H"/>
+                        </ComboBox>
+                        <Label Key="Lab_NodeType" Caption="节点类型" X="0" Y="1"/>
+                        <RowDefCollection RowGap="8">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="8">
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="50%"/>
+                            <ColumnDef Width="20px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="50%"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <GridLayoutPanel Caption="系统信息" Height="1%" Key="SysTab">
+                        <Dict BuddyKey="Lab_Creator" Caption="创建人员" Enable="false" ItemKey="Operator" Key="Creator" X="1" Y="0">
+                            <DataBinding ColumnKey="Creator" TableKey="OA_ScheduleType_H" DefaultFormulaValue="GetOperator()" Required="true"/>
+                        </Dict>
+                        <Label Caption="创建人员" Key="Lab_Creator" X="0" Y="0"/>
+                        <Label Caption="创建时间" Key="Lab_CreateTime" X="3" Y="0"/>
+                        <DatePicker BuddyKey="Lab_CreateTime" Caption="创建时间" Enable="false" Key="CreateTime" OnlyDate="false" X="4" Y="0">
+                            <DataBinding ColumnKey="CreateTime" TableKey="OA_ScheduleType_H" DefaultFormulaValue="ServerDate()" Required="true"/>
+                        </DatePicker>
+                        <Label Caption="修改人员" Key="Lab_Modifier" X="0" Y="1"/>
+                        <Dict BuddyKey="Lab_Modifier" Caption="修改人员" Enable="false" ItemKey="Operator" Key="Modifier" X="1" Y="1">
+                            <DataBinding ColumnKey="Modifier" TableKey="OA_ScheduleType_H" DefaultFormulaValue="GetOperator()" Required="true"/>
+                        </Dict>
+                        <Label Caption="修改时间" Key="Lab_ModifyTime" X="3" Y="1"/>
+                        <DatePicker BuddyKey="Lab_ModifyTime" Caption="修改时间" Enable="false" Key="ModifyTime" OnlyDate="false" X="4" Y="1">
+                            <DataBinding ColumnKey="ModifyTime" TableKey="OA_ScheduleType_H" DefaultFormulaValue="ServerDate()" Required="true"/>
+                        </DatePicker>
+                        <Label Caption="备注" Key="Lab_Notes" X="0" Y="2"/>
+                        <TextEditor BuddyKey="Lab_Notes" Caption="备注" Key="Notes" X="1" XSpan="4" Y="2">
+                            <DataBinding ColumnKey="Notes" TableKey="OA_ScheduleType_H"/>
+                        </TextEditor>
+                        <TextEditor BuddyKey="Lab_BillKey" Caption="单据Key" Enable="false" Key="BillKey" X="1" Y="3">
+                            <DataBinding ColumnKey="BillKey" TableKey="OA_ScheduleType_H" DefaultFormulaValue="GetFormKey()"/>
+                        </TextEditor>
+                        <Label Caption="单据Key" Key="Lab_BillKey" X="0" Y="3"/>
+                        <Dict BuddyKey="Lab_ClusterID" Caption="集团" Enable="false" ItemKey="Client" Key="ClusterID" X="4" Y="3">
+                            <DataBinding ColumnKey="ClusterID" TableKey="OA_ScheduleType_H"/>
+                        </Dict>
+                        <Label Caption="集团" Key="Lab_ClusterID" X="3" Y="3"/>
+                        <RowDefCollection RowGap="4">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="4">
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="50%"/>
+                            <ColumnDef Width="20px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="50%"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                </TabPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

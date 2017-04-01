@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="#FormKey#" Caption="#FormCaption#" FormType="Entity" ViewKey="">
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板">
+                <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1" IsDefault="true">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <GridLayoutPanel Key="first_head" Padding="5px" Caption="基本信息">
+                    <RowDefCollection RowGap="8">
+                        <RowDef Height="25px"/>
+                        <RowDef Height="25px"/>
+                        <RowDef Height="25px"/>
+                        <RowDef Height="25px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="8">
+                        <ColumnDef Width="5%"/>
+                        <ColumnDef Width="15%"/>
+                        <ColumnDef Width="61px"/>
+                        <ColumnDef Width="15%"/>
+                        <ColumnDef Width="5%"/>
+                        <ColumnDef Width="15%"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

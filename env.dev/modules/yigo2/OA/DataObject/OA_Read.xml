@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<DataObject Key="OA_Read" Caption="待阅事项" PrimaryType="Entity">
+    <TableCollection>
+        <Table Key="OA_Read" Caption="待阅事项" DBTableName="OA_Read" TableMode="Detail">
+            <Column Key="OID" Caption="对象标识" DataType="Long"/>
+            <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+            <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+            <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+            <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+            <Column Key="ReadUser" Caption="阅读人" DataType="Long"/>
+            <Column Key="SendUser" Caption="传阅者" DataType="Long"/>
+            <Column Key="ReadTime" Caption="阅读时间" DataType="DateTime"/>
+            <Column Key="SendTime" Caption="传阅时间" DataType="DateTime"/>
+            <Column Key="WorkitemID" Caption="工作项标识" DataType="Long"/>
+            <Column Key="Status" Caption="状态" DataType="Integer"/>
+            <Column Key="Opinion" Caption="处理意见" DataType="Varchar"/>
+            <Column Key="BillKey" Caption="单据Key" DataType="Varchar"/>
+            <Column Key="BillOID" Caption="BillOID" DataType="Long"/>
+        </Table>
+    </TableCollection>
+</DataObject>

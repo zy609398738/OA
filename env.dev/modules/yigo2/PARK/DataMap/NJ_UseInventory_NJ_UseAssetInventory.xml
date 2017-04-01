@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Map Caption="在用盘点情况下推在用资产盘点" Key="NJ_UseInventory_NJ_UseAssetInventory" SrcDataObjectKey="NJ_UseInventory" TgtDataObjectKey="NJ_UseAssetInventory">
+    <SourceTableCollection Height="570" Width="307" X="30" Y="30">
+        <SourceTable Key="NJ_UseInventory" IsPrimary="true" TargetTableKey="NJ_SCM_AssetCode">
+            <SourceField Definition="AssetsId" TargetFieldKey="AssetsBarId"/>
+            <SourceField Definition="assetstypeid" TargetFieldKey="assetstypeid"/>
+            <SourceField Definition="Model" TargetFieldKey="Model"/>
+            <SourceField Definition="UNITID" TargetFieldKey="UNITID"/>
+            <SourceField Definition="WareHouseId" TargetFieldKey="WareHouseId"/>
+            <SourceField Definition="UseDeptID" TargetFieldKey="UseDeptID"/>
+            <SourceField Definition="UseEmpID" TargetFieldKey="UseEmpID"/>
+            <SourceField Definition="CustomerId" TargetFieldKey="CustomerId"/>
+            <SourceField Definition="Room" TargetFieldKey="Room"/>
+            <SourceField Definition="AssetsCode" TargetFieldKey="AssetsCode"/>
+            <SourceField Definition="AssetNatureId" TargetFieldKey="AssetNatureId"/>
+            <SourceField Definition="UsePeople" TargetFieldKey="UsePeople"/>
+            <SourceField Definition="AssetsOID" TargetFieldKey="AssetsOID"/>
+            <SourceField Definition="Amount" TargetFieldKey="Amount"/>
+            <SourceField Definition="UseType" TargetFieldKey="UseType" TargetTableKey="NJ_SCM_UseAssetInventoryHead"/>
+        </SourceTable>
+    </SourceTableCollection>
+    <TargetTableCollection Height="630" Width="534" X="393" Y="30">
+        <TargetTable Key="NJ_SCM_AssetCode" IsPrimary="true">
+            <TargetField Definition="AssetsBarId"/>
+            <TargetField Definition="assetstypeid"/>
+            <TargetField Definition="Model"/>
+            <TargetField Definition="UNITID"/>
+            <TargetField Definition="WareHouseId"/>
+            <TargetField Definition="UseDeptID"/>
+            <TargetField Definition="UseEmpID"/>
+            <TargetField Definition="CustomerId"/>
+            <TargetField Definition="Room"/>
+            <TargetField Definition="AssetsCode"/>
+            <TargetField Definition="AssetNatureId"/>
+            <TargetField Definition="UsePeople"/>
+            <TargetField Definition="AssetsOID"/>
+            <TargetField Definition="Amount"/>
+        </TargetTable>
+        <TargetTable Key="NJ_SCM_UseAssetInventoryHead">
+            <TargetField Definition="UseType"/>
+        </TargetTable>
+    </TargetTableCollection>
+</Map>

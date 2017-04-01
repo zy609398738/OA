@@ -1,0 +1,24 @@
+/**
+ * 把 Yigo 1.6 引入 Yigo2 环境
+ */
+
+description 'Yigo 1.6'
+group 'com.bokesoft.yigo2.redist.yigo1_6'
+version '1.0'
+
+defaultTasks 'devOpsDist'
+
+apply plugin: 'java'
+sourceCompatibility = 1.7
+compileJava.options.encoding = 'UTF-8'
+
+distsDirName = "${projectDir}/dist"
+
+apply from: "../../../infrastructure/gradle/boke-devops/boke-devops.gradle"
+
+devOpsApply from: "deps.gradle"
+
+devOpsDefineExports (
+	include: ["*.jar"],
+	exclude: [""]
+)

@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="OA_WFDelReport" Caption="流程明细表" FormType="Report" Platform="">
+    <DataSource>
+        <DataObject Key="OA_WFDelReport" Caption="流程明细表">
+            <TableCollection>
+                <Table Key="OA_WFDelReport" Caption="流程明细表" TableMode="Detail" SourceType="Query" Persist="false">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="ProcessKey" Caption="流程名称" DataType="Varchar"/>
+                    <Column Key="Topic" Caption="主题" DataType="Varchar"/>
+                    <Column Key="EmpID" Caption="人员" DataType="Long"/>
+                    <Column Key="DeptID" Caption="部门" DataType="Long"/>
+                    <Column Key="UrgencyDeg" Caption="紧急程度" DataType="Integer"/>
+                    <Column Key="BillCreatTime" Caption="创建时间" DataType="DateTime"/>
+                    <Column Key="BillStatus" Caption="单据状态" DataType="Integer"/>
+                    <Column Key="InstanceState" Caption="流程状态" DataType="Integer"/>
+                    <Column Key="WorkitemID" Caption="工作项标识" DataType="Long"/>
+                    <Statement>
+                        <![CDATA[select * from (select i.instancestate,Topic,BillCreatTime,UrgencyDeg,empid,deptid,BillStatus,i.ProcessKey as ProcessKey from  bpm_instance i join BPM_migration m on i.OID=m.BillOID  order by BillCreatTime desc) h ]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="Close" Caption="关闭" RefKey="Close"/>
+    </OperationCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板">
+                <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <GridLayoutPanel Key="first_head" Height="pref" Caption="基本信息">
+                    <DatePicker Key="From" Caption="申请日期" BuddyKey="Lab_From" X="1" Y="0">
+                        <Condition ColumnKey="BillCreatTime" TableKey="OA_WFDelReport" CondSign="between" Group="A" GroupHead="true"/>
+                    </DatePicker>
+                    <Label Key="Lab_From" Caption="申请日期" X="0" Y="0"/>
+                    <Label Key="Label1" Caption="到" X="2" Y="0"/>
+                    <DatePicker Key="To" Caption="到" X="3" Y="0">
+                        <Condition ColumnKey="BillCreatTime" TableKey="OA_WFDelReport" CondSign="between" Group="A" GroupTail="true"/>
+                    </DatePicker>
+                    <TextEditor Key="QueryTheme" Caption="主题" BuddyKey="Lab_QueryTheme" X="7" Y="0">
+                        <Condition ColumnKey="Topic" TableKey="OA_WFDelReport" CondSign="like"/>
+                    </TextEditor>
+                    <Label Key="Lab_QueryTheme" Caption="主题" X="6" Y="0"/>
+                    <Button Key="Button1" Caption="查询" X="9" Y="0">
+                        <OnClick>
+                            <![CDATA[DealCondition();
+LoadData();
+ShowData();]]>
+                        </OnClick>
+                    </Button>
+                    <Dict Key="QueryApplicant" Caption="申请人" BuddyKey="Lab_QueryApplicant" X="5" Y="1" ItemKey="OA_Employee" AllowMultiSelection="true">
+                        <Condition ColumnKey="EmpID" TableKey="OA_WFDelReport" CondSign="in"/>
+                    </Dict>
+                    <Label Key="Lab_QueryApplicant" Caption="申请人" X="4" Y="1"/>
+                    <Dict Key="QueryDeptID" Caption="申请部门" BuddyKey="Lab_QueryDeptID" X="5" Y="0" ItemKey="OA_Department" AllowMultiSelection="true">
+                        <Condition ColumnKey="DeptID" TableKey="OA_WFDelReport" CondSign="in"/>
+                    </Dict>
+                    <Label Key="Lab_QueryDeptID" Caption="申请部门" X="4" Y="0"/>
+                    <Button Key="Reset" Caption="重置" X="9" Y="1">
+                        <OnClick>
+                            <![CDATA[ResetCondition();]]>
+                        </OnClick>
+                    </Button>
+                    <DatePicker Key="DatePicker1" Caption="创建时间" BuddyKey="Lab_DatePicker1" X="1" Y="1">
+                        <Condition ColumnKey="BillCreatTime" TableKey="OA_WFDelReport" CondSign="between" Group="Q" GroupHead="true"/>
+                    </DatePicker>
+                    <Label Key="Lab_DatePicker1" Caption="创建时间" X="0" Y="1"/>
+                    <DatePicker Key="To2" Caption="到" BuddyKey="Lab_To2" X="3" Y="1">
+                        <Condition ColumnKey="BillCreatTime" TableKey="OA_WFDelReport" CondSign="between" Group="Q" GroupTail="true"/>
+                    </DatePicker>
+                    <Label Key="Lab_To2" Caption="到" X="2" Y="1"/>
+                    <CheckListBox BuddyKey="Lab_CheckListBox1" Caption="流程状态" Key="CheckListBox1" X="7" Y="1">
+                        <Condition ColumnKey="InstanceState" TableKey="OA_WFDelReport" CondSign="in"/>
+                        <Item Caption="未结束" Key="1" Value="1"/>
+                        <Item Caption="已结束" Key="2" Value="2"/>
+                        <Item Caption="已作废" Key="3" Value="3"/>
+                    </CheckListBox>
+                    <Label Key="Lab_CheckListBox1" Caption="流程状态" X="6" Y="1"/>
+                    <CheckListBox BuddyKey="Lab_CheckListBox2" Caption="紧急程度" Key="CheckListBox2" X="5" Y="2">
+                        <Condition ColumnKey="UrgencyDeg" TableKey="OA_WFDelReport" CondSign="in"/>
+                        <Item Caption="一般" Key="10" Value="10"/>
+                        <Item Caption="紧急" Key="20" Value="20"/>
+                        <Item Caption="特急" Key="30" Value="30"/>
+                        <Item Key="0" Value="0"/>
+                    </CheckListBox>
+                    <Label Key="Lab_CheckListBox2" Caption="紧急程度" X="4" Y="2"/>
+                    <CheckListBox BuddyKey="Lab_CheckListBox3" Caption="单据状态" Key="CheckListBox3" SourceType="Formula" X="1" XSpan="3" Y="2">
+                        <Condition ColumnKey="BillStatus" TableKey="OA_WFDelReport" CondSign="in"/>
+                        <FormulaItems>
+                            <![CDATA[OA_GetDropItemFromStatus()]]>
+                        </FormulaItems>
+                    </CheckListBox>
+                    <Label Key="Lab_CheckListBox3" Caption="单据状态" X="0" Y="2"/>
+                    <RowDefCollection RowGap="5">
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="5">
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="16%"/>
+                        <ColumnDef Width="50px"/>
+                        <ColumnDef Width="17%"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="33%"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="34%"/>
+                        <ColumnDef Width="10px"/>
+                        <ColumnDef Width="80px"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+                <Grid Key="Grid1" Caption="Grid1" Enable="false" NewEmptyRow="false" Height="100%" PageLoadType="DB">
+                    <GridColumnCollection>
+                        <GridColumn Key="ProcessKey" Caption="流程名称" Width="200px"/>
+                        <GridColumn Key="Topic" Caption="主题" Width="200px"/>
+                        <GridColumn Key="EmpID" Caption="申请人" Width="150px"/>
+                        <GridColumn Key="DeptID" Caption="申请部门" Width="150px"/>
+                        <GridColumn Key="UrgencyDeg" Caption="紧急程度" Width="120px"/>
+                        <GridColumn Key="BillCreatTime" Caption="创建时间" Width="150px"/>
+                        <GridColumn Key="BillStatus" Caption="单据状态" Width="80px"/>
+                        <GridColumn Key="InstanceState" Caption="流程状态" Width="80px"/>
+                    </GridColumnCollection>
+                    <GridRowCollection>
+                        <GridRow Key="row1" RowHeight="35" TableKey="OA_WFDelReport">
+                            <GridCell Key="ProcessKey" Caption="流程名称" CellType="ComboBox" SourceType="Formula" CellSortType="None">
+                                <DataBinding ColumnKey="ProcessKey"/>
+                                <FormulaItems>
+                                    <![CDATA[OA_GetDropItemByBPM()]]>
+                                </FormulaItems>
+                            </GridCell>
+                            <GridCell Key="Topic" Caption="主题" CellType="TextEditor" CellSortType="None">
+                                <DataBinding ColumnKey="Topic"/>
+                            </GridCell>
+                            <GridCell Key="EmpID" Caption="申请人" CellType="Dict" ItemKey="OA_Employee" CellSortType="None">
+                                <DataBinding ColumnKey="EmpID"/>
+                            </GridCell>
+                            <GridCell Key="DeptID" Caption="申请部门" CellType="Dict" ItemKey="OA_Department" CellSortType="None">
+                                <DataBinding ColumnKey="DeptID"/>
+                            </GridCell>
+                            <GridCell Key="UrgencyDeg" Caption="紧急程度" CellType="ComboBox" CellSortType="None">
+                                <DataBinding ColumnKey="UrgencyDeg"/>
+                                <Item Caption="一般" Key="10" Value="10"/>
+                                <Item Caption="紧急" Key="20" Value="20"/>
+                                <Item Caption="特急" Key="30" Value="30"/>
+                                <Item Key="0" Value="0"/>
+                            </GridCell>
+                            <GridCell Key="BillCreatTime" Caption="创建时间" CellType="DatePicker" CellSortType="None">
+                                <DataBinding ColumnKey="BillCreatTime"/>
+                            </GridCell>
+                            <GridCell Key="BillStatus" Caption="单据状态" CellType="ComboBox" SourceType="Formula" CellSortType="None">
+                                <DataBinding ColumnKey="BillStatus"/>
+                                <FormulaItems>
+                                    <![CDATA[OA_GetDropItemFromStatus()]]>
+                                </FormulaItems>
+                            </GridCell>
+                            <GridCell Key="InstanceState" Caption="流程状态" CellType="ComboBox" CellSortType="None">
+                                <DataBinding ColumnKey="InstanceState"/>
+                                <Item Caption="未结束" Key="1" Value="1"/>
+                                <Item Caption="已结束" Key="2" Value="2"/>
+                                <Item Caption="已作废" Key="3" Value="3"/>
+                            </GridCell>
+                        </GridRow>
+                    </GridRowCollection>
+                </Grid>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

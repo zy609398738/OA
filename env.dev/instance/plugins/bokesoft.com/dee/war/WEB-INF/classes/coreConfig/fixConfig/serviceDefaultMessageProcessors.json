@@ -1,0 +1,9 @@
+{
+	"normal" : [],
+	"exception":
+		[
+			{"text":"把异常对象转换为文本","description":"把异常对象转换为文本","className":"com.bokesoft.exchange.transformer.ExceptionMessageTransformer","smallType":"ExceptionMessageTransformer","isRef":"true","bigType":"GGPZTransformer","enable":"true"},
+			{"text":"记录错误日志到文件","description":"","className":"","smallType":"File","isRef":"false","bigType":"outbound","file_subdir":"#[context:serviceName]/#[function:datestamp:yyyyMMdd]","path":"${bokedee.logpath.runtimeLog}/[接口名称]","connector_ref":null,"outputPattern":"#[function:datestamp:yyyyMMddHHmmss]-#[message:id].xml","moveFileTo":null,"enable":"true"},
+			{"text":"把异常信息替换换行符","description":"把异常信息替换换行符","className":"org.mule.module.scripting.transformer.ScriptTransformer","smallType":"GroovyScriptTransformer","isRef":"false","bigType":"transformer_au","scriptContent":"String exceptionContent = message.getPayload();String exception = exceptionContent.replace(\"\\n\", \"<br/>\");message.setPayload(exception);return message;","simpleMpLog":"false","enable":"false"},
+			{"text":"把异常信息通过邮件发送","description":"把异常信息通过邮件发送","className":"","smallType":"SMTP","isRef":"false","bigType":"outbound","encoding":"UTF-8","connector_ref":"bokedee_default_smtp_connector","subject":"[接口名称]","enable":"false"}
+		]}

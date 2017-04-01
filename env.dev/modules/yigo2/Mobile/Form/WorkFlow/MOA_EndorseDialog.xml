@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="MOA_EndorseDialog" Caption="加签对话框">
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板">
+                <LinearLayoutPanel Caption="LinearLayoutPanel1" Height="pref" Key="LinearLayoutPanel1" Orientation="Vertical">
+                    <LinearLayoutPanel Caption="LinearLayoutPanel2" Height="40px" Key="LinearLayoutPanel2" Width="auto">
+                        <Label Key="Label1" Caption="加签人员" Height="auto" Width="100px"/>
+                        <Dict Key="Endorse" Caption="加签人员" Height="pref" ItemKey="Operator" Width="auto" Weight="1.0"/>
+                    </LinearLayoutPanel>
+                    <LinearLayoutPanel Caption="LinearLayoutPanel3" Height="40px" Key="LinearLayoutPanel3" Width="auto">
+                        <Label Key="Label2" Caption="常用意见" Height="auto" Width="100px"/>
+                        <TextEditor Key="TextEditor1" Caption="常用意见" Height="pref" Width="auto" Weight="1.0"/>
+                    </LinearLayoutPanel>
+                    <Label Key="Label3" Caption="处理意见" Height="40px" Width="pref"/>
+                    <LinearLayoutPanel Caption="LinearLayoutPanel4" Height="auto" Key="LinearLayoutPanel4" Width="auto">
+                        <TextArea Key="TextArea1" Caption="处理意见" Height="pref" Width="auto" Weight="1.0"/>
+                        <HyperLink Caption="保存常用意见" Height="auto" Key="HyperLink1" Width="100px">
+                            <Format ForeColor="#ff6666"/>
+                            <OnClick>
+                                <![CDATA[IIF(
+    DBQueryValue
+        ('select a.Content 
+            from OA_AddViews a 
+            where a.Content=? and Creator=?', GetValue('Opinion'),GetOperator())==GetValue('Opinion'),
+        Confirm('该意见已存在'),
+        DBUpdate('Insert into OA_AddViews (OID,SOID,POID,VERID,DVERID,Content,Creator,Status) values (?,OID,null,0,0,?,?,100)',
+ApplyNewOID(),GetValue('Opinion'),GetOperator())
+);]]>
+                            </OnClick>
+                        </HyperLink>
+                    </LinearLayoutPanel>
+                    <GridLayoutPanel Key="GridLayoutPanel1" Height="pref" Caption="GridLayoutPanel1" Width="pref">
+                        <Button Key="Button1" Caption="加签" X="2" Y="1">
+                            <OnClick>
+                                <![CDATA[        var x = Para("pWorkitemID");
+	parent.EndorseTask(x,Endorse,GetValue("Opinion"));
+        Close();]]>
+                            </OnClick>
+                        </Button>
+                        <Button Key="Button2" Caption="取消" X="3" Y="1">
+                            <OnClick>
+                                <![CDATA[Close()]]>
+                            </OnClick>
+                        </Button>
+                        <RowDefCollection RowGap="5">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="5">
+                            <ColumnDef Width="100px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="80px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                </LinearLayoutPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

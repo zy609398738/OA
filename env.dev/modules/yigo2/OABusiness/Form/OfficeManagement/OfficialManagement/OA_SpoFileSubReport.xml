@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="OA_SpoFileSubReport" Caption="发文统计表" FormType="View" Platform="">
+    <DataSource>
+        <DataObject Key="OA_SpoFileSubReport" Caption="发文统计表">
+            <TableCollection>
+                <Table Key="OA_SpoFileSubReport" Caption="发文统计表" TableMode="Detail" SourceType="Interface" Persist="false" Impl="com.bokesoft.oa.mid.report.GetSumDataTable">
+                    <Column Key="SecretL" Caption="密级" DataType="Integer"/>
+                    <Column Key="Deadline" Caption="保管期限" DataType="Integer"/>
+                    <Column Key="BillDate" Caption="发文日期" DataType="DateTime"/>
+                    <Column Key="DeptID" Caption="主办单位" DataType="Long"/>
+                    <Column Key="EmpID" Caption="拟稿人" DataType="Long"/>
+                    <Column Key="FileTypeID" Caption="发文类型" DataType="Long"/>
+                    <Column Key="Amount" Caption="发文数量" DataType="Integer"/>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="Print" Caption="打印"/>
+    </OperationCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板">
+                <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <GridLayoutPanel Key="first_head" Height="pref" Caption="基本信息">
+                    <CheckListBox BuddyKey="Lab_QuerySecretL" Caption="密级" Key="QuerySecretL" X="1" Y="2">
+                        <Condition ColumnKey="SecretL" TableKey="OA_SpoFileSubReport" CondSign="in"/>
+                        <Item Caption="机密" Key="10" Value="10"/>
+                        <Item Caption="非密" Key="20" Value="20"/>
+                        <Item Caption="秘密" Key="30" Value="30"/>
+                    </CheckListBox>
+                    <Label Key="Lab_QuerySecretL" Caption="密级" X="0" Y="2"/>
+                    <CheckListBox BuddyKey="Lab_QueryDeadline" Caption="保管期限" Key="QueryDeadline" X="3" Y="0">
+                        <Condition ColumnKey="Deadline" TableKey="OA_SpoFileSubReport" CondSign="in"/>
+                        <Item Caption="永久" Key="10" Value="10"/>
+                        <Item Caption="长期" Key="20" Value="20"/>
+                        <Item Caption="短期" Key="30" Value="30"/>
+                    </CheckListBox>
+                    <Label Key="Lab_QueryDeadline" Caption="保管期限" X="2" Y="0"/>
+                    <Dict Key="QueryEmpID" Caption="拟稿人" BuddyKey="Lab_QueryEmpID" X="1" Y="1" AllowMultiSelection="true" ItemKey="OA_Employee">
+                        <Condition ColumnKey="EmpID" TableKey="OA_SpoFileSubReport" CondSign="in"/>
+                    </Dict>
+                    <Label Key="Lab_QueryEmpID" Caption="拟稿人" X="0" Y="1"/>
+                    <Dict Key="QueryFileTypeID" Caption="发文类型" BuddyKey="Lab_QueryFileTypeID" X="1" Y="0" AllowMultiSelection="true" ItemKey="OA_FileType">
+                        <Condition ColumnKey="FileTypeID" TableKey="OA_SpoFileSubReport" CondSign="in"/>
+                    </Dict>
+                    <Label Key="Lab_QueryFileTypeID" Caption="发文类型" X="0" Y="0"/>
+                    <Button Key="Query" Caption="查询" X="6" Y="0">
+                        <OnClick>
+                            <![CDATA[DealCondition();
+LoadData();
+ShowData();]]>
+                        </OnClick>
+                    </Button>
+                    <Button Key="Reset" Caption="重置" X="6" Y="1">
+                        <OnClick>
+                            <![CDATA[ResetCondition();]]>
+                        </OnClick>
+                    </Button>
+                    <DatePicker Key="From" Caption="发文日期 从" BuddyKey="Lab_From" X="3" Y="1">
+                        <Condition ColumnKey="BillDate" TableKey="OA_SpoFileSubReport" CondSign="between" Group="aa" GroupHead="true"/>
+                    </DatePicker>
+                    <Label Key="Lab_From" Caption="发文日期 从" X="2" Y="1"/>
+                    <DatePicker Key="To" Caption="到" BuddyKey="Lab_To" X="5" Y="1">
+                        <Condition ColumnKey="BillDate" TableKey="OA_SpoFileSubReport" CondSign="between" Group="aa" GroupTail="true"/>
+                    </DatePicker>
+                    <Label Key="Lab_To" Caption="到" X="4" Y="1"/>
+                    <Dict Key="QueryDeptID" Caption="主办单位" BuddyKey="Lab_QueryDeptID" X="5" Y="0" AllowMultiSelection="true" ItemKey="OA_Department">
+                        <Condition ColumnKey="DeptID" TableKey="OA_SpoFileSubReport" CondSign="in"/>
+                    </Dict>
+                    <Label Key="Lab_QueryDeptID" Caption="主办单位" X="4" Y="0"/>
+                    <RowDefCollection RowGap="8">
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="8">
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="33%"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="33%"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="34%"/>
+                        <ColumnDef Width="80px"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+                <Grid Key="Grid1" Caption="Grid1" NewEmptyRow="false" Enable="false" CanDelete="false" CanInsert="false" Height="100%" PageLoadType="UI">
+                    <GridColumnCollection>
+                        <GridColumn Key="FileTypeID" Caption="发文类型" Width="130px"/>
+                        <GridColumn Key="Deadline" Caption="保管期限" Width="80px"/>
+                        <GridColumn Key="DeptID" Caption="主办单位" Width="130px"/>
+                        <GridColumn Key="EmpID" Caption="拟稿人" Width="130px"/>
+                        <GridColumn Key="SecretL" Caption="密级" Width="80px"/>
+                        <GridColumn Key="Amount" Caption="发文数量" Width="80px"/>
+                    </GridColumnCollection>
+                    <GridRowCollection>
+                        <GridRow Key="row1" RowHeight="35" TableKey="OA_SpoFileSubReport">
+                            <GridCell Key="FileTypeID" Caption="发文类型" CellType="Dict" ItemKey="OA_FileType">
+                                <DataBinding ColumnKey="FileTypeID"/>
+                            </GridCell>
+                            <GridCell Key="Deadline" Caption="保管期限" CellType="ComboBox">
+                                <DataBinding ColumnKey="Deadline"/>
+                                <Item Key="0" Value="0"/>
+                                <Item Caption="永久" Key="1" Value="1"/>
+                                <Item Caption="长期" Key="2" Value="2"/>
+                                <Item Caption="短期" Key="3" Value="3"/>
+                            </GridCell>
+                            <GridCell Key="DeptID" Caption="主办单位" CellType="Dict" ItemKey="OA_Department">
+                                <DataBinding ColumnKey="DeptID"/>
+                            </GridCell>
+                            <GridCell Key="EmpID" Caption="拟稿人" CellType="Dict" ItemKey="OA_Employee">
+                                <DataBinding ColumnKey="EmpID"/>
+                            </GridCell>
+                            <GridCell Key="SecretL" Caption="密级" CellType="ComboBox">
+                                <DataBinding ColumnKey="SecretL"/>
+                                <Item Key="0" Value="0"/>
+                                <Item Caption="机密" Key="10" Value="10"/>
+                                <Item Caption="非密" Key="20" Value="20"/>
+                                <Item Caption="秘密" Key="30" Value="30"/>
+                            </GridCell>
+                            <GridCell Key="Amount" Caption="发文数量" CellType="NumberEditor" IntegerValue="true">
+                                <DataBinding ColumnKey="Amount"/>
+                            </GridCell>
+                        </GridRow>
+                    </GridRowCollection>
+                </Grid>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

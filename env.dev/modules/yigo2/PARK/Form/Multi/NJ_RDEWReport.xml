@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="NJ_RDEWReport" Caption="应收到期预警" FormType="Entity" AbbrCaption="应收到期预警" InitState="Default">
+    <DataSource>
+        <DataObject Key="NJ_RDEWReport" Caption="应收到期预警" PrimaryTableKey="NJ_RDEWReportDetail" PrimaryType="Entity">
+            <TableCollection>
+                <Table Key="NJ_RDEWReportDetail" Caption="NJ_RDEWReportDetail" DBTableName="NJ_RDEWReportDetail" TableMode="Detail" SourceType="Query" Persist="false" OrderBy="NO,PlanDate">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="MapCount" Caption="映射数量标记" DataType="Integer"/>
+                    <Column Key="MapKey" Caption="映射标识" DataType="Varchar"/>
+                    <Column Key="SrcOID" Caption="来源行标识" DataType="Long"/>
+                    <Column Key="SrcSOID" Caption="来源表单标识" DataType="Long"/>
+                    <Column Key="CustomerId" Caption="CustomerId" DataType="Long"/>
+                    <Column Key="UsePeople" Caption="UsePeople" DataType="Varchar"/>
+                    <Column Key="RoomNumber" Caption="RoomNumber" DataType="Varchar"/>
+                    <Column Key="EmpID" Caption="EmpID" DataType="Long"/>
+                    <Column Key="TotalArea" Caption="TotalArea" DataType="Numeric" Precision="16" Scale="2"/>
+                    <Column Key="PlanDate" Caption="PlanDate" DataType="DateTime"/>
+                    <Column Key="ActualMoney" Caption="ActualMoney" DataType="Numeric" Precision="16" Scale="2"/>
+                    <Column Key="ReceivedMoney" Caption="ReceivedMoney" DataType="Numeric" Precision="16" Scale="2"/>
+                    <Column Key="CollectionMoney" Caption="CollectionMoney" DataType="Numeric" Precision="16" Scale="2"/>
+                    <Column Key="ContactNumber" Caption="ContactNumber" DataType="Varchar"/>
+                    <Column Key="NO" Caption="NO" DataType="Varchar"/>
+                    <Column Key="yqts" Caption="yqts" DataType="Integer" Precision="16" Scale="2"/>
+                    <ParameterCollection>
+                        <Parameter DataType="Integer" Formula="IIF(GetPara('yjtqts')&lt;=0, 90, GetPara('yjtqts'));"/>
+                    </ParameterCollection>
+                    <Statement>
+                        <![CDATA[SELECT * FROM (select TIMESTAMPDIFF(DAY,NOW(),planDate) yqts,a.NO,a.BillDate,a.EmpID,a.CustomerId,a.UsePeople,a.ContactNumber,a.RoomNumber,a.TotalArea,b.OID,b.PlanDate,b.ActualMoney,c.CollectionMoney ReceivedMoney,b.ActualMoney-IFNULL(c.ReceivedMoney,0) CollectionMoney from NJ_SCM_LeaseContractHead a LEFT JOIN NJ_SCM_LeaseContractPlan b ON a.OID=b.SOID LEFT JOIN (select SourceOID,sum(CollectionMoney) CollectionMoney,sum(CollectionMoney)-sum(IncreaseMoney) ReceivedMoney from NJ_ContractPaymentDtl group by SourceOID) c ON b.OID=c.SourceOID WHERE a.Status<>340 AND b.ActualMoney-IFNULL(c.ReceivedMoney,0)>0) a WHERE yqts<=?]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="WORKITEM" Caption="WORKITEM" Tag="WORKITEM"/>
+        <Operation Key="BPM" Caption="BPM" Tag="BPM"/>
+    </OperationCollection>
+    <ScriptCollection>
+        <Script Key="Load" Caption="载入" Description="载入事件" Range="Action" Verb="Load">
+            <![CDATA[
+		LoadData();ShowData()
+		]]>
+        </Script>
+    </ScriptCollection>
+    <Body HAlign="Center" Height="80%" PopHeight="80%" PopWidth="80%" Width="80%">
+        <Block>
+            <GridLayoutPanel Key="main" Height="100%">
+                <ToolBar Key="main_toolbar" X="0" Y="0">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <SplitPanel Key="main_split" Orientation="Vertical" Height="100%" X="0" Y="1">
+                    <GridLayoutPanel Key="query" Height="70px" Padding="5px" Caption="查询">
+                        <Button Key="Btn_find" Caption="查询" X="4" Y="0" Enable="true">
+                            <OnClick>
+                                <![CDATA[DealCondition();LoadData();ShowData();								]]>
+                            </OnClick>
+                        </Button>
+                        <NumberEditor Key="yqts_cond" Caption="预警提前期(天)" BuddyKey="Lab_yqts_cond" X="2" Y="0" Enable="true" IntegerValue="true" Clearable="false">
+                            <DataBinding DefaultValue="90">
+                                <ValueChanged>
+                                    <![CDATA[SetPara('yjtqts',GetValue('yqts_cond'))]]>
+                                </ValueChanged>
+                            </DataBinding>
+                        </NumberEditor>
+                        <Label Key="Lab_yqts_cond" Caption="预警提前期(天)" X="1" Y="0"/>
+                        <RowDefCollection RowHeight="25" RowGap="5">
+                            <RowDef/>
+                        </RowDefCollection>
+                        <ColumnDefCollection>
+                            <ColumnDef Width="20px"/>
+                            <ColumnDef Width="100px"/>
+                            <ColumnDef Width="100px"/>
+                            <ColumnDef Width="20px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="100%"/>
+                            <ColumnDef Width="20px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="10px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="20px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <Grid Key="Info" Caption="库存明细" NewEmptyRow="false" Enable="true" CanDelete="false" CanInsert="false" CanShift="false">
+                        <GridColumnCollection>
+                            <GridColumn Key="NO" Caption="合同编号" Visible="false" Width="80px"/>
+                            <GridColumn Key="CustomerId" Caption="租赁客户" Width="80px"/>
+                            <GridColumn Key="UsePeople" Caption="联系人" Width="80px"/>
+                            <GridColumn Key="ContactNumber" Caption="联系电话" Width="80px"/>
+                            <GridColumn Key="RoomNumber" Caption="房间号/车位" Width="80px"/>
+                            <GridColumn Key="TotalArea" Caption="总面积" Width="80px"/>
+                            <GridColumn Key="EmpID" Caption="经办人" Width="80px"/>
+                            <GridColumn Key="PlanDate" Caption="应收日期" Width="80px"/>
+                            <GridColumn Key="ActualMoney" Caption="实际应收" Width="80px"/>
+                            <GridColumn Key="ReceivedMoney" Caption="已收款" Width="80px"/>
+                            <GridColumn Key="CollectionMoney" Caption="未收款" Width="80px"/>
+                            <GridColumn Key="yqts" Caption="距应收日" Width="80px"/>
+                        </GridColumnCollection>
+                        <GridRowCollection>
+                            <GridRow Key="R2" TableKey="NJ_RDEWReportDetail">
+                                <GridCell Key="NO" Caption="合同编号" CellType="TextEditor">
+                                    <DataBinding ColumnKey="NO"/>
+                                </GridCell>
+                                <GridCell Key="CustomerId" Caption="租赁客户" CellType="Dict" ItemKey="NJ_CP_Customer">
+                                    <DataBinding ColumnKey="CustomerId"/>
+                                </GridCell>
+                                <GridCell Key="UsePeople" Caption="联系人" CellType="TextEditor">
+                                    <DataBinding ColumnKey="UsePeople"/>
+                                </GridCell>
+                                <GridCell Key="ContactNumber" Caption="联系电话" CellType="TextEditor">
+                                    <DataBinding ColumnKey="ContactNumber"/>
+                                </GridCell>
+                                <GridCell Key="RoomNumber" Caption="房间号/车位" CellType="TextEditor">
+                                    <DataBinding ColumnKey="RoomNumber"/>
+                                </GridCell>
+                                <GridCell Key="TotalArea" Caption="总面积" CellType="NumberEditor">
+                                    <DataBinding ColumnKey="TotalArea"/>
+                                </GridCell>
+                                <GridCell Key="EmpID" Caption="经办人" CellType="Dict" ItemKey="OA_Employee">
+                                    <DataBinding ColumnKey="EmpID"/>
+                                </GridCell>
+                                <GridCell Key="PlanDate" Caption="应收日期" CellType="DatePicker" Format="yyyy-MM-dd" OnlyDate="true">
+                                    <DataBinding ColumnKey="PlanDate"/>
+                                </GridCell>
+                                <GridCell Key="ActualMoney" Caption="实际应收" CellType="NumberEditor">
+                                    <DataBinding ColumnKey="ActualMoney"/>
+                                    <CellFormat HAlign="Right"/>
+                                </GridCell>
+                                <GridCell Key="ReceivedMoney" Caption="已收款" CellType="NumberEditor">
+                                    <DataBinding ColumnKey="ReceivedMoney"/>
+                                    <CellFormat HAlign="Right"/>
+                                </GridCell>
+                                <GridCell Key="CollectionMoney" Caption="未收款" CellType="NumberEditor">
+                                    <DataBinding ColumnKey="CollectionMoney"/>
+                                    <CellFormat HAlign="Right"/>
+                                </GridCell>
+                                <GridCell Key="yqts" Caption="距应收日" CellType="NumberEditor" IntegerValue="true">
+                                    <DataBinding ColumnKey="yqts"/>
+                                    <CellFormat HAlign="Right"/>
+                                </GridCell>
+                            </GridRow>
+                        </GridRowCollection>
+                    </Grid>
+                    <SplitSize Size="40px"/>
+                    <SplitSize Size="100%"/>
+                </SplitPanel>
+                <RowDefCollection RowHeight="25">
+                    <RowDef Height="0px"/>
+                    <RowDef Height="100%"/>
+                </RowDefCollection>
+                <ColumnDefCollection>
+                    <ColumnDef Width="100%"/>
+                </ColumnDefCollection>
+            </GridLayoutPanel>
+        </Block>
+    </Body>
+    <OnLoad>
+        <![CDATA[LoadData();ShowData();]]>
+    </OnLoad>
+</Form>

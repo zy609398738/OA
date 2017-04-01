@@ -1,0 +1,173 @@
+/*
+  pop 新建弹出框  **流程的content
+  moved from ../documents_create2.jsp
+*/
+.fancybox-skin .fancybox-inner {
+	height: 360px!important;
+	width: 790px!important;
+	margin-top: -3px;
+	background-color:#fff;
+}
+#pop_creat{
+	
+}
+#pop_creat h4{
+	width: 89px;
+    font-size:20px;
+	color: #263d8b;
+	background: url(../images/new-workflow.png) 3px 4px no-repeat;
+	border-bottom:3px solid #3f67c0;
+	padding-left: 27px;
+}
+.flowtypes{
+    float: left;
+    overflow: auto;
+    width: 100%;
+    font-size:14px;
+	margin-top: 30px;
+}
+.flowtypes table{
+    width:100%;
+}
+.flowtypes tr{
+    border-bottom:1px solid #d3e0e9;
+}
+.flowtypes tr:last-child{
+    border-bottom:none;
+}
+.flowtypes td{
+    padding:5px;
+}
+.con_list li{
+    padding-left:30px;
+}
+.con_list li a{
+    color:#666;
+    height:35px;
+    line-height: 35px;
+    display:block;
+    text-align:left;
+    padding-left: 45px;
+    background: url(../images/zh_img.png) 0 0 no-repeat;
+    _background: url(../images/zh_img.gif) 0 0 no-repeat;
+}
+.con_list li.hover{
+    background:#d3e0e9;
+    font-weight:bold;
+}
+.con_list .finace a{
+    background-position:0 -20px;
+}
+.con_list .office a{
+    background-position:0 -70px;
+}
+.con_list .hire a{
+    background-position:0 -120px;
+}
+.con_list .other a{
+    background-position:0 -170px;
+}
+.pop .tab-content2{
+    /*padding-left: 235px;*/
+    border-bottom: 1px solid #d3e0e9;
+}
+.in_cont{
+    overflow:auto;
+    display:none;
+    word-wrap: break-word;
+}
+.in_cont a{
+    display:block;
+    height:25px;
+    line-height:25px;
+    text-align:left;
+    padding-left:18px;
+    color:#666;
+}
+.in_cont a.hover{
+    background:#d3e0e9;
+}
+.controls-button{
+    height:25px;
+    background:#eff6fa;
+    padding: 10px 0;
+}
+.controls-button a{
+    background: url(../images/zh-btns-img.gif) left top no-repeat;
+    text-decoration: none;
+    position: relative;
+    float:right;
+    height: 25px;
+    line-height: 25px;
+    color: #006898;
+    margin-right:10px;
+}
+.controls-button a span{
+    padding: 2px 20px;
+}
+.controls-button a b{
+    display: block;
+    width: 3px;
+    height: 25px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: url(../images/zh-btns-img.gif) -147px -25px no-repeat;
+}
+
+
+
+
+.pop .tab-content2{
+    height:500px;
+}
+
+.fancybox-inner{
+    height:407px!important;
+    width:850px!important;
+}
+
+
+
+/*2013.11.22*/
+.list-title{
+    width:100px;
+    text-align:center;
+}
+.list-title a{
+    font-weight:bold;
+    color:#1a81f4;	
+	padding-left: 16px;
+	background:url(../images/triangle.png) 0 5px no-repeat ;
+}
+.list-content a{
+    float:left;
+}
+.list-content a:hover{
+    text-decoration:underline;
+    color:red;
+}
+#pop_creat .pop_content{
+    border: 0px;
+    margin-top: 4px;
+    height: 360px;
+    overflow: auto;
+}
+.close {
+    position:absolute;
+    background:url(../images/close3.gif) no-repeat 2px 4px;
+    right:0;
+    top:0;
+    width:35px;
+    height:35px;
+    cursor:pointer;
+    z-index:9999;
+}
+.close:hover {
+    background:url(../images/close3.gif) no-repeat 2px -42px;
+}
+.notes{
+    padding:10px;
+    width:200px;
+    float:right;
+}

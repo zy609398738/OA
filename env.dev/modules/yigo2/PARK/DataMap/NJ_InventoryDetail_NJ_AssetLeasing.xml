@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Map Caption="库存资产下推资产租赁" Key="NJ_InventoryDetail_NJ_AssetLeasing" SrcDataObjectKey="NJ_InventoryDetail" TgtDataObjectKey="NJ_AssetLeasing">
+    <SourceTableCollection Height="330" Width="338" X="30" Y="30">
+        <SourceTable Key="NJ_InventoryDetail" IsPrimary="true" TargetTableKey="NJ_SCM_AssetLeasingDtl">
+            <SourceField Definition="AssetsId" TargetFieldKey="AssetsId"/>
+            <SourceField Definition="assetstypeid" TargetFieldKey="assetstypeid"/>
+            <SourceField Definition="Model" TargetFieldKey="Model"/>
+            <SourceField Definition="UNITID" TargetFieldKey="UNITID"/>
+            <SourceField Definition="Amount" TargetFieldKey="Amount"/>
+            <SourceField Definition="WareHouseId" TargetFieldKey="WareHouseId"/>
+            <SourceField Definition="AssetNatureId" TargetFieldKey="AssetNatureId"/>
+        </SourceTable>
+    </SourceTableCollection>
+    <TargetTableCollection Height="330" Width="421" X="409" Y="30">
+        <TargetTable Key="NJ_SCM_AssetLeasingDtl" IsPrimary="true">
+            <TargetField Definition="AssetsId"/>
+            <TargetField Definition="assetstypeid"/>
+            <TargetField Definition="Model"/>
+            <TargetField Definition="UNITID"/>
+            <TargetField Definition="Amount"/>
+            <TargetField Definition="WareHouseId"/>
+            <TargetField Definition="AssetNatureId"/>
+        </TargetTable>
+    </TargetTableCollection>
+</Map>

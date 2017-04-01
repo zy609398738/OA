@@ -1,0 +1,22 @@
+{
+	"@type":"com.bokesoft.cms2.model.HtmlTmpl",
+	"code":"OnlyContent",
+	"htmlText":"<!DOCTYPE html>\n<html lang=\"zh-CN\">\n<head>\n <meta charset=\"utf-8\">\n <title>会议模板</title>\n</head>\n<body>\n<div yigo-cms:area=\"content\" /> \n</body>\n</html>",
+	"name":"仅内容",
+	"slices":[
+		{
+			"followHtml":"<!DOCTYPE html>\n<html lang=\"zh-CN\">\n<head>\n <meta charset=\"utf-8\">\n "
+		},
+		{
+			"code":"会议模板",
+			"followHtml":"\n</head>\n<body>\n",
+			"tag":"yigo-cms:title"
+		},
+		{
+			"code":"content",
+			"followHtml":" \n</body>\n</html>",
+			"name":"内容",
+			"tag":"yigo-cms:area"
+		}
+	]
+}

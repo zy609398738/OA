@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<DataObject Caption="工作中心" Key="WorkCenter" PrimaryTableKey="BK_WorkCenter" PrimaryType="Entity" SecondaryType="Dict">
+    <TableCollection>
+        <Table Caption="WorkCenter" DBTableName="BK_WorkCenter" Key="BK_WorkCenter">
+            <Column Caption="对象标识" DataType="Long" Key="OID"/>
+            <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+            <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+            <Column Caption="对象版本" DataType="Integer" Key="VERID"/>
+            <Column Caption="对象明细版本" DataType="Integer" Key="DVERID"/>
+            <Column Caption="节点类型" DataType="Integer" Key="NodeType"/>
+            <Column Caption="状态" DataType="Integer" Key="Status"/>
+            <Column Caption="启用标记" DataType="Integer" Key="Enable" DefaultValue="1"/>
+            <Column Caption="父节点" DataType="Long" Key="ParentID"/>
+            <Column Caption="TLeft" DataType="Integer" Key="TLeft"/>
+            <Column Caption="TRight" DataType="Integer" Key="TRight"/>
+            <Column Caption="创建人" DataType="Long" Key="CREATOR"/>
+            <Column Caption="创建时间" DataType="DateTime" Key="CREATETIME"/>
+            <Column Caption="修改人" DataType="Long" Key="MODIFIER"/>
+            <Column Caption="修改时间" DataType="DateTime" Key="MODIFYTIME"/>
+            <Column Caption="代码" DataType="Varchar" Key="Code" Length="100"/>
+            <Column Caption="名称" DataType="Varchar" Key="Name" Length="200"/>
+            <Column Caption="所属工厂" DataType="Long" Key="PlantID"/>
+            <Column Caption="成本控制范围" DataType="Long" Key="ControllingAreaID"/>
+            <Column Caption="起效日期" DataType="DateTime" Key="ValidDateFrom"/>
+            <Column Caption="成本中心" DataType="Long" Key="CostCenterID"/>
+            <Column Caption="负责人" DataType="Long" Key="ResponsiblePersonID"/>
+            <Column Caption="结束日期" DataType="DateTime" Key="ValidDateEnd"/>
+            <Column Caption="外部代码" DataType="Varchar" Key="UseCode" Length="200"/>
+            <Column Key="Notes" Caption="备注" DataType="Varchar"/>
+            <Column Key="clientid" Caption="集团" DataType="Long"/>
+            <Column Key="WorkCenterUsageID" Caption="用途" DataType="Long"/>
+            <Column Key="BackFlush" Caption="反冲" DataType="Integer"/>
+            <Column Key="WorkCenterCategoryID" Caption="工作中心类别" DataType="Long"/>
+            <Column Key="ControlCodeID" Caption="控制码" DataType="Long"/>
+            <Column Key="CapacityCategoriesID" Caption="能力类别" DataType="Long"/>
+            <Column Key="CapacityID" Caption="能力" DataType="Long"/>
+            <Column Key="SetupFormulaID" Caption="准备公式" DataType="Long"/>
+            <Column Key="ProcessingFormulaID" Caption="加工公式" DataType="Long"/>
+            <Column Key="TeardownFormulaID" Caption="拆卸公式" DataType="Long"/>
+            <Column Key="OtherFormulaID" Caption="其他公式" DataType="Long"/>
+            <Column Key="StandardValueKeyID" Caption="标准值码" DataType="Long"/>
+        </Table>
+        <Table Key="BK_WorkCenter_ParaActivity" Caption="WorkCenter_ParaActivity" TableMode="Detail">
+            <Column Caption="对象标识" DataType="Long" Key="OID"/>
+            <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+            <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+            <Column Caption="对象版本" DataType="Integer" Key="VERID"/>
+            <Column Caption="对象明细版本" DataType="Integer" Key="DVERID"/>
+            <Column Key="activitytypeid" Caption="作业类型" DataType="Long"/>
+            <Column Key="activitytypeunitid" Caption="作业单位" DataType="Long"/>
+            <Column Key="formula" Caption="计算公式" DataType="Long"/>
+            <Column Key="parameterid" Caption="参数" DataType="Long"/>
+            <Column Key="RowNo" Caption="行号" DataType="Integer"/>
+        </Table>
+        <Table Key="BK_WorkCenter_Capacity" Caption="WorkCenter_Capacity" DBTableName="BK_WorkCenter_Capacity" TableMode="Detail">
+            <Column Caption="对象标识" DataType="Long" Key="OID"/>
+            <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+            <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+            <Column Caption="对象版本" DataType="Integer" Key="VERID"/>
+            <Column Caption="对象明细版本" DataType="Integer" Key="DVERID"/>
+            <Column Key="CapacityCategoriesID" Caption="能力类别" DataType="Long"/>
+            <Column Key="PooledCapacityID" Caption="共享能力" DataType="Long"/>
+            <Column Key="SetupFormulaID" Caption="准备公式" DataType="Long"/>
+            <Column Key="ProcessingFormulaID" Caption="加工公式" DataType="Long"/>
+            <Column Key="TeardownFormulaID" Caption="拆卸公式" DataType="Long"/>
+            <Column Key="OtherFormulaID" Caption="其他公式" DataType="Long"/>
+            <Column Key="CapacityName" Caption="能力名称" DataType="Varchar" Length="100"/>
+            <Column Key="CapacityPlannerID" Caption="能力计划员组" DataType="Long"/>
+            <Column Key="FactoryCalenderID" Caption="工厂日历" DataType="Long"/>
+            <Column Key="BaseUnitID" Caption="基本单位" DataType="Long"/>
+            <Column Key="StartTime" Caption="开始时间" DataType="DateTime"/>
+            <Column Key="EndTime" Caption="结束时间" DataType="DateTime"/>
+            <Column Key="BreakTime" Caption="休息时间" DataType="DateTime"/>
+            <Column Key="CapacityUtilization" Caption="能力利用" DataType="Integer"/>
+            <Column Key="SingleCapacityNumber" Caption="单项能力数量" DataType="Integer"/>
+            <Column Key="OperatingTime" Caption="加工时间" DataType="Numeric" Precision="16" Scale="3"/>
+            <Column Key="TotalCapacity" Caption="总能力" DataType="Numeric" Precision="16" Scale="3"/>
+            <Column Key="RowNo" Caption="行号" DataType="Integer"/>
+            <Column Key="ActiveVersion" Caption="活动版本" DataType="Long"/>
+            <Column Key="CapacityUnitID" Caption="基本计量单位" DataType="Long"/>
+            <Column Key="ReferenceCapacityID" Caption="参考可用的能力" DataType="Long"/>
+            <Column Key="WorkShiftGroupID" Caption="分组" DataType="Long"/>
+        </Table>
+        <Table Key="BK_WorkCenter_Shift" Caption="WorkCenter_Shift" DBTableName="BK_WorkCenter_Shift" TableMode="Detail">
+            <Column Caption="对象标识" DataType="Long" Key="OID"/>
+            <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+            <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+            <Column Caption="对象版本" DataType="Integer" Key="VERID"/>
+            <Column Caption="对象明细版本" DataType="Integer" Key="DVERID"/>
+        </Table>
+        <Table Key="BK_StandardValueBasic" Caption="StandardValueBasic" DBTableName="BK_StandardValueBasic" TableMode="Detail">
+            <Column Caption="对象标识" DataType="Long" Key="OID"/>
+            <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+            <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+            <Column Caption="对象版本" DataType="Integer" Key="VERID"/>
+            <Column Caption="对象明细版本" DataType="Integer" Key="DVERID"/>
+            <Column Key="ParameterID" Caption="参数" DataType="Long"/>
+            <Column Key="MaintenanceRule" Caption="维护规则" DataType="Integer"/>
+        </Table>
+        <Table Key="BK_StandardValueDefault" Caption="StandardValueDefault" DBTableName="BK_StandardValueDefault" TableMode="Detail">
+            <Column Caption="对象标识" DataType="Long" Key="OID"/>
+            <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+            <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+            <Column Caption="对象版本" DataType="Integer" Key="VERID"/>
+            <Column Caption="对象明细版本" DataType="Integer" Key="DVERID"/>
+            <Column Key="RowNo" Caption="行号" DataType="Integer"/>
+            <Column Key="ParameterID" Caption="参数" DataType="Long"/>
+            <Column Key="ActivityTypeUnitID" Caption="作业单位" DataType="Long"/>
+        </Table>
+    </TableCollection>
+</DataObject>

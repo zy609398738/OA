@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="MOA_BPM_Log" Caption="审批记录" FormType="View" Platform="">
+    <DataSource>
+        <DataObject Key="MOA_BPM_Log" Caption="审批记录">
+            <TableCollection>
+                <Table Key="MOA_BPM_Log" Caption="审批记录" TableMode="Detail" SourceType="Query" Persist="false">
+                    <Column Caption="工作项标识" DBColumnName="workItemID" DataType="Long" Key="workItemID"/>
+                    <Column Caption="父对象标识" DBColumnName="workItemName" DataType="Varchar" Key="workItemName" Length="200"/>
+                    <Column Caption="创建时间" DBColumnName="creatTime" DataType="DateTime" Key="creatTime"/>
+                    <Column Caption="提交时间" DBColumnName="finishTime" DataType="DateTime" Key="finishTime"/>
+                    <Column Caption="人员" DBColumnName="operatorID" DataType="Integer" Key="operatorID"/>
+                    <Column Caption="审批意见" DBColumnName="userInfo" DataType="Varchar" Key="userInfo" Length="200"/>
+                    <Column Caption="审批结果" DBColumnName="auditResult" DataType="Integer" Key="auditResult"/>
+                    <Column Key="E_Signature" Caption="电子签名" DataType="Varchar" DBColumnName="E_Signature"/>
+                    <TableFilter>
+                        <![CDATA[instanceID=(select instanceID from BPM_Instance where OID=?)]]>
+                    </TableFilter>
+                    <ParameterCollection>
+                        <Parameter Caption="标识" Formula="GetPara('parentOID');" Key="OID" TargetColumn="workItemID"/>
+                    </ParameterCollection>
+                    <Statement>
+                        <![CDATA[select workItemID,workItemName,creatTime,finishTime,operatorID,auditResult,userInfo ,(case when auditResult=-1 then '' else E_Signature end) as E_Signature from BPM_Log
+]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <Body>
+        <Block>
+            <TableView Caption="TableView1" Key="TableView1" Padding="10px">
+                <Format BackColor="#e6e6e6"/>
+                <TableRowCollection>
+                    <TableRow Key="row1" RowType="Detail" TableKey="MOA_BPM_Log" TopMargin="10px" ShowFirstMargin="true">
+                        <LinearLayoutPanel Caption="LinearLayoutPanel1" Key="LinearLayoutPanel1" Orientation="Vertical">
+                            <LinearLayoutPanel Caption="LinearLayoutPanel2" Height="40px" Key="LinearLayoutPanel2" Width="auto">
+                                <Label Key="Label3" Caption="操作名称" Height="auto" Width="80px"/>
+                                <TextEditor Key="workItemName" Caption="操作名称" Enable="false" Height="auto" Width="auto">
+                                    <DataBinding ColumnKey="workItemName"/>
+                                    <Format BackColor="#ffffff">
+                                        <Font Size="14"/>
+                                    </Format>
+                                </TextEditor>
+                            </LinearLayoutPanel>
+                            <LinearLayoutPanel Caption="LinearLayoutPanel3" Height="40px" Key="LinearLayoutPanel3" Width="auto">
+                                <Label Key="Label2" Caption="审批时间" Height="auto" Width="80px"/>
+                                <DatePicker Key="finishTime" Caption="审批时间" Enable="false" Height="auto" Width="auto">
+                                    <DataBinding ColumnKey="finishTime"/>
+                                    <Format BackColor="#ffffff" HAlign="Left"/>
+                                </DatePicker>
+                            </LinearLayoutPanel>
+                            <LinearLayoutPanel Caption="LinearLayoutPanel4" Height="40px" Key="LinearLayoutPanel4" Width="auto">
+                                <Label Key="Label1" Caption="人员" Height="auto" Width="80px"/>
+                                <Dict Key="operatorID" Caption="人员" Enable="false" Height="auto" ItemKey="Operator" Width="auto">
+                                    <DataBinding ColumnKey="operatorID"/>
+                                </Dict>
+                            </LinearLayoutPanel>
+                            <LinearLayoutPanel Caption="LinearLayoutPanel5" Height="40px" Key="LinearLayoutPanel5" Width="auto">
+                                <Label Key="Label4" Caption="审批结果" Height="auto" Width="80px"/>
+                                <ComboBox Key="auditResult" Caption="审批结果" Enable="false" Height="auto" Width="auto">
+                                    <DataBinding ColumnKey="auditResult"/>
+                                    <Format BackColor="#ffffff" HAlign="Left"/>
+                                    <Item Caption="通过" Key="1" Value="1"/>
+                                    <Item Caption="驳回" Key="0" Value="0"/>
+                                </ComboBox>
+                            </LinearLayoutPanel>
+                            <LinearLayoutPanel Caption="LinearLayoutPanel6" Height="40px" Key="LinearLayoutPanel6" Width="auto">
+                                <Label Key="Label5" Caption="审批意见" Height="auto" Width="80px"/>
+                                <TextEditor Key="userInfo" Caption="审批意见" Enable="false" Height="auto" Width="auto">
+                                    <DataBinding ColumnKey="userInfo"/>
+                                    <Format BackColor="#ffffff">
+                                        <Font Size="14"/>
+                                    </Format>
+                                </TextEditor>
+                            </LinearLayoutPanel>
+                            <LinearLayoutPanel Caption="LinearLayoutPanel7" Height="60px" Key="LinearLayoutPanel7" Width="auto">
+                                <Label Key="Label6" Caption="电子签名" Height="auto" Width="80px"/>
+                                <Image Key="E_Signature" Caption="电子签名" Enable="false" Height="60px" Width="auto" HasBorder="true">
+                                    <DataBinding ColumnKey="E_Signature"/>
+                                </Image>
+                            </LinearLayoutPanel>
+                            <LinearLayoutPanel Caption="LinearLayoutPanel8" Height="pref" Key="LinearLayoutPanel8" Visible="false" Width="pref">
+                                <Label Key="Label7" Caption="工作项标识" Height="auto" Width="60px"/>
+                                <TextEditor Key="workItemID" Caption="工作项标识" Height="pref" Width="pref">
+                                    <DataBinding ColumnKey="workItemID"/>
+                                </TextEditor>
+                            </LinearLayoutPanel>
+                        </LinearLayoutPanel>
+                    </TableRow>
+                </TableRowCollection>
+            </TableView>
+        </Block>
+    </Body>
+    <OnLoad>
+        <![CDATA[LoadData()]]>
+    </OnLoad>
+    <FormParaCollection>
+        <FormPara DataType="Long" Formula="parent.GetOID();" Key="parentOID" Type="Formula"/>
+    </FormParaCollection>
+</Form>

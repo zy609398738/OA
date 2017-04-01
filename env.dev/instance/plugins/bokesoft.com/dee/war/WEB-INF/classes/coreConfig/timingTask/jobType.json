@@ -1,0 +1,26 @@
+[ {
+	'value' : 'InvokeVmInboundStatefulJob',
+	'displayField' : '调用VM或者HTTP_Inbound任务Stateful',
+	'needservice':true
+},{
+	'value' : 'InvokeVmInboundJob',
+	'displayField' : '调用VM或者HTTP_Inbound任务',
+	'needservice':true
+},{
+	'value' : 'Neo4jDBCloseStartStatefulJob',
+	'displayField' : '调用Neo4j重启任务',
+	'needservice':false
+},{
+	'value' : 'LuceneLogAddStatefulJob',
+	'displayField' : '添加日志任务',
+	'needservice':false
+},{
+	'value' : 'LogDeleteStatefulJob',
+	'displayField' : '删除日志任务',
+	'needservice':false
+},{
+	'value' : 'LogDeleteStatefulJobWithoutLucene',
+	'displayField' : '删除日志任务(不删除相关索引)',
+	'needservice':false
+}]
+

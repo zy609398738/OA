@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Caption="凭证类型" FormType="Dict" Key="V_VoucherType">
+    <DataSource RefObjectKey="VoucherType"/>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root">
+                <TabPanel Key="body">
+                    <GridLayoutPanel Key="body_basic" Padding="8px" Caption="基本信息(&amp;B)">
+                        <Label Key="Inner_Code" Caption="代码" X="0" Y="0"/>
+                        <TextEditor Key="Code" Caption="代码" BuddyKey="Inner_Code" X="1" Y="0" Visible="true" Enable="!ReadOnly()&amp;&amp;com.bokesoft.erp.basis.common.DocumentNumberUI.docNumberFieldEnable('Code')" InvalidChars="%*\&quot;+?&gt;&lt;:'">
+                            <DataBinding TableKey="BK_VoucherType" ColumnKey="Code" CheckRule="iifs(com.bokesoft.erp.basis.common.DocumentNumberUI.docNumberFieldEnable('Code')&amp;&amp;Value('Code')='', '采用外部给号编码规则，请输入代码', true, true)"/>
+                        </TextEditor>
+                        <Label Key="Inner_Name" Caption="名称" X="0" Y="1"/>
+                        <TextEditor Key="Name" Caption="名称" BuddyKey="Inner_Name" X="1" Y="1" Visible="true" Enable="!ReadOnly()">
+                            <DataBinding TableKey="BK_VoucherType" ColumnKey="Name"/>
+                        </TextEditor>
+                        <Label Key="Inner_ReverseVoucherTypeID" Caption="冲销凭证类型" X="0" Y="3"/>
+                        <Dict Key="ReverseVoucherTypeID" Caption="冲销凭证类型" BuddyKey="Inner_ReverseVoucherTypeID" X="1" Y="3" Visible="true" Enable="!ReadOnly()" ItemKey="VoucherType">
+                            <DataBinding TableKey="BK_VoucherType" ColumnKey="ReverseVoucherTypeID"/>
+                        </Dict>
+                        <Label Key="Inner_NodeType" Caption="结点类型" X="0" Y="5"/>
+                        <ComboBox Key="NodeType" Caption="结点类型" BuddyKey="Inner_NodeType" X="1" Y="5" Visible="false" Enable="!ReadOnly()&amp;&amp;Status&lt;0">
+                            <DataBinding TableKey="BK_VoucherType" ColumnKey="NodeType"/>
+                        </ComboBox>
+                        <CheckBox Caption="供应商或客户检查" Enable="!ReadOnly()" Key="IsCustormerOrVenderCheck" Visible="true" X="1" Y="14">
+                            <DataBinding TableKey="BK_VoucherType" ColumnKey="IsCustormerOrVenderCheck"/>
+                        </CheckBox>
+                        <Label Key="Inner_DefaultExchRateTypeID" Caption="默认汇率类型" X="0" Y="4"/>
+                        <Dict Key="DefaultExchRateTypeID" Caption="默认汇率类型" BuddyKey="Inner_DefaultExchRateTypeID" X="1" Y="4" Visible="true" Enable="!ReadOnly()" ItemKey="ExchangeRateType">
+                            <DataBinding TableKey="BK_VoucherType" ColumnKey="DefaultExchRateTypeID" DefaultFormulaValue="GetItemPropByCode('DefaultExchRateTypeID', 'M', 'ID')"/>
+                        </Dict>
+                        <CheckBox Caption="允许负数记账" Enable="!ReadOnly()" Key="IsNegativePost" Visible="true" X="1" Y="16">
+                            <DataBinding TableKey="BK_VoucherType" ColumnKey="IsNegativePost"/>
+                        </CheckBox>
+                        <CheckBox Caption="公司间凭证" Enable="!ReadOnly()" Key="IsInterCompanyPosts" Visible="true" X="1" Y="15">
+                            <DataBinding TableKey="BK_VoucherType" ColumnKey="IsInterCompanyPosts"/>
+                        </CheckBox>
+                        <Label Key="Inner_ShortName" Caption="简称" X="0" Y="2"/>
+                        <TextEditor Key="ShortName" Caption="简称" BuddyKey="Inner_ShortName" X="1" Y="2" Visible="true" Enable="!ReadOnly()" InvalidChars="%*\&quot;+?&gt;&lt;:'" MaxLength="100">
+                            <DataBinding TableKey="BK_VoucherType" ColumnKey="ShortName"/>
+                        </TextEditor>
+                        <CheckBox Caption="资产" Enable="!ReadOnly()" Key="IsAllowAssets" Visible="true" X="1" Y="7">
+                            <DataBinding TableKey="BK_VoucherType" ColumnKey="IsAllowAssets"/>
+                        </CheckBox>
+                        <CheckBox Caption="客户" Enable="!ReadOnly()" Key="IsAllowCustomer" Visible="true" X="1" Y="8">
+                            <DataBinding TableKey="BK_VoucherType" ColumnKey="IsAllowCustomer"/>
+                        </CheckBox>
+                        <CheckBox Caption="供应商" Enable="!ReadOnly()" Key="IsAllowVendor" Visible="true" X="1" Y="9">
+                            <DataBinding TableKey="BK_VoucherType" ColumnKey="IsAllowVendor"/>
+                        </CheckBox>
+                        <CheckBox Caption="物料" Enable="!ReadOnly()" Key="IsAllowMaterial" Visible="true" X="1" Y="10">
+                            <DataBinding TableKey="BK_VoucherType" ColumnKey="IsAllowMaterial"/>
+                        </CheckBox>
+                        <CheckBox Caption="总账科目" Enable="!ReadOnly()" Key="IsAllowGLAccount" Visible="true" X="1" Y="11">
+                            <DataBinding TableKey="BK_VoucherType" ColumnKey="IsAllowGLAccount"/>
+                        </CheckBox>
+                        <Label Key="label1" Caption="允许的科目类型" X="0" Y="6" Visible="true" Enable="false"/>
+                        <Label Key="label2" Caption="控制数据" X="0" Y="12" Visible="true" Enable="false"/>
+                        <CheckBox Caption="净值凭证类型" Enable="!ReadOnly()" Key="IsNetDocumentType" Visible="true" X="1" Y="13">
+                            <DataBinding TableKey="BK_VoucherType" ColumnKey="IsNetDocumentType"/>
+                        </CheckBox>
+                        <CheckBox Caption="输入贸易伙伴" Enable="!ReadOnly()" Key="IsEnterTradingPartner" Visible="true" X="1" Y="17">
+                            <DataBinding TableKey="BK_VoucherType" ColumnKey="IsEnterTradingPartner"/>
+                        </CheckBox>
+                        <RowDefCollection RowGap="5">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="5">
+                            <ColumnDef Width="100px"/>
+                            <ColumnDef Width="330px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <GridLayoutPanel Key="body_system" Padding="8px" Caption="系统信息(&amp;D)">
+                        <Label Key="Inner_Status" Caption="结点状态" X="0" Y="1"/>
+                        <ComboBox Key="Status" Caption="结点状态" BuddyKey="Inner_Status" X="1" Y="1" Visible="true" Enable="false">
+                            <DataBinding TableKey="BK_VoucherType" ColumnKey="Status"/>
+                        </ComboBox>
+                        <Label Key="Inner_CreateByID" Caption="创建人员" X="0" Y="2"/>
+                        <Dict Key="CreateByID" Caption="创建人员" BuddyKey="Inner_CreateByID" X="1" Y="2" Visible="true" Enable="false" ItemKey="Operator">
+                            <DataBinding TableKey="BK_VoucherType" ColumnKey="CREATOR" DefaultFormulaValue="GetOperator()"/>
+                        </Dict>
+                        <Label Key="Inner_CreateTime" Caption="创建时间" X="0" Y="3"/>
+                        <DatePicker Key="CreateTime" Caption="创建时间" BuddyKey="Inner_CreateTime" X="1" Y="3" Visible="true" Enable="false" OnlyDate="false">
+                            <DataBinding TableKey="BK_VoucherType" ColumnKey="CREATETIME" DefaultFormulaValue="ServerDate()"/>
+                        </DatePicker>
+                        <Label Key="Inner_UpdateByID" Caption="修改人员" X="0" Y="4"/>
+                        <Dict Key="UpdateByID" Caption="修改人员" BuddyKey="Inner_UpdateByID" X="1" Y="4" Visible="true" Enable="false" ItemKey="Operator">
+                            <DataBinding TableKey="BK_VoucherType" ColumnKey="MODIFIER" DefaultFormulaValue="GetOperator()"/>
+                        </Dict>
+                        <Label Key="Inner_UpdateTime" Caption="修改时间" X="0" Y="5"/>
+                        <DatePicker Key="UpdateTime" Caption="修改时间" BuddyKey="Inner_UpdateTime" X="1" Y="5" Visible="true" Enable="false" OnlyDate="false">
+                            <DataBinding TableKey="BK_VoucherType" ColumnKey="MODIFYTIME" DefaultFormulaValue="ServerDate()"/>
+                        </DatePicker>
+                        <Label Key="Inner_Notes" Caption="备注" X="0" Y="6"/>
+                        <TextEditor Key="Notes" Caption="备注" BuddyKey="Inner_Notes" X="1" Y="6" Visible="true" Enable="!ReadOnly()">
+                            <DataBinding TableKey="BK_VoucherType" ColumnKey="Notes"/>
+                        </TextEditor>
+                        <Label Key="Inner_ClientID" Caption="集团" X="0" Y="0"/>
+                        <Dict Key="ClientID" Caption="集团" BuddyKey="Inner_ClientID" X="1" Y="0" Visible="true" Enable="false" ItemKey="Client">
+                            <DataBinding TableKey="BK_VoucherType" ColumnKey="clientid" DefaultFormulaValue="com.bokesoft.erp.basis.organization.ClientFormulaUI.getClientID()"/>
+                        </Dict>
+                        <RowDefCollection RowGap="5">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="5">
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="330px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                </TabPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

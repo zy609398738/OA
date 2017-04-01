@@ -1,0 +1,28 @@
+#set( $R_ROOT = "$this.eval('#!spring:cms.PageExp.RelContextRoot()')" )
+<div class="news-list"></div>
+<div class="news-pager PagerView"></div>
+<script type="text/template" class="news-template">
+ <ul class="news-content">
+   <% _.each(items, function(item,idx){ %>
+     <li>
+       <a class="title" href="${R_ROOT}/news-content.page?id=<%=item.OID%>"><%= item.TITLE%></a>
+       <span class="time"><%= item.NEWSDATE%></span>
+     </li>
+  <% }); %>
+ </ul>
+</script>
+<script type="text/javascript">
+    _require(["bokesoft.com/cms/boke-cms-pagination"], function(p){
+        var options = {
+            pager: ".news-pager",
+            render: ".news-list",
+            tmpl: ".news-template",
+            format: "[<(qq-) ncnnn (-pp)>]",
+            pageNoFieldName:"pageNo",
+            url: "${R_ROOT}/cms2-site/news/paging-query.action",
+  			pageNoFieldName:"pageNo",
+            data:{pageSize:${pageSize},type:"${type}"}
+        } 
+        p.pagingShow(options);
+  })
+</script>

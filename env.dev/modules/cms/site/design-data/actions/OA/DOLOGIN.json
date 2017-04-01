@@ -1,0 +1,9 @@
+{
+	"@type":"com.bokesoft.cms2.model.Action",
+	"actionExp":"cms.ActionExp.Data(\"result\",cms.Yigo2MidExp.Login(cms.ReqExp.Var(\"userName\"), cms.ReqExp.Var(\"password\")));\ncms.ActionExp.Viewer(\"json\");",
+	"actionUrl":"/auth/login.action",
+	"attributes":{"@type":"java.util.LinkedHashMap"},
+	"code":"DOLOGIN",
+	"name":"登录检查",
+	"notes":""
+}

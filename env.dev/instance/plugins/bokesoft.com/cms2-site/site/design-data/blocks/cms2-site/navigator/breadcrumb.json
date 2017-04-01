@@ -1,0 +1,14 @@
+{
+	"@type":"com.bokesoft.cms2.impl.buildin.modelio.vo.BlockVO",
+	"block":{
+		"@type":"com.bokesoft.cms2.model.blocks.TmplBlock",
+		"formulaText":"#!spring\ncms.PageExp.Local('breadCrumbs', T(com.bokesoft.redist.cms2.site.SiteTree).buildCrumbs())",
+		"notes":"",
+		"parameters":[],
+		"tmplText":"#set( $R_ROOT = \"$this.eval('#!spring:cms.PageExp.RelContextRoot()')\" )\n<div class=\"crumbs f666\">\n <span>您当前所在的位置：</span>\n <a href=\"${R_ROOT}/index.page\">首页</a>\n #foreach($node in $breadCrumbs)\n &gt; <a href=\"${R_ROOT}$node.pageUrl\">$node.pageName</a>\n #end\n</div>",
+		"type":"TMPL"
+	},
+	"code":"breadcrumb",
+	"name":"面包屑导航",
+	"params":[]
+}

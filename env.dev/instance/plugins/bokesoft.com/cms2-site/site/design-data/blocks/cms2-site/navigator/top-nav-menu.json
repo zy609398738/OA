@@ -1,0 +1,14 @@
+{
+	"@type":"com.bokesoft.cms2.impl.buildin.modelio.vo.BlockVO",
+	"block":{
+		"@type":"com.bokesoft.cms2.model.blocks.TmplBlock",
+		"formulaText":"#!spring\ncms.PageExp.Local('topNodes',T(com.bokesoft.redist.cms2.site.SiteTree).loadTopNodes())",
+		"notes":"",
+		"parameters":[],
+		"tmplText":"#set( $R_ROOT = \"$this.eval('#!spring:cms.PageExp.RelContextRoot()')\" )\n<div class=\"container main-nav\">\n    <div class=\"navbar-header\">\n        <span class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#main-menu\">\n            <span class=\"sr-only\">nav</span>\n            <i class=\"glyphicon glyphicon-align-justify\"></i>\n        </span>\n    </div>\n    <div class=\"collapse navbar-collapse main-menu\" id=\"main-menu\">\n        <ul class=\"nav nav-pills pull-left f666\">\n            <li><a href=\"${R_ROOT}/index.page\">首页</a></li>\n            #foreach($topNode in $topNodes)\n                #if($topNode.children && $topNode.children.size()>0)\n                    <li class=\"dropdown\" role=\"presentation\">\n                      <a class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\"\n                         href=\"${R_ROOT}$topNode.children[0].pageUrl\">$topNode.pageName</a>\n                      <div class=\"dropdown-menu\">\n                          <ul class=\"clearfix\">\n                              #foreach($node in $topNode.children)\n                                  <li><a href=\"${R_ROOT}$node.pageUrl\">$node.pageName</a></li>\n                              #end\n                          </ul>\n                      </div>\n                    </li>\n                #else\n                    <li><a href=\"${R_ROOT}$topNode.pageUrl\">$topNode.pageName</a></li>\n                #end\n            #end\n        </ul>\n    </div>\n</div>",
+		"type":"TMPL"
+	},
+	"code":"top-nav-menu",
+	"name":"主导航菜单",
+	"params":[]
+}

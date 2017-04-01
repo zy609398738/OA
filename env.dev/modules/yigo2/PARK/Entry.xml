@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Entry Caption="根" Key="root">
+    <Entry Caption="物业管理" Key="wygl">
+        <EntryItem Caption="物业门户" FormKey="NJ_PaymentReport" Key="NJ_PaymentReport" Type="Form"/>
+        <Entry Caption="租赁管理" Key="zlgl">
+            <EntryItem Caption="租赁用途" FormKey="DictEdit" Key="NJ_RentalUse" Parameters="FormKey=NJ_RentalUse" Type="Form"/>
+            <EntryItem Caption="租房申请" FormKey="NJ_RentalAppView" Key="NJ_RentalAppView" Type="Form"/>
+            <EntryItem Caption="车位租赁" FormKey="NJ_ParkingAppView" Key="NJ_ParkingAppView" Type="Form"/>
+        </Entry>
+        <Entry Caption="缴费管理" Key="jfgl">
+            <EntryItem Caption="费用类型" FormKey="DictEdit" Key="NJ_ExpenseType" Parameters="FormKey=NJ_ExpenseType" Type="Form"/>
+            <EntryItem Caption="缴费通知单" FormKey="NJ_PaymentNoticeView" Key="NJ_PaymentNoticeView" Type="Form"/>
+            <EntryItem Caption="物业缴费单" FormKey="NJ_PropertyPayView" Key="NJ_PropertyPayView" Type="Form"/>
+            <EntryItem Caption="物业缴费情况" FormKey="NJ_PaymentReport" Key="NJ_PaymentReport" Type="Form"/>
+        </Entry>
+        <Entry Caption="客服管理" Key="kfgl">
+            <EntryItem Caption="报修申请" FormKey="NJ_RepairView" Key="NJ_RepairView" Type="Form"/>
+            <EntryItem Caption="维修服务" FormKey="NJ_RepairOrderView" Key="NJ_RepairOrderView" Type="Form"/>
+            <EntryItem Caption="客户投诉" FormKey="NJ_ComplaintsView" Key="NJ_ComplaintsView" Type="Form"/>
+        </Entry>
+    </Entry>
+    <Entry Caption="资产管理" Key="zcgl">
+        <EntryItem Caption="资产门户" FormKey="NJ_LEWReport" Key="NJ_LEWReport" Type="Form"/>
+        <Entry Caption="合同管理" Key="htgl">
+            <EntryItem Caption="租赁合同" FormKey="NJ_LeaseContractView" Key="NJ_LeaseContractView" Type="Form"/>
+            <EntryItem Caption="合同收款" FormKey="NJ_PaymentView" Key="NJ_PaymentView" Type="Form"/>
+            <EntryItem Caption="合同收款情况" FormKey="NJ_ContractReceipt" Key="NJ_ContractReceipt" Type="Form"/>
+            <EntryItem Caption="应收到期预警" FormKey="NJ_RDEWReport" Key="NJ_RDEWReport" Type="Form"/>
+        </Entry>
+        <Entry Caption="资产登记" Key="zcdj">
+            <EntryItem Caption="资产类别" FormKey="DictEdit" Key="NJ_assetstype" Parameters="FormKey=NJ_assetstype" Type="Form"/>
+            <EntryItem Caption="资产大类" FormKey="DictEdit" Key="NJ_WareHouse" Parameters="FormKey=NJ_WareHouse" Type="Form"/>
+            <EntryItem Caption="计量单位" FormKey="DictEdit" Key="NJ_UNIT" Parameters="FormKey=NJ_UNIT" Type="Form"/>
+            <EntryItem Caption="处置方式" FormKey="DictEdit" Key="NJ_DisposalType" Parameters="FormKey=NJ_DisposalType" Type="Form"/>
+            <EntryItem Caption="资产性质" FormKey="DictEdit" Key="NJ_AssetNature" Parameters="FormKey=NJ_AssetNature" Type="Form"/>
+            <EntryItem Caption="盘点期数" FormKey="DictEdit" Key="NJ_CheckDate" Parameters="FormKey=NJ_CheckDate" Type="Form"/>
+            <EntryItem Caption="资产登记" FormKey="DictEdit" Key="NJ_assets" Parameters="FormKey=NJ_assets" Type="Form"/>
+            <EntryItem Caption="资产入库" FormKey="NJ_AssetsInView" Key="NJ_AssetsInView" Type="Form"/>
+        </Entry>
+        <Entry Caption="资产管理" Key="zcgl">
+            <EntryItem Caption="资产领用(内部)" FormKey="NJ_AssetCollarView" Key="NJ_AssetCollarView" Type="Form"/>
+            <EntryItem Caption="资产转移(内部)" FormKey="NJ_AssetTransferView" Key="NJ_AssetTransferView" Type="Form"/>
+            <EntryItem Caption="资产租赁(外部)" FormKey="NJ_AssetLeasingView" Key="NJ_AssetLeasingView" Type="Form"/>
+            <EntryItem Caption="资产收回" FormKey="NJ_AssetRecoveryView" Key="NJ_AssetRecoveryView" Type="Form"/>
+            <EntryItem Caption="资产借用" FormKey="NJ_AssetBorrowView" Key="NJ_AssetBorrowView" Type="Form"/>
+            <EntryItem Caption="资产归还" FormKey="NJ_AssetsReturnView" Key="NJ_AssetsReturnView" Type="Form"/>
+            <EntryItem Caption="资产维修" FormKey="NJ_AssetMainView" Key="NJ_AssetMainView" Type="Form"/>
+            <EntryItem Caption="库存资产处置" FormKey="NJ_InAssetDpaView" Key="NJ_InAssetDpaView" Type="Form"/>
+            <EntryItem Caption="在用资产处置" FormKey="NJ_UseAssetDpaView" Key="NJ_UseAssetDpaView" Type="Form"/>
+        </Entry>
+        <Entry Caption="资产盘点" Key="zcpd">
+            <EntryItem Caption="库存扫码" FormKey="NJ_StockCodeView" Key="NJ_StockCodeView" Type="Form"/>
+            <EntryItem Caption="库存资产盘点" FormKey="NJ_AssetsInvenView" Key="NJ_AssetsInvenView" Type="Form"/>
+            <EntryItem Caption="在用扫码" FormKey="NJ_SweepCodeView" Key="NJ_SweepCodeView" Type="Form"/>
+            <EntryItem Caption="在用资产盘点" FormKey="NJ_UseAssetInView" Key="NJ_UseAssetInView" Type="Form"/>
+        </Entry>
+        <Entry Caption="统计查询" Key="tjcx">
+            <EntryItem Caption="库存资产清单" FormKey="NJ_InventoryDetail" Key="NJ_InventoryDetail" Type="Form"/>
+            <EntryItem Caption="在用资产清单" FormKey="NJ_UseAsset" Key="NJ_UseAsset" Type="Form"/>
+        </Entry>
+    </Entry>
+</Entry>

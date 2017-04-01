@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="OA_BillReadRecord" Caption="阅读记录" FormType="View" Platform="">
+    <DataSource>
+        <DataObject Key="OA_BillReadRecord" Caption="阅读记录">
+            <TableCollection>
+                <Table Key="OA_BillReadRecord" Caption="阅读记录" TableMode="Detail" SourceType="Query">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="Reader" Caption="阅读人" DataType="Long"/>
+                    <Column Key="ReadTime" Caption="阅读时间" DataType="DateTime"/>
+                    <ParameterCollection>
+                        <Parameter DataType="Long" Formula="Para(&quot;OID&quot;)"/>
+                        <Parameter DataType="Varchar" Formula="Para(&quot;BillKey&quot;)"/>
+                    </ParameterCollection>
+                    <Statement>
+                        <![CDATA[select a.Reader,a.ReadTime from OA_ReadRecord a where a.billoid=? and a.BillKey=? and a.OID in (select min(oid) from OA_ReadRecord b GROUP BY b.BillOID )]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="Close" Caption="关闭">
+            <Action>
+                <![CDATA[Close()]]>
+            </Action>
+        </Operation>
+        <Operation Key="Setfirst_headVisible" Caption="查询" RefKey="Setfirst_headVisible"/>
+    </OperationCollection>
+    <Body PopHeight="600px" PopWidth="800px">
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板">
+                <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <GridLayoutPanel Key="first_head" Padding="5px" Height="pref" Caption="基本信息" Visible="first_headVisible==1">
+                    <DatePicker Key="StartDate" Caption="起始时间" BuddyKey="Lab_StartDate" X="1" Y="0">
+                        <Condition ColumnKey="ReadTime" TableKey="OA_BillReadRecord" CondSign="between" Group="A" GroupHead="true"/>
+                    </DatePicker>
+                    <Label Key="Lab_StartDate" Caption="起始时间" X="0" Y="0"/>
+                    <DatePicker Key="EndDate" Caption="至" BuddyKey="Lab_EndDate" X="3" Y="0">
+                        <Condition ColumnKey="ReadTime" TableKey="OA_BillReadRecord" CondSign="between" Group="A" GroupTail="true"/>
+                    </DatePicker>
+                    <Label Key="Lab_EndDate" Caption="至" X="2" Y="0"/>
+                    <Button Key="Button1" Caption="查询" X="4" Y="0">
+                        <OnClick>
+                            <![CDATA[DealCondition();
+LoadData();
+ShowData();]]>
+                        </OnClick>
+                    </Button>
+                    <Button Key="Button2" Caption="重置" X="4" Y="1">
+                        <OnClick>
+                            <![CDATA[ResetCondition()]]>
+                        </OnClick>
+                    </Button>
+                    <CheckBox Caption="表头可见" Key="first_headVisible" Visible="false" X="1" Y="1"/>
+                    <RowDefCollection RowGap="8">
+                        <RowDef Height="25px"/>
+                        <RowDef Height="25px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="8">
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="50%"/>
+                        <ColumnDef Width="20px"/>
+                        <ColumnDef Width="50%"/>
+                        <ColumnDef Width="80px"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+                <ListView Caption="ListView1" Height="100%" Key="ListView1" PageLoadType="DB" TableKey="OA_BillReadRecord">
+                    <ListViewColumnCollection>
+                        <ListViewColumn Key="Reader" Caption="阅读人" ColumnType="Dict" Width="300px" DataColumnKey="Reader" ItemKey="Operator"/>
+                        <ListViewColumn Key="ReadTime" Caption="阅读时间" ColumnType="DatePicker" Width="300px" DataColumnKey="ReadTime"/>
+                    </ListViewColumnCollection>
+                </ListView>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+    <OnLoad>
+        <![CDATA[LoadData()]]>
+    </OnLoad>
+</Form>

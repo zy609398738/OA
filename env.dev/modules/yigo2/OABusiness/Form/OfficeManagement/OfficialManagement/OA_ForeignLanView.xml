@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="OA_ForeignLanView" Caption="收文列表" FormType="View">
+    <DataSource>
+        <DataObject Key="OA_ForeignLanView" Caption="收文列表">
+            <TableCollection>
+                <Table Key="OA_ForeignLan_H" Caption="收文列表" TableMode="Detail" SourceType="Query" Persist="false">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="NO" Caption="收文编号" DataType="Varchar"/>
+                    <Column Key="Status" Caption="状态" DataType="Integer"/>
+                    <Column Key="BillDate" Caption="收文日期" DataType="DateTime"/>
+                    <Column Key="Topic" Caption="来文标题" DataType="Varchar"/>
+                    <Column Key="UrgencyDeg" Caption="文件缓急" DataType="Integer"/>
+                    <Column Key="SecretL" Caption="文件密级" DataType="Integer"/>
+                    <Column Key="ReminderDeg" Caption="催办等级" DataType="Integer"/>
+                    <Column Key="ReadTitle" Caption="阅办类型" DataType="Integer"/>
+                    <Column Key="LevUnit" Caption="来文单位" DataType="Varchar"/>
+                    <Column Key="DeptID" Caption="收文部门" DataType="Long"/>
+                    <Column Key="EmpID" Caption="收文人员" DataType="Long"/>
+                    <Column Key="Creator" Caption="创建人员" DataType="Long"/>
+                    <ParameterCollection>
+                        <Parameter Formula="GetOperator();"/>
+                        <Parameter Formula="GetPara('ViewAcl')"/>
+                    </ParameterCollection>
+                    <Statement>
+                        <![CDATA[select * from (select *  from OA_ForeignLan_H where (Creator=? or CONCAT(',',OptIDs,',') like ? )order by BillDate desc) h]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="New" Caption="新增">
+            <Action>
+                <![CDATA[New('OA_ForeignLan');]]>
+            </Action>
+        </Operation>
+        <Operation Key="Setfirst_headVisible" Caption="查询" RefKey="Setfirst_headVisible"/>
+    </OperationCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板">
+                <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <GridLayoutPanel Key="first_head" Height="80px" Caption="基本信息" Visible="first_headVisible==1">
+                    <DatePicker Key="From" Caption="收文日期 从" BuddyKey="Lab_From" X="1" Y="0">
+                        <Condition ColumnKey="BillDate" TableKey="OA_ForeignLan_H" CondSign="between" Group="a" GroupHead="true"/>
+                    </DatePicker>
+                    <Label Key="Lab_From" Caption="收文日期 从" X="0" Y="0"/>
+                    <DatePicker Key="To" Caption="到" BuddyKey="Lab_To" X="3" Y="0">
+                        <Condition ColumnKey="BillDate" TableKey="OA_ForeignLan_H" CondSign="between" Group="a" GroupTail="true"/>
+                    </DatePicker>
+                    <Label Key="Lab_To" Caption="到" X="2" Y="0"/>
+                    <CheckListBox BuddyKey="Lab_QueryStatus" Caption="状态" Key="QueryStatus" X="3" Y="1" SourceType="Status" Visible="false">
+                        <Condition ColumnKey="Status" TableKey="OA_ForeignLan_H" CondSign="in"/>
+                    </CheckListBox>
+                    <Label Key="Lab_QueryStatus" Caption="状态" X="2" Y="1"/>
+                    <Dict Key="QueryCreator" Caption="创建人员" BuddyKey="Lab_QueryCreator" X="1" Y="1" AllowMultiSelection="true" ItemKey="Operator">
+                        <Condition ColumnKey="Creator" TableKey="OA_ForeignLan_H" CondSign="in"/>
+                    </Dict>
+                    <Label Key="Lab_QueryCreator" Caption="创建人员" X="0" Y="1"/>
+                    <CheckListBox BuddyKey="Lab_QueryUrgencyDeg" Caption="文件缓急" Key="QueryUrgencyDeg" X="3" Y="1" Visible="false">
+                        <Condition ColumnKey="UrgencyDeg" TableKey="OA_ForeignLan_H" CondSign="in"/>
+                        <Item Key="0" Value="0"/>
+                        <Item Caption="特急" Key="10" Value="10"/>
+                        <Item Caption="紧急" Key="20" Value="20"/>
+                        <Item Caption="一般" Key="30" Value="30"/>
+                    </CheckListBox>
+                    <Label Key="Lab_QueryUrgencyDeg" Caption="文件缓急" X="2" Y="1"/>
+                    <CheckListBox BuddyKey="Lab_QuerySecretL" Caption="文件密级" Key="QuerySecretL" X="5" Y="0">
+                        <Condition ColumnKey="SecretL" TableKey="OA_ForeignLan_H" CondSign="in"/>
+                        <Item Caption="机密" Key="10" Value="10"/>
+                        <Item Caption="非密" Key="20" Value="20"/>
+                        <Item Caption="秘密" Key="30" Value="30"/>
+                    </CheckListBox>
+                    <Label Key="Lab_QuerySecretL" Caption="文件密级" X="4" Y="0"/>
+                    <CheckListBox BuddyKey="Lab_QueryReminderDeg" Caption="催办等级" Key="QueryReminderDeg" X="3" Y="1" Visible="false">
+                        <Condition ColumnKey="ReminderDeg" TableKey="OA_ForeignLan_H" CondSign="in"/>
+                        <Item Key="0" Value="0"/>
+                        <Item Caption="特急" Key="10" Value="10"/>
+                        <Item Caption="紧急" Key="20" Value="20"/>
+                        <Item Caption="一般" Key="30" Value="30"/>
+                    </CheckListBox>
+                    <Label Key="Lab_QueryReminderDeg" Caption="催办等级" X="2" Y="1"/>
+                    <CheckListBox BuddyKey="Lab_QueryReadTitle" Caption="阅办类型" Key="QueryReadTitle" X="3" Y="1" Visible="false">
+                        <Condition ColumnKey="ReadTitle" TableKey="OA_ForeignLan_H" CondSign="in"/>
+                        <Item Key="0" Value="0"/>
+                        <Item Caption="阅件" Key="10" Value="10"/>
+                        <Item Caption="办件" Key="20" Value="20"/>
+                    </CheckListBox>
+                    <Label Key="Lab_QueryReadTitle" Caption="阅办类型" X="2" Y="1"/>
+                    <Button Key="Query" Caption="查询" X="6" Y="0">
+                        <OnClick>
+                            <![CDATA[DealCondition();
+LoadData();
+ShowData();]]>
+                        </OnClick>
+                    </Button>
+                    <Button Key="Reset" Caption="重置" X="6" Y="1">
+                        <OnClick>
+                            <![CDATA[ResetCondition();]]>
+                        </OnClick>
+                    </Button>
+                    <CheckBox Caption="表头可见" Key="first_headVisible" Visible="false" X="4" Y="1">
+                        <DataBinding DefaultValue="1"/>
+                    </CheckBox>
+                    <RowDefCollection RowGap="8">
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="8">
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="33%"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="33%"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="34%"/>
+                        <ColumnDef Width="80px"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+                <ListView Caption="ListView1" Key="ListView1" PageLoadType="DB" TableKey="OA_ForeignLan_H" Height="100%">
+                    <ListViewColumnCollection>
+                        <ListViewColumn Key="NO" Caption="收文编号" DataColumnKey="NO" Width="150px" Visible="false"/>
+                        <ListViewColumn Key="Status" Caption="状态" ColumnType="ComboBox" DataColumnKey="Status" Visible="false" IntegerValue="true" SourceType="Status"/>
+                        <ListViewColumn Key="BillDate" Caption="收文日期" ColumnType="DatePicker" DataColumnKey="BillDate" Width="130px"/>
+                        <ListViewColumn Key="Topic" Caption="来文标题" DataColumnKey="Topic" Width="200px"/>
+                        <ListViewColumn Key="UrgencyDeg" Caption="文件缓急" ColumnType="ComboBox" DataColumnKey="UrgencyDeg" Visible="false">
+                            <Item Key="0" Value="0"/>
+                            <Item Caption="特急" Key="10" Value="10"/>
+                            <Item Caption="紧急" Key="20" Value="20"/>
+                            <Item Caption="一般" Key="30" Value="30"/>
+                        </ListViewColumn>
+                        <ListViewColumn Key="SecretL" Caption="文件密级" ColumnType="ComboBox" DataColumnKey="SecretL">
+                            <Item Key="0" Value="0"/>
+                            <Item Caption="机密" Key="10" Value="10"/>
+                            <Item Caption="非密" Key="20" Value="20"/>
+                            <Item Caption="秘密" Key="30" Value="30"/>
+                        </ListViewColumn>
+                        <ListViewColumn Key="ReminderDeg" Caption="催办等级" ColumnType="ComboBox" DataColumnKey="ReminderDeg" Visible="false">
+                            <Item Key="0" Value="0"/>
+                            <Item Caption="特急" Key="10" Value="10"/>
+                            <Item Caption="紧急" Key="20" Value="20"/>
+                            <Item Caption="一般" Key="30" Value="30"/>
+                        </ListViewColumn>
+                        <ListViewColumn Key="ReadTitle" Caption="阅办类型" ColumnType="ComboBox" DataColumnKey="ReadTitle" Visible="false">
+                            <Item Key="0" Value="0"/>
+                            <Item Caption="阅件" Key="10" Value="10"/>
+                            <Item Caption="办件" Key="20" Value="20"/>
+                        </ListViewColumn>
+                        <ListViewColumn Key="LevUnit" Caption="来文单位" DataColumnKey="LevUnit" Width="130px"/>
+                        <ListViewColumn Key="DeptID" Caption="收文部门" ColumnType="Dict" DataColumnKey="DeptID" Width="150px" Visible="false" ItemKey="OA_Department"/>
+                        <ListViewColumn Key="EmpID" Caption="收文人员" ColumnType="Dict" DataColumnKey="EmpID" Visible="false" Width="100px" ItemKey="OA_Employee"/>
+                        <ListViewColumn Key="Creator" Caption="创建人员" ColumnType="Dict" DataColumnKey="Creator" Width="100px" ItemKey="Operator"/>
+                        <ListViewColumn Key="OID" Caption="OID" DataColumnKey="OID" Visible="false"/>
+                    </ListViewColumnCollection>
+                    <RowDblClick>
+                        <![CDATA[Open('OA_ForeignLan', OID)]]>
+                    </RowDblClick>
+                </ListView>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+    <OnLoad>
+        <![CDATA[LoadData()]]>
+    </OnLoad>
+    <FormParaCollection>
+        <FormPara DataType="Varchar" Formula="'%,' &amp; ToString(GetOperator()) &amp; ',%';" Key="ViewAcl" Type="Formula"/>
+    </FormParaCollection>
+</Form>

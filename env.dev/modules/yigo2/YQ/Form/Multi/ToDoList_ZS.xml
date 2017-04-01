@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="ToDoList_ZS" Caption="招商门户" FormType="View">
+    <DataSource>
+        <DataObject Key="ToDoList_ZS" Caption="ToDoList_ZS">
+            <TableCollection>
+                <Table Key="ToDoList_ZS" Caption="ToDoList_ZS" TableMode="Detail" SourceType="Query" OrderBy="BillDate">
+                    <Column Key="WorkitemID" Caption="工作项标识" DataType="Long" DBColumnName="WorkitemID"/>
+                    <Column Key="WorkitemName" Caption="工作项名称" DataType="Varchar" DBColumnName="WorkitemName"/>
+                    <Column Key="CreatTime" Caption="创建时间" DataType="DateTime" DBColumnName="CreatTime"/>
+                    <Column Key="BillDate" Caption="单据日期" DataType="DateTime" DBColumnName="BillDate"/>
+                    <Column Key="BillNo" Caption="单据编号" DataType="Varchar" DBColumnName="BillNo"/>
+                    <Column Key="NO" DataType="Varchar" Caption="NO"/>
+                    <Column Key="ProjCustomer" DataType="Varchar" Caption="ProjCustomer"/>
+                    <Column Key="IndID" DataType="Long" Caption="IndID"/>
+                    <Column Key="ProjAmount" DataType="Numeric" Caption="ProjAmount" Precision="16" Scale="2"/>
+                    <Column Key="Status" DataType="Integer" Caption="Status"/>
+                    <Column Key="OID" DataType="Long" Caption="OID"/>
+                    <ParameterCollection>
+                        <Parameter DataType="Long" Formula="GetDictValue('Operator', GetOperator(), 'SYS_Operator.EmpID')"/>
+                    </ParameterCollection>
+                    <Statement>
+                        <![CDATA[select NO,BillDate,OID,ProjCustomer,ProjAmount,ProjCome,Status,IndID from NJ_SCM_PreOrderHead WHERE EmpID=?]]>
+                    </Statement>
+                </Table>
+                <Table Key="sql_xmlyfx" Caption="sql_xmlyfx" TableMode="Detail" SourceType="Query">
+                    <Column Key="name" Caption="名称" DataType="Varchar"/>
+                    <Column Key="shuliang" Caption="数量" DataType="Integer"/>
+                    <Statement>
+                        <![CDATA[select shuliang,name from (select shuliang,(case when ProjCome=1 then '电话' when ProjCome=2 then '老带新' when ProjCome=3 then '广告' else '其他' end ) as name from ( select count(*) shuliang ,ProjCome from NJ_SCM_PreOrderHead group by ProjCome)s ) s1]]>
+                    </Statement>
+                </Table>
+                <Table Key="sql_zdxm" Caption="sql_zdxm" TableMode="Detail" SourceType="Query">
+                    <Column Key="ProjCustomer" DataType="Varchar"/>
+                    <Column Key="ProjAmount" DataType="Numeric" Precision="16" Scale="2"/>
+                    <Column Key="ProjCome" DataType="Integer"/>
+                    <Column Key="Status" DataType="Integer"/>
+                    <Column Key="EmpID" DataType="Long"/>
+                    <Column Key="IndID" DataType="Long"/>
+                    <Column Key="OID" DataType="Long"/>
+                    <Column Key="NO" DataType="Varchar"/>
+                    <Statement>
+                        <![CDATA[select NO,OID,ProjCustomer,ProjAmount,ProjCome,Status,EmpID,IndID from NJ_SCM_PreOrderHead where ProjKind=1]]>
+                    </Statement>
+                </Table>
+                <Table Key="sql_fxyj" Caption="sql_fxyj" TableMode="Detail" SourceType="Query">
+                    <Column Key="ProjCustomer" DataType="Varchar"/>
+                    <Column Key="ProjAmount" DataType="Numeric" Precision="16" Scale="2"/>
+                    <Column Key="ProjCome" DataType="Integer"/>
+                    <Column Key="Status" DataType="Integer"/>
+                    <Column Key="EmpID" DataType="Long"/>
+                    <Column Key="OID" DataType="Long"/>
+                    <Column Key="NO" DataType="Varchar"/>
+                    <Column Key="billdate" Caption="billdate" DataType="DateTime"/>
+                    <Statement>
+                        <![CDATA[select NO,BillDate,OID,ProjCustomer,ProjAmount,ProjCome,Status,EmpID from NJ_SCM_PreOrderHead WHERE ProjRisk=1]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <Body>
+        <Block>
+            <GridLayoutPanel Key="GridLayoutPanel1" Caption="GridLayoutPanel1">
+                <Label Key="title" Caption="近期项目跟踪" X="1" Y="0">
+                    <Format ForeColor="#6680e6" HAlign="Center"/>
+                </Label>
+                <Label Key="zdxmxx" Caption="重点项目信息" X="3" Y="0">
+                    <Format ForeColor="#6680e6" HAlign="Center"/>
+                </Label>
+                <Grid Key="Grid1" Caption="Grid1" NewEmptyRow="false" ShowRowHead="false" PageLoadType="DB" X="3" Y="1" PageRowCount="15" CanDelete="false" CanInsert="false" CanShift="false">
+                    <GridColumnCollection>
+                        <GridColumn Key="OID1" Caption="OID1" Visible="false" Width="80px"/>
+                        <GridColumn Key="NO" Caption="编号" Width="120px"/>
+                        <GridColumn Key="yxkh" Caption="意向客户" Width="180px"/>
+                        <GridColumn Key="industry" Caption="行业" Width="80px" Visible="false"/>
+                        <GridColumn Key="xmly" Caption="项目来源" Width="80px" Visible="false"/>
+                        <GridColumn Key="xmje" Caption="投资金额" Width="80px"/>
+                        <GridColumn Key="ywy" Caption="业务员" Width="80px"/>
+                        <GridColumn Key="zhuangtai" Caption="状态" Width="60px"/>
+                    </GridColumnCollection>
+                    <GridRowCollection>
+                        <GridRow Key="row1" RowHeight="35" TableKey="sql_zdxm">
+                            <GridCell Key="OID1" Caption="OID1" CellType="NumberEditor" IntegerValue="true">
+                                <DataBinding ColumnKey="OID"/>
+                            </GridCell>
+                            <GridCell Key="NO" Caption="编号" CellType="HyperLink">
+                                <DataBinding ColumnKey="NO"/>
+                                <OnClick>
+                                    <![CDATA[Open('NJ_SCM_PreOrderHead',OID1)]]>
+                                </OnClick>
+                            </GridCell>
+                            <GridCell Key="yxkh" Caption="意向客户" CellType="TextEditor" Enable="false">
+                                <DataBinding ColumnKey="ProjCustomer"/>
+                            </GridCell>
+                            <GridCell Key="industry" Caption="行业" CellType="Dict" Enable="false" ItemKey="NJ_CP_Industry">
+                                <DataBinding ColumnKey="IndID"/>
+                            </GridCell>
+                            <GridCell Key="xmly" Caption="项目来源" CellType="ComboBox">
+                                <DataBinding ColumnKey="ProjCome"/>
+                                <Item Caption="电话" Key="1" Value="1"/>
+                                <Item Caption="老带新" Key="2" Value="2"/>
+                                <Item Caption="广告" Key="3" Value="3"/>
+                                <Item Caption="传单" Key="4" Value="4"/>
+                            </GridCell>
+                            <GridCell Key="xmje" Caption="投资金额" CellType="NumberEditor" Enable="false">
+                                <DataBinding ColumnKey="ProjAmount"/>
+                            </GridCell>
+                            <GridCell Key="ywy" Caption="业务员" CellType="Dict" Enable="false" ItemKey="OA_Employee">
+                                <DataBinding ColumnKey="EmpID"/>
+                            </GridCell>
+                            <GridCell Key="zhuangtai" Caption="状态" CellType="ComboBox" Enable="false" SourceType="Formula">
+                                <DataBinding ColumnKey="Status"/>
+                                <FormulaItems>
+                                    <![CDATA[GetStatusItems()]]>
+                                </FormulaItems>
+                            </GridCell>
+                        </GridRow>
+                    </GridRowCollection>
+                </Grid>
+                <Label Key="xmfxyj" Caption="项目风险预警" X="1" Y="3">
+                    <Format ForeColor="#4d66cc" HAlign="Center"/>
+                </Label>
+                <Label Key="xmlyfx" Caption="项目来源分析" X="3" Y="3">
+                    <Format ForeColor="#4d66cc" HAlign="Center"/>
+                </Label>
+                <Chart Caption="Chart1" ChartType="VBar" Key="Chart1" SourceType="DataObject" Title="项目来源分析" X="3" Y="4">
+                    <ChartDataSource BindingKey="sql_xmlyfx">
+                        <Series DataKey="shuliang" Title="数量"/>
+                        <Category DataKey="name"/>
+                    </ChartDataSource>
+                </Chart>
+                <Grid Key="Grid2" Caption="Grid2" NewEmptyRow="false" ShowRowHead="false" PageLoadType="DB" X="1" Y="4" CanDelete="false" CanInsert="false" CanShift="false">
+                    <GridColumnCollection>
+                        <GridColumn Key="OID2" Caption="OID2" Width="80px" Visible="false"/>
+                        <GridColumn Key="NO1" Caption="编号" Width="120px"/>
+                        <GridColumn Key="yxkh1" Caption="意向客户" Width="180px"/>
+                        <GridColumn Key="jine" Caption="投资金额" Width="80px"/>
+                        <GridColumn Key="xiangmulaiyuan" Caption="项目来源" Width="80px" Visible="false"/>
+                        <GridColumn Key="hangye" Caption="业务员" Width="80px"/>
+                        <GridColumn Key="zt" Caption="状态" Width="60px"/>
+                    </GridColumnCollection>
+                    <GridRowCollection>
+                        <GridRow Key="row1" RowHeight="35" TableKey="sql_fxyj">
+                            <GridCell Key="OID2" Caption="OID2" CellType="NumberEditor" IntegerValue="true">
+                                <DataBinding ColumnKey="OID"/>
+                                <DblClick>
+                                    <![CDATA[Open('NJ_SCM_PreOrderHead', OID2)]]>
+                                </DblClick>
+                            </GridCell>
+                            <GridCell Key="NO1" Caption="编号" CellType="HyperLink">
+                                <DataBinding ColumnKey="NO"/>
+                                <OnClick>
+                                    <![CDATA[Open('NJ_SCM_PreOrderHead',OID2)]]>
+                                </OnClick>
+                            </GridCell>
+                            <GridCell Key="yxkh1" Caption="意向客户" CellType="TextEditor" Enable="false">
+                                <DataBinding ColumnKey="ProjCustomer"/>
+                            </GridCell>
+                            <GridCell Key="jine" Caption="投资金额" CellType="NumberEditor">
+                                <DataBinding ColumnKey="ProjAmount"/>
+                            </GridCell>
+                            <GridCell Key="xiangmulaiyuan" Caption="项目来源" CellType="ComboBox">
+                                <DataBinding ColumnKey="ProjCome"/>
+                                <Item Caption="电话" Key="1" Value="1"/>
+                                <Item Caption="老带新" Key="2" Value="2"/>
+                                <Item Caption="广告" Key="3" Value="3"/>
+                                <Item Caption="其他" Key="4" Value="4"/>
+                            </GridCell>
+                            <GridCell Key="hangye" Caption="业务员" CellType="Dict" ItemKey="OA_Employee">
+                                <DataBinding ColumnKey="EmpID"/>
+                            </GridCell>
+                            <GridCell Key="zt" Caption="状态" CellType="ComboBox" SourceType="Formula">
+                                <DataBinding ColumnKey="Status"/>
+                                <FormulaItems>
+                                    <![CDATA[GetStatusItems()]]>
+                                </FormulaItems>
+                            </GridCell>
+                        </GridRow>
+                    </GridRowCollection>
+                </Grid>
+                <Grid Key="Grid3" Caption="Grid3" NewEmptyRow="false" ShowRowHead="false" PageLoadType="DB" X="1" Y="1" CanDelete="false" CanInsert="false" CanShift="false">
+                    <GridColumnCollection>
+                        <GridColumn Key="OID3" Caption="OID3" Width="80px" Visible="false"/>
+                        <GridColumn Key="NO2" Caption="编号" Width="120px"/>
+                        <GridColumn Key="BillDate" Caption="登记日期" Width="80px"/>
+                        <GridColumn Key="yxkhgz" Caption="意向客户" Width="180px"/>
+                        <GridColumn Key="tzje" Caption="投资金额" Width="80px"/>
+                        <GridColumn Key="zt2" Caption="状态" Width="60px"/>
+                    </GridColumnCollection>
+                    <GridRowCollection>
+                        <GridRow Key="row1" RowHeight="35" TableKey="ToDoList_ZS">
+                            <GridCell Key="OID3" Caption="OID3" CellType="NumberEditor" IntegerValue="true">
+                                <DataBinding ColumnKey="OID"/>
+                            </GridCell>
+                            <GridCell Key="NO2" Caption="编号" CellType="HyperLink">
+                                <DataBinding ColumnKey="NO"/>
+                                <OnClick>
+                                    <![CDATA[Open('NJ_SCM_PreOrderHead',OID3)]]>
+                                </OnClick>
+                            </GridCell>
+                            <GridCell Key="BillDate" Caption="登记日期" CellType="DatePicker" Enable="false" Format="yyyy-MM-dd" OnlyDate="true">
+                                <DataBinding ColumnKey="BillDate"/>
+                            </GridCell>
+                            <GridCell Key="yxkhgz" Caption="意向客户" CellType="TextEditor" Enable="false">
+                                <DataBinding ColumnKey="ProjCustomer"/>
+                            </GridCell>
+                            <GridCell Key="tzje" Caption="投资金额" CellType="NumberEditor" Enable="false">
+                                <DataBinding ColumnKey="ProjAmount"/>
+                            </GridCell>
+                            <GridCell Key="zt2" Caption="状态" CellType="ComboBox" Enable="false" SourceType="Status">
+                                <DataBinding ColumnKey="Status"/>
+                            </GridCell>
+                        </GridRow>
+                    </GridRowCollection>
+                </Grid>
+                <Label Key="Label1" X="2" Y="0" YSpan="6">
+                    <Format BackColor="#e6e6e6"/>
+                </Label>
+                <Label Key="Label2" X="0" Y="2" XSpan="5">
+                    <Format BackColor="#e6e6e6"/>
+                </Label>
+                <RowDefCollection RowGap="5">
+                    <RowDef Height="30px"/>
+                    <RowDef Height="50%"/>
+                    <RowDef Height="20px"/>
+                    <RowDef Height="30px"/>
+                    <RowDef Height="50%"/>
+                    <RowDef Height="30px"/>
+                </RowDefCollection>
+                <ColumnDefCollection ColumnGap="5">
+                    <ColumnDef Width="10px"/>
+                    <ColumnDef Width="50%"/>
+                    <ColumnDef Width="20px"/>
+                    <ColumnDef Width="50%"/>
+                    <ColumnDef Width="10px"/>
+                </ColumnDefCollection>
+            </GridLayoutPanel>
+        </Block>
+    </Body>
+    <OnLoad>
+        <![CDATA[LoadData()]]>
+    </OnLoad>
+</Form>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="OA_Attchment_Pho" Caption="图片附件" FormType="Template">
+    <DataSource>
+        <DataObject Key="OA_Attchment_Pho" NoPrefix="ATP" Caption="图片附件" PrimaryType="Entity">
+            <TableCollection>
+                <Table Key="OA_NewsDraft_Pho" Caption="图片附件" DBTableName="OA_NewsDraft_Pho" TableMode="Detail">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="UploadTime" Caption="上传时间" DataType="DateTime"/>
+                    <Column Key="UploadOperator" Caption="上传人" DataType="Long"/>
+                    <Column Key="Path" Caption="上传路径" DataType="Varchar"/>
+                    <Column Key="Name" Caption="上传文件名" DataType="Varchar"/>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板">
+                <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <Grid Key="Grid3" Caption="Grid1" Height="100%">
+                    <GridColumnCollection>
+                        <GridColumn Key="FileOID_Pho" Caption="附件标识" Visible="false" Width="80px"/>
+                        <GridColumn Key="UploadTime_Pho" Caption="上传时间" Width="160px"/>
+                        <GridColumn Key="UploadOperator_Pho" Caption="上传人" Width="120px"/>
+                        <GridColumn Key="Path_Pho" Caption="上传路径" Width="120px" Visible="false"/>
+                        <GridColumn Key="Name_Pho" Caption="上传文件名" Width="200px"/>
+                        <GridColumn Key="Upload_Pho" Caption="上传" Width="80px"/>
+                        <GridColumn Key="Download_Pho" Caption="下载" Width="80px"/>
+                        <GridColumn Key="Delete_Pho" Caption="删除" Width="80px"/>
+                        <GridColumn Key="PreView_Pho" Caption="预览" Width="80px"/>
+                    </GridColumnCollection>
+                    <GridRowCollection>
+                        <GridRow Key="row1" RowHeight="35" TableKey="OA_NewsDraft_Pho">
+                            <GridCell Key="FileOID_Pho" Caption="附件标识">
+                                <DataBinding ColumnKey="OID"/>
+                            </GridCell>
+                            <GridCell Key="UploadTime_Pho" Caption="上传时间" CellType="DatePicker" Enable="false">
+                                <DataBinding ColumnKey="UploadTime"/>
+                            </GridCell>
+                            <GridCell Key="UploadOperator_Pho" Caption="上传人" CellType="Dict" Enable="false" ItemKey="Operator">
+                                <DataBinding ColumnKey="UploadOperator"/>
+                            </GridCell>
+                            <GridCell Key="Path_Pho" Caption="上传路径" CellType="TextEditor" Enable="false">
+                                <DataBinding ColumnKey="Path"/>
+                            </GridCell>
+                            <GridCell Key="Name_Pho" Caption="上传文件名" CellType="TextEditor" Enable="false">
+                                <DataBinding ColumnKey="Name"/>
+                            </GridCell>
+                            <GridCell Key="Upload_Pho" Caption="上传" CellType="Button" Type="Upload">
+                                <OnClick>
+                                    <![CDATA[UploadAttachment(FileOID_Pho,"OA_NewsDraft_Pho");]]>
+                                </OnClick>
+                            </GridCell>
+                            <GridCell Key="Download_Pho" Caption="下载" CellType="Button" Enable="true">
+                                <OnClick>
+                                    <![CDATA[DownloadAttachment(FileOID_Pho,"OA_NewsDraft_Pho");]]>
+                                </OnClick>
+                            </GridCell>
+                            <GridCell Key="Delete_Pho" Caption="删除" CellType="Button">
+                                <OnClick>
+                                    <![CDATA[DeleteAttachment(FileOID_Pho,"OA_NewsDraft_Pho");]]>
+                                </OnClick>
+                            </GridCell>
+                            <GridCell Key="PreView_Pho" Caption="预览" CellType="Button" Enable="true">
+                                <OnClick>
+                                    <![CDATA[Var fileUrl=InvokeService('OA_PreviewAttchment', true, false, Path_Pho, Name_Pho);
+New("OA_ShowWeb", "newtab","URL:{'"&fileUrl&"'}")]]>
+                                </OnClick>
+                            </GridCell>
+                        </GridRow>
+                    </GridRowCollection>
+                </Grid>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

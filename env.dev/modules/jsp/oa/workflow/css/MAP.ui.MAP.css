@@ -1,0 +1,220 @@
+.Hide{
+	background:url('../img/map/Hide.ico') no-repeat !important;
+}
+.DicSave,.Save{
+	background:url('../img/map/Save.gif') no-repeat !important;
+}
+.DicModify,.Modify{
+	background:url('../img/map/Modify.gif') no-repeat !important;
+}
+.DicCancel,.Cancel{
+	background:url('../img/map/Cancel.gif') no-repeat !important;
+}
+.DicEdit,.Edit{
+	background:url('../img/map/DicEdit.gif') no-repeat !important;
+}
+.Clear{
+	background:url('../img/map/Clear.gif') no-repeat !important;
+}
+.Print{
+	background:url('../img/map/Print.gif') no-repeat !important;
+}
+.FirstBill{
+	background:url('../img/map/FirstBill.gif') no-repeat !important;
+}
+.NextBill{
+	background:url('../img/map/NextBill.gif') no-repeat !important;
+}
+.LastBill{
+	background:url('../img/map/LastBill.gif') no-repeat !important;
+}
+.Export{
+	background:url('../img/map/Export.gif') no-repeat !important;
+}
+.Import{
+	background:url('../img/map/Import.gif') no-repeat !important;
+}
+.SendLink{
+	background:url('../img/map/SendLink.gif') no-repeat !important;
+}
+.BatchCosting{
+	background:url('../img/map/BatchCosting.gif') no-repeat !important;
+}
+.DicExit,.DicExitbmp{
+	background:url('../img/map/DicExit.gif') no-repeat !important;
+}
+.Hide{
+	background:url('../img/map/Hide.gif') no-repeat !important;
+}
+.BOMConfig{
+	background:url('../img/map/BOMConfig.gif') no-repeat !important;
+}
+.Push{
+	background:url('../img/map/Push.gif') no-repeat !important;
+}
+.Close{
+	background:url('../img/map/Close.gif') no-repeat !important;
+}
+.Design{
+	background:url('../img/map/Design.gif') no-repeat !important;
+}
+.ReSteCondition{
+	background:url('../img/map/ReSteCondition.gif') no-repeat !important;
+}
+.Sort{
+	background:url('../img/map/Sort.gif') no-repeat !important;
+}
+.AddNew{
+	background:url('../img/map/AddNew.gif') no-repeat !important;
+}
+.AddClone{
+	background:url('../img/map/AddClone.gif') no-repeat !important;
+}
+.LastAudit{
+	background:url('../img/map/LastAudit.gif') no-repeat !important;
+}
+.closeUI{
+	background:url('../img/map/closeUI.gif') no-repeat !important;
+}
+.Abandon{
+	background:url('../img/map/Abandon.gif') no-repeat !important;
+}
+.Quote{
+	background:url('../img/map/Quote.gif') no-repeat !important;
+}
+.Attachment{
+	background:url('../img/map/Attachment.gif') no-repeat !important;
+}
+.ShowMapView{
+	background:url('../img/map/ShowMapView.gif') no-repeat !important;
+}
+.UnLoadMapView{
+	background:url('../img/map/UnLoadMapView.gif') no-repeat !important;
+}
+.GenVCH{
+	background:url('../img/map/GenVCH.gif') no-repeat !important;
+}
+.ViewVoucher{
+	background:url('../img/map/ViewVoucher.gif') no-repeat !important;
+}
+.CopyLine{
+	background:url('../img/map/CopyLine.gif') no-repeat !important;
+}
+.PastLine{
+	background:url('../img/map/PastLine.gif') no-repeat !important;
+}
+.WorkFlowSet{
+	background:url('../img/map/WorkFlowSet.gif') no-repeat !important;
+}
+.ListAuditNotes{
+	background:url('../img/map/ListAuditNotes.gif') no-repeat !important;
+}
+.DesignPrint{
+	background:url('../img/map/DesignPrint.gif') no-repeat !important;
+}
+.PrePrint{
+	background:url('../img/map/PrePrint.gif') no-repeat !important;
+}
+.MultiOpt{
+	background:url('../img/map/MultiOpt.gif') no-repeat !important;
+}
+.AutoFit{
+	background:url('../img/map/AutoFit.gif') no-repeat !important;
+}
+.InsertRow{
+	background:url('../img/map/InsertRow.gif') no-repeat !important;
+}
+.DeleteRow{
+	background:url('../img/map/DeleteRow.gif') no-repeat !important;
+}
+.RowUp{
+	background:url('../img/map/RowUp.gif') no-repeat !important;
+}
+.RowDown{
+	background:url('../img/map/RowDown.gif') no-repeat !important;
+}
+.BatchImport{
+	background:url('../img/map/BatchImport.gif') no-repeat !important;
+}
+.ReSetCondition{
+	background:url('../img/map/ReSetCondition.gif') no-repeat !important;
+}
+.AutoInEstimate{
+	background:url('../img/map/AutoInEstimate.gif') no-repeat !important;
+}
+.AutoOutEstimate{
+	background:url('../img/map/AutoOutEstimate.gif') no-repeat !important;
+}
+.ViewBill{
+	background:url('../img/map/ViewBill.gif') no-repeat !important;
+}
+.InitDic{
+	background:url('../img/map/InitDic.gif') no-repeat !important;
+}
+.DicNew{
+	background:url('../img/map/DicNew.gif') no-repeat !important;
+}
+.DicCopy,.DicCopyNew{
+	background:url('../img/map/DicCopy.gif') no-repeat !important;
+}
+.DicDelete,.Delete{
+	background:url('../img/map/DicDelete.ico') no-repeat !important;
+}
+.DicUpdate{
+	background:url('../img/map/DicUpdate.gif') no-repeat !important;
+}
+.DicUndo{
+	background:url('../img/map/DicUndo.gif') no-repeat !important;
+}
+.DicStartUse{
+	background:url('../img/map/DicStartUse.gif') no-repeat !important;
+}
+.DicRecover{
+	background:url('../img/map/DicRecover.gif') no-repeat !important;
+}
+.DicRepeatedly{
+	background:url('../img/map/DicRepeatedly.gif') no-repeat !important;
+}
+.DicRefresh{
+	background:url('../img/map/DicRefresh.gif') no-repeat !important;
+}
+.DicFilter{
+	background:url('../img/map/DicFilter.gif') no-repeat !important;
+}
+.DicFind{
+	background:url('../img/map/DicFind.gif') no-repeat !important;
+}
+.DicFindNext{
+	background:url('../img/map/DicFindNext.gif') no-repeat !important;
+}
+.DicAssign{
+	background:url('../img/map/DicAssign.gif') no-repeat !important;
+}
+.password{
+	background:url('../img/map/password.gif') no-repeat !important;
+}
+.Hook{
+	background:url('../img/map/Hook.gif') no-repeat !important;
+}
+.AutoHook{
+	background:url('../img/map/AutoHook.gif') no-repeat !important;
+}
+.Copy{
+	background:url('../img/map/Copy.png') no-repeat !important;
+}
+.PrintPre{
+	background:url('../img/map/PrintPre.GIF') no-repeat !important;
+}
+.PrintManage{
+	background:url('../img/map/DesignPrint.gif') no-repeat !important;
+}
+.NewMsg{
+	padding-left:22px !important;
+	background:url('../img/map/newMsg.gif') no-repeat !important;
+}
+.StartInstance{
+	background:url('../img/map/StartInstance.gif') no-repeat !important;
+}
+.CommitWorkItem{
+	background:url('../img/map/CommitWorkItem.gif') no-repeat !important;
+}

@@ -1,0 +1,7 @@
+dependencies {
+	compile 'org.apache.commons:commons-lang3:3.4'
+	
+	compile devOpsFileTree(dir: "dist/jars", include: ['*.jar'])
+}
+
+devOpsApply from: "../yigo2/yigo2.gradle"

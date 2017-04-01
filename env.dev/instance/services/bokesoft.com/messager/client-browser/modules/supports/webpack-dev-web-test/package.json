@@ -1,0 +1,44 @@
+{
+  "name": "webpack-dev-web-test",
+  "version": "1.0.0",
+  "description": "Support web-based npm module development with webpack and webpack-dev-server",
+  "main": "web-test-server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "svn",
+    "url": "svn+https://dev.bokesoft.com:9443/svn/Yigo-redist/trunk/Frontend/modules/supports/webpack-dev-web-test"
+  },
+  "keywords": [
+    "webpack",
+    "npm",
+    "browser",
+    "test"
+  ],
+  "author": "bokesoft.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://dev.bokesoft.com:9443/trac/ecomm"
+  },
+  "homepage": "https://dev.bokesoft.com:9443/trac/ecomm",
+  "dependencies": {
+	"babel-core": "^6.22.1",
+    "babel-loader": "^6.2.10",
+    "babel-preset-es2015": "^6.22.0",
+    "body-parser": "^1.16.0",
+	"vue-loader": "^10.3.0",
+    "vue-template-compiler": "^2.1.10",
+    "colors": "^1.1.2",
+    "css-loader": "^0.26.1",
+    "express": "^4.14.1",
+    "file-loader": "^0.10.0",
+    "html-loader": "^0.4.4",
+    "proxy-middleware": "^0.15.0",
+    "style-loader": "^0.13.1",
+    "url": "^0.11.0",
+    "url-loader": "^0.5.7",
+    "webpack": "^2.2.1",
+    "webpack-dev-server": "^1.16.3"
+  }
+}

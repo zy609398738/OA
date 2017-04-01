@@ -1,0 +1,14 @@
+{
+	"@type":"com.bokesoft.cms2.impl.buildin.modelio.vo.BlockVO",
+	"block":{
+		"@type":"com.bokesoft.cms2.model.blocks.TmplBlock",
+		"formulaText":" #!spring \n cms.PageExp.Local('menuUl',T(com.bokesoft.redist.cms2.site.SiteTree).loadTopNodes())",
+		"notes":"",
+		"parameters":[],
+		"tmplText":"#set( $R_ROOT = \"$this.eval('#!spring:cms.PageExp.RelContextRoot()')\" )\n<div class=\"menu-ul\" id=\"menu-ul\">\n  <ul>\n      <li><a href=\"/yigo/home.page\\\">首页</a></li>\n     #foreach($line in $menuUl)\n         #if($line.children && $line.children.size()>0)\n            <li class=\"dropdown\" role=\"presentation\">  \n              <a class=\"dropdown-toggle\" data-toggle=\"dropdown\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\" \n              href=\"${R_ROOT}$topNode.children[0].pageUrl\">$topNode.pageName</a>                      \n              <div class=\"dropdown-menu\">                         \n                <ul class=\"clearfix\">                              \n                #foreach($node in $line.children)\n                <li><a href=\"${R_ROOT}$node.pageUrl\">$node.pageName</a></li>                              \n                #end                          \n                </ul>\n              </div>\n\t\t\t</li>\n         #else\n         <li>\n            <a href=\"/yigo$line.pageUrl\">$line.pageName</a>\n         </li>\n         #end\n     #end\n  </ul>\n</div>",
+		"type":"TMPL"
+	},
+	"code":"MAIN-MENU",
+	"name":"主菜单",
+	"params":[]
+}

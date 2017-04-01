@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="OA_WorkHoursReport" Caption="工作时间报表" FormType="View" Platform="">
+    <DataSource>
+        <DataObject Key="OA_WorkHoursReport" Caption="工作时间报表">
+            <TableCollection>
+                <Table Key="OA_WorkHoursReport" Caption="周报明细报表" TableMode="Detail" SourceType="Query" Persist="false" GroupBy="Week,MemberID">
+                    <Column Key="MemberID" Caption="MemberID" DataType="Long" IsPrimary="true"/>
+                    <Column Key="Week" Caption="Week" DataType="Varchar"/>
+                    <Column Key="WeekID" Caption="周ID" DataType="Long"/>
+                    <Column Key="DataType" Caption="数据类型" DataType="Integer"/>
+                    <Column Key="WorkHours" Caption="WorkHours" DataType="Numeric" Precision="16" Scale="0"/>
+                    <Column Key="Saturation" Caption="Saturation" DataType="Numeric" Precision="16" Scale="2"/>
+                    <Column Key="ActWorkHours" Caption="ActWorkHours" DataType="Numeric" Precision="16" Scale="0"/>
+                    <Column Key="ActSaturation" Caption="ActSaturation" DataType="Numeric" Precision="16" Scale="2"/>
+                    <Statement>
+                        <![CDATA[SELECT 
+    Week,
+    MemberID,
+    Sum(WorkHours) As WorkHours,
+    Sum(Saturation) As Saturation,
+    Sum(ActWorkHours) As ActWorkHours,
+    Sum(ActSaturation) As ActSaturation
+FROM
+    ((SELECT 
+        A.Week,
+	A.WeekID,
+            B.MemberID,
+            B.WorkHours,
+            B.WorkHours / A.WorkHours * 100 AS Saturation,
+            B.ActWorkHours,
+            B.ActWorkHours / A.WorkHours * 100 AS ActSaturation
+    FROM
+        (SELECT 
+        H.SOID, H.Week As WeekID,W.Code As Week, W.WorkHours
+    FROM
+        OA_WeeklyReport H
+    JOIN OA_week W ON H.Week = W.SOID) A
+    JOIN (SELECT 
+        D.SOID,
+            D.MemberID,
+            D.WorkHours,
+            DD.ActualWorkHours AS ActWorkHours
+    FROM
+        OA_TWWork D
+    LEFT JOIN OA_LWWork DD ON D.OID = DD.DSourceID
+    JOIN SYS_Operator O ON D.MemberID = O.SOID) B ON A.SOID = B.SOID) 
+    UNION ALL 
+    (SELECT 
+        A.Week,
+	A.WeekID,
+            B.MemberID,
+            B.WorkHours,
+            B.WorkHours / A.WorkHours * 100 AS Saturation,
+            B.ActWorkHours,
+            B.ActWorkHours / A.WorkHours * 100 AS ActSaturation
+    FROM
+        (SELECT 
+        H.SOID, H.Week As WeekID,W.Code As Week, W.WorkHours, HH.SOID AS HHBillID
+    FROM
+        OA_WeeklyReport H
+    JOIN OA_WeeklyReport HH ON H.SOID = HH.SourceBillID
+    JOIN OA_week W ON H.Week = W.SOID) A
+    JOIN (SELECT 
+        D.SOID,
+            D.MemberID,
+            D.WorkHours,
+            D.ActualWorkHours AS ActWorkHours
+    FROM
+        OA_LWWork D
+    JOIN SYS_Operator O ON D.MemberID = O.SOID Where D.DSourceID=0) B ON A.HHBillID = B.SOID)) D]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="Export" Caption="导出Excel">
+            <Action>
+                <![CDATA[ExportExcel();]]>
+            </Action>
+        </Operation>
+    </OperationCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="main" Caption="根面板" Height="100%" LeftPadding="5px" Padding="5px" RightPadding="5px">
+                <ToolBar Key="main_toolbar" Height="pref" Caption="main_toolbar">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <GridLayoutPanel Key="first_head" Height="40px" Caption="基本信息">
+                    <Button Key="Query" Caption="查询" X="4" Y="0" Visible="True" Enable="True" TabOrder="5">
+                        <OnClick>
+                            <![CDATA[DealCondition();LoadData();ShowData();]]>
+                        </OnClick>
+                    </Button>
+                    <Dict Key="MemberID_Cond" Caption="人员" BuddyKey="Lab_MemberID_Cond" X="3" Y="0" AllowMultiSelection="true" ItemKey="Operator" Clearable="false">
+                        <Condition ColumnKey="MemberID" TableKey="OA_WorkHoursReport" CondSign="in"/>
+                    </Dict>
+                    <Label Key="Lab_MemberID_Cond" Caption="人员" X="2" Y="0"/>
+                    <Dict Key="WeekID_Cond" Caption="工作周期" BuddyKey="Lab_WeekID_Cond" X="1" Y="0" AllowMultiSelection="true" Clearable="false" ItemKey="OA_Week">
+                        <Condition ColumnKey="WeekID" TableKey="OA_WorkHoursReport" CondSign="in"/>
+                    </Dict>
+                    <Label Key="Lab_WeekID_Cond" Caption="工作周期" X="0" Y="0"/>
+                    <RowDefCollection RowHeight="30" RowGap="5">
+                        <RowDef/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="20">
+                        <ColumnDef Width="60px"/>
+                        <ColumnDef Width="200px"/>
+                        <ColumnDef Width="30px"/>
+                        <ColumnDef Width="200px"/>
+                        <ColumnDef Width="60px"/>
+                        <ColumnDef Width="60px"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+                <Grid Key="Grid1" Caption="Grid1" NewEmptyRow="false" Height="100%" CanDelete="false" CanInsert="false">
+                    <GridColumnCollection>
+                        <GridColumn Key="MemberID" Caption="人员" Width="80px"/>
+                        <GridColumn Key="Week" Caption="周" Width="400px" ColumnType="Detail">
+                            <ColumnExpand ColumnKey="Week" ExpandSourceType="Data">
+                                <![CDATA["2016W45,45;2016W46,46;2016W47,47"]]>
+                            </ColumnExpand>
+                            <GridColumnCollection>
+                                <GridColumn Key="WorkHours" Caption="预计工时(h)" Width="100px">
+                                    <ColumnExpand ColumnKey="DataType" ExpandType="Title">
+                                        <![CDATA["1,工时;2,饱和度(%)"]]>
+                                    </ColumnExpand>
+                                </GridColumn>
+                                <GridColumn Key="Saturation" Caption="预计饱和度(%)" Width="100px"/>
+                                <GridColumn Key="ActWorkHours" Caption="实际工时(h)" Width="100px"/>
+                                <GridColumn Key="ActSaturation" Caption="实际饱和度(%)" Width="100px"/>
+                            </GridColumnCollection>
+                        </GridColumn>
+                    </GridColumnCollection>
+                    <GridRowCollection>
+                        <GridRow Key="row1" RowHeight="35" TableKey="OA_WorkHoursReport">
+                            <GridCell Key="MemberID" Caption="人员" CellType="Dict" Enable="false" ItemKey="Operator">
+                                <DataBinding ColumnKey="MemberID"/>
+                            </GridCell>
+                            <GridCell Key="WorkHours" Caption="预计工时(h)" CellType="NumberEditor" Enable="false" ShowZero="true" IntegerValue="true">
+                                <DataBinding ColumnKey="WorkHours"/>
+                                <CellFormat HAlign="Right"/>
+                            </GridCell>
+                            <GridCell Key="Saturation" Caption="预计饱和度(%)" CellType="NumberEditor" Enable="false">
+                                <DataBinding ColumnKey="Saturation"/>
+                                <CellFormat HAlign="Right"/>
+                            </GridCell>
+                            <GridCell Key="ActWorkHours" Caption="实际工时(h)" CellType="NumberEditor" Enable="false" IntegerValue="true">
+                                <DataBinding ColumnKey="ActWorkHours"/>
+                                <CellFormat HAlign="Right"/>
+                            </GridCell>
+                            <GridCell Key="ActSaturation" Caption="实际饱和度(%)" CellType="NumberEditor" Enable="false">
+                                <DataBinding ColumnKey="ActSaturation"/>
+                                <CellFormat HAlign="Right"/>
+                            </GridCell>
+                        </GridRow>
+                    </GridRowCollection>
+                </Grid>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+    <MacroCollection>
+        <Macro Key="_GetDataSQL">
+            <![CDATA["(Select H.SOID,D.OID,H.GroupID,H.DateBegin,H.DateEnd,D.MemberID,D.JobDescribe,D.Completed,D.ActualCompleted,D.Remark from OA_WeeklyReport H Join OA_LWWork D On H.SOID=D.SOID)"]]>
+        </Macro>
+    </MacroCollection>
+</Form>

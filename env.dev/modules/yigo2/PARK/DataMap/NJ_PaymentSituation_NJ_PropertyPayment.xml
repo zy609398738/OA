@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Map Caption="物业缴费情况下推物业缴费单" Key="NJ_PaymentSituation_NJ_PropertyPayment" SrcDataObjectKey="NJ_PaymentSituation" TgtDataObjectKey="NJ_PropertyPayment">
+    <SourceTableCollection Height="600" Width="370" X="30" Y="30">
+        <SourceTable Key="NJ_PaymentSituation" IsPrimary="true" TargetTableKey="NJ_SCM_PropertyPaymentCost">
+            <SourceField Definition="EmpID" TargetFieldKey="EmpID" TargetTableKey="NJ_SCM_PropertyPaymentHead"/>
+            <SourceField Definition="CustomerId" TargetFieldKey="CustomerId" TargetTableKey="NJ_SCM_PropertyPaymentHead"/>
+            <SourceField Definition="UsePeople" TargetFieldKey="UsePeople" TargetTableKey="NJ_SCM_PropertyPaymentHead"/>
+            <SourceField Definition="RoomNumber" TargetFieldKey="RoomNumber" TargetTableKey="NJ_SCM_PropertyPaymentHead"/>
+            <SourceField Definition="TotalArea" TargetFieldKey="TotalArea" TargetTableKey="NJ_SCM_PropertyPaymentHead"/>
+            <SourceField Definition="ContactNumber" TargetFieldKey="ContactNumber" TargetTableKey="NJ_SCM_PropertyPaymentHead"/>
+            <SourceField Definition="EndDate" TargetFieldKey="EndDate" TargetTableKey="NJ_SCM_PropertyPaymentHead"/>
+            <SourceField Definition="StartDate" TargetFieldKey="StartDate" TargetTableKey="NJ_SCM_PropertyPaymentHead"/>
+            <SourceField Definition="ExpenseType" TargetFieldKey="ExpenseType"/>
+            <SourceField Definition="Unpaid" TargetFieldKey="Unpaid"/>
+            <SourceField Definition="Payable" TargetFieldKey="Payable"/>
+            <SourceField Definition="LateFee" TargetFieldKey="LateFee"/>
+            <SourceField Definition="TotalPayable" TargetFieldKey="TotalPayable"/>
+            <SourceField Definition="Payment" TargetFieldKey="AlreadyPaid"/>
+            <SourceField Definition="OID" TargetFieldKey="SourceOID"/>
+            <SourceField Definition="NoContributions" TargetFieldKey="Payment"/>
+        </SourceTable>
+    </SourceTableCollection>
+    <TargetTableCollection Height="660" Width="517" X="441" Y="30">
+        <TargetTable Key="NJ_SCM_PropertyPaymentHead">
+            <TargetField Definition="EmpID"/>
+            <TargetField Definition="CustomerId"/>
+            <TargetField Definition="UsePeople"/>
+            <TargetField Definition="RoomNumber"/>
+            <TargetField Definition="TotalArea"/>
+            <TargetField Definition="ContactNumber"/>
+            <TargetField Definition="EndDate"/>
+            <TargetField Definition="StartDate"/>
+        </TargetTable>
+        <TargetTable Key="NJ_SCM_PropertyPaymentCost" IsPrimary="true">
+            <TargetField Definition="ExpenseType"/>
+            <TargetField Definition="Unpaid"/>
+            <TargetField Definition="Payable"/>
+            <TargetField Definition="LateFee"/>
+            <TargetField Definition="TotalPayable"/>
+            <TargetField Definition="AlreadyPaid"/>
+            <TargetField Definition="SourceOID"/>
+            <TargetField Definition="Payment"/>
+        </TargetTable>
+    </TargetTableCollection>
+</Map>

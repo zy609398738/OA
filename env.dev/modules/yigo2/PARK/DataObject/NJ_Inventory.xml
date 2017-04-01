@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<DataObject Key="NJ_Inventory" Caption="库存余额迁移" PrimaryTableKey="NJ_Inventory" SecondaryType="Migration" PrimaryType="Entity">
+    <TableCollection>
+        <Table Key="NJ_Inventory" Caption="库存余额迁移" SourceType="DataObject" DBTableName="NJ_Inventory">
+            <Column Key="OID" Caption="对象标识" DataType="Long"/>
+            <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+            <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+            <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+            <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+            <Column Key="AssetsId" Caption="资产" DataType="Long" GroupType="Discrete"/>
+            <Column Key="Amount" Caption="库存数量" DataType="Integer"/>
+            <Column Key="WareHouseId" Caption="存放地点" DataType="Long" GroupType="Discrete"/>
+            <Column Key="assetstypeid" Caption="资产类别" DataType="Long" GroupType="Discrete"/>
+            <Column Key="Model" Caption="型号" DataType="Varchar" GroupType="Discrete"/>
+            <Column Key="UNITID" Caption="单位" DataType="Long" GroupType="Discrete"/>
+            <Column Key="AssetNatureId" Caption="资产性质" DataType="Long" GroupType="Discrete"/>
+        </Table>
+    </TableCollection>
+</DataObject>

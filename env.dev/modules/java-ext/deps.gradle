@@ -1,0 +1,16 @@
+dependencies {
+  compile devOpsFileTree(dir: "dist/jars", include: ['*.jar'])
+  // https://mvnrepository.com/artifact/javax.mail/mail
+  compile group: 'javax.mail', name: 'mail', version: '1.4.7'
+  // https://mvnrepository.com/artifact/org.jodd/jodd-http
+  compile group: 'org.jodd', name: 'jodd-http', version: '3.8.0'
+  compile devOpsFileTree(dir: "libs", include: ['**/JNative.jar'])
+  compile devOpsFileTree(dir: "../../instance/plugins/bokesoft.com/yigo2/webapps/yigo/WEB-INF/lib", include: ['quartz-*.jar'])
+  compile devOpsFileTree(dir: "../../instance/plugins/bokesoft.com/yigo2/webapps/yigo/WEB-INF/lib", include: ['mysqljdbc-*.jar'])
+  compile devOpsFileTree(dir: "../../instance/plugins/bokesoft.com/yigo2/webapps/yigo/WEB-INF/lib", include: ['commons-dbcp-*.jar'])
+}
+
+devOpsApply from: "../../instance/plugins/bokesoft.com/yigo2/yigo2.gradle"
+devOpsApply from: "../../instance/plugins/bokesoft.com/cms2/cms2.gradle"
+devOpsApply from: "../../instance/plugins/bokesoft.com/cms2-site/deps.gradle"
+devOpsApply from: "../../instance/plugins/bokesoft.com/cms2-yigo2-adapter/deps.gradle"

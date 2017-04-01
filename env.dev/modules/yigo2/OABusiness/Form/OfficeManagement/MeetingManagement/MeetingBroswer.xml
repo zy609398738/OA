@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="MeetingBrowser" Caption="会议日历">
+    <OperationCollection>
+        <Operation Key="ViewNewBill" Caption="新增">
+            <Action>
+                <![CDATA[New("OA_MeetingInSide")]]>
+            </Action>
+        </Operation>
+    </OperationCollection>
+    <Body PopHeight="600px" PopWidth="800px">
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板">
+                <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <WebBrowser Key="Meeting" Height="100%">
+                    <DataBinding DefaultFormulaValue="Para('URL')"/>
+                </WebBrowser>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

@@ -1,0 +1,37 @@
+[ {
+	displayField : '数据源',
+	value : 'DataSource.json',
+	type : 'synchGgpz'
+},{
+	displayField : '连接器',
+	value : 'Connector.json',
+	type : 'synchGgpz'
+}, {
+	displayField : 'Spring对象',
+	value : 'SpringBean.json',
+	type : 'synchGgpz'
+},{
+	displayField : '全局配置',
+	value : 'GlobalSource.json',
+	type : 'synchProperty'
+}, {
+	displayField : 'Web服务映射',
+	value : 'WebServiceActionMapping.json',
+	type : 'synchProperty'
+}, {
+	displayField : 'Interface',
+	value : 'Interface.json',
+	type : 'synchInterface'
+}, {
+	displayField : '定时任务',
+	value : 'TimingTask.json',
+	type : 'synchTimingTask'
+}, {
+	displayField : '资源下载配置',
+	value : 'DownloadSource.json',
+	type : 'synchDownloadSource'
+}, {
+	displayField : '接口预配置',
+	value : 'SdInterfaces.json',
+	type : 'synchSdInterfaces'
+}]

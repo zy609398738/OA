@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Caption="公司" FormType="Dict" Key="V_CompanyCode">
+    <DataSource RefObjectKey="CompanyCode"/>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root">
+                <TabPanel Key="body">
+                    <GridLayoutPanel Key="body_basic" Padding="8px" Caption="基本信息(&amp;B)">
+                        <Label Key="Inner_Code" Caption="代码" X="0" Y="0"/>
+                        <TextEditor Key="Code" Caption="代码" BuddyKey="Inner_Code" X="1" Y="0" Visible="true" Enable="!ReadOnly()&amp;&amp;com.bokesoft.erp.basis.common.DocumentNumberUI.docNumberFieldEnable('Code')" InvalidChars="%*\&quot;+?&gt;&lt;:'">
+                            <DataBinding TableKey="BK_CompanyCode" ColumnKey="Code" CheckRule="iifs(com.bokesoft.erp.basis.common.DocumentNumberUI.docNumberFieldEnable('Code')&amp;&amp;Value('Code')='', '采用外部给号编码规则，请输入代码', true, true)"/>
+                        </TextEditor>
+                        <Label Key="Inner_Name" Caption="名称" X="0" Y="1"/>
+                        <TextEditor Key="Name" Caption="名称" BuddyKey="Inner_Name" X="1" Y="1" Visible="true" Enable="!ReadOnly()">
+                            <DataBinding TableKey="BK_CompanyCode" ColumnKey="Name"/>
+                        </TextEditor>
+                        <Label Key="Inner_NodeType" Caption="结点类型" X="0" Y="6"/>
+                        <ComboBox Key="NodeType" Caption="结点类型" BuddyKey="Inner_NodeType" X="1" Y="6" Visible="false" Enable="!ReadOnly()&amp;&amp;Status&lt;0">
+                            <DataBinding TableKey="BK_CompanyCode" ColumnKey="NodeType"/>
+                        </ComboBox>
+                        <Label Key="Inner_City" Caption="城市" X="0" Y="3"/>
+                        <TextEditor Key="City" Caption="城市" BuddyKey="Inner_City" X="1" Y="3" Visible="true" Enable="!ReadOnly()" InvalidChars="%*\&quot;+?&gt;&lt;:'" MaxLength="100">
+                            <DataBinding TableKey="BK_CompanyCode" ColumnKey="City"/>
+                        </TextEditor>
+                        <Label Key="Inner_LanguageID" Caption="语言" X="0" Y="5"/>
+                        <Dict Key="LanguageID" Caption="语言" BuddyKey="Inner_LanguageID" X="1" Y="5" Visible="true" Enable="!ReadOnly()" ItemKey="Language">
+                            <DataBinding TableKey="BK_CompanyCode" ColumnKey="LanguageID"/>
+                        </Dict>
+                        <Label Key="Inner_CountryID" Caption="国家地区" X="0" Y="2"/>
+                        <Dict Key="CountryID" Caption="国家地区" BuddyKey="Inner_CountryID" X="1" Y="2" Visible="true" Enable="!ReadOnly()" ItemKey="Country">
+                            <DataBinding TableKey="BK_CompanyCode" ColumnKey="CountryID"/>
+                        </Dict>
+                        <Label Key="Inner_CurrencyID" Caption="币种" X="0" Y="4"/>
+                        <Dict Key="CurrencyID" Caption="币种" BuddyKey="Inner_CurrencyID" X="1" Y="4" Visible="true" Enable="!ReadOnly()" ItemKey="Currency">
+                            <DataBinding TableKey="BK_CompanyCode" ColumnKey="CurrencyID" CheckRule="iifs(CurrencyID=-1, '请输入币种', true, true)"/>
+                        </Dict>
+                        <RowDefCollection RowGap="5">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="5">
+                            <ColumnDef Width="100px"/>
+                            <ColumnDef Width="330px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <GridLayoutPanel Key="body_system" Padding="8px" Caption="系统信息(&amp;D)">
+                        <Label Key="Inner_Status" Caption="结点状态" X="0" Y="1"/>
+                        <ComboBox Key="Status" Caption="结点状态" BuddyKey="Inner_Status" X="1" Y="1" Visible="true" Enable="false">
+                            <DataBinding TableKey="BK_CompanyCode" ColumnKey="Status"/>
+                        </ComboBox>
+                        <Dict Caption="创建人" ItemKey="Operator" Key="CREATOR" X="1" Y="2">
+                            <DataBinding TableKey="BK_CompanyCode" ColumnKey="CREATOR" DefaultFormulaValue="GetOperator()"/>
+                        </Dict>
+                        <DatePicker Caption="创建时间" Key="CREATETIME" OnlyDate="false" X="1" Y="3">
+                            <DataBinding TableKey="BK_CompanyCode" ColumnKey="CREATETIME" DefaultFormulaValue="ServerDate()"/>
+                        </DatePicker>
+                        <Dict Caption="修改人" ItemKey="Operator" Key="MODIFIER" X="1" Y="4">
+                            <DataBinding TableKey="BK_CompanyCode" ColumnKey="MODIFIER" DefaultFormulaValue="GetOperator()"/>
+                        </Dict>
+                        <DatePicker Caption="修改时间" Key="MODIFYTIME" OnlyDate="false" X="1" Y="5">
+                            <DataBinding TableKey="BK_CompanyCode" ColumnKey="MODIFYTIME" DefaultFormulaValue="ServerDate()"/>
+                        </DatePicker>
+                        <Label Caption="创建人" Key="L_CREATOR" X="0" Y="2"/>
+                        <Label Caption="创建时间" Key="L_CREATETIME" X="0" Y="3"/>
+                        <Label Caption="修改人" Key="L_MODIFIER" X="0" Y="4"/>
+                        <Label Caption="修改时间" Key="L_MODIFYTIME" X="0" Y="5"/>
+                        <Label Key="Inner_Notes" Caption="备注" X="0" Y="6"/>
+                        <TextEditor Key="Notes" Caption="备注" BuddyKey="Inner_Notes" X="1" Y="6" Visible="true" Enable="!ReadOnly()">
+                            <DataBinding TableKey="BK_CompanyCode" ColumnKey="Notes"/>
+                        </TextEditor>
+                        <Label Key="Inner_ClientID" Caption="集团" X="0" Y="0"/>
+                        <Dict Key="ClientID" Caption="集团" BuddyKey="Inner_ClientID" X="1" Y="0" Visible="true" Enable="false" ItemKey="Client">
+                            <DataBinding TableKey="BK_CompanyCode" ColumnKey="ClientID" DefaultFormulaValue="getClientID()"/>
+                        </Dict>
+                        <RowDefCollection RowGap="5">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="5">
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="330px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                </TabPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

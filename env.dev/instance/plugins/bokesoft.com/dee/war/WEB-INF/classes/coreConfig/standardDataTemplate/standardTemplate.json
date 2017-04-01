@@ -1,0 +1,110 @@
+[
+  {
+    "id": "818188994a287ada014a290998400019",
+    "data": "[{\"smallType\":\"Jdbc\",\"bigType\":\"inbound\",\"id\":\"\",\"text\":\"获取表数据\"},{\"smallType\":\"DispatchVMTransformer\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"数据进行分发\"}]",
+    "description": "查询中间表数据，然后进行头明细分组，逐条发送到名称为 \"主从表_接收分发的数据导入YiGo系统\" 中",
+    "name": "主从表_读取数据库中间表数据分发到VM服务"
+  },
+  {
+    "id": "818188994a287ada014a290ab119001a",
+    "data": "[{\"smallType\":\"VM\",\"bigType\":\"inbound\",\"id\":\"\",\"text\":\"接收分发数据\"},{\"smallType\":\"GroovyScriptTransformer\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"保存唯一标识\"},{\"smallType\":\"FieldValueLookUpWithDsTransformer\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"查询明细数据\"},{\"smallType\":\"FixFieldsAddTransformer\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"设置主表固定值\"},{\"smallType\":\"FixFieldsAddTransformer\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"设置子表固定值\"},{\"smallType\":\"MutiFieldValueLookUpWithDsTransformer\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"查询主表字典项\"},{\"smallType\":\"MutiFieldValueLookUpWithDsTransformer\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"查询子表字典项\"},{\"smallType\":\"InvokeMapTransformer\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"数据格式转换\"},{\"smallType\":\"Axis\",\"bigType\":\"outbound\",\"id\":\"\",\"text\":\"数据发送至平台\"},{\"smallType\":\"Jdbc\",\"bigType\":\"outbound\",\"id\":\"\",\"text\":\"修改数据状态\"}]",
+    "description": "接收从名称为 \"主从表_读取数据库分数据发到VM服务\" 中发送来的数据，然后导入YiGo系统",
+    "name": "主从表_接收分发的数据导入YiGo系统"
+  },
+  {
+    "id": "818188994a287ada014a2912a553001b",
+    "data": "[{\"smallType\":\"Jdbc\",\"bigType\":\"inbound\",\"id\":\"\",\"text\":\"获取表数据\"},{\"smallType\":\"GroovyScriptTransformer\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"保存唯一标识\"},{\"smallType\":\"FieldValueLookUpWithDsTransformer\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"查询明细数据\"},{\"smallType\":\"CollectionToXmlWithFreemarkerTemplateTransformer\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"生成XML数据\"},{\"smallType\":\"File\",\"bigType\":\"outbound\",\"id\":\"\",\"text\":\"输出XML文件\"},{\"smallType\":\"GroovyScriptTransformer\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"提取唯一标识\"},{\"smallType\":\"Jdbc\",\"bigType\":\"outbound\",\"id\":\"\",\"text\":\"修改数据状态\"}]",
+    "description": "从数据库中读取数据，转换生成XML字符串并输出XML文件到本地",
+    "name": "主从表_读取数据库数据到本地生成XML文件"
+  },
+  {
+    "id": "818188994a287ada014a2918f59a001d",
+    "data": "[{\"smallType\":\"Jdbc\",\"bigType\":\"inbound\",\"id\":\"\",\"text\":\"\获\取\表\数\据\"},{\"smallType\":\"Group\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"\数\据\进\行\分\组\"},{\"smallType\":\"IgnoreCaseListOfMap\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"\忽\略\大\小\写\"},{\"smallType\":\"GroovyScriptTransformer\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"\保\存\唯\一\标\识\"},{\"smallType\":\"CollectionToXmlWithFreemarkerTemplateTransformer\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"\生\成XML\数\据\"},{\"smallType\":\"FTP\",\"bigType\":\"outbound\",\"id\":\"\",\"text\":\"\输\出XML\文\件\"},{\"smallType\":\"GroovyScriptTransformer\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"\提\取\唯\一\标\识\"},{\"smallType\":\"Jdbc\",\"bigType\":\"outbound\",\"id\":\"\",\"text\":\"\修\改\数\据\状\态\"}]",
+    "description": "从数据库中间表中读取数据，转换成XML字符串，生成到FTP服务器上(一次性查询主从表数据的处理方式)",
+    "name": "主从表_读取数据库数据到FTP生成XML文件"
+  },
+  {
+    "id": "818188994a287ada014a291f429e001e",
+    "data": "[{\"smallType\":\"FTP\",\"bigType\":\"inbound\",\"id\":\"\",\"text\":\"读取数据文件\"},{\"smallType\":\"SmooksWithXmlSample\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"解析XML文件\"},{\"smallType\":\"FixFieldsAddTransformer\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"设置主表固定值\"},{\"smallType\":\"FixFieldsAddTransformer\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"设置子表固定值\"},{\"smallType\":\"MutiFieldValueLookUpWithDsTransformer\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"查询主表字典项\"},{\"smallType\":\"MutiFieldValueLookUpWithDsTransformer\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"查询子表字典项\"},{\"smallType\":\"InvokeMapTransformer\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"数据格式转换\"},{\"smallType\":\"Axis\",\"bigType\":\"outbound\",\"id\":\"\",\"text\":\"数据发送至平台\"},{\"smallType\":\"FTP\",\"bigType\":\"outbound\",\"id\":\"\",\"text\":\"成功后修改后缀\"}]",
+    "description": "读取FTP服务器上XML文件，解析以及进行格式转换，导入到YIGO系统",
+    "name": "主从表_FTP服务器XML文件到YiGo系统"
+  },
+  {
+    "id": "818188994a287ada014a2924fcf4001f",
+    "data": "[{\"smallType\":\"FTP\",\"bigType\":\"inbound\",\"id\":\"\",\"text\":\"读取数据文件\"},{\"smallType\":\"XlsToListOrMapSimple\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"解析EXCEL文件\"},{\"smallType\":\"FixFieldsAddTransformer\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"设置主表固定值\"},{\"smallType\":\"FixFieldsAddTransformer\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"设置子表固定值\"},{\"smallType\":\"MutiFieldValueLookUpWithDsTransformer\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"查询主表字典项\"},{\"smallType\":\"MutiFieldValueLookUpWithDsTransformer\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"查询子表字典项\"},{\"smallType\":\"InvokeMapTransformer\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"数据格式转换\"},{\"smallType\":\"Axis\",\"bigType\":\"outbound\",\"id\":\"\",\"text\":\"数据发送至平台\"},{\"smallType\":\"FTP\",\"bigType\":\"outbound\",\"id\":\"\",\"text\":\"成功后修改后缀\"}]",
+    "description": "读取FTP服务器上EXCEL文件中的数据，然后导入到YiGo系统",
+    "name": "主从表_FTP服务器EXCEL文件到YiGo系统"
+  },
+  {
+    "id": "818188994a287ada014a292a0c090020",
+    "data": "[{\"smallType\":\"SFTP\",\"bigType\":\"inbound\",\"id\":\"\",\"text\":\"读取数据文件\"},{\"smallType\":\"SmooksWithXmlSample\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"解析XML文件\"},{\"smallType\":\"FixFieldsAddTransformer\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"设置主表固定值\"},{\"smallType\":\"FixFieldsAddTransformer\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"设置子表固定值\"},{\"smallType\":\"MutiFieldValueLookUpWithDsTransformer\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"查询主表字典项\"},{\"smallType\":\"MutiFieldValueLookUpWithDsTransformer\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"查询子表字典项\"},{\"smallType\":\"InvokeMapTransformer\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"数据格式转换\"},{\"smallType\":\"Axis\",\"bigType\":\"outbound\",\"id\":\"\",\"text\":\"数据发送至平台\"},{\"smallType\":\"SFTP\",\"bigType\":\"outbound\",\"id\":\"\",\"text\":\"成功后修改后缀\"}]",
+    "description": "读取SFTP服务器上XML文件中的数据，然后导入myscm或YiGo系统",
+    "name": "主从表_SFTP服务器XML文件到YiGo系统"
+  },
+  {
+    "id": "818188994a287ada014a293314ce0021",
+    "data": "[{\"smallType\":\"Http\",\"bigType\":\"inbound\",\"id\":\"\",\"text\":\"接收上传XML\"},{\"smallType\":\"HttpRequestToValue\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"参数内容转换\"},{\"smallType\":\"OgnlTransformer\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"提取XML文件\"},{\"smallType\":\"SmooksWithXmlSample\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"解析XML文件\"},{\"smallType\":\"FixFieldsAddTransformer\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"设置主表固定值\"},{\"smallType\":\"FixFieldsAddTransformer\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"设置子表固定值\"},{\"smallType\":\"MutiFieldValueLookUpWithDsTransformer\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"查询主表字典项\"},{\"smallType\":\"MutiFieldValueLookUpWithDsTransformer\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"查询子表字典项\"},{\"smallType\":\"InvokeMapTransformer\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"数据格式转换\"},{\"smallType\":\"Axis\",\"bigType\":\"outbound\",\"id\":\"\",\"text\":\"数据发送至平台\"}]",
+    "description": "接收通过HTTP发送来的XML格式数据，然后导入到YiGo系统",
+    "name": "主从表_使用第三方HTML上传XML到YiGo系统"
+  },
+  {
+    "id": "818188994a287ada014a293c74090022",
+    "data": "[{\"smallType\":\"VM\",\"bigType\":\"inbound\",\"id\":\"\",\"text\":\"接收EXCEL文件\"},{\"smallType\":\"OgnlTransformer\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"提取EXCEL数据\"},{\"smallType\":\"XlsToListOrMapSimple\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"解析EXCEL数据\"},{\"smallType\":\"Group\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"数据进行分组\"},{\"smallType\":\"IgnoreCaseListOfMap\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"忽略大小写形式\"},{\"smallType\":\"FixFieldsAddTransformer\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"设置主表固定值\"},{\"smallType\":\"FixFieldsAddTransformer\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"设置子表固定值\"},{\"smallType\":\"MutiFieldValueLookUpWithDsTransformer\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"查询主表字典项\"},{\"smallType\":\"MutiFieldValueLookUpWithDsTransformer\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"查询子表字典项\"},{\"smallType\":\"InvokeMapTransformer\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"数据格式转换\"},{\"smallType\":\"Axis\",\"bigType\":\"outbound\",\"id\":\"\",\"text\":\"数据发送至平台\"}]",
+    "description": "接收通过文件上传发送来的EXCEL格式文件，获取解析EXCEL文件，导入到YIGO系统中",
+    "name": "主从表_使用平台内部上传功能上传EXCEL文件到YIGO系统"
+  },
+  {
+    "id": "818188994a2c6f2e014a2c95624b0000",
+    "data": "[{\"smallType\":\"Jdbc\",\"bigType\":\"inbound\",\"id\":\"\",\"text\":\"获取表数据\"},{\"smallType\":\"GroovyScriptTransformer\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"保存唯一标识\"},{\"smallType\":\"ListMapToXlsTransformer\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"生成EXCEL数据\"},{\"smallType\":\"FTP\",\"bigType\":\"outbound\",\"id\":\"\",\"text\":\"生成EXCEL文件\"},{\"smallType\":\"GroovyScriptTransformer\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"提取唯一标识\"},{\"smallType\":\"Jdbc\",\"bigType\":\"outbound\",\"id\":\"\",\"text\":\"修改数据状态\"}]",
+    "description": "获取表数据导出成EXCEL格式文件，并放置FTP服务器上",
+    "name": "主从或单表_读取数据库数据到FTP生成EXCEL文件"
+  },
+  {
+    "id": "818188994a2c6f2e014a2c98f18f0001",
+    "data": "[{\"smallType\":\"Jdbc\",\"bigType\":\"inbound\",\"id\":\"\",\"text\":\"获取表数据\"},{\"smallType\":\"DispatchVMTransformer\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"数据进行分发\"}]",
+    "description": "获取中间表数据，然后逐条发送到名称为 \"单表_接收分发的数据导入YiGo系统\" 中",
+    "name": "单表_读取数据库中间表数据分发到VM服务"
+  },
+  {
+    "id": "818188994a2c6f2e014a2c99c0880002",
+    "data": "[{\"smallType\":\"VM\",\"bigType\":\"inbound\",\"id\":\"\",\"text\":\"接收分发数据\"},{\"smallType\":\"GroovyScriptTransformer\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"保存唯一标识\"},{\"smallType\":\"FixFieldsAddTransformer\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"设置表固定值\"},{\"smallType\":\"FieldValueLookUpWithDsTransformer\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"查询表字典项\"},{\"smallType\":\"InvokeMapTransformer\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"数据格式转换\"},{\"smallType\":\"Axis\",\"bigType\":\"outbound\",\"id\":\"\",\"text\":\"数据发送至平台\"},{\"smallType\":\"GroovyScriptTransformer\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"提取唯一标识\"},{\"smallType\":\"Jdbc\",\"bigType\":\"outbound\",\"id\":\"\",\"text\":\"修改数据状态\"}]",
+    "description": "接收从名称为 \"单表_读取数据库中间表数据分发到VM服务\" 中发送来的数据，然后导入YiGo系统",
+    "name": "单表_接收分发的数据导入YiGo系统"
+  },
+  {
+    "id": "818188994a2c6f2e014a2c9cf09f0003",
+    "data": "[{\"smallType\":\"Jdbc\",\"bigType\":\"inbound\",\"id\":\"\",\"text\":\"获取表数据\"},{\"smallType\":\"GroovyScriptTransformer\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"保存唯一标识\"},{\"smallType\":\"CollectionToXmlWithFreemarkerTemplateTransformer\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"生成XML数据\"},{\"smallType\":\"FTP\",\"bigType\":\"outbound\",\"id\":\"\",\"text\":\"生成XML文件\"},{\"smallType\":\"GroovyScriptTransformer\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"提取唯一标识\"},{\"smallType\":\"Jdbc\",\"bigType\":\"outbound\",\"id\":\"\",\"text\":\"修改数据状态\"}]",
+    "description": "获取数据库表中数据导出XML格式文件FTP服务器",
+    "name": "单表_读取数据库数据到FTP生成XML文件"
+  },
+  {
+    "id": "818188994a2c6f2e014a2ca022130004",
+    "data": "[{\"smallType\":\"VM\",\"bigType\":\"inbound\",\"id\":\"\",\"text\":\"接收上次XML\"},{\"smallType\":\"OgnlTransformer\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"提取XML数据\"},{\"smallType\":\"SmooksWithXmlSample\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"解析XML数据\"},{\"smallType\":\"FixFieldsAddTransformer\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"设置表固定值\"},{\"smallType\":\"MutiFieldValueLookUpWithDsTransformer\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"查询表字典项\"},{\"smallType\":\"InvokeMapTransformer\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"数据格式转换\"},{\"smallType\":\"Axis\",\"bigType\":\"outbound\",\"id\":\"\",\"text\":\"数据发送至平台\"}]",
+    "description": "接收通过文件上传发送来的XML格式数据，然后导入YiGo系统",
+    "name": "单表_使用平台内部上传功能上传XML数据到YiGo系统"
+  },
+  {
+    "id": "818188994a2c6f2e014a2ca337ba0005",
+    "data": "[{\"smallType\":\"FTP\",\"bigType\":\"inbound\",\"id\":\"\",\"text\":\"获取XML文件\"},{\"smallType\":\"CollectionToXmlWithFreemarkerTemplateTransformer\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"解析XML数据\"},{\"smallType\":\"FixFieldsAddTransformer\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"设置表固定值\"},{\"smallType\":\"MutiFieldValueLookUpWithDsTransformer\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"查询表字典项\"},{\"smallType\":\"InvokeMapTransformer\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"数据格式转换\"},{\"smallType\":\"Axis\",\"bigType\":\"outbound\",\"id\":\"\",\"text\":\"数据发送至平台\"},{\"smallType\":\"FTP\",\"bigType\":\"outbound\",\"id\":\"\",\"text\":\"成功后修改后缀\"}]",
+    "description": "读取FTP服务器上XML文件，然后导入YiGo系统",
+    "name": "单表_FTP服务器XML文件到YiGo系统"
+  },
+  {
+    "id": "818188994a2c6f2e014a2ca513620006",
+    "data": "[{\"smallType\":\"FTP\",\"bigType\":\"inbound\",\"id\":\"\",\"text\":\"获取EXCEL文件\"},{\"smallType\":\"XlsToListOrMapSimple\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"解析EXCEL数据\"},{\"smallType\":\"FixFieldsAddTransformer\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"设置表固定值\"},{\"smallType\":\"MutiFieldValueLookUpWithDsTransformer\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"查询表字典项\"},{\"smallType\":\"InvokeMapTransformer\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"数据格式转换\"},{\"smallType\":\"Axis\",\"bigType\":\"outbound\",\"id\":\"\",\"text\":\"数据发送至平台\"},{\"smallType\":\"FTP\",\"bigType\":\"outbound\",\"id\":\"\",\"text\":\"成功后修改后缀\"}]",
+    "description": "读取FTP服务器上EXCEL文件中的数据，然后导入YiGo系统",
+    "name": "单表_FTP服务器EXCEL文件到YiGo系统"
+  },
+  {
+    "id": "818188994a2c6f2e014a2ca6fe910007",
+    "data": "[{\"smallType\":\"SFTP\",\"bigType\":\"inbound\",\"id\":\"\",\"text\":\"获取XML文件\"},{\"smallType\":\"CollectionToXmlWithFreemarkerTemplateTransformer\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"解析XML数据\"},{\"smallType\":\"FixFieldsAddTransformer\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"设置表固定值\"},{\"smallType\":\"MutiFieldValueLookUpWithDsTransformer\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"查询表字典项\"},{\"smallType\":\"InvokeMapTransformer\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"数据格式转换\"},{\"smallType\":\"Axis\",\"bigType\":\"outbound\",\"id\":\"\",\"text\":\"数据发送至平台\"},{\"smallType\":\"SFTP\",\"bigType\":\"outbound\",\"id\":\"\",\"text\":\"成功后修改后缀\"}]",
+    "description": "读取SFTP服务器上XML文件中的数据，然后导入YiGo系统",
+    "name": "单表_SFTP服务器XML文件到YiGo系统"
+  },
+  {
+    "id": "818188994a2c6f2e014a2cabac2f0008",
+    "data": "[{\"smallType\":\"Jdbc\",\"bigType\":\"inbound\",\"id\":\"\",\"text\":\"获取表数据\"},{\"smallType\":\"GroovyScriptTransformer\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"保存唯一标识\"},{\"smallType\":\"ListMapToXlsTransformer\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"生成EXCEL数据\"},{\"smallType\":\"GroovyScriptTransformer\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"添加邮件内容\"},{\"smallType\":\"SMTP\",\"bigType\":\"outbound\",\"id\":\"\",\"text\":\"发送邮件\"},{\"smallType\":\"GroovyScriptTransformer\",\"bigType\":\"transformer_au\",\"id\":\"\",\"text\":\"提取唯一标识\"},{\"smallType\":\"Jdbc\",\"bigType\":\"outbound\",\"id\":\"\",\"text\":\"修改数据状态\"}]",
+    "description": "读取数据库数据，生成EXCEL文件并通过邮件发送出去",
+    "name": "主从或单表_读取数据库数据生成EXCEL通过邮件发送"
+  }
+]

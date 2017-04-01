@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="OA_MySchedule" Caption="我发起的日程" FormType="Entity">
+    <DataSource>
+        <DataObject Key="OA_MySchedule" Caption="我发起的日程" PrimaryTableKey="OA_MySchedule_H" NoPrefix="MS" PrimaryType="Entity">
+            <TableCollection>
+                <Table Key="OA_MySchedule_H" Caption="我发起的日程" DBTableName="OA_MySchedule_H">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="NO" Caption="日程编号" DataType="Varchar"/>
+                    <Column Key="EmpID" Caption="创建人" DataType="Long"/>
+                    <Column Key="DeptID" Caption="创建部门" DataType="Long"/>
+                    <Column Key="ScheduleType" Caption="日程类型" DataType="Long"/>
+                    <Column Key="StartTime" Caption="开始时间" DataType="DateTime"/>
+                    <Column Key="EndTime" Caption="结束时间" DataType="DateTime"/>
+                    <Column Key="Topic" Caption="日程主题" DataType="Varchar"/>
+                    <Column Key="IsAllDay" Caption="全天" DataType="Integer"/>
+                    <Column Key="Creator" Caption="创建人" DataType="Long"/>
+                    <Column Key="CreateTime" Caption="创建日期" DataType="DateTime"/>
+                    <Column Key="Modifier" Caption="修改人" DataType="Long"/>
+                    <Column Key="ModifyTime" Caption="修改日期" DataType="DateTime"/>
+                    <Column Key="BillKey" Caption="单据Key" DataType="Varchar"/>
+                    <Column Key="ClusterID" Caption="集团" DataType="Long"/>
+                    <Column Key="BillDate" Caption="日程日期" DataType="DateTime"/>
+                    <Column Key="Status" Caption="日程状态" DataType="Integer"/>
+                    <Column Key="Document" Caption="日程内容" DataType="Varchar"/>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="Save" Caption="保存" RefKey="Save"/>
+        <Operation Key="Delete" Caption="删除" RefKey="Delete"/>
+        <Operation Key="Edit" Caption="编辑" RefKey="Edit"/>
+        <Operation Key="Cancel" Caption="取消" RefKey="Cancel"/>
+        <Operation Key="Close" Caption="关闭" RefKey="Close"/>
+    </OperationCollection>
+    <ScriptCollection>
+        <Script Key="Load" Caption="载入" Range="Action" Verb="Load">
+            <![CDATA[LoadData()]]>
+        </Script>
+    </ScriptCollection>
+    <UICheckRuleCollection>
+        <UICheckRule Description="结束时间大于开始时间" ErrorInfo="结束时间大于开始时间">
+            <![CDATA[EndTime>StartTime]]>
+        </UICheckRule>
+    </UICheckRuleCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板">
+                <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <TabPanel Caption="TabPanel1" Height="pref" Key="TabPanel1">
+                    <GridLayoutPanel Key="first_head" Padding="5px" Height="pref" OverflowY="Auto" Caption="基本信息">
+                        <TextEditor Key="NO" Caption="日程编号" BuddyKey="Lab_NO" X="1" Y="0" Enable="false">
+                            <DataBinding TableKey="OA_MySchedule_H" ColumnKey="NO"/>
+                        </TextEditor>
+                        <Label Key="Lab_NO" Caption="日程编号" X="0" Y="0"/>
+                        <Dict Key="EmpID" Caption="创建人" BuddyKey="Lab_EmpID" X="1" Y="1" ItemKey="OA_Employee">
+                            <DataBinding TableKey="OA_MySchedule_H" ColumnKey="EmpID" DefaultFormulaValue="GetDictValue('Operator', GetOperator(), 'SYS_Operator.EmpID')" Required="true">
+                                <ValueChanged>
+                                    <![CDATA[DeptID=GetDictValue('OA_Employee', EmpID, 'OA_Employee_H.DeptID')]]>
+                                </ValueChanged>
+                            </DataBinding>
+                        </Dict>
+                        <Label Key="Lab_EmpID" Caption="创建人" X="0" Y="1"/>
+                        <Dict Key="DeptID" Caption="创建部门" BuddyKey="Lab_DeptID" X="3" Y="1" ItemKey="OA_Department">
+                            <DataBinding TableKey="OA_MySchedule_H" ColumnKey="DeptID" DefaultFormulaValue="GetDictValue('Operator', GetOperator(), 'SYS_Operator.DeptID')" Required="true"/>
+                        </Dict>
+                        <Label Key="Lab_DeptID" Caption="创建部门" X="2" Y="1"/>
+                        <Dict Key="ScheduleType" Caption="日程类型" BuddyKey="Lab_ScheduleType" X="5" Y="0" ItemKey="OA_ScheduleType">
+                            <DataBinding TableKey="OA_MySchedule_H" ColumnKey="ScheduleType" Required="true"/>
+                        </Dict>
+                        <Label Key="Lab_ScheduleType" Caption="日程类型" X="4" Y="0"/>
+                        <DatePicker Key="StartTime" Caption="开始时间" BuddyKey="Lab_StartTime" X="1" Y="2">
+                            <DataBinding TableKey="OA_MySchedule_H" ColumnKey="StartTime" Required="true"/>
+                        </DatePicker>
+                        <Label Key="Lab_StartTime" Caption="开始时间" X="0" Y="2"/>
+                        <DatePicker Key="EndTime" Caption="结束时间" BuddyKey="Lab_EndTime" X="3" Y="2">
+                            <DataBinding TableKey="OA_MySchedule_H" ColumnKey="EndTime" Required="true"/>
+                        </DatePicker>
+                        <Label Key="Lab_EndTime" Caption="结束时间" X="2" Y="2"/>
+                        <TextEditor Key="Topic" Caption="日程主题" BuddyKey="Lab_Topic" X="1" Y="3" XSpan="5">
+                            <DataBinding TableKey="OA_MySchedule_H" ColumnKey="Topic" Required="true"/>
+                        </TextEditor>
+                        <Label Key="Lab_Topic" Caption="日程主题" X="0" Y="3"/>
+                        <CheckBox Caption="全天" Key="IsAllDay" X="4" Y="1" Visible="false">
+                            <DataBinding TableKey="OA_MySchedule_H" ColumnKey="IsAllDay"/>
+                        </CheckBox>
+                        <DatePicker Key="BillDate" Caption="日程日期" BuddyKey="Lab_BillDate" X="3" Y="0" Enable="false">
+                            <DataBinding TableKey="OA_MySchedule_H" ColumnKey="BillDate"/>
+                        </DatePicker>
+                        <Label Key="Lab_BillDate" Caption="日程日期" X="2" Y="0"/>
+                        <TextArea Key="Document" Caption="日程内容" BuddyKey="Lab_Document" X="1" Y="4" XSpan="5" YSpan="3">
+                            <DataBinding TableKey="OA_MySchedule_H" ColumnKey="Document" Required="true"/>
+                        </TextArea>
+                        <Label Key="Lab_Document" Caption="日程内容" X="0" Y="4" YSpan="3">
+                            <Format VAlign="Top" HAlign="Center"/>
+                        </Label>
+                        <RowDefCollection RowGap="8">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="8">
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="33%"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="33%"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="34%"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <GridLayoutPanel Key="SysTab" Caption="系统信息">
+                        <Dict Key="Creator" Caption="创建人" BuddyKey="Lab_Creator" X="1" Y="0" Enable="false" ItemKey="Operator" XSpan="2">
+                            <DataBinding TableKey="OA_MySchedule_H" ColumnKey="Creator" DefaultFormulaValue="GetOperator()"/>
+                        </Dict>
+                        <Label Key="Lab_Creator" Caption="创建人" X="0" Y="0"/>
+                        <Dict Key="Modifier" Caption="修改人" BuddyKey="Lab_Modifier" X="1" Y="1" Enable="false" ItemKey="Operator" XSpan="2">
+                            <DataBinding TableKey="OA_MySchedule_H" ColumnKey="Modifier" DefaultFormulaValue="GetOperator()"/>
+                        </Dict>
+                        <DatePicker Key="CreateTime" Caption="创建日期" BuddyKey="Lab_CreateTime" X="5" Y="0" Enable="false" XSpan="2">
+                            <DataBinding TableKey="OA_MySchedule_H" ColumnKey="CreateTime" DefaultFormulaValue="ServerDate()"/>
+                        </DatePicker>
+                        <Label Key="Lab_CreateTime" Caption="创建时间" X="4" Y="0"/>
+                        <Label Key="Lab_Modifier" Caption="修改人" X="0" Y="1"/>
+                        <DatePicker Key="ModifyTime" Caption="修改日期" BuddyKey="Lab_ModifyTime" X="5" Y="1" Enable="false" XSpan="2">
+                            <DataBinding TableKey="OA_MySchedule_H" ColumnKey="ModifyTime" DefaultFormulaValue="ServerDate()"/>
+                        </DatePicker>
+                        <Label Key="Lab_ModifyTime" Caption="修改时间" X="4" Y="1"/>
+                        <TextEditor Key="BillKey" Caption="单据Key" BuddyKey="Lab_BillKey" X="9" Y="0" XSpan="2">
+                            <DataBinding TableKey="OA_MySchedule_H" ColumnKey="BillKey" DefaultFormulaValue="GetFormKey()"/>
+                        </TextEditor>
+                        <Label Key="Lab_BillKey" Caption="单据Key" X="8" Y="0"/>
+                        <Dict Key="ClusterID" Caption="集团" BuddyKey="Lab_ClusterID" X="9" Y="1" Enable="false" ItemKey="Client" XSpan="2">
+                            <DataBinding TableKey="OA_MySchedule_H" ColumnKey="ClusterID"/>
+                        </Dict>
+                        <Label Key="Lab_ClusterID" Caption="集团" X="8" Y="1"/>
+                        <ComboBox Key="Status" Caption="单据状态" BuddyKey="Lab_Status" X="1" Y="2" SourceType="Status" Enable="false" XSpan="2">
+                            <DataBinding TableKey="OA_MySchedule_H" ColumnKey="Status" DefaultValue="100"/>
+                        </ComboBox>
+                        <Label Key="Lab_Status" Caption="单据状态" X="0" Y="2"/>
+                        <TextEditor Key="OID" Caption="OID" BuddyKey="Lab_OID" X="5" Y="2" Visible="false" XSpan="2">
+                            <DataBinding TableKey="OA_MySchedule_H" ColumnKey="OID"/>
+                        </TextEditor>
+                        <Label Key="Lab_OID" Caption="OID" X="4" Y="2"/>
+                        <RowDefCollection RowGap="4">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="4">
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="33%"/>
+                            <ColumnDef Width="20px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="33%"/>
+                            <ColumnDef Width="20px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="34%"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                </TabPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

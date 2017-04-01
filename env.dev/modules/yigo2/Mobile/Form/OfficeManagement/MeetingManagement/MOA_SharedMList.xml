@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="MOA_SharedMList" Caption="共享给我的会议" FormType="View">
+    <DataSource>
+        <DataObject Key="MOA_SharedMList" Caption="共享给我的会议">
+            <TableCollection>
+                <Table Key="MOA_SharedMList_D" Caption="共享给我的会议" TableMode="Detail" SourceType="Query" Persist="false">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="Topic" Caption="会议主题" DataType="Varchar"/>
+                    <Column Key="EmpID" Caption="创建人" DataType="Long"/>
+                    <Column Key="DeptID" Caption="创建部门" DataType="Long"/>
+                    <Column Key="MeetingRoom" Caption="会议室" DataType="Long"/>
+                    <Column Key="MeetingType" Caption="会议类型" DataType="Long"/>
+                    <Column Key="StartTime" Caption="开始时间" DataType="DateTime"/>
+                    <Column Key="EndTime" Caption="结束时间" DataType="DateTime"/>
+                    <Column Key="UrgencyDeg" Caption="紧急程度" DataType="Integer"/>
+                    <ParameterCollection>
+                        <Parameter Formula="GetPara('aa')" DataType="Varchar"/>
+                    </ParameterCollection>
+                    <Statement>
+                        <![CDATA[select * from (select a.Topic,a.UrgencyDeg, a.OID,a.EmpID,a.DeptID,a.MeetingRoom,a.MeetingType,a.StartTime,a.EndTime,a.Status,a.AllDay 
+from OA_MeetingInSide_h a where a.Status=1200 and  CONCAT(',',Partake,',') like ? order by billdate desc)h]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <Body>
+        <Block>
+            <LinearLayoutPanel Caption="LinearLayoutPanel1" Key="LinearLayoutPanel1" Orientation="Vertical">
+                <GridLayoutPanel Key="GridLayoutPanel1" Height="120px" Caption="GridLayoutPanel1" Width="auto">
+                    <CheckListBox BuddyKey="Lab_QueryMeetingType" Caption="会议类型" Key="QueryMeetingType" SourceType="Formula" X="1" XSpan="4" Y="0">
+                        <Condition ColumnKey="MeetingType" TableKey="MOA_SharedMList_D" CondSign="in"/>
+                        <FormulaItems>
+                            <![CDATA[var sql="select OID,Name from OA_MeetingType_H ORDER BY TLeft";
+InvokeService("OA_GetDropStrBySql", true, false,sql,"OID","Name");]]>
+                        </FormulaItems>
+                    </CheckListBox>
+                    <Label Key="Lab_QueryMeetingType" Caption="会议类型" X="0" Y="0"/>
+                    <CheckListBox BuddyKey="Lab_QueryMeetingRoom" Caption="会议室" Key="QueryMeetingRoom" SourceType="Formula" X="1" XSpan="4" Y="1">
+                        <Condition ColumnKey="MeetingRoom" TableKey="MOA_SharedMList_D" CondSign="in"/>
+                        <FormulaItems>
+                            <![CDATA[var sql="select OID,Name from OA_MeetingRoom_H ORDER BY TLeft";
+InvokeService("OA_GetDropStrBySql", true, false,sql,"OID","Name");]]>
+                        </FormulaItems>
+                    </CheckListBox>
+                    <Label Key="Lab_QueryMeetingRoom" Caption="会议室" X="0" Y="1"/>
+                    <Button Key="Query" Caption="查询" X="0" Y="2" XSpan="2">
+                        <OnClick>
+                            <![CDATA[DealCondition();
+LoadData();
+ShowData();]]>
+                        </OnClick>
+                    </Button>
+                    <Button Key="Reset" Caption="重置" X="3" Y="2" XSpan="2">
+                        <OnClick>
+                            <![CDATA[ResetCondition();]]>
+                        </OnClick>
+                    </Button>
+                    <RowDefCollection RowGap="5">
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                        <RowDef Height="35px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="5">
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="50%"/>
+                        <ColumnDef Width="20px"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="50%"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+                <TableView Caption="TableView1" Height="pref" Key="TableView1" Width="pref">
+                    <TableRowCollection>
+                        <TableRow Key="row1" RowType="Detail" TableKey="MOA_SharedMList_D" TopMargin="10px">
+                            <LinearLayoutPanel Caption="LinearLayoutPanel2" Key="LinearLayoutPanel2" Orientation="Vertical">
+                                <LinearLayoutPanel Caption="LinearLayoutPanel3" Height="40px" Key="LinearLayoutPanel3" Width="auto">
+                                    <TextEditor Key="Topic" Caption="主题" Enable="false" Height="auto" Width="0px" Weight="1.0" OnlyShow="true">
+                                        <DataBinding ColumnKey="Topic"/>
+                                    </TextEditor>
+                                    <TextEditor Key="OID" Caption="OID" Visible="false" Height="pref" Width="pref">
+                                        <DataBinding ColumnKey="OID"/>
+                                    </TextEditor>
+                                </LinearLayoutPanel>
+                                <LinearLayoutPanel Caption="LinearLayoutPanel4" Height="40px" Key="LinearLayoutPanel4" Width="auto">
+                                    <Dict Key="EmpID" Caption="创建人" Enable="false" Height="auto" ItemKey="OA_Employee" Width="0px" Weight="1.0" OnlyShow="true">
+                                        <DataBinding ColumnKey="EmpID"/>
+                                    </Dict>
+                                    <Dict Key="DeptID" Caption="创建部门" Enable="false" Height="auto" ItemKey="OA_Department" Width="0px" Weight="1.0" OnlyShow="true">
+                                        <DataBinding ColumnKey="DeptID"/>
+                                    </Dict>
+                                </LinearLayoutPanel>
+                                <LinearLayoutPanel Caption="LinearLayoutPanel5" Height="40px" Key="LinearLayoutPanel5" Width="auto">
+                                    <Dict Key="MeetingRoom" Caption="会议室" Enable="false" Height="auto" ItemKey="OA_MeetingRoom" Width="0px" Weight="1.0" OnlyShow="true">
+                                        <DataBinding ColumnKey="MeetingRoom"/>
+                                    </Dict>
+                                    <Dict Key="MeetingType" Caption="会议类型" Enable="false" Height="auto" ItemKey="OA_MeetingType" Width="0px" Weight="1.0" OnlyShow="true">
+                                        <DataBinding ColumnKey="MeetingType"/>
+                                    </Dict>
+                                </LinearLayoutPanel>
+                                <LinearLayoutPanel Caption="LinearLayoutPanel6" Height="40px" Key="LinearLayoutPanel6" Width="auto">
+                                    <DatePicker Key="StartTime" Caption="开始时间" Enable="false" Height="auto" Width="0px" Weight="1.0" OnlyShow="true">
+                                        <DataBinding ColumnKey="StartTime"/>
+                                    </DatePicker>
+                                    <DatePicker Key="EndTime" Caption="结束时间" Enable="false" Height="auto" Width="0px" Weight="1.0" OnlyShow="true">
+                                        <DataBinding ColumnKey="EndTime"/>
+                                    </DatePicker>
+                                </LinearLayoutPanel>
+                                <LinearLayoutPanel Caption="LinearLayoutPanel7" Height="40px" Key="LinearLayoutPanel7" Width="auto">
+                                    <ComboBox Key="UrgencyDeg" Caption="紧急程度" Enable="false" Height="auto" Width="0px" Weight="0.5" OnlyShow="true">
+                                        <DataBinding ColumnKey="UrgencyDeg"/>
+                                        <Item Caption="一般" Key="10" Value="10"/>
+                                        <Item Caption="紧急" Key="20" Value="20"/>
+                                        <Item Caption="特急" Key="30" Value="30"/>
+                                    </ComboBox>
+                                </LinearLayoutPanel>
+                            </LinearLayoutPanel>
+                            <RowClick>
+                                <![CDATA[Open('MOA_MeetingInSide', OID)]]>
+                            </RowClick>
+                        </TableRow>
+                    </TableRowCollection>
+                </TableView>
+            </LinearLayoutPanel>
+        </Block>
+    </Body>
+    <OnLoad>
+        <![CDATA[LoadData()]]>
+    </OnLoad>
+    <FormParaCollection>
+        <FormPara DataType="Varchar" Formula="'%,' &amp; ToString(GetDictValue('Operator', GetOperator(), 'SYS_Operator.EmpID')) &amp; ',%';" Key="aa" Type="Formula"/>
+    </FormParaCollection>
+</Form>

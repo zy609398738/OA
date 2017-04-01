@@ -1,0 +1,283 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<title>ideawu - TableView - 数据表格控件</title>
+	<link rel="stylesheet" type="text/css" href="style.css" />
+	<link rel="stylesheet" type="text/css" href="jquery-ui-1.7.2.custom.css" />
+	<script type="text/javascript" src="scripts/jquery.js"></script>
+	<script type="text/javascript" src="scripts/jquery-ui-1.7.2.custom.min.js"></script>
+	<script type="text/javascript" src="scripts/PagerView.js"></script>
+	<script type="text/javascript" src="scripts/TableView.js"></script>
+	<script type="text/javascript" src="scripts/SelectorView.js"></script>
+	<script type="text/javascript" src="scripts/common.js"></script>
+</head>
+<body>
+
+
+<script type="text/javascript">
+<!--
+$(function(){
+	$('#tabs').tabs();
+});
+//-->
+</script>
+
+<h1 class="title1">TableView - 数据表格控件</h1>
+
+
+<div id="menu">
+	<ul>
+		<li><a href="index.html">Home</a></li>
+		<li><a href="PagerView.html">PagerView</a></li>
+		<li><a href="TableView.html">TableView</a></li>
+		<li><a href="SelectorView.html">SelectorView</a></li>
+		<li><a href="Style.html">CSS样式表</a></li>
+		<li><a href="api/index.html">API文档</a></li>
+		<li><a href="js-datagrid.zip">下载</a></li>
+	</ul>
+</div>
+<div style="clear: both;"></div>
+
+
+<h2 class="title2">介绍</h2>
+
+<p>TableView是一个用于显示数据表格的JavaScript控件. 集成的分页控件, 可对表格中的数据集进行客户端分页. </p>
+
+<h2 class="title2">示例</h2>
+
+<div id="tabs">
+	<ul>
+		<li><a href="#tabs-1">Demo</a></li>
+		<li><a href="#tabs-2">源码</a></li>
+	</ul>
+	<div id="tabs-1" style="background: #fff;">
+<fieldset>
+	<legend>可选框显示控件</legend>
+	<div id="table_widget_toolbar">
+		<input type="checkbox" name="title" value="title" checked="checked" />
+		标题
+		<input type="checkbox" name="" value="count" checked="checked" />
+		计数
+		<input type="checkbox" name="" value="marker" checked="checked" />
+		行复选框
+		<input type="checkbox" name="" value="filter" checked="checked" />
+		过滤器
+		<input type="checkbox" name="" value="pager" checked="checked" />
+		分页控件
+	</div>
+</fieldset>
+
+<div id="table_div"></div>
+
+<input type="button" value="当前已选中的数据的ID列表"
+	onclick="alert('当前已选中的数据的ID列表: ' + table.getSelectedKeys())" />
+
+<script type="text/javascript">
+<!--
+var table = null;
+$(function(){
+	table = new TableView('table_div');
+	table.header = {
+		id			: 'Id',
+		name		: 'Name',
+		name_cn		: '中文名',
+		text		: 'Text',
+		input		: '输入'
+	};
+	table.dataKey = 'id';
+	table.title = '可选';
+	table.pager.size = 3;
+
+	var input_html = '<input type="text" name="a" size="2" class="textbox" />';
+
+	// table.addRange() 可以用来添加数据列表.
+	table.add({id: 0, name: 'None', name_cn: '幽灵', text: 'None', input: input_html});
+	table.add({id: 1, name: 'Tom', name_cn: '汤姆', text: 'Tomcat', input: input_html});
+	table.add({id: 2, name: 'Jerry', name_cn: '杰瑞', text: 'Jerrimy', input: input_html});
+	table.add({id: 3, name: 'Jim', name_cn: '吉姆', text: 'System Engineer', input: input_html});
+	table.add({id: 4, name: 'Lucy', name_cn: '露西', text: 'Lucy & Lily', input: input_html});
+	table.add({id: 5, name: 'Jessmine', name_cn: 'Jessmine', text: 'Jessmine is a girl', input: input_html});
+	table.add({id: 6, name: 'Ta', name_cn: '他/她', text: '他/她', input: input_html});
+	table.add({id: 7, name: 'ideawu', name_cn: '我', text: '<a href="http://www.ideawu.net/">http://www.ideawu.net/</a>', input: input_html});
+	table.render();
+
+	function change_layout(){
+		$('#table_widget_toolbar input').each(function(i, cb){
+			var val = cb.value;
+			table.display[val] = cb.checked;
+		});
+		table.render();
+	};
+
+	$('#table_widget_toolbar input').each(function(i, cb){
+		cb.onclick = change_layout;
+	});
+
+	change_layout();
+});
+//-->
+</script>
+	</div>
+	<div id="tabs-2">
+<pre>
+&lt;div id="table_div"&gt;&lt;/div&gt;
+
+&lt;script type="text/javascript"&gt;
+&lt;!--
+var table = new TableView('table_div');
+table.header = {
+	id			: 'Id',
+	name		: 'Name',
+	name_cn		: '中文名',
+	text		: 'Text',
+	input		: '输入'
+};
+table.dataKey = 'id';
+table.display.filter = true;
+table.display.pager = true;
+table.pager.size = 3;
+
+var input_html = '&lt;input type="text" name="a" size="2" class="textbox" /&gt;';
+
+// table.addRange() 可以用来添加数据列表.
+table.add({id: 0, name: 'None', name_cn: '幽灵', text: 'None', input: input_html});
+table.add({id: 1, name: 'Tom', name_cn: '汤姆', text: 'Tomcat', input: input_html});
+table.add({id: 2, name: 'Jerry', name_cn: '杰瑞', text: 'Jerrimy', input: input_html});
+});
+table.render();
+//--&gt;
+&lt;/script&gt;
+</pre>
+	</div>
+</div>
+
+
+<h2 class="title2">API文档</h2>
+
+<p><a href="api/symbols/TableView.html">查看API文档</a></p>
+
+
+<h2 class="title2">开发指导</h2>
+
+<h3 class="title3">创建</h3>
+
+<p>TableView生成数据表格控件的HTML代码, 添加到指定的节点当中. 这个节点一般是div节点. 创建一个TableView的实例后, 需要设置dataKey(所要显示的记录的主键), 调用add/addRange方法将记录/记录列表添加到表格中, 然后调用render()方法将控件渲染到页面上.</p>
+
+<pre>
+&lt;div id="table_div"&gt;&lt;/div&gt;
+
+&lt;script type="text/javascript"&gt;
+&lt;!--
+var table = new TableView('table_div');
+table.header = {
+	id			: 'Id',
+	name		: 'Name',
+	name_cn		: '中文名'
+};
+table.dataKey = 'id';
+table.add({id: 0, name: 'None', name_cn: '幽灵'});
+table.render();
+//--&gt;
+&lt;/script&gt;
+</pre>
+
+
+
+<h3 class="title3">双击行事件</h3>
+
+<p>重写dblclick回调函数, 捕获行的双击事件, 可以用来做其他的操作, 比如对记录进行编辑.</p>
+
+<pre>
+&lt;script type="text/javascript"&gt;
+&lt;!--
+table.dblclick = function(id){
+	// AJAX获取相应id的记录, 然后编辑
+}
+//--&gt;
+&lt;/script&gt;
+</pre>
+
+
+
+<h3 class="title3">获取选中记录列表/记录主键列表</h3>
+
+<p>获取当前表格已经选中的记录, 可以进行批量删除或者批量编辑操作.</p>
+
+<pre>
+&lt;script type="text/javascript"&gt;
+&lt;!--
+var rows = table.getSelected(); // Array[Object]
+var ids = table.getSelectedKeys(); // Array[Key]
+//--&gt;
+&lt;/script&gt;
+</pre>
+
+
+
+<h3 class="title3">实现客户端分页</h3>
+
+<p>TableView使用PagerView作为其分页控件.</p>
+
+<pre>
+&lt;script type="text/javascript"&gt;
+&lt;!--
+table.display.pager = true;
+table.render();
+//--&gt;
+&lt;/script&gt;
+</pre>
+
+
+
+<h3 class="title3">实现服务器端分页</h3>
+
+<p>要实现服务器端分页, 一般不再使用TableViewr的分页功能, 而是再独立添加一个PagerView, 这样, PagerView可以做更大的控制.</p>
+
+<pre>
+&lt;div id="table_div"&gt;&lt;/div&gt;
+&lt;div id="pager_div"&gt;&lt;/div&gt;
+
+&lt;script type="text/javascript"&gt;
+&lt;!--
+var table = new TableView('table_div');
+...
+var pager = new PagerView('pager_div');
+...
+
+pager.onclick = function(index){
+	$.getJSON(url, params, function(response){
+		list_table.clear();
+		list_table.addRange(response.items);
+		// 因为查询条件可能变化, 结果数量有变化, 所以要重新生成分页控件.
+		pager.itemCount = response.itemCount;
+		pager.render();
+	});
+};
+//--&gt;
+&lt;/script&gt;
+</pre>
+
+
+<h3 class="title3">显示选项</h3>
+
+<p>TableView控件包含了5个可独立控制是否显示的子控件, 分别是: title(标题), count(记数), marker(行选择框), filter(过滤器), pager(分页). 使用方法如: </p>
+
+<pre>
+table.display.title = true; // 显示标题
+table.display.marker = true; // 显示行选择框
+table.display.pager = false; // 不显示分页控件
+</pre>
+
+
+
+
+<div id="footer" style="margin-top: 20px;">
+	Copyright&copy;2009 <b>idea's web</b>. All rights reserved. | <a href="http://www.ideawu.net">www.ideawu.net</a>
+
+	<script language="javascript" type="text/javascript" src="http://js.users.51.la/414722.js"></script>
+</div>
+
+
+</body>
+</html>

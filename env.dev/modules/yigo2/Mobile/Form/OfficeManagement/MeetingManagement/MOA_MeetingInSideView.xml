@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="MOA_MeetingInSideView" Caption="内部会议表单列表" FormType="View">
+    <DataSource>
+        <DataObject Key="MOA_MeetingInSideView" Caption="内部会议表单列表">
+            <TableCollection>
+                <Table Key="MOA_MeetingInSide_H" TableMode="Detail" SourceType="Query" Persist="false">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="Topic" Caption="会议主题" DataType="Varchar"/>
+                    <Column Key="MeetingType" Caption="会议类型" DataType="Long"/>
+                    <Column Key="EmpID" Caption="申请人" DataType="Long"/>
+                    <Column Key="DeptID" Caption="申请部门" DataType="Long"/>
+                    <Column Key="EmpIDPhone" Caption="申请人联系方式" DataType="Varchar"/>
+                    <Column Key="MeetingRoom" Caption="开会地点" DataType="Long"/>
+                    <Column Key="BillDate" Caption="申请日期" DataType="DateTime"/>
+                    <Column Key="UrgencyDeg" Caption="紧急程度" DataType="Integer"/>
+                    <Statement>
+                        <![CDATA[select * from (select *  from OA_MeetingInSide_H order by BillDate desc) h]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="New" Caption="新增">
+            <Action>
+                <![CDATA[New('MOA_MeetingInSide');]]>
+            </Action>
+        </Operation>
+    </OperationCollection>
+    <Body>
+        <Block>
+            <LinearLayoutPanel Key="root" Caption="根面板" Orientation="Vertical">
+                <GridLayoutPanel Key="first_head" Padding="5px" Height="120px" Caption="基本信息" Width="auto">
+                    <DatePicker Key="From" Caption="申请日期从" BuddyKey="Lab_From" X="1" Y="0" XSpan="4">
+                        <Condition Group="aa" ColumnKey="BillDate" TableKey="MOA_MeetingInSide_H" CondSign="between" GroupHead="true"/>
+                    </DatePicker>
+                    <Label Key="Lab_From" Caption="申请日期从" X="0" Y="0"/>
+                    <DatePicker Key="To" Caption="到" BuddyKey="Lab_To" X="1" Y="1" XSpan="4">
+                        <Condition Group="aa" GroupTail="true" ColumnKey="BillDate" TableKey="MOA_MeetingInSide_H" CondSign="between"/>
+                    </DatePicker>
+                    <Label Key="Lab_To" Caption="到" X="0" Y="1"/>
+                    <Button Key="Query" Caption="查询" X="0" Y="2" XSpan="2">
+                        <OnClick>
+                            <![CDATA[DealCondition();
+LoadData();
+ShowData();]]>
+                        </OnClick>
+                    </Button>
+                    <Button Key="Reset" Caption="重置" X="3" Y="2" XSpan="2">
+                        <OnClick>
+                            <![CDATA[ResetCondition()]]>
+                        </OnClick>
+                    </Button>
+                    <RowDefCollection RowGap="8">
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                        <RowDef Height="35px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="8">
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="50%"/>
+                        <ColumnDef Width="20px"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="50%"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+                <TableView Caption="TableView1" Height="pref" Key="TableView1" Width="pref">
+                    <TableRowCollection>
+                        <TableRow Key="row1" RowType="Detail" TableKey="MOA_MeetingInSide_H">
+                            <LinearLayoutPanel Caption="LinearLayoutPanel1" Key="LinearLayoutPanel1" Orientation="Vertical">
+                                <LinearLayoutPanel Caption="LinearLayoutPanel2" Height="40px" Key="LinearLayoutPanel2" Width="auto">
+                                    <TextEditor Key="Topic" Caption="会议主题" Enable="false" Height="auto" Width="0px" Weight="1.0" OnlyShow="true">
+                                        <DataBinding ColumnKey="Topic"/>
+                                    </TextEditor>
+                                    <TextEditor Key="OID" Caption="OID" Visible="false" Height="pref" Width="pref">
+                                        <DataBinding ColumnKey="OID"/>
+                                    </TextEditor>
+                                </LinearLayoutPanel>
+                                <LinearLayoutPanel Caption="LinearLayoutPanel3" Height="40px" Key="LinearLayoutPanel3" Width="auto">
+                                    <Dict Key="MeetingType" Caption="会议类型" Enable="false" Height="auto" ItemKey="OA_MeetingType" Width="0px" Weight="1.0" OnlyShow="true">
+                                        <DataBinding ColumnKey="MeetingType"/>
+                                    </Dict>
+                                    <ComboBox Key="UrgencyDeg" Caption="紧急程度" Enable="false" Height="auto" Width="0px" Weight="1.0" OnlyShow="true">
+                                        <DataBinding ColumnKey="UrgencyDeg"/>
+                                        <Item Caption="一般" Key="10" Value="10"/>
+                                        <Item Caption="紧急" Key="20" Value="20"/>
+                                        <Item Caption="特急" Key="30" Value="30"/>
+                                    </ComboBox>
+                                </LinearLayoutPanel>
+                                <LinearLayoutPanel Caption="LinearLayoutPanel4" Height="40px" Key="LinearLayoutPanel4" Width="auto">
+                                    <Dict Key="EmpID" Caption="申请人" Enable="false" Height="auto" ItemKey="OA_Employee" Width="0px" Weight="1.0" OnlyShow="true">
+                                        <DataBinding ColumnKey="EmpID"/>
+                                    </Dict>
+                                    <Dict Key="DeptID" Caption="申请部门" Enable="false" Height="auto" ItemKey="OA_Department" Width="0px" OnlyShow="true">
+                                        <DataBinding ColumnKey="DeptID"/>
+                                    </Dict>
+                                </LinearLayoutPanel>
+                                <LinearLayoutPanel Caption="LinearLayoutPanel5" Height="40px" Key="LinearLayoutPanel5" Width="auto">
+                                    <TextEditor Key="EmpIDPhone" Caption="申请人联系方式" Enable="false" Height="auto" Width="0px" Weight="1.0" OnlyShow="true">
+                                        <DataBinding ColumnKey="EmpIDPhone"/>
+                                    </TextEditor>
+                                    <Dict Key="MeetingRoom" Caption="开会地点" Enable="false" Height="auto" ItemKey="OA_MeetingRoom" Width="0px" Weight="1.0" OnlyShow="true">
+                                        <DataBinding ColumnKey="MeetingRoom"/>
+                                    </Dict>
+                                </LinearLayoutPanel>
+                                <LinearLayoutPanel Caption="LinearLayoutPanel6" Height="40px" Key="LinearLayoutPanel6" Width="auto">
+                                    <DatePicker Key="BillDate" Caption="申请日期" Enable="false" Height="auto" Width="auto" OnlyShow="true">
+                                        <DataBinding ColumnKey="BillDate"/>
+                                    </DatePicker>
+                                </LinearLayoutPanel>
+                            </LinearLayoutPanel>
+                            <RowClick>
+                                <![CDATA[Open('MOA_MeetingInSide', OID)]]>
+                            </RowClick>
+                        </TableRow>
+                    </TableRowCollection>
+                </TableView>
+            </LinearLayoutPanel>
+        </Block>
+    </Body>
+    <OnLoad>
+        <![CDATA[LoadData()]]>
+    </OnLoad>
+</Form>

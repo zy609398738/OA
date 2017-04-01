@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Caption="成本控制范围" FormType="Dict" Key="V_ControllingArea">
+    <DataSource RefObjectKey="ControllingArea"/>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root">
+                <TabPanel Key="body">
+                    <GridLayoutPanel Key="body_basic" Padding="8px" Caption="基本信息(&amp;B)">
+                        <Label Key="Inner_Code" Caption="代码" X="0" Y="0"/>
+                        <TextEditor Key="Code" Caption="代码" BuddyKey="Inner_Code" X="1" Y="0" Visible="true" Enable="!ReadOnly()&amp;&amp;com.bokesoft.erp.basis.common.DocumentNumberUI.docNumberFieldEnable('Code')" InvalidChars="%*\&quot;+?&gt;&lt;:'">
+                            <DataBinding TableKey="BK_ControllingArea" ColumnKey="Code" CheckRule="iifs(com.bokesoft.erp.basis.common.DocumentNumberUI.docNumberFieldEnable('Code')&amp;&amp;Value('Code')='', '采用外部给号编码规则，请输入代码', true, true)"/>
+                        </TextEditor>
+                        <Label Key="Inner_Name" Caption="名称" X="0" Y="1"/>
+                        <TextEditor Key="Name" Caption="名称" BuddyKey="Inner_Name" X="1" Y="1" Visible="true" Enable="!ReadOnly()">
+                            <DataBinding TableKey="BK_ControllingArea" ColumnKey="Name"/>
+                        </TextEditor>
+                        <Label Key="Inner_CocdCOAreaAssignRule" Caption="公司代码分配控制" X="0" Y="3"/>
+                        <ComboBox Key="CocdCOAreaAssignRule" Caption="公司代码分配控制" BuddyKey="Inner_CocdCOAreaAssignRule" X="1" Y="3" Visible="true" Enable="!ReadOnly()">
+                            <DataBinding TableKey="BK_ControllingArea" ColumnKey="CocdCOAreaAssignRule" DefaultFormulaValue="2"/>
+                        </ComboBox>
+                        <Label Key="Inner_NodeType" Caption="结点类型" X="0" Y="11"/>
+                        <ComboBox Key="NodeType" Caption="结点类型" BuddyKey="Inner_NodeType" X="1" Y="11" Visible="false" Enable="!ReadOnly()&amp;&amp;Status&lt;0">
+                            <DataBinding TableKey="BK_ControllingArea" ColumnKey="NodeType"/>
+                        </ComboBox>
+                        <Label Key="Inner_CurrencyType" Caption="货币类型" X="0" Y="4"/>
+                        <ComboBox Key="CurrencyType" Caption="货币类型" BuddyKey="Inner_CurrencyType" X="1" Y="4" Visible="true" Enable="!ReadOnly()">
+                            <DataBinding TableKey="BK_ControllingArea" ColumnKey="CurrencyType" DefaultFormulaValue="20"/>
+                        </ComboBox>
+                        <Label Key="Inner_CurrencyID" Caption="币种" X="0" Y="5"/>
+                        <Dict Key="CurrencyID" Caption="币种" BuddyKey="Inner_CurrencyID" X="1" Y="5" Visible="true" Enable="!ReadOnly()" ItemKey="Currency">
+                            <DataBinding TableKey="BK_ControllingArea" ColumnKey="CurrencyID" CheckRule="iifs(CurrencyID=-1, '请输入币种', true, true)"/>
+                        </Dict>
+                        <Label Key="Inner_AccountChartID" Caption="科目表" X="0" Y="6"/>
+                        <Dict Key="AccountChartID" Caption="科目表" BuddyKey="Inner_AccountChartID" X="1" Y="6" Visible="true" Enable="!ReadOnly()" ItemKey="AccountChart">
+                            <DataBinding TableKey="BK_ControllingArea" ColumnKey="AccountChartID" CheckRule="iifs(AccountChartID=-1, '请选择科目表', true, true)"/>
+                        </Dict>
+                        <Label Key="Inner_PeriodTypeID" Caption="会计期方案" X="0" Y="7"/>
+                        <Dict Key="PeriodTypeID" Caption="会计期方案" BuddyKey="Inner_PeriodTypeID" X="1" Y="7" Visible="true" Enable="!ReadOnly()" ItemKey="PeriodType">
+                            <DataBinding TableKey="BK_ControllingArea" ColumnKey="PeriodTypeID" CheckRule="iifs(PeriodTypeID=-1, '请选择会计期方案', true, true)"/>
+                        </Dict>
+                        <CheckBox Caption="激活财务调整" Enable="!ReadOnly()" Key="ActiveRecoLedger" Visible="true" X="1" Y="8">
+                            <DataBinding TableKey="BK_ControllingArea" ColumnKey="ActiveRecoLedger"/>
+                        </CheckBox>
+                        <Label Key="Inner_VoucherTypeID" Caption="凭证类型" X="0" Y="9"/>
+                        <Dict Key="VoucherTypeID" Caption="凭证类型" BuddyKey="Inner_VoucherTypeID" X="1" Y="9" Visible="true" Enable="!ReadOnly()" ItemKey="VoucherType">
+                            <DataBinding TableKey="BK_ControllingArea" ColumnKey="VoucherTypeID"/>
+                        </Dict>
+                        <Label Key="Inner_ResponsiblePersonID" Caption="负责人" X="0" Y="2"/>
+                        <Dict Key="ResponsiblePersonID" Caption="负责人" BuddyKey="Inner_ResponsiblePersonID" X="1" Y="2" Visible="true" Enable="!ReadOnly()" ItemKey="Operator">
+                            <DataBinding TableKey="BK_ControllingArea" ColumnKey="ResponsiblePersonID"/>
+                        </Dict>
+                        <Label Key="Inner_COPATransferStructureID" Caption="传输结构" X="0" Y="10"/>
+                        <Dict Key="COPATransferStructureID" Caption="传输结构" BuddyKey="Inner_COPATransferStructureID" X="1" Y="10" Visible="true" Enable="!ReadOnly()" ItemKey="PA_COPATransferStructure">
+                            <DataBinding TableKey="BK_ControllingArea" ColumnKey="copatransferstructureid"/>
+                        </Dict>
+                        <RowDefCollection RowGap="5">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="5">
+                            <ColumnDef Width="100px"/>
+                            <ColumnDef Width="330px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <GridLayoutPanel Key="TAB3" Padding="8px" Caption="预算参数文件控制">
+                        <Grid Key="grid0" X="0" Y="0">
+                            <GridColumnCollection>
+                                <GridColumn Key="DeleteDtl_2" Caption="删除" Width="80px"/>
+                                <GridColumn Key="BudgetProfileID" Caption="预算参考文件" Width="80px"/>
+                                <GridColumn Key="ControlActivities" Caption="控制活动" Width="80px"/>
+                                <GridColumn Key="ActionType" Caption="控制方式" Width="80px"/>
+                                <GridColumn Key="UsageRate" Caption="预算使用百分比" Width="80px"/>
+                                <GridColumn Key="AbsVariance" Caption="超额绝对量" Width="80px"/>
+                                <GridColumn Key="BudgetCurrencyID" Caption="币种" Width="80px"/>
+                            </GridColumnCollection>
+                            <GridRowCollection>
+                                <GridRow Key="row1" TableKey="BK_ControlArea_BudgetDtl">
+                                    <GridCell Key="DeleteDtl_2" Caption="删除" CellType="TextEditor" MaxLength="100"/>
+                                    <GridCell Key="BudgetProfileID" Caption="预算参考文件" CellType="Dict" ItemKey="CO_BudgetProfile">
+                                        <DataBinding ColumnKey="BudgetProfileID"/>
+                                    </GridCell>
+                                    <GridCell Key="ControlActivities" Caption="控制活动" CellType="ComboBox">
+                                        <DataBinding ColumnKey="ControlActivities"/>
+                                    </GridCell>
+                                    <GridCell Key="ActionType" Caption="控制方式" CellType="ComboBox">
+                                        <DataBinding ColumnKey="ActionType"/>
+                                    </GridCell>
+                                    <GridCell Key="UsageRate" Caption="预算使用百分比">
+                                        <DataBinding ColumnKey="usagerate"/>
+                                    </GridCell>
+                                    <GridCell Key="AbsVariance" Caption="超额绝对量">
+                                        <DataBinding ColumnKey="absvariance"/>
+                                    </GridCell>
+                                    <GridCell Key="BudgetCurrencyID" Caption="币种" CellType="Dict" ItemKey="Currency">
+                                        <DataBinding ColumnKey="BudgetCurrencyID"/>
+                                    </GridCell>
+                                </GridRow>
+                            </GridRowCollection>
+                        </Grid>
+                        <RowDefCollection RowGap="5">
+                            <RowDef Height="100%"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="5">
+                            <ColumnDef Width="100%"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <GridLayoutPanel Key="body_system" Padding="8px" Caption="系统信息(&amp;D)">
+                        <Label Key="Inner_Status" Caption="结点状态" X="0" Y="1"/>
+                        <ComboBox Key="Status" Caption="结点状态" BuddyKey="Inner_Status" X="1" Y="1" Visible="true" Enable="false">
+                            <DataBinding TableKey="BK_ControllingArea" ColumnKey="Status"/>
+                        </ComboBox>
+                        <Label Key="Inner_CreateByID" Caption="创建人员" X="0" Y="2"/>
+                        <Dict Key="CreateByID" Caption="创建人员" BuddyKey="Inner_CreateByID" X="1" Y="2" Visible="true" Enable="false" ItemKey="Operator">
+                            <DataBinding TableKey="BK_ControllingArea" ColumnKey="CREATOR" DefaultFormulaValue="GetOperator()"/>
+                        </Dict>
+                        <Label Key="Inner_CreateTime" Caption="创建时间" X="0" Y="3"/>
+                        <DatePicker Key="CreateTime" Caption="创建时间" BuddyKey="Inner_CreateTime" X="1" Y="3" Visible="true" Enable="false" OnlyDate="false">
+                            <DataBinding TableKey="BK_ControllingArea" ColumnKey="CREATETIME" DefaultFormulaValue="ServerDate()"/>
+                        </DatePicker>
+                        <Label Key="Inner_UpdateByID" Caption="修改人员" X="0" Y="4"/>
+                        <Dict Key="UpdateByID" Caption="修改人员" BuddyKey="Inner_UpdateByID" X="1" Y="4" Visible="true" Enable="false" ItemKey="Operator">
+                            <DataBinding TableKey="BK_ControllingArea" ColumnKey="MODIFIER" DefaultFormulaValue="GetOperator()"/>
+                        </Dict>
+                        <Label Key="Inner_UpdateTime" Caption="修改时间" X="0" Y="5"/>
+                        <DatePicker Key="UpdateTime" Caption="修改时间" BuddyKey="Inner_UpdateTime" X="1" Y="5" Visible="true" Enable="false" OnlyDate="false">
+                            <DataBinding TableKey="BK_ControllingArea" ColumnKey="MODIFYTIME" DefaultFormulaValue="ServerDate()"/>
+                        </DatePicker>
+                        <Label Key="Inner_Notes" Caption="备注" X="0" Y="6"/>
+                        <TextEditor Key="Notes" Caption="备注" BuddyKey="Inner_Notes" X="1" Y="6" Visible="true" Enable="!ReadOnly()">
+                            <DataBinding TableKey="BK_ControllingArea" ColumnKey="Notes"/>
+                        </TextEditor>
+                        <Label Key="Inner_ClientID" Caption="集团" X="0" Y="0"/>
+                        <Dict Key="ClientID" Caption="集团" BuddyKey="Inner_ClientID" X="1" Y="0" Visible="true" Enable="false" ItemKey="Client">
+                            <DataBinding TableKey="BK_ControllingArea" ColumnKey="clientid" DefaultFormulaValue="getClientID()"/>
+                        </Dict>
+                        <RowDefCollection RowGap="5">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="5">
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="330px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                </TabPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

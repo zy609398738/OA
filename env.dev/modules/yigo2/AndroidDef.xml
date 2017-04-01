@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AndroidDef >
+	<ALaunchDef LaunchForm="AndroidStartForm" Style="Stack"/>
+	<AMenuDef>
+		<AMenuHead Icon="" Title="新华资产系统"/>
+		<AMenuItemCollection AllEntryFilter="true">
+			<AMenuItem EntryFilter="true" Icon="" Title="事务处理" EntryKey="HomeProject/Mobile_manager/MobileOA_WorkItemList">
+				<![CDATA[New("MobileOA_WorkItemList")]]>
+			</AMenuItem>
+			
+		</AMenuItemCollection>
+		<ASubMenuCollection >
+			<ASubMenuDef Icon="user.png" Title="日常处理">
+				<AMenuItemCollection AllEntryFilter="true">		
+					<AMenuItem EntryFilter="true" Icon="" Title="请假申请列表" EntryKey="HomeProject/Mobile_manager/VacationRequestList">
+						<![CDATA[New("VacationRequestList")]]>
+					</AMenuItem>
+					<AMenuItem EntryFilter="true" Icon="" Title="请假申请" EntryKey="HomeProject/Mobile_manager/VacationRequest">
+						<![CDATA[New("VacationRequest")]]>
+					</AMenuItem>
+					<AMenuItem EntryFilter="true" Icon="" Title="待办事项" EntryKey="HomeProject/Mobile_manager/Mobile_SiteOut2">
+						<![CDATA[New("Mobile_SiteOut2")]]>
+					</AMenuItem>
+				</AMenuItemCollection>
+			</ASubMenuDef>
+		</ASubMenuCollection>
+</AMenuDef>
+</AndroidDef>

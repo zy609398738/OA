@@ -1,0 +1,12 @@
+{
+	"@type":"com.bokesoft.cms2.impl.buildin.modelio.vo.BlockVO",
+	"block":{
+		"@type":"com.bokesoft.cms2.model.blocks.TmplBlock",
+		"parameters":[],
+		"tmplText":"=T(cms.ResExp).ReadResourceText('cms:vm/zhgl/index.vm')",
+		"type":"TMPL"
+	},
+	"code":"ZHGL",
+	"name":"综合管理",
+	"params":[]
+}

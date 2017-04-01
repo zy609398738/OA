@@ -1,0 +1,19 @@
+#set( $R_ROOT = "$this.eval('#!spring:cms.PageExp.RelContextRoot()')" )
+<div class="container">
+	<div class="row">
+		<div class="col-md-12 news-dtl-page">
+            #foreach($new in $newContent)
+			<div class="hd text-center">
+              <h1>$!new.TITLE</h1>
+			  <p class="text-muted tip"><span>$!new.SOURCE</span>|<span>$!new.AUTHOR</span>|<span>$!new.NEWSDATE</span></p>
+			</div>
+            <div class="bd">
+			  <p class="img text-center">
+                  <img src="/yigo/a/cms2-yigo2-adapter/cms/view-yigo-file/$new.MAINPIC" title="新闻图片"/>
+              </p>
+			  <div>$!new.CONTENT</div>
+			</div>
+            #end
+		</div>
+	</div>
+</div>

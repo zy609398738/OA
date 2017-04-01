@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="MOA_CreateWorkflow" Caption="流程列表" FormType="View" Platform="">
+    <DataSource>
+        <DataObject Key="MOA_CreateWorkflow" Caption="流程列表">
+            <TableCollection>
+                <Table Key="MOA_CreateWorkflow" Caption="流程列表" TableMode="Detail" SourceType="Query" Persist="false">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="Name" Caption="名称" DataType="Varchar"/>
+                    <Statement>
+                        <![CDATA[select a.oid,a.Name from OA_WorkflowType_H a ]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <Body PopHeight="100%" PopWidth="100%">
+        <Block>
+            <LinearLayoutPanel Caption="LinearLayoutPanel1" Key="LinearLayoutPanel1" Orientation="Vertical" Padding="5px">
+                <TableView Caption="TableView1" Height="pref" Key="TableView1" Width="pref">
+                    <TableRowCollection>
+                        <TableRow Key="tabview1" RowType="Detail" TableKey="MOA_CreateWorkflow">
+                            <LinearLayoutPanel Caption="LinearLayoutPanel2" Key="LinearLayoutPanel2" Orientation="Vertical">
+                                <LinearLayoutPanel Caption="LinearLayoutPanel3" Height="40px" Key="LinearLayoutPanel3" Width="auto">
+                                    <Label Key="Label1" Caption="流程类别" Height="auto" Width="100px">
+                                        <Format HAlign="Left"/>
+                                    </Label>
+                                    <Dict Key="WorkflowTypeID" Caption="流程类别" Height="auto" ItemKey="OA_WorkflowType" Weight="1.0" Width="auto">
+                                        <DataBinding TableKey="MOA_CreateWorkflow" ColumnKey="OID"/>
+                                        <Format HAlign="Center"/>
+                                    </Dict>
+                                </LinearLayoutPanel>
+                                <LinearLayoutPanel Caption="LinearLayoutPanel4" Height="40px" Key="LinearLayoutPanel4" Width="auto">
+                                    <Label Key="Label2" Caption="名称" Height="auto" Width="100px">
+                                        <Format HAlign="Left"/>
+                                    </Label>
+                                    <Label Key="Name" Caption="名称" Height="auto" Width="auto">
+                                        <DataBinding TableKey="MOA_CreateWorkflow" ColumnKey="Name"/>
+                                        <Format HAlign="Center"/>
+                                    </Label>
+                                </LinearLayoutPanel>
+                            </LinearLayoutPanel>
+                            <RowClick>
+                                <![CDATA[Show("MOA_WorkflowType","newtab",{SOID:{WorkflowTypeID}})]]>
+                            </RowClick>
+                        </TableRow>
+                    </TableRowCollection>
+                </TableView>
+            </LinearLayoutPanel>
+        </Block>
+    </Body>
+    <OnLoad>
+        <![CDATA[LoadData()]]>
+    </OnLoad>
+</Form>

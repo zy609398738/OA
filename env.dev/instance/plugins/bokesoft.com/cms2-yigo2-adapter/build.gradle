@@ -1,0 +1,18 @@
+description 'CMS2 与 Yigo2 集成模块'
+group 'com.bokesoft.r2.cms2.adapter.yigo2'
+version '1.0'
+
+defaultTasks 'devOpsDist'
+
+apply plugin: 'java'
+sourceCompatibility = 1.8
+compileJava.options.encoding = 'UTF-8'
+
+distsDirName = "${projectDir}/dist"
+apply from: "../../../infrastructure/gradle/boke-devops/boke-devops.gradle"
+
+devOpsApply from: "deps.gradle"
+
+devOpsDefineExports (
+	include: ["jodd-servlet-*.jar"], exclude: []
+)

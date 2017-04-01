@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-fragment
+    xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-fragment_3_0.xsd"
+    version="3.0">
+    
+    <!-- 以 web-fragment 的方式启动 Yigo 1.6 -->
+    
+    <name>yigo_1_6</name>
+
+	<listener>
+		<listener-class>com.bokesoft.myerp.web.YIGOSessionListener</listener-class>
+	</listener>
+	<listener>
+		<listener-class>com.bokesoft.myerp.mid.contextlistener.MapContextListener</listener-class>   
+	</listener>
+	<!-- Yigo WebFilter
+	<filter>
+		<filter-name>WebFilter</filter-name>
+		<filter-class>com.bokesoft.myerp.mid.web.util.WebFilter</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>WebFilter</filter-name>
+		<url-pattern>/srv.do</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>WebFilter</filter-name>
+		<url-pattern>/rfc.do</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>WebFilter</filter-name>
+		<url-pattern>/macro.do</url-pattern>
+	</filter-mapping>
+	-->
+	 
+	<!-- SRV Servlet
+	<servlet>
+		<servlet-name>srv</servlet-name>
+		<servlet-class>com.bokesoft.myerp.mid.proxy.core.MidSrvCore</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>srv</servlet-name>
+		<url-pattern>/srv.do</url-pattern>
+	</servlet-mapping>
+	-->
+	
+	<!-- RFC Servlet
+	<servlet>
+		<servlet-name>rfc</servlet-name>
+		<servlet-class>com.bokesoft.myerp.mid.proxy.core.MidSrvRFC</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>rfc</servlet-name>
+		<url-pattern>/rfc.do</url-pattern>
+	</servlet-mapping>
+	-->
+	
+	<!-- Forward Servlet -->
+	<!-- http://localhost:8089/yigo/forward?f=login2&ticket=awe2sdfjgrtk45hdfu5ad423
+	<servlet>
+		<servlet-name>forward</servlet-name>
+		<servlet-class>com.bokesoft.myerp.mid.web.ForwardServlet</servlet-class>
+		<init-param>
+			<param-name>login2</param-name>
+			<param-value>login.jsp</param-value>
+		</init-param>
+		<init-param>
+			<param-name>login</param-name>
+			<param-value>web2/login.jsp</param-value>
+		</init-param>
+		<init-param>
+			<param-name>portal</param-name>
+			<param-value>web2/portal.jsp</param-value>
+		</init-param>
+		<init-param>
+			<param-name>login_src</param-name>
+			<param-value>web_src2/login.jsp</param-value>
+		</init-param>
+		<init-param>
+			<param-name>portal_src</param-name>
+			<param-value>web_src2/portal.jsp</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>forward</servlet-name>		
+		<url-pattern>/forward</url-pattern>	
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>webforward</servlet-name>
+		<servlet-class>com.bokesoft.myerp.mid.web.ForwardServlet</servlet-class>
+		<init-param>
+			<param-name>login</param-name>
+			<param-value>login.jsp</param-value>
+		</init-param>
+		<init-param>
+			<param-name>portal</param-name>
+			<param-value>portal.jsp</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>webforward</servlet-name>		
+		<url-pattern>/web/forward</url-pattern>	
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>websrcforward</servlet-name>
+		<servlet-class>com.bokesoft.myerp.mid.web.ForwardServlet</servlet-class>
+		<init-param>
+			<param-name>login_src</param-name>
+			<param-value>login.jsp</param-value>
+		</init-param>
+		<init-param>
+			<param-name>portal_src</param-name>
+			<param-value>portal.jsp</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>websrcforward</servlet-name>		
+		<url-pattern>/web_src2/forward</url-pattern>	
+	</servlet-mapping>
+	-->
+	
+	<!-- Jasper Servlet
+	<servlet>
+		<servlet-name>ImageServlet</servlet-name>
+		<servlet-class>net.sf.jasperreports.j2ee.servlets.ImageServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ImageServlet</servlet-name>
+		<url-pattern>/servlet/ReportImage</url-pattern>
+	</servlet-mapping>
+    -->
+    <ordering>
+          <after>
+                <others/>
+          </after>
+    </ordering>
+
+</web-fragment>

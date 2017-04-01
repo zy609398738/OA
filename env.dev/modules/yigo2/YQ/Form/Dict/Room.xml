@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="Room" Caption="房号" FormType="Dict">
+    <DataSource>
+        <DataObject Key="NJ_CP_Room" Caption="房号" PrimaryTableKey="NJ_CP_RoomHead" SecondaryType="Dict" PrimaryType="Entity">
+            <TableCollection>
+                <Table Key="NJ_CP_RoomHead" Caption="NJ_CP_RoomHead" DBTableName="NJ_CP_RoomHead">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="Status" Caption="状态" DataType="Integer" DefaultValue="1"/>
+                    <Column Key="Enable" Caption="启用标记" DataType="Integer"/>
+                    <Column Key="NodeType" Caption="节点类型" DataType="Integer" DefaultValue="0"/>
+                    <Column Key="ParentID" Caption="父节点" DataType="Long" DefaultValue="0"/>
+                    <Column Key="TLeft" Caption="左索引" DataType="Integer"/>
+                    <Column Key="TRight" Caption="右索引" DataType="Integer"/>
+                    <Column Key="Code" Caption="代码" DataType="Varchar" Length="50"/>
+                    <Column Key="Name" Caption="名称" DataType="Varchar" Length="50"/>
+                    <Column Key="Creator" Caption="创建人员" DataType="Long"/>
+                    <Column Key="CreateTime" Caption="创建时间" DataType="DateTime"/>
+                    <Column Key="Modifier" Caption="修改人员" DataType="Long"/>
+                    <Column Key="ModifyTime" Caption="修改时间" DataType="DateTime"/>
+                    <Column Key="Notes" Caption="备注" DataType="Varchar"/>
+                    <Column Key="BillKey" Caption="单据Key" DataType="Varchar"/>
+                    <Column Key="ClusterID" Caption="集团" DataType="Long"/>
+                    <Column Key="ParkID" Caption="所属园区" DataType="Long"/>
+                    <Column Key="Building" Caption="所属楼栋" DataType="Long" Cache="true"/>
+                    <Column Key="Acreage" Caption="Acreage" DataType="Numeric" Precision="16" Scale="2" Cache="true"/>
+                    <Column Key="Price" Caption="租金标准" DataType="Numeric" Precision="16" Scale="2" Cache="true"/>
+                    <Column Key="Layout" Caption="房型" DataType="Varchar" Cache="true"/>
+                    <Column Key="Stage" Caption="当前阶段" DataType="Varchar" Cache="true"/>
+                    <Column Key="HouseType" Caption="房屋类别" DataType="Long" Cache="true"/>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="FlexFlowLayoutPanel1" Caption="FlexFlowLayoutPanel1">
+                <TabPanel Caption="TabPanel1" Height="100%" Key="TabPanel1">
+                    <GridLayoutPanel Key="GridLayoutPanel1" Caption="基本信息">
+                        <TextEditor Key="Code" Caption="代码" BuddyKey="Lab_Code" X="2" Y="1">
+                            <DataBinding TableKey="NJ_CP_RoomHead" ColumnKey="Code" Required="true"/>
+                        </TextEditor>
+                        <Label Key="Lab_Code" Caption="代码" X="1" Y="1"/>
+                        <TextEditor Key="Name" Caption="名称" BuddyKey="Lab_Name" X="5" Y="1">
+                            <DataBinding TableKey="NJ_CP_RoomHead" ColumnKey="Name" Required="true"/>
+                        </TextEditor>
+                        <Label Key="Lab_Name" Caption="名称" X="4" Y="1"/>
+                        <Dict Key="ParkID" Caption="所属园区" BuddyKey="Lab_ParkID" X="5" Y="2" Enable="false" ItemKey="NJ_CP_Park">
+                            <DataBinding TableKey="NJ_CP_RoomHead" ColumnKey="ParkID"/>
+                        </Dict>
+                        <Label Key="Lab_ParkID" Caption="所属园区" X="4" Y="2"/>
+                        <Dict Key="Building" Caption="所属楼栋" BuddyKey="Lab_Building" X="2" Y="2" ItemKey="NJ_CP_Building">
+                            <DataBinding TableKey="NJ_CP_RoomHead" ColumnKey="Building">
+                                <ValueChanged>
+                                    <![CDATA[SetValue('ParkID',GetDictValue('NJ_CP_Building', Building, 'NJ_CP_BuildingHead.ParkID'));]]>
+                                </ValueChanged>
+                            </DataBinding>
+                        </Dict>
+                        <Label Key="Lab_Building" Caption="所属楼栋" X="1" Y="2"/>
+                        <ComboBox Key="Enable" Caption="启用状态" BuddyKey="Lab_Enable" X="5" Y="4" Visible="false">
+                            <DataBinding TableKey="NJ_CP_RoomHead" ColumnKey="Enable" DefaultValue="1"/>
+                            <Item Caption="未启用" Key="0" Value="0"/>
+                            <Item Caption="已启用" Key="1" Value="1"/>
+                        </ComboBox>
+                        <Label Key="Lab_Enable" Caption="启用状态" X="4" Y="4"/>
+                        <NumberEditor Key="Acreage" Caption="面积" BuddyKey="Lab_Acreage" X="2" Y="3">
+                            <DataBinding TableKey="NJ_CP_RoomHead" ColumnKey="Acreage"/>
+                        </NumberEditor>
+                        <Label Key="Lab_Acreage" Caption="面积" X="1" Y="3"/>
+                        <NumberEditor Key="Price" Caption="租金标准" BuddyKey="Lab_Price" X="2" Y="4">
+                            <DataBinding TableKey="NJ_CP_RoomHead" ColumnKey="Price"/>
+                        </NumberEditor>
+                        <Label Key="Lab_Price" Caption="租金标准" X="1" Y="4"/>
+                        <ComboBox Key="Layout" Caption="房型" BuddyKey="Lab_Layout" X="8" Y="3">
+                            <DataBinding TableKey="NJ_CP_RoomHead" ColumnKey="Layout"/>
+                            <Item Caption="标准1" Key="1" Value="1"/>
+                            <Item Caption="标准2" Key="2" Value="2"/>
+                        </ComboBox>
+                        <Label Key="Lab_Layout" Caption="房型" X="7" Y="3"/>
+                        <ComboBox Key="Stage" Caption="当前阶段" BuddyKey="Lab_Stage" X="8" Y="2">
+                            <DataBinding TableKey="NJ_CP_RoomHead" ColumnKey="Stage"/>
+                            <Item Caption="空置待租" Key="1" Value="1"/>
+                            <Item Caption="意向待租" Key="2" Value="2"/>
+                            <Item Caption="已签约" Key="3" Value="3"/>
+                            <Item Caption="已租赁" Key="4" Value="4"/>
+                        </ComboBox>
+                        <Label Key="Lab_Stage" Caption="当前阶段" X="7" Y="2"/>
+                        <ComboBox Key="NodeType" Caption="节点类型" BuddyKey="Lab_NodeType" X="8" Y="1">
+                            <DataBinding TableKey="NJ_CP_RoomHead" ColumnKey="NodeType"/>
+                            <Item Caption="明细节点" Key="0" Value="0"/>
+                            <Item Caption="汇总节点" Key="1" Value="1"/>
+                        </ComboBox>
+                        <Label Key="Lab_NodeType" Caption="节点类型" X="7" Y="1"/>
+                        <Dict Key="ParentID" Caption="上级节点" BuddyKey="Lab_ParentID" X="8" Y="4" ItemKey="NJ_CP_Room">
+                            <DataBinding TableKey="NJ_CP_RoomHead" ColumnKey="ParentID"/>
+                        </Dict>
+                        <Label Key="Lab_ParentID" Caption="上级节点" X="7" Y="4"/>
+                        <Dict Key="HouseType" Caption="房屋类别" BuddyKey="Lab_HouseType" X="5" Y="3" ItemKey="HouseType">
+                            <DataBinding TableKey="NJ_CP_RoomHead" ColumnKey="HouseType"/>
+                        </Dict>
+                        <Label Key="Lab_HouseType" Caption="房屋类别" X="4" Y="3"/>
+                        <RowDefCollection RowGap="4">
+                            <RowDef Height="10px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="4">
+                            <ColumnDef Width="10px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="33%"/>
+                            <ColumnDef Width="10px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="33%"/>
+                            <ColumnDef Width="10px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="33%"/>
+                            <ColumnDef Width="10px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <GridLayoutPanel Key="SysTab" Height="1%" Caption="系统信息">
+                        <Dict Key="Creator" Caption="创建人员" BuddyKey="Lab_Creator" X="1" Y="0" Enable="false" ItemKey="Operator">
+                            <DataBinding TableKey="NJ_CP_RoomHead" ColumnKey="Creator" DefaultFormulaValue="GetOperator()" Required="true"/>
+                        </Dict>
+                        <Label Key="Lab_Creator" Caption="创建人员" X="0" Y="0"/>
+                        <Label Key="Lab_CreateTime" Caption="创建时间" X="3" Y="0"/>
+                        <DatePicker Key="CreateTime" Caption="创建时间" BuddyKey="Lab_CreateTime" X="4" Y="0" Enable="false" OnlyDate="false">
+                            <DataBinding TableKey="NJ_CP_RoomHead" ColumnKey="CreateTime" DefaultFormulaValue="ServerDate()" Required="true"/>
+                        </DatePicker>
+                        <Label Key="Lab_Modifier" Caption="修改人员" X="0" Y="1"/>
+                        <Dict Key="Modifier" Caption="修改人员" BuddyKey="Lab_Modifier" X="1" Y="1" Enable="false" ItemKey="Operator">
+                            <DataBinding TableKey="NJ_CP_RoomHead" ColumnKey="Modifier" DefaultFormulaValue="GetOperator()" Required="true"/>
+                        </Dict>
+                        <Label Key="Lab_ModifyTime" Caption="修改时间" X="3" Y="1"/>
+                        <DatePicker Key="ModifyTime" Caption="修改时间" BuddyKey="Lab_ModifyTime" X="4" Y="1" Enable="false" OnlyDate="false">
+                            <DataBinding TableKey="NJ_CP_RoomHead" ColumnKey="ModifyTime" DefaultFormulaValue="ServerDate()" Required="true"/>
+                        </DatePicker>
+                        <Label Key="Lab_Notes" Caption="备注" X="0" Y="2"/>
+                        <TextEditor Key="Notes" Caption="备注" BuddyKey="Lab_Notes" X="1" Y="2" XSpan="4">
+                            <DataBinding TableKey="NJ_CP_RoomHead" ColumnKey="Notes"/>
+                        </TextEditor>
+                        <TextEditor Key="BillKey" Caption="单据Key" BuddyKey="Lab_BillKey" X="1" Y="3" Visible="false" Enable="false">
+                            <DataBinding TableKey="NJ_CP_RoomHead" ColumnKey="BillKey" DefaultFormulaValue="GetFormKey()"/>
+                        </TextEditor>
+                        <Label Key="Lab_BillKey" Caption="单据Key" X="0" Y="3"/>
+                        <Dict Key="ClusterID" Caption="集团" BuddyKey="Lab_ClusterID" X="4" Y="3" Enable="false" ItemKey="Client">
+                            <DataBinding TableKey="NJ_CP_RoomHead" ColumnKey="ClusterID"/>
+                        </Dict>
+                        <Label Key="Lab_ClusterID" Caption="集团" X="3" Y="3"/>
+                        <RowDefCollection RowGap="4">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="4">
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="50%"/>
+                            <ColumnDef Width="20px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="50%"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                </TabPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

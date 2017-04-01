@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="NJ_EntryReviewView" Caption="资格审核序时簿" FormType="View">
+    <DataSource>
+        <DataObject Key="NJ_EntryReviewView" Caption="资格审核序时簿">
+            <TableCollection>
+                <Table Key="NJ_SCM_EntryReviewHead" Caption="NJ_SCM_EntryReviewHead" DBTableName="NJ_SCM_EntryReviewHead" TableMode="Detail" SourceType="Query" Persist="false">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="NO" Caption="发布编号" DataType="Varchar"/>
+                    <Column Key="BillDate" Caption="发布日期" DataType="DateTime"/>
+                    <Column Key="Status" Caption="单据状态" DataType="Integer"/>
+                    <Column Key="EmpID" Caption="经办人" DataType="Long"/>
+                    <Column Key="ProjCustomer" Caption="意向客户" DataType="Varchar"/>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="ViewNewBill" Caption="新增" RefKey="ViewNewBill"/>
+        <Operation Key="Refresh" Caption="刷新" RefKey="Refresh"/>
+    </OperationCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板">
+                <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <GridLayoutPanel Key="GridLayoutPanel1" Height="pref" Caption="GridLayoutPanel1">
+                    <DatePicker Key="billdate_cond" Caption="申请日期" BuddyKey="Lab_billdate_cond" X="2" Y="1" OnlyDate="true">
+                        <Condition ColumnKey="BillDate" TableKey="NJ_SCM_EntryReviewHead" CondSign="between" Group="billdate1" GroupHead="true"/>
+                    </DatePicker>
+                    <Label Key="Lab_billdate_cond" Caption="申请日期" X="1" Y="1"/>
+                    <DatePicker Key="dao_cond" Caption="到" BuddyKey="Lab_dao_cond" X="5" Y="1" OnlyDate="true">
+                        <Condition ColumnKey="BillDate" TableKey="NJ_SCM_EntryReviewHead" CondSign="between" Group="billdate1" GroupTail="true"/>
+                    </DatePicker>
+                    <Label Key="Lab_dao_cond" Caption="到" X="4" Y="1"/>
+                    <Button Key="chaxun" Caption="查询" X="10" Y="1">
+                        <OnClick>
+                            <![CDATA[DealCondition();LoadData();ShowData();]]>
+                        </OnClick>
+                    </Button>
+                    <Dict Key="yew_cond" Caption="业务员" BuddyKey="Lab_yew_cond" X="8" Y="1" AllowMultiSelection="true" ItemKey="Operator">
+                        <Condition ColumnKey="EmpID" TableKey="NJ_SCM_EntryReviewHead" CondSign="in"/>
+                    </Dict>
+                    <Label Key="Lab_yew_cond" Caption="业务员" X="7" Y="1"/>
+                    <RowDefCollection RowGap="5">
+                        <RowDef Height="10px"/>
+                        <RowDef Height="25px"/>
+                        <RowDef Height="25px"/>
+                        <RowDef Height="10px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="5">
+                        <ColumnDef Width="10px"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="33%"/>
+                        <ColumnDef Width="15px"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="33%"/>
+                        <ColumnDef Width="15px"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="33%"/>
+                        <ColumnDef Width="10px"/>
+                        <ColumnDef Width="60px"/>
+                        <ColumnDef Width="10px"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+                <ListView Caption="ListView1" Height="100%" Key="ListView1" PageLoadType="DB" TableKey="NJ_SCM_EntryReviewHead">
+                    <ListViewColumnCollection>
+                        <ListViewColumn Key="NO" Caption="申请编号" DataColumnKey="NO" Width="120px"/>
+                        <ListViewColumn Key="BillDate" Caption="申请日期" ColumnType="DatePicker" DataColumnKey="BillDate" Width="90px" OnlyDate="true"/>
+                        <ListViewColumn Key="Status" Caption="单据状态" ColumnType="ComboBox" DataColumnKey="Status" SourceType="Formula">
+                            <FormulaItems>
+                                <![CDATA[GetStatusItems()]]>
+                            </FormulaItems>
+                        </ListViewColumn>
+                        <ListViewColumn Key="ProjCustomer" Caption="项目（企业）名称" ColumnType="TextEditor" DataColumnKey="ProjCustomer" Width="200px"/>
+                        <ListViewColumn Key="EmpID" Caption="业务员" ColumnType="Dict" DataColumnKey="EmpID" ItemKey="OA_Employee"/>
+                        <ListViewColumn Key="OID" Caption="OID" DataColumnKey="OID" Visible="false"/>
+                    </ListViewColumnCollection>
+                    <RowDblClick>
+                        <![CDATA[Open(C_GetBillKey(),OID)]]>
+                    </RowDblClick>
+                </ListView>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+    <OnLoad>
+        <![CDATA[LoadData();]]>
+    </OnLoad>
+    <MacroCollection>
+        <Macro Key="C_GetBillKey">
+            <![CDATA[{NJ_EntryReview}]]>
+        </Macro>
+    </MacroCollection>
+</Form>

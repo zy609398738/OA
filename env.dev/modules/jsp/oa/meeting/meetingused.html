@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>会议室使用情况</title>
+<link rel="stylesheet" href="../js/jquery/jquery-ui-1.10.3.custom/css/flick/jquery-ui-1.10.3.custom.css" />
+<script src="../js/jquery/jquery-ui-1.10.3.custom/js/jquery-1.9.1.js" ></script>
+<script src="../js/jquery/jquery-ui-1.10.3.custom/js/jquery-ui-1.10.3.custom.min.js" ></script>
+<script src="../js/jquery/timepicker/jquery-ui-timepicker.js" ></script>
+<script type="text/javascript">
+	$(function(){
+		var today = new Date(), startDate = today.getFullYear() + "-" + parseInt(today.getMonth() + 1) + "-" + today.getDate();
+		today.setDate(today.getDate() + 6);
+		var endDate = today.getFullYear() + "-" + parseInt(today.getMonth() + 1) + "-" + today.getDate();
+		
+		$('.timepicker-input').val(startDate);
+		$('.timepicker-input').datepicker({
+			showOn : 'button',
+			dateFormat : 'yy-mm-dd',
+			buttonImage: '../web2/img/calendar.png'
+		});
+		
+		$.ajax({  
+			async: false,
+			url : '/Yigo/meeting/meetingroomusedquery.action?meetingroom=$ID&startDate='+startDate+'&endDate='+endDate,
+			method : 'POST',  
+			success : function(response) {
+				$('#area').html(response);
+			},  
+			failure : function() {  
+				Ext.Msg.alert("提示", "方法调用失败");  
+			} 
+		});
+		$('.search-btn').on('click',function(){
+			var startDate = $('.timepicker-input').val();
+			var date = new Date(startDate.split('-')[0],startDate.split('-')[1]-1,startDate.split('-')[2]);
+			date.setDate(date.getDate() + 6);
+			var endDate = date.getFullYear() + "-" + parseInt(date.getMonth() + 1) + "-" + date.getDate();
+			$.ajax({  
+				async: false,
+				url : '/Yigo/meeting/meetingroomusedquery.action?meetingroom=$ID&startDate='+startDate+'&endDate='+endDate,
+				method : 'POST',  
+				success : function(response) {
+					$('#area').html(response);
+				},  
+				failure : function() {  
+					Ext.Msg.alert("提示", "方法调用失败");  
+				} 
+			});
+			
+			
+		})
+	})
+</script>
+<style>
+	*{margin:0;padding:0;}
+	body{font-size:12px;color:#333;line-height:25px;font-family:"宋体",Arial,Geneva,sans-serif;}
+	h5{font-size:16px;}
+	table{border-collapse: collapse;border-spacing: 0;}
+	.base-info-table{width:100%;margin:10px 0;}
+	.base-info-table td{border:1px solid #ccc;text-align:left;padding:5px;}
+	.base-info-table .info{width:100px;font-weight:bold;background-color:#eee;color:#000;}
+	.block_MEETING-ROOM-USED{margin:10px;}
+	.block_MEETING-ROOM-USED h5{border-bottom:2px solid #ccc;position:relative;}
+
+	.meeting-table-head{background-color:#80afd2;color:#fff;}
+	
+	.meeting-table td{border:1px solid #eee;text-align:center;}
+	.meeting-table-head td{border:0;}
+	.meeting-table .time-point{width:30px;}
+	.meeting-table{border-collapse: collapse; border:none;width:100%;}
+	
+	.meeting-table-head .th-head-time {width:35px;}
+
+	.wait{background-color:#519626;}
+	.success{background-color:#4189d1;}
+	.prewait .all{width:100%;height:100%;background-color:#519626;}
+	.prewait .half{height:100%;width:50%;background-color:white;}
+	.sufwait .all{width:100%;height:100%;background-color:white;}
+	.sufwait .half{height:100%;width:50%;background-color:#519626;}
+
+	.presuccess .all{width:100%;height:100%;background-color:#4189d1;}
+	.presuccess .half{height:100%;width:50%;background-color:white;}
+	.sufsuccess .all{width:100%;height:100%;background-color:white;}
+	.sufsuccess .half{height:100%;width:50%;background-color:#4189d1;}
+	
+	.h5-tip{color:#4189d1;font-size:12px;font-weight:normal;}
+	#area{margin:10px 0;}
+	.h5-right{position:absolute;right:5px;top:1px;width:200px;font-size:12px;font-weight:normal;}
+	.waiting-icon,.ok-icon{display:inline-block;width:10px;height:10px;margin:0 5px 0 15px;}
+	.waiting-icon{background-color:#519626;}
+	.ok-icon{background-color:#4189d1;}
+	
+	.tr-warn{color:gray}
+	.th-head-date{width:135px;}
+	.th-head-user{width:80px;}
+	.timepicker-div {
+		width:220px;
+		height:25px;
+		border: 1px solid #DDDDDD;
+		margin-top: 2px;
+		position:relative;
+	} 
+	.timepicker-input {
+		text-align:left;
+		font-size:12px;
+		width:200px;
+		height:100%;
+		float:left;
+		vertical-align: middle;
+		border: 0px solid #dddddd;
+	}
+	.ui-datepicker-trigger{border:0px;background-color: white;height: 25px}
+	.search-btn{position:absolute;top:0;left:260px;width:50px;height:25px;cursor:pointer;}
+	
+/*重置ie滚动条样式  2013.11.5 */
+*{
+	scrollbar-face-color：#fff;		 		/*滚动条凸出部分的颜色 */
+	scrollbar-3dlight-color:#d8d8d8;		/*滚动条亮边的颜色 */
+	scrollbar-shadow-color: #d8d8d8;		/*立体滚动条阴影的颜色 */
+	scrollbar-highlight-color: #ffffff;		/*滚动条空白部分的颜色 */
+	scrollbar-darkshadow-color: #ffffff;	/*滚动条强阴影的颜色 */
+	scrollbar-arrow-color: #79a8bf;			/*上下按钮上三角箭头的颜色 */
+	scrollbar-track-color: #f6f6f6; 		/*滚动条的背景颜色*/
+	/*SCROLLBAR-BASE-COLOR: #FFFFF0			滚动条的基本颜色*/
+}
+</style>
+</head>
+<body>
+<h5>设施信息</h5>
+<table class="base-info-table">
+	<tr>
+		<td class="info" rowspan=4>缩略图</td>
+		<td rowspan=4 style="width:350px;height:150px;">
+			<img id= "pic" height="150px" width="350px" src="/Yigo/rfc.do?__out=1&__webCall=WebShowPicture({$PICPATH})"></img>
+		</td>
+		<td class="info">负责人</td><td>$MANAGE</td>
+	</tr>
+	<tr>
+		<td class="info">负责部门</td><td>$MANAGEDEP</td>
+	</tr>
+	<tr>
+		<td class="info">电话</td><td>$PHONE</td>
+	</tr>
+	<tr>
+		<td class="info">说明</td><td>本会议室可容纳$HOLD人</td>
+	</tr>
+</table>
+<p/>
+<h5>预约情况|<span class="h5-tip">自基准日期起7天内的预约情况</span><div class="h5-right"><span class="waiting-icon"></span>预约等待中<span class="ok-icon"></span>预约成功</div></h5>
+<div class="timepicker-div">
+	<input type="text" class="timepicker-input" readonly="readonly"/>
+	<button class="search-btn">查询</button>
+</div>
+
+
+<div id="area">
+	预约表显示区域
+</div>
+</body>
+</html>

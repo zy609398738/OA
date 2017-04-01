@@ -1,0 +1,103 @@
+﻿
+html {
+    background-color: #fff;
+}
+
+
+/*yigo table-layout相关 2014.4.28*/
+
+.y_layout_table{
+	border:0px;
+	height:auto;
+}
+
+.y_layout_table td {
+	height:inherit;
+	border: 0px;
+}
+
+.y_layout_table .map_label{
+	padding-left:10px;
+	background-color:#fff;
+	-background-color:#f4f4f4;
+	font-weight:normal;
+}
+
+.y_combobox {
+	background-color: #FEFEFE;
+	border: 1px solid #DDDDDD;
+	-moz-outline: 0 none;
+	outline: 0 none;
+}
+.map_text,.map_password,.map_textarea {
+	background-color: #FEFEFE;
+	border: 1px solid #DDDDDD;
+	-moz-outline: 0 none;
+	outline: 0 none;
+	color: #000000;
+}
+
+.map_date {
+	background-color: #FEFEFE;
+	border: 1px solid #DDDDDD;
+	-moz-outline: 0 none;
+	outline: 0 none;
+}
+
+.map_numtext {
+	background-color: #FEFEFE;
+	border: 1px solid #DDDDDD;
+	-moz-outline: 0 none;
+	outline: 0 none;
+	color: #000000;
+}
+/*
+select, textarea, input[type="text"] {
+	-height:inherit;
+	border: 1px solid #ddd;
+}
+
+input, textarea, select{
+	border: 1px solid #ddd;
+}
+
+text{
+	border: 1px solid #ddd;
+}
+
+text:focus{
+	border: 1px solid #ddd;
+}
+
+textarea{
+	border: 1px solid #ddd;
+}
+*/
+textarea:focus{
+	border: 1px solid #ddd;
+}
+
+
+
+input, textarea {
+border: 1px solid #dddddd;
+margin: 0;
+}
+
+.y_comp{
+	border: #DDDDDD 1px solid;
+}
+
+
+INPUT{
+	border: 1px solid #dddddd;
+}
+
+INPUT:focus{
+	border:1px solid lightblue;
+}
+
+
+.y_overlay {
+	background: #ddd;
+}	

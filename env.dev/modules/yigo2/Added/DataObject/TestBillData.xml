@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<DataObject Caption="TestBillData" Key="TestBillData" PrimaryTableKey="TestBill_H" PrimaryType="Entity">
+    <TableCollection>
+        <Table Caption="TestBill_H" DBTableName="TM_TestBill_H" Key="TestBill_H">
+            <Column Caption="对象标识" DataType="Long" Key="OID"/>
+            <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+            <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+            <Column Caption="对象版本" DataType="Integer" Key="VERID"/>
+            <Column Caption="对象明细版本" DataType="Integer" Key="DVERID"/>
+            <Column Caption="属性值" DataType="Varchar" Key="Dtl_Value" Length="255"/>
+            <Column Caption="单据编号" DataType="Varchar" Key="No" Length="255"/>
+            <Column Caption="单据日期" DataType="Date" Key="BillDate"/>
+            <Column Caption="单据状态" DataType="Integer" Key="Status"/>
+            <Column Caption="制单人" DataType="Long" Key="BillMaker"/>
+            <Column Caption="修改人" DataType="Long" Key="BillModifier"/>
+            <Column Caption="审批人" DataType="Long" Key="Aduiter"/>
+            <Column Caption="制单日期" DataType="DateTime" Key="MakeDate"/>
+            <Column Caption="修改日期" DataType="DateTime" Key="EditDate"/>
+            <Column Caption="审批日期" DataType="DateTime" Key="AduitDate"/>
+            <Column Caption="单据Key" DataType="Varchar" Key="BillKey" Length="255"/>
+            <Column Caption="集团" DataType="Long" Key="Client"/>
+        </Table>
+        <Table Caption="TestBill_D" DBTableName="TM_TestBill_D" Key="TestBill_D" ParentKey="TestBill_H" TableMode="_D">
+            <Column Caption="对象标识" DataType="Long" Key="OID"/>
+            <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+            <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+            <Column Caption="对象版本" DataType="Integer" Key="VERID"/>
+            <Column Caption="对象明细版本" DataType="Integer" Key="DVERID"/>
+            <Column Caption="属性值" DataType="Varchar" Key="Dtl_Value" Length="255"/>
+        </Table>
+    </TableCollection>
+    <OIDFilter/>
+    <History Support="true"/>
+</DataObject>

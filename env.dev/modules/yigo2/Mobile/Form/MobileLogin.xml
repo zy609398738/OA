@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="MobileLogin" Caption="移动登陆" FormType="View" Platform="" HasNavigationBar="false">
+    <Body>
+        <Block>
+            <GridLayoutPanel Key="GridLayoutPanel1" Caption="GridLayoutPanel1">
+                <Image Key="BackLog" Caption="BackLog" X="0" Y="0" Image="theme-login.jpg" ImageScaleType="Fit_XY" SourceType="Resource" Stretch="true" HasBorder="true" YSpan="4"/>
+                <Image Key="LogoIcon" Caption="LogoIcon" X="0" Y="1" Image="logo-login.png" SourceType="Resource" ImageScaleType="Fit_Center" HasBorder="true">
+                    <Format BackColor="transparent"/>
+                </Image>
+                <TableView Caption="LoginView" Key="LoginView" X="0" Y="3" Height="pref" Width="pref">
+                    <Format BackColor="transparent"/>
+                    <TableRowCollection>
+                        <TableRow BackColor="transparent">
+                            <LinearLayoutPanel Caption="LinearLayoutPanel1" Key="LinearLayoutPanel1" Height="40px" Width="auto">
+                                <TextEditor Key="UserCode" Caption="用户名" Height="auto" Width="auto" EmbedText="用户名:  " PreIcon="username-login.png" LeftMargin="70px" RightMargin="70px" PromptText="请输入用户名">
+                                    <Format BackColor="#ffffff"/>
+                                </TextEditor>
+                            </LinearLayoutPanel>
+                        </TableRow>
+                        <TableRow BackColor="transparent">
+                            <LinearLayoutPanel Caption="LinearLayoutPanel2" Key="LinearLayoutPanel2" Height="40px" Width="auto">
+                                <PasswordEditor Key="Password" Caption="Password" Height="auto" Width="auto" PreIcon="password-login.png" EmbedText="密    码:  " LeftMargin="70px" RightMargin="70px" PromptText="请输入密码">
+                                    <Format BackColor="#ffffff"/>
+                                </PasswordEditor>
+                            </LinearLayoutPanel>
+                        </TableRow>
+                        <TableRow BackColor="transparent">
+                            <LinearLayoutPanel Caption="LinearLayoutPanel3" Key="LinearLayoutPanel3" Height="60px" Width="auto">
+                                <Button Key="LoginBtn" Caption="登入" Height="auto" LeftPadding="10px" Width="pref" Weight="1.0" LeftMargin="70px" RightMargin="70px" TopMargin="20px">
+                                    <Format BackColor="#31a66b" HighlightColor="#cccccc"/>
+                                    <OnClick>
+                                        <![CDATA[
+                                            Login(UserCode,Password);Close();
+                                        ]]>
+                                    </OnClick>
+                                </Button>
+                            </LinearLayoutPanel>
+                        </TableRow>
+                    </TableRowCollection>
+                </TableView>
+                <RowDefCollection RowGap="5">
+                    <RowDef Height="40%"/>
+                    <RowDef Height="150px"/>
+                    <RowDef Height="10%"/>
+                    <RowDef Height="50%"/>
+                </RowDefCollection>
+                <ColumnDefCollection ColumnGap="5">
+                    <ColumnDef Width="100%"/>
+                </ColumnDefCollection>
+            </GridLayoutPanel>
+        </Block>
+    </Body>
+</Form>

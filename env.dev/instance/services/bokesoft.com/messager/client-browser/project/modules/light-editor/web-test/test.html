@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test: light-editor</title>
+    <script src="./test-bundle.js"></script>
+</head>
+<body>
+    <h1>Test: light-editor</h1>
+    <p><i>Run <u><code>node test-server.js</code></u> at module root path, then open <u><code>http://localhost:8080/web-test/test.html</code></u> to run test.</i></p>
+
+    <hr/>
+    
+    <style>
+    .editor {
+        margin: 1px;
+        padding: 6px;
+        min-height: 200px;
+        border: 1px solid blue;
+    }
+    span.button, a.button {
+	    display: inline-block;
+	    padding: 3px;
+	    min-width: 80px;
+	    text-align: center;
+	    cursor: pointer;
+	    border: 1px solid darkcyan;
+    }
+    
+    /* 调整默认的表情选择窗口大小 */
+    .emoji_content {
+	    height: 170px;
+	}
+	.emoji_container {
+	    width: 280px;
+	}
+    </style>
+    
+    <span class="button btnInsertQQ"> QQ 表情 </span>
+    <span class="button btnUploadQQ"> 上传 </span>
+    <div class="editor editorQQ" contenteditable="true"></div>
+    <hr/>
+
+    <a class="button btnInsertTieba" href="javascript:void(0)"> 贴吧表情 </a>
+    <a class="button btnUploadTieba" href="javascript:void(0)"> 上传 </a>
+    <div class="editor editorTieba" contenteditable="true"></div>
+    <hr/>
+
+    <script>
+    setUpWithQQ();
+    setupWithTieba();
+    </script>
+</body>
+</html>

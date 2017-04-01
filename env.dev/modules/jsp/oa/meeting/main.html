@@ -1,0 +1,204 @@
+<html>
+  <head>
+    <title>main.html</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" type="text/css" href="resources/css/meeting.css" />
+    <script type="text/javascript" src="ext/include-ext.js"></script>
+	<script>
+		var SERVICE_URL = [location.protocol, '//' ,location.host, '/' , /^\/(\w+)\/?/.exec(decodeURI(location.pathname))[1]].join('');
+		Ext.Loader.setConfig({
+			enabled: true,
+			paths: {
+				'Ext.calendar': 'src'
+			}
+		});
+		Ext.onReady(function() {
+		// 类似于3.x的 Menu = Ext.extend(Ext.data.Model,{})
+			Ext.define('Menu', {
+				extend: 'Ext.data.Model',
+				fields: [{
+					name: 'id',
+					type: 'string'
+				}, {
+					name: 'parentId',
+					type: 'string'
+				}, {
+					name: 'text',
+					type: 'string'
+				}, {
+					name: 'url',
+					type: 'string'
+				},{
+					name : 'isexpand',
+					type : 'boolean'
+				},{
+					name : 'leaf',
+					type :　'boolean'
+				},{
+					name : 'icon',
+					type : 'string'
+				}]
+			});
+		
+		var data = {
+				'children' : [
+					{"id":"menu0","parentId":"0","text":"会议安排","url":"Ext.calendar.App","leaf":true, "iconCls":''},
+					{"id":"menu1","parentId":"0","text":"我的会议","url":"",expanded:true, iconCls:'',children: [
+						{"id":"menu1-1","parentId":"menu1","text":"审批会议","url":SERVICE_URL + "/meeting/meetingaudit.page","leaf":true,"iconCls":''},
+						{"id":"menu1-2","parentId":"menu1","text":"我发起的","url":SERVICE_URL + "/meeting/meetingsponsor.page","leaf":true,"iconCls":''},
+						{"id":"menu1-3","parentId":"menu1","text":"我参与的","url":SERVICE_URL + "/meeting/meetingparticipant.page","leaf":true,"iconCls":''},
+						{"id":"menu1-4","parentId":"menu1","text":"共享给我的","url":SERVICE_URL + "/meeting/meetingshared.page","leaf":true,"iconCls":''}
+					]},
+					{"id":"menu2","parentId":"0","text":"会议类型","url":SERVICE_URL + "/meeting/meetingtype.page","leaf":true,"iconCls":''},
+					{"id":"menu3","parentId":"0","text":"会议室资源","url":SERVICE_URL + "/meeting/meetingroom.page","isexpand":false,"leaf":false,"iconCls":'',children:[
+						{}
+					]},
+					{"id":"menu4","parentId":"0","text":"每日使用情况","url":SERVICE_URL + "/meeting/everymeetingroomused.page","leaf":true,"iconCls":''}
+				]
+			};
+
+		 var store = Ext.create('Ext.data.TreeStore', {
+			model : 'Menu',
+			autoLoad:true,
+			proxy: {
+				data : data,
+				type : 'memory',
+				reader: {
+					type: 'json'
+				}
+			}
+		});
+		
+		var centerPanel = Ext.create('Ext.tab.Panel', {
+			id: 'content-panel',
+			region: 'center', 
+			deferredRender: false,
+			renderTo:'meeting-right',
+			activeTab: 0,
+			tabBar : {
+				height : 32
+			},
+			items: [{
+				xtype : 'box',
+				id : 'HomePage',
+				title : '会议安排',
+				layout : 'fit',
+				html: "<iframe src='index.html' id='app' width='100%' height='100%'></iframe>"
+			}]
+         });
+		
+		var treePanel = Ext.create('Ext.tree.TreePanel',{
+			id: 'menuinfo',
+			border: false,
+			store: store,
+			rootVisible: false,
+			renderTo:'meeting-left-tree',
+			listeners: {
+				'beforeitemexpand':function(record, e){  
+					if (record.data.id == 'menu3' && record.data.isexpand == false) {
+						record.data.isexpand = true;
+						record.removeAll();
+						Ext.Ajax.request({  
+							async: false,
+							url : '/Yigo/meeting/meetingroomquery.action',
+							params : {parentId:'menu3'},
+							method : 'POST',  
+							success : function(response) {
+								var meetingroom = eval(response.responseText);
+								if (meetingroom == undefined || meetingroom == '') 
+									return;
+								for (var i = 0; i < meetingroom.length; i++ ) {
+									meetingroom[i].url = SERVICE_URL + meetingroom[i].url;
+								}
+								record.appendChild(meetingroom);
+							},  
+							failure : function() {  
+								Ext.Msg.alert("提示", "方法调用失败");  
+							} 
+						});
+					}
+				 },
+				'itemclick': function(view, record) {
+					var main = Ext.getCmp("content-panel");
+					var leaf = record.get('leaf');
+					var url = record.get('url');
+					if(leaf || url.indexOf('/meeting/meetingroom.page') != -1){
+						if(url == 'Ext.calendar.App'){
+							var tabs = main.items;// 得到所有tab项
+							main.setActiveTab(tabs.getAt(0));
+							document.getElementById("app").src='index.html';
+							return;
+						}
+						var panel = Ext.getCmp('newPage');
+						if (panel) {
+							panel.destroy();
+						}
+						if(url.indexOf('.page') != -1){
+							var paras = record.get('url').indexOf('?') != -1 ? '&h=' + Ext.getBody().getViewSize().height:'?h=' + Ext.getBody().getViewSize().height;
+							url = record.get('url') + paras;
+							panel = {
+								title: record.get('text'),
+								id: 'newPage',
+								alias: 'widget.newpage',
+								html: "<iframe src=" + url + " width='100%' height='100%'></iframe>",
+								closable: true
+							}
+						} else {
+							if(url == 'Ext.calendar.App'){
+								var tabs = main.items;// 得到所有tab项
+								main.setActiveTab(tabs.getAt(0));
+								return;
+							}
+							var id = record.get('id');
+							panel = {
+								title: record.get('text'),
+								id: 'newPage',
+								alias: 'widget.newpage',
+								items: [Ext.create(url, {_id: id})],
+								closable: true
+							}
+						}
+						var p = main.add(panel);
+						main.setActiveTab(p);
+					}
+				}
+			}
+		});
+		
+		var colorDetails = {
+			html :  '<div style="margin: 15px 0 0 20px;"><div style="font-size:10px;font-weight:bold;color:#3a3a3a;">会议图例说明</div><table>' +
+					'<tr><td class="left-color-detail left-color-1"></td><td class="left-color-font">我发起的会议</td></tr>' +
+					'<tr><td class="left-color-detail left-color-2"></td><td class="left-color-font">我参与的会议</td></tr>' + 
+					'<tr><td class="left-color-detail left-color-3"></td><td class="left-color-font">共享我的会议</td></tr>' + 
+					'<tr><td class="left-color-detail left-color-4"></td><td class="left-color-font">过期的会议</td></tr>' +
+					'<tr><td class="left-color-detail left-color-5"></td><td class="left-color-font">审批中的会议</td></tr>' +
+					'</table></div>'
+		};
+		
+		document.getElementById('meeting-left-colorDetail').innerHTML = colorDetails.html;
+        /*var viewport = Ext.create('Ext.Viewport', {
+            id: 'main',
+            items: [{
+                id: 'west-panel', // see Ext.getCmp() below
+                title: '菜单',
+                width: 200,
+                minWidth: 175,
+                maxWidth: 400,
+                margins: '0 1 0 0',
+                items: [treePanel,colorDetails]
+            }],
+			renderTo:'meeting-left'
+        });*/
+    });
+	</script>
+  </head>
+  
+  <body>
+		<div id="meeting-left">
+			<h2><span>会议管理</span></h2>
+			<div id="meeting-left-tree"></div>
+			<div id="meeting-left-colorDetail"></div>
+		</div>
+		<div id="meeting-right"></div> 
+  </body>
+</html>

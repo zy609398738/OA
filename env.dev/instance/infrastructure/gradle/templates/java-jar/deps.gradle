@@ -1,0 +1,12 @@
+/**
+ * 标准 Java 工程的 gradle 依赖定义脚本;
+ *  - 此依赖定义一方面用于当前模块的编译过程，同时也用于其他模块引用当前模块时依赖定义的传递;
+ *  - 使用 devOpsFileTree/devOpsApply 代替 gradle 内置的 fileTree/apply, 实现对脚本中相对路径的智能处理;
+ *    (基于脚本文件本身所在的目录计算相对路径, 而不是基于 gradle project 的目录)
+ */
+
+dependencies {
+  compile devOpsFileTree(dir: "dist/jars", include: ['*.jar'])
+}
+
+devOpsApply from: "../cms2/cms2.gradle"

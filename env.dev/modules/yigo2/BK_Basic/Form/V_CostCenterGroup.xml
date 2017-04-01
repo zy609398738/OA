@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Caption="成本中心组" FormType="Dict" Key="V_CostCenterGroup">
+    <DataSource RefObjectKey="CostCenterGroup"/>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root">
+                <TabPanel Key="body">
+                    <GridLayoutPanel Key="body_basic" Padding="8px" Caption="基本信息(&amp;B)">
+                        <Label Key="Inner_ControllingAreaID" Caption="控制范围" X="0" Y="0"/>
+                        <Dict Key="ControllingAreaID" Caption="控制范围" BuddyKey="Inner_ControllingAreaID" X="1" Y="0" Visible="true" Enable="!Readonly()&amp;&amp;ControllingAreaID=-1" ItemKey="ControllingArea">
+                            <DataBinding TableKey="BK_CostCenterGroup" ColumnKey="ControllingAreaID" DefaultFormulaValue="iif(valuenoerror('HeadControllingAreaID')&gt;-1, Value('HeadControllingAreaID'), Value@Parent('HeadControllingAreaID'))"/>
+                        </Dict>
+                        <Label Key="Inner_UseCode" Caption="代码" X="0" Y="1"/>
+                        <TextEditor Key="UseCode" Caption="代码" BuddyKey="Inner_UseCode" X="1" Y="1" Visible="true" Enable="!ReadOnly()&amp;&amp;com.bokesoft.erp.basis.common.DocumentNumberUI.docNumberFieldEnable('UseCode')" InvalidChars="%*\&quot;+?&gt;&lt;:'">
+                            <DataBinding TableKey="BK_CostCenterGroup" ColumnKey="UseCode" CheckRule="iifs(com.bokesoft.erp.basis.common.DocumentNumberUI.docNumberFieldEnable('UseCode')&amp;&amp;Value('UseCode')='', '采用外部给号编码规则，请输入代码', true, true)"/>
+                        </TextEditor>
+                        <Label Key="Inner_Code" Caption="系统代码" X="0" Y="1"/>
+                        <TextEditor Key="Code" Caption="系统代码" BuddyKey="Inner_Code" X="1" Y="1" Visible="false" Enable="!ReadOnly()" InvalidChars="%*\&quot;+?&gt;&lt;:'">
+                            <DataBinding TableKey="BK_CostCenterGroup" ColumnKey="Code" DefaultFormulaValue="getProp('ControllingAreaID', 'Code')&amp;'_'&amp;Value('UseCode')"/>
+                        </TextEditor>
+                        <Label Key="Inner_Name" Caption="名称" X="0" Y="2"/>
+                        <TextEditor Key="Name" Caption="名称" BuddyKey="Inner_Name" X="1" Y="2" Visible="true" Enable="!ReadOnly()">
+                            <DataBinding TableKey="BK_CostCenterGroup" ColumnKey="Name"/>
+                        </TextEditor>
+                        <Label Key="Inner_ParentID" Caption="上级节点" X="0" Y="3"/>
+                        <Dict Key="ParentID" Caption="上级节点" BuddyKey="Inner_ParentID" X="1" Y="3" Visible="true" Enable="!ReadOnly()" ItemKey="CostCenterGroup">
+                            <DataBinding TableKey="BK_CostCenterGroup" ColumnKey="ParentID" DefaultFormulaValue="iif(com.bokesoft.erp.basis.common.ViewFormula.getParentViewerKey()='CostCenterStandardHierarchy', iif(dicValue('costCenterGroup', 'parentID', getSelectedItemId@parent())=-1, getSelectedItemId@parent(), dicValue('costCenterGroup', 'parentID', getSelectedItemId@parent())), -1)" CheckRule="iif(StandardHy=1, iifs(isNewBill()&amp;&amp;ParentID&lt;=0, '请选择上级节点', !IsNewBill()&amp;&amp;DICVALUE('CostCenterGroup', 'parentID', Value('ID'))&gt;0&amp;&amp;parentID&lt;=0, '请选择上级节点', true, true), true)"/>
+                        </Dict>
+                        <CheckBox Caption="标准层次" Enable="false" Key="StandardHy" Visible="true" X="1" Y="4">
+                            <DataBinding TableKey="BK_CostCenterGroup" ColumnKey="StandardHy" DefaultFormulaValue="iif(com.bokesoft.erp.basis.common.ViewFormula.getParentViewerKey()='CostCenterStandardHierarchy', 1, 0)"/>
+                        </CheckBox>
+                        <Grid Key="grid0" X="0" XSpan="2" Y="5">
+                            <GridColumnCollection>
+                                <GridColumn Key="DeleteDtl" Caption="删除" Width="80px"/>
+                                <GridColumn Key="CostCenterID" Caption="成本中心" Width="80px"/>
+                            </GridColumnCollection>
+                            <GridRowCollection>
+                                <GridRow Key="row1" TableKey="BK_CostCenterGroupDtl">
+                                    <GridCell Key="DeleteDtl" Caption="删除" CellType="TextEditor" MaxLength="100"/>
+                                    <GridCell Key="CostCenterID" Caption="成本中心" CellType="Dict" ItemKey="CostCenter">
+                                        <DataBinding ColumnKey="costcenterid"/>
+                                    </GridCell>
+                                </GridRow>
+                            </GridRowCollection>
+                        </Grid>
+                        <Grid Key="grid1" X="0" XSpan="2" Y="5">
+                            <GridColumnCollection>
+                                <GridColumn Key="StandardHyCostCenterID" Caption="成本中心" Width="80px"/>
+                            </GridColumnCollection>
+                            <GridRowCollection>
+                                <GridRow Key="row1" TableKey="BK_CostCenterGroupQuery">
+                                    <GridCell Key="StandardHyCostCenterID" Caption="成本中心" CellType="Dict" ItemKey="CostCenter">
+                                        <DataBinding ColumnKey="StandardHyCostCenterID"/>
+                                    </GridCell>
+                                </GridRow>
+                            </GridRowCollection>
+                        </Grid>
+                        <RowDefCollection RowGap="5">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="100%"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="5">
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="330px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <GridLayoutPanel Key="body_system" Padding="8px" Caption="系统信息(&amp;D)">
+                        <Label Key="Inner_Status" Caption="结点状态" X="0" Y="1"/>
+                        <ComboBox Key="Status" Caption="结点状态" BuddyKey="Inner_Status" X="1" Y="1" Visible="true" Enable="false">
+                            <DataBinding TableKey="BK_CostCenterGroup" ColumnKey="Status"/>
+                        </ComboBox>
+                        <Label Key="Inner_CreateByID" Caption="创建人员" X="0" Y="2"/>
+                        <Dict Key="CreateByID" Caption="创建人员" BuddyKey="Inner_CreateByID" X="1" Y="2" Visible="true" Enable="false" ItemKey="Operator">
+                            <DataBinding TableKey="BK_CostCenterGroup" ColumnKey="CREATOR" DefaultFormulaValue="GetOperator()"/>
+                        </Dict>
+                        <Label Key="Inner_CreateTime" Caption="创建时间" X="0" Y="3"/>
+                        <DatePicker Key="CreateTime" Caption="创建时间" BuddyKey="Inner_CreateTime" X="1" Y="3" Visible="true" Enable="false" OnlyDate="false">
+                            <DataBinding TableKey="BK_CostCenterGroup" ColumnKey="CREATETIME" DefaultFormulaValue="ServerDate()"/>
+                        </DatePicker>
+                        <Label Key="Inner_UpdateByID" Caption="修改人员" X="0" Y="4"/>
+                        <Dict Key="UpdateByID" Caption="修改人员" BuddyKey="Inner_UpdateByID" X="1" Y="4" Visible="true" Enable="false" ItemKey="Operator">
+                            <DataBinding TableKey="BK_CostCenterGroup" ColumnKey="MODIFIER" DefaultFormulaValue="GetOperator()"/>
+                        </Dict>
+                        <Label Key="Inner_UpdateTime" Caption="修改时间" X="0" Y="5"/>
+                        <DatePicker Key="UpdateTime" Caption="修改时间" BuddyKey="Inner_UpdateTime" X="1" Y="5" Visible="true" Enable="false" OnlyDate="false">
+                            <DataBinding TableKey="BK_CostCenterGroup" ColumnKey="MODIFYTIME" DefaultFormulaValue="ServerDate()"/>
+                        </DatePicker>
+                        <Label Key="Inner_Notes" Caption="备注" X="0" Y="6"/>
+                        <TextEditor Key="Notes" Caption="备注" BuddyKey="Inner_Notes" X="1" Y="6" Visible="true" Enable="!ReadOnly()">
+                            <DataBinding TableKey="BK_CostCenterGroup" ColumnKey="Notes"/>
+                        </TextEditor>
+                        <Label Key="Inner_ClientID" Caption="集团" X="0" Y="0"/>
+                        <Dict Key="ClientID" Caption="集团" BuddyKey="Inner_ClientID" X="1" Y="0" Visible="true" Enable="false" ItemKey="Client">
+                            <DataBinding TableKey="BK_CostCenterGroup" ColumnKey="clientid" DefaultFormulaValue="com.bokesoft.erp.basis.organization.ClientFormulaUI.getClientID()"/>
+                        </Dict>
+                        <RowDefCollection RowGap="5">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="5">
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="330px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                </TabPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

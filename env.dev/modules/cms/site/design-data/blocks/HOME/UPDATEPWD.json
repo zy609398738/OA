@@ -1,0 +1,13 @@
+{
+	"@type":"com.bokesoft.cms2.impl.buildin.modelio.vo.BlockVO",
+	"block":{
+		"@type":"com.bokesoft.cms2.model.blocks.TmplBlock",
+		"notes":"",
+		"parameters":[],
+		"tmplText":"=cms.PageExp.ReadResourceText({cms:models/updatePWD.html})",
+		"type":"TMPL"
+	},
+	"code":"UPDATEPWD",
+	"name":"首页修改密码",
+	"params":[]
+}

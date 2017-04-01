@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="OA_AuditMListInSide" Caption="内部会议审批列表" FormType="View" Platform="">
+    <DataSource>
+        <DataObject Key="OA_AuditMListInSide" Caption="内部会议审批列表">
+            <TableCollection>
+                <Table Key="OA_AuditMListInSide_D" Caption="内部会议审批列表" TableMode="Detail" SourceType="Query" Persist="false">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="Topic" Caption="用途" DataType="Varchar"/>
+                    <Column Key="EmpID" Caption="申请人" DataType="Long"/>
+                    <Column Key="MeetingRoom" Caption="会议室" DataType="Long"/>
+                    <Column Key="StartTime" Caption="开始时间" DataType="DateTime"/>
+                    <Column Key="BillDate" Caption="预约申请日期" DataType="DateTime"/>
+                    <Column Key="EndTime" Caption="结束时间" DataType="DateTime"/>
+                    <Column Key="WorkitemID" Caption="工作项标志" DataType="Long"/>
+                    <Column Key="UrgencyDeg" Caption="紧急程度" DataType="Integer"/>
+                    <Statement>
+                        <![CDATA[select a.OID,a.Topic,a.UrgencyDeg,a.EmpID,a.MeetingRoom,a.StartTime,a.EndTime,a.BillDate,c.workitemid from OA_MeetingInSide_h a 
+join bpm_instance b on a.OID=b.OID 
+join  bpm_workiteminfo c on b.InstanceID=c.InstanceID where a.Status!=1200 and a.Status!=100]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="BatchPass" Caption="批量通过">
+            <Action>
+                <![CDATA[BatchCommitWorkitem("OA_AuditMListInSide_D","WorkitemID",1,"通过");
+LoadData();
+ShowData();]]>
+            </Action>
+        </Operation>
+        <Operation Key="BatchReject" Caption="批量驳回">
+            <Action>
+                <![CDATA[BatchCommitWorkitem("OA_AuditMListInSide_D","WorkitemID",0,"驳回");
+LoadData();
+ShowData();]]>
+            </Action>
+        </Operation>
+    </OperationCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板">
+                <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <ListView Caption="ListView1" Height="100%" Key="ListView1" PageLoadType="DB" TableKey="OA_AuditMListInSide_D">
+                    <ListViewColumnCollection>
+                        <ListViewColumn Key="select" Caption="选择" ColumnType="CheckBox" IsSelect="true"/>
+                        <ListViewColumn Key="Topic" Caption="用途" DataColumnKey="Topic" Width="150px"/>
+                        <ListViewColumn Key="UrgencyDeg" Caption="紧急程度" ColumnType="ComboBox" DataColumnKey="UrgencyDeg" IntegerValue="true">
+                            <Item Key="0" Value="0"/>
+                            <Item Caption="一般" Key="10" Value="10"/>
+                            <Item Caption="紧急" Key="20" Value="20"/>
+                            <Item Caption="特急" Key="30" Value="30"/>
+                        </ListViewColumn>
+                        <ListViewColumn Key="EmpID" Caption="申请人" ColumnType="Dict" DataColumnKey="EmpID" Width="100px" ItemKey="OA_Employee"/>
+                        <ListViewColumn Key="MeetingRoom" Caption="会议室" ColumnType="Dict" DataColumnKey="MeetingRoom" Width="100px" ItemKey="OA_MeetingRoom"/>
+                        <ListViewColumn Key="StartTime" Caption="开始时间" ColumnType="DatePicker" DataColumnKey="StartTime" Width="130px"/>
+                        <ListViewColumn Key="EndTime" Caption="结束时间" ColumnType="DatePicker" DataColumnKey="EndTime" Width="130px"/>
+                        <ListViewColumn Key="BillDate" Caption="预约申请日期" ColumnType="DatePicker" DataColumnKey="BillDate" Width="130px"/>
+                        <ListViewColumn Key="WorkitemID" Caption="工作项标志" DataColumnKey="WorkitemID" Visible="false"/>
+                        <ListViewColumn Key="OID" Caption="对象标识" DataColumnKey="OID" Visible="false"/>
+                    </ListViewColumnCollection>
+                    <RowDblClick>
+                        <![CDATA[Open('OA_MeetingInSide', OID)]]>
+                    </RowDblClick>
+                </ListView>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+    <OnLoad>
+        <![CDATA[LoadData();]]>
+    </OnLoad>
+</Form>

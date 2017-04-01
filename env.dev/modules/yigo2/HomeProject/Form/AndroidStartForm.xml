@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Caption="新华资产系统" Key="AndroidStartForm">
+	<Body> 
+		<Block>
+			<NavigationList 
+				Key="grid_list" ImageScaleType="FIT_XY">
+				<NavigationItemCollection>
+
+					<NavigationItem  Caption="事务处理" Icon="Mobile_Cycle.png"
+						Key="i1" EntryKey="HomeProject/Mobile_manager/MobileOA_WorkItemList">
+						<![CDATA[
+
+							New("MobileOA_WorkItemList")
+
+						]]>
+					</NavigationItem>
+					<NavigationItem  Caption="请假申请列表" Icon="Mobile_Cycle.png"
+						Key="i2" EntryKey="HomeProject/Mobile_manager/VacationRequestList">
+						<![CDATA[
+
+							New("VacationRequestList")
+
+						]]>
+					</NavigationItem>
+					<NavigationItem  Caption="请假申请" Icon="Mobile_Cycle.png"
+						Key="i3" EntryKey="HomeProject/Mobile_manager/VacationRequest">
+						<![CDATA[
+
+							New("VacationRequest")
+
+						]]>
+					</NavigationItem>
+					<NavigationItem  Caption="待办事项" Icon="Mobile_Cycle.png"
+						Key="i4" EntryKey="HomeProject/Mobile_manager/Mobile_SiteOut2">
+						<![CDATA[
+
+							New("Mobile_SiteOut2")
+
+						]]>
+					</NavigationItem>
+
+				</NavigationItemCollection>
+						
+			</NavigationList>			
+		</Block>
+	</Body>
+</Form>

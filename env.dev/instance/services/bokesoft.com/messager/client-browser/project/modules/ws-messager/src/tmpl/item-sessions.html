@@ -1,0 +1,33 @@
+  <% _.forEach(sessions, function(session) { %>
+      <div class="chat_item ${session.code==activeUserCode?'chat_active':''}" data-boke-messager-user="${session.code}">
+         <span class="chat_status">
+		    <%if(session.state=='lurk'){%>
+				<img src="${session.icon || defUserIcon}" class="userhead_gray_mask" data-state="lurk"/>
+		    <%}else if(session.state=='online'){%>
+				<img src="${session.icon || defUserIcon}" data-state="online"/>
+			<%}else if(session.state=='idle'){%>
+				<img src="${session.icon || defUserIcon}" data-state="idle"/>
+				<i class="status"><img src="${idle}" alt="离开"/></i>
+			<%}else if(session.state=='busy'){%>
+				<img src="${session.icon || defUserIcon}" data-state="busy"/>
+				<i class="status"><img src="${busy}" alt="忙碌"/></i>
+			<%}else{ /*默认是 offline*/ %>
+				<img src="${session.icon || defUserIcon}" class="userhead_gray_mask" data-state="offline"/>
+			<%}%>
+         </span>
+         <span class="nickname_text">
+             <b class="user_name" title="${session.name||session.code}">${session.name||session.code}</b>
+             <div>
+			   <%if(session.lastMsg){%>
+			        <p class="latest_news">${printMessage(session.lastMsg)}</p>
+			   <%}%>
+			   <%if(session.lastMsg && session.lastTime){%>
+			        <em class="news_date">${moment(session.lastTime).fromNow()}</em>
+			   <%}%>
+			 </div>
+         </span>
+         <span class="del_button"> <a href="javascript:void(0)" title="点击删除">×</a></span>
+         <div class="count count_${session.count}">${session.count}</div>
+      </div>
+  <% }); %>
+

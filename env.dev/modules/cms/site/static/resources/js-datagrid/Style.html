@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<title>ideawu - CSS样式表</title>
+	<link rel="stylesheet" type="text/css" href="style.css" />
+	<script type="text/javascript" src="scripts/jquery.js"></script>
+	<script type="text/javascript" src="scripts/jquery-ui-1.7.2.custom.min.js"></script>
+	<script type="text/javascript" src="scripts/PagerView.js"></script>
+	<script type="text/javascript" src="scripts/TableView.js"></script>
+	<script type="text/javascript" src="scripts/SelectorView.js"></script>
+	<script type="text/javascript" src="scripts/common.js"></script>
+</head>
+<body>
+
+
+<h1 class="title1">CSS样式表</h1>
+
+
+<div id="menu">
+	<ul>
+		<li><a href="index.html">Home</a></li>
+		<li><a href="PagerView.html">PagerView</a></li>
+		<li><a href="TableView.html">TableView</a></li>
+		<li><a href="SelectorView.html">SelectorView</a></li>
+		<li><a href="Style.html">CSS样式表</a></li>
+		<li><a href="api/index.html">API文档</a></li>
+		<li><a href="js-datagrid.zip">下载</a></li>
+	</ul>
+</div>
+<div style="clear: both;"></div>
+
+
+
+<p>如下是PagerView, TableView, SelectorView所需要的CSS样式表:</p>
+
+
+<pre>
+/************* PagerView **************/
+.PagerView{
+	font-size: 12px;
+	font-family: tahoma, arial;
+	color: #333;
+	text-align: center;
+	padding: 8px;
+	line-height: 100%;
+}
+.PagerView span{
+	color: #999;
+	margin: 0 1px;
+	padding: 3px 6px;
+	border: 1px solid #ccc;
+}
+.PagerView span.on{
+	color: #fff;
+	font-weight: bold;
+	border: 1px solid #666;
+	background: #39f;
+}
+.PagerView a{
+	color: #00f;
+	text-decoration: none;
+}
+.PagerView a span{
+	color: #33f;
+	border: 1px solid #66c;
+}
+
+/************* TableView **************/
+.TableView .datagrid_meta{
+	line-height: 22px;
+}
+.TableView .datagrid_meta .title{
+	font-size: 13px;
+	font-weight: bold;
+}
+.TableView .datagrid_meta .filter input{
+	margin: 0 4px;
+	padding: 1px;
+	border: 1px solid #ccc;
+}
+.TableView table{
+	font-size: 12px;
+	border-collapse: collapse;
+}
+.TableView div.datagrid_div{
+	border: 1px solid #999;
+}
+.TableView table.datagrid{
+	border-collapse: separate;
+	width: 100%;
+}
+.TableView table.datagrid th{
+	text-align: left;
+	background: #ddd;
+	padding: 1px;
+}
+.TableView table.datagrid td{
+	padding: 2px;
+}
+.TableView table.datagrid tr.odd{
+    background: #fff;
+}
+.TableView table.datagrid tr.even{
+    background: #eee;
+}
+.TableView table.datagrid tr.marked{
+    background: #ee9;
+}
+.TableView table.datagrid tr:hover,
+.TableView table.datagrid tr.hover{
+    background: #9cf;
+}
+
+/************* SelectorView **************/
+.SelectorView .selector_table{
+	width: 100%;
+}
+.SelectorView .selector_table .src,
+.SelectorView .selector_table .dst{
+	width: 50%;
+}
+.SelectorView .selector_table table.datagrid tr:hover,
+.SelectorView .selector_table table.datagrid tr.hover{
+	cursor: pointer;
+}
+</pre>
+
+
+<div id="footer" style="margin-top: 20px;">
+	Copyright&copy;2009 <b>idea's web</b>. All rights reserved. | <a href="http://www.ideawu.net">www.ideawu.net</a>
+
+	<script language="javascript" type="text/javascript" src="http://js.users.51.la/414722.js"></script>
+</div>
+
+
+
+</body>
+</html>

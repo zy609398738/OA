@@ -1,0 +1,500 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Caption="工作中心" FormType="Dict" Key="V_WorkCenter">
+    <DataSource RefObjectKey="WorkCenter"/>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root">
+                <TabPanel Key="body">
+                    <SplitPanel Key="P9" Orientation="Vertical" Caption="基本信息(&amp;B)">
+                        <GridLayoutPanel Key="body_basic" Padding="8px">
+                            <Label Key="Inner_Code" Caption="代码" X="0" Y="5"/>
+                            <TextEditor Key="Code" Caption="代码" BuddyKey="Inner_Code" X="1" Y="5" Visible="false" Enable="true" InvalidChars="%*\&quot;+?&gt;&lt;:'">
+                                <DataBinding TableKey="BK_WorkCenter" ColumnKey="Code" DefaultFormulaValue="getProp('PlantID', 'Code')&amp;'_'&amp;Value('UseCode')"/>
+                            </TextEditor>
+                            <Label Key="Inner_Name" Caption="名称" X="0" Y="3"/>
+                            <TextEditor Key="Name" Caption="名称" BuddyKey="Inner_Name" X="1" Y="3" Visible="true" Enable="!ReadOnly()">
+                                <DataBinding TableKey="BK_WorkCenter" ColumnKey="Name" CheckRule="Name&lt;&gt;''"/>
+                            </TextEditor>
+                            <Label Key="Inner_NodeType" Caption="结点类型" X="0" Y="5"/>
+                            <ComboBox Key="NodeType" Caption="结点类型" BuddyKey="Inner_NodeType" X="1" Y="5" Visible="false" Enable="!ReadOnly()&amp;&amp;Status&lt;0">
+                                <DataBinding TableKey="BK_WorkCenter" ColumnKey="NodeType"/>
+                            </ComboBox>
+                            <Label Key="Inner_PlantID" Caption="工厂" X="0" Y="0"/>
+                            <Dict Key="PlantID" Caption="工厂" BuddyKey="Inner_PlantID" X="1" Y="0" Visible="true" Enable="false" ItemKey="Plant">
+                                <DataBinding TableKey="BK_WorkCenter" ColumnKey="PlantID" DefaultFormulaValue="value('HeadPlantID')" CheckRule="PlantID&gt;0"/>
+                            </Dict>
+                            <Label Key="Inner_ResponsiblePersonID" Caption="负责人" X="0" Y="4"/>
+                            <Dict Key="ResponsiblePersonID" Caption="负责人" BuddyKey="Inner_ResponsiblePersonID" X="1" Y="4" Visible="true" Enable="!ReadOnly()" ItemKey="Operator">
+                                <DataBinding TableKey="BK_WorkCenter" ColumnKey="ResponsiblePersonID"/>
+                            </Dict>
+                            <Label Key="Inner_WorkCenterUsageID" Caption="用途" X="0" Y="5"/>
+                            <Dict Key="WorkCenterUsageID" Caption="用途" BuddyKey="Inner_WorkCenterUsageID" X="1" Y="5" Visible="true" Enable="!ReadOnly()" ItemKey="PP_WorkCenterUsage">
+                                <DataBinding TableKey="BK_WorkCenter" ColumnKey="WorkCenterUsageID" CheckRule="WorkCenterUsageID&gt;0"/>
+                            </Dict>
+                            <CheckBox Caption="反冲" Enable="!ReadOnly()" Key="BackFlush" Visible="true" X="1" Y="6">
+                                <DataBinding TableKey="BK_WorkCenter" ColumnKey="BackFlush"/>
+                            </CheckBox>
+                            <Label Key="Inner_WorkCenterCategoryID" Caption="工作中心类别" X="0" Y="1"/>
+                            <Dict Key="WorkCenterCategoryID" Caption="工作中心类别" BuddyKey="Inner_WorkCenterCategoryID" X="1" Y="1" Visible="true" Enable="!ReadOnly()" ItemKey="PP_WorkCenterCategory">
+                                <DataBinding TableKey="BK_WorkCenter" ColumnKey="WorkCenterCategoryID" CheckRule="iifs(WorkCenterCategoryID=-1, '请输入工作中心类别', true, true)"/>
+                            </Dict>
+                            <Label Key="Inner_UseCode" Caption="代码" X="0" Y="2"/>
+                            <TextEditor Key="UseCode" Caption="代码" BuddyKey="Inner_UseCode" X="1" Y="2" Visible="true" Enable="!ReadOnly()&amp;&amp;com.bokesoft.erp.basis.common.DocumentNumberUI.docNumberFieldEnable('UseCode')" InvalidChars="%*\&quot;+?&gt;&lt;:'" MaxLength="100">
+                                <DataBinding TableKey="BK_WorkCenter" ColumnKey="UseCode" CheckRule="iifs(com.bokesoft.erp.basis.common.DocumentNumberUI.docNumberFieldEnable('UseCode')&amp;&amp;Value('UseCode')='', '采用外部给号编码规则，请输入代码', true, true)"/>
+                            </TextEditor>
+                            <Label Key="Inner_StandardValueKeyID" Caption="标准值码" X="0" Y="7"/>
+                            <Dict Key="StandardValueKeyID" Caption="标准值码" BuddyKey="Inner_StandardValueKeyID" X="1" Y="7" Visible="true" Enable="!ReadOnly()" ItemKey="PP_StandardValueKey">
+                                <DataBinding TableKey="BK_WorkCenter" ColumnKey="StandardValueKeyID" CheckRule="iifs(StandardValueKeyID=-1, '请输入标准值码', true, true)"/>
+                            </Dict>
+                            <RowDefCollection RowGap="5">
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="5">
+                                <ColumnDef Width="100px"/>
+                                <ColumnDef Width="330px"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                        <GridLayoutPanel Key="P10" Padding="8px">
+                            <Grid Key="grid2" X="0" Y="0">
+                                <GridColumnCollection>
+                                    <GridColumn Key="RowNo_Basic" Caption="行号" Width="80px"/>
+                                    <GridColumn Key="ParameterID_Basic" Caption="参数" Width="80px"/>
+                                    <GridColumn Key="MaintenanceRule_Basic" Caption="维护规则" Width="80px"/>
+                                </GridColumnCollection>
+                                <GridRowCollection>
+                                    <GridRow Key="row1" TableKey="BK_StandardValueBasic">
+                                        <GridCell Key="RowNo_Basic" Caption="行号"/>
+                                        <GridCell Key="ParameterID_Basic" Caption="参数" CellType="Dict" ItemKey="PP_Parameter">
+                                            <DataBinding ColumnKey="ParameterID"/>
+                                        </GridCell>
+                                        <GridCell Key="MaintenanceRule_Basic" Caption="维护规则" CellType="ComboBox">
+                                            <DataBinding ColumnKey="MaintenanceRule"/>
+                                        </GridCell>
+                                    </GridRow>
+                                </GridRowCollection>
+                            </Grid>
+                            <RowDefCollection RowGap="5">
+                                <RowDef Height="100%"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="5">
+                                <ColumnDef Width="100%"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                        <SplitSize Size="250px"/>
+                        <SplitSize Size="100%"/>
+                    </SplitPanel>
+                    <SplitPanel Key="P6" Orientation="Vertical" Caption="默认值">
+                        <GridLayoutPanel Key="TAB7" Padding="8px">
+                            <Label Key="Inner_ControlCodeID" Caption="控制码" X="0" Y="0"/>
+                            <Dict Key="ControlCodeID" Caption="控制码" BuddyKey="Inner_ControlCodeID" X="1" Y="0" Visible="true" Enable="!ReadOnly()" ItemKey="PP_ControlCode">
+                                <DataBinding TableKey="BK_WorkCenter" ColumnKey="ControlCodeID" CheckRule="ControlCodeID&gt;0"/>
+                            </Dict>
+                            <RowDefCollection RowGap="5">
+                                <RowDef Height="30px"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="5">
+                                <ColumnDef Width="100px"/>
+                                <ColumnDef Width="330px"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                        <GridLayoutPanel Key="P8" Padding="8px">
+                            <Grid Key="grid3" X="0" Y="0">
+                                <GridColumnCollection>
+                                    <GridColumn Key="RowNo_Default" Caption="行号" Width="80px"/>
+                                    <GridColumn Key="ParameterID_Default" Caption="参数" Width="80px"/>
+                                    <GridColumn Key="ActivityTypeUnitID_Default" Caption="作业单位" Width="80px"/>
+                                </GridColumnCollection>
+                                <GridRowCollection>
+                                    <GridRow Key="row1" TableKey="BK_StandardValueDefault">
+                                        <GridCell Key="RowNo_Default" Caption="行号">
+                                            <DataBinding ColumnKey="RowNo"/>
+                                        </GridCell>
+                                        <GridCell Key="ParameterID_Default" Caption="参数" CellType="Dict" ItemKey="PP_Parameter">
+                                            <DataBinding ColumnKey="ParameterID"/>
+                                        </GridCell>
+                                        <GridCell Key="ActivityTypeUnitID_Default" Caption="作业单位" CellType="Dict" ItemKey="Unit">
+                                            <DataBinding ColumnKey="ActivityTypeUnitID"/>
+                                        </GridCell>
+                                    </GridRow>
+                                </GridRowCollection>
+                            </Grid>
+                            <RowDefCollection RowGap="5">
+                                <RowDef Height="100%"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="5">
+                                <ColumnDef Width="100%"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                        <SplitSize Size="50px"/>
+                        <SplitSize Size="100%"/>
+                    </SplitPanel>
+                    <SplitPanel Key="P5" Orientation="Vertical" Caption="能力">
+                        <GridLayoutPanel Key="TAB2" Padding="8px">
+                            <Grid Key="grid1" X="0" Y="0">
+                                <GridColumnCollection>
+                                    <GridColumn Key="OID_grid1" Caption="OID_grid1" Width="80px"/>
+                                    <GridColumn Key="SOID_grid1" Caption="SOID_grid1" Width="80px"/>
+                                    <GridColumn Key="DeleteRow" Caption="删除" Width="80px"/>
+                                    <GridColumn Key="Capacity_RowNo" Caption="行号" Width="80px"/>
+                                    <GridColumn Key="CapacityCategoriesID" Caption="能力类别" Width="80px"/>
+                                    <GridColumn Key="ReferenceCapacityID" Caption="参考可用的能力" Width="80px"/>
+                                    <GridColumn Key="CapacityName" Caption="能力名称" Width="80px"/>
+                                    <GridColumn Key="CapacityPlannerID" Caption="能力计划员组" Width="80px"/>
+                                    <GridColumn Key="WorkShiftGroupID" Caption="分组" Width="80px"/>
+                                    <GridColumn Key="FactoryCalenderID" Caption="工厂日历" Width="80px"/>
+                                    <GridColumn Key="ActiveVersion" Caption="活动版本" Width="80px"/>
+                                    <GridColumn Key="BaseUnitID" Caption="基本单位" Width="80px"/>
+                                    <GridColumn Key="StartTime" Caption="开始时间" Width="80px"/>
+                                    <GridColumn Key="EndTime" Caption="结束时间" Width="80px"/>
+                                    <GridColumn Key="BreakTime" Caption="休息时间" Width="80px"/>
+                                    <GridColumn Key="CapacityUtilization" Caption="能力利用" Width="80px"/>
+                                    <GridColumn Key="SingleCapacityNumber" Caption="单项能力数量" Width="80px"/>
+                                    <GridColumn Key="OperatingTime" Caption="加工时间" Width="80px"/>
+                                    <GridColumn Key="TotalCapacity" Caption="总能力" Width="80px"/>
+                                    <GridColumn Key="CapacityUnitID" Caption="基本计量单位" Width="80px"/>
+                                    <GridColumn Key="PooledCapacityID" Caption="共享能力" Width="80px"/>
+                                    <GridColumn Key="SetupFormulaID" Caption="准备公式" Width="80px"/>
+                                    <GridColumn Key="ProcessingFormulaID" Caption="加工公式" Width="80px"/>
+                                    <GridColumn Key="TeardownFormulaID" Caption="拆卸公式" Width="80px"/>
+                                    <GridColumn Key="OtherFormulaID" Caption="其他公式" Width="80px"/>
+                                </GridColumnCollection>
+                                <GridRowCollection>
+                                    <GridRow Key="row1" TableKey="BK_WorkCenter_Capacity">
+                                        <GridCell Key="OID_grid1" Caption="OID_grid1">
+                                            <DataBinding ColumnKey="OID"/>
+                                        </GridCell>
+                                        <GridCell Key="SOID_grid1" Caption="SOID_grid1">
+                                            <DataBinding ColumnKey="SOID"/>
+                                        </GridCell>
+                                        <GridCell Key="DeleteRow" Caption="删除" CellType="TextEditor" MaxLength="100"/>
+                                        <GridCell Key="Capacity_RowNo" Caption="行号">
+                                            <DataBinding ColumnKey="RowNo"/>
+                                        </GridCell>
+                                        <GridCell Key="CapacityCategoriesID" Caption="能力类别" CellType="Dict" ItemKey="PP_CapacityCategories">
+                                            <DataBinding ColumnKey="CapacityCategoriesID"/>
+                                        </GridCell>
+                                        <GridCell Key="ReferenceCapacityID" Caption="参考可用的能力" CellType="Dict" ItemKey="PP_Capacity">
+                                            <DataBinding ColumnKey="ReferenceCapacityID"/>
+                                        </GridCell>
+                                        <GridCell Key="CapacityName" Caption="能力名称" CellType="TextEditor" MaxLength="100">
+                                            <DataBinding ColumnKey="CapacityName"/>
+                                        </GridCell>
+                                        <GridCell Key="CapacityPlannerID" Caption="能力计划员组" CellType="Dict" ItemKey="PP_CapacityPlanners">
+                                            <DataBinding ColumnKey="CapacityPlannerID"/>
+                                        </GridCell>
+                                        <GridCell Key="WorkShiftGroupID" Caption="分组" CellType="Dict" ItemKey="PP_WorkShiftGroup">
+                                            <DataBinding ColumnKey="WorkShiftGroupID"/>
+                                        </GridCell>
+                                        <GridCell Key="FactoryCalenderID" Caption="工厂日历" CellType="Dict" ItemKey="PP_Calendar">
+                                            <DataBinding ColumnKey="FactoryCalenderID"/>
+                                        </GridCell>
+                                        <GridCell Key="ActiveVersion" Caption="活动版本" CellType="Dict" ItemKey="PP_AvailiableCapacityVersion">
+                                            <DataBinding ColumnKey="ActiveVersion"/>
+                                        </GridCell>
+                                        <GridCell Key="BaseUnitID" Caption="基本单位" CellType="Dict" ItemKey="Unit">
+                                            <DataBinding ColumnKey="BaseUnitID"/>
+                                        </GridCell>
+                                        <GridCell Key="StartTime" Caption="开始时间" CellType="DatePicker">
+                                            <DataBinding ColumnKey="StartTime"/>
+                                        </GridCell>
+                                        <GridCell Key="EndTime" Caption="结束时间" CellType="DatePicker">
+                                            <DataBinding ColumnKey="EndTime"/>
+                                        </GridCell>
+                                        <GridCell Key="BreakTime" Caption="休息时间" CellType="DatePicker">
+                                            <DataBinding ColumnKey="BreakTime"/>
+                                        </GridCell>
+                                        <GridCell Key="CapacityUtilization" Caption="能力利用">
+                                            <DataBinding ColumnKey="CapacityUtilization"/>
+                                        </GridCell>
+                                        <GridCell Key="SingleCapacityNumber" Caption="单项能力数量">
+                                            <DataBinding ColumnKey="SingleCapacityNumber"/>
+                                        </GridCell>
+                                        <GridCell Key="OperatingTime" Caption="加工时间">
+                                            <DataBinding ColumnKey="OperatingTime"/>
+                                        </GridCell>
+                                        <GridCell Key="TotalCapacity" Caption="总能力">
+                                            <DataBinding ColumnKey="TotalCapacity"/>
+                                        </GridCell>
+                                        <GridCell Key="CapacityUnitID" Caption="基本计量单位" CellType="Dict" ItemKey="Unit">
+                                            <DataBinding ColumnKey="CapacityUnitID"/>
+                                        </GridCell>
+                                        <GridCell Key="PooledCapacityID" Caption="共享能力" CellType="Dict" ItemKey="PP_Capacity">
+                                            <DataBinding ColumnKey="PooledCapacityID"/>
+                                        </GridCell>
+                                        <GridCell Key="SetupFormulaID" Caption="准备公式" CellType="Dict" ItemKey="PP_FormulaKey">
+                                            <DataBinding ColumnKey="SetupFormulaID"/>
+                                        </GridCell>
+                                        <GridCell Key="ProcessingFormulaID" Caption="加工公式" CellType="Dict" ItemKey="PP_FormulaKey">
+                                            <DataBinding ColumnKey="ProcessingFormulaID"/>
+                                        </GridCell>
+                                        <GridCell Key="TeardownFormulaID" Caption="拆卸公式" CellType="Dict" ItemKey="PP_FormulaKey">
+                                            <DataBinding ColumnKey="TeardownFormulaID"/>
+                                        </GridCell>
+                                        <GridCell Key="OtherFormulaID" Caption="其他公式" CellType="Dict" ItemKey="PP_FormulaKey">
+                                            <DataBinding ColumnKey="OtherFormulaID"/>
+                                        </GridCell>
+                                    </GridRow>
+                                </GridRowCollection>
+                            </Grid>
+                            <RowDefCollection RowGap="5">
+                                <RowDef Height="100%"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="5">
+                                <ColumnDef Width="100%"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                        <TabPanel Key="P7">
+                            <SubDetail BindingGridKey="grid1" Caption="能力基本信息" Key="subDetail_TAB4">
+                                <GridLayoutPanel Key="TAB4" Padding="8px" Caption="能力基本信息">
+                                    <Label Key="Inner_CapacityName__mirror" Caption="能力名称" X="0" Y="0"/>
+                                    <TextEditor Key="CapacityName__mirror" Caption="能力名称" BuddyKey="Inner_CapacityName__mirror" X="1" Y="0" Visible="true" Enable="!ReadOnly()" InvalidChars="%*\&quot;+?&gt;&lt;:'" MaxLength="100" BindingCellKey="CapacityName"/>
+                                    <Label Key="Inner_CapacityPlannerID__mirror" Caption="能力计划员组" X="0" Y="2"/>
+                                    <Dict Key="CapacityPlannerID__mirror" Caption="能力计划员组" BuddyKey="Inner_CapacityPlannerID__mirror" X="1" Y="2" Visible="true" Enable="!ReadOnly()" ItemKey="PP_CapacityPlanners" BindingCellKey="CapacityPlannerID"/>
+                                    <Label Key="Inner_FactoryCalenderID__mirror" Caption="工厂日历" X="0" Y="4"/>
+                                    <Dict Key="FactoryCalenderID__mirror" Caption="工厂日历" BuddyKey="Inner_FactoryCalenderID__mirror" X="1" Y="4" Visible="true" Enable="!ReadOnly()" ItemKey="PP_Calendar" BindingCellKey="FactoryCalenderID"/>
+                                    <Label Key="Inner_BaseUnitID__mirror" Caption="基本单位" X="0" Y="5"/>
+                                    <Dict Key="BaseUnitID__mirror" Caption="基本单位" BuddyKey="Inner_BaseUnitID__mirror" X="1" Y="5" Visible="true" Enable="!ReadOnly()" ItemKey="Unit" BindingCellKey="BaseUnitID"/>
+                                    <Label Key="Inner_StartTime__mirror" Caption="开始时间" X="0" Y="7"/>
+                                    <DatePicker Key="StartTime__mirror" Caption="开始时间" BuddyKey="Inner_StartTime__mirror" X="1" Y="7" Visible="true" Enable="!ReadOnly()" OnlyDate="false" BindingCellKey="StartTime"/>
+                                    <Label Key="Inner_EndTime__mirror" Caption="结束时间" X="0" Y="8"/>
+                                    <DatePicker Key="EndTime__mirror" Caption="结束时间" BuddyKey="Inner_EndTime__mirror" X="1" Y="8" Visible="true" Enable="!ReadOnly()" OnlyDate="false" BindingCellKey="EndTime"/>
+                                    <Label Key="Inner_BreakTime__mirror" Caption="休息时间" X="0" Y="9"/>
+                                    <DatePicker Key="BreakTime__mirror" Caption="休息时间" BuddyKey="Inner_BreakTime__mirror" X="1" Y="9" Visible="true" Enable="!ReadOnly()" OnlyDate="false" BindingCellKey="BreakTime"/>
+                                    <Label Key="Inner_CapacityUtilization__mirror" Caption="能力利用" X="2" Y="8"/>
+                                    <NumberEditor Key="CapacityUtilization__mirror" Caption="能力利用" BuddyKey="Inner_CapacityUtilization__mirror" X="3" Y="8" Visible="true" Enable="!ReadOnly()" Precision="0" Scale="0" XSpan="3" BindingCellKey="CapacityUtilization"/>
+                                    <Label Key="Inner_SingleCapacityNumber__mirror" Caption="单项能力数量" X="2" Y="9"/>
+                                    <NumberEditor Key="SingleCapacityNumber__mirror" Caption="单项能力数量" BuddyKey="Inner_SingleCapacityNumber__mirror" X="3" Y="9" Visible="true" Enable="!ReadOnly()" Precision="0" Scale="0" XSpan="3" BindingCellKey="SingleCapacityNumber"/>
+                                    <Label Key="Inner_TotalCapacity__mirror" Caption="总能力" X="2" Y="10"/>
+                                    <NumberEditor Key="TotalCapacity__mirror" Caption="总能力" BuddyKey="Inner_TotalCapacity__mirror" X="3" Y="10" Visible="true" Enable="false" Scale="3" XSpan="2" BindingCellKey="TotalCapacity"/>
+                                    <Label Key="Inner_OperatingTime__Mirror" Caption="加工时间" X="0" Y="10"/>
+                                    <NumberEditor Key="OperatingTime__Mirror" Caption="加工时间" BuddyKey="Inner_OperatingTime__Mirror" X="1" Y="10" Visible="true" Enable="false" Scale="3" BindingCellKey="OperatingTime"/>
+                                    <Label Key="GeneralData" Caption="通用数据" X="0" Y="1" Visible="true" Enable="false"/>
+                                    <Label Key="AvailableCapacity" Caption="可用能力" X="0" Y="3" Visible="true" Enable="false"/>
+                                    <Label Key="StandardAvailableCapacity" Caption="标准可用能力" X="0" Y="6" Visible="true" Enable="false"/>
+                                    <Label Key="Inner_ActiveVersion__Mirror" Caption="活动版本" X="2" Y="4"/>
+                                    <Dict Key="ActiveVersion__Mirror" Caption="活动版本" BuddyKey="Inner_ActiveVersion__Mirror" X="3" Y="4" Visible="true" Enable="!ReadOnly()" ItemKey="PP_AvailiableCapacityVersion" XSpan="3" BindingCellKey="ActiveVersion"/>
+                                    <Label Key="Inner_WorkShiftGroupID__Mirror" Caption="分组" X="2" Y="2"/>
+                                    <Dict Key="WorkShiftGroupID__Mirror" Caption="分组" BuddyKey="Inner_WorkShiftGroupID__Mirror" X="3" Y="2" Visible="true" Enable="!ReadOnly()" ItemKey="PP_WorkShiftGroup" XSpan="3" BindingCellKey="WorkShiftGroupID"/>
+                                    <Label Key="Inner_CapacityUnitID__mirror" X="4" Y="10"/>
+                                    <Dict Key="CapacityUnitID__mirror" BuddyKey="Inner_CapacityUnitID__mirror" X="5" Y="10" Visible="true" Enable="!ReadOnly()" ItemKey="Unit" BindingCellKey="CapacityUnitID"/>
+                                    <RowDefCollection RowGap="5">
+                                        <RowDef Height="30px"/>
+                                        <RowDef Height="30px"/>
+                                        <RowDef Height="30px"/>
+                                        <RowDef Height="30px"/>
+                                        <RowDef Height="30px"/>
+                                        <RowDef Height="30px"/>
+                                        <RowDef Height="30px"/>
+                                        <RowDef Height="30px"/>
+                                        <RowDef Height="30px"/>
+                                        <RowDef Height="30px"/>
+                                        <RowDef Height="30px"/>
+                                    </RowDefCollection>
+                                    <ColumnDefCollection ColumnGap="5">
+                                        <ColumnDef Width="100px"/>
+                                        <ColumnDef Width="80px"/>
+                                        <ColumnDef Width="100px"/>
+                                        <ColumnDef Width="10px"/>
+                                        <ColumnDef Width="50%"/>
+                                        <ColumnDef Width="60px"/>
+                                    </ColumnDefCollection>
+                                </GridLayoutPanel>
+                            </SubDetail>
+                            <SubDetail BindingGridKey="grid1" Caption="能力公式" Key="subDetail_TAB5">
+                                <GridLayoutPanel Key="TAB5" Padding="8px" Caption="能力公式">
+                                    <Label Key="Inner_CapacityCategoriesID__mirror" Caption="能力类别" X="0" Y="0"/>
+                                    <Dict Key="CapacityCategoriesID__mirror" Caption="能力类别" BuddyKey="Inner_CapacityCategoriesID__mirror" X="1" Y="0" Visible="true" Enable="!ReadOnly()" ItemKey="PP_CapacityCategories" BindingCellKey="CapacityCategoriesID"/>
+                                    <Label Key="Inner_PooledCapacityID__mirror" Caption="共享能力" X="2" Y="0"/>
+                                    <Dict Key="PooledCapacityID__mirror" Caption="共享能力" BuddyKey="Inner_PooledCapacityID__mirror" X="3" Y="0" Visible="true" Enable="!ReadOnly()" ItemKey="PP_Capacity" BindingCellKey="PooledCapacityID"/>
+                                    <Label Key="Inner_SetupFormulaID__mirror" Caption="准备公式" X="0" Y="1"/>
+                                    <Dict Key="SetupFormulaID__mirror" Caption="准备公式" BuddyKey="Inner_SetupFormulaID__mirror" X="1" Y="1" Visible="true" Enable="!ReadOnly()" ItemKey="PP_FormulaKey" BindingCellKey="SetupFormulaID"/>
+                                    <Label Key="Inner_ProcessingFormulaID__mirror" Caption="加工公式" X="2" Y="1"/>
+                                    <Dict Key="ProcessingFormulaID__mirror" Caption="加工公式" BuddyKey="Inner_ProcessingFormulaID__mirror" X="3" Y="1" Visible="true" Enable="!ReadOnly()" ItemKey="PP_FormulaKey" BindingCellKey="ProcessingFormulaID"/>
+                                    <Label Key="Inner_TeardownFormulaID__mirror" Caption="拆卸公式" X="0" Y="2"/>
+                                    <Dict Key="TeardownFormulaID__mirror" Caption="拆卸公式" BuddyKey="Inner_TeardownFormulaID__mirror" X="1" Y="2" Visible="true" Enable="!ReadOnly()" ItemKey="PP_FormulaKey" BindingCellKey="TeardownFormulaID"/>
+                                    <Label Key="Inner_OtherFormulaID__mirror" Caption="其他公式" X="2" Y="2"/>
+                                    <Dict Key="OtherFormulaID__mirror" Caption="其他公式" BuddyKey="Inner_OtherFormulaID__mirror" X="3" Y="2" Visible="true" Enable="!ReadOnly()" ItemKey="PP_FormulaKey" BindingCellKey="OtherFormulaID"/>
+                                    <RowDefCollection RowGap="5">
+                                        <RowDef Height="30px"/>
+                                        <RowDef Height="30px"/>
+                                        <RowDef Height="30px"/>
+                                    </RowDefCollection>
+                                    <ColumnDefCollection ColumnGap="5">
+                                        <ColumnDef Width="100px"/>
+                                        <ColumnDef Width="80px"/>
+                                        <ColumnDef Width="100px"/>
+                                        <ColumnDef Width="80px"/>
+                                    </ColumnDefCollection>
+                                </GridLayoutPanel>
+                            </SubDetail>
+                            <SubDetail BindingGridKey="grid1" Caption="间隔和班次" Key="subDetail_TAB6">
+                                <GridLayoutPanel Key="TAB6" Padding="8px" Caption="间隔和班次">
+                                    <RowDefCollection RowGap="5"/>
+                                    <ColumnDefCollection ColumnGap="5"/>
+                                </GridLayoutPanel>
+                            </SubDetail>
+                        </TabPanel>
+                        <SplitSize Size="40%"/>
+                        <SplitSize Size="60%"/>
+                    </SplitPanel>
+                    <GridLayoutPanel Key="TAB3" Padding="8px" Caption="计划">
+                        <Label Key="Inner_Scheduling_CapacityCategoriesID" Caption="能力类别" X="0" Y="0"/>
+                        <Dict Key="Scheduling_CapacityCategoriesID" Caption="能力类别" BuddyKey="Inner_Scheduling_CapacityCategoriesID" X="1" Y="0" Visible="true" Enable="!ReadOnly()" ItemKey="PP_CapacityCategories">
+                            <DataBinding TableKey="BK_WorkCenter" ColumnKey="CapacityCategoriesID" CheckRule="iif(value('Scheduling_CapacityCategoriesID')&gt;0, iif(com.bokesoft.erp.crp.ui.CapacityInWorkCenter.checkCapacityExist(), true, '计划能力类别在能力tab页不存在'), true)"/>
+                        </Dict>
+                        <Label Key="Inner_Scheduling_CapacityID" Caption="能力" X="0" Y="1"/>
+                        <Dict Key="Scheduling_CapacityID" Caption="能力" BuddyKey="Inner_Scheduling_CapacityID" X="1" Y="1" Visible="true" Enable="!ReadOnly()" ItemKey="PP_Capacity">
+                            <DataBinding TableKey="BK_WorkCenter" ColumnKey="CapacityID"/>
+                        </Dict>
+                        <Label Key="Inner_Scheduling_SetupFormulaID" Caption="准备公式" X="0" Y="2"/>
+                        <Dict Key="Scheduling_SetupFormulaID" Caption="准备公式" BuddyKey="Inner_Scheduling_SetupFormulaID" X="1" Y="2" Visible="true" Enable="!ReadOnly()" ItemKey="PP_FormulaKey">
+                            <DataBinding TableKey="BK_WorkCenter" ColumnKey="SetupFormulaID"/>
+                        </Dict>
+                        <Label Key="Inner_Scheduling_ProcessingFormulaID" Caption="加工公式" X="0" Y="3"/>
+                        <Dict Key="Scheduling_ProcessingFormulaID" Caption="加工公式" BuddyKey="Inner_Scheduling_ProcessingFormulaID" X="1" Y="3" Visible="true" Enable="!ReadOnly()" ItemKey="PP_FormulaKey">
+                            <DataBinding TableKey="BK_WorkCenter" ColumnKey="ProcessingFormulaID"/>
+                        </Dict>
+                        <Label Key="Inner_Scheduling_TeardownFormulaID" Caption="拆卸公式" X="0" Y="4"/>
+                        <Dict Key="Scheduling_TeardownFormulaID" Caption="拆卸公式" BuddyKey="Inner_Scheduling_TeardownFormulaID" X="1" Y="4" Visible="true" Enable="!ReadOnly()" ItemKey="PP_Formula">
+                            <DataBinding TableKey="BK_WorkCenter" ColumnKey="TeardownFormulaID"/>
+                        </Dict>
+                        <Label Key="Inner_Scheduling_OtherFormulaID" Caption="其他公式" X="0" Y="5"/>
+                        <Dict Key="Scheduling_OtherFormulaID" Caption="其他公式" BuddyKey="Inner_Scheduling_OtherFormulaID" X="1" Y="5" Visible="true" Enable="!ReadOnly()" ItemKey="PP_FormulaKey">
+                            <DataBinding TableKey="BK_WorkCenter" ColumnKey="OtherFormulaID"/>
+                        </Dict>
+                        <RowDefCollection RowGap="5">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="5">
+                            <ColumnDef Width="100px"/>
+                            <ColumnDef Width="330px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <SplitPanel Key="P3" Orientation="Vertical" Caption="成本核算信息">
+                        <GridLayoutPanel Key="TAB1" Padding="8px">
+                            <Label Key="Inner_ControllingAreaID" Caption="控制范围" X="0" Y="2"/>
+                            <Dict Key="ControllingAreaID" Caption="控制范围" BuddyKey="Inner_ControllingAreaID" X="1" Y="2" Visible="true" Enable="false" ItemKey="controllingArea">
+                                <DataBinding TableKey="BK_WorkCenter" ColumnKey="ControllingAreaID" DefaultFormulaValue="com.bokesoft.erp.pp.ui.RoutingFormula.getControllingAreaByPlantID(Value('HeadPlantID'))"/>
+                            </Dict>
+                            <Label Key="Inner_ValidDateFrom" Caption="起效日期" X="0" Y="0"/>
+                            <DatePicker Key="ValidDateFrom" Caption="起效日期" BuddyKey="Inner_ValidDateFrom" X="1" Y="0" Visible="true" Enable="!ReadOnly()">
+                                <DataBinding TableKey="BK_WorkCenter" ColumnKey="ValidDateFrom" DefaultFormulaValue="DateInt()" CheckRule="iif(ValidDateEnd&lt;ValidDateFrom, '结束日期必须大于等于开始日期', true)"/>
+                            </DatePicker>
+                            <Label Key="Inner_CostCenterID" Caption="成本中心" X="0" Y="3"/>
+                            <Dict Key="CostCenterID" Caption="成本中心" BuddyKey="Inner_CostCenterID" X="1" Y="3" Visible="true" Enable="!ReadOnly()" ItemKey="CostCenter">
+                                <DataBinding TableKey="BK_WorkCenter" ColumnKey="CostCenterID" CheckRule="iifs(CostCenterID=-1, '请输入成本中心', true, true)"/>
+                            </Dict>
+                            <Label Key="Inner_ValidDateEnd" Caption="结束日期" X="0" Y="1"/>
+                            <DatePicker Key="ValidDateEnd" Caption="结束日期" BuddyKey="Inner_ValidDateEnd" X="1" Y="1" Visible="true" Enable="!ReadOnly()">
+                                <DataBinding TableKey="BK_WorkCenter" ColumnKey="ValidDateEnd" CheckRule="iif(ValidDateEnd&lt;ValidDateFrom, '结束日期必须大于等于开始日期', true)"/>
+                            </DatePicker>
+                            <RowDefCollection RowGap="5">
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="5">
+                                <ColumnDef Width="80px"/>
+                                <ColumnDef Width="330px"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                        <GridLayoutPanel Key="P4" Padding="8px">
+                            <Grid Key="grid0" X="0" Y="0">
+                                <GridColumnCollection>
+                                    <GridColumn Key="RowNo" Caption="行号" Width="80px"/>
+                                    <GridColumn Key="ParameterID" Caption="参数" Width="80px"/>
+                                    <GridColumn Key="ActivityTypeID" Caption="作业类型" Width="80px"/>
+                                    <GridColumn Key="ActivityTypeUnitID" Caption="作业单位" Width="80px"/>
+                                    <GridColumn Key="Formula" Caption="计算公式" Width="80px"/>
+                                </GridColumnCollection>
+                                <GridRowCollection>
+                                    <GridRow Key="row1" TableKey="BK_WorkCenter_ParaActivity">
+                                        <GridCell Key="RowNo" Caption="行号">
+                                            <DataBinding ColumnKey="RowNo"/>
+                                        </GridCell>
+                                        <GridCell Key="ParameterID" Caption="参数" CellType="Dict" ItemKey="PP_Parameter">
+                                            <DataBinding ColumnKey="parameterid"/>
+                                        </GridCell>
+                                        <GridCell Key="ActivityTypeID" Caption="作业类型" CellType="Dict" ItemKey="ActivityType">
+                                            <DataBinding ColumnKey="activitytypeid"/>
+                                        </GridCell>
+                                        <GridCell Key="ActivityTypeUnitID" Caption="作业单位" CellType="Dict" ItemKey="Unit">
+                                            <DataBinding ColumnKey="activitytypeunitid"/>
+                                        </GridCell>
+                                        <GridCell Key="Formula" Caption="计算公式" CellType="Dict" ItemKey="PP_FormulaKey">
+                                            <DataBinding ColumnKey="formula"/>
+                                        </GridCell>
+                                    </GridRow>
+                                </GridRowCollection>
+                            </Grid>
+                            <RowDefCollection RowGap="5">
+                                <RowDef Height="100%"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="5">
+                                <ColumnDef Width="100%"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                        <SplitSize Size="135px"/>
+                        <SplitSize Size="100%"/>
+                    </SplitPanel>
+                    <GridLayoutPanel Key="body_system" Padding="8px" Caption="系统信息(&amp;D)">
+                        <Label Key="Inner_Status" Caption="结点状态" X="0" Y="1"/>
+                        <ComboBox Key="Status" Caption="结点状态" BuddyKey="Inner_Status" X="1" Y="1" Visible="true" Enable="false">
+                            <DataBinding TableKey="BK_WorkCenter" ColumnKey="Status"/>
+                        </ComboBox>
+                        <Label Key="Inner_CreateByID" Caption="创建人员" X="0" Y="2"/>
+                        <Dict Key="CreateByID" Caption="创建人员" BuddyKey="Inner_CreateByID" X="1" Y="2" Visible="true" Enable="false" ItemKey="Operator">
+                            <DataBinding TableKey="BK_WorkCenter" ColumnKey="CREATOR" DefaultFormulaValue="GetOperator()"/>
+                        </Dict>
+                        <Label Key="Inner_CreateTime" Caption="创建时间" X="0" Y="3"/>
+                        <DatePicker Key="CreateTime" Caption="创建时间" BuddyKey="Inner_CreateTime" X="1" Y="3" Visible="true" Enable="false" OnlyDate="false">
+                            <DataBinding TableKey="BK_WorkCenter" ColumnKey="CREATETIME" DefaultFormulaValue="ServerDate()"/>
+                        </DatePicker>
+                        <Label Key="Inner_UpdateByID" Caption="修改人员" X="0" Y="4"/>
+                        <Dict Key="UpdateByID" Caption="修改人员" BuddyKey="Inner_UpdateByID" X="1" Y="4" Visible="true" Enable="false" ItemKey="Operator">
+                            <DataBinding TableKey="BK_WorkCenter" ColumnKey="MODIFIER" DefaultFormulaValue="GetOperator()"/>
+                        </Dict>
+                        <Label Key="Inner_UpdateTime" Caption="修改时间" X="0" Y="5"/>
+                        <DatePicker Key="UpdateTime" Caption="修改时间" BuddyKey="Inner_UpdateTime" X="1" Y="5" Visible="true" Enable="false" OnlyDate="false">
+                            <DataBinding TableKey="BK_WorkCenter" ColumnKey="MODIFYTIME" DefaultFormulaValue="ServerDate()"/>
+                        </DatePicker>
+                        <Label Key="Inner_Notes" Caption="备注" X="0" Y="6"/>
+                        <TextEditor Key="Notes" Caption="备注" BuddyKey="Inner_Notes" X="1" Y="6" Visible="true" Enable="!ReadOnly()">
+                            <DataBinding TableKey="BK_WorkCenter" ColumnKey="Notes"/>
+                        </TextEditor>
+                        <Label Key="Inner_ClientID" Caption="集团" X="0" Y="0"/>
+                        <Dict Key="ClientID" Caption="集团" BuddyKey="Inner_ClientID" X="1" Y="0" Visible="true" Enable="false" ItemKey="Client">
+                            <DataBinding TableKey="BK_WorkCenter" ColumnKey="clientid" DefaultFormulaValue="getClientID()"/>
+                        </Dict>
+                        <RowDefCollection RowGap="5">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="5">
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="330px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                </TabPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

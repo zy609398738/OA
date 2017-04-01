@@ -1,0 +1,12 @@
+{
+	"@type":"com.bokesoft.cms2.impl.buildin.modelio.vo.PageVO",
+	"attributes":{"@type":"java.util.LinkedHashMap"},
+	"code":"@index",
+	"deliveryVOs":[],
+	"enabled":true,
+	"groups":[],
+	"name":"党建文化",
+	"title":"党建文化",
+	"tmplCode":"HOME.HOME-TPL",
+	"url":"/partyculture.page"
+}

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Caption="#BillCaption#" FormType="Dict" Key="#BillKey#">
+    <DataSource>
+        <DataObject Caption="#BillCaption#" Key="#BillKey#" PrimaryTableKey="#BillKey#Head" PrimaryType="Entity" SecondaryType="Dict">
+            <TableCollection>
+                <Table Caption="字典模板" DBTableName="#BillKey#Head" Key="#BillKey#Head">
+                    <Column Caption="对象标识" DataType="Long" Key="OID"/>
+                    <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+                    <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+                    <Column Caption="对象版本" DataType="Integer" Key="VERID"/>
+                    <Column Caption="对象明细版本" DataType="Integer" Key="DVERID"/>
+                    <Column Caption="节点类型" DataType="Integer" DefaultValue="0" Key="NodeType"/>
+                    <Column Caption="状态" DataType="Integer" DefaultValue="1" Key="Status"/>
+                    <Column Caption="启用标记" DataType="Integer" DefaultValue="1" Key="Enable"/>
+                    <Column Caption="父节点" DataType="Long" DefaultValue="0" Key="ParentID"/>
+                    <Column Caption="TLeft" DataType="Integer" Key="TLeft"/>
+                    <Column Caption="TRight" DataType="Integer" Key="TRight"/>
+                    <Column Caption="代码" DataType="Varchar" Key="Code" Length="50"/>
+                    <Column Caption="名称" DataType="Varchar" Key="Name" Length="50"/>
+                    <Column Caption="创建人员" DataType="Long" Key="Creator"/>
+                    <Column Caption="创建时间" DataType="DateTime" Key="CreateTime"/>
+                    <Column Caption="修改人员" DataType="Long" Key="Modifier"/>
+                    <Column Caption="修改时间" DataType="DateTime" Key="ModifyTime"/>
+                    <Column Caption="备注" DataType="Varchar" Key="Notes" Length="255"/>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <ScriptCollection>
+        <Script Caption="载入" Description="载入事件" Key="Load" Range="Action" Verb="Load"><![CDATA[LoadData();ShowData();]]></Script>
+    </ScriptCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="main">
+                <TabPanel Height="100%" Key="main_tab">
+                    <GridLayoutPanel Caption="基本信息" Height="100%" Key="Basic" Padding="5px">
+                        <Label Caption="代码" Key="L_Code" X="1" Y="0"/>
+                        <TextEditor Caption="代码" Case="Upper" Key="Code" X="2" Y="0">
+                            <DataBinding ColumnKey="Code" TableKey="#BillKey#Head"/>
+                        </TextEditor>
+                        <Label Caption="名称" Key="L_Name" X="4" Y="0"/>
+                        <TextEditor Caption="名称" Key="Name" X="5" Y="0">
+                            <DataBinding ColumnKey="Name" TableKey="#BillKey#Head"/>
+                        </TextEditor>
+                        <RowDefCollection RowGap="5" RowHeight="25">
+                            <RowDef/>
+                            <RowDef/>
+                            <RowDef/>
+                            <RowDef/>
+                            <RowDef/>
+                            <RowDef/>
+                            <RowDef/>
+                            <RowDef/>
+                            <RowDef/>
+                            <RowDef/>
+                            <RowDef/>
+                            <RowDef/>
+                        </RowDefCollection>
+                        <ColumnDefCollection>
+                            <ColumnDef Width="8px"/>
+                            <ColumnDef Width="170px"/>
+                            <ColumnDef Width="50%"/>
+                            <ColumnDef Width="30px"/>
+                            <ColumnDef Width="170px"/>
+                            <ColumnDef Width="50%"/>
+                            <ColumnDef Width="8px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <GridLayoutPanel Caption="系统信息" Height="100%" Key="SystemInfo" Padding="5">
+                        <Label Caption="创建人员" Key="L_Creator" X="1" Y="0"/>
+                        <Dict Caption="创建人员" ItemKey="Operator" Key="Creator" X="2" Y="0">
+                            <DataBinding ColumnKey="Creator" DefaultFormulaValue="GetOperator()" TableKey="#BillKey#Head"/>
+                        </Dict>
+                        <Label Caption="创建时间" Key="L_CreateTime" X="1" Y="1"/>
+                        <DatePicker BuddyKey="L_CreateTime" Caption="创建时间" Format="yyyy-MM-dd HH:mm:ss" Key="CreateTime" X="2" Y="1">
+                            <DataBinding ColumnKey="CreateTime" DefaultFormulaValue="ServerDate()" TableKey="#BillKey#Head"/>
+                        </DatePicker>
+                        <Label Caption="修改人员" Key="L_Modifier" X="1" Y="2"/>
+                        <Dict Caption="修改人员" ItemKey="Operator" Key="Modifier" X="2" Y="2">
+                            <DataBinding ColumnKey="Modifier" DefaultFormulaValue="GetOperator()" TableKey="#BillKey#Head"/>
+                        </Dict>
+                        <Label Caption="修改时间" Key="L_ModifyTime" X="1" Y="3"/>
+                        <DatePicker BuddyKey="L_ModifyTime" Caption="修改时间" Format="yyyy-MM-dd HH:mm:ss" Key="ModifyTime" X="2" Y="3">
+                            <DataBinding ColumnKey="ModifyTime" DefaultFormulaValue="ServerDate()" TableKey="#BillKey#Head"/>
+                        </DatePicker>
+                        <Label Caption="备注" Key="L_Notes" X="1" Y="4"/>
+                        <TextEditor Caption="备注" Key="Notes" X="2" Y="4">
+                            <DataBinding ColumnKey="Notes" TableKey="#BillKey#Head"/>
+                        </TextEditor>
+                        <RowDefCollection RowGap="5" RowHeight="25">
+                            <RowDef/>
+                            <RowDef/>
+                            <RowDef/>
+                            <RowDef/>
+                            <RowDef/>
+                            <RowDef/>
+                        </RowDefCollection>
+                        <ColumnDefCollection>
+                            <ColumnDef Width="8px"/>
+                            <ColumnDef Width="170px"/>
+                            <ColumnDef Width="100%"/>
+                            <ColumnDef Width="8px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                </TabPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

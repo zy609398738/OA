@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="NJ_InventoryCount" Caption="库存盘点情况" FormType="Entity" AbbrCaption="库存盘点情况" InitState="Default">
+    <DataSource>
+        <DataObject Key="NJ_InventoryCount" Caption="库存盘点情况" PrimaryTableKey="NJ_InventoryCount" PrimaryType="Entity">
+            <TableCollection>
+                <Table Key="NJ_InventoryCount" Caption="NJ_InventoryCount" DBTableName="NJ_InventoryCount" TableMode="Detail" SourceType="Query">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="assetstypeid" Caption="assetstypeid" DataType="Long"/>
+                    <Column Key="Model" Caption="Model" DataType="Varchar"/>
+                    <Column Key="UNITID" Caption="UNITID" DataType="Long"/>
+                    <Column Key="WareHouseId" Caption="WareHouseId" DataType="Long"/>
+                    <Column Key="MapCount" Caption="映射数量标记" DataType="Integer"/>
+                    <Column Key="AssetNatureId" Caption="AssetNatureId" DataType="Long"/>
+                    <Column Key="BookAmount" Caption="BookAmount" DataType="Integer"/>
+                    <Column Key="ActualAmount" Caption="ActualAmount" DataType="Integer"/>
+                    <Column Key="CheckDate_cond" Caption="CheckDate_cond" DataType="Long"/>
+                    <ParameterCollection>
+                        <Parameter DataType="Long" Formula="GetPara('CheckDate_cond')"/>
+                    </ParameterCollection>
+                    <Statement>
+                        <![CDATA[SELECT  AssetsBarId OId,WareHouseId,assetstypeid,Model,UNITID,AssetNatureId,CAST(sum(ActualAmount) AS SIGNED) ActualAmount,CAST(sum(BookAmount) AS SIGNED) BookAmount FROM (SELECT AssetsBarId,WareHouseId,assetstypeid,Model,UNITID,AssetNatureId,count(*) ActualAmount,0 BookAmount FROM (select DISTINCT a.AssetsCode,AssetsBarId,c.WareHouseId,c.assetstypeid,c.Model,c.UNITID,c.AssetNatureId,d.CheckDate from NJ_SCM_StockCodeDtl a left join NJ_SCM_AssetCode b ON a.AssetsCode=b.AssetsCode left JOIN NJ_CP_assets c ON b.AssetsBarId=c.OID LEFT JOIN NJ_SCM_StockCodeHead d ON a.SOID=d.OID) a where CheckDate=? GROUP BY AssetsBarId,WareHouseId,assetstypeid,Model,UNITID,AssetNatureId union ALL select AssetsId,WareHouseId,assetstypeid,Model,UNITID,AssetNatureId,0 ActualAmount,Amount FROM NJ_Inventory WHERE amount>0) aa GROUP BY AssetsBarId,WareHouseId,assetstypeid,Model,UNITID,AssetNatureId]]>
+                    </Statement>
+                </Table>
+                <Table Key="NJ_InventoryCountCode" Caption="NJ_InventoryCountCode" TableMode="Detail" SourceType="Query" ParentKey="NJ_InventoryCount" OrderBy="AssetsCode">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="AssetsCode" Caption="AssetsCode" DataType="Varchar"/>
+                    <Column Key="AssetsAmount" Caption="AssetsAmount" DataType="Integer"/>
+                    <ParameterCollection>
+                        <Parameter DataType="Long" Formula="GetPara('CheckDate_cond')"/>
+                    </ParameterCollection>
+                    <Statement>
+                        <![CDATA[SELECT a.AssetsBarId POID,a.AssetsCode,case when AssetsAmount=1 THEN -1 ELSE 1 END AssetsAmount FROM (select AssetsBarId,AssetsCode,CAST(sum(AssetsAmount) AS SIGNED) AssetsAmount from NJ_SCM_AssetCode GROUP BY AssetsBarId,AssetsCode) a LEFT JOIN (select DISTINCT AssetsCode from NJ_SCM_StockCodeHead a left join NJ_SCM_StockCodeDtl b on a.OID=b.SOID WHERE CheckDate=?) b ON a.AssetsCode=b.AssetsCode where (AssetsAmount=1 AND b.AssetsCode is NULL) OR (AssetsAmount=0 AND b.AssetsCode is NOT NULL)]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="WORKITEM" Caption="WORKITEM" Tag="WORKITEM"/>
+        <Operation Key="BPM" Caption="BPM" Tag="BPM"/>
+    </OperationCollection>
+    <ScriptCollection>
+        <Script Key="Load" Caption="载入" Description="载入事件" Range="Action" Verb="Load">
+            <![CDATA[
+		LoadData();ShowData()
+		]]>
+        </Script>
+    </ScriptCollection>
+    <Body HAlign="Center" Height="80%" PopHeight="80%" PopWidth="80%" Width="80%">
+        <Block>
+            <GridLayoutPanel Key="main" Height="100%">
+                <ToolBar Key="main_toolbar" X="0" Y="0">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <SplitPanel Key="main_split" Orientation="Vertical" Height="100%" X="0" Y="1">
+                    <GridLayoutPanel Key="query" Height="70px" Padding="5px" Caption="查询">
+                        <Button Key="XIATUI" Caption="下推" X="6" Y="0" Enable="true">
+                            <OnClick>
+                                <![CDATA[IIFS
+(
+GetPara('key')=='NJ_AssetsInventory', ViewMap('NJ_InventoryCount_NJ_AssetsInventory',false)
+);
+Close();]]>
+                            </OnClick>
+                        </Button>
+                        <Dict Key="CheckDate" Caption="盘点期数 *" BuddyKey="Lab_CheckDate" X="2" Y="0" Enable="true" ItemKey="NJ_CheckDate" Clearable="false">
+                            <DataBinding Required="true">
+                                <ValueChanged>
+                                    <![CDATA[SetPara('CheckDate_cond', GetValue('CheckDate'));]]>
+                                </ValueChanged>
+                            </DataBinding>
+                        </Dict>
+                        <Label Key="Lab_CheckDate" Caption="盘点期数" X="1" Y="0"/>
+                        <Button Key="cx" Caption="查询" X="4" Y="0" Enable="true">
+                            <OnClick>
+                                <![CDATA[IIF(GetValue('CheckDate')>0,true,RaiseErr('请先选择盘点期数！'));
+DealCondition();LoadData();ShowData();]]>
+                            </OnClick>
+                        </Button>
+                        <RowDefCollection RowHeight="25" RowGap="5">
+                            <RowDef/>
+                        </RowDefCollection>
+                        <ColumnDefCollection>
+                            <ColumnDef Width="20px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="50%"/>
+                            <ColumnDef Width="20px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="20px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="50%"/>
+                            <ColumnDef Width="20px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <TabPanel Caption="TabPanel1" Key="TabPanel1">
+                        <Grid Key="Grid1" Caption="资产信息" NewEmptyRow="false" Enable="true" CanDelete="false" CanInsert="false" CanShift="false">
+                            <GridColumnCollection>
+                                <GridColumn Key="OID" Caption="资产名称" Width="80px"/>
+                                <GridColumn Key="WareHouseId" Caption="资产大类" Width="80px"/>
+                                <GridColumn Key="assetstypeid" Caption="资产类别" Width="80px"/>
+                                <GridColumn Key="AssetNatureId" Caption="资产性质" Width="80px"/>
+                                <GridColumn Key="Model" Caption="规格型号" Width="80px"/>
+                                <GridColumn Key="UNITID" Caption="计量单位" Width="80px"/>
+                                <GridColumn Key="BookAmount" Caption="账面数量" Width="80px"/>
+                                <GridColumn Key="ActualAmount" Caption="实盘数量" Width="80px"/>
+                            </GridColumnCollection>
+                            <GridRowCollection>
+                                <GridRow Key="R2" TableKey="NJ_InventoryCount">
+                                    <GridCell Key="OID" Caption="资产名称" CellType="Dict" ItemKey="NJ_assets">
+                                        <DataBinding ColumnKey="OID"/>
+                                    </GridCell>
+                                    <GridCell Key="WareHouseId" Caption="资产大类" CellType="Dict" ItemKey="NJ_WareHouse">
+                                        <DataBinding ColumnKey="WareHouseId"/>
+                                    </GridCell>
+                                    <GridCell Key="assetstypeid" Caption="资产类别" CellType="Dict" ItemKey="NJ_assetstype">
+                                        <DataBinding ColumnKey="assetstypeid"/>
+                                    </GridCell>
+                                    <GridCell Key="AssetNatureId" Caption="资产性质" CellType="Dict" ItemKey="NJ_AssetNature">
+                                        <DataBinding ColumnKey="AssetNatureId"/>
+                                    </GridCell>
+                                    <GridCell Key="Model" Caption="规格型号" CellType="TextEditor">
+                                        <DataBinding ColumnKey="Model"/>
+                                    </GridCell>
+                                    <GridCell Key="UNITID" Caption="计量单位" CellType="Dict" ItemKey="NJ_UNIT">
+                                        <DataBinding ColumnKey="UNITID"/>
+                                    </GridCell>
+                                    <GridCell Key="BookAmount" Caption="账面数量" CellType="NumberEditor" IntegerValue="true" Scale="0">
+                                        <DataBinding ColumnKey="BookAmount"/>
+                                        <CellFormat HAlign="Right"/>
+                                    </GridCell>
+                                    <GridCell Key="ActualAmount" Caption="实盘数量" CellType="NumberEditor" IntegerValue="true">
+                                        <DataBinding ColumnKey="ActualAmount"/>
+                                        <CellFormat HAlign="Right"/>
+                                    </GridCell>
+                                </GridRow>
+                            </GridRowCollection>
+                        </Grid>
+                        <Grid Key="Grid2" Caption="编码信息">
+                            <GridColumnCollection>
+                                <GridColumn Key="POID" Caption="资产名称" Width="80px"/>
+                                <GridColumn Key="AssetsCode" Caption="资产编码" Width="80px"/>
+                                <GridColumn Key="AssetsAmount" Caption="类型" Width="80px"/>
+                            </GridColumnCollection>
+                            <GridRowCollection>
+                                <GridRow Key="row1" RowHeight="35" TableKey="NJ_InventoryCountCode">
+                                    <GridCell Key="POID" Caption="资产名称" CellType="Dict" ItemKey="NJ_assets">
+                                        <DataBinding ColumnKey="POID"/>
+                                    </GridCell>
+                                    <GridCell Key="AssetsCode" Caption="资产编码" CellType="TextEditor">
+                                        <DataBinding ColumnKey="AssetsCode"/>
+                                    </GridCell>
+                                    <GridCell Key="AssetsAmount" Caption="类型" CellType="ComboBox">
+                                        <DataBinding ColumnKey="AssetsAmount"/>
+                                        <Item Caption="盘亏" Key="0" Value="-1"/>
+                                        <Item Caption="盘盈" Key="1" Value="1"/>
+                                    </GridCell>
+                                </GridRow>
+                            </GridRowCollection>
+                        </Grid>
+                    </TabPanel>
+                    <SplitSize Size="40px"/>
+                    <SplitSize Size="100%"/>
+                </SplitPanel>
+                <RowDefCollection RowHeight="25">
+                    <RowDef Height="0px"/>
+                    <RowDef Height="100%"/>
+                </RowDefCollection>
+                <ColumnDefCollection>
+                    <ColumnDef Width="100%"/>
+                </ColumnDefCollection>
+            </GridLayoutPanel>
+        </Block>
+    </Body>
+</Form>

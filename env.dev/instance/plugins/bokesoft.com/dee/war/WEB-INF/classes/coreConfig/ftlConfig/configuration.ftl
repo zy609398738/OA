@@ -1,0 +1,3 @@
+
+<configuration defaultResponseTimeout="${freeMarkerData}"></configuration>
+	

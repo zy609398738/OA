@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="OA_ReadTotalReport" Caption="传阅统计表" FormType="Report" Platform="">
+    <DataSource>
+        <DataObject Key="OA_ReadTotalReport" Caption="传阅统计表">
+            <TableCollection>
+                <Table Key="OA_ReadTotalReport" Caption="传阅统计表" TableMode="Detail" SourceType="Interface" Persist="false" Impl="com.bokesoft.oa.mid.report.GetSumDataTable">
+                    <Column Key="Amount" Caption="传阅数量" DataType="Integer"/>
+                    <Column Key="Status" Caption="阅读状态" DataType="Integer"/>
+                    <Column Key="ReadTime" Caption="阅读时间" DataType="DateTime"/>
+                    <Column Key="BillKey" Caption="业务类型" DataType="Varchar"/>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板">
+                <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <GridLayoutPanel Key="first_head" Height="pref" Caption="基本信息">
+                    <Button Key="Query" Caption="查询" X="6" Y="0">
+                        <OnClick>
+                            <![CDATA[DealCondition();
+LoadData();
+ShowData();]]>
+                        </OnClick>
+                    </Button>
+                    <Button Key="Reset" Caption="重置" X="6" Y="1">
+                        <OnClick>
+                            <![CDATA[ResetCondition()]]>
+                        </OnClick>
+                    </Button>
+                    <DatePicker Key="From" Caption="阅读时间从" BuddyKey="Lab_From" X="1" Y="0">
+                        <Condition ColumnKey="ReadTime" TableKey="OA_ReadTotalReport" CondSign="between" Group="A" GroupHead="true"/>
+                    </DatePicker>
+                    <Label Key="Lab_From" Caption="阅读时间从" X="0" Y="0"/>
+                    <DatePicker Key="To" Caption="到" BuddyKey="Lab_To" X="3" Y="0">
+                        <Condition ColumnKey="ReadTime" TableKey="OA_ReadTotalReport" CondSign="between" Group="A" GroupTail="true"/>
+                    </DatePicker>
+                    <Label Key="Lab_To" Caption="到" X="2" Y="0"/>
+                    <CheckListBox BuddyKey="Lab_Q_BillKey" Caption="业务类型" Key="Q_BillKey" X="5" Y="0" SourceType="Formula">
+                        <Condition ColumnKey="BillKey" TableKey="OA_ReadTotalReport" CondSign="in"/>
+                        <FormulaItems>
+                            <![CDATA[GetFormByType("Entity")]]>
+                        </FormulaItems>
+                    </CheckListBox>
+                    <Label Key="Lab_Q_BillKey" Caption="业务类型" X="4" Y="0"/>
+                    <CheckListBox BuddyKey="Lab_Q_ReadStatus" Caption="传阅状态" Key="Q_ReadStatus" X="1" Y="1">
+                        <Condition ColumnKey="Status" TableKey="OA_ReadTotalReport" CondSign="in"/>
+                        <Item Caption="待阅" Key="10" Value="10"/>
+                        <Item Caption="已阅" Key="20" Value="20"/>
+                        <Item Key="0" Value="0"/>
+                    </CheckListBox>
+                    <Label Key="Lab_Q_ReadStatus" Caption="传阅状态" X="0" Y="1"/>
+                    <RowDefCollection RowGap="8">
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="8">
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="33%"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="33%"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="34%"/>
+                        <ColumnDef Width="80px"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+                <Grid Key="Grid1" Caption="Grid1" NewEmptyRow="false" Enable="false" Height="100%" PageLoadType="DB">
+                    <GridColumnCollection>
+                        <GridColumn Key="BillKey" Caption="业务类型" Width="200px"/>
+                        <GridColumn Key="Status" Caption="传阅状态" Width="120px"/>
+                        <GridColumn Key="Amount" Caption="数量" Width="80px"/>
+                    </GridColumnCollection>
+                    <GridRowCollection>
+                        <GridRow Key="row1" RowHeight="35" TableKey="OA_ReadTotalReport">
+                            <GridCell Key="BillKey" Caption="业务类型" CellType="ComboBox" CellSortType="None" SourceType="Formula">
+                                <DataBinding ColumnKey="BillKey"/>
+                                <FormulaItems>
+                                    <![CDATA[GetFormByType("Entity")]]>
+                                </FormulaItems>
+                            </GridCell>
+                            <GridCell Key="Status" Caption="传阅状态" CellType="ComboBox">
+                                <DataBinding ColumnKey="Status"/>
+                                <Item Caption="待阅" Key="10" Value="10"/>
+                                <Item Caption="已阅" Key="20" Value="20"/>
+                                <Item Key="0" Value="0"/>
+                            </GridCell>
+                            <GridCell Key="Amount" Caption="数量" CellType="NumberEditor" CellSortType="None" IntegerValue="true">
+                                <DataBinding DefaultValue="1" ColumnKey="Amount"/>
+                            </GridCell>
+                        </GridRow>
+                    </GridRowCollection>
+                </Grid>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

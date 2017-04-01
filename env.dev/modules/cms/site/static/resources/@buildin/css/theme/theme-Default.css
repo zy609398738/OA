@@ -1,0 +1,22 @@
+﻿@charset "utf-8";
+/*
+@名称: default
+@功能: 默认蓝色皮肤
+@使用方法：最后一个样式引入  
+*/
+#nav{
+	
+}
+#logo-img {
+	background: url(../../images/boke-logo.png) 0 0 no-repeat;
+}
+
+ul.tabbernav li.tabberactive a, ul.tabbernav li a:hover {
+	border-bottom-color: #86c6fe;
+}
+.group_Train ul.tabbernav {
+	background-color: #1d73f2;
+}
+.group_Train ul.tabbernav  li a{
+	background-color: #1d73f2;
+}

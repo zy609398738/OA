@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Map Caption="本周计划推上周完成情况填写" Key="OA_WorkCompleteness" SrcDataObjectKey="OA_weeklyreport" TgtDataObjectKey="OA_weeklyreport">
+    <SourceTableCollection Height="540" Width="237" X="30" Y="30">
+        <SourceTable Key="OA_WeeklyReport" IsPrimary="true" TargetTableKey="OA_WeeklyReport">
+            <SourceField Definition="GroupID" TargetFieldKey="GroupID" Editable="false"/>
+            <SourceField Definition="SOID" TargetFieldKey="SourceBillID" Editable="false"/>
+        </SourceTable>
+        <SourceTable Key="OA_TWWork" TargetTableKey="OA_LWWork">
+            <SourceField Definition="MemberID" TargetFieldKey="MemberID" Editable="false"/>
+            <SourceField Definition="SOID" TargetFieldKey="HSourceID" Editable="false"/>
+            <SourceField Definition="OID" TargetFieldKey="DSourceID" Editable="false"/>
+            <SourceField Definition="WorkType" TargetFieldKey="WorkType" Editable="false"/>
+            <SourceField Definition="JobDescribe" TargetFieldKey="JobDescribe" Editable="false"/>
+            <SourceField Definition="Completed" TargetFieldKey="Completed" Editable="false"/>
+            <SourceField Definition="WorkHours" TargetFieldKey="WorkHours" Editable="false"/>
+            <SourceField Definition="Remark" TargetFieldKey="Remark" Editable="false"/>
+            <SourceField Definition="ProjectPhases" TargetFieldKey="ProjectPhases" Editable="false"/>
+            <SourceField Definition="PhaseCompleted" TargetFieldKey="PhaseCompleted" Editable="false"/>
+        </SourceTable>
+    </SourceTableCollection>
+    <TargetTableCollection Height="570" Width="274" X="353" Y="29">
+        <TargetTable Key="OA_WeeklyReport" IsPrimary="true">
+            <TargetField Definition="GroupID"/>
+            <TargetField Definition="SourceBillID"/>
+            <TargetField Definition="1" Type="Const">
+                <Feedback DataObjectKey="OA_weeklyreport" FieldKey="isPushed" TableKey="OA_WeeklyReport" OpSign="AddDelta"/>
+            </TargetField>
+        </TargetTable>
+        <TargetTable Key="OA_LWWork">
+            <TargetField Definition="MemberID"/>
+            <TargetField Definition="HSourceID"/>
+            <TargetField Definition="DSourceID"/>
+            <TargetField Definition="WorkType"/>
+            <TargetField Definition="JobDescribe"/>
+            <TargetField Definition="Completed"/>
+            <TargetField Definition="WorkHours"/>
+            <TargetField Definition="Remark"/>
+            <TargetField Definition="ProjectPhases"/>
+            <TargetField Definition="PhaseCompleted"/>
+        </TargetTable>
+    </TargetTableCollection>
+    <FeedbackCollection>
+        <FeedbackObject Height="150" ObjectKey="OA_weeklyreport" Width="237" X="662" Y="89">
+            <FeedbackTable TableKey="OA_WeeklyReport">
+                <FeedbackField FieldKey="isPushed"/>
+            </FeedbackTable>
+        </FeedbackObject>
+    </FeedbackCollection>
+</Map>

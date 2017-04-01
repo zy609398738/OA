@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="OA_CommonLinkView" Caption="常用链接列表" FormType="View" Platform="">
+    <DataSource>
+        <DataObject Key="OA_CommonLinkView" Caption="常用链接列表">
+            <TableCollection>
+                <Table Key="OA_CommonLink_H" Caption="常用链接列表" DBTableName="OA_CommonLink_H" TableMode="Detail" SourceType="Query" Persist="false">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="NO" Caption="发布编号" DataType="Varchar"/>
+                    <Column Key="BillDate" Caption="发布日期" DataType="DateTime"/>
+                    <Column Key="Status" Caption="单据状态" DataType="Integer"/>
+                    <Column Key="Topic" Caption="主题" DataType="Varchar"/>
+                    <Column Key="EmpID" Caption="创建人" DataType="Long"/>
+                    <Statement>
+                        <![CDATA[select * from OA_CommonLink_H order by BillDate desc]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="ViewNewBill" Caption="新增" RefKey="ViewNewBill"/>
+        <Operation Key="Refresh" Caption="刷新" RefKey="Refresh"/>
+    </OperationCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板">
+                <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <ListView Caption="ListView1" Height="100%" Key="ListView1" PageLoadType="DB" TableKey="OA_CommonLink_H">
+                    <ListViewColumnCollection>
+                        <ListViewColumn Key="NO" Caption="发布编号" DataColumnKey="NO" Width="150px"/>
+                        <ListViewColumn Key="BillDate" Caption="发布日期" ColumnType="DatePicker" DataColumnKey="BillDate" Width="130px"/>
+                        <ListViewColumn Key="Status" Caption="单据状态" ColumnType="ComboBox" DataColumnKey="Status"/>
+                        <ListViewColumn Key="Topic" Caption="主题" DataColumnKey="Topic" Width="200px"/>
+                        <ListViewColumn Key="EmpID" Caption="创建人" ColumnType="Dict" DataColumnKey="EmpID" Width="130px" ItemKey="OA_Employee"/>
+                        <ListViewColumn Key="OID" Caption="OID" DataColumnKey="OID" Visible="false"/>
+                    </ListViewColumnCollection>
+                    <RowDblClick>
+                        <![CDATA[Open(C_GetBillKey(),OID)]]>
+                    </RowDblClick>
+                </ListView>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+    <OnLoad>
+        <![CDATA[LoadData();]]>
+    </OnLoad>
+    <MacroCollection>
+        <Macro Key="C_GetBillKey">
+            <![CDATA[{OA_CommonLink}]]>
+        </Macro>
+    </MacroCollection>
+</Form>

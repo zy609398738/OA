@@ -1,0 +1,23 @@
+{
+	"@type":"com.bokesoft.cms2.model.HtmlTmpl",
+	"code":"LOGIN-TPL",
+	"htmlText":"<!DOCTYPE html>\n<html lang=\"zh-CN\">\n<head>\n <meta http-equiv=\"X-UA-Compatible\" content=\"IE=EmulateIE8\" />\n <meta charset=\"utf-8\">\n <title>博科OA系统登录模板</title>\n</head>\n<body>\n <div yigo-cms:area=\"login\"/>\n</body>\n</html>",
+	"name":"登入模板",
+	"notes":"",
+	"slices":[
+		{
+			"followHtml":"<!DOCTYPE html>\n<html lang=\"zh-CN\">\n<head>\n <meta http-equiv=\"X-UA-Compatible\" content=\"IE=EmulateIE8\" />\n <meta charset=\"utf-8\">\n "
+		},
+		{
+			"code":"博科OA系统登录模板",
+			"followHtml":"\n</head>\n<body>\n ",
+			"tag":"yigo-cms:title"
+		},
+		{
+			"code":"login",
+			"followHtml":"\n</body>\n</html>",
+			"name":"loginform",
+			"tag":"yigo-cms:area"
+		}
+	]
+}

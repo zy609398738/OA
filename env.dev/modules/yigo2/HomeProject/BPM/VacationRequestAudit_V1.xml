@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Process Caption="请假" Key="VacationRequestAudit">
+    <Begin Caption="开始节点" ID="1" Key="Begin">
+        <TransitionCollection>
+            <SequenceFlow Condition="" ID="9" Key="BegintoState" TargetNodeKey="State">
+                <TransitionGraphic LineStyle="StraightLine"/>
+            </SequenceFlow>
+        </TransitionCollection>
+        <NodeGraphic X="14" Y="204"/>
+    </Begin>
+    <State Caption="审核中" ID="2" Key="State" Status="InAudit">
+        <TransitionCollection>
+            <SequenceFlow Condition="" ID="10" Key="StatetoDecision" TargetNodeKey="UserTask3">
+                <TransitionGraphic LineStyle="StraightLine"/>
+            </SequenceFlow>
+        </TransitionCollection>
+        <NodeGraphic X="119" Y="205"/>
+    </State>
+    <Decision Caption="请假类型" Condition="GetValue(&quot;VacationRequest&quot;,&quot;Type&quot;)" ID="3" Key="Decision">
+        <TransitionCollection>
+            <SequenceFlow Condition="1" ID="11" Key="DecisiontoTask01" TargetNodeKey="DayCount">
+                <TransitionGraphic LineStyle="FilletCurveHOne"/>
+            </SequenceFlow>
+            <SequenceFlow Condition="2" ID="12" Key="DecisiontoTask02" TargetNodeKey="UserTask1">
+                <TransitionGraphic LineStyle="StraightLine"/>
+            </SequenceFlow>
+            <SequenceFlow Condition="3" ID="13" Key="DecisiontoTask03" TargetNodeKey="Task03">
+                <TransitionGraphic LineStyle="FilletCurveHOne"/>
+            </SequenceFlow>
+        </TransitionCollection>
+        <NodeGraphic X="359" Y="201"/>
+    </Decision>
+    <UserTask Caption="人事审核病假条" ID="6" Key="Task03">
+        <TransitionCollection>
+            <SequenceFlow Condition="True" ID="16" Key="Task03toJoin" TargetNodeKey="State2">
+                <TransitionGraphic LineStyle="StraightLine"/>
+            </SequenceFlow>
+			<SequenceFlow Condition="False" ID="108" Key="AA3" TargetNodeKey="State1">
+                <TransitionGraphic LineStyle="StraightLine"/>
+            </SequenceFlow>
+        </TransitionCollection>
+        <OperationCollection>
+             <Operation Action="ShowModal(&quot;AuditDialog&quot;)" Caption="审批" Key="op1">
+				<Action>
+					<![CDATA[
+					ShowModal("AuditDialog")
+					]]>
+				</Action>
+			</Operation>
+        </OperationCollection>
+        <AssistanceCollection/>
+        <ParticipatorCollection>
+            <Query>
+				<![CDATA[SELECT  OID FROM GP_Operator]]>	
+			</Query>
+        </ParticipatorCollection>
+        <NodeGraphic X="481" Y="314"/>
+    </UserTask>
+    <End Caption="结束节点" ID="8" Key="End">
+        <TransitionCollection/>
+        <NodeGraphic X="1305" Y="211"/>
+    </End>
+    <Decision Caption="是否超过3天" Key="DayCount" ID="101" Condition="GetValue(&quot;VacationRequest&quot;,&quot;DayCount&quot;)>3">
+        <TransitionCollection>
+            <SequenceFlow Condition="False" ID="17" Key="DayCounttoEnd" TargetNodeKey="State1">
+                <TransitionGraphic LineStyle="StraightLine"/>
+            </SequenceFlow>
+            <SequenceFlow Condition="True" ID="18" Key="DayCounttoUserTask2" TargetNodeKey="UserTask2">
+                <TransitionGraphic LineStyle="StraightLine"/>
+            </SequenceFlow>
+        </TransitionCollection>
+        <NodeGraphic Height="55" Width="53" X="480" Y="83"/>
+    </Decision>
+    <UserTask Caption="人事审核是否有调休时间" Key="UserTask1" ID="102">
+        <TransitionCollection>
+            <SequenceFlow Condition="True" ID="20" Key="AA" TargetNodeKey="State1">
+                <TransitionGraphic LineStyle="StraightLine"/>
+            </SequenceFlow>
+            <SequenceFlow Condition="False" ID="107" Key="AA2" TargetNodeKey="State2">
+                <TransitionGraphic LineStyle="StraightLine"/>
+            </SequenceFlow>
+        </TransitionCollection>
+        <OperationCollection>
+             <Operation Action="ShowModal(&quot;AuditDialog&quot;)" Caption="审批" Key="op1">
+				<Action>
+					<![CDATA[
+					ShowModal("AuditDialog")
+					]]>
+				</Action>
+			</Operation>
+        </OperationCollection>
+        <AssistanceCollection/>
+        <ParticipatorCollection>
+            <Query>
+				<![CDATA[SELECT  OID FROM GP_Operator]]>	
+			</Query>
+        </ParticipatorCollection>
+        <NodeGraphic Height="45" Width="119" X="468" Y="199"/>
+    </UserTask>
+    <UserTask Caption="经理审批" Key="UserTask2" ID="103">
+        <TransitionCollection>
+            <SequenceFlow Condition="True" ID="19" Key="BB" TargetNodeKey="State1">
+                <TransitionGraphic LineStyle="StraightLine"/>
+            </SequenceFlow>
+            <SequenceFlow Condition="False" ID="22" Key="DD" TargetNodeKey="State2">
+                <TransitionGraphic LineStyle="StraightLine"/>
+            </SequenceFlow>
+        </TransitionCollection>
+        <OperationCollection>
+             <Operation Action="ShowModal(&quot;AuditDialog&quot;)" Caption="审批" Key="op1">
+				<Action>
+					<![CDATA[
+					ShowModal("AuditDialog")
+					]]>
+				</Action>
+			</Operation>
+        </OperationCollection>
+        <AssistanceCollection/>
+        <ParticipatorCollection>
+            <Query>
+				<![CDATA[SELECT  OID FROM GP_Operator]]>	
+			</Query>
+        </ParticipatorCollection>
+        <NodeGraphic Height="48" Width="91" X="684" Y="12"/>
+    </UserTask>
+    <State Caption="已批准" Key="State1" ID="104">
+        <TransitionCollection>
+            <SequenceFlow Condition="" ID="21" TargetNodeKey="End">
+                <TransitionGraphic LineStyle="StraightLine"/>
+            </SequenceFlow>
+        </TransitionCollection>
+        <NodeGraphic Height="34" Width="48" X="1069" Y="91"/>
+    </State>
+    <UserTask Caption="部门主管审批" Key="UserTask3" ID="105">
+        <TransitionCollection>
+            <SequenceFlow Condition="" ID="108" TargetNodeKey="Decision">
+                <TransitionGraphic LineStyle="StraightLine"/>
+            </SequenceFlow>
+        </TransitionCollection>
+        <OperationCollection>
+            <Operation Action="ShowModal(&quot;AuditDialog&quot;)" Caption="审批" Key="op1">
+				<Action>
+					<![CDATA[
+					ShowModal("AuditDialog")
+					]]>
+				</Action>
+			</Operation>
+        </OperationCollection>
+        <AssistanceCollection/>
+        <ParticipatorCollection>
+            <Query>
+				<![CDATA[SELECT  OID FROM GP_Operator]]>	
+			</Query>
+        </ParticipatorCollection>
+        <NodeGraphic Height="48" Width="88" X="220" Y="202"/>
+    </UserTask>
+    <State Caption="驳回" Key="State2" ID="106">
+        <TransitionCollection>
+            <SequenceFlow Condition="" ID="23" Key="EE" TargetNodeKey="End">
+                <TransitionGraphic LineStyle="StraightLine"/>
+            </SequenceFlow>
+        </TransitionCollection>
+        <NodeGraphic Width="78" X="1081" Y="280"/>
+    </State>
+    <SwimlineCollection/>
+    <BPMInfoCollection/>
+    <DMTable>
+        <Field Key="Name" SourceFieldKey="Name"/>
+    </DMTable>
+</Process>

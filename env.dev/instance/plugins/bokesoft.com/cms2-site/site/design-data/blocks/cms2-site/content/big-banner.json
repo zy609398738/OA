@@ -1,0 +1,20 @@
+{
+	"@type":"com.bokesoft.cms2.impl.buildin.modelio.vo.BlockVO",
+	"block":{
+		"@type":"com.bokesoft.cms2.model.blocks.TmplBlock",
+		"notes":"",
+		"parameters":[],
+		"tmplText":"<div class=\"container one-banner-img\">\n  <img class=\"img-responsive\" src=\"$uri\" alt=\"banner\"/>\n</div>",
+		"type":"TMPL"
+	},
+	"code":"big-banner",
+	"name":"横幅标题区域",
+	"notes":"",
+	"params":[
+		{
+			"caption":"图片地址",
+			"key":"uri",
+			"type":"image"
+		}
+	]
+}

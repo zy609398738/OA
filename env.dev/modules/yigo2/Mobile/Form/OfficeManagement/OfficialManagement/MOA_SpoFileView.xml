@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="MOA_SpoFileView" Caption="发文列表" FormType="View">
+    <DataSource>
+        <DataObject Key="MOA_SpoFileView" Caption="发文列表">
+            <TableCollection>
+                <Table Key="MOA_SpoFileView" Caption="发文列表" TableMode="Detail" SourceType="Query" Persist="false">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="Topic" Caption="发文标题" DataType="Varchar"/>
+                    <Column Key="SecretL" Caption="密级" DataType="Integer"/>
+                    <Column Key="BillDate" Caption="发文日期" DataType="DateTime"/>
+                    <Column Key="DeptID" Caption="主办单位" DataType="Long"/>
+                    <Column Key="EmpID" Caption="拟稿人" DataType="Long"/>
+                    <ParameterCollection>
+                        <Parameter Formula="GetOperator();"/>
+                        <Parameter Formula="GetPara('ViewAcl')"/>
+                    </ParameterCollection>
+                    <Statement>
+                        <![CDATA[select * from (select *  from OA_SpoFile_H where (Creator=? or CONCAT(',',OptIDs,',') like ? )order by BillDate desc) h]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="New" Caption="新增">
+            <Action>
+                <![CDATA[New('MOA_SpoFile')]]>
+            </Action>
+        </Operation>
+    </OperationCollection>
+    <Body>
+        <Block>
+            <LinearLayoutPanel Caption="LinearLayoutPanel1" Key="LinearLayoutPanel1" Orientation="Vertical" Padding="10px">
+                <Format BackColor="#e6e6e6"/>
+                <GridLayoutPanel Key="GridLayoutPanel1" Height="100px" Caption="GridLayoutPanel1" Width="auto">
+                    <DatePicker Key="From" Caption="发文日期 从" BuddyKey="Lab_From" X="1" Y="0" XSpan="4">
+                        <Condition Group="aa" ColumnKey="BillDate" TableKey="MOA_SpoFileView" CondSign="between" GroupHead="true"/>
+                    </DatePicker>
+                    <Label Key="Lab_From" Caption="发文日期 从" X="0" Y="0"/>
+                    <DatePicker Key="To" Caption="到" BuddyKey="Lab_To" X="1" Y="1" XSpan="4">
+                        <Condition Group="aa" GroupTail="true" ColumnKey="BillDate" TableKey="MOA_SpoFileView" CondSign="between"/>
+                    </DatePicker>
+                    <Label Key="Lab_To" Caption="到" X="0" Y="1"/>
+                    <Button Key="Query" Caption="查询" X="0" Y="2" XSpan="2">
+                        <OnClick>
+                            <![CDATA[DealCondition();
+LoadData();
+ShowData();]]>
+                        </OnClick>
+                    </Button>
+                    <Button Key="Reset" Caption="重置" X="3" Y="2" XSpan="2">
+                        <OnClick>
+                            <![CDATA[ResetCondition()]]>
+                        </OnClick>
+                    </Button>
+                    <RowDefCollection RowGap="5">
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                        <RowDef Height="35px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="5">
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="50%"/>
+                        <ColumnDef Width="20px"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="50%"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+                <TableView Caption="TableView1" Height="pref" Key="TableView1" Width="pref">
+                    <TableRowCollection>
+                        <TableRow Key="row1" RowType="Detail" TableKey="MOA_SpoFileView" TopMargin="10px" ShowFirstMargin="true">
+                            <LinearLayoutPanel Caption="LinearLayoutPanel2" Key="LinearLayoutPanel2" Orientation="Vertical" Width="auto">
+                                <LinearLayoutPanel Caption="LinearLayoutPanel3" Height="40px" Key="LinearLayoutPanel3" Width="auto">
+                                    <TextEditor Key="Topic" Caption="发文主题" Enable="false" Height="auto" Weight="1.0" Width="0px" OnlyShow="true">
+                                        <DataBinding ColumnKey="Topic"/>
+                                        <Format>
+                                            <Font Size="14"/>
+                                        </Format>
+                                    </TextEditor>
+                                    <TextEditor Key="OID" Caption="OID" Visible="false" Height="pref" Width="pref">
+                                        <DataBinding ColumnKey="OID"/>
+                                    </TextEditor>
+                                </LinearLayoutPanel>
+                                <LinearLayoutPanel Caption="LinearLayoutPanel4" Height="40px" Key="LinearLayoutPanel4" Width="auto">
+                                    <ComboBox Key="SecretL" Caption="密级" Enable="false" Height="auto" Weight="1.0" Width="0px" OnlyShow="true">
+                                        <DataBinding ColumnKey="SecretL"/>
+                                        <Format BackColor="#ffffff" HAlign="Left"/>
+                                        <Item Caption="机密" Key="10" Value="10"/>
+                                        <Item Caption="非密" Key="20" Value="20"/>
+                                        <Item Caption="秘密" Key="30" Value="30"/>
+                                    </ComboBox>
+                                    <DatePicker Key="BillDate" Caption="发文日期" Enable="false" Height="auto" Weight="1.0" Width="0px" OnlyShow="true">
+                                        <DataBinding ColumnKey="BillDate"/>
+                                        <Format BackColor="#ffffff" HAlign="Left"/>
+                                    </DatePicker>
+                                </LinearLayoutPanel>
+                                <LinearLayoutPanel Caption="LinearLayoutPanel5" Height="40px" Key="LinearLayoutPanel5" Width="auto">
+                                    <Dict Key="DeptID" Caption="主办单位" Enable="false" Height="auto" ItemKey="OA_Department" Width="0px" Weight="1.0" OnlyShow="true">
+                                        <DataBinding ColumnKey="DeptID"/>
+                                        <Format>
+                                            <Font Size="14"/>
+                                        </Format>
+                                    </Dict>
+                                    <Dict Key="EmpID" Caption="拟稿人" Enable="false" Height="auto" ItemKey="OA_Employee" Weight="1.0" Width="0px" OnlyShow="true">
+                                        <DataBinding ColumnKey="EmpID"/>
+                                        <Format>
+                                            <Font Size="14"/>
+                                        </Format>
+                                    </Dict>
+                                </LinearLayoutPanel>
+                            </LinearLayoutPanel>
+                            <RowClick>
+                                <![CDATA[Open('MOA_SpoFile', OID)]]>
+                            </RowClick>
+                        </TableRow>
+                    </TableRowCollection>
+                </TableView>
+            </LinearLayoutPanel>
+        </Block>
+    </Body>
+    <OnLoad>
+        <![CDATA[LoadData()]]>
+    </OnLoad>
+    <FormParaCollection>
+        <FormPara DataType="Varchar" Formula="'%,' &amp; ToString(GetOperator()) &amp; ',%';" Key="ViewAcl" Type="Formula"/>
+    </FormParaCollection>
+    <NavigationBar Style="Custom"/>
+</Form>

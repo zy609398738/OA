@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<CommonDef>
+    <OperationCollection>
+        <Operation Key="ShowWFLog" Caption="审批记录" Visible="ReadOnly()">
+            <Action>
+                <![CDATA[ShowModal("OA_WFLog",{
+                      pOID:{GetOID()},
+                      ProcessKey:{GetProcessKey()},
+                      ProcessVer:{GetProcessVer()}})]]>
+            </Action>
+        </Operation>
+    </OperationCollection>
+    <StatusCollection>
+        <Status Caption="调研" Key="diaoyan" Value="1"/>
+        <Status Caption="洽谈" Key="qiatan" Value="2"/>
+        <Status Caption="建议" Key="jianyi" Value="3"/>
+        <Status Caption="申报" Key="shenbao" Value="4"/>
+        <Status Caption="立项" Key="lixiang" Value="5"/>
+        <Status Caption="选址" Key="xuanzhi" Value="6"/>
+        <Status Caption="已终止" Key="stoped" Value="-100"/>
+    </StatusCollection>
+</CommonDef>

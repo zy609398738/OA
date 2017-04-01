@@ -1,0 +1,9 @@
+{
+	"@type":"com.bokesoft.cms2.model.Action",
+	"actionExp":"",
+	"actionUrl":"/commitSendMessage.action",
+	"attributes":{"@type":"java.util.LinkedHashMap"},
+	"code":"CommitSendMessage",
+	"name":"发表评论发送通知",
+	"notes":""
+}

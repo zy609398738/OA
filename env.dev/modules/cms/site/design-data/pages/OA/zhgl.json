@@ -1,0 +1,35 @@
+{
+	"@type":"com.bokesoft.cms2.impl.buildin.modelio.vo.PageVO",
+	"attributes":{"@type":"java.util.LinkedHashMap"},
+	"code":"zhgl",
+	"deliveryVOs":[
+		{
+			"@type":"com.bokesoft.cms2.impl.buildin.modelio.vo.PageVO$DeliveryVO",
+			"areaCode":"left-sidebar",
+			"blockCode":"ZHGL",
+			"name":"menu",
+			"options":[
+				"Raw"
+			],
+			"parameters":{"@type":"java.util.HashMap"},
+			"sequence":"1"
+		},
+		{
+			"@type":"com.bokesoft.cms2.impl.buildin.modelio.vo.PageVO$DeliveryVO",
+			"areaCode":"content",
+			"blockCode":"LISTVIEW",
+			"name":"content",
+			"options":[
+				"Raw"
+			],
+			"parameters":{"@type":"java.util.HashMap"},
+			"sequence":"2"
+		}
+	],
+	"enabled":true,
+	"groups":[],
+	"name":"综合管理",
+	"title":"综合管理",
+	"tmplCode":"LMENU_CONTENT_TPL",
+	"url":"/zhgl.page"
+}

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Map Caption="资产租赁下推资产收回" Key="NJ_AssetLeasing_NJ_AssetRecovery" SrcDataObjectKey="NJ_AssetLeasing" TgtDataObjectKey="NJ_AssetRecovery">
+    <SourceTableCollection Height="420" Width="453" X="30" Y="30">
+        <SourceTable Key="NJ_SCM_AssetLeasingHead" TargetTableKey="NJ_SCM_AssetRecoveryHead">
+            <SourceField Definition="EmpID" TargetFieldKey="EmpID"/>
+            <SourceField Definition="CustomerId" TargetFieldKey="CustomerId"/>
+            <SourceField Definition="UsePeople" TargetFieldKey="UsePeople"/>
+            <SourceField Definition="Room" TargetFieldKey="Room"/>
+        </SourceTable>
+        <SourceTable Key="NJ_SCM_AssetCode" TargetTableKey="NJ_SCM_AssetCode" IsPrimary="true">
+            <SourceField Definition="AssetsBarId" TargetFieldKey="AssetsBarId"/>
+            <SourceField Definition="AssetsCode" TargetFieldKey="AssetsCode"/>
+            <SourceField Definition="RecoveryAmount" TargetFieldKey="AssetsAmount" EdgeType="Focus"/>
+            <SourceField Definition="SOID" TargetFieldKey="SrcSOID"/>
+        </SourceTable>
+    </SourceTableCollection>
+    <TargetTableCollection Height="420" Width="476" X="520" Y="30">
+        <TargetTable Key="NJ_SCM_AssetRecoveryHead">
+            <TargetField Definition="EmpID"/>
+            <TargetField Definition="CustomerId"/>
+            <TargetField Definition="UsePeople"/>
+            <TargetField Definition="Room"/>
+        </TargetTable>
+        <TargetTable Key="NJ_SCM_AssetCode" IsPrimary="true">
+            <TargetField Definition="AssetsBarId"/>
+            <TargetField Definition="AssetsCode"/>
+            <TargetField Definition="AssetsAmount"/>
+            <TargetField Definition="SrcSOID"/>
+        </TargetTable>
+    </TargetTableCollection>
+</Map>

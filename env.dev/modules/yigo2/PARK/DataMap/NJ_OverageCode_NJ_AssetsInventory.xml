@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Map Caption="盘盈编码下推库存资产盘点" Key="NJ_OverageCode_NJ_AssetsInventory" SrcDataObjectKey="NJ_OverageCode" TgtDataObjectKey="NJ_AssetsInventory">
+    <SourceTableCollection Height="210" Width="309" X="30" Y="30">
+        <SourceTable Key="NJ_OverageCode" IsPrimary="true" TargetTableKey="NJ_SCM_AssetCode">
+            <SourceField Definition="AssetsBarId" TargetFieldKey="AssetsBarId"/>
+            <SourceField Definition="AssetsCode" TargetFieldKey="AssetsCode"/>
+            <SourceField Definition="AssetsAmount" TargetFieldKey="AssetsAmount"/>
+        </SourceTable>
+    </SourceTableCollection>
+    <TargetTableCollection Height="210" Width="344" X="413" Y="30">
+        <TargetTable Key="NJ_SCM_AssetCode" IsPrimary="true">
+            <TargetField Definition="AssetsBarId"/>
+            <TargetField Definition="AssetsCode"/>
+            <TargetField Definition="AssetsAmount"/>
+        </TargetTable>
+    </TargetTableCollection>
+</Map>

@@ -1,0 +1,12 @@
+{
+	"@type":"com.bokesoft.cms2.impl.buildin.modelio.vo.PageVO",
+	"attributes":{"@type":"java.util.LinkedHashMap"},
+	"code":"@INDEX",
+	"deliveryVOs":[],
+	"enabled":true,
+	"groups":[],
+	"name":"电子审批",
+	"title":"电子审批",
+	"tmplCode":"LMENU_CONTENT_TPL",
+	"url":"/ecomm-check.page"
+}

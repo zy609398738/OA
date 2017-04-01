@@ -1,0 +1,28 @@
+#body-login{ background:#FFFFFF; margin-left:0px; margin-top:0px;font-family: Arial, Helvetica, sans-serif;}
+
+#login{ position: relative; width:510px; height:314px; padding:0; margin-top:100px;margin-left:auto; margin-right:auto; background:url(../images/login.jpg)}
+
+#user{ position: absolute; margin-top:109px; margin-left:150px; font-size: 14px;}
+
+#uesr-input{ position:absolute;margin-top:106px; margin-left:220px; border-top:1px solid #b0b0b0;border-left:1px solid #b0b0b0;border-bottom:1px solid #b0b0b0;border-right:1px solid #b0b0b0;}
+
+#password{ position:absolute; margin-top:142px; margin-left:150px; font-size: 14px;}
+
+#password-input{ position:absolute; margin-top:139px; margin-left:220px;border-top:1px solid #b0b0b0;border-left:1px solid #b0b0b0;border-bottom:1px solid #b0b0b0;border-right:1px solid #b0b0b0;}
+
+#bottom{ position:absolute; margin-top:275px; margin-left:113px; color:#666565; font-size: 12px;}
+
+#version{ position:absolute; margin-top:290px; margin-left:113px; color:#666565; font-size: 12px;}
+
+#button-bg{ position:absolute; margin-top:174px; margin-left:220px;}
+
+#button-w{ position: absolute; margin-top:171px; margin-left:220px; color:#5a5a5a; padding:10px 0 0 30px}
+
+a{ color:#000000; font-size:14px; font-weight:bold; text-decoration:none; display:block;  width:62px; height:29px;}
+
+.input{ width:217px; background: #FFFFFF;}
+
+
+
+
+

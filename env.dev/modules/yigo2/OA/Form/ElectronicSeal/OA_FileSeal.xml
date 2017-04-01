@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="OA_FileSeal" Caption="文件签章" FormType="View">
+    <DataSource>
+        <DataObject Key="OA_FileSeal" Caption="文件签章" PrimaryType="Entity">
+            <TableCollection>
+                <Table Key="OA_FileSeal" Caption="文件签章" SourceType="Query" Persist="false">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="QuerySeal" Caption="签章选择" DataType="Long"/>
+                    <Column Key="Preview" Caption="签章预览" DataType="Varchar"/>
+                    <Statement>
+                        <![CDATA[select * from sys_role where 1=2]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <Body PopHeight="100%" PopWidth="100%">
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板" Height="100%" Width="100%">
+                <SplitPanel Key="SplitPanel1" Height="100%" Caption="SplitPanel1" Width="100%">
+                    <GridLayoutPanel Key="first_head" Padding="5px" Caption="基本信息">
+                        <Dict Key="QuerySeal" Caption="签章选择" BuddyKey="Lab_QuerySeal" X="0" Y="1" ItemKey="OA_Seal" XSpan="3">
+                            <DataBinding>
+                                <ValueChanged>
+                                    <![CDATA[Preview=GetDictValue("OA_Seal",QuerySeal, "OA_Seal_H.Seal")]]>
+                                </ValueChanged>
+                            </DataBinding>
+                        </Dict>
+                        <Label Key="Lab_QuerySeal" Caption="签章选择" X="0" Y="0"/>
+                        <Image Key="Preview" Caption="签章预览" BuddyKey="Lab_Preview" X="0" Y="3" YSpan="5" HasBorder="true" XSpan="3" Stretch="true"/>
+                        <Label Key="Lab_Preview" Caption="签章预览" X="0" Y="2"/>
+                        <Button Key="Reset" Caption="重置" X="2" Y="8">
+                            <OnClick>
+                                <![CDATA[SetValue("ShowWeb", Para("URL"))]]>
+                            </OnClick>
+                        </Button>
+                        <RowDefCollection RowGap="8">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="34px"/>
+                            <RowDef Height="34px"/>
+                            <RowDef Height="34px"/>
+                            <RowDef Height="34px"/>
+                            <RowDef Height="34px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="8">
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="10px"/>
+                            <ColumnDef Width="80px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <WebBrowser Key="ShowWeb" Height="pref">
+                        <DataBinding DefaultFormulaValue="Para('URL')"/>
+                    </WebBrowser>
+                    <SplitSize Size="200px"/>
+                    <SplitSize Size="100%"/>
+                </SplitPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

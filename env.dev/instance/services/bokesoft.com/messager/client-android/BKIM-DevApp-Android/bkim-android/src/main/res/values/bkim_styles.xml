@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base application theme. -->
+    <style name="BKIMKitTheme" parent="Theme.AppCompat.Light">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/bkim_common_blue</item>
+        <item name="colorPrimaryDark">@color/bkim_common_blue</item>
+        <item name="colorAccent">@color/bkim_common_blue</item>
+        <item name="actionBarTheme">@style/BKIMActionBarTheme</item>
+    </style>
+
+    <!-- activity -->
+    <style name="BKIMActivity" parent="BKIMKitTheme" />
+
+    <style name="BKIMActivity.NoActionBar">
+        <item name="colorPrimary">@color/bkim_common_blue</item>
+        <item name="colorPrimaryDark">@color/bkim_common_blue</item>
+        <item name="colorAccent">@color/bkim_common_blue</item>
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="android:editTextStyle">@style/BKIMEditText</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="BKIMActionBarTheme" parent="ThemeOverlay.AppCompat.ActionBar">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textColorPrimary">@android:color/white</item>
+    </style>
+    <!--<style name="BKIMActivity.FullScreen" >-->
+    <!--<item name="android:windowFullscreen">true</item>-->
+    <!--</style>-->
+
+
+    <!-- divider -->
+    <style name="BKIMDividerLine">
+        <item name="android:background">@color/bkim_divider_line_color</item>
+    </style>
+
+    <style name="BKIMDividerLine.Horizontal">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/bkim_divider_line_height</item>
+    </style>
+
+    <style name="BKIMDividerLine.Vertical">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">@dimen/bkim_divider_line_height</item>
+    </style>
+
+
+    <!-- editText -->
+    <style name="BKIMEditText" parent="Widget.AppCompat.EditText">
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textColorPrimary">@android:color/black</item>
+    </style>
+
+    <!-- text appearance -->
+    <style name="BKIMTextAppearance" />
+
+    <style name="BKIMTextAppearance.Large">
+        <item name="android:textSize">@dimen/bkim_textsize_large</item>
+    </style>
+
+    <style name="BKIMTextAppearance.Large.Gray">
+        <item name="android:textColor">@color/bkim_common_gray</item>
+    </style>
+
+    <style name="BKIMTextAppearance.Normal">
+        <item name="android:textSize">@dimen/bkim_textsize_normal</item>
+    </style>
+
+    <style name="BKIMTextAppearance.Normal.Bold">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="BKIMTextAppearance.Normal.Gray">
+        <item name="android:textColor">@color/bkim_common_gray</item>
+    </style>
+
+    <style name="BKIMTextAppearance.Small" />
+
+    <!-- Avatar -->
+    <style name="BKIMAvatar">
+        <item name="android:layout_width">45dp</item>
+        <item name="android:layout_height">45dp</item>
+        <item name="android:scaleType">centerCrop</item>
+        <!--<item name="android:src">@drawable/chat_default_user_avatar</item>-->
+    </style>
+
+    <style name="BKIMAvatar.Large">
+        <item name="android:layout_width">50dp</item>
+        <item name="android:layout_height">50dp</item>
+    </style>
+
+    <style name="BKIMAvatar.Small">
+        <item name="android:layout_width">40dp</item>
+        <item name="android:layout_height">40dp</item>
+    </style>
+
+
+    <!-- 以下都是单独的 style -->
+    <style name="bkim_record_dialog_style">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowBackground">@drawable/bkim_chat_record_button_round_background
+        </item>
+    </style>
+
+    <style name="bkim_input_bar_button_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:paddingRight">@dimen/bkim_bottom_bar_button_margin</item>
+        <item name="android:paddingLeft">@dimen/bkim_bottom_bar_button_margin</item>
+        <item name="android:background">@null</item>
+        <item name="android:scaleType">center</item>
+    </style>
+
+    <style name="bkim_input_bar_edittext_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">40dp</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:layout_marginRight">10dp</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingBottom">5dp</item>
+        <item name="android:maxLines">4</item>
+        <item name="android:background">@drawable/bkim_textview_bg</item>
+        <item name="android:textSize">@dimen/bkim_textsize_normal</item>
+    </style>
+
+    <style name="bkim_input_bar_record_button_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:layout_marginRight">10dp</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:text">@string/bkim_chat_bottom_record_layout_pressToRecord</item>
+    </style>
+    <!--自定义的主题-->
+    <style name="dialog" parent="@android:style/Theme.Dialog">
+        <!--去掉黑边-->
+        <item name="android:windowFrame">@null</item>
+        <!--设置透明-->
+        <item name="android:windowIsTranslucent">true</item>
+        <!--无标题-->
+        <item name="android:windowNoTitle">true</item>
+        <!--窗口背景-->
+        <item name="android:windowBackground">@color/whites</item>
+        <!--点击空白处不消失-->
+        <item name="android:windowCloseOnTouchOutside">false</item>
+    </style>
+</resources>

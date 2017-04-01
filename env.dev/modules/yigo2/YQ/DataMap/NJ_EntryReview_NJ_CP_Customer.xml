@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Map Caption="资格审核下推企业信息" Key="NJ_EntryReview_NJ_CP_Customer" SrcDataObjectKey="NJ_EntryReview" TgtDataObjectKey="NJ_CP_Customer">
+    <SourceTableCollection Height="390" Width="444" X="30" Y="30">
+        <SourceTable IsPrimary="true" Key="NJ_SCM_EntryReviewHead" TargetTableKey="NJ_CP_CustomerHead">
+            <SourceField Definition="ProjCustomer" TargetFieldKey="Name"/>
+            <SourceField Definition="EmpID" TargetFieldKey="EmpID"/>
+            <SourceField Definition="LegalRepresentative" TargetFieldKey="Corporation"/>
+            <SourceField Definition="NOTES" TargetFieldKey="Elses"/>
+            <SourceField Definition="RegistrationDate" TargetFieldKey="RegistrationDate"/>
+            <SourceField Definition="PersonnelSize" TargetFieldKey="PersonnelSize"/>
+            <SourceField Definition="RegisteredCapital" TargetFieldKey="RegisteredCapital" EdgeType="Focus"/>
+            <SourceField Definition="IndID" TargetFieldKey="IndID"/>
+            <SourceField Definition="ProjectTypeid" TargetFieldKey="ProjectTypeid"/>
+        </SourceTable>
+    </SourceTableCollection>
+    <TargetTableCollection Height="390" Width="379" X="523" Y="30">
+        <TargetTable IsPrimary="true" Key="NJ_CP_CustomerHead">
+            <TargetField Definition="Name"/>
+            <TargetField Definition="EmpID"/>
+            <TargetField Definition="Corporation"/>
+            <TargetField Definition="Elses"/>
+            <TargetField Definition="RegistrationDate"/>
+            <TargetField Definition="PersonnelSize"/>
+            <TargetField Definition="RegisteredCapital"/>
+            <TargetField Definition="IndID"/>
+            <TargetField Definition="ProjectTypeid"/>
+        </TargetTable>
+    </TargetTableCollection>
+</Map>

@@ -1,0 +1,153 @@
+[{
+	'description' : '启动数据库事务',
+	'text' : '启动JDBC事务',
+	'forExample' : '',
+	'id' : 'c0000003',
+	'bigType' : 'GGPZTransformer',
+	'className' : 'com.bokesoft.dee.transport.transaction.StartTxTransformer',
+	'smallType' : 'StartTxTransformer'
+}, {
+	'description' : '提交或者回滚数据库事务',
+	'text' : '提交或者回滚JDBC事务',
+	'forExample' : '',
+	'id' : 'c0000004',
+	'bigType' : 'GGPZTransformer',
+	'className' : 'com.bokesoft.dee.transport.transaction.FinishTxTransformer',
+	'smallType' : 'FinishTxTransformer'
+}, {
+	'description' : '启动XA事务',
+	'text' : '启动XA事务',
+	'forExample' : '',
+	'id' : 'c0000005',
+	'bigType' : 'GGPZTransformer',
+	'className' : 'com.bokesoft.dee.mule.transaction.StartXaTxTransformer',
+	'smallType' : 'StartXaTxTransformer'
+}, {
+	'description' : '提交或者回滚XA事务',
+	'text' : '提交或者回滚XA事务',
+	'forExample' : '',
+	'id' : 'c0000006',
+	'bigType' : 'GGPZTransformer',
+	'className' : 'com.bokesoft.dee.mule.transaction.FinishXaTxTransformer',
+	'smallType' : 'FinishXaTxTransformer'
+}, {
+	'description' : 'Properties转换为MAP',
+	'text' : 'Properties转换为MAP',
+	'forExample' : '',
+	'id' : 'c0000007',
+	'bigType' : 'GGPZTransformer',
+	'className' : 'com.bokesoft.dee.mule.pollhttp.transformer.Properties2MapTransformer',
+	'smallType' : 'Properties2MapTransformer'
+}, {
+	'description' : '把异常对象转换为文本',
+	'text' : '把异常对象转换为文本',
+	'forExample' : '',
+	'id' : 'c0000009',
+	'bigType' : 'GGPZTransformer',
+	'className' : 'com.bokesoft.exchange.transformer.ExceptionMessageTransformer',
+	'smallType' : 'ExceptionMessageTransformer'
+}, {
+	'description' : '从XSTREAM文本转换为对象',
+	'text' : '从XSTREAM文本转换为对象',
+	'forExample' : '',
+	'id' : 'c0000010',
+	'bigType' : 'GGPZTransformer',
+	'className' : 'com.bokesoft.exchange.transformer.codec.EncodingFromXStreamTransformer',
+	'smallType' : 'EncodingFromXStreamTransformer'
+}, {
+	'description' : '从对象转换为XSTREAM文本',
+	'text' : '从对象转换为XSTREAM文本',
+	'forExample' : '',
+	'id' : 'c0000011',
+	'bigType' : 'GGPZTransformer',
+	'className' : 'com.bokesoft.exchange.transformer.codec.EncodingToXStreamTransformer',
+	'smallType' : 'EncodingToXStreamTransformer'
+}, {
+	'description' : '数据进行URL Encode',
+	'text' : '数据进行URL encode',
+	'forExample' : '',
+	'id' : 'c0000012',
+	'bigType' : 'GGPZTransformer',
+	'className' : 'com.bokesoft.exchange.transformer.codec.URLEncoderTransformer',
+	'smallType' : 'URLEncoderTransformer'
+}, {
+	'description' : '数据进行URL Decode',
+	'text' : '数据进行URL Decode',
+	'forExample' : '',
+	'id' : 'c0000008',
+	'bigType' : 'GGPZTransformer',
+	'className' : 'com.bokesoft.exchange.transformer.codec.URLDecoderTransformer',
+	'smallType' : 'URLDecoderTransformer'
+}, {
+	'description' : '将字符串转化为一个 Map',
+	'text' : '将字符串转化为一个 Map',
+	'forExample' : '',
+	'id' : 'c0000015',
+	'bigType' : 'GGPZTransformer',
+	'className' : 'com.bokesoft.dee.mule.common.transformer.String2MapTransformer',
+	'smallType' : 'String2MapTransformer'
+}, {
+	'description' : 'ObjectToHttpClientMethodRequest',
+	'text' : 'ObjectToHttpClientMethodRequest',
+	'forExample' : '',
+	'id' : 'c0000016',
+	'bigType' : 'GGPZTransformer',
+	'className' : 'com.bokesoft.dee.transport.http.transformers.ObjectToHttpClientMethodRequest',
+	'smallType' : 'ObjectToHttpClientMethodRequest'
+}, {
+	'description' : 'Converts an Http Response object to String',
+	'text' : 'Converts an Http Response object to String',
+	'forExample' : '',
+	'id' : 'c0000017',
+	'bigType' : 'GGPZTransformer',
+	'className' : 'com.bokesoft.dee.transport.http.transformers.HttpResponseToString',
+	'smallType' : 'HttpResponseToString'
+}, {
+	'description' : 'FormTransformer',
+	'text' : 'FormTransformer',
+	'forExample' : '',
+	'id' : 'c0000018',
+	'bigType' : 'GGPZTransformer',
+	'className' : 'com.bokesoft.dee.transport.http.transformers.FormTransformer',
+	'smallType' : 'FormTransformer'
+}, {
+	'description' : 'HttpClientMethodResponseToObject',
+	'text' : 'HttpClientMethodResponseToObject',
+	'forExample' : '',
+	'id' : 'c0000019',
+	'bigType' : 'GGPZTransformer',
+	'className' : 'com.bokesoft.dee.transport.http.transformers.HttpClientMethodResponseToObject',
+	'smallType' : 'HttpClientMethodResponseToObject'
+}, {
+	'description' : 'HttpRequestBodyToParamMap',
+	'text' : 'HttpRequestBodyToParamMap',
+	'forExample' : '',
+	'id' : 'c0000020',
+	'bigType' : 'GGPZTransformer',
+	'className' : 'com.bokesoft.dee.transport.http.transformers.HttpRequestBodyToParamMap',
+	'smallType' : 'HttpRequestBodyToParamMap'
+}, {
+	'description' : 'FileToByteArray',
+	'text' : 'FileToByteArray',
+	'forExample' : '',
+	'id' : 'c0000021',
+	'bigType' : 'GGPZTransformer',
+	'className' : 'com.bokesoft.dee.transport.file.transformers.FileToByteArray',
+	'smallType' : 'FileToByteArray'
+}, {
+	'description' : 'FileToString',
+	'text' : 'FileToString',
+	'forExample' : '',
+	'id' : 'c0000022',
+	'bigType' : 'GGPZTransformer',
+	'className' : 'com.bokesoft.dee.transport.file.transformers.FileToString',
+	'smallType' : 'FileToString'
+}, {
+	'description' : 'MuleMessageToHttpResponse',
+	'text' : 'MuleMessageToHttpResponse',
+	'forExample' : '',
+	'id' : 'c0000023',
+	'bigType' : 'GGPZTransformer',
+	'className' : 'com.bokesoft.dee.transport.http.transformers.MuleMessageToHttpResponse',
+	'smallType' : 'MuleMessageToHttpResponse'
+}]

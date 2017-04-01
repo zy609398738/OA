@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="MOA_WorkflowType" Caption="流程类别明细" FormType="View" Platform="">
+    <DataSource>
+        <DataObject Key="MOA_WorkflowType" Caption="流程类别明细">
+            <TableCollection>
+                <Table Key="MOA_WorkflowType" Caption="流程类别明细" TableMode="Detail" SourceType="Query" Persist="false">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="BillKey" DataType="Varchar" Caption="关联表单"/>
+                    <Column Key="BillName" Caption="表单名称" DataType="Varchar"/>
+                    <ParameterCollection>
+                        <Parameter Formula="Para(&quot;SOID&quot;)" DataType="Long"/>
+                    </ParameterCollection>
+                    <Statement>
+                        <![CDATA[select d.oid,d.soid,d.BillKey,d.BillName from OA_WorkflowType_D d where d.SOID=?]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <Body PopHeight="pref" PopWidth="pref">
+        <Block>
+            <LinearLayoutPanel Caption="LinearLayoutPanel1" Key="LinearLayoutPanel1" Orientation="Vertical" Height="100%" Width="100%">
+                <TableView Caption="TableView1" Height="pref" Key="TableView1" Width="pref">
+                    <TableRowCollection>
+                        <TableRow RowType="Detail" TableKey="MOA_WorkflowType">
+                            <LinearLayoutPanel Caption="LinearLayoutPanel2" Key="LinearLayoutPanel2" Orientation="Vertical" Height="auto" Width="auto" Margin="10px">
+                                <LinearLayoutPanel Caption="LinearLayoutPanel3" Height="40px" Key="LinearLayoutPanel3" Width="auto">
+                                    <Dict Key="SOID_D" Caption="流程类别" Height="auto" ItemKey="OA_WorkflowType" Width="auto" Weight="1.0">
+                                        <DataBinding ColumnKey="SOID" TableKey="MOA_WorkflowType"/>
+                                        <Format HAlign="Center"/>
+                                    </Dict>
+                                    <HyperLink Caption="创建流程" Height="auto" Key="Name_D" Width="100px">
+                                        <DataBinding ColumnKey="BillName"/>
+                                        <Format ForeColor="#0c87ff" HAlign="Center"/>
+                                        <OnClick>
+                                            <![CDATA[New(ToString("M"+BillKey_D), "newtab","WorkflowTypeDtlID:{OID_D}");]]>
+                                        </OnClick>
+                                    </HyperLink>
+                                </LinearLayoutPanel>
+                                <LinearLayoutPanel Caption="LinearLayoutPanel4" Height="pref" Key="LinearLayoutPanel4" Width="pref" Visible="false">
+                                    <Label Key="OID_D" Caption="明细ID" Height="pref" Width="pref">
+                                        <DataBinding ColumnKey="OID"/>
+                                    </Label>
+                                    <Label Key="BillKey_D" Caption="关联表单" Height="pref" Width="auto">
+                                        <DataBinding ColumnKey="BillKey"/>
+                                    </Label>
+                                </LinearLayoutPanel>
+                            </LinearLayoutPanel>
+                        </TableRow>
+                    </TableRowCollection>
+                </TableView>
+            </LinearLayoutPanel>
+        </Block>
+    </Body>
+    <OnLoad>
+        <![CDATA[LoadData()]]>
+    </OnLoad>
+</Form>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Entry Caption="根" Key="Root" Open="true">
+    <Entry Caption="安卓手机端权限设置" Key="Mobile_manager">
+        <EntryItem Caption="工作项事务处理列表" FormKey="MobileOA_WorkItemList" Key="MobileOA_WorkItemList" Type="Form"/>
+        <EntryItem Caption="请假单列表" FormKey="VacationRequestList" Key="VacationRequestList" Type="Form"/>
+    </Entry>
+</Entry>

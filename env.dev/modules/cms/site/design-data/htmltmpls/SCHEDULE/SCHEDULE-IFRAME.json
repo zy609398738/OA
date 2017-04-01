@@ -1,0 +1,22 @@
+{
+	"@type":"com.bokesoft.cms2.model.HtmlTmpl",
+	"code":"SCHEDULE-IFRAME",
+	"htmlText":"<!DOCTYPE html>\n<html lang=\"zh-CN\">\n<head>\n    <meta charset=\"utf-8\">\n    <title>博科协同办公管理系统模板</title>\n    <div yigo-cms:block=\"static?staticFile=buildin/boot-js.vm\"/>\n    <style>\n        body{overflow-x:hidden;}\n        em{color:red;}\n        .data-list{background-color:white}\n        .cal{\n        \tfont-size: 13px;\n    \t\tfont-weight: bold;\n    \t\tfont-family: helvetica, arial, verdana, sans-serif;\n      \t\twidth:100px;\n      \t\tcolor:#fff;\n      \t\tline-height:36px;\n        }\n    </style>\n</head>\n<body>\n<!--主体-->\n<div class=\"container\" id=\"mid\">\n  \t<div style=\"height:36px;width:80px;background-color: #3a96d5;text-align:center;\"><span class=\"cal\">日程日历</span></div>\n\t<iframe id=\"data-iframe\" marginheight=0 marginwidth=0 frameborder=0 src=\"/yigo/jsp/oa/schedule2/index.html\" style=\"width:100%;height:532px;overfow-x:hidden;\">\n    </iframe> \n</div>\n<!--主体 end-->\n</body>\n</html>",
+	"name":"日程日历",
+	"notes":"",
+	"slices":[
+		{
+			"followHtml":"<!DOCTYPE html>\n<html lang=\"zh-CN\">\n<head>\n    <meta charset=\"utf-8\">\n    "
+		},
+		{
+			"code":"博科协同办公管理系统模板",
+			"followHtml":"\n    ",
+			"tag":"yigo-cms:title"
+		},
+		{
+			"code":"static?staticFile=buildin/boot-js.vm",
+			"followHtml":"\n    <style>\n        body{overflow-x:hidden;}\n        em{color:red;}\n        .data-list{background-color:white}\n        .cal{\n        \tfont-size: 13px;\n    \t\tfont-weight: bold;\n    \t\tfont-family: helvetica, arial, verdana, sans-serif;\n      \t\twidth:100px;\n      \t\tcolor:#fff;\n      \t\tline-height:36px;\n        }\n    </style>\n</head>\n<body>\n<!--主体-->\n<div class=\"container\" id=\"mid\">\n  \t<div style=\"height:36px;width:80px;background-color: #3a96d5;text-align:center;\"><span class=\"cal\">日程日历</span></div>\n\t<iframe id=\"data-iframe\" marginheight=0 marginwidth=0 frameborder=0 src=\"/yigo/jsp/oa/schedule2/index.html\" style=\"width:100%;height:532px;overfow-x:hidden;\">\n    </iframe> \n</div>\n<!--主体 end-->\n</body>\n</html>",
+			"tag":"yigo-cms:block"
+		}
+	]
+}

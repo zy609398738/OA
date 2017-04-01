@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Process Caption="收文流程" Key="WF_OA_ForeignLan" IDSeed="61" FormKey="OA_ForeignLan">
+    <Begin Caption="开始节点" ID="2" Key="Begin1">
+        <TransitionCollection>
+            <SequenceFlow Caption="顺序流" ID="12" Key="SequenceFlow1" TargetNodeKey="State1"/>
+        </TransitionCollection>
+        <NodeGraphic X="47" Y="98" Height="40" Width="40"/>
+        <NodeAttachment/>
+    </Begin>
+    <End Caption="结束节点" ID="3" Key="End1">
+        <NodeGraphic X="343" Y="276" Height="40" Width="40"/>
+        <NodeAttachment/>
+    </End>
+    <State Caption="已提交" ID="4" Key="State1" Status="commited">
+        <TransitionCollection>
+            <SequenceFlow Caption="顺序流" ID="35" Key="SequenceFlow18" TargetNodeKey="Audit2"/>
+        </TransitionCollection>
+        <NodeGraphic X="139" Y="98" Height="40" Width="40"/>
+        <NodeAttachment/>
+        <ParticipatorCollection/>
+        <Perm/>
+    </State>
+    <State Caption="审批中" ID="5" Key="State2" Status="approving">
+        <TransitionCollection>
+            <SequenceFlow Caption="顺序流" ID="17" Key="SequenceFlow6" TargetNodeKey="Audit3"/>
+        </TransitionCollection>
+        <NodeGraphic X="343" Y="98" Height="40" Width="40"/>
+        <NodeAttachment/>
+        <ParticipatorCollection/>
+        <Perm/>
+    </State>
+    <Audit Caption="办公室主任审批" ID="8" Key="Audit2" DenyNodeKey="State10">
+        <TransitionCollection>
+            <SequenceFlow Caption="顺序流" ID="16" Key="SequenceFlow5" TargetNodeKey="State2"/>
+        </TransitionCollection>
+        <NodeGraphic X="225" Y="93"/>
+        <NodeAttachment/>
+        <OperationCollection>
+            <Operation Key="WF_OA_ForeignLan_op1" Caption="一审">
+                <Action>
+                    <![CDATA[ShowModal("OA_AuditDialog","pWorkitemID:{GetActiveWorkitemID()}")]]>
+                </Action>
+            </Operation>
+        </OperationCollection>
+        <AssistanceCollection/>
+        <ParticipatorCollection/>
+        <TimerItemCollection/>
+        <Perm/>
+        <DirectAuditCondition/>
+    </Audit>
+    <State Caption="审批中" ID="9" Key="State4" Status="approving">
+        <TransitionCollection>
+            <SequenceFlow Caption="顺序流" ID="44" Key="SequenceFlow24" TargetNodeKey="Countersign1"/>
+        </TransitionCollection>
+        <NodeGraphic X="515" Y="98" Height="40" Width="40"/>
+        <NodeAttachment/>
+        <ParticipatorCollection/>
+        <Perm/>
+    </State>
+    <Audit Caption="总经理审批" ID="10" Key="Audit3" DenyNodeKey="State10">
+        <TransitionCollection>
+            <SequenceFlow Caption="顺序流" ID="36" Key="SequenceFlow19" TargetNodeKey="State4"/>
+        </TransitionCollection>
+        <NodeGraphic X="407" Y="93"/>
+        <NodeAttachment/>
+        <OperationCollection>
+            <Operation Key="WF_OA_ForeignLan_op1" Caption="总经理审批">
+                <Action>
+                    <![CDATA[ShowModal("OA_AuditDialog","pWorkitemID:{GetActiveWorkitemID()},workflowOID:{GetOID()},workflowBillKey:{GetFormKey()}")]]>
+                </Action>
+            </Operation>
+        </OperationCollection>
+        <AssistanceCollection/>
+        <ParticipatorCollection>
+            <Dictionary Code="Admin" ItemKey="Role"/>
+        </ParticipatorCollection>
+        <TimerItemCollection/>
+        <Perm/>
+        <DirectAuditCondition/>
+    </Audit>
+    <State Caption="审批中" ID="26" Key="State8" Status="approving">
+        <TransitionCollection>
+            <SequenceFlow Caption="顺序流" ID="47" Key="SequenceFlow26" TargetNodeKey="Countersign2"/>
+        </TransitionCollection>
+        <NodeGraphic X="614" Y="181" Height="40" Width="40"/>
+        <NodeAttachment/>
+        <ParticipatorCollection/>
+        <Perm/>
+    </State>
+    <State Caption="已审批" ID="28" Key="State9" Status="approved">
+        <TransitionCollection>
+            <SequenceFlow Caption="顺序流" ID="33" Key="SequenceFlow16" TargetNodeKey="End1"/>
+        </TransitionCollection>
+        <NodeGraphic X="463" Y="276" Height="40" Width="40"/>
+        <NodeAttachment/>
+        <ParticipatorCollection/>
+        <Perm/>
+    </State>
+    <Countersign Caption="分管领导" ID="43" Key="Countersign1" FinishCondition="100%" FinishType="Proportion" PassCondition="100%" PassType="Proportion" ValidCondition="100%" ValidType="Proportion">
+        <TransitionCollection>
+            <SequenceFlow Caption="顺序流" ID="45" Key="SequenceFlow25" TargetNodeKey="State8"/>
+            <SequenceFlow Caption="顺序流" ID="60" Key="SequenceFlow33" TargetNodeKey="State10" Condition="False"/>
+        </TransitionCollection>
+        <NodeGraphic X="594" Y="93"/>
+        <NodeAttachment/>
+        <OperationCollection>
+            <Operation Key="WF_OA_ForeignLan_op1" Caption="会签">
+                <Action>
+                    <![CDATA[ShowModal("OA_AuditDialog","pWorkitemID:{GetActiveWorkitemID()},workflowOID:{GetOID()},workflowBillKey:{GetFormKey()}")]]>
+                </Action>
+            </Operation>
+        </OperationCollection>
+        <AssistanceCollection/>
+        <ParticipatorCollection/>
+        <TimerItemCollection/>
+        <Perm/>
+        <DirectAuditCondition/>
+    </Countersign>
+    <Countersign Caption="部门处理结果反馈" ID="46" Key="Countersign2" PassCondition="100%" PassType="Proportion" FinishCondition="100%" FinishType="Proportion" ValidCondition="100%" ValidType="Proportion">
+        <TransitionCollection>
+            <SequenceFlow Caption="顺序流" ID="48" Key="SequenceFlow27" TargetNodeKey="State9"/>
+            <SequenceFlow Caption="顺序流" Condition="False" ID="57" Key="SequenceFlow32" TargetNodeKey="State10">
+                <TransitionGraphic LineStyle="ChamferCurveHOne"/>
+            </SequenceFlow>
+        </TransitionCollection>
+        <NodeGraphic X="659" Y="271"/>
+        <NodeAttachment/>
+        <OperationCollection>
+            <Operation Key="WF_OA_ForeignLan_op1" Caption="部门结果反馈">
+                <Action>
+                    <![CDATA[ShowModal("OA_AuditDialog","pWorkitemID:{GetActiveWorkitemID()},workflowOID:{GetOID()},workflowBillKey:{GetFormKey()}")]]>
+                </Action>
+            </Operation>
+        </OperationCollection>
+        <AssistanceCollection/>
+        <ParticipatorCollection/>
+        <TimerItemCollection/>
+        <Perm/>
+        <DirectAuditCondition/>
+    </Countersign>
+    <Audit Caption="提交审批" ID="49" Key="Audit4">
+        <TransitionCollection>
+            <SequenceFlow Caption="顺序流" ID="52" Key="SequenceFlow29" TargetNodeKey="State1"/>
+        </TransitionCollection>
+        <NodeGraphic X="119" Y="13"/>
+        <NodeAttachment/>
+        <OperationCollection>
+            <Operation Key="WF_OA_ForeignLan_op1" Caption="提交">
+                <Action>
+                    <![CDATA[CommitWorkitem(-1,1,"")]]>
+                </Action>
+            </Operation>
+        </OperationCollection>
+        <AssistanceCollection/>
+        <ParticipatorCollection/>
+        <TimerItemCollection/>
+        <Perm/>
+        <DirectAuditCondition/>
+    </Audit>
+    <State Caption="已输入" ID="50" Key="State10" Status="prepared">
+        <TransitionCollection>
+            <SequenceFlow Caption="顺序流" ID="51" Key="SequenceFlow28" TargetNodeKey="Audit4"/>
+        </TransitionCollection>
+        <NodeGraphic X="245" Y="18" Height="40" Width="40"/>
+        <NodeAttachment/>
+        <ParticipatorCollection/>
+        <Perm/>
+    </State>
+    <DMTable>
+        <Field Key="BillCreatTime" SourceFieldKey="CreateTime"/>
+        <Field Key="BillStatus" SourceFieldKey="Status"/>
+        <Field Key="EmpID" SourceFieldKey="EmpID"/>
+        <Field Key="BillCreator" SourceFieldKey="Creator"/>
+        <Field Key="Topic" SourceFieldKey="Topic"/>
+        <Field Key="BillOID" SourceFieldKey="OID"/>
+        <Field Key="DeptID" SourceFieldKey="DeptID"/>
+        <Field Key="UrgencyDeg" SourceFieldKey="UrgencyDeg"/>
+        <Field Key="BillNo" SourceFieldKey="NO"/>
+    </DMTable>
+    <AttachmentCollection/>
+</Process>

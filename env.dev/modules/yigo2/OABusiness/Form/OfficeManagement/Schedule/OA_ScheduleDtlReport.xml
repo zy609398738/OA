@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="OA_ScheduleDtlReport" Caption="日程明细表" FormType="View" Platform="">
+    <DataSource>
+        <DataObject Key="OA_ScheduleDtlReport" Caption="日程明细表">
+            <TableCollection>
+                <Table Key="OA_ScheduleDtlReport" Caption="日程明细表" TableMode="Detail" SourceType="Query" Persist="false">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="NO" Caption="日程编号" DataType="Varchar"/>
+                    <Column Key="BillDate" Caption="日程日期" DataType="DateTime"/>
+                    <Column Key="EmpID" Caption="创建人" DataType="Long"/>
+                    <Column Key="DeptID" Caption="创建部门" DataType="Long"/>
+                    <Column Key="ScheduleType" Caption="日程类型" DataType="Long"/>
+                    <Column Key="StartTime" Caption="开始时间" DataType="DateTime"/>
+                    <Column Key="EndTime" Caption="结束时间" DataType="DateTime"/>
+                    <Column Key="Topic" Caption="日程主题" DataType="Varchar"/>
+                    <Statement>
+                        <![CDATA[select * from ( select * from OA_MySchedule_H order by BillDate desc ) h]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="Print" Caption="打印"/>
+    </OperationCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板">
+                <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <GridLayoutPanel Key="first_head" Height="120px" Caption="基本信息">
+                    <Button Key="Query" Caption="查询" X="6" Y="0">
+                        <OnClick>
+                            <![CDATA[DealCondition();
+LoadData();
+ShowData();]]>
+                        </OnClick>
+                    </Button>
+                    <Button Key="Reset" Caption="重置" X="6" Y="1">
+                        <OnClick>
+                            <![CDATA[ResetCondition();]]>
+                        </OnClick>
+                    </Button>
+                    <DatePicker Key="StartFrom" Caption="开始时间 从" BuddyKey="Lab_StartFrom" X="1" Y="0">
+                        <Condition ColumnKey="StartTime" TableKey="OA_ScheduleDtlReport" CondSign="between" Group="aa" GroupHead="true"/>
+                    </DatePicker>
+                    <Label Key="Lab_StartFrom" Caption="开始时间 从" X="0" Y="0"/>
+                    <DatePicker Key="StartTo" Caption="到" BuddyKey="Lab_StartTo" X="3" Y="0">
+                        <Condition ColumnKey="StartTime" TableKey="OA_ScheduleDtlReport" CondSign="between" Group="aa" GroupTail="true"/>
+                    </DatePicker>
+                    <Label Key="Lab_StartTo" Caption="到" X="2" Y="0"/>
+                    <DatePicker Key="EndFrom" Caption="结束时间 从" BuddyKey="Lab_EndFrom" X="1" Y="1">
+                        <Condition ColumnKey="EndTime" TableKey="OA_ScheduleDtlReport" CondSign="between" Group="bb" GroupHead="true"/>
+                    </DatePicker>
+                    <Label Key="Lab_EndFrom" Caption="结束时间 从" X="0" Y="1"/>
+                    <DatePicker Key="EndTo" Caption="到" BuddyKey="Lab_EndTo" X="3" Y="1">
+                        <Condition ColumnKey="EndTime" TableKey="OA_ScheduleDtlReport" CondSign="between" Group="bb" GroupTail="true"/>
+                    </DatePicker>
+                    <Label Key="Lab_EndTo" Caption="到" X="2" Y="1"/>
+                    <Dict Key="QueryScheduleType" Caption="日程类型" BuddyKey="Lab_QueryScheduleType" X="1" Y="2" AllowMultiSelection="true" ItemKey="OA_ScheduleType">
+                        <Condition ColumnKey="ScheduleType" TableKey="OA_ScheduleDtlReport" CondSign="in"/>
+                    </Dict>
+                    <Label Key="Lab_QueryScheduleType" Caption="日程类型" X="0" Y="2"/>
+                    <Dict Key="QueryEmpID" Caption="创建人" BuddyKey="Lab_QueryEmpID" X="5" Y="0" AllowMultiSelection="true" ItemKey="OA_Employee">
+                        <Condition ColumnKey="EmpID" TableKey="OA_ScheduleDtlReport" CondSign="in"/>
+                    </Dict>
+                    <Label Key="Lab_QueryEmpID" Caption="创建人" X="4" Y="0"/>
+                    <Dict Key="QueryDeptID" Caption="创建部门" BuddyKey="Lab_QueryDeptID" X="5" Y="1" ItemKey="OA_Department" AllowMultiSelection="true">
+                        <Condition ColumnKey="DeptID" TableKey="OA_ScheduleDtlReport" CondSign="in"/>
+                    </Dict>
+                    <Label Key="Lab_QueryDeptID" Caption="创建部门" X="4" Y="1"/>
+                    <RowDefCollection RowGap="8">
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="8">
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="33%"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="33%"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="34%"/>
+                        <ColumnDef Width="80px"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+                <Grid Key="Grid1" Caption="Grid1" Enable="false" NewEmptyRow="false" Height="100%" PageLoadType="UI" CanDelete="false" CanInsert="false">
+                    <GridColumnCollection>
+                        <GridColumn Key="NO" Caption="日程编号" Width="130px"/>
+                        <GridColumn Key="BillDate" Caption="日程日期" Width="130px"/>
+                        <GridColumn Key="Topic" Caption="日程主题" Width="200px"/>
+                        <GridColumn Key="DeptID" Caption="创建部门" Width="130px"/>
+                        <GridColumn Key="EmpID" Caption="创建人" Width="130px"/>
+                        <GridColumn Key="StartTime" Caption="开始时间" Width="130px"/>
+                        <GridColumn Key="EndTime" Caption="结束时间" Width="130px"/>
+                        <GridColumn Key="ScheduleType" Caption="日程类型" Width="130px"/>
+                    </GridColumnCollection>
+                    <GridRowCollection>
+                        <GridRow Key="row1" RowHeight="35" TableKey="OA_ScheduleDtlReport">
+                            <GridCell Key="NO" Caption="日程编号">
+                                <DataBinding ColumnKey="NO"/>
+                            </GridCell>
+                            <GridCell Key="BillDate" Caption="日程日期" CellType="DatePicker">
+                                <DataBinding ColumnKey="BillDate"/>
+                            </GridCell>
+                            <GridCell Key="Topic" Caption="日程主题" CellType="TextEditor">
+                                <DataBinding ColumnKey="Topic"/>
+                            </GridCell>
+                            <GridCell Key="DeptID" Caption="创建部门" CellType="Dict" ItemKey="OA_Department">
+                                <DataBinding ColumnKey="DeptID"/>
+                            </GridCell>
+                            <GridCell Key="EmpID" Caption="创建人" CellType="Dict" ItemKey="OA_Employee">
+                                <DataBinding ColumnKey="EmpID"/>
+                            </GridCell>
+                            <GridCell Key="StartTime" Caption="开始时间" CellType="DatePicker">
+                                <DataBinding ColumnKey="StartTime"/>
+                            </GridCell>
+                            <GridCell Key="EndTime" Caption="结束时间" CellType="DatePicker">
+                                <DataBinding ColumnKey="EndTime"/>
+                            </GridCell>
+                            <GridCell Key="ScheduleType" Caption="日程类型" CellType="Dict" ItemKey="OA_ScheduleType">
+                                <DataBinding ColumnKey="ScheduleType"/>
+                            </GridCell>
+                        </GridRow>
+                    </GridRowCollection>
+                </Grid>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+    <OnLoad>
+        <![CDATA[LoadData()]]>
+    </OnLoad>
+</Form>

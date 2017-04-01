@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="OA_Archive" Caption="归档管理" FormType="Entity">
+    <DataSource>
+        <DataObject Key="OA_Archive" Caption="归档管理" PrimaryTableKey="OA_Archive_H" NoPrefix="AH" PrimaryType="Entity">
+            <TableCollection>
+                <Table Key="OA_Archive_H" Caption="归档管理" DBTableName="OA_Archive_H">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="NO" Caption="归档编号" DataType="Varchar"/>
+                    <Column Key="BillDate" Caption="归档日期" DataType="Date"/>
+                    <Column Key="Status" Caption="状态" DataType="Integer"/>
+                    <Column Key="Topic" Caption="主题" DataType="Varchar"/>
+                    <Column Key="EmpID" Caption="归档人员" DataType="Long"/>
+                    <Column Key="DeptID" Caption="归档部门" DataType="Long"/>
+                    <Column Key="ArchiveTypeID" Caption="归档分类" DataType="Long"/>
+                    <Column Key="Deadline" Caption="保管期限" DataType="Integer"/>
+                    <Column Key="SrcBillKey" Caption="归档单据类型" DataType="Varchar"/>
+                    <Column Key="SrcBillNo" Caption="归档单据编号" DataType="Varchar"/>
+                    <Column Key="BillKey" Caption="单据配置" DataType="Varchar"/>
+                    <Column Key="SrcOID" Caption="归档单据标识" DataType="Long"/>
+                    <Column Key="Creator" Caption="创建人" DataType="Long"/>
+                    <Column Key="CreateTime" Caption="创建日期" DataType="DateTime"/>
+                    <Column Key="Modifier" Caption="修改人" DataType="Long"/>
+                    <Column Key="ModifyTime" Caption="修改日期" DataType="DateTime"/>
+                    <Column Key="ClusterID" Caption="集团" DataType="Long"/>
+                    <Column Key="InstanceID" Caption="流程标识" DataType="Long"/>
+                    <Column Key="MapKey" Caption="映射标识" DataType="Varchar"/>
+                    <Column Key="SrcSOID" Caption="来源表单标识" DataType="Long"/>
+                    <Column Key="UrgencyDeg" Caption="紧急程度" DataType="Integer"/>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="BPM" Caption="BPM" Tag="BPM"/>
+        <Operation Key="WORKITEM" Caption="WORKITEM" Tag="WORKITEM"/>
+        <Operation Key="Save" Caption="保存" RefKey="Save"/>
+        <Operation Key="Delete" Caption="删除" Visible="ReadOnly()&amp;&amp;Status==100">
+            <Action>
+                <![CDATA[var tableKey=InvokeService("OA_GetMainTableName", true, false, SrcBillKey);
+var sql="Update "&tableKey&" set Status=1200 where OID=?";
+DBUpdate(sql, SrcOID);
+DeleteData();
+Close();]]>
+            </Action>
+        </Operation>
+        <Operation Key="Edit" Caption="编辑" RefKey="Edit"/>
+        <Operation Key="Cancel" Caption="取消" RefKey="Cancel"/>
+        <Operation Key="Close" Caption="关闭" RefKey="Close"/>
+        <Operation Key="ShowWFLog" Caption="审批记录" RefKey="ShowWFLog"/>
+    </OperationCollection>
+    <QueryCollection>
+        <Query Key="SelectArchiveSet" Description="根据归档单据类型查询归档设置">
+            <Statement>
+                <![CDATA[select a.oid from OA_ArchiveSet_H a where a.Code=?]]>
+            </Statement>
+        </Query>
+    </QueryCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板">
+                <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <TabPanel Caption="TabPanel1" Height="pref" Key="TabPanel1">
+                    <GridLayoutPanel Key="first_head" Padding="5px" Caption="基本信息">
+                        <TextEditor Key="NO" Caption="归档编号" BuddyKey="Lab_NO" X="1" Y="0" Enable="false">
+                            <DataBinding ColumnKey="NO" TableKey="OA_Archive_H"/>
+                        </TextEditor>
+                        <Label Key="Lab_NO" Caption="归档编号" X="0" Y="0"/>
+                        <DatePicker Key="BillDate" Caption="归档日期" BuddyKey="Lab_BillDate" X="3" Y="0">
+                            <DataBinding ColumnKey="BillDate" TableKey="OA_Archive_H" DefaultFormulaValue="ServerDate();"/>
+                        </DatePicker>
+                        <Label Key="Lab_BillDate" Caption="归档日期" X="2" Y="0"/>
+                        <ComboBox Key="Status" Caption="状态" BuddyKey="Lab_Status" X="5" Y="0" Enable="false" SourceType="Status">
+                            <DataBinding ColumnKey="Status" TableKey="OA_Archive_H" DefaultValue="100"/>
+                        </ComboBox>
+                        <Label Key="Lab_Status" Caption="状态" X="4" Y="0"/>
+                        <TextEditor Key="Topic" Caption="主题" BuddyKey="Lab_Topic" X="1" Y="1" XSpan="5">
+                            <DataBinding ColumnKey="Topic" TableKey="OA_Archive_H" Required="true"/>
+                        </TextEditor>
+                        <Label Key="Lab_Topic" Caption="主题" X="0" Y="1"/>
+                        <Dict Key="EmpID" Caption="归档人员" BuddyKey="Lab_EmpID" X="1" Y="2" ItemKey="OA_Employee">
+                            <DataBinding ColumnKey="EmpID" TableKey="OA_Archive_H" DefaultFormulaValue="GetDictValue('Operator', GetOperator(), 'SYS_Operator.EmpID')" Required="true">
+                                <ValueChanged>
+                                    <![CDATA[DeptID=GetDictValue('OA_Employee', EmpID, 'OA_Employee_H.DeptID')]]>
+                                </ValueChanged>
+                            </DataBinding>
+                        </Dict>
+                        <Label Key="Lab_EmpID" Caption="归档人员" X="0" Y="2"/>
+                        <Dict Key="DeptID" Caption="归档部门" BuddyKey="Lab_DeptID" X="3" Y="2" ItemKey="OA_Department">
+                            <DataBinding ColumnKey="DeptID" TableKey="OA_Archive_H" DefaultFormulaValue="GetDictValue('Operator', GetOperator(), 'SYS_Operator.DeptID')" Required="true"/>
+                        </Dict>
+                        <Label Key="Lab_DeptID" Caption="归档部门" X="2" Y="2"/>
+                        <Dict Key="ArchiveTypeID" Caption="归档分类" BuddyKey="Lab_ArchiveTypeID" X="5" Y="2" ItemKey="OA_ArchiveType">
+                            <DataBinding ColumnKey="ArchiveTypeID" TableKey="OA_Archive_H" DefaultFormulaValue="GetDictValue(&quot;OA_ArchiveSet&quot;, DBNamedQueryValue(&quot;SelectArchiveSet&quot;,SrcBillKey ), &quot;OA_ArchiveSet_H.ArchiveTypeID&quot;);" Required="true"/>
+                        </Dict>
+                        <Label Key="Lab_ArchiveTypeID" Caption="归档分类" X="4" Y="2"/>
+                        <ComboBox Key="Deadline" Caption="保管期限" BuddyKey="Lab_Deadline" X="1" Y="3">
+                            <DataBinding ColumnKey="Deadline" TableKey="OA_Archive_H" DefaultFormulaValue="GetDictValue(&quot;OA_ArchiveSet&quot;, DBNamedQueryValue(&quot;SelectArchiveSet&quot;,SrcBillKey ), &quot;OA_ArchiveSet_H.Deadline&quot;);" Required="true"/>
+                            <Item Caption="永久" Key="10" Value="10"/>
+                            <Item Caption="长期" Key="20" Value="20"/>
+                            <Item Caption="短期" Key="30" Value="30"/>
+                        </ComboBox>
+                        <Label Key="Lab_Deadline" Caption="保管期限" X="0" Y="3"/>
+                        <TextEditor Key="SrcBillKey" Caption="归档单据类型" BuddyKey="Lab_SrcBillKey" X="3" Y="3" Enable="false">
+                            <DataBinding ColumnKey="SrcBillKey" TableKey="OA_Archive_H"/>
+                        </TextEditor>
+                        <Label Key="Lab_SrcBillKey" Caption="归档单据类型" X="2" Y="3"/>
+                        <HyperLink BuddyKey="Lab_SrcBillNo" Caption="归档单据编号" Key="SrcBillNo" X="5" Y="3" Enable="true">
+                            <DataBinding ColumnKey="SrcBillNo" TableKey="OA_Archive_H"/>
+                            <OnClick>
+                                <![CDATA[Open(SrcBillKey, SrcOID)]]>
+                            </OnClick>
+                        </HyperLink>
+                        <Label Key="Lab_SrcBillNo" Caption="归档单据编号" X="4" Y="3"/>
+                        <TextEditor Key="BillKey" Caption="单据配置" BuddyKey="Lab_BillKey" X="1" Y="4" Visible="false">
+                            <DataBinding ColumnKey="BillKey" TableKey="OA_Archive_H" DefaultFormulaValue="GetFormKey()"/>
+                        </TextEditor>
+                        <Label Key="Lab_BillKey" Caption="单据配置" X="0" Y="4"/>
+                        <NumberEditor Key="SrcOID" Caption="归档单据标识" BuddyKey="Lab_SrcOID" X="3" Y="4" Visible="false" Scale="0">
+                            <DataBinding ColumnKey="SrcOID" TableKey="OA_Archive_H" DefaultFormulaValue="parent.GetOID()"/>
+                        </NumberEditor>
+                        <Label Key="Lab_SrcOID" Caption="归档单据标识" X="2" Y="4"/>
+                        <ComboBox Key="UrgencyDeg" Caption="紧急程度" BuddyKey="Lab_UrgencyDeg" X="5" Y="4" Visible="false">
+                            <DataBinding ColumnKey="UrgencyDeg" TableKey="OA_Archive_H" DefaultValue="10"/>
+                            <Item Caption="一般" Key="10" Value="10"/>
+                            <Item Caption="紧急" Key="20" Value="20"/>
+                            <Item Caption="特急" Key="30" Value="30"/>
+                        </ComboBox>
+                        <Label Key="Lab_UrgencyDeg" Caption="紧急程度" X="4" Y="4"/>
+                        <RowDefCollection RowGap="8">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="8">
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="33%"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="33%"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="34%"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <GridLayoutPanel Key="SysTab" Caption="系统信息">
+                        <Dict Key="Creator" Caption="创建人" BuddyKey="Lab_Creator" X="1" Y="0" Enable="false" ItemKey="Operator" XSpan="2">
+                            <DataBinding ColumnKey="Creator" TableKey="OA_Archive_H" DefaultFormulaValue="GetOperator()"/>
+                        </Dict>
+                        <Label Key="Lab_Creator" Caption="创建人" X="0" Y="0"/>
+                        <Dict Key="Modifier" Caption="修改人" BuddyKey="Lab_Modifier" X="1" Y="1" Enable="false" ItemKey="Operator" XSpan="2">
+                            <DataBinding ColumnKey="Modifier" TableKey="OA_Archive_H" DefaultFormulaValue="GetOperator()"/>
+                        </Dict>
+                        <DatePicker Key="CreateTime" Caption="创建日期" BuddyKey="Lab_CreateTime" X="5" Y="0" Enable="false" XSpan="2">
+                            <DataBinding ColumnKey="CreateTime" TableKey="OA_Archive_H" DefaultFormulaValue="ServerDate()"/>
+                        </DatePicker>
+                        <Label Key="Lab_CreateTime" Caption="创建时间" X="4" Y="0"/>
+                        <Label Key="Lab_Modifier" Caption="修改人" X="0" Y="1"/>
+                        <DatePicker Key="ModifyTime" Caption="修改日期" BuddyKey="Lab_ModifyTime" X="5" Y="1" Enable="false" XSpan="2">
+                            <DataBinding ColumnKey="ModifyTime" TableKey="OA_Archive_H" DefaultFormulaValue="ServerDate()"/>
+                        </DatePicker>
+                        <Label Key="Lab_ModifyTime" Caption="修改时间" X="4" Y="1"/>
+                        <Dict Key="ClusterID" Caption="集团" BuddyKey="Lab_ClusterID" X="9" Y="0" Enable="false" ItemKey="Client" XSpan="2">
+                            <DataBinding ColumnKey="ClusterID" TableKey="OA_Archive_H"/>
+                        </Dict>
+                        <Label Key="Lab_ClusterID" Caption="集团" X="8" Y="0"/>
+                        <TextEditor Key="OID" Caption="OID" BuddyKey="Lab_OID" X="1" Y="2" Visible="false" XSpan="2">
+                            <DataBinding ColumnKey="OID" TableKey="OA_Archive_H" DefaultFormulaValue="GetOID()"/>
+                        </TextEditor>
+                        <Label Key="Lab_OID" Caption="OID" X="0" Y="2"/>
+                        <TextEditor Key="WorkflowTypeDtlID" Caption="流程类别明细ID" BuddyKey="Lab_WorkflowTypeDtlID" X="9" Y="1" Visible="false" XSpan="2">
+                            <DataBinding ColumnKey="InstanceID" TableKey="OA_Archive_H" DefaultFormulaValue="Para(&quot;WorkflowTypeDtlID&quot;)"/>
+                        </TextEditor>
+                        <Label Key="Lab_WorkflowTypeDtlID" Caption="流程类别明细ID" X="8" Y="1"/>
+                        <RowDefCollection RowGap="4">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="4">
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="33%"/>
+                            <ColumnDef Width="20px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="33%"/>
+                            <ColumnDef Width="20px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="34%"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                </TabPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

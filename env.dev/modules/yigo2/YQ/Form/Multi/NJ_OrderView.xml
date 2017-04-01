@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="NJ_OrderView" Caption="项目登记序时簿" FormType="View">
+    <DataSource>
+        <DataObject Key="NJ_Order" Caption="NJ_Order">
+            <TableCollection>
+                <Table Key="NJ_SCM_OrderHead" Caption="NJ_SCM_OrderHead" DBTableName="NJ_SCM_OrderHead" TableMode="Detail" SourceType="Query" Persist="false">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="NO" Caption="发布编号" DataType="Varchar"/>
+                    <Column Key="BillDate" Caption="发布日期" DataType="DateTime"/>
+                    <Column Key="Status" Caption="单据状态" DataType="Integer"/>
+                    <Column Key="EmpID" Caption="经办人" DataType="Long"/>
+                    <Column Key="ParkID" Caption="园区" DataType="Long"/>
+                    <Column Key="IndID" Caption="行业" DataType="Long"/>
+                    <Column Key="ProjName" Caption="项目名称" DataType="Varchar"/>
+                    <Column Key="ProjCome" Caption="项目来源" DataType="Integer"/>
+                    <Column Key="ProjAmount" Caption="投资金额" DataType="Numeric" Precision="16" Scale="2"/>
+                    <Column Key="ProjCustomer" Caption="意向客户" DataType="Varchar"/>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="ViewNewBill" Caption="新增" RefKey="ViewNewBill"/>
+        <Operation Key="Refresh" Caption="刷新" RefKey="Refresh"/>
+    </OperationCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板">
+                <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <GridLayoutPanel Key="GridLayoutPanel1" Height="pref" Caption="GridLayoutPanel1">
+                    <DatePicker Key="billdate_cond" Caption="单据日期" BuddyKey="Lab_billdate_cond" X="2" Y="1" OnlyDate="true">
+                        <Condition ColumnKey="BillDate" TableKey="NJ_SCM_PreOrderHead" CondSign="between" Group="billdate1" GroupHead="true"/>
+                    </DatePicker>
+                    <Label Key="Lab_billdate_cond" Caption="单据日期" X="1" Y="1"/>
+                    <DatePicker Key="dao_cond" Caption="到" BuddyKey="Lab_dao_cond" X="5" Y="1" OnlyDate="true">
+                        <Condition ColumnKey="BillDate" TableKey="NJ_SCM_PreOrderHead" CondSign="between" Group="billdate1" GroupTail="true"/>
+                    </DatePicker>
+                    <Label Key="Lab_dao_cond" Caption="到" X="4" Y="1"/>
+                    <Button Key="chaxun" Caption="查询" X="10" Y="1">
+                        <OnClick>
+                            <![CDATA[DealCondition();LoadData();ShowData();]]>
+                        </OnClick>
+                    </Button>
+                    <Dict Key="yew_cond" Caption="业务员" BuddyKey="Lab_yew_cond" X="8" Y="1" ItemKey="Operator">
+                        <Condition ColumnKey="EmpID" TableKey="NJ_SCM_PreOrderHead" CondSign="="/>
+                    </Dict>
+                    <Label Key="Lab_yew_cond" Caption="业务员" X="7" Y="1"/>
+                    <Dict Key="park_cond" Caption="入驻园区" BuddyKey="Lab_park_cond" X="2" Y="2" ItemKey="NJ_CP_Industry">
+                        <Condition ColumnKey="ParkID" TableKey="NJ_SCM_PreOrderHead" CondSign="="/>
+                    </Dict>
+                    <Label Key="Lab_park_cond" Caption="入驻园区" X="1" Y="2"/>
+                    <Dict Key="hangye_cond" Caption="所属行业" BuddyKey="Lab_hangye_cond" X="5" Y="2" ItemKey="NJ_CP_Industry">
+                        <Condition ColumnKey="IndID" TableKey="NJ_SCM_PreOrderHead" CondSign="="/>
+                    </Dict>
+                    <Label Key="Lab_hangye_cond" Caption="所属行业" X="4" Y="2"/>
+                    <RowDefCollection RowGap="5">
+                        <RowDef Height="10px"/>
+                        <RowDef Height="25px"/>
+                        <RowDef Height="25px"/>
+                        <RowDef Height="10px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="5">
+                        <ColumnDef Width="10px"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="33%"/>
+                        <ColumnDef Width="15px"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="33%"/>
+                        <ColumnDef Width="15px"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="33%"/>
+                        <ColumnDef Width="10px"/>
+                        <ColumnDef Width="60px"/>
+                        <ColumnDef Width="10px"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+                <ListView Caption="ListView1" Height="100%" Key="ListView1" PageLoadType="DB" TableKey="NJ_SCM_OrderHead">
+                    <ListViewColumnCollection>
+                        <ListViewColumn Key="NO" Caption="单据编号" DataColumnKey="NO"/>
+                        <ListViewColumn Key="BillDate" Caption="单据日期" ColumnType="DatePicker" DataColumnKey="BillDate" OnlyDate="true"/>
+                        <ListViewColumn Key="Status" Caption="单据状态" ColumnType="ComboBox" DataColumnKey="Status" SourceType="Formula">
+                            <FormulaItems>
+                                <![CDATA[GetStatusItems()]]>
+                            </FormulaItems>
+                        </ListViewColumn>
+                        <ListViewColumn Key="EmpID" Caption="业务员" ColumnType="Dict" DataColumnKey="EmpID" ItemKey="OA_Employee"/>
+                        <ListViewColumn Key="OID" Caption="OID" DataColumnKey="OID" Visible="false"/>
+                        <ListViewColumn Key="ProjName" Caption="项目名称" ColumnType="TextEditor" DataColumnKey="ProjName"/>
+                        <ListViewColumn Key="ProjCome" Caption="项目来源" ColumnType="ComboBox" DataColumnKey="ProjCome">
+                            <Item Caption="电话" Key="1" Value="1"/>
+                            <Item Caption="老带新" Key="2" Value="2"/>
+                            <Item Caption="广告" Key="3" Value="3"/>
+                            <Item Caption="传单" Key="4" Value="4"/>
+                        </ListViewColumn>
+                        <ListViewColumn Key="ParkID" Caption="入驻园区" ColumnType="Dict" DataColumnKey="ParkID" ItemKey="NJ_CP_Park"/>
+                        <ListViewColumn Key="IndID" Caption="所属行业" ColumnType="Dict" DataColumnKey="IndID" ItemKey="NJ_CP_Industry"/>
+                        <ListViewColumn Key="ProjCustomer" Caption="意向客户" ColumnType="TextEditor" DataColumnKey="ProjCustomer"/>
+                        <ListViewColumn Key="ProjAmount" Caption="投资金额" ColumnType="NumberEditor" DataColumnKey="ProjAmount"/>
+                    </ListViewColumnCollection>
+                    <RowDblClick>
+                        <![CDATA[Open(C_GetBillKey(),OID)]]>
+                    </RowDblClick>
+                </ListView>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+    <OnLoad>
+        <![CDATA[LoadData();]]>
+    </OnLoad>
+    <MacroCollection>
+        <Macro Key="C_GetBillKey">
+            <![CDATA[{NJ_SCM_OrderHead}]]>
+        </Macro>
+    </MacroCollection>
+</Form>

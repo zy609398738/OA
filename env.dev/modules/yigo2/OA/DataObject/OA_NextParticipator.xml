@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<DataObject Key="OA_NextParticipator" Caption="下一步参与者" PrimaryType="Entity">
+    <TableCollection>
+        <Table Key="OA_NextParticipator" Caption="下一步参与者">
+            <Column Key="OID" Caption="对象标识" DataType="Long"/>
+            <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+            <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+            <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+            <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+            <Column Key="WorkflowBillKey" Caption="流程单据Key" DataType="Varchar"/>
+            <Column Key="WorkflowOID" Caption="流程单据ID" DataType="Long"/>
+            <Column Key="WorkflowKey" Caption="流程Key" DataType="Varchar"/>
+            <Column Key="NodeID" Caption="流程节点" DataType="Integer"/>
+            <Column Key="WorkitemID" Caption="审批项目" DataType="Long"/>
+            <Column Key="OperatorID" Caption="操作员" DataType="Long"/>
+            <Column Key="ParticipatorID" Caption="参与者" DataType="Long"/>
+        </Table>
+    </TableCollection>
+</DataObject>

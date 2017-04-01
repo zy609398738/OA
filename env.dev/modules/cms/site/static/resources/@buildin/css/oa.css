@@ -1,0 +1,626 @@
+﻿.login-main {
+    width: 100%;
+    height: 100%;
+    background: url(../../../images/main/theme-login.jpg) no-repeat center;
+    background-size: cover;
+    line-height: 22.1875em;
+}
+
+.login-mobile {
+    overflow: hidden;
+    float: right;
+    width: 100px;
+    margin: 0px;
+    background: None;
+    border-radius: 6px;
+    height: 40px;
+    text-align: center;
+    line-height: 43px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #fff;
+}
+
+.login-a{
+	background: rgb(49, 166, 107); 
+	opacity: 0.87; 
+	color: rgb(255, 255, 255);
+	display: block;
+}
+
+.login-logo-box {
+    position: absolute;
+    z-index: 100;
+    width: 300px;
+    line-height: 150px;
+    text-align: center;
+    height: 150px;
+}
+
+.form-tr {
+    float: left;
+    width: 100%;
+    margin-top: 20px;
+    height: 37px;
+    line-height: 37px;
+}
+
+.login-icon {
+    float: left;
+    background: #000;
+    height: 37px;
+    text-align: center;
+    width: 37px;
+    border: 2px solid transparent;
+}
+
+.inputborder{
+	font-size: 12px;
+	outline: 0px;
+    padding-left: 4px;
+    float: left;
+    width: 248px;
+    height: 37px;
+    border: 2px solid transparent;
+	position: relative;
+}
+
+.inputborder input{
+	outline: none;
+    width: 228px;
+    background: transparent;
+    border: 0px;
+    height: 33px;
+}
+
+.login-loginbox {
+	position: absolute;
+    color: #fff;
+    width: 300px;
+	font-size:100%;
+    z-index: 100;
+	background: None;
+}
+
+:root .login-password-btn{
+	width: 25px;
+    height: 20px;
+    display: inline-block;
+    cursor:pointer;
+	position: absolute;
+    right: 9px;
+    top: 5px;
+}
+
+.login-button {
+    margin-top: 40px;
+    float: left;
+    width: 300px;
+    height: 40px;
+    filter: alpha(opacity=50);
+    text-align: center;
+    line-height: 43px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/*\instance\plugins\bokesoft.com\yigo2\webapps\yigo\yesui\ui\res\css\blue\main.css*/
+/*主窗体*/
+.main{
+	background:#eef1f5;
+}
+
+.mainMiddle {
+    width: 1px;
+}
+
+/*主窗体*/
+.mainRight{
+	margin:20px 20px 0 20px;
+	background:#eef1f5;
+}
+
+.ui-tabs-body{
+	padding-top:20px;
+}
+
+#listBox {
+	background: #1e214a;
+}
+
+.searchBox {
+    background: #1e214a;
+}
+
+.searchBox:hover {
+    background: #1e214a;
+}
+
+.searchtext {
+    color: #c2cad8;
+}
+
+.search{
+	background: url(../../../images/main/searchbtn.png) no-repeat center;
+}
+/*OA菜单*/
+#OA_Index0{
+	background: url(../../../images/main/cdl.png) 0px 4px no-repeat;	
+}
+#OA_Index0:hover {
+    background-color: #4f8bf9;
+}
+
+#OA_PersonalUse1{
+	background: url(../../../images/main/cdl.png) 0px -38px no-repeat;
+}
+#OA_PersonalUse1:hover {
+    background-color: #4f8bf9;
+}
+
+#OA_Organize2{
+	background: url(../../../images/main/cdl.png) 0px -83px no-repeat;
+}
+#OA_Organize2:hover {
+    background-color: #4f8bf9;
+}
+
+#OA_Information3{
+	background: url(../../../images/main/cdl.png) 0px -128px no-repeat;
+}
+#OA_Information3:hover {
+    background-color: #4f8bf9;
+}
+
+#OA_DocManagement4{
+	background: url(../../../images/main/cdl.png) 0px -171px no-repeat;
+}
+#OA_DocManagement4:hover {
+    background-color: #4f8bf9;
+}
+
+#OA_Meeting5{
+	background: url(../../../images/main/cdl.png) 0px -216px no-repeat;
+}
+#OA_Meeting5:hover {
+    background-color: #4f8bf9;
+}
+
+#ArchiveManagement6{
+	background: url(../../../images/main/cdl.png) 0px -437px no-repeat;
+}
+#ArchiveManagement6:hover {
+    background-color: #4f8bf9;
+}
+
+#OA_SystemMessages7{
+	background: url(../../../images/main/cdl.png) 0px -396px no-repeat;
+}
+#OA_SystemMessages7:hover {
+    background-color: #4f8bf9;
+}
+
+#OA_AddressBook8{
+	background: url(../../../images/main/cdl.png) 0px -264px no-repeat;
+}
+#OA_AddressBook8:hover {
+    background-color: #4f8bf9;
+}
+
+#OA_Approval9{
+	background: url(../../../images/main/cdl.png) 0px -312px no-repeat;
+}
+#OA_Approval9:hover {
+    background-color: #4f8bf9;
+}
+
+#OA_OfficeManagement10{
+	background: url(../../../images/main/cdl.png) 0px -354px no-repeat;
+}
+#OA_OfficeManagement10:hover {
+    background-color: #4f8bf9;
+}
+
+#OA_Report11{
+	background: url(../../../images/main/cdl.png) 0px -480px no-repeat;
+}
+#OA_Report11:hover {
+    background-color: #4f8bf9;
+}
+/*系统管理菜单*/
+#Rigths0{
+	background: url(../../../images/main/xtgl.png) 0px 4px no-repeat;
+}
+#Rigths0:hover {
+    background-color: #4f8bf9;
+}
+#SystemFunction1{
+	background: url(../../../images/main/xtgl.png) 0px -41px no-repeat;
+}
+#SystemFunction1:hover {
+    background-color: #4f8bf9;
+}
+
+.tm li a:hover {
+    background-color: #4f8bf9;
+}
+.tm li {
+    padding-left: 10px;
+}
+    
+.tm li a span {
+    color: #b9c4d2;
+}
+
+.tm li a.clicked  {
+    background: #181a3b;
+}
+
+.tm li a.clicked  span{
+    color: #4f8bf9;
+}
+
+/*左菜单行高设置*/
+.zn{
+	height:44px;
+}
+.tm li a,.tree.tm .top-level > a{
+	height:44px;
+	line-height:44px;
+}
+.tm>li{
+	border-bottom:1px solid #3c4071;
+}
+
+li.isparent a.close, .tree li.isparent.top-level > a.close {
+    background-image: url(../../../images/main/cdjtz.png);
+}
+
+li.isparent a.open, .tree li.isparent.top-level > a.open {
+    background-image: url(../../../images/main/cdjtx.png);
+}
+
+.nav { 
+	min-width: 1000px;
+	width: 100%;
+	height:65px;
+	background: #fff;
+}
+
+.logo-main{
+	float: left;
+    width: 175px;
+    height: 65px;
+    background-color: #4f8bf9;
+}
+
+.logo-text-nav{
+	float: left;
+}
+
+span.login_username, .navRight .org_lbl {
+    float: right;
+}
+
+.navRight  .trigger{
+	line-height: 50px;
+	font-size: 18px;
+    color: #8a8787;
+	cursor:pointer;
+	display: block;
+    background: url(../../../images/main/xxjt.png) no-repeat;
+    width: 20px;
+    height: 20px;
+    float: right;
+    margin-top: 25px;
+}
+
+.userImgbox .logout{
+	display: block;
+	background:url(../../../images/main/logout.png) no-repeat;
+	background-position: 10px;
+}
+.userImgbox .modifyPwd{
+	display: block;
+	background:url(../../../images/main/modifyPwd.png) no-repeat;
+	background-position: 10px;
+}
+
+.userImgbox a:hover {
+    background-color: #4f8bf9;
+    color: #ffffff;
+}
+
+.userImgbox span:hover{
+    background-color: inherit;
+    color: inherit;
+}
+
+.userImgbox span{
+    width: auto;
+    color: #303030;
+    margin-left: 40px;
+	background: none;
+	text-align: inherit;
+}
+
+.userBox { 
+	height:100%; 
+	float: left; 
+	position: relative;
+	width: 220px;
+	border-left: None;
+	background: None;
+	margin-right: 10px;
+	margin-top: 5px;
+}
+
+.set-btn{
+	border: None;
+}
+
+.navRight .notice{
+	float:left;
+	background: url(../../../images/main/oa-icons.png) 0 -243px no-repeat;
+}
+
+.navRight .mail{
+	margin-top: 15px;
+	margin-right:5px;
+	cursor: pointer;
+}
+
+.close-btn.right-icon.ui-tabs.dropdownBtn{
+	padding-top: 10px;
+    cursor: pointer;
+}
+
+.navRight img{	
+	width:100%;
+}
+
+.navRight .right-icon{
+	float:left;
+	width: 22px;
+	height: 22px;
+	/*position: relative;
+    top: 79px;
+    right: 10px;
+    z-index: 1;*/
+}
+
+.head-photo{
+	float:right;
+}
+.userImgbox {
+    border: 1px solid #eeeeee;
+    right: 20px;
+}
+
+/*\instance\plugins\bokesoft.com\yigo2\webapps\yigo\yesui\ui\res\css\blue\core.css*/
+.ui-required input, .ui-required textarea, .ui-required .wangEditor-textarea, .ui-chk.ui-required, .ui-rdo.ui-required, .ui-steped {
+    background: url(../../../images/main/validatesign.png) no-repeat 0 50%;
+}
+
+.ui-tabs-nav li a label {
+    color: #303030;
+}
+
+.ui-tabcnt > .ui-tabs-header > .ui-tabs-nav {
+    background: #fff;
+	font-weight: bold;
+}
+
+.ui-tabs.dropdownBtn {
+    background-color: #fff;
+}
+
+.ui-tabcnt .ui-tabs.dropdownBtn.show {
+    background-color: #fff;
+}
+
+.ui-tabcnt .ui-tabs-nav li.ui-tabcontainer.aria-selected:after{
+	background: none;
+}
+.ui-tabcnt li.ui-tabcontainer.aria-selected a label {
+	height: 100%;
+	border-bottom: 4px solid #4f8bf9;
+}
+.ui-tabs-nav li.ui-tabcontainer a{
+	padding-left:30px;
+}
+.ui-tabs.tabs-list.showList {
+    right: 20px;
+    left: inherit!important;
+}
+.ui-tabs.tabs-list li{
+	width:138px;
+	height:26px;
+    line-height: 26px;
+	padding-left:20px;
+	color: #757575;
+}
+.ui-tabs.tabs-list li:hover{
+	background-color:#4f8bf9;
+    color:#ffffff;
+}
+.ui-glp .layout tr td label{
+	color:#505050;
+}
+/*按钮控件*/
+.ui-btn button {
+    background-color:#e1e5ec;
+}
+.ui-btn button:hover{
+    background-color:#4f8bf9;
+}
+.ui-btn button:hover .txt{
+    color:#ffffff;
+}
+/*日期控件*/
+.ui-dp .arrow {
+    background-image: url(../../../images/main/rqkjtb.png);
+	width: 18px;
+    height: 17px;
+}
+
+.ui-tabs-body .tabcnt-cont.ui-corner-bottom.aria-show {
+    padding: 20px 0 20px 20px;
+}
+
+.ui-tabpnl .ui-tabs-nav .aria-selected a {
+    background: #4f8bf9;
+}
+
+.ui-tabpnl .ui-tabs-nav li a {
+    background: #e1e6ec;
+}
+
+.ui-tabpnl ul.tab-head {
+    border:none;
+    padding-left: 0px;
+}
+.ui-tabs-nav li.ui-tabcontainer a:hover {
+    background:#4f8bf9;
+}
+
+.ui-tabs-nav li.ui-tabcontainer a:hover label {
+	color:#ffffff;
+}
+
+/*\instance\plugins\bokesoft.com\yigo2\webapps\yigo\yesui\ui\res\css\blue\scrollbar.css*/
+.scroll-middle-V{
+    background: #1e214a;
+}
+
+.cmb-vw {
+    height: auto;
+}
+
+.scroll-top, .scroll-bottom, .scroll-left, .scroll-right {
+    background: #1e214a;
+}
+
+.scroll-middle-H {
+    background: #1e214a;
+}
+/*\instance\plugins\bokesoft.com\yigo2\webapps\yigo\yesui\ui\plugin\css\paginationjs.css*/
+.paginationjs .paginationjs-pages ul {
+    position: relative;
+    left: 50%;
+    float: left;
+}
+.paginationjs .paginationjs-pages li {
+    position: relative;
+    left: -50%;
+}
+
+/**zn**/
+#NJ_LEWReport0{
+	    background: url(../../../images/main/wygl.png) 0px 1px no-repeat;
+}
+#zlgl1{
+	   background: url(../../../images/main/wygl.png) 0px -44px no-repeat;
+}
+#jfgl2{
+	  background: url(../../../images/main/wygl.png) 0px -88px no-repeat;
+}
+#kfgl3{
+	background: url(../../../images/main/wygl.png) 0px -137px no-repeat;
+}
+#NJ_LEWReport0{
+	background: url(../../../images/main/zcgl.png) 0px 1px no-repeat;
+}
+#htgl1{
+	background: url(../../../images/main/zcgl.png) 0px -42px no-repeat;
+}
+#zcdj2{
+	background: url(../../../images/main/zcgl.png) 0px -87px no-repeat;
+}
+#zcgl3{
+	background: url(../../../images/main/zcgl.png) 0px -132px no-repeat;
+}
+#zcpd4{
+	background: url(../../../images/main/zcgl.png) 0px -177px no-repeat;
+}
+#tjcx5{
+	background: url(../../../images/main/zcgl.png) 0px -223px no-repeat;
+}
+#yxgl1{
+	background: url(../../../images/main/zsgl.png) 0px -42px no-repeat;
+}
+#jcpz3{
+	background: url(../../../images/main/zsgl.png) 0px -92px no-repeat
+}
+#ToDoList_ZS0{
+	background: url(../../../images/main/zsgl.png) 0px 3px no-repeat;
+}
+#NJ_PaymentReport0{
+	background: url(../../../images/main/wygl.png) 0px 3px no-repeat;
+}
+.dialog.error .dialog-content-inner{
+	background-position: 60px 62px;
+	font-size:14px;
+	color:#757575;
+	height:160px!important;
+}
+#error_dialog .dialog-button.detail{
+	width:72px;
+	height:30px;
+	margin-right:140px;
+	border-radius:none;
+	background:#e1e6ec;
+	border-radius:0;
+}
+#error_dialog .dialog-button.close{
+	width:72px;
+	height:30px;
+	border-radius:0;
+	background:#e1e6ec;
+}
+#error_dialog .dialog-button.close:hover,#error_dialog .dialog-button.detail:hover{
+	background:#4f8bf9;
+	color:#fff;
+}
+.dialog.error .dialog-header{
+	height:45px;
+}
+.ui-required1 label{
+    background: url(../../../images/main/validatesign.png) no-repeat 0 50%;
+	padding-left: 10px;
+}
+.ui-glp .layout tr td label{
+	font-weight: bold;
+}
+.ui-required input, .ui-required textarea, .ui-required .wangEditor-textarea, .ui-chk.ui-required, .ui-rdo.ui-required, .ui-steped{
+	background:none;
+}
+.tbr-ul a .txt{
+	height: 30px;
+    line-height: 30px;
+    width: auto;
+    min-width: 70px;
+    display: block;
+    text-align: center;
+}
+.tbr-ul .tbr-item{
+	background:#e1e6ec;
+	height:30px;
+	margin: 2px 10px 0px 2px;
+}
+.ui-tbr{
+	background:none;
+	border: none;
+	padding-bottom: 20px;
+}
+.tbr-ul .tbr-btn{
+	height:100%;
+}
+.tbr-ul .tbr-btn:hover, .tbr-ul .sp-btn:hover{
+	background:#4f8bf9;
+}
+.tbr-ul .txt:hover{
+	color:#fff;
+}

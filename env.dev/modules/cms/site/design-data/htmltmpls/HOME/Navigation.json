@@ -1,0 +1,28 @@
+{
+	"@type":"com.bokesoft.cms2.model.HtmlTmpl",
+	"code":"Navigation",
+	"htmlText":"<!DOCTYPE html>\n<html lang=\"zh-CN\">\n<head>\n <meta charset=\"utf-8\">\n <title>导航栏</title>\n</head>\n<body>\n<div yigo-cms:block=\"static2\"/>\n<div yigo-cms:area=\"content\" /> \n</body>\n</html>",
+	"name":"导航栏",
+	"notes":"",
+	"slices":[
+		{
+			"followHtml":"<!DOCTYPE html>\n<html lang=\"zh-CN\">\n<head>\n <meta charset=\"utf-8\">\n "
+		},
+		{
+			"code":"导航栏",
+			"followHtml":"\n</head>\n<body>\n",
+			"tag":"yigo-cms:title"
+		},
+		{
+			"code":"static2",
+			"followHtml":"\n",
+			"tag":"yigo-cms:block"
+		},
+		{
+			"code":"content",
+			"followHtml":" \n</body>\n</html>",
+			"name":"内容",
+			"tag":"yigo-cms:area"
+		}
+	]
+}

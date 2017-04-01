@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Caption="工厂" FormType="Dict" Key="V_Plant">
+    <DataSource RefObjectKey="Plant"/>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root">
+                <TabPanel Key="body">
+                    <GridLayoutPanel Key="body_basic" Padding="8px" Caption="基本信息(&amp;B)">
+                        <Label Key="Inner_Code" Caption="代码" X="0" Y="0"/>
+                        <TextEditor Key="Code" Caption="代码" BuddyKey="Inner_Code" X="1" Y="0" Visible="true" Enable="!ReadOnly()&amp;&amp;com.bokesoft.erp.basis.common.DocumentNumberUI.docNumberFieldEnable('Code')" InvalidChars="%*\&quot;+?&gt;&lt;:'">
+                            <DataBinding TableKey="BK_Plant" ColumnKey="Code" CheckRule="iifs(com.bokesoft.erp.basis.common.DocumentNumberUI.docNumberFieldEnable('Code')&amp;&amp;Value('Code')='', '采用外部给号编码规则，请输入代码', true, true)"/>
+                        </TextEditor>
+                        <Label Key="Inner_Name" Caption="名称" X="2" Y="0"/>
+                        <TextEditor Key="Name" Caption="名称" BuddyKey="Inner_Name" X="3" Y="0" Visible="true" Enable="!ReadOnly()">
+                            <DataBinding TableKey="BK_Plant" ColumnKey="Name"/>
+                        </TextEditor>
+                        <Label Key="Inner_NodeType" Caption="结点类型" X="0" Y="13"/>
+                        <ComboBox Key="NodeType" Caption="结点类型" BuddyKey="Inner_NodeType" X="1" Y="13" Visible="false" Enable="!ReadOnly()&amp;&amp;Status&lt;0">
+                            <DataBinding TableKey="BK_Plant" ColumnKey="NodeType"/>
+                        </ComboBox>
+                        <Label Key="Inner_CompanyCodeID" Caption="公司代码" X="0" Y="1"/>
+                        <Dict Key="CompanyCodeID" Caption="公司代码" BuddyKey="Inner_CompanyCodeID" X="1" Y="1" Visible="true" Enable="!ReadOnly()" ItemKey="CompanyCode">
+                            <DataBinding TableKey="BK_Plant" ColumnKey="CompanyCodeID" CheckRule="iifs(CompanyCodeID=-1, '请输入公式代码', true, true)"/>
+                        </Dict>
+                        <Label Key="Inner_PlantCalendarId" Caption="工厂日历" X="2" Y="1"/>
+                        <Dict Key="PlantCalendarId" Caption="工厂日历" BuddyKey="Inner_PlantCalendarId" X="3" Y="1" Visible="true" Enable="!ReadOnly()" ItemKey="Calendar">
+                            <DataBinding TableKey="BK_Plant" ColumnKey="PlantCalendarId" CheckRule="PlantCalendarId&gt;0"/>
+                        </Dict>
+                        <Label Key="Inner_CountryID" Caption="国家" X="0" Y="5"/>
+                        <Dict Key="CountryID" Caption="国家" BuddyKey="Inner_CountryID" X="1" Y="5" Visible="true" Enable="!ReadOnly()" ItemKey="Country">
+                            <DataBinding TableKey="BK_Plant" ColumnKey="CountryID" DefaultFormulaValue="GetItemPropByCode('Country', 'CN', 'ID')" CheckRule="CountryID&gt;0"/>
+                        </Dict>
+                        <Label Key="lblStreetAddress" Caption="街道地址" X="0" Y="2" Visible="true" Enable="false"/>
+                        <Label Key="Inner_StreetAddress" Caption="街道地址" X="0" Y="3"/>
+                        <TextEditor Key="StreetAddress" Caption="街道地址" BuddyKey="Inner_StreetAddress" X="1" Y="3" Visible="true" Enable="!ReadOnly()" InvalidChars="%*\&quot;+?&gt;&lt;:'" MaxLength="100">
+                            <DataBinding TableKey="BK_Plant" ColumnKey="StreetAddress"/>
+                        </TextEditor>
+                        <Label Key="Inner_RoomNumber" Caption="门牌号" X="2" Y="3"/>
+                        <TextEditor Key="RoomNumber" Caption="门牌号" BuddyKey="Inner_RoomNumber" X="3" Y="3" Visible="true" Enable="!ReadOnly()" InvalidChars="%*\&quot;+?&gt;&lt;:'" MaxLength="100">
+                            <DataBinding TableKey="BK_Plant" ColumnKey="RoomNumber"/>
+                        </TextEditor>
+                        <Label Key="Inner_PostalCode" Caption="邮政编码" X="0" Y="4"/>
+                        <TextEditor Key="PostalCode" Caption="邮政编码" BuddyKey="Inner_PostalCode" X="1" Y="4" Visible="true" Enable="!ReadOnly()" InvalidChars="%*\&quot;+?&gt;&lt;:'" MaxLength="100">
+                            <DataBinding TableKey="BK_Plant" ColumnKey="PostalCode"/>
+                        </TextEditor>
+                        <Label Key="Inner_City" Caption="城市" X="2" Y="4"/>
+                        <TextEditor Key="City" Caption="城市" BuddyKey="Inner_City" X="3" Y="4" Visible="true" Enable="!ReadOnly()" InvalidChars="%*\&quot;+?&gt;&lt;:'" MaxLength="100">
+                            <DataBinding TableKey="BK_Plant" ColumnKey="City"/>
+                        </TextEditor>
+                        <Label Key="Inner_RegionID" Caption="地区" X="2" Y="5"/>
+                        <Dict Key="RegionID" Caption="地区" BuddyKey="Inner_RegionID" X="3" Y="5" Visible="true" Enable="!ReadOnly()" ItemKey="Region">
+                            <DataBinding TableKey="BK_Plant" ColumnKey="RegionID"/>
+                        </Dict>
+                        <Label Key="PostOfficeBoxAddress" Caption="邮政信箱地址" X="0" Y="6" Visible="true" Enable="false"/>
+                        <Label Key="Inner_PostOfficeBox" Caption="邮政信箱" X="0" Y="7"/>
+                        <TextEditor Key="PostOfficeBox" Caption="邮政信箱" BuddyKey="Inner_PostOfficeBox" X="1" Y="7" Visible="true" Enable="!ReadOnly()" InvalidChars="%*\&quot;+?&gt;&lt;:'" MaxLength="100">
+                            <DataBinding TableKey="BK_Plant" ColumnKey="PostOfficeBox"/>
+                        </TextEditor>
+                        <Label Key="Inner_PostalCodeDtl" Caption="邮政编码" X="2" Y="7"/>
+                        <TextEditor Key="PostalCodeDtl" Caption="邮政编码" BuddyKey="Inner_PostalCodeDtl" X="3" Y="7" Visible="true" Enable="!ReadOnly()" InvalidChars="%*\&quot;+?&gt;&lt;:'" MaxLength="100">
+                            <DataBinding TableKey="BK_Plant" ColumnKey="PostalCodeDtl"/>
+                        </TextEditor>
+                        <Label Key="telInfo" Caption="通讯" X="0" Y="8" Visible="true" Enable="false"/>
+                        <Label Key="Inner_Language" Caption="语言" X="0" Y="9"/>
+                        <TextEditor Key="Language" Caption="语言" BuddyKey="Inner_Language" X="1" Y="9" Visible="true" Enable="!ReadOnly()" InvalidChars="%*\&quot;+?&gt;&lt;:'" MaxLength="100">
+                            <DataBinding TableKey="BK_Plant" ColumnKey="Language"/>
+                        </TextEditor>
+                        <Label Key="Inner_Telephone" Caption="电话" X="0" Y="10"/>
+                        <TextEditor Key="Telephone" Caption="电话" BuddyKey="Inner_Telephone" X="1" Y="10" Visible="true" Enable="!ReadOnly()" InvalidChars="%*\&quot;+?&gt;&lt;:'" MaxLength="100">
+                            <DataBinding TableKey="BK_Plant" ColumnKey="Call"/>
+                        </TextEditor>
+                        <Label Key="Inner_TelephoneExtension" Caption="分机号" X="2" Y="10"/>
+                        <TextEditor Key="TelephoneExtension" Caption="分机号" BuddyKey="Inner_TelephoneExtension" X="3" Y="10" Visible="true" Enable="!ReadOnly()" InvalidChars="%*\&quot;+?&gt;&lt;:'" MaxLength="100">
+                            <DataBinding TableKey="BK_Plant" ColumnKey="TelephoneExtension"/>
+                        </TextEditor>
+                        <Label Key="Inner_MobilePhone" Caption="移动电话" X="0" Y="11"/>
+                        <TextEditor Key="MobilePhone" Caption="移动电话" BuddyKey="Inner_MobilePhone" X="1" Y="11" Visible="true" Enable="!ReadOnly()" InvalidChars="%*\&quot;+?&gt;&lt;:'" MaxLength="100">
+                            <DataBinding TableKey="BK_Plant" ColumnKey="MobilePhone"/>
+                        </TextEditor>
+                        <Label Key="Inner_Fax" Caption="传真" X="0" Y="12"/>
+                        <TextEditor Key="Fax" Caption="传真" BuddyKey="Inner_Fax" X="1" Y="12" Visible="true" Enable="!ReadOnly()" InvalidChars="%*\&quot;+?&gt;&lt;:'" MaxLength="100">
+                            <DataBinding TableKey="BK_Plant" ColumnKey="Fax"/>
+                        </TextEditor>
+                        <Label Key="Inner_FaxExtension" Caption="分机号" X="2" Y="12"/>
+                        <TextEditor Key="FaxExtension" Caption="分机号" BuddyKey="Inner_FaxExtension" X="3" Y="12" Visible="true" Enable="!ReadOnly()" InvalidChars="%*\&quot;+?&gt;&lt;:'" MaxLength="100">
+                            <DataBinding TableKey="BK_Plant" ColumnKey="FaxExtension"/>
+                        </TextEditor>
+                        <RowDefCollection RowGap="5">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="5">
+                            <ColumnDef Width="100px"/>
+                            <ColumnDef Width="206px"/>
+                            <ColumnDef Width="100px"/>
+                            <ColumnDef Width="206px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <GridLayoutPanel Key="body_system" Padding="8px" Caption="系统信息(&amp;D)">
+                        <Label Key="Inner_Status" Caption="结点状态" X="0" Y="1"/>
+                        <ComboBox Key="Status" Caption="结点状态" BuddyKey="Inner_Status" X="1" Y="1" Visible="true" Enable="false">
+                            <DataBinding TableKey="BK_Plant" ColumnKey="Status"/>
+                        </ComboBox>
+                        <Label Key="Inner_CreateByID" Caption="创建人员" X="0" Y="2"/>
+                        <Dict Key="CreateByID" Caption="创建人员" BuddyKey="Inner_CreateByID" X="1" Y="2" Visible="true" Enable="false" ItemKey="Operator">
+                            <DataBinding TableKey="BK_Plant" ColumnKey="CREATOR" DefaultFormulaValue="GetOperator()"/>
+                        </Dict>
+                        <Label Key="Inner_CreateTime" Caption="创建时间" X="0" Y="3"/>
+                        <DatePicker Key="CreateTime" Caption="创建时间" BuddyKey="Inner_CreateTime" X="1" Y="3" Visible="true" Enable="false" OnlyDate="false">
+                            <DataBinding TableKey="BK_Plant" ColumnKey="CREATETIME" DefaultFormulaValue="ServerDate()"/>
+                        </DatePicker>
+                        <Label Key="Inner_UpdateByID" Caption="修改人员" X="0" Y="4"/>
+                        <Dict Key="UpdateByID" Caption="修改人员" BuddyKey="Inner_UpdateByID" X="1" Y="4" Visible="true" Enable="false" ItemKey="Operator">
+                            <DataBinding TableKey="BK_Plant" ColumnKey="MODIFIER" DefaultFormulaValue="GetOperator()"/>
+                        </Dict>
+                        <Label Key="Inner_UpdateTime" Caption="修改时间" X="0" Y="5"/>
+                        <DatePicker Key="UpdateTime" Caption="修改时间" BuddyKey="Inner_UpdateTime" X="1" Y="5" Visible="true" Enable="false" OnlyDate="false">
+                            <DataBinding TableKey="BK_Plant" ColumnKey="MODIFYTIME" DefaultFormulaValue="ServerDate()"/>
+                        </DatePicker>
+                        <Label Key="Inner_Notes" Caption="备注" X="0" Y="6"/>
+                        <TextEditor Key="Notes" Caption="备注" BuddyKey="Inner_Notes" X="1" Y="6" Visible="true" Enable="!ReadOnly()">
+                            <DataBinding TableKey="BK_Plant" ColumnKey="Notes"/>
+                        </TextEditor>
+                        <Label Key="Inner_ClientID" Caption="集团" X="0" Y="0"/>
+                        <Dict Key="ClientID" Caption="集团" BuddyKey="Inner_ClientID" X="1" Y="0" Visible="true" Enable="false" ItemKey="Client">
+                            <DataBinding TableKey="BK_Plant" ColumnKey="clientid" DefaultFormulaValue="getClientID()"/>
+                        </Dict>
+                        <RowDefCollection RowGap="5">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="5">
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="330px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                </TabPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

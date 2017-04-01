@@ -1,0 +1,12 @@
+{
+	"@type":"com.bokesoft.cms2.impl.buildin.modelio.vo.PageVO",
+	"attributes":{"@type":"java.util.LinkedHashMap"},
+	"code":"SCHEDULE",
+	"deliveryVOs":[],
+	"enabled":true,
+	"groups":[],
+	"name":"日程会议",
+	"title":"日程日历",
+	"tmplCode":"SCHEDULE.SCHEDULE-IFRAME",
+	"url":"/schedule.page"
+}

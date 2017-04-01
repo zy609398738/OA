@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Map Caption="在用资产下推资产转移" Key="NJ_UseAsset_NJ_AssetTransfer" SrcDataObjectKey="NJ_UseAsset" TgtDataObjectKey="NJ_AssetTransfer">
+    <SourceTableCollection Height="480" Width="247" X="30" Y="30">
+        <SourceTable Key="NJ_UseAsset" IsPrimary="true" TargetTableKey="NJ_SCM_AssetCode">
+            <SourceField Definition="UseDeptID" TargetFieldKey="OriginalUseDeptID" TargetTableKey="NJ_SCM_AssetTransferHead"/>
+            <SourceField Definition="UseEmpID" TargetFieldKey="OriginalUseEmpID" TargetTableKey="NJ_SCM_AssetTransferHead"/>
+            <SourceField Definition="Room" TargetFieldKey="OriginalRoom" TargetTableKey="NJ_SCM_AssetTransferHead"/>
+            <SourceField Definition="EmpID" TargetFieldKey="EmpID" TargetTableKey="NJ_SCM_AssetTransferHead"/>
+            <SourceField Definition="assetstypeid" TargetFieldKey="assetstypeid"/>
+            <SourceField Definition="AssetNatureId" TargetFieldKey="AssetNatureId"/>
+            <SourceField Definition="AssetsCode" TargetFieldKey="AssetsCode"/>
+            <SourceField Definition="AssetsId" TargetFieldKey="AssetsBarId"/>
+            <SourceField Definition="Model" TargetFieldKey="Model"/>
+            <SourceField Definition="UNITID" TargetFieldKey="UNITID"/>
+            <SourceField Definition="WareHouseId" TargetFieldKey="WareHouseId"/>
+            <SourceField Definition="AssetsOID" TargetFieldKey="AssetsOID"/>
+        </SourceTable>
+    </SourceTableCollection>
+    <TargetTableCollection Height="540" Width="463" X="312" Y="30">
+        <TargetTable Key="NJ_SCM_AssetTransferHead">
+            <TargetField Definition="OriginalUseDeptID"/>
+            <TargetField Definition="OriginalUseEmpID"/>
+            <TargetField Definition="OriginalRoom"/>
+            <TargetField Definition="EmpID"/>
+        </TargetTable>
+        <TargetTable Key="NJ_SCM_AssetCode" IsPrimary="true">
+            <TargetField Definition="assetstypeid"/>
+            <TargetField Definition="AssetNatureId"/>
+            <TargetField Definition="AssetsCode"/>
+            <TargetField Definition="AssetsBarId"/>
+            <TargetField Definition="Model"/>
+            <TargetField Definition="UNITID"/>
+            <TargetField Definition="WareHouseId"/>
+            <TargetField Definition="AssetsOID"/>
+        </TargetTable>
+    </TargetTableCollection>
+</Map>

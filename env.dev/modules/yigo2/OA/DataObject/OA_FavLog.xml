@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<DataObject Key="OA_FavLog" Caption="收藏日志" PrimaryTableKey="OA_FavLog" PrimaryType="Entity">
+    <TableCollection>
+        <Table Key="OA_FavLog" Caption="收藏日志" DBTableName="OA_FavLog">
+            <Column Key="OID" Caption="对象标识" DataType="Long"/>
+            <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+            <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+            <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+            <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+            <Column Key="Status" Caption="状态" DataType="Integer"/>
+            <Column Key="FavmetaKey" Caption="收藏表单Key" DataType="Varchar"/>
+            <Column Key="FavmetaID" Caption="收藏表单的ID" DataType="Long"/>
+            <Column Key="FavDate" Caption="收藏日期" DataType="DateTime"/>
+            <Column Key="EmpID" Caption="发布者" DataType="Long"/>
+            <Column Key="DocType" Caption="文档分类" DataType="Long"/>
+            <Column Key="Topic" DataType="Varchar" Caption="标题"/>
+            <Column Key="BillDate" Caption="发布日期" DataType="DateTime"/>
+            <Column Key="ValidityDate" Caption="有效期" DataType="DateTime"/>
+            <Column Key="FavEmpID" Caption="收藏人" DataType="Long"/>
+        </Table>
+    </TableCollection>
+</DataObject>

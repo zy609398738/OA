@@ -1,0 +1,146 @@
+
+<html>
+  <head>
+    <title>main.html</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <script type="text/javascript" src="ext/include-ext.js"></script>
+	<style type="text/css">  
+        .mytable {  
+            border: 1px solid #B1CDE3;  
+            padding:0; 
+            border-collapse: collapse;  
+			width: 100%;
+        }  
+          
+        .mytable td {  
+            border: 1px solid #B1CDE3;  
+            font-size:12px;  
+            padding: 3px 3px 3px 8px;  
+            color: #4f6b72;  
+        } 
+		.myPanel-header .x-panel-header-default {
+			background-color: #dfeaf2;
+		}
+x-panel-header		
+	</style>  
+	<script>
+	Ext.Loader.setConfig({
+		enabled: true,
+		paths: {
+			'Ext.calendar': 'src'
+		}
+	});
+    Ext.onReady(function() {
+		Ext.define('Menu', {
+			extend: 'Ext.data.Model',
+			fields: [{
+				name: 'id',
+				type: 'string'
+			}, {
+				name: 'parentId',
+				type: 'string'
+			}, {
+				name: 'text',
+				type: 'string'
+			}, {
+				name: 'leaf',
+				type: 'int'
+			}, {
+				name: 'url',
+				type: 'string'
+			}, {
+				name: 'iconCls',
+				type: 'string'
+			}, {
+				name: 'expanded',
+				type: 'boolean'
+			}]
+		});
+    	var store = Ext.create('Ext.data.TreeStore', {
+			model : 'Menu',
+        	proxy: {
+            	type: 'ajax',
+             	url: '/Yigo/CalendarMenu.action',
+             	render: 'json'
+         	}
+     	});
+        var viewport = Ext.create('Ext.Viewport', {
+            id: 'main',
+            layout: 'border',
+            items: [{
+                region: 'west',
+                stateId: 'navigation-panel',
+                id: 'west-panel', // see Ext.getCmp() below
+                title: '菜单',
+                width: 200,
+                minWidth: 175,
+                maxWidth: 400,
+                margins: '0 1 0 0',
+                items: [{
+                	xtype: 'treepanel',
+					id: 'menuinfo',
+                	border: false,
+				    store: store,
+				    rootVisible: false,
+				    listeners: {
+				    	'itemclick': function(view, record) {
+							var main = Ext.getCmp("content-panel");
+				    		var leaf = record.get('leaf');
+							var url = record.get('url');
+				    		if(leaf){
+								if(url == 'Ext.calendar.App'){
+									var tabs = main.items;// 得到所有tab项
+									main.setActiveTab(tabs.getAt(0));
+									return;
+								}
+					    		var panel = Ext.getCmp('newPage');
+					    		if (panel) {
+					                panel.destroy();
+					            }
+								if(url.indexOf('.jsp') != -1){
+									panel = {
+										title: record.get('text'),
+										id: 'newPage',
+										alias: 'widget.newpage',
+										html: "<iframe src=" + record.get('url') + " width='100%' height='100%'></iframe>",
+										closable: true
+									}
+								} else {
+									var id = record.get('id');
+									panel = {
+										title: record.get('text'),
+										id: 'newPage',
+										alias: 'widget.newpage',
+										items: [Ext.create(url, {_id: id})],
+										closable: true
+									}
+								}
+					            var p = main.add(panel);
+					            main.setActiveTab(p);
+					    	}
+						}
+				    }
+                }]
+            },
+            Ext.create('Ext.tab.Panel', {
+            	id: 'content-panel',
+                region: 'center', // a center region is ALWAYS required for border layout
+                deferredRender: false,
+                activeTab: 0,     // first tab initially active
+                items: [{
+					xtype : 'box',
+					id : 'HomePage',
+					title : '日程安排',
+					layout : 'fit',
+					html: "<iframe src='index.html' width='100%' height='100%'></iframe>"
+				}]
+            })]
+        });
+    });
+	</script>
+  </head>
+  
+  <body>
+  <div id="center1" class="x-hide-display"></div>
+  </body>
+</html>

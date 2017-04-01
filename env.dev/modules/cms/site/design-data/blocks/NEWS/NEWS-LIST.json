@@ -1,0 +1,31 @@
+{
+	"@type":"com.bokesoft.cms2.impl.buildin.modelio.vo.BlockVO",
+	"block":{
+		"@type":"com.bokesoft.cms2.model.blocks.TmplBlock",
+		"formulaText":"",
+		"notes":"",
+		"parameters":[],
+		"tmplText":"",
+		"type":"TMPL"
+	},
+	"code":"NEWS-LIST",
+	"name":"新闻列表",
+	"notes":"对最新新闻添加icon",
+	"params":[
+		{
+			"caption":"新闻类型",
+			"key":"typecode",
+			"type":"common"
+		},
+		{
+			"caption":"默认记录数",
+			"key":"QueryPage_DEF_PAGE_SIZE",
+			"type":"common"
+		},
+		{
+			"caption":"默认当前页号",
+			"key":"pageNo",
+			"type":"common"
+		}
+	]
+}

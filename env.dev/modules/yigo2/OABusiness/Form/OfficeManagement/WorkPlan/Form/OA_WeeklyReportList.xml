@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="OA_WeeklyReportList" Caption="工作计划列表" FormType="View">
+    <DataSource>
+        <DataObject Key="OA_WeeklyReportList" Caption="工作计划列表">
+            <TableCollection>
+                <Table Key="OA_WeeklyReport" Caption="工作计划列表" TableMode="Detail" SourceType="Query" OrderBy="WeekCode Desc,No Desc">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="NO" Caption="单据编号" DataType="Varchar" SortType="Desc"/>
+                    <Column Key="isPushed" Caption="isPushed" DataType="Integer"/>
+                    <Column Key="GroupID" Caption="GroupID" DataType="Long"/>
+                    <Column Key="DateBegin" Caption="起始日期" DataType="Date"/>
+                    <Column Key="DateEnd" Caption="截止日期" DataType="Date"/>
+                    <Column Key="Status" Caption="Status" DataType="Varchar" Length="0"/>
+                    <Column Key="Week" Caption="Week" DataType="Varchar" Length="0"/>
+                    <Column Key="SourceBillID" Caption="SourceBillID" DataType="Varchar" Length="0"/>
+                    <Statement>
+                        <![CDATA[Select OID,SOID,POID,VERID,DVERID,SourceBillID,No,GroupID,Week,WeekCode,DateBegin,DateEnd,Status,isPushed From
+(Select H.OID,H.SOID,H.POID,H.VERID,H.DVERID,H.SourceBillID,H.No,H.GroupID,H.Week,W.Code As WeekCode,W.DateBegin,W.DateEnd,H.Status,H.isPushed From OA_weeklyreport H Join OA_Week W On H.Week=W.SOID) D]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="New" Caption="新增" Visible="True">
+            <Action>
+                <![CDATA[New("OA_weeklyreport");]]>
+            </Action>
+        </Operation>
+    </OperationCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="main" Caption="根面板">
+                <ToolBar Key="main_toolbar" Height="pref" Caption="main_toolbar">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <GridLayoutPanel Key="first_head" Padding="5px" Height="75px" Caption="基本信息">
+                    <TextEditor Key="No_Cond" Caption="单据编号" BuddyKey="Lab_No_Cond" X="1" Y="0" Visible="true" Enable="true" TabOrder="0">
+                        <Condition ColumnKey="NO" TableKey="OA_WeeklyReport" CondSign="like"/>
+                    </TextEditor>
+                    <Label Key="Lab_No_Cond" Caption="单据编号" X="0" Y="0"/>
+                    <Button Key="Query" Caption="查询" X="4" Y="1" Visible="True" Enable="True" TabOrder="5">
+                        <OnClick>
+                            <![CDATA[DealCondition();LoadData();ShowData();]]>
+                        </OnClick>
+                    </Button>
+                    <Dict Key="GroupID_Cond" Caption="工作小组" BuddyKey="Lab_GroupID_Cond" X="3" Y="0" Enable="true" ItemKey="OA_Group" AllowMultiSelection="true" TabOrder="1">
+                        <Condition ColumnKey="GroupID" TableKey="OA_WeeklyReport" CondSign="in"/>
+                    </Dict>
+                    <Label Key="Lab_GroupID_Cond" Caption="工作小组" X="2" Y="0"/>
+                    <Dict Key="Week_Cond" Caption="工作周期" BuddyKey="Lab_Week_Cond" X="1" Y="1" AllowMultiSelection="true" Clearable="false" ItemKey="OA_Week">
+                        <Condition ColumnKey="Week" TableKey="OA_WeeklyReport" CondSign="in"/>
+                    </Dict>
+                    <Label Key="Lab_Week_Cond" Caption="工作周期" X="0" Y="1"/>
+                    <CheckListBox BuddyKey="Lab_isPushed_Cond" Caption="已下推" Clearable="false" Enable="true" Key="isPushed_Cond" TabOrder="2" X="3" Y="1">
+                        <DataBinding DefaultValue="{0,1}"/>
+                        <Condition ColumnKey="isPushed" TableKey="OA_WeeklyReport" CondSign="in"/>
+                        <Item Key="0" Value="0" Caption="未下推"/>
+                        <Item Caption="已下推" Key="1" Value="1"/>
+                    </CheckListBox>
+                    <Label Key="Lab_isPushed_Cond" Caption="已下推" X="2" Y="1"/>
+                    <RowDefCollection RowHeight="30" RowGap="5">
+                        <RowDef/>
+                        <RowDef/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="20">
+                        <ColumnDef Width="60px"/>
+                        <ColumnDef Width="200px"/>
+                        <ColumnDef Width="60px"/>
+                        <ColumnDef Width="200px"/>
+                        <ColumnDef Width="60px"/>
+                        <ColumnDef Width="80px"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+                <ListView Caption="ListView1" Height="100%" Key="ListView1" PageLoadType="DB" TableKey="OA_WeeklyReport">
+                    <ListViewColumnCollection>
+                        <ListViewColumn Key="OID" Caption="对象标识" ColumnType="NumberEditor" DataColumnKey="OID" Visible="false" Enable="false"/>
+                        <ListViewColumn Key="POID" Caption="父对象标识" ColumnType="NumberEditor" DataColumnKey="POID" Visible="false" Enable="false"/>
+                        <ListViewColumn Key="VERID" Caption="对象版本" ColumnType="NumberEditor" DataColumnKey="VERID" Visible="false" Enable="false"/>
+                        <ListViewColumn Key="DVERID" Caption="对象明细版本" ColumnType="NumberEditor" DataColumnKey="DVERID" Visible="false" Enable="false"/>
+                        <ListViewColumn Key="NO" Caption="单据编号" ColumnType="TextEditor" DataColumnKey="NO" Enable="false" Width="160px"/>
+                        <ListViewColumn Key="Week" Caption="工作周期" ColumnType="Dict" DataColumnKey="Week" Width="200px" ItemKey="OA_Week"/>
+                        <ListViewColumn Key="DateBegin" Caption="起始日期" ColumnType="DatePicker" DataColumnKey="DateBegin" Width="160px" Format="yyyy-MM-dd " OnlyDate="true"/>
+                        <ListViewColumn Key="DateEnd" Caption="截止日期" ColumnType="DatePicker" DataColumnKey="DateEnd" Width="160px" Format="yyyy-MM-dd " OnlyDate="true"/>
+                        <ListViewColumn Key="GroupID" Caption="工作小组" ColumnType="Dict" DataColumnKey="GroupID" Enable="false" Width="200px" ItemKey="OA_Group"/>
+                        <ListViewColumn Key="Status" Caption="单据状态" ColumnType="ComboBox" DataColumnKey="Status" SourceType="Status"/>
+                        <ListViewColumn Key="isPushed" Caption="完成状态" ColumnType="ComboBox" DataColumnKey="isPushed" Width="100px" IntegerValue="true">
+                            <Item Key="0" Value="0"/>
+                            <Item Caption="已完成" Key="1" Value="1"/>
+                        </ListViewColumn>
+                    </ListViewColumnCollection>
+                    <RowDblClick>
+                        <![CDATA[Open("OA_weeklyreport",OID);]]>
+                    </RowDblClick>
+                </ListView>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+    <OnLoad>
+        <![CDATA[LoadData()]]>
+    </OnLoad>
+</Form>

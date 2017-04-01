@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="NJ_SCM_OrderHead" Caption="项目登记" FormType="Entity">
+    <DataSource>
+        <DataObject Key="NJ_SCM_OrderHead" Caption="NJ_Order" NoPrefix="PO" PrimaryTableKey="NJ_SCM_OrderHead" PrimaryType="Entity">
+            <TableCollection>
+                <Table Key="NJ_SCM_OrderHead" Caption="NJ_SCM_OrderHead" DBTableName="NJ_SCM_OrderHead">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="NO" Caption="发布编号" DataType="Varchar"/>
+                    <Column Key="BillDate" Caption="发布日期" DataType="DateTime"/>
+                    <Column Key="Status" Caption="单据状态" DataType="Integer"/>
+                    <Column Key="Creator" Caption="创建人" DataType="Long"/>
+                    <Column Key="CreateTime" Caption="创建日期" DataType="DateTime"/>
+                    <Column Key="Modifier" Caption="修改人" DataType="Long"/>
+                    <Column Key="ModifyTime" Caption="修改日期" DataType="DateTime"/>
+                    <Column Key="BillKey" Caption="单据Key" DataType="Varchar"/>
+                    <Column Key="ClusterID" Caption="集团" DataType="Long"/>
+                    <Column Key="EmpID" Caption="经办人" DataType="Long"/>
+                    <Column Key="ParkID" Caption="所属园区" DataType="Long"/>
+                    <Column Key="IndID" Caption="所属行业" DataType="Long"/>
+                    <Column Key="ProjName" Caption="项目名称" DataType="Varchar"/>
+                    <Column Key="ProjCome" Caption="项目来源" DataType="Integer"/>
+                    <Column Key="ProjKind" Caption="项目种类" DataType="Varchar"/>
+                    <Column Key="ProjCustomer" Caption="意向客户" DataType="Varchar"/>
+                    <Column Key="ProjAmount" Caption="投资金额" DataType="Numeric" Precision="16" Scale="2"/>
+                    <Column Key="NOTES" Caption="项目介绍" DataType="Varchar" Length="4000"/>
+                    <Column Key="InstanceID" Caption="流程标识" DataType="Long"/>
+                    <Column Key="ProjRisk" Caption="风险等级" DataType="Varchar"/>
+                    <Column Caption="SrcOID" DataType="Long" Key="SrcOID"/>
+                    <Column Caption="SrcSOID" DataType="Long" Key="SrcSOID"/>
+                    <Column DataType="Varchar" Key="MapKey"/>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="Save" Caption="保存" RefKey="Save"/>
+        <Operation Key="Delete" Caption="删除" RefKey="Delete"/>
+        <Operation Key="Edit" Caption="编辑" RefKey="Edit"/>
+        <Operation Key="Cancel" Caption="取消" RefKey="Cancel"/>
+        <Operation Key="Close" Caption="关闭" RefKey="Close"/>
+        <Operation Key="WORKITEM" Caption="WORKITEM" Tag="WORKITEM"/>
+        <Operation Key="BPM" Caption="BPM" Tag="BPM"/>
+        <Operation Key="ShowAuditDetil" Caption="审批流程" Visible="ReadOnly()">
+            <Action>
+                <![CDATA[ShowModal('WFLog') ]]>
+            </Action>
+        </Operation>
+    </OperationCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板">
+                <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <SplitPanel Key="SplitPanel1" Orientation="Vertical" Height="100%" Caption="SplitPanel1">
+                    <TabPanel Caption="TabPanel1" Height="100%" Key="TabPanel1">
+                        <GridLayoutPanel Key="first_head" Height="pref" Padding="5px" Caption="基本信息">
+                            <TextEditor Key="NO" Caption="登记编号" BuddyKey="Lab_NO" X="2" Y="0" Enable="false">
+                                <DataBinding TableKey="NJ_SCM_OrderHead" ColumnKey="NO"/>
+                            </TextEditor>
+                            <Label Key="Lab_NO" Caption="登记编号" X="1" Y="0"/>
+                            <DatePicker Key="BillDate" Caption="登记日期" BuddyKey="Lab_BillDate" X="5" Y="0" OnlyDate="true">
+                                <DataBinding TableKey="NJ_SCM_OrderHead" ColumnKey="BillDate" DefaultFormulaValue="ServerDate();"/>
+                            </DatePicker>
+                            <Label Key="Lab_BillDate" Caption="登记日期" X="4" Y="0"/>
+                            <ComboBox Key="Status" Caption="单据状态" BuddyKey="Lab_Status" X="8" Y="0" Enable="false" SourceType="Formula">
+                                <DataBinding TableKey="NJ_SCM_OrderHead" ColumnKey="Status" DefaultValue="1"/>
+                                <FormulaItems>
+                                    <![CDATA[GetStatusItems()]]>
+                                </FormulaItems>
+                            </ComboBox>
+                            <Label Key="Lab_Status" Caption="单据状态" X="7" Y="0"/>
+                            <Dict Key="EmpID" Caption="业务员" BuddyKey="Lab_EmpID" X="8" Y="1" ItemKey="OA_Employee">
+                                <DataBinding TableKey="NJ_SCM_OrderHead" ColumnKey="EmpID" DefaultFormulaValue="GetOperator()"/>
+                            </Dict>
+                            <Label Key="Lab_EmpID" Caption="业务员" X="7" Y="1"/>
+                            <Dict Key="ParkID" Caption="所属园区" BuddyKey="Lab_ParkID" X="2" Y="1" ItemKey="NJ_CP_Park">
+                                <DataBinding TableKey="NJ_SCM_OrderHead" ColumnKey="ParkID"/>
+                            </Dict>
+                            <Label Key="Lab_ParkID" Caption="所属园区" X="1" Y="1"/>
+                            <Dict Key="IndID" Caption="所属行业" BuddyKey="Lab_IndID" X="5" Y="1" ItemKey="NJ_CP_Industry">
+                                <DataBinding TableKey="NJ_SCM_OrderHead" ColumnKey="IndID"/>
+                            </Dict>
+                            <Label Key="Lab_IndID" Caption="所属行业" X="4" Y="1"/>
+                            <TextEditor Key="ProjName" Caption="项目名称" BuddyKey="Lab_ProjName" X="2" Y="2">
+                                <DataBinding TableKey="NJ_SCM_OrderHead" ColumnKey="ProjName"/>
+                            </TextEditor>
+                            <Label Key="Lab_ProjName" Caption="项目名称" X="1" Y="2"/>
+                            <ComboBox Key="ProjKind" Caption="项目种类" BuddyKey="Lab_ProjKind" X="8" Y="2">
+                                <DataBinding TableKey="NJ_SCM_OrderHead" ColumnKey="ProjKind"/>
+                                <Item Caption="重点项目" Key="1" Value="1"/>
+                                <Item Caption="非重点项目" Key="2" Value="2"/>
+                            </ComboBox>
+                            <Label Key="Lab_ProjKind" Caption="项目种类" X="7" Y="2"/>
+                            <TextEditor Key="ProjCustomer" Caption="意向客户" BuddyKey="Lab_ProjCustomer" X="2" Y="3">
+                                <DataBinding TableKey="NJ_SCM_OrderHead" ColumnKey="ProjCustomer"/>
+                            </TextEditor>
+                            <Label Key="Lab_ProjCustomer" Caption="意向客户" X="1" Y="3"/>
+                            <NumberEditor Key="ProjAmount" Caption="投资金额" BuddyKey="Lab_ProjAmount" X="5" Y="3">
+                                <DataBinding TableKey="NJ_SCM_OrderHead" ColumnKey="ProjAmount"/>
+                            </NumberEditor>
+                            <Label Key="Lab_ProjAmount" Caption="投资金额" X="4" Y="3"/>
+                            <TextArea Key="NOTES" Caption="项目介绍" BuddyKey="Lab_NOTES" X="2" Y="4" XSpan="7" YSpan="2">
+                                <DataBinding TableKey="NJ_SCM_OrderHead" ColumnKey="NOTES"/>
+                            </TextArea>
+                            <Label Key="Lab_NOTES" Caption="项目介绍" X="1" Y="4"/>
+                            <ComboBox Key="ProjRisk" Caption="风险等级" BuddyKey="Lab_ProjRisk" X="8" Y="3">
+                                <DataBinding TableKey="NJ_SCM_OrderHead" ColumnKey="ProjRisk"/>
+                                <Item Caption="一级" Key="1" Value="1"/>
+                                <Item Caption="二级" Key="2" Value="2"/>
+                                <Item Caption="三级" Key="3" Value="3"/>
+                                <Item Caption="四级" Key="4" Value="4"/>
+                            </ComboBox>
+                            <Label Key="Lab_ProjRisk" Caption="风险等级" X="7" Y="3"/>
+                            <ComboBox Key="ProjCome" Caption="项目来源" BuddyKey="Lab_ProjCome" X="5" Y="2">
+                                <DataBinding TableKey="NJ_SCM_OrderHead" ColumnKey="ProjCome"/>
+                                <Item Caption="电话" Key="1" Value="1"/>
+                                <Item Caption="老带新" Key="2" Value="2"/>
+                                <Item Caption="广告" Key="3" Value="3"/>
+                                <Item Caption="传单" Key="4" Value="4"/>
+                            </ComboBox>
+                            <Label Key="Lab_ProjCome" Caption="项目来源" X="4" Y="2"/>
+                            <RowDefCollection RowGap="4">
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="4">
+                                <ColumnDef Width="20px"/>
+                                <ColumnDef Width="80px"/>
+                                <ColumnDef Width="33%"/>
+                                <ColumnDef Width="20px"/>
+                                <ColumnDef Width="80px"/>
+                                <ColumnDef Width="33%"/>
+                                <ColumnDef Width="20px"/>
+                                <ColumnDef Width="80px"/>
+                                <ColumnDef Width="34%"/>
+                                <ColumnDef Width="20px"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                        <GridLayoutPanel Key="SysTab" Caption="系统信息">
+                            <Dict Key="Creator" Caption="创建人" BuddyKey="Lab_Creator" X="2" Y="0" Enable="false" ItemKey="Operator">
+                                <DataBinding TableKey="NJ_SCM_OrderHead" ColumnKey="Creator" DefaultFormulaValue="GetOperator()"/>
+                            </Dict>
+                            <Label Key="Lab_Creator" Caption="创建人" X="1" Y="0"/>
+                            <Dict Key="Modifier" Caption="修改人" BuddyKey="Lab_Modifier" X="2" Y="1" Enable="false" ItemKey="Operator">
+                                <DataBinding TableKey="NJ_SCM_OrderHead" ColumnKey="Modifier" DefaultFormulaValue="GetOperator()"/>
+                            </Dict>
+                            <DatePicker Key="CreateTime" Caption="创建日期" BuddyKey="Lab_CreateTime" X="5" Y="0" Enable="false">
+                                <DataBinding TableKey="NJ_SCM_OrderHead" ColumnKey="CreateTime" DefaultFormulaValue="ServerDate()"/>
+                            </DatePicker>
+                            <Label Key="Lab_CreateTime" Caption="创建时间" X="4" Y="0"/>
+                            <Label Key="Lab_Modifier" Caption="修改人" X="1" Y="1"/>
+                            <DatePicker Key="ModifyTime" Caption="修改日期" BuddyKey="Lab_ModifyTime" X="5" Y="1" Enable="false">
+                                <DataBinding TableKey="NJ_SCM_OrderHead" ColumnKey="ModifyTime" DefaultFormulaValue="ServerDate()"/>
+                            </DatePicker>
+                            <Label Key="Lab_ModifyTime" Caption="修改时间" X="4" Y="1"/>
+                            <TextEditor Key="BillKey" Caption="单据Key" BuddyKey="Lab_BillKey" X="8" Y="0">
+                                <DataBinding TableKey="NJ_SCM_OrderHead" ColumnKey="BillKey" DefaultFormulaValue="GetFormKey()"/>
+                            </TextEditor>
+                            <Label Key="Lab_BillKey" Caption="单据Key" X="7" Y="0"/>
+                            <Dict Key="ClusterID" Caption="集团" BuddyKey="Lab_ClusterID" X="8" Y="1" Enable="false" ItemKey="Client">
+                                <DataBinding TableKey="NJ_SCM_OrderHead" ColumnKey="ClusterID"/>
+                            </Dict>
+                            <Label Key="Lab_ClusterID" Caption="集团" X="7" Y="1"/>
+                            <RowDefCollection RowGap="4">
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="4">
+                                <ColumnDef Width="20px"/>
+                                <ColumnDef Width="80px"/>
+                                <ColumnDef Width="33%"/>
+                                <ColumnDef Width="20px"/>
+                                <ColumnDef Width="80px"/>
+                                <ColumnDef Width="33%"/>
+                                <ColumnDef Width="20px"/>
+                                <ColumnDef Width="80px"/>
+                                <ColumnDef Width="34%"/>
+                                <ColumnDef Width="20px"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                    </TabPanel>
+                    <SplitSize Size="100%"/>
+                </SplitPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

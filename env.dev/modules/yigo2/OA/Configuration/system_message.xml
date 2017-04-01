@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<settings>
+		<!-- 系统消息 -->
+		<map name="SystemMessage">
+			<!-- 库存迁移表的Key -->
+			<property name="Name">系统消息</property>
+			<!-- 消息类型 -->
+			<map name="MessageType">
+				<!-- 实际值 -->
+				<map name="SMS">
+					<!-- 显示值 -->
+					<property name="Name">短信</property>
+					<!-- 接口的实现类，实现com.bokesoft.oa.mid.message.MessageTypeBase虚基类 -->
+					<property name="ClassePath">com.bokesoft.oa.mid.message.extand.Sms</property>
+					<!-- 条件公式，决定是否调用当前发送，公式执行结果为true，调用发送，公式执行结果为false或空时，跳过不调用 -->
+					<property name="Formula"><![CDATA[]]></property>
+					<!-- 当属性为true时，只有前一种发送时如果发送失败，才会调用此方式重新发送。
+					当属性为false或空时，意味着无论前一种发送成功与否，都执行此法送。 -->
+					<property name="IsSucceed">false</property>
+					<!-- 是否保存信息，默认为true，当属性为true时，保存信息到信息发送与接收，否则，为false或空时不保存 -->
+					<property name="IsSaveMessage">false</property>
+				</map>
+				<map name="Email">
+					<property name="Name">邮件</property>
+					<property name="ClassePath">com.bokesoft.oa.mid.message.extand.Email</property>
+					<property name="IsSaveMessage">false</property>
+				</map>
+				<map name="SysMessage">
+					<property name="Name">系统信息</property>
+					<property name="ClassePath">com.bokesoft.oa.mid.message.extand.SystemMessage</property>
+					<property name="IsSaveMessage">true</property>
+				</map>
+				<map name="IM">
+					<property name="Name">即时通信</property>
+					<property name="ClassePath"></property>
+					<property name="IsSaveMessage">false</property>
+				</map>
+			</map>
+		</map>
+	</settings>
+</config>

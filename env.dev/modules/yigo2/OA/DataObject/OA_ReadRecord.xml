@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<DataObject Key="OA_ReadRecord" Caption="阅读记录" PrimaryTableKey="OA_ReadRecord" PrimaryType="Entity">
+    <TableCollection>
+        <Table Key="OA_ReadRecord" Caption="阅读记录" DBTableName="OA_ReadRecord">
+            <Column Key="OID" Caption="对象标识" DataType="Long"/>
+            <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+            <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+            <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+            <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+            <Column Key="ReadTime" Caption="阅读时间" DataType="DateTime"/>
+            <Column Key="Reader" Caption="阅读人" DataType="Long"/>
+            <Column Key="BillKey" Caption="单据key" DataType="Varchar"/>
+            <Column Key="Status" Caption="状态" DataType="Integer"/>
+            <Column Key="BillOID" Caption="源OID" DataType="Long"/>
+        </Table>
+    </TableCollection>
+</DataObject>

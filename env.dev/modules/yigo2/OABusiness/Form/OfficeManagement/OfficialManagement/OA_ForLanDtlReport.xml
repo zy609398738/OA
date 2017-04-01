@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="OA_ForLanDtlReport" Caption="收文明细表" FormType="View" Platform="">
+    <DataSource>
+        <DataObject Key="OA_ForLanDtlReport" Caption="收文明细表">
+            <TableCollection>
+                <Table Key="OA_ForLanDtlReport" Caption="收文明细表" TableMode="Detail" SourceType="Query" Persist="false">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="LevUnit" Caption="来文单位" DataType="Varchar"/>
+                    <Column Key="WordSizeID" Caption="文号" DataType="Long"/>
+                    <Column Key="BillDate" Caption="收文日期" DataType="DateTime"/>
+                    <Column Key="Topic" Caption="文件标题" DataType="Varchar"/>
+                    <Column Key="SecretL" Caption="密级" DataType="Integer"/>
+                    <Column Key="FileTypeID" Caption="收文类型" DataType="Long"/>
+                    <Column Key="Status" Caption="单据状态" DataType="Integer"/>
+                    <Statement>
+                        <![CDATA[select * from (select * from OA_ForeignLan_H  order by  BillDate desc) h]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="Print" Caption="打印"/>
+    </OperationCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板">
+                <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <GridLayoutPanel Key="first_head" Height="120px" Caption="基本信息">
+                    <TextEditor Key="QueryLevUnit" Caption="来文单位" BuddyKey="Lab_QueryLevUnit" X="1" Y="0">
+                        <Condition ColumnKey="LevUnit" TableKey="OA_ForLanDtlReport" CondSign="like"/>
+                    </TextEditor>
+                    <Label Key="Lab_QueryLevUnit" Caption="来文单位" X="0" Y="0"/>
+                    <Dict Key="QueryWordSizeID" Caption="文号" BuddyKey="Lab_QueryWordSizeID" X="3" Y="0" AllowMultiSelection="true" ItemKey="OA_WordSize">
+                        <Condition ColumnKey="WordSizeID" TableKey="OA_ForLanDtlReport" CondSign="in"/>
+                    </Dict>
+                    <Label Key="Lab_QueryWordSizeID" Caption="文号" X="2" Y="0"/>
+                    <DatePicker Key="From" Caption="收文日期 从" BuddyKey="Lab_From" X="1" Y="1">
+                        <Condition ColumnKey="BillDate" TableKey="OA_ForLanDtlReport" CondSign="between" Group="aa" GroupHead="true"/>
+                    </DatePicker>
+                    <Label Key="Lab_From" Caption="收文日期 从" X="0" Y="1"/>
+                    <DatePicker Key="To" Caption="到" BuddyKey="Lab_To" X="3" Y="1">
+                        <Condition ColumnKey="BillDate" TableKey="OA_ForLanDtlReport" CondSign="between" Group="aa" GroupTail="true"/>
+                    </DatePicker>
+                    <Label Key="Lab_To" Caption="到" X="2" Y="1"/>
+                    <TextEditor Key="QueryTopic" Caption="文件标题" BuddyKey="Lab_QueryTopic" X="5" Y="0">
+                        <Condition ColumnKey="Topic" TableKey="OA_ForLanDtlReport" CondSign="like"/>
+                    </TextEditor>
+                    <Label Key="Lab_QueryTopic" Caption="文件标题" X="4" Y="0"/>
+                    <CheckListBox BuddyKey="Lab_QuerySecretL" Caption="密级" Key="QuerySecretL" X="5" Y="1">
+                        <Condition ColumnKey="SecretL" TableKey="OA_ForLanDtlReport" CondSign="in"/>
+                        <Item Caption="机密" Key="10" Value="10"/>
+                        <Item Caption="非密" Key="20" Value="20"/>
+                        <Item Caption="秘密" Key="30" Value="30"/>
+                    </CheckListBox>
+                    <Label Key="Lab_QuerySecretL" Caption="密级" X="4" Y="1"/>
+                    <Dict Key="QueryFileTypeID" Caption="收文类型" BuddyKey="Lab_QueryFileTypeID" X="1" Y="2" AllowMultiSelection="true" ItemKey="OA_FileType">
+                        <Condition ColumnKey="FileTypeID" TableKey="OA_ForLanDtlReport" CondSign="in"/>
+                    </Dict>
+                    <Label Key="Lab_QueryFileTypeID" Caption="收文类型" X="0" Y="2"/>
+                    <Button Key="Query" Caption="查询" X="6" Y="0">
+                        <OnClick>
+                            <![CDATA[DealCondition();
+LoadData();
+ShowData();]]>
+                        </OnClick>
+                    </Button>
+                    <Button Key="Reset" Caption="重置" X="6" Y="1">
+                        <OnClick>
+                            <![CDATA[ResetCondition();]]>
+                        </OnClick>
+                    </Button>
+                    <CheckListBox BuddyKey="Lab_QueryStatus" Caption="单据状态" Key="QueryStatus" SourceType="Formula" X="3" Y="2">
+                        <Condition ColumnKey="Status" TableKey="OA_ForLanDtlReport" CondSign="in"/>
+                        <FormulaItems>
+                            <![CDATA[OA_GetDropItemFromStatus();]]>
+                        </FormulaItems>
+                    </CheckListBox>
+                    <Label Key="Lab_QueryStatus" Caption="单据状态" X="2" Y="2"/>
+                    <RowDefCollection RowGap="8">
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="8">
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="33%"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="33%"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="34%"/>
+                        <ColumnDef Width="80px"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+                <Grid Key="Grid1" Caption="Grid1" NewEmptyRow="false" Enable="false" Height="100%" CanDelete="false" CanInsert="false" PageLoadType="UI">
+                    <GridColumnCollection>
+                        <GridColumn Key="LevUnit" Caption="来文单位" Width="130px"/>
+                        <GridColumn Key="WordSizeID" Caption="文号" Width="130px"/>
+                        <GridColumn Key="BillDate" Caption="收文日期" Width="130px"/>
+                        <GridColumn Key="Topic" Caption="文件标题" Width="200px"/>
+                        <GridColumn Key="SecretL" Caption="密级" Width="80px"/>
+                        <GridColumn Key="FileTypeID" Caption="收文类型" Width="130px"/>
+                        <GridColumn Key="Status" Caption="单据状态" Width="80px"/>
+                    </GridColumnCollection>
+                    <GridRowCollection>
+                        <GridRow Key="row1" RowHeight="35" TableKey="OA_ForLanDtlReport">
+                            <GridCell Key="LevUnit" Caption="来文单位" CellType="TextEditor">
+                                <DataBinding ColumnKey="LevUnit"/>
+                            </GridCell>
+                            <GridCell Key="WordSizeID" Caption="文号" CellType="Dict" ItemKey="OA_WordSize">
+                                <DataBinding ColumnKey="WordSizeID"/>
+                            </GridCell>
+                            <GridCell Key="BillDate" Caption="收文日期" CellType="DatePicker">
+                                <DataBinding ColumnKey="BillDate"/>
+                            </GridCell>
+                            <GridCell Key="Topic" Caption="文件标题">
+                                <DataBinding ColumnKey="Topic"/>
+                            </GridCell>
+                            <GridCell Key="SecretL" Caption="密级" CellType="ComboBox">
+                                <DataBinding ColumnKey="SecretL"/>
+                                <Item Key="0" Value="0"/>
+                                <Item Caption="机密" Key="10" Value="10"/>
+                                <Item Caption="非密" Key="20" Value="20"/>
+                                <Item Caption="秘密" Key="30" Value="30"/>
+                            </GridCell>
+                            <GridCell Key="FileTypeID" Caption="收文类型" CellType="Dict" ItemKey="OA_FileType">
+                                <DataBinding ColumnKey="FileTypeID"/>
+                            </GridCell>
+                            <GridCell Key="Status" Caption="单据状态" CellType="ComboBox" SourceType="Formula">
+                                <DataBinding ColumnKey="Status"/>
+                                <FormulaItems>
+                                    <![CDATA[OA_GetDropItemFromStatus();]]>
+                                </FormulaItems>
+                            </GridCell>
+                        </GridRow>
+                    </GridRowCollection>
+                </Grid>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+    <OnLoad>
+        <![CDATA[LoadData()]]>
+    </OnLoad>
+</Form>

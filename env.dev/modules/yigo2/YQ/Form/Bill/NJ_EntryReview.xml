@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="NJ_EntryReview" Caption="资格审核" FormType="Entity">
+    <DataSource>
+        <DataObject Key="NJ_EntryReview" Caption="资格审核" NoPrefix="ZGSH" PrimaryTableKey="NJ_SCM_EntryReviewHead" PrimaryType="Entity" ZeroPrefix="3">
+            <TableCollection>
+                <Table Key="NJ_SCM_EntryReviewHead" Caption="NJ_SCM_EntryReviewHead" DBTableName="NJ_SCM_EntryReviewHead">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="NO" Caption="发布编号" DataType="Varchar"/>
+                    <Column Key="BillDate" Caption="发布日期" DataType="DateTime"/>
+                    <Column Key="Status" Caption="单据状态" DataType="Integer"/>
+                    <Column Key="Creator" Caption="创建人" DataType="Long"/>
+                    <Column Key="CreateTime" Caption="创建日期" DataType="DateTime"/>
+                    <Column Key="Modifier" Caption="修改人" DataType="Long"/>
+                    <Column Key="ModifyTime" Caption="修改日期" DataType="DateTime"/>
+                    <Column Key="BillKey" Caption="单据Key" DataType="Varchar"/>
+                    <Column Key="ClusterID" Caption="集团" DataType="Long"/>
+                    <Column Key="EmpID" Caption="经办人" DataType="Long"/>
+                    <Column Key="IndID" Caption="所属行业" DataType="Long"/>
+                    <Column Key="ProjCustomer" Caption="意向客户" DataType="Varchar"/>
+                    <Column Key="NOTES" Caption="项目介绍" DataType="Varchar" Length="4000"/>
+                    <Column Key="InstanceID" Caption="流程标识" DataType="Long"/>
+                    <Column Key="IndustryField" Caption="产业领域" DataType="Varchar" Length="4000"/>
+                    <Column Key="Characteristic" Caption="项目特色与优势" DataType="Varchar" Length="4000"/>
+                    <Column Key="PersonnelSize" Caption="PersonnelSize" DataType="Numeric" Precision="16" Scale="2"/>
+                    <Column Key="LegalRepresentative" Caption="LegalRepresentative" DataType="Varchar"/>
+                    <Column Key="RegistrationDate" Caption="RegistrationDate" DataType="DateTime"/>
+                    <Column Key="RegisteredCapital" Caption="RegisteredCapital" DataType="Numeric" Precision="16" Scale="2"/>
+                    <Column Key="TotalArea" Caption="总面积" DataType="Numeric" Precision="16" Scale="2"/>
+                    <Column Key="RoomNumber" Caption="房间号" DataType="Varchar"/>
+                    <Column Key="ProjectTypeid" Caption="ProjectTypeid" DataType="Long"/>
+                    <Column Key="MapKey" Caption="映射标识" DataType="Varchar"/>
+                    <Column Key="SrcOID" Caption="来源行标识" DataType="Long"/>
+                    <Column Key="SrcSOID" Caption="来源表单标识" DataType="Long"/>
+                    <Column Key="MapCount" Caption="映射数量标记" DataType="Integer"/>
+                </Table>
+                <Table Key="NJ_SCM_EntryReviewDtl" Caption="NJ_SCM_EntryReviewDtl" TableMode="Detail">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="Room" Caption="Room" DataType="Long"/>
+                    <Column Key="Acreage" Caption="Acreage" DataType="Numeric" Precision="16" Scale="2"/>
+                    <Column Key="HouseType" Caption="HouseType" DataType="Long"/>
+                    <Column Key="Price" Caption="Price" DataType="Numeric" Precision="16" Scale="2"/>
+                    <Column Key="Area" Caption="Area" DataType="Numeric" Precision="16" Scale="2"/>
+                </Table>
+                <Table Key="NJ_SCM_EntryReviewOpinion" Caption="NJ_SCM_EntryReviewOpinion" TableMode="Detail">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="DeptID" Caption="DeptID" DataType="Long"/>
+                    <Column Key="Opinion" Caption="Opinion" DataType="Varchar" Length="2000"/>
+                </Table>
+                <Table Key="NJ_SCM_EntryReviewAM" Caption="NJ_SCM_EntryReviewAM" TableMode="Detail">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="UploadTime" Caption="上传时间" DataType="DateTime"/>
+                    <Column Key="UploadOperator" Caption="上传人" DataType="Long"/>
+                    <Column Key="Path" Caption="Path" DataType="Varchar"/>
+                    <Column Key="Name" Caption="Name" DataType="Varchar"/>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="WORKITEM" Caption="WORKITEM" Tag="WORKITEM"/>
+        <Operation Key="BPM" Caption="BPM" Tag="BPM"/>
+        <Operation Key="Save" Caption="保存" Visible="!ReadOnly()">
+            <Action>
+                <![CDATA[SaveData();UpdateView();
+DBUpdate('UPDATE NJ_SCM_EntryReviewHead SET RoomNumber=(select GROUP_CONCAT(c.Name) name from NJ_SCM_EntryReviewDtl b LEFT JOIN nj_cp_roomhead c ON b.Room=c.OID WHERE b.SOID=?) WHERE OID=?', GetOID(), GetOID());]]>
+            </Action>
+        </Operation>
+        <Operation Key="Delete" Caption="删除" Visible="ReadOnly()&amp;&amp;Status==1">
+            <Action>
+                <![CDATA[DeleteData();UpdateView();Close();]]>
+            </Action>
+        </Operation>
+        <Operation Key="Edit" Caption="编辑" Visible="ReadOnly()&amp;&amp;Status==1">
+            <Action>
+                <![CDATA[Edit();]]>
+            </Action>
+        </Operation>
+        <Operation Key="Cancel" Caption="取消" RefKey="Cancel"/>
+        <Operation Key="xtqyrz" Caption="下推企业入驻" Visible="ReadOnly()">
+            <Action>
+                <![CDATA[Map('NJ_EntryReview_NJ_CP_Customer','Customer');]]>
+            </Action>
+        </Operation>
+        <Operation Key="ShowWFLog" Caption="审批记录" RefKey="ShowWFLog"/>
+        <Operation Key="Print" Caption="打印" RefKey="Print"/>
+        <Operation Key="PrintPreview" Caption="打印预览" RefKey="PrintPreview"/>
+        <Operation Key="Close" Caption="关闭" RefKey="Close"/>
+    </OperationCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板">
+                <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <SplitPanel Key="SplitPanel1" Orientation="Vertical" Height="100%" Caption="SplitPanel1">
+                    <TabPanel Caption="TabPanel1" Height="100%" Key="TabPanel1">
+                        <GridLayoutPanel Key="first_head" Height="pref" Padding="5px" Caption="一、项目信息">
+                            <TextEditor Key="NO" Caption="申请编号" BuddyKey="Lab_NO" X="2" Y="0" Enable="false">
+                                <DataBinding ColumnKey="NO" TableKey="NJ_SCM_EntryReviewHead"/>
+                            </TextEditor>
+                            <Label Key="Lab_NO" Caption="申请编号" X="1" Y="0"/>
+                            <DatePicker Key="BillDate" Caption="申请日期" BuddyKey="Lab_BillDate" X="5" Y="0" OnlyDate="true">
+                                <DataBinding ColumnKey="BillDate" TableKey="NJ_SCM_EntryReviewHead" DefaultFormulaValue="ServerDate();"/>
+                            </DatePicker>
+                            <Label Key="Lab_BillDate" Caption="申请日期" X="4" Y="0"/>
+                            <ComboBox Key="Status" Caption="单据状态" BuddyKey="Lab_Status" X="8" Y="0" Enable="false" SourceType="Formula">
+                                <DataBinding ColumnKey="Status" TableKey="NJ_SCM_EntryReviewHead" DefaultValue="1"/>
+                                <FormulaItems>
+                                    <![CDATA[GetStatusItems()]]>
+                                </FormulaItems>
+                            </ComboBox>
+                            <Label Key="Lab_Status" Caption="单据状态" X="7" Y="0"/>
+                            <Dict Key="EmpID" Caption="业务员" BuddyKey="Lab_EmpID" X="2" Y="2" ItemKey="OA_Employee">
+                                <DataBinding ColumnKey="EmpID" TableKey="NJ_SCM_EntryReviewHead" DefaultFormulaValue="GetOperator()"/>
+                            </Dict>
+                            <Label Key="Lab_EmpID" Caption="业务员" X="1" Y="2"/>
+                            <TextEditor Key="ProjCustomer" Caption="项目（企业）名称" BuddyKey="Lab_ProjCustomer" X="2" Y="1">
+                                <DataBinding ColumnKey="ProjCustomer" TableKey="NJ_SCM_EntryReviewHead"/>
+                            </TextEditor>
+                            <Label Key="Lab_ProjCustomer" Caption="项目（企业）名称" X="1" Y="1"/>
+                            <TextArea Key="NOTES" Caption="企业发展前景" BuddyKey="Lab_NOTES" X="2" Y="5" XSpan="7" YSpan="2">
+                                <DataBinding ColumnKey="NOTES" TableKey="NJ_SCM_EntryReviewHead"/>
+                            </TextArea>
+                            <Label Key="Lab_NOTES" Caption="企业发展前景" X="1" Y="5">
+                                <Format VAlign="Bottom" HAlign="Center"/>
+                            </Label>
+                            <NumberEditor Key="RegisteredCapital" Caption="注册资本" BuddyKey="Lab_RegisteredCapital" X="5" Y="1">
+                                <DataBinding ColumnKey="RegisteredCapital" TableKey="NJ_SCM_EntryReviewHead"/>
+                            </NumberEditor>
+                            <Label Key="Lab_RegisteredCapital" Caption="注册资本" X="4" Y="1"/>
+                            <DatePicker Key="RegistrationDate" Caption="注册时间" BuddyKey="Lab_RegistrationDate" X="8" Y="1" OnlyDate="true">
+                                <DataBinding ColumnKey="RegistrationDate" TableKey="NJ_SCM_EntryReviewHead"/>
+                            </DatePicker>
+                            <Label Key="Lab_RegistrationDate" Caption="注册时间" X="7" Y="1"/>
+                            <TextEditor Key="LegalRepresentative" Caption="法定代表人" BuddyKey="Lab_LegalRepresentative" X="5" Y="2">
+                                <DataBinding ColumnKey="LegalRepresentative" TableKey="NJ_SCM_EntryReviewHead"/>
+                            </TextEditor>
+                            <Label Key="Lab_LegalRepresentative" Caption="法定代表人" X="4" Y="2"/>
+                            <NumberEditor Key="PersonnelSize" Caption="人员规模" BuddyKey="Lab_PersonnelSize" X="8" Y="2" IntegerValue="true">
+                                <DataBinding ColumnKey="PersonnelSize" TableKey="NJ_SCM_EntryReviewHead"/>
+                            </NumberEditor>
+                            <Label Key="Lab_PersonnelSize" Caption="人员规模" X="7" Y="2"/>
+                            <TextArea Key="IndustryField" Caption="产业领域" BuddyKey="Lab_IndustryField" X="2" Y="3" XSpan="7">
+                                <DataBinding ColumnKey="IndustryField" TableKey="NJ_SCM_EntryReviewHead"/>
+                            </TextArea>
+                            <Label Key="Lab_IndustryField" Caption="产业领域" X="1" Y="3"/>
+                            <TextArea Key="Characteristic" Caption="项目特色与优势" BuddyKey="Lab_Characteristic" X="2" Y="4" XSpan="7">
+                                <DataBinding ColumnKey="Characteristic" TableKey="NJ_SCM_EntryReviewHead"/>
+                            </TextArea>
+                            <Label Key="Lab_Characteristic" Caption="项目特色与优势" X="1" Y="4"/>
+                            <Label Key="QYZS" Caption="（企业自述）" X="1" Y="6">
+                                <Format VAlign="Top" HAlign="Center"/>
+                            </Label>
+                            <Dict Key="IndID" Caption="行业" BuddyKey="Lab_IndID" X="8" Y="7" Visible="false" ItemKey="NJ_CP_Industry">
+                                <DataBinding ColumnKey="IndID" TableKey="NJ_SCM_EntryReviewHead"/>
+                            </Dict>
+                            <Label Key="Lab_IndID" Caption="行业" X="7" Y="7"/>
+                            <Dict Key="ProjectTypeid" Caption="分类" BuddyKey="Lab_ProjectTypeid" X="5" Y="7" Visible="false" ItemKey="NJ_ProjectType">
+                                <DataBinding ColumnKey="ProjectTypeid" TableKey="NJ_SCM_EntryReviewHead"/>
+                            </Dict>
+                            <Label Key="Lab_ProjectTypeid" Caption="分类" X="4" Y="7"/>
+                            <RowDefCollection RowGap="4">
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="90px"/>
+                                <RowDef Height="90px"/>
+                                <RowDef Height="45px"/>
+                                <RowDef Height="45px"/>
+                                <RowDef Height="30px"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="4">
+                                <ColumnDef Width="20px"/>
+                                <ColumnDef Width="110px"/>
+                                <ColumnDef Width="33%"/>
+                                <ColumnDef Width="20px"/>
+                                <ColumnDef Width="80px"/>
+                                <ColumnDef Width="33%"/>
+                                <ColumnDef Width="20px"/>
+                                <ColumnDef Width="80px"/>
+                                <ColumnDef Width="34%"/>
+                                <ColumnDef Width="20px"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                        <GridLayoutPanel Key="GridLayoutPanel1" Caption="二、入驻信息">
+                            <Grid Key="Grid1" Caption="Grid1" Height="pref" X="1" Y="2" XSpan="4">
+                                <GridColumnCollection>
+                                    <GridColumn Key="Room" Caption="预选房号" Width="80px"/>
+                                    <GridColumn Key="Area" Caption="面积" Width="80px"/>
+                                    <GridColumn Key="HouseType" Caption="房屋类别" Width="80px"/>
+                                    <GridColumn Key="Price" Caption="租金标准" Width="80px"/>
+                                </GridColumnCollection>
+                                <GridRowCollection>
+                                    <GridRow Key="row1" RowHeight="35" TableKey="NJ_SCM_EntryReviewDtl">
+                                        <GridCell Key="Room" Caption="预选房号" CellType="Dict" ItemKey="NJ_CP_Room">
+                                            <DataBinding ColumnKey="Room">
+                                                <ValueChanged>
+                                                    <![CDATA[SetCellValue('Grid1', -1, 'Area', GetDictValue('NJ_CP_Room', Room, 'NJ_CP_RoomHead.Acreage'));
+SetCellValue('Grid1', -1, 'HouseType', GetDictValue('NJ_CP_Room', Room, 'NJ_CP_RoomHead.Acreage'));]]>
+                                                </ValueChanged>
+                                            </DataBinding>
+                                        </GridCell>
+                                        <GridCell Key="Area" Caption="面积" CellType="NumberEditor" Enable="false">
+                                            <DataBinding ColumnKey="Area"/>
+                                        </GridCell>
+                                        <GridCell Key="HouseType" Caption="房屋类别" CellType="Dict" Enable="false" ItemKey="HouseType">
+                                            <DataBinding ColumnKey="HouseType"/>
+                                        </GridCell>
+                                        <GridCell Key="Price" Caption="租金标准" CellType="NumberEditor">
+                                            <DataBinding ColumnKey="Price"/>
+                                        </GridCell>
+                                    </GridRow>
+                                </GridRowCollection>
+                            </Grid>
+                            <NumberEditor Key="TotalArea" Caption="总面积" BuddyKey="Lab_TotalArea" X="2" Y="1" Enable="false">
+                                <DataBinding ColumnKey="TotalArea" TableKey="NJ_SCM_EntryReviewHead" DefaultFormulaValue="Sum('Area');" ValueDependency="Area"/>
+                            </NumberEditor>
+                            <Label Key="Lab_TotalArea" Caption="总面积" X="1" Y="1"/>
+                            <TextEditor Key="RoomNumber" Caption="房间号" BuddyKey="Lab_RoomNumber" X="2" Y="3" Visible="false">
+                                <DataBinding ColumnKey="RoomNumber" TableKey="NJ_SCM_EntryReviewHead"/>
+                            </TextEditor>
+                            <Label Key="Lab_RoomNumber" Caption="房间号" X="1" Y="3"/>
+                            <RowDefCollection RowGap="5">
+                                <RowDef Height="5px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="100%"/>
+                                <RowDef Height="30px"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="5">
+                                <ColumnDef Width="20px"/>
+                                <ColumnDef Width="60px"/>
+                                <ColumnDef Width="10%"/>
+                                <ColumnDef Width="90%"/>
+                                <ColumnDef Width="20px"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                        <Grid Key="Grid3" Caption="三、评审小组成员意见">
+                            <GridColumnCollection>
+                                <GridColumn Key="DeptID" Caption="评审小组" Width="80px"/>
+                                <GridColumn Key="Opinion" Caption="意见" Width="300px"/>
+                            </GridColumnCollection>
+                            <GridRowCollection>
+                                <GridRow Key="row1" RowHeight="35" TableKey="NJ_SCM_EntryReviewOpinion">
+                                    <GridCell Key="DeptID" Caption="评审小组" CellType="Dict" ItemKey="OA_Department">
+                                        <DataBinding ColumnKey="DeptID"/>
+                                    </GridCell>
+                                    <GridCell Key="Opinion" Caption="意见" CellType="TextEditor" MaxLength="2000">
+                                        <DataBinding ColumnKey="Opinion"/>
+                                    </GridCell>
+                                </GridRow>
+                            </GridRowCollection>
+                        </Grid>
+                        <Embed Caption="附件" Key="OA_Attachment" FormKey="OA_Attachment" RootKey="Grid2">
+                            <Var Key="ParentKey" Value="NJ_EntryReview"/>
+                        </Embed>
+                        <GridLayoutPanel Key="SysTab" Caption="系统信息">
+                            <Dict Key="Creator" Caption="创建人" BuddyKey="Lab_Creator" X="2" Y="0" Enable="false" ItemKey="Operator">
+                                <DataBinding ColumnKey="Creator" TableKey="NJ_SCM_EntryReviewHead" DefaultFormulaValue="GetOperator()"/>
+                            </Dict>
+                            <Label Key="Lab_Creator" Caption="创建人" X="1" Y="0"/>
+                            <Dict Key="Modifier" Caption="修改人" BuddyKey="Lab_Modifier" X="2" Y="1" Enable="false" ItemKey="Operator">
+                                <DataBinding ColumnKey="Modifier" TableKey="NJ_SCM_EntryReviewHead" DefaultFormulaValue="GetOperator()"/>
+                            </Dict>
+                            <DatePicker Key="CreateTime" Caption="创建日期" BuddyKey="Lab_CreateTime" X="5" Y="0" Enable="false" OnlyDate="true">
+                                <DataBinding ColumnKey="CreateTime" TableKey="NJ_SCM_EntryReviewHead" DefaultFormulaValue="ServerDate()"/>
+                            </DatePicker>
+                            <Label Key="Lab_CreateTime" Caption="创建时间" X="4" Y="0"/>
+                            <Label Key="Lab_Modifier" Caption="修改人" X="1" Y="1"/>
+                            <DatePicker Key="ModifyTime" Caption="修改日期" BuddyKey="Lab_ModifyTime" X="5" Y="1" Enable="false" OnlyDate="true">
+                                <DataBinding ColumnKey="ModifyTime" TableKey="NJ_SCM_EntryReviewHead" DefaultFormulaValue="ServerDate()"/>
+                            </DatePicker>
+                            <Label Key="Lab_ModifyTime" Caption="修改时间" X="4" Y="1"/>
+                            <TextEditor Key="BillKey" Caption="单据Key" BuddyKey="Lab_BillKey" X="8" Y="0">
+                                <DataBinding ColumnKey="BillKey" TableKey="NJ_SCM_EntryReviewHead" DefaultFormulaValue="GetFormKey()"/>
+                            </TextEditor>
+                            <Label Key="Lab_BillKey" Caption="单据Key" X="7" Y="0"/>
+                            <Dict Key="ClusterID" Caption="集团" BuddyKey="Lab_ClusterID" X="8" Y="1" Enable="false" ItemKey="Client">
+                                <DataBinding ColumnKey="ClusterID" TableKey="NJ_SCM_EntryReviewHead"/>
+                            </Dict>
+                            <Label Key="Lab_ClusterID" Caption="集团" X="7" Y="1"/>
+                            <RowDefCollection RowGap="4">
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="4">
+                                <ColumnDef Width="20px"/>
+                                <ColumnDef Width="80px"/>
+                                <ColumnDef Width="33%"/>
+                                <ColumnDef Width="20px"/>
+                                <ColumnDef Width="80px"/>
+                                <ColumnDef Width="33%"/>
+                                <ColumnDef Width="20px"/>
+                                <ColumnDef Width="80px"/>
+                                <ColumnDef Width="34%"/>
+                                <ColumnDef Width="20px"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                    </TabPanel>
+                    <SplitSize Size="100%"/>
+                </SplitPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

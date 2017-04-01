@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<CommonDef>
+    <MacroCollection>
+        <Macro Key="OA_GetValueStrByCol" Args="tableName,fieldName,sep">
+            <![CDATA[InvokeService("OA_GetValueStrByCol",true,false,tableName,fieldName,sep)]]>
+        </Macro>
+        <Macro Key="OA_GetMobileFormKey" Args="par1,par2">
+            <![CDATA[var stri =par1;
+var str = Left(stri,3);
+if(str=="MOA"){
+Open(stri,par2);
+}else{
+Open(ToString("M"+stri),par2);}]]>
+        </Macro>
+    </MacroCollection>
+</CommonDef>

@@ -1,0 +1,134 @@
+<link rel="stylesheet" href="${staticRoot}/resources/@buildin/css/reset.css" type="text/css" />
+<link rel="stylesheet" href="${staticRoot}/resources/@buildin/css/public.css" type="text/css" />
+<link rel="stylesheet" href="${staticRoot}/resources/@buildin/css/login.css" type="text/css" />
+<script src="${staticRoot}/resources/jquery/jquery.1.9.1.js" type="text/javascript"></script>
+<script Language="JavaScript">
+	
+	#set($CTX_PATH = $this.eval("cms.PageExp.RelContextRoot()"))
+	$(document).ready(function(){
+	$("input[name='userName']").val(getCookieValue("userName"));
+	 var lastAccess = $.trim($("input[name='LastAccess']").val());
+		$(".login-form-box").css("visibility", "visible");
+		$("#login-btn").click(function(){
+        var userName = $.trim($("input[name='userName']").val());
+		var password = $.trim($("input[name='password']").val());
+		var corpID = $.trim($("input[name='CorpID']").val());
+        var lastAccess = $.trim($("input[name='LastAccess']").val());
+
+		htmlobj=$.ajax({
+		    type: "post",
+			url:"$CTX_PATH/auth/login.action",
+			data:{userName:userName, password:password, CorpID:corpID, LastAccess:lastAccess},
+			dataType:'json',
+			async:false,
+			success:function(json){
+			    if(json.result == "success"){
+				var isSave=$("#rememberName").is(':checked');
+					if(isSave){
+						setCookie("userName",userName,24*30,"")
+					}else{
+						setCookie("userName",userName,0,"")
+					}
+				$("#failedMsg").html("登陆成功");
+					window.top.location.href = "$CTX_PATH" + json.locationUrl;
+					
+				}else{
+					$("#failedMsg").html("用户名或密码有误,请重新输入");
+				}
+		    }
+		});
+	  });
+	});
+	function keyHandler(e){
+        if(window.navigator.appName == "Microsoft Internet Explorer"){
+            if(window.event.keyCode == 13){
+                $("#login-btn").click();
+            }
+        }else{
+            if(e.which == 13){
+                $("#login-btn").click();
+            }
+        }
+    }
+    document.onkeydown = keyHandler;
+	
+		//hours为空字符串时,cookie的生存期至浏览器会话结束。hours为数字0时,建立的是一个失效的cookie,这个cookie会覆盖已经建立过的同名、同path的cookie（如果这个cookie存在）。   
+function setCookie(name,value,hours,path){   
+    var name = escape(name);   
+    var value = escape(value);   
+    var expires = new Date();   
+    expires.setTime(expires.getTime() + hours*3600000);   
+    path = path == "" ? "" : ";path=" + path;   
+    _expires = (typeof hours) == "string" ? "" : ";expires=" + expires.toUTCString();   
+    document.cookie = name + "=" + value + _expires + path;   
+}   
+//获取cookie值    方法
+function getCookieValue(name){   
+    var name = escape(name);  
+    //读cookie属性，这将返回文档的所有cookie   
+    var allcookies = document.cookie;          
+    //查找名为name的cookie的开始位置   
+    name += "=";   
+    var pos = allcookies.indexOf(name);       
+    //如果找到了具有该名字的cookie，那么提取并使用它的值   
+    if (pos != -1){                                             //如果pos值为-1则说明搜索"version="失败   
+        var start = pos + name.length;                  //cookie值开始的位置   
+        var end = allcookies.indexOf(";",start);        //从cookie值开始的位置起搜索第一个";"的位置,即cookie值结尾的位置   
+        if (end == -1) end = allcookies.length;        //如果end值为-1说明cookie列表里只有一个cookie   
+        var value = allcookies.substring(start,end);  //提取cookie的值   
+		return unescape(value);                           //对它解码         
+        }      
+    else return "";                                             //搜索失败，返回空字符串   
+}   
+
+
+</script> 
+
+<!--头部 header
+<div class="container" id="header">
+    <div class="row">
+        <div class="logo fl_left"><a href="#"><img src="${staticRoot}/resources/@buildin/images/login-logo.jpg"></a></div>
+        <div class="system-panel">
+            <div class="f999">
+               <!-- <a href="#">设置为主页</a>
+                <a href="#">收藏地址</a>
+                <a href="#">帮助</a>-->
+            <!--</div>
+        </div>
+    </div>
+</div>-->
+<!--头部 header end-->
+<!--主体-->
+<div class="container" id="mid">
+    <div class="row">
+        <div class="login-form-box" style="visibility:hidden;">
+			
+            <form action="./login.action" method="post">				
+				<p id="failedMsg" style="color:red"></p>
+                <p class="user-name"><span>账号:</span><input  type="text" name="userName" value=""/></p>
+                <p class="pwd"><span>密码:</span><input type="password" name="password" value="" /></p>
+                <input type="hidden" name="CorpID" value="999"/>
+                <input type="hidden" name="LastAccess" value="$cms.PageExp.Var("com.bokesoft.cms.oa.acl.ACLConfig_ATTR_NAME_LAST_ACCESS_URL")/>
+                <p class="memory"><label><input id="rememberName" type="checkbox" checked="checked"/>记住用户名</label><!--<a herf="#" class="forgot-pwd">忘记了密码？</a>--></p>
+                <p>
+                    <input id="login-btn" class="login-btn" type="button" value="登     录"/>
+                    <!--<input class="regist-btn" type="button" value="注册"/>-->
+                </p>
+				<ul class="login-system-panel">					
+					<li class="home"><a href="#" title="设置为主页" ></a></li>                       
+					<li class="collect"><a  href="#" title="收藏地址" ></a></li>
+				</ul>				
+            </form>
+        </div>
+    </div>
+</div>
+<!--主体 end-->
+<!--尾部 bottom-->
+<div class="container" id="bottom">
+    <div class="row">
+        <p class="copy">支持系统：Internet Explorer 7/8/9版本  上海博科资讯股份有限公司版权所有©  咨询热线: 400-720-3088</p>
+    </div>
+</div>
+
+
+<!--尾部 bottom end-->

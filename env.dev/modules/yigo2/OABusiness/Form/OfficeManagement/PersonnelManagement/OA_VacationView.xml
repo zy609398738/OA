@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="OA_VacationView" Caption="请假登记列表" FormType="View">
+    <DataSource>
+        <DataObject Key="OA_VacationView" Caption="请假登记列表">
+            <TableCollection>
+                <Table Key="OA_VacationView" Caption="请假登记列表" TableMode="Detail" SourceType="Query" Persist="false" DBTableName="OA_BusinessTrip">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="VacationType" Caption="请假类型" DataType="Long"/>
+                    <Column Key="BillDate" Caption="登记日期" DataType="DateTime"/>
+                    <Column Key="Status" Caption="状态" DataType="Integer"/>
+                    <Column Key="EndTime" Caption="结束时间" DataType="DateTime"/>
+                    <Column Key="StartTime" Caption="开始时间" DataType="DateTime"/>
+                    <Column Key="Department" Caption="部门" DataType="Long"/>
+                    <Column Key="Name" Caption="Name" DataType="Long"/>
+                    <Column Key="Role" Caption="角色" DataType="Long"/>
+                    <Statement>
+                        <![CDATA[select * from (select * from OA_Vacation order by BillDate desc) h]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="New" Caption="新增">
+            <Action>
+                <![CDATA[New("OA_Vacation")]]>
+            </Action>
+        </Operation>
+        <Operation Key="Setfirst_headVisible" Caption="查询" RefKey="Setfirst_headVisible"/>
+    </OperationCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板">
+                <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <GridLayoutPanel Key="first_head" Padding="5px" Height="pref" Caption="基本信息" Visible="first_headVisible==1">
+                    <DatePicker Key="DatePicker1" Caption="请假开始时间" BuddyKey="Lab_DatePicker1" X="1" Y="0">
+                        <Condition ColumnKey="StartTime" TableKey="OA_VacationView" CondSign="between" Group="A" GroupHead="true"/>
+                    </DatePicker>
+                    <Label Key="Lab_DatePicker1" Caption="请假开始时间" X="0" Y="0"/>
+                    <DatePicker Key="DatePicker2" Caption="到" BuddyKey="Lab_DatePicker2" X="4" Y="0">
+                        <Condition ColumnKey="EndTime" TableKey="OA_VacationView" CondSign="between" Group="A" GroupTail="true"/>
+                    </DatePicker>
+                    <Label Key="Lab_DatePicker2" Caption="到" X="3" Y="0"/>
+                    <Dict Key="QueryRole" Caption="角色" BuddyKey="Lab_QueryRole" X="7" Y="0" ItemKey="Role" XSpan="2">
+                        <Condition ColumnKey="Role" TableKey="OA_VacationView" CondSign="="/>
+                    </Dict>
+                    <Label Key="Lab_QueryRole" Caption="角色" X="6" Y="0"/>
+                    <Dict Key="QueryEmpID" Caption="申请人" BuddyKey="Lab_QueryEmpID" X="1" Y="1" ItemKey="OA_Employee">
+                        <Condition ColumnKey="Name" TableKey="OA_VacationView" CondSign="="/>
+                    </Dict>
+                    <Label Key="Lab_QueryEmpID" Caption="申请人" X="0" Y="1"/>
+                    <CheckBox Caption="头表可见" Key="first_headVisible" Visible="false" X="6" Y="1"/>
+                    <Button Key="Button1" Caption="查询" X="7" Y="1">
+                        <OnClick>
+                            <![CDATA[DealCondition();LoadData();ShowData();]]>
+                        </OnClick>
+                    </Button>
+                    <Button Key="Button2" Caption="重置" X="8" Y="1">
+                        <OnClick>
+                            <![CDATA[ResetCondition();]]>
+                        </OnClick>
+                    </Button>
+                    <Dict Key="QueryLeaveType" Caption="请假类型" BuddyKey="Lab_QueryLeaveType" X="4" Y="1" ItemKey="OA_LeaveType"/>
+                    <Label Key="Lab_QueryLeaveType" Caption="请假类型" X="3" Y="1"/>
+                    <RowDefCollection RowGap="8">
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="8">
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="33%"/>
+                        <ColumnDef Width="20px"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="33%"/>
+                        <ColumnDef Width="20px"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="17%"/>
+                        <ColumnDef Width="17%"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+                <ListView Caption="ListView1" Height="pref" Key="ListView1" PageLoadType="DB" TableKey="OA_VacationView">
+                    <ListViewColumnCollection>
+                        <ListViewColumn Key="Name" Caption="申请人" ColumnType="Dict" DataColumnKey="Name" ItemKey="OA_Employee"/>
+                        <ListViewColumn Key="BillDate" Caption="登记日期" ColumnType="DatePicker" DataColumnKey="BillDate"/>
+                        <ListViewColumn Key="VacationType" Caption="请假类型" ColumnType="Dict" DataColumnKey="VacationType" ItemKey="OA_LeaveType"/>
+                        <ListViewColumn Key="Department" Caption="部门" ColumnType="Dict" DataColumnKey="Department" ItemKey="OA_Department"/>
+                        <ListViewColumn Key="StartTime" Caption="请假开始时间" ColumnType="DatePicker" DataColumnKey="StartTime"/>
+                        <ListViewColumn Key="EndTime" Caption="请假结束时间" ColumnType="DatePicker" DataColumnKey="EndTime"/>
+                        <ListViewColumn Key="Status" Caption="状态" ColumnType="ComboBox" DataColumnKey="Status" SourceType="Status"/>
+                        <ListViewColumn Key="OID" Caption="OID" DataColumnKey="OID" Visible="false"/>
+                    </ListViewColumnCollection>
+                    <RowDblClick>
+                        <![CDATA[Open("OA_Vacation",OID)]]>
+                    </RowDblClick>
+                </ListView>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

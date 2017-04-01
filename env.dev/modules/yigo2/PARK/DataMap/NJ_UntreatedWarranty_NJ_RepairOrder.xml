@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Map Caption="报销申请下推维修服务" Key="NJ_Repair_NJ_RepairOrder" SrcDataObjectKey="NJ_Repair" TgtDataObjectKey="NJ_RepairOrder">
+    <SourceTableCollection Height="270" Width="361" X="30" Y="30">
+        <SourceTable IsPrimary="true" Key="NJ_SCM_RepairHead" TargetTableKey="NJ_SCM_RepairOrderHead">
+            <SourceField Definition="CustomerId" EdgeType="Focus" TargetFieldKey="CustomerId"/>
+            <SourceField Definition="UsePeople" TargetFieldKey="UsePeople"/>
+            <SourceField Definition="RepairDate" TargetFieldKey="RepairDate"/>
+            <SourceField Definition="RepairContent" TargetFieldKey="RepairContent"/>
+            <SourceField Definition="ContactNumber" TargetFieldKey="ContactNumber"/>
+        </SourceTable>
+    </SourceTableCollection>
+    <TargetTableCollection Height="270" Width="442" X="477" Y="30">
+        <TargetTable IsPrimary="true" Key="NJ_SCM_RepairOrderHead">
+            <TargetField Definition="CustomerId"/>
+            <TargetField Definition="UsePeople"/>
+            <TargetField Definition="RepairDate"/>
+            <TargetField Definition="RepairContent"/>
+            <TargetField Definition="ContactNumber"/>
+        </TargetTable>
+    </TargetTableCollection>
+    <FeedbackCollection>
+        <FeedbackObject Height="60" ObjectKey="Account" Width="137" X="1019" Y="30"/>
+    </FeedbackCollection>
+</Map>

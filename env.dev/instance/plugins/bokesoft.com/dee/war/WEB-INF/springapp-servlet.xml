@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+	<!--
+		- Application context definition for "springapp" DispatcherServlet.
+	-->
+
+<beans default-lazy-init="true">
+
+	<bean class="com.bokesoft.dee.web.data.access.FileCoreDataAccess"
+		singleton="true" name="FileCoreDataAccess"></bean>
+
+	<bean class="com.bokesoft.dee.web.data.BusinessDataProcess"
+		singleton="true" name="BusinessDataProcess">
+		<property name="deployDataAccess" ref="FileDeployDataAccess"></property>
+		<property name="coreDataAccess" ref="FileCoreDataAccess"></property>
+	</bean>
+
+	<bean class="com.bokesoft.dee.web.data.DesignScreenDataProcess"
+		singleton="true" name="DesignScreenDataProcess">
+		<property name="deployDataAccess" ref="FileDeployDataAccess"></property>
+	</bean>
+
+	<bean class="com.bokesoft.dee.web.data.access.FileDeployDataAccess"
+		singleton="true" name="FileDeployDataAccess"></bean>
+
+	<bean class="com.bokesoft.dee.web.oauth.DbDeployAuthorizationAccess"
+		singleton="true" name="DbDeployAuthorizationAccess">
+		<property name="deployDataAccess" ref="FileDeployDataAccess"></property>
+	</bean>
+
+	<bean id="InterfaceLogManagerController"
+		class="com.bokesoft.dee.web.controller.InterfaceLogManagerController">
+		<property name="successView">
+			<value>xmlView</value>
+		</property>
+		<property name="coreDataAccess" ref="FileCoreDataAccess"></property>
+		<property name="deployDataAccess" ref="FileDeployDataAccess"></property>
+	</bean>
+
+	<bean id="InterfaceRunManagerController"
+		class="com.bokesoft.dee.web.controller.InterfaceRunManagerController">
+		<property name="successView">
+			<value>xmlView</value>
+		</property>
+		<property name="deployDataAccess" ref="FileDeployDataAccess"></property>
+	</bean>
+
+	<!-- 交换中心 -->
+	<bean id="InterfaceExchangeCenterController"
+		class="com.bokesoft.dee.web.controller.InterfaceExchangeCenterController">
+		<property name="successView">
+			<value>xmlView</value>
+		</property>
+	</bean>
+
+	<bean id="InterfaceInfoSaveController"
+		class="com.bokesoft.dee.web.controller.InterfaceInfoSaveController">
+		<property name="successView">
+			<value>xmlView</value>
+		</property>
+		<property name="coreDataAccess" ref="FileCoreDataAccess"></property>
+		<property name="deployDataAccess" ref="FileDeployDataAccess"></property>
+		<property name="businessDataProcess" ref="BusinessDataProcess"></property>
+		<property name="designScreenDataProcess" ref="DesignScreenDataProcess"></property>
+	</bean>
+
+	<bean id="InterfaceInfoDownloadSaveController"
+		class="com.bokesoft.dee.web.controller.InterfaceInfoDownloadSaveController">
+		<property name="successView">
+			<value>xmlView</value>
+		</property>
+		<property name="deployDataAccess" ref="FileDeployDataAccess"></property>
+	</bean>
+
+	<bean id="InterfaceInfoFindDownloadController"
+		class="com.bokesoft.dee.web.controller.InterfaceInfoFindDownloadController">
+		<property name="successView">
+			<value>xmlView</value>
+		</property>
+		<property name="deployDataAccess" ref="FileDeployDataAccess"></property>
+	</bean>
+
+	<bean id="InterfaceInfoDownloadSourceController"
+		class="com.bokesoft.dee.web.controller.InterfaceInfoDownloadSourceController">
+	</bean>
+
+	<bean id="InterfaceSynController" class="com.bokesoft.dee.web.controller.InterfaceSynController">
+		<property name="successView">
+			<value>xmlView</value>
+		</property>
+		<property name="coreDataAccess" ref="FileCoreDataAccess"></property>
+		<property name="deployDataAccess" ref="FileDeployDataAccess"></property>
+		<property name="businessDataProcess" ref="BusinessDataProcess"></property>
+		<property name="designScreenDataProcess" ref="DesignScreenDataProcess"></property>
+	</bean>
+
+	<bean id="InterfaceInfoFindController"
+		class="com.bokesoft.dee.web.controller.InterfaceInfoFindController">
+		<property name="successView">
+			<value>xmlView</value>
+		</property>
+		<property name="coreDataAccess" ref="FileCoreDataAccess"></property>
+		<property name="deployDataAccess" ref="FileDeployDataAccess"></property>
+		<property name="businessDataProcess" ref="BusinessDataProcess"></property>
+		<property name="designScreenDataProcess" ref="DesignScreenDataProcess"></property>
+	</bean>
+
+	<bean id="InterfaceManageController"
+		class="com.bokesoft.dee.web.controller.InterfaceManageController">
+		<property name="successView">
+			<value>xmlView</value>
+		</property>
+		<property name="coreDataAccess" ref="FileCoreDataAccess"></property>
+		<property name="deployDataAccess" ref="FileDeployDataAccess"></property>
+		<property name="businessDataProcess" ref="BusinessDataProcess"></property>
+		<property name="designScreenDataProcess" ref="DesignScreenDataProcess"></property>
+	</bean>
+
+	<bean id="InterfaceSynPrepareController"
+		class="com.bokesoft.dee.web.controller.InterfaceSynPrepareController">
+		<property name="successView">
+			<value>xmlView</value>
+		</property>
+		<property name="deployDataAccess" ref="FileDeployDataAccess"></property>
+		<property name="coreDataAccess" ref="FileCoreDataAccess"></property>
+	</bean>
+
+	<bean id="InterfacePermissionManagerController"
+		class="com.bokesoft.dee.web.controller.InterfacePermissionManagerController">
+		<property name="successView">
+			<value>xmlView</value>
+		</property>
+		<property name="deployDataAccess" ref="FileDeployDataAccess"></property>
+		<property name="coreDataAccess" ref="FileCoreDataAccess"></property>
+	</bean>
+	<!--定时任务-->
+	<bean id="InterfaceTimingTaskController"
+		class="com.bokesoft.dee.web.controller.InterfaceTimingTaskController">
+		<property name="successView">
+			<value>xmlView</value>
+		</property>
+		<property name="coreDataAccess" ref="FileCoreDataAccess"></property>
+		<property name="deployDataAccess" ref="FileDeployDataAccess"></property>
+		<property name="businessDataProcess" ref="BusinessDataProcess"></property>
+	</bean>
+	<!--流程数据模版-->
+	<bean id="InterfaceProcessDataTemplateController"
+		class="com.bokesoft.dee.web.controller.InterfaceProcessDataTemplateController">
+		<property name="successView">
+			<value>xmlView</value>
+		</property>
+		<property name="deployDataAccess" ref="FileDeployDataAccess"></property>
+		<property name="coreDataAccess" ref="FileCoreDataAccess"></property>
+	</bean>
+	<!--接口运行状况查询-->
+	<bean id="InterfaceRunningStatusDetailController"
+		class="com.bokesoft.dee.web.controller.InterfaceRunningStatusDetailController">
+		<property name="successView">
+			<value>xmlView</value>
+		</property>
+		<property name="coreDataAccess" ref="FileCoreDataAccess"></property>
+		<property name="deployDataAccess" ref="FileDeployDataAccess"></property>
+	</bean>
+	<!--yigo表配置-->
+	<bean id="InterfaceSimpleConfigController"
+		class="com.bokesoft.dee.web.controller.InterfaceSimpleConfigController">
+		<property name="successView">
+			<value>xmlView</value>
+		</property>
+		<property name="coreDataAccess" ref="FileCoreDataAccess"></property>
+		<property name="deployDataAccess" ref="FileDeployDataAccess"></property>
+		<property name="businessDataProcess" ref="BusinessDataProcess"></property>
+	</bean>
+	<!--数据库表到yigo表配置-->
+	<bean id="InterfaceSimpleConfigTableToYigoController"
+		class="com.bokesoft.dee.web.controller.InterfaceSimpleConfigTableToYigoController">
+		<property name="successView">
+			<value>xmlView</value>
+		</property>
+		<property name="coreDataAccess" ref="FileCoreDataAccess"></property>
+		<property name="deployDataAccess" ref="FileDeployDataAccess"></property>
+		<property name="businessDataProcess" ref="BusinessDataProcess"></property>
+	</bean>
+	<!--yigo表到数据库表配置-->
+	<bean id="InterfaceSimpleConfigYigoToTableController"
+		class="com.bokesoft.dee.web.controller.InterfaceSimpleConfigYigoToTableController">
+		<property name="successView">
+			<value>xmlView</value>
+		</property>
+		<property name="coreDataAccess" ref="FileCoreDataAccess"></property>
+		<property name="deployDataAccess" ref="FileDeployDataAccess"></property>
+		<property name="businessDataProcess" ref="BusinessDataProcess"></property>
+	</bean>
+	<!--xml到yigo表配置-->
+	<bean id="InterfaceSimpleConfigXmlToYigoController"
+		class="com.bokesoft.dee.web.controller.InterfaceSimpleConfigXmlToYigoController">
+		<property name="successView">
+			<value>xmlView</value>
+		</property>
+		<property name="coreDataAccess" ref="FileCoreDataAccess"></property>
+		<property name="deployDataAccess" ref="FileDeployDataAccess"></property>
+		<property name="businessDataProcess" ref="BusinessDataProcess"></property>
+	</bean>
+	<!--xml到yigo表配置 自定义xml格式-->
+	<bean id="InterfaceSimpleConfigCustomedXmlToYigoController"
+		class="com.bokesoft.dee.web.controller.InterfaceSimpleConfigCustomedXmlToYigoController">
+		<property name="successView">
+			<value>xmlView</value>
+		</property>
+		<property name="coreDataAccess" ref="FileCoreDataAccess"></property>
+		<property name="deployDataAccess" ref="FileDeployDataAccess"></property>
+		<property name="businessDataProcess" ref="BusinessDataProcess"></property>
+	</bean>
+	<!--Excel到yigo表配置-->
+	<bean id="InterfaceExcelToYigoController"
+		class="com.bokesoft.dee.web.controller.InterfaceExcelToYigoController">
+		<property name="successView">
+			<value>xmlView</value>
+		</property>
+		<property name="coreDataAccess" ref="FileCoreDataAccess"></property>
+		<property name="deployDataAccess" ref="FileDeployDataAccess"></property>
+		<property name="businessDataProcess" ref="BusinessDataProcess"></property>
+	</bean>
+	<!--yigo  to  xml配置-->
+	<bean id="InterfaceYigoToXmlController"
+		class="com.bokesoft.dee.web.controller.InterfaceYigoToXmlController">
+		<property name="successView">
+			<value>xmlView</value>
+		</property>
+		<property name="coreDataAccess" ref="FileCoreDataAccess"></property>
+		<property name="deployDataAccess" ref="FileDeployDataAccess"></property>
+		<property name="businessDataProcess" ref="BusinessDataProcess"></property>
+	</bean>
+	<!--yigo  to  excel配置-->
+	<bean id="InterfaceYigoToExcelController"
+		class="com.bokesoft.dee.web.controller.InterfaceYigoToExcelController">
+		<property name="successView">
+			<value>xmlView</value>
+		</property>
+		<property name="coreDataAccess" ref="FileCoreDataAccess"></property>
+		<property name="deployDataAccess" ref="FileDeployDataAccess"></property>
+		<property name="businessDataProcess" ref="BusinessDataProcess"></property>
+	</bean>
+	<!--sql  to  excel配置-->
+	<bean id="InterfaceSqlToExcelController"
+		class="com.bokesoft.dee.web.controller.InterfaceSqlToExcelController">
+		<property name="successView">
+			<value>xmlView</value>
+		</property>
+		<property name="coreDataAccess" ref="FileCoreDataAccess"></property>
+		<property name="deployDataAccess" ref="FileDeployDataAccess"></property>
+		<property name="businessDataProcess" ref="BusinessDataProcess"></property>
+	</bean>
+	<!--log  to  Datasource-->
+	<bean id="InterfaceLog2DatasourceController"
+		class="com.bokesoft.dee.web.controller.InterfaceLog2DatasourceController">
+		<property name="successView">
+			<value>xmlView</value>
+		</property>
+		<property name="coreDataAccess" ref="FileCoreDataAccess"></property>
+		<property name="deployDataAccess" ref="FileDeployDataAccess"></property>
+		<property name="businessDataProcess" ref="BusinessDataProcess"></property>
+	</bean>
+
+	<bean id="InterfaceWsAndHttpTestController"
+		class="com.bokesoft.dee.web.controller.InterfaceWsAndHttpTestController">
+		<property name="successView">
+			<value>xmlView</value>
+		</property>
+		<property name="coreDataAccess" ref="FileCoreDataAccess"></property>
+		<property name="deployDataAccess" ref="FileDeployDataAccess"></property>
+	</bean>
+
+	<bean id="ServiceStatusMonitorController"
+		class="com.bokesoft.dee.web.controller.ServiceStatusMonitorController">
+		<property name="successView">
+			<value>xmlView</value>
+		</property>
+		<property name="coreDataAccess" ref="FileCoreDataAccess"></property>
+		<property name="deployDataAccess" ref="FileDeployDataAccess"></property>
+	</bean>
+
+	<bean id="ExcelImportToTableController"
+		class="com.bokesoft.dee.web.controller.ExcelImportToTableController">
+		<property name="successView">
+			<value>xmlView</value>
+		</property>
+		<property name="coreDataAccess" ref="FileCoreDataAccess"></property>
+		<property name="deployDataAccess" ref="FileDeployDataAccess"></property>
+	</bean>
+
+	<bean id="InterfaceIndexController"
+		class="com.bokesoft.dee.web.controller.InterfaceIndexController">
+		<property name="successView">
+			<value>xmlView</value>
+		</property>
+		<property name="coreDataAccess" ref="FileCoreDataAccess"></property>
+		<property name="deployDataAccess" ref="FileDeployDataAccess"></property>
+		<property name="businessDataProcess" ref="BusinessDataProcess"></property>
+	</bean>
+
+	<bean id="AuthorizationRegistrationController"
+		class="com.bokesoft.dee.web.oauth.controller.AuthorizationRegistrationController">
+		<property name="successView">
+			<value>xmlView</value>
+		</property>
+		<property name="deployDataAccess" ref="FileDeployDataAccess"></property>
+		<property name="deployAuthorizationAccess" ref="DbDeployAuthorizationAccess"></property>
+	</bean>
+
+	<bean id="AuthorizationController"
+		class="com.bokesoft.dee.web.oauth.controller.AuthorizationController">
+		<property name="successView">
+			<value>xmlView</value>
+		</property>
+		<property name="deployDataAccess" ref="FileDeployDataAccess"></property>
+		<property name="deployAuthorizationAccess" ref="DbDeployAuthorizationAccess"></property>
+	</bean>
+
+	<bean id="AuthorizationAccesstokenController"
+		class="com.bokesoft.dee.web.oauth.controller.AuthorizationAccesstokenController">
+		<property name="successView">
+			<value>xmlView</value>
+		</property>
+		<property name="deployDataAccess" ref="FileDeployDataAccess"></property>
+		<property name="deployAuthorizationAccess" ref="DbDeployAuthorizationAccess"></property>
+	</bean>
+
+	<bean id="urlMapping"
+		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="mappings">
+			<props>
+				<prop key="/interfaceInfoSaveController.do">InterfaceInfoSaveController</prop>
+				<prop key="/interfaceInfoFindController.do">InterfaceInfoFindController</prop>
+				<prop key="/interfaceLogManagerController.do">InterfaceLogManagerController</prop>
+				<prop key="/interfaceRunManagerController.do">InterfaceRunManagerController</prop>
+				<prop key="/interfaceManageController.do">InterfaceManageController</prop>
+				<prop key="/interfaceSynController.do">InterfaceSynController</prop>
+				<prop key="/interfaceSynPrepareController.do">InterfaceSynPrepareController</prop>
+				<prop key="/interfacePermissionManagerController.do">InterfacePermissionManagerController</prop>
+				<prop key="/interfaceExchangeCenterController.do">InterfaceExchangeCenterController</prop>
+				<prop key="/interfaceTimingTaskController.do">InterfaceTimingTaskController</prop>
+				<prop key="/interfaceInfoDownloadSaveController.do">InterfaceInfoDownloadSaveController</prop>
+				<prop key="/interfaceInfoFindDownloadController.do">InterfaceInfoFindDownloadController</prop>
+				<prop key="/interfaceInfoDownloadSourceController.do">InterfaceInfoDownloadSourceController</prop>
+				<prop key="/interfaceProcessDataTemplateController.do">InterfaceProcessDataTemplateController</prop>
+				<prop key="/interfaceRunningStatusDetailController.do">InterfaceRunningStatusDetailController</prop>
+				<prop key="/interfaceSimpleConfigController.do">InterfaceSimpleConfigController</prop>
+				<prop key="/interfaceSimpleConfigTableToYigoController.do">InterfaceSimpleConfigTableToYigoController</prop>
+				<prop key="/interfaceSimpleConfigXmlToYigoController.do">InterfaceSimpleConfigXmlToYigoController</prop>
+				<prop key="/interfaceSimpleConfigCustomedXmlToYigoController.do">InterfaceSimpleConfigCustomedXmlToYigoController</prop>
+				<prop key="/interfaceExcelToYigoController.do">InterfaceExcelToYigoController</prop>
+				<prop key="/interfaceYigoToExcelController.do">InterfaceYigoToExcelController</prop>
+				<prop key="/interfaceYigoToXmlController.do">InterfaceYigoToXmlController</prop>
+				<prop key="/interfaceSqlToExcelController.do">InterfaceSqlToExcelController</prop>
+				<prop key="/interfaceLog2DatasourceController.do">InterfaceLog2DatasourceController</prop>
+				<prop key="/interfaceSimpleConfigYigoToTableController.do">InterfaceSimpleConfigYigoToTableController</prop>
+				<prop key="/interfaceWsAndHttpTestController.do">InterfaceWsAndHttpTestController</prop>
+				<prop key="/serviceStatusMonitorController.do">ServiceStatusMonitorController</prop>
+				<prop key="/excelImportToTableController.do">ExcelImportToTableController</prop>
+				<prop key="/interfaceIndexController.do">InterfaceIndexController</prop>
+				<prop key="/authorizationController.do">AuthorizationController</prop>
+				<prop key="/authorizationRegistrationController.do">AuthorizationRegistrationController</prop>
+				<prop key="/authorizationAccesstokenController.do">AuthorizationAccesstokenController</prop>
+				<!--
+					<prop key="/authorizeController.do">AuthorizeController</prop>
+				-->
+			</props>
+		</property>
+	</bean>
+
+	<!--
+		alternate XML view resolver, invoked if view returned from controller
+		matches views.xml mapping
+	-->
+	<bean id="xmlViewResolver" class="org.springframework.web.servlet.view.XmlViewResolver">
+		<property name="order" value="1" />
+	</bean>
+
+	<!-- default view resolver -->
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass">
+			<value>org.springframework.web.servlet.view.JstlView</value>
+		</property>
+		<property name="prefix">
+			<value>/WEB-INF/jsp/</value>
+		</property>
+		<property name="suffix">
+			<value>.jsp</value>
+		</property>
+	</bean>
+
+</beans>
+
+

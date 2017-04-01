@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<CommonDef>
+    <OperationCollection>
+        <Operation Caption="新增" Key="ViewNewBill">
+            <Action>
+                <![CDATA[New(C_GetBillKey());]]>
+            </Action>
+        </Operation>
+        <Operation Caption="刷新" Key="Refresh">
+            <Action RunType="Server">
+                <![CDATA[LoadData();]]>
+            </Action>
+        </Operation>
+        <Operation Caption="新增" Key="NewBill" Visible="ReadOnly()">
+            <Action RunType="Server">
+                <![CDATA[New("","self");]]>
+            </Action>
+        </Operation>
+        <Operation Caption="保存" Key="Save" Visible="!ReadOnly()">
+            <Action>
+                <![CDATA[SaveData();UpdateView();]]>
+            </Action>
+        </Operation>
+        <Operation Caption="删除" Key="Delete" Visible="ReadOnly()&amp;&amp;Status==100">
+            <Action RunType="Server">
+                <![CDATA[DeleteData();UpdateView();Close();
+				]]>
+            </Action>
+        </Operation>
+        <Operation Caption="编辑" Key="Edit" Visible="ReadOnly()&amp;&amp;Status==100" Enable="ToInt(Status)&lt;1200">
+            <Action RunType="Server">
+                <![CDATA[Edit();]]>
+            </Action>
+        </Operation>
+        <Operation Caption="取消" Key="Cancel" Visible="!(ReadOnly())">
+            <Action RunType="Server">
+                <![CDATA[Cancel();]]>
+            </Action>
+        </Operation>
+        <Operation Key="Close" Caption="关闭">
+            <Action>
+                <![CDATA[Close();]]>
+            </Action>
+        </Operation>
+        <Operation Key="Print" Caption="打印" Visible="ReadOnly()">
+            <Action>
+                <![CDATA[Print()]]>
+            </Action>
+        </Operation>
+        <Operation Key="PrintPreview" Caption="打印预览" Visible="ReadOnly()">
+            <Action>
+                <![CDATA[PrintPreview()]]>
+            </Action>
+        </Operation>
+        <Operation Key="Setfirst_headVisible" Caption="查询">
+            <Action>
+                <![CDATA[if(first_headVisible==0){
+SetValue("first_headVisible",1);
+}else{
+SetValue("first_headVisible",0);
+}]]>
+            </Action>
+        </Operation>
+        <Operation Key="ShowWFLog" Caption="审批记录" Visible="ToInt(GetValue(&quot;Status&quot;))&gt;100">
+            <Action>
+                <![CDATA[ShowModal("OA_WFLog",{
+                      pOID:{GetOID()},
+                      ProcessKey:{GetProcessKey()},
+                      ProcessVer:{GetProcessVer()}})]]>
+            </Action>
+        </Operation>
+        <Operation Key="Read" Caption="阅读记录" Visible="IIF(DBNamedQueryValue(&quot;queryEmpID&quot;,GetOID(),GetFormKey(),GetOperator())==GetOperator(),true,false)">
+            <Action>
+                <![CDATA[ShowModal('OA_BillReadRecord',{
+                        OID:{GetOID()},
+                        BillKey:{GetFormKey()}})]]>
+            </Action>
+        </Operation>
+        <Operation Key="Archive" Caption="归档" Visible="Status==1200"/>
+    </OperationCollection>
+    <StatusCollection>
+        <Status Caption="已输入" Key="prepared" Value="100"/>
+        <Status Caption="已租赁" Key="confirmed" Value="200"/>
+        <Status Caption="已续租" Key="received " Value="320"/>
+        <Status Caption="已退租" Key="putaway" Value="340"/>
+        <Status Caption="已拣货" Key="picked" Value="420"/>
+        <Status Caption="已发货" Key="shipped" Value="440"/>
+        <Status Caption="已提货" Key="took-delivery" Value="510"/>
+        <Status Caption="已发运" Key="dispatched" Value="520"/>
+        <Status Caption="已中转" Key="transfered" Value="530"/>
+        <Status Caption="已到站" Key="org-arrived" Value="540"/>
+        <Status Caption="已配送" Key="distributed" Value="550"/>
+        <Status Caption="已签收" Key="signed" Value="560"/>
+        <Status Caption="已回单" Key="returned" Value="570"/>
+        <Status Caption="已发车" Key="departed" Value="620"/>
+        <Status Caption="已到达" Key="arrived" Value="640"/>
+        <Status Caption="已完成" Key="finished" Value="900"/>
+        <Status Caption="初始状态" Key="init" Value="0"/>
+        <Status Caption="已提交" Key="commited" Value="1000"/>
+        <Status Caption="审批中" Key="approving" Value="1100"/>
+        <Status Caption="已接受" Key="received" Value="1110"/>
+        <Status Caption="已解决" Key="solved" Value="1120"/>
+        <Status Caption="暂停任务" Key="pause" Value="1130"/>
+        <Status Caption="已审批" Key="approved" Value="1200"/>
+        <Status Caption="投票中" Key="voting" Value="1300"/>
+        <Status Caption="投票通过" Key="voted" Value="1400"/>
+        <Status Caption="已归档" Key="archive" Value="1500"/>
+        <Status Caption="否决" Key="reject" Value="1900"/>
+        <Status Caption="作废" Key="invalid" Value="2000"/>
+    </StatusCollection>
+    <ScriptCollection>
+        <Script Caption="载入" Description="载入事件" Key="Load" Range="Action" Verb="Load">
+            <![CDATA[LoadData();ShowData();]]>
+        </Script>
+    </ScriptCollection>
+    <MacroCollection>
+        <Macro Key="OA_ShowOID">
+            <![CDATA[//用来查看单据OID
+Confirm(GetOID()+"_"+OID);]]>
+        </Macro>
+        <Macro Key="OA_GetDropItemByBPM">
+            <![CDATA[InvokeService("OA_GetDropItemByBPM",false,false)]]>
+        </Macro>
+        <Macro Key="OA_GetWorkflowAttribute" Args="key,version,name">
+            <![CDATA[InvokeService("OA_GetWorkflowAttribute",false,false,key,version,name);]]>
+        </Macro>
+        <Macro Key="OA_GetValueStrByCol" Args="tableName,fieldName,sep">
+            <![CDATA[InvokeService("OA_GetValueStrByCol",true,false,tableName,fieldName,sep)]]>
+        </Macro>
+        <Macro Key="OA_LoadFileToString" Args="filePath,isRelative">
+            <![CDATA[InvokeService("OA_LoadFileToString",false,false,filePath,isRelative)]]>
+        </Macro>
+        <Macro Key="OA_UploadStringToFile" Args="fileContent,filePath,isRelative">
+            <![CDATA[InvokeService("OA_UploadStringToFile",false,false,fileContent,filePath,isRelative)]]>
+        </Macro>
+        <Macro Key="OA_GetIdSql" Args="tableName,dicIds">
+            <![CDATA[InvokeService("OA_GetIdSql",false,false,tableName,dicIds,isRelative)]]>
+        </Macro>
+        <Macro Key="OA_GetIdExistsSql" Args="tableName,dicIds,idName">
+            <![CDATA[InvokeService("OA_GetIdExistsSql",false,false,tableName,dicIds,idName)]]>
+        </Macro>
+        <Macro Key="OA_GetIdExistsSqlIncludeAll" Args="tableName,dicIds,idName">
+            <![CDATA[InvokeService("OA_GetIdExistsSqlIncludeAll",false,false,dicIds,filePath,idName)]]>
+        </Macro>
+        <Macro Key="OA_GetDropItemsBySettings" Args="paths">
+            <![CDATA[InvokeService("OA_GetDropItemsBySettings", false, false, "OA",paths)]]>
+        </Macro>
+        <Macro Key="OA_GetPropertyBySettings" Args="paths,propertyName">
+            <![CDATA[InvokeService("OA_GetPropertyBySettings", false, false, "OA",paths,propertyName);]]>
+        </Macro>
+        <Macro Key="OA_GetDropItemFromStatus">
+            <![CDATA["100,已输入;1000,已提交;1100,审批中;1200,已审批;1300,投票中;1400,投票通过;1900,否决;2000,作废"
+]]>
+        </Macro>
+        <Macro Key="OA_GetTaskDropItemFromStatus">
+            <![CDATA["100,已输入;1000,已提交;1100,审批中;1110,已接受;1120,已解决;1130,暂停任务;1200,已审批;1300,投票中;1400,投票通过;1900,否决;1500,已归档;2000,作废"]]>
+        </Macro>
+        <Macro Key="OA_RefreshDictItem" Args="itemKey,dictOID">
+            <![CDATA[InvokeService("OA_RefreshDictItem", true, false, itemKey,dictOID);]]>
+        </Macro>
+        <Macro Key="OA_GetPCFormKey" Args="par1,par2">
+            <![CDATA[var stri = par1;
+var str = Left(stri,3);
+if(str =="OA_"){
+Open(stri,par2);
+}else{
+var num = Length(stri)-1;
+var str1 = Right(stri, num);
+Open(str1,par2);}]]>
+        </Macro>
+    </MacroCollection>
+    <QueryCollection>
+        <Query Key="queryLastUserID" Description="查询上一步处理人">
+            <Statement>
+                <![CDATA[select w.operatorid as LastUserID from  BPM_WorkItemInfo B ,wf_workitem W where B.ParentWorkitemID=W.WorkitemID and b.ParentWorkitemID=?]]>
+            </Statement>
+            <ParameterCollection>
+                <Parameter DataType="Long"/>
+            </ParameterCollection>
+        </Query>
+        <Query Key="queryWorkFlowKey" Description="查询动态绑定工作流">
+            <Statement>
+                <![CDATA[select w.WorkflowKey   from OA_WorkflowType_D wt join OA_Workflow_H w on w.oid=wt.WorkflowID and wt.BillKey=?]]>
+            </Statement>
+            <ParameterCollection>
+                <Parameter DataType="Varchar"/>
+            </ParameterCollection>
+        </Query>
+        <Query Key="queryCreator" Description="查询操作员">
+            <Statement>
+                <![CDATA[select creator from OA_NewsDraft_H where creator=? and oid=? and billkey=?]]>
+            </Statement>
+            <ParameterCollection>
+                <Parameter DataType="Long"/>
+                <Parameter DataType="Long"/>
+                <Parameter DataType="Varchar"/>
+            </ParameterCollection>
+        </Query>
+        <Query Key="queryEmpID" Description="查询人员">
+            <Statement>
+                <![CDATA[select a.SendUser from oa_Read a where a.billoid=? and a.BillKey=? and a.SendUser=?]]>
+            </Statement>
+            <ParameterCollection>
+                <Parameter DataType="Long"/>
+                <Parameter DataType="Varchar"/>
+                <Parameter DataType="Long"/>
+            </ParameterCollection>
+        </Query>
+        <Query Key="queryDeptID" Description="查询部门ID">
+            <Statement>
+                <![CDATA[select o.oid,o.EmpID,o.code,o.name,o.nodetype,3 OptType,d.PositionID,d.DepartmentID DeptID from SYS_Operator o join 
+OA_Employee_d d on o.EmpID=d.soid JOIN OA_Department_H on OA_Department_H.OID=d.DepartmentID and OA_Department_H.OID=?]]>
+            </Statement>
+            <ParameterCollection>
+                <Parameter DataType="Long"/>
+            </ParameterCollection>
+        </Query>
+        <Query Key="QueryAtt" Description="查询附件数量">
+            <Statement>
+                <![CDATA[select count(oid) from oa_attachment where SOID=?]]>
+            </Statement>
+        </Query>
+        <Query Key="queryStatus" Description="查询状态">
+            <Statement>
+                <![CDATA[select r.status from oa_read r where r.readuser = ? and r.billoid=?]]>
+            </Statement>
+            <ParameterCollection>
+                <Parameter DataType="Long"/>
+                <Parameter DataType="Long"/>
+            </ParameterCollection>
+        </Query>
+    </QueryCollection>
+</CommonDef>

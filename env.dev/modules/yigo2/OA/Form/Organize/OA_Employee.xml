@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Caption="人员" FormType="Dict" Key="OA_Employee">
+    <DataSource>
+        <DataObject Key="OA_Employee" Caption="人员" PrimaryTableKey="OA_Employee_H" SecondaryType="Dict" PrimaryType="Entity">
+            <TableCollection>
+                <Table Caption="基本信息" DBTableName="OA_Employee_H" Key="OA_Employee_H">
+                    <Column Caption="对象标识" DataType="Long" Key="OID"/>
+                    <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+                    <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+                    <Column Caption="对象版本" DataType="Integer" Key="VERID"/>
+                    <Column Caption="对象明细版本" DataType="Integer" Key="DVERID"/>
+                    <Column Caption="状态" DataType="Integer" DefaultValue="1" Key="Status"/>
+                    <Column Caption="启用标记" DataType="Integer" Key="Enable" DefaultValue="1"/>
+                    <Column Caption="节点类型" DataType="Integer" DefaultValue="0" Key="NodeType"/>
+                    <Column Caption="父节点" DataType="Long" DefaultValue="0" Key="ParentID"/>
+                    <Column Caption="左索引" DataType="Integer" Key="TLeft"/>
+                    <Column Caption="右索引" DataType="Integer" Key="TRight"/>
+                    <Column Caption="代码" DataType="Varchar" Key="Code" Length="50"/>
+                    <Column Caption="名称" DataType="Varchar" Key="Name" Length="50"/>
+                    <Column Caption="创建人员" DataType="Long" Key="Creator"/>
+                    <Column Caption="创建时间" DataType="DateTime" Key="CreateTime"/>
+                    <Column Caption="修改人员" DataType="Long" Key="Modifier"/>
+                    <Column Caption="修改时间" DataType="DateTime" Key="ModifyTime"/>
+                    <Column Caption="备注" DataType="Varchar" Key="Notes"/>
+                    <Column Caption="单据Key" DataType="Varchar" Key="BillKey"/>
+                    <Column Caption="集团" DataType="Long" Key="ClusterID"/>
+                    <Column Caption="外文备注" DataType="Varchar" Key="ForeignNotes" Length="200"/>
+                    <Column Caption="出生日期" DataType="Date" Key="BirthDate"/>
+                    <Column Caption="身份证号" DataType="Varchar" Key="IdNumber"/>
+                    <Column Caption="性别" DataType="Integer" Key="Sex"/>
+                    <Column Caption="籍贯" DataType="Varchar" Key="Nativeplace"/>
+                    <Column Caption="邮编1" DataType="Varchar" Key="PostCode"/>
+                    <Column Caption="手机1" DataType="Varchar" Key="Mobile1" Cache="true"/>
+                    <Column Caption="QQ" DataType="Varchar" Key="QQ"/>
+                    <Column Caption="户籍地址" DataType="Varchar" Key="aAddress" Length="200"/>
+                    <Column Caption="邮编2" DataType="Varchar" Key="aPostCode"/>
+                    <Column Caption="联系电话" DataType="Varchar" Key="Tel" Cache="true"/>
+                    <Column Key="Email" Caption="电子邮箱1" DataType="Varchar" Cache="true"/>
+                    <Column Caption="联系地址" DataType="Varchar" Key="Address" Length="200"/>
+                    <Column Caption="助记码" DataType="Varchar" Key="AssistCode"/>
+                    <Column Caption="直属领导" DataType="Long" Key="LeaderID"/>
+                    <Column Caption="部门" DataType="Long" Key="DeptID" Cache="true"/>
+                    <Column Key="Photo" Caption="照片" DataType="Varchar" Cache="true"/>
+                    <Column Key="E_Signature" Caption="电子签名" DataType="Varchar" Cache="true"/>
+                    <Column Key="SMobile" Caption="电信短号" DataType="Varchar"/>
+                </Table>
+                <Table DBTableName="OA_Employee_D" Key="OA_Employee_D" ParentKey="OA_Employee_H" TableMode="Detail">
+                    <Column Caption="对象标识" DataType="Long" Key="OID"/>
+                    <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+                    <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+                    <Column Caption="对象版本" DataType="Integer" Key="VERID"/>
+                    <Column Caption="对象明细版本" DataType="Integer" Key="DVERID"/>
+                    <Column Caption="职务" DataType="Long" Key="PositionID"/>
+                    <Column Caption="主职务" DataType="Integer" Key="MainPosition"/>
+                    <Column Caption="部门" DataType="Long" Key="DepartmentID"/>
+                    <Column Caption="序号" DataType="Integer" Key="Sequence"/>
+                </Table>
+                <Table DBTableName="OA_Employee_Role" Key="OA_Employee_Role" ParentKey="OA_Employee_H" TableMode="Detail">
+                    <Column Caption="对象标识" DataType="Long" Key="OID"/>
+                    <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+                    <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+                    <Column Caption="对象版本" DataType="Integer" Key="VERID"/>
+                    <Column Caption="对象明细版本" DataType="Integer" Key="DVERID"/>
+                    <Column Caption="角色ID" DataType="Long" Key="ROLEID"/>
+                    <Column Caption="序号" DataType="Integer" Key="Sequence"/>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="GenOperator" Caption="同步操作员">
+            <Action>
+                <![CDATA[InvokeService("OA_GenOperator", true, false);
+SaveData();]]>
+            </Action>
+        </Operation>
+        <Operation Key="GenOperatorAll" Caption="全部同步操作员">
+            <Action>
+                <![CDATA[InvokeService("OA_GenOperatorAll", true, false);
+Confirm("全部人员同步操作完成");]]>
+            </Action>
+        </Operation>
+    </OperationCollection>
+    <UICheckRuleCollection>
+        <UICheckRule Description="角色不能重复" ErrorInfo="角色不能重复">
+            <![CDATA[!CheckDuplicate("RoleID")]]>
+        </UICheckRule>
+        <UICheckRule Description="身份证号输入有误，请检查！" ErrorInfo="身份证号输入有误，请检查！">
+            <![CDATA[Length(GetValue('IdNumber'))==18]]>
+        </UICheckRule>
+        <UICheckRule Description="职务列表不能为空" ErrorInfo="职位列表不能为空">
+            <![CDATA[GetRowCount("Grid1",false)>0;]]>
+        </UICheckRule>
+    </UICheckRuleCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Caption="FlexFlowLayoutPanel1" Key="FlexFlowLayoutPanel1" OverflowY="Auto" Height="100%">
+                <TabPanel Caption="角色" Height="pref" Key="RoleTab">
+                    <GridLayoutPanel Caption="基本信息" Key="GridLayoutPanel1" OverflowY="Auto" Height="100%">
+                        <TextEditor BuddyKey="Lab_Code" Caption="序号" Key="Code" X="1" Y="0">
+                            <DataBinding ColumnKey="Code" TableKey="OA_Employee_H" Required="true"/>
+                        </TextEditor>
+                        <Label Caption="序号" Key="Lab_Code" X="0" Y="0"/>
+                        <TextEditor BuddyKey="Lab_Name" Caption="名称" Key="Name" X="4" Y="0">
+                            <DataBinding ColumnKey="Name" TableKey="OA_Employee_H" Required="true"/>
+                        </TextEditor>
+                        <Label Caption="名称" Key="Lab_Name" X="3" Y="0"/>
+                        <ComboBox BuddyKey="Lab_Sex" Caption="性别" Key="Sex" X="1" Y="1">
+                            <DataBinding ColumnKey="Sex" TableKey="OA_Employee_H"/>
+                            <Item Caption="男" Key="1" Value="1"/>
+                            <Item Caption="女" Key="2" Value="2"/>
+                        </ComboBox>
+                        <Label Caption="性别" Key="Lab_Sex" X="0" Y="1"/>
+                        <TextEditor BuddyKey="Lab_NativePlace" Caption="籍贯" Key="NativePlace" X="4" Y="1"/>
+                        <Label Caption="籍贯" Key="Lab_NativePlace" X="3" Y="1"/>
+                        <DatePicker BuddyKey="Lab_BirthDate" Caption="出生日期" Key="BirthDate" X="1" Y="2">
+                            <DataBinding ColumnKey="BirthDate" TableKey="OA_Employee_H"/>
+                        </DatePicker>
+                        <Label Caption="出生日期" Key="Lab_BirthDate" X="0" Y="2"/>
+                        <TextEditor BuddyKey="Lab_IdNumber" Caption="身份证号" Key="IdNumber" X="4" Y="2">
+                            <DataBinding ColumnKey="IdNumber" TableKey="OA_Employee_H"/>
+                        </TextEditor>
+                        <Label Caption="身份证号" Key="Lab_IdNumber" X="3" Y="2"/>
+                        <Dict BuddyKey="Lab_LeaderID" Caption="直属领导" ItemKey="OA_Employee" Key="LeaderID" X="1" Y="5">
+                            <DataBinding ColumnKey="LeaderID" TableKey="OA_Employee_H"/>
+                        </Dict>
+                        <Label Caption="直属领导" Key="Lab_LeaderID" X="0" Y="5"/>
+                        <Dict BuddyKey="Lab_DeptID" Caption="部门" Key="DeptID" X="1" Y="6" Enable="false" ItemKey="OA_Department">
+                            <DataBinding ColumnKey="DeptID" TableKey="OA_Employee_H"/>
+                        </Dict>
+                        <Label Caption="部门" Key="Lab_DeptID" X="0" Y="6"/>
+                        <TextEditor BuddyKey="Lab_Address" Caption="联系地址" Key="Address" X="1" Y="3">
+                            <DataBinding ColumnKey="Address" TableKey="OA_Employee_H"/>
+                        </TextEditor>
+                        <Label Caption="联系地址" Key="Lab_Address" X="0" Y="3"/>
+                        <TextEditor BuddyKey="Lab_PostCode" Caption="邮编" Key="PostCode" X="4" Y="3">
+                            <DataBinding ColumnKey="PostCode" TableKey="OA_Employee_H"/>
+                        </TextEditor>
+                        <Label Caption="邮编" Key="Lab_PostCode" X="3" Y="3"/>
+                        <TextEditor BuddyKey="Lab_AAddress" Caption="户籍地址" Key="AAddress" X="1" Y="4">
+                            <DataBinding ColumnKey="aAddress" TableKey="OA_Employee_H"/>
+                        </TextEditor>
+                        <Label Caption="户籍地址" Key="Lab_AAddress" X="0" Y="4"/>
+                        <TextEditor BuddyKey="Lab_APostCode" Caption="邮编" Key="APostCode" X="4" Y="4">
+                            <DataBinding ColumnKey="aPostCode" TableKey="OA_Employee_H"/>
+                        </TextEditor>
+                        <Label Caption="邮编" Key="Lab_APostCode" X="3" Y="4"/>
+                        <TextEditor BuddyKey="Lab_Tel" Caption="联系电话" Key="Tel" X="1" Y="7">
+                            <DataBinding ColumnKey="Tel" TableKey="OA_Employee_H"/>
+                        </TextEditor>
+                        <Label Caption="联系电话" Key="Lab_Tel" X="0" Y="7"/>
+                        <TextEditor BuddyKey="Lab_QQ" Caption="QQ" Key="QQ" X="4" Y="9">
+                            <DataBinding ColumnKey="QQ" TableKey="OA_Employee_H"/>
+                        </TextEditor>
+                        <Label Caption="QQ" Key="Lab_QQ" X="3" Y="9"/>
+                        <TextEditor Key="Email" Caption="Email" BuddyKey="Lab_Email" X="4" Y="10">
+                            <DataBinding ColumnKey="Email" TableKey="OA_Employee_H" CheckRule="(InvokeService('OA_MailboxFormatCheck',true,false,Email ) || (Email==&quot;&quot;));" ErrorInfo="邮箱格式错误!请仔细检查!"/>
+                        </TextEditor>
+                        <Label Key="Lab_Email" Caption="Email" X="3" Y="10"/>
+                        <Image Key="Photo" Caption="照片" X="5" Y="0" YSpan="5" HasBorder="true">
+                            <DataBinding ColumnKey="Photo" TableKey="OA_Employee_H"/>
+                        </Image>
+                        <Image Key="E_Signature" Caption="电子签名" BuddyKey="Lab_E_Signature" X="4" Y="5" YSpan="4" HasBorder="true">
+                            <DataBinding ColumnKey="E_Signature" TableKey="OA_Employee_H"/>
+                        </Image>
+                        <Label Key="Lab_E_Signature" Caption="电子签名" X="3" Y="5"/>
+                        <TextEditor Key="SMobile" Caption="电信短号" BuddyKey="Lab_SMobile" X="1" Y="8">
+                            <DataBinding ColumnKey="SMobile" TableKey="OA_Employee_H"/>
+                        </TextEditor>
+                        <Label Key="Lab_SMobile" Caption="电信短号" X="0" Y="8"/>
+                        <TextArea Key="Mobile1" Caption="手机" BuddyKey="Lab_Mobile1" X="1" Y="9" YSpan="2">
+                            <DataBinding ColumnKey="Mobile1" TableKey="OA_Employee_H"/>
+                        </TextArea>
+                        <Label Caption="手机" Key="Lab_Mobile1" X="0" Y="9" YSpan="2"/>
+                        <Grid Caption="职务列表" Key="Grid1" Height="100%" X="1" XSpan="5" Y="12" YSpan="5">
+                            <GridColumnCollection>
+                                <GridColumn Caption="部门" Key="LAB_DepartmentID" Width="130px"/>
+                                <GridColumn Caption="职务" Key="LAB_Position" Width="130px"/>
+                                <GridColumn Key="LAB_MainPosition" Caption="主职务" Width="80px"/>
+                            </GridColumnCollection>
+                            <GridRowCollection>
+                                <GridRow Key="row0" TableKey="OA_Employee_D">
+                                    <GridCell Caption="部门" CellType="Dict" ItemKey="OA_Department" Key="D_DepartmentID">
+                                        <DataBinding ColumnKey="DepartmentID" CheckRule="!IsControlNull(&quot;D_DepartmentID&quot;);" CheckDependency="D_DepartmentID" ErrorInfo="职务列表部门不能为空"/>
+                                    </GridCell>
+                                    <GridCell Caption="职务" CellType="Dict" ItemKey="OA_Duty" Key="D_PositionID">
+                                        <DataBinding ColumnKey="PositionID"/>
+                                    </GridCell>
+                                    <GridCell Key="D_MainPosition" Caption="主职务" CellType="CheckBox">
+                                        <DataBinding ColumnKey="MainPosition">
+                                            <ValueChanged>
+                                                <![CDATA[SetDeptID()]]>
+                                            </ValueChanged>
+                                        </DataBinding>
+                                    </GridCell>
+                                </GridRow>
+                            </GridRowCollection>
+                        </Grid>
+                        <Label Key="PositionList" Caption="职务列表" X="0" Y="12"/>
+                        <Separator Caption="Separator1" Key="Separator1" X="0" XSpan="6" Y="11"/>
+                        <RowDefCollection RowGap="4">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="4">
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="50%"/>
+                            <ColumnDef Width="20px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="50%"/>
+                            <ColumnDef Width="120px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <Grid Caption="角色" Key="RoleGrid" PageLoadType="DB">
+                        <GridColumnCollection>
+                            <GridColumn Key="RoleID" Caption="角色" Width="80px"/>
+                        </GridColumnCollection>
+                        <GridRowCollection>
+                            <GridRow Key="row0" TableKey="OA_Employee_Role">
+                                <GridCell Key="RoleID" CellType="Dict" ItemKey="Role">
+                                    <DataBinding ColumnKey="ROLEID"/>
+                                </GridCell>
+                            </GridRow>
+                        </GridRowCollection>
+                    </Grid>
+                    <GridLayoutPanel Caption="系统信息" Height="1%" Key="SysTab">
+                        <Dict BuddyKey="Lab_Creator" Caption="创建人员" Enable="false" ItemKey="Operator" Key="Creator" X="1" Y="0">
+                            <DataBinding ColumnKey="Creator" TableKey="OA_Employee_H" DefaultFormulaValue="GetOperator()" Required="true"/>
+                        </Dict>
+                        <Label Caption="创建人员" Key="Lab_Creator" X="0" Y="0"/>
+                        <Label Caption="创建时间" Key="Lab_CreateTime" X="3" Y="0"/>
+                        <DatePicker BuddyKey="Lab_CreateTime" Caption="创建时间" Enable="false" Key="CreateTime" X="4" Y="0">
+                            <DataBinding ColumnKey="CreateTime" TableKey="OA_Employee_H" DefaultFormulaValue="ServerDate()" Required="true"/>
+                        </DatePicker>
+                        <Label Caption="修改人员" Key="Lab_Modifier" X="0" Y="1"/>
+                        <Dict BuddyKey="Lab_Modifier" Caption="修改人员" Enable="false" ItemKey="Operator" Key="Modifier" X="1" Y="1">
+                            <DataBinding ColumnKey="Modifier" TableKey="OA_Employee_H" DefaultFormulaValue="GetOperator()" Required="true"/>
+                        </Dict>
+                        <Label Caption="修改时间" Key="Lab_ModifyTime" X="3" Y="1"/>
+                        <DatePicker BuddyKey="Lab_ModifyTime" Caption="修改时间" Enable="false" Key="ModifyTime" X="4" Y="1">
+                            <DataBinding ColumnKey="ModifyTime" TableKey="OA_Employee_H" DefaultFormulaValue="ServerDate()" Required="true"/>
+                        </DatePicker>
+                        <Label Caption="备注" Key="Lab_Notes" X="0" Y="2"/>
+                        <TextEditor BuddyKey="Lab_Notes" Caption="备注" Key="Notes" X="1" XSpan="4" Y="2">
+                            <DataBinding ColumnKey="Notes" TableKey="OA_Employee_H"/>
+                        </TextEditor>
+                        <TextEditor BuddyKey="Lab_BillKey" Caption="单据Key" Enable="false" Key="BillKey" X="1" Y="3">
+                            <DataBinding ColumnKey="BillKey" TableKey="OA_Employee_H" DefaultFormulaValue="GetFormKey()"/>
+                        </TextEditor>
+                        <Label Caption="单据Key" Key="Lab_BillKey" X="0" Y="3"/>
+                        <Dict BuddyKey="Lab_ClusterID" Caption="集团" Enable="false" ItemKey="Client" Key="ClusterID" X="4" Y="3">
+                            <DataBinding ColumnKey="ClusterID" TableKey="OA_Employee_H"/>
+                        </Dict>
+                        <Label Caption="集团" Key="Lab_ClusterID" X="3" Y="3"/>
+                        <RowDefCollection RowGap="4">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="4">
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="50%"/>
+                            <ColumnDef Width="20px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="50%"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                </TabPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+    <MacroCollection>
+        <Macro Key="SetDeptID">
+            <![CDATA[var focusRowIndex = GetFocusRow('Grid1'); 
+var isSelected = GetCellValue('Grid1',focusRowIndex,'D_MainPosition'); 
+if(isSelected){
+   var i = 0;  
+   var rowCount = GetRowCount('Grid1');     
+   while(i<rowCount){
+        var currentIsSelected = GetCellValue('Grid1',i,'D_MainPosition');          
+        if(currentIsSelected && i!=focusRowIndex ){ 
+             SetCellValue('Grid1',i,'D_MainPosition',0,true); 
+        } 
+        i = i + 1; 
+   } 
+    DeptID=D_DepartmentID ;
+} 
+]]>
+        </Macro>
+    </MacroCollection>
+</Form>

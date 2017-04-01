@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="OA_ReceiveMessagesView" Caption="消息接收列表" FormType="View">
+    <DataSource>
+        <DataObject Key="OA_ReceiveMessagesView" Caption="消息接收列表">
+            <TableCollection>
+                <Table Key="OA_ReceiveMessages_H" Caption="消息接收列表" DBTableName="OA_ReceiveMessages_H" TableMode="Detail" SourceType="Query" Persist="false">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="SendEmpID" Caption="发送人员" DataType="Long"/>
+                    <Column Key="SendTime" Caption="发送时间" DataType="DateTime"/>
+                    <Column Key="ReceiveEmpID" Caption="接收人员" DataType="Long"/>
+                    <Column Key="MessageSet" Caption="发送方式" DataType="Long"/>
+                    <Column Key="ReceiveTime" Caption="接收时间" DataType="DateTime"/>
+                    <Column Key="Topic" Caption="消息内容" DataType="Varchar" Length="4000"/>
+                    <Column Key="MessageType" Caption="消息类型" DataType="Varchar"/>
+                    <Column Key="SourceBillNO" Caption="来源单据编号" DataType="Varchar"/>
+                    <Column Key="SourceBillkey" Caption="来源单据Key" DataType="Varchar"/>
+                    <Column Key="SourceOID" Caption="来源单据OID" DataType="Long"/>
+                    <ParameterCollection>
+                        <Parameter DataType="Long" Formula="GetOperator()"/>
+                    </ParameterCollection>
+                    <Statement>
+                        <![CDATA[select * from(select  * from OA_ReceiveMessages_H a where a.ReceiveEmpID=? Order By a.ReceiveTime desc ) j]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="DeleteAll" Caption="删除">
+            <Action>
+                <![CDATA[var i = 0;  
+var rowCount = GetRowCount('Grid1');     
+while(i<rowCount){
+	var IsSelect=GetCellValue('Grid1',i,'SelField'); 
+        if(IsSelect==1){    
+        DBUpdate("delete from OA_ReceiveMessages_H  where OID=?", GetCellValue('Grid1', i, 'OID'));
+        } 
+        i = i + 1;
+};
+LoadData();]]>
+            </Action>
+        </Operation>
+        <Operation Key="Setfirst_headVisible" Caption="查询" RefKey="Setfirst_headVisible"/>
+    </OperationCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板">
+                <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <GridLayoutPanel Key="first_head" Height="80px" Caption="基本信息" Visible="first_headVisible==1">
+                    <DatePicker Key="From" Caption="接收时间 从" BuddyKey="Lab_From" X="1" Y="0">
+                        <Condition ColumnKey="ReceiveTime" TableKey="OA_ReceiveMessages_H" CondSign="between" Group="aa" GroupHead="true"/>
+                    </DatePicker>
+                    <Label Key="Lab_From" Caption="接收时间 从" X="0" Y="0"/>
+                    <DatePicker Key="To" Caption="到" BuddyKey="Lab_To" X="3" Y="0">
+                        <Condition ColumnKey="ReceiveTime" TableKey="OA_ReceiveMessages_H" CondSign="between" Group="aa" GroupTail="true"/>
+                    </DatePicker>
+                    <Label Key="Lab_To" Caption="到" X="2" Y="0"/>
+                    <Dict Key="QuerySendEmpID" Caption="发送人员" BuddyKey="Lab_QuerySendEmpID" X="1" Y="1" AllowMultiSelection="true" ItemKey="Operator">
+                        <Condition ColumnKey="SendEmpID" TableKey="OA_ReceiveMessages_H" CondSign="in"/>
+                    </Dict>
+                    <Label Key="Lab_QuerySendEmpID" Caption="发送人员" X="0" Y="1"/>
+                    <Button Key="Query" Caption="查询" X="6" Y="0">
+                        <OnClick>
+                            <![CDATA[DealCondition();
+LoadData();
+ShowData();]]>
+                        </OnClick>
+                    </Button>
+                    <Button Key="Reset" Caption="重置" X="6" Y="1">
+                        <OnClick>
+                            <![CDATA[ResetCondition();]]>
+                        </OnClick>
+                    </Button>
+                    <CheckBox Caption="表头可见" Key="first_headVisible" Visible="false" X="4" Y="1">
+                        <DataBinding DefaultValue="1"/>
+                    </CheckBox>
+                    <Dict Key="QueryMessageSet" Caption="发送方式" BuddyKey="Lab_QueryMessageSet" X="5" Y="0" AllowMultiSelection="true" ItemKey="OA_MessageSet">
+                        <Condition ColumnKey="MessageSet" TableKey="OA_ReceiveMessages_H" CondSign="in"/>
+                    </Dict>
+                    <Label Key="Lab_QueryMessageSet" Caption="发送方式" X="4" Y="0"/>
+                    <RowDefCollection RowGap="8">
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="8">
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="33%"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="33%"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="34%"/>
+                        <ColumnDef Width="80px"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+                <Grid Key="Grid1" Caption="Grid1" NewEmptyRow="false" Height="100%" PageLoadType="UI">
+                    <GridColumnCollection>
+                        <GridColumn Key="SelField" Caption="选择" Width="80px"/>
+                        <GridColumn Key="SendEmpID" Caption="发送人员" Width="120px"/>
+                        <GridColumn Key="SendTime" Caption="发送时间" Width="130px"/>
+                        <GridColumn Key="MessageSet" Caption="发送方式" Width="120px"/>
+                        <GridColumn Key="ReceiveEmpID" Caption="接收人员" Width="140px"/>
+                        <GridColumn Key="ReceiveTime" Caption="接收时间" Width="130px"/>
+                        <GridColumn Key="MessageType" Caption="消息类型" Width="100px" Enable="false"/>
+                        <GridColumn Key="Topic" Caption="主题" Enable="false" Width="200px"/>
+                        <GridColumn Key="OID" Caption="OID" Width="80px" Visible="false"/>
+                        <GridColumn Key="SourceBillNO" Caption="来源单据编号" Width="150px"/>
+                        <GridColumn Key="SourceBillkey" Caption="来源单据Key" Width="80px" Visible="false"/>
+                        <GridColumn Key="SourceOID" Caption="来源单据OID" Width="80px" Visible="false"/>
+                    </GridColumnCollection>
+                    <GridRowCollection>
+                        <GridRow Key="row1" RowHeight="35" TableKey="OA_ReceiveMessages_H">
+                            <GridCell Key="SelField" Caption="选择" CellType="CheckBox" IsSelect="true"/>
+                            <GridCell Key="SendEmpID" Caption="发送人员" CellType="Dict" Enable="false" ItemKey="Operator">
+                                <DataBinding ColumnKey="SendEmpID"/>
+                            </GridCell>
+                            <GridCell Key="SendTime" Caption="发送时间" CellType="DatePicker" Enable="false">
+                                <DataBinding ColumnKey="SendTime"/>
+                            </GridCell>
+                            <GridCell Key="MessageSet" Caption="发送方式" CellType="Dict" Enable="false" ItemKey="OA_MessageSet">
+                                <DataBinding ColumnKey="MessageSet"/>
+                            </GridCell>
+                            <GridCell Key="ReceiveEmpID" Caption="接收人员" CellType="Dict" Enable="false" ItemKey="Operator">
+                                <DataBinding ColumnKey="ReceiveEmpID"/>
+                            </GridCell>
+                            <GridCell Key="ReceiveTime" Caption="接收时间" CellType="DatePicker" Enable="false">
+                                <DataBinding ColumnKey="ReceiveTime"/>
+                            </GridCell>
+                            <GridCell Key="MessageType" Caption="消息类型" CellType="ComboBox" Enable="false" SourceType="Formula">
+                                <DataBinding ColumnKey="MessageType"/>
+                                <FormulaItems>
+                                    <![CDATA[OA_GetDropItemsBySettings("SystemMessage|MessageType")]]>
+                                </FormulaItems>
+                            </GridCell>
+                            <GridCell Key="Topic" Caption="主题" CellType="TextEditor" Enable="false">
+                                <DataBinding ColumnKey="Topic"/>
+                            </GridCell>
+                            <GridCell Key="OID" Caption="OID">
+                                <DataBinding ColumnKey="OID"/>
+                            </GridCell>
+                            <GridCell Key="SourceBillNO" Caption="来源单据编号" CellType="HyperLink" Enable="ToLong(SourceOID)&gt;0">
+                                <DataBinding ColumnKey="SourceBillNO"/>
+                                <OnClick>
+                                    <![CDATA[Open(SourceBillkey, SourceOID);]]>
+                                </OnClick>
+                            </GridCell>
+                            <GridCell Key="SourceBillkey" Caption="来源单据Key" CellType="TextEditor">
+                                <DataBinding ColumnKey="SourceBillkey"/>
+                            </GridCell>
+                            <GridCell Key="SourceOID" Caption="来源单据OID" CellType="TextEditor">
+                                <DataBinding ColumnKey="SourceOID"/>
+                            </GridCell>
+                        </GridRow>
+                    </GridRowCollection>
+                    <RowDblClick>
+                        <![CDATA[Open("OA_ReceiveMessages", OID)]]>
+                    </RowDblClick>
+                </Grid>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+    <OnLoad>
+        <![CDATA[LoadData()]]>
+    </OnLoad>
+</Form>

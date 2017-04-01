@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Caption="工作项事务处理列表" Key="MobileOA_WorkItemList">
+    <DataSource>
+        <DataObject Caption="明细表单数据源" Key="FormHeadDemoData">
+            <TableCollection>
+                <Table Caption="工作项" DBTableName="WF_Workitem" Key="WF_Workitem" Filter="WorkitemState=1" TableMode="Detail" SourceType="Query">
+                    <Column Key="Topic" Caption="Topic" DataType="Varchar" Length="0"/>
+                    <Column Key="EmpID" Caption="EmpID" DataType="Long"/>
+                    <ParameterCollection>
+                        <Parameter DataType="Long" Formula="GetOperator()"/>
+                    </ParameterCollection>
+                    <Statement>
+                        <![CDATA[select * from (select 
+BPM_Instance.ProcessKey as ProcessKey,
+BPM_Instance.formkey as formkey,
+BPM_Instance.oid as oid,
+bpm_workiteminfo.ParentWorkitemID,
+Topic,UrgencyDeg,EmpID,DeptID,BillStatus,BillCreatTime,
+WF_Workitem.workItemID,
+WF_Workitem.workItemName 
+from WF_Workitem 
+join WF_Participator on WF_Workitem.WorkitemID=WF_Participator.WorkitemID 
+join BPM_Log on WF_Workitem.WorkitemID=BPM_Log.WorkitemID 
+join bpm_workiteminfo on wf_workitem.WorkitemID=bpm_workiteminfo.WorkitemID 
+join BPM_Instance on  BPM_Log.instanceID=BPM_Instance.instanceID
+join BPM_Migration on  BPM_Instance.OID=BPM_Migration.BillOID
+where WF_Participator.OperatorID=? order by UrgencyDeg desc,BillCreatTime asc ) h]]>
+                    </Statement>
+                </Table>
+                <Table Caption="流程实例表" DBTableName="BPM_Instance" Key="BPM_Instance" TableMode="Detail" SourceType="Query">
+                    <Column Key="Topic" Caption="Topic" DataType="Varchar" Length="0"/>
+                    <Column Key="EmpID" Caption="EmpID" DataType="Long"/>
+                    <ParameterCollection>
+                        <Parameter DataType="Long" Formula="GetOperator()"/>
+                        <Parameter DataType="Long" Formula="GetOperator()"/>
+                    </ParameterCollection>
+                    <Statement>
+                        <![CDATA[select * from (
+select w.WorkitemID,topic,empid,deptid,BillStatus,i.ProcessKey as ProcessKey,w.creatTime
+from wf_workitem w  
+join bpm_log l on w.WorkitemID=l.WorkitemID 
+join BPM_Instance i on  l.instanceID=i.instanceID  
+join bpm_migration M on i.OID = m.BillOID   
+where l.WorkitemState=2 and l.OperatorID=? and l.WorkitemID 
+in(select MAX(WorkitemID) 
+from bpm_log ll 
+where ll.operatorID=? 
+GROUP BY ll.InstanceID)) h]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <Body>
+        <Block>
+            <LinearLayoutPanel Key="LinearLayoutPanel1">
+                <TabPanel Key="listTab" Height="pref">
+                    <Grid Key="Grid1" Caption="代办事项">
+                        <GridColumnCollection>
+                            <GridColumn Key="Topic" Caption="主题" Width="80px"/>
+                            <GridColumn Key="EmpID" Caption="发起人" Width="80px"/>
+                        </GridColumnCollection>
+                        <GridRowCollection>
+                            <GridRow Key="row1" RowHeight="35" TableKey="WF_Workitem">
+                                <GridCell Key="Topic" Caption="主题" CellType="TextEditor">
+                                    <DataBinding ColumnKey="Topic"/>
+                                </GridCell>
+                                <GridCell Key="EmpID" Caption="发起人" CellType="Dict" ItemKey="OA_Employee">
+                                    <DataBinding ColumnKey="EmpID"/>
+                                </GridCell>
+                            </GridRow>
+                        </GridRowCollection>
+                    </Grid>
+                    <Grid Key="Grid2" Caption="已办事项">
+                        <GridColumnCollection>
+                            <GridColumn Key="Topic1" Caption="主题" Width="80px"/>
+                            <GridColumn Key="EmpID1" Caption="发起人" Width="80px"/>
+                        </GridColumnCollection>
+                        <GridRowCollection>
+                            <GridRow Key="row1" RowHeight="35" TableKey="BPM_Instance">
+                                <GridCell Key="Topic1" Caption="主题" CellType="TextEditor">
+                                    <DataBinding ColumnKey="Topic"/>
+                                </GridCell>
+                                <GridCell Key="EmpID1" Caption="发起人" CellType="Dict" ItemKey="OA_Employee">
+                                    <DataBinding ColumnKey="EmpID"/>
+                                </GridCell>
+                            </GridRow>
+                        </GridRowCollection>
+                    </Grid>
+                </TabPanel>
+            </LinearLayoutPanel>
+        </Block>
+    </Body>
+    <OnLoad>
+        <![CDATA[
+	LoadData();
+]]>
+    </OnLoad>
+</Form>

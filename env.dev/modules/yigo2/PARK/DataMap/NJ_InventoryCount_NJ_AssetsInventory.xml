@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Map Caption="库存盘点情况下推库存资产盘点" Key="NJ_InventoryCount_NJ_AssetsInventory" SrcDataObjectKey="NJ_InventoryCount" TgtDataObjectKey="NJ_AssetsInventory">
+    <SourceTableCollection Height="510" Width="412" X="30" Y="30">
+        <SourceTable Key="NJ_InventoryCount" IsPrimary="true" TargetTableKey="NJ_SCM_AssetsInventoryDtl">
+            <SourceField Definition="OID" TargetFieldKey="AssetsId"/>
+            <SourceField Definition="assetstypeid" TargetFieldKey="assetstypeid"/>
+            <SourceField Definition="Model" TargetFieldKey="Model"/>
+            <SourceField Definition="UNITID" TargetFieldKey="UNITID"/>
+            <SourceField Definition="WareHouseId" TargetFieldKey="WareHouseId"/>
+            <SourceField Definition="AssetNatureId" TargetFieldKey="AssetNatureId"/>
+            <SourceField Definition="BookAmount" TargetFieldKey="BookAmount"/>
+            <SourceField Definition="ActualAmount" TargetFieldKey="ActualAmount"/>
+        </SourceTable>
+        <SourceTable Key="NJ_InventoryCountCode" TargetTableKey="NJ_SCM_AssetCode">
+            <SourceField Definition="POID" TargetFieldKey="AssetsBarId"/>
+            <SourceField Definition="AssetsCode" TargetFieldKey="AssetsCode"/>
+            <SourceField Definition="AssetsAmount" TargetFieldKey="AssetsAmount"/>
+        </SourceTable>
+    </SourceTableCollection>
+    <TargetTableCollection Height="510" Width="464" X="491" Y="30">
+        <TargetTable Key="NJ_SCM_AssetsInventoryDtl" IsPrimary="true">
+            <TargetField Definition="AssetsId"/>
+            <TargetField Definition="assetstypeid"/>
+            <TargetField Definition="Model"/>
+            <TargetField Definition="UNITID"/>
+            <TargetField Definition="WareHouseId"/>
+            <TargetField Definition="AssetNatureId"/>
+            <TargetField Definition="BookAmount"/>
+            <TargetField Definition="ActualAmount"/>
+        </TargetTable>
+        <TargetTable Key="NJ_SCM_AssetCode">
+            <TargetField Definition="AssetsBarId"/>
+            <TargetField Definition="AssetsCode"/>
+            <TargetField Definition="AssetsAmount"/>
+        </TargetTable>
+    </TargetTableCollection>
+</Map>

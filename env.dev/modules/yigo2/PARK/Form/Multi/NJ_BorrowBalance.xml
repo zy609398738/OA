@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="NJ_BorrowBalance" Caption="资产借用余额" FormType="Entity" AbbrCaption="资产借用余额" InitState="Default">
+    <DataSource>
+        <DataObject Key="NJ_BorrowBalance" Caption="资产借用余额" PrimaryTableKey="NJ_BorrowBalance" PrimaryType="Entity">
+            <TableCollection>
+                <Table Key="NJ_BorrowBalance" Caption="NJ_BorrowBalance" DBTableName="NJ_BorrowBalance" TableMode="Detail" SourceType="Query" Persist="false">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="AssetsId" Caption="AssetsId" DataType="Long"/>
+                    <Column Key="assetstypeid" Caption="assetstypeid" DataType="Long"/>
+                    <Column Key="Model" Caption="Model" DataType="Varchar"/>
+                    <Column Key="UNITID" Caption="UNITID" DataType="Long"/>
+                    <Column Key="Amount" Caption="Amount" DataType="Integer"/>
+                    <Column Key="WareHouseId" Caption="WareHouseId" DataType="Long"/>
+                    <Column Key="MapCount" Caption="映射数量标记" DataType="Integer"/>
+                    <Column Key="UseDeptID" Caption="UseDeptID" DataType="Long"/>
+                    <Column Key="UseEmpID" Caption="UseEmpID" DataType="Long"/>
+                    <Column Key="MapKey" Caption="映射标识" DataType="Varchar"/>
+                    <Column Key="SrcOID" Caption="来源行标识" DataType="Long"/>
+                    <Column Key="SrcSOID" Caption="来源表单标识" DataType="Long"/>
+                    <Column Key="CustomerId" Caption="CustomerId" DataType="Long"/>
+                    <Column Key="AssetNatureId" Caption="AssetNatureId" DataType="Long"/>
+                    <Column Key="UsePeople" Caption="UsePeople" DataType="Varchar"/>
+                    <Column Key="Room" Caption="Room" DataType="Long"/>
+                    <Column Key="Room_cond" Caption="所在房间" DataType="Long"/>
+                    <Column Key="AssetsCode" Caption="AssetsCode" DataType="Varchar"/>
+                    <Column Key="BillDate" Caption="BillDate" DataType="DateTime"/>
+                    <Column Key="ReturnDate" Caption="ReturnDate" DataType="DateTime"/>
+                    <Column Key="EmpID" Caption="EmpID" DataType="Long"/>
+                    <Column Key="AssetsOID" Caption="AssetsOID" DataType="Varchar"/>
+                    <Statement>
+                        <![CDATA[SELECT * FROM (select BillDate,ReturnDate,a.CustomerId,a.UsePeople,a.Room,a.EmpID,b.AssetsId,b.assetstypeid,b.WareHouseId,b.AssetNatureId,b.Model,b.UNITID,c.AssetsCode,c.OID AssetsOID FROM NJ_SCM_AssetBorrowHead a LEFT JOIN NJ_SCM_AssetBorrowDtl b ON a.oid=b.soid LEFT JOIN NJ_SCM_AssetCode c ON a.OID=c.SOID AND b.AssetsId=c.AssetsBarId WHERE c.OID NOT IN (SELECT AssetsOID FROM NJ_SCM_AssetCode WHERE AssetsOID>0)) a]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="WORKITEM" Caption="WORKITEM" Tag="WORKITEM"/>
+        <Operation Key="BPM" Caption="BPM" Tag="BPM"/>
+    </OperationCollection>
+    <ScriptCollection>
+        <Script Key="Load" Caption="载入" Description="载入事件" Range="Action" Verb="Load">
+            <![CDATA[
+		LoadData();ShowData()
+		]]>
+        </Script>
+    </ScriptCollection>
+    <Body HAlign="Center" Height="80%" PopHeight="80%" PopWidth="80%" Width="80%">
+        <Block>
+            <GridLayoutPanel Key="main" Height="100%">
+                <ToolBar Key="main_toolbar" X="0" Y="0">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <SplitPanel Key="main_split" Orientation="Vertical" Height="100%" X="0" Y="1">
+                    <GridLayoutPanel Key="query" Height="70px" Padding="5px" Caption="查询">
+                        <Button Key="Btn_find" Caption="查询" X="7" Y="0" Enable="true">
+                            <OnClick>
+                                <![CDATA[DealCondition();LoadData();ShowData();								]]>
+                            </OnClick>
+                        </Button>
+                        <Button Key="XIATUI" Caption="下推" X="7" Y="1" Enable="true">
+                            <OnClick>
+                                <![CDATA[ViewMap('NJ_BorrowBalance_NJ_AssetsReturn',false);
+Close();
+parent.SetValue('CustomerId',GetCellValue('Info', -1, 'CustomerId'));
+parent.SetValue('UsePeople',GetCellValue('Info', -1, 'UsePeople'));]]>
+                            </OnClick>
+                        </Button>
+                        <Dict Key="AssetsId_cond" Caption="资产名称" BuddyKey="Lab_AssetsId_cond" X="5" Y="0" Enable="true" AllowMultiSelection="true" ItemKey="NJ_assets" Clearable="false">
+                            <Condition ColumnKey="AssetsId" TableKey="NJ_BorrowBalance" CondSign="in"/>
+                        </Dict>
+                        <Label Key="Lab_AssetsId_cond" Caption="资产名称" X="4" Y="0"/>
+                        <Dict Key="CustomerId_cond" Caption="借用客户" BuddyKey="Lab_CustomerId_cond" X="2" Y="0" Enable="true" AllowMultiSelection="true" Clearable="false" ItemKey="NJ_CP_Customer">
+                            <Condition ColumnKey="CustomerId" TableKey="NJ_BorrowBalance" CondSign="in"/>
+                        </Dict>
+                        <Label Key="Lab_CustomerId_cond" Caption="借用客户" X="1" Y="0"/>
+                        <Dict Key="Room_cond" Caption="所在房间" BuddyKey="Lab_Room_cond" X="2" Y="1" Enable="true" AllowMultiSelection="true" ItemKey="NJ_CP_Room" Clearable="false">
+                            <Condition ColumnKey="Room" TableKey="NJ_BorrowBalance" CondSign="in"/>
+                        </Dict>
+                        <Label Key="Lab_Room_cond" Caption="所在房间" X="1" Y="1"/>
+                        <RowDefCollection RowHeight="25" RowGap="5">
+                            <RowDef/>
+                            <RowDef/>
+                        </RowDefCollection>
+                        <ColumnDefCollection>
+                            <ColumnDef Width="20px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="50%"/>
+                            <ColumnDef Width="20px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="50%"/>
+                            <ColumnDef Width="20px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="20px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <Grid Key="Info" Caption="库存明细" NewEmptyRow="false" Enable="true" CanDelete="false" CanInsert="false" CanShift="false">
+                        <GridColumnCollection>
+                            <GridColumn Key="c1" Caption="选择" Enable="false" Width="76px"/>
+                            <GridColumn Key="BillDate" Caption="借用日期" Width="80px"/>
+                            <GridColumn Key="ReturnDate" Caption="预计归还日期" Width="80px"/>
+                            <GridColumn Key="CustomerId" Caption="借用客户" Width="80px"/>
+                            <GridColumn Key="UsePeople" Caption="借用人" Width="80px"/>
+                            <GridColumn Key="Room" Caption="所在房间" Width="80px"/>
+                            <GridColumn Key="EmpID" Caption="资产管理员" Width="80px"/>
+                            <GridColumn Key="AssetsId" Caption="资产名称" Width="80px"/>
+                            <GridColumn Key="AssetsCode" Caption="资产编码" Width="80px"/>
+                            <GridColumn Key="WareHouseId" Caption="资产大类" Width="80px"/>
+                            <GridColumn Key="assetstypeid" Caption="资产类别" Width="80px"/>
+                            <GridColumn Key="AssetNatureId" Caption="资产性质" Width="80px"/>
+                            <GridColumn Key="Model" Caption="规格型号" Width="80px"/>
+                            <GridColumn Key="UNITID" Caption="计量单位" Width="80px"/>
+                            <GridColumn Key="AssetsOID" Caption="AssetsOID" Width="80px" Visible="false"/>
+                        </GridColumnCollection>
+                        <GridRowCollection>
+                            <GridRow Key="R2" TableKey="NJ_BorrowBalance">
+                                <GridCell Key="select" Caption="选择" CellType="CheckBox" Enable="true" IsSelect="true">
+                                    <DataBinding/>
+                                </GridCell>
+                                <GridCell Key="BillDate" Caption="借用日期" CellType="DatePicker" Enable="false" OnlyDate="true">
+                                    <DataBinding ColumnKey="BillDate"/>
+                                </GridCell>
+                                <GridCell Key="ReturnDate" Caption="预计归还日期" CellType="DatePicker" Enable="false" OnlyDate="true">
+                                    <DataBinding ColumnKey="ReturnDate"/>
+                                </GridCell>
+                                <GridCell Key="CustomerId" Caption="借用客户" CellType="Dict" Enable="false" ItemKey="NJ_CP_Customer">
+                                    <DataBinding ColumnKey="CustomerId"/>
+                                </GridCell>
+                                <GridCell Key="UsePeople" Caption="借用人" CellType="TextEditor" Enable="false">
+                                    <DataBinding ColumnKey="UsePeople"/>
+                                </GridCell>
+                                <GridCell Key="Room" Caption="所在房间" CellType="Dict" Enable="false" ItemKey="NJ_CP_Room">
+                                    <DataBinding ColumnKey="Room"/>
+                                </GridCell>
+                                <GridCell Key="EmpID" Caption="资产管理员" CellType="Dict" Enable="false" ItemKey="OA_Employee">
+                                    <DataBinding ColumnKey="EmpID"/>
+                                </GridCell>
+                                <GridCell Key="AssetsId" Caption="资产名称" CellType="Dict" Enable="false" ItemKey="NJ_assets">
+                                    <DataBinding ColumnKey="AssetsId"/>
+                                </GridCell>
+                                <GridCell Key="AssetsCode" Caption="资产编码" CellType="TextEditor" Enable="false">
+                                    <DataBinding ColumnKey="AssetsCode"/>
+                                </GridCell>
+                                <GridCell Key="WareHouseId" Caption="资产大类" CellType="Dict" Enable="false" ItemKey="NJ_WareHouse">
+                                    <DataBinding ColumnKey="WareHouseId"/>
+                                </GridCell>
+                                <GridCell Key="assetstypeid" Caption="资产类别" CellType="Dict" Enable="false" ItemKey="NJ_assetstype">
+                                    <DataBinding ColumnKey="assetstypeid"/>
+                                </GridCell>
+                                <GridCell Key="AssetNatureId" Caption="资产性质" CellType="Dict" Enable="false" ItemKey="NJ_AssetNature">
+                                    <DataBinding ColumnKey="AssetNatureId"/>
+                                </GridCell>
+                                <GridCell Key="Model" Caption="规格型号" CellType="TextEditor" Enable="false">
+                                    <DataBinding ColumnKey="Model"/>
+                                </GridCell>
+                                <GridCell Key="UNITID" Caption="计量单位" CellType="Dict" Enable="false" ItemKey="NJ_UNIT">
+                                    <DataBinding ColumnKey="UNITID"/>
+                                </GridCell>
+                                <GridCell Key="AssetsOID" Caption="AssetsOID" CellType="TextEditor">
+                                    <DataBinding ColumnKey="AssetsOID"/>
+                                </GridCell>
+                            </GridRow>
+                        </GridRowCollection>
+                    </Grid>
+                    <SplitSize Size="70px"/>
+                    <SplitSize Size="100%"/>
+                </SplitPanel>
+                <RowDefCollection RowHeight="25">
+                    <RowDef Height="0px"/>
+                    <RowDef Height="100%"/>
+                </RowDefCollection>
+                <ColumnDefCollection>
+                    <ColumnDef Width="100%"/>
+                </ColumnDefCollection>
+            </GridLayoutPanel>
+        </Block>
+    </Body>
+</Form>

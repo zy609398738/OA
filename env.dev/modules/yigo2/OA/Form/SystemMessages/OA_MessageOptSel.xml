@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="OA_MessageOptSel" Caption="发送人员选择" FormType="View">
+    <DataSource>
+        <DataObject Key="OA_MessageOptSel" Caption="发送人员选择">
+            <TableCollection>
+                <Table Key="OA_MessageOptSel" Caption="发送人员选择" TableMode="Detail" SourceType="Query" Persist="false">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="SelField" Caption="选择" DataType="Integer"/>
+                    <Column Key="Code" Caption="代码" DataType="Varchar"/>
+                    <Column Key="Name" Caption="姓名" DataType="Varchar"/>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <Body PopHeight="600px" PopWidth="500px">
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板">
+                <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <Grid Key="Grid1" Caption="Grid1" NewEmptyRow="false" Height="100%" PageLoadType="DB" CanDelete="false" CanInsert="false">
+                    <GridColumnCollection>
+                        <GridColumn Key="SelField" Caption="选择" Width="80px"/>
+                        <GridColumn Key="OID" Caption="操作员" Width="120px"/>
+                        <GridColumn Key="Code" Caption="代码" Width="100px"/>
+                        <GridColumn Key="Name" Caption="姓名" Width="100px"/>
+                    </GridColumnCollection>
+                    <GridRowCollection>
+                        <GridRow Key="row1" RowHeight="35" TableKey="OA_MessageOptSel">
+                            <GridCell Key="SelField" Caption="选择" CellType="CheckBox" IsSelect="true">
+                                <DataBinding ColumnKey="SelField"/>
+                            </GridCell>
+                            <GridCell Key="OID" Caption="操作员" CellType="Dict" Enable="false" ItemKey="Operator">
+                                <DataBinding ColumnKey="OID"/>
+                            </GridCell>
+                            <GridCell Key="Code" Caption="代码">
+                                <DataBinding ColumnKey="Code"/>
+                            </GridCell>
+                            <GridCell Key="Name" Caption="姓名">
+                                <DataBinding ColumnKey="Name"/>
+                            </GridCell>
+                        </GridRow>
+                    </GridRowCollection>
+                </Grid>
+                <GridLayoutPanel Key="GridLayoutPanel1" Height="40px" Caption="GridLayoutPanel1">
+                    <HyperLink Caption="确定" Key="Confirm" X="1" Y="0">
+                        <OnClick>
+                            <![CDATA[Parent.SetValue(GetPara('FieldKey'), InvokeService("OA_GetSelectRowColumn",true,false,"OA_MessageOptSel","SelField","Name",","));
+Parent.SetValue(GetPara('FieldIDsKey'), InvokeService("OA_GetSelectRowColumn",true,false,"OA_MessageOptSel","SelField","OID",","));
+Close();]]>
+                        </OnClick>
+                    </HyperLink>
+                    <HyperLink Caption="取消" Key="Cancel" X="2" Y="0">
+                        <OnClick>
+                            <![CDATA[Close();]]>
+                        </OnClick>
+                    </HyperLink>
+                    <RowDefCollection RowGap="5">
+                        <RowDef Height="30px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="5">
+                        <ColumnDef Width="50%"/>
+                        <ColumnDef Width="60px"/>
+                        <ColumnDef Width="60px"/>
+                        <ColumnDef Width="50%"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+    <OnPostShow>
+        <![CDATA[if(IsNull(Para("SendToIDs")) || Para("SendToIDs")==""){
+    SetPara("SendToIDs", -1);
+}
+
+var sql="select coalesce(SelField,0) SelField,e.OID,e.NAME,e.Code 
+from (Select OID,Name,Code from SYS_Operator
+    where OID>0) e 
+left join (select 1 SelField,OID from SYS_Operator 
+    where OID in ("&Para("SendToIDs")&")) s on e.OID=s.OID 
+order by convert(e.name USING gbk) COLLATE gbk_chinese_ci asc ";
+
+FillGridData("Grid1", DBQuery(sql));]]>
+    </OnPostShow>
+</Form>

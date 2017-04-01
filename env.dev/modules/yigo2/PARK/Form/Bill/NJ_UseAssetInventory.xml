@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="NJ_UseAssetInventory" Caption="在用资产盘点" FormType="Entity">
+    <DataSource>
+        <DataObject Key="NJ_UseAssetInventory" Caption="在用资产盘点" NoPrefix="ZYZCPD" PrimaryTableKey="NJ_SCM_UseAssetInventoryHead" PrimaryType="Entity" ZeroPrefix="3">
+            <TableCollection>
+                <Table Key="NJ_SCM_AssetCode" Caption="NJ_SCM_AssetCode" TableMode="Detail">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="UseEmpID" Caption="UseEmpID" DataType="Long"/>
+                    <Column Key="UseDeptID" Caption="UseDeptID" DataType="Long"/>
+                    <Column Key="CustomerId" Caption="CustomerId" DataType="Long"/>
+                    <Column Key="UsePeople" Caption="UsePeople" DataType="Varchar"/>
+                    <Column Key="Room" Caption="Room" DataType="Long"/>
+                    <Column Key="AssetsId" Caption="AssetsId" DataType="Long"/>
+                    <Column Key="AssetsCode" Caption="AssetsCode" DataType="Varchar"/>
+                    <Column Key="WareHouseId" Caption="WareHouseId" DataType="Long"/>
+                    <Column Key="assetstypeid" Caption="assetstypeid" DataType="Long"/>
+                    <Column Key="AssetNatureId" Caption="AssetNatureId" DataType="Long"/>
+                    <Column Key="Model" Caption="Model" DataType="Varchar"/>
+                    <Column Key="UNITID" Caption="UNITID" DataType="Long"/>
+                    <Column Key="DifferenceCause" Caption="DifferenceCause" DataType="Varchar"/>
+                    <Column Key="DtlNotes" Caption="DtlNotes" DataType="Varchar"/>
+                    <Column Key="AssetsOID" Caption="AssetsOID" DataType="Varchar"/>
+                    <Column Key="AssetsAmount" Caption="AssetsAmount" DataType="Integer"/>
+                    <Column Key="MapKey" Caption="映射标识" DataType="Varchar"/>
+                    <Column Key="SrcOID" Caption="来源行标识" DataType="Long"/>
+                    <Column Key="SrcSOID" Caption="来源表单标识" DataType="Long"/>
+                    <Column Key="AssetsBarId" Caption="AssetsBarId" DataType="Long"/>
+                    <Column Key="Amount" Caption="Amount" DataType="Integer"/>
+                </Table>
+                <Table Key="NJ_SCM_UseAssetInventoryHead" Caption="NJ_SCM_UseAssetInventoryHead" DBTableName="NJ_SCM_UseAssetInventoryHead">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="Status" Caption="状态" DataType="Integer"/>
+                    <Column Key="NO" Caption="NO" DataType="Varchar"/>
+                    <Column Key="BillDate" Caption="BillDate" DataType="DateTime"/>
+                    <Column Key="UseType" Caption="UseType" DataType="Varchar"/>
+                    <Column Key="Notes" Caption="Notes" DataType="Varchar"/>
+                    <Column Key="Creator" Caption="Creator" DataType="Long"/>
+                    <Column Key="CreateTime" Caption="CreateTime" DataType="DateTime"/>
+                    <Column Key="BillKey" Caption="BillKey" DataType="Varchar"/>
+                    <Column Key="ClusterID" Caption="ClusterID" DataType="Long"/>
+                    <Column Key="ModifyTime" Caption="ModifyTime" DataType="DateTime"/>
+                    <Column Key="Modifier" Caption="Modifier" DataType="Long"/>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="Save" Caption="保存" Visible="!ReadOnly()">
+            <Action>
+                <![CDATA[var icount = GetRowCount('Grid1');
+    var i = 0;
+    while(i<icount)
+	{
+            var i_AssetsOID = GetCellValue('Grid1', i, 'AssetsOID');
+            IIF(i_AssetsOID!='', DBUpdate('update NJ_SCM_AssetCode set RecoveryAmount=0 where OID=?', i_AssetsOID), true);
+            i = i + 1;
+        }
+SaveData();UpdateView();]]>
+            </Action>
+        </Operation>
+        <Operation Key="Delete" Caption="删除" RefKey="Delete"/>
+        <Operation Key="Edit" Caption="编辑" RefKey="Edit"/>
+        <Operation Key="Cancel" Caption="取消" RefKey="Cancel"/>
+        <Operation Key="syzyzc" Caption="上引在用盘点情况" Visible="!ReadOnly()">
+            <Action>
+                <![CDATA[ShowModal("NJ_UseInventory", {key:{GetFormKey()}});]]>
+            </Action>
+        </Operation>
+        <Operation Key="Close" Caption="关闭" RefKey="Close"/>
+    </OperationCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板">
+                <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <SplitPanel Key="SplitPanel1" Orientation="Vertical" Height="100%" Caption="SplitPanel1">
+                    <TabPanel Caption="TabPanel1" Height="100%" Key="TabPanel1">
+                        <GridLayoutPanel Key="first_head" Height="pref" Padding="5px" Caption="基本信息">
+                            <TextEditor Key="NO" Caption="盘点编号" BuddyKey="Lab_NO" X="2" Y="0" Enable="false">
+                                <DataBinding ColumnKey="NO" TableKey="NJ_SCM_UseAssetInventoryHead"/>
+                            </TextEditor>
+                            <Label Key="Lab_NO" Caption="盘点编号" X="1" Y="0"/>
+                            <DatePicker Key="BillDate" Caption="盘点日期" BuddyKey="Lab_BillDate" X="5" Y="0" OnlyDate="true">
+                                <DataBinding ColumnKey="BillDate" DefaultFormulaValue="ServerDate();" TableKey="NJ_SCM_UseAssetInventoryHead"/>
+                            </DatePicker>
+                            <Label Key="Lab_BillDate" Caption="盘点日期" X="4" Y="0"/>
+                            <ComboBox Key="Status" Caption="单据状态" BuddyKey="Lab_Status" X="8" Y="0" Enable="false" SourceType="Status">
+                                <DataBinding ColumnKey="Status" TableKey="NJ_SCM_UseAssetInventoryHead" DefaultValue="100"/>
+                            </ComboBox>
+                            <Label Key="Lab_Status" Caption="单据状态" X="7" Y="0"/>
+                            <TextEditor Key="Notes" Caption="备注" BuddyKey="Lab_Notes" X="5" Y="1" XSpan="4">
+                                <DataBinding ColumnKey="Notes" TableKey="NJ_SCM_UseAssetInventoryHead"/>
+                            </TextEditor>
+                            <Label Key="Lab_Notes" Caption="备注" X="4" Y="1"/>
+                            <ComboBox Key="UseType" Caption="使用类型" BuddyKey="Lab_UseType" X="2" Y="1" Enable="false">
+                                <DataBinding ColumnKey="UseType" DefaultFormulaValue="2" TableKey="NJ_SCM_UseAssetInventoryHead"/>
+                                <Item Caption="内部" Key="1" Value="1"/>
+                                <Item Caption="外部" Key="2" Value="2"/>
+                            </ComboBox>
+                            <Label Key="Lab_UseType" Caption="使用类型" X="1" Y="1"/>
+                            <RowDefCollection RowGap="4">
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="4">
+                                <ColumnDef Width="20px"/>
+                                <ColumnDef Width="80px"/>
+                                <ColumnDef Width="33%"/>
+                                <ColumnDef Width="20px"/>
+                                <ColumnDef Width="80px"/>
+                                <ColumnDef Width="33%"/>
+                                <ColumnDef Width="20px"/>
+                                <ColumnDef Width="80px"/>
+                                <ColumnDef Width="34%"/>
+                                <ColumnDef Width="20px"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                        <GridLayoutPanel Key="SysTab" Caption="系统信息">
+                            <Dict Key="Creator" Caption="创建人" BuddyKey="Lab_Creator" X="2" Y="0" Enable="false" ItemKey="Operator">
+                                <DataBinding ColumnKey="Creator" DefaultFormulaValue="GetOperator()" TableKey="NJ_SCM_UseAssetInventoryHead"/>
+                            </Dict>
+                            <Label Key="Lab_Creator" Caption="创建人" X="1" Y="0"/>
+                            <Dict Key="Modifier" Caption="修改人" BuddyKey="Lab_Modifier" X="2" Y="1" Enable="false" ItemKey="Operator">
+                                <DataBinding ColumnKey="Modifier" DefaultFormulaValue="GetOperator()" TableKey="NJ_SCM_UseAssetInventoryHead"/>
+                            </Dict>
+                            <DatePicker Key="CreateTime" Caption="创建日期" BuddyKey="Lab_CreateTime" X="5" Y="0" Enable="false">
+                                <DataBinding ColumnKey="CreateTime" DefaultFormulaValue="ServerDate()" TableKey="NJ_SCM_UseAssetInventoryHead"/>
+                            </DatePicker>
+                            <Label Key="Lab_CreateTime" Caption="创建时间" X="4" Y="0"/>
+                            <Label Key="Lab_Modifier" Caption="修改人" X="1" Y="1"/>
+                            <DatePicker Key="ModifyTime" Caption="修改日期" BuddyKey="Lab_ModifyTime" X="5" Y="1" Enable="false">
+                                <DataBinding ColumnKey="ModifyTime" DefaultFormulaValue="ServerDate()" TableKey="NJ_SCM_UseAssetInventoryHead"/>
+                            </DatePicker>
+                            <Label Key="Lab_ModifyTime" Caption="修改时间" X="4" Y="1"/>
+                            <TextEditor Key="BillKey" Caption="单据Key" BuddyKey="Lab_BillKey" X="8" Y="0">
+                                <DataBinding ColumnKey="BillKey" DefaultFormulaValue="GetFormKey()" TableKey="NJ_SCM_UseAssetInventoryHead"/>
+                            </TextEditor>
+                            <Label Key="Lab_BillKey" Caption="单据Key" X="7" Y="0"/>
+                            <Dict Key="ClusterID" Caption="集团" BuddyKey="Lab_ClusterID" X="8" Y="1" Enable="false" ItemKey="Client">
+                                <DataBinding ColumnKey="ClusterID" TableKey="NJ_SCM_UseAssetInventoryHead"/>
+                            </Dict>
+                            <Label Key="Lab_ClusterID" Caption="集团" X="7" Y="1"/>
+                            <RowDefCollection RowGap="4">
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="4">
+                                <ColumnDef Width="20px"/>
+                                <ColumnDef Width="80px"/>
+                                <ColumnDef Width="33%"/>
+                                <ColumnDef Width="20px"/>
+                                <ColumnDef Width="80px"/>
+                                <ColumnDef Width="33%"/>
+                                <ColumnDef Width="20px"/>
+                                <ColumnDef Width="80px"/>
+                                <ColumnDef Width="34%"/>
+                                <ColumnDef Width="20px"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                    </TabPanel>
+                    <Grid Key="Grid1" Caption="资产信息" Height="pref" CanDelete="false" CanInsert="false" CanShift="false">
+                        <GridColumnCollection>
+                            <GridColumn Key="UseEmpID" Caption="领用人" Width="80px" Visible="UseType==1"/>
+                            <GridColumn Key="UseDeptID" Caption="领用部门" Width="80px" Visible="UseType==1"/>
+                            <GridColumn Key="CustomerId" Caption="客户" Width="80px" Visible="UseType==2"/>
+                            <GridColumn Key="UsePeople" Caption="领用人" Visible="UseType==2" Width="80px"/>
+                            <GridColumn Key="Room" Caption="所在房间" Width="80px"/>
+                            <GridColumn Key="AssetsBarId" Caption="资产名称" Width="80px"/>
+                            <GridColumn Key="AssetsCode" Caption="资产编码" Width="80px"/>
+                            <GridColumn Key="WareHouseId" Caption="资产大类" Width="80px"/>
+                            <GridColumn Key="assetstypeid" Caption="资产类别" Width="80px"/>
+                            <GridColumn Key="AssetNatureId" Caption="资产性质" Width="80px"/>
+                            <GridColumn Key="Model" Caption="规格型号" Width="80px"/>
+                            <GridColumn Key="UNITID" Caption="计量单位" Width="80px"/>
+                            <GridColumn Key="AssetsAmount" Caption="类型" Width="80px"/>
+                            <GridColumn Key="DifferenceCause" Caption="原因" Width="80px"/>
+                            <GridColumn Key="DtlNotes" Caption="备注" Width="80px"/>
+                            <GridColumn Key="AssetsOID" Caption="AssetsOID" Width="80px" Visible="false"/>
+                            <GridColumn Key="Amount" Caption="数量" Width="80px" Visible="false"/>
+                        </GridColumnCollection>
+                        <GridRowCollection>
+                            <GridRow Key="row1" RowHeight="35" TableKey="NJ_SCM_AssetCode">
+                                <GridCell Key="UseEmpID" Caption="领用人" CellType="Dict" Enable="false" ItemKey="OA_Employee">
+                                    <DataBinding ColumnKey="UseEmpID"/>
+                                </GridCell>
+                                <GridCell Key="UseDeptID" Caption="领用部门" CellType="Dict" Enable="false" ItemKey="OA_Department">
+                                    <DataBinding ColumnKey="UseDeptID"/>
+                                </GridCell>
+                                <GridCell Key="CustomerId" Caption="客户" CellType="Dict" Enable="false" ItemKey="NJ_CP_Customer">
+                                    <DataBinding ColumnKey="CustomerId"/>
+                                </GridCell>
+                                <GridCell Key="UsePeople" Caption="领用人" CellType="TextEditor" Enable="false">
+                                    <DataBinding ColumnKey="UsePeople"/>
+                                </GridCell>
+                                <GridCell Key="Room" Caption="所在房间" CellType="Dict" Enable="false" ItemKey="NJ_CP_Room">
+                                    <DataBinding ColumnKey="Room"/>
+                                </GridCell>
+                                <GridCell Key="AssetsBarId" Caption="资产名称" CellType="Dict" Enable="false" ItemKey="NJ_assets">
+                                    <DataBinding ColumnKey="AssetsBarId" Required="true"/>
+                                </GridCell>
+                                <GridCell Key="AssetsCode" Caption="资产编码" CellType="TextEditor" Enable="false">
+                                    <DataBinding ColumnKey="AssetsCode"/>
+                                </GridCell>
+                                <GridCell Key="WareHouseId" Caption="资产大类" CellType="Dict" Enable="false" ItemKey="NJ_WareHouse">
+                                    <DataBinding ColumnKey="WareHouseId"/>
+                                </GridCell>
+                                <GridCell Key="assetstypeid" Caption="资产类别" CellType="Dict" Enable="false" ItemKey="NJ_assetstype">
+                                    <DataBinding ColumnKey="assetstypeid"/>
+                                </GridCell>
+                                <GridCell Key="AssetNatureId" Caption="资产性质" CellType="Dict" Enable="false" ItemKey="NJ_AssetNature">
+                                    <DataBinding ColumnKey="AssetNatureId"/>
+                                </GridCell>
+                                <GridCell Key="Model" Caption="规格型号" CellType="TextEditor" Enable="false">
+                                    <DataBinding ColumnKey="Model"/>
+                                </GridCell>
+                                <GridCell Key="UNITID" Caption="计量单位" CellType="Dict" Enable="false" ItemKey="NJ_UNIT">
+                                    <DataBinding ColumnKey="UNITID"/>
+                                </GridCell>
+                                <GridCell Key="AssetsAmount" Caption="类型" CellType="ComboBox" Enable="false">
+                                    <DataBinding ColumnKey="AssetsAmount" DefaultFormulaValue="IIF(AssetsOID!='', 0, -1)"/>
+                                    <Item Caption="盘亏" Key="0" Value="0"/>
+                                    <Item Caption="盘盈" Key="1" Value="-1"/>
+                                </GridCell>
+                                <GridCell Key="DifferenceCause" Caption="原因" CellType="TextEditor">
+                                    <DataBinding ColumnKey="DifferenceCause"/>
+                                </GridCell>
+                                <GridCell Key="DtlNotes" Caption="备注" CellType="TextEditor">
+                                    <DataBinding ColumnKey="DtlNotes"/>
+                                </GridCell>
+                                <GridCell Key="AssetsOID" Caption="AssetsOID" CellType="TextEditor">
+                                    <DataBinding ColumnKey="AssetsOID"/>
+                                </GridCell>
+                                <GridCell Key="Amount" Caption="数量" CellType="NumberEditor" IntegerValue="true">
+                                    <DataBinding ColumnKey="Amount"/>
+                                </GridCell>
+                            </GridRow>
+                        </GridRowCollection>
+                    </Grid>
+                    <SplitSize Size="20%"/>
+                    <SplitSize Size="80%"/>
+                </SplitPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

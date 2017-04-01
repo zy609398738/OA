@@ -1,0 +1,2398 @@
+﻿[{
+			'text' : 'SendHttpRequest(发送Http请求)',
+			'type' : 'SendHttpRequest',
+			'isAlwaysUse' : 'true',
+			'className' : 'com.bokesoft.dee.transport.http.transformers.HttpSendRequestTransformer',
+			'attr' : [{
+						'name' : 'URL',
+						'label' : 'Http地址',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'true'
+					}, {
+						'name' : 'HTTP_METHOD',
+						'label' : 'Http请求方法',
+						'defaultValue' : 'POST',
+						'type' : 'comboxHttpMethod',
+						'require' : 'true'
+					}, {
+						'name' : 'CONTENT_TYPE',
+						'label' : 'Http请求类型',
+						'defaultValue' : 'application/x-www-form-urlencoded',
+						'type' : 'comboxHttpContentType',
+						'require' : 'true'
+					}, {
+						'name' : 'OTHER_CONTENT_TYPE',
+						'label' : '其他Http请求类型',
+						'defaultValue' : '',
+						'type' : 'string'
+					}, {
+						'name' : 'CHARSET',
+						'label' : 'Http请求编码',
+						'defaultValue' : 'UTF-8',
+						'type' : 'string',
+						'require' : 'true'
+					}, {
+						'name' : 'TRUST_STORE',
+						'label' : 'SSL信任证书库',
+						'defaultValue' : '',
+						'type' : 'string'
+					}]
+		},{
+			'text' : 'HTMLCheckTransformer(判断xpath确认是不是需要往下执行)',
+			'type' : 'HTMLCheckTransformer',
+			'isAlwaysUse' : 'false',
+			'className' : 'com.bokesoft.dee.mule.html.transformer.HTMLCheckTransformer',
+			'attr' : [{
+						'name' : 'urlKey',
+						'label' : '域名在当前Map的Key',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'true'
+					}, {
+						'name' : 'configFileNameKey',
+						'label' : '解析配置文件名放入当前Map中的Key',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'true'
+					}, {
+						'name' : 'htmlStrKey',
+						'label' : 'HTML字符串在当前Map中的Key',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'true'
+					}, {
+						'name' : 'IgnoreKey',
+						'label' : '是否忽略处理放入当前Map中的Key',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'true'
+					}, {
+						'name' : 'mappingFile',
+						'label' : '域名对应xpath判断条件的文件',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'true'
+					}]
+		},{
+			'text' : 'HTMLTransformer(解析HTML字符串)',
+			'type' : 'HTMLTransformer',
+			'isAlwaysUse' : 'false',
+			'className' : 'com.bokesoft.dee.mule.html.transformer.HTMLTransformer',
+			'attr' : [{
+						'name' : 'configFileNameKey',
+						'label' : '解析配置文件名在当前Map中的Key',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'true'
+					}, {
+						'name' : 'htmlStrKey',
+						'label' : 'HTML字符串在当前Map中的Key',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'true'
+					}, {
+						'name' : 'IgnoreKey',
+						'label' : '是否忽略处理在当前Map中的Key',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'true'
+					}, {
+						'name' : 'configDir',
+						'label' : '解析配置存放目录',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'true'
+					}]
+		},{
+			'text' : 'EAITransformer(调用webMethods)',
+			'type' : 'EAITransformer',
+			'isAlwaysUse' : 'true',
+			'className' : 'com.bokesoft.bokedee.sap.EAITransformer',
+			'attr' : [{
+						'name' : 'interfaceName',
+						'label' : '接口名(interfaceName)',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'true'
+					}, {
+						'name' : 'serviceName',
+						'label' : '服务名(serviceName)',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'true'
+					}, {
+						'name' : 'connectedServer',
+						'label' : 'IP端口(IP:PORT)',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'true'
+					}, {
+						'name' : 'username',
+						'label' : '用户名',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'true'
+					}, {
+						'name' : 'password',
+						'label' : '密码',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'true'
+					}, {
+						'name' : 'resultTableName',
+						'label' : '处理结果表名(resultTableName)',
+						'defaultValue' : '',
+						'type' : 'string'
+					}, {
+						'name' : 'resultTableFields',
+						'label' : '处理结果表字段名(resultTableFields)',
+						'defaultValue' : '点此编辑',
+						'type' : 'listString'
+					}, {
+						'name' : 'outHeardFieldNames',
+						'label' : '简单参数字段名(outHeardFieldNames)',
+						'defaultValue' : '点此编辑',
+						'type' : 'listString'
+					}, {
+						'name' : 'outTableNames',
+						'label' : '参数表名(outTableNames)',
+						'defaultValue' : '点此编辑',
+						'type' : 'listString'
+					}, {
+						'name' : 'outTableFields',
+						'label' : '参数表的字段名(outTableFields)',
+						'defaultValue' : '点此编辑',
+						'type' : 'map_kString_vListString'
+					}, {
+						'name' : 'outTableIsArray',
+						'label' : '参数表是不是Array结构(outTableIsArray)',
+						'defaultValue' : '点此编辑',
+						'type' : 'map_kString_vString'
+					}, {
+						'name' : 'inHeardName',
+						'label' : '返回单层结构放入结果集的名字(inHeardName)',
+						'defaultValue' : '',
+						'type' : 'string'
+					}, {
+						'name' : 'inHeardFieldNames',
+						'label' : '返回单层结构字段名(inHeardFieldNames)',
+						'defaultValue' : '点此编辑',
+						'type' : 'listString'
+					}, {
+						'name' : 'inTableNames',
+						'label' : '返回的表名(inTableNames)',
+						'defaultValue' : '点此编辑',
+						'type' : 'listString'
+					}, {
+						'name' : 'inTableFields',
+						'label' : '返回的表字段名(inTableFields)',
+						'defaultValue' : '点此编辑',
+						'type' : 'map_kString_vListString'
+					}]
+		},{
+			'text' : 'SapMutiStructure3(调用SAP RFC,JCO3)',
+			'type' : 'SapMutiStructureTransformer3',
+			'isAlwaysUse' : 'true',
+			'className' : 'com.bokesoft.bokedee.sap.SapMutiStructureTransformer3',
+			'attr' : [{
+						'name' : 'IP',
+						'label' : 'IP地址',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'true'
+					}, {
+						'name' : 'client',
+						'label' : '客户端',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'true'
+					}, {
+						'name' : 'systemNo',
+						'label' : '系统编号',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'true'
+					}, {
+						'name' : 'loginid',
+						'label' : '用户名',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'true'
+					}, {
+						'name' : 'pwd',
+						'label' : '密码',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'true'
+					}, {
+						'name' : 'functionTemplateName',
+						'label' : 'RFC方法名',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'true'
+					}, {
+						'name' : 'importParameterParameter',
+						'label' : 'RFC简单参数(importParameterParameter)',
+						'defaultValue' : '点此编辑',
+						'type' : 'map_kString_vString'
+					}, {
+						'name' : 'outStructure',
+						'label' : 'RFC结构名称(outStructure)',
+						'defaultValue' : '点此编辑',
+						'type' : 'listString'
+					}, {
+						'name' : 'outStructureField',
+						'label' : 'RFC结构的参数字段(outStructureField)',
+						'defaultValue' : '点此编辑',
+						'type' : 'map_kString_vListString'
+					}, {
+						'name' : 'outTableNames',
+						'label' : 'RFC表名(outTableNames)',
+						'defaultValue' : '点此编辑',
+						'type' : 'listString'
+					}, {
+						'name' : 'outFields',
+						'label' : 'RFC表的参数字段(outFields)',
+						'defaultValue' : '点此编辑',
+						'type' : 'map_kString_vListString'
+					}, {
+						'name' : 'exportParameterParameter',
+						'label' : 'RFC返回简单参数(exportParameterParameter)',
+						'defaultValue' : '点此编辑',
+						'type' : 'listString'
+					}, {
+						'name' : 'inStructure',
+						'label' : 'RFC返回结构名(inStructure)',
+						'defaultValue' : '',
+						'type' : 'string'
+					}, {
+						'name' : 'inStructureField',
+						'label' : 'RFC返回结构字段(inStructureField)',
+						'defaultValue' : '点此编辑',
+						'type' : 'listString'
+					}, {
+						'name' : 'inTableNames',
+						'label' : 'RFC返回表名(inTableNames)',
+						'defaultValue' : '点此编辑',
+						'type' : 'listString'
+					}, {
+						'name' : 'inFields',
+						'label' : 'RFC返回表的参数字段(inFields)',
+						'defaultValue' : '点此编辑',
+						'type' : 'map_kString_vListString'
+					}]
+		}, {
+			'text' : 'XlsToListOrMapSimple(Excel配置)',
+			'type' : 'XlsToListOrMapSimple',
+			'isAlwaysUse' : 'true',
+			'className' : 'org.mule.transformers.xls.XlsToListOrMapSimpleTransformer',
+			'attr' : [{
+						'name' : 'deployMapping',
+						'label' : 'Excel配置',
+						'defaultValue' : '点此编辑',
+						'type' : 'map_Excel_config',
+						'require' : 'false'
+					}]
+		},{
+			'text' : 'XlsToListOrMapMutilSimple(Excel多sheet配置)',
+			'type' : 'XlsToListOrMapMutilSimple',
+			'isAlwaysUse' : 'true',
+			'className' : 'org.mule.transformers.xls.XlsToListOrMapMutilSimpleTransformer',
+			'attr' : [{
+						'name' : 'deployMapping',
+						'label' : 'Excel多sheet配置',
+						'defaultValue' : '点此编辑',
+						'type' : 'map_Excel_mutilSheet_config',
+						'require' : 'false'
+					}]
+		}, {
+			'text' : 'HttpRequestToValue(HTTP请求参数内容转换)',
+			'type' : 'HttpRequestToValue',
+			'isAlwaysUse' : 'true',
+			'className' : 'com.bokesoft.dee.transport.http.transformers.HttpRequestToValue',
+			'attr' : [{
+						'name' : 'toMap',
+						'label' : '是否转换为MAP',
+						'defaultValue' : '否',
+						'type' : 'comboxBoolean'
+					}, {
+						'name' : 'xstream',
+						'label' : '是否使用xstream反序列化',
+						'defaultValue' : '是',
+						'type' : 'comboxBoolean'
+					}, {
+						'name' : 'decode',
+						'label' : '是否需要decode',
+						'defaultValue' : '是',
+						'type' : 'comboxBoolean'
+					}, {
+						'name' : 'encoding',
+						'label' : 'encoding',
+						'defaultValue' : 'UTF-8',
+						'type' : 'string',
+						'require' : 'true'
+					}]
+		}, {
+			'text' : 'GroovyScriptTransformer(使用Groovy脚本)',
+			'type' : 'GroovyScriptTransformer',
+			'isAlwaysUse' : 'true',
+			'className' : 'org.mule.module.scripting.transformer.ScriptTransformer',
+			'attr' : [ {
+						'name' : 'scriptContent',
+						'label' : '脚本内容',
+						'defaultValue' : '点此编辑',
+						'type' : 'bigStringScript',
+						'require' : 'true'
+					}]
+		}, {
+			'text' : 'GroovyScriptWithDS(使用Groovy脚本带数据库操作对象)',
+			'type' : 'GroovyScriptWithDS',
+			'isAlwaysUse' : 'true',
+			'className' : 'com.bokesoft.exchange.transformer.ScriptWithDSTransformer',
+			'attr' : [{
+						'name' : 'ds',
+						'label' : '数据源',
+						'defaultValue' : '请选择',
+						'type' : 'DataSource',
+						'require' : 'true'
+					},{
+						'name' : 'scriptContent',
+						'label' : '脚本内容',
+						'defaultValue' : '点此编辑',
+						'type' : 'bigStringScriptWithDS',
+						'require' : 'true'
+					}]
+		}, {
+			'text' : 'CheckFieldEmpty(Xml2Yigo检查字段是否为空)',
+			'type' : 'CheckFieldEmptyTransformer',
+			'isAlwaysUse' : 'false',
+			'className' : 'com.bokesoft.dee.mule.xml2yigo.transformer.CheckFieldEmptyTransformer',
+			'attr' : [ {
+						'name' : 'notAllowblankFiledsXml',
+						'label' : '不能为空字段',
+						'defaultValue' : '点此编辑',
+						'type' : 'bigString',
+						'require' : 'true'
+					}]
+		}, {
+			'text' : 'FieldToStringAndFormatDate(Yigo2Xml日期格式化其他类型转换为String)',
+			'type' : 'FieldToStringAndFormatDateTransformer',
+			'isAlwaysUse' : 'false',
+			'className' : 'com.bokesoft.dee.mule.yigo2xml.transformer.FieldToStringAndFormatDateTransformer',
+			'attr' : [ {
+						'name' : 'formatFiledsXml',
+						'label' : '不能为空字段',
+						'defaultValue' : '点此编辑',
+						'type' : 'bigString',
+						'require' : 'true'
+					}]
+		}, {
+			'text' : 'FieldMapping(Xml2Yigo检查字段是否为空)',
+			'type' : 'FieldMappingTransformer',
+			'isAlwaysUse' : 'false',
+			'className' : 'com.bokesoft.dee.mule.simpleDeploy.transformer.FieldMappingTransformer',
+			'attr' : [ {
+						'name' : 'needMappingField',
+						'label' : '映射字段',
+						'defaultValue' : '点此编辑',
+						'type' : 'bigString',
+						'require' : 'true'
+					}]
+		}, {
+			'text' : 'CheckCanUpdateStatus(Xml2Yigo检查状态是否为可更新状态)',
+			'type' : 'CheckCanUpdateStatusTransformer',
+			'isAlwaysUse' : 'false',
+			'className' : 'com.bokesoft.dee.mule.xml2yigo.transformer.CheckCanUpdateStatusTransformer',
+			'attr' : [ {
+						'name' : 'statusCanUpdate',
+						'label' : '可更新状态',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'true'
+					},{
+						'name' : 'primaryKeys',
+						'label' : '单据主键',
+						'defaultValue' : '点此编辑',
+						'type' : 'bigString',
+						'require' : 'true'
+					}]
+		}, {
+			'text' : 'IgnoreCaseListOfMap(忽略HashMap中Key的大小写)',
+			'type' : 'IgnoreCaseListOfMap',
+			'isAlwaysUse' : 'true',
+			'className' : 'com.bokesoft.dee.mule.listofmap.IgnoreCaseListOfMap',
+			'attr' : [ {
+						'name' : 'isIgnoreCase',
+						'label' : '是否忽略',
+						'defaultValue' : '是',
+						'type' : 'comboxBoolean',
+						'require' : 'true'
+					}]
+		},{
+			'text' : 'URLEnDecoder(URLEncoder或者URLDecoder)',
+			'type' : 'URLEnDecoder',
+			'isAlwaysUse' : 'true',
+			'className' : 'com.bokesoft.dee.mule.util.transformer.URLEnDecoderTransformer',
+			'attr' : [ {
+						'name' : 'encoder',
+						'label' : 'Encoder或者Decoder(是 使用Encoder，否使用Decoder)',
+						'defaultValue' : '是',
+						'type' : 'comboxBoolean',
+						'require' : 'true'
+					}, {
+						'name' : 'encoding',
+						'label' : 'encoding',
+						'defaultValue' : 'UTF-8',
+						'type' : 'string',
+						'require' : 'true'
+					}]
+		},{
+			'text' : 'XStream(使用Xstream进行序列化和反序列化)',
+			'type' : 'XStream',
+			'isAlwaysUse' : 'true',
+			'className' : 'com.bokesoft.dee.mule.util.transformer.XStreamTransformer',
+			'attr' : [ {
+						'name' : 'xstream',
+						'label' : '序列化或者反序列化(是 使用序列化，否 使用反序列化)',
+						'defaultValue' : '是',
+						'type' : 'comboxBoolean',
+						'require' : 'true'
+					}, {
+						'name' : 'encoding',
+						'label' : 'encoding',
+						'defaultValue' : 'UTF-8',
+						'type' : 'string',
+						'require' : 'true'
+					}]
+		},{
+			'text' : 'StringStreamByte(String、Stream、Byte类型转换)',
+			'type' : 'StringStreamByte',
+			'isAlwaysUse' : 'true',
+			'className' : 'com.bokesoft.dee.mule.util.transformer.StringStreamByteTransformer',
+			'attr' : [ {
+						'name' : 'targetType',
+						'label' : '目标类型',
+						'defaultValue' : 'string',
+						'type' : 'comboxStringStreamByteType',
+						'require' : 'true'
+					}, {
+						'name' : 'encoding',
+						'label' : 'encoding',
+						'defaultValue' : 'UTF-8',
+						'type' : 'string',
+						'require' : 'true'
+					}]
+		}, {
+			'text' : 'AddMsgUnqIdToInboundProp(添加消息的唯一ID到InboundProperty中)',
+			'type' : 'AddMsgUnqIdToInboundPropTransformer',
+			'isAlwaysUse' : 'true',
+			'className' : 'com.bokesoft.dee.mule.common.transformer.AddMsgUnqIdToInboundPropTransformer',
+			'attr' : [ {
+						'name' : 'propKey',
+						'label' : '属性键值',
+						'defaultValue' : 'keepUniqueId',
+						'type' : 'string',
+						'require' : 'true'
+					}]
+		}, {
+			'text' : 'ExecuteSQL(执行SQL语句)',
+			'type' : 'ExecuteSQLTransformer',
+			'isAlwaysUse' : 'false',
+			'className' : 'com.bokesoft.dee.transport.jdbc.transformer.ExecuteSQLTransformer',
+			'attr' : [{
+						'name' : 'ds',
+						'label' : '数据源',
+						'defaultValue' : '请选择',
+						'type' : 'DataSource',
+						'require' : 'true'
+					}, {
+						'name' : 'queries',
+						'label' : 'SQL语句集',
+						'defaultValue' : '点此编辑',
+						'type' : 'listTextarea',
+						'require' : 'true'
+					}]
+		}, {
+			'text' : 'FtpReadTransformer(读取ftp文件)',
+			'type' : 'FtpReadTransformer',
+			'isAlwaysUse' : 'true',
+			'className' : 'com.bokesoft.dee.transport.ftp.transformer.FtpReadTransformer',
+			'attr' : [{
+						'name' : 'host',
+						'label' : '访问服务器地址',
+						'defaultValue' : '请选择',
+						'type' : 'string',
+						'require' : 'true'
+					}, {
+						'name' : 'port',
+						'label' : '端口',
+						'defaultValue' : '21',
+						'type' : 'integer',
+						'require' : 'true'
+					}, {
+						'name' : 'username',
+						'label' : '用户名',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'true'
+					}, {
+						'name' : 'password',
+						'label' : '密码',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'true'
+					}, {
+						'name' : 'path',
+						'label' : '路径',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'false'
+					}, {
+						'name' : 'fileReadSubdir',
+						'label' : '文件读取子目录',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'false'
+					}, {
+						'name' : 'fileRenameSuffix',
+						'label' : '读取文件修改后缀',
+						'defaultValue' : 'processing',
+						'type' : 'string',
+						'require' : 'false'
+					}, {
+						'name' : 'moveFileSuffix',
+						'label' : '需要移动文件后缀',
+						'defaultValue' : 'alreadyProcessed',
+						'type' : 'string',
+						'require' : 'false'
+					}, {
+						'name' : 'maxProcessFile',
+						'label' : '每次最多处理个数',
+						'defaultValue' : '1',
+						'type' : 'integer',
+						'require' : 'true'
+					}, {
+						'name' : 'alreadyReadFolder',
+						'label' : '文件转移目录',
+						'defaultValue' : 'processedFile',
+						'type' : 'string',
+						'require' : 'false'
+					}, {
+						'name' : 'pattern',
+						'label' : '读取文件名',
+						'defaultValue' : '*.xml',
+						'type' : 'string',
+						'require' : 'false'
+					}, {
+						'name' : 'caseSensitive',
+						'label' : '区分文件名大小写',
+						'defaultValue' : 'true',
+						'type' : 'comboxBoolean',
+						'require' : 'true'
+					}, {
+						'name' : 'passiveMode',
+						'label' : '是否被动模式',
+						'defaultValue' : 'true',
+						'type' : 'comboxBoolean',
+						'require' : 'true'
+					}, {
+						'name' : 'streaming',
+						'label' : '文件流',
+						'defaultValue' : 'false',
+						'type' : 'comboxBoolean',
+						'require' : 'true'
+					}, {
+						'name' : 'binaryTransfer',
+						'label' : '文件二进制',
+						'defaultValue' : 'true',
+						'type' : 'comboxBoolean',
+						'require' : 'true'
+					}, {
+						'name' : 'encoding',
+						'label' : '字符集编码',
+						'defaultValue' : 'UTF-8',
+						'type' : 'string',
+						'require' : 'true'
+					}]
+		}, {
+			'text' : 'FtpRenameTransformer(修改读取过的ftp文件后缀名)',
+			'type' : 'FtpRenameTransformer',
+			'isAlwaysUse' : 'true',
+			'className' : 'com.bokesoft.dee.transport.ftp.transformer.FtpRenameTransformer',
+			'attr' : [{
+						'name' : 'host',
+						'label' : '访问服务器地址',
+						'defaultValue' : '请选择',
+						'type' : 'string',
+						'require' : 'true'
+					}, {
+						'name' : 'port',
+						'label' : '端口',
+						'defaultValue' : '21',
+						'type' : 'integer',
+						'require' : 'true'
+					}, {
+						'name' : 'username',
+						'label' : '用户名',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'true'
+					}, {
+						'name' : 'password',
+						'label' : '密码',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'true'
+					}, {
+						'name' : 'path',
+						'label' : '路径',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'false'
+					}, {
+						'name' : 'fileReadSubdir',
+						'label' : '文件读取子目录',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'false'
+					}, {
+						'name' : 'alreadyReadFolder',
+						'label' : '文件转移目录',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'false'
+					}, {
+						'name' : 'fileRenameBeforeSuffix',
+						'label' : '需要修改文件后缀',
+						'defaultValue' : 'processing',
+						'type' : 'string',
+						'require' : 'false'
+					}, {
+						'name' : 'fileRenameAfterSuffix',
+						'label' : '文件修改后缀为',
+						'defaultValue' : 'alreadyProcessed',
+						'type' : 'string',
+						'require' : 'false'
+					}, {
+						'name' : 'maxProcessFile',
+						'label' : '每次最多处理个数',
+						'defaultValue' : '1',
+						'type' : 'integer',
+						'require' : 'true'
+					}, {
+						'name' : 'caseSensitive',
+						'label' : '区分文件名大小写',
+						'defaultValue' : 'true',
+						'type' : 'comboxBoolean',
+						'require' : 'true'
+					}, {
+						'name' : 'passiveMode',
+						'label' : '是否被动模式',
+						'defaultValue' : 'true',
+						'type' : 'comboxBoolean',
+						'require' : 'true'
+					}, {
+						'name' : 'encoding',
+						'label' : '字符集编码',
+						'defaultValue' : 'UTF-8',
+						'type' : 'string',
+						'require' : 'true'
+					}]
+		}, {
+			'text' : 'FtpsReadTransformer(读取ftps文件)',
+			'type' : 'FtpsReadTransformer',
+			'isAlwaysUse' : 'true',
+			'className' : 'com.bokesoft.dee.transport.ftps.transformer.FtpsReadTransformer',
+			'attr' : [{
+						'name' : 'host',
+						'label' : '访问服务器地址',
+						'defaultValue' : '请选择',
+						'type' : 'string',
+						'require' : 'true'
+					}, {
+						'name' : 'port',
+						'label' : '端口',
+						'defaultValue' : '21',
+						'type' : 'integer',
+						'require' : 'true'
+					}, {
+						'name' : 'username',
+						'label' : '用户名',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'true'
+					}, {
+						'name' : 'password',
+						'label' : '密码',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'true'
+					}, {
+						'name' : 'path',
+						'label' : '路径',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'false'
+					}, {
+						'name' : 'fileReadSubdir',
+						'label' : '文件读取子目录',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'false'
+					}, {
+						'name' : 'fileRenameSuffix',
+						'label' : '读取文件修改后缀',
+						'defaultValue' : 'processing',
+						'type' : 'string',
+						'require' : 'false'
+					}, {
+						'name' : 'moveFileSuffix',
+						'label' : '需要移动文件后缀',
+						'defaultValue' : 'alreadyProcessed',
+						'type' : 'string',
+						'require' : 'false'
+					}, {
+						'name' : 'maxProcessFile',
+						'label' : '每次最多处理个数',
+						'defaultValue' : '1',
+						'type' : 'integer',
+						'require' : 'true'
+					}, {
+						'name' : 'alreadyReadFolder',
+						'label' : '文件转移目录',
+						'defaultValue' : 'processedFile',
+						'type' : 'string',
+						'require' : 'false'
+					}, {
+						'name' : 'pattern',
+						'label' : '读取文件名',
+						'defaultValue' : '*.xml',
+						'type' : 'string',
+						'require' : 'false'
+					}, {
+						'name' : 'caseSensitive',
+						'label' : '区分文件名大小写',
+						'defaultValue' : 'true',
+						'type' : 'comboxBoolean',
+						'require' : 'true'
+					}, {
+						'name' : 'passiveMode',
+						'label' : '是否被动模式',
+						'defaultValue' : 'false',
+						'type' : 'comboxBoolean',
+						'require' : 'true'
+					}, {
+						'name' : 'implicit',
+						'label' : '是否隐式模式',
+						'defaultValue' : 'true',
+						'type' : 'comboxBoolean',
+						'require' : 'true'
+					}, {
+						'name' : 'streaming',
+						'label' : '文件流',
+						'defaultValue' : 'false',
+						'type' : 'comboxBoolean',
+						'require' : 'true'
+					}, {
+						'name' : 'binaryTransfer',
+						'label' : '文件二进制',
+						'defaultValue' : 'true',
+						'type' : 'comboxBoolean',
+						'require' : 'true'
+					}, {
+						'name' : 'encoding',
+						'label' : '字符集编码',
+						'defaultValue' : 'UTF-8',
+						'type' : 'string',
+						'require' : 'true'
+					}]
+		}, {
+			'text' : 'FtpsRenameTransformer(修改读取过的ftps文件后缀名)',
+			'type' : 'FtpsRenameTransformer',
+			'isAlwaysUse' : 'true',
+			'className' : 'com.bokesoft.dee.transport.ftps.transformer.FtpsRenameTransformer',
+			'attr' : [{
+						'name' : 'host',
+						'label' : '访问服务器地址',
+						'defaultValue' : '请选择',
+						'type' : 'string',
+						'require' : 'true'
+					}, {
+						'name' : 'port',
+						'label' : '端口',
+						'defaultValue' : '21',
+						'type' : 'integer',
+						'require' : 'true'
+					}, {
+						'name' : 'username',
+						'label' : '用户名',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'true'
+					}, {
+						'name' : 'password',
+						'label' : '密码',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'true'
+					}, {
+						'name' : 'path',
+						'label' : '路径',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'false'
+					}, {
+						'name' : 'fileReadSubdir',
+						'label' : '文件读取子目录',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'false'
+					}, {
+						'name' : 'alreadyReadFolder',
+						'label' : '文件转移目录',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'false'
+					}, {
+						'name' : 'fileRenameBeforeSuffix',
+						'label' : '需要修改文件后缀',
+						'defaultValue' : 'processing',
+						'type' : 'string',
+						'require' : 'false'
+					}, {
+						'name' : 'fileRenameAfterSuffix',
+						'label' : '文件修改后缀为',
+						'defaultValue' : 'alreadyProcessed',
+						'type' : 'string',
+						'require' : 'false'
+					}, {
+						'name' : 'maxProcessFile',
+						'label' : '每次最多处理个数',
+						'defaultValue' : '1',
+						'type' : 'integer',
+						'require' : 'true'
+					}, {
+						'name' : 'caseSensitive',
+						'label' : '区分文件名大小写',
+						'defaultValue' : 'true',
+						'type' : 'comboxBoolean',
+						'require' : 'true'
+					}, {
+						'name' : 'passiveMode',
+						'label' : '是否被动模式',
+						'defaultValue' : 'false',
+						'type' : 'comboxBoolean',
+						'require' : 'true'
+					}, {
+						'name' : 'implicit',
+						'label' : '是否隐式模式',
+						'defaultValue' : 'true',
+						'type' : 'comboxBoolean',
+						'require' : 'true'
+					}, {
+						'name' : 'encoding',
+						'label' : '字符集编码',
+						'defaultValue' : 'UTF-8',
+						'type' : 'string',
+						'require' : 'true'
+					}]
+		}, {
+			'text' : 'SftpReadTransformer(读取Sftp文件)',
+			'type' : 'SftpReadTransformer',
+			'isAlwaysUse' : 'true',
+			'className' : 'org.mule.transport.sftp.transformers.SftpReadTransformer',
+			'attr' : [{
+						'name' : 'address',
+						'label' : '服务器地址',
+						'defaultValue' : 'sftp://user:pass@ip:22/folder',
+						'type' : 'string',
+						'require' : 'true'
+					}, {
+						'name' : 'fileReadSubdir',
+						'label' : '文件读取子目录',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'false'
+					}, {
+						'name' : 'fileRenameSuffix',
+						'label' : '读取文件修改后缀',
+						'defaultValue' : 'reading',
+						'type' : 'string',
+						'require' : 'false'
+					}, {
+						'name' : 'moveFileSuffix',
+						'label' : '需要移动的文件后缀为',
+						'defaultValue' : 'alreadyProcessed',
+						'type' : 'string',
+						'require' : 'false'
+					}, {
+						'name' : 'maxProcessFile',
+						'label' : '每次最多处理个数',
+						'defaultValue' : '1',
+						'type' : 'integer',
+						'require' : 'true'
+					}, {
+						'name' : 'alreadyReadFolder',
+						'label' : '文件转移目录',
+						'defaultValue' : 'processedFile',
+						'type' : 'string',
+						'require' : 'false'
+					}, {
+						'name' : 'fileNameEncoding',
+						'label' : '文件名编码',
+						'defaultValue' : 'GBK',
+						'type' : 'string',
+						'require' : 'false'
+					},{
+						'name' : 'pattern',
+						'label' : '读取文件名称',
+						'defaultValue' : '*.xml',
+						'type' : 'string',
+						'require' : 'false'
+					}, {
+						'name' : 'autoDelete',
+						'label' : '读取后是否删除',
+						'defaultValue' : 'false',
+						'type' : 'comboxBoolean',
+						'require' : 'false'
+					}, {
+						'name' : 'identityFile',
+						'label' : '私钥文件路径(identityFile)',
+						'defaultValue' : '',
+						'type' : 'String'
+					}, {
+						'name' : 'passphrase',
+						'label' : '私钥密码(passphrase)',
+						'defaultValue' : '',
+						'type' : 'String'
+					}, {
+						'name' : 'encoding',
+						'label' : '字符集编码',
+						'defaultValue' : 'UTF-8',
+						'type' : 'string',
+						'require' : 'true'
+					}]
+		}, {
+			'text' : 'SftpRenameTransformer(修改读取过的Sftp文件后缀名)',
+			'type' : 'SftpRenameTransformer',
+			'isAlwaysUse' : 'true',
+			'className' : 'org.mule.transport.sftp.transformers.SftpRenameTransformer',
+			'attr' : [{
+						'name' : 'address',
+						'label' : '服务器地址',
+						'defaultValue' : 'sftp://user:pass@ip:22/folder',
+						'type' : 'string',
+						'require' : 'true'
+					}, {
+						'name' : 'fileReadSubdir',
+						'label' : '文件读取子目录',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'false'
+					}, {
+						'name' : 'fileRenameBeforeSuffix',
+						'label' : '需修改文件的后缀',
+						'defaultValue' : 'reading',
+						'type' : 'string',
+						'require' : 'false'
+					}, {
+						'name' : 'fileRenameAfterSuffix',
+						'label' : '文件后缀修改为',
+						'defaultValue' : 'alreadyProcessed',
+						'type' : 'string',
+						'require' : 'false'
+					}, {
+						'name' : 'maxProcessFile',
+						'label' : '每次最多处理个数',
+						'defaultValue' : '1',
+						'type' : 'integer',
+						'require' : 'true'
+					}, {
+						'name' : 'alreadyReadFolder',
+						'label' : '文件转移目录',
+						'defaultValue' : 'processedFile',
+						'type' : 'string',
+						'require' : 'false'
+					}, {
+						'name' : 'fileNameEncoding',
+						'label' : '文件名编码',
+						'defaultValue' : 'GBK',
+						'type' : 'string',
+						'require' : 'false'
+					}, {
+						'name' : 'identityFile',
+						'label' : '私钥文件路径(identityFile)',
+						'defaultValue' : '',
+						'type' : 'String'
+					}, {
+						'name' : 'passphrase',
+						'label' : '私钥密码(passphrase)',
+						'defaultValue' : '',
+						'type' : 'String'
+					}, {
+						'name' : 'encoding',
+						'label' : '字符集编码',
+						'defaultValue' : 'UTF-8',
+						'type' : 'string',
+						'require' : 'true'
+					}]
+		}, {
+			'text' : 'ExecuteSQLSimple(简单执行SQL语句)',
+			'type' : 'ExecuteSQLSimpleTransformer',
+			'isAlwaysUse' : 'true',
+			'className' : 'com.bokesoft.dee.transport.jdbc.transformer.ExecuteSQLSimpleTransformer',
+			'attr' : [{
+						'name' : 'ds',
+						'label' : '数据源',
+						'defaultValue' : '请选择',
+						'type' : 'DataSource',
+						'require' : 'true'
+					}, {
+						'name' : 'queries',
+						'label' : 'SQL语句集',
+						'defaultValue' : '点此编辑',
+						'type' : 'listTextarea',
+						'require' : 'true'
+					}, {
+						'name' : 'resultIndexOf',
+						'label' : '返回SQL执行结果序号',
+						'defaultValue' : 1,
+						'type' : 'number',
+						'require' : 'true'
+					}, {
+						'name' : 'ignoreSQLError',
+						'label' : '忽略SQL执行异常',
+						'defaultValue' : '否',
+						'type' : 'comboxBoolean'
+					}]
+		}, {
+			'text' : 'ExecuteSQLWithTablePath(根据tablePath执行非查询类SQL语句)',
+			'type' : 'ExecuteSQLWithTablePathTransformer',
+			'isAlwaysUse' : 'true',
+			'className' : 'com.bokesoft.dee.transport.jdbc.transformer.ExecuteSQLWithTablePathTransformer',
+			'attr' : [{
+						'name' : 'ds',
+						'label' : '数据源',
+						'defaultValue' : '请选择',
+						'type' : 'DataSource',
+						'require' : 'true'
+					}, {
+						'name' : 'tablePath',
+						'label' : 'tablePath',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'true'
+					}, {
+						'name' : 'queries',
+						'label' : 'SQL语句集',
+						'defaultValue' : '点此编辑',
+						'type' : 'listTextarea',
+						'require' : 'true'
+					}, {
+						'name' : 'ignoreSQLError',
+						'label' : '忽略SQL执行异常',
+						'defaultValue' : '否',
+						'type' : 'comboxBoolean'
+					}, {
+						'name' : 'addResult',
+						'label' : '添加执行结果',
+						'defaultValue' : '是',
+						'type' : 'comboxBoolean'
+					}, {
+						'name' : 'resultFileNamePrefix',
+						'label' : '执行结果合并到字段名前缀',
+						'defaultValue' : 'bokedee_rs_',
+						'type' : 'string'
+					}]
+		}, {
+			'text' : 'ExecuteSQLSaveOrUpdate(执行SQL语句更新或者新增)',
+			'type' : 'ExecuteSQLSaveOrUpdateTransformer',
+			'isAlwaysUse' : 'true',
+			'className' : 'com.bokesoft.dee.transport.jdbc.transformer.ExecuteSQLSaveOrUpdateTransformer',
+			'attr' : [{
+						'name' : 'ds',
+						'label' : '数据源',
+						'defaultValue' : '请选择',
+						'type' : 'DataSource',
+						'require' : 'true'
+					}, {
+						'name' : 'updateQuery',
+						'label' : '更新SQL语句',
+						'defaultValue' : '点此编辑',
+						'type' : 'bigString',
+						'require' : 'true'
+					},{
+						'name' : 'insertQuery',
+						'label' : '新增SQL语句',
+						'defaultValue' : '点此编辑',
+						'type' : 'bigString',
+						'require' : 'true'
+					}, {
+						'name' : 'ignoreSQLError',
+						'label' : '忽略SQL执行异常',
+						'defaultValue' : '否',
+						'type' : 'comboxBoolean'
+					}]
+		}, {
+			'text' : 'ExecuteWithSQLParam(执行SQL语句更新或者新增)',
+			'type' : 'ExecuteWithSQLParamTransformer',
+			'isAlwaysUse' : 'false',
+			'className' : 'com.bokesoft.dee.transport.jdbc.transformer.ExecuteWithSQLParamTransformer',
+			'attr' : [{
+						'name' : 'ds',
+						'label' : '数据源',
+						'defaultValue' : '请选择',
+						'type' : 'DataSource',
+						'require' : 'true'
+					}, {
+						'name' : 'querySub',
+						'label' : 'SQL语句',
+						'defaultValue' : '点此编辑',
+						'type' : 'bigString',
+						'require' : 'false'
+					}, {
+						'name' : 'ignoreSQLError',
+						'label' : '忽略SQL执行异常',
+						'defaultValue' : '否',
+						'type' : 'comboxBoolean'
+					}]
+		}, {
+			'text' : 'DispatchHttp(分发数据到HTTP服务)',
+			'type' : 'DispatchHttpTransformer',
+			'isAlwaysUse' : 'false',
+			'className' : 'com.bokesoft.dee.mule.dispatch.transformer.DispatchHttpTransformer',
+			'attr' : [{
+						'name' : 'httpUrl',
+						'label' : 'HTTP访问地址',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'true'
+					}, {
+						'name' : 'useList',
+						'label' : '使用List方式',
+						'defaultValue' : '是',
+						'type' : 'comboxBoolean'
+					}]
+		}, {
+			'text' : 'DispatchVMWithSimpleSelect(循环分发单条数据到VM服务)',
+			'type' : 'DispatchVMTransformer',
+			'isAlwaysUse' : 'true',
+			'className' : 'com.bokesoft.dee.mule.dispatch.transformer.DispatchVMTransformer',
+			'attr' : [{
+						'name' : 'dispatchInterface',
+						'label' : '接口',
+						'defaultValue' : '请选择',
+						'type' : 'comboxInterface',
+						'require' : 'true',
+						'cascadeAttrName' : 'dispatchService'
+					},{
+						'name' : 'dispatchService',
+						'label' : 'VM服务',
+						'defaultValue' : '请选择',
+						'type' : 'comboxService_vm',
+						'require' : 'true'
+					}, {
+						'name' : 'useList',
+						'label' : '使用List方式',
+						'defaultValue' : '是',
+						'type' : 'comboxBoolean'
+					}]
+		}, {
+			'text' : 'DispatchHttpWithSimpleSelect(分发数据到HTTP)',
+			'type' : 'DispatchHttpWithSimpleSelectTransformer',
+			'isAlwaysUse' : 'true',
+			'className' : 'com.bokesoft.dee.mule.dispatch.transformer.DispatchHttpWithSimpleSelectTransformer',
+			'attr' : [{
+						'name' : 'dispatchInterface',
+						'label' : '接口',
+						'defaultValue' : '请选择',
+						'type' : 'comboxInterface',
+						'require' : 'true',
+						'cascadeAttrName' : 'dispatchService'
+					}, {
+						'name' : 'dispatchService',
+						'label' : 'HTTP服务',
+						'defaultValue' : '请选择',
+						'type' : 'comboxService_http',
+						'require' : 'true'
+					}, {
+						'name' : 'useList',
+						'label' : '使用List方式',
+						'defaultValue' : '是',
+						'type' : 'comboxBoolean'
+					}]
+		}, {
+			'text' : 'DispatchWithEdit(根据表达式分发数据到多个http或vm)',
+			'type' : 'DispatchWithEditTransformer',
+			'isAlwaysUse' : 'true',
+			'className' : 'com.bokesoft.dee.mule.dispatch.transformer.DispatchWithEditTransformer',
+			'attr' : [{
+						'name' : 'dispatchEdit',
+						'label' : '多个分发配置',
+						'defaultValue' : '点此编辑',
+						'type' : 'list_map_dispatch',
+						'require' : 'true'
+					}, {
+						'name' : 'useList',
+						'label' : '使用List方式',
+						'defaultValue' : '是',
+						'type' : 'comboxBoolean'
+					}]
+		}, {
+			'text' : 'BeanToXls(转换生成EXCEL)',
+			'type' : 'BeanToXlsTransformer',
+			'isAlwaysUse' : 'true',
+			'className' : 'org.mule.transformers.xls.BeanToXlsTransformer',
+			'attr' : [{
+						'name' : 'template',
+						'label' : '模板路径',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'true'
+					}]
+		}, {
+			'text' : 'XlsToBean(解析EXCEL2003文件)',
+			'type' : 'XlsToBeanTransformer',
+			'isAlwaysUse' : 'true',
+			'className' : 'org.mule.transformers.xls.XlsToBeanTransformer',
+			'attr' : [{
+						'name' : 'mappingContent',
+						'label' : '映射XML内容',
+						'defaultValue' : '<workbook><worksheet index=\"0\"></worksheet></workbook>',
+						'type' : 'bigStringExcel'
+					}, {
+						'name' : 'mappingBeans',
+						'label' : '映射类型',
+						'defaultValue' : "[{\"key\":\"tempList\",\"value\":\"java.util.ArrayList\"}]",
+						'type' : 'map_kString_vTextarea',
+						'require' : 'true'
+					}, {
+						'name' : 'beans',
+						'label' : 'bean集合',
+						'defaultValue' : '点此编辑',
+						'type' : 'map_kString_vString',
+						'require' : 'true'
+					}]
+		}, {
+			'text' : 'Xls2007ToBean(解析EXCEL2007文件)',
+			'type' : 'Xls2007ToBeanTransformer',
+			'isAlwaysUse' : 'true',
+			'className' : 'org.mule.transformers.xls.Xls2007ToBeanTransformer',
+			'attr' : [{
+						'name' : 'mappingContent',
+						'label' : '映射XML内容',
+						'defaultValue' : '<workbook><worksheet index=\"0\"></worksheet></workbook>',
+						'type' : 'bigStringExcel'
+					}, {
+						'name' : 'mappingBeans',
+						'label' : '映射类型',
+						'defaultValue' : "[{\"key\":\"tempList\",\"value\":\"java.util.ArrayList\"}]",
+						'type' : 'map_kString_vTextarea',
+						'require' : 'true'
+					}, {
+						'name' : 'beans',
+						'label' : 'bean集合',
+						'defaultValue' : '点此编辑',
+						'type' : 'map_kString_vString',
+						'require' : 'true'
+					}]
+		}, {
+			'text' : 'CurrentTimeRunnerCheckTransformer',
+			'type' : 'CurrentTimeRunnerCheckTransformer',
+			'className' : 'com.bokesoft.dee.mule.pollhttp.transformer.CurrentTimeRunnerCheckTransformer',
+			'attr' : [{
+						'name' : 'sleepTimePropName',
+						'label' : 'sleepTimePropName',
+						'defaultValue' : 'sleepMs',
+						'type' : 'string'
+					}, {
+						'name' : 'regexPatternPropName',
+						'label' : 'regexPatternPropName',
+						'defaultValue' : 'timePattern',
+						'type' : 'string'
+					}]
+		}, {
+			'text' : 'BeanToMap(Java Bean转换成Map)',
+			'type' : 'BeanToMapTransformer',
+			'isAlwaysUse' : 'true',
+			'className' : 'com.bokesoft.exchange.transformer.BeanToMapTransformer',
+			'attr' : [{
+						'name' : 'isFilterNullFields',
+						'label' : '是否过滤为空字段',
+						'defaultValue' : '否',
+						'type' : 'comboxBoolean'
+					}]
+		}, {
+			'text' : 'CollectionToXmlWithFreemarkerTemplate(FreeMarker生成Xml)',
+			'type' : 'CollectionToXmlWithFreemarkerTemplateTransformer',
+			'isAlwaysUse' : 'true',
+			'className' : 'com.bokesoft.exchange.transformer.CollectionToXmlWithFreemarkerTemplateTransformer',
+			'attr' : [{
+						'name' : 'freeMarkerTemplate',
+						'label' : 'freeMarkerTemplate',
+						'defaultValue' : '点此编辑',
+						'type' : 'bigStringFreemarker',
+						'require' : 'true'
+					}, {
+						'name' : 'encoding',
+						'label' : 'encoding',
+						'defaultValue' : 'UTF-8',
+						'type' : 'string',
+						'require' : 'true'
+					}]
+		}, {
+			'text' : 'GainRealMessageFromChainResult(获取ExecuteSQL的执行结果)',
+			'type' : 'GainRealMessageFromChainResult',
+			'isAlwaysUse' : 'false',
+			'className' : 'com.bokesoft.exchange.transformer.GainRealMessageFromChainResult',
+			'attr' : [{
+						'name' : 'transformerName',
+						'label' : 'transformerName',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'true'
+					}, {
+						'name' : 'indexOfValue',
+						'label' : 'indexOfValue',
+						'defaultValue' : 1,
+						'type' : 'number',
+						'require' : 'true'
+					}]
+		}, {
+			'text' : 'Ognl(使用Ognl表达式)',
+			'type' : 'OgnlTransformer',
+			'isAlwaysUse' : 'true',
+			'className' : 'com.bokesoft.dee.mule.dataimport.OgnlTransformer',
+			'attr' : [{
+						'name' : 'expression',
+						'label' : 'OGNL表达式',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'true'
+					}]
+		}, {
+			'text' : 'MessageJSScript(使用JavaScript脚本)',
+			'type' : 'MessageJSScriptTransformer',
+			'isAlwaysUse' : 'false',
+			'className' : 'com.bokesoft.exchange.transformer.MessageScriptTransformer',
+			'attr' : [{
+						'name' : 'script',
+						'label' : 'script',
+						'defaultValue' : '点此编辑',
+						'type' : 'bigStringJs',
+						'require' : 'true'
+					}]
+		}, {
+			'text' : 'MessageJsScriptTransformerWithDebug(使用JavaScript脚本带调试功能)',
+			'type' : 'MessageJsScriptTransformerWithDebug',
+			'isAlwaysUse' : 'true',
+			'className' : 'com.bokesoft.exchange.transformer.MessageJsScriptTransformer',
+			'attr' : [{
+						'name' : 'debug',
+						'label' : '是否调试',
+						'defaultValue' : '否',
+						'type' : 'comboxBoolean'
+					},{
+						'name' : 'script',
+						'label' : 'script',
+						'defaultValue' : '点此编辑',
+						'type' : 'bigStringJsWithExample',
+						'require' : 'true'
+					}]
+		},
+		{
+			'text' : 'MessageJSScriptWithDebugAndDS(使用JavaScript脚本带调试功能和数据库操作对象)',
+			'type' : 'MessageJSScriptWithDebugAndDS',
+			'isAlwaysUse' : 'true',
+			'className' : 'com.bokesoft.exchange.transformer.MessageJsScriptWithDSTransformer',
+			'attr' : [{
+						'name' : 'debug',
+						'label' : '是否调试',
+						'defaultValue' : '否',
+						'type' : 'comboxBoolean'
+					},
+					{
+						'name' : 'ds',
+						'label' : '数据源',
+						'defaultValue' : '请选择',
+						'type' : 'DataSource',
+						'require' : 'true'
+					}
+					,{
+						'name' : 'script',
+						'label' : 'script',
+						'defaultValue' : '点此编辑',
+						'type' : 'bigStringJsWithDSWithExample',
+						'require' : 'true'
+					}]
+		},
+		{
+			'text' : 'MessagePropertiesTransformer(消息对象属性处理)',
+			'type' : 'MessagePropertiesTransformer',
+			'isAlwaysUse' : 'true',
+			'className' : 'com.bokesoft.exchange.transformer.MessagePropertiesTransformer',
+			'attr' : [{
+						'name' : 'deleteProperties',
+						'label' : '删除属性',
+						'defaultValue' : '点此编辑',
+						'type' : 'listTextarea'
+					},{
+						'name' : 'addProperties',
+						'label' : '添加属性',
+						'defaultValue' : '点此编辑',
+						'type' : 'map_kString_vString',
+					},{
+						'name' : 'getProperty',
+						'label' : '获取属性',
+						'defaultValue' : '',
+						'type' : 'string'
+					},{
+						'name' : 'scope',
+						'label' : '属性域',
+						'defaultValue' : 'INBOUND',
+						'type' : 'comboxScopeType',
+					}]
+		}, {
+			'text' : 'smooksTransformer(解析XML格式数据)',
+			'type' : 'smooksTransformer',
+			'isAlwaysUse' : 'true',
+			'className' : 'org.milyn.smooks.mule.Transformer',
+			'attr' : [{
+						'name' : 'configData',
+						'label' : 'smooks配置',
+						'defaultValue' : '<smooks-resource-list xmlns=\"http://www.milyn.org/xsd/smooks-1.1.xsd\" xmlns:jb=\"http://www.milyn.org/xsd/smooks/javabean-1.1.xsd\"  xmlns:csv=\"http://www.milyn.org/xsd/smooks/csv-1.1.xsd\">\n</smooks-resource-list>',
+						'type' : 'bigStringSmooks',
+						'require' : 'true'
+					}, {
+						'name' : 'javaResultBeanId',
+						'label' : '返回BEANID',
+						'defaultValue' : '',
+						'type' : 'string'
+					}]
+		},{
+			'text' : 'SmooksWithXmlSample(用树形解析XML格式数据)',
+			'type' : 'SmooksWithXmlSample',
+			'isAlwaysUse' : 'true',
+			'className' : 'com.bokesoft.dee.mule.smooks.transformer.SmooksWithXmlSampleTransformer',
+			'attr' : [{
+						'name' : 'configData',
+						'label' : 'smooks配置',
+						'defaultValue' : '点此编辑',
+						'type' : 'bigStringSimpleSmooks',
+						'require' : 'true'
+					}, {
+						'name' : 'javaResultBeanId',
+						'label' : '返回BEANID',
+						'defaultValue' : '',
+						'type' : 'string'
+					}]
+		},{
+			'text' : 'SchemaValidate(使用Schema验证Xml格式数据)',
+			'type' : 'SchemaValidateTransformer',
+			'className' : 'com.bokesoft.exchange.transformer.SchemaValidateTransformer',
+			'attr' : [{
+						'name' : 'schemaPath',
+						'label' : 'schemaPath',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'true'
+					}]
+		}, {
+			'text' : 'SplitListWithKeysTransformer',
+			'type' : 'SplitListWithKeysTransformer',
+			'className' : 'com.bokesoft.exchange.transformer.SplitListWithKeysTransformer',
+			'attr' : [{
+						'name' : 'splitKeys',
+						'label' : '分割的字段名',
+						'defaultValue' : '点此编辑',
+						'type' : 'listString'
+					}, {
+						'name' : 'maxSize',
+						'label' : '最大条数',
+						'defaultValue' : 5,
+						'type' : 'number'
+					}, {
+						'name' : 'subSplitKeys',
+						'label' : '拆分记录的相同记录的key列表',
+						'defaultValue' : '点此编辑',
+						'type' : 'listString'
+					}, {
+						'name' : 'masterSubKey',
+						'label' : '将数据分为主从表结构的标记',
+						'defaultValue' : '',
+						'type' : 'string'
+					}]
+		},  {
+			'text' : 'DeleteColumn(删除Map中字段)',
+			'type' : 'DeleteColumn',
+			'className' : 'com.bokesoft.dee.mule.listofmap.DeleteColumn',
+			'attr' : [{
+						'name' : 'source',
+						'label' : '源变量名称',
+						'defaultValue' : 'current',
+						'type' : 'string',
+						'require' : 'true'
+					}, {
+						'name' : 'fields',
+						'label' : '需要删除的列名',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'true'
+					}, {
+						'name' : 'target',
+						'label' : '目标变量名称',
+						'defaultValue' : 'current',
+						'type' : 'string',
+						'require' : 'true'
+					}]
+		}, {
+			'text' : 'Group(对ListOfMap进行分组)',
+			'type' : 'Group',
+			'isAlwaysUse' : 'true',
+			'className' : 'com.bokesoft.dee.mule.listofmap.Group',
+			'attr' : [{
+						'name' : 'source',
+						'label' : '源变量名称',
+						'defaultValue' : 'current',
+						'type' : 'string',
+						'require' : 'true'
+					}, {
+						'name' : 'target',
+						'label' : '目标变量名称',
+						'defaultValue' : 'current',
+						'type' : 'string',
+						'require' : 'true'
+					}, {
+						'name' : 'subField',
+						'label' : '分组后子项字段名',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'true'
+					}, {
+						'name' : 'fields',
+						'label' : '分组字段',
+						'defaultValue' : '点此编辑',
+						'type' : 'bigString',
+						'require' : 'true'
+					}, {
+						'name' : 'sequenceField',
+						'label' : '添加的序号的列名',
+						'defaultValue' : '',
+						'type' : 'string'
+					}, {
+						'name' : 'maxSize',
+						'label' : '每个单位的最大值',
+						'defaultValue' : 0,
+						'type' : 'number'
+					}]
+		}, {
+			'text' : 'Join',
+			'type' : 'Join',
+			'className' : 'com.bokesoft.dee.mule.listofmap.Join',
+			'attr' : [{
+						'name' : 'left',
+						'label' : '操作的左变量',
+						'defaultValue' : '',
+						'type' : 'string'
+					}, {
+						'name' : 'right',
+						'label' : '操作的右变量',
+						'defaultValue' : '',
+						'type' : 'string'
+					}, {
+						'name' : 'leftKey',
+						'label' : '左join字段',
+						'defaultValue' : '',
+						'type' : 'string'
+					}, {
+						'name' : 'rightKey',
+						'label' : '右join字段',
+						'defaultValue' : '',
+						'type' : 'string'
+					}, {
+						'name' : 'joinType',
+						'label' : 'joinType',
+						'defaultValue' : '',
+						'type' : 'string'
+					}, {
+						'name' : 'importance',
+						'label' : '如果有重复列，以该配置变量的列优先',
+						'defaultValue' : '',
+						'type' : 'string'
+					}, {
+						'name' : 'target',
+						'label' : '新的变量的名称',
+						'defaultValue' : '',
+						'type' : 'string'
+					}, {
+						'name' : 'leftKeys',
+						'label' : 'leftKeys',
+						'defaultValue' : '点此编辑',
+						'type' : 'listString'
+					}, {
+						'name' : 'rightKeys',
+						'label' : 'rightKeys',
+						'defaultValue' : '点此编辑',
+						'type' : 'listString'
+					}, {
+						'name' : 'leftObject',
+						'label' : 'leftObject',
+						'defaultValue' : '点此编辑',
+						'type' : 'map_kString_vString'
+					}, {
+						'name' : 'rightObject',
+						'label' : 'rightObject',
+						'defaultValue' : '点此编辑',
+						'type' : 'map_kString_vString'
+					}]
+		}, {
+			'text' : 'Mapping',
+			'type' : 'Mapping',
+			'isAlwaysUse' : 'false',
+			'className' : 'com.bokesoft.dee.mule.listofmap.Mapping',
+			'attr' : [{
+						'name' : 'source',
+						'label' : '源变量名称',
+						'defaultValue' : 'current',
+						'type' : 'string'
+					}, {
+						'name' : 'target',
+						'label' : '目标变量名称',
+						'defaultValue' : 'current',
+						'type' : 'string'
+					}, {
+						'name' : 'fieldExpression',
+						'label' : '列映射字段及表达式',
+						'defaultValue' : '点此编辑',
+						'type' : 'listTextarea'
+					}]
+		}, {
+			'text' : 'Orderby',
+			'type' : 'Orderby',
+			'className' : 'com.bokesoft.dee.mule.listofmap.Orderby',
+			'attr' : [{
+						'name' : 'source',
+						'label' : '源变量名称',
+						'defaultValue' : 'current',
+						'type' : 'string'
+					}, {
+						'name' : 'target',
+						'label' : '目标变量名称',
+						'defaultValue' : 'current',
+						'type' : 'string'
+					}, {
+						'name' : 'fields',
+						'label' : 'fields',
+						'defaultValue' : '',
+						'type' : 'string'
+					}]
+		}, {
+			'text' : 'Select',
+			'type' : 'Select',
+			'className' : 'com.bokesoft.dee.mule.listofmap.Select',
+			'attr' : [{
+						'name' : 'source',
+						'label' : '源变量名称',
+						'defaultValue' : 'current',
+						'type' : 'string'
+					}, {
+						'name' : 'target',
+						'label' : '目标变量名称',
+						'defaultValue' : 'current',
+						'type' : 'string'
+					}, {
+						'name' : 'fields',
+						'label' : 'fields',
+						'defaultValue' : '',
+						'type' : 'string'
+					}]
+		}, {
+			'text' : 'SplitListToSerializable(切割List数据)',
+			'type' : 'SplitListToSerializableTransformer',
+			'isAlwaysUse' : 'true',
+			'className' : 'com.bokesoft.dee.mule.listofmap.SplitListToSerializableTransformer',
+			'attr' : [{
+						'name' : 'splitPerSize',
+						'label' : 'splitPerSize',
+						'defaultValue' : 0,
+						'type' : 'number'
+					}, {
+						'name' : 'encoding',
+						'label' : 'encoding',
+						'defaultValue' : 'UTF-8',
+						'type' : 'string'
+					}]
+		}, {
+			'text' : 'UnGroup',
+			'type' : 'UnGroup',
+			'className' : 'com.bokesoft.dee.mule.listofmap.UnGroup',
+			'attr' : [{
+						'name' : 'source',
+						'label' : '源变量名称',
+						'defaultValue' : 'current',
+						'type' : 'string'
+					}, {
+						'name' : 'target',
+						'label' : '目标变量名称',
+						'defaultValue' : 'current',
+						'type' : 'string'
+					}, {
+						'name' : 'fields',
+						'label' : '子项列名',
+						'defaultValue' : '',
+						'type' : 'string'
+					}]
+		}, {
+			'text' : 'Union',
+			'type' : 'Union',
+			'className' : 'com.bokesoft.dee.mule.listofmap.Union',
+			'attr' : [{
+						'name' : 'source',
+						'label' : '源变量名称',
+						'defaultValue' : 'current',
+						'type' : 'string'
+					}, {
+						'name' : 'target',
+						'label' : '目标变量名称',
+						'defaultValue' : 'current',
+						'type' : 'string'
+					}]
+		}, {
+			'text' : 'FieldValueLookUp(从数据库中查找字段)',
+			'type' : 'FieldValueLookUpTransformer',
+			'isAlwaysUse' : 'false',
+			'className' : 'com.bokesoft.dee.mule.dataimport.FieldValueLookUpTransformer',
+			'attr' : [{
+						'name' : 'tablePath',
+						'label' : 'tablePath',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'true'
+					}, {
+						'name' : 'dataAccess',
+						'label' : 'dataAccess',
+						'defaultValue' : '请选择',
+						'type' : 'SpringBean_com.bokesoft.dee.mule.jdbc.JdbcDataAccess',
+						'require' : 'true'
+					}, {
+						'name' : 'query',
+						'label' : 'query',
+						'defaultValue' : '点此编辑',
+						'type' : 'bigString',
+						'require' : 'true'
+					}, {
+						'name' : 'optionOrderQueries',
+						'label' : '可选查询语句',
+						'defaultValue' : '点此编辑',
+						'type' : 'listTextarea'
+					}, {
+						'name' : 'subField',
+						'label' : 'subField',
+						'defaultValue' : '',
+						'type' : 'string'
+					}, {
+						'name' : 'holdError',
+						'label' : 'holdError',
+						'defaultValue' : '否',
+						'type' : 'comboxBoolean'
+					}, {
+						'name' : 'holdWarn',
+						'label' : 'holdWarn',
+						'defaultValue' : '是',
+						'type' : 'comboxBoolean'
+					}]
+		}, {
+			'text' : 'FieldValueLookUpWithDs(从数据库中查找字段)',
+			'type' : 'FieldValueLookUpWithDsTransformer',
+			'isAlwaysUse' : 'true',
+			'className' : 'com.bokesoft.dee.mule.dataimport.FieldValueLookUpWithDsTransformer',
+			'attr' : [{
+						'name' : 'tablePath',
+						'label' : 'tablePath',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'true'
+					}, {
+						'name' : 'ds',
+						'label' : '数据源',
+						'defaultValue' : '请选择',
+						'type' : 'DataSource',
+						'require' : 'true'
+					}, {
+						'name' : 'query',
+						'label' : 'query',
+						'defaultValue' : '点此编辑',
+						'type' : 'bigString',
+						'require' : 'true'
+					}, {
+						'name' : 'optionOrderQueries',
+						'label' : '可选查询语句',
+						'defaultValue' : '点此编辑',
+						'type' : 'listTextarea'
+					}, {
+						'name' : 'subField',
+						'label' : 'subField',
+						'defaultValue' : '',
+						'type' : 'string'
+					}, {
+						'name' : 'firstRecode',
+						'label' : '选取第一条数据',
+						'defaultValue' : '是',
+						'type' : 'comboxBoolean'
+					}]
+		}, {
+			'text' : 'MutiFieldValueLookUpWithDs(从数据库中查找多个字段)',
+			'type' : 'MutiFieldValueLookUpWithDsTransformer',
+			'isAlwaysUse' : 'true',
+			'className' : 'com.bokesoft.dee.mule.dataimport.MutiFieldValueLookUpWithDsTransformer',
+			'attr' : [{
+						'name' : 'tablePath',
+						'label' : 'tablePath',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'true'
+					}, {
+						'name' : 'ds',
+						'label' : '数据源',
+						'defaultValue' : '请选择',
+						'type' : 'DataSource',
+						'require' : 'true'
+					}, {
+						'name' : 'queries',
+						'label' : 'queries',
+						'defaultValue' : '点此编辑',
+						'type' : 'listTextarea',
+						'require' : 'true'
+					}, {
+						'name' : 'firstRecode',
+						'label' : '选取第一条数据',
+						'defaultValue' : '是',
+						'type' : 'comboxBoolean'
+					}]
+		}, {
+			'text' : 'MutiFieldValueLookUpTransformer(从数据库中查找多个字段)',
+			'type' : 'MutiFieldValueLookUpTransformer',
+			'isAlwaysUse' : 'false',
+			'className' : 'com.bokesoft.dee.mule.dataimport.MutiFieldValueLookUpTransformer',
+			'attr' : [{
+						'name' : 'tablePath',
+						'label' : 'tablePath',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'true'
+					}, {
+						'name' : 'dataAccess',
+						'label' : 'dataAccess',
+						'defaultValue' : '请选择',
+						'type' : 'SpringBean_com.bokesoft.dee.mule.jdbc.JdbcDataAccess',
+						'require' : 'true'
+					}, {
+						'name' : 'queries',
+						'label' : 'queries',
+						'defaultValue' : '点此编辑',
+						'type' : 'listTextarea',
+						'require' : 'true'
+					}]
+		}, {
+			'text' : 'InvokeMap(调用Yigo平台的数据格式转换)',
+			'type' : 'InvokeMapTransformer',
+			'isAlwaysUse' : 'true',
+			'className' : 'com.bokesoft.dee.mule.dataimport.InvokeMapTransformer',
+			'attr' : [{
+						'name' : 'methodName',
+						'label' : 'methodName',
+						'defaultValue' : 'saveAdapterObject',
+						'type' : 'string',
+						'require' : 'true'
+					}, {
+						'name' : 'xstream',
+						'label' : '序列化消息内容',
+						'defaultValue' : '是',
+						'type' : 'comboxBoolean'
+					}, {
+						'name' : 'oneTransaction',
+						'label' : '同一个事务里面处理',
+						'defaultValue' : '是',
+						'type' : 'comboxBoolean'
+					}, {
+						'name' : 'isSystemOut',
+						'label' : '在控制台打印',
+						'defaultValue' : '否',
+						'type' : 'comboxBoolean'
+					}, {
+						'name' : 'careEmpty',
+						'label' : '判断为空',
+						'defaultValue' : '否',
+						'type' : 'comboxBoolean'
+					}, {
+						'name' : 'ignoreException',
+						'label' : 'ignoreException',
+						'defaultValue' : '否',
+						'type' : 'comboxBoolean'
+					}, {
+						'name' : 'sessionId',
+						'label' : 'sessionId',
+						'defaultValue' : '',
+						'type' : 'string'
+					}, {
+						'name' : 'corpCode',
+						'label' : 'corpCode',
+						'defaultValue' : '',
+						'type' : 'string'
+					}, {
+						'name' : 'userCode',
+						'label' : 'userCode',
+						'defaultValue' : '',
+						'type' : 'string'
+					}, {
+						'name' : 'roleCode',
+						'label' : 'roleCode',
+						'defaultValue' : '',
+						'type' : 'string'
+					}]
+		}, {
+			'text' : 'LogProcessor(记录运行过程中的数据日志)',
+			'type' : 'LogProcessorTransformer',
+			'className' : 'com.bokesoft.dee.mule.common.transformer.LogProcessorTransformer',
+			'attr' : [{
+						'name' : 'transformerName',
+						'label' : '流程节点名称',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'true'
+					}, {
+						'name' : 'filePath',
+						'label' : '日志主目录',
+						'defaultValue' : '${bokedee.logpath.debugLog}/[接口名称]',
+						'type' : 'string',
+						'require' : 'true'
+					}, {
+						'name' : 'defaultLogSaveType',
+						'label' : '日志记录方式',
+						'defaultValue' : 'json',
+						'type' : 'string'
+					}, {
+						'name' : 'errorLog',
+						'label' : '是否错误日志',
+						'defaultValue' : '否',
+						'type' : 'comboxBoolean'
+					}, {
+						'name' : 'jdbcDataAccess',
+						'label' : '数据库访问',
+						'defaultValue' : '请选择',
+						'type' : 'SpringBean_com.bokesoft.dee.mule.jdbc.JdbcDataAccess'
+					}]
+		}, {
+			'text' : 'LogBusinessData(记录业务数据日志)',
+			'type' : 'LogBusinessDataTransformer',
+			'className' : 'com.bokesoft.dee.mule.common.transformer.LogBusinessDataTransformer',
+			'attr' : [{
+						'name' : 'jdbcDataAccess',
+						'label' : '数据库访问',
+						'defaultValue' : '请选择',
+						'type' : 'SpringBean_com.bokesoft.dee.mule.jdbc.JdbcDataAccess'
+					}, {
+						'name' : 'dataMapping',
+						'label' : '字段映射',
+						'defaultValue' : '',
+						'type' : 'map_kString_vString'
+					}, {
+						'name' : 'logTableName',
+						'label' : '日志表名',
+						'defaultValue' : 'BOKEDEE_LOG_INFO',
+						'type' : 'string'
+					}, {
+						'name' : 'error',
+						'label' : '是否错误日志',
+						'defaultValue' : '否',
+						'type' : 'comboxBoolean'
+					}]
+		},{
+			'text' : 'FixFieldsAdd(设置字段的固定值)',
+			'type' : 'FixFieldsAddTransformer',
+			'isAlwaysUse' : 'true',
+			'className' : 'com.bokesoft.dee.mule.dataimport.FixFieldsAddTransformer',
+			'attr' : [{
+						'name' : 'tablePath',
+						'label' : 'tablePath',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'true'
+					},{
+						'name' : 'fixFields',
+						'label': 'fixFields',
+						'defaultValue' : '[{\"key\":\"mule.adapter.thing-name\",\"value\":\"example\"},{\"key\":\"mule.data.import.table-name\",\"value\":\"example\"},{\"key\":\"mule.adapter.op-plan\",\"value\":\"insert-or-update\"},{\"key\":\"mule.adapter.id-fields\",\"value\":\"example\"},{\"key\":\"mule.adapter.auto-delete-unknown-detail\",\"value\":\"*\"}]',
+						'type' : 'map_kComboboxString_vString',
+						'require' : 'true'
+					},{
+						'name' : 'rowNumColumn',
+						'label' : 'rowNum字段',
+						'defaultValue' : 'norowno',
+						'type' : 'string',
+						'require' : 'false'
+					}]
+		}, {
+			'text' : 'AxisInvokeMapWebserviceTransformer',
+			'type' : 'AxisInvokeMapWebserviceTransformer',
+			'isAlwaysUse' : 'false',
+			'className' : 'com.bokesoft.exchange.transformer.AxisInvokeMapWebserviceTransformer',
+			'attr' : [{
+						'name' : 'sWsdlUrl',
+						'label' : 'WSDL地址',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'true'
+					}]
+		},{
+			'text' : 'AxisSimpleCallWebservice(调用webservices)',
+			'type' : 'AxisSimpleCallWebserviceTransformer',
+			'isAlwaysUse' : 'true',
+			'className' : 'com.bokesoft.exchange.transformer.AxisSimpleCallWebserviceTransformer',
+			'attr' : [{
+						'name' : 'ProgramLanguage',
+						'label' : '编程语言',
+						'defaultValue' : 'JAVA',
+						'type' : 'comboxProLanguage',
+						'require' : 'true'
+					},{
+						'name' : 'proxyHost',
+						'label' : '代理地址',
+						'defaultValue' : '',
+						'type' : 'string'
+					},{
+						'name' : 'proxyPort',
+						'label' : '代理端口号',
+						'defaultValue' : '',
+						'type' : 'string'
+					},{
+						'name' : 'soapParameters',
+						'label': 'soap验证值',
+						'defaultValue' : '[{\"key\":\"userName\",\"value\":\"example\"},{\"key\":\"passWord\",\"value\":\"example\"}]',
+						'type' : 'map_kString_vString'
+					},{
+						'name' : 'sWsdlUrl',
+						'label' : 'WSDL地址',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'true'
+					},{
+						'name' : 'namespace',
+						'label' : '方法命名空间',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'true'
+					},{
+						'name' : 'methodName',
+						'label' : '方法名称',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'true'
+					},{
+						'name' : 'methodParameters',
+						'label': '方法参数',
+						'defaultValue' : '',
+						'type' : 'map_kString_vString',
+						'require' : 'true'
+					},{
+						'name' : 'className',
+						'label' : '.net用作soap验证的类名称',
+						'defaultValue' : '',
+						'type' : 'string'
+					}]
+		}, {
+			'text' : 'SendToExCenter(发送数据到交换中心)',
+			'type' : 'SendToExCenterTransformer',
+			'isAlwaysUse' : 'false',
+			'className' : 'com.bokesoft.dee.mule.exchangecenter.transformer.SendToExCenterTransformer',
+			'attr' : [{
+						'name' : 'exchangeCenterUrl',
+						'label' : '交换中心地址',
+						'defaultValue' : 'http://[ip]:[port]/BokeDee',
+						'type' : 'string',
+						'require' : 'true'
+					},{
+						'name' : 'appSecret',
+						'label' : '交换秘钥',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'true'
+					},{
+						'name' : 'actionType',
+						'label' : 'ActionType',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'true'
+					},{
+						'name' : 'eventId',
+						'label' : '交换数据ID',
+						'defaultValue' : '#[]',
+						'type' : 'string',
+						'require' : 'true'
+					},{
+						'name' : 'source',
+						'label' : '发送者',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'true'
+					},{
+						'name' : 'target',
+						'label' : '接收者',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'true'
+					},{
+						'name' : 'bizData',
+						'label' : '数据报文',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'true'
+					}]
+		}, {
+			'text' : 'ReceiveFromExCenter(从交换中心接收数据)',
+			'type' : 'ReceiveFromExCenterTransformer',
+			'isAlwaysUse' : 'false',
+			'className' : 'com.bokesoft.dee.mule.exchangecenter.transformer.ReceiveFromExCenterTransformer',
+			'attr' : [{
+						'name' : 'exchangeCenterUrl',
+						'label' : '交换中心地址',
+						'defaultValue' : 'http://[ip]:[port]/BokeDee',
+						'type' : 'string',
+						'require' : 'true'
+					},{
+						'name' : 'appSecret',
+						'label' : '交换秘钥',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'true'
+					},{
+						'name' : 'actionType',
+						'label' : 'ActionType',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'true'
+					},{
+						'name' : 'source',
+						'label' : '接收者',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'true'
+					},{
+						'name' : 'maxReceive',
+						'label' : '接收最大数',
+						'defaultValue' : '',
+						'type' : 'number',
+						'require' : 'true'
+					}]
+		}, {
+			'text' : 'ComfirmExCenter(向交换中心确认已接收数据)',
+			'type' : 'ComfirmExCenterTransformer',
+			'isAlwaysUse' : 'false',
+			'className' : 'com.bokesoft.dee.mule.exchangecenter.transformer.ComfirmExCenterTransformer',
+			'attr' : [{
+						'name' : 'exchangeCenterUrl',
+						'label' : '交换中心地址',
+						'defaultValue' : 'http://[ip]:[port]/BokeDee',
+						'type' : 'string',
+						'require' : 'true'
+					},{
+						'name' : 'appSecret',
+						'label' : '交换秘钥',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'true'
+					},{
+						'name' : 'actionType',
+						'label' : 'ActionType',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'true'
+					},{
+						'name' : 'eventIDs',
+						'label' : '交换数据ID',
+						'defaultValue' : '#[]',
+						'type' : 'string',
+						'require' : 'true'
+					},{
+						'name' : 'source',
+						'label' : '发送者',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'true'
+					}]
+		}, {
+			'text' : 'JMS-Apache(使用Apache-ActiveMQ发送)',
+			'type' : 'JMSApacheTransformer',
+			'isAlwaysUse' : 'false',
+			'className' : 'com.bokesoft.dee.jms.apache.JMSApacheTransformer',
+			'attr' : [{
+						'name' : 'messageType',
+						'label' : '消息类型',
+						'defaultValue' : 'text',
+						'type' : 'string',
+						'require' : 'true'
+					},{
+						'name' : 'queue',
+						'label' : '队列名称',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'true'
+					},{
+						'name' : 'url',
+						'label' : '地址',
+						'defaultValue' : 'failover://tcp://ip:port',
+						'type' : 'string',
+						'require' : 'true'
+					},{
+						'name' : 'deeProperties',
+						'label' : '附加参数',
+						'defaultValue' : '点此编辑',
+						'type' : 'map_kString_vString',
+						'require' : 'false'
+					},{
+						'name' : 'username',
+						'label' : '用户名',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'false'
+					},{
+						'name' : 'password',
+						'label' : '密码',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'false'
+					}]
+		}, {
+			'text' : 'JMS-IBM(使用IBM-MessageQueue发送)',
+			'type' : 'JMSIBMTransformer',
+			'isAlwaysUse' : 'false',
+			'className' : 'com.bokesoft.dee.jms.ibm.JMSIBMTransformer',
+			'attr' : [{
+						'name' : 'hostName',
+						'label' : 'IP地址',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'true'
+					},{
+						'name' : 'port',
+						'label' : '端口',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'true'
+					},{
+						'name' : 'channel',
+						'label' : '通道',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'true'
+					},{
+						'name' : 'queueManager',
+						'label' : '队列管理器',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'true'
+					},{
+						'name' : 'username',
+						'label' : '用户名',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'false'
+					},{
+						'name' : 'password',
+						'label' : '密码',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'false'
+					},{
+						'name' : 'queueName',
+						'label' : '队列名称',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'true'
+					},{
+						'name' : 'messageType',
+						'label' : '消息类型',
+						'defaultValue' : 'text',
+						'type' : 'string',
+						'require' : 'true'
+					},{
+						'name' : 'deeProperties',
+						'label' : '附加参数',
+						'defaultValue' : '点此编辑',
+						'type' : 'map_kString_vString',
+						'require' : 'false'
+					}]
+		}, {
+			'text' : 'DownloadEmailAttachment(保存邮件附件)',
+			'type' : 'DownloadEmailAttachment',
+			'isAlwaysUse' : 'false',
+			'className' : 'com.bokesoft.exchange.transformer.DownloadEmailAttachment',
+			'attr' : [{
+						'name' : 'path',
+						'label' : '保存路径',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'true'
+					}]
+		}, {
+			'text' : 'ListMapToXls(ListMap数据格式生成Excel)',
+			'type' : 'ListMapToXlsTransformer',
+			'isAlwaysUse' : 'true',
+			'className' : 'org.mule.transformers.xls.ListMapToXlsTransformer',
+			'attr' : [{
+						'name' : 'sheetTitle',
+						'label' : '标题行',
+						'defaultValue' : 1,
+						'type' : 'number',
+						'require' : 'true'
+					},{
+						'name' : 'sheetStartLine',
+						'label' : '起始行',
+						'defaultValue' : 2,
+						'type' : 'number',
+						'require' : 'true'
+					},{
+						'name' : 'sheetName',
+						'label' : 'sheet名称',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'true'
+					},{
+						'name' : 'excelType',
+						'label' : 'excel类型',
+						'defaultValue' : '2003',
+						'type' : 'comboxExcelType',
+						'require' : 'true'
+					},{
+						'name' : 'colNames',
+						'label' : '列名顺序',
+						'defaultValue' : '',
+						'type' : 'map_kString_vString',
+						'require' : 'true'
+					}]
+		}, {
+			'text' : 'JsonTransformer(Json序列化或反序列化)',
+			'type' : 'JsonTransformer',
+			'isAlwaysUse' : 'true',
+			'className' : 'com.bokesoft.dee.mule.util.transformer.JsonTransformer',
+			'attr' : [{
+						'name' : 'direction',
+						'label' : 'ToJson或者FromJson(是表示转换为Json字符串)',
+						'defaultValue' : '是',
+						'type' : 'comboxBoolean',
+						'require' : 'true'
+					},{
+						'name' : 'toMap',
+						'label' : 'FromJson转为Map(是表示从json转换为对象时是否为Map)',
+						'defaultValue' : '否',
+						'type' : 'comboxBoolean',
+						'require' : 'false'
+					},{
+						'name' : 'encoding',
+						'label' : 'encoding',
+						'defaultValue' : 'UTF-8',
+						'type' : 'string',
+						'require' : 'true'
+					}]
+		}
+]

@@ -1,0 +1,5 @@
+dependencies {
+  compile devOpsFileTree(dir: "dist/jars", include: ['*.jar'])
+}
+
+devOpsApply from: "../cms2/cms2.gradle"

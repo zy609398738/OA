@@ -1,0 +1,9 @@
+{
+	"@type":"com.bokesoft.cms2.model.Action",
+	"actionExp":"",
+	"actionUrl":"/commitComment.action",
+	"attributes":{"@type":"java.util.LinkedHashMap"},
+	"code":"CommitComment",
+	"name":"提交评论",
+	"notes":""
+}

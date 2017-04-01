@@ -1,0 +1,14 @@
+{
+	"@type":"com.bokesoft.cms2.impl.buildin.modelio.vo.BlockVO",
+	"block":{
+		"@type":"com.bokesoft.cms2.model.blocks.TmplBlock",
+		"formulaText":"cms.PageExp.Local('href', cms.PageExp.RelContextRoot()&{/news/newsview.page?id=});\ncms.PageExp.Local(\n    \"picdata\",\n    cms.DataExp.QueryList(\"\n\t\tselect  oan.topic,oan.oid as id,oap.name as filename,oap.path from oa_newsdraft_h oan RIGHT JOIN oa_newsdraft_pho oap on oan.OID=oap.SOID where oan.status=1200 order by billdate desc limit 4\n    \")\n)",
+		"notes":"",
+		"parameters":[],
+		"tmplText":" <div class=\"banners fl_left clearfix\" id=\"banner-show\">\n <ul class=\"banner-show-img\">\n  #foreach( $picline in $picdata )\n  #if($picline.ROWNUMS==1)\n  <li  name=\"$picline.FILENAME\">\n   <a href=\"#\"><img src=\"/yigo/a/cms2-yigo2-adapter/cms/view-yigo-file/$picline.PATH\"  name=\"$picline.FILENAME\"></a>\n   <p class=\"title\"> <a href=\"$href$picline.ID\">$picline.TOPIC</a></p>\n  </li>\n #else\n  <li name=\"$picline.FILENAME\">\n   <a href=\"$href$picline.ID\"><img src=\"/yigo/a/cms2-yigo2-adapter/cms/view-yigo-file/$picline.PATH\"  name=\"$picline.FILENAME\"></a>\n   <p class=\"title\"><a href=\"$href$picline.ID\"> $picline.TOPIC</a></p>\n  </li>\n #end\n#end\n </ul>\n \n <ul class=\"show-contrls\" id=\"banner-show-Nav\">\n   <a id=\"prev\" title=\"向前\"><img src=\"/yigo/_$/images/main/tpxq.png\"></a>\n   #foreach( $picline in $picdata )\n      #if($picline.ROWNUMS==1)\n      <li class=\"trigger imgSelected\"><img src=\"/yigo/a/cms2-yigo2-adapter/cms/view-yigo-file/$picline.PATH\"  name=\"$picline.FILENAME\"></li>\n      #else\n      <li class=\"trigger\"><img src=\"/yigo/a/cms2-yigo2-adapter/cms/view-yigo-file/$picline.PATH\"  name=\"$picline.FILENAME\"></li>\n      #end\n   #end\n   <a id=\"next\" title=\"向后\"><img src=\"/yigo/_$/images/main/tpxh.png\"></a>\n </ul> \n </div>\n <script type=\"text/javascript\" src=\"/yigo/_$/resources/@buildin/js/banner_show.js\"></script>",
+		"type":"TMPL"
+	},
+	"code":"companyDynamic",
+	"name":"首页公司动态",
+	"params":[]
+}

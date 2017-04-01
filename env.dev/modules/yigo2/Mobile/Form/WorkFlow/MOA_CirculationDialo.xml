@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="MOA_CirculationDialog" Caption="传阅对话框">
+    <DataSource>
+        <DataObject Key="MOA_CirculationDialog" Caption="传阅对话框" PrimaryTableKey="MOA_CirculationDialog" PrimaryType="Entity">
+            <TableCollection>
+                <Table Key="MOA_CirculationDialog" Caption="传阅对话框" DBTableName="OA_CirculationDialog">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="Status" Caption="状态" DataType="Integer"/>
+                    <Column Key="SendUser" Caption="传阅者" DataType="Long"/>
+                    <Column Key="ReadTime" Caption="阅读时间" DataType="DateTime"/>
+                    <Column Key="SendTime" Caption="传阅时间" DataType="DateTime"/>
+                    <Column Key="WorkitemID" Caption="工作项标识" DataType="Long"/>
+                    <Column Key="Opinion" Caption="常用意见" DataType="Varchar"/>
+                    <Column Key="BillKey" Caption="单据Key" DataType="Varchar"/>
+                    <Column Key="BillOID" Caption="BillOID" DataType="Long"/>
+                    <Column Key="ReadUser" Caption="选择阅读人员" DataType="Varchar"/>
+                    <Column Key="OptIDs" Caption="被选人ID" DataType="Varchar"/>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板">
+                <LinearLayoutPanel Caption="LinearLayoutPanel1" Height="pref" Key="LinearLayoutPanel1" Orientation="Vertical">
+                    <LinearLayoutPanel Caption="LinearLayoutPanel2" Height="auto" Key="LinearLayoutPanel2" Width="auto">
+                        <Label Key="Label1" Caption="选择阅读人员" Height="auto" Width="100px"/>
+                        <TextArea Key="ReadUser" Caption="选择阅读人员" Height="pref" Width="pref" Weight="1.0">
+                            <DataBinding TableKey="MOA_CirculationDialog" ColumnKey="ReadUser"/>
+                        </TextArea>
+                        <HyperLink Caption="选择人员" Height="auto" Key="HyperLink2" Width="100px">
+                            <Format ForeColor="#ff6666"/>
+                        </HyperLink>
+                    </LinearLayoutPanel>
+                    <LinearLayoutPanel Caption="LinearLayoutPanel5" Height="pref" Key="LinearLayoutPanel5" Visible="false" Width="pref">
+                        <Label Key="Label4" Caption="参与者" Height="auto" Width="100px"/>
+                        <TextArea Key="TextArea2" Caption="TextArea2" Height="pref" Width="pref">
+                            <DataBinding TableKey="MOA_CirculationDialog" ColumnKey="OptIDs"/>
+                        </TextArea>
+                    </LinearLayoutPanel>
+                    <LinearLayoutPanel Caption="LinearLayoutPanel3" Height="40px" Key="LinearLayoutPanel3" Width="auto">
+                        <Label Key="Label2" Caption="常用意见" Height="auto" Width="100px"/>
+                        <TextEditor Key="TextEditor1" Caption="常用意见" Height="pref" Weight="1.0" Width="auto">
+                            <DataBinding>
+                                <ValueChanged>
+                                    <![CDATA[SetValue("Opinion", CommonUseContent)]]>
+                                </ValueChanged>
+                            </DataBinding>
+                        </TextEditor>
+                    </LinearLayoutPanel>
+                    <Label Key="Label3" Caption="处理意见" Height="40px" Width="pref"/>
+                    <LinearLayoutPanel Caption="LinearLayoutPanel4" Height="auto" Key="LinearLayoutPanel4" Width="auto">
+                        <TextArea Key="TextArea1" Caption="处理意见" Height="pref" Weight="1.0" Width="auto">
+                            <DataBinding TableKey="MOA_CirculationDialog" ColumnKey="Opinion"/>
+                        </TextArea>
+                        <HyperLink Caption="保存常用意见" Height="auto" Key="HyperLink1" Width="100px">
+                            <Format ForeColor="#ff6666"/>
+                            <OnClick>
+                                <![CDATA[IIF(
+    DBQueryValue
+        ('select a.Content 
+            from OA_AddViews a 
+            where a.Content=? and Creator=?', GetValue('Opinion'),GetOperator())==GetValue('Opinion'),
+        Confirm('该意见已存在'),
+        DBUpdate('Insert into OA_AddViews (OID,SOID,POID,VERID,DVERID,Content,Creator,Status) values (?,OID,null,0,0,?,?,100)',
+ApplyNewOID(),GetValue('Opinion'),GetOperator())
+);]]>
+                            </OnClick>
+                        </HyperLink>
+                    </LinearLayoutPanel>
+                    <GridLayoutPanel Key="GridLayoutPanel1" Height="pref" Caption="GridLayoutPanel1" Width="pref">
+                        <Button Key="APPROVE" Caption="确定" X="2" Y="1">
+                            <OnClick>
+                                <![CDATA[        var x = Para("pWorkitemID");
+	parent.EndorseTask(x,Endorse,GetValue("Opinion"));
+        Close();]]>
+                            </OnClick>
+                        </Button>
+                        <Button Key="Button2" Caption="取消" X="3" Y="1">
+                            <OnClick>
+                                <![CDATA[Close()]]>
+                            </OnClick>
+                        </Button>
+                        <RowDefCollection RowGap="5">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="5">
+                            <ColumnDef Width="100px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="80px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <LinearLayoutPanel Caption="LinearLayoutPanel6" Height="pref" Key="LinearLayoutPanel6" Visible="false" Width="pref">
+                        <Dict Key="SendUser" Caption="传送人" Height="pref" ItemKey="Operator" Width="pref">
+                            <DataBinding TableKey="MOA_CirculationDialog" ColumnKey="SendUser" DefaultFormulaValue="Para(&quot;Creator&quot;)"/>
+                        </Dict>
+                        <DatePicker Key="SendTime" Caption="传送日期" Height="pref" Width="pref">
+                            <DataBinding TableKey="MOA_CirculationDialog" ColumnKey="SendTime" DefaultFormulaValue="ServerDate()"/>
+                        </DatePicker>
+                        <TextEditor Key="BillOID" Caption="BillOID" Height="pref" Width="pref">
+                            <DataBinding TableKey="MOA_CirculationDialog" ColumnKey="BillOID" DefaultFormulaValue="Para(&quot;OID&quot;)"/>
+                        </TextEditor>
+                        <TextEditor Key="BillKey" Caption="单据Key" Height="pref" Width="pref">
+                            <DataBinding TableKey="MOA_CirculationDialog" ColumnKey="BillKey" DefaultFormulaValue="Para(&quot;BillKey&quot;)"/>
+                        </TextEditor>
+                    </LinearLayoutPanel>
+                </LinearLayoutPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

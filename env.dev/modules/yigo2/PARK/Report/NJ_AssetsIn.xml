@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Report Caption="资产入库" FormKey="NJ_AssetsIn" Key="NJ_AssetsIn" PageHeight="842" PageID="A4" PageWidth="595" PaperHeight="842" PaperID="A4" PaperWidth="595" LeftMargin="20" TopMargin="20">
+    <DataSource>
+        <Table Key="NJ_SCM_AssetsInHead" Caption="NJ_SCM_AssetsInHead" SourceType="DataObject" DBTableKey="NJ_SCM_AssetsInHead">
+            <Field Caption="对象标识" Key="OID"/>
+            <Field Caption="主对象标识" Key="SOID"/>
+            <Field Caption="父对象标识" Key="POID"/>
+            <Field Caption="对象版本" Key="VERID"/>
+            <Field Caption="对象明细版本" Key="DVERID"/>
+            <Field Caption="发布编号" Key="NO"/>
+            <Field Caption="发布日期" Key="BillDate"/>
+            <Field Caption="单据状态" Key="Status"/>
+            <Field Caption="创建人" Key="Creator"/>
+            <Field Caption="创建日期" Key="CreateTime"/>
+            <Field Caption="修改人" Key="Modifier"/>
+            <Field Caption="修改日期" Key="ModifyTime"/>
+            <Field Caption="单据Key" Key="BillKey"/>
+            <Field Caption="集团" Key="ClusterID"/>
+            <Field Caption="经办人" Key="EmpID"/>
+            <Field Caption="备注" Key="Notes"/>
+            <Field Caption="KeeperId" Key="KeeperId"/>
+            <Field Caption="采购员" Key="BuyerId"/>
+        </Table>
+        <Table Key="NJ_SCM_AssetsInDtl" Caption="NJ_SCM_AssetsInDtl" SourceType="DataObject">
+            <Field Caption="对象标识" Key="OID"/>
+            <Field Caption="主对象标识" Key="SOID"/>
+            <Field Caption="父对象标识" Key="POID"/>
+            <Field Caption="对象版本" Key="VERID"/>
+            <Field Caption="对象明细版本" Key="DVERID"/>
+            <Field Caption="Amount" Key="Amount"/>
+            <Field Caption="Price" Key="Price"/>
+            <Field Caption="Money" Key="Money"/>
+            <Field Caption="BuyDate" Key="BuyDate"/>
+            <Field Caption="DtlNotes" Key="DtlNotes"/>
+            <Field Caption="UNITID" Key="UNITID"/>
+            <Field Caption="Model" Key="Model"/>
+            <Field Caption="assetstypeid" Key="assetstypeid"/>
+            <Field Caption="AssetsId" Key="AssetsId"/>
+            <Field Caption="WareHouseId" Key="WareHouseId"/>
+            <Field Caption="映射数量标记" Key="MapCount"/>
+            <Field Caption="Supplier" Key="Supplier"/>
+        </Table>
+    </DataSource>
+    <Grid>
+        <Section Caption="1" Key="1" Type="Table">
+            <Columns>
+                <Column Width="100"/>
+                <Column Width="80"/>
+                <Column Width="48"/>
+                <Column Width="80"/>
+                <Column Width="80"/>
+                <Column Width="80"/>
+                <Column Width="80"/>
+            </Columns>
+            <Rows>
+                <Row Height="30" BackColor="0xffffffff" Type="TableTitleHead">
+                    <Cell Caption="资产入库单" IsMerged="true" IsMergedHead="true" MergedColumnSpan="7" MergedRowSpan="1">
+                        <Display>
+                            <Font Bold="true" Size="16" Name="System"/>
+                        </Display>
+                    </Cell>
+                    <Cell IsMerged="true" MergedColumnSpan="1">
+                        <Display/>
+                    </Cell>
+                    <Cell IsMerged="true" MergedColumnSpan="2">
+                        <Display/>
+                    </Cell>
+                    <Cell IsMerged="true" MergedColumnSpan="3">
+                        <Display/>
+                    </Cell>
+                    <Cell IsMerged="true" MergedColumnSpan="4">
+                        <Display/>
+                    </Cell>
+                    <Cell IsMerged="true" MergedColumnSpan="5">
+                        <Display/>
+                    </Cell>
+                    <Cell IsMerged="true" MergedColumnSpan="6">
+                        <Display/>
+                    </Cell>
+                </Row>
+                <Row Height="30" BackColor="0xffffffff" Type="TableTitleHead">
+                    <Cell/>
+                    <Cell/>
+                    <Cell/>
+                    <Cell Caption="日期" FieldKey="BillDate" Key="BillDate" SourceType="Field" TableKey="NJ_SCM_AssetsInHead">
+                        <Display>
+                            <Format DataType="Date" FormatString="yyyy-MM-dd"/>
+                        </Display>
+                    </Cell>
+                    <Cell/>
+                    <Cell Caption="入库单号：">
+                        <Display HAlign="Right"/>
+                    </Cell>
+                    <Cell Caption="NO" FieldKey="NO" IsPrimary="true" Key="NO" SourceType="Field" TableKey="NJ_SCM_AssetsInHead">
+                        <Display HAlign="Left"/>
+                    </Cell>
+                </Row>
+                <Row Height="30" BackColor="0xffffffff" Type="DetailHead">
+                    <Cell Caption="资产名称">
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1" LeftColor="#000000" LeftStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell Caption="规格型号">
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1" LeftColor="#000000" LeftStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell Caption="单位">
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1" LeftColor="#000000" LeftStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell Caption="数量">
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1" LeftColor="#000000" LeftStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell Caption="单价">
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1" LeftColor="#000000" LeftStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell Caption="金额">
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1" LeftColor="#000000" LeftStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell Caption="备注">
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1" LeftColor="#000000" LeftStyle="1"/>
+                        </Display>
+                    </Cell>
+                </Row>
+                <Row Height="30" BackColor="0xffffffff" Type="Detail" TableKey="NJ_SCM_AssetsInDtl">
+                    <Cell Caption="资产名称" FieldKey="AssetsId" Key="AssetsId" SourceType="Field" TableKey="NJ_SCM_AssetsInDtl">
+                        <Display>
+                            <Format DataType="Dict" ItemKey="NJ_assets" FieldKeys="Code,Name"/>
+                            <Border BottomColor="#000000" BottomStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1" LeftColor="#000000" LeftStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell Caption="规格型号" FieldKey="Model" Key="Model" SourceType="Field" TableKey="NJ_SCM_AssetsInDtl">
+                        <Display>
+                            <Format/>
+                            <Border BottomColor="#000000" BottomStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1" LeftColor="#000000" LeftStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell Caption="单位" FieldKey="UNITID" Key="UNITID" SourceType="Field" TableKey="NJ_SCM_AssetsInDtl">
+                        <Display>
+                            <Format DataType="Dict" ItemKey="NJ_UNIT"/>
+                            <Border BottomColor="#000000" BottomStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1" LeftColor="#000000" LeftStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell Caption="数量" FieldKey="Amount" Key="Amount" SourceType="Field" TableKey="NJ_SCM_AssetsInDtl">
+                        <Display HAlign="Right">
+                            <Format DataType="Number" FormatString="##,###.##"/>
+                            <Border BottomColor="#000000" BottomStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1" LeftColor="#000000" LeftStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell Caption="单价" FieldKey="Price" Key="Price" SourceType="Field" TableKey="NJ_SCM_AssetsInDtl">
+                        <Display HAlign="Right">
+                            <Format DataType="Number" FormatString="##,###.00"/>
+                            <Border BottomColor="#000000" BottomStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1" LeftColor="#000000" LeftStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell Caption="金额" FieldKey="Money" Key="Money" SourceType="Field" TableKey="NJ_SCM_AssetsInDtl">
+                        <Display HAlign="Right">
+                            <Format DataType="Number" FormatString="##,###.00"/>
+                            <Border BottomColor="#000000" BottomStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1" LeftColor="#000000" LeftStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell Caption="备注" FieldKey="DtlNotes" Key="DtlNotes" SourceType="Field" TableKey="NJ_SCM_AssetsInDtl">
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1" LeftColor="#000000" LeftStyle="1"/>
+                        </Display>
+                    </Cell>
+                </Row>
+                <Row Height="30" BackColor="0xffffffff" Type="DetailTail">
+                    <Cell Caption="合计">
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1" LeftColor="#000000" LeftStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell>
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1" LeftColor="#000000" LeftStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell>
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1" LeftColor="#000000" LeftStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell Caption="Sum1" Formula="Sum('Amount');" Key="Sum1" SourceType="Formula">
+                        <Display HAlign="Right">
+                            <Format DataType="Number" FormatString="##,###.##"/>
+                            <Border BottomColor="#000000" BottomStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1" LeftColor="#000000" LeftStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell>
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1" LeftColor="#000000" LeftStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell Caption="Sum2" Formula="Sum('Money');" Key="Sum2" SourceType="Formula">
+                        <Display HAlign="Right">
+                            <Format DataType="Number" FormatString="##,###.00"/>
+                            <Border BottomColor="#000000" BottomStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1" LeftColor="#000000" LeftStyle="1"/>
+                        </Display>
+                    </Cell>
+                    <Cell>
+                        <Display>
+                            <Border BottomColor="#000000" BottomStyle="1" RightColor="#000000" RightStyle="1" TopColor="#000000" TopStyle="1" LeftColor="#000000" LeftStyle="1"/>
+                        </Display>
+                    </Cell>
+                </Row>
+            </Rows>
+        </Section>
+    </Grid>
+</Report>

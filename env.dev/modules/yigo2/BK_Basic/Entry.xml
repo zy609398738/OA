@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Entry Caption="根" Key="root">
+    <Entry Caption="博科统一资料" Key="Basic" Visible="false">
+        <EntryItem Caption="集团" FormKey="DictEdit" Key="V_Client" Parameters="FormKey=V_Client" Type="Form"/>
+        <EntryItem Caption="采购组织" FormKey="DictEdit" Key="V_PurchasingOrganization" Parameters="FormKey=V_PurchasingOrganization" Type="Form"/>
+        <EntryItem Caption="采购组" FormKey="DictEdit" Key="V_PurchasingGroup" Parameters="FormKey=V_PurchasingGroup" Type="Form"/>
+        <EntryItem Caption="工厂" FormKey="DictEdit" Key="V_Plant" Parameters="FormKey=V_Plant" Type="Form"/>
+        <EntryItem Caption="存储地点" FormKey="DictEdit" Key="V_StorageLocation" Parameters="FormKey=V_StorageLocation" Type="Form"/>
+        <EntryItem Caption="销售组织" FormKey="DictEdit" Key="V_SaleOrganization" Parameters="FormKey=V_SaleOrganization" Type="Form"/>
+        <EntryItem Caption="分销渠道" FormKey="DictEdit" Key="V_DistributionChannel" Parameters="FormKey=V_DistributionChannel" Type="Form"/>
+        <EntryItem Caption="产品组" FormKey="DictEdit" Key="V_Division" Parameters="FormKey=V_Division" Type="Form"/>
+        <EntryItem Caption="工作中心" FormKey="DictEdit" Key="V_WorkCenter" Parameters="FormKey=V_WorkCenter" Type="Form"/>
+        <EntryItem Caption="公司" FormKey="DictEdit" Key="V_CompanyCode" Parameters="FormKey=V_CompanyCode" Type="Form"/>
+        <EntryItem Caption="业务范围" FormKey="DictEdit" Key="V_BusinessArea" Parameters="FormKey=V_BusinessArea" Type="Form"/>
+        <EntryItem Caption="功能范围" FormKey="DictEdit" Key="V_FunctionalArea" Parameters="FormKey=V_FunctionalArea" Type="Form"/>
+        <EntryItem Caption="信用控制范围" FormKey="DictEdit" Key="V_CreditControlArea" Parameters="FormKey=V_CreditControlArea" Type="Form"/>
+        <EntryItem Caption="成本控制范围" FormKey="DictEdit" Key="V_ControllingArea" Parameters="FormKey=V_ControllingArea" Type="Form"/>
+        <EntryItem Caption="成本中心" FormKey="DictEdit" Key="V_CostCenter" Parameters="FormKey=V_CostCenter" Type="Form"/>
+        <EntryItem Caption="成本中心组" FormKey="DictEdit" Key="V_CostCenterGroup" Parameters="FormKey=V_CostCenterGroup" Type="Form"/>
+        <EntryItem Caption="利润中心" FormKey="DictEdit" Key="V_ProfitCenter" Parameters="FormKey=V_ProfitCenter" Type="Form"/>
+        <EntryItem Caption="物料组" FormKey="DictEdit" Key="V_MaterialGroup" Parameters="FormKey=V_MaterialGroup" Type="Form"/>
+        <EntryItem Caption="物料类型" FormKey="DictEdit" Key="V_MaterialType" Parameters="FormKey=V_MaterialType" Type="Form"/>
+        <EntryItem Caption="物料" FormKey="DictEdit" Key="V_Material" Parameters="FormKey=V_Material" Type="Form"/>
+        <EntryItem Caption="供应商" FormKey="DictEdit" Key="V_Vendor" Parameters="FormKey=V_Vendor" Type="Form"/>
+        <EntryItem Caption="供应商账户组" FormKey="DictEdit" Key="V_VendorAccountGroup" Parameters="FormKey=V_VendorAccountGroup" Type="Form"/>
+        <EntryItem Caption="客户" FormKey="DictEdit" Key="V_Customer" Parameters="FormKey=V_Customer" Type="Form"/>
+        <EntryItem Caption="客户账户组" FormKey="DictEdit" Key="V_CustomerAccountGroup" Parameters="FormKey=V_CustomerAccountGroup" Type="Form"/>
+        <EntryItem Caption="科目表" FormKey="DictEdit" Key="V_AccountChart" Parameters="FormKey=V_AccountChart" Type="Form"/>
+        <EntryItem Caption="科目" FormKey="DictEdit" Key="V_Account" Parameters="FormKey=V_Account" Type="Form"/>
+        <EntryItem Caption="凭证类型" FormKey="DictEdit" Key="V_VoucherType" Parameters="FormKey=V_VoucherType" Type="Form"/>
+        <EntryItem Caption="币种" FormKey="DictEdit" Key="V_Currency" Parameters="FormKey=V_Currency" Type="Form"/>
+        <EntryItem Caption="汇率类型" FormKey="DictEdit" Key="V_ExchangeRateType" Parameters="FormKey=V_ExchangeRateType" Type="Form"/>
+        <EntryItem Caption="国家地区" FormKey="DictEdit" Key="V_Country" Parameters="FormKey=V_Country" Type="Form"/>
+        <EntryItem Caption="区域" FormKey="DictEdit" Key="V_Region" Parameters="FormKey=V_Region" Type="Form"/>
+        <EntryItem Caption="行业" FormKey="DictEdit" Key="V_IndustrySector" Parameters="FormKey=V_IndustrySector" Type="Form"/>
+        <EntryItem Caption="会计期方案" FormKey="DictEdit" Key="V_PeriodType" Parameters="FormKey=V_PeriodType" Type="Form"/>
+        <EntryItem Caption="计量体系" FormKey="DictEdit" Key="V_UnitSystem" Parameters="FormKey=V_UnitSystem" Type="Form"/>
+        <EntryItem Caption="计量单位" FormKey="DictEdit" Key="V_Unit" Parameters="FormKey=V_Unit" Type="Form"/>
+        <EntryItem Caption="日历" FormKey="DictEdit" Key="V_Calendar" Parameters="FormKey=V_Calendar" Type="Form"/>
+        <EntryItem Caption="语言" FormKey="DictEdit" Key="V_Language" Parameters="FormKey=V_Language" Type="Form"/>
+    </Entry>
+</Entry>

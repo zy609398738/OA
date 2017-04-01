@@ -1,0 +1,157 @@
+[ {
+	'text' : 'JdbcDataAccess(访问数据库)',
+	'type':'com.bokesoft.dee.mule.jdbc.JdbcDataAccess',
+	'attr' : [ {
+		'fieldLabel' : '数据源',
+		'xtype' : 'combobox',
+		'type':'DataSource',
+		'name':'dataSourceRef',
+		'allowBlank':false
+	} ]
+}, {
+	'text' : 'MQQueueConnectionFactory(ibmMQ连接)',
+	'type' : 'com.ibm.mq.jms.MQQueueConnectionFactory',
+	'attr' : [ {
+		'name' : 'hostName',
+		'fieldLabel' : 'IP地址',
+		'allowBlank' : false
+	}, {
+		'xtype' : 'numberfield',
+		'name' : 'port',
+		'fieldLabel' : '端口',
+		'value' : 1414,
+		'allowBlank' : false
+	}, {
+		'name' : 'channel',
+		'fieldLabel' : '通道',
+		'allowBlank' : false
+	}, {
+		'name' : 'queueManager',
+		'fieldLabel' : '队列管理器',
+		'allowBlank' : false
+	}, {
+		'name' : 'transportType',
+		'fieldLabel' : '传输类型',
+		'allowBlank' : false,
+		'value' : '1'
+	} ]
+}, {
+	'text' : 'MQTopicConnectionFactory(ibmTopic的连接)',
+	'type' : 'com.ibm.mq.jms.MQTopicConnectionFactory',
+	'attr' : [ {
+		'name' : 'hostName',
+		'fieldLabel' : 'IP地址',
+		'allowBlank' : false
+	}, {
+		'xtype' : 'numberfield',
+		'name' : 'port',
+		'fieldLabel' : '端口',
+		'value' : 1414,
+		'allowBlank' : false
+	}, {
+		'name' : 'channel',
+		'fieldLabel' : '通道',
+		'allowBlank' : false
+	}, {
+		'name' : 'queueManager',
+		'fieldLabel' : '队列管理器',
+		'allowBlank' : false
+	}, {
+		'name' : 'transportType',
+		'fieldLabel' : '传输类型',
+		'value' : '1',
+		'allowBlank' : false
+	} ]
+}, {
+	'text' : 'MQXAQueueConnectionFactory(ibmMQXA的连接)',
+	'type' : 'com.ibm.mq.jms.MQXAQueueConnectionFactory',
+	'attr' : [ {
+		'name' : 'hostName',
+		'fieldLabel' : 'IP地址',
+		'allowBlank' : false
+	}, {
+		'xtype' : 'numberfield',
+		'name' : 'port',
+		'fieldLabel' : '端口',
+		'value' : 1414,
+		'allowBlank' : false
+	}, {
+		'name' : 'channel',
+		'fieldLabel' : '通道',
+		'allowBlank' : false
+	}, {
+		'name' : 'queueManager',
+		'fieldLabel' : '队列管理器',
+		'allowBlank' : false
+	}, {
+		'name' : 'transportType',
+		'fieldLabel' : '传输类型',
+		'value' : '1',
+		'allowBlank' : false
+	} ]
+}, {
+	'text' : 'MQXATopicConnectionFactory(ibmTopicXA的连接)',
+	'type' : 'com.ibm.mq.jms.MQXATopicConnectionFactory',
+	'attr' : [ {
+		'name' : 'hostName',
+		'fieldLabel' : 'IP地址',
+		'allowBlank' : false
+	}, {
+		'xtype' : 'numberfield',
+		'name' : 'port',
+		'fieldLabel' : '端口',
+		'value' : 1414,
+		'allowBlank' : false
+	}, {
+		'name' : 'channel',
+		'fieldLabel' : '通道',
+		'allowBlank' : false
+	}, {
+		'name' : 'queueManager',
+		'fieldLabel' : '队列管理器',
+		'allowBlank' : false
+	}, {
+		'name' : 'transportType',
+		'fieldLabel' : '传输类型',
+		'value' : '1',
+		'allowBlank' : false
+	} ]
+}, {
+	'text' : 'ActiveMQConnectionFactory(apache的连接)',
+	'type' : 'org.apache.activemq.ActiveMQConnectionFactory',
+	'attr' : [ {
+		'name' : 'brokerURL',
+		'fieldLabel' : 'BrokerURL',
+		'value' : 'tcp://localhost:61616',
+		'allowBlank' : false
+	}, {
+		'xtype' : 'numberfield',
+		'name' : 'initialRedeliveryDelay',
+		'value' : 2000,
+		'fieldLabel' : '延迟时间'
+	}, {
+		'xtype' : 'numberfield',
+		'name' : 'maximumRedeliveries',
+		'value' : 2,
+		'fieldLabel' : '最大发送次数'
+	}]
+}, {
+	'text' : 'ActiveMQXAConnectionFactory(apache有事务的连接)',
+	'type' : 'org.apache.activemq.ActiveMQXAConnectionFactory',
+	'attr' : [ {
+		'name' : 'brokerURL',
+		'fieldLabel' : 'BrokerURL',
+		'value' : 'tcp://localhost:61616',
+		'allowBlank' : false
+	} , {
+		'xtype' : 'numberfield',
+		'name' : 'initialRedeliveryDelay',
+		'value' : 2000,
+		'fieldLabel' : '延迟时间'
+	}, {
+		'xtype' : 'numberfield',
+		'name' : 'maximumRedeliveries',
+		'value' : 2,
+		'fieldLabel' : '最大发送次数'
+	}]
+}]

@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="OA_NewsDraftView" Caption="新闻发布列表" FormType="View">
+    <DataSource>
+        <DataObject Key="OA_NewsDraftView" Caption="新闻发布列表">
+            <TableCollection>
+                <Table Key="OA_NewsDraft_H" Caption="新闻发布" TableMode="Detail" SourceType="Query" Persist="false" DBTableName="OA_NewsDraft_H">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="Status" Caption="状态" DataType="Integer"/>
+                    <Column Key="NO" Caption="任务编号" DataType="Varchar" Length="0"/>
+                    <Column Key="BillDate" Caption="发布日期" DataType="DateTime"/>
+                    <Column Key="Topic" Caption="主题" DataType="Varchar" Length="0"/>
+                    <Column Key="UrgencyDeg" Caption="紧急程度" DataType="Integer"/>
+                    <Column Key="EmpID" Caption="发布人员" DataType="Long"/>
+                    <Column Key="DeptID" Caption="部门" DataType="Long"/>
+                    <Statement>
+                        <![CDATA[select * from (select *  from OA_NewsDraft_H order by BillDate desc)h]]>
+                    </Statement>
+                </Table>
+                <Table Key="OA_NewsType_H" Caption="新闻类别" Persist="false" SourceType="Query" TableMode="Detail">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="New" Caption="新增">
+            <Action>
+                <![CDATA[New("OA_NewsDraft");]]>
+            </Action>
+        </Operation>
+        <Operation Key="Close" Caption="关闭" RefKey="Close"/>
+        <Operation Key="Setfirst_headVisible" Caption="查询" RefKey="Setfirst_headVisible"/>
+    </OperationCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板">
+                <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <SplitPanel Key="SplitPanel1" Height="100%" Caption="SplitPanel1">
+                    <Grid Key="Grid2" Caption="Grid2" Enable="false" NewEmptyRow="false" PageLoadType="DB" CanDelete="false" CanInsert="false">
+                        <GridColumnCollection>
+                            <GridColumn Key="NewsType" Caption="新闻类别" Width="255px" TreeType="Dict"/>
+                        </GridColumnCollection>
+                        <GridRowCollection>
+                            <GridRow Key="row1" RowHeight="35" TableKey="OA_NewsType_H">
+                                <GridCell Key="NewsType" CellType="Dict" Caption="新闻类别" ItemKey="OA_NewsType" Sort="Code">
+                                    <DataBinding ColumnKey="OID"/>
+                                </GridCell>
+                            </GridRow>
+                        </GridRowCollection>
+                        <RowClick>
+                            <![CDATA[var queryNewsTypeID = "select * from OA_NewsDraft_H n where n.NewsTypeID=? order by billdate desc";
+
+FillGridData("Grid1",DBQuery(queryNewsTypeID,NewsType),true)]]>
+                        </RowClick>
+                    </Grid>
+                    <FlexFlowLayoutPanel Key="FlexFlowLayoutPanel1" Caption="FlexFlowLayoutPanel1" Height="100%">
+                        <GridLayoutPanel Key="first_head" Height="120px" Padding="5px" Caption="基本信息" Visible="first_headVisible==1">
+                            <DatePicker Key="DatePicker1" Caption="发布日期" BuddyKey="Lab_DatePicker1" X="1" Y="1">
+                                <Condition ColumnKey="BillDate" TableKey="OA_NewsDraft_H" CondSign="between" Group="A" GroupHead="true"/>
+                            </DatePicker>
+                            <Label Key="Lab_DatePicker1" Caption="发布日期" X="0" Y="1"/>
+                            <DatePicker Key="DatePicker2" Caption="到" BuddyKey="Lab_DatePicker2" X="4" Y="1">
+                                <Condition ColumnKey="BillDate" TableKey="OA_NewsDraft_H" CondSign="between" Group="A" GroupTail="true"/>
+                            </DatePicker>
+                            <Label Key="Lab_DatePicker2" Caption="到" X="3" Y="1"/>
+                            <TextEditor Key="TextEditor1" Caption="单据编号" BuddyKey="Lab_TextEditor1" X="1" Y="0">
+                                <Condition ColumnKey="NO" TableKey="OA_NewsDraft_H" CondSign="like"/>
+                            </TextEditor>
+                            <Label Key="Lab_TextEditor1" Caption="单据编号" X="0" Y="0"/>
+                            <ComboBox Key="ComboBox1" Caption="状态" BuddyKey="Lab_ComboBox1" X="4" Y="0" SourceType="Status">
+                                <Condition ColumnKey="Status" TableKey="OA_NewsDraft_H" CondSign="="/>
+                            </ComboBox>
+                            <Label Key="Lab_ComboBox1" Caption="状态" X="3" Y="0"/>
+                            <TextEditor Key="TextEditor2" Caption="主题" BuddyKey="Lab_TextEditor2" X="7" Y="0">
+                                <Condition ColumnKey="Topic" TableKey="OA_NewsDraft_H" CondSign="like"/>
+                            </TextEditor>
+                            <Label Key="Lab_TextEditor2" Caption="主题" X="6" Y="0"/>
+                            <ComboBox Key="ComboBox2" Caption="紧急程度" BuddyKey="Lab_ComboBox2" X="7" Y="1">
+                                <Condition ColumnKey="UrgencyDeg" TableKey="OA_NewsDraft_H" CondSign="="/>
+                                <Item Caption="一般" Key="10" Value="10"/>
+                                <Item Caption="紧急" Key="20" Value="20"/>
+                                <Item Caption="特急" Key="30" Value="30"/>
+                                <Item Key="0" Value="0"/>
+                            </ComboBox>
+                            <Label Key="Lab_ComboBox2" Caption="紧急程度" X="6" Y="1"/>
+                            <Dict Key="Dict1" Caption="发布人员" BuddyKey="Lab_Dict1" X="1" Y="2" ItemKey="OA_Employee" AllowMultiSelection="true">
+                                <Condition ColumnKey="EmpID" TableKey="OA_NewsDraft_H" CondSign="in"/>
+                            </Dict>
+                            <Label Key="Lab_Dict1" Caption="发布人员" X="0" Y="2"/>
+                            <Dict Key="Dict2" Caption="发布部门" BuddyKey="Lab_Dict2" X="4" Y="2" ItemKey="OA_Department" AllowMultiSelection="true">
+                                <Condition ColumnKey="DeptID" TableKey="OA_NewsDraft_H" CondSign="in"/>
+                            </Dict>
+                            <Label Key="Lab_Dict2" Caption="发布部门" X="3" Y="2"/>
+                            <Button Key="Query" Caption="查询" X="8" Y="0">
+                                <OnClick>
+                                    <![CDATA[DealCondition();
+LoadData();
+ShowData()]]>
+                                </OnClick>
+                            </Button>
+                            <Button Key="Reset" Caption="重置" X="8" Y="1">
+                                <OnClick>
+                                    <![CDATA[ResetCondition()]]>
+                                </OnClick>
+                            </Button>
+                            <CheckBox Caption="表头可见" Key="first_headVisible" Visible="false" X="7" Y="2">
+                                <DataBinding DefaultValue="1"/>
+                            </CheckBox>
+                            <RowDefCollection RowGap="8">
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="8">
+                                <ColumnDef Width="80px"/>
+                                <ColumnDef Width="33%"/>
+                                <ColumnDef Width="10px"/>
+                                <ColumnDef Width="80px"/>
+                                <ColumnDef Width="33%"/>
+                                <ColumnDef Width="10px"/>
+                                <ColumnDef Width="80px"/>
+                                <ColumnDef Width="34%"/>
+                                <ColumnDef Width="80px"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                        <Grid Key="Grid1" Caption="Grid1" Enable="false" NewEmptyRow="false" PageLoadType="UI" CanDelete="false" CanInsert="false" Height="100%">
+                            <GridColumnCollection>
+                                <GridColumn Key="select_d" Caption="选择" Width="80px"/>
+                                <GridColumn Key="NO" Caption="单据编号" Width="200px"/>
+                                <GridColumn Key="BillDate" Caption="发布日期" Width="150px"/>
+                                <GridColumn Key="Status" Caption="状态" Width="80px"/>
+                                <GridColumn Key="Topic" Caption="主题" Width="250px"/>
+                                <GridColumn Key="UrgencyDeg" Caption="紧急程度" Width="80px"/>
+                                <GridColumn Key="EmpID" Caption="发布人员" Width="150px"/>
+                                <GridColumn Key="DeptID" Caption="发布部门" Width="200px"/>
+                                <GridColumn Key="OID" Caption="OID" Width="80px" Visible="FALSE"/>
+                            </GridColumnCollection>
+                            <GridRowCollection>
+                                <GridRow Key="row1" RowHeight="35" TableKey="OA_NewsDraft_H">
+                                    <GridCell Key="select_d" Caption="选择" CellType="CheckBox" IsSelect="true"/>
+                                    <GridCell Key="NO" Caption="单据编号" CellType="TextEditor">
+                                        <DataBinding ColumnKey="NO"/>
+                                    </GridCell>
+                                    <GridCell Key="BillDate" Caption="发布日期" CellType="DatePicker">
+                                        <DataBinding ColumnKey="BillDate"/>
+                                    </GridCell>
+                                    <GridCell Key="Status" Caption="状态" CellType="ComboBox" SourceType="Status">
+                                        <DataBinding ColumnKey="Status"/>
+                                    </GridCell>
+                                    <GridCell Key="Topic" Caption="主题" CellType="TextEditor">
+                                        <DataBinding ColumnKey="Topic"/>
+                                    </GridCell>
+                                    <GridCell Key="UrgencyDeg" Caption="紧急程度" CellType="ComboBox">
+                                        <DataBinding ColumnKey="UrgencyDeg"/>
+                                        <Item Caption="一般" Key="10" Value="10"/>
+                                        <Item Caption="紧急" Key="20" Value="20"/>
+                                        <Item Caption="特急" Key="30" Value="30"/>
+                                        <Item Key="0" Value="0"/>
+                                    </GridCell>
+                                    <GridCell Key="EmpID" Caption="发布人员" CellType="Dict" ItemKey="OA_Employee">
+                                        <DataBinding ColumnKey="EmpID"/>
+                                    </GridCell>
+                                    <GridCell Key="DeptID" Caption="发布部门" CellType="Dict" ItemKey="OA_Department">
+                                        <DataBinding ColumnKey="DeptID"/>
+                                    </GridCell>
+                                    <GridCell Key="OID" Caption="OID">
+                                        <DataBinding ColumnKey="OID"/>
+                                    </GridCell>
+                                </GridRow>
+                            </GridRowCollection>
+                            <RowDblClick>
+                                <![CDATA[Open("OA_NewsDraft", OID)]]>
+                            </RowDblClick>
+                        </Grid>
+                    </FlexFlowLayoutPanel>
+                    <SplitSize Size="300px"/>
+                    <SplitSize Size="100%"/>
+                </SplitPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

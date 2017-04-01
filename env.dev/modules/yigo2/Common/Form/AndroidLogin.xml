@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Caption="登录" Key="AndroidLogin">
+	<Body> 
+		<Block>
+			<LinearLayoutPanel Key="main" Orientation="vertical">
+			    
+				<Image Key="headImage" Caption="图片" Width="100%" Height="150dp" SourceType="Resource" Source="logo.png"/>
+				<TextEditor Key="code" Caption="登录用户" Width="100%" PreIcon="user.png" Margin="30dp" TopMargin="0dp" BottomMargin="10dp"/>
+				<PasswordEditor Key="password" Caption="登录密码" Width="100%" PreIcon="password.png" Margin="30dp" TopMargin="0dp" BottomMargin="10dp"/>
+				<LinearLayoutPanel Key="linearUser" Orientation="horizontal" Width="100%" Margin="30dp" TopMargin="0dp" BottomMargin="10dp">
+					<CheckBox Key="rememb" Caption="记住密码" Width="100%"  ForeColor ="#1E90FF"/>
+					<HyperLink Key="help" Caption="帮助"  ForeColor ="#1E90FF"/>
+				</LinearLayoutPanel>
+				<Button Key="loginBtn" Caption="登录" Width="100%" BackColor="#1E90FF" ForeColor ="#F8F8FF" Margin="30dp" TopMargin="0dp" BottomMargin="10dp">
+					<OnClick>
+						<![CDATA[
+						Login(code,password);
+						]]>
+					</OnClick>
+				</Button>
+			   
+				
+				<LinearLayoutPanel Key="linearBottom" Orientation="vertical" Width="100%" Height="60%">
+					<Label Key="content" Caption="" Width="100%"   Height="90%" ForeColor ="" />
+				    <Label Key="contact" Caption="服务热线：021-63960142" Width="100%"  ForeColor ="#1E90FF" />
+			    </LinearLayoutPanel>
+				
+			</LinearLayoutPanel>
+		</Block>
+	</Body>
+</Form>

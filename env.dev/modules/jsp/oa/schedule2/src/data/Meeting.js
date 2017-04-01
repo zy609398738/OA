@@ -1,0 +1,41 @@
+Ext.define('Ext.calendar.data.Meeting', {
+        extend: 'Ext.data.Model',
+        fields: [{
+			name: 'id',
+			type: 'string'
+		}, {
+			name: 'title',
+			type: 'string'
+		}, {
+			name: 'calendartype',
+			type: 'string'
+		}, {
+			name: 'createname',
+			type: 'string'
+		}, {
+			name: 'createdept',
+			type: 'string'
+		}, {
+			name: 'createdate',
+			type: 'string'
+		}, {
+			name: 'startdt',
+			type: 'string'
+		}, {
+			name: 'enddt',
+			type: 'string'
+		}, {
+			name: 'ad',
+			type: 'string'
+		}, {
+			name: 'matter',
+			type: 'string'
+		}, {
+			name: 'remider',
+			type: 'string'
+		}, {
+			name: 'min',
+			type: 'string'
+		}],
+        idProperty: 'id'
+    });

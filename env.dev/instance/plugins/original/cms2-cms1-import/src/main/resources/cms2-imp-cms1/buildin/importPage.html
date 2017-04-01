@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>CMS2-CMS1-Import</title>
+    #set( $REL_CTX_ROOT = "$this.eval('#!spring:cms.PageExp.RelContextRoot()')" )
+    #set( $DATAPATHS = "$this.eval('#!spring:T(com.bokesoft.redist.cms2.imp.cms1.exp.ImportExp).getDataPaths4Select()')" )
+   	<!-- jQuery -->
+    <script src="$REL_CTX_ROOT/cms2-imp-cms1/js/jquery/dist/jquery.min.js"></script>
+    <!-- css -->
+    <link href="$REL_CTX_ROOT/cms2-imp-cms1/css/cms2-imp-cms1.css" rel="stylesheet">
+</head>
+
+<body>
+    <div id="wrapper">
+    	<div class="title">
+    		<h3>CMS2 导入 CMS1的配置文件</h3>
+    	</div>
+    	<table>
+    		<thead>
+    			<td class="fromSite_td"><span>From Site</span></td>
+    			<td colspan="2"><span>To Site</span></td>
+    			<td class="namespace"><span>NameSpace</span></td>
+    		</thead>
+    		<tr>
+    			<td class="fromSite_td"><input id="fromSite" name="fromSite" type="text" /></td>
+    			<td>
+	    			<select id="toSite">
+	    				<option id="emptyOption" value="-1">请选择</optin>
+					</select>
+				</td>
+				<td>
+	    			<p id="toSiteShow"><p>
+				</td>
+    			<td class="namespace"><input id="nameSpace" name="nameSpace" type="text" /></td>
+    		</tr>
+    	</table>
+    	<div id="execDiv">
+    		<input type="button" id="exec" value="执行">
+    	</div>
+    	<div id="result">
+   		</div>
+    </div>
+
+    <script type="text/javascript">
+       $(function(){
+      	   var dataPaths = $DATAPATHS;
+      	   var selectIndex=0;
+      	   $(dataPaths).each(function(k){
+      	 	  $("#toSite").append($('<option>').html('site'+(selectIndex+1)).val(selectIndex));
+      	 	  selectIndex++;
+      	   });
+      	   $("#toSite").change(function(){
+      	      var index = $(this).val();
+      	 	  $("#toSiteShow").html(dataPaths[index]);
+      	 	  $("#emptyOption").remove();
+      	   });
+      	   $("#exec").click(function(){
+      	   		exec();
+      	   });
+        });
+      
+	    function exec(){
+	    	var fromsite = $("#fromSite").val();
+	    	var tositeIndex = $("#toSite").val();
+	    	var namespace = $("#nameSpace").val();
+	        var url='$REL_CTX_ROOT/cms2-cms1-imp.action';
+	        if(tositeIndex<0){
+	        	alert("请选择tosite");
+	        	return false;
+	        }
+	        if(null == namespace || namespace.trim().length == 0){
+	        	alert("请填写namespace");
+	        	return false;
+	        } 
+			var parameter = {
+				fromsite : fromsite,
+				tositeIndex : tositeIndex,
+				namespace : namespace
+			};
+ 		 	$.ajax({
+				type:"POST",
+				async: true,        //异步
+				contentType:"application/x-www-form-urlencoded; charset=UTF-8", //发送至服务器的数据类型, 这个是默认值
+				url:		url,    
+				data:		parameter,  
+				dataType:	'json',    //服务器返回的数据类型
+				success:function(data){    
+					$("#result").html('导入成功,具体请看日志');
+				},
+				error: function(xhr/*XMLHttpRequest对象*/, err/*错误信息*/, errStatus/*（可选）捕获的异常对象*/){
+				var msg = "数据访问错误";
+				var fail;
+				if ( xhr && xhr.status && xhr.status>=400 ){
+					var status = xhr.status;
+					var statusText = xhr.statusText;
+					msg += "("+status+"/"+statusText+")";
+					var respObj = xhr.responseJSON;
+					if (! respObj){
+						if (xhr.responseText){
+							try{
+								respObj = JSON.parse(xhr.responseText);
+							}catch(ex){
+								//Skip all errors
+							}
+						}
+					}
+					if (respObj){
+						fail = msg + "\n\n" + JSON.stringify(respObj, null, 4);
+						if (respObj.message){
+							msg = msg + " " + respObj.message;
+						}
+					}
+				}else{
+					if (err) {
+						msg += "("+err+")";
+					}
+					if (errStatus) {
+						msg += ": " + errStatus;
+					}
+					fail = msg;
+				}
+				alert(msg);
+				throw fail;
+			}
+			});
+      	};
+    </script>
+</body>
+
+</html>

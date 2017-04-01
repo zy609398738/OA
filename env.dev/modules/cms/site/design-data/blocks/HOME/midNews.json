@@ -1,0 +1,25 @@
+{
+	"@type":"com.bokesoft.cms2.impl.buildin.modelio.vo.BlockVO",
+	"block":{
+		"@type":"com.bokesoft.cms2.model.blocks.TmplBlock",
+		"formulaText":"cms.PageExp.Local('href', cms.PageExp.RelContextRoot()&{/news/newsview.page?id=});\ncms.PageExp.Local(\n\t\"titleData\",cms.DataExp.QueryList(\"select name,code from oa_newstype_h where cmstag=${tag} order by code\")\n);\ncms.PageExp.Local(\n\t\"data\",\n    cms.DataExp.QueryList(\"\n\t\tselect id,code,typeID,maker,col1,col2,col3,col4,CreateTime from\n\t\t\t(select ndh.oid as id, ndh.topic as col2, nth.code, nth.oid as typeID, nth.name as col1, \n      \t\t\t\topt.name as col3, opt.oid as maker, DATE_FORMAT(ndh.createTime,'%Y-%m-%d') as col4,ndh.CreateTime\n\t\t\t\tfrom OA_NewsDraft_H ndh\n\t\t\t\tjoin OA_NewsType_H nth on ndh.newsTypeID=nth.oid and ndh.status=1200 and nth.cmstag=${tag}\n\t\t\t\tjoin sys_Operator opt on ndh.creator=opt.oid\n\t\t\t\twhere  ${newscount}>(select count(*) n from OA_NewsDraft_H nd where nd.status=1200 and nd.NewsTypeID=ndh.NewsTypeID and nd.CreateTime>ndh.CreateTime)\n\t\t\t) NewsDraftHTO \n\t    order by code asc,CreateTime DESC\n    \")\n)",
+		"notes":"",
+		"parameters":[],
+		"tmplText":"#foreach($title in $titleData)\n\t<a href=\"newslist.page?typecode=$title.CODE\" class=\"a_more\" id=$title.CODE>更多</a> \n#end\n<div class=\"news_title\">\n \t#foreach($title in $titleData)\n       <span>$title.NAME</span>\n    #end\n </div>\n #foreach($title in $titleData)\n <div class=\" tab_item news_content\" style=\"height:384px;\">\n    <ul>\n  #foreach( $line in $data )\n      #if($line.CODE == $title.CODE)\n      <li> \n        <a href=\"$href$line.ID\" class=\"f333\">$esc.html($line.COL2)</a>\n        <span style=\"float:right;\" class=\"f999\">$esc.html($line.COL4)</span>\n      </li>\n      #end\n  #end\n    </ul>  \n </div>\n #end\n\n<script>\n \t$(\"#mid .first .right-todo .delivery-HOME-midNews .news_content\").hide().eq(0).show();\n  \t$(\"#mid .first .right-todo .delivery-HOME-midNews .a_more\").hide().eq(0).show();\n    $(\"#mid .first .right-todo .news_title span\").eq(0).addClass('bottomColor');\n    $(\"#mid .first .right-todo .news_title span\").hover(function(){\n    \t$(this).addClass('bottomColor').siblings().removeClass('bottomColor');\n        $(\"#mid .first .right-todo .delivery-HOME-midNews .news_content\").hide().eq($(this).index()).show();\n        $(\"#mid .first .right-todo .delivery-HOME-midNews .a_more\").hide().eq($(this).index()).show();\n    })\n    \n    $(\"#mid .cent .aside-right .delivery-HOME-midNews .news_content\").hide().eq(0).show();\n  \t$(\"#mid .cent .aside-right .delivery-HOME-midNews .a_more\").hide().eq(0).show();\n    $(\"#mid .cent .aside-right .news_title span\").eq(0).addClass('bottomColor');\n    $(\"#mid .cent .aside-right .news_title span\").hover(function(){\n    \t$(this).addClass('bottomColor').siblings().removeClass('bottomColor');\n        $(\"#mid .cent .aside-right .delivery-HOME-midNews .news_content\").hide().eq($(this).index()).show();\n        $(\"#mid .cent .aside-right .delivery-HOME-midNews .a_more\").hide().eq($(this).index()).show();\n    })\n</script>",
+		"type":"TMPL"
+	},
+	"code":"midNews",
+	"name":"首页中部新闻",
+	"params":[
+		{
+			"caption":"页面显示位置",
+			"key":"tag",
+			"type":"common"
+		},
+		{
+			"caption":"新闻显示数量",
+			"key":"newscount",
+			"type":"common"
+		}
+	]
+}

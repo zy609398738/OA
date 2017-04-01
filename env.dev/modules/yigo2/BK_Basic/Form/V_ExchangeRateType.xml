@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Caption="汇率类型" FormType="Dict" Key="V_ExchangeRateType">
+    <DataSource RefObjectKey="ExchangeRateType"/>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root">
+                <TabPanel Key="body">
+                    <GridLayoutPanel Key="body_basic" Padding="8px" Caption="基本信息(&amp;B)">
+                        <Label Key="Inner_Code" Caption="代码" X="0" Y="0"/>
+                        <TextEditor Key="Code" Caption="代码" BuddyKey="Inner_Code" X="1" Y="0" Visible="true" Enable="!ReadOnly()&amp;&amp;com.bokesoft.erp.basis.common.DocumentNumberUI.docNumberFieldEnable('Code')" InvalidChars="%*\&quot;+?&gt;&lt;:'">
+                            <DataBinding TableKey="BK_ExchangeRateType" ColumnKey="Code" CheckRule="iifs(com.bokesoft.erp.basis.common.DocumentNumberUI.docNumberFieldEnable('Code')&amp;&amp;Value('Code')='', '采用外部给号编码规则，请输入代码', true, true)"/>
+                        </TextEditor>
+                        <Label Key="Inner_Name" Caption="名称" X="0" Y="1"/>
+                        <TextEditor Key="Name" Caption="名称" BuddyKey="Inner_Name" X="1" Y="1" Visible="true" Enable="!ReadOnly()">
+                            <DataBinding TableKey="BK_ExchangeRateType" ColumnKey="Name"/>
+                        </TextEditor>
+                        <Label Key="Inner_NodeType" Caption="结点类型" X="0" Y="6"/>
+                        <ComboBox Key="NodeType" Caption="结点类型" BuddyKey="Inner_NodeType" X="1" Y="6" Visible="false" Enable="!ReadOnly()&amp;&amp;Status&lt;0">
+                            <DataBinding TableKey="BK_ExchangeRateType" ColumnKey="NodeType"/>
+                        </ComboBox>
+                        <CheckBox Caption="支持反向汇率" Enable="!ReadOnly()" Key="InvertExchRate" Visible="true" X="1" Y="5">
+                            <DataBinding TableKey="BK_ExchangeRateType" ColumnKey="InvertExchRate"/>
+                        </CheckBox>
+                        <Label Key="Inner_BuyExchRateTypeID" Caption="买入汇率类型" X="0" Y="3"/>
+                        <Dict Key="BuyExchRateTypeID" Caption="买入汇率类型" BuddyKey="Inner_BuyExchRateTypeID" X="1" Y="3" Visible="true" Enable="!ReadOnly()" ItemKey="ExchangeRateType">
+                            <DataBinding TableKey="BK_ExchangeRateType" ColumnKey="BuyExchRateTypeID"/>
+                        </Dict>
+                        <Label Key="Inner_SellExchRateTypeID" Caption="卖出汇率类型" X="0" Y="4"/>
+                        <Dict Key="SellExchRateTypeID" Caption="卖出汇率类型" BuddyKey="Inner_SellExchRateTypeID" X="1" Y="4" Visible="true" Enable="!ReadOnly()" ItemKey="ExchangeRateType">
+                            <DataBinding TableKey="BK_ExchangeRateType" ColumnKey="SellExchRateTypeID"/>
+                        </Dict>
+                        <Label Key="Inner_RefCurrencyID" Caption="参考货币" X="0" Y="2"/>
+                        <Dict Key="RefCurrencyID" Caption="参考货币" BuddyKey="Inner_RefCurrencyID" X="1" Y="2" Visible="true" Enable="!ReadOnly()" ItemKey="Currency">
+                            <DataBinding TableKey="BK_ExchangeRateType" ColumnKey="RefCurrencyID"/>
+                        </Dict>
+                        <RowDefCollection RowGap="5">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="5">
+                            <ColumnDef Width="100px"/>
+                            <ColumnDef Width="330px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <GridLayoutPanel Key="TAB1" Padding="8px" Caption="汇率">
+                        <Grid Key="grid0" X="0" Y="0">
+                            <GridColumnCollection>
+                                <GridColumn Key="DeleteDtl" Caption="删除" Width="80px"/>
+                                <GridColumn Key="ValidFrom" Caption="开始有效期" Width="80px"/>
+                                <GridColumn Key="IndirectExchRate" Caption="间接汇率值" Width="80px"/>
+                                <GridColumn Key="Label1" Width="80px"/>
+                                <GridColumn Key="FromRatio" Caption="原始因子" Width="80px"/>
+                                <GridColumn Key="FromCurrencyID" Caption="原始币种" Width="80px"/>
+                                <GridColumn Key="Label1_1" Width="80px"/>
+                                <GridColumn Key="DirectExctRate" Caption="直接汇率值" Width="80px"/>
+                                <GridColumn Key="Label1_2" Width="80px"/>
+                                <GridColumn Key="ToRatio" Caption="目标因子" Width="80px"/>
+                                <GridColumn Key="ToCurrencyID" Caption="目标币种" Width="80px"/>
+                            </GridColumnCollection>
+                            <GridRowCollection>
+                                <GridRow Key="row1" TableKey="BK_ExchangeRate">
+                                    <GridCell Key="DeleteDtl" Caption="删除" CellType="TextEditor" MaxLength="100"/>
+                                    <GridCell Key="ValidFrom" Caption="开始有效期" CellType="DatePicker">
+                                        <DataBinding ColumnKey="validfrom"/>
+                                    </GridCell>
+                                    <GridCell Key="IndirectExchRate" Caption="间接汇率值">
+                                        <DataBinding ColumnKey="indirectexchrate"/>
+                                    </GridCell>
+                                    <GridCell Key="Label1">
+                                        <DataBinding DefaultValue="*"/>
+                                    </GridCell>
+                                    <GridCell Key="FromRatio" Caption="原始因子">
+                                        <DataBinding ColumnKey="fromratio"/>
+                                    </GridCell>
+                                    <GridCell Key="FromCurrencyID" Caption="原始币种" CellType="Dict" ItemKey="Currency">
+                                        <DataBinding ColumnKey="fromcurrencyid"/>
+                                    </GridCell>
+                                    <GridCell Key="Label1_1">
+                                        <DataBinding DefaultValue="＝"/>
+                                    </GridCell>
+                                    <GridCell Key="DirectExctRate" Caption="直接汇率值">
+                                        <DataBinding ColumnKey="DirectExctRate"/>
+                                    </GridCell>
+                                    <GridCell Key="Label1_2">
+                                        <DataBinding DefaultValue="*"/>
+                                    </GridCell>
+                                    <GridCell Key="ToRatio" Caption="目标因子">
+                                        <DataBinding ColumnKey="toratio"/>
+                                    </GridCell>
+                                    <GridCell Key="ToCurrencyID" Caption="目标币种" CellType="Dict" ItemKey="Currency">
+                                        <DataBinding ColumnKey="tocurrencyid"/>
+                                    </GridCell>
+                                </GridRow>
+                            </GridRowCollection>
+                        </Grid>
+                        <RowDefCollection RowGap="5">
+                            <RowDef Height="100%"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="5">
+                            <ColumnDef Width="100%"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <GridLayoutPanel Key="TAB2" Padding="8px" Caption="买入卖出差异">
+                        <Grid Key="grid1" X="0" Y="0">
+                            <GridColumnCollection>
+                                <GridColumn Key="SpreadDeleteDtl" Caption="删除" Width="80px"/>
+                                <GridColumn Key="SpreadFromCurrencyID" Caption="原始币种" Width="80px"/>
+                                <GridColumn Key="SpreadToCurrencyID" Caption="目标币种" Width="80px"/>
+                                <GridColumn Key="SpreadValidFrom" Caption="开始有效期" Width="80px"/>
+                                <GridColumn Key="SpreadValue" Caption="差异" Width="80px"/>
+                                <GridColumn Key="SpreadFromRatio" Caption="原始因子" Width="80px"/>
+                                <GridColumn Key="Label1_3" Width="80px"/>
+                                <GridColumn Key="SpreadToRatio" Caption="目标因子" Width="80px"/>
+                            </GridColumnCollection>
+                            <GridRowCollection>
+                                <GridRow Key="row1" TableKey="BK_ExchangeRateSpread">
+                                    <GridCell Key="SpreadDeleteDtl" Caption="删除" CellType="TextEditor" MaxLength="100"/>
+                                    <GridCell Key="SpreadFromCurrencyID" Caption="原始币种" CellType="Dict" ItemKey="Currency">
+                                        <DataBinding ColumnKey="spreadfromcurrencyid"/>
+                                    </GridCell>
+                                    <GridCell Key="SpreadToCurrencyID" Caption="目标币种" CellType="Dict" ItemKey="Currency">
+                                        <DataBinding ColumnKey="spreadtocurrencyid"/>
+                                    </GridCell>
+                                    <GridCell Key="SpreadValidFrom" Caption="开始有效期" CellType="DatePicker">
+                                        <DataBinding ColumnKey="spreadvalidfrom"/>
+                                    </GridCell>
+                                    <GridCell Key="SpreadValue" Caption="差异">
+                                        <DataBinding ColumnKey="spreadvalue"/>
+                                    </GridCell>
+                                    <GridCell Key="SpreadFromRatio" Caption="原始因子">
+                                        <DataBinding ColumnKey="spreadfromratio"/>
+                                    </GridCell>
+                                    <GridCell Key="Label1_3">
+                                        <DataBinding DefaultValue=":"/>
+                                    </GridCell>
+                                    <GridCell Key="SpreadToRatio" Caption="目标因子">
+                                        <DataBinding ColumnKey="spreadtoratio"/>
+                                    </GridCell>
+                                </GridRow>
+                            </GridRowCollection>
+                        </Grid>
+                        <RowDefCollection RowGap="5">
+                            <RowDef Height="100%"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="5">
+                            <ColumnDef Width="100%"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <GridLayoutPanel Key="body_system" Padding="8px" Caption="系统信息(&amp;D)">
+                        <Label Key="Inner_Status" Caption="结点状态" X="0" Y="1"/>
+                        <ComboBox Key="Status" Caption="结点状态" BuddyKey="Inner_Status" X="1" Y="1" Visible="true" Enable="false">
+                            <DataBinding TableKey="BK_ExchangeRateType" ColumnKey="Status"/>
+                        </ComboBox>
+                        <Label Key="Inner_CreateByID" Caption="创建人员" X="0" Y="2"/>
+                        <Dict Key="CreateByID" Caption="创建人员" BuddyKey="Inner_CreateByID" X="1" Y="2" Visible="true" Enable="false" ItemKey="Operator">
+                            <DataBinding TableKey="BK_ExchangeRateType" ColumnKey="CREATOR" DefaultFormulaValue="GetOperator()"/>
+                        </Dict>
+                        <Label Key="Inner_CreateTime" Caption="创建时间" X="0" Y="3"/>
+                        <DatePicker Key="CreateTime" Caption="创建时间" BuddyKey="Inner_CreateTime" X="1" Y="3" Visible="true" Enable="false" OnlyDate="false">
+                            <DataBinding TableKey="BK_ExchangeRateType" ColumnKey="CREATETIME" DefaultFormulaValue="ServerDate()"/>
+                        </DatePicker>
+                        <Label Key="Inner_UpdateByID" Caption="修改人员" X="0" Y="4"/>
+                        <Dict Key="UpdateByID" Caption="修改人员" BuddyKey="Inner_UpdateByID" X="1" Y="4" Visible="true" Enable="false" ItemKey="Operator">
+                            <DataBinding TableKey="BK_ExchangeRateType" ColumnKey="MODIFIER" DefaultFormulaValue="GetOperator()"/>
+                        </Dict>
+                        <Label Key="Inner_UpdateTime" Caption="修改时间" X="0" Y="5"/>
+                        <DatePicker Key="UpdateTime" Caption="修改时间" BuddyKey="Inner_UpdateTime" X="1" Y="5" Visible="true" Enable="false" OnlyDate="false">
+                            <DataBinding TableKey="BK_ExchangeRateType" ColumnKey="MODIFYTIME" DefaultFormulaValue="ServerDate()"/>
+                        </DatePicker>
+                        <Label Key="Inner_Notes" Caption="备注" X="0" Y="6"/>
+                        <TextEditor Key="Notes" Caption="备注" BuddyKey="Inner_Notes" X="1" Y="6" Visible="true" Enable="!ReadOnly()">
+                            <DataBinding TableKey="BK_ExchangeRateType" ColumnKey="Notes"/>
+                        </TextEditor>
+                        <Label Key="Inner_ClientID" Caption="集团" X="0" Y="0"/>
+                        <Dict Key="ClientID" Caption="集团" BuddyKey="Inner_ClientID" X="1" Y="0" Visible="true" Enable="false" ItemKey="Client">
+                            <DataBinding TableKey="BK_ExchangeRateType" ColumnKey="clientid" DefaultFormulaValue="getClientID()"/>
+                        </Dict>
+                        <RowDefCollection RowGap="5">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="5">
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="330px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                </TabPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

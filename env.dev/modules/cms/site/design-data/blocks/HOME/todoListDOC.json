@@ -1,0 +1,13 @@
+{
+	"@type":"com.bokesoft.cms2.impl.buildin.modelio.vo.BlockVO",
+	"block":{
+		"@type":"com.bokesoft.cms2.model.blocks.TmplBlock",
+		"notes":"",
+		"parameters":[],
+		"tmplText":"<div class=\"ele-todo\">\n    <ul>\n  #foreach( $line in $data )\n    <li> \n  <p class=\"clearfix\">\n   <span class=\"ele-width3 fbold f333\"><a href=\"$href?WORKITEMID=$line.WORKITEMID&TYPE=todoList\" #if($target) target=\"$target\" #end>$esc.html($line.COL1)</a></span> <!--标题-->\n  </p>\n  <p class=\"clearfix\">\n      <span class=\"ele-width2\">发起人:$esc.html($line.COL4)</span><!--发起人--><span class=\"ele-width1\">$esc.html($line.COL2)</span><!--时间-->\n\n  </p>   \n </li>\n #end\n    </ul>  <script><!--$(\".tabtitle.\"+\"$bcode\").append(\"<i>\"+$bccount +\"</i>\");--></script>\n </div>",
+		"type":"TMPL"
+	},
+	"code":"todoListDOC",
+	"name":"首页待办公文",
+	"params":[]
+}

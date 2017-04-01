@@ -1,0 +1,9 @@
+{
+	"@type":"com.bokesoft.cms2.model.Action",
+	"actionExp":"oa.IMAction.buddies()",
+	"actionUrl":"/im-service/buddies.action",
+	"attributes":{"@type":"java.util.LinkedHashMap"},
+	"code":"IM-BUDDIES",
+	"name":"返回聊天伙伴信息",
+	"notes":""
+}

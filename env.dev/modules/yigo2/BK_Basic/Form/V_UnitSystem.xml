@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Caption="计量体系" FormType="Dict" Key="V_UnitSystem">
+    <DataSource RefObjectKey="UnitSystem"/>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root">
+                <TabPanel Key="body">
+                    <GridLayoutPanel Key="body_basic" Padding="8px" Caption="基本信息(&amp;B)">
+                        <Label Key="Inner_Code" Caption="代码" X="0" Y="0"/>
+                        <TextEditor Key="Code" Caption="代码" BuddyKey="Inner_Code" X="1" Y="0" Visible="true" Enable="!ReadOnly()&amp;&amp;com.bokesoft.erp.basis.common.DocumentNumberUI.docNumberFieldEnable('Code')" InvalidChars="%*\&quot;+?&gt;&lt;:'">
+                            <DataBinding TableKey="BK_UnitSystem" ColumnKey="Code" CheckRule="iifs(com.bokesoft.erp.basis.common.DocumentNumberUI.docNumberFieldEnable('Code')&amp;&amp;Value('Code')='', '采用外部给号编码规则，请输入代码', true, true)"/>
+                        </TextEditor>
+                        <Label Key="Inner_Name" Caption="名称" X="0" Y="1"/>
+                        <TextEditor Key="Name" Caption="名称" BuddyKey="Inner_Name" X="1" Y="1" Visible="true" Enable="!ReadOnly()">
+                            <DataBinding TableKey="BK_UnitSystem" ColumnKey="Name"/>
+                        </TextEditor>
+                        <Label Key="Inner_Unit" Caption="SI单位" X="0" Y="2"/>
+                        <Dict Key="Unit" Caption="SI单位" BuddyKey="Inner_Unit" X="1" Y="2" Visible="true" Enable="!ReadOnly()" ItemKey="Unit">
+                            <DataBinding TableKey="BK_UnitSystem" ColumnKey="Unit"/>
+                        </Dict>
+                        <CheckBox Caption="相关温度" Enable="!ReadOnly()" Key="TemperatureRel" Visible="true" X="0" XSpan="2" Y="3">
+                            <DataBinding TableKey="BK_UnitSystem" ColumnKey="TemperatureRel"/>
+                        </CheckBox>
+                        <CheckBox Caption="压力相关" Enable="!ReadOnly()" Key="PressureRel" Visible="true" X="0" XSpan="2" Y="4">
+                            <DataBinding TableKey="BK_UnitSystem" ColumnKey="PressureRel"/>
+                        </CheckBox>
+                        <Label Key="Inner_NodeType" Caption="结点类型" X="0" Y="13"/>
+                        <ComboBox Key="NodeType" Caption="结点类型" BuddyKey="Inner_NodeType" X="1" Y="13" Visible="false" Enable="!ReadOnly()&amp;&amp;Status&lt;0">
+                            <DataBinding TableKey="BK_UnitSystem" ColumnKey="NodeType"/>
+                        </ComboBox>
+                        <Label Key="UnitSysDem" Caption="测试单位的标注" X="0" Y="5" Visible="true" Enable="false" XSpan="2"/>
+                        <Label Key="Inner_UnitLength" Caption="长度" X="0" Y="6"/>
+                        <NumberEditor Key="UnitLength" Caption="长度" BuddyKey="Inner_UnitLength" X="1" Y="6" Visible="true" Enable="!ReadOnly()" IntegerValue="true" Precision="0" Scale="0">
+                            <DataBinding TableKey="BK_UnitSystem" ColumnKey="UnitLength"/>
+                        </NumberEditor>
+                        <Label Key="Inner_UnitMass" Caption="批量" X="0" Y="7"/>
+                        <NumberEditor Key="UnitMass" Caption="批量" BuddyKey="Inner_UnitMass" X="1" Y="7" Visible="true" Enable="!ReadOnly()" IntegerValue="true" Precision="0" Scale="0">
+                            <DataBinding TableKey="BK_UnitSystem" ColumnKey="UnitMass"/>
+                        </NumberEditor>
+                        <Label Key="Inner_UnitTime" Caption="时间" X="0" Y="8"/>
+                        <NumberEditor Key="UnitTime" Caption="时间" BuddyKey="Inner_UnitTime" X="1" Y="8" Visible="true" Enable="!ReadOnly()" IntegerValue="true" Precision="0" Scale="0">
+                            <DataBinding TableKey="BK_UnitSystem" ColumnKey="UnitTime"/>
+                        </NumberEditor>
+                        <Label Key="Inner_UnitCurrent" Caption="当前" X="0" Y="9"/>
+                        <NumberEditor Key="UnitCurrent" Caption="当前" BuddyKey="Inner_UnitCurrent" X="1" Y="9" Visible="true" Enable="!ReadOnly()" IntegerValue="true" Precision="0" Scale="0">
+                            <DataBinding TableKey="BK_UnitSystem" ColumnKey="UnitCurrent"/>
+                        </NumberEditor>
+                        <Label Key="Inner_UnitTemperature" Caption="温度" X="0" Y="10"/>
+                        <NumberEditor Key="UnitTemperature" Caption="温度" BuddyKey="Inner_UnitTemperature" X="1" Y="10" Visible="true" Enable="!ReadOnly()" IntegerValue="true" Precision="0" Scale="0">
+                            <DataBinding TableKey="BK_UnitSystem" ColumnKey="UnitTemperature"/>
+                        </NumberEditor>
+                        <Label Key="Inner_UnitMoleQuantity" Caption="克分子量" X="0" Y="11"/>
+                        <NumberEditor Key="UnitMoleQuantity" Caption="克分子量" BuddyKey="Inner_UnitMoleQuantity" X="1" Y="11" Visible="true" Enable="!ReadOnly()" IntegerValue="true" Precision="0" Scale="0">
+                            <DataBinding TableKey="BK_UnitSystem" ColumnKey="UnitMoleQuantity"/>
+                        </NumberEditor>
+                        <Label Key="Inner_UnitLuminosity" Caption="亮度" X="0" Y="12"/>
+                        <NumberEditor Key="UnitLuminosity" Caption="亮度" BuddyKey="Inner_UnitLuminosity" X="1" Y="12" Visible="true" Enable="!ReadOnly()" IntegerValue="true" Precision="0" Scale="0">
+                            <DataBinding TableKey="BK_UnitSystem" ColumnKey="UnitLuminosity"/>
+                        </NumberEditor>
+                        <CheckBox Caption="无计量体系" Enable="false" Key="IsNonSystem" Visible="false" X="1" Y="4">
+                            <DataBinding TableKey="BK_UnitSystem" ColumnKey="IsNonSystem" DefaultFormulaValue="iif(value('UnitLength')=0&amp;&amp;value('UnitMass')=0&amp;&amp;value('UnitTime')=0&amp;&amp;value('UnitCurrent')=0&amp;&amp;value('UnitTemperature')=0&amp;&amp;value('UnitMoleQuantity')=0&amp;&amp;value('UnitLuminosity')=0, 1, 0)"/>
+                        </CheckBox>
+                        <RowDefCollection RowGap="5">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="5">
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="330px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <GridLayoutPanel Key="body_system" Padding="8px" Caption="系统信息(&amp;D)">
+                        <Label Key="Inner_ClientID" Caption="集团" X="0" Y="0"/>
+                        <Dict Key="ClientID" Caption="集团" BuddyKey="Inner_ClientID" X="1" Y="0" Visible="true" Enable="false" ItemKey="Client">
+                            <DataBinding TableKey="BK_UnitSystem" ColumnKey="clientid" DefaultFormulaValue="getClientID()"/>
+                        </Dict>
+                        <Label Key="Inner_Status" Caption="结点状态" X="0" Y="1"/>
+                        <ComboBox Key="Status" Caption="结点状态" BuddyKey="Inner_Status" X="1" Y="1" Visible="true" Enable="false">
+                            <DataBinding TableKey="BK_UnitSystem" ColumnKey="Status"/>
+                        </ComboBox>
+                        <Label Key="Inner_CreateByID" Caption="创建人员" X="0" Y="2"/>
+                        <Dict Key="CreateByID" Caption="创建人员" BuddyKey="Inner_CreateByID" X="1" Y="2" Visible="true" Enable="false" ItemKey="Operator">
+                            <DataBinding TableKey="BK_UnitSystem" ColumnKey="CREATOR" DefaultFormulaValue="GetOperator()"/>
+                        </Dict>
+                        <Label Key="Inner_CreateTime" Caption="创建时间" X="0" Y="3"/>
+                        <DatePicker Key="CreateTime" Caption="创建时间" BuddyKey="Inner_CreateTime" X="1" Y="3" Visible="true" Enable="false" OnlyDate="false">
+                            <DataBinding TableKey="BK_UnitSystem" ColumnKey="CREATETIME" DefaultFormulaValue="ServerDate()"/>
+                        </DatePicker>
+                        <Label Key="Inner_UpdateByID" Caption="修改人员" X="0" Y="4"/>
+                        <Dict Key="UpdateByID" Caption="修改人员" BuddyKey="Inner_UpdateByID" X="1" Y="4" Visible="true" Enable="false" ItemKey="Operator">
+                            <DataBinding TableKey="BK_UnitSystem" ColumnKey="MODIFIER" DefaultFormulaValue="GetOperator()"/>
+                        </Dict>
+                        <Label Key="Inner_UpdateTime" Caption="修改时间" X="0" Y="5"/>
+                        <DatePicker Key="UpdateTime" Caption="修改时间" BuddyKey="Inner_UpdateTime" X="1" Y="5" Visible="true" Enable="false" OnlyDate="false">
+                            <DataBinding TableKey="BK_UnitSystem" ColumnKey="MODIFYTIME" DefaultFormulaValue="ServerDate()"/>
+                        </DatePicker>
+                        <Label Key="Inner_Notes" Caption="备注" X="0" Y="6"/>
+                        <TextEditor Key="Notes" Caption="备注" BuddyKey="Inner_Notes" X="1" Y="6" Visible="true" Enable="!ReadOnly()">
+                            <DataBinding TableKey="BK_UnitSystem" ColumnKey="Notes"/>
+                        </TextEditor>
+                        <RowDefCollection RowGap="5">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="5">
+                            <ColumnDef Width="120px"/>
+                            <ColumnDef Width="100%"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                </TabPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

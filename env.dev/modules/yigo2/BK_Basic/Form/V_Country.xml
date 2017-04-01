@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Caption="国家地区" FormType="Dict" Key="V_Country">
+    <DataSource RefObjectKey="Country"/>
+     <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root">
+                <TabPanel Key="body">
+                    <GridLayoutPanel Key="body_basic" Padding="8px" Caption="基本信息(&amp;B)">
+                        <Label Key="Inner_Code" Caption="代码" X="0" Y="0"/>
+                        <TextEditor Key="Code" Caption="代码" BuddyKey="Inner_Code" X="1" Y="0" Enable="!ReadOnly()&amp;&amp;com.bokesoft.erp.basis.common.DocumentNumberUI.docNumberFieldEnable('Code')" Visible="true" InvalidChars="%*\&quot;+?&gt;&lt;:'">
+                            <DataBinding TableKey="BK_Country" ColumnKey="Code" CheckRule="iifs(com.bokesoft.erp.basis.common.DocumentNumberUI.docNumberFieldEnable('Code')&amp;&amp;Value('Code')='', '采用外部给号编码规则，请输入代码', true, true)"/>
+                        </TextEditor>
+                        <Label Key="Inner_Name" Caption="名称" X="0" Y="1"/>
+                        <TextEditor Key="Name" Caption="名称" BuddyKey="Inner_Name" X="1" Y="1" Enable="!ReadOnly()" Visible="true">
+                            <DataBinding TableKey="BK_Country" ColumnKey="Name"/>
+                        </TextEditor>
+                        <Label Key="Inner_LongName" Caption="长名称" X="0" Y="2"/>
+                        <TextEditor Key="LongName" Caption="长名称" BuddyKey="Inner_LongName" X="1" Y="2" Enable="!ReadOnly()" Visible="true" InvalidChars="%*\&quot;+?&gt;&lt;:'" MaxLength="100">
+                            <DataBinding TableKey="BK_Country" ColumnKey="LongName"/>
+                        </TextEditor>
+                        <Label Key="Inner_LanguageID" Caption="语言" X="0" Y="3"/>
+                        <Dict Key="LanguageID" Caption="语言" BuddyKey="Inner_LanguageID" X="1" Y="3" Enable="!ReadOnly()" Visible="true" ItemKey="Language">
+                            <DataBinding TableKey="BK_Country" ColumnKey="LanguageID"/>
+                        </Dict>
+                        <Label Key="Inner_IndexBasedCurrencyID" Caption="索引币种" X="0" Y="4"/>
+                        <Dict Key="IndexBasedCurrencyID" Caption="索引币种" BuddyKey="Inner_IndexBasedCurrencyID" X="1" Y="4" Enable="!ReadOnly()" Visible="true" ItemKey="Currency">
+                            <DataBinding TableKey="BK_Country" ColumnKey="IndexBasedCurrencyID"/>
+                        </Dict>
+                        <Label Key="Inner_DateFormat" Caption="日期格式" X="0" Y="6"/>
+                        <ComboBox Key="DateFormat" Caption="日期格式" BuddyKey="Inner_DateFormat" X="1" Y="6" Enable="!ReadOnly()" Visible="true">
+                            <DataBinding TableKey="BK_Country" ColumnKey="DateFormat"/>
+                        </ComboBox>
+                        <Label Key="Inner_DecimalFormat" Caption="数值格式" X="0" Y="7"/>
+                        <ComboBox Key="DecimalFormat" Caption="数值格式" BuddyKey="Inner_DecimalFormat" X="1" Y="7" Enable="!ReadOnly()" Visible="true">
+                            <DataBinding TableKey="BK_Country" ColumnKey="DecimalFormat"/>
+                        </ComboBox>
+                        <Label Key="Inner_NodeType" Caption="结点类型" X="0" Y="8"/>
+                        <ComboBox Key="NodeType" Caption="结点类型" BuddyKey="Inner_NodeType" X="1" Y="8" Visible="false" Enable="!ReadOnly()&amp;&amp;Status&lt;0">
+                            <DataBinding TableKey="BK_Country" ColumnKey="NodeType"/>
+                        </ComboBox>
+                        <Label Key="Inner_HardCurrencyID" Caption="硬通币种" X="0" Y="5"/>
+                        <Dict Key="HardCurrencyID" Caption="硬通币种" BuddyKey="Inner_HardCurrencyID" X="1" Y="5" Enable="!ReadOnly()" Visible="true" ItemKey="Currency">
+                            <DataBinding TableKey="BK_Country" ColumnKey="HardCurrencyID"/>
+                        </Dict>
+                        <RowDefCollection RowGap="5">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="5">
+                            <ColumnDef Width="100px"/>
+                            <ColumnDef Width="330px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <GridLayoutPanel Key="body_system" Padding="8px" Caption="系统信息(&amp;D)">
+                        <Label Key="Inner_Status" Caption="结点状态" X="0" Y="1"/>
+                        <ComboBox Key="Status" Caption="结点状态" BuddyKey="Inner_Status" X="1" Y="1" Visible="true" Enable="false">
+                            <DataBinding TableKey="BK_Country" ColumnKey="Status"/>
+                        </ComboBox>
+                        <Label Key="Inner_CREATOR" Caption="创建人员" X="0" Y="2"/>
+                        <Dict Key="CREATOR" Caption="创建人员" BuddyKey="Inner_CREATOR" X="1" Y="2" Enable="false" Visible="true" ItemKey="Operator">
+                            <DataBinding TableKey="BK_Country" ColumnKey="CREATOR" DefaultFormulaValue="GetOperator()"/>
+                        </Dict>
+                        <Label Key="Inner_CREATETIME" Caption="创建时间" X="0" Y="3"/>
+                        <DatePicker Key="CREATETIME" Caption="创建时间" BuddyKey="Inner_CREATETIME" X="1" Y="3" Enable="false" Visible="true" OnlyDate="false">
+                            <DataBinding TableKey="BK_Country" ColumnKey="CREATETIME" DefaultFormulaValue="ServerDate()"/>
+                        </DatePicker>
+                        <Label Key="Inner_MODIFIER" Caption="修改人员" X="0" Y="4"/>
+                        <Dict Key="MODIFIER" Caption="修改人员" BuddyKey="Inner_MODIFIER" X="1" Y="4" Enable="false" Visible="true" ItemKey="Operator">
+                            <DataBinding TableKey="BK_Country" ColumnKey="MODIFIER" DefaultFormulaValue="GetOperator()"/>
+                        </Dict>
+                        <Label Key="Inner_MODIFYTIME" Caption="修改时间" X="0" Y="5"/>
+                        <DatePicker Key="MODIFYTIME" Caption="修改时间" BuddyKey="Inner_MODIFYTIME" X="1" Y="5" Enable="false" Visible="true" OnlyDate="false">
+                            <DataBinding TableKey="BK_Country" ColumnKey="MODIFYTIME" DefaultFormulaValue="ServerDate()"/>
+                        </DatePicker>
+                        <Label Key="Inner_Notes" Caption="备注" X="0" Y="6"/>
+                        <TextEditor Key="Notes" Caption="备注" BuddyKey="Inner_Notes" X="1" Y="6" Enable="!ReadOnly()" Visible="true">
+                            <DataBinding TableKey="BK_Country" ColumnKey="Notes"/>
+                        </TextEditor>
+                        <Label Key="Inner_ClientID" Caption="集团" X="0" Y="0"/>
+                        <Dict Key="ClientID" Caption="集团" BuddyKey="Inner_ClientID" X="1" Y="0" Enable="false" Visible="true" ItemKey="Client">
+                            <DataBinding TableKey="BK_Country" ColumnKey="ClientID" DefaultFormulaValue="getClientID()"/>
+                        </Dict>
+                        <RowDefCollection RowGap="5">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="5">
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="330px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                </TabPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>
