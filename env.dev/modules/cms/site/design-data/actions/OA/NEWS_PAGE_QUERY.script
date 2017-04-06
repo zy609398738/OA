@@ -1,0 +1,3 @@
+cms.ActionExp.Data(cms.DataExp.PagingQuery({select ond.oid,ond.topic,ont.name as typename,DATE_FORMAT(ond.CreateTime,'%Y-%m-%d') as newsdate,sys.name as author,ond.NewsContent,oph.path
+                   from oa_newsdraft_h ond LEFT JOIN oa_newstype_h ont on ond.NewsTypeID=ont.OID LEFT JOIN sys_operator sys on sys.OID=ond.Creator LEFT JOIN (select min(oid),path,soid from oa_newsdraft_pho group by path,soid) oph on oph.soid=ond.oid}&cms.ReqExp.Var('whereString')&{ order by ond.CreateTime desc},5,cms.ReqExp.Var('pageNo')));
+cms.ActionExp.Viewer({json});

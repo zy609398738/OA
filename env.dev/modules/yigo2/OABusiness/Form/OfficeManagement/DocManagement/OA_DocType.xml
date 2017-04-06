@@ -24,6 +24,8 @@
                     <Column Caption="备注" DataType="Varchar" Key="Notes"/>
                     <Column Caption="单据Key" DataType="Varchar" Key="BillKey"/>
                     <Column Caption="集团" DataType="Long" Key="ClusterID"/>
+                    <Column Key="ViewAcl" Caption="阅读权限" DataType="Varchar" Length="4000"/>
+                    <Column Key="OptIDs" Caption="参与者ids" DataType="Varchar" Length="4000"/>
                 </Table>
             </TableCollection>
         </DataObject>
@@ -41,34 +43,51 @@
                 </ToolBar>
                 <TabPanel Caption="TabPanel1" Height="100%" Key="TabPanel1">
                     <GridLayoutPanel Key="first_head" Padding="5px" Height="pref" Caption="基本信息">
-                        <TextEditor Key="Code" Caption="代码" BuddyKey="Lab_Code" X="1" Y="0">
+                        <TextEditor Key="Code" Caption="代码" BuddyKey="Lab_Code" X="1" Y="0" XSpan="2">
                             <DataBinding ColumnKey="Code" TableKey="OA_DocType_H" Required="true"/>
                         </TextEditor>
                         <Label Key="Lab_Code" Caption="代码" X="0" Y="0"/>
-                        <TextEditor Key="Name" Caption="名称" BuddyKey="Lab_Name" X="4" Y="0">
+                        <TextEditor Key="Name" Caption="名称" BuddyKey="Lab_Name" X="5" Y="0" XSpan="2">
                             <DataBinding ColumnKey="Name" TableKey="OA_DocType_H" Required="true"/>
                         </TextEditor>
-                        <Label Key="Lab_Name" Caption="名称" X="3" Y="0"/>
-                        <ComboBox Key="NodeType" Caption="节点类型" BuddyKey="Lab_NodeType" X="1" Y="1">
+                        <Label Key="Lab_Name" Caption="名称" X="4" Y="0"/>
+                        <ComboBox Key="NodeType" Caption="节点类型" BuddyKey="Lab_NodeType" X="1" Y="1" XSpan="2">
                             <DataBinding ColumnKey="NodeType" TableKey="OA_DocType_H" DefaultValue="0"/>
                             <Item Caption="汇总节点" Key="1" Value="1"/>
                             <Item Caption="明细节点" Key="0" Value="0"/>
                         </ComboBox>
                         <Label Key="Lab_NodeType" Caption="节点类型" X="0" Y="1"/>
-                        <Dict Key="ParentID" Caption="父节点" BuddyKey="Lab_ParentID" X="4" Y="1" ItemKey="OA_DocType">
+                        <Dict Key="ParentID" Caption="父节点" BuddyKey="Lab_ParentID" X="5" Y="1" ItemKey="OA_DocType" XSpan="2">
                             <DataBinding ColumnKey="ParentID" TableKey="OA_DocType_H"/>
                         </Dict>
-                        <Label Key="Lab_ParentID" Caption="父节点" X="3" Y="1"/>
+                        <Label Key="Lab_ParentID" Caption="父节点" X="4" Y="1"/>
+                        <TextArea Key="ViewAcl" Caption="阅读权限" BuddyKey="Lab_ViewAcl" X="1" Y="2" XSpan="5" YSpan="2">
+                            <DataBinding ColumnKey="ViewAcl" TableKey="OA_DocType_H"/>
+                        </TextArea>
+                        <Label Key="Lab_ViewAcl" Caption="阅读权限" X="0" Y="2"/>
+                        <HyperLink Caption="人员选择" Key="EmpSelect" X="6" Y="2">
+                            <OnClick>
+                                <![CDATA[OA_ShowEmpSelectOpt()]]>
+                            </OnClick>
+                        </HyperLink>
+                        <TextArea Key="OptIDs" Caption="参与者ids" BuddyKey="Lab_OptIDs" X="1" Y="3" Visible="false" XSpan="5">
+                            <DataBinding ColumnKey="OptIDs" TableKey="OA_DocType_H"/>
+                        </TextArea>
+                        <Label Key="Lab_OptIDs" Caption="参与者ids" X="0" Y="3"/>
                         <RowDefCollection RowGap="8">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
                             <RowDef Height="30px"/>
                             <RowDef Height="30px"/>
                         </RowDefCollection>
                         <ColumnDefCollection ColumnGap="8">
                             <ColumnDef Width="80px"/>
                             <ColumnDef Width="50%"/>
+                            <ColumnDef Width="80px"/>
                             <ColumnDef Width="20px"/>
                             <ColumnDef Width="80px"/>
                             <ColumnDef Width="50%"/>
+                            <ColumnDef Width="80px"/>
                         </ColumnDefCollection>
                     </GridLayoutPanel>
                     <GridLayoutPanel Caption="系统信息" Height="1%" Key="SysTab">
@@ -77,7 +96,7 @@
                         </Dict>
                         <Label Caption="创建人员" Key="Lab_Creator" X="0" Y="0"/>
                         <Label Caption="创建时间" Key="Lab_CreateTime" X="3" Y="0"/>
-                        <DatePicker BuddyKey="Lab_CreateTime" Caption="创建时间" Enable="false" Key="CreateTime" OnlyDate="false" X="4" Y="0">
+                        <DatePicker BuddyKey="Lab_CreateTime" Caption="创建时间" Enable="false" Key="CreateTime" X="4" Y="0">
                             <DataBinding ColumnKey="CreateTime" TableKey="OA_DocType_H" DefaultFormulaValue="ServerDate()" Required="true"/>
                         </DatePicker>
                         <Label Caption="修改人员" Key="Lab_Modifier" X="0" Y="1"/>
@@ -85,7 +104,7 @@
                             <DataBinding ColumnKey="Modifier" TableKey="OA_DocType_H" DefaultFormulaValue="GetOperator()" Required="true"/>
                         </Dict>
                         <Label Caption="修改时间" Key="Lab_ModifyTime" X="3" Y="1"/>
-                        <DatePicker BuddyKey="Lab_ModifyTime" Caption="修改时间" Enable="false" Key="ModifyTime" OnlyDate="false" X="4" Y="1">
+                        <DatePicker BuddyKey="Lab_ModifyTime" Caption="修改时间" Enable="false" Key="ModifyTime" X="4" Y="1">
                             <DataBinding ColumnKey="ModifyTime" TableKey="OA_DocType_H" DefaultFormulaValue="ServerDate()" Required="true"/>
                         </DatePicker>
                         <Label Caption="备注" Key="Lab_Notes" X="0" Y="2"/>
@@ -118,4 +137,16 @@
             </FlexFlowLayoutPanel>
         </Block>
     </Body>
+    <MacroCollection>
+        <Macro Key="OA_ShowEmpSelectOpt">
+            <![CDATA[SetPara("OperatorSelID", OA_GetOperatorSelID());
+IIF(GetPara("OperatorSelID")>0,
+    Open("OA_OperatorSel", GetPara("OperatorSelID"), "modal","SourceKey:{BillKey},SourceID:{GetOID()},Tag1:{'ViewAcl'},FieldKey1:{'ViewAcl'},FieldKey2:{'OptIDs'}"),
+    New("OA_OperatorSel","modal","SourceKey:{BillKey},SourceID:{GetOID()},Tag1:{'ViewAcl'},FieldKey1:{'ViewAcl'},FieldKey2:{'OptIDs'}")
+);]]>
+        </Macro>
+        <Macro Key="OA_GetOperatorSelID">
+            <![CDATA[DBQueryValue("Select OID From OA_OperatorSel_H Where SourceKey=? and SourceID=? and Tag1=? ", BillKey,GetOID(),"ViewAcl");]]>
+        </Macro>
+    </MacroCollection>
 </Form>

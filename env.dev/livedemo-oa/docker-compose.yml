@@ -22,7 +22,7 @@ services:
             - LANG=zh_CN.UTF-8      #支持在 docker logs 中输出中文字符
             - LC_ALL="zh_CN.UTF-8" 
             - TZ=Asia/Shanghai      #修正容器时区
-            - oauserID=1001
+            - YIGO_UID=1001
         links:
             - yigo-db        #通过 link 的方式访问数据库, 那么数据库就不用 export 3306 端口
 

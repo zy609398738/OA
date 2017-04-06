@@ -1,0 +1,32 @@
+<!--<iframe id="data-iframe" marginheight=0 marginwidth=0 frameborder=0 src="/yigo/jsp/oa/meeting/pocketmeeting.html" style="width:100%;height:180px;overfow-x:hidden;"></iframe>-->
+<div class="meeting_manage">
+  #foreach($line in $data)
+    <div class="meeting-notice">
+      <a href="#" onclick="openParentForm('OA_MeetingInSide',$line.OID)" class="f333">
+        <h2>$line.TOPIC</h2>
+      </a>
+      <span class="emp_meeting f999">时间：$line.STARTTIME</span>
+      <span class="emp_meeting f999">地点：$line.ADDRE</span>
+      <span class="emp_meeting f999">发起人：$line.CREATOR</span>
+    </div>
+  #end
+  <div class="meeting_select" style="text-align: center;">
+    #foreach($line in $data)
+        #if($data.size()>1)
+       	   #if($line.URGENCYDEG==10)
+           <b class="mark_common trigger" title="一般"></b>
+           #elseif($line.URGENCYDEG==20)
+            <b class="mark_import trigger" title="重要"></b>
+           #else
+            <b class="mark_urge trigger" title="紧急"></b>
+           #end
+        #end
+    #end
+  </div>
+</div><a href="#" class="a_more" onclick="openParentEntry('OABusiness/OA/OA_PersonalUse/MeetingManagement/OA_ParticipantMList')">更多</a>
+<script>
+    $(".meeting-notice").hide().eq(0).show();
+    $(".meeting_select .trigger").click(function(){
+  		$(".meeting-notice").hide().eq($(this).index()).show();
+    })
+</script>

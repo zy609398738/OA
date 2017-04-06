@@ -102,7 +102,7 @@
             <EntryItem Caption="发文类型" FormKey="DictEdit" Key="OA_FileType" Parameters="FormKey=OA_FileType" Type="Form"/>
             <EntryItem Caption="发文字号" FormKey="DictEdit" Key="OA_WordSize" Parameters="FormKey=OA_WordSize" Type="Form"/>
             <EntryItem Caption="日程类别" FormKey="DictEdit" Key="OA_ScheduleType" Parameters="FormKey=OA_ScheduleType" Type="Form"/>
-			<EntryItem Caption="文档类别" FormKey="DictEdit" Key="OA_DocType" Parameters="FormKey=OA_DocType" Type="Form"/>
+            <EntryItem Caption="文档类别" FormKey="DictEdit" Key="OA_DocType" Parameters="FormKey=OA_DocType" Type="Form"/>
             <EntryItem Caption="新闻类别" FormKey="DictEdit" Key="OA_NewsType" Parameters="FormKey=OA_NewsType" Type="Form"/>
             <EntryItem Caption="常用链接" FormKey="OA_CommonLinkView" Key="OA_CommonLinkView" Type="Form"/>
             <EntryItem Caption="印章名称" FormKey="DictEdit" Key="OA_Seal" Parameters="FormKey=OA_Seal" Type="Form"/>

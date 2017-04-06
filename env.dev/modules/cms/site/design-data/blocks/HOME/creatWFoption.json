@@ -5,7 +5,7 @@
 		"formulaText":"",
 		"notes":"",
 		"parameters":[],
-		"tmplText":"<script type=\"text/javascript\">\n\tfunction newWorkflow(){\n\t    cms.Page.popupDialog(800,550, function(dialog){//\"800是弹出层宽，600是弹出层高，function是回调函数\n\t    cms.Page.replaceRegion(\n\t    dialog.contentSelector, \n\t    \"/yigo/new-workflow.page\",\n\t    {},\n\t    function(htmlText){\n             //todo\n\t\t});\n\t });\n\t};\n</script>\n<p class=\"ele-handle\">\n  <a href=\"#\" class=\"create-flowfile\" onclick=\"openParentEntry('OA/OA/OA_Approval/OA_CearteWorkflow')\">\n  <span>创建新流程</span>\n  </a>\n</p>\n",
+		"tmplText":"<script type=\"text/javascript\">\n\tfunction newWorkflow(){\n\t    cms.Page.popupDialog(800,550, function(dialog){//\"800是弹出层宽，600是弹出层高，function是回调函数\n\t    cms.Page.replaceRegion(\n\t    dialog.contentSelector, \n\t    \"/yigo/new-workflow.page\",\n\t    {},\n\t    function(htmlText){\n             //todo\n\t\t});\n\t });\n\t};\n</script>\n<p class=\"ele-handle\">\n  <a href=\"#\" class=\"create-flowfile\" onclick=\"openParentEntry('OABusiness/OA/OA_Approval/OA_CearteWorkflow')\">\n  <span>创建新流程</span>\n  </a>\n</p>\n",
 		"type":"TMPL"
 	},
 	"code":"creatWFoption",

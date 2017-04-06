@@ -1,6 +1,6 @@
 {
 	"@type":"com.bokesoft.cms2.model.Action",
-	"actionExp":"cms.ActionExp.Data(cms.DataExp.PagingQuery({select ond.oid,ond.topic,ont.name as typename,DATE_FORMAT(ond.CreateTime,'%Y-%m-%d') as newsdate,sys.name as author,ond.NewsContent,oph.path\n                   from oa_newsdraft_h ond LEFT JOIN oa_newstype_h ont on ond.NewsTypeID=ont.OID LEFT JOIN sys_operator sys on sys.OID=ond.Creator LEFT JOIN (select min(oid),path,soid from oa_newsdraft_pho group by soid) oph on oph.soid=ond.oid}&cms.ReqExp.Var('whereString')&{ order by ond.CreateTime desc},5,cms.ReqExp.Var('pageNo')));\ncms.ActionExp.Viewer({json});",
+	"actionExp":"",
 	"actionUrl":"/news/pagesquery.action",
 	"attributes":{"@type":"java.util.LinkedHashMap"},
 	"code":"NEWS_PAGE_QUERY",

@@ -1,5 +1,12 @@
 #!/bin/bash
-useradd -mU -u ${oauserID} -d /home/oauser -s /bin/bash oauser
+
+# 检查运行的用户(UID)是否存在
+grep "\:${YIGO_UID}\:" /etc/passwd
+if [ $? -ne 0 ]
+then
+    useradd -mU -u ${YIGO_UID} -d /home/u99 -s /bin/bash u99
+fi
+
 # Javascript debug option
 #export THINKBASE_NET_RHINO_DEBUGGER="local://CMS"
 
@@ -22,5 +29,7 @@ export DB_PASSWORD="${DB_PASSWORD}"
 
 # 最后简单的调用 boot.sh
 chmod 777 "$PROFILE/../../instance/etc/runner/boot.sh"
-echo "su oauser -c $PROFILE/../../instance/etc/runner/boot.sh"
-su oauser -c "source /etc/profile;$PROFILE/../../instance/etc/runner/boot.sh"
+echo "su u99 -c $PROFILE/../../instance/etc/runner/boot.sh"
+su u99 -c "source /etc/profile;$PROFILE/../../instance/etc/runner/boot.sh"
+
+
