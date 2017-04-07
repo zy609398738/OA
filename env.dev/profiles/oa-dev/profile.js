@@ -73,7 +73,7 @@ webapp.registerWebAppAlias("/bokesoft-messager", "../instance/services/bokesoft.
 //后引入IM
 profile.registerPlugin("${PRODUCT_REPO}/../../services/bokesoft.com/messager/server");
 /** 环境变量-IM服务器的地址(用于服务端连接) */
-env.IM_SERVER_ADDR=os.getProp("IM_SERVER_ADDR", "http://localhost:7778/boke-messager");
+env.IM_SERVER_ADDR=os.getProp("IM_SERVER_ADDR", "http://localhost:57778/boke-messager");
 
 /** 调试设置 */
 profile.JAVA_OPTS = "-server -Xmx900m -XX:MaxNewSize=128m -Djava.awt.headless=true";

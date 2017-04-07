@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<AppDefinition>
+   <App Key="OA" Caption="协同办公App">
+      <RefProject Key="OA" Caption="协同办公"/>
+      <RefProject Key="Mobile" Caption="移动端模块"/>
+   </App>
+</AppDefinition>

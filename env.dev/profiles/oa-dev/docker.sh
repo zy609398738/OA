@@ -30,6 +30,7 @@ export DB_PASSWORD="${DB_PASSWORD}"
 # 最后简单的调用 boot.sh
 chmod 777 "$PROFILE/../../instance/etc/runner/boot.sh"
 echo "su u99 -c $PROFILE/../../instance/etc/runner/boot.sh"
+cd ${PROFILE}
 su u99 -c "source /etc/profile;$PROFILE/../../instance/etc/runner/boot.sh"
 
 

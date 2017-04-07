@@ -12,6 +12,7 @@ services:
         command: "/app/profiles/oa-dev/docker.sh"
         ports:
             - "50001:8080"
+            - "57778:7778"
         volumes:
             - ./../../oademo:/app
         environment:
