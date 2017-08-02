@@ -25,7 +25,7 @@ public class MyActiveConnectData extends AttachmentBase {
 	private int total;
 	private String currentReceiver;
 	private List<SessionStat> sessions = new ArrayList<SessionStat>();
-
+	
 	public int getTotal() {
 		return total;
 	}
@@ -53,7 +53,7 @@ public class MyActiveConnectData extends AttachmentBase {
 		private Message lastMsg;
 		private long lastTime;
 
-		protected SessionStat(){
+		public SessionStat(){
 			//Empty constructor just for JSON parsing
 		}
 		public SessionStat(String code, String type, int count){
@@ -61,7 +61,7 @@ public class MyActiveConnectData extends AttachmentBase {
 			this.type = type;
 			this.count = count;
 		}
-
+		
 		public String getCode() {
 			return code;
 		}
@@ -72,16 +72,16 @@ public class MyActiveConnectData extends AttachmentBase {
 			return count;
 		}
 
-		/** Protected setter to avoid external modification, just for JSON parsing */
-		protected void setCode(String code) {
+		/** Setter just for JSON parsing */
+		public void setCode(String code) {
 			this.code = code;
 		}
-		/** Protected setter to avoid external modification, just for JSON parsing */
-		protected void setCount(int count) {
+		/** Setter just for JSON parsing */
+		public void setCount(int count) {
 			this.count = count;
 		}
-		/** Protected setter to avoid external modification, just for JSON parsing */
-		protected void setType(String type) {
+		/** Setter just for JSON parsing */
+		public void setType(String type) {
 			this.type = type;
 		}
 

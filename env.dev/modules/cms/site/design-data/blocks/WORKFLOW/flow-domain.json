@@ -1,0 +1,14 @@
+{
+	"@type":"com.bokesoft.cms2.impl.buildin.modelio.vo.BlockVO",
+	"block":{
+		"@type":"com.bokesoft.cms2.model.blocks.TmplBlock",
+		"formulaText":"",
+		"notes":"",
+		"parameters":[],
+		"tmplText":"",
+		"type":"TMPL"
+	},
+	"code":"flow-domain",
+	"name":"依流程域",
+	"params":[]
+}

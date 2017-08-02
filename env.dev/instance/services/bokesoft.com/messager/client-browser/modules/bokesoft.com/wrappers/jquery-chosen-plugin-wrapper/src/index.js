@@ -1,7 +1,7 @@
 "use strict";
 /* The implementations */
 var $ = require("jquery");
-if (! window.jQuery) window.jQuery = $;
+if (! window.jQuery) window.jQuery = window.$ = $;
 
 require("chosen-js");
 require("chosen-js/chosen.css");

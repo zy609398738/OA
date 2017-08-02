@@ -65,7 +65,7 @@
 		distanceToBottom	:100,
 		hideRegionHeight	:0,
 		distanceToPage 		:0,
-		path			:'/yigo/_$/resources/@buildin/images/TOP.gif'
+		path			:'/yigo/_$/images/main/top.png'
 		
 	});	
 	
@@ -264,4 +264,55 @@ function openParentWebForm(url,formCaption) {
     parent.openWebForm(url,formCaption);
 }
 
+//在父界面中执行公式
+function execParent(formID, formula) {
+    parent.exec(formID, formula);
+}
 
+//在界面中执行公式
+function execForm(formula) {
+	var formID=getUrlParam('formID');
+    execParent(formID, formula);
+}
+
+//关注流程
+function attentionWorkflow(workitemID,oid,formKey) {
+    execForm("OA_AttentionWorkflow("+workitemID+","+oid+",'"+formKey+"')");
+}
+
+//取消关注流程
+function attentionWorkflowCancel(workitemID,oid) {
+    execForm("OA_AttentionWorkflowCancel("+workitemID+","+oid+")");
+}
+
+
+//新增单据
+function newForm(formKey,target,paras) {
+    execForm("New('"+formKey+"','"+target+"',\""+paras+"\")");
+}
+
+//打开单据
+function openForm(formKey,oid,target,paras) {
+    execForm("Open('"+formKey+"',"+oid+",'"+target+"',\""+paras+"\")");
+}
+
+//打开通过工作项标识打开表单
+function openWorkitem(workitem) {
+    execForm("OpenWorkitem("+workitem+")");
+}
+//显示单据
+function showForm(formKey,target,paras) {
+    execForm("Show('"+formKey+"','"+target+"',\""+paras+"\")");
+}
+
+//打开菜单入口
+function openEntry(entryPath) {
+    execForm("OpenEntry('"+entryPath+"')");
+}
+
+//获取url中的参数
+function getUrlParam(name) {
+	var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+	var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+	if (r != null) return unescape(r[2]); return null; //返回参数值
+}

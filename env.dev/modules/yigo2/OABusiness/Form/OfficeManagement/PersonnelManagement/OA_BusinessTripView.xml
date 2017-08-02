@@ -30,7 +30,6 @@
                 <![CDATA[New("OA_BusinessTrip")]]>
             </Action>
         </Operation>
-        <Operation Key="Setfirst_headVisible" Caption="查询" RefKey="Setfirst_headVisible"/>
     </OperationCollection>
     <Body>
         <Block>

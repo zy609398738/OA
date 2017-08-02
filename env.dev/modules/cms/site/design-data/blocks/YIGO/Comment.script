@@ -5,7 +5,7 @@ cms.PageExp.Local(
 }));
 cms.PageExp.Local(
     'commentdata',cms.DataExp.QueryList({ 
-     select e.Photo,c.Commentators,o.name CommentName, c.RemarkContent,DATE_FORMAT(CommentTime,'%Y-%m-%d  %H:%i') CommentTime from OA_CommentContent c join sys_operator o on c.Commentators=o.oid left join OA_Employee_H e on o.empid=e.oid where SrcBillOID =${id} order by CommentTime desc 
+     select e.Photo,c.Commentators,o.name CommentName, c.RemarkContent,CommentTime CommentTime from OA_CommentContent c join sys_operator o on c.Commentators=o.oid left join OA_Employee_H e on o.empid=e.oid where SrcBillOID =${id} order by CommentTime desc 
 }));
 cms.PageExp.Local(
     'commented',cms.DataExp.QueryList({ 

@@ -25,7 +25,7 @@ public class GetValueStrByCol implements IExtService {
 	 * 根据列名获得列内容的字符串
 	 * 
 	 * @param context
-	 *            中间层对象
+	 *            上下文对象
 	 * @param tableName
 	 *            表标识
 	 * @param fieldName

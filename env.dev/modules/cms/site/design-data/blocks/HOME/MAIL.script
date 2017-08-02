@@ -1,0 +1,7 @@
+cms.PageExp.Local("operatorID", cms.Yigo2MidExp.GetLoginOperator());
+cms.PageExp.Local(
+	"data",
+  	oa.TodoMidExp.queryListByTop("
+           select oid,sender,topic as title,emailtime from oa_emailinbox_h h where h.OperatorID=${operatorID} and exists (select h.EmailID FROM oa_emailinbox_h) and isdelete=20 AND EmailStatus=20 order by emailtime desc ",7
+    )
+)

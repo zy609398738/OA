@@ -1,1 +1,5 @@
-cms.PageExp.Local("newslist",cms.DataExp.QueryList({select OID,title,date_format(NewsDate,'%Y-%m-%d') as newsdate from cms_news where NewsType= '}&cms.PageExp.Local('type')&{' and status =1200 order by NewsDate desc limit 3}));
+#!spring
+cms.PageExp.Local(
+  'newsList',
+  T(com.bokesoft.redist.cms2.site.NewsHandle).getNewsList(cms.PageExp.Local('type'), cms.PageExp.Local('size'))
+)

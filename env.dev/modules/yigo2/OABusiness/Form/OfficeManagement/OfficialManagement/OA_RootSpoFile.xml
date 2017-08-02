@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<Form Key="OA_RootSpoFile" Caption="一键发文" FormType="Entity" Platform="">
+<Form Key="OA_RootSpoFile" Caption="一键发文" FormType="Entity">
     <DataSource>
         <DataObject Key="OA_RootSpoFile" Caption="一键发文" NoPrefix="RS" PrimaryTableKey="OA_RootSpoFile_H" PrimaryType="Entity">
             <TableCollection>
@@ -184,11 +184,9 @@
                             <DataBinding TableKey="OA_RootSpoFile_H" ColumnKey="CcAuthority"/>
                         </Dict>
                         <Label Key="Lab_CcAuthority" Caption="抄送" X="0" Y="6"/>
-                        <Embed Caption="审批记录" FormKey="OA_BPM_Log" Key="BPM_Log" RootKey="Grid1" X="1" XSpan="3" Y="10" YSpan="5" Visible="false" BuddyKey="Lab_BPM_Log">
-                            <Var Key="ParentKey" Value="OA_RootSpoFile_H"/>
-                        </Embed>
+                        <Embed Caption="审批记录" FormKey="OA_BPM_Log" Key="BPM_Log" RootKey="OA_BPM_Log" X="1" XSpan="3" Y="10" YSpan="5" Visible="false" BuddyKey="Lab_BPM_Log"/>
                         <Label Key="Label_BPM_Log" Caption="审批记录" X="0" Y="10"/>
-                        <Embed Caption="附件" FormKey="OA_Attachment" Key="OA_Attachment" RootKey="Grid2" X="1" XSpan="3" Y="15"/>
+                        <Embed Caption="附件" FormKey="OA_Attachment" Key="OA_Attachment" RootKey="OA_Attachment" X="1" XSpan="3" Y="15"/>
                         <RowDefCollection RowGap="8">
                             <RowDef Height="30px"/>
                             <RowDef Height="30px"/>

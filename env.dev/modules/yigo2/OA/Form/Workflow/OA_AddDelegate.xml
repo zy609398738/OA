@@ -1,116 +1,65 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<Form Key="OA_AddDelegate" Caption="代理设置" FormType="Entity">
-    <DataSource>
-        <DataObject Key="OA_AddDelegate" Caption="代理设置" PrimaryTableKey="OA_AddDelegate" PrimaryType="Entity">
-            <TableCollection>
-                <Table Key="OA_AddDelegate" Caption="代理设置" DBTableName="OA_Delegate" SourceType="DataObject">
-                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
-                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
-                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
-                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
-                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
-                    <Column Key="Status" Caption="状态" DataType="Varchar"/>
-                    <Column Key="WorkFlowName" Caption="流程名称" DataType="Long"/>
-                    <Column Key="StartDate" Caption="起始时间" DataType="DateTime"/>
-                    <Column Key="EndDate" Caption="至" DataType="DateTime"/>
-                    <Column Key="Warranty" Caption="授权人员" DataType="Long"/>
-                    <Column Key="Agent" Caption="代理人员" DataType="Long"/>
-                    <Column Key="IsAgent" Caption="是否代理" DataType="Integer"/>
-                    <Column Key="IsUse" Caption="是否启用" DataType="Integer"/>
-                    <Column Key="Creator" Caption="制单人" DataType="Long"/>
-                    <Column Key="BillDate" Caption="创建时间" DataType="DateTime"/>
-                </Table>
-            </TableCollection>
-        </DataObject>
-    </DataSource>
-    <OperationCollection>
-        <Operation Key="Close" Caption="关闭界面">
-            <Action>
-                <![CDATA[Close()]]>
-            </Action>
-        </Operation>
-        <Operation Key="Save" Caption="保存" Visible="!ReadOnly()">
-            <Action>
-                <![CDATA[SaveData();
-UpdateView();
-Close()]]>
-            </Action>
-        </Operation>
-        <Operation Key="Edit" Caption="编辑" Visible="ReadOnly()">
-            <Action>
-                <![CDATA[Edit()]]>
-            </Action>
-        </Operation>
-    </OperationCollection>
-    <Body>
+<Form Caption="代理添加对话框" FormType="Normal" Key="OA_AddDelegate">
+    <DataSource/>
+    <Body PopHeight="300px" PopWidth="800px">
         <Block>
-            <FlexFlowLayoutPanel Key="root" Caption="根面板">
-                <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
-                    <ToolBarItemCollection/>
-                </ToolBar>
-                <GridLayoutPanel Key="first_head" Padding="5px" Height="pref" Caption="基本信息">
-                    <Dict Key="WorkFlowName" Caption="流程名称" BuddyKey="Lab_WorkFlowName" X="1" Y="0" ItemKey="OA_Workflow">
-                        <DataBinding TableKey="OA_AddDelegate" ColumnKey="WorkFlowName"/>
-                    </Dict>
-                    <Label Key="Lab_WorkFlowName" Caption="流程名称" X="0" Y="0"/>
-                    <DatePicker Key="StartDate" Caption="起始时间" BuddyKey="Lab_StartDate" X="1" Y="1">
-                        <DataBinding TableKey="OA_AddDelegate" ColumnKey="StartDate"/>
-                    </DatePicker>
-                    <Label Key="Lab_StartDate" Caption="起始时间" X="0" Y="1"/>
-                    <DatePicker Key="EndDate" Caption="至" BuddyKey="Lab_EndDate" X="3" Y="1">
-                        <DataBinding TableKey="OA_AddDelegate" ColumnKey="EndDate"/>
-                    </DatePicker>
-                    <Label Key="Lab_EndDate" Caption="至" X="2" Y="1"/>
-                    <Dict Key="Warranty" Caption="授权人员" BuddyKey="Lab_Warranty" X="1" Y="2" ItemKey="Operator">
-                        <DataBinding TableKey="OA_AddDelegate" ColumnKey="Warranty"/>
-                    </Dict>
-                    <Label Key="Lab_Warranty" Caption="授权人员" X="0" Y="2"/>
-                    <Dict Key="Agent" Caption="代理人员" BuddyKey="Lab_Agent" X="3" Y="2" ItemKey="Operator">
-                        <DataBinding TableKey="OA_AddDelegate" ColumnKey="Agent"/>
-                    </Dict>
-                    <Label Key="Lab_Agent" Caption="代理人员" X="2" Y="2"/>
-                    <Label Key="Remark" Caption="流程名称为空时，表示代理全部流程" X="2" Y="0" XSpan="2"/>
-                    <CheckBox Caption="是否代理" Key="IsAgent" X="5" Y="1">
-                        <DataBinding TableKey="OA_AddDelegate" ColumnKey="IsAgent"/>
-                    </CheckBox>
-                    <CheckBox Caption="是否启用" Key="IsUse" X="5" Y="2">
-                        <DataBinding TableKey="OA_AddDelegate" ColumnKey="IsUse">
-                            <ValueChanged>
-                                <![CDATA[Status=IsUse]]>
-                            </ValueChanged>
-                        </DataBinding>
-                    </CheckBox>
-                    <Dict Key="Creator" Caption="创建人" BuddyKey="Lab_Creator" X="1" Y="3" Visible="false" ItemKey="Operator">
-                        <DataBinding TableKey="OA_AddDelegate" ColumnKey="Creator" DefaultFormulaValue="GetOperator()"/>
-                    </Dict>
-                    <Label Key="Lab_Creator" Caption="创建人" X="0" Y="3"/>
-                    <ComboBox Key="Status" Caption="状态" BuddyKey="Lab_Status" X="3" Y="3">
-                        <DataBinding TableKey="OA_AddDelegate" ColumnKey="Status" DefaultValue="false"/>
-                        <Item Caption="停用" Key="0" Value="false"/>
-                        <Item Caption="启用" Key="1" Value="true"/>
-                    </ComboBox>
-                    <Label Key="Lab_Status" Caption="状态" X="2" Y="3"/>
-                    <DatePicker Key="BillDate" Caption="创建时间" BuddyKey="Lab_BillDate" X="6" Y="3" Visible="false">
-                        <DataBinding TableKey="OA_AddDelegate" ColumnKey="BillDate" DefaultFormulaValue="ServerDate()"/>
-                    </DatePicker>
-                    <Label Key="Lab_BillDate" Caption="创建时间" X="5" Y="3"/>
-                    <RowDefCollection RowGap="8">
-                        <RowDef Height="30px"/>
-                        <RowDef Height="30px"/>
-                        <RowDef Height="30px"/>
-                        <RowDef Height="30px"/>
-                    </RowDefCollection>
-                    <ColumnDefCollection ColumnGap="8">
-                        <ColumnDef Width="80px"/>
-                        <ColumnDef Width="50%"/>
-                        <ColumnDef Width="80px"/>
-                        <ColumnDef Width="50%"/>
-                        <ColumnDef Width="10px"/>
-                        <ColumnDef Width="80px"/>
-                        <ColumnDef Width="80px"/>
-                    </ColumnDefCollection>
-                </GridLayoutPanel>
-            </FlexFlowLayoutPanel>
+            <GridLayoutPanel Caption="GridLayoutPanel0" Key="GridLayoutPanel0">
+                <Button Caption="取消" Key="Button1" X="8" Y="6">
+                    <OnClick RunType="Client"><![CDATA[Close();]]></OnClick>
+                </Button>
+                <CheckBox Caption="始终有效" Key="alwaysValid" X="4" XSpan="5" Y="4"/>
+                <Button Caption="确定" Key="Button0" X="6" Y="6">
+                    <OnClick RunType="Client"><![CDATA[AddDelegateData(delegateType, SrcOperatorID, tgtOperatorID, objectType, objectKey, nodeKey, startTime, alwaysValid, endTime);parent.LoadData();Close();]]></OnClick>  <!--parent.RefreshControl('list');-->
+                </Button>
+                <Label Caption="结束日期" Key="Label5" X="1" Y="4"/>
+                <DatePicker Caption="endTime" Key="endTime" X="2" Y="4" OnlyDate="false"/>
+                <DatePicker Caption="startTime" Key="startTime" X="5" XSpan="4" Y="3" OnlyDate="false">
+                    <DataBinding  DefaultFormulaValue="ServerDate()"/>
+                </DatePicker>   
+                <Label Caption="起始日期" Key="Label4" X="4" Y="3"/>
+                <Label Caption="节点" Key="Label3" X="1" Y="3"/>
+                <TextEditor Caption="nodeKey" Key="nodeKey" X="2" Y="3"/>
+                <Label Caption="标识" Key="Label2" X="4" Y="2"/>
+                <TextEditor Caption="objectKey" Key="objectKey" X="5" XSpan="4" Y="2"/>
+                <Label Caption="源操作员" Key="LabelSrc" X="1" Y="5"/>
+                <Label Caption="代理操作员" Key="Label1" X="1" Y="2"/>
+                <Label Caption="对象类型" Key="Label0" X="4" Y="1"/>
+                <ComboBox Caption="objectType" Editable="false" ItemsDependency="" Key="objectType" X="5" XSpan="4" Y="1">
+                    <Item Caption="操作员" Key="OPERATOR" Value="1"/>
+                    <Item Caption="流程" Key="PROCESS" Value="2"/>
+                    <Item Caption="流程节点" Key="PROCESS_NODE" Value="3"/>
+                    <Item Caption="表单" Key="OBJECT" Value="4"/>
+                </ComboBox>
+                <Label Caption="代理类型" Key="Label6" X="1" Y="1"/>
+                <ComboBox Caption="delegateType" Editable="false" ItemsDependency="" Key="delegateType" X="2" Y="1">
+                    <Item Caption="授权" Key="AUTHORIZE" Value="1"/>
+                    <Item Caption="代理" Key="DELEGATE" Value="2"/>
+                </ComboBox>
+                <Dict Caption="tgtOperatorID" ItemKey="Operator" Key="tgtOperatorID" X="2" Y="2"/>
+                <Dict Caption="SRCOperatorID" ItemKey="Operator" Key="SrcOperatorID" X="2" Y="5" Visible=""/>
+                <RowDefCollection RowGap="8">
+                    <RowDef Height="20px"/>
+                    <RowDef Height="30px"/>
+                    <RowDef Height="30px"/>
+                    <RowDef Height="30px"/>
+                    <RowDef Height="30px"/>
+                    <RowDef Height="30px"/>
+                    <RowDef Height="20px"/>
+                    <RowDef Height="20px"/>
+                </RowDefCollection>
+                <ColumnDefCollection ColumnGap="8">
+                    <ColumnDef Width="20px"/>
+                    <ColumnDef Width="70px"/>
+                    <ColumnDef Width="250px"/>
+                    <ColumnDef Width="13px"/>
+                    <ColumnDef Width="70px"/>
+                    <ColumnDef Width="117px"/>
+                    <ColumnDef Width="70px"/>
+                    <ColumnDef Width="20px"/>
+                    <ColumnDef Width="70px"/>
+                    <ColumnDef Width="20px"/>
+                </ColumnDefCollection>
+            </GridLayoutPanel>
         </Block>
     </Body>
 </Form>

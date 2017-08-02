@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<Form Key="MOA_EmailWrite" Caption="写邮件" FormType="Entity" InitState="New">
+<Form Key="MOA_EmailWrite" Caption="写邮件" FormType="Entity" InitState="New" Platform="Mobile">
     <DataSource>
         <DataObject Key="MOA_EmailWrite" Caption="写邮件" PrimaryTableKey="MOA_EmailWrite_H" NoPrefix="MEW" PrimaryType="Entity">
             <TableCollection>

@@ -23,7 +23,7 @@ public class GetIdSql implements IExtService {
 	 * 获取OID的SQL语句
 	 * 
 	 * @param context
-	 *            中间层对象
+	 *            上下文对象
 	 * @param tableName
 	 *            字典的主表名称
 	 * @param dicIds

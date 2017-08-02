@@ -75,11 +75,11 @@ Close();]]>
 }
 
 var sql="select coalesce(SelField,0) SelField,e.OID,e.NAME,e.Email 
-from (Select OID,Name,Email from oa_employee_h
+from (Select code,OID,Name,Email from oa_employee_h
     where Enable=1 and OID>0) e 
 left join (select 1 SelField,OID from oa_employee_h 
     where OID in ("&Para("ReceiverIds")&")) s on e.OID=s.OID 
-order by convert(e.name USING gbk) COLLATE gbk_chinese_ci asc ";
+order by e.code ";
 
 FillGridData("Grid1", DBQuery(sql));]]>
     </OnPostShow>

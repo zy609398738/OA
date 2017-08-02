@@ -286,12 +286,7 @@ Ext.define('Ext.calendar.PocketApp', {
 	
 	// show YigoBill add as wangxh
 	showYigoEditWindow : function(rec, animateTarget) {
-		//window.open('/yigo/?formkey=OA_MeetingInSide&billoid='+rec.data.EventId);
-		var args = {
-			formKey: 'OA_MeetingInSide',
-			OID: rec.data.EventId
-		};
-		parent.parent.openForm(args);
+		parent.openForm('OA_MeetingInSide',rec.data.EventId);
 	},
         
     // The CalendarPanel itself supports the standard Panel title config, but that title

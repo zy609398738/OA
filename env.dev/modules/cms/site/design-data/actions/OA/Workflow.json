@@ -1,0 +1,9 @@
+{
+	"@type":"com.bokesoft.cms2.model.Action",
+	"actionExp":"",
+	"actionUrl":"/addworkflow.action",
+	"attributes":{"@type":"java.util.LinkedHashMap"},
+	"code":"Workflow",
+	"name":"添加我的流程",
+	"notes":""
+}

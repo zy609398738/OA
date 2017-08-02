@@ -29,7 +29,7 @@ public class CopySelectRow implements IExtService {
 	 * 复制选中的数据行到另一个数据表
 	 * 
 	 * @param context
-	 *            中间层对象
+	 *            上下文对象
 	 * @param srcTableName
 	 *            来源数据表名
 	 * @param srcSelectName
@@ -53,10 +53,10 @@ public class CopySelectRow implements IExtService {
 		Document doc = context.getDocument();
 		DataTable srcDt = doc.get(srcTableName);
 		DataTable tgtDt = doc.get(tgtTableName);
-		Set<Long> tgtSet = new HashSet<Long>();
+		Set<String> tgtSet = new HashSet<String>();
 		tgtDt.beforeFirst();
 		while (tgtDt.next()) {
-			tgtSet.add(tgtDt.getLong(tgtFieldName));
+			tgtSet.add(TypeConvertor.toString(tgtDt.getObject(tgtFieldName)));
 		}
 		srcDt.beforeFirst();
 		String[] srcArray = srcNames.split(":");
@@ -64,8 +64,8 @@ public class CopySelectRow implements IExtService {
 		while (srcDt.next()) {
 			Integer selField = srcDt.getInt(srcSelectName);
 			if (null != selField && selField == 1) {
-				Long srcID = srcDt.getLong(srcFieldName);
-				if (!tgtSet.contains(srcID)) {
+				String srcValue = TypeConvertor.toString(srcDt.getObject(srcFieldName));
+				if (!tgtSet.contains(srcValue)) {
 					tgtDt.append();
 					for (int i = 0; i < srcArray.length; i++) {
 						tgtDt.setObject(tgtArray[i], srcDt.getObject(srcArray[i]));

@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<Process Caption="标准流程" IDSeed="12" Key="WF_StandardWorkFlow" FormKey="OA_NewsDraft">
-    <Begin Caption="开始节点" ID="1" Key="Begin1">
+<Process Caption="标准流程" IDSeed="12" Key="WF_StandardWorkFlow" FormKey="OA_NewsDraft"  TemplateKey="OA_TmpTest">
+    <Begin Caption="开始节点" ID="1" Key="Begin1" pattern="Normal">
         <TransitionCollection>
             <SequenceFlow Caption="顺序流" ID="4" Key="SequenceFlow1" TargetNodeKey="State1"/>
         </TransitionCollection>
         <NodeGraphic X="93" Y="101" Height="40" Width="40"/>
         <NodeAttachment/>
     </Begin>
-    <End Caption="结束节点" ID="2" Key="End1">
+    <End Caption="结束节点" ID="2" Key="End1" pattern="Normal">
         <NodeGraphic X="620" Y="97" Height="40" Width="40"/>
         <NodeAttachment/>
     </End>
-    <State Caption="审批中" ID="3" Key="State1" Status="approving">
+    <State Caption="审批中" ID="3" Key="State1" Status="approving" pattern="Normal">
         <TransitionCollection>
             <SequenceFlow Caption="顺序流" ID="6" Key="SequenceFlow2" TargetNodeKey="Audit1"/>
         </TransitionCollection>
@@ -20,7 +20,7 @@
         <ParticipatorCollection/>
         <Perm/>
     </State>
-    <Audit Caption="审批" ID="5" Key="Audit1">
+    <Audit Caption="审批" ID="5" Key="Audit1" pattern="Normal" AutoIgnoreNoParticipator="true">
         <TransitionCollection>
             <SequenceFlow Caption="顺序流" ID="9" Key="SequenceFlow3" TargetNodeKey="State2"/>
         </TransitionCollection>
@@ -43,7 +43,7 @@
         <Perm/>
         <DirectAuditCondition/>
     </Audit>
-    <State Caption="已审批" ID="7" Key="State2" Status="approved">
+    <State Caption="已审批" ID="7" Key="State2" Status="approved" pattern="Normal">
         <TransitionCollection>
             <SequenceFlow Caption="顺序流" ID="11" Key="SequenceFlow5" TargetNodeKey="End1"/>
         </TransitionCollection>
@@ -61,6 +61,9 @@
         <Field Key="BillOID" SourceFieldKey="OID"/>
         <Field Key="DeptID" SourceFieldKey="DeptID"/>
         <Field Key="UrgencyDeg" SourceFieldKey="UrgencyDeg"/>
+        <Field Key="BillNo" SourceFieldKey="NO"/>
+        <Field Key="BillKey" SourceFieldKey="BillKey"/>
+        <Field Key="BILLSOID" SourceFieldKey="SOID"/>
     </DMTable>
     <AttachmentCollection/>
 </Process>

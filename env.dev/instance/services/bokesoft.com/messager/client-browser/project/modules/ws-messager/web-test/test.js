@@ -8,7 +8,11 @@ im.setupGlobal({
 	$rootElm: "#box.bokesoft-messager",
 	serviceBaseUrl: "/im-service",
 	servicePostfix: ".json",
-	pageBuddiesManager: "./" //管理好友的页面地址, 仅供测试
+	pageBuddiesManager: "./",//管理好友的页面地址, 仅供测试
+	hostCallback: function(type, data, globalOptions){
+		alert(type);
+		alert(data);
+	}
 });
 
 $(document).ready(function(){
@@ -119,3 +123,37 @@ window.testOverwriteBlacklist = function(){
 		{errorStyle: "notify"}
 	);
 };
+
+window.testMessagePost = function(){
+	var type = "TEXT";
+	var sender = $("#boke-test-00X").find("option:selected").val();
+	var receiver = $("#boke-test-XXX").find("option:selected").val();
+	if(sender==null||sender ==undefined||sender==""){
+		alert("请初始化用户");
+		return;
+	}
+	if(receiver==null||receiver ==undefined||receiver==""){
+		alert("请选择推送用户");
+		return;
+	}
+	var timestamp =  Date.parse(new Date());
+	var senderName = "";
+	var receiverName = "";
+var data = "这是" + (new Date()) + "推送的信息请点击 " + "[[Action:V01:{\"title\":\"XXX]]\", \"actionData\":\"YYY\", \"_id\":\"ZZZ\"}:ZZZ]](data是YYY),这是第二个[[Action:V01:{\"title\":\"XXX\", \"actionData\":\"[[Action:V01:YYY\", \"_id\":\"ZZZ\"}:ZZZ]](data是[[Action:V01:YYY)";	
+	ajax.post(
+		IM_SERVER_ADDRESS+"messagePost/open",
+		{data:JSON.stringify({type:type,timestamp:timestamp,sender:sender,receiver:receiver,senderName:"",receiverName:"",data:data})}, 
+		function(data){
+			if(data.success){
+				alert("测试成功");
+			}
+		}, 
+		{errorStyle: "notify"}
+	);
+
+
+	
+	
+	
+	
+}

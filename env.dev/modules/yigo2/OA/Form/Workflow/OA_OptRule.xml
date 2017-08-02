@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<Form Caption="人员选择规则" FormType="Dict" Key="OA_OptRule">
+<Form FormType="Dict" Key="OA_OptRule" Caption="人员自定义">
     <DataSource>
         <DataObject Key="OA_OptRule" Caption="人员选择规则" PrimaryTableKey="OA_OptRule_H" SecondaryType="Dict" PrimaryType="Entity">
             <TableCollection>
@@ -66,7 +66,7 @@
                         </Dict>
                         <Label Caption="创建人员" Key="Lab_Creator" X="0" Y="0"/>
                         <Label Caption="创建时间" Key="Lab_CreateTime" X="3" Y="0"/>
-                        <DatePicker BuddyKey="Lab_CreateTime" Caption="创建时间" Enable="false" Key="CreateTime" OnlyDate="false" X="4" Y="0">
+                        <DatePicker BuddyKey="Lab_CreateTime" Caption="创建时间" Enable="false" Key="CreateTime" X="4" Y="0">
                             <DataBinding ColumnKey="CreateTime" TableKey="OA_OptRule_H" DefaultFormulaValue="ServerDate()" Required="true"/>
                         </DatePicker>
                         <Label Caption="修改人员" Key="Lab_Modifier" X="0" Y="1"/>
@@ -74,7 +74,7 @@
                             <DataBinding ColumnKey="Modifier" TableKey="OA_OptRule_H" DefaultFormulaValue="GetOperator()" Required="true"/>
                         </Dict>
                         <Label Caption="修改时间" Key="Lab_ModifyTime" X="3" Y="1"/>
-                        <DatePicker BuddyKey="Lab_ModifyTime" Caption="修改时间" Enable="false" Key="ModifyTime" OnlyDate="false" X="4" Y="1">
+                        <DatePicker BuddyKey="Lab_ModifyTime" Caption="修改时间" Enable="false" Key="ModifyTime" X="4" Y="1">
                             <DataBinding ColumnKey="ModifyTime" TableKey="OA_OptRule_H" DefaultFormulaValue="ServerDate()" Required="true"/>
                         </DatePicker>
                         <Label Caption="备注" Key="Lab_Notes" X="0" Y="2"/>

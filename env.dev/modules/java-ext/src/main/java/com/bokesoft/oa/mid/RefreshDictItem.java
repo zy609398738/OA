@@ -23,7 +23,7 @@ public class RefreshDictItem implements IExtService {
 	 * 根据列名获得查询内容的字符串
 	 * 
 	 * @param context
-	 *            中间层对象
+	 *            上下文对象
 	 * @param itemKey
 	 *            字典的Key
 	 * @param DictOID

@@ -33,7 +33,29 @@
                     <Column Key="Payment" Caption="Payment" DataType="Numeric" Precision="16" Scale="2"/>
                     <Column Key="NoContributions" Caption="NoContributions" DataType="Numeric" Precision="16" Scale="2"/>
                     <Statement>
-                        <![CDATA[select a.CustomerId,UsePeople,a.ContactNumber,a.RoomNumber,TotalArea,ExpenseType,sum(Payable) Payable,sum(LateFee) LateFee,sum(d.Payment) Payment,sum(Payable)+sum(LateFee)-sum(IFNULL(d.Payment,0)) NoContributions from NJ_SCM_PaymentNoticeHead a LEFT JOIN NJ_SCM_PaymentNoticeCost b on a.OID=b.SOID LEFT JOIN (select SourceOID,sum(Payment) Payment from NJ_SCM_PropertyPaymentCost group by SourceOID) d ON b.OID=d.SourceOID GROUP BY a.CustomerId,UsePeople,a.ContactNumber,a.RoomNumber,TotalArea,ExpenseType]]>
+                        <![CDATA[SELECT a.CustomerId,
+         UsePeople,
+         a.ContactNumber,
+         a.RoomNumber,
+         TotalArea,
+         ExpenseType,
+         SUM (Payable) Payable,
+         SUM (LateFee) LateFee,
+         SUM (d.Payment) Payment,
+         SUM (Payable) + SUM (LateFee) - SUM (COALESCE(d.Payment,0))
+            NoContributions
+    FROM NJ_SCM_PaymentNoticeHead a
+         LEFT JOIN NJ_SCM_PaymentNoticeCost b ON a.OID = b.SOID
+         LEFT JOIN (  SELECT SourceOID, SUM (Payment) Payment
+                        FROM NJ_SCM_PropertyPaymentCost
+                    GROUP BY SourceOID) d
+            ON b.OID = d.SourceOID
+GROUP BY a.CustomerId,
+         UsePeople,
+         a.ContactNumber,
+         a.RoomNumber,
+         TotalArea,
+         ExpenseType]]>
                     </Statement>
                 </Table>
             </TableCollection>

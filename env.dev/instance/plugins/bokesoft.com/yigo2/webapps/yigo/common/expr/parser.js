@@ -2704,6 +2704,156 @@ var Expr = Expr || {};
     			}
     		}
     		var value = this.tree.getRoot().get();
+    		if ( this.pos == null ) {
+    			if ( this.listener != null ) {
+    				this.listener.evalSuccessed(value);
+    			}
+    		} else {
+    			if ( this.asyncDo != null && run ) {
+    				var tmpDo = this.asyncDo;
+    				this.asyncDo = null;
+    				tmpDo.doAsync();
+    			}
+    		}
+    		return value;
+    	},
+    	findLeafRule: function() {
+    		return this.findLeaf(this.tree.get());
+    	},
+    	findLeaf: function(factor) {
+    		var rtn = null;
+    		var r = factor.rule();
+    		var idx = r != null ? r.index() : -1;
+    		switch ( idx ) {
+    		case 0:
+    			rtn = this.findLeaf0(f);
+    			break;
+    		case 1:
+    			rtn = this.findLeaf1(f);
+    			break;
+    		case 2:
+    			rtn = this.findLeaf2(f);
+    			break;
+    		case 3:
+    			rtn = this.findLeaf3(f);
+    			break;
+    		case 4:
+    			rtn = this.findLeaf4(f);
+    			break;
+    		case 5:
+    			rtn = this.findLeaf5(f);
+    			break;
+    		case 6:
+    			rtn = this.findLeaf6(f);
+    			break;
+    		case 7:
+    			rtn = this.findLeaf7(f);
+    			break;
+    		case 8:
+    			rtn = this.findLeaf8(f);
+    			break;
+    		case 9:
+    			rtn = this.findLeaf9(f);
+    			break;
+    		case 10:
+    			rtn = this.findLeaf10(f);
+    			break;
+    		case 11:
+    			rtn = this.findLeaf11(f);
+    			break;
+    		case 12:
+    			rtn = this.findLeaf12(f);
+    			break;
+    		case 13:
+    			rtn = this.findLeaf13(f);
+    			break;
+    		case 14:
+    			rtn = this.findLeaf14(f);
+    			break;
+    		case 15:
+    			rtn = this.findLeaf15(f);
+    			break;
+    		case 16:
+    			rtn = this.findLeaf16(f);
+    			break;
+    		case 17:
+    			rtn = this.findLeaf17(f);
+    			break;
+    		case 18:
+    			rtn = this.findLeaf18(f);
+    			break;
+    		case 19:
+    			rtn = this.findLeaf19(f);
+    			break;
+    		case 20:
+    			rtn = this.findLeaf20(f);
+    			break;
+    		case 21:
+    			rtn = this.findLeaf21(f);
+    			break;
+    		case 22:
+    			rtn = this.findLeaf22(f);
+    			break;
+    		case 23:
+    			rtn = this.findLeaf23(f);
+    			break;
+    		case 24:
+    			rtn = this.findLeaf24(f);
+    			break;
+    		case 25:
+    			rtn = this.findLeaf25(f);
+    			break;
+    		case 26:
+    			rtn = this.findLeaf26(f);
+    			break;
+    		case 27:
+    			rtn = this.findLeaf27(f);
+    			break;
+    		case 28:
+    			rtn = this.findLeaf28(f);
+    			break;
+    		case 29:
+    			rtn = this.findLeaf29(f);
+    			break;
+    		case 30:
+    			rtn = this.findLeaf30(f);
+    			break;
+    		case 31:
+    			rtn = this.findLeaf31(f);
+    			break;
+    		case 32:
+    			rtn = this.findLeaf32(f);
+    			break;
+    		case 33:
+    			rtn = this.findLeaf33(f);
+    			break;
+    		case 34:
+    			rtn = this.findLeaf34(f);
+    			break;
+    		case 35:
+    			rtn = this.findLeaf35(f);
+    			break;
+    		case 36:
+    			rtn = this.findLeaf36(f);
+    			break;
+    		case 37:
+    			rtn = this.findLeaf37(f);
+    			break;
+    		case 38:
+    			rtn = this.findLeaf38(f);
+    			break;
+    		case 39:
+    			rtn = this.findLeaf39(f);
+    			break;
+    		}
+    		return rtn;
+    	},
+    	// SL -> E
+    	findLeaf0: function(f) {
+    		return this.findLeaf(f.item(0));
+    	},
+    	runRule0: function() {
+    		
     	}
     });
 

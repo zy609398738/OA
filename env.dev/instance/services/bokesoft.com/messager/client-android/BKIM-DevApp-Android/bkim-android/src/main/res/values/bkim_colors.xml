@@ -12,7 +12,7 @@
     <color name="touming">#00000000</color>
     <!-- 透明 -->
     <color name="devide_line">#CBCED2</color>
-    <color name="blue">#499BF7</color>
+    <color name="blue">#499bf7</color>
     <color name="whites">#ffffff</color>
     <color name="grays">#818181</color>
     <color name="gray_font">#818181</color>
@@ -28,6 +28,7 @@
     <color name="defaultTextColor">#666</color>
     <color name="viewfinder_frame">#2477ab</color>
     <color name="viewfinder_mask">#60000000</color>
+    <color name="colorAccent">#469baf</color>
     <color name="possible_result_points">#c0ffff00</color>
     <color name="result_view">#b0000000</color>
     <color name="gray">#AFAFAF</color>
@@ -45,4 +46,16 @@
 
     <color name="remote_connect_text">#FFe78018</color>
     <color name="remote_disconnect_text">#FF901821</color>
+    <color name="line">#E0E0E0</color>//分割线颜色
+    <!--透明色***125代表透明度12.5%-->
+    <color name="transparency">#00000000</color>
+    <color name="transparency_31">#07000000</color>
+    <color name="transparency_63">#10000000</color>
+    <color name="transparency_125">#20000000</color>
+    <color name="transparency_250">#40000000</color>
+    <color name="transparency_375">#60000000</color>
+    <color name="transparency_500">#80000000</color>
+    <color name="transparency_625">#A0000000</color>
+    <color name="transparency_750">#C0000000</color>
+    <color name="transparency_875">#E0000000</color>
 </resources>

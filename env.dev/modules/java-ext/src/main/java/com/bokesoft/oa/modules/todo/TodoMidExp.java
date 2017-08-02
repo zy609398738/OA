@@ -1,5 +1,7 @@
 package com.bokesoft.oa.modules.todo;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -7,6 +9,9 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.json.JSONObject;
+
+import com.bokesoft.cms2.basetools.data.PagingSearchResult;
 import com.bokesoft.cms2.core.ctx.CmsActionContext;
 import com.bokesoft.cms2.core.ctx.CmsRequestContext;
 import com.bokesoft.oa.config.Configuration;
@@ -22,6 +27,8 @@ import com.bokesoft.yes.tools.rights.RightsProviderFactory;
 import com.bokesoft.yigo.common.util.TypeConvertor;
 import com.bokesoft.yigo.mid.base.DefaultContext;
 import com.bokesoft.yigo.struct.datatable.DataTable;
+
+import cms2.spel.DataExp;
 
 public class TodoMidExp {
 
@@ -135,7 +142,7 @@ public class TodoMidExp {
 	 * 根据操作员ID获得操作员代码
 	 * 
 	 * @param context
-	 *            中间层对象
+	 *            上下文对象
 	 * @param operaId
 	 *            操作员ID
 	 * @return 操作员代码
@@ -157,22 +164,22 @@ public class TodoMidExp {
 	 * 根据操作员ID获得人员ID
 	 * 
 	 * @param context
-	 *            中间层对象
+	 *            上下文对象
 	 * @param operaId
 	 *            操作员ID
 	 * @return 人员ID，操作员没有对应的人员则返回-1
 	 * @throws Throwable
 	 */
 	public static Long queryEmpIDByID(DefaultContext context, Long operaId) throws Throwable {
-		Long EmpID = TypeConvertor.toLong(-1);
+		Long empID = TypeConvertor.toLong(-1);
 		DataTable rs;
 		String sql = "select EmpID from sys_operator o join oa_employee_h e on o.EmpID=e.OID where  o.OID=" + operaId;
 		rs = context.getDBManager().execPrepareQuery(sql);
 		rs.beforeFirst();
 		while (rs.next()) {
-			EmpID = rs.getLong("EmpID");
+			empID = rs.getLong("EmpID");
 		}
-		return EmpID;
+		return empID;
 	}
 
 	public static void querySchedulePlans(DefaultContext context) {
@@ -213,7 +220,7 @@ public class TodoMidExp {
 	 * 根据当前用户的入口权限获得导航栏
 	 * 
 	 * @param Context
-	 *            中间层对象
+	 *            上下文对象
 	 * @param moduleKey
 	 *            工程模块的标识
 	 * @return 有权限返回true,否则false
@@ -224,7 +231,6 @@ public class TodoMidExp {
 		MidVE midVe = context.getVE();
 		IRightsProvider iRghProvider = iRghProFac.newRightsProvider(midVe);
 		EntryRights entryRights = iRghProvider.getEntryRights();
-
 		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 		Settings settings = Configuration.getConfiguration(moduleKey).getMap("Navigation");
 		for (Settings nav : settings.getMapValues()) {
@@ -239,7 +245,6 @@ public class TodoMidExp {
 				map.put("ENTRY", entry);
 				map.put("OPENENTRY", nav.getPropertyOrEmpty("OpenEntry"));
 			}
-
 		}
 		return list;
 	}
@@ -248,7 +253,7 @@ public class TodoMidExp {
 	 * 提交评论
 	 * 
 	 * @param context
-	 *            中间层对象
+	 *            上下文对象
 	 * @param oid
 	 *            单据ID
 	 * @param operatorID
@@ -268,23 +273,205 @@ public class TodoMidExp {
 		context.getDBManager().execPrepareUpdate(sql, context.applyNewOID(), oid, operatorID, oid, content, new Date());
 		return true;
 	}
-	
-	public static Boolean commitSendMessage(DefaultContext context, String operatorID,String oid,String content)throws Throwable {
+
+	public static Boolean commitSendMessage(DefaultContext context, String operatorID, String oid, String content)
+			throws Throwable {
 		if (StringUtil.isBlankOrNull(operatorID)) {
 			return false;
 		}
 		if (StringUtil.isBlankOrNull(content)) {
 			return false;
 		}
-		Long optID=TypeConvertor.toLong(operatorID);
-		Long oID=TypeConvertor.toLong(oid);
-		String sql="select Topic,Creator,BillKey,NO from OA_NewsDraft_H where OID=?";
+		Long optID = TypeConvertor.toLong(operatorID);
+		Long oID = TypeConvertor.toLong(oid);
+		String sql = "select Topic,Creator,BillKey,NO from OA_NewsDraft_H where OID=?";
 		DataTable dtQuery1 = context.getDBManager().execPrepareQuery(sql, oid);
-		String topic=dtQuery1.getString("Topic");
-		String creator=TypeConvertor.toString(dtQuery1.getLong("Creator"));
-		String billKey=dtQuery1.getString("BillKey");
-		String no=dtQuery1.getString("NO");
-		return SendMessage.sendMessage(context, false, "OA", new Date(), optID, "发表评论："+topic, content, creator, -1L, billKey, no, oID);
+		String topic = dtQuery1.getString("Topic");
+		String creator = TypeConvertor.toString(dtQuery1.getLong("Creator"));
+		String billKey = dtQuery1.getString("BillKey");
+		String no = dtQuery1.getString("NO");
+		return SendMessage.sendMessage(context, false, "OA", new Date(), optID, "发表评论：" + topic, content, creator, 0L,
+				billKey, no, oID);
 	}
-	
+
+	/**
+	 * 添加流程
+	 * 
+	 * @param context
+	 *            上下文对象
+	 * @param SrcDtlOID
+	 *            源明细表OID
+	 * @return 添加成功返回true,否则false
+	 * @throws Throwable
+	 */
+	public static Boolean addWorkflow(DefaultContext context, String SrcDtlOID) throws Throwable {
+		Long oid = context.applyNewOID();
+		Long userID = context.getVE().getEnv().getUserID();
+		String sql1 = "select * from OA_MyWorkflow where SrcDtlOID=? and Operator=?";
+		DataTable checkDt = context.getDBManager().execPrepareQuery(sql1, SrcDtlOID, userID);
+		if (checkDt.size() > 0) {
+			return false;
+		} else {
+			String sql = "insert into OA_MyWorkflow(OID,SOID,SrcDtlOID,Operator) " + "values(?,?,?,?)";
+			context.getDBManager().execPrepareUpdate(sql, oid, oid, TypeConvertor.toLong(SrcDtlOID), userID);
+			return true;
+
+		}
+	}
+
+	/**
+	 * 删除流程
+	 * 
+	 * @param context
+	 *            上下文对象
+	 * @param SrcDtlOID
+	 *            源明细表OID
+	 * @return 删除成功返回true,否则false
+	 * @throws Throwable
+	 */
+	public static Boolean deleteWorkflow(DefaultContext context, String SrcDtlOID) throws Throwable {
+		Long userID = context.getVE().getEnv().getUserID();
+		String sql1 = "select * from OA_MyWorkflow where SrcDtlOID=? and Operator=?";
+		DataTable checkDt = context.getDBManager().execPrepareQuery(sql1, SrcDtlOID, userID);
+		if (checkDt.size() < 0) {
+			return false;
+		} else {
+			String sql = "delete from OA_MyWorkflow where SrcDtlOID=? and Operator=?";
+			context.getDBManager().execPrepareUpdate(sql, TypeConvertor.toLong(SrcDtlOID), userID);
+			return true;
+
+		}
+	}
+
+	/**
+	 * 获得工作流的新建流程入口数据集，
+	 * 
+	 * @param context
+	 *            上下文对象
+	 * @param sql
+	 *            查询数据集的SQL语句，例如：select b.oid,b.soid,b.BillKey,b.billname from
+	 *            OA_WorkflowType_D b order by OrderNum_D,Sequence
+	 * @param entry
+	 *            菜单入口路径，例如：OABusiness/OA/ExtendBus
+	 * @return 判断了入口权限的新建流程入口数据集
+	 * @throws Throwable
+	 */
+	public static List<Map<String, Object>> getWorkflowEntry(DefaultContext context, String sql, String entry)
+			throws Throwable {
+		IRightsProviderFactory iRghProFac = RightsProviderFactory.getInstance();
+		MidVE midVe = context.getVE();
+		IRightsProvider iRghProvider = iRghProFac.newRightsProvider(midVe);
+		EntryRights entryRights = iRghProvider.getEntryRights();
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+		DataTable dt = context.getDBManager().execPrepareQuery(sql);
+		dt.beforeFirst();
+		while (dt.next()) {
+			String billKey = dt.getString("BillKey");
+			entry = entry + "/" + billKey;
+			if (entryRights.hasEntryRights(entry)) {
+				LinkedHashMap<String, Object> map = new LinkedHashMap<String, Object>();
+				list.add(map);
+				map.put("OID", dt.getLong("OID"));
+				map.put("SOID", dt.getLong("SOID"));
+				map.put("BILLNAME", dt.getString("BillName"));
+				map.put("BILLKEY", dt.getString("BillKey"));
+			}
+		}
+		return list;
+	}
+
+	public static List<Map<String, Object>> queryListByTop(DefaultContext context, String sql, Object pageSize)
+			throws Throwable {
+		PagingSearchResult<List<Map<String, Object>>> psr = DataExp.PagingQuery(sql, pageSize, 0);
+		return psr.getData();
+	}
+
+	public static int getDBType(DefaultContext context) throws Throwable {
+		int dbType = context.getDBManager().getDBType();
+		return dbType;
+	}
+
+	/**
+	 * 获得任务状态列表
+	 * 
+	 * @param context
+	 *            上下文对象
+	 * @param operatorID
+	 *            操作员ID
+	 * @return 以json的形式返回带树状结构的任务状态列表
+	 * @throws Throwable
+	 */
+	public static String getTaskStatus(DefaultContext context, Long operatorID) throws Throwable {
+		JSONObject rows = new JSONObject();
+		String sql = "select h.* from OA_Taskdistribution_H h join sys_operator o on o.empid=h.empid where h.status>1000 and h.SourceOID<=0 and o.oid=?";
+		DataTable taskDt = context.getDBManager().execPrepareQuery(sql, operatorID);
+		Integer level = 0;
+		Integer left = 0;
+		taskDt.beforeFirst();
+		while (taskDt.next()) {
+			left = left + 1;
+			JSONObject json = new JSONObject();
+			rows.append("rows", json);
+			Long oid = taskDt.getLong("OID");
+			json.append("category_id", oid);
+			json.append("name", taskDt.getString("Topic"));
+			json.append("lft", left);
+			json.append("level", level);
+			json.append("persent", "0%");
+			Integer childrenSize = getChildrenTaskStatus(context, rows, json, level, left, oid);
+			json.append("childrenSize", childrenSize);
+			Integer right = left + childrenSize * 2 + 1;
+			json.append("rgt", right);
+			json.append("tast_num", 0);
+			json.append("publishDate", "");
+			json.append("rgt", 2);
+			json.append("uiicon", "");
+		}
+		String rowsStr = rows.toString();
+		return rowsStr;
+	}
+
+	public static Integer getChildrenTaskStatus(DefaultContext context, JSONObject rows, JSONObject parentJson,
+			Integer parentLevel, Integer parentLeft, Long parentOid) throws Throwable {
+		Integer level = parentLevel + 1;
+		Integer left = parentLeft;
+
+		String sql = "select h.* from OA_Taskdistribution_H h where h.SourceOID=?";
+		DataTable taskDt = context.getDBManager().execPrepareQuery(sql, parentOid);
+		Integer size = taskDt.size();
+		if (size <= 0) {
+			return size;
+		}
+		Integer approved = 0;
+		taskDt.beforeFirst();
+		while (taskDt.next()) {
+			left = left + 1;
+			JSONObject json = new JSONObject();
+			rows.append("rows", json);
+			Long oid = taskDt.getLong("OID");
+			json.append("category_id", oid);
+			json.append("name", taskDt.getString("Topic"));
+			json.append("lft", left);
+			json.append("level", level);
+			json.append("persent", "0%");
+			Integer childrenSize = getChildrenTaskStatus(context, rows, json, level, left, oid);
+			json.append("childrenSize", childrenSize);
+			Integer right = left + childrenSize * 2 + 1;
+			Integer status = taskDt.getInt("Status");
+			if (status == 1200) {
+				approved = approved + 1;
+			}
+			json.append("rgt", right);
+			json.append("tast_num", 0);
+			json.append("publishDate", "");
+			json.append("uiicon", "");
+		}
+		if (approved > 0) {
+			BigDecimal persent = new BigDecimal(approved).divide(new BigDecimal(size), 2, RoundingMode.HALF_UP)
+					.multiply(new BigDecimal(100));
+			parentJson.put("persent", persent.intValue() + "%");
+		}
+
+		return size;
+	}
 }

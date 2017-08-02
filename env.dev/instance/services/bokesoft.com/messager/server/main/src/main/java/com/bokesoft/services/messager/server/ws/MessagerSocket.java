@@ -1,6 +1,7 @@
 package com.bokesoft.services.messager.server.ws;
 
 import java.io.IOException;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.eclipse.jetty.websocket.api.Session;
@@ -27,21 +28,26 @@ public class MessagerSocket implements WebSocketListener {
 
 	/** 通过 WebSocket Attachment 返回的最近历史数据的条数限制 */
 	private static final int RECENT_HISTORY_LIMITS = 100;
+	/** WebSocket 会话的超时时间为 15 分钟 */
+	private static final int SESSION_IDLE_TIMEOUT_MS = 15*60*1000;
 
 	private ConnectedSessionBaseInfo sessionInfo;
 	private IMessageStore messageStoreInstance = MessagerConfig.getMessageStoreInstance();
 	
 	@Override
 	public void onWebSocketConnect(Session session) {
+		session.setIdleTimeout(SESSION_IDLE_TIMEOUT_MS);
+		
 		sessionInfo = SessionUtils.buildConnectionInfo(session);
 		log.info(sessionInfo+" connected.");
 		
 		ConnectedSessionMgr.rememberConnectedSession(sessionInfo, session);
 		
 		if(isValidSession(sessionInfo)){
-			//返回与 fromUser 相关的所有用户信息
-			responseMessage(session, buildMyActiveConnectData());
-			responseMessage(session,buildHistoryData());
+			//返回与 fromUser 相关的近期会话历史信息
+			responseMessage(session, buildHistoryData());
+			//计算当前用户连接会影响其他哪些用户的 MyActiveConnectData 状态信息
+			SessionUtils.markNotifyClientPeerIds(sessionInfo);
 		}else{
 			//返回提醒 fromUser 重新建立会话连接的信息
 			responseMessage(session, buildReconnectData());
@@ -122,6 +128,11 @@ public class MessagerSocket implements WebSocketListener {
 				m.setReceiverName(tm.getReceiverName());
 				MessageRecordManager.saveLastMessage(m);
 				messageStoreInstance.save(m);
+				//需要提醒 消息接收方 更新 MyActiveConnectData 信息(如果对方也正在和当前sender聊天中, 那么就不需要标记这个提醒了)
+				Map<String, Session> sessions = ConnectedSessionMgr.getConnectedSessions4SendReplyingMessage(receiver, sender);
+				if(sessions.size()<=0){
+					ConnectedSessionMgr.mark4ConnDataNotify(receiver);
+				}
 			}
 			break;
 		case Message.MSG_TYPE_BLANK:
@@ -149,6 +160,9 @@ public class MessagerSocket implements WebSocketListener {
 			ses.close();
 		}
 		log.info(sessionInfo+" closed: status="+statusCode+", reason="+reason);
+
+		//计算当前用户连接会影响其他哪些用户的 MyActiveConnectData 状态信息
+		SessionUtils.markNotifyClientPeerIds(sessionInfo);
 	}
 
 	private static boolean isValidSession(ConnectedSessionBaseInfo sessionInfo){

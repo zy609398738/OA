@@ -35,6 +35,8 @@ window.doTest = function(){
 		}
 	};
 
+	var zNodes2 = "/yigo/wkwkkw/areadata.js";
+	var x = JSON.parse(zNodes2);
 	var zNodes1 =[
 		{id:1, pId:0, name:"[core] test1", open:true},
 		{id:101, pId:1, name:"test1子项"/*,url("http://www.baidu.com")此处可添加超链接*/},

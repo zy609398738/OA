@@ -21,21 +21,15 @@
                         <Parameter DataType="Long" Formula="GetOperator()"/>
                     </ParameterCollection>
                     <Statement>
-                        <![CDATA[select (case when ISNULL(r.status)  then 10 else r.Status end)as status,r.oid,r.SOID,r.ReadTime,r.SendTime,r.BillKey,r.BillOID,m.DeptID ,m.EmpID,r.readuser,m.topic ,m.BillCreatTime from oa_read r join bpm_migration m on r.BillOID=m.BillOID where  r.SendUser=?]]>
+                        <![CDATA[select COALESCE(r.status,10) status,r.oid,r.SOID,r.ReadTime,r.SendTime,r.BillKey,r.BillOID,m.DeptID ,m.EmpID,r.readuser,m.topic ,m.BillCreatTime from oa_read r join bpm_migration m on r.BillOID=m.BillOID where  r.SendUser=?]]>
                     </Statement>
                 </Table>
             </TableCollection>
         </DataObject>
     </DataSource>
-    <OperationCollection>
-        <Operation Key="Setfirst_headVisible" Caption="查询" RefKey="Setfirst_headVisible"/>
-    </OperationCollection>
     <Body>
         <Block>
-            <FlexFlowLayoutPanel Key="main" Padding="0px">
-                <ToolBar Key="main_toolbar" Height="pref">
-                    <ToolBarItemCollection/>
-                </ToolBar>
+            <FlexFlowLayoutPanel Key="main">
                 <GridLayoutPanel Key="GridLayoutPanel1" Height="80px" Padding="5px" Caption="GridLayoutPanel1" Visible="first_headVisible==1">
                     <DatePicker Key="DatePicker1" Caption="申请日期" BuddyKey="Lab_DatePicker1" X="1" Y="0">
                         <Condition ColumnKey="BillCreatTime" TableKey="OA_ForRead" CondSign="between" Group="A" GroupHead="true"/>

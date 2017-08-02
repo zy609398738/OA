@@ -28,7 +28,7 @@ public class EntryRight implements IExtService {
 	/**
 	 * 
 	 * @param Context
-	 *            中间层对象
+	 *            上下文对象
 	 * @param path
 	 *            菜单路径
 	 * @return 有权限返回true,否则false

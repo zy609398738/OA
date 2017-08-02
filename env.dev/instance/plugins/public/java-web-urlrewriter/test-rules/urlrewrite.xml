@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE urlrewrite
+    PUBLIC "-//tuckey.org//DTD UrlRewrite 4.0//EN"
+    "http://www.tuckey.org/res/dtds/urlrewrite4.0.dtd">
+
+<urlrewrite>
+
+    <rule>
+       <from>^.*/cat/(.*)$</from>
+       <to type="redirect">./test.jsp?cat=$1</to>
+    </rule>
+
+    <rule match-type="wildcard">
+       <from>/dog/**</from>
+       <to type="forward">/test.jsp?dog=$1</to>
+    </rule>
+
+    <!-- 这里将任何一层的 /test.jsp 都转发到测试页面 -->
+    <rule>
+       <from>^.*/test.jsp</from>
+       <to type="forward">/com.bokesoft.r2.extensions.org.tuckey.urlrewriter/do-test.jsp</to>
+    </rule>
+
+</urlrewrite>

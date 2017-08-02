@@ -39,4 +39,28 @@ public class ReceivedMessage {
 	public void setReceiverName(String receiverName) {
 		this.receiverName = receiverName;
 	}
+
+	/**
+	 * 适用于 文件/图片 消息的数据格式
+	 */
+	public static class FileData{
+		/** 消息内容的文件名 */
+		private String fileName;
+		/** 消息内容的下载地址 */
+		private String fileUrl;
+
+		public String getFileUrl() {
+			return fileUrl;
+		}
+		public void setFileUrl(String fileUrl) {
+			this.fileUrl = fileUrl;
+		}
+
+		public String getFileName() {
+			return fileName;
+		}
+		public void setFileName(String fileName) {
+			this.fileName = fileName;
+		}
+	}
 }

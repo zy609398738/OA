@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<Process Caption="加班申请" IDSeed="19" Key="WF_OA_Overtime">
-    <Begin Caption="开始节点" ID="1" Key="Begin1">
+<Process Caption="加班申请" IDSeed="19" Key="WF_OA_Overtime"  TemplateKey="OA_TmpTest">
+    <Begin Caption="开始节点" ID="1" Key="Begin1" pattern="Normal">
         <TransitionCollection>
             <SequenceFlow Caption="顺序流" ID="12" Key="SequenceFlow1" TargetNodeKey="State1"/>
         </TransitionCollection>
         <NodeGraphic Height="40" Width="40" X="64" Y="129"/>
         <NodeAttachment/>
     </Begin>
-    <End Caption="结束节点" ID="2" Key="End1">
+    <End Caption="结束节点" ID="2" Key="End1" pattern="Normal">
         <NodeGraphic Height="40" Width="40" X="996" Y="129"/>
         <NodeAttachment/>
     </End>
-    <State Caption="已提交" ID="3" Key="State1" Status="commited">
+    <State Caption="已提交" ID="3" Key="State1" Status="commited" pattern="Normal">
         <TransitionCollection>
             <SequenceFlow Caption="顺序流" ID="13" Key="SequenceFlow2" TargetNodeKey="Audit1"/>
         </TransitionCollection>
@@ -20,7 +20,7 @@
         <ParticipatorCollection/>
         <Perm/>
     </State>
-    <Audit Caption="部门经理审批" ID="4" Key="Audit1">
+    <Audit Caption="部门经理审批" ID="4" Key="Audit1" AutoIgnoreNoParticipator="true" pattern="Normal">
         <TransitionCollection>
             <SequenceFlow Caption="顺序流" ID="14" Key="SequenceFlow3" TargetNodeKey="State2"/>
         </TransitionCollection>
@@ -39,7 +39,7 @@
         <Perm/>
         <DirectAuditCondition/>
     </Audit>
-    <State Caption="审批中" ID="5" Key="State2" Status="approving">
+    <State Caption="审批中" ID="5" Key="State2" Status="approving" pattern="Normal">
         <TransitionCollection>
             <SequenceFlow Caption="顺序流" ID="15" Key="SequenceFlow4" TargetNodeKey="Audit2"/>
         </TransitionCollection>
@@ -48,7 +48,7 @@
         <ParticipatorCollection/>
         <Perm/>
     </State>
-    <Audit Caption="总经理审批" ID="6" Key="Audit2">
+    <Audit Caption="总经理审批" ID="6" Key="Audit2" AutoIgnoreNoParticipator="true" pattern="Normal">
         <TransitionCollection>
             <SequenceFlow Caption="顺序流" ID="16" Key="SequenceFlow5" TargetNodeKey="State3"/>
         </TransitionCollection>
@@ -67,7 +67,7 @@
         <Perm/>
         <DirectAuditCondition/>
     </Audit>
-    <Audit Caption="人事审批" ID="7" Key="Audit3">
+    <Audit Caption="人事审批" ID="7" Key="Audit3" AutoIgnoreNoParticipator="true" pattern="Normal">
         <TransitionCollection>
             <SequenceFlow Caption="顺序流" ID="18" Key="SequenceFlow7" TargetNodeKey="State4"/>
         </TransitionCollection>
@@ -86,7 +86,7 @@
         <Perm/>
         <DirectAuditCondition/>
     </Audit>
-    <State Caption="审批中" ID="9" Key="State3" Status="approving">
+    <State Caption="审批中" ID="9" Key="State3" Status="approving" pattern="Normal">
         <TransitionCollection>
             <SequenceFlow Caption="顺序流" ID="17" Key="SequenceFlow6" TargetNodeKey="Audit3"/>
         </TransitionCollection>
@@ -95,7 +95,7 @@
         <ParticipatorCollection/>
         <Perm/>
     </State>
-    <State Caption="已审批" ID="10" Key="State4" Status="approved">
+    <State Caption="已审批" ID="10" Key="State4" Status="approved" pattern="Normal">
         <TransitionCollection>
             <SequenceFlow Caption="顺序流" ID="19" Key="SequenceFlow8" TargetNodeKey="End1"/>
         </TransitionCollection>

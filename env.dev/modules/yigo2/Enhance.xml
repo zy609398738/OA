@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <Enhance>
 	<ExtMidFunction>
-		<MidFunction Description="OA中间层扩展公式" Provider="com.bokesoft.oa.mid.OAMidFunctionProvider"/>
+		<MidFunction Description="OA中间层扩展公式" Provider="com.bokesoft.oa.mid.formula.OAMidFunctionProvider"/>
 		<MidFunction Description="CMS2.0 中间层扩展公式" Provider="com.bokesoft.r2.cms2.adapter.yigo2.formula.CMS2FuncRegistry"/>
-		<MidFunction Description="中间层扩展公式" Provider="com.bokesoft.oa.mid.wf.FunctionsProvider"/>
 		<MidFunction Description="OA扩展公式" Provider="com.bokesoft.oa.mid.formula.OAFuncRegistery"/>
+		<MidFunction Description="TSL中间层扩展公式" Provider="com.bokesoft.tsl.formula.TSLMidFunctionProvider"/>
 	</ExtMidFunction>
 
     <ExtService>
 		 <Service Name="OA_FillListByBPM" Description="根据流程填充流程的列表" Impl="com.bokesoft.oa.mid.wf.FillListByBPM"/>
 		 <Service Name="OA_GetDropItemByBPM" Description="获得所有流程的下拉字符串" Impl="com.bokesoft.oa.mid.wf.GetDropItemByBPM"/>
+		 <Service Name="OA_GetDropItemByDesigne" Description="根据流程设计获得的下拉字符串" Impl="com.bokesoft.oa.mid.wf.GetDropItemByDesigne"/>
 		 <Service Name="OA_GetAuditNodeByBPM" Description="获得流程中所有审批节点的下拉字符串" Impl="com.bokesoft.oa.mid.wf.GetAuditNodeByBPM"/>
 		 <Service Name="OA_GetWorkflowAttribute" Description="获得流程的属性" Impl="com.bokesoft.oa.mid.wf.GetWorkflowAttribute"/>
 		 <Service Name="OA_AddOperatorSelResult" Description="获得人员选择结果的列表" Impl="com.bokesoft.oa.mid.wf.GetOperatorSelResult"/>
+		 <Service Name="OA_GetNodeIDByNodeKey" Description="根据流程节点标识获取节点ID" Impl="com.bokesoft.oa.mid.wf.GetNodeIDByNodeKey"/>
 		 <Service Name="OA_CopySelectRow" Description="复制选中的数据行到另一个数据表" Impl="com.bokesoft.oa.mid.CopySelectRow"/>
 		 <Service Name="OA_DeleteSelectRow" Description="删除选中的数据行" Impl="com.bokesoft.oa.mid.DeleteSelectRow"/>
 		 <Service Name="OA_GetValueStrByCol" Description="根据列名获得列内容的字符串" Impl="com.bokesoft.oa.mid.GetValueStrByCol"/>
@@ -43,20 +45,55 @@
 		 <Service Name="OA_GetParticipatorSql" Description="获得查询参与者ID的Sql" Impl="com.bokesoft.oa.mid.wf.GetParticipatorSql"/>
 		 <Service Name="OA_GetDropStrBySql" Description="根据列名获得查询内容的下拉字符串" Impl="com.bokesoft.oa.mid.GetDropStrBySql"/>
 		 <Service Name="OA_GetDropItemByWorkItem" Description="根据流程项目获得流程的参与者下拉字符串" Impl="com.bokesoft.oa.mid.wf.GetDropItemByWorkItem"/>
+		 <Service Name="OA_GetValueByFieldKey" Description="根据字段标识获得流程设计中的对应人员" Impl="com.bokesoft.oa.mid.wf.GetValueByFieldKey"/>
 		 <Service Name="OA_GetParticipatorIDs" Description="获取操作员ID字符串" Impl="com.bokesoft.oa.mid.wf.GetParticipatorIDs"/>
 		 <Service Name="OA_PreviewAttchment" Description="获取附件路径" Impl="com.bokesoft.oa.mid.PreviewAttchment"/>
 		 <Service Name="OA_ElectronicSeal" Description="获取路径" Impl="com.bokesoft.oa.mid.ElectronicSeal"/>
 		 <Service Name="OA_DeleteBillByOID" Description="根据OID删除单据" Impl="com.bokesoft.oa.mid.DeleteBillByOID"/>
 		 <Service Name="OA_GetOperationDropItem" Description="获得操作的下拉字符串" Impl="com.bokesoft.oa.mid.wf.GetOperationDropItem"/>
+		 <Service Name="OA_GetOperationDataTable" Description="获取操作的数据集" Impl="com.bokesoft.oa.mid.wf.GetOperationDataTable"/>
+		 <Service Name="OA_GetFieldDataTable" Description="获取字段的数据集" Impl="com.bokesoft.oa.mid.wf.GetFieldDataTable"/>
+		 <Service Name="OA_GetFieldDataTableByQuery" Description="通过查询条件获取字段的数据集" Impl="com.bokesoft.oa.mid.wf.GetFieldDataTableByQuery"/>
 		 <Service Name="OA_SetOperationByKey" Description="根据操作模板设置操作" Impl="com.bokesoft.oa.mid.wf.SetOperationByKey"/>
 		 <Service Name="OA_MailboxFormatCheck" Description="邮箱格式校验" Impl="com.bokesoft.oa.mid.email.MailboxFormatCheck"/>
 		 <Service Name="OA_SendMessage" Description="发送系统消息" Impl="com.bokesoft.oa.mid.message.SendMessage"/>
 		 <Service Name="OA_GetDropItemsBySettings" Description="根据参数设置获得下拉字符串" Impl="com.bokesoft.oa.config.GetDropItemsBySettings"/>
 		 <Service Name="OA_GetPropertyBySettings" Description="根据参数设置获得属性值" Impl="com.bokesoft.oa.config.GetPropertyBySettings"/>
 		 <Service Name="OA_GetShowStringBySettings" Description="根据参数设置获得说明字符串" Impl="com.bokesoft.oa.config.GetShowStringBySettings"/>
+		 <Service Name="OA_GetProcessKey" Description="根据单据标识返回关联流程标识" Impl="com.bokesoft.oa.mid.wf.GetProcessKey"/>
+		 <Service Name="OA_StopTime" Description="进程暂停一段时间" Impl="com.bokesoft.oa.mid.StopTime"/>
 		 <Service Name="OA_OptSendMessage" Description="审批操作通过之后发送消息" Impl="com.bokesoft.oa.mid.wf.OptSendMessage"/>
 		 <Service Name="OA_DeleteFile" Description="删除文件" Impl="com.bokesoft.oa.mid.file.DeleteFile"/>
 		 <Service Name="OA_GetMainTableName" Description="获得主表名称" Impl="com.bokesoft.oa.mid.GetMainTableName"/>
 		 <Service Name="OA_RefreshDictItem" Description="刷新字典字段的缓存信息" Impl="com.bokesoft.oa.mid.RefreshDictItem"/>
+		 <Service Name="OA_UpdateSql" Description="更新常用流程中是否常用字段" Impl="com.bokesoft.oa.mid.UpdateSql"/>
+		 <Service Name="OA_GetFeedbackMessage" Description="获取反馈消息" Impl="com.bokesoft.oa.mid.GetFeedbackMessage"/>
+		 <Service Name="OA_Notification" Description="逐条插入传阅人" Impl="com.bokesoft.oa.mid.Notification"/>
+		 <Service Name="OA_GetAttachmentList" Description="根据父节点拼附件目录" Impl="com.bokesoft.oa.mid.GetAttachmentList"/>
+		 <Service Name="OA_GetOptIDsDetail" Description="根据操作员IDs生成操作员ID明细表" Impl="com.bokesoft.oa.mid.GetOptIDsDetail"/>
+		 <Service Name="OA_JudgeExist" Description="根据操作员IDs生成操作员ID明细表" Impl="com.bokesoft.oa.mid.JudgeExist"/>
+		 <Service Name="OA_JudgeScheduleTime" Description="根据操作员IDs生成操作员ID明细表" Impl="com.bokesoft.oa.mid.JudgeScheduleTime"/>
+		 <Service Name="OA_GetTableFields" Description="根据SQL语句获得表字段" Impl="com.bokesoft.oa.mid.GetTableFields"/>
+		 <Service Name="OA_CreateWorkingCalendar" Description="生成工作日历" Impl="com.bokesoft.oa.mid.CreateWorkingCalendar"/>
+		 <Service Name="OA_CheckWorkCalendarSection" Description="检查工作日历工作区间是否重复" Impl="com.bokesoft.oa.mid.CheckWorkCalendarSection"/>
+		 <Service Name="OA_GetNextOptAndPar" Description="根据SQL获得下一步的参与者和操作名称" Impl="com.bokesoft.oa.mid.GetNextOptAndPar"/>
+		 <Service Name="OA_GetFileType" Description="根据附件名称获取文件类型" Impl="com.bokesoft.oa.mid.GetFileType"/>
+		 <Service Name="TSL_GetRegionData" Description="获取区域数据" Impl="com.bokesoft.tsl.service.TSL_GetRegionData"/>
+		 <Service Name="TSL_GetSubRegionData" Description="获取子区域数据" Impl="com.bokesoft.tsl.service.TSL_GetSubRegionData"/>
+		 <Service Name="TSL_GetRate" Description="获取汇率" Impl="com.bokesoft.tsl.service.TSL_GetRate"/>
+		 <Service Name="TSL_DealContractLines" Description="获取主合同明细" Impl="com.bokesoft.tsl.service.TSL_DealContractLines"/>
+		 <Service Name="TSL_GetVacationInfo" Description="获取剩余假期信息" Impl="com.bokesoft.tsl.service.TSL_GetVacationInfo"/>
+		 <Service Name="TSL_GetDuplicateApplication" Description="检查是否存在重复请假申请" Impl="com.bokesoft.tsl.service.TSL_GetDuplicateApplication"/>
+		 <Service Name="TSL_GetAvailableBudget" Description="获取可用预算信息" Impl="com.bokesoft.tsl.service.TSL_GetAvailableBudget"/>
+		 <Service Name="TSL_GetCompanyNumber" Description="查询公司编码" Impl="com.bokesoft.tsl.service.TSL_GetCompanyNumber"/>
+		 <Service Name="TSL_GetOuId" Description="获取OUID信息" Impl="com.bokesoft.tsl.service.TSL_GetOuId"/>
+		 <Service Name="TSL_UpdateImageInfo" Description="更新影像系统信息" Impl="com.bokesoft.tsl.service.TSL_UpdateImageInfo"/>
+		 <Service Name="TSL_JudgeIsRegion" Description="判断是否IsRegion" Impl="com.bokesoft.tsl.service.TSL_JudgeIsRegion"/>
+		 <Service Name="TSL_DealContractNonCNLines" Description="获取销售合同非中国区明细" Impl="com.bokesoft.tsl.service.TSL_DealContractNonCNLines"/>
+		 <Service Name="TSL_CheckContractCN" Description="销售合同变更ContractBarcode查询" Impl="com.bokesoft.tsl.service.TSL_CheckContractCN"/>
+		 <Service Name="TSL_CheckContractNonCN" Description="销售合同变更（非中国区）ContractBarcode查询" Impl="com.bokesoft.tsl.service.TSL_CheckContractNonCN"/>
+		 <Service Name="TSL_CheckMainContract" Description="销售合同主体变更ContractBarcode查询" Impl="com.bokesoft.tsl.service.TSL_CheckMainContract"/>
+		 <Service Name="OA_StringToQRCode" Description="字符串转二维码" Impl="com.bokesoft.oa.mid.StringToQRCode"/>
+		 <Service Name="OA_GetFileNameStr" Description="获取邮件模板文件名称的字符串" Impl="com.bokesoft.oa.mid.GetFileNameStr"/>
     </ExtService>
 </Enhance>

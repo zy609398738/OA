@@ -16,6 +16,11 @@
 			"caption":"类型",
 			"key":"type",
 			"type":"common"
+		},
+		{
+			"caption":"记录数",
+			"key":"size",
+			"type":"common"
 		}
 	]
 }

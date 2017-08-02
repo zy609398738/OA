@@ -22,7 +22,7 @@
                         <Parameter DataType="Long" Formula="GetOperator()"/>
                     </ParameterCollection>
                     <Statement>
-                        <![CDATA[select * from (select * from OA_EmailInbox_H h where EmailID is not NULL and IsDelete =20 and OperatorID=? order by EmailTime desc)h]]>
+                        <![CDATA[select * from (select * from OA_EmailInbox_H h where exists (select h.EmailID FROM oa_emailinbox_h) and IsDelete =20 and OperatorID=? order by EmailTime desc)h]]>
                     </Statement>
                 </Table>
             </TableCollection>
@@ -49,7 +49,6 @@ LoadData();]]>
 DealCondition();LoadData();ShowData();]]>
             </Action>
         </Operation>
-        <Operation Key="Setfirst_headVisible" Caption="查询" RefKey="Setfirst_headVisible"/>
     </OperationCollection>
     <Body>
         <Block>

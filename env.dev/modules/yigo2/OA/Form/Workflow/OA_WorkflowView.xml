@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="OA_WorkflowView" Caption="流程定义列表" FormType="View">
+    <DataSource>
+        <DataObject Key="OA_WorkflowView" Caption="流程定义列表">
+            <TableCollection>
+                <Table Key="OA_WorkflowView" Caption="流程定义列表" TableMode="Detail" SourceType="Query" Persist="false">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="WorkflowRelevance" Caption="关联" DataType="Varchar"/>
+                    <Column Key="WorkflowKey" Caption="标志" DataType="Varchar"/>
+                    <Column Key="WorkflowName" Caption="流程名称" DataType="Varchar"/>
+                    <Column Key="Code" Caption="代码" DataType="Varchar"/>
+                    <Column Key="Name" Caption="自定义名称" DataType="Varchar"/>
+                    <Column Key="WorkflowVersion" Caption="版本" DataType="Integer"/>
+                    <Column Key="WorkflowState" Caption="状态" DataType="Integer"/>
+                    <Column Key="WorkflowDesigneID" Caption="流程设计ID" DataType="Long"/>
+                    <Statement>
+                        <![CDATA[select * from OA_Workflow_H]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="New" Caption="新增">
+            <Action>
+                <![CDATA[New("OA_Workflow")]]>
+            </Action>
+        </Operation>
+    </OperationCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板">
+                <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <GridLayoutPanel Key="first_head" Padding="5px" Height="pref" Caption="基本信息">
+                    <CheckListBox BuddyKey="Lab_CheckListBox1" Caption="流程关联" Key="CheckListBox1" SourceType="Formula" X="1" Y="0">
+                        <FormulaItems>
+                            <![CDATA[InvokeService("OA_GetDropItemByBPM",false,false,"Deploy",true);]]>
+                        </FormulaItems>
+                    </CheckListBox>
+                    <Label Key="Lab_CheckListBox1" Caption="流程关联" X="0" Y="0"/>
+                    <CheckListBox BuddyKey="Lab_CheckListBox2" Caption="流程状态" Key="CheckListBox2" X="3" Y="0">
+                        <Item Caption="新建" Key="0" Value="0"/>
+                        <Item Caption="部署" Key="1" Value="1"/>
+                    </CheckListBox>
+                    <Label Key="Lab_CheckListBox2" Caption="流程状态" X="2" Y="0"/>
+                    <Button Key="Query" Caption="查询" X="6" Y="0">
+                        <OnClick>
+                            <![CDATA[DealCondition();
+LoadData();
+ShowData();]]>
+                        </OnClick>
+                    </Button>
+                    <RowDefCollection RowGap="8">
+                        <RowDef Height="30px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="8">
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="33%"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="33%"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="34%"/>
+                        <ColumnDef Width="80px"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+                <Grid Key="Grid1" Caption="Grid1" NewEmptyRow="false" Enable="false" Height="100%" PageLoadType="DB">
+                    <GridColumnCollection>
+                        <GridColumn Key="WorkflowRelevance" Caption="流程关联" Width="200px" Visible="false"/>
+                        <GridColumn Key="WorkflowKey" Caption="流程标识" Width="150px"/>
+                        <GridColumn Key="WorkflowName" Caption="流程名称" Width="150px"/>
+                        <GridColumn Key="Code" Caption="流程定义代码" Width="200px"/>
+                        <GridColumn Key="Name" Caption="流程定义名称" Width="250px"/>
+                        <GridColumn Key="WorkflowVersion" Caption="版本" Width="50px"/>
+                        <GridColumn Key="WorkflowState" Caption="流程状态" Width="80px"/>
+                        <GridColumn Key="OID" Caption="对象标志" Width="80px" Visible="false"/>
+                        <GridColumn Key="WorkflowSet" Caption="流程设置" Width="80px" Visible="false"/>
+                        <GridColumn Key="WorkflowDesigneID" Caption="流程设计ID" Width="80px" Visible="false"/>
+                    </GridColumnCollection>
+                    <GridRowCollection>
+                        <GridRow Key="row1" RowHeight="35" TableKey="OA_WorkflowView">
+                            <GridCell Key="WorkflowRelevance" Caption="流程关联" CellType="ComboBox" SourceType="Formula">
+                                <DataBinding ColumnKey="WorkflowRelevance"/>
+                                <FormulaItems>
+                                    <![CDATA[InvokeService("OA_GetDropItemByBPM",false,false,"Deploy",true);]]>
+                                </FormulaItems>
+                            </GridCell>
+                            <GridCell Key="WorkflowKey" Caption="流程标识" CellType="TextEditor">
+                                <DataBinding ColumnKey="WorkflowKey"/>
+                            </GridCell>
+                            <GridCell Key="WorkflowName" Caption="流程名称" CellType="TextEditor">
+                                <DataBinding ColumnKey="WorkflowName"/>
+                            </GridCell>
+                            <GridCell Key="Code" Caption="流程定义代码" CellType="TextEditor">
+                                <DataBinding ColumnKey="Code"/>
+                            </GridCell>
+                            <GridCell Key="Name" Caption="流程定义名称" CellType="TextEditor" CellSortType="None">
+                                <DataBinding ColumnKey="Name"/>
+                            </GridCell>
+                            <GridCell Key="WorkflowVersion" Caption="版本" CellSortType="None">
+                                <DataBinding ColumnKey="WorkflowVersion"/>
+                            </GridCell>
+                            <GridCell Key="WorkflowState" Caption="流程状态" CellType="ComboBox" CellSortType="None">
+                                <DataBinding DefaultFormulaValue="OA_GetWorkflowAttribute(WorkflowRelevance,0,&quot;State&quot;);"/>
+                                <Item Caption="新建" Key="0" Value="0"/>
+                                <Item Caption="部署" Key="1" Value="1"/>
+                            </GridCell>
+                            <GridCell Key="OID" Caption="对象标志">
+                                <DataBinding ColumnKey="OID"/>
+                            </GridCell>
+                            <GridCell Key="WorkflowSet" Caption="流程设置" CellType="HyperLink" Enable="true" CellSortType="None">
+                                <OnClick>
+                                    <![CDATA[OA_ShowWorkflowDesigne();]]>
+                                </OnClick>
+                            </GridCell>
+                            <GridCell Key="WorkflowDesigneID" Caption="流程设计ID" CellSortType="None">
+                                <DataBinding ColumnKey="WorkflowDesigneID"/>
+                            </GridCell>
+                        </GridRow>
+                    </GridRowCollection>
+                    <RowDblClick>
+                        <![CDATA[Open("OA_Workflow",OID)]]>
+                    </RowDblClick>
+                </Grid>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+    <OnLoad>
+        <![CDATA[LoadData()]]>
+    </OnLoad>
+    <MacroCollection>
+        <Macro Key="OA_ShowWorkflowDesigne">
+            <![CDATA[var workflowDesigneID=ToLong(OA_GetWorkflowDesigneID());
+if(workflowDesigneID>0){
+    Open("OA_WorkflowDesigne", workflowDesigneID, "newtab","WorkflowKey:{WorkflowKey},WorkflowVersion:{WorkflowVersion},Tag1:{'OA_Workflow'},Tag2:{OID},FieldKey1:{'WorkflowDesigneID'},QueryFormKey:{'OA_WorkflowSet'}");
+}else{
+    New("OA_WorkflowDesigne","newtab","WorkflowKey:{WorkflowKey},WorkflowVersion:{WorkflowVersion},Tag1:{'OA_Workflow'},Tag2:{OID},FieldKey1:{'WorkflowDesigneID'},QueryFormKey:{'OA_WorkflowSet'}");
+}]]>
+        </Macro>
+        <Macro Key="OA_GetWorkflowDesigneID">
+            <![CDATA[DBQueryValue("Select OID From OA_WorkflowDesigne_H Where WorkflowKey=? and WorkflowVersion=? And Tag1=? And Tag2=?", WorkflowKey,WorkflowVersion,'OA_Workflow',OID);]]>
+        </Macro>
+    </MacroCollection>
+</Form>

@@ -26,7 +26,7 @@ public class GetSelectRowColumn implements IExtService {
 	 * 获得选择行指定列值的字符串
 	 * 
 	 * @param context
-	 *            中间层对象
+	 *            上下文对象
 	 * @param tableName
 	 *            表名
 	 * @param selectName

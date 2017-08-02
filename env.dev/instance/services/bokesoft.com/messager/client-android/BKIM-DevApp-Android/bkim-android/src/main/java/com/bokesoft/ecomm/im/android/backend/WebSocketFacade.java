@@ -121,7 +121,7 @@ public class WebSocketFacade {
             public void run() {
                 performPing();
             }
-        }, 200L, 5000L);
+        }, 200L, 5*60*1000L);
     }
 
     public void performPing() {

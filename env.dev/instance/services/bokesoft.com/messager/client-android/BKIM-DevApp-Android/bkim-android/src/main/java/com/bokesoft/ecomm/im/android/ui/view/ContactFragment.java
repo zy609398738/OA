@@ -1,103 +1,147 @@
 package com.bokesoft.ecomm.im.android.ui.view;
 
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.bokesoft.ecomm.im.android.R;
-import com.bokesoft.ecomm.im.android.event.MemberLetterEvent;
-import com.bokesoft.ecomm.im.android.model.GroupInfo;
 import com.bokesoft.ecomm.im.android.backend.HostServiceFacade;
-import com.bokesoft.ecomm.im.android.ui.adapter.ConstactAdapter;
-import com.bokesoft.ecomm.im.android.utils.LogUtils;
+import com.bokesoft.ecomm.im.android.backend.IMServiceFacade;
+import com.bokesoft.ecomm.im.android.instance.ClientInstanceData;
+import com.bokesoft.ecomm.im.android.model.GroupInfo;
+import com.bokesoft.ecomm.im.android.ui.adapter.ContactAdapter;
+import com.bokesoft.ecomm.im.android.ui.widget.IphoneTreeView;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import de.greenrobot.event.EventBus;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * 联系人页面
- *
  */
-public class ContactFragment extends Fragment {
+public class ContactFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
+    private IphoneTreeView treeView;
+    private ContactAdapter contactAdapter;
+    private List<GroupInfo> groupList = new ArrayList<>();
+    private List<List<GroupInfo.User>> groupUsersList = new ArrayList<>();
+    private SwipeRefreshLayout swipeRefreshLayout;
 
-    protected SwipeRefreshLayout refreshLayout;
-    private IphoneTreeView mEblist;
-    View view;
-    private ConstactAdapter mExpAdapter;
-    private List<GroupInfo> mListGroup = new ArrayList<>();
-    public static List<List<GroupInfo.User>> mListChild = new ArrayList<>();
+    Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case 1:
+                    groupList = (List<GroupInfo>) msg.obj;
+                    //关联适配器
+                    updataData();
+                    break;
+            }
+        }
+
+
+    };
+
+    private void getUserCode(final List<String> userCodes) {
+        final String[] strArr = new String[userCodes.size()];
+        for (int i = 0; i < userCodes.size(); i++) {
+            strArr[i] = userCodes.get(i);
+        }
+        //从接口获取状态
+        IMServiceFacade.getUserStates(getContext(), strArr, new IMServiceFacade.QueryUserStatesCallback() {
+            @Override
+            public void perform(IMServiceFacade.UserStates userStates) {
+                Map<String, String> states = userStates.getStates();
+                Log.d("states>>>>>", states + "");
+                Set<Map.Entry<String, String>> entries = states.entrySet();
+                for (Map.Entry<String, String> entry : entries) {
+                    ClientInstanceData.addUserState(entry.getKey(), entry.getValue());
+                }
+            }
+        });
+
+
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.contact_fragment, container, false);
+        View view = inflater.inflate(R.layout.bkim_contact_fragment, container, false);
 
         //初始化组件
-        initView();
-        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                refreshMembers();
-            }
-        });
-
-        EventBus.getDefault().register(this);
-
+        initView(view);
         return view;
     }
 
+    private void initView(View view) {
+        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.contact_fragment_pullrefresh);
+        //改变加载显示的颜色
+        swipeRefreshLayout.setColorSchemeColors(Color.RED, Color.RED);
+        //设置初始值的大小
+        swipeRefreshLayout.setSize(SwipeRefreshLayout.LARGE);
+        //设置监听
+        swipeRefreshLayout.setOnRefreshListener(this);
+        //设置向下拉多少出现刷新
+        swipeRefreshLayout.setDistanceToTriggerSync(80);
+        //设置刷新出现的位置
+        swipeRefreshLayout.setProgressViewEndTarget(false, 200);
 
-    private void initView() {
+        treeView = (IphoneTreeView) view.findViewById(R.id.contact_fragment_itv_list);
+        treeView.setGroupIndicator(null);
+        refreshMembers(false);//加载数据
 
-        refreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.contact_fragment_srl_list);
-        mEblist = (IphoneTreeView) view.findViewById(R.id.contact_fragment_itv_list);
-        mEblist.setHeaderView(LayoutInflater.from(getContext()).inflate(R.layout.fragment_constact_head_view, mEblist, false));
-        mEblist.setGroupIndicator(null);
-        refreshLayout.setRefreshing(true);
-        refreshMembers();//加载数据
-        mExpAdapter.notifyDataSetChanged();
-        refreshLayout.setRefreshing(false);
     }
-    @Override
-    public void onDestroyView() {
-        EventBus.getDefault().unregister(this);
-        super.onDestroyView();
-        mExpAdapter.notifyDataSetChanged();
-    }
-    private void refreshMembers() {
+
+
+    private void refreshMembers(final boolean isRefresh) {
         HostServiceFacade.requestBuddies(this.getContext(), new HostServiceFacade.BuddiesCallback() {
             @Override
             public void perform(List<GroupInfo> groups) {
-                mListGroup = groups;
-                for (GroupInfo g : groups) {
-                    mListChild.add(g.getUsers());
+
+                if (groups != null) {
+                    if (isRefresh) {
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                    Message msg = Message.obtain();
+                    msg.obj = groups;
+                    msg.what = 1;
+                    handler.sendMessage(msg);
                 }
-                mExpAdapter.notifyDataSetChanged();
-                refreshLayout.setRefreshing(false);
             }
         });
-        mExpAdapter = new ConstactAdapter(getActivity(), mListGroup, mListChild, mEblist);
-        mEblist.setAdapter(mExpAdapter);
-        mExpAdapter.notifyDataSetChanged();
-        refreshLayout.setRefreshing(false);//结束刷新状态
     }
 
-    /**
-     * 处理 LetterView 发送过来的 MemberLetterEvent
-     * 会通过 MembersAdapter 获取应该要跳转到的位置，然后跳转
-     */
-    public void onEvent(MemberLetterEvent event) {
-        mExpAdapter.notifyDataSetChanged();
-//        Character targetChar = Character.toLowerCase(event.letter);
-//        if (mExpAdapter.getIndexMap().containsKey(targetChar)) {
-//            int index = itemAdapter.getIndexMap().get(targetChar);
-//            if (index > 0 && index < itemAdapter.getItemCount()) {
-//                //  layoutManager.scrollToPositionWithOffset(index, 0);
-//            }
-//        }
+    @Override
+    public void onResume() {
+        super.onResume();
+        updataData();
+    }
+
+    private void updataData() {
+        contactAdapter = new ContactAdapter(getActivity(), groupList, groupUsersList, treeView);
+        treeView.setAdapter(contactAdapter);
+        List<String> userCodes = new ArrayList<>();
+        for (GroupInfo g : groupList) {
+            groupUsersList.add(g.getUsers());
+            for (GroupInfo.User user : g.getUsers()) {
+                userCodes.add(user.getCode());
+            }
+        }
+        getUserCode(userCodes);
+        contactAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onRefresh() {
+        groupList.clear();
+        groupUsersList.clear();
+        refreshMembers(true);
     }
 }

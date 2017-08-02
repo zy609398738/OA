@@ -55,27 +55,31 @@ public class GenOperatorAll implements IExtService {
 				operatorDoc.setNew();
 				DataTable operatorDt = operatorDoc.get("SYS_Operator");
 				// operatorDt.insert();
-				operatorDt.setObject("Code", dtQuery.getObject("Code"));
-				operatorDt.setObject("Name", dtQuery.getObject("Name"));
-				operatorDt.setObject("EmpID", empID);
-				operatorDt.setObject("DeptID", dtQuery.getObject("DeptID"));
+
+				// OAContext oac = new OAContext(context);
+				// Operator operator = new Operator(oac);
+				// operator.loadData(operatorDt);
+				operatorDt.setString("Code", dtQuery.getString("Code"));
+				operatorDt.setString("Name", dtQuery.getString("Name"));
+				operatorDt.setLong("EmpID", empID);
+				operatorDt.setLong("DeptID", dtQuery.getLong("DeptID"));
 
 				DataTable roleDt = operatorDoc.get("SYS_OperatorRole");
 				empRoleDt.beforeFirst();
 				while (empRoleDt.next()) {
 					roleDt.append();
-					roleDt.setObject("Role", empRoleDt.getObject("RoleID"));
+					roleDt.setLong("Role", empRoleDt.getLong("RoleID"));
 				}
 			} else {
 				operatorDoc.setModified();
 				// long operatorOid = dtQuery.getLong("empID");
 				LoadData loadData = new LoadData(operatorKey, optID);
-				DefaultContext newContext=new DefaultContext(context);
+				DefaultContext newContext = new DefaultContext(context);
 				operatorDoc = loadData.load(newContext, operatorDoc);
 				DataTable operatorDt = operatorDoc.get("SYS_Operator");
-				operatorDt.setObject("Code", dtQuery.getObject("Code"));
-				operatorDt.setObject("Name", dtQuery.getObject("Name"));
-				operatorDt.setObject("DeptID", dtQuery.getObject("DeptID"));
+				operatorDt.setString("Code", dtQuery.getString("Code"));
+				operatorDt.setString("Name", dtQuery.getString("Name"));
+				operatorDt.setLong("DeptID", dtQuery.getLong("DeptID"));
 				DataTable roleDt = operatorDoc.get("SYS_OperatorRole");
 
 				roleDt.beforeFirst();
@@ -92,14 +96,14 @@ public class GenOperatorAll implements IExtService {
 					long roleID = empRoleDt.getLong("RoleID");
 					if (roleDt.findRow("Role", roleID) < 0) {
 						roleDt.append();
-						roleDt.setObject("Role", roleID);
+						roleDt.setLong("Role", roleID);
 					}
 				}
 			}
 			DocumentUtil.calcSequence(operatorDoc);
 			// 保存Document
 			SaveData saveData = new SaveData(operatorDo, null, operatorDoc);
-			DefaultContext newContext=new DefaultContext(context);
+			DefaultContext newContext = new DefaultContext(context);
 			operatorDoc = saveData.save(newContext);
 		}
 

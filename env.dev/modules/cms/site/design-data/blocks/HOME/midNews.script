@@ -1,0 +1,30 @@
+cms.PageExp.Local('href', cms.PageExp.RelContextRoot()&{/news/newsview.page?id=});
+cms.PageExp.Local(
+	"titleData",cms.DataExp.QueryList("select name,code from oa_newstype_h where cmstag=${tag} order by code")
+);
+cms.PageExp.Local(
+	"topData",
+    oa.TodoMidExp.queryListByTop("
+        select ndh.oid as id, ndh.topic as col2, nth.code, nth.oid as typeID, nth.name as col1, 
+      		opt.name as col3, opt.oid as maker, ndh.createTime as col4,ndh.CreateTime
+		from OA_NewsDraft_H ndh
+		join OA_NewsType_H nth on ndh.newsTypeID=nth.oid and ndh.status=1200 and nth.cmstag=${tag} and ndh.Top=1
+		join sys_Operator opt on ndh.creator=opt.oid
+	    order by CreateTime DESC ", 3
+    )
+);
+
+cms.PageExp.Local(
+	"data",
+    cms.DataExp.QueryList("
+		select id,code,typeID,maker,col1,col2,col3,col4,CreateTime from
+			(select ndh.oid as id, ndh.topic as col2, nth.code, nth.oid as typeID, nth.name as col1, 
+      				opt.name as col3, opt.oid as maker, ndh.createTime as col4,ndh.CreateTime
+				from OA_NewsDraft_H ndh
+				join OA_NewsType_H nth on ndh.newsTypeID=nth.oid and ndh.status=1200 and nth.cmstag=${tag}
+				join sys_Operator opt on ndh.creator=opt.oid
+				where  ${newscount}>(select count(*) n from OA_NewsDraft_H nd where nd.status=1200 and nd.NewsTypeID=ndh.NewsTypeID and nd.CreateTime>ndh.CreateTime)
+			) NewsDraftHTO 
+	    order by code asc,CreateTime DESC
+    ")
+)

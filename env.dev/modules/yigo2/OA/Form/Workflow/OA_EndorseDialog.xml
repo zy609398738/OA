@@ -1,18 +1,77 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <Form Caption="加签对话框" Key="OA_EndorseDialog">
-    <Body PopHeight="500px" PopWidth="600px">
+    <Body PopHeight="210px" PopWidth="600px">
         <Block>
             <FlexFlowLayoutPanel Key="root" Caption="根面板">
-                <GridLayoutPanel Caption="GridLayoutPanel0" Key="GridLayoutPanel0" Padding="5px" Height="pref">
-                    <TextArea Caption="处理意见" Enable="True" HAlign="Left" Key="Opinion" X="1" XSpan="4" Y="2" YSpan="2"/>
-                    <Button Caption="加签" Enable="True" Key="APPROVE" ShowText="false" X="3" Y="4">
+                <GridLayoutPanel Key="GridLayoutPanel1" Height="pref" Caption="GridLayoutPanel1">
+                    <Dict Key="Endorse" Caption="加签人员" BuddyKey="Lab_Endorse" X="1" Y="0" ItemKey="Operator" XSpan="3"/>
+                    <Label Key="Lab_Endorse" Caption="加签人员" X="0" Y="0"/>
+                    <RowDefCollection RowGap="5">
+                        <RowDef Height="30px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="5">
+                        <ColumnDef Width="100px"/>
+                        <ColumnDef Width="50%"/>
+                        <ColumnDef Width="100px"/>
+                        <ColumnDef Width="50%"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+                <GridLayoutPanel Key="CommonUsePanel" Height="pref" Padding="5px" aption="CommonUsePanel" Visible="InvokeService(&quot;OA_GetWorkflowDesigneValue&quot;, false, false,Para(&quot;pWorkitemID&quot;),Para(&quot;workflowBillKey&quot;),Para(&quot;WorkflowTypeDtlID&quot;),&quot;CommonOpinion&quot;)==1">
+                    <ComboBox BuddyKey="Lab_CommonUseContent" Caption="常用意见" Key="CommonUseContent" X="1" Y="0" SourceType="Formula" Editable="true">
+                        <DataBinding>
+                            <ValueChanged>
+                                <![CDATA[SetValue("Opinion", CommonUseContent)]]>
+                            </ValueChanged>
+                        </DataBinding>
+                        <FormulaItems>
+                            <![CDATA[OA_GetCommonUseContent();]]>
+                        </FormulaItems>
+                    </ComboBox>
+                    <Label Caption="常用意见" Key="Lab_CommonUseContent" X="0" Y="0"/>
+                    <HyperLink Caption="保存常用意见" Key="SaveCommonViews" X="2" Y="0">
                         <OnClick>
-                            <![CDATA[        var x = Para("pWorkitemID");
-	parent.EndorseTask(x,Endorse,GetValue("Opinion"));
-        Close();]]>
+                            <![CDATA[if(DBQueryValue('select a.Content from OA_AddViews a where a.Content=? and Creator=?', GetValue('Opinion'),GetOperator())==GetValue('Opinion'))
+{
+    Confirm('该意见已存在');
+}else{
+    var newOID=ApplyNewOID();
+    DBUpdate('Insert into OA_AddViews (OID,SOID,POID,VERID,DVERID,Content,Creator,Status) values (?,?,0,0,0,?,?,100)',newOID,newOID,GetValue('Opinion'),GetOperator());
+}]]>
+                        </OnClick>
+                    </HyperLink>
+                    <RowDefCollection RowGap="5">
+                        <RowDef Height="30px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="5">
+                        <ColumnDef Width="100px"/>
+                        <ColumnDef Width="100%"/>
+                        <ColumnDef Width="100px"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+                <GridLayoutPanel Caption="GridLayoutPanel0" Key="GridLayoutPanel0" Padding="5px" Height="pref">
+                    <TextArea Caption="处理意见" Enable="True" HAlign="Left" Key="Opinion" X="1" XSpan="4" Y="0" MaxLength="4000"/>
+                    <Label Caption="处理意见" Key="T_Opinion" X="0" Y="0"/>
+                    <RowDefCollection RowGap="4">
+                        <RowDef Height="90px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="4">
+                        <ColumnDef Width="100px"/>
+                        <ColumnDef Width="100px"/>
+                        <ColumnDef Width="100px"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="80px"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+                <GridLayoutPanel Key="GridLayoutPanel2" Height="pref" Caption="GridLayoutPanel2">
+                    <Button Caption="加签" Enable="True" Key="APPROVE" ShowText="false" X="1" Y="0">
+                        <OnClick>
+                            <![CDATA[var x = Para("pWorkitemID");
+parent.EndorseTask(x,Endorse,GetValue("Opinion"));
+Close();
+parent.Confirm("加签成功");]]>
                         </OnClick>
                     </Button>
-                    <Button Caption="取消" Enable="True" Key="cancel" X="4" Y="4">
+                    <Button Caption="取消" Enable="True" Key="cancel" X="2" Y="0">
                         <OnClick>
                             <![CDATA[
 			
@@ -21,51 +80,14 @@
 			]]>
                         </OnClick>
                     </Button>
-                    <Label Caption="处理意见" Key="T_Opinion" X="0" Y="3"/>
-                    <Label Caption="常用意见" Key="Lab_CommonUseContent" X="0" Y="1"/>
-                    <ComboBox BuddyKey="Lab_CommonUseContent" Caption="常用意见" Key="CommonUseContent" X="1" XSpan="4" Y="1" SourceType="Query">
-                        <DataBinding>
-                            <ValueChanged>
-                                <![CDATA[SetValue("Opinion", CommonUseContent)]]>
-                            </ValueChanged>
-                        </DataBinding>
-                        <QueryDef>
-                            <Statement>
-                                <![CDATA[select content from OA_AddViews where creator =?]]>
-                            </Statement>
-                            <ParameterCollection>
-                                <Parameter DataType="Long" Formula="GetOperator()"/>
-                            </ParameterCollection>
-                        </QueryDef>
-                    </ComboBox>
-                    <HyperLink Caption="保存常用意见" Key="SaveCommonViews" X="0" Y="2">
-                        <OnClick>
-                            <![CDATA[IIF(
-    DBQueryValue
-        ('select a.Content 
-            from OA_AddViews a 
-            where a.Content=? and Creator=?', GetValue('Opinion'),GetOperator())==GetValue('Opinion'),
-        Confirm('该意见已存在'),
-        DBUpdate('Insert into OA_AddViews (OID,SOID,POID,VERID,DVERID,Content,Creator,Status) values (?,OID,null,0,0,?,?,100)',
-ApplyNewOID(),GetValue('Opinion'),GetOperator())
-);]]>
-                        </OnClick>
-                    </HyperLink>
-                    <Dict Key="Endorse" Caption="加签人员" BuddyKey="Lab_Endorse" X="1" Y="0" ItemKey="Operator" XSpan="4"/>
-                    <Label Key="Lab_Endorse" Caption="加签人员" X="0" Y="0"/>
-                    <RowDefCollection RowGap="4">
+                    <RowDefCollection RowGap="5">
                         <RowDef Height="30px"/>
-                        <RowDef Height="30px"/>
-                        <RowDef Height="30px"/>
-                        <RowDef Height="90px"/>
-                        <RowDef Height="25px"/>
                     </RowDefCollection>
-                    <ColumnDefCollection ColumnGap="4">
+                    <ColumnDefCollection ColumnGap="5">
+                        <ColumnDef Width="50%"/>
                         <ColumnDef Width="100px"/>
                         <ColumnDef Width="100px"/>
-                        <ColumnDef Width="100px"/>
-                        <ColumnDef Width="80px"/>
-                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="50%"/>
                     </ColumnDefCollection>
                 </GridLayoutPanel>
             </FlexFlowLayoutPanel>

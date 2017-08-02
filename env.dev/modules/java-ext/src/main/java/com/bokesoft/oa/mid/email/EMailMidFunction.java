@@ -137,9 +137,15 @@ public class EMailMidFunction {
 		// paras.length > 0 更改邮件服务器地址
 		if (!hasConfig || isChangeConfig) {
 			String sql = "select UserName, Password, ReceiverHost, SenderHost,"
-					+ " ReceiverPort, SenderPort, Email from OA_EmailSet_H where"
-					+ " IsDefault = '1' and OperatorID = '" + operatorId + "'";
+					+ " ReceiverPort, SenderPort, Email from OA_EmailSet_H where" + " OperatorID = '" + operatorId
+					+ "'";
 			DataTable dt = context.getDBManager().execPrepareQuery(sql);
+			// 如果没有找到用户邮件设置，取默认邮件设置。
+			if (dt.size() <= 0) {
+				sql = "select UserName, Password, ReceiverHost, SenderHost,"
+						+ " ReceiverPort, SenderPort, Email from OA_EmailSet_H where" + " IsDefault = '1'";
+				dt = context.getDBManager().execPrepareQuery(sql);
+			}
 			int j = dt.size();
 			if (j != 0) {
 				EmailDTO emailDTO = new EmailDTO();
@@ -283,7 +289,7 @@ public class EMailMidFunction {
 			try {
 				// 设置标题
 				mimeMsg.setSubject(mailTitle);
-				bp1.setContent(mailContent, "text/html;charset=GB2312");
+				bp1.setContent(mailContent, "text/html;charset=UTF-8");
 				mp.addBodyPart(bp1);
 				if (StringUtil.isBlankOrNull(attachPath)) {
 					if (!StringUtil.isBlankOrNull(tableKey)) {
@@ -382,7 +388,7 @@ public class EMailMidFunction {
 		Message message[] = folder.getMessages();
 		EmailReciver pmm = null;
 		for (int i = 0; i < message.length; i++) {
-			DefaultContext newContext=new DefaultContext(context);
+			DefaultContext newContext = new DefaultContext(context);
 			pmm = new EmailReciver((MimeMessage) message[i]);
 			String messageId = pmm.getMessageId(); // 邮件id
 			if (i == 0) {

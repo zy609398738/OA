@@ -53,3 +53,15 @@ window.do404ErrorNone = function(){
         $("#console").text("Error NOT raised!");
     }, {errorStyle: "none"});
 }
+
+
+window.doTextTest = function(){
+    ajax.post("/test-data.json", {}, function(data){
+        $("#console").text("返回值数据类型:"+typeof(data)+"; / text:'"+data+"'");
+    },{dataType:"text"});
+}
+window.doJsonTest = function(){
+    ajax.post("/test-data.json", {}, function(data){
+        $("#console").text("返回值数据类型:"+typeof(data)+"; / json:"+data);
+    });
+}

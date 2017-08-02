@@ -61,6 +61,7 @@ void function($){
         for (arg in argsObj) {
             this[arg] = argsObj[arg];
         }
+		this.defaultIndex = argsObj.defaultIndex;
         /* Create regular expressions for the class names; Note: if you
      change the class names after a new object is created you must
      also change these regular expressions.
@@ -95,12 +96,19 @@ void function($){
         var childNodes, /* child nodes of the tabber div */
         i, i2, /* loop indices */
         t, /* object to store info about a single tab */
-        defaultTab = 0, /* which tab to select by default */
+        //defaultTab = 0, /* which tab to select by default */
         DOM_ul, /* tabbernav list */
         DOM_li, /* tabbernav list item */
         DOM_a, /* tabbernav link */
         aId, /* A unique id for DOM_a */
-        headingElement;
+        headingElement,
+		defaultTab;
+		if(!this.defaultIndex){
+			defaultTab = 0;
+		}
+		else{
+			defaultTab = this.defaultIndex;
+		}
         /* searching for text to use in the tab */
         /* Verify that the browser supports DOM scripting */
         if (!document.getElementsByTagName) {
@@ -118,7 +126,7 @@ void function($){
             /* Find the nodes where class="tabbertab" */
             if (childNodes[i].className && childNodes[i].className.match(this.REclassTab)) {
                 /* Create a new object to save info about this tab */
-                t = new Object();
+                t = {};
                 /* Save a pointer to the div for this tab */
                 t.div = childNodes[i];
                 /* Add the new object to the array of tabs */
@@ -190,7 +198,7 @@ void function($){
             /* bokesoft Yigo-ecomm #13 END */
             DOM_a.href = "javascript:void(null);";
             DOM_a.title = t.headingText;
-            DOM_a.onmouseover = this.navClick;
+            DOM_a.onclick  = this.navClick;
             /* Add some properties to the link so we can identify which tab
        was clicked. Later the navClick method will need this.
        */
@@ -277,10 +285,9 @@ void function($){
         return false;
     };
     tabberObj.prototype.tabHideAll = function() {
-        var i;
         /* counter */
         /* Hide all tabs and make all navigation links inactive */
-        for (i = 0; i < this.tabs.length; i++) {
+        for (var i = 0; i < this.tabs.length; i++) {
             this.tabHide(i);
         }
     };
@@ -341,17 +348,29 @@ void function($){
         options = options || {};
         var tempObj = new tabberObj(options);
         var divs = document.getElementsByTagName("div");
-        for (i = 0; i < divs.length; i++) {
+        for (var i = 0; i < divs.length; i++) {
             if (divs[i].className && divs[i].className.match(tempObj.REclassMain)) {
                 options.div = divs[i];
                 divs[i].tabber = new tabberObj(options);
             }
         }
-    };
+    }
     var options = window.tabberOptions || {};
+	//获取url的参数
+	function GetQueryString(name)
+	{
+		 var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+		 var r = window.location.search.substr(1).match(reg);
+		 if(r!=null)return  unescape(r[2]); return null;
+	}	
+	
+	var tabberOptions;
     // TODO: require or request tabberOptions
     if (!options["manualStartup"]) {
         $(function() {
+			var defaultTab = parseInt(GetQueryString("default-tab"))-1;
+			tabberOptions={defaultIndex:defaultTab};
+			options = tabberOptions || {};
             setup(options);
         });
     }

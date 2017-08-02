@@ -1,1 +1,2 @@
-cms.PageExp.Local("newContent",cms.DataExp.QueryList({select content,mainpic,source,author,title,date_format(NewsDate,'%Y-%m-%d') as newsdate from cms_news where oid =}&cms.ReqExp.Var('id')));
+#!spring:
+T(cms2.designer.BlockToolkit).NormalizeHtmlValue('content')

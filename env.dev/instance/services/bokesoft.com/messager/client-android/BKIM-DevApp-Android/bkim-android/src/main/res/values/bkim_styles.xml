@@ -158,4 +158,9 @@
         <!--点击空白处不消失-->
         <item name="android:windowCloseOnTouchOutside">false</item>
     </style>
+    <!--聊天记录title的大小-->
+    <style name="designCustomTextSize" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textSize">18sp</item>
+    </style>
+
 </resources>

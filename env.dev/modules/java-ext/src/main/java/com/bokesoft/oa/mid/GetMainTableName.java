@@ -23,7 +23,7 @@ public class GetMainTableName implements IExtService {
 	 * 获得主表名称
 	 * 
 	 * @param context
-	 *            中间层对象
+	 *            上下文对象
 	 * @param srcFromKey
 	 *            配置标识
 	 * @return 主表名称

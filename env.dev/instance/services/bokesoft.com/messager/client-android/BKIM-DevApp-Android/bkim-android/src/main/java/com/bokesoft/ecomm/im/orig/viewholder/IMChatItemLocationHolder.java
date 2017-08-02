@@ -12,7 +12,7 @@ import com.bokesoft.ecomm.im.android.ui.viewholder.ChatItemHolder;
 import de.greenrobot.event.EventBus;
 
 /**
- * FIXME 未实现
+ * TODO (未实现仅供参考) Location 类型的消息
  * 聊天页面中的地理位置 item 对应的 holder
  */
 public class IMChatItemLocationHolder extends ChatItemHolder {

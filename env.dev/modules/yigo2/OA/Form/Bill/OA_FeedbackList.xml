@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="OA_FeedbackList" Caption="反馈消息列表" FormType="View">
+    <DataSource>
+        <DataObject Key="OA_FeedbackList" Caption="反馈消息列表">
+            <TableCollection>
+                <Table Key="OA_FeedbackList" Caption="反馈消息列表" TableMode="Detail" SourceType="Query" Persist="false">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="ProcessKey" Caption="流程名称" DataType="Varchar"/>
+                    <Column Key="WorkItemName" Caption="审批操作" DataType="Varchar"/>
+                    <Column Key="BillKey" Caption="单据名称" DataType="Varchar"/>
+                    <Column Key="Content" Caption="反馈内容" DataType="Varchar"/>
+                    <Column Key="Operator" Caption="反馈人员" DataType="Long"/>
+                    <Column Key="BillDate" Caption="反馈时间" DataType="DateTime"/>
+                    <Column Key="FeedbackType" Caption="反馈类型" DataType="Integer"/>
+                    <Column Key="SourceOID" Caption="源OID" DataType="Long"/>
+                    <ParameterCollection>
+                        <Parameter Formula="GetOperator();" DataType="Long"/>
+                    </ParameterCollection>
+                    <Statement>
+                        <![CDATA[select * from OA_Feedback where BeFeedback = ? order by BillDate desc]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="Close" Caption="关闭" RefKey="Close"/>
+    </OperationCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板" Height="100%">
+                <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <GridLayoutPanel Key="first_head" Padding="5px" Height="90px" Caption="基本信息">
+                    <Dict Key="Q_Operator" Caption="反馈人员" BuddyKey="Lab_Q_Operator" X="1" Y="1" ItemKey="Operator" AllowMultiSelection="true">
+                        <Condition ColumnKey="Operator" TableKey="OA_FeedbackList" CondSign="in"/>
+                    </Dict>
+                    <Label Key="Lab_Q_Operator" Caption="反馈人员" X="0" Y="1"/>
+                    <DatePicker Key="From" Caption="反馈时间 从" BuddyKey="Lab_From" X="3" Y="0">
+                        <Condition ColumnKey="BillDate" TableKey="OA_FeedbackList" CondSign="between" Group="A" GroupHead="true"/>
+                    </DatePicker>
+                    <Label Key="Lab_From" Caption="反馈时间 从" X="2" Y="0"/>
+                    <DatePicker Key="To" Caption="到" BuddyKey="Lab_To" X="5" Y="0">
+                        <Condition ColumnKey="BillDate" TableKey="OA_FeedbackList" CondSign="between" Group="A" GroupTail="true"/>
+                    </DatePicker>
+                    <Label Key="Lab_To" Caption="到" X="4" Y="0">
+                        <Format HAlign="Center"/>
+                    </Label>
+                    <Button Key="Query" Caption="查询" X="6" Y="0">
+                        <OnClick>
+                            <![CDATA[DealCondition();
+LoadData();
+ShowData();]]>
+                        </OnClick>
+                    </Button>
+                    <Button Key="Reset" Caption="重置" X="6" Y="1">
+                        <OnClick>
+                            <![CDATA[ResetCondition();]]>
+                        </OnClick>
+                    </Button>
+                    <CheckListBox BuddyKey="Lab_Q_ProcessKey" Caption="流程名称" Key="Q_ProcessKey" X="1" Y="0">
+                        <Condition ColumnKey="ProcessKey" TableKey="OA_FeedbackList" CondSign="in"/>
+                    </CheckListBox>
+                    <Label Key="Lab_Q_ProcessKey" Caption="流程名称" X="0" Y="0"/>
+                    <CheckListBox BuddyKey="Lab_Q_FeedbackType" Caption="反馈类型" Key="Q_FeedbackType" X="3" Y="1" GroupKey="FeedbackType" SourceType="ParaGroup"/>
+                    <Label Key="Lab_Q_FeedbackType" Caption="反馈类型" X="2" Y="1"/>
+                    <RowDefCollection RowGap="8">
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="8">
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="33%"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="33%"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="34%"/>
+                        <ColumnDef Width="80px"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+                <ListView Caption="ListView1" Height="100%" Key="ListView1" PageLoadType="DB" TableKey="OA_FeedbackList">
+                    <ListViewColumnCollection>
+                        <ListViewColumn Key="ProcessKey" Caption="流程名称" ColumnType="ComboBox" Width="150px" DataColumnKey="ProcessKey" SourceType="Formula">
+                            <FormulaItems>
+                                <![CDATA[OA_GetDropItemByBPM()]]>
+                            </FormulaItems>
+                        </ListViewColumn>
+                        <ListViewColumn Key="WorkItemName" Caption="审批操作" ColumnType="TextEditor" DataColumnKey="WorkItemName" Width="120px"/>
+                        <ListViewColumn Key="BillKey" Caption="单据名称" ColumnType="ComboBox" DataColumnKey="BillKey" Width="150px" SourceType="Formula">
+                            <FormulaItems>
+                                <![CDATA[GetFormByType("Entity")]]>
+                            </FormulaItems>
+                        </ListViewColumn>
+                        <ListViewColumn Key="Content" Caption="反馈内容" ColumnType="TextEditor" DataColumnKey="Content" Width="350px"/>
+                        <ListViewColumn Key="Operator" Caption="反馈人员" ColumnType="Dict" DataColumnKey="Operator" Width="120px" ItemKey="Operator"/>
+                        <ListViewColumn Key="BillDate" Caption="反馈时间" ColumnType="DatePicker" DataColumnKey="BillDate" Width="150px"/>
+                        <ListViewColumn Key="SourceOID" Caption="源OID" DataColumnKey="SourceOID" Visible="false"/>
+                    </ListViewColumnCollection>
+                    <RowDblClick>
+                        <![CDATA[Open(GetCellValue("ListView1",-1,"BillKey"),GetCellValue("ListView1", -1, "SourceOID"))]]>
+                    </RowDblClick>
+                </ListView>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+    <OnLoad>
+        <![CDATA[LoadData();]]>
+    </OnLoad>
+</Form>

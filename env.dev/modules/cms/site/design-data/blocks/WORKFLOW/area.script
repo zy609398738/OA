@@ -1,0 +1,18 @@
+var where='';
+cms.PageExp.Local("mywhere",where);
+if(cms.PageExp.UrlVar("mywhere")){
+  	where=cms.PageExp.UrlVar("mywhere");
+  	cms.PageExp.Local("mywhere",where);
+   	where=" and billname like '%"+where+"%' ";
+}
+
+cms.PageExp.Local("operatorID", cms.Yigo2MidExp.GetLoginOperator());
+cms.PageExp.Local(
+    "mydata",oa.TodoMidExp.getWorkflowEntry("select b.oid,b.soid,b.BillKey,b.billname from OA_MyWorkflow a join OA_WorkflowType_D b on a.SrcDtlOID=b.oid where a.operator ="+cms.PageExp.Local("operatorID")+where+" order by b.soid,b.OrderNum,b.Sequence","TSL/TSL_Approval/ExtendBus")
+);
+cms.PageExp.Local(
+    "parentdata",cms.DataExp.QueryList("select t.oid,t.Name from OA_WorkflowType_H t where t.partitiontype='"+cms.PageExp.Local("partitiontype")+"' order by t.OrderNum,t.Code")
+);
+cms.PageExp.Local(
+    "data",oa.TodoMidExp.getWorkflowEntry("select b.oid,b.soid,b.BillKey,b.billname  from OA_WorkflowType_D b join OA_WorkflowType_H t on t.oid=b.soid and t.partitiontype='"+cms.PageExp.Local("partitiontype")+"'"+where+" order by b.soid,b.OrderNum,b.Sequence","TSL/TSL_Approval/ExtendBus")
+);

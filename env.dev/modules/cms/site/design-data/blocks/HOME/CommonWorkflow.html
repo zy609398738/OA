@@ -1,0 +1,30 @@
+#set( $R_ROOT = "$this.eval('#!spring:cms.PageExp.RelContextRoot()')" )
+<div class="pop_createflow clearfix">
+    #foreach($pdata in $parentdata)
+        <div class="workflowColItem">
+			<h3><span>$pdata.NAME<i>(0)</i></span></h3>  
+         	<ul>
+            	#foreach($da in $data)
+            		#if($da.SOID==$pdata.OID)
+            			<li>
+                          <a href="" onclick="newForm('$da.BILLKEY','','WorkflowTypeDtlID:{$da.OID}')">$da.BILLNAME</a>
+              			</li>
+                	#end
+            	#end
+         	</ul>
+        </div>
+    #end   
+</div>
+#set( $R_ROOT = "$this.eval('#!spring:cms.PageExp.RelContextRoot()')" )
+<script>
+    $(".deleteworkflow").click(function(e){
+  		var el = $(this);
+        var oid = el.data('oid');
+		$.post(
+              "$R_ROOT/deleteworkflow.action",
+              {SrcDtlOID:oid}
+        );  
+      $(this).context.ownerDocument.location.reload();
+      }
+    );
+</script>

@@ -1,6 +1,5 @@
 package com.bokesoft.oa.base;
 
-import com.bokesoft.yigo.mid.base.DefaultContext;
 import com.bokesoft.yigo.struct.datatable.DataTable;
 
 /**
@@ -11,7 +10,7 @@ import com.bokesoft.yigo.struct.datatable.DataTable;
  * @param <V>
  *
  */
-public class DtlBaseMap<K, V extends DtlBase<H>, H extends HeadBase> extends BaseMap<K, V> {
+public class DtlBaseMap<K, V, H> extends BaseMap<K, V> {
 	/**
 	 * 
 	 */
@@ -45,10 +44,11 @@ public class DtlBaseMap<K, V extends DtlBase<H>, H extends HeadBase> extends Bas
 	 * 构造明细基础集合对象
 	 * 
 	 * @param context
-	 *            中间层对象
+	 *            上下文对象
 	 */
-	public DtlBaseMap(DefaultContext context) {
+	public DtlBaseMap(OAContext context, H headBase) {
 		super(context);
+		setHeadBase(headBase);
 	}
 
 	/**
@@ -56,15 +56,15 @@ public class DtlBaseMap<K, V extends DtlBase<H>, H extends HeadBase> extends Bas
 	 * 
 	 * @param dt
 	 *            明细数据集
-	 * @throws Throwable 
+	 * @throws Throwable
 	 */
 	@SuppressWarnings("unchecked")
 	public void loadData(DataTable dt) throws Throwable {
 		dt.beforeFirst();
 		while (dt.next()) {
-			DtlBase<H> messageSetDtl = new DtlBase<H>(getContext());
-			K oid = (K) messageSetDtl.getOid();
-			put(oid, (V) messageSetDtl);
+			DtlBase<H> dtl = new DtlBase<H>(getContext(), getHeadBase());
+			K oid = (K) dtl.getOID();
+			put(oid, (V) dtl);
 		}
 	}
 }

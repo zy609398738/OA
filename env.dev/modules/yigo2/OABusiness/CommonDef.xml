@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<CommonDef/>
+<CommonDef>
+    <ParaTable>
+        <ParaGroup Caption="密级" Key="SecretL">
+            <ParaItem Caption="非密" Key="10" Value="10"/>
+            <ParaItem Caption="秘密" Key="20" Value="20"/>
+            <ParaItem Caption="机密" Key="30" Value="30"/>
+        </ParaGroup>
+    </ParaTable>
+</CommonDef>

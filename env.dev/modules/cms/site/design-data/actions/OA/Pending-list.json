@@ -1,0 +1,9 @@
+{
+	"@type":"com.bokesoft.cms2.model.Action",
+	"actionExp":"",
+	"actionUrl":"/Pending-list.action",
+	"attributes":{"@type":"java.util.LinkedHashMap"},
+	"code":"Pending-list",
+	"name":"待处理列表",
+	"notes":""
+}

@@ -1,9 +1,0 @@
-#set( $R_ROOT = "$this.eval('#!spring:cms.PageExp.RelContextRoot()')" )
-<ul class="news-content">
- #foreach($item in $newslist)
- <li>
-    <a class="title" href="${R_ROOT}/news-content.page?id=$item.OID">$item.TITLE</a>
-    <span class="time">$item.NEWSDATE</span>
- </li>
- #end
-</ul>

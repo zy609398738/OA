@@ -5,12 +5,13 @@
  <ul class="news-content">
    <% _.each(items, function(item,idx){ %>
      <li>
-       <a class="title" href="${R_ROOT}/news-content.page?id=<%=item.OID%>"><%= item.TITLE%></a>
-       <span class="time"><%= item.NEWSDATE%></span>
+       <a class="title" href="${R_ROOT}<%=item.newsPageUrl%>"><%= item.newsTitle%></a>
+       <span class="time"><%= item.newsTime%></span>
      </li>
   <% }); %>
  </ul>
 </script>
+
 <script type="text/javascript">
     _require(["bokesoft.com/cms/boke-cms-pagination"], function(p){
         var options = {

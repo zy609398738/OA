@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="BKIM_BottomNavigationLayout">
+        <attr name="bkim_text_color_selected" format="color|reference"/>
+        <attr name="bkim_text_color_unselected" format="color|reference"/>
+    </declare-styleable>
+
+    <declare-styleable name="BKIM_RoundedImageView">
+        <attr name="border_thickness" format="dimension" />
+        <attr name="border_inside_color" format="color" />
+        <attr name="border_outside_color" format="color"></attr>
+    </declare-styleable>
+
+</resources>

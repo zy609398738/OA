@@ -4,9 +4,10 @@ import android.app.Activity;
 import android.content.Intent;
 import android.widget.Toast;
 
+import com.bokesoft.ecomm.im.android.activity.ConversationActivity;
+import com.bokesoft.ecomm.im.android.event.StartConversationEvent;
 import com.bokesoft.ecomm.im.android.utils.BKIMConstants;
 import com.bokesoft.services.messager.server.model.MyActiveConnectData;
-import com.bokesoft.ecomm.im.android.activity.ConversationActivity;
 import com.bokesoft.ecomm.im.android.activity.MainActivity;
 import com.bokesoft.ecomm.im.android.event.WebSocketEvent;
 import com.bokesoft.ecomm.im.android.instance.ClientInstance;
@@ -26,6 +27,14 @@ public class AndroidUIFacada {
 
     public AndroidUIFacada(Activity bindActivity){
         this.bindActivity = bindActivity;
+    }
+
+    /**
+     * 判断当前是否已经完成 IM 初始化
+     * @return
+     */
+    public boolean isReady() {
+        return (null!=this.bindActivity && initialized);
     }
 
     /**
@@ -70,7 +79,7 @@ public class AndroidUIFacada {
     }
 
     public void startMainActivity (){
-        if (null!=this.bindActivity && initialized){
+        if (isReady()){
             Intent intent = new Intent(this.bindActivity, MainActivity.class);
             this.bindActivity.startActivity(intent);
         }else{
@@ -79,10 +88,8 @@ public class AndroidUIFacada {
     }
 
     public void openConversationActivity(String peerId){
-        if (null!=this.bindActivity && initialized){
-            Intent intent = new Intent(this.bindActivity, ConversationActivity.class);
-            intent.putExtra(BKIMConstants.PEER_ID, peerId);
-            this.bindActivity.startActivity(intent);
+        if (isReady()){
+            EventBus.getDefault().post(new StartConversationEvent(peerId));
         }else{
             UIUtils.alert(this.bindActivity, "BKIM API 错误",
                     "未初始化的情况下无法启动 ConversationActivity.");
@@ -96,9 +103,27 @@ public class AndroidUIFacada {
         public void onError(String errorMessage, Throwable exception, boolean inMainThread);
     }
 
+
+    /**
+     * 事件处理 - 开始聊天
+     */
+    public void onEventMainThread(StartConversationEvent event) {
+        Intent intent = new Intent(this.bindActivity, ConversationActivity.class);
+        intent.putExtra(BKIMConstants.PEER_ID, event.getPeerId());
+        this.bindActivity.startActivity(intent);
+    }
+
+    /**
+     * 事件处理 - WebSocket 事件
+     * @param event
+     */
     public void onEvent(WebSocketEvent event) {
         handleWebSocketEvent(event, false);
     }
+    /**
+     * 事件处理 - WebSocket 事件
+     * @param event
+     */
     public void onEventMainThread(WebSocketEvent event) {
         handleWebSocketEvent(event, true);
     }

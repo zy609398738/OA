@@ -29,7 +29,6 @@
                 <![CDATA[New("OA_BusTripApplication")]]>
             </Action>
         </Operation>
-        <Operation Key="Setfirst_headVisible" Caption="查询" RefKey="Setfirst_headVisible"/>
     </OperationCollection>
     <Body>
         <Block>

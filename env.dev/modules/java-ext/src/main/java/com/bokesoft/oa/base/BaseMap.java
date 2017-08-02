@@ -2,8 +2,6 @@ package com.bokesoft.oa.base;
 
 import java.util.LinkedHashMap;
 
-import com.bokesoft.yigo.mid.base.DefaultContext;
-
 /**
  * 配置基础集合
  * 
@@ -18,26 +16,26 @@ public class BaseMap<K, V> extends LinkedHashMap<K, V> {
 	 */
 	private static final long serialVersionUID = 1L;
 	/**
-	 * 中间层对象
+	 * 上下文对象
 	 */
-	private DefaultContext context;
+	private OAContext context;
 
 	/**
-	 * 中间层对象
+	 * 上下文对象
 	 * 
-	 * @return 中间层对象
+	 * @return 上下文对象
 	 */
-	public DefaultContext getContext() {
+	public OAContext getContext() {
 		return context;
 	}
 
 	/**
-	 * 中间层对象
+	 * 上下文对象
 	 * 
 	 * @param context
-	 *            中间层对象
+	 *            上下文对象
 	 */
-	public void setContext(DefaultContext context) {
+	public void setContext(OAContext context) {
 		this.context = context;
 	}
 
@@ -45,9 +43,9 @@ public class BaseMap<K, V> extends LinkedHashMap<K, V> {
 	 * 构造基础集合对象
 	 * 
 	 * @param context
-	 *            中间层对象
+	 *            上下文对象
 	 */
-	public BaseMap(DefaultContext context) {
+	public BaseMap(OAContext context) {
 		super();
 		setContext(context);
 	}

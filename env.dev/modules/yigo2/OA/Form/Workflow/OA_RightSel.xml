@@ -1,0 +1,478 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="OA_RightSel" Caption="权限设置" FormType="Entity" InitState="Default">
+    <DataSource>
+        <DataObject Key="OA_RightSel" Caption="权限选择" PrimaryTableKey="OA_RightSel_H" DisplayFields="BillNO;BillDate" PrimaryType="Entity" QueryFields="BillNO;BillDate">
+            <TableCollection>
+                <Table Key="OA_RightSel_H" Caption="权限选择" DBTableName="OA_RightSel_H">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="No" Caption="单据编号" DataType="Varchar"/>
+                    <Column Key="BillDate" Caption="单据日期" DataType="Date"/>
+                    <Column Key="Status" Caption="单据状态" DataType="Integer"/>
+                    <Column Key="Creator" Caption="创建人" DataType="Long"/>
+                    <Column Key="CreateTime" Caption="创建日期" DataType="DateTime"/>
+                    <Column Key="Modifier" Caption="修改人" DataType="Long"/>
+                    <Column Key="ModifyTime" Caption="修改日期" DataType="DateTime"/>
+                    <Column Key="BillKey" Caption="单据Key" DataType="Varchar"/>
+                    <Column Key="ClusterID" Caption="集团" DataType="Long"/>
+                    <Column Key="SourceKey" Caption="源表单Key" DataType="Varchar"/>
+                    <Column Key="SourceID" Caption="源表单ID" DataType="Long"/>
+                    <Column Key="Tag1" Caption="Tag1" DataType="Varchar"/>
+                    <Column Key="Tag2" Caption="Tag2" DataType="Varchar"/>
+                    <Column Key="Tag3" Caption="Tag3" DataType="Varchar"/>
+                    <Column Key="Tag4" Caption="Tag4" DataType="Varchar"/>
+                    <Column Key="OptDesc" Caption="选择结果描述" DataType="Varchar" Length="1000"/>
+                    <Column Key="StartFormKey" Caption="开始表单标识" DataType="Varchar"/>
+                    <Column Key="WorkflowFormKey" Caption="流程表单标识" DataType="Varchar"/>
+                </Table>
+                <Table Key="OA_RightSel_O" Caption="操作选择结果" DBTableName="OA_RightSel_O" TableMode="Detail">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="Sequence" Caption="序号" DataType="Integer"/>
+                    <Column Key="SelectField" Caption="选择" DataType="Integer"/>
+                    <Column Key="OperationKey" Caption="操作标识" DataType="Varchar"/>
+                    <Column Key="OperationName" Caption="操作名称" DataType="Varchar"/>
+                    <Column Key="OperationVisible" Caption="可见" DataType="Integer"/>
+                    <Column Key="OperationEnable" Caption="可编辑" DataType="Integer"/>
+                </Table>
+                <Table Key="OA_RightSel_F" Caption="字段选择结果" DBTableName="OA_RightSel_F" TableMode="Detail">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="Sequence" Caption="序号" DataType="Integer"/>
+                    <Column Key="SelectField" Caption="选择" DataType="Integer"/>
+                    <Column Key="FieldKey" Caption="字段标识" DataType="Varchar"/>
+                    <Column Key="FieldName" Caption="字段名称" DataType="Varchar"/>
+                    <Column Key="FieldVisible" Caption="可见" DataType="Integer"/>
+                    <Column Key="FieldEnable" Caption="可编辑" DataType="Integer"/>
+                </Table>
+                <Table Key="OA_Operation_Sel" Caption="操作选择" TableMode="Detail" SourceType="Query" Persist="false">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="SelField" Caption="选择字段" DataType="Integer"/>
+                    <Column Key="Operation_Key" Caption="操作标识" DataType="Varchar"/>
+                    <Column Key="Operation_Name" Caption="操作名称" DataType="Varchar"/>
+                    <Statement>
+                        <![CDATA[select OperationKey Operation_Key ,OperationName Operation_Name from OA_RightSel_O where 1=2]]>
+                    </Statement>
+                </Table>
+                <Table Key="OA_Field_Sel" Caption="字段选择" TableMode="Detail" Persist="false" SourceType="Query">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="Field_Key" Caption="字段标识" DataType="Varchar"/>
+                    <Column Key="Field_Name" Caption="字段名称" DataType="Varchar"/>
+                    <Statement>
+                        <![CDATA[select FieldKey Field_Key ,FieldName Field_Name from OA_RightSel_F where 1=2]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <Body PopHeight="600px" PopWidth="1000px">
+        <Block>
+            <FlexFlowLayoutPanel Key="FlexFlowLayoutPanel1" Caption="FlexFlowLayoutPanel1">
+                <SplitPanel Key="SplitPanel1" Height="100%" BorderColor="Transparent" Caption="操作选择" Width="100%">
+                    <TabPanel Caption="TabPanel1" Height="pref" Key="TabPanel1" Width="100%">
+                        <SplitPanel Key="SplitPanel2" Orientation="Vertical" Height="100%" Caption="字段选择" Padding="5px">
+                            <GridLayoutPanel Key="GridLayoutPanel2" Height="40px" Padding="5px" Caption="GridLayoutPanel2">
+                                <TextEditor Key="Q_FieldKey" Caption="字段标识" BuddyKey="Lab_Q_FieldKey" X="1" Y="0" Enable="true">
+                                    <Condition ColumnKey="Field_Key" TableKey="OA_Field_Sel" CondSign="like"/>
+                                </TextEditor>
+                                <Label Key="Lab_Q_FieldKey" Caption="字段标识" X="0" Y="0"/>
+                                <TextEditor Key="Q_FieldName" Caption="字段名称" BuddyKey="Lab_Q_FieldName" X="3" Y="0" Enable="true">
+                                    <Condition ColumnKey="Field_Name" TableKey="OA_Field_Sel" CondSign="like"/>
+                                </TextEditor>
+                                <Label Key="Lab_Q_FieldName" Caption="字段名称" X="2" Y="0"/>
+                                <Button Key="QueryField" Caption="查询" X="4" Y="0" Enable="true">
+                                    <OnClick>
+                                        <![CDATA[var fieldDt=InvokeService("OA_GetFieldDataTableByQuery", false, false, Para("Tag2"),Q_FieldKey,Q_FieldName);
+FillGridData("FieldSel", fieldDt, true);]]>
+                                    </OnClick>
+                                </Button>
+                                <RowDefCollection RowGap="5">
+                                    <RowDef Height="30px"/>
+                                </RowDefCollection>
+                                <ColumnDefCollection ColumnGap="5">
+                                    <ColumnDef Width="60px"/>
+                                    <ColumnDef Width="50%"/>
+                                    <ColumnDef Width="60px"/>
+                                    <ColumnDef Width="50%"/>
+                                    <ColumnDef Width="80px"/>
+                                </ColumnDefCollection>
+                            </GridLayoutPanel>
+                            <Grid Key="FieldSel" Caption="字段选择" ShowRowHead="false" PageRowCount="20">
+                                <GridColumnCollection>
+                                    <GridColumn Key="column1" Caption="选择" Width="50px"/>
+                                    <GridColumn Key="Field_Key" Caption="字段标识" Width="150px"/>
+                                    <GridColumn Key="Field_Name" Caption="字段名称" Width="150px"/>
+                                </GridColumnCollection>
+                                <GridRowCollection>
+                                    <GridRow Key="row1" RowHeight="35" TableKey="OA_Field_Sel">
+                                        <GridCell Key="select" Caption="选择" CellType="CheckBox" Enable="true" IsSelect="true">
+                                            <DataBinding>
+                                                <ValueChanged>
+                                                    <![CDATA[OA_SetFieldSel();
+OptDesc=OA_GetOptDesc();]]>
+                                                </ValueChanged>
+                                            </DataBinding>
+                                        </GridCell>
+                                        <GridCell Key="Field_Key" Caption="字段标识">
+                                            <DataBinding ColumnKey="Field_Key"/>
+                                        </GridCell>
+                                        <GridCell Key="Field_Name" Caption="字段名称">
+                                            <DataBinding ColumnKey="Field_Name"/>
+                                        </GridCell>
+                                    </GridRow>
+                                </GridRowCollection>
+                            </Grid>
+                            <SplitSize Size="40px"/>
+                            <SplitSize Size="100%"/>
+                        </SplitPanel>
+                        <SplitPanel Key="SplitPanel3" Orientation="Vertical" Height="100%" Caption="操作选择" Width="pref" Padding="5px">
+                            <Grid Key="OperationSel" Caption="操作选择" NewEmptyRow="false" ShowRowHead="false" Enable="false" Height="pref" PageRowCount="20" Width="100%">
+                                <GridColumnCollection>
+                                    <GridColumn Key="SelField" Caption="选择" Width="50px"/>
+                                    <GridColumn Key="Operation_Key" Caption="操作标识" Width="150px"/>
+                                    <GridColumn Key="Operation_Name" Caption="操作名称" Width="150px"/>
+                                </GridColumnCollection>
+                                <GridRowCollection>
+                                    <GridRow Key="row-0" TableKey="OA_Operation_Sel" RowHeight="35">
+                                        <GridCell Key="SelField" Caption="选择" CellType="CheckBox" Enable="true" IsSelect="true">
+                                            <DataBinding ColumnKey="SelField">
+                                                <ValueChanged>
+                                                    <![CDATA[OA_SetOperationSel();
+OptDesc=OA_GetOptDesc();]]>
+                                                </ValueChanged>
+                                            </DataBinding>
+                                        </GridCell>
+                                        <GridCell Key="Operation_Key" Caption="操作标识">
+                                            <DataBinding ColumnKey="Operation_Key"/>
+                                        </GridCell>
+                                        <GridCell Key="Operation_Name" Caption="操作名称">
+                                            <DataBinding ColumnKey="Operation_Name"/>
+                                        </GridCell>
+                                    </GridRow>
+                                </GridRowCollection>
+                            </Grid>
+                            <SplitSize Size="100%"/>
+                        </SplitPanel>
+                    </TabPanel>
+                    <GridLayoutPanel Key="GridLayoutPanel1" Caption="GridLayoutPanel1">
+                        <Button Key="Add" Caption="添加" X="0" Y="1" Enable="true">
+                            <OnClick>
+                                <![CDATA[OA_SetOperationSel();
+OA_SetFieldSel();
+OptDesc=OA_GetOptDesc();]]>
+                            </OnClick>
+                        </Button>
+                        <Button Key="Del" Caption="删除" X="0" Y="2" Enable="true">
+                            <OnClick>
+                                <![CDATA[OA_DeleteRows();
+OptDesc=OA_GetOptDesc();]]>
+                            </OnClick>
+                        </Button>
+                        <Button Key="Save" Caption="确定" X="0" Y="4" Enable="true">
+                            <OnClick>
+                                <![CDATA[if(IsNull(Para("GridKey")) || Para("GridKey")==""){
+    parent.SetValue(Para("FieldKey1"), OptDesc);
+    parent.SetValue(Para("FieldKey2"), GetOID());
+}else{
+    parent.SetCellValue(Para("GridKey"), -1, Para("FieldKey1"), OptDesc);
+    parent.SetCellValue(Para("GridKey"), -1, Para("FieldKey2"), GetOID());
+}
+SaveData();
+Close();
+parent.SaveData();]]>
+                            </OnClick>
+                        </Button>
+                        <Button Key="Cancel" Caption="取消" X="0" Y="5" Enable="true">
+                            <OnClick>
+                                <![CDATA[Close();]]>
+                            </OnClick>
+                        </Button>
+                        <RowDefCollection RowGap="5">
+                            <RowDef Height="50%"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="50%"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="5">
+                            <ColumnDef Width="100%"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <TabPanel Caption="TabPanel2" Key="TabPanel2">
+                        <Grid Key="OA_RightSel_F" Caption="字段选择结果" ShowRowHead="false" NewEmptyRow="false">
+                            <GridColumnCollection>
+                                <GridColumn Key="SelectField_F" Caption="选择" Width="50px"/>
+                                <GridColumn Key="FieldKey" Caption="字段标识" Width="150px"/>
+                                <GridColumn Key="FieldName" Caption="字段名称" Width="150px"/>
+                                <GridColumn Key="FieldVisible" Caption="可见" Width="60px"/>
+                                <GridColumn Key="FieldEnable" Caption="可用" Width="60px"/>
+                            </GridColumnCollection>
+                            <GridRowCollection>
+                                <GridRow Key="row1" RowHeight="35" TableKey="OA_RightSel_F">
+                                    <GridCell Key="SelectField_F" Caption="选择" CellType="CheckBox" Enable="true" IsSelect="true">
+                                        <DataBinding ColumnKey="SelectField"/>
+                                    </GridCell>
+                                    <GridCell Key="FieldKey" Caption="字段标识">
+                                        <DataBinding ColumnKey="FieldKey"/>
+                                    </GridCell>
+                                    <GridCell Key="FieldName" Caption="字段名称">
+                                        <DataBinding ColumnKey="FieldName"/>
+                                    </GridCell>
+                                    <GridCell Key="FieldVisible" Caption="可见" CellType="CheckBox" Enable="true">
+                                        <DataBinding ColumnKey="FieldVisible" DefaultValue="1"/>
+                                    </GridCell>
+                                    <GridCell Key="FieldEnable" Caption="可用" CellType="CheckBox" Enable="true">
+                                        <DataBinding ColumnKey="FieldEnable" DefaultValue="0"/>
+                                    </GridCell>
+                                </GridRow>
+                            </GridRowCollection>
+                        </Grid>
+                        <Grid Key="OA_RightSel_O" Caption="操作选择结果" NewEmptyRow="false" Enable="true" Visible="true" ShowRowHead="false" PageRowCount="10">
+                            <GridColumnCollection>
+                                <GridColumn Key="SelectField_O" Caption="选择" Width="50px"/>
+                                <GridColumn Key="OperationKey" Caption="操作标识" Width="150px"/>
+                                <GridColumn Key="OperationName" Caption="操作名称" Width="150px"/>
+                                <GridColumn Key="OperationEnable" Caption="可用" Width="60px"/>
+                            </GridColumnCollection>
+                            <GridRowCollection>
+                                <GridRow Key="row1" RowHeight="35" TableKey="OA_RightSel_O">
+                                    <GridCell Key="SelectField_O" Caption="选择" CellType="CheckBox" Enable="true" IsSelect="true">
+                                        <DataBinding ColumnKey="SelectField"/>
+                                    </GridCell>
+                                    <GridCell Key="OperationKey" Caption="操作标识">
+                                        <DataBinding ColumnKey="OperationKey"/>
+                                    </GridCell>
+                                    <GridCell Key="OperationName" Caption="操作名称">
+                                        <DataBinding ColumnKey="OperationName"/>
+                                    </GridCell>
+                                    <GridCell Key="OperationEnable" Caption="可用" CellType="CheckBox">
+                                        <DataBinding ColumnKey="OperationEnable" DefaultValue="1"/>
+                                    </GridCell>
+                                </GridRow>
+                            </GridRowCollection>
+                        </Grid>
+                        <GridLayoutPanel Key="SysTab" Height="pref" Caption="系统信息" Visible="false">
+                            <Dict Key="Creator" Caption="创建人" BuddyKey="Lab_Creator" X="1" Y="0" Enable="false" ItemKey="Operator" XSpan="2">
+                                <DataBinding ColumnKey="Creator" TableKey="OA_RightSel_H" DefaultFormulaValue="GetOperator()"/>
+                            </Dict>
+                            <Label Key="Lab_Creator" Caption="创建人" X="0" Y="0"/>
+                            <Dict Key="Modifier" Caption="修改人" BuddyKey="Lab_Modifier" X="1" Y="1" Enable="false" ItemKey="Operator" XSpan="2">
+                                <DataBinding ColumnKey="Modifier" TableKey="OA_RightSel_H" DefaultFormulaValue="GetOperator()"/>
+                            </Dict>
+                            <DatePicker Key="CreateTime" Caption="创建日期" BuddyKey="Lab_CreateTime" X="5" Y="0" Enable="false" XSpan="2">
+                                <DataBinding ColumnKey="CreateTime" TableKey="OA_RightSel_H" DefaultFormulaValue="ServerDate()"/>
+                            </DatePicker>
+                            <Label Key="Lab_CreateTime" Caption="创建时间" X="4" Y="0"/>
+                            <Label Key="Lab_Modifier" Caption="修改人" X="0" Y="1"/>
+                            <DatePicker Key="ModifyTime" Caption="修改日期" BuddyKey="Lab_ModifyTime" X="5" Y="1" Enable="false" XSpan="2">
+                                <DataBinding ColumnKey="ModifyTime" TableKey="OA_RightSel_H" DefaultFormulaValue="ServerDate()"/>
+                            </DatePicker>
+                            <Label Key="Lab_ModifyTime" Caption="修改时间" X="4" Y="1"/>
+                            <TextEditor Key="BillKey" Caption="单据Key" BuddyKey="Lab_BillKey" X="9" Y="0" XSpan="2">
+                                <DataBinding ColumnKey="BillKey" TableKey="OA_RightSel_H" DefaultFormulaValue="GetFormKey()"/>
+                            </TextEditor>
+                            <Label Key="Lab_BillKey" Caption="单据Key" X="8" Y="0"/>
+                            <Dict Key="ClusterID" Caption="集团" BuddyKey="Lab_ClusterID" X="9" Y="1" Enable="false" ItemKey="Client" XSpan="2">
+                                <DataBinding ColumnKey="ClusterID" TableKey="OA_RightSel_H"/>
+                            </Dict>
+                            <Label Key="Lab_ClusterID" Caption="集团" X="8" Y="1"/>
+                            <TextEditor Key="No" Caption="单据编号" BuddyKey="Lab_No" X="1" Y="2" XSpan="2">
+                                <DataBinding ColumnKey="No" TableKey="OA_RightSel_H"/>
+                            </TextEditor>
+                            <Label Key="Lab_No" Caption="单据编号" X="0" Y="2"/>
+                            <DatePicker Key="BillDate" Caption="单据日期" BuddyKey="Lab_BillDate" X="5" Y="2" XSpan="2">
+                                <DataBinding ColumnKey="BillDate" TableKey="OA_RightSel_H" DefaultFormulaValue="ServerDate()"/>
+                            </DatePicker>
+                            <Label Key="Lab_BillDate" Caption="单据日期" X="4" Y="2"/>
+                            <Label Key="Lab_status" X="7" Y="0"/>
+                            <Label Key="Label_Status" Caption="单据状态" X="8" Y="2"/>
+                            <ComboBox Key="Status" Caption="单据状态" BuddyKey="Label_Status" X="9" Y="2" SourceType="Status" XSpan="2">
+                                <DataBinding ColumnKey="Status" TableKey="OA_RightSel_H" DefaultValue="100"/>
+                            </ComboBox>
+                            <TextEditor Key="SourceKey" Caption="源表单Key" BuddyKey="Lab_SourceKey" X="1" Y="3" XSpan="2">
+                                <DataBinding ColumnKey="SourceKey" TableKey="OA_RightSel_H" DefaultFormulaValue="Para(&quot;SourceKey&quot;)"/>
+                            </TextEditor>
+                            <Label Key="Lab_SourceKey" Caption="源表单Key" X="0" Y="3"/>
+                            <NumberEditor Key="SourceID" Caption="源表单ID" BuddyKey="Lab_SourceID" X="5" Y="3" IntegerValue="true" XSpan="2">
+                                <DataBinding ColumnKey="SourceID" TableKey="OA_RightSel_H" DefaultFormulaValue="Para(&quot;SourceID&quot;)"/>
+                            </NumberEditor>
+                            <Label Key="Lab_SourceID" Caption="源表单ID" X="4" Y="3"/>
+                            <TextEditor Key="Tag1" Caption="判断标识1" BuddyKey="Lab_Tag1" X="9" Y="3" XSpan="2">
+                                <DataBinding ColumnKey="Tag1" TableKey="OA_RightSel_H" DefaultFormulaValue="Para(&quot;Tag1&quot;)"/>
+                            </TextEditor>
+                            <Label Key="Lab_Tag1" Caption="判断标识1" X="8" Y="3"/>
+                            <TextEditor Key="Tag2" Caption="判断标识2" BuddyKey="Lab_Tag2" X="1" Y="4" XSpan="2">
+                                <DataBinding ColumnKey="Tag2" TableKey="OA_RightSel_H" DefaultFormulaValue="Para(&quot;Tag2&quot;)"/>
+                            </TextEditor>
+                            <Label Key="Lab_Tag2" Caption="判断标识2" X="0" Y="4"/>
+                            <TextEditor Key="Tag3" Caption="判断标识3" BuddyKey="Lab_Tag3" X="5" Y="4" XSpan="2">
+                                <DataBinding ColumnKey="Tag3" TableKey="OA_RightSel_H" DefaultFormulaValue="Para(&quot;Tag3&quot;)"/>
+                            </TextEditor>
+                            <Label Key="Lab_Tag3" Caption="判断标识3" X="4" Y="4"/>
+                            <TextEditor Key="Tag4" Caption="判断标识4" BuddyKey="Lab_Tag4" X="9" Y="4" XSpan="2">
+                                <DataBinding ColumnKey="Tag4" TableKey="OA_RightSel_H" DefaultFormulaValue="Para(&quot;Tag4&quot;)"/>
+                            </TextEditor>
+                            <Label Key="Lab_Tag4" Caption="判断标识4" X="8" Y="4"/>
+                            <TextArea Key="OptDesc" Caption="选择结果描述" BuddyKey="Lab_OptDesc" X="1" Y="5" XSpan="10">
+                                <DataBinding ColumnKey="OptDesc" TableKey="OA_RightSel_H"/>
+                            </TextArea>
+                            <Label Key="Lab_OptDesc" Caption="选择结果描述" X="0" Y="5"/>
+                            <TextEditor Key="StartFormKey" Caption="开始表单标识" BuddyKey="Lab_StartFormKey" X="1" Y="6" XSpan="2">
+                                <DataBinding ColumnKey="StartFormKey" TableKey="OA_RightSel_H" DefaultFormulaValue="Para(&quot;StartFormKey&quot;);"/>
+                            </TextEditor>
+                            <Label Key="Lab_StartFormKey" Caption="开始表单标识" X="0" Y="6"/>
+                            <TextEditor Key="WorkflowFormKey" Caption="流程表单标识" BuddyKey="Lab_WorkflowFormKey" X="5" Y="6" XSpan="2">
+                                <DataBinding ColumnKey="WorkflowFormKey" TableKey="OA_RightSel_H" DefaultFormulaValue="Para(&quot;WorkflowFormKey&quot;);"/>
+                            </TextEditor>
+                            <Label Key="Lab_WorkflowFormKey" Caption="流程表单标识" X="4" Y="6"/>
+                            <RowDefCollection RowGap="4">
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="90px"/>
+                                <RowDef Height="30px"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="4">
+                                <ColumnDef Width="80px"/>
+                                <ColumnDef Width="80px"/>
+                                <ColumnDef Width="33%"/>
+                                <ColumnDef Width="20px"/>
+                                <ColumnDef Width="80px"/>
+                                <ColumnDef Width="80px"/>
+                                <ColumnDef Width="33%"/>
+                                <ColumnDef Width="20px"/>
+                                <ColumnDef Width="80px"/>
+                                <ColumnDef Width="80px"/>
+                                <ColumnDef Width="34%"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                    </TabPanel>
+                    <SplitSize Size="400px"/>
+                    <SplitSize Size="60px"/>
+                    <SplitSize Size="100%"/>
+                </SplitPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+    <OnPostShow>
+        <![CDATA[OA_InitData();]]>
+    </OnPostShow>
+    <MacroCollection>
+        <Macro Key="OA_InitData">
+            <![CDATA[var operationDt=InvokeService("OA_GetOperationDataTable", false, false, Para("Tag2"),"Select '' Operation_Key,'' Operation_Name from OA_RightSel_O where 1=2");
+FillGridData("OperationSel", operationDt, true);
+var fieldDt=InvokeService("OA_GetFieldDataTable", false, false, Para("Tag2"),"Select '' Field_Key,'' Field_Name from OA_RightSel_F where 1=2");
+FillGridData("FieldSel", fieldDt, true);]]>
+        </Macro>
+        <Macro Key="OA_ShowCCOptSel">
+            <![CDATA[SetPara("OperatorSelID", OA_GetCCOptSel());
+IIF(GetPara("OperatorSelID")>0,
+    Open("OA_OperatorSel", GetPara("OperatorSelID"), "modal","SourceKey:{BillKey},SourceID:{GetOID()},Tag1:{Tag1},Tag2:{Tag2},Tag3:{'CCOptSel'},Tag4:{Set_OptID},GridKey:{'Dtl'},FieldKey1:{'CCOptSelDepict'},FieldKey2:{'CCOptSelOID'}"),
+    New("OA_OperatorSel","modal","SourceKey:{BillKey},SourceID:{GetOID()},Tag1:{Tag1},Tag2:{Tag2},Tag3:{'CCOptSel'},Tag4:{Set_OptID},GridKey:{'Dtl'},FieldKey1:{'CCOptSelDepict'},FieldKey2:{'CCOptSelOID'}")
+);]]>
+        </Macro>
+        <Macro Key="OA_GetCCOptSel">
+            <![CDATA[DBQueryValue("Select OID From OA_OperatorSel_H Where SourceKey=? and SourceID=? and Tag1=? and Tag2=? and Tag3=? and Tag4=?", BillKey,GetOID(),Tag1,Tag2,'CCOptSel',Set_OptID);]]>
+        </Macro>
+        <Macro Key="OA_SetOperationSel">
+            <![CDATA[var i = 0;
+Var dtlName='OA_RightSel_O';
+loop 'OperationSel' (SelField) {
+    var count = GetRowCount(dtlName);
+    var j = 0;
+    var bInsert = 1;
+    while (j < count) {
+        if (GetCellValue(dtlName,j, 'OperationKey') == Operation_Key) {
+		bInsert = 0;
+		break;
+	}
+	j = j+1;
+    }
+    
+    if (bInsert == 1) {
+        i=InsertRow(dtlName, count);
+        SetCellValue(dtlName,i,'OperationKey',Operation_Key,true);
+        SetCellValue(dtlName,i,'OperationName',Operation_Name,true);
+        SetCellValue(dtlName,i,'OperationEnable',1,true);
+    }
+}]]>
+        </Macro>
+        <Macro Key="OA_SetFieldSel">
+            <![CDATA[var i = 0;
+Var dtlName='OA_RightSel_F';
+loop 'FieldSel' (select) {
+    var count = GetRowCount(dtlName);
+    var j = 0;
+    var bInsert = 1;
+    while (j < count) {
+        if (GetCellValue(dtlName,j, 'FieldKey') == Field_Key) {
+		bInsert = 0;
+		break;
+	}
+	j = j+1;
+    }
+    
+    if (bInsert == 1) {
+        i=InsertRow(dtlName, count);
+        SetCellValue(dtlName,i,'FieldKey',Field_Key,true);
+        SetCellValue(dtlName,i,'FieldName',Field_Name,true);
+        SetCellValue(dtlName,i,'FieldVisible',1,true);
+    }
+}]]>
+        </Macro>
+        <Macro Key="OA_GetOptDesc">
+            <![CDATA[var optDesc="";
+var sep="，";
+loop 'OA_RightSel_F' (FieldName) {
+    optDesc=optDesc+sep+FieldName;
+}
+loop 'OA_RightSel_O' (OperationName) {
+    optDesc=optDesc+sep+OperationName;
+}
+var len=Length(optDesc);
+if(len>0){
+    optDesc=Right(optDesc, len-Length(sep));
+}
+return optDesc;]]>
+        </Macro>
+        <Macro Key="OA_DeleteRows">
+            <![CDATA[var gridKey="OA_RightSel_F";
+var j= GetRowCount(gridKey);
+while (j >=0) {
+    if (GetCellValue(gridKey,j, 'SelectField_F')==1) {
+        DeleteRow(gridKey,j);
+    }
+    j = j-1;
+}
+gridKey="OA_RightSel_O";
+j= GetRowCount(gridKey);
+while (j >=0) {
+    if (GetCellValue(gridKey,j, 'SelectField_O')==1) {
+        DeleteRow(gridKey,j);
+    }
+    j = j-1;
+}]]>
+        </Macro>
+    </MacroCollection>
+</Form>

@@ -1,4 +1,4 @@
-﻿YIUI.AttachmentHandler.preview=function(path, name, control){ 
+﻿/*YIUI.AttachmentHandler.preview=function(path, name, control){ 
 	var last=name.lastIndexOf('.');
 	var fix=name.substr(last+1,name.len);
 	var fileUrl="";
@@ -18,7 +18,6 @@
 	}else{
 		fileUrl="a/cms2-yigo2-adapter/cms/view-yigo-file/"+path;
 	}
-/*
 		var formKey = 'OA_ShowWeb';
         var target = YIUI.FormTarget.NEWTAB;
 
@@ -37,7 +36,6 @@
 		Svr.SvrMgr.dealWithPureForm(data, success);
 
 	 
-	 */
 	//window.open(fileUrl);
 	//处理路径中有空格的情况
 	fileUrl=fileUrl.replace(/ /g, "%20");
@@ -51,12 +49,19 @@
 	};
 	openForm(node);
 }
+*/
+//初始打开系统时默认载入的入口菜单和首页
+function reloadAndOpenStart(reloadNode,defaultNode) {
+	reloadAndOpenEntry('','OABusiness/OA/OA_Index');
+}
 
+//解析当前URL参数打开菜单入口或指定单据
 function parseURL() {
 				var str = window.location.search.substr(1);
 				parseURLByStr(str);
 			}
-			
+
+//解析指定URL参数打开菜单入口或指定单据			
 function parseURLByStr(str) {
 	if(str) {
 		var args = str.split("&");
@@ -82,9 +87,10 @@ function parseURLByStr(str) {
 				break;
 			}
 		}
-	}
+	
 }
-
+}
+//根据路径打开入口
 function OpenEntryByPath(node) {
 	var opts = {
 		path: node
@@ -92,10 +98,21 @@ function OpenEntryByPath(node) {
 	openEntry(opts);
 }
 
+//打开单据界面
+function openFormByKey(key,id) {
+    var args = {
+		formKey: key,
+		OID: id
+	};
+    openForm(args);
+}
+
+//打开单据界面
 function openForm(node) {
 	YIUI.FormUtil.openForm(node, YIUI.MainContainer);
 }
 
+//打开web界面
 function openWebForm(url,formCaption) {
 	//处理路径中有空格的情况
 	url=url.replace(/ /g, "%20");
@@ -112,10 +129,14 @@ function openWebForm(url,formCaption) {
 	openForm(node);
 }
 
+//重新加载入口
 function reloadEntry(node) {
-	YIUI.MenuTree.reload(node);
+	if(node!=null && node.length>0){
+		YIUI.MenuTree.reload(node);
+	}
 }
 
+//重新加载并打开入口菜单
 function reloadAndOpenEntry(reloadNode,defaultNode) {
 	reloadEntry(reloadNode);
 	if(defaultNode!=null && defaultNode.length>0){
@@ -125,7 +146,13 @@ function reloadAndOpenEntry(reloadNode,defaultNode) {
 		openEntry(opts);
 	}
 }
-
+//关闭所有窗口
 function closeAll() {
 	YIUI.MainContainer.closeAll()
+}
+
+//IM即时通讯的消息回调
+function imHostCallBack(type,data,globalOptions){
+	var callParas=data.split(",");
+	openFormByKey(callParas[1],callParas[2]);
 }

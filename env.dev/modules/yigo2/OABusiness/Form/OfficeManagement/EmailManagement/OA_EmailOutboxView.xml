@@ -22,7 +22,7 @@
                     </ParameterCollection>
                     <Statement>
                         <![CDATA[select * from (select * from OA_EmailInbox_H
- where EmailID is NULL and IsDraft=20 and IsDelete=20 and OperatorID=? order by billdate desc)h]]>
+ where not exists (select EmailID FROM oa_emailinbox_h) and IsDraft=20 and IsDelete=20 and OperatorID=? order by billdate desc)h]]>
                     </Statement>
                 </Table>
             </TableCollection>
@@ -43,7 +43,6 @@ while(i<rowCount){
 LoadData();]]>
             </Action>
         </Operation>
-        <Operation Key="Setfirst_headVisible" Caption="查询" RefKey="Setfirst_headVisible"/>
     </OperationCollection>
     <Body>
         <Block>

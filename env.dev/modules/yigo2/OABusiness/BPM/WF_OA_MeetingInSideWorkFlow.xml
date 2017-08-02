@@ -1,44 +1,50 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<Process Caption="内部会议流程" IDSeed="22" Key="WF_OA_MeetingInSideWorkFlow" FormKey="OA_MeetingInSide">
-    <Begin Caption="开始节点" ID="1" Key="Begin1">
+<Process Caption="内部会议流程" IDSeed="22" Key="WF_OA_MeetingInSideWorkFlow" FormKey="OA_MeetingInSide"  TemplateKey="OA_TmpTest">
+    <Begin Caption="开始节点" ID="1" Key="Begin1" pattern="Normal">
         <TransitionCollection>
             <SequenceFlow Caption="顺序流" ID="4" Key="SequenceFlow1" TargetNodeKey="State1"/>
         </TransitionCollection>
         <NodeGraphic X="93" Y="101" Height="40" Width="40"/>
+        <NodeAttachment/>
     </Begin>
-    <End Caption="结束节点" ID="2" Key="End1">
+    <End Caption="结束节点" ID="2" Key="End1" pattern="Normal">
         <NodeGraphic X="620" Y="97" Height="40" Width="40"/>
+        <NodeAttachment/>
     </End>
-    <State Caption="审批中" ID="3" Key="State1" Status="approving">
+    <State Caption="审批中" ID="3" Key="State1" Status="approving" pattern="Normal">
         <TransitionCollection>
             <SequenceFlow Caption="顺序流" ID="20" Key="SequenceFlow11" TargetNodeKey="Audit1"/>
         </TransitionCollection>
         <NodeGraphic X="203" Y="101" Height="40" Width="40"/>
+        <NodeAttachment/>
         <ParticipatorCollection/>
         <Perm/>
     </State>
-    <State Caption="已审批" ID="7" Key="State2" Status="approved">
+    <State Caption="已审批" ID="7" Key="State2" Status="approved" pattern="Normal">
         <TransitionCollection>
             <SequenceFlow Caption="顺序流" ID="11" Key="SequenceFlow5" TargetNodeKey="End1"/>
         </TransitionCollection>
         <NodeGraphic X="501" Y="54" Height="40" Width="40"/>
+        <NodeAttachment/>
         <ParticipatorCollection/>
         <Perm/>
     </State>
-    <State Caption="驳回" ID="8" Key="State3" Status="reject">
+    <State Caption="驳回" ID="8" Key="State3" Status="reject" pattern="Normal">
         <TransitionCollection>
             <SequenceFlow Caption="顺序流" ID="12" Key="SequenceFlow6" TargetNodeKey="End1"/>
         </TransitionCollection>
         <NodeGraphic X="501" Y="145" Height="40" Width="40"/>
+        <NodeAttachment/>
         <ParticipatorCollection/>
         <Perm/>
     </State>
-    <Audit Caption="审批任务" ID="19" Key="Audit1">
+    <Audit Caption="审批任务" ID="19" Key="Audit1" pattern="Normal" AutoIgnoreNoParticipator="true">
         <TransitionCollection>
             <SequenceFlow Caption="顺序流" ID="21" Key="SequenceFlow12" TargetNodeKey="State2"/>
             <SequenceFlow Caption="顺序流" Condition="False" ID="22" Key="SequenceFlow13" TargetNodeKey="State3"/>
         </TransitionCollection>
         <NodeGraphic X="313" Y="105"/>
+        <NodeAttachment/>
         <OperationCollection>
             <Operation Key="Pass" Caption="通过">
                 <Action>
@@ -74,5 +80,10 @@ if(InvokeService("OA_SendEmailByOptSplit", true,false,GetOperator(),",")=="发�
         <Field Key="Topic" SourceFieldKey="Topic"/>
         <Field Key="BillOID" SourceFieldKey="OID"/>
         <Field Key="DeptID" SourceFieldKey="DeptID"/>
+        <Field Key="UrgencyDeg" SourceFieldKey="UrgencyDeg"/>
+        <Field Key="BillNo" SourceFieldKey="NO"/>
+        <Field Key="BillKey" SourceFieldKey="BillKey"/>
+        <Field Key="BILLSOID" SourceFieldKey="SOID"/>
     </DMTable>
+    <AttachmentCollection/>
 </Process>

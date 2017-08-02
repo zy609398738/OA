@@ -43,11 +43,11 @@
                 <TabPanel Caption="TabPanel1" Height="100%" Key="TabPanel1">
                     <GridLayoutPanel Key="first_head" Padding="5px" Height="100%" Caption="基本信息">
                         <TextEditor Key="Code" Caption="代码" BuddyKey="Lab_Code" X="1" Y="0">
-                            <DataBinding ColumnKey="Code" TableKey="OA_ScheduleType_H"/>
+                            <DataBinding ColumnKey="Code" TableKey="OA_ScheduleType_H" Required="true"/>
                         </TextEditor>
                         <Label Key="Lab_Code" Caption="代码" X="0" Y="0"/>
                         <TextEditor Key="Name" Caption="名称" BuddyKey="Lab_Name" X="4" Y="0">
-                            <DataBinding ColumnKey="Name" TableKey="OA_ScheduleType_H"/>
+                            <DataBinding ColumnKey="Name" TableKey="OA_ScheduleType_H" Required="true"/>
                         </TextEditor>
                         <Label Key="Lab_Name" Caption="名称" X="3" Y="0"/>
                         <TextEditor Key="Details" Caption="描述" BuddyKey="Lab_Details" X="1" Y="2" XSpan="4" YSpan="2">
@@ -56,6 +56,8 @@
                         <Label Key="Lab_Details" Caption="描述" X="0" Y="2" YSpan="2"/>
                         <ComboBox Key="NodeType" Caption="节点类型" BuddyKey="Lab_NodeType" X="1" Y="1">
                             <DataBinding ColumnKey="NodeType" TableKey="OA_ScheduleType_H"/>
+                            <Item Caption="汇总节点" Key="1" Value="1"/>
+                            <Item Caption="明细节点" Key="0" Value="0"/>
                         </ComboBox>
                         <Label Key="Lab_NodeType" Caption="节点类型" X="0" Y="1"/>
                         <RowDefCollection RowGap="8">
@@ -78,7 +80,7 @@
                         </Dict>
                         <Label Caption="创建人员" Key="Lab_Creator" X="0" Y="0"/>
                         <Label Caption="创建时间" Key="Lab_CreateTime" X="3" Y="0"/>
-                        <DatePicker BuddyKey="Lab_CreateTime" Caption="创建时间" Enable="false" Key="CreateTime" OnlyDate="false" X="4" Y="0">
+                        <DatePicker BuddyKey="Lab_CreateTime" Caption="创建时间" Enable="false" Key="CreateTime" X="4" Y="0">
                             <DataBinding ColumnKey="CreateTime" TableKey="OA_ScheduleType_H" DefaultFormulaValue="ServerDate()" Required="true"/>
                         </DatePicker>
                         <Label Caption="修改人员" Key="Lab_Modifier" X="0" Y="1"/>
@@ -86,7 +88,7 @@
                             <DataBinding ColumnKey="Modifier" TableKey="OA_ScheduleType_H" DefaultFormulaValue="GetOperator()" Required="true"/>
                         </Dict>
                         <Label Caption="修改时间" Key="Lab_ModifyTime" X="3" Y="1"/>
-                        <DatePicker BuddyKey="Lab_ModifyTime" Caption="修改时间" Enable="false" Key="ModifyTime" OnlyDate="false" X="4" Y="1">
+                        <DatePicker BuddyKey="Lab_ModifyTime" Caption="修改时间" Enable="false" Key="ModifyTime" X="4" Y="1">
                             <DataBinding ColumnKey="ModifyTime" TableKey="OA_ScheduleType_H" DefaultFormulaValue="ServerDate()" Required="true"/>
                         </DatePicker>
                         <Label Caption="备注" Key="Lab_Notes" X="0" Y="2"/>

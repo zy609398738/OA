@@ -36,11 +36,12 @@
                     <Column Key="PlanEndDate" Caption="计划结束时间" DataType="DateTime"/>
                     <Column Key="WorkflowTypeDtlID" Caption="流程类别明细ID" DataType="Long"/>
                     <Column Key="OptIDs" Caption="操作员ID" DataType="Varchar" Length="4000"/>
+                    <Column Key="SourceOID" Caption="上级任务OID" DataType="Long" DefaultValue="-1"/>
                 </Table>
             </TableCollection>
             <StatusTriggerCollection>
                 <StatusTrigger StatusKey="commited">
-                    <![CDATA[OA_Taskdistribution();]]>
+                    <![CDATA[OA_Taskdistribution()]]>
                 </StatusTrigger>
             </StatusTriggerCollection>
         </DataObject>
@@ -50,8 +51,10 @@
         <Operation Key="WORKITEM" Caption="WORKITEM" Tag="WORKITEM" RefKey="WORKITEM"/>
         <Operation Key="Save" Caption="保存" Visible="!ReadOnly()||(IsEnable(&quot;Topic&quot;))||(IsEnable(&quot;Notes&quot;))">
             <Action>
-                <![CDATA[SaveData();
-UpdateView();]]>
+                <![CDATA[if(InvokeService("OA_GetOptIDsDetail", true, false,"OA_Taskdistribution_H","OptIDs",20)){
+    SaveData();
+    UpdateView();
+}]]>
             </Action>
         </Operation>
         <Operation Key="Delete" Caption="删除" RefKey="Delete"/>
@@ -61,13 +64,16 @@ UpdateView();]]>
         <Operation Key="Read" Caption="阅读记录" RefKey="Read"/>
         <Operation Key="HaveRead" Caption="已阅" Visible="IIF(DBNamedQueryValue('queryStatus',GetOperator(),GetOID())==20,false,IIF(DBQueryValue(&quot;select a.ReadUser from oa_Read a where a.billoid=? and a.BillKey=? and a.ReadUser=?&quot;,GetOID(),GetFormKey(),GetOperator())==GetOperator(),true,false))">
             <Action>
-                <![CDATA[ DBUpdate('Insert into oa_ReadRecord (OID,SOID,POID,VERID,DVERID,Reader,ReadTime,BillKey,BillOID) values (?,OID,null,0,0,?,?,?,?)',
-ApplyNewOID(),GetOperator(),Format(ServerDate(),"yyyy-MM-dd HH:mm:ss"),GetValue('BillKey'),GetOID());
- DBUpdate('Update OA_read set status = 20,ReadTime=? where  readuser=? and billoid=?',Format(ServerDate(), "yyyy-MM-dd HH:mm:ss"),GetOperator(),GetOID());]]>
+                <![CDATA[OA_ShowFeedbackUI(GetFormKey(),-1,GetOID(),30); ]]>
             </Action>
         </Operation>
         <Operation Key="WFlog" Caption="审批记录" RefKey="ShowWFLog"/>
         <Operation Key="Print" Caption="打印" RefKey="Print"/>
+        <Operation Key="Feedback" Caption="反馈消息">
+            <Action>
+                <![CDATA[OA_ShowFeedbackUI(GetFormKey(),GetActiveWorkitemID(),GetOID(),30); ]]>
+            </Action>
+        </Operation>
     </OperationCollection>
     <ScriptCollection>
         <Script Key="Load" Caption="载入" Range="Action" Verb="">
@@ -90,7 +96,7 @@ ApplyNewOID(),GetOperator(),Format(ServerDate(),"yyyy-MM-dd HH:mm:ss"),GetValue(
                             <DataBinding ColumnKey="BillDate" TableKey="OA_Taskdistribution_H" DefaultFormulaValue="ServerDate()"/>
                         </DatePicker>
                         <Label Key="Lab_BillDate" Caption="发布日期" X="3" Y="0"/>
-                        <ComboBox Key="UrgencyDeg" Caption="紧急程度" BuddyKey="Lab_UrgencyDeg" X="7" Y="0">
+                        <ComboBox Key="UrgencyDeg" Caption="紧急程度" BuddyKey="Lab_UrgencyDeg" X="7" Y="0" XSpan="2">
                             <DataBinding ColumnKey="UrgencyDeg" TableKey="OA_Taskdistribution_H"/>
                             <Item Caption="一般" Key="10" Value="10"/>
                             <Item Caption="紧急" Key="20" Value="20"/>
@@ -98,7 +104,7 @@ ApplyNewOID(),GetOperator(),Format(ServerDate(),"yyyy-MM-dd HH:mm:ss"),GetValue(
                             <Item Key="0" Value="0"/>
                         </ComboBox>
                         <Label Key="Lab_UrgencyDeg" Caption="紧急程度" X="6" Y="0"/>
-                        <TextEditor Key="Topic" Caption="主题" BuddyKey="Lab_Topic" X="1" Y="1" XSpan="7">
+                        <TextEditor Key="Topic" Caption="主题" BuddyKey="Lab_Topic" X="1" Y="1" XSpan="8">
                             <DataBinding ColumnKey="Topic" TableKey="OA_Taskdistribution_H" Required="true"/>
                         </TextEditor>
                         <Label Key="Lab_Topic" Caption="主题" X="0" Y="1"/>
@@ -114,23 +120,23 @@ ApplyNewOID(),GetOperator(),Format(ServerDate(),"yyyy-MM-dd HH:mm:ss"),GetValue(
                             </DataBinding>
                         </Dict>
                         <Label Key="Lab_EmpID" Caption="发布人员" X="3" Y="2"/>
-                        <Dict Key="ReceiveEmpID" Caption="接收人员" BuddyKey="Lab_ReceiveEmpID" X="7" Y="2" ItemKey="OA_Employee">
+                        <Dict Key="ReceiveEmpID" Caption="接收人员" BuddyKey="Lab_ReceiveEmpID" X="7" Y="2" ItemKey="OA_Employee" XSpan="2">
                             <DataBinding ColumnKey="ReceiveEmpID" TableKey="OA_Taskdistribution_H" Required="true"/>
                         </Dict>
                         <Label Key="Lab_ReceiveEmpID" Caption="接收人员" X="6" Y="2"/>
-                        <RichEditor BuddyKey="Lab_Arrangement" Caption="工作安排" Key="Arrangement" X="1" XSpan="7" Y="7" YSpan="5" Enable="True">
+                        <RichEditor BuddyKey="Lab_Arrangement" Caption="工作安排" Key="Arrangement" X="1" XSpan="8" Y="7" YSpan="5" Enable="True">
                             <DataBinding ColumnKey="Arrangement" TableKey="OA_Taskdistribution_H"/>
                         </RichEditor>
                         <Label Key="Lab_Arrangement" Caption="工作安排" X="0" Y="7" YSpan="5"/>
-                        <RichEditor BuddyKey="Lab_Completion" Caption="完成情况" Key="Completion" X="1" XSpan="7" Y="13" YSpan="5" Enable="True">
+                        <RichEditor BuddyKey="Lab_Completion" Caption="完成情况" Key="Completion" X="1" XSpan="8" Y="13" YSpan="5" Enable="True">
                             <DataBinding ColumnKey="Completion" TableKey="OA_Taskdistribution_H"/>
                         </RichEditor>
                         <Label Key="Lab_Completion" Caption="完成情况" X="0" Y="13" YSpan="5"/>
-                        <TextEditor Key="Notes" Caption="备注" BuddyKey="Lab_Notes" X="1" Y="18" XSpan="7">
+                        <TextEditor Key="Notes" Caption="备注" BuddyKey="Lab_Notes" X="1" Y="18" XSpan="8">
                             <DataBinding ColumnKey="Notes" TableKey="OA_Taskdistribution_H"/>
                         </TextEditor>
                         <Label Key="Lab_Notes" Caption="备注" X="0" Y="18"/>
-                        <DatePicker Key="OutTime" Caption="到期时间" BuddyKey="Lab_OutTime" X="7" Y="3">
+                        <DatePicker Key="OutTime" Caption="到期时间" BuddyKey="Lab_OutTime" X="7" Y="3" XSpan="2">
                             <DataBinding ColumnKey="OutTime" TableKey="OA_Taskdistribution_H"/>
                         </DatePicker>
                         <Label Key="Lab_OutTime" Caption="到期时间" X="6" Y="3"/>
@@ -147,7 +153,7 @@ ApplyNewOID(),GetOperator(),Format(ServerDate(),"yyyy-MM-dd HH:mm:ss"),GetValue(
                         </DatePicker>
                         <Label Key="Lab_PlanStartDate" Caption="计划开始日期" X="0" Y="3"/>
                         <DatePicker Key="PlanEndDate" Caption="计划结束时间" BuddyKey="Lab_PlanEndDate" X="4" Y="3">
-                            <DataBinding ColumnKey="PlanEndDate" TableKey="OA_Taskdistribution_H"/>
+                            <DataBinding ColumnKey="PlanEndDate" TableKey="OA_Taskdistribution_H" CheckRule="if(GetValue(&quot;PlanEndDate&quot;)&gt;GetValue(&quot;PlanStartDate&quot;)){ true; }else{false;}" ErrorInfo="计划结束时间必须晚于计划开始时间"/>
                         </DatePicker>
                         <Label Key="Lab_PlanEndDate" Caption="计划结束时间" X="3" Y="3"/>
                         <TextArea Key="ShareEmpID" Caption="共享人员" BuddyKey="Lab_ShareEmpID" X="1" Y="4" XSpan="6" YSpan="2">
@@ -163,6 +169,15 @@ ApplyNewOID(),GetOperator(),Format(ServerDate(),"yyyy-MM-dd HH:mm:ss"),GetValue(
                             <DataBinding ColumnKey="OptIDs" TableKey="OA_Taskdistribution_H"/>
                         </TextArea>
                         <Label Key="Lab_OptIDs" Caption="操作员ID" X="0" Y="5"/>
+                        <HyperLink Key="SourceNo" X="8" Y="4" Visible="Para(&quot;BillNo&quot;)!=&quot;&quot;;" Caption="上级任务编号">
+                            <DataBinding DefaultFormulaValue="Para(&quot;BillNo&quot;);"/>
+                            <OnClick>
+                                <![CDATA[Open("OA_Taskdistribution",SourceOID)]]>
+                            </OnClick>
+                        </HyperLink>
+                        <TextEditor Key="SourceOID" Caption="上级任务OID" X="8" Y="5" Visible="false">
+                            <DataBinding ColumnKey="SourceOID" TableKey="OA_Taskdistribution_H" DefaultFormulaValue="Para(&quot;BillOID&quot;)"/>
+                        </TextEditor>
                         <RowDefCollection RowGap="4">
                             <RowDef Height="30px"/>
                             <RowDef Height="30px"/>
@@ -191,6 +206,7 @@ ApplyNewOID(),GetOperator(),Format(ServerDate(),"yyyy-MM-dd HH:mm:ss"),GetValue(
                             <ColumnDef Width="80px"/>
                             <ColumnDef Width="33%"/>
                             <ColumnDef Width="20px"/>
+                            <ColumnDef Width="80px"/>
                             <ColumnDef Width="80px"/>
                             <ColumnDef Width="34%"/>
                         </ColumnDefCollection>

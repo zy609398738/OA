@@ -1,0 +1,20 @@
+/**
+ * 覆盖主要定义在 /yesui/v2/yesui/ui/res/css/blue/core.css 中的 主菜单 样式
+ */
+
+/*不同菜单的不同图标。注意：Yigo配置的修改可能影响此节点的 DOM ID*/
+a#Base5 { background-image:url(../images/main/menu/base-collapse.png); }
+a#Base5.open{
+	position: relative;
+}
+a#Base5.open span:after,a#System11.open span:after,a#CustomBill7.open span:after{
+	position: absolute; 
+	content: '';
+	width: 20px;
+	height: 20px;	
+	background-image:url(../images/main/expand_l.png);
+	background-repeat: no-repeat;
+	background-position: 8px 14px; }
+a#System11 { background-image:url(../images/main/menu/system-collapse.png); }
+a#CustomBill7{ background-image:url(../images/main/menu/report-collapse.png); }
+/*TODO: 缺少节点展开情况下的图片*/

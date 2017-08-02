@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<Form Key="OA_EmailDeleted" Caption="已删除邮件" FormType="Entity" Platform="">
+<Form Key="OA_EmailDeleted" Caption="已删除邮件" FormType="Entity">
     <DataSource>
         <DataObject Key="OA_EmailDeleted" Caption="已删除邮件" NoPrefix="ED" PrimaryTableKey="OA_EmailDeleted_H" PrimaryType="Entity">
             <TableCollection>
@@ -163,9 +163,7 @@ SetValue("AttachmentVisiable",0);
                     </ColumnDefCollection>
                 </GridLayoutPanel>
                 <GridLayoutPanel Key="GridLayoutPanel1" Height="185px" Padding="5px" Caption="GridLayoutPanel1" Visible="AttachmentVisiable==1||DBNamedQueryValue(&quot;QueryAtt&quot;, OID)&gt;0">
-                    <Embed Caption="附件" FormKey="OA_Attachment" Key="OA_Attachment" RootKey="Grid2" X="1" XSpan="5" Y="0">
-                        <Var Key="ParentKey" Value="OA_EmailDeleted_H"/>
-                    </Embed>
+                    <Embed Caption="附件" FormKey="OA_Attachment" Key="OA_Attachment" RootKey="OA_Attachment" X="1" XSpan="5" Y="0"/>
                     <RowDefCollection RowGap="5">
                         <RowDef Height="170px"/>
                     </RowDefCollection>

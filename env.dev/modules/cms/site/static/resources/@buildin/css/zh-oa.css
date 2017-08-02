@@ -1993,7 +1993,7 @@ padding: 1px 20px;
 .breadcrumb-box .filter_left .cate-content{
 	position: absolute;
     z-index: 999;
-    left: 107px;
+    left: 0px;
     border: 1px solid #bbb8b8;
     background: #fff;
     width: 100px;
@@ -2494,3 +2494,164 @@ padding: 1px 20px;
 }
 
 
+/*新建流程*/
+body{
+	background:#f2f2f2;
+}
+.group-all_workflow ul.tabbernav{
+    border-bottom: 2px solid #c1d7ff;
+    margin-bottom: 10px;
+    padding: 0;
+    padding-bottom: 8px;
+}
+.group-all_workflow ul.tabbernav span{
+    font-size: 14px;
+    color: #444;
+    font-weight: bold;
+    padding: 0 10px 0 5px;
+    border-right: 1px solid #ccc;
+}
+.group-all_workflow li.tabberactive span{
+	color:#4f8bf9;
+	position:relative;
+}
+.group-all_workflow li.tabberactive span:after{
+    content: "";
+    width: 10px;
+    height: 10px;
+    background: #fff;
+    position: absolute;
+    bottom: -14px;
+    left: 46%;
+    border-top: 2px solid #c1d7ff;
+    border-left: 2px solid #c1d7ff;
+-moz-transform: rotate(45deg);-webkit-transform: rotate(45deg); -o-transform: rotate(45deg);
+filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1);
+-ms-filter:"progid:DXImageTransform.Microsoft.BasicImage(rotation=1)";
+}
+.pop_createflow{
+	padding-bottom:30px;
+}
+.pop_createflow .workflowColItem{
+	width: 33%;
+	float: left;
+	min-height:200px;
+}
+.pop_createflow .workflowColItem h3,
+.pop_createflow .workflowColItem ul{
+	width: 90%;
+}
+.pop_createflow h3{
+    border-bottom: 2px solid #eee;
+}
+.pop_createflow h3 span{
+    font-size: 14px;
+    font-weight: bold;
+    padding: 0 5px 5px;
+	display: inline-block;
+    border-bottom: 2px solid #4f8bf9;
+    position: relative;
+    bottom: -2px;	
+}
+.pop_createflow h3 i{
+	font-style:normal;
+	font-weight: normal;
+	color: #4f8bf9;
+	margin-left:5px;
+}
+.pop_createflow .workflowColItem .doc-name{
+	width:100%;
+	display:block;
+}
+.pop_createflow .workflowColItem li{
+    border-bottom: 1px dotted #c1d7ff;
+    height: 40px;
+    line-height: 40px;
+    padding-right: 40px;
+    padding-left: 20px;
+	position: relative;
+	overflow: hidden;
+	white-space: nowrap;
+	-ms-text-overflow: ellipsis;
+	 -o-text-overflow: ellipsis;
+		text-overflow: ellipsis;
+}
+.pop_createflow .workflowColItem li:before{
+    content: "▲";
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: #d8ad2d;
+	font-size:12px;
+-moz-transform: rotate(90deg);-webkit-transform: rotate(90deg); -o-transform: rotate(90deg);
+filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1);
+-ms-filter:"progid:DXImageTransform.Microsoft.BasicImage(rotation=1)";
+}
+.pop_createflow .workflowColItem li:hover{
+	border-bottom: 1px dotted #4f8bf9;
+}
+.pop_createflow .workflowColItem li:hover:before{
+	color:#4f8bf9;
+	font-size:14px;
+}
+.pop_createflow .workflowColItem .doc-name{
+	color:#0046c5;
+}
+.pop_createflow .workflowColItem li:hover a{
+	color:#4f8bf9;
+}
+.pop_createflow .workflowColItem .addBtn{
+	color:#666;
+	position:absolute;
+	right:0;
+	top:0;
+    padding: 0 5px;	
+}
+.pop_createflow .workflowColItem .addBtn:hover{
+    background: #4f8bf9;
+    color: #fff;
+}
+
+.pop_createflow .workflowColItem:nth-child(2) h3 span{
+    border-color: #820101;
+}
+.pop_createflow .workflowColItem:nth-child(3) h3 span{
+    border-color: #86d2ff;
+}
+.pop_createflow .workflowColItem:nth-child(4) h3 span{
+    border-color: #199a01;
+}
+.pop_createflow .workflowColItem:nth-child(5) h3 span{
+    border-color: #d8bd00;
+}
+.pop_createflow .workflowColItem:nth-child(6) h3 span{
+    border-color: #ff901d;
+}
+.pop_createflow .workflowColItem:nth-child(7) h3 span{
+    border-color: #ad01a0;
+}
+
+.tast-container h2{
+    font-size: 14px;
+    border-bottom: 2px solid #c1d7ff;
+    margin-bottom: 20px;
+    padding-bottom: 5px;
+    font-weight: bold;
+}
+.tast-container h2 span{
+	position:relative;
+}
+.tast-container h2 span:after{
+    content: "";
+    width: 10px;
+    height: 10px;
+    background: #fff;
+    position: absolute;
+    bottom: -14px;
+    left: 46%;
+    border-top: 2px solid #c1d7ff;
+    border-left: 2px solid #c1d7ff;
+-moz-transform: rotate(45deg);-webkit-transform: rotate(45deg); -o-transform: rotate(45deg);
+filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1);
+-ms-filter:"progid:DXImageTransform.Microsoft.BasicImage(rotation=1)";
+}

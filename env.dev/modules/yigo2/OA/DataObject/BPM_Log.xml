@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<DataObject Key="BPM_Log" Caption="审批记录" PrimaryType="Entity">
+    <TableCollection>
+        <Table Key="BPM_Log" Caption="审批记录" DBTableName="BPM_Log">
+            <Column Key="IPAddress" Caption="IP地址" DataType="Varchar"/>
+            <Column Key="E_Signature" Caption="电子签名" DataType="Varchar"/>
+        </Table>
+    </TableCollection>
+</DataObject>

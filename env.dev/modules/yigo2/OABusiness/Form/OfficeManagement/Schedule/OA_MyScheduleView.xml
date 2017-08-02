@@ -33,7 +33,6 @@
                 <![CDATA[New('OA_MySchedule')]]>
             </Action>
         </Operation>
-        <Operation Key="Setfirst_headVisible" Caption="查询" RefKey="Setfirst_headVisible"/>
     </OperationCollection>
     <Body>
         <Block>

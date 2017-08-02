@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="OA_InherentRemind" Caption="事项提醒" FormType="Dict">
+    <DataSource>
+        <DataObject Key="OA_InherentRemind" Caption="事项提醒" PrimaryTableKey="OA_InherentRemind" SecondaryType="Dict" PrimaryType="Entity">
+            <TableCollection>
+                <Table Key="OA_InherentRemind" Caption="事项提醒" DBTableName="OA_InherentRemind">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="Code" Caption="代码" DataType="Varchar"/>
+                    <Column Key="Name" Caption="名称" DataType="Varchar"/>
+                    <Column Key="NodeType" Caption="节点类型" DataType="Integer"/>
+                    <Column Key="ParentID" Caption="父节点" DataType="Long"/>
+                    <Column Key="Status" Caption="状态" DataType="Integer"/>
+                    <Column Key="Enable" Caption="启用标记" DataType="Integer" DefaultValue="1"/>
+                    <Column Key="TLeft" Caption="TLeft" DataType="Integer"/>
+                    <Column Key="TRight" Caption="TRight" DataType="Integer"/>
+                    <Column Caption="创建人员" DataType="Long" Key="Creator"/>
+                    <Column Caption="创建时间" DataType="DateTime" Key="CreateTime"/>
+                    <Column Caption="修改人员" DataType="Long" Key="Modifier"/>
+                    <Column Caption="修改时间" DataType="DateTime" Key="ModifyTime"/>
+                    <Column Caption="备注" DataType="Varchar" Key="Notes"/>
+                    <Column Caption="单据Key" DataType="Varchar" Key="BillKey"/>
+                    <Column Caption="集团" DataType="Long" Key="ClusterID"/>
+                    <Column Key="WorkflowType" Caption="流程类别" DataType="Long"/>
+                    <Column Key="SetType" Caption="事项类型" DataType="Integer"/>
+                    <Column Key="BillName" Caption="表单名称" DataType="Varchar"/>
+                    <Column Key="Everyday" Caption="每天" DataType="Integer"/>
+                    <Column Key="Everyweek" Caption="每周" DataType="Integer"/>
+                    <Column Key="Everymonth" Caption="每月" DataType="Integer"/>
+                    <Column Key="Everyyear" Caption="每年" DataType="Integer"/>
+                    <Column Key="ViewAcl" Caption="阅读权限" DataType="Varchar" Length="4000"/>
+                    <Column Key="OptIDs" Caption="参与者" DataType="Varchar" Length="4000"/>
+                    <Column Key="WorkflowID" Caption="流程定义" DataType="Long"/>
+                    <Column Key="FormKey" Caption="关联表单" DataType="Varchar"/>
+                    <Column Key="IsOne" Caption="是否唯一" DataType="Integer"/>
+                    <Column Key="EveryYearDay" Caption="每天" DataType="Varchar"/>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <ScriptCollection>
+        <Script Key="Load" Caption="载入" Description="载入事件" Range="Action" Verb="Load">
+            <![CDATA[LoadData()]]>
+        </Script>
+    </ScriptCollection>
+    <Body>
+        <Block>
+            <TabPanel Caption="TabPanel1" Height="100%" Key="TabPanel1">
+                <GridLayoutPanel Key="GridLayoutPanel1" Caption="基本信息">
+                    <TextEditor Key="Code" Caption="代码" BuddyKey="Lab_Code" X="1" Y="0">
+                        <DataBinding ColumnKey="Code" TableKey="OA_InherentRemind" Required="true"/>
+                    </TextEditor>
+                    <Label Key="Lab_Code" Caption="代码" X="0" Y="0"/>
+                    <TextEditor Key="Name" Caption="名称" BuddyKey="Lab_Name" X="3" Y="0" XSpan="2">
+                        <DataBinding ColumnKey="Name" TableKey="OA_InherentRemind" Required="true"/>
+                    </TextEditor>
+                    <Label Key="Lab_Name" Caption="名称" X="2" Y="0"/>
+                    <ComboBox Key="SetType" Caption="事项类型" BuddyKey="Lab_SetType" X="1" Y="2">
+                        <DataBinding ColumnKey="SetType" TableKey="OA_InherentRemind" DefaultValue="10">
+                            <ValueChanged>
+                                <![CDATA[Everyday=0;
+Everyweek=0;
+Everymonth=0;
+Everyyear=0;]]>
+                            </ValueChanged>
+                        </DataBinding>
+                        <Item Caption="每天" Key="10" Value="10"/>
+                        <Item Caption="每周" Key="20" Value="20"/>
+                        <Item Caption="每月" Key="30" Value="30"/>
+                        <Item Caption="每年" Key="40" Value="40"/>
+                    </ComboBox>
+                    <Label Key="Lab_SetType" Caption="事项类型" X="0" Y="2"/>
+                    <ComboBox Key="BillName" Caption="表单名称" BuddyKey="Lab_BillName" X="3" Y="1" SourceType="Query" ItemsDependency="WorkflowType" XSpan="2">
+                        <DataBinding ColumnKey="BillName" TableKey="OA_InherentRemind" Required="true">
+                            <ValueChanged>
+                                <![CDATA[FormKey = DBQueryValue("select billkey from OA_WorkflowType_D where soid = ? and billname = ?", WorkflowType,BillName);
+WorkflowID = DBQueryValue("select WorkflowID from OA_WorkflowType_D where soid = ? and billname = ?", WorkflowType,BillName);]]>
+                            </ValueChanged>
+                        </DataBinding>
+                        <QueryDef>
+                            <Statement>
+                                <![CDATA[select billname from OA_WorkflowType_D where soid = ?]]>
+                            </Statement>
+                            <ParameterCollection>
+                                <Parameter DataType="Long" Formula="GetValue(&quot;WorkflowType&quot;)"/>
+                            </ParameterCollection>
+                        </QueryDef>
+                    </ComboBox>
+                    <Label Key="Lab_BillName" Caption="表单名称" X="2" Y="1"/>
+                    <Dict Key="WorkflowType" Caption="流程类别" BuddyKey="Lab_WorkflowType" X="1" Y="1" ItemKey="OA_WorkflowType">
+                        <DataBinding ColumnKey="WorkflowType" TableKey="OA_InherentRemind" Required="true"/>
+                    </Dict>
+                    <Label Key="Lab_WorkflowType" Caption="流程类别" X="0" Y="1"/>
+                    <TextEditor Key="FormKey" Caption="关联表单" X="4" Y="3" Visible="false">
+                        <DataBinding ColumnKey="FormKey" TableKey="OA_InherentRemind"/>
+                    </TextEditor>
+                    <ComboBox Key="Everyday" Caption="每天" X="2" Y="2" Visible="SetType==10">
+                        <DataBinding ColumnKey="Everyday" TableKey="OA_InherentRemind"/>
+                        <Item Caption="1点" Key="1" Value="1"/>
+                        <Item Caption="2点" Key="2" Value="2"/>
+                        <Item Caption="3点" Key="3" Value="3"/>
+                        <Item Caption="4点" Key="4" Value="4"/>
+                        <Item Caption="5点" Key="5" Value="5"/>
+                        <Item Caption="6点" Key="6" Value="6"/>
+                        <Item Caption="7点" Key="7" Value="7"/>
+                        <Item Caption="8点" Key="8" Value="8"/>
+                        <Item Caption="9点" Key="9" Value="9"/>
+                        <Item Caption="10点" Key="10" Value="10"/>
+                        <Item Caption="11点" Key="11" Value="11"/>
+                        <Item Caption="12点" Key="12" Value="12"/>
+                        <Item Caption="13点" Key="13" Value="13"/>
+                        <Item Caption="14点" Key="14" Value="14"/>
+                        <Item Caption="15点" Key="15" Value="15"/>
+                        <Item Caption="16点" Key="16" Value="16"/>
+                        <Item Caption="17点" Key="17" Value="17"/>
+                        <Item Caption="18点" Key="18" Value="18"/>
+                        <Item Caption="19点" Key="19" Value="19"/>
+                        <Item Caption="20点" Key="20" Value="20"/>
+                        <Item Caption="21点" Key="21" Value="21"/>
+                        <Item Caption="22点" Key="22" Value="22"/>
+                        <Item Caption="23点" Key="23" Value="23"/>
+                        <Item Caption="24点" Key="24" Value="24"/>
+                    </ComboBox>
+                    <ComboBox Key="Everyweek" Caption="每周" X="2" Y="2" Visible="SetType==20">
+                        <DataBinding ColumnKey="Everyweek" TableKey="OA_InherentRemind"/>
+                        <Item Caption="周一" Key="1" Value="1"/>
+                        <Item Caption="周二" Key="2" Value="2"/>
+                        <Item Caption="周三" Key="3" Value="3"/>
+                        <Item Caption="周四" Key="4" Value="4"/>
+                        <Item Caption="周五" Key="5" Value="5"/>
+                        <Item Caption="周六" Key="6" Value="6"/>
+                        <Item Caption="周日" Key="7" Value="7"/>
+                    </ComboBox>
+                    <ComboBox Key="Everymonth" Caption="每月" X="2" Y="2" Visible="SetType==30">
+                        <DataBinding ColumnKey="Everymonth" TableKey="OA_InherentRemind"/>
+                        <Item Caption="月末" Key="32" Value="32"/>
+                        <Item Caption="1号" Key="1" Value="1"/>
+                        <Item Caption="2号" Key="2" Value="2"/>
+                        <Item Caption="3号" Key="3" Value="3"/>
+                        <Item Caption="4号" Key="4" Value="4"/>
+                        <Item Caption="5号" Key="5" Value="5"/>
+                        <Item Caption="6号" Key="6" Value="6"/>
+                        <Item Caption="7号" Key="7" Value="7"/>
+                        <Item Caption="8号" Key="8" Value="8"/>
+                        <Item Caption="9号" Key="9" Value="9"/>
+                        <Item Caption="10号" Key="10" Value="10"/>
+                        <Item Caption="11号" Key="11" Value="11"/>
+                        <Item Caption="12号" Key="12" Value="12"/>
+                        <Item Caption="13号" Key="13" Value="13"/>
+                        <Item Caption="14号" Key="14" Value="14"/>
+                        <Item Caption="15号" Key="15" Value="15"/>
+                        <Item Caption="16号" Key="16" Value="16"/>
+                        <Item Caption="17号" Key="17" Value="17"/>
+                        <Item Caption="18号" Key="18" Value="18"/>
+                        <Item Caption="19号" Key="19" Value="19"/>
+                        <Item Caption="20号" Key="20" Value="20"/>
+                        <Item Caption="21号" Key="21" Value="21"/>
+                        <Item Caption="22号" Key="22" Value="22"/>
+                        <Item Caption="23号" Key="23" Value="23"/>
+                        <Item Caption="24号" Key="24" Value="24"/>
+                        <Item Caption="25号" Key="25" Value="25"/>
+                        <Item Caption="26号" Key="26" Value="26"/>
+                        <Item Caption="27号" Key="27" Value="27"/>
+                        <Item Caption="28号" Key="28" Value="28"/>
+                        <Item Caption="29号" Key="29" Value="29"/>
+                        <Item Caption="30号" Key="30" Value="30"/>
+                        <Item Caption="31号" Key="31" Value="31"/>
+                    </ComboBox>
+                    <ComboBox Key="Everyyear" Caption="每年" X="2" Y="2" Visible="SetType==40">
+                        <DataBinding ColumnKey="Everyyear" TableKey="OA_InherentRemind"/>
+                        <Item Caption="1月" Key="1" Value="1"/>
+                        <Item Caption="2月" Key="2" Value="2"/>
+                        <Item Caption="3月" Key="3" Value="3"/>
+                        <Item Caption="4月" Key="4" Value="4"/>
+                        <Item Caption="5月" Key="5" Value="5"/>
+                        <Item Caption="6月" Key="6" Value="6"/>
+                        <Item Caption="7月" Key="7" Value="7"/>
+                        <Item Caption="8月" Key="8" Value="8"/>
+                        <Item Caption="9月" Key="9" Value="9"/>
+                        <Item Caption="10月" Key="10" Value="10"/>
+                        <Item Caption="11月" Key="11" Value="11"/>
+                        <Item Caption="12月" Key="12" Value="12"/>
+                    </ComboBox>
+                    <TextArea Key="ViewAcl" Caption="阅读权限" BuddyKey="Lab_ViewAcl" X="1" Y="3">
+                        <DataBinding ColumnKey="ViewAcl" TableKey="OA_InherentRemind"/>
+                    </TextArea>
+                    <TextArea Key="OptIDs" Caption="参与者ID" BuddyKey="Lab_OptIDs" X="4" Y="3" Visible="false">
+                        <DataBinding ColumnKey="OptIDs" TableKey="OA_InherentRemind"/>
+                    </TextArea>
+                    <Label Key="Lab_OptIDs" Caption="参与者ID" X="3" Y="3"/>
+                    <HyperLink Caption="人员选择" Key="EmpSelect" X="2" Y="3">
+                        <OnClick>
+                            <![CDATA[OA_ShowEmpSelectOpt()]]>
+                        </OnClick>
+                    </HyperLink>
+                    <Label Key="Lab_ViewAcl" Caption="阅读权限" X="0" Y="3"/>
+                    <Dict Key="WorkflowID" Caption="流程定义" X="4" Y="3" Visible="false" ItemKey="OA_Workflow">
+                        <DataBinding ColumnKey="WorkflowID" TableKey="OA_InherentRemind"/>
+                    </Dict>
+                    <CheckBox Caption="是否唯一" Key="IsOne" X="4" Y="2">
+                        <DataBinding ColumnKey="IsOne" TableKey="OA_InherentRemind"/>
+                    </CheckBox>
+                    <ComboBox Key="EveryYearDay" Caption="每天" X="3" Y="2" Visible="SetType==40">
+                        <DataBinding ColumnKey="EveryYearDay" TableKey="OA_InherentRemind"/>
+                        <Item Caption="月末" Key="32" Value="32"/>
+                        <Item Caption="1号" Key="1" Value="1"/>
+                        <Item Caption="2号" Key="2" Value="2"/>
+                        <Item Caption="3号" Key="3" Value="3"/>
+                        <Item Caption="4号" Key="4" Value="4"/>
+                        <Item Caption="5号" Key="5" Value="5"/>
+                        <Item Caption="6号" Key="6" Value="6"/>
+                        <Item Caption="7号" Key="7" Value="7"/>
+                        <Item Caption="8号" Key="8" Value="8"/>
+                        <Item Caption="9号" Key="9" Value="9"/>
+                        <Item Caption="10号" Key="10" Value="10"/>
+                        <Item Caption="11号" Key="11" Value="11"/>
+                        <Item Caption="12号" Key="12" Value="12"/>
+                        <Item Caption="13号" Key="13" Value="13"/>
+                        <Item Caption="14号" Key="14" Value="14"/>
+                        <Item Caption="15号" Key="15" Value="15"/>
+                        <Item Caption="16号" Key="16" Value="16"/>
+                        <Item Caption="17号" Key="17" Value="17"/>
+                        <Item Caption="18号" Key="18" Value="18"/>
+                        <Item Caption="19号" Key="19" Value="19"/>
+                        <Item Caption="20号" Key="20" Value="20"/>
+                        <Item Caption="21号" Key="21" Value="21"/>
+                        <Item Caption="22号" Key="22" Value="22"/>
+                        <Item Caption="23号" Key="23" Value="23"/>
+                        <Item Caption="24号" Key="24" Value="24"/>
+                        <Item Caption="25号" Key="25" Value="25"/>
+                        <Item Caption="26号" Key="26" Value="26"/>
+                        <Item Caption="27号" Key="27" Value="27"/>
+                        <Item Caption="28号" Key="28" Value="28"/>
+                        <Item Caption="29号" Key="29" Value="29"/>
+                        <Item Caption="30号" Key="30" Value="30"/>
+                        <Item Caption="31号" Key="31" Value="31"/>
+                    </ComboBox>
+                    <RowDefCollection RowGap="5">
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="5">
+                        <ColumnDef Width="100px"/>
+                        <ColumnDef Width="50%"/>
+                        <ColumnDef Width="100px"/>
+                        <ColumnDef Width="100px"/>
+                        <ColumnDef Width="50%"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+                <GridLayoutPanel Caption="系统信息" Height="1%" Key="SysTab">
+                    <Dict BuddyKey="Lab_Creator" Caption="创建人员" Enable="false" ItemKey="Operator" Key="Creator" X="1" Y="0">
+                        <DataBinding ColumnKey="Creator" TableKey="OA_InherentRemind" DefaultFormulaValue="GetOperator()" Required="true"/>
+                    </Dict>
+                    <Label Caption="创建人员" Key="Lab_Creator" X="0" Y="0"/>
+                    <Label Caption="创建时间" Key="Lab_CreateTime" X="3" Y="0"/>
+                    <DatePicker BuddyKey="Lab_CreateTime" Caption="创建时间" Enable="false" Key="CreateTime" X="4" Y="0">
+                        <DataBinding ColumnKey="CreateTime" TableKey="OA_InherentRemind" DefaultFormulaValue="ServerDate()" Required="true"/>
+                    </DatePicker>
+                    <Label Caption="修改人员" Key="Lab_Modifier" X="0" Y="1"/>
+                    <Dict BuddyKey="Lab_Modifier" Caption="修改人员" Enable="false" ItemKey="Operator" Key="Modifier" X="1" Y="1">
+                        <DataBinding ColumnKey="Modifier" TableKey="OA_InherentRemind" DefaultFormulaValue="GetOperator()" Required="true"/>
+                    </Dict>
+                    <Label Caption="修改时间" Key="Lab_ModifyTime" X="3" Y="1"/>
+                    <DatePicker BuddyKey="Lab_ModifyTime" Caption="修改时间" Enable="false" Key="ModifyTime" X="4" Y="1">
+                        <DataBinding ColumnKey="ModifyTime" TableKey="OA_InherentRemind" DefaultFormulaValue="ServerDate()" Required="true"/>
+                    </DatePicker>
+                    <Label Caption="备注" Key="Lab_Notes" X="0" Y="2"/>
+                    <TextEditor BuddyKey="Lab_Notes" Caption="备注" Key="Notes" X="1" XSpan="4" Y="2">
+                        <DataBinding ColumnKey="Notes" TableKey="OA_InherentRemind"/>
+                    </TextEditor>
+                    <TextEditor BuddyKey="Lab_BillKey" Caption="单据Key" Enable="false" Key="BillKey" X="1" Y="3">
+                        <DataBinding ColumnKey="BillKey" TableKey="OA_InherentRemind" DefaultFormulaValue="GetFormKey()"/>
+                    </TextEditor>
+                    <Label Caption="单据Key" Key="Lab_BillKey" X="0" Y="3"/>
+                    <Dict BuddyKey="Lab_ClusterID" Caption="集团" Enable="false" ItemKey="Client" Key="ClusterID" X="4" Y="3">
+                        <DataBinding ColumnKey="ClusterID" TableKey="OA_InherentRemind"/>
+                    </Dict>
+                    <Label Caption="集团" Key="Lab_ClusterID" X="3" Y="3"/>
+                    <RowDefCollection RowGap="4">
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="4">
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="50%"/>
+                        <ColumnDef Width="20px"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="50%"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+            </TabPanel>
+        </Block>
+    </Body>
+    <MacroCollection>
+        <Macro Key="OA_ShowEmpSelectOpt">
+            <![CDATA[SetPara("OperatorSelID", OA_GetOperatorSelID());
+IIF(GetPara("OperatorSelID")>0,
+    Open("OA_OperatorSel", GetPara("OperatorSelID"), "modal","SourceKey:{BillKey},SourceID:{GetOID()},Tag1:{'ViewAcl'},FieldKey1:{'ViewAcl'},FieldKey2:{'OptIDs'}"),
+    New("OA_OperatorSel","modal","SourceKey:{BillKey},SourceID:{GetOID()},Tag1:{'ViewAcl'},FieldKey1:{'ViewAcl'},FieldKey2:{'OptIDs'}")
+);]]>
+        </Macro>
+        <Macro Key="OA_GetOperatorSelID">
+            <![CDATA[DBQueryValue("Select OID From OA_OperatorSel_H Where SourceKey=? and SourceID=? and Tag1=? ", BillKey,GetOID(),"ViewAcl");]]>
+        </Macro>
+        <Macro Key="OA_GetOptIDsDetail">
+            <![CDATA[InvokeService("OA_GetOptIDsDetail", true, false,"OA_InherentRemind","OptIDs",10);]]>
+        </Macro>
+    </MacroCollection>
+</Form>

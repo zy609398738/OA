@@ -82,9 +82,9 @@ public class ChatItemHolder extends CommonViewHolder {
         HostServiceFacade.prepareUserInfo(this.getContext(), new String[]{message.getSender()},
                 new HostServiceFacade.PrepareUserInfoCallback(){
                     @Override
-                    public void perform(HostServiceFacade.UserInfoCache userCodeCache) {
+                    public void perform(HostServiceFacade.UserInfoProvider provider) {
                         String sender = message.getSender();
-                        UserInfo user = userCodeCache.getUserInfo(sender);
+                        UserInfo user = provider.getUserInfo(sender);
 
                         nameView.setText(user.getUserName());
                         String avatarUrl = user.getUserIcon();
@@ -100,7 +100,7 @@ public class ChatItemHolder extends CommonViewHolder {
                 }
         );
 
-        /* FIXME 未实现
+        /* FIXME 好友状态、上传进度等未实现
         switch (message.getMessageStatus()) {
             case AVIMMessageStatusFailed:
                 statusLayout.setVisibility(View.VISIBLE);
@@ -157,8 +157,8 @@ public class ChatItemHolder extends CommonViewHolder {
         });
     }
 
-    //TODO 展示更人性一点
     private static String millisecsToDateString(long timestamp) {
+        //TODO 展示更人性一点
         SimpleDateFormat format = new SimpleDateFormat("MM-dd HH:mm");
         return format.format(new Date(timestamp));
     }

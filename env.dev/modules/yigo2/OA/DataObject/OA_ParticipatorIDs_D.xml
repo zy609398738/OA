@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<DataObject Key="OA_ParticipatorIDs_D" Caption="参与者IDs明细表" PrimaryType="Entity">
+    <TableCollection>
+        <Table Key="OA_ParticipatorIDs_D" Caption="参与者IDs明细表" TableMode="Detail" DBTableName="OA_ParticipatorIDs_D">
+            <Column Key="OID" Caption="对象标识" DataType="Long"/>
+            <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+            <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+            <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+            <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+            <Column Key="OptID" DataType="Long" Caption="参与者ID"/>
+            <Column Key="OptType" Caption="类型" DataType="Integer"/>
+        </Table>
+    </TableCollection>
+</DataObject>

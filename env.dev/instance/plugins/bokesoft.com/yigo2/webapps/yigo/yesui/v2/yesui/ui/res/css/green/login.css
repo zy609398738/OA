@@ -1,0 +1,236 @@
+html body {
+    font-size: 32px;
+    width: 100%;
+    min-width: 455px;
+    overflow: auto;
+}
+body,html{
+    height:100%;
+}
+html body * {
+    font-size: 1em;
+    box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    -webkit-box-sizing: content-box;
+}
+input {
+    outline: none;
+}
+input[type="text"]::-ms-clear {
+    display: none;
+}
+
+.login-main{
+    position:relative;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    width:100%;
+    height:100%;
+    padding-bottom: 1.875em;
+}
+.login-items{
+    width:100%;
+    height:100%;
+    position:absolute;
+    top:0;
+    left:0;
+    z-index: -1;
+}
+.login-item{
+    width:100%;
+    height:100%;
+    position:absolute;
+    top:0;
+    left:0;
+    background-repeat:no-repeat;
+    background-position:center top;
+    background-size:cover;
+}
+.item1{  
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="./yesui/ui/res/images/login_bg_001.jpg", sizingMethod="scale")\9;
+    background-image:url(images/login_bg_001.jpg);
+}
+.item2{
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="./yesui/ui/res/images/login_bg_002.jpg", sizingMethod="scale")\9;
+    background-image: url('images/login_bg_002.jpg');
+    display:none;
+}
+:root .login-item{
+    filter:none\9;
+}
+.login-wrap{
+    width:100%;
+    height:100%;
+    display:table;
+}
+.login-container{
+    width:100%;
+    height:100%;
+    display:table-cell;
+    vertical-align: middle;
+}
+.login-logo{
+    position:absolute;
+    top:1.875em;
+    left:5.2083%;
+}
+.login-loginbox{
+    position:relative;
+    padding:.875em 1.25em 1.8125em;
+    margin:0 auto;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    width:14.21875em;
+    border-radius:.09375em;
+    overflow:hidden;  
+}
+.opcity{
+    position:absolute;
+    top:0;
+    right:0;
+    bottom:0;
+    left:0;
+    z-index:-1;
+    background:#fff;
+    opacity:.5;
+    filter:alpha(opacity=50);
+}
+.login-title{
+    font-size:.8125em;
+    line-height:2.53846;
+    text-align: center;
+    margin-bottom: .6875em;
+}
+.login-strip{
+    position:relative;
+    padding-bottom:.625em;
+
+}
+.login-strip span{
+    position:absolute;
+    top:0;
+    left:8px;
+    color:#999;
+    line-height:32px;
+    font-size:.4375em;
+}
+.login-strip input{
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    display:block;
+    height:32px;
+    width:100%;
+    font-size:.4375em;
+    color:#333;
+    line-height:30px;
+    text-indent:8px;
+    border:1px solid #adaeb2;
+    border-radius:1px;
+    outline:none;
+    transition:.3s;
+}
+.login-strip input:focus,
+.login-combox-content.focus{
+    border-color:#52a8ec;
+    box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(82,168,236,.6);
+}
+.login-combox-content.focus span{
+    color:#333;
+}
+.login-strip .login-password{
+    display:none;
+}
+.login-strip input.default-color{
+    color:#999;
+}
+.login-combox-content{
+    position:relative;
+    padding-left:.25em;
+    padding-right:.625em;
+    width:100%;
+    height:1em;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    border:1px solid #adaeb2;
+    border-radius:1px;
+    background:#fff;
+    transition:.3s;
+}
+.login-combox-value{
+   display:block;
+   font-size:.4375em;
+   line-height:2.1428572em;
+   color:#999;
+   overflow:hidden;
+   white-space: nowrap;
+   text-overflow:ellipsis;
+}
+.dropDown-button{
+    position:absolute;
+    top:.4375em;
+    right:.3125em;
+    width:0;
+    height:0;
+    border-top:4px solid #999;
+    border-left:4px solid transparent;
+    border-right:4px solid transparent;
+    cursor:pointer;
+}
+.login-button{
+    margin-top:1.25em;
+    line-height:2.125em;
+    height:2.125em;
+    background:#266eaa;
+    background:linear-gradient(#287abb,#24659d 90%);
+    filter:progid:DXImageTransform.Microsoft.Gradient(GradientType=0,StartColorStr='#287abb',EndColorStr='#24659d');
+    font-size:.5em;
+    color:#fff;
+    border-radius:1px;
+    text-align:center;
+    cursor:pointer;
+}
+.login_sel_vw {
+    display: none;
+    position: absolute;
+    max-height: 300px;
+    overflow: auto;
+    margin-top:2px;
+}
+.login-combox-list {
+    width: 100%;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    background: #fff;
+    z-index: 10;
+}
+.login-combox-list li{
+    width:100%;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+    font-size:.4375em;
+    line-height:2.28572;
+    text-indent:0.714286em;
+    cursor:pointer;
+}
+.login-combox-list li:hover{
+    background:#eee;
+}
+
+.login-footer{
+    position:relative;
+    width:100%;
+    height:5em;
+    margin-top:-5em;
+    background:#202020;
+    font-size:.375em;
+    color:#fff;
+    text-align:center;
+    white-space:pre-wrap;
+    line-height:5em;
+} 
+

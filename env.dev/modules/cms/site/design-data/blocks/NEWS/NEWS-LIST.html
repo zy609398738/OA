@@ -18,13 +18,12 @@
   		</div>
 		<div class="filter fl_right">
             <div class="filter_left">
-              <span class="back"><a href="$R_ROOT/index.page">返回首页</a></span>
               <div class="category">
               	<span class="category_text">全部分类</span>
               </div>
               <ul class="cate-content" style="display:none;">
                  #foreach($line in $data)
-                    <li><a href="#" name="$line.CODE">$line.NAME</a></li>
+                    <li><a name="$line.CODE">$line.NAME</a></li>
                  #end
               </ul>
               <span class="all"><a href="$R_ROOT/newslist.page">全部新闻</a></span>
@@ -46,7 +45,7 @@
                   </div>
                   <%}%>
                   <div class="news-info f555">
-                      <h2><a href="$R_ROOT/news/newsview.page?id=<%= order.OID %>" class="f333" title="<%= order.TOPIC %>"><%= order.TOPIC %></a></h2>
+                      <h2><a onclick="newForm('OA_ShowWeb','','URL:{\'$href<%= order.OID %>\'},FormCaption:{\'<%= order.TOPIC %>\'}')" class="f333" title="<%= order.TOPIC %>"><%= order.TOPIC %></a></h2>
                       <p class="news-head f"><span><%=order.NEWSDATE%></span><span class="news-type"><b>·</b><%= order.TYPENAME %></span><span class="news-author"><b>·</b><%= order.AUTHOR %></span></p>
 					  <div class="news-content"><%= order.NEWSCONTENT %></div>
                   </div>
@@ -65,11 +64,30 @@
         var whereString='';
         var searchWhere='';
         if(date!=''){
+  #if($dbType==2)
           switch (date)
           {
             case 'week':
            		$(".one-week").addClass("filter_left_selected");
+              searchWhere=" ond.createtime>TO_CHAR(SYSDATE-7,'yyyy-mm-dd HH24:MI:SS')";
+              break;
+            case 'month':
+           		$(".one-month").addClass("filter_left_selected");
+              searchWhere=" ond.createtime>ADD_MONTHS(SYSDATE,-1)";
+              break;
+            default:
+           		$(".half-year").addClass("filter_left_selected");
+              searchWhere=" ond.createtime>ADD_MONTHS(SYSDATE,-6)";
+          }
+#end
+#if($dbType==4)
+          switch (date)
+          {
+            case 'week':
+           		$(".one-week").addClass("filter_left_selected");
+  			
               searchWhere=" ond.createtime>DATE_SUB(CURDATE(), INTERVAL 1 WEEK)";
+
               break;
             case 'month':
            		$(".one-month").addClass("filter_left_selected");
@@ -79,6 +97,7 @@
            		$(".half-year").addClass("filter_left_selected");
               searchWhere=" ond.createtime>DATE_SUB(CURDATE(), INTERVAL 0.5 YEAR)";
           }
+#end
         }
    		if(typecode!=''){
   			var opt=".breadcrumb-box .filter_left .cate-content a[name='"+typecode+"']";

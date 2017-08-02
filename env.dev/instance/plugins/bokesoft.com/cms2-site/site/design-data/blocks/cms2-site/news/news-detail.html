@@ -2,18 +2,20 @@
 <div class="container">
 	<div class="row">
 		<div class="col-md-12 news-dtl-page">
-            #foreach($new in $newContent)
 			<div class="hd text-center">
-              <h1>$!new.TITLE</h1>
-			  <p class="text-muted tip"><span>$!new.SOURCE</span>|<span>$!new.AUTHOR</span>|<span>$!new.NEWSDATE</span></p>
+              <h1>${title}</h1>
+			  <p class="text-muted tip"><span>${type}</span><span>${source}</span><span>${author}</span><span>${date}</span></p>
 			</div>
             <div class="bd">
 			  <p class="img text-center">
-                  <img src="/yigo/a/cms2-yigo2-adapter/cms/view-yigo-file/$new.MAINPIC" title="新闻图片"/>
+                #if($mainPic.startsWith("/a/cms/view-upload/upload/"))
+                  <img src="${R_ROOT}${mainPic}" title="新闻图片"/>
+                #else
+                  <img src="${mainPic}" title="新闻图片"/>
+                #end
               </p>
-			  <div>$!new.CONTENT</div>
+			  <div>${content}</div>
 			</div>
-            #end
 		</div>
 	</div>
 </div>

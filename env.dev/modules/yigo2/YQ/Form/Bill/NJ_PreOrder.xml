@@ -176,7 +176,7 @@
                                 <ColumnDef Width="20px"/>
                             </ColumnDefCollection>
                         </GridLayoutPanel>
-                        <Embed Caption="附件" Key="OA_Attachment" FormKey="OA_Attachment" RootKey="Grid2">
+                        <Embed Caption="附件" Key="OA_Attachment" FormKey="OA_Attachment" RootKey="OA_Attachment">
                             <Var Key="ParentKey" Value="NJ_SCM_PreOrderHead"/>
                         </Embed>
                         <GridLayoutPanel Key="SysTab" Caption="系统信息">

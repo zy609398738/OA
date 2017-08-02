@@ -103,7 +103,7 @@ public class ConversationInputBottomBar extends LinearLayout {
     moreLayout = findViewById(R.id.input_bar_layout_more);
     recordBtn = (BKIMRecordButton) findViewById(R.id.input_bar_btn_record);
 
-    //TODO 暂时禁用 Voice 消息功能
+    //TODO (未实现仅供参考) Voice 类型的消息
     voiceBtn.setVisibility(GONE);
 
     actionLayout = (LinearLayout) findViewById(R.id.input_bar_layout_action);
@@ -217,7 +217,7 @@ public class ConversationInputBottomBar extends LinearLayout {
     contentEditText.setVisibility(View.VISIBLE);
     recordBtn.setVisibility(View.GONE);
 
-    //TODO 暂时禁用 Voice 消息功能
+    //TODO (未实现仅供参考) Voice 类型的消息
     //voiceBtn.setVisibility(contentEditText.getText().length() > 0 ? GONE : VISIBLE);
     voiceBtn.setVisibility(View.GONE);
 

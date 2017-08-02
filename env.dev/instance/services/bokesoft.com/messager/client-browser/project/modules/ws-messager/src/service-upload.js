@@ -2,8 +2,6 @@
 
 var json = require("JSON2");
 
-var fileTypes = require("../../file-types");
-
 var UploadHandler = function(options){
 	this.webSocketClient = options.webSocketClient;
 	this.localDataClient = options.localDataClient;
@@ -25,16 +23,10 @@ UploadHandler.prototype.success = function(response){
     	var isImg = _isImage(data.fileName);
     	var msgType = isImg?"IMAGE":"FILE";
     	
-    	var _fileIcon = fileTypes.getFileIcon(data.fileName);
-    	if (isImg){
-    		_fileIcon = data.url;
-    	}
-    	
     	var msg = {
 			sender: this.localVars.ws_Sender,
 			type: msgType,
 			data: {
-				fileIcon: _fileIcon,
 				fileName: data.fileName,
 				fileUrl: data.url
 			},
@@ -96,14 +88,12 @@ UploadHandler.prototype.progress = function(event, position, total, percent, fil
 				oFReader.readAsDataURL(file);
 			}else{
 				msg.type = "IMAGE";
-				msg.data.fileIcon = fileTypes.getImageIcon(file.name);
 				msg.data.fileName = file.name;
 			    //发送消息
 				_pushMsg(this, msg);
 			}
 		}else{
 			msg.type = "FILE";
-			msg.data.fileIcon = fileTypes.getFileIcon(file.name);
 			msg.data.fileName = file.name;
 		    //发送消息
 			_pushMsg(this, msg);

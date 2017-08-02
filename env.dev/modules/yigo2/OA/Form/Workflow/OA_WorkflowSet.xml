@@ -10,7 +10,6 @@
                     <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
                     <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
                     <Column Key="Status" Caption="状态" DataType="Integer"/>
-                    <Column Key="WorkflowID" Caption="流程ID" DataType="Long"/>
                     <Column Key="WorkflowName" Caption="流程名称" DataType="Varchar"/>
                     <Column Key="WorkflowKey" Caption="流程标识" DataType="Varchar"/>
                     <Column Key="WorkflowVersion" Caption="版本" DataType="Integer"/>
@@ -34,7 +33,7 @@
                             <Item Caption="新建" Key="0" Value="0"/>
                             <Item Caption="已部署" Key="1" Value="1"/>
                         </ListViewColumn>
-                        <ListViewColumn Key="Edit" Caption="流程修改" ColumnType="HyperLink">
+                        <ListViewColumn Key="Edit" Caption="流程修改" ColumnType="HyperLink" DefaultValue="流程修改">
                             <OnClick>
                                 <![CDATA[OA_ShowWorkflowDesigne()]]>
                             </OnClick>
@@ -52,11 +51,15 @@
     </OnLoad>
     <MacroCollection>
         <Macro Key="OA_ShowWorkflowDesigne">
-            <![CDATA[SetPara("WorkflowDesigneID", OA_GetWorkflowDesigneID());
-IIF(GetPara("WorkflowDesigneID")>0,
-    Open("OA_WorkflowDesigne", GetPara("WorkflowDesigneID"), "newtab","WorkflowKey:{WorkflowKey},WorkflowVersion:{WorkflowVersion},Tag1:{GetFormKey()}"),
-    New("OA_WorkflowDesigne","newtab","WorkflowKey:{WorkflowKey},WorkflowVersion:{WorkflowVersion},Tag1:{GetFormKey()}")
-);]]>
+            <![CDATA[if(WorkflowState==0){
+    Confirm("请先部署当前流程。")
+}else{
+    SetPara("WorkflowDesigneID", OA_GetWorkflowDesigneID());
+    IIF(ToLong(GetPara("WorkflowDesigneID"))>0,
+        Open("OA_WorkflowDesigne", ToLong(GetPara("WorkflowDesigneID")), "newtab","WorkflowKey:{WorkflowKey},WorkflowName:{WorkflowName},WorkflowVersion:{WorkflowVersion},WorkflowFormKey:{''},Tag1:{GetFormKey()}"),
+        New("OA_WorkflowDesigne","newtab","WorkflowKey:{WorkflowKey},WorkflowName:{WorkflowName},WorkflowVersion:{WorkflowVersion},WorkflowFormKey:{''},Tag1:{GetFormKey()}")
+    );
+}]]>
         </Macro>
         <Macro Key="OA_GetWorkflowDesigneID">
             <![CDATA[DBQueryValue("Select OID From OA_WorkflowDesigne_H Where WorkflowKey=? and WorkflowVersion=? and Tag1=?", WorkflowKey,WorkflowVersion,GetFormKey());]]>

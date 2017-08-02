@@ -1,83 +1,115 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<Form Caption="审批记录" Key="WFLog" PreferSize="1000px,600px">
+<Form Caption="审批记录" Key="WFLog" PreferSize="1300px,600px">
     <DataSource>
-        <DataObject Caption="审批记录" Key="BPM_Log" NoPrefix="STIN" PrimaryTableKey="BPM_Log">
+        <DataObject Key="BPM_Log" NoPrefix="STIN" Caption="审批记录" MainTableKey="BPM_Log" PrimaryType="Entity">
             <TableCollection>
-                <Table Caption="基本信息" DBTableName="BPM_Log" Key="BPM_Log" SourceType="Query" TableMode="Detail">
-                    <Column Caption="工作项标识" DBColumnName="workItemID" DataType="Long" Key="workItemID"/>
-                    <Column Caption="父对象标识" DBColumnName="workItemName" DataType="Varchar" Key="workItemName" Length="200"/>
-                    <Column Caption="创建时间" DBColumnName="creatTime" DataType="DateTime" Key="creatTime"/>
-                    <Column Caption="提交时间" DBColumnName="finishTime" DataType="DateTime" Key="finishTime"/>
-                    <Column Caption="人员" DBColumnName="operatorID" DataType="Integer" Key="operatorID"/>
-                    <Column Caption="审批意见" DBColumnName="userInfo" DataType="Varchar" Key="userInfo" Length="200"/>
-                    <Column Caption="审批结果" DBColumnName="auditResult" DataType="Integer" Key="auditResult"/>
+                <Table Key="BPM_Log" Caption="基本信息" DBTableName="BPM_Log" TableMode="Detail" SourceType="Query">
+                    <Column Key="workItemID" Caption="工作项标识" DataType="Long" DBColumnName="workItemID"/>
+                    <Column Key="workItemName" Caption="工作项的名称" DataType="Varchar" Length="200" DBColumnName="workItemName"/>
+                    <Column Key="creatTime" Caption="创建时间" DataType="DateTime" DBColumnName="creatTime"/>
+                    <Column Key="finishTime" Caption="提交时间" DataType="DateTime" DBColumnName="finishTime"/>
+                    <Column Key="userInfo" Caption="审批意见" DataType="Varchar" Length="200" DBColumnName="userInfo"/>
+                    <Column Key="auditResult" Caption="审批结果" DataType="Integer" DBColumnName="auditResult"/>
+                    <Column Key="WorkitemState" Caption="工作项状态" DataType="Integer" DBColumnName="WorkitemState"/>
+                    <Column Key="operatorID" Caption="操作员ID" DataType="Long" DBColumnName="operatorID"/>
+                    <Column Key="InstanceState" Caption="流程状态" DataType="Long" DBColumnName="InstanceState"/>
+                    <!--<Column Key="NodeID" Caption="节点" Persist="True" DataType="Long" DBColumnName="NodeID" />
+					<Column Key="Result" Caption="节点结果" Persist="True" DataType="Long" DBColumnName="InstanceState" />-->
                     <TableFilter>
-                        <![CDATA[workItemID in(select workitemID from BPM_WorkitemInfo where instanceID=(select instanceID from BPM_Instance where OID=?))
-]]>
+                        <![CDATA[BPM_Log.instanceID=(select instanceID from BPM_Instance where OID=?)]]>
                     </TableFilter>
                     <ParameterCollection>
-                        <Parameter Caption="标识" Formula="Para('POID')" Key="OID" TargetColumn="workItemID"/>
+                        <Parameter Key="OID" Caption="标识" TargetColumn="workItemID" Formula="Para('pOID')"/>
                     </ParameterCollection>
                     <Statement>
-                        <![CDATA[select workItemID,workItemName,creatTime,finishTime,operatorID,auditResult,userInfo from BPM_Log
-]]>
+                        <![CDATA[select BPM_Log.workItemID,workItemName,creatTime,finishTime,auditResult,userInfo,WorkitemState,operatorID,InstanceState from BPM_Log 
+                                join BPM_Instance on BPM_Log.InstanceID=BPM_Instance.InstanceID]]>
                     </Statement>
                 </Table>
             </TableCollection>
             <OIDFilter/>
         </DataObject>
     </DataSource>
-    <Body PopHeight="500px" PopWidth="700px">
+    <!--<FormParaCollection>
+		<FormPara Key="POID" Type="Formula" Formula="GetParentOID()"/>
+	</FormParaCollection>-->
+    <Body PopWidth="1300px" PopHeight="500px">
         <Block>
             <GridLayoutPanel Key="main">
-                <Grid Caption="入库单明细" Enable="False" Key="detail_grid" PageLoadType="UI" PageRowCount="6" X="0" Y="0">
+                <Grid Key="detail_grid" Caption="审批明细" UsePage="false" PageRowCount="6" Enable="False" Visible="False" X="0" Y="0">
                     <GridColumnCollection>
-                        <GridColumn Caption="工作项标识" ColumnExpand="false" ColumnType="Detail" Key="workItemID" Width="79px"/>
-                        <GridColumn Caption="父对象标识" ColumnExpand="false" ColumnType="Detail" Key="workItemName" Width="79px"/>
-                        <GridColumn Caption="创建时间" ColumnExpand="false" ColumnType="Detail" Key="creatTime" Width="160px"/>
-                        <GridColumn Caption="提交时间" ColumnExpand="false" ColumnType="Detail" Key="finishTime" Width="160px"/>
-                        <GridColumn Caption="人员" ColumnExpand="false" ColumnType="Detail" Key="operatorID" Width="50px"/>
-                        <GridColumn Caption="审批结果" ColumnExpand="false" ColumnType="Detail" Key="auditResult" Width="65px"/>
-                        <GridColumn Caption="审批意见" ColumnExpand="false" ColumnType="Detail" Key="userInfo" Width="79px"/>
-                        <GridColumn Caption="撤销" ColumnExpand="false" ColumnType="Detail" Enable="true" Key="Rollback" Width="79px"/>
+                        <GridColumn Key="n_workItemID" Caption="工作项标识" Width="79px" ColumnExpand="false" ColumnType="Detail"/>
+                        <GridColumn Key="n_workItemName" Caption="工作项的名称" Width="79px" ColumnExpand="false" ColumnType="Detail"/>
+                        <GridColumn Key="n_creatTime" Caption="创建时间" Width="160px" ColumnExpand="false" ColumnType="Detail"/>
+                        <GridColumn Key="n_finishTime" Caption="完成时间" Width="160px" ColumnExpand="false" ColumnType="Detail"/>
+                        <GridColumn Key="n_operatorID" Caption="操作员" Width="79px" ColumnExpand="false" ColumnType="Detail"/>
+                        <GridColumn Key="n_auditResult" Caption="审批结果" Width="65px" ColumnExpand="false" ColumnType="Detail"/>
+                        <GridColumn Key="n_userInfo" Caption="审批意见" Width="79px" ColumnExpand="false" ColumnType="Detail"/>
+                        <GridColumn Key="n_WorkitemState" Caption="工作项状态" Width="79px" ColumnExpand="false" ColumnType="Detail"/>
+                        <GridColumn Key="n_InstanceState" Caption="流程状态" Width="79px" ColumnExpand="false" ColumnType="Detail" Visible="false"/>
+                        <!--<GridColumn Key="n_NodeID" Caption="节点编号" Width="79px" ColumnExpand="false" ColumnType="Detail"/>
+						<GridColumn Key="n_Result" Caption="节点结果" Width="79px" ColumnExpand="false" ColumnType="Detail"/>-->
+                        <GridColumn Key="n_Rollback" Caption="撤销" Width="79px" ColumnExpand="false" ColumnType="Detail" Visible="true"/>
                     </GridColumnCollection>
                     <GridRowCollection>
-                        <GridRow GroupKey="Area" Key="R1" TableKey="BPM_Log">
-                            <GridCell Caption="工作项标识" CellType="NumberEditor" Key="workItemID">
+                        <GridRow Key="R1" TableKey="BPM_Log" GroupKey="Area">
+                            <GridCell Key="l_workItemID" Caption="工作项标识" CellType="NumberEditor" Enable="False">
                                 <DataBinding ColumnKey="workItemID"/>
                             </GridCell>
-                            <GridCell Caption="父对象标识" Key="workItemName">
+                            <GridCell Key="l_workItemName" Caption="工作项的名称">
                                 <DataBinding ColumnKey="workItemName"/>
                             </GridCell>
-                            <GridCell Caption="创建时间" CellType="DatePicker" Key="creatTime">
+                            <GridCell Key="l_creatTime" Caption="创建时间" CellType="DatePicker" Enable="False">
                                 <DataBinding ColumnKey="creatTime"/>
                             </GridCell>
-                            <GridCell Caption="提交时间" CellType="DatePicker" Key="finishTime">
+                            <GridCell Key="l_finishTime" Caption="提交时间" CellType="DatePicker" Enable="False">
                                 <DataBinding ColumnKey="finishTime"/>
                             </GridCell>
-                            <GridCell Caption="人员" CellType="NumberEditor" Key="operatorID">
+                            <GridCell Key="l_operatorID" Caption="人员" CellType="Dict" ItemKey="Operator">
                                 <DataBinding ColumnKey="operatorID"/>
                             </GridCell>
-                            <GridCell Caption="审批结果" CellType="ComboBox" Key="auditResult">
+                            <GridCell Key="l_auditResult" Caption="审批结果" CellType="ComboBox" Enable="False" GroupKey="AuditResult" SourceType="ParaGroup">
                                 <DataBinding ColumnKey="auditResult"/>
-                                <Item Caption="通过" Key="1" Value="1"/>
-                                <Item Caption="驳回" Key="0" Value="0"/>
                             </GridCell>
-                            <GridCell Caption="审批意见" Key="userInfo">
+                            <GridCell Key="l_userInfo" Caption="审批意见">
                                 <DataBinding ColumnKey="userInfo"/>
                             </GridCell>
-                            <GridCell Caption="撤销" CellType="Button" Enable="true" Key="Rollback" ShowText="撤销a">
+                            <GridCell Key="l_WorkitemState" Caption="工作项状态" CellType="ComboBox" Enable="False">
+                                <DataBinding ColumnKey="WorkitemState"/>
+                                <Item Caption="尚未完成" Key="I_1" Value="1"/>
+                                <Item Caption="已经完成" Key="I_2" Value="2"/>
+                                <Item Caption="尚未完成但暂不显示" Key="I_3" Value="3"/>
+                                <Item Caption="无效" Key="I_4" Value="4"/>
+                            </GridCell>
+                            <GridCell Key="l_InstanceState" Caption="父表单流程状态" CellType="ComboBox" Enable="False">
+                                <DataBinding ColumnKey="InstanceState"/>
+                                <Item Caption="注册成功" Key="I_1" Value="0"/>
+                                <Item Caption="运行中" Key="I_2" Value="1"/>
+                                <Item Caption="已结束" Key="I_3" Value="2"/>
+                                <Item Caption="强行关闭" Key="I_4" Value="3"/>
+                            </GridCell>
+                            <!--	<GridCell Key="l_NodeID" Caption="节点编号" CellType="Label" Enable="False">
+								<DataBinding ColumnKey="NodeID"/>								
+							</GridCell>
+							<GridCell Key="l_Result" Caption="节点结果" CellType="ComboBox" Enable="False">
+								<DataBinding ColumnKey="Result"/>
+								<Item Caption="赞成" Key="I_1" Value="1"/>
+								<Item Caption="反对" Key="I_2" Value="0"/>
+								<Item Caption="弃权" Key="I_3" Value="-1"/>		
+								<Item Caption=" " Key="I_4" Value=" "/>	
+							</GridCell>-->
+                            <GridCell Key="l_Rollback" Caption="撤销" CellType="Button" ShowText="撤销" Enable="BPM_Log.WorkitemState==2 &amp;&amp; BPM_Log.operatorID==GetOperator()">
                                 <OnClick>
-                                    <![CDATA[RollbackToWorkitem(workItemID);]]>
+                                    <![CDATA[RollbackToWorkitem(l_workItemID)]]>
                                 </OnClick>
                             </GridCell>
                         </GridRow>
                     </GridRowCollection>
                 </Grid>
-                <BPMGraph Caption="流程图" Key="graph" ProcessKey="parent.GetProcessKey()" ProcessVer="parent.GetProcessVer()" X="0" Y="1"/>
-                <RowDefCollection RowGap="3" RowHeight="30">
-                    <RowDef Height="30%"/>
-                    <RowDef Height="70%"/>
+                <BPMGraph Key="graph" Caption="流程图" ProcessKey="Para('processKey')" ProcessVer="Para('processVer')" ProcessPath="GetProcessPath(Para('pOID'))" X="0" Y="0" YSpan="2"/>
+                <RowDefCollection RowHeight="30" RowGap="3">
+                    <RowDef Height="10px"/>
+                    <RowDef Height="100%"/>
                 </RowDefCollection>
                 <ColumnDefCollection>
                     <ColumnDef Width="100%"/>
@@ -86,9 +118,7 @@
         </Block>
     </Body>
     <OnLoad type="Formula">
-        <![CDATA[LoadData();]]>
+        <![CDATA[LoadData();
+  ]]>
     </OnLoad>
-    <FormParaCollection>
-        <FormPara Formula="GetParentOID()" Key="POID" Type="Formula"/>
-    </FormParaCollection>
 </Form>

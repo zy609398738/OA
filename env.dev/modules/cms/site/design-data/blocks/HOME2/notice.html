@@ -1,0 +1,37 @@
+<!--<div class="CMSRefreshPage">
+  <a href="" title="刷新当前页面"></a>
+</div>-->
+<div class="notice clearfix">
+	<div class="item todo">
+		<div class="inner">
+			<div class="cont fff">
+                <a onclick="showForm('OA_ToDoList','','')"><span class="title">待处理</span></a>
+				<a onclick="showForm('OA_ToDoList','','')"><span class="num">$!COUNT_TODO[0].COUNTQTY</span></a>
+			</div>
+		</div>
+	</div>
+	<div class="item return">
+		<div class="inner">
+			<div class="cont fff">
+                <a onclick="showForm('OA_RejectWF','','')"><span class="title">已退回</span></a>
+				<a onclick="showForm('OA_RejectWF','','')"><span class="num">$!COUNT_REJECT[0].COUNTQTY</span></a>
+			</div>
+		</div>
+	</div>
+	<div class="item tips">
+		<div class="inner">
+			<div class="cont fff">
+              	<a onclick="showForm('OA_FocusWorkflow','','')"><span class="title">已关注</span></a>
+				<a onclick="showForm('OA_FocusWorkflow','','')"><span class="num">$!COUNT_FOCUS[0].COUNTQTY</span></a>
+			</div>
+		</div>
+	</div>
+	<div class="item done">
+		<div class="inner">
+			<div class="cont fff">
+              	<a onclick="showForm('OA_SendList','','')"><span class="title">提交未完成</span></a>
+				<a onclick="showForm('OA_SendList','','')"><span class="num">$!COUNT_SEND[0].COUNTQTY</span></a>
+			</div>
+		</div>
+	</div>	
+</div>

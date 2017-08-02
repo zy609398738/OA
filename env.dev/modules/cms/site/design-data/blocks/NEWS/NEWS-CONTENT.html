@@ -1,0 +1,40 @@
+#if( $newsview==true)
+     #foreach( $line in $data ) 
+	<div class="row clearfix">
+		<div class="news-content">
+			<h1>$esc.html($line.COL2)</h1>
+			<div class="publish-time">
+            	<span class="author">作者：$esc.html($line.COL3)</span>
+            	<span class="time">日期：$esc.html($date.format("yyyy-MM-dd HH:mm:ss",$line.COL4))</span>
+            	<span class="fontsize">字号：<a href="javascript:void(0)" size="12">小</a><a href="javascript:void(0)" size="14" class="hover">中</a><a href="javascript:void(0)" size="18">大</a></span>
+         	</div>
+         	<div class="row news-detail-head f333 clearfix">
+         		<div class="new-breadcrumb">
+               		<!--<a href="../newslist.page" class="newslist news-icon">新闻列表</a>-->
+            	</div>
+         	</div>
+         	<div class="photoShowArea" id="photoShowArea"> </div>
+         	<div class="new-detail-body"> 
+              #if( $line.MYNEWS )
+                 $line.MYNEWS 
+              #end
+          	</div>
+			<div class="row news-detail-bottom f333 clearfix">
+         		<div class="news-breadcrumb">
+           		#foreach( $line in $preid )
+           			<a href="../news/newsview.page?id=$line.PREID" class="pre news-icon">上一篇</a>
+           		#end
+           		#foreach( $line in $nextid )
+           			<a href="../news/newsview.page?id=$line.NEXTID" class="next news-icon">下一篇</a>
+           		#end
+         		</div>
+      		</div>
+		</div>
+	</div>
+    #end
+#else
+    <script>
+        alert("您没有权限访问该页面");
+        history.go(-1);
+    </script>
+#end

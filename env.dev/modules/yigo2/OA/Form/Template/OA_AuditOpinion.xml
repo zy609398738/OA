@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="OA_AuditOpinion" Caption="审批意见模板" FormType="Template">
+    <DataSource>
+        <DataObject Key="OA_AuditOpinion" Caption="审批意见模板" PrimaryType="Entity">
+            <TableCollection>
+                <Table Key="OA_AuditOpinion" Caption="审批意见模板" TableMode="Detail" DBTableName="OA_AuditOpinion">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="AuditOpinion" Caption="审批意见" DataType="Varchar" Length="4000"/>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="OA_AuditOpinion" Caption="根面板" Height="100px" Width="100%">
+                <GridLayoutPanel Key="GridLayoutPanel1" Height="pref" Caption="GridLayoutPanel1">
+                    <TextEditor Key="AuditOpinion" Caption="审批意见" BuddyKey="Lab_AuditOpinion" X="1" Y="0" Enable="true" MaxLength="4000"/>
+                    <Label Key="Lab_AuditOpinion" Caption="审批意见" X="0" Y="0">
+                        <Format HAlign="Center"/>
+                    </Label>
+                    <RowDefCollection RowGap="5">
+                        <RowDef Height="30px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="5">
+                        <ColumnDef Width="100px"/>
+                        <ColumnDef Width="100%"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

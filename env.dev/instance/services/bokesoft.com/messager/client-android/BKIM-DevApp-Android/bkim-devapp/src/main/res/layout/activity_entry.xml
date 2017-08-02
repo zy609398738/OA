@@ -44,7 +44,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="@style/BKIMTextAppearance.Normal"
         android:textColor="@color/bkim_common_gray"
-        android:maxLength="50"
+        android:maxLength="60"
         android:paddingLeft="30dp"
         android:gravity="center_vertical"
         android:singleLine="true"

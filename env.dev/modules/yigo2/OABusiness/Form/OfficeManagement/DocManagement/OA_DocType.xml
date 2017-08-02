@@ -148,5 +148,8 @@ IIF(GetPara("OperatorSelID")>0,
         <Macro Key="OA_GetOperatorSelID">
             <![CDATA[DBQueryValue("Select OID From OA_OperatorSel_H Where SourceKey=? and SourceID=? and Tag1=? ", BillKey,GetOID(),"ViewAcl");]]>
         </Macro>
+        <Macro Key="OA_GetOptIDsDetail">
+            <![CDATA[InvokeService("OA_GetOptIDsDetail", true, false,"OA_DocType_H","OptIDs",10);]]>
+        </Macro>
     </MacroCollection>
 </Form>

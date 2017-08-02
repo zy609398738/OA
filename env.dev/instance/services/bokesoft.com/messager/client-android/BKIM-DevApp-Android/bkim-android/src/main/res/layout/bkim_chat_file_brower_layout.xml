@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -15,30 +16,24 @@
         <TextView
             android:text="TextView"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_height="wrap_content"
             android:textSize="20sp"
             android:textColor="@color/bkim_common_blue"
             android:gravity="center"
-            android:id="@+id/file_name" />
+            android:id="@+id/file_name"
+            android:padding="12dp" />
 
         <Button
             android:text="打开文件"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:id="@+id/button" />
-
-        <!--<Button
-            android:text="打开文件"
-            android:visibility="gone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:id="@+id/buttonOpen" />-->
+            android:id="@+id/button"
+            style="@style/Widget.AppCompat.Button"
+            android:background="@color/blue"
+            android:textColor="@color/detail_bgColor"
+            android:ellipsize="none" />
 
     </LinearLayout>
-
-
-
 
 </LinearLayout>

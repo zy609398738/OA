@@ -3,7 +3,7 @@
     <DataSource>
         <DataObject Key="NJ_RentalAppView" Caption="租房申请序时簿">
             <TableCollection>
-                <Table Key="NJ_SCM_RentalApplicationHead" Caption="NJ_SCM_RentalApplicationHead" DBTableName="NJ_SCM_RentalApplicationHead" TableMode="Detail" SourceType="Query" Persist="false">
+                <Table Key="NJ_SCM_RentalApp_H" Caption="NJ_SCM_RentalApp_H" DBTableName="NJ_SCM_RentalApp_H" TableMode="Detail" SourceType="Query" Persist="false">
                     <Column Key="OID" Caption="对象标识" DataType="Long"/>
                     <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
                     <Column Key="POID" Caption="父对象标识" DataType="Long"/>
@@ -35,15 +35,15 @@
                         <ToolBarItemCollection/>
                     </ToolBar>
                     <DatePicker Key="Date1_cond" Caption="申请日期" BuddyKey="Lab_Date1_cond" X="2" Y="1" OnlyDate="true">
-                        <Condition ColumnKey="BillDate" TableKey="NJ_SCM_RentalApplicationHead" CondSign="between" Group="dategroup" GroupHead="true"/>
+                        <Condition ColumnKey="BillDate" TableKey="NJ_SCM_RentalApp_H" CondSign="between" Group="dategroup" GroupHead="true"/>
                     </DatePicker>
                     <Label Key="Lab_Date1_cond" Caption="申请日期" X="1" Y="1"/>
                     <DatePicker Key="Date2_cond" Caption="到" BuddyKey="Lab_Date2_cond" X="5" Y="1" OnlyDate="true">
-                        <Condition ColumnKey="BillDate" TableKey="NJ_SCM_RentalApplicationHead" CondSign="between" Group="dategroup" GroupTail="true"/>
+                        <Condition ColumnKey="BillDate" TableKey="NJ_SCM_RentalApp_H" CondSign="between" Group="dategroup" GroupTail="true"/>
                     </DatePicker>
                     <Label Key="Lab_Date2_cond" Caption="到" X="4" Y="1"/>
                     <Dict Key="EmpID_cond" Caption="业务员" BuddyKey="Lab_EmpID_cond" X="2" Y="2" AllowMultiSelection="true" ItemKey="OA_Employee">
-                        <Condition ColumnKey="EmpID" TableKey="NJ_SCM_RentalApplicationHead" CondSign="in"/>
+                        <Condition ColumnKey="EmpID" TableKey="NJ_SCM_RentalApp_H" CondSign="in"/>
                     </Dict>
                     <Label Key="Lab_EmpID_cond" Caption="业务员" X="1" Y="2"/>
                     <Button Key="cx" Caption="查询" X="7" Y="1">
@@ -57,11 +57,11 @@
                         </OnClick>
                     </Button>
                     <CheckListBox BuddyKey="Lab_Status_cond" Caption="状态" Key="Status_cond" SourceType="Status" X="5" Y="2">
-                        <Condition ColumnKey="Status" TableKey="NJ_SCM_RentalApplicationHead" CondSign="in"/>
+                        <Condition ColumnKey="Status" TableKey="NJ_SCM_RentalApp_H" CondSign="in"/>
                     </CheckListBox>
                     <Label Key="Lab_Status_cond" Caption="状态" X="4" Y="2"/>
                     <Dict Key="CustomerId_cond" Caption="租赁客户" BuddyKey="Lab_CustomerId_cond" X="2" Y="3" AllowMultiSelection="true" ItemKey="NJ_CP_Customer">
-                        <Condition ColumnKey="CustomerId" TableKey="NJ_SCM_RentalApplicationHead" CondSign="in"/>
+                        <Condition ColumnKey="CustomerId" TableKey="NJ_SCM_RentalApp_H" CondSign="in"/>
                     </Dict>
                     <Label Key="Lab_CustomerId_cond" Caption="租赁客户" X="1" Y="3"/>
                     <RowDefCollection RowGap="5">
@@ -82,7 +82,7 @@
                         <ColumnDef Width="20px"/>
                     </ColumnDefCollection>
                 </GridLayoutPanel>
-                <ListView Caption="ListView1" Height="100%" Key="ListView1" PageLoadType="DB" TableKey="NJ_SCM_RentalApplicationHead">
+                <ListView Caption="ListView1" Height="100%" Key="ListView1" PageLoadType="DB" TableKey="NJ_SCM_RentalApp_H">
                     <ListViewColumnCollection>
                         <ListViewColumn Key="NO" Caption="申请编号" DataColumnKey="NO" Width="120px"/>
                         <ListViewColumn Key="BillDate" Caption="申请日期" ColumnType="DatePicker" DataColumnKey="BillDate" Width="120px" OnlyDate="true"/>

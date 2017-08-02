@@ -23,7 +23,7 @@
                 <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
                     <ToolBarItemCollection/>
                 </ToolBar>
-                <Grid Key="Grid3" Caption="Grid1" Height="100%">
+                <Grid Key="OA_NewsDraft_Pho" Caption="Grid1" Height="100%">
                     <GridColumnCollection>
                         <GridColumn Key="FileOID_Pho" Caption="附件标识" Visible="false" Width="80px"/>
                         <GridColumn Key="UploadTime_Pho" Caption="上传时间" Width="160px"/>
@@ -52,9 +52,14 @@
                             <GridCell Key="Name_Pho" Caption="上传文件名" CellType="TextEditor" Enable="false">
                                 <DataBinding ColumnKey="Name"/>
                             </GridCell>
-                            <GridCell Key="Upload_Pho" Caption="上传" CellType="Button" Type="Upload">
+                            <GridCell Key="Upload_Pho" Caption="上传" CellType="Button" Enable="InvokeService(&quot;OA_GetWorkflowDesigneValue&quot;, false, false,Para(&quot;pWorkitemID&quot;),Para(&quot;workflowBillKey&quot;),Para(&quot;WorkflowTypeDtlID&quot;),&quot;AddAtt&quot;)==1" Type="Upload">
                                 <OnClick>
-                                    <![CDATA[UploadAttachment(FileOID_Pho,"OA_NewsDraft_Pho");]]>
+                                    <![CDATA[var attachPath=Para("AttachPath");
+if(!IsNull(attachPath) && Length(attachPath)>0){
+    UploadAttachment(FileOID,"OA_NewsDraft_Pho",-1,"",true,attachPath);
+}else{
+    UploadAttachment(FileOID,"OA_NewsDraft_Pho",-1,"",true);
+}]]>
                                 </OnClick>
                             </GridCell>
                             <GridCell Key="Download_Pho" Caption="下载" CellType="Button" Enable="true">
@@ -62,12 +67,12 @@
                                     <![CDATA[DownloadAttachment(FileOID_Pho,"OA_NewsDraft_Pho");]]>
                                 </OnClick>
                             </GridCell>
-                            <GridCell Key="Delete_Pho" Caption="删除" CellType="Button">
+                            <GridCell Key="Delete_Pho" Caption="删除" CellType="Button" Enable="InvokeService(&quot;OA_GetWorkflowDesigneValue&quot;, false, false,Para(&quot;pWorkitemID&quot;),Para(&quot;workflowBillKey&quot;),Para(&quot;WorkflowTypeDtlID&quot;),&quot;DeleteAtt&quot;)==1">
                                 <OnClick>
                                     <![CDATA[DeleteAttachment(FileOID_Pho,"OA_NewsDraft_Pho");]]>
                                 </OnClick>
                             </GridCell>
-                            <GridCell Key="PreView_Pho" Caption="预览" CellType="Button" Enable="true">
+                            <GridCell Key="PreView_Pho" Caption="预览" CellType="Button" Enable="InvokeService(&quot;OA_GetWorkflowDesigneValue&quot;, false, false,Para(&quot;pWorkitemID&quot;),Para(&quot;workflowBillKey&quot;),Para(&quot;WorkflowTypeDtlID&quot;),&quot;NOViewAtt&quot;)==0">
                                 <OnClick>
                                     <![CDATA[Var fileUrl=InvokeService('OA_PreviewAttchment', true, false, Path_Pho, Name_Pho);
 New("OA_ShowWeb", "newtab","URL:{'"&fileUrl&"'}")]]>

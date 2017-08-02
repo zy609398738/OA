@@ -1,0 +1,17 @@
+cms.PageExp.Local("operatorID", cms.Yigo2MidExp.GetLoginOperator());
+cms.PageExp.Local('EmpID',oa.TodoMidExp.queryEmpIDByID(cms.Yigo2MidExp.GetLoginOperator()));
+cms.PageExp.Local(
+	"COUNT_ANNOUNCEMENT",cms.DataExp.QueryList("select count(*) as countQty from OA_NewsDraft_H ndh join OA_NewsType_H nth on ndh.newsTypeID=nth.oid and ndh.status=1200
+	where ndh.status=1200 and nth.cmstag=1")
+);
+cms.PageExp.Local(
+	"COUNT_MEETING",cms.DataExp.QueryList("select count(*)  as countQty  from (select * from (select a.Topic, a.OID,a.EmpID,a.DeptID,a.UrgencyDeg,a.MeetingRoom,a.MeetingType,a.StartTime,a.EndTime,a.Status,a.AllDay 
+from OA_MeetingInSide_h a JOIN OA_ParticipatorIDs_D b ON a.OID=b.SOID WHERE b.OptType=10 and b.OptID = ${operatorID} order by billdate desc) h)j")
+);
+cms.PageExp.Local(
+	"COUNT_MAIL",cms.DataExp.QueryList("select count(*)  as countQty  from oa_emailinbox_h h where h.OperatorID=${operatorID} and exists (select h.EmailID FROM oa_emailinbox_h) and isdelete=20 AND EmailStatus=20")
+);
+cms.PageExp.Local(
+	"COUNT_MEDIA",cms.DataExp.QueryList("select count(*) as countQty from OA_NewsDraft_H ndh join OA_NewsType_H nth on ndh.newsTypeID=nth.oid and ndh.status=1200
+	where ndh.status=1200 and nth.cmstag=2")
+);

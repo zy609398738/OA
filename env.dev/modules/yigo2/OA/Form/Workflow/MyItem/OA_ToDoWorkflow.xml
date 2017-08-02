@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="OA_ToDoWorkflow" Caption="待办事项" FormType="View">
+    <DataSource>
+        <DataObject Key="OA_ToDoWorkflow" Caption="待办事项">
+            <TableCollection>
+                <Table Key="OA_ToDoWorkflow" Caption="待办事项" TableMode="Detail" SourceType="Query" Persist="false">
+                    <Column Key="WorkitemID" Caption="工作项标识" DataType="Long" DBColumnName="WorkitemID"/>
+                    <Column Key="WorkitemName" Caption="工作项名称" DataType="Varchar" DBColumnName="WorkitemName"/>
+                    <Column Key="CreatTime" Caption="创建时间" DataType="DateTime" DBColumnName="CreatTime"/>
+                    <Column Key="BillCreatTime" Caption="单据时间" DataType="DateTime" DBColumnName="BillCreatTime"/>
+                    <Column Key="BillDate" Caption="单据日期" DataType="DateTime" DBColumnName="BillDate"/>
+                    <Column Key="BillNo" Caption="单据编号" DataType="Varchar" DBColumnName="BillNo"/>
+                    <Column Key="DeptID" Caption="DeptID" DataType="Long" DBColumnName="DeptID"/>
+                    <Column Key="EmpID" Caption="EmpID" DataType="Long" DBColumnName="EmpID"/>
+                    <Column Key="Topic" Caption="Topic" DataType="Varchar" Length="0" DBColumnName="Topic"/>
+                    <Column Key="ProcessKey" Caption="ProcessKey" DataType="Varchar" Length="0"/>
+                    <Column Key="ParentWorkitemID" Caption="ParentWorkitemID" DataType="Long"/>
+                    <Column Key="BillStatus" Caption="状态" DataType="Integer"/>
+                    <Column Key="UrgencyDeg" Caption="紧急程度" DataType="Integer"/>
+                    <Column Key="FormKey" Caption="业务类型" DataType="Varchar"/>
+                    <Column Key="OID" Caption="OID" DataType="Long"/>
+                    <Column Key="Mark" Caption="标记" DataType="Integer"/>
+                    <Column Key="SourceOID" Caption="源OID" DataType="Long"/>
+                    <ParameterCollection>
+                        <Parameter Formula="GetOperator()" DataType="Long"/>
+                        <Parameter Formula="GetOperator()" DataType="Long"/>
+                        <Parameter Formula="GetOperator()" DataType="Long"/>
+                    </ParameterCollection>
+                    <Statement>
+                        <![CDATA[SELECT
+	*
+FROM
+	(
+		SELECT
+			i.ProcessKey,
+			i.formkey,
+			i.oid,
+			Topic,
+			UrgencyDeg,
+			EmpID,
+			DeptID,
+			BillStatus,
+			BillCreatTime,
+			w.workItemID,
+			w.workItemName,
+			10 mark,
+			NULL SourceOID
+		FROM
+			WF_Workitem w
+		JOIN WF_Participator p ON w.WorkitemID = p.WorkitemID
+		JOIN BPM_Log l ON w.WorkitemID = l.WorkitemID
+		JOIN bpm_workiteminfo wi ON w.WorkitemID = wi.WorkitemID
+		JOIN BPM_Instance i ON l.instanceID = i.instanceID
+		JOIN BPM_Migration m ON i.OID = m.BillOID
+		WHERE
+			p.OperatorID = ?
+		UNION
+			SELECT
+				NULL ProcessKey,
+				im.FormKey,
+				im.oid,
+				im.SourceName AS Topic,
+				10 UrgencyDeg,
+				- 1 EmpID,
+				- 1 DeptID,
+				0 BillStatus,
+				im.CreateDate AS BillCreatTime,
+				- 1 workItemID,
+				'新增' workItemName,
+				20 mark,
+				im.SourceOID
+			FROM
+				oa_itemremind im
+			JOIN OA_ParticipatorIDs_D p ON im.sourceoid = p.soid
+			WHERE
+				(im.OptIDs IS NULL AND 1 = 1)
+			OR  p.OptID= ?
+				OR im.Sourcecreator = ?
+			
+			AND billoid < 0
+			ORDER BY
+				UrgencyDeg DESC,
+				BillCreatTime DESC
+	) h]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="main" Height="100%" Width="100%">
+                <GridLayoutPanel Key="GridLayoutPanel1" Height="80px" Padding="5px" Caption="GridLayoutPanel1" Visible="first_headVisible==1">
+                    <DatePicker Key="From" Caption="申请日期" BuddyKey="Lab_From" X="1" Y="0">
+                        <Condition ColumnKey="BillCreatTime" TableKey="OA_ToDoWorkflow" CondSign="between" Group="A" GroupHead="true"/>
+                    </DatePicker>
+                    <Label Key="Lab_From" Caption="申请日期" X="0" Y="0"/>
+                    <Label Key="Label1" Caption="到" X="2" Y="0"/>
+                    <DatePicker Key="To" Caption="到" X="3" Y="0">
+                        <Condition ColumnKey="BillCreatTime" TableKey="OA_ToDoWorkflow" CondSign="between" Group="A" GroupTail="true"/>
+                    </DatePicker>
+                    <TextEditor Key="QueryTheme" Caption="主题" BuddyKey="Lab_QueryTheme" X="9" Y="0">
+                        <Condition ColumnKey="Topic" TableKey="OA_ToDoWorkflow" CondSign="like"/>
+                    </TextEditor>
+                    <Label Key="Lab_QueryTheme" Caption="主题" X="8" Y="0"/>
+                    <Button Key="Button1" Caption="查询" X="11" Y="0">
+                        <OnClick>
+                            <![CDATA[DealCondition();
+LoadData();
+ShowData();]]>
+                        </OnClick>
+                    </Button>
+                    <Dict Key="QueryApplicant" Caption="申请人" BuddyKey="Lab_QueryApplicant" X="6" Y="1" ItemKey="OA_Employee">
+                        <Condition ColumnKey="EmpID" TableKey="OA_ToDoWorkflow" CondSign="="/>
+                    </Dict>
+                    <Label Key="Lab_QueryApplicant" Caption="申请人" X="5" Y="1"/>
+                    <Dict Key="QueryDeptID" Caption="申请部门" BuddyKey="Lab_QueryDeptID" X="6" Y="0" ItemKey="OA_Department">
+                        <Condition ColumnKey="DeptID" TableKey="OA_ToDoWorkflow" CondSign="="/>
+                    </Dict>
+                    <Label Key="Lab_QueryDeptID" Caption="申请部门" X="5" Y="0"/>
+                    <Button Key="Cancel" Caption="取消" X="11" Y="1">
+                        <OnClick>
+                            <![CDATA[ResetCondition();]]>
+                        </OnClick>
+                    </Button>
+                    <CheckBox Caption="表头可见" Key="first_headVisible" Visible="false" X="9" Y="1">
+                        <DataBinding DefaultValue="1"/>
+                    </CheckBox>
+                    <ComboBox Key="ComboBox1" Caption="业务类型" BuddyKey="Lab_ComboBox1" X="1" Y="1" SourceType="Formula" XSpan="3">
+                        <Condition ColumnKey="FormKey" TableKey="OA_ToDoWorkflow" CondSign="in"/>
+                        <FormulaItems>
+                            <![CDATA[GetFormByType("Entity")]]>
+                        </FormulaItems>
+                    </ComboBox>
+                    <Label Key="Lab_ComboBox1" Caption="业务类型" X="0" Y="1"/>
+                    <RowDefCollection RowGap="5">
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="5">
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="16%"/>
+                        <ColumnDef Width="20px"/>
+                        <ColumnDef Width="17%"/>
+                        <ColumnDef Width="10px"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="33%"/>
+                        <ColumnDef Width="10px"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="34%"/>
+                        <ColumnDef Width="10px"/>
+                        <ColumnDef Width="80px"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+                <ListView Height="100%" Key="list" TableKey="OA_ToDoWorkflow" PageLoadType="DB">
+                    <ListViewColumnCollection>
+                        <ListViewColumn Key="ProcessKey" Caption="流程名称" ColumnType="ComboBox" DataColumnKey="ProcessKey" Width="148px" SourceType="Formula">
+                            <FormulaItems>
+                                <![CDATA[OA_GetDropItemByBPM()]]>
+                            </FormulaItems>
+                        </ListViewColumn>
+                        <ListViewColumn Key="FormKey" Caption="业务类型" ColumnType="ComboBox" DataColumnKey="FormKey" Width="200px" SourceType="Formula">
+                            <FormulaItems>
+                                <![CDATA[GetFormByType("Entity")]]>
+                            </FormulaItems>
+                        </ListViewColumn>
+                        <ListViewColumn Key="Topic" Caption="主题" ColumnType="TextEditor" DataColumnKey="Topic" Width="200px"/>
+                        <ListViewColumn Key="EmpID" Caption="申请人" ColumnType="Dict" DataColumnKey="EmpID" Width="120px" ItemKey="OA_Employee"/>
+                        <ListViewColumn Key="DeptID" Caption="申请部门" ColumnType="Dict" DataColumnKey="DeptID" Width="120px" ItemKey="OA_Department"/>
+                        <ListViewColumn Key="UrgencyDeg" Caption="紧急程度" ColumnType="ComboBox" DataColumnKey="UrgencyDeg">
+                            <Item Caption="一般" Key="10" Value="10"/>
+                            <Item Caption="紧急" Key="20" Value="20"/>
+                            <Item Caption="特急" Key="30" Value="30"/>
+                            <Item Key="0" Value="0"/>
+                        </ListViewColumn>
+                        <ListViewColumn Key="BillCreatTime" Caption="创建时间" ColumnType="DatePicker" DataColumnKey="BillCreatTime" Width="200px"/>
+                        <ListViewColumn Key="WorkitemName" Caption="审批操作" ColumnType="TextEditor" DataColumnKey="WorkitemName"/>
+                        <ListViewColumn Key="Mark" Caption="标记" DataColumnKey="Mark" Visible="false"/>
+                        <ListViewColumn Key="BillStatus" Caption="状态" ColumnType="ComboBox" DataColumnKey="BillStatus" Width="100px" SourceType="Status"/>
+                        <ListViewColumn Key="WorkitemID" Caption="工作项标识" ColumnType="TextEditor" DataColumnKey="WorkitemID" Visible="false" Width="30px"/>
+                        <ListViewColumn Key="OID" Caption="OID" DataColumnKey="OID" Visible="FALSE"/>
+                        <ListViewColumn Key="SourceOID" Caption="源OID" DataColumnKey="SourceOID" Visible="false"/>
+                    </ListViewColumnCollection>
+                    <RowDblClick>
+                        <![CDATA[var x = GetCellValue("list",-1,"Mark");
+if(x==10){OpenWorkitem(WorkitemID);}
+else{   SetPara("SourceOID", GetCellValue("list",-1,"SourceOID"));
+        New(GetCellValue("list",-1,"FormKey"),"newtab",{SourceOID:{Para("SourceOID")}})
+}]]>
+                    </RowDblClick>
+                </ListView>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+    <OnLoad>
+        <![CDATA[LoadData()]]>
+    </OnLoad>
+</Form>

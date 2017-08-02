@@ -27,7 +27,7 @@ public class SendEmailByOptSplit implements IExtService {
 	 * 根据参与人员获取邮箱名
 	 * 
 	 * @param context
-	 *            中间层对象
+	 *            上下文对象
 	 * @param participants
 	 *            参与人员
 	 * @param sep

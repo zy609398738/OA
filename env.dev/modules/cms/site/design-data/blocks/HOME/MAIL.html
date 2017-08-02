@@ -1,0 +1,23 @@
+<div>
+   <ul>
+   #foreach($line in $data)
+       <li class="mail-list">
+         <a href="" onclick="openForm('OA_EmailInbox',$line.OID)" class="f333">
+             <span class="title" style="display:block;">$line.TITLE</span>
+         </a>
+         <span class="sender f999">$line.SENDER&nbsp;&nbsp;</span>
+         <span style="float:right;" class="f999">$date.format("yyyy-MM-dd",$line.EMAILTIME)</span>
+         <!-- <span class="mailicons" style="display:none;"><b class="del" title="删除" onclick="delMail($line.OID)" style="display:none;"></b></span> -->
+       </li>
+   #end
+   </ul>
+  <a href="#" class="a_more" onclick="openParentEntry('OABusiness/OA/OA_PersonalUse/EmailManagement/OA_EmailInboxView')">更多</a>
+</div>
+<script>
+    $(".mail-list").mouseover(function(){
+  		$(this).find(".mailicons").show();
+    });
+    $(".mail-list").mouseleave(function(){
+  		$(this).find(".mailicons").hide();
+    });
+</script>

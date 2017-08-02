@@ -1,5 +1,6 @@
 require("..");
-
+var $ = require("jquery");
+if (! window.jQuery) window.jQuery = $;
 
 window.doTest = function(){	
 	
@@ -23,7 +24,8 @@ window.doTest = function(){
 		max_shown_results : Infinity,//选项很多时可以限制只显示指定的前几项,可为任意数字,默认为无穷大
 		case_sensitive_search : false
 	}
-	$(".chosen-test1 select").chosen(option1);
+	//$(".chosen-test1 select").chosen(option1);
+	$(".chosen-test1 select").chosen();	
 	
 	
 	// test2  选项展开和收起触发事件的测试

@@ -11,8 +11,15 @@
 		<init-param>
 			<param-name>encoding</param-name>
 			<param-value>UTF-8</param-value>
+		</init-param>
+		<init-param>
 			<param-name>loginpage</param-name>
 			<param-value>/login.jsp</param-value>
+			<!-- <param-value>/login_flat.jsp</param-value> -->
+		</init-param>
+		<init-param>
+			<param-name>style</param-name>
+			<param-value>blue</param-value>
 		</init-param>
 	</filter>
 	<filter>
@@ -74,6 +81,10 @@
 	<filter-mapping>
 		<filter-name>loginFilter</filter-name>
 		<url-pattern>/login1.jsp</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>loginFilter</filter-name>
+		<url-pattern>/main_pure2_flat.jsp</url-pattern>
 	</filter-mapping>
 	<mime-mapping>
 		<extension>css</extension>

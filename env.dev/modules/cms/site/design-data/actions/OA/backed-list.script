@@ -1,0 +1,16 @@
+cms.ReqExp.Var("operatorID", cms.Yigo2MidExp.GetLoginOperator());
+cms.ActionExp.Data( cms.DataExp.PagingQuery("
+        	SELECT wi.topic,wi.EmpID,wi.DeptID,wi.workItemName,wi.workitemid,wi.creatTime,wi.ProcessKey,wi.formkey,wi.oid,j.name operatorname,
+       floor(SYSDATE - wi.CreatTime) daytime,
+          CEIL(((SYSDATE-wi.CreatTime)-floor(SYSDATE-wi.CreatTime)) * 24) hourtime
+       FROM (SELECT m.topic,m.EmpID,m.DeptID,w.workItemName,MAX (w.WorkitemID) AS workitemid,l.creatTime,i.ProcessKey,i.formkey,i.oid
+       FROM WF_Workitem w
+       JOIN BPM_Log l ON w.WorkitemID = l.WorkitemID
+       JOIN bpm_workiteminfo wi ON w.WorkitemID = wi.WorkitemID
+       JOIN BPM_Instance i ON l.instanceID = i.instanceID
+       JOIN BPM_Migration m ON i.OID = m.BillOID
+       WHERE  m.Billcreator = ${operatorID} AND i.OID = m.Billoid AND w.AuditResult = 0
+       GROUP BY m.topic,m.EmpID,m.DeptID,w.workItemName,l.creatTime,i.ProcessKey,i.formkey,i.oid) wi
+       LEFT JOIN SYS_Operator j ON j.EmpID = wi.EmpID
+",5,cms.ReqExp.Var("pageNo")));
+cms.ActionExp.Viewer("json");

@@ -1,0 +1,9 @@
+{
+	"@type":"com.bokesoft.cms2.model.Action",
+	"actionExp":"",
+	"actionUrl":"/loved-list.action",
+	"attributes":{"@type":"java.util.LinkedHashMap"},
+	"code":"loved-list",
+	"name":"待处理列表",
+	"notes":""
+}

@@ -1,0 +1,23 @@
+{
+	"@type":"com.bokesoft.cms2.model.HtmlTmpl",
+	"code":"public",
+	"htmlText":"",
+	"name":"通用空白模板",
+	"notes":"",
+	"slices":[
+		{
+			"followHtml":"<!DOCTYPE html>\n<html lang=\"zh-CN\">\n<head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n  <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge,Chrome=1\">\n<script src=\"${staticRoot}/resources/jquery/jquery.1.9.1.js\" type=\"text/javascript\"></script>\n<script type=\"text/javascript\" src=\"${staticRoot}/resources/tabber/tabber-jquery.js\"></script>\n<script type=\"text/javascript\" src=\"${staticRoot}/resources/yigo-cms/js/cms.Page.js\"></script>\n<script type=\"text/javascript\" src=\"${staticRoot}/resources/@buildin/js/zh-oa.js\"></script>\n<link rel=\"stylesheet\" href=\"${staticRoot}/resources/@buildin/css/tabber-jquery.css\" type=\"text/css\" />\n<script src=\"${staticRoot}/resources/@buildin/js/go-top.js\" type=\"text/javascript\"></script>\n<!-- Buildin [BootJsAndCss] END -->\n  <link rel=\"stylesheet\" href=\"/yigo/_$/css/base.css\" type=\"text/css\">\n    "
+		},
+		{
+			"code":"通用空白模板",
+			"followHtml":"\n</head>\n<body>\n",
+			"tag":"yigo-cms:title"
+		},
+		{
+			"code":"content",
+			"followHtml":"\n</body>\n</html>",
+			"name":"内容",
+			"tag":"yigo-cms:area"
+		}
+	]
+}

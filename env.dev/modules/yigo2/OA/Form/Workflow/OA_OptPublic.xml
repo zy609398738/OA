@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<Form Caption="人员选择群组" FormType="Dict" Key="OA_OptPublic">
+<Form Caption="人员群组" FormType="Dict" Key="OA_OptPublic">
     <DataSource>
         <DataObject Key="OA_OptPublic" Caption="人员选择群组" PrimaryTableKey="OA_OptPublic_H" SecondaryType="Dict" PrimaryType="Entity">
             <TableCollection>
@@ -65,11 +65,11 @@
                         <TabPanel Caption="人员列表" Key="OperatorInfoTab">
                             <Grid Caption="人员列表" Key="OperatorInfo">
                                 <GridColumnCollection>
-                                    <GridColumn Caption="人员" Key="Lab_OperatorID" Width="80px"/>
+                                    <GridColumn Caption="人员" Key="Lab_OperatorID" Width="300px"/>
                                 </GridColumnCollection>
                                 <GridRowCollection>
                                     <GridRow Key="row0" TableKey="OA_OptPublic_D">
-                                        <GridCell Caption="人员" CellType="Dict" ItemKey="OA_Employee" Key="D_OperatorID">
+                                        <GridCell Caption="人员" CellType="Dict" ItemKey="Operator" Key="D_OperatorID">
                                             <DataBinding ColumnKey="OperatorID" Required="true"/>
                                         </GridCell>
                                     </GridRow>
@@ -85,7 +85,7 @@
                         </Dict>
                         <Label Caption="创建人员" Key="Lab_Creator" X="0" Y="0"/>
                         <Label Caption="创建时间" Key="Lab_CreateTime" X="3" Y="0"/>
-                        <DatePicker BuddyKey="Lab_CreateTime" Caption="创建时间" Enable="false" Key="CreateTime" OnlyDate="false" X="4" Y="0">
+                        <DatePicker BuddyKey="Lab_CreateTime" Caption="创建时间" Enable="false" Key="CreateTime" X="4" Y="0">
                             <DataBinding ColumnKey="CreateTime" TableKey="OA_OptPublic_H" DefaultFormulaValue="ServerDate()" Required="true"/>
                         </DatePicker>
                         <Label Caption="修改人员" Key="Lab_Modifier" X="0" Y="1"/>
@@ -93,7 +93,7 @@
                             <DataBinding ColumnKey="Modifier" TableKey="OA_OptPublic_H" DefaultFormulaValue="GetOperator()" Required="true"/>
                         </Dict>
                         <Label Caption="修改时间" Key="Lab_ModifyTime" X="3" Y="1"/>
-                        <DatePicker BuddyKey="Lab_ModifyTime" Caption="修改时间" Enable="false" Key="ModifyTime" OnlyDate="false" X="4" Y="1">
+                        <DatePicker BuddyKey="Lab_ModifyTime" Caption="修改时间" Enable="false" Key="ModifyTime" X="4" Y="1">
                             <DataBinding ColumnKey="ModifyTime" TableKey="OA_OptPublic_H" DefaultFormulaValue="ServerDate()" Required="true"/>
                         </DatePicker>
                         <Label Caption="备注" Key="Lab_Notes" X="0" Y="2"/>

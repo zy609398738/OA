@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<Form Key="OA_ReadDelReport" Caption="传阅明细表" FormType="Report" Platform="">
+<Form Key="OA_ReadDelReport" Caption="传阅明细表" FormType="Report">
     <DataSource>
         <DataObject Key="OA_ReadDelReport" Caption="传阅明细表">
             <TableCollection>
@@ -17,7 +17,7 @@
                     <Column Key="Status" Caption="状态" DataType="Integer"/>
                     <Column Key="BillKey" Caption="单据Key" DataType="Varchar"/>
                     <Statement>
-                        <![CDATA[select (case when ISNULL(r.status)  then 0 else r.Status end)as status,r.oid,r.SOID,r.ReadTime,r.SendTime,r.BillKey,r.BillOID,m.DeptID ,r.SendUser,r.readuser,m.topic ,m.BillCreatTime from oa_read r join bpm_migration m on r.BillOID=m.BillOID]]>
+                        <![CDATA[select COALESCE(r.status,10) status,r.oid,r.SOID,r.ReadTime,r.SendTime,r.BillKey,r.BillOID,m.DeptID ,r.SendUser,r.readuser,m.topic ,m.BillCreatTime from oa_read r join bpm_migration m on r.BillOID=m.BillOID]]>
                     </Statement>
                 </Table>
             </TableCollection>

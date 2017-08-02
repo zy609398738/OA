@@ -20,11 +20,31 @@
                     <Column Key="ReceiveEmpID" Caption="接收人员" DataType="Long"/>
                     <ParameterCollection>
                         <Parameter Formula="GetOperator();" DataType="Long"/>
-                        <Parameter Formula="GetPara(&quot;ShareEmpID&quot;)" DataType="Varchar"/>
+                        <Parameter Formula="GetOperator();" DataType="Long"/>
                         <Parameter Formula="GetOperator()" DataType="Long"/>
                     </ParameterCollection>
                     <Statement>
-                        <![CDATA[select * from (select * from OA_Taskdistribution_H  where (Creator=? or CONCAT(',',OptIDs,',') like ?) or ReceiveEmpID=(select empid from sys_operator where oid=?)  order by UrgencyDeg desc,BillDate desc)h]]>
+                        <![CDATA[
+		SELECT
+			DISTINCT(p.soid) psoid,t.*
+		FROM
+			OA_Taskdistribution_H t
+		JOIN OA_ParticipatorIDs_D p ON t.oid = p.soid
+		WHERE
+			t.creator = ?
+		OR p.OptID = ?
+		OR t.ReceiveEmpID = (
+			SELECT
+				o.empid
+			FROM
+				sys_operator o
+			WHERE
+				o.oid =?
+		)
+		ORDER BY
+			t.UrgencyDeg DESC,
+			t.BillDate DESC
+	]]>
                     </Statement>
                 </Table>
             </TableCollection>
@@ -37,7 +57,6 @@
             </Action>
         </Operation>
         <Operation Key="Close" Caption="关闭" RefKey="Close"/>
-        <Operation Key="Setfirst_headVisible" Caption="查询" RefKey="Setfirst_headVisible"/>
     </OperationCollection>
     <Body>
         <Block>

@@ -1,0 +1,9 @@
+{
+	"@type":"com.bokesoft.cms2.model.Action",
+	"actionExp":"",
+	"actionUrl":"/deleteworkflow.action",
+	"attributes":{"@type":"java.util.LinkedHashMap"},
+	"code":"DeleteWorkflow",
+	"name":"删除我的流程",
+	"notes":""
+}

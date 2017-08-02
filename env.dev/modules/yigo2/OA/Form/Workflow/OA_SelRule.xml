@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="OA_SelRule" Caption="选择规则" FormType="Dict">
+    <DataSource>
+        <DataObject Key="OA_SelRule" Caption="选择规则" PrimaryTableKey="OA_SelRule_H" SecondaryType="Dict" PrimaryType="Entity">
+            <TableCollection>
+                <Table Key="OA_SelRule_H" Caption="选择规则头表" DBTableName="OA_SelRule_H">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="Code" Caption="代码" DataType="Varchar" Length="50"/>
+                    <Column Key="Name" Caption="名称" DataType="Varchar" Length="100"/>
+                    <Column Key="Status" Caption="状态" DataType="Integer"/>
+                    <Column Key="Enable" Caption="启用标记" DataType="Integer" DefaultValue="1"/>
+                    <Column Key="ParentID" Caption="父节点" DataType="Long"/>
+                    <Column Key="NodeType" Caption="节点类型" DataType="Integer"/>
+                    <Column Key="TLeft" Caption="TLeft" DataType="Integer"/>
+                    <Column Key="TRight" Caption="TRight" DataType="Integer"/>
+                    <Column Key="BusSource" Caption="业务来源" DataType="Long"/>
+                    <Column Key="OptSrcType" Caption="人员来源类型" DataType="Varchar"/>
+                    <Column Key="UserSource" Caption="用户来源" DataType="Long"/>
+                    <Column Caption="创建人员" DataType="Long" Key="Creator"/>
+                    <Column Caption="创建时间" DataType="DateTime" Key="CreateTime"/>
+                    <Column Caption="修改人员" DataType="Long" Key="Modifier"/>
+                    <Column Caption="修改时间" DataType="DateTime" Key="ModifyTime"/>
+                    <Column Caption="备注" DataType="Varchar" Key="Notes"/>
+                    <Column Caption="单据Key" DataType="Varchar" Key="BillKey"/>
+                    <Column Caption="集团" DataType="Long" Key="ClusterID"/>
+                    <Column Key="DefinitionSQL" Caption="自定义SQL" DataType="Varchar" Length="4000"/>
+                    <Column Key="DefinitionFormula" Caption="自定义公式" DataType="Varchar" Length="4000"/>
+                </Table>
+                <Table Key="OA_SelRule_D" Caption="选择规则明细表" DBTableName="OA_SelRule_D" TableMode="Detail">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="RBracket" Caption="右括号" DataType="Varchar"/>
+                    <Column Key="FieldKey" Caption="字段" DataType="Varchar"/>
+                    <Column Key="Operation" Caption="操作" DataType="Varchar"/>
+                    <Column Key="SValue" Caption="值" DataType="Varchar"/>
+                    <Column Key="LBracket" Caption="左括号" DataType="Varchar"/>
+                    <Column Key="LogicOperation" Caption="操作逻辑" DataType="Varchar"/>
+                </Table>
+                <Table Key="OA_SelRule_Direct" Caption="直接人员" DBTableName="OA_SelRule_Direct" TableMode="Detail">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="DirectEmpID" Caption="人员" DataType="Long"/>
+                </Table>
+                <Table Key="OA_SelRule_Sel" Caption="人员匹配条件" DBTableName="OA_SelRule_Sel" TableMode="Detail">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="RBracket" Caption="右括号" DataType="Varchar"/>
+                    <Column Key="FieldKey" Caption="字段" DataType="Varchar"/>
+                    <Column Key="IsVariate" Caption="是否变量" DataType="Integer"/>
+                    <Column Key="Operation" Caption="操作" DataType="Varchar"/>
+                    <Column Key="SValue" Caption="值" DataType="Varchar"/>
+                    <Column Key="LBracket" Caption="左括号" DataType="Varchar"/>
+                    <Column Key="LogicOperation" Caption="逻辑操作" DataType="Varchar"/>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <ScriptCollection>
+        <Script Key="Load" Caption="载入" Description="载入事件" Range="Action" Verb="Load">
+            <![CDATA[LoadData();ShowData()]]>
+        </Script>
+    </ScriptCollection>
+    <UICheckRuleCollection>
+        <UICheckRule Description="判断直接人员是否为空" ErrorInfo="直接人员请至少选一人">
+            <![CDATA[GetRowCount("Grid2",false)>0;]]>
+        </UICheckRule>
+    </UICheckRuleCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板" Height="100%">
+                <TabPanel Caption="TabPanel1" Height="100%" Key="TabPanel1">
+                    <SplitPanel Key="BasicInfo" Orientation="Vertical" Height="100%" Caption="基本信息">
+                        <GridLayoutPanel Key="first_head" Padding="5px" Height="pref" Caption="基本信息">
+                            <TextEditor Key="Code" Caption="代码" BuddyKey="Lab_Code" X="1" Y="0">
+                                <DataBinding ColumnKey="Code" TableKey="OA_SelRule_H" Required="true"/>
+                            </TextEditor>
+                            <Label Key="Lab_Code" Caption="代码" X="0" Y="0"/>
+                            <TextEditor Key="Name" Caption="名称" BuddyKey="Lab_Name" X="3" Y="0">
+                                <DataBinding ColumnKey="Name" TableKey="OA_SelRule_H" Required="true"/>
+                            </TextEditor>
+                            <Label Key="Lab_Name" Caption="名称" X="2" Y="0"/>
+                            <Dict Key="BusSource" Caption="业务来源" BuddyKey="Lab_BusSource" X="1" Y="1" ItemKey="OA_BusinessSource">
+                                <DataBinding ColumnKey="BusSource" TableKey="OA_SelRule_H" Required="true"/>
+                            </Dict>
+                            <Label Key="Lab_BusSource" Caption="业务来源" X="0" Y="1"/>
+                            <ComboBox Key="OptSrcType" Caption="人员来源类型" BuddyKey="Lab_OptSrcType" X="1" Y="2">
+                                <DataBinding ColumnKey="OptSrcType" TableKey="OA_SelRule_H" DefaultValue="10" Required="true"/>
+                                <Item Caption="直接人员" Key="10" Value="10"/>
+                                <Item Caption="人员匹配条件" Key="20" Value="20"/>
+                                <Item Caption="自定义SQL" Key="30" Value="30"/>
+                                <Item Caption="自定义公式" Key="40" Value="40"/>
+                            </ComboBox>
+                            <Label Key="Lab_OptSrcType" Caption="人员来源类型" X="0" Y="2"/>
+                            <Dict Key="UserSource" Caption="用户来源" BuddyKey="Lab_UserSource" X="3" Y="2" Visible="OptSrcType==20" ItemKey="OA_EmployeeSource">
+                                <DataBinding ColumnKey="UserSource" TableKey="OA_SelRule_H" CheckRule="if(OptSrcType==20 &amp;&amp; UserSource&lt;=0){false;}else{true;}" ErrorInfo="用户来源不能为空"/>
+                            </Dict>
+                            <Label Key="Lab_UserSource" Caption="用户来源" X="2" Y="2"/>
+                            <RowDefCollection RowGap="8">
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="8">
+                                <ColumnDef Width="100px"/>
+                                <ColumnDef Width="50%"/>
+                                <ColumnDef Width="100px"/>
+                                <ColumnDef Width="50%"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                        <Grid Key="Grid1" Caption="Grid1">
+                            <GridColumnCollection>
+                                <GridColumn Key="LBracket" Caption="左括号" Width="80px"/>
+                                <GridColumn Key="FieldKey" Caption="字段" Width="200px"/>
+                                <GridColumn Key="Operation" Caption="操作" Width="80px"/>
+                                <GridColumn Key="SValue" Caption="值" Width="200px"/>
+                                <GridColumn Key="RBracket" Caption="右括号" Width="80px"/>
+                                <GridColumn Key="LogicOperation" Caption="逻辑操作" Width="80px"/>
+                            </GridColumnCollection>
+                            <GridRowCollection>
+                                <GridRow Key="row1" RowHeight="35" TableKey="OA_SelRule_D">
+                                    <GridCell Key="LBracket" Caption="左括号" CellType="TextEditor" CellSortType="None">
+                                        <DataBinding ColumnKey="LBracket"/>
+                                    </GridCell>
+                                    <GridCell Key="FieldKey" Caption="字段" CellType="ComboBox" CellSortType="None" SourceType="Formula" Editable="true" ItemsDependency="BusSource">
+                                        <DataBinding ColumnKey="FieldKey" Required="true"/>
+                                        <FormulaItems>
+                                            <![CDATA[var sql="select FieldKey,FieldCaption from OA_BusinessSource_D where soid="+BusSource;
+InvokeService("OA_GetDropStrBySql", false, false,sql,"FieldKey","FieldCaption");]]>
+                                        </FormulaItems>
+                                    </GridCell>
+                                    <GridCell Key="Operation" Caption="操作" CellType="ComboBox" CellSortType="None" GroupKey="Operation" SourceType="ParaGroup">
+                                        <DataBinding ColumnKey="Operation" Required="true"/>
+                                    </GridCell>
+                                    <GridCell Key="SValue" Caption="值" CellType="TextEditor" CellSortType="None">
+                                        <DataBinding ColumnKey="SValue" Required="true"/>
+                                    </GridCell>
+                                    <GridCell Key="RBracket" Caption="右括号" CellType="TextEditor" CellSortType="None">
+                                        <DataBinding ColumnKey="RBracket"/>
+                                    </GridCell>
+                                    <GridCell Key="LogicOperation" Caption="逻辑操作" CellType="ComboBox" CellSortType="None" GroupKey="LogicOperation" SourceType="ParaGroup">
+                                        <DataBinding ColumnKey="LogicOperation"/>
+                                    </GridCell>
+                                </GridRow>
+                            </GridRowCollection>
+                        </Grid>
+                        <TabPanel Caption="TabPanel2" Key="TabPanel2">
+                            <Grid Key="Grid2" Caption="直接人员" Visible="OptSrcType==10">
+                                <GridColumnCollection>
+                                    <GridColumn Key="DirectEmpID" Caption="直接人员" Width="300px"/>
+                                </GridColumnCollection>
+                                <GridRowCollection>
+                                    <GridRow Key="row1" RowHeight="35" TableKey="OA_SelRule_Direct">
+                                        <GridCell Key="DirectEmpID" Caption="直接人员" CellType="Dict" CellSortType="None" ItemKey="Operator">
+                                            <DataBinding ColumnKey="DirectEmpID" Required="true"/>
+                                        </GridCell>
+                                    </GridRow>
+                                </GridRowCollection>
+                            </Grid>
+                            <Grid Key="Grid3" Caption="人员匹配条件" Visible="OptSrcType==20">
+                                <GridColumnCollection>
+                                    <GridColumn Key="LBracket_T" Caption="左括号" Width="80px"/>
+                                    <GridColumn Key="FieldKey_T" Caption="字段" Width="200px"/>
+                                    <GridColumn Key="IsVariate" Caption="是否变量" Width="80px"/>
+                                    <GridColumn Key="Operation_T" Caption="操作" Width="80px"/>
+                                    <GridColumn Key="SValue_T" Caption="值" Width="200px"/>
+                                    <GridColumn Key="RBracket_T" Caption="右括号" Width="80px"/>
+                                    <GridColumn Key="LogicOperation_T" Caption="逻辑操作" Width="80px"/>
+                                </GridColumnCollection>
+                                <GridRowCollection>
+                                    <GridRow Key="row1" RowHeight="35" TableKey="OA_SelRule_Sel">
+                                        <GridCell Key="LBracket_T" Caption="左括号" CellType="TextEditor" CellSortType="None">
+                                            <DataBinding ColumnKey="LBracket"/>
+                                        </GridCell>
+                                        <GridCell Key="FieldKey_T" Caption="字段" CellType="ComboBox" CellSortType="None" ItemsDependency="UserSource" SourceType="Formula" Editable="true">
+                                            <DataBinding ColumnKey="FieldKey" Required="true"/>
+                                            <FormulaItems>
+                                                <![CDATA[var sql="select FieldKey,FieldCaption from OA_EmployeeSource_D where soid="+UserSource;
+InvokeService("OA_GetDropStrBySql", false, false,sql,"FieldKey","FieldCaption");]]>
+                                            </FormulaItems>
+                                        </GridCell>
+                                        <GridCell Key="IsVariate" Caption="是否变量" CellType="CheckBox" CellSortType="None">
+                                            <DataBinding ColumnKey="IsVariate"/>
+                                        </GridCell>
+                                        <GridCell Key="Operation_T" Caption="操作" CellType="ComboBox" CellSortType="None" GroupKey="Operation" SourceType="ParaGroup">
+                                            <DataBinding ColumnKey="Operation" Required="true"/>
+                                        </GridCell>
+                                        <GridCell Key="SValue_T" Caption="值" CellType="TextEditor" CellSortType="None">
+                                            <DataBinding ColumnKey="SValue" Required="true"/>
+                                        </GridCell>
+                                        <GridCell Key="RBracket_T" Caption="右括号" CellType="TextEditor" CellSortType="None">
+                                            <DataBinding ColumnKey="RBracket"/>
+                                        </GridCell>
+                                        <GridCell Key="LogicOperation_T" Caption="逻辑操作" CellType="ComboBox" CellSortType="None" GroupKey="LogicOperation" SourceType="ParaGroup">
+                                            <DataBinding ColumnKey="LogicOperation"/>
+                                        </GridCell>
+                                    </GridRow>
+                                </GridRowCollection>
+                            </Grid>
+                            <GridLayoutPanel Key="GridLayoutPanel1" Padding="5px" Height="100%" Caption="自定义SQL" Visible="OptSrcType==30">
+                                <TextArea Key="DefinitionSQL" Caption="自定义SQL" X="0" Y="1" MaxLength="4000" XSpan="4" PromptText="默认值取OperatorID">
+                                    <DataBinding ColumnKey="DefinitionSQL" TableKey="OA_SelRule_H"/>
+                                </TextArea>
+                                <Label Key="Label1" Caption="默认值取OperatorID" X="0" Y="0" XSpan="4"/>
+                                <RowDefCollection RowGap="5">
+                                    <RowDef Height="30px"/>
+                                    <RowDef Height="100%"/>
+                                </RowDefCollection>
+                                <ColumnDefCollection ColumnGap="5">
+                                    <ColumnDef Width="100px"/>
+                                    <ColumnDef Width="50%"/>
+                                    <ColumnDef Width="100px"/>
+                                    <ColumnDef Width="50%"/>
+                                </ColumnDefCollection>
+                            </GridLayoutPanel>
+                            <GridLayoutPanel Key="GridLayoutPanel2" Padding="5px" Height="100%" Caption="自定义公式" Visible="OptSrcType==40">
+                                <TextArea Key="DefinitionFormula" Caption="自定义公式" X="0" Y="1" MaxLength="4000" XSpan="4" PromptText="要求返回DataTable">
+                                    <DataBinding ColumnKey="DefinitionFormula" TableKey="OA_SelRule_H"/>
+                                </TextArea>
+                                <Label Key="Label2" Caption="要求返回DataTable" X="0" Y="0" XSpan="4"/>
+                                <RowDefCollection RowGap="5">
+                                    <RowDef Height="30px"/>
+                                    <RowDef Height="100%"/>
+                                </RowDefCollection>
+                                <ColumnDefCollection ColumnGap="5">
+                                    <ColumnDef Width="100px"/>
+                                    <ColumnDef Width="50%"/>
+                                    <ColumnDef Width="100px"/>
+                                    <ColumnDef Width="50%"/>
+                                </ColumnDefCollection>
+                            </GridLayoutPanel>
+                        </TabPanel>
+                        <SplitSize Size="120px"/>
+                        <SplitSize Size="50%"/>
+                        <SplitSize Size="50%"/>
+                    </SplitPanel>
+                    <GridLayoutPanel Caption="系统信息" Height="1%" Key="SysTab">
+                        <Dict BuddyKey="Lab_Creator" Caption="创建人员" Enable="false" ItemKey="Operator" Key="Creator" X="1" Y="0">
+                            <DataBinding ColumnKey="Creator" TableKey="OA_SelRule_H" DefaultFormulaValue="GetOperator()" Required="true"/>
+                        </Dict>
+                        <Label Caption="创建人员" Key="Lab_Creator" X="0" Y="0"/>
+                        <Label Caption="创建时间" Key="Lab_CreateTime" X="3" Y="0"/>
+                        <DatePicker BuddyKey="Lab_CreateTime" Caption="创建时间" Enable="false" Key="CreateTime" X="4" Y="0">
+                            <DataBinding ColumnKey="CreateTime" TableKey="OA_SelRule_H" DefaultFormulaValue="ServerDate()" Required="true"/>
+                        </DatePicker>
+                        <Label Caption="修改人员" Key="Lab_Modifier" X="0" Y="1"/>
+                        <Dict BuddyKey="Lab_Modifier" Caption="修改人员" Enable="false" ItemKey="Operator" Key="Modifier" X="1" Y="1">
+                            <DataBinding ColumnKey="Modifier" TableKey="OA_SelRule_H" DefaultFormulaValue="GetOperator()" Required="true"/>
+                        </Dict>
+                        <Label Caption="修改时间" Key="Lab_ModifyTime" X="3" Y="1"/>
+                        <DatePicker BuddyKey="Lab_ModifyTime" Caption="修改时间" Enable="false" Key="ModifyTime" X="4" Y="1">
+                            <DataBinding ColumnKey="ModifyTime" TableKey="OA_SelRule_H" DefaultFormulaValue="ServerDate()" Required="true"/>
+                        </DatePicker>
+                        <Label Caption="备注" Key="Lab_Notes" X="0" Y="2"/>
+                        <TextEditor BuddyKey="Lab_Notes" Caption="备注" Key="Notes" X="1" XSpan="4" Y="2">
+                            <DataBinding ColumnKey="Notes" TableKey="OA_SelRule_H"/>
+                        </TextEditor>
+                        <TextEditor BuddyKey="Lab_BillKey" Caption="单据Key" Enable="false" Key="BillKey" X="1" Y="3">
+                            <DataBinding ColumnKey="BillKey" TableKey="OA_SelRule_H" DefaultFormulaValue="GetFormKey()"/>
+                        </TextEditor>
+                        <Label Caption="单据Key" Key="Lab_BillKey" X="0" Y="3"/>
+                        <Dict BuddyKey="Lab_ClusterID" Caption="集团" Enable="false" ItemKey="Client" Key="ClusterID" X="4" Y="3">
+                            <DataBinding ColumnKey="ClusterID" TableKey="OA_SelRule_H"/>
+                        </Dict>
+                        <Label Caption="集团" Key="Lab_ClusterID" X="3" Y="3"/>
+                        <RowDefCollection RowGap="4">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="4">
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="50%"/>
+                            <ColumnDef Width="20px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="50%"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                </TabPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

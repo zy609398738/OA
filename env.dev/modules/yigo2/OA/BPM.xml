@@ -1,25 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <BPM InitDate="2016.02.26 14:19:41 CST">
-    <DeployInfoCollection>
-        <DeployInfo InitDate="2016.03.24 09:51:36 CST" Key="WF_OA_NewsDraftView"/>
-        <DeployInfo InitDate="2016.03.24 09:51:36 CST" Key="WF_StandardWorkFlow"/>
-        <DeployInfo InitDate="2016.03.24 09:51:36 CST" Key="WF_CountersignWorkFlow"/>
-        <DeployInfo InitDate="2016.03.24 09:51:36 CST" Key="WF_VoteWorkFlow"/>
-        <DeployInfo InitDate="2016.03.24 09:51:36 CST" Key="WF_MultilevelWorkFlow"/>
-        <DeployInfo InitDate="2016.03.24 09:51:36 CST" Key="WF_EndorseTaskWorkFlow"/>
-        <DeployInfo InitDate="2016-8-19 15:57:05" Key="WF_OA_TASK"/>
-        <DeployInfo InitDate="2016-9-7 9:16:19" Key="WF_OA_MeetingInSideWorkFlow"/>
-        <DeployInfo InitDate="2016-9-7 9:24:52" Key="WF_OA_MeetingOutSideWorkFlow"/>
-        <DeployInfo InitDate="2016-10-12 12:58:08" Key="WF_OA_ForeignLan"/>
-        <DeployInfo InitDate="2016-10-13 12:18:33" Key="WF_OA_Vacation"/>
-        <DeployInfo InitDate="2016-10-13 13:27:04" Key="WF_OA_Overtime"/>
-        <DeployInfo InitDate="2016-10-13 13:27:09" Key="WF_OA_Egress"/>
-        <DeployInfo InitDate="2016-10-13 13:27:24" Key="WF_OA_BusinessEntertaining"/>
-        <DeployInfo InitDate="2016-10-13 13:38:34" Key="WF_OA_Dispatch"/>
-        <DeployInfo InitDate="2016-10-13 13:40:46" Key="WF_OA_BusinessTrip"/>
-        <DeployInfo InitDate="2016-10-13 13:46:50" Key="WF_OA_Gion"/>
-        <DeployInfo InitDate="2016-12-6 9:44:56" Key="WF_OA_WeeklyReport"/>
-        <DeployInfo InitDate="2017-1-19 16:53:29" Key="WF_SW_InfoDemandSurvey"/>
-        <DeployInfo InitDate="2017-1-22 10:26:21" Key="WF_SW_WorkPlan"/>
-    </DeployInfoCollection>
+    <DeployInfoCollection/>
 </BPM>

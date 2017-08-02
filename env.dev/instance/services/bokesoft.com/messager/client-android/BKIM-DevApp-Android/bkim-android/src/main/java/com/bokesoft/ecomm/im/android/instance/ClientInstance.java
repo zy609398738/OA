@@ -1,7 +1,5 @@
 package com.bokesoft.ecomm.im.android.instance;
 
-import android.util.Log;
-
 /**
  * The Connection information of BKIM
  */
@@ -19,29 +17,30 @@ public class ClientInstance {
 
     private String webSocketBaseUrl;
     private String fileUploadUrl;
+    private String historyServiceUrl;
+    private String stateServiceUrl;
 
     private String serviceUrlBase;  //通过传入的 Host Server Address 字符串计算出来的 Base Url, 主要是为了处理头像等图片路径
+
     private String serviceIdentityUrl;
     private String serviceUserInfoUrl;
     private String serviceBuddiesUrl;
-    private String serviceStateUrl;
-
-
     private String clientId;
+
     private String clientToken;
     private String toClientId;
 
     public ClientInstance config(String imServerUrl, String hostServerUrl) {
         webSocketBaseUrl = "ws://" + imServerUrl + "/messager";
         fileUploadUrl = "http://" + imServerUrl + "/upload/";
+        stateServiceUrl = "http://" + imServerUrl + "/state/";
+        historyServiceUrl = "http://" + imServerUrl + "/history/";
+
         serviceUrlBase = hostServerUrl.substring(0, hostServerUrl.indexOf("/"));
         serviceUrlBase = "http://" + serviceUrlBase;
         serviceIdentityUrl = ("http://" + hostServerUrl).replace("${service}", "identity");
         serviceUserInfoUrl = ("http://" + hostServerUrl).replace("${service}", "userinfo");
         serviceBuddiesUrl = ("http://" + hostServerUrl).replace("${service}", "buddies");
-        // serviceStateUrl = ("http://" + hostServerUrl).replace("${service}", "state");//接口
-        serviceStateUrl = "http://1.1.8.23:7778/boke-messager/state";
-        Log.e("url==", serviceStateUrl);
 
         return this;
     }
@@ -70,6 +69,12 @@ public class ClientInstance {
 
     public String getFileUploadUrl() {
         return fileUploadUrl;
+    }
+    public String getStateServiceUrl() {
+        return stateServiceUrl;
+    }
+    public String getHistoryServiceUrl() {
+        return historyServiceUrl;
     }
 
     public String getServiceUrlBase() {
@@ -100,7 +105,4 @@ public class ClientInstance {
         return toClientId;
     }
 
-    public String getServiceStateUrl() {
-        return serviceStateUrl;
-    }
 }

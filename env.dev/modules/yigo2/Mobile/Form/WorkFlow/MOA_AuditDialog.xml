@@ -7,10 +7,10 @@
                     <Label Key="Label1" Caption="下一步处理人" Height="auto" Width="100px">
                         <Format HAlign="Left"/>
                     </Label>
-                    <CheckListBox Caption="下一步处理人" Height="auto" Key="NextOpt" Width="auto" Weight="1.0" Visible="InvokeService(&quot;OA_GetWorkflowDesigneValue&quot;, false, false,Para(&quot;pWorkitemID&quot;),Para(&quot;workflowBillKey&quot;),Para(&quot;WorkflowTypeDtlID&quot;))==1" SourceType="Formula">
+                    <CheckListBox Caption="下一步处理人" Height="auto" Key="NextOpt" Width="auto" Weight="1.0" Visible="InvokeService(&quot;OA_GetWorkflowDesigneValue&quot;, false, false,Para(&quot;pWorkitemID&quot;),Para(&quot;workflowBillKey&quot;),Para(&quot;WorkflowTypeDtlID&quot;),&quot;SetNextPer&quot;)==1" SourceType="Formula">
                         <DataBinding CheckRule="if(IsVisible(&quot;NextOpt&quot;)==true&amp;&amp;InvokeService(&quot;OA_CheckEmptyMutilSel&quot;,false,false,NextOpt)){     false; }else{     true; };" ErrorInfo="请选择下一步处理人"/>
                         <FormulaItems>
-                            <![CDATA[InvokeService("OA_GetDropItemByWorkItem",false,false,Para("pWorkitemID"),Para("workflowBillKey"),Para("WorkflowTypeDtlID"));]]>
+                            <![CDATA[InvokeService("OA_GetDropItemByWorkItem",false,false,Para("pWorkitemID"),Para("workflowBillKey"),Para("WorkflowTypeDtlID"),"AuditPerOID",Para("workflowOID"));]]>
                         </FormulaItems>
                     </CheckListBox>
                     <HyperLink Caption="处理人选择" Height="pref" Key="HyperLink2" Width="90px">

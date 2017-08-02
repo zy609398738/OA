@@ -331,7 +331,7 @@ Ext.define('Ext.calendar.App', {
 			formKey: billKey,
 			OID: oid
 		};
-		parent.parent.openForm(args);
+		parent.openForm(billKey,oid);
 	},
         
     // The CalendarPanel itself supports the standard Panel title config, but that title

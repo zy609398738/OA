@@ -1,7 +1,6 @@
 package com.bokesoft.ecomm.im.android.ui.viewholder;
 
 import android.content.Context;
-import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,13 +8,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bokesoft.ecomm.im.android.R;
-import com.bokesoft.ecomm.im.android.activity.ConversationActivity;
+import com.bokesoft.ecomm.im.android.event.StartConversationEvent;
 import com.bokesoft.ecomm.im.android.instance.ClientInstance;
 import com.bokesoft.ecomm.im.android.model.UserInfo;
 import com.squareup.picasso.Picasso;
 
-import com.bokesoft.ecomm.im.android.utils.BKIMConstants;
 import com.bokesoft.ecomm.im.android.ui.viewholder.base.CommonViewHolder;
+
+import de.greenrobot.event.EventBus;
 
 public class ContactItemHolder extends CommonViewHolder<UserInfo> {
 
@@ -25,7 +25,7 @@ public class ContactItemHolder extends CommonViewHolder<UserInfo> {
     public UserInfo userInfo;
 
     public ContactItemHolder(Context context, ViewGroup root) {
-        super(context, root, R.layout.contact_common_user_item);
+        super(context, root, R.layout.bkim_contact_common_user_item);
         initView();
     }
 
@@ -36,9 +36,7 @@ public class ContactItemHolder extends CommonViewHolder<UserInfo> {
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            Intent intent = new Intent(getContext(), ConversationActivity.class);
-            intent.putExtra(BKIMConstants.PEER_ID, userInfo.getUserCode());
-            getContext().startActivity(intent);
+                EventBus.getDefault().post(new StartConversationEvent(userInfo.getUserCode()));
             }
         });
     }

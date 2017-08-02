@@ -4,7 +4,7 @@
         <DataObject Key="OA_DocView" Caption="文档管理列表">
             <TableCollection>
                 <Table Key="OA_Doc_H" Caption="文档管理列表" TableMode="Detail" SourceType="Query" Persist="false" DBTableName="OA_Doc_H">
-                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="OID" Caption="对象标识" DataType="Long" DBColumnName="DocID"/>
                     <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
                     <Column Key="POID" Caption="父对象标识" DataType="Long"/>
                     <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
@@ -16,14 +16,18 @@
                     <Column Key="DeptID" Caption="申请部门" DataType="Long"/>
                     <ParameterCollection>
                         <Parameter DataType="Long" Formula="GetOperator();"/>
-                        <Parameter DataType="Varchar" Formula="GetPara('OptID')"/>
                         <Parameter DataType="Long" Formula="GetOperator();"/>
-                        <Parameter DataType="Varchar" Formula="GetPara('OptID')"/>
+                        <Parameter DataType="Long" Formula="GetOperator();"/>
                     </ParameterCollection>
                     <Statement>
-                        <![CDATA[select * from (select a.DocType,a.Topic,a.EmpID,a.BillDate,a.DeptID,a.OID,a.OptIDs ,a.creator,b.OptIDs DocTypeOptIDs from oa_doc_h a join OA_DocType_H b ON a.DocType=b.OID 
-where ((ISNULL(a.OptIDs)and ISNULL(b.OptIDs)) or (a.Creator=? or CONCAT(',',a.OptIDs,',') like ?) or 
-(ISNULL(a.OptIDs) and (a.Creator=? or CONCAT(',',b.OptIDs,',') like ?)))order by billdate desc)h ]]>
+                        <![CDATA[select * from (select * from (select a.DocType,a.Topic,a.EmpID,a.BillDate,a.DeptID,a.OID DocID from oa_doc_h a join OA_DocType_H b ON a.DocType=b.OID 
+where not exists (select oid FROM OA_ParticipatorIDs_D c where c.OptType=10 and a.oid=c.soid) and not exists (select oid FROM OA_ParticipatorIDs_D d where d.OptType=10 and b.oid=d.soid)
+UNION
+select a.DocType,a.Topic,a.EmpID,a.BillDate,a.DeptID,a.OID DocID from oa_doc_h a join OA_ParticipatorIDs_D b ON a.OID=b.SOID 
+WHERE (a.Creator=? OR (b.OptType=10 and b.OptID=?))
+UNION
+select a.DocType,a.Topic,a.EmpID,a.BillDate,a.DeptID,a.OID DocID from oa_doc_h a join OA_DocType_H b ON a.DocType=b.OID JOIN OA_ParticipatorIDs_D c ON b.OID =c.SOID
+WHERE not exists (select oid FROM OA_ParticipatorIDs_D c where c.OptType=10 and a.oid=c.soid) AND c.OptType=10 and c.OptID=?)j order by billdate desc)h]]>
                     </Statement>
                 </Table>
                 <Table Key="OA_DocType_H" Caption="文档类别" TableMode="Detail" SourceType="Query" Persist="false">
@@ -42,18 +46,24 @@ where ((ISNULL(a.OptIDs)and ISNULL(b.OptIDs)) or (a.Creator=? or CONCAT(',',a.Op
                 <![CDATA[New('OA_Doc');]]>
             </Action>
         </Operation>
-        <Operation Key="Setfirst_headVisible" Caption="查询" RefKey="Setfirst_headVisible"/>
     </OperationCollection>
     <QueryCollection>
         <Query Key="queryDocType" Description="查询文档类别">
             <Statement>
-                <![CDATA[select * from (select a.DocType,a.Topic,a.EmpID,a.BillDate,a.DeptID,a.OID,a.OptIDs ,a.creator,b.OptIDs DocTypeOptIDs from oa_doc_h a join OA_DocType_H b ON a.DocType=b.OID 
-where ((ISNULL(a.OptIDs)and ISNULL(b.OptIDs)) or (a.Creator=? or CONCAT(',',a.OptIDs,',') like ?) or 
-(ISNULL(a.OptIDs) and (a.Creator=? or CONCAT(',',b.OptIDs,',') like ?)))order by billdate desc)h ]]>
+                <![CDATA[select DocType,Topic,EmpID,BillDate,DeptID, DocID from (select * from (select a.DocType,a.Topic,a.EmpID,a.BillDate,a.DeptID,a.OID DocID from oa_doc_h a join OA_DocType_H b ON a.DocType=b.OID 
+where not exists (select oid FROM OA_ParticipatorIDs_D c where c.OptType=10 and a.oid=c.soid) and not exists (select oid FROM OA_ParticipatorIDs_D d where d.OptType=10 and b.oid=d.soid)
+UNION
+select a.DocType,a.Topic,a.EmpID,a.BillDate,a.DeptID,a.OID DocID from oa_doc_h a join OA_ParticipatorIDs_D b ON a.OID=b.SOID 
+WHERE (a.Creator=? OR (b.OptType=10 and b.OptID=?))
+UNION
+select a.DocType,a.Topic,a.EmpID,a.BillDate,a.DeptID,a.OID DocID from oa_doc_h a join OA_DocType_H b ON a.DocType=b.OID JOIN OA_ParticipatorIDs_D c ON b.OID =c.SOID
+WHERE not exists (select oid FROM OA_ParticipatorIDs_D c where c.OptType=10 and a.oid=c.soid) AND c.OptType=10 and c.OptID=?)j order by billdate desc)h
+  join OA_DocType_H d ON h.DocType=d.OID and  h.DocType=?]]>
             </Statement>
             <ParameterCollection>
                 <Parameter DataType="Long"/>
-                <Parameter DataType="Varchar"/>
+                <Parameter DataType="Long"/>
+                <Parameter DataType="Long"/>
                 <Parameter DataType="Long"/>
             </ParameterCollection>
         </Query>
@@ -67,24 +77,30 @@ where ((ISNULL(a.OptIDs)and ISNULL(b.OptIDs)) or (a.Creator=? or CONCAT(',',a.Op
                 <SplitPanel Key="SplitPanel2" Height="100%" Caption="SplitPanel2">
                     <Grid Key="Grid1" Caption="Grid1" NewEmptyRow="false" Enable="false" CanDelete="false" CanInsert="false">
                         <GridColumnCollection>
-                            <GridColumn Key="DocType" Caption="文档类别" Width="255px" TreeType="Dict"/>
+                            <GridColumn Key="DocType_D" Caption="文档类别" Width="255px" TreeType="Dict"/>
                         </GridColumnCollection>
                         <GridRowCollection>
                             <GridRow Key="row1" RowHeight="35" TableKey="OA_DocType_H">
-                                <GridCell Key="DocType" Caption="文档类别" CellType="Dict" ItemKey="OA_DocType" Sort="Code">
+                                <GridCell Key="DocType_D" Caption="文档类别" CellType="Dict" ItemKey="OA_DocType" Sort="Code">
                                     <DataBinding ColumnKey="OID"/>
+                                    <TreeDef TreeType="Dict"/>
                                 </GridCell>
                             </GridRow>
                         </GridRowCollection>
                         <RowClick>
-                            <![CDATA[var ids=OA_GetIdExistsSql("OA_DocType_H",DocType,"d.OID");
+                            <![CDATA[var ids=OA_GetIdExistsSql("OA_DocType_H",DocType_D,"d.OID");
 if(ids==""){
-    FillGridData("Grid2", DBNamedQuery("queryDocType",GetOperator(),'%,' & ToString(GetOperator()) & ',%',GetOperator(),'%,' & ToString(GetOperator()) & ',%',DocType), true);
+    FillGridData("Grid2", DBNamedQuery("queryDocType",GetOperator(),GetOperator(),GetOperator(),DocType_D), true);
 }else{
-    var sql="select * from (select a.DocType,a.Topic,a.EmpID,a.BillDate,a.DeptID,a.OID,a.OptIDs ,a.creator,d.OptIDs DocTypeOptIDs from oa_doc_h a join OA_DocType_H d ON a.DocType=d.OID 
-where "+ids+"and ((ISNULL(a.OptIDs)and ISNULL(d.OptIDs)) or (a.Creator=? or CONCAT(',',a.OptIDs,',') like ?) or 
-(ISNULL(a.OptIDs) and (a.Creator=? or CONCAT(',',d.OptIDs,',') like ?)))order by billdate desc)h ";
-    FillGridData('Grid2', DBQuery(sql,GetOperator(),'%,' & ToString(GetOperator()) & ',%',GetOperator(),'%,' & ToString(GetOperator()) & ',%'), true);
+    var sql="select DocType,Topic,EmpID,BillDate,DeptID, DocID from (select * from (select a.DocType,a.Topic,a.EmpID,a.BillDate,a.DeptID,a.OID DocID from oa_doc_h a join OA_DocType_H b ON a.DocType=b.OID 
+where not exists (select oid FROM OA_ParticipatorIDs_D c where c.OptType=10 and a.oid=c.soid) and not exists (select oid FROM OA_ParticipatorIDs_D d where d.OptType=10 and b.oid=d.soid)
+UNION
+select a.DocType,a.Topic,a.EmpID,a.BillDate,a.DeptID,a.OID DocID from oa_doc_h a join OA_ParticipatorIDs_D b ON a.OID=b.SOID 
+WHERE (a.Creator=? OR (b.OptType=10 and b.OptID=?))
+UNION
+select a.DocType,a.Topic,a.EmpID,a.BillDate,a.DeptID,a.OID DocID from oa_doc_h a join OA_DocType_H b ON a.DocType=b.OID JOIN OA_ParticipatorIDs_D c ON b.OID =c.SOID
+WHERE not exists (select oid FROM OA_ParticipatorIDs_D c where c.OptType=10 and a.oid=c.soid) AND c.OptType=10 and c.OptID=?)j order by billdate desc)h  join OA_DocType_H d ON DocType=d.OID where "+ids;
+    FillGridData('Grid2', DBQuery(sql,GetOperator(),GetOperator(),GetOperator()), true);
 }]]>
                         </RowClick>
                     </Grid>
@@ -98,10 +114,10 @@ where "+ids+"and ((ISNULL(a.OptIDs)and ISNULL(d.OptIDs)) or (a.Creator=? or CONC
                                 <Condition ColumnKey="BillDate" TableKey="OA_Doc_H" CondSign="between" Group="a" GroupTail="true"/>
                             </DatePicker>
                             <Label Key="Lab_To" Caption="到" X="2" Y="0"/>
-                            <Dict Key="QueryDeptID" Caption="申请部门" BuddyKey="Lab_QueryDeptID" X="5" Y="0" AllowMultiSelection="true" ItemKey="OA_Department">
+                            <Dict Key="QueryDeptID" Caption="申请部门" BuddyKey="Lab_QueryDeptID" X="3" Y="1" AllowMultiSelection="true" ItemKey="OA_Department">
                                 <Condition ColumnKey="DeptID" TableKey="OA_Doc_H" CondSign="in"/>
                             </Dict>
-                            <Label Key="Lab_QueryDeptID" Caption="申请部门" X="4" Y="0"/>
+                            <Label Key="Lab_QueryDeptID" Caption="申请部门" X="2" Y="1"/>
                             <Dict Key="QueryEmpID" Caption="申请人" BuddyKey="Lab_QueryEmpID" X="1" Y="1" AllowMultiSelection="true" ItemKey="OA_Employee">
                                 <Condition ColumnKey="EmpID" TableKey="OA_Doc_H" CondSign="in"/>
                             </Dict>
@@ -121,6 +137,10 @@ ShowData();]]>
                             <CheckBox Caption="表头可见" Key="first_headVisible" Visible="false" X="4" Y="1">
                                 <DataBinding DefaultValue="1"/>
                             </CheckBox>
+                            <Dict Key="QueryDocType" Caption="文档类别" BuddyKey="Lab_QueryDocType" X="5" Y="0" AllowMultiSelection="true" ItemKey="OA_DocType">
+                                <Condition ColumnKey="DocType" TableKey="OA_Doc_H" CondSign="in"/>
+                            </Dict>
+                            <Label Key="Lab_QueryDocType" Caption="文档类别" X="4" Y="0"/>
                             <RowDefCollection RowGap="8">
                                 <RowDef Height="30px"/>
                                 <RowDef Height="30px"/>
@@ -141,7 +161,8 @@ ShowData();]]>
                                 <GridColumn Key="EmpID" Caption="申请人" Width="100px"/>
                                 <GridColumn Key="BillDate" Caption="申请日期" Width="130px"/>
                                 <GridColumn Key="DeptID" Caption="申请部门" Width="130px"/>
-                                <GridColumn Key="OID" Caption="OID" Width="80px" Visible="false"/>
+                                <GridColumn Key="DocType" Caption="文档类别" Width="130px"/>
+                                <GridColumn Key="DocID" Caption="OID" Visible="false" Width="80px"/>
                             </GridColumnCollection>
                             <GridRowCollection>
                                 <GridRow Key="row1" RowHeight="35" TableKey="OA_Doc_H">
@@ -157,13 +178,16 @@ ShowData();]]>
                                     <GridCell Key="DeptID" Caption="申请部门" CellType="Dict" ItemKey="OA_Department">
                                         <DataBinding ColumnKey="DeptID"/>
                                     </GridCell>
-                                    <GridCell Key="OID" Caption="OID">
+                                    <GridCell Key="DocType" Caption="文档类别" CellType="Dict" ItemKey="OA_DocType">
+                                        <DataBinding ColumnKey="DocType"/>
+                                    </GridCell>
+                                    <GridCell Key="DocID" Caption="OID">
                                         <DataBinding ColumnKey="OID"/>
                                     </GridCell>
                                 </GridRow>
                             </GridRowCollection>
                             <RowDblClick>
-                                <![CDATA[Open("OA_Doc",OID)]]>
+                                <![CDATA[Open("OA_Doc",DocID)]]>
                             </RowDblClick>
                         </Grid>
                     </FlexFlowLayoutPanel>
@@ -173,7 +197,4 @@ ShowData();]]>
             </FlexFlowLayoutPanel>
         </Block>
     </Body>
-    <FormParaCollection>
-        <FormPara DataType="Varchar" Formula="'%,' &amp; ToString(GetOperator()) &amp; ',%';" Key="OptID" Type="Formula"/>
-    </FormParaCollection>
 </Form>

@@ -29,7 +29,7 @@ public class SetOperationByKey implements IExtService {
 	 * 根据操作模板设置操作
 	 * 
 	 * @param context
-	 *            中间层对象
+	 *            上下文对象
 	 * @param formKey
 	 *            单据的Key
 	 * @param operationKey

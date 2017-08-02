@@ -32,7 +32,7 @@ public class Ids {
 	 */
 	public void setIds(String ids) {
 		this.ids = ids;
-		String[] idArray = ids.split(",");
+		String[] idArray = ids.split(sep);
 		for (String id : idArray) {
 			idList.add(Long.parseLong(id));
 		}
@@ -62,12 +62,37 @@ public class Ids {
 		this.idList = idList;
 		StringBuffer sb = new StringBuffer();
 		for (Long id : idList) {
-			sb.append("," + id);
+			sb.append(sep);
+			sb.append(id);
 		}
 		ids = sb.toString();
 		if (ids.length() > 0) {
-			ids = ids.substring(1);
+			ids = ids.substring(sep.length());
 		}
+	}
+
+	/**
+	 * 分隔符
+	 */
+	private String sep = ",";
+
+	/**
+	 * 分隔符，默认","
+	 * 
+	 * @return 分隔符
+	 */
+	public String getSep() {
+		return sep;
+	}
+
+	/**
+	 * 分隔符，默认","
+	 * 
+	 * @param sep
+	 *            分隔符
+	 */
+	public void setSep(String sep) {
+		this.sep = sep;
 	}
 
 	/**
@@ -83,10 +108,36 @@ public class Ids {
 	/**
 	 * 构造ID字符串
 	 * 
+	 * @param ids
+	 *            ID字符串
+	 * @param sep
+	 *            分隔符
+	 */
+	public Ids(String ids, String sep) {
+		setSep(sep);
+		setIds(ids);
+	}
+
+	/**
+	 * 构造ID字符串
+	 * 
 	 * @param idList
 	 *            ID列表
 	 */
 	public Ids(List<Long> idList) {
+		setIdList(idList);
+	}
+
+	/**
+	 * 构造ID字符串
+	 * 
+	 * @param idList
+	 *            ID列表
+	 * @param sep
+	 *            分隔符
+	 */
+	public Ids(List<Long> idList, String sep) {
+		setSep(sep);
 		setIdList(idList);
 	}
 }

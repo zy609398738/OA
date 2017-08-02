@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<Form Key="MOA_SpoFile" Caption="发文" FormType="Entity" AliasKey="OA_SpoFile">
+<Form Key="MOA_SpoFile" Caption="发文" FormType="Entity" AliasKey="OA_SpoFile" Platform="Mobile">
     <DataSource>
         <DataObject Key="MOA_SpoFile" Caption="发文" PrimaryTableKey="MOA_SpoFile_H" NoPrefix="MSF" PrimaryType="Entity">
             <TableCollection>

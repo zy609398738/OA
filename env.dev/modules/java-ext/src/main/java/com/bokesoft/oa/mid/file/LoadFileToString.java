@@ -28,7 +28,7 @@ public class LoadFileToString implements IExtService {
 	 * 读取文件返回文件内容的字符串
 	 * 
 	 * @param context
-	 *            中间层对象
+	 *            上下文对象
 	 * @param filePath
 	 *            文件路径
 	 * @param isRelative

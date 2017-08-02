@@ -11,6 +11,7 @@
         parent.SaveData();
         EndInstance(GetActiveInstanceID(true));
         Close();
+        parent.Confirm("已结束流程");
 
 ]]>
                         </OnClick>
@@ -58,7 +59,7 @@ ApplyNewOID(),GetValue('Opinion'),GetOperator())
                         <RowDef Height="30px"/>
                         <RowDef Height="30px"/>
                         <RowDef Height="90px"/>
-                        <RowDef Height="25px"/>
+                        <RowDef Height="30px"/>
                     </RowDefCollection>
                     <ColumnDefCollection ColumnGap="4">
                         <ColumnDef Width="100px"/>

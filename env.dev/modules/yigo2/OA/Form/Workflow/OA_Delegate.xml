@@ -1,78 +1,76 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<Form Key="OA_Delegate" Caption="代理设置" FormType="View">
+<Form Caption="我的代理授权" FormType="View" Key="OA_Delegate">
     <DataSource>
-        <DataObject Key="OA_Delegate" Caption="代理设置">
+        <DataObject Caption="我的代理授权" Key="OA_Delegate">
             <TableCollection>
-                <Table Key="OA_AddDelegate" Caption="代理设置" TableMode="Detail" SourceType="Query" DBTableName="OA_AddDelegate">
-                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
-                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
-                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
-                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
-                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
-                    <Column Key="WorkFlowName" Caption="WorkFlowName" DataType="Long"/>
-                    <Column Key="Warranty" Caption="Warranty" DataType="Long"/>
-                    <Column Key="Agent" Caption="Agent" DataType="Long"/>
-                    <Column Key="StartDate" Caption="StartDate" DataType="DateTime"/>
-                    <Column Key="EndDate" Caption="EndDate" DataType="DateTime"/>
-                    <Column Key="BillDate" Caption="BillDate" DataType="DateTime"/>
-                    <Column Key="Status" Caption="Status" DataType="Varchar"/>
-                    <Column Key="Creator" Caption="Creator" DataType="Long"/>
+                <Table Caption="代理授权" DBTableName="WF_Delegate" Key="OA_Delegate" Persist="false" SourceType="Query" TableMode="Detail">
+                    <Column Caption="代理编号" DataType="Long" Key="DelegateID"/>
+                    <Column Caption="代理类型" DataType="Integer" Key="DelegateType"/>
+                    <Column Caption="目标操作员" DataType="Long" Key="TgtOperatorID"/>
+                    <Column Caption="源操作员" DataType="Long" Key="SrcOperatorID"/>
+                    <Column Caption="代理类型" DataType="Integer" Key="ObjectType"/>
+                    <Column Caption="标识" DataType="Varchar" Key="ObjectKey"/>
+                    <Column Caption="结点" DataType="Varchar" Key="NodeKey"/>
+                    <Column Caption="起始时间" DataType="DateTime" Key="StartTime"/>
+                    <Column Caption="结束时间" DataType="DateTime" Key="EndTime"/>
+                    <Column Caption="永久有效" DataType="Boolean" Key="AlwaysValid"/>
+                    <Column Caption="删除" DataType="Varchar" Key="deleteitem"/>
                     <ParameterCollection>
-                        <Parameter DataType="Long" Formula="GetOperator()"/>
+                        <Parameter Formula="GetOperator()"/>
                     </ParameterCollection>
                     <Statement>
-                        <![CDATA[select * from OA_Delegate where creator=?]]>
+                        <![CDATA[select DelegateID,DelegateType,TgtOperatorID,SrcOperatorID,ObjectType,ObjectKey,NodeKey,StartTime,EndTime,AlwaysValid,'删除' as deleteitem from WF_Delegate where SrcOperatorID=?]]>
                     </Statement>
                 </Table>
             </TableCollection>
         </DataObject>
     </DataSource>
     <OperationCollection>
-        <Operation Key="New" Caption="新增代理">
+        <Operation Key="Save" Caption="添加代理信息" Visible="!ReadOnly()">
             <Action>
-                <![CDATA[New('OA_AddDelegate');]]>
-            </Action>
-        </Operation>
-        <Operation Key="Close" Caption="关闭界面">
-            <Action>
-                <![CDATA[Close()]]>
+                <![CDATA[
+				ShowModal('OA_AddDelegate')
+					]]>
             </Action>
         </Operation>
     </OperationCollection>
-    <ScriptCollection>
-        <Script Key="Load" Caption="载入" Range="Action" Verb="Load">
-            <![CDATA[LoadData()]]>
-        </Script>
-    </ScriptCollection>
     <Body>
         <Block>
-            <FlexFlowLayoutPanel Key="root" Caption="根面板">
-                <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
+            <FlexFlowLayoutPanel Key="main">
+                <ToolBar Height="pref" Key="main_toolbar">
                     <ToolBarItemCollection/>
                 </ToolBar>
-                <ListView Caption="ListView1" Height="100%" Key="ListView1" PageLoadType="DB" TableKey="OA_AddDelegate">
+                <ListView Height="100%" Key="list" TableKey="OA_Delegate">
                     <ListViewColumnCollection>
-                        <ListViewColumn Key="WorkFlowName" Caption="流程名称" ColumnType="Dict" DataColumnKey="WorkFlowName" ItemKey="OA_Workflow"/>
-                        <ListViewColumn Key="Warranty" Caption="指定方" ColumnType="Dict" DataColumnKey="Warranty" ItemKey="Operator"/>
-                        <ListViewColumn Key="Agent" Caption="代理方" ColumnType="Dict" DataColumnKey="Agent" Width="74px" ItemKey="Operator"/>
-                        <ListViewColumn Key="StartDate" Caption="起始时间" ColumnType="DatePicker" DataColumnKey="StartDate"/>
-                        <ListViewColumn Key="EndDate" Caption="截止时间" ColumnType="DatePicker" DataColumnKey="EndDate"/>
-                        <ListViewColumn Key="BillDate" Caption="创建时间" ColumnType="DatePicker" DataColumnKey="BillDate"/>
-                        <ListViewColumn Key="Status" Caption="状态" ColumnType="ComboBox" DataColumnKey="Status" Enable="true">
-                            <Item Caption="停用" Key="0" Value="false"/>
-                            <Item Caption="启用" Key="1" Value="true"/>
+                        <ListViewColumn Caption="代理编号" DataColumnKey="DelegateID" Key="DelegateID" Width="100px"/>
+                        <ListViewColumn Caption="代理类型" ColumnType="ComboBox" DataColumnKey="DelegateType" Key="delegateType">
+                            <Item Caption="授权" Key="AUTHORIZE" Value="1"/>
+                            <Item Caption="代理" Key="DELEGATE" Value="2"/>
                         </ListViewColumn>
-                        <ListViewColumn Key="Creator" Caption="创建人" ColumnType="Dict" DataColumnKey="Creator" Visible="false" ItemKey="Operator"/>
-                        <ListViewColumn Key="OID" Caption="OID" DataColumnKey="OID" Visible="false"/>
+                        <ListViewColumn Caption="对象类型" ColumnType="ComboBox" DataColumnKey="ObjectType" Key="ObjectType">
+                            <Item Caption="操作员" Key="OPERATOR" Value="1"/>
+                            <Item Caption="流程" Key="PROCESS" Value="2"/>
+                            <Item Caption="流程结点" Key="PROCESS_NODE" Value="3"/>
+                            <Item Caption="表单" Key="OBJECT" Value="4"/>
+                        </ListViewColumn>
+                        <ListViewColumn Caption="目标操作员" ColumnType="Dict" DataColumnKey="TgtOperatorID" ItemKey="Operator" Key="TgtOperatorID" Width="100px"/>
+                        <ListViewColumn Caption="源操作员" ColumnType="Dict" DataColumnKey="SrcOperatorID" ItemKey="Operator" Key="SrcOperatorID" Width="100px"/>
+                        <ListViewColumn Caption="标识" DataColumnKey="ObjectKey" Key="ObjectKey" Width="100px"/>
+                        <ListViewColumn Caption="结点" DataColumnKey="NodeKey" Key="NodeKey" Width="175px"/>
+                        <ListViewColumn Caption="起始时间" ColumnType="DatePicker" DataColumnKey="StartTime" Key="StartTime" Width="350px"/>
+                        <ListViewColumn Caption="结束时间" ColumnType="DatePicker" DataColumnKey="EndTime" Key="EndTime" Width="350px"/>
+                        <ListViewColumn Caption="永久有效" ColumnType="CheckBox" DataColumnKey="AlwaysValid" Enable="false" Key="AlwaysValid" Width="100px"/>
+                        <ListViewColumn Caption="删除" ColumnType="Button" DataColumnKey="deleteitem" DefaultValue="删除" Key="delete">
+                            <OnClick RunType="Client">
+                                <![CDATA[DeleteDelegateData(DelegateID);LoadData();RefreshControl('list');]]>
+                            </OnClick>
+                        </ListViewColumn>
                     </ListViewColumnCollection>
-                    <RowDblClick>
-                        <![CDATA[Open('OA_AddDelegate',OID)]]>
-                    </RowDblClick>
                 </ListView>
             </FlexFlowLayoutPanel>
         </Block>
     </Body>
-    <OnLoad>
-        <![CDATA[LoadData()]]>
+    <OnLoad type="Formula">
+        <![CDATA[LoadData();]]>
     </OnLoad>
 </Form>

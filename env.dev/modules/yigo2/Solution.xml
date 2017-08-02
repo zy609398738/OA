@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<Solution Caption="oa-dev" Key="oa-dev" SecurityLevel="9" StartProject="BK_Basic">
-	<ProjectCollection>
-		<Project Caption="博科基础资料" Key="BK_Basic"/>
-		<Project Caption="协同功能" Key="OA"/>
-		<Project Caption="协同业务" Key="OABusiness"/>
-		<Project Caption="物业" Key="PARK"/>
-		<Project Caption="招商" Key="YQ"/>
-		<Project Caption="公共模块" Key="Common"/>
-		<Project Caption="移动模块" Key="Mobile"/>
-	</ProjectCollection>
-	<InplaceToolbarCollection>
+<Solution Caption="协同办公" Key="oa-dev" SecurityLevel="9" StartProject="BK_Basic">
+    <ProjectCollection>
+        <Project Caption="基本资料" Key="BK_Basic"/>
+        <Project Caption="协同功能" Key="OA"/>
+        <Project Caption="协同业务" Key="OABusiness"/>
+	<Project Caption="物业" Key="PARK"/>
+	<Project Caption="招商" Key="YQ"/>
+        <Project Caption="公共模块" Key="Common"/>
+        <Project Caption="移动模块" Key="Mobile"/>
+    </ProjectCollection>
+    <InplaceToolbarCollection>
         <InplaceToolbar Tag="BPM" Handler="com.bokesoft.yes.bpm.BPMInplaceToolBarCallback" Description="BPM融合"/>
         <InplaceToolbar Tag="WORKITEM" Handler="com.bokesoft.yes.bpm.LoadWorkitemInplaceToolBarCallback" Description="提交工作项"/>
     </InplaceToolbarCollection>
@@ -17,4 +17,8 @@
     <StartItemCollection>
         <StartItem Platform="Android|IOS" StartForm="MRoot" LoginForm="MobileLogin" AppKey="OA"/>
     </StartItemCollection>
+    <!-- 预打开表单-->
+    <PreLoadItemCollection>
+        <PreLoadItem Key="Item1" EntryPath="OABusiness/OA/OA_Index"/>
+    </PreLoadItemCollection>
 </Solution>

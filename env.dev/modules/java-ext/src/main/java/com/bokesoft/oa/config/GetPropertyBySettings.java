@@ -24,7 +24,7 @@ public class GetPropertyBySettings implements IExtService {
 	 * 根据参数设置属性值
 	 * 
 	 * @param context
-	 *            中间层对象
+	 *            上下文对象
 	 * @param billKey
 	 *            参数设置所在配置文件夹的配置Key
 	 * @param paths

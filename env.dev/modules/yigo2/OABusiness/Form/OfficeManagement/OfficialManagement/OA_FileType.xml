@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<Form Key="OA_FileType" Caption="发文类型" FormType="Dict">
+<Form Key="OA_FileType" Caption="公文类型" FormType="Dict">
     <DataSource>
         <DataObject Key="OA_FileType" Caption="发文类型" PrimaryTableKey="OA_FileType_H" SecondaryType="Dict" PrimaryType="Entity">
             <TableCollection>
@@ -64,7 +64,7 @@
                         </Dict>
                         <Label Key="Lab_Creator" Caption="创建人员" X="0" Y="0"/>
                         <Label Key="Lab_CreateTime" Caption="创建时间" X="3" Y="0"/>
-                        <DatePicker Key="CreateTime" Caption="创建时间" BuddyKey="Lab_CreateTime" X="4" Y="0" Enable="false" OnlyDate="false">
+                        <DatePicker Key="CreateTime" Caption="创建时间" BuddyKey="Lab_CreateTime" X="4" Y="0" Enable="false">
                             <DataBinding TableKey="OA_FileType_H" ColumnKey="CreateTime" DefaultFormulaValue="ServerDate()" Required="true"/>
                         </DatePicker>
                         <Label Key="Lab_Modifier" Caption="修改人员" X="0" Y="1"/>
@@ -72,7 +72,7 @@
                             <DataBinding TableKey="OA_FileType_H" ColumnKey="Modifier" DefaultFormulaValue="GetOperator()" Required="true"/>
                         </Dict>
                         <Label Key="Lab_ModifyTime" Caption="修改时间" X="3" Y="1"/>
-                        <DatePicker Key="ModifyTime" Caption="修改时间" BuddyKey="Lab_ModifyTime" X="4" Y="1" Enable="false" OnlyDate="false">
+                        <DatePicker Key="ModifyTime" Caption="修改时间" BuddyKey="Lab_ModifyTime" X="4" Y="1" Enable="false">
                             <DataBinding TableKey="OA_FileType_H" ColumnKey="ModifyTime" DefaultFormulaValue="ServerDate()" Required="true"/>
                         </DatePicker>
                         <Label Key="Lab_Notes" Caption="备注" X="0" Y="2"/>

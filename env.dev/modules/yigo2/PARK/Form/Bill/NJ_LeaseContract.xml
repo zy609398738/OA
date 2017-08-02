@@ -363,7 +363,7 @@ ClearAllRows('Grid3');
                             </GridRowCollection>
                         </Grid>
                         <Label Key="Label2" Caption="收款计划" X="1" Y="9"/>
-                        <Embed Caption="附件" FormKey="OA_Attachment" Key="OA_Attachment" RootKey="Grid2" X="2" XSpan="7" Y="11">
+                        <Embed Caption="附件" FormKey="OA_Attachment" Key="OA_Attachment" RootKey="OA_Attachment" X="2" XSpan="7" Y="11">
                             <Var Key="ParentKey" Value="NJ_LeaseContract"/>
                         </Embed>
                         <Label Key="Label3" Caption="附件" X="1" Y="11"/>

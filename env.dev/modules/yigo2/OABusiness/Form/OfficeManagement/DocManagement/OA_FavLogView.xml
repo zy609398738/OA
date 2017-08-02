@@ -28,15 +28,9 @@
             </TableCollection>
         </DataObject>
     </DataSource>
-    <OperationCollection>
-        <Operation Key="Setfirst_headVisible" Caption="查询" RefKey="Setfirst_headVisible"/>
-    </OperationCollection>
     <Body>
         <Block>
             <FlexFlowLayoutPanel Key="root" Caption="根面板">
-                <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
-                    <ToolBarItemCollection/>
-                </ToolBar>
                 <GridLayoutPanel Key="first_head" Height="80px" Caption="基本信息" Visible="first_headVisible==1">
                     <DatePicker Key="From" Caption="收藏日期从" BuddyKey="Lab_From" X="1" Y="0">
                         <Condition Group="a" ColumnKey="FavDate" TableKey="OA_FavLogView" CondSign="between" GroupHead="true"/>

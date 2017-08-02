@@ -13,6 +13,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.bokesoft.services.messager.config.MessagerConfig;
 import com.bokesoft.services.messager.server.impl.utils.MsgUtils;
 import com.bokesoft.services.messager.server.impl.utils.ServletUtils;
+import com.bokesoft.services.messager.server.model.HistoryMessagesData;
 import com.bokesoft.services.messager.server.model.Message;
 import com.bokesoft.services.messager.server.store.IMessageStore;
 
@@ -31,7 +32,8 @@ public class HistoryServlet extends HttpServlet{
 	 * 历史消息查询, 固定为每次返回 {@link #HISTORY_PAGE_LIMITS} 条记录
 	 * 请求参数, json字符串, 包含如下参数:
 	 *  <br/>- self(当前用户,不能为空)
-	 *  <br/>- from(开始时间/时间戳,可以为空; 注意, 此“开始时间”是向前搜索的开始时间)
+	 *  <br/>- from(开始时间/时间戳,可以为空;)
+	 *  <br/>- direction(方向， before/after; 注意在 “before” 时, 开始时间 "from" 是向前搜索的开始时间, 即最大时间)
 	 *  <br/>- keywords(搜索条件,可以为空)
 	 *  <br/>- other(聊天用户,可以为空)
 	 *   例如: {self: 'tester', from: 1481585978795, keywords: '测试', other: 'peter'}
@@ -41,6 +43,8 @@ public class HistoryServlet extends HttpServlet{
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		int limits = HISTORY_PAGE_LIMITS;
 
+		ServletUtils.checkAccessToken(req);
+		
 		JSONObject data = ServletUtils.getParamDataAsJson(req);
 		String self = data.getString("self");
 		if (null==self){
@@ -59,15 +63,15 @@ public class HistoryServlet extends HttpServlet{
 		MsgUtils.sortDesc(msgs);
 
 		HistoryMessagesData result = new HistoryMessagesData();
-		result.limits = limits;
+		result.setLimits(limits);
 		if (msgs.size()>limits){
 			msgs = msgs.subList(0, limits);
-			result.hasMore = true;
+			result.setHasMore(true);
 		}
-		result.messages = msgs;
+		result.setMessages(msgs);
 		if (msgs.size()>0){
-			result.startTimestamp = msgs.get(0).getTimestamp();
-			result.endTimestamp = msgs.get(msgs.size()-1).getTimestamp();
+			result.setStartTimestamp(msgs.get(0).getTimestamp());
+			result.setEndTimestamp(msgs.get(msgs.size()-1).getTimestamp());
 		}
 		
 		//检查消息前一页的信息
@@ -77,45 +81,18 @@ public class HistoryServlet extends HttpServlet{
 		MsgUtils.sortAsc(newerMsgs);
 		int prevPageSize = newerMsgs.size();
 		if (prevPageSize>limits){
-			result.prevPageTimestamp = newerMsgs.get(limits-1).getTimestamp();
+			result.setPrevPageTimestamp(newerMsgs.get(limits-1).getTimestamp());
 		}else if (prevPageSize<=0){
-			result.prevPageTimestamp = 0;	//等于 0 代表没有更多数据了
+			result.setPrevPageTimestamp(0);	//等于 0 代表没有更多数据了
 		}else{
-			result.prevPageTimestamp = newerMsgs.get(prevPageSize-1).getTimestamp();
+			result.setPrevPageTimestamp(newerMsgs.get(prevPageSize-1).getTimestamp());
 		}
-		if (prevPageSize==1 && result.prevPageTimestamp==result.startTimestamp){
-			result.prevPageTimestamp = 0;	//考虑到查找的时候存在数据重叠, 所以只有一条记录的情况下很有可能也是已经没有数据了
+		if (prevPageSize==1 && result.getPrevPageTimestamp()==result.getStartTimestamp()){
+			result.setPrevPageTimestamp(0);	//考虑到查找的时候存在数据重叠, 所以只有一条记录的情况下很有可能也是已经没有数据了
 		}
 		
 		//返回
 		ServletUtils.returnAsJson(resp, result);
 	}
 
-	public static class HistoryMessagesData {
-		private List<Message> messages;
-		private long startTimestamp = 0;
-		private long endTimestamp = 0;
-		private int limits = 0;
-		private boolean hasMore = false;
-		private long prevPageTimestamp = 0;
-
-		public List<Message> getMessages() {
-			return messages;
-		}
-		public long getStartTimestamp() {
-			return startTimestamp;
-		}
-		public long getEndTimestamp() {
-			return endTimestamp;
-		}
-		public int getLimits() {
-			return limits;
-		}
-		public boolean isHasMore() {
-			return hasMore;
-		}
-		public long getPrevPageTimestamp() {
-			return prevPageTimestamp;
-		}
-	}
 }

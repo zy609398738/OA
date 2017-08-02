@@ -1,6 +1,6 @@
 package com.bokesoft.oa.base;
 
-import com.bokesoft.yigo.mid.base.DefaultContext;
+import com.bokesoft.yigo.struct.datatable.DataTable;
 
 /**
  * 字典基础
@@ -8,7 +8,7 @@ import com.bokesoft.yigo.mid.base.DefaultContext;
  * @author chenbiao
  *
  */
-public class DicBase extends HeadBase {
+public abstract class DicBase extends HeadBase {
 	/**
 	 * 代码
 	 */
@@ -61,8 +61,27 @@ public class DicBase extends HeadBase {
 	 * 
 	 * @param context
 	 */
-	public DicBase(DefaultContext context) {
+	public DicBase(OAContext context) {
 		super(context);
 	}
 
+	/**
+	 * 载入数据
+	 * 
+	 * @param dt
+	 *            头表数据集
+	 * @throws Throwable
+	 */
+	public void loadData(DataTable dt) throws Throwable {
+		super.loadData(dt);
+		setCode(dt.getString("Code"));
+		setName(dt.getString("Name"));
+	}
+
+	/**
+	 * 重载
+	 */
+	public String toString() {
+		return super.toString() + "，代码：" + getCode() + "，名称：" + getName();
+	}
 }

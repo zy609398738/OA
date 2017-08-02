@@ -3,7 +3,7 @@
     <DataSource>
         <DataObject Key="NJ_PurchaseContract" Caption="购房合同" NoPrefix="GFHT" PrimaryTableKey="NJ_SCM_PurchaseContractHead" PrimaryType="Entity" ZeroPrefix="3">
             <TableCollection>
-                <Table Key="NJ_SCM_PurchaseContractHead" Caption="NJ_SCM_PurchaseContractHead" DBTableName="NJ_SCM_PurchaseContractHead">
+                <Table Key="NJ_SCM_PurchaseContractHead" Caption="NJ_SCM_PurchaseContractHead" DBTableName="NJ_SCM_PurchaseContractHead" IndexPrefix="I_PC" UniquePrimary="true">
                     <Column Key="OID" Caption="对象标识" DataType="Long"/>
                     <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
                     <Column Key="POID" Caption="父对象标识" DataType="Long"/>
@@ -237,7 +237,7 @@ DBUpdate('UPDATE NJ_SCM_PurchaseContractHead SET RoomNumber=(select GROUP_CONCAT
                                 </GridRow>
                             </GridRowCollection>
                         </Grid>
-                        <Embed Caption="附件" Key="OA_Attachment" FormKey="OA_Attachment" RootKey="Grid2">
+                        <Embed Caption="附件" Key="OA_Attachment" FormKey="OA_Attachment" RootKey="OA_Attachment">
                             <Var Key="ParentKey" Value="NJ_PurchaseContract"/>
                         </Embed>
                     </TabPanel>

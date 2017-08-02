@@ -6,14 +6,30 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.bokesoft.services.messager.config.MessagerConfig;
+import com.bokesoft.services.messager.server.impl.HostSessionManager;
 
 public class ServletUtils {
 	
 	/**
-	 * 固定从 request 中取道 "data" 参数并解析为 json
+	 * 从 request 中取到 "t" 参数并验证（目前只检查非空性）
+	 * @param req
+	 * @return
+	 */
+	public static void checkAccessToken(HttpServletRequest req){
+		String token = req.getParameter("t");
+		String clientId = HostSessionManager.getUserCodeByToken(token);
+		if(StringUtils.isBlank(clientId)){
+			throw new RuntimeException("当前 token '"+token+"' 无效或已过期");
+		}
+	}
+	
+	/**
+	 * 从 request 中取到 "data" 参数并解析为 json
 	 * @param req
 	 * @return
 	 */

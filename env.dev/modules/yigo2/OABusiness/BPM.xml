@@ -19,21 +19,8 @@
         <DeployInfo InitDate="2016-10-13 13:40:46" Key="WF_OA_BusinessTrip"/>
         <DeployInfo InitDate="2016-10-13 13:46:50" Key="WF_OA_Gion"/>
         <DeployInfo InitDate="2016-12-6 9:44:56" Key="WF_OA_WeeklyReport"/>
-        <DeployInfo InitDate="2017-1-19 16:53:29" Key="WF_SW_InfoDemandSurvey"/>
         <DeployInfo InitDate="2017-1-22 10:26:21" Key="WF_SW_WorkPlan"/>
         <DeployInfo InitDate="2017-2-28 9:07:01" Key="WF_OA_Archive"/>
     </DeployInfoCollection>
-    <ProcessMapCollection>
-        <ProcessMap InitDate="2017.02.28 09:07:28 CST" Key="OA_NewsDraft" ProcessKey="WF_OA_NewsDraftView" StartCaption="提交审批"/>
-        <ProcessMap InitDate="2017.02.28 09:07:28 CST" Key="OA_MeetingInSide" ProcessKey="WF_OA_MeetingInSideWorkFlow" StartCaption="提交审批"/>
-        <ProcessMap InitDate="2017.02.28 09:07:28 CST" Key="OA_Taskdistribution" ProcessKey="WF_OA_TASK" StartCaption="提交审批"/>
-        <ProcessMap InitDate="2017.02.28 09:07:28 CST" Key="OA_Doc" ProcessKey="WF_StandardWorkFlow" StartCaption="提交审批"/>
-        <ProcessMap InitDate="2017.02.28 09:07:28 CST" Key="OA_SpoFile" ProcessKey="WF_OA_Dispatch" StartCaption="提交审批"/>
-        <ProcessMap InitDate="2017.02.28 09:07:28 CST" Key="OA_MeetingOutSide" ProcessKey="WF_OA_MeetingOutSideWorkFlow" StartCaption="提交审批"/>
-        <ProcessMap InitDate="2017.02.28 09:07:28 CST" Key="OA_ForeignLan" ProcessKey="WF_OA_ForeignLan" StartCaption="提交审批"/>
-        <ProcessMap InitDate="2017.02.28 09:07:28 CST" Key="OA_weeklyreport" ProcessKey="WF_OA_WeeklyReport" StartCaption="提交审核"/>
-        <ProcessMap InitDate="2017.02.28 09:07:28 CST" Key="OA_ForeignLan" ProcessKey="WF_MultilevelWorkFlow" StartCaption="提交审核"/>
-        <ProcessMap InitDate="2017.02.28 09:07:28 CST" Key="OA_SpoFile" ProcessKey="WF_SW_WorkPlan" StartCaption="提交审核"/>
-        <ProcessMap InitDate="2017.02.28 09:07:28 CST" Key="OA_Archive" ProcessKey="WF_OA_Archive" StartCaption="提交审核"/>
-    </ProcessMapCollection>
+    <ProcessMapCollection/>
 </BPM>

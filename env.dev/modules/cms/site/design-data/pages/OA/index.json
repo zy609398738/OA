@@ -37,8 +37,9 @@
 				"Raw"
 			],
 			"parameters":{"@type":"java.util.HashMap",
-				"newscount":"6",
-				"tag":"1"
+				"toptype":"01",
+				"tag":"1",
+				"newscount":"6"
 			},
 			"sequence":"3"
 		},
@@ -64,8 +65,8 @@
 				"Raw"
 			],
 			"parameters":{"@type":"java.util.HashMap",
-				"newscount":"6",
-				"tag":"2"
+				"tag":"2",
+				"newscount":"6"
 			},
 			"sequence":"5"
 		},

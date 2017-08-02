@@ -12,7 +12,7 @@ services:
         command: "/app/profiles/oa-dev/docker.sh"
         ports:
             - "50001:8080"
-            - "57778:7778"
+            - "7778:7778"
         volumes:
             - ./../../oademo:/app
         environment:
@@ -31,7 +31,7 @@ services:
         image: boke-mysql:1.1
         volumes:
             - ./runtime:/data
-            - ./dbback:/app
+            - ./dbback/mysql:/app
         environment:
             - MYSQL_ROOT_PWD=20161029
             - |

@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<Process Caption="任务派发" Key="WF_OA_TASK" IDSeed="82" FormKey="OA_Taskdistribution">
-    <Begin Caption="开始节点" ID="1" Key="Begin1">
+<Process Caption="任务派发" Key="WF_OA_TASK" IDSeed="82" FormKey="OA_Taskdistribution"  TemplateKey="OA_TmpTest">
+    <Begin Caption="开始节点" ID="1" Key="Begin1" pattern="Normal">
         <TransitionCollection>
             <SequenceFlow Caption="顺序流" ID="66" Key="SequenceFlow42" TargetNodeKey="State2"/>
         </TransitionCollection>
         <NodeGraphic X="19" Y="18" Height="40" Width="40"/>
         <NodeAttachment/>
     </Begin>
-    <End Caption="结束节点" ID="2" Key="End1">
+    <End Caption="结束节点" ID="2" Key="End1" pattern="Normal">
         <NodeGraphic X="506" Y="575" Height="40" Width="40"/>
         <NodeAttachment/>
     </End>
-    <Audit Caption="审批" ID="6" Key="Audit1">
+    <Audit Caption="接受任务" ID="6" Key="Audit1" pattern="Normal" AutoIgnoreNoParticipator="true">
         <TransitionCollection>
             <SequenceFlow Caption="顺序流" Condition="False" ID="17" Key="SequenceFlow8" TargetNodeKey="State4"/>
             <SequenceFlow Caption="顺序流" ID="72" Key="SequenceFlow48" TargetNodeKey="ServiceTask1"/>
@@ -33,7 +33,7 @@
         <Perm/>
         <DirectAuditCondition/>
     </Audit>
-    <State Caption="已提交" ID="7" Key="State2" Status="commited">
+    <State Caption="已提交" ID="7" Key="State2" Status="commited" pattern="Normal">
         <TransitionCollection>
             <SequenceFlow Caption="顺序流" ID="12" Key="SequenceFlow4" TargetNodeKey="Audit1"/>
         </TransitionCollection>
@@ -42,7 +42,7 @@
         <ParticipatorCollection/>
         <Perm/>
     </State>
-    <State Caption="接受任务" ID="8" Key="State3" Status="received">
+    <State Caption="接受任务" ID="8" Key="State3" Status="received" pattern="Normal">
         <TransitionCollection>
             <SequenceFlow Caption="顺序流" ID="24" Key="SequenceFlow13" TargetNodeKey="Audit2"/>
         </TransitionCollection>
@@ -51,7 +51,7 @@
         <ParticipatorCollection/>
         <Perm/>
     </State>
-    <State Caption="拒绝任务" ID="16" Key="State4" Status="reject">
+    <State Caption="拒绝任务" ID="16" Key="State4" Status="reject" pattern="Normal">
         <TransitionCollection>
             <SequenceFlow Caption="顺序流" ID="21" Key="SequenceFlow12" TargetNodeKey="End1">
                 <TransitionGraphic LineStyle="ChamferCurveHOne"/>
@@ -62,7 +62,7 @@
         <ParticipatorCollection/>
         <Perm/>
     </State>
-    <Audit Caption="一审" ID="22" Key="Audit2">
+    <Audit Caption="处理任务" ID="22" Key="Audit2" pattern="Normal" AutoIgnoreNoParticipator="true">
         <TransitionCollection>
             <SequenceFlow Caption="顺序流" ID="25" Key="SequenceFlow14" TargetNodeKey="State5" Condition="1"/>
             <SequenceFlow Caption="顺序流" ID="52" Key="SequenceFlow32" TargetNodeKey="State9" Condition="0"/>
@@ -86,7 +86,7 @@
         <Perm/>
         <DirectAuditCondition/>
     </Audit>
-    <State Caption="已解决" ID="23" Key="State5" Status="solved">
+    <State Caption="已解决" ID="23" Key="State5" Status="solved" pattern="Normal">
         <TransitionCollection>
             <SequenceFlow Caption="顺序流" ID="69" Key="SequenceFlow45" TargetNodeKey="Audit3">
                 <TransitionGraphic LineStyle="ChamferCurveHOne"/>
@@ -97,7 +97,7 @@
         <ParticipatorCollection/>
         <Perm/>
     </State>
-    <State Caption="测试通过" ID="32" Key="State7" Status="approved">
+    <State Caption="验收通过" ID="32" Key="State7" Status="approved" pattern="Normal">
         <TransitionCollection>
             <SequenceFlow Caption="顺序流" ID="75" Key="SequenceFlow50" TargetNodeKey="ServiceTask2"/>
         </TransitionCollection>
@@ -106,7 +106,7 @@
         <ParticipatorCollection/>
         <Perm/>
     </State>
-    <State Caption="测试不过" ID="36" Key="State8" Status="reject">
+    <State Caption="验收不过" ID="36" Key="State8" Status="reject" pattern="Normal">
         <TransitionCollection>
             <SequenceFlow Caption="顺序流" ID="38" Key="SequenceFlow22" TargetNodeKey="Audit2"/>
         </TransitionCollection>
@@ -115,7 +115,7 @@
         <ParticipatorCollection/>
         <Perm/>
     </State>
-    <Audit Caption="测试审批" ID="39" Key="Audit3">
+    <Audit Caption="验收" ID="39" Key="Audit3" pattern="Normal" AutoIgnoreNoParticipator="true">
         <TransitionCollection>
             <SequenceFlow Caption="顺序流" ID="67" Key="SequenceFlow43" TargetNodeKey="State7"/>
             <SequenceFlow Caption="顺序流" Condition="False" ID="68" Key="SequenceFlow44" TargetNodeKey="State8"/>
@@ -147,7 +147,7 @@ SetValue("Completion", "100%")
         <Perm/>
         <DirectAuditCondition/>
     </Audit>
-    <State Caption="暂停任务" ID="42" Key="State9" Status="pause">
+    <State Caption="暂停任务" ID="42" Key="State9" Status="pause" pattern="Normal">
         <TransitionCollection>
             <SequenceFlow Caption="顺序流" ID="46" Key="SequenceFlow27" TargetNodeKey="Audit4"/>
         </TransitionCollection>
@@ -156,7 +156,7 @@ SetValue("Completion", "100%")
         <ParticipatorCollection/>
         <Perm/>
     </State>
-    <Audit Caption="二审" ID="45" Key="Audit4">
+    <Audit Caption="暂停任务处理" ID="45" Key="Audit4" pattern="Normal" AutoIgnoreNoParticipator="true">
         <TransitionCollection>
             <SequenceFlow Caption="顺序流" ID="50" Key="SequenceFlow30" TargetNodeKey="State10" Condition="false"/>
             <SequenceFlow Caption="顺序流" ID="53" Key="SequenceFlow33" TargetNodeKey="State5"/>
@@ -181,7 +181,7 @@ SetValue("Completion", "100%")
         <Perm/>
         <DirectAuditCondition/>
     </Audit>
-    <State Caption="拒绝任务" ID="49" Key="State10" Status="reject">
+    <State Caption="拒绝任务" ID="49" Key="State10" Status="reject" pattern="Normal">
         <TransitionCollection>
             <SequenceFlow Caption="顺序流" ID="51" Key="SequenceFlow31" TargetNodeKey="End1">
                 <TransitionGraphic LineStyle="ChamferCurveHOne"/>
@@ -192,7 +192,7 @@ SetValue("Completion", "100%")
         <ParticipatorCollection/>
         <Perm/>
     </State>
-    <ServiceTask Caption="系统任务" ID="71" Key="ServiceTask1">
+    <ServiceTask Caption="系统任务" ID="71" Key="ServiceTask1" pattern="Normal">
         <TransitionCollection>
             <SequenceFlow Caption="顺序流" ID="73" Key="SequenceFlow49" TargetNodeKey="State3"/>
         </TransitionCollection>
@@ -202,7 +202,7 @@ SetValue("Completion", "100%")
             <![CDATA[SetValue("OA_Taskdistribution_H","FactStartDate", ServerDate())]]>
         </Action>
     </ServiceTask>
-    <ServiceTask Caption="系统任务" ID="74" Key="ServiceTask2">
+    <ServiceTask Caption="系统任务" ID="74" Key="ServiceTask2" pattern="Normal">
         <TransitionCollection>
             <SequenceFlow Caption="顺序流" ID="81" Key="SequenceFlow54" TargetNodeKey="End1"/>
         </TransitionCollection>
@@ -221,6 +221,9 @@ SetValue("Completion", "100%")
         <Field Key="BillOID" SourceFieldKey="OID"/>
         <Field Key="DeptID" SourceFieldKey="DeptID"/>
         <Field Key="UrgencyDeg" SourceFieldKey="UrgencyDeg"/>
+        <Field Key="BillNo" SourceFieldKey="NO"/>
+        <Field Key="BillKey" SourceFieldKey="BillKey"/>
+        <Field Key="BILLSOID" SourceFieldKey="SOID"/>
     </DMTable>
     <AttachmentCollection/>
 </Process>

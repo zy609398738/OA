@@ -4,7 +4,7 @@
 
 require("../web-socket-js/swfobject.js");
 require("../web-socket-js/web_socket.js");
-var swf = require("file!../web-socket-js/WebSocketMain.swf");
+var swf = require("../web-socket-js/WebSocketMain.swf");
 
 window.WEB_SOCKET_SWF_LOCATION = swf;
 window.WEB_SOCKET_DEBUG = false;

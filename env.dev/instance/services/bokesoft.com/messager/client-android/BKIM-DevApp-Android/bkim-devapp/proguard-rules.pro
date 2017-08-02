@@ -20,3 +20,6 @@
 -keepclassmembers class ** {
     public void onEvent*(***);
 }
+
+#prettytime i18n(https://github.com/ocpsoft/prettytime)
+-keep class org.ocpsoft.prettytime.i18n.**

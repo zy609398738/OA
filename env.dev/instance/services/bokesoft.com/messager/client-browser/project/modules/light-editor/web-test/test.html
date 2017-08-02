@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Test: light-editor</title>
-    <script src="./test-bundle.js"></script>
 </head>
 <body>
     <h1>Test: light-editor</h1>
@@ -20,11 +19,19 @@
     }
     span.button, a.button {
 	    display: inline-block;
-	    padding: 3px;
-	    min-width: 80px;
+	    padding: 6px;
+	    min-width: 60px;
 	    text-align: center;
 	    cursor: pointer;
 	    border: 1px solid darkcyan;
+    }
+    .fix-me {
+        color: red;
+        font-size: 0.8em;
+        font-style: italic;
+    }
+    .fix-me code {
+        background-color: lightyellow
     }
     
     /* 调整默认的表情选择窗口大小 */
@@ -36,19 +43,30 @@
 	}
     </style>
     
-    <span class="button btnInsertQQ"> QQ 表情 </span>
-    <span class="button btnUploadQQ"> 上传 </span>
-    <div class="editor editorQQ" contenteditable="true"></div>
+    <div class="fix-me">
+        FIXME:<br/>
+        1. <code>triggerEmoji</code> 必须是一个链接(<code> a </code>)
+        并且设置 <code>href="javascript:void(0)"</code>, 否则在 Chrome/Firefox 下
+        存在“<code>插入的表情总在编辑文本的最前面</code>”的问题;
+        <br/>
+        2. 连续多个空格在 <code>renderHtml</code> 暂时不能显示为多个空格.
+    </div>
+    <a class="button btnInsertDefault" href="javascript:void(0)"> Apple 表情(默认) </a>
+    <span class="button btnUploadDefault"> 上传 </span>
+    <span style="float:right" class="button btnDefaultTestRenderHtml"> 测试 renderHtml() </span>
+    <span style="float:right" class="button btnDefaultTestGetText"> 测试 getText() </span>
+    <div class="editor editorDefault" contenteditable="true"></div>
+    <hr/>
+    
+    <a class="button btnInsertAndroid" href="javascript:void(0)"> Android 表情 </a>
+    <a class="button btnUploadAndroid" href="javascript:void(0)"> 上传 </a>
+    <div class="editor editorAndroid" contenteditable="true"></div>
     <hr/>
 
-    <a class="button btnInsertTieba" href="javascript:void(0)"> 贴吧表情 </a>
-    <a class="button btnUploadTieba" href="javascript:void(0)"> 上传 </a>
-    <div class="editor editorTieba" contenteditable="true"></div>
-    <hr/>
-
+    <script src="./test-bundle.js"></script>
     <script>
-    setUpWithQQ();
-    setupWithTieba();
+    setUpEmojiDefault();
+    setUpEmojiAndroid();
     </script>
 </body>
 </html>

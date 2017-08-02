@@ -1,0 +1,14 @@
+cms.PageExp.Local('href', cms.PageExp.RelContextRoot()&{/news/newsview.page?id=});
+cms.PageExp.Local(
+	"data",
+    oa.TodoMidExp.queryListByTop("
+		select id,code,typeID,maker,col1,col2,col3,col4 from
+			(select ndh.oid as id, ndh.topic as col2, nth.code, nth.oid as typeID, nth.name as col1, 
+      				opt.name as col3, opt.oid as maker, ndh.newsContent AS col4 
+				from OA_NewsDraft_H ndh
+				left join OA_NewsType_H nth on ndh.newsTypeID=nth.oid
+				left join sys_Operator opt on ndh.creator=opt.oid
+				ORDER BY ndh.createTime DESC) NewsDraftHTO
+ 			WHERE code=${typecode}", 6
+    )
+)

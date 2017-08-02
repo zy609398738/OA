@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<Process Caption="收文流程" Key="WF_OA_ForeignLan" IDSeed="61" FormKey="OA_ForeignLan">
-    <Begin Caption="开始节点" ID="2" Key="Begin1">
+<Process Caption="收文流程" Key="WF_OA_ForeignLan" IDSeed="63" FormKey="OA_ForeignLan"  TemplateKey="OA_TmpTest">
+    <Begin Caption="开始节点" ID="2" Key="Begin1" pattern="Normal">
         <TransitionCollection>
             <SequenceFlow Caption="顺序流" ID="12" Key="SequenceFlow1" TargetNodeKey="State1"/>
         </TransitionCollection>
         <NodeGraphic X="47" Y="98" Height="40" Width="40"/>
         <NodeAttachment/>
     </Begin>
-    <End Caption="结束节点" ID="3" Key="End1">
+    <End Caption="结束节点" ID="3" Key="End1" pattern="Normal">
         <NodeGraphic X="343" Y="276" Height="40" Width="40"/>
         <NodeAttachment/>
     </End>
-    <State Caption="已提交" ID="4" Key="State1" Status="commited">
+    <State Caption="已提交" ID="4" Key="State1" Status="commited" pattern="Normal">
         <TransitionCollection>
             <SequenceFlow Caption="顺序流" ID="35" Key="SequenceFlow18" TargetNodeKey="Audit2"/>
         </TransitionCollection>
@@ -20,7 +20,7 @@
         <ParticipatorCollection/>
         <Perm/>
     </State>
-    <State Caption="审批中" ID="5" Key="State2" Status="approving">
+    <State Caption="审批中" ID="5" Key="State2" Status="approving" pattern="Normal">
         <TransitionCollection>
             <SequenceFlow Caption="顺序流" ID="17" Key="SequenceFlow6" TargetNodeKey="Audit3"/>
         </TransitionCollection>
@@ -29,7 +29,7 @@
         <ParticipatorCollection/>
         <Perm/>
     </State>
-    <Audit Caption="办公室主任审批" ID="8" Key="Audit2" DenyNodeKey="State10">
+    <Audit Caption="办公室主任审批" ID="8" Key="Audit2" DenyNodeKey="State10" pattern="Normal" AutoIgnoreNoParticipator="true">
         <TransitionCollection>
             <SequenceFlow Caption="顺序流" ID="16" Key="SequenceFlow5" TargetNodeKey="State2"/>
         </TransitionCollection>
@@ -48,7 +48,7 @@
         <Perm/>
         <DirectAuditCondition/>
     </Audit>
-    <State Caption="审批中" ID="9" Key="State4" Status="approving">
+    <State Caption="审批中" ID="9" Key="State4" Status="approving" pattern="Normal">
         <TransitionCollection>
             <SequenceFlow Caption="顺序流" ID="44" Key="SequenceFlow24" TargetNodeKey="Countersign1"/>
         </TransitionCollection>
@@ -57,7 +57,7 @@
         <ParticipatorCollection/>
         <Perm/>
     </State>
-    <Audit Caption="总经理审批" ID="10" Key="Audit3" DenyNodeKey="State10">
+    <Audit Caption="总经理审批" ID="10" Key="Audit3" DenyNodeKey="State10" pattern="Normal" AutoIgnoreNoParticipator="true">
         <TransitionCollection>
             <SequenceFlow Caption="顺序流" ID="36" Key="SequenceFlow19" TargetNodeKey="State4"/>
         </TransitionCollection>
@@ -78,7 +78,7 @@
         <Perm/>
         <DirectAuditCondition/>
     </Audit>
-    <State Caption="审批中" ID="26" Key="State8" Status="approving">
+    <State Caption="审批中" ID="26" Key="State8" Status="approving" pattern="Normal">
         <TransitionCollection>
             <SequenceFlow Caption="顺序流" ID="47" Key="SequenceFlow26" TargetNodeKey="Countersign2"/>
         </TransitionCollection>
@@ -87,7 +87,7 @@
         <ParticipatorCollection/>
         <Perm/>
     </State>
-    <State Caption="已审批" ID="28" Key="State9" Status="approved">
+    <State Caption="已审批" ID="28" Key="State9" Status="approved" pattern="Normal">
         <TransitionCollection>
             <SequenceFlow Caption="顺序流" ID="33" Key="SequenceFlow16" TargetNodeKey="End1"/>
         </TransitionCollection>
@@ -96,7 +96,7 @@
         <ParticipatorCollection/>
         <Perm/>
     </State>
-    <Countersign Caption="分管领导" ID="43" Key="Countersign1" FinishCondition="100%" FinishType="Proportion" PassCondition="100%" PassType="Proportion" ValidCondition="100%" ValidType="Proportion">
+    <Countersign Caption="分管领导" ID="43" Key="Countersign1" FinishCondition="100%" FinishType="Proportion" PassCondition="100%" PassType="Proportion" ValidCondition="100%" ValidType="Proportion" pattern="Normal" AutoIgnoreNoParticipator="true">
         <TransitionCollection>
             <SequenceFlow Caption="顺序流" ID="45" Key="SequenceFlow25" TargetNodeKey="State8"/>
             <SequenceFlow Caption="顺序流" ID="60" Key="SequenceFlow33" TargetNodeKey="State10" Condition="False"/>
@@ -116,7 +116,7 @@
         <Perm/>
         <DirectAuditCondition/>
     </Countersign>
-    <Countersign Caption="部门处理结果反馈" ID="46" Key="Countersign2" PassCondition="100%" PassType="Proportion" FinishCondition="100%" FinishType="Proportion" ValidCondition="100%" ValidType="Proportion">
+    <Countersign Caption="部门处理结果反馈" ID="46" Key="Countersign2" PassCondition="100%" PassType="Proportion" FinishCondition="100%" FinishType="Proportion" ValidCondition="100%" ValidType="Proportion" pattern="Normal" AutoIgnoreNoParticipator="true">
         <TransitionCollection>
             <SequenceFlow Caption="顺序流" ID="48" Key="SequenceFlow27" TargetNodeKey="State9"/>
             <SequenceFlow Caption="顺序流" Condition="False" ID="57" Key="SequenceFlow32" TargetNodeKey="State10">
@@ -138,7 +138,7 @@
         <Perm/>
         <DirectAuditCondition/>
     </Countersign>
-    <Audit Caption="提交审批" ID="49" Key="Audit4">
+    <Audit Caption="提交审批" ID="49" Key="Audit4" pattern="Normal" AutoIgnoreNoParticipator="true">
         <TransitionCollection>
             <SequenceFlow Caption="顺序流" ID="52" Key="SequenceFlow29" TargetNodeKey="State1"/>
         </TransitionCollection>
@@ -157,7 +157,7 @@
         <Perm/>
         <DirectAuditCondition/>
     </Audit>
-    <State Caption="已输入" ID="50" Key="State10" Status="prepared">
+    <State Caption="已输入" ID="50" Key="State10" Status="prepared" pattern="Normal">
         <TransitionCollection>
             <SequenceFlow Caption="顺序流" ID="51" Key="SequenceFlow28" TargetNodeKey="Audit4"/>
         </TransitionCollection>
@@ -176,6 +176,9 @@
         <Field Key="DeptID" SourceFieldKey="DeptID"/>
         <Field Key="UrgencyDeg" SourceFieldKey="UrgencyDeg"/>
         <Field Key="BillNo" SourceFieldKey="NO"/>
+        <Field Key="BillKey" SourceFieldKey="BillKey"/>
+        <Field Key="BILLSOID" SourceFieldKey="SOID"/>
     </DMTable>
     <AttachmentCollection/>
+    <ParticipatorCollection/>
 </Process>

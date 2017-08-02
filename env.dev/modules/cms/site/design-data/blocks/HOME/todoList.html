@@ -1,0 +1,26 @@
+<style>
+   #mid .aside-left .tabberlive .block .content {
+        max-height: 300px !important;
+   }
+</style>
+<div class="ele-todo">
+    <ul>
+      #foreach( $line in $data )
+        <li> 
+          <p class="clearfix">
+           <span class="ele-width3 fbold f333"><a onclick="openForm('$line.FORMKEY',$line.OID)">$esc.html($line.TOPIC)</a></span> <!--标题-->
+          </p>
+          <p class="clearfix">
+              <span class="ele-width2">发起人:$esc.html($line.EMPNAME)</span><!--发起人--><span class="ele-width1">$esc.html($date.format("yyyy-MM-dd",$line.BILLCREATTIME))</span><!--时间-->
+          </p>   
+        </li>
+      #end
+    </ul>
+  <a class="create-flowfile" onclick="openForm('new-workflow.page','新建流程')">
+  <span>新建流程</span>
+  </a>
+  <a class="a_more" onclick="openParentEntry('OABusiness/OA/OA_PersonalUse/PaseUse/OA_ToDoWorkflow')">更多</a>
+</div>
+<script>
+  $(".tabtitle.tabtitle-delivery-HOME-todoList").append("<i>"+$bccount +"</i>");
+</script>

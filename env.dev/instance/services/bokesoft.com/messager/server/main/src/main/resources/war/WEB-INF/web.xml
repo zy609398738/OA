@@ -75,6 +75,16 @@
         <servlet-name>history</servlet-name>
         <url-pattern>/history/*</url-pattern>
     </servlet-mapping>
+    
+    <servlet>
+		<servlet-name>messagePost</servlet-name>
+		<servlet-class>com.bokesoft.services.messager.server.MessagePostServlet</servlet-class>
+		<load-on-startup>7</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+        <servlet-name>messagePost</servlet-name>
+        <url-pattern>/messagePost/*</url-pattern>
+    </servlet-mapping>
 
     <filter>
         <filter-name>cross-origin</filter-name>

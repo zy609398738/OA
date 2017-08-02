@@ -2,10 +2,10 @@
 	"@type":"com.bokesoft.cms2.impl.buildin.modelio.vo.BlockVO",
 	"block":{
 		"@type":"com.bokesoft.cms2.model.blocks.TmplBlock",
-		"formulaText":"cms.PageExp.Local('href', cms.PageExp.RelContextRoot()&{/news/newsview.page?id=});\ncms.PageExp.Local(\n\t\"data\",\n    cms.DataExp.QueryList(\"\n\t\tselect id,code,typeID,maker,col1,col2,col3,col4 from\n\t\t\t(select ndh.oid as id, ndh.topic as col2, nth.code, nth.oid as typeID, nth.name as col1, \n      \t\t\t\topt.name as col3, opt.oid as maker, ndh.newsContent AS col4 \n\t\t\t\tfrom OA_NewsDraft_H ndh\n\t\t\t\tleft join OA_NewsType_H nth on ndh.newsTypeID=nth.oid\n\t\t\t\tleft join sys_Operator opt on ndh.creator=opt.oid\n\t\t\t\tORDER BY ndh.createTime DESC) NewsDraftHTO\n \t\t\tWHERE code=${typecode} limit 6\n    \")\n)",
+		"formulaText":"",
 		"notes":"",
 		"parameters":[],
-		"tmplText":"<div class=\"tab_item p_5 f666\" style=\"height:167px\">\n<ul>\n  #foreach( $line in $data )\n        <li> <a href=\"$href$line.ID\">$esc.html($line.COL2)</a> </li>\n  #end \n</ul>\n <a href=\"newslist.page?typecode=${typecode}\" class=\"a_more\" id=${typecode}>...</a>\n</div>\n<script>\n\t$(\".tabtitle.tabtitle-delivery-HOME-homeNotice\").prepend(\"<span class='notice-icon'></span>\");\n</script>",
+		"tmplText":"",
 		"type":"TMPL"
 	},
 	"code":"homeNotice",

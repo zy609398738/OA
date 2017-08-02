@@ -26,6 +26,21 @@ public class Configuration {
 	private Settings rootSettings;
 
 	/**
+	 * 根节点的设置对象
+	 * @return 根节点的设置对象
+	 */
+	public Settings getRootSettings() {
+		return rootSettings;
+	}
+	/**
+	 * 根节点的设置对象
+	 * @param rootSettings 根节点的设置对象
+	 */
+	public void setRootSettings(Settings rootSettings) {
+		this.rootSettings = rootSettings;
+	}
+	
+	/**
 	 * 构造参数配置对象
 	 * 
 	 * @throws Throwable

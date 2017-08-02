@@ -72,20 +72,24 @@ public class GetOperatorSelResult implements IExtService {
 		Document doc = context.getDocument();
 		DataTable dtDepartment = doc.get("OA_Department_H");// 行政组织选择
 		DataTable dtOperator = doc.get("SYS_Operator");// 人员选择
-		DataTable dtOptRule = doc.get("OA_OptRule_H");// 规则选择
-		DataTable dtOptPublic = doc.get("OA_OptPublic_H");// 群组选择
+		DataTable dtOptRule = doc.get("OA_OptRule_H");// 自定义
+		DataTable dtOptPublic = doc.get("OA_OptPublic_H");// 群组
+		DataTable dtSelRul = doc.get("OA_SelRule_H");// 人员选择规则
 		DataTable dtOperatorSel = doc.get("OA_OperatorSel_D");// 人员选择明细结果
-		if (dtDepartment!=null) {
+		if (dtDepartment != null) {
 			dtOperatorSel = operatorSelAdd(dtDepartment, dtOperatorSel);
 		}
-		if (dtOperator!=null) {
+		if (dtOperator != null) {
 			dtOperatorSel = operatorSelAdd(dtOperator, dtOperatorSel);
 		}
-		if (dtOptRule!=null) {
+		if (dtOptRule != null) {
 			dtOperatorSel = operatorSelAdd(dtOptRule, dtOperatorSel);
 		}
-		if (dtOptPublic!=null) {
+		if (dtOptPublic != null) {
 			dtOperatorSel = operatorSelAdd(dtOptPublic, dtOperatorSel);
+		}
+		if (dtSelRul != null) {
+			dtOperatorSel = operatorSelAdd(dtSelRul, dtOperatorSel);
 		}
 		return dtOperatorSel;
 	}

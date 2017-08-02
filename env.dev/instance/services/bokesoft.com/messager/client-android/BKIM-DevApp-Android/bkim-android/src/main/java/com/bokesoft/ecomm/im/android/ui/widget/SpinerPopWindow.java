@@ -55,7 +55,6 @@ public class SpinerPopWindow extends PopupWindow implements AdapterView.OnItemCl
         if (mItemSelectListener != null) {
             mItemSelectListener.onItemClick(i);
         }
-        Toast.makeText(mContext, "你点击了" + i + "条", Toast.LENGTH_SHORT).show();
         dismiss();//关闭下拉列表
     }
 }

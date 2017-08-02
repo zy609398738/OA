@@ -113,7 +113,9 @@
                     } else {
                         notation = placeholder.replace(new RegExp('{alias}', 'gi'), j.toString());
                     }
-                    panel += '<li><a data-emoji_code="' + (alias && alias[j] ? alias[j] : '') + '" data-index="' + index + '" title="' + (title && title[j] ? title[j] : '') + '"><img  data-emoji_code="' + (alias && alias[j] ? alias[j] : '') + '" class="'+(className && className[j] ? className[j] : '')+'" src="' + path + '"/></a></li>';
+                    panel +='<li><a data-emoji_code="' + (alias && alias[j] ? alias[j] : '') + '" data-index="' + index + '" title="' + (title && title[j] ? title[j] : '') + '">'
+                           +'<img  data-emoji_code="' + (alias && alias[j] ? alias[j] : '') + '" class="'+(className && className[j] ? className[j] : '')+'" src="' + path + '"/>'
+                           +'</a></li>';
                     index++;
                 }
                 panel += '</ul></div>';

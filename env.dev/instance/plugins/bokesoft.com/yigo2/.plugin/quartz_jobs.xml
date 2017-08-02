@@ -28,6 +28,23 @@
                 <repeat-interval>1800000</repeat-interval> <!--时间间隔30分钟(时间单位未毫秒  即1000表示1秒) -->
             </simple>
        </trigger> 
+	   <job>  
+           <name>ItemRemind</name> <!-- 任务名称 -->
+           <group>Item</group>  <!-- 分组名称 -->
+           <description>定时任务</description>  <!-- 描述 -->
+           <job-class>com.bokesoft.oa.mid.wf.ItemRemind</job-class>  <!-- 任务 类 -->
+       </job>
+       <trigger>
+	      	<simple>
+                <name>doJob</name>  <!-- trigger名 -->
+                <group>Item</group>  <!-- trigger组 -->
+                <job-name>ItemRemind</job-name> <!-- 任务名称 -->
+                <job-group>Item</job-group>  <!-- 分组名称 -->
+                <start-time>2015-12-08T16:27:00</start-time> <!-- 任务开始时间 -->
+                <repeat-count>-1</repeat-count> <!-- 任务重复次数 -->
+                <repeat-interval>1800000</repeat-interval> <!--时间间隔30分钟(时间单位未毫秒  即1000表示1秒) -->
+            </simple>
+       </trigger> 
       <!--<job>
            <name>TestQuartz</name>  
            <group>DEFAULT</group>  

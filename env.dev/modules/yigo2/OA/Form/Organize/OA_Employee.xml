@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<Form Caption="人员" FormType="Dict" Key="OA_Employee">
+<Form Caption="人员" FormType="ChainDict" Key="OA_Employee">
     <DataSource>
-        <DataObject Key="OA_Employee" Caption="人员" PrimaryTableKey="OA_Employee_H" SecondaryType="Dict" PrimaryType="Entity">
+        <DataObject Key="OA_Employee" Caption="人员" PrimaryTableKey="OA_Employee_H" SecondaryType="ChainDict" PrimaryType="Entity">
             <TableCollection>
                 <Table Caption="基本信息" DBTableName="OA_Employee_H" Key="OA_Employee_H">
                     <Column Caption="对象标识" DataType="Long" Key="OID"/>
@@ -27,7 +27,7 @@
                     <Column Caption="外文备注" DataType="Varchar" Key="ForeignNotes" Length="200"/>
                     <Column Caption="出生日期" DataType="Date" Key="BirthDate"/>
                     <Column Caption="身份证号" DataType="Varchar" Key="IdNumber"/>
-                    <Column Caption="性别" DataType="Integer" Key="Sex"/>
+                    <Column Caption="性别" DataType="Varchar" Key="Sex"/>
                     <Column Caption="籍贯" DataType="Varchar" Key="Nativeplace"/>
                     <Column Caption="邮编1" DataType="Varchar" Key="PostCode"/>
                     <Column Caption="手机1" DataType="Varchar" Key="Mobile1" Cache="true"/>
@@ -50,10 +50,10 @@
                     <Column Caption="父对象标识" DataType="Long" Key="POID"/>
                     <Column Caption="对象版本" DataType="Integer" Key="VERID"/>
                     <Column Caption="对象明细版本" DataType="Integer" Key="DVERID"/>
+                    <Column Caption="序号" DataType="Integer" Key="Sequence"/>
                     <Column Caption="职务" DataType="Long" Key="PositionID"/>
                     <Column Caption="主职务" DataType="Integer" Key="MainPosition"/>
                     <Column Caption="部门" DataType="Long" Key="DepartmentID"/>
-                    <Column Caption="序号" DataType="Integer" Key="Sequence"/>
                 </Table>
                 <Table DBTableName="OA_Employee_Role" Key="OA_Employee_Role" ParentKey="OA_Employee_H" TableMode="Detail">
                     <Column Caption="对象标识" DataType="Long" Key="OID"/>
@@ -70,7 +70,7 @@
     <OperationCollection>
         <Operation Key="GenOperator" Caption="同步操作员">
             <Action>
-                <![CDATA[InvokeService("OA_GenOperator", true, false);
+                <![CDATA[Container.InvokeService("OA_GenOperator", true, false);
 SaveData();]]>
             </Action>
         </Operation>
@@ -84,9 +84,6 @@ Confirm("全部人员同步操作完成");]]>
     <UICheckRuleCollection>
         <UICheckRule Description="角色不能重复" ErrorInfo="角色不能重复">
             <![CDATA[!CheckDuplicate("RoleID")]]>
-        </UICheckRule>
-        <UICheckRule Description="身份证号输入有误，请检查！" ErrorInfo="身份证号输入有误，请检查！">
-            <![CDATA[Length(GetValue('IdNumber'))==18]]>
         </UICheckRule>
         <UICheckRule Description="职务列表不能为空" ErrorInfo="职位列表不能为空">
             <![CDATA[GetRowCount("Grid1",false)>0;]]>
@@ -105,10 +102,8 @@ Confirm("全部人员同步操作完成");]]>
                             <DataBinding ColumnKey="Name" TableKey="OA_Employee_H" Required="true"/>
                         </TextEditor>
                         <Label Caption="名称" Key="Lab_Name" X="3" Y="0"/>
-                        <ComboBox BuddyKey="Lab_Sex" Caption="性别" Key="Sex" X="1" Y="1">
+                        <ComboBox BuddyKey="Lab_Sex" Caption="性别" Key="Sex" X="1" Y="1" SourceType="ParaGroup" GroupKey="Sex">
                             <DataBinding ColumnKey="Sex" TableKey="OA_Employee_H"/>
-                            <Item Caption="男" Key="1" Value="1"/>
-                            <Item Caption="女" Key="2" Value="2"/>
                         </ComboBox>
                         <Label Caption="性别" Key="Lab_Sex" X="0" Y="1"/>
                         <TextEditor BuddyKey="Lab_NativePlace" Caption="籍贯" Key="NativePlace" X="4" Y="1"/>

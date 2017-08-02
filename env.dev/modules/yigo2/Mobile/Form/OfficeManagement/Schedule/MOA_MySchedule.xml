@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<Form Key="MOA_MySchedule" Caption="我的日程" FormType="Entity">
+<Form Key="MOA_MySchedule" Caption="我的日程" FormType="Entity" Platform="Mobile">
     <DataSource>
         <DataObject Key="MOA_MySchedule" Caption="我的日程" PrimaryTableKey="MOA_MySchedule_H" NoPrefix="MMS" PrimaryType="Entity">
             <TableCollection>

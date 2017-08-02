@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<Process Caption="外部会议流程" IDSeed="12" Key="WF_OA_MeetingOutSideWorkFlow" FormKey="OA_MeetingOutSide">
-    <Begin Caption="开始节点" ID="1" Key="Begin1">
+<Process Caption="外部会议流程" IDSeed="12" Key="WF_OA_MeetingOutSideWorkFlow" FormKey="OA_MeetingOutSide"  TemplateKey="OA_TmpTest">
+    <Begin Caption="开始节点" ID="1" Key="Begin1" pattern="Normal">
         <TransitionCollection>
             <SequenceFlow Caption="顺序流" ID="4" Key="SequenceFlow1" TargetNodeKey="State1"/>
         </TransitionCollection>
         <NodeGraphic Height="40" Width="40" X="93" Y="101"/>
         <NodeAttachment/>
     </Begin>
-    <End Caption="结束节点" ID="2" Key="End1">
+    <End Caption="结束节点" ID="2" Key="End1" pattern="Normal">
         <NodeGraphic Height="40" Width="40" X="620" Y="97"/>
         <NodeAttachment/>
     </End>
-    <State Caption="审批中" ID="3" Key="State1" Status="approving">
+    <State Caption="审批中" ID="3" Key="State1" Status="approving" pattern="Normal">
         <TransitionCollection>
             <SequenceFlow Caption="顺序流" ID="6" Key="SequenceFlow2" TargetNodeKey="Audit1"/>
         </TransitionCollection>
@@ -20,7 +20,7 @@
         <ParticipatorCollection/>
         <Perm/>
     </State>
-    <Audit Caption="部门主管审批" ID="5" Key="Audit1">
+    <Audit Caption="部门主管审批" ID="5" Key="Audit1" AutoIgnoreNoParticipator="true" pattern="Normal">
         <TransitionCollection>
             <SequenceFlow Caption="顺序流" ID="9" Key="SequenceFlow3" TargetNodeKey="State2"/>
             <SequenceFlow Caption="顺序流" Condition="False" ID="10" Key="SequenceFlow4" TargetNodeKey="State3"/>
@@ -44,7 +44,7 @@
         <Perm/>
         <DirectAuditCondition/>
     </Audit>
-    <State Caption="已审批" ID="7" Key="State2" Status="approved">
+    <State Caption="已审批" ID="7" Key="State2" Status="approved" pattern="Normal">
         <TransitionCollection>
             <SequenceFlow Caption="顺序流" ID="11" Key="SequenceFlow5" TargetNodeKey="End1"/>
         </TransitionCollection>
@@ -53,7 +53,7 @@
         <ParticipatorCollection/>
         <Perm/>
     </State>
-    <State Caption="驳回" ID="8" Key="State3" Status="reject">
+    <State Caption="驳回" ID="8" Key="State3" Status="reject" pattern="Normal">
         <TransitionCollection>
             <SequenceFlow Caption="顺序流" ID="12" Key="SequenceFlow6" TargetNodeKey="End1"/>
         </TransitionCollection>

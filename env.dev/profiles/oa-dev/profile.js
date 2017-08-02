@@ -21,19 +21,20 @@ var yigoWebApp = profile.registerPlugin("bokesoft.com/yigo2", {
 	jdbcUrl: os.getProp("JDBC_URL", "jdbc:mysql://localhost:3306/oa?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull"),
 	dbUser:  os.getProp("DB_USERNAME", "root"),
 	dbPass:  os.getProp("DB_PASSWORD", "******"),
-	solutionPath: "yigo2",
-	debug:	"true"
+	solutionPath: os.getProp("SOLUTION_PATH", "yigo2"),
+	debug:	os.getProp("YIGO_DEBUG", true),
 });
 
 //使用 CMS 2.0
 var cms2Webapp = profile.registerPlugin("bokesoft.com/cms2", {
 	webApp: yigoWebApp,
-	DefaultCmsBootConfigurer: {siteFolders: ["cms/site","cms/site-fallback"],developMode:true}
+	DefaultCmsBootConfigurer: {
+	    siteFolders: ["cms/site","cms/site-fallback"],
+		developMode: os.getProp("DEVELOP_MODE", false),
+	}
 });
 
 yigoWebApp.registerWebAppAlias("/jsp", "${MODULES_REPO}/jsp");
-
-
 
 //使用 yigo2-ecomm-ext (cms2-yigo2-adapter 依赖这个扩展)
 profile.registerPlugin("bokesoft.com/yigo2-ecomm-ext", {
@@ -48,6 +49,14 @@ profile.registerPlugin("bokesoft.com/cms2-yigo2-adapter", {
 //使用 cms2-site
 profile.registerPlugin("bokesoft.com/cms2-site", {
 	cms2: cms2Webapp
+});
+
+//使用 java-web-urlrewriter 映射 项目中对 Yigo 界面的修改(themes)
+var theme = os.getProp("YIGO2_THEME", "oa_trunk");
+yigoWebApp.registerWebAppAlias("/yigo2-theme", "${MODULES_REPO}/yigo2-themes/"+theme);
+profile.registerPlugin("public/java-web-urlrewriter", {
+	webApp: yigoWebApp,
+	confPath: "yigo2-themes/"+theme+".urlwrite.xml"
 });
 
 //加入 OA 自定义的 jar 包
@@ -73,8 +82,14 @@ webapp.registerWebAppAlias("/bokesoft-messager", "../instance/services/bokesoft.
 //后引入IM
 profile.registerPlugin("${PRODUCT_REPO}/../../services/bokesoft.com/messager/server");
 /** 环境变量-IM服务器的地址(用于服务端连接) */
-env.IM_SERVER_ADDR=os.getProp("IM_SERVER_ADDR", "http://localhost:57778/boke-messager");
+env.IM_SERVER_ADDR=os.getProp("IM_SERVER_ADDR", "http://localhost:7778/boke-messager");
+
+/** JVM 内存设置 */
+var maxMem = os.getProp("JVM_XMX", "800m");
+profile.JAVA_OPTS = "-server -Xmx"+maxMem+" -XX:MaxNewSize=128m -XX:MaxPermSize=128m -Djava.awt.headless=true";
 
 /** 调试设置 */
-profile.JAVA_OPTS = "-server -Xmx900m -XX:MaxNewSize=128m -Djava.awt.headless=true";
-profile.JAVA_OPTS += " -Xdebug -Xnoagent -Xrunjdwp:transport=dt_socket,address=37777,server=y,suspend=n"
+var debugPort = os.getProp("JPDA_PORT", "");
+if (debugPort){
+	profile.JAVA_OPTS += " -Xdebug -Xnoagent -Xrunjdwp:transport=dt_socket,address="+debugPort+",server=y,suspend=n"
+}

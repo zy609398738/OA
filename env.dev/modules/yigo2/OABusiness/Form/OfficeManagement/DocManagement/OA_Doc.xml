@@ -40,7 +40,13 @@
     <OperationCollection>
         <Operation Key="BPM" Caption="BPM" Tag="BPM"/>
         <Operation Key="WORKITEM" Caption="WORKITEM" Tag="WORKITEM"/>
-        <Operation Key="Save" Caption="保存" RefKey="Save"/>
+        <Operation Key="Save" Caption="保存" Visible="!ReadOnly()">
+            <Action>
+                <![CDATA[if(InvokeService("OA_GetOptIDsDetail", true, false,"OA_Doc_H","OptIDs",10)){
+    SaveData();
+}]]>
+            </Action>
+        </Operation>
         <Operation Key="Delete" Caption="删除" RefKey="Delete"/>
         <Operation Key="Edit" Caption="编辑" RefKey="Edit"/>
         <Operation Key="Cancel" Caption="取消" RefKey="Cancel"/>
@@ -113,7 +119,11 @@ DBUpdate("Update OA_Doc_H set Status=1500 where OID=?", GetOID());]]>
                         </Dict>
                         <Label Key="Lab_DeptID" Caption="申请部门" X="3" Y="1"/>
                         <Dict Key="DocType" Caption="文档分类" BuddyKey="Lab_DocType" X="7" Y="1" ItemKey="OA_DocType" XSpan="2">
-                            <DataBinding ColumnKey="DocType" TableKey="OA_Doc_H" Required="true"/>
+                            <DataBinding ColumnKey="DocType" TableKey="OA_Doc_H" Required="true">
+                                <ValueChanged>
+                                    <![CDATA[SetPara("AttachPath",InvokeService("OA_GetAttachmentList", true, false, "OA_DocType_H",DocType,'/'))]]>
+                                </ValueChanged>
+                            </DataBinding>
                         </Dict>
                         <Label Key="Lab_DocType" Caption="文档分类" X="6" Y="1"/>
                         <DatePicker Key="ValidityDate" Caption="有效期" BuddyKey="Lab_ValidityDate" X="1" Y="2" XSpan="2">
@@ -148,9 +158,7 @@ DBUpdate("Update OA_Doc_H set Status=1500 where OID=?", GetOID());]]>
                             <DataBinding ColumnKey="OptIDs" TableKey="OA_Doc_H"/>
                         </TextArea>
                         <Label Key="Lab_OptIDs" Caption="参与者ids" X="0" Y="6"/>
-                        <Embed Caption="附件" FormKey="OA_Attachment" Key="OA_Attachment" RootKey="Grid2" X="1" XSpan="8" Y="7">
-                            <Var Key="ParentKey" Value="OA_Doc_H"/>
-                        </Embed>
+                        <Embed Caption="附件" FormKey="OA_Attachment" Key="OA_Attachment" RootKey="OA_Attachment" X="1" XSpan="8" Y="7"/>
                         <Label Key="Label_OA_Attachment" Caption="附件" X="0" Y="7"/>
                         <RowDefCollection RowGap="8">
                             <RowDef Height="30px"/>

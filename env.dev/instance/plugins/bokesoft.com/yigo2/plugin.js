@@ -29,7 +29,7 @@
 	    "designer.sh", "designer.bat", "History.properties",
 	    "launcher.sh", "launcher.bat", "launcher.properties",
 	    "license", "designer.log4j.properties", "launcher.log4j.properties",
-	    "dbcp.properties", "quartz_jobs.xml"
+	    "log4j.properties", "dbcp.properties", "quartz_jobs.xml"
 	];
     plugin.dependencies = [];
     
@@ -159,6 +159,10 @@
 
             var dbcpFile = plugin.configFiles["dbcp.properties"];
             log.info("dbcp.properties 配置文件: [" + dbcpFile + "] .");
+			
+	    var log4jFile = plugin.configFiles["log4j.properties"];
+            log.info("log4j.properties 配置文件: [" + log4jFile + "] .");
+			
             var quartzJobsFile = plugin.configFiles["quartz_jobs.xml"];
             log.info("quartz_jobs.xml 配置文件: [" + dbcpFile + "] .");
             //处理配置文件
@@ -169,6 +173,7 @@
             var dnDsnTarget = os.normalizePath(yigo2DSN+".properties", os.normalizePath("Designer", plugin.path));  //设计器使用的 DSN
             var dbcpTarget = os.normalizePath(yigo2WebApp+"/WEB-INF/classes/dbcp.properties", plugin.path); 
             var dnDbcpTarget = os.normalizePath("dbcp.properties", os.normalizePath("Designer", plugin.path));
+            var log4jTarget = os.normalizePath(yigo2WebApp+"/WEB-INF/classes/log4j.properties", plugin.path);
             var quartzJobsTarget = os.normalizePath(yigo2WebApp+"/WEB-INF/classes/quartz_jobs.xml", plugin.path); 
             var dnQuartzJobsTarget = os.normalizePath("quartz_jobs.xml", os.normalizePath("Designer", plugin.path));
         	var vars = {
@@ -188,6 +193,7 @@
         	shell.copyTemplateFile(dsnFile, dnDsnTarget, vars);
         	shell.copyTemplateFile(dbcpFile, dbcpTarget, vars);
         	shell.copyTemplateFile(dbcpFile, dnDbcpTarget, vars);
+        	shell.copyTemplateFile(log4jFile, log4jTarget, vars);
         	shell.copyTemplateFile(quartzJobsFile, quartzJobsTarget, vars);
         	shell.copyTemplateFile(quartzJobsFile, dnQuartzJobsTarget, vars);
         	

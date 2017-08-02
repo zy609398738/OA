@@ -42,7 +42,13 @@
     <OperationCollection>
         <Operation Key="WORKITEM" Caption="WORKITEM" Tag="WORKITEM"/>
         <Operation Key="BPM" Caption="BPM" Tag="BPM"/>
-        <Operation Key="Save" Caption="保存" RefKey="Save"/>
+        <Operation Key="Save" Caption="保存" Visible="!ReadOnly()">
+            <Action>
+                <![CDATA[if(InvokeService("OA_GetOptIDsDetail", true, false,"OA_ForeignLan_H","OptIDs",10)){
+    SaveData();
+}]]>
+            </Action>
+        </Operation>
         <Operation Key="Delete" Caption="删除" Visible="ReadOnly()&amp;&amp;Status==100">
             <Action>
                 <![CDATA[InvokeService("OA_DeleteFile", true, false, FilePath);
@@ -131,29 +137,19 @@ DBUpdate("Update OA_ForeignLan_H set Status=1500 where OID=?", GetOID());]]>
                             <Item Caption="一般" Key="30" Value="30"/>
                         </ComboBox>
                         <Label Key="Lab_ReminderDeg" Caption="催办等级" X="8" Y="2"/>
-                        <ComboBox Key="UrgencyDeg" Caption="文件缓急" BuddyKey="Lab_UrgencyDeg" X="9" Y="2" Visible="false" XSpan="2">
-                            <DataBinding ColumnKey="UrgencyDeg" TableKey="OA_ForeignLan_H"/>
-                            <Item Key="0" Value="0"/>
-                            <Item Caption="特急" Key="10" Value="10"/>
-                            <Item Caption="紧急" Key="20" Value="20"/>
-                            <Item Caption="一般" Key="30" Value="30"/>
+                        <ComboBox Key="UrgencyDeg" Caption="文件缓急" BuddyKey="Lab_UrgencyDeg" X="9" Y="2" Visible="false" SourceType="ParaGroup" XSpan="2" GroupKey="UrgencyDeg">
+                            <DataBinding ColumnKey="UrgencyDeg" TableKey="OA_ForeignLan_H" DefaultValue="10"/>
                         </ComboBox>
                         <Label Key="Lab_UrgencyDeg" Caption="文件缓急" X="8" Y="2"/>
                         <Dict Key="FileTypeID" Caption="收文类型" BuddyKey="Lab_FileTypeID" X="1" Y="2" ItemKey="OA_FileType" XSpan="3">
                             <DataBinding ColumnKey="FileTypeID" TableKey="OA_ForeignLan_H" Required="true"/>
                         </Dict>
                         <Label Key="Lab_FileTypeID" Caption="收文类型" X="0" Y="2"/>
-                        <ComboBox Key="SecretL" Caption="密级" BuddyKey="Lab_SecretL" X="9" Y="1" XSpan="3">
+                        <ComboBox Key="SecretL" Caption="密级" BuddyKey="Lab_SecretL" X="9" Y="1" SourceType="ParaGroup" XSpan="3" GroupKey="SecretL">
                             <DataBinding ColumnKey="SecretL" TableKey="OA_ForeignLan_H"/>
-                            <Item Key="0" Value="0"/>
-                            <Item Caption="机密" Key="10" Value="10"/>
-                            <Item Caption="非密" Key="20" Value="20"/>
-                            <Item Caption="秘密" Key="30" Value="30"/>
                         </ComboBox>
                         <Label Key="Lab_SecretL" Caption="密级" X="8" Y="1"/>
-                        <Embed Caption="审批记录" Key="BPM_Log" X="1" XSpan="11" Y="6" FormKey="OA_BPM_Log" RootKey="Grid1">
-                            <Var Key="ParentKey" Value="OA_ForeignLan_H"/>
-                        </Embed>
+                        <Embed Caption="审批记录" Key="BPM_Log" X="1" XSpan="11" Y="6" FormKey="OA_BPM_Log" RootKey="OA_BPM_Log"/>
                         <Label Key="Label_BPM_Log" Caption="审批记录" X="0" Y="6">
                             <Format HAlign="Left"/>
                         </Label>
@@ -170,9 +166,7 @@ DBUpdate("Update OA_ForeignLan_H set Status=1500 where OID=?", GetOID());]]>
                                 <![CDATA[OA_ShowEmpSelectOpt()]]>
                             </OnClick>
                         </HyperLink>
-                        <Embed Caption="附件" FormKey="OA_Attachment" Key="OA_Attachment" RootKey="Grid2" X="1" XSpan="11" Y="7">
-                            <Var Key="ParentKey" Value="OA_ForeignLan_H"/>
-                        </Embed>
+                        <Embed Caption="附件" FormKey="OA_Attachment" Key="OA_Attachment" RootKey="OA_Attachment" X="1" XSpan="11" Y="7"/>
                         <Label Key="Label_OA_Attachment" Caption="附件" X="0" Y="7"/>
                         <Button Key="EditText" Caption="编辑正文" X="1" Y="5" Enable="true">
                             <OnClick>

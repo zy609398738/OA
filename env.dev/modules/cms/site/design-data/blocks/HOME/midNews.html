@@ -1,0 +1,70 @@
+#foreach($title in $titleData)
+	<a  onclick="newForm('OA_ShowWeb','','URL:{\'newslist.page?typecode=$title.CODE\'},FormCaption:{\'新闻列表\'}')" class="a_more" id=$title.CODE>更多</a> 
+#end
+<div class="news_title">
+ 	#foreach($title in $titleData)
+       <span>$title.NAME</span>
+    #end
+ </div>
+ #foreach($title in $titleData)
+ <div class=" tab_item news_content" style="height:384px;">
+    <ul>
+      #if($title.CODE == ${toptype})
+       	#foreach( $topLine in $topData )
+			<li>
+              <a onclick="newForm('OA_ShowWeb','','URL:{\'$href$topLine.ID\'},FormCaption:{\'$topLine.COL2\'}')" style="margin-left:55px;" class="f333">
+              	<span style="left:0px;" class="f333">【置顶】</span>
+                $esc.html($topLine.COL2)
+              </a>
+              <span style="float:right;" class="f999">$esc.html($date.format("yyyy-MM-dd",$topLine.COL4))</span>
+            </li>
+      	#end
+        #foreach( $line in $data )
+            #if($line.CODE == ${toptype})
+              #set ($isTop=0)
+              #foreach( $topLine in $topData )
+                  #if($line.ID==$topLine.ID)
+                      #set ($isTop=1)
+                  #end
+              #end
+              #if($isTop==0)
+                <li> 
+                  <a onclick="newForm('OA_ShowWeb','','URL:{\'$href$line.ID\'},FormCaption:{\'$line.COL2\'}')" class="f333">$esc.html($line.COL2)</a>
+                  <span style="float:right;" class="f999">$esc.html($date.format("yyyy-MM-dd",$line.COL4))</span>
+                </li>
+              #end
+            #end
+        #end
+      #else
+        #foreach( $line in $data )
+            #if($line.CODE == $title.CODE)
+            <li> 
+              <a onclick="newForm('OA_ShowWeb','','URL:{\'$href$line.ID\'},FormCaption:{\'$line.COL2\'}')" class="f333">$esc.html($line.COL2)</a>
+              <span style="float:right;" class="f999">$esc.html($date.format("yyyy-MM-dd",$line.COL4))</span>
+            </li>
+            #end
+        #end
+      #end
+    </ul>  
+ </div>
+ #end
+
+<script>
+ 	$("#mid .first .right-todo .delivery-HOME-midNews .news_content").hide().eq(0).show();
+  	$("#mid .first .right-todo .delivery-HOME-midNews .a_more").hide().eq(0).show();
+    $("#mid .first .right-todo .news_title span").eq(0).addClass('bottomColor');
+    $("#mid .first .right-todo .news_title span").hover(function(){
+    	$(this).addClass('bottomColor').siblings().removeClass('bottomColor');
+        $("#mid .first .right-todo .delivery-HOME-midNews .news_content").hide().eq($(this).index()).show();
+        $("#mid .first .right-todo .delivery-HOME-midNews .a_more").hide().eq($(this).index()).show();
+    })
+    
+    $("#mid .cent .aside-right .delivery-HOME-midNews .news_content").hide().eq(0).show();
+  	$("#mid .cent .aside-right .delivery-HOME-midNews .a_more").hide().eq(0).show();
+    $("#mid .cent .aside-right .news_title span").eq(0).addClass('bottomColor');
+    $("#mid .cent .aside-right .news_title span").hover(function(){
+    	$(this).addClass('bottomColor').siblings().removeClass('bottomColor');
+        $("#mid .cent .aside-right .delivery-HOME-midNews .news_content").hide().eq($(this).index()).show();
+        $("#mid .cent .aside-right .delivery-HOME-midNews .a_more").hide().eq($(this).index()).show();
+    })
+</script>

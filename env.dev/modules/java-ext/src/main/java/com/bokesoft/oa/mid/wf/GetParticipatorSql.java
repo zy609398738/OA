@@ -19,13 +19,13 @@ import com.bokesoft.yigo.struct.datatable.DataTable;
  */
 public class GetParticipatorSql implements IExtService {
 	/**
-	 * 中间层对象
+	 * 上下文对象
 	 */
 	private DefaultContext context;
 	private IDBManager dbm;
 
 	/**
-	 * 获得中间层对象
+	 * 获得上下文对象
 	 * 
 	 * @return
 	 */
@@ -34,7 +34,7 @@ public class GetParticipatorSql implements IExtService {
 	}
 
 	/**
-	 * 设置中间层对象
+	 * 设置上下文对象
 	 * 
 	 * @param context
 	 * @throws Throwable

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="OA_WorkStatistics" Caption="工作统计" FormType="View">
+    <DataSource>
+        <DataObject Key="OA_WorkStatistics" Caption="工作统计">
+            <TableCollection>
+                <Table Key="OA_WorkStatistics" Caption="工作统计" TableMode="Detail" SourceType="Query" Persist="false">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="DeptID" Caption="部门" DataType="Long"/>
+                    <Column Key="EmpID" Caption="发布人员" DataType="Long"/>
+                    <Column Key="ReceiveEmpID" Caption="接收人员" DataType="Long"/>
+                    <Column Key="Topic" Caption="主题" DataType="Varchar" Length="0"/>
+                    <Column Key="BillDate" Caption="申请日期" DataType="DateTime"/>
+                    <Column Key="Status" Caption="状态" DataType="Integer"/>
+                    <Column Key="UrgencyDeg" Caption="紧急程度" DataType="Integer"/>
+                    <ParameterCollection>
+                        <Parameter DataType="Long" Formula="GetOperator();"/>
+                        <Parameter DataType="Long" Formula="GetOperator();"/>
+                    </ParameterCollection>
+                    <Statement>
+                        <![CDATA[select * from (
+select i.formkey,i.oid,w.WorkitemID,topic,empid,deptid,BillStatus,i.ProcessKey,w.creatTime
+from wf_workitem w  
+join bpm_log l on w.WorkitemID=l.WorkitemID 
+join BPM_Instance i on  l.instanceID=i.instanceID  
+join bpm_migration M on i.OID = m.BillOID   
+where l.WorkitemState=2 and l.OperatorID=? and l.WorkitemID 
+in(select MAX(WorkitemID) 
+from bpm_log ll 
+where ll.operatorID=? 
+GROUP BY ll.InstanceID) and i.instancestate!=3 and i.FormKey='OA_Taskdistribution' ORDER BY CreatTime desc) h]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <Body PopWidth="100%">
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板" Height="100%">
+                <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <GridLayoutPanel Key="first_head" Padding="5px" Height="120px" Caption="基本信息">
+                    <DatePicker Key="From" Caption="发布日期 从" BuddyKey="Lab_From" X="1" Y="0">
+                        <Condition ColumnKey="BillDate" TableKey="OA_WorkStatistics" CondSign="between" Group="A" GroupHead="true"/>
+                    </DatePicker>
+                    <Label Key="Lab_From" Caption="发布日期 从" X="0" Y="0"/>
+                    <DatePicker Key="To" Caption="到" BuddyKey="Lab_To" X="3" Y="0">
+                        <Condition ColumnKey="BillDate" TableKey="OA_WorkStatistics" CondSign="between" Group="A" GroupTail="true"/>
+                    </DatePicker>
+                    <Label Key="Lab_To" Caption="到" X="2" Y="0">
+                        <Format HAlign="Center"/>
+                    </Label>
+                    <Dict Key="Q_EmpID" Caption="发布人员" BuddyKey="Lab_Q_EmpID" X="1" Y="1" ItemKey="OA_Employee" AllowMultiSelection="true">
+                        <Condition ColumnKey="EmpID" TableKey="OA_WorkStatistics" CondSign="in"/>
+                    </Dict>
+                    <Label Key="Lab_Q_EmpID" Caption="发布人员" X="0" Y="1"/>
+                    <Dict Key="Q_ReceiveEmpID" Caption="接收人员" BuddyKey="Lab_Q_ReceiveEmpID" X="3" Y="1" ItemKey="OA_Employee" AllowMultiSelection="true">
+                        <Condition ColumnKey="ReceiveEmpID" TableKey="OA_WorkStatistics" CondSign="in"/>
+                    </Dict>
+                    <Label Key="Lab_Q_ReceiveEmpID" Caption="接收人员" X="2" Y="1"/>
+                    <Dict Key="Q_DeptID" Caption="部门" BuddyKey="Lab_Q_DeptID" X="5" Y="1" ItemKey="OA_Department" AllowMultiSelection="true">
+                        <Condition ColumnKey="DeptID" TableKey="OA_WorkStatistics" CondSign="in"/>
+                    </Dict>
+                    <Label Key="Lab_Q_DeptID" Caption="发布部门" X="4" Y="1"/>
+                    <TextEditor Key="Q_Topic" Caption="主题" BuddyKey="Lab_Q_Topic" X="1" Y="2" XSpan="3">
+                        <Condition ColumnKey="Topic" TableKey="OA_WorkStatistics" CondSign="like"/>
+                    </TextEditor>
+                    <Label Key="Lab_Q_Topic" Caption="主题" X="0" Y="2"/>
+                    <Button Key="Query" Caption="查询" X="6" Y="0">
+                        <OnClick>
+                            <![CDATA[DealCondition();
+LoadData();
+ShowData();]]>
+                        </OnClick>
+                    </Button>
+                    <Button Key="Reset" Caption="重置" X="6" Y="1">
+                        <OnClick>
+                            <![CDATA[ResetCondition();]]>
+                        </OnClick>
+                    </Button>
+                    <CheckListBox BuddyKey="Lab_Q_UrgencyDeg" Caption="紧急程度" Key="Q_UrgencyDeg" X="5" Y="0">
+                        <Condition ColumnKey="UrgencyDeg" TableKey="OA_WorkStatistics" CondSign="in"/>
+                    </CheckListBox>
+                    <Label Key="Lab_Q_UrgencyDeg" Caption="紧急程度" X="4" Y="0"/>
+                    <CheckListBox BuddyKey="Lab_Q_Status" Caption="状态" Key="Q_Status" X="5" Y="2">
+                        <Condition ColumnKey="Status" TableKey="OA_WorkStatistics" CondSign="in"/>
+                    </CheckListBox>
+                    <Label Key="Lab_Q_Status" Caption="状态" X="4" Y="2"/>
+                    <RowDefCollection RowGap="8">
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="8">
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="33%"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="33%"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="34%"/>
+                        <ColumnDef Width="80px"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+                <ListView Caption="ListView1" Height="100%" Key="ListView1" PageLoadType="DB" TableKey="OA_WorkStatistics">
+                    <ListViewColumnCollection>
+                        <ListViewColumn Key="Topic" Caption="主题" ColumnType="TextEditor" DataColumnKey="Topic" Width="250px"/>
+                        <ListViewColumn Key="UrgencyDeg" Caption="紧急程度" ColumnType="ComboBox" GroupKey="UrgencyDeg" SourceType="ParaGroup"/>
+                        <ListViewColumn Key="EmpID" Caption="发布人员" ColumnType="Dict" DataColumnKey="EmpID" Width="120px" ItemKey="OA_Employee"/>
+                        <ListViewColumn Key="DeptID" Caption="发布部门" ColumnType="Dict" DataColumnKey="DeptID" Width="120px" ItemKey="OA_Department"/>
+                        <ListViewColumn Key="ReceiveEmpID" Caption="接收人员" ColumnType="Dict" DataColumnKey="ReceiveEmpID" Width="120px" ItemKey="OA_Employee"/>
+                        <ListViewColumn Key="BillDate" Caption="发布日期" ColumnType="DatePicker" DataColumnKey="BillDate" Width="150px"/>
+                        <ListViewColumn Key="Status" Caption="状态" ColumnType="ComboBox" DataColumnKey="Status" Width="100px" SourceType="Status"/>
+                        <ListViewColumn Key="OID" Caption="OID" DataColumnKey="OID" Visible="false"/>
+                    </ListViewColumnCollection>
+                    <RowDblClick>
+                        <![CDATA[Open("OA_Taskdistribution",OID)]]>
+                    </RowDblClick>
+                </ListView>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+    <OnLoad>
+        <![CDATA[LoadData();]]>
+    </OnLoad>
+</Form>

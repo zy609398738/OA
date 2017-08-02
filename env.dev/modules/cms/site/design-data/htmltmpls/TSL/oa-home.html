@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8" />   
+    <meta charset="utf-8">
+    <title>上海博科协同OA系统首页模板</title>
+</head>
+<body class="home-page">
+<div yigo-cms:block="static2"/>
+<!--头部-->
+<div class="container" id="header">
+    <div class="row clearfix top_bg">
+  <div yigo-cms:block="header"/>
+    </div>
+</div>
+<!-- 菜单区域 -->
+<div id="nav" class="container">
+ <div class="row">
+  <div yigo-cms:area="main-menu"/>
+ </div>
+</div>
+<!--主体-->
+<div class="container" id="mid">
+    <div class="row clearfix">
+        <div class="span3 aside-left">
+            <div yigo-cms:area="left-sidebar" />
+        </div>
+        <div class="span9 main">
+            <div class="row">
+                <div class="span6 center">
+                    <div yigo-cms:area="content" />
+                </div>
+                <div class="span3 aside-right">
+                    <div yigo-cms:area="right-sidebar" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--主体end-->
+<!--常用链接-->
+<div class="container" id="OffenLinksRow">
+    <div class="row">
+        <div class="span12">
+           <div yigo-cms:area="OffenLinksRow" />
+        </div>
+    </div>
+</div>
+<!--常用链接end-->
+
+<!--尾部-->
+<div class="container" id="bottom">
+    <div class="row">
+        <div class="span12">
+           <div yigo-cms:block="footer"/>
+        </div>
+    </div>
+</div>
+<!--尾部end-->
+</body></html>

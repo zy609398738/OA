@@ -16,7 +16,7 @@
             <SourceField Definition="UsePeople" TargetFieldKey="UsePeople"/>
             <SourceField Definition="AssetsOID" TargetFieldKey="AssetsOID"/>
             <SourceField Definition="Amount" TargetFieldKey="Amount"/>
-            <SourceField Definition="UseType" TargetFieldKey="UseType" TargetTableKey="NJ_SCM_UseAssetInventoryHead"/>
+            <SourceField Definition="UseType" TargetFieldKey="UseType" TargetTableKey="NJ_SCM_UseAssetInv_H"/>
         </SourceTable>
     </SourceTableCollection>
     <TargetTableCollection Height="630" Width="534" X="393" Y="30">
@@ -36,7 +36,7 @@
             <TargetField Definition="AssetsOID"/>
             <TargetField Definition="Amount"/>
         </TargetTable>
-        <TargetTable Key="NJ_SCM_UseAssetInventoryHead">
+        <TargetTable Key="NJ_SCM_UseAssetInv_H">
             <TargetField Definition="UseType"/>
         </TargetTable>
     </TargetTableCollection>

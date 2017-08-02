@@ -1,1 +1,0 @@
-cms.PageExp.Local("newslist",cms.DataExp.QueryList({select oid,title,date_format(NewsDate,'%Y-%m-%d') as newsdate from cms_news where status =1200 order by NewsDate desc limit 3}));

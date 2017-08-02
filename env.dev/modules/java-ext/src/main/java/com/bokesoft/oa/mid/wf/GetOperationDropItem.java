@@ -26,7 +26,7 @@ public class GetOperationDropItem implements IExtService {
 	 * 获得操作的下拉字符串
 	 * 
 	 * @param context
-	 *            中间层对象
+	 *            上下文对象
 	 * @param formKey
 	 *            单据的Key
 	 * @return 操作的下拉字符串

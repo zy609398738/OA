@@ -31,7 +31,7 @@
                             </DataBinding>
                         </Dict>
                         <Label Key="Lab_QuerySeal" Caption="签章选择" X="0" Y="0"/>
-                        <Image Key="Preview" Caption="签章预览" BuddyKey="Lab_Preview" X="0" Y="3" YSpan="5" HasBorder="true" XSpan="3" Stretch="true"/>
+                        <Image Key="Preview" Caption="签章预览" BuddyKey="Lab_Preview" X="0" Y="3" Enable="false" YSpan="5" HasBorder="true" XSpan="3" Stretch="true"/>
                         <Label Key="Lab_Preview" Caption="签章预览" X="0" Y="2"/>
                         <Button Key="Reset" Caption="重置" X="2" Y="8">
                             <OnClick>

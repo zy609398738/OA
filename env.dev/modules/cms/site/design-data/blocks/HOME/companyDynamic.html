@@ -1,0 +1,30 @@
+ <div class="banners fl_left clearfix" id="banner-show">
+ <ul class="banner-show-img">
+  #foreach( $picline in $picdata )
+  #if($picline.ROWNUMS==1)
+  <li  name="$picline.FILENAME">
+   <a href="#"><img src="/yigo/a/cms2-yigo2-adapter/cms/view-yigo-file/$picline.PATH"  name="$picline.FILENAME"></a>
+   <p class="title"> <a href="$href$picline.ID">$picline.TOPIC</a></p>
+  </li>
+ #else
+  <li name="$picline.FILENAME">
+   <a href="$href$picline.ID"><img src="/yigo/a/cms2-yigo2-adapter/cms/view-yigo-file/$picline.PATH"  name="$picline.FILENAME"></a>
+   <p class="title"><a href="$href$picline.ID"> $picline.TOPIC</a></p>
+  </li>
+ #end
+#end
+ </ul>
+ 
+ <ul class="show-contrls" id="banner-show-Nav">
+   <a id="prev" title="向前"><img src="/yigo/_$/images/main/tpxq.png"></a>
+   #foreach( $picline in $picdata )
+      #if($picline.ROWNUMS==1)
+      <li class="trigger imgSelected"><img src="/yigo/a/cms2-yigo2-adapter/cms/view-yigo-file/$picline.PATH"  name="$picline.FILENAME"></li>
+      #else
+      <li class="trigger"><img src="/yigo/a/cms2-yigo2-adapter/cms/view-yigo-file/$picline.PATH"  name="$picline.FILENAME"></li>
+      #end
+   #end
+   <a id="next" title="向后"><img src="/yigo/_$/images/main/tpxh.png"></a>
+ </ul> 
+ </div>
+ <script type="text/javascript" src="/yigo/_$/resources/@buildin/js/banner_show.js"></script>

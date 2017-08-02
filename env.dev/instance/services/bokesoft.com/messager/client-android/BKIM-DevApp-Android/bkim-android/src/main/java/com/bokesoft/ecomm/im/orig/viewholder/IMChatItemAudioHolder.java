@@ -10,6 +10,7 @@ import com.bokesoft.ecomm.im.orig.view.BKIMPlayButton;
 import com.bokesoft.ecomm.im.android.ui.viewholder.ChatItemHolder;
 
 /**
+ * TODO (未实现仅供参考) Audio 类型的消息
  * 聊天页面中的语音 item 对应的 holder
  */
 public class IMChatItemAudioHolder extends ChatItemHolder {

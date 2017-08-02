@@ -1,0 +1,81 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.3"
+    defaultConfig {
+        applicationId "com.bk_oa_app"
+        minSdkVersion 15
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+    }
+    buildTypes {
+        debug {
+            minifyEnabled false
+            manifestPlaceholders = [
+                    com_bokesoft_yeslibrary_APP_NAME: "天合光能测试",
+            ]
+            buildConfigField "String", "URL", '"http://mbpm.trinasolar.com/yigo/"'
+        }
+        release {
+            minifyEnabled false
+            manifestPlaceholders = [
+                    com_bokesoft_yeslibrary_APP_NAME: "天合光能",
+            ]
+            buildConfigField "String", "URL", '"http://mbpm.trinasolar.com/yigo/"'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+
+    productFlavors {
+        OA {
+            manifestPlaceholders = [
+                    package_name                           : "com.bk_oa_app",
+                    com_bokesoft_yeslibrary_LOCAL_META_FILE: "",
+                    com_bokesoft_yeslibrary_APP_KEY        : "OA",
+                    com_bokesoft_yeslibrary_WEB_SOCKET_PORT: ""
+            ]
+            buildConfigField "int[]", "guideImages", 'new int[]{}'
+        }
+    }
+}
+repositories {
+    flatDir {
+        dirs '../../libs/yigo2'
+        dirs '../../libs/bkim'
+    }
+}
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    testCompile 'junit:junit:4.12'
+//65536
+    compile 'com.android.support:multidex:1.0.1'
+
+
+    //依赖oa的aar
+    compile(name: 'yeslibrary', ext: 'aar')
+    compile 'com.android.support:support-v4:25.3.1'
+    compile 'com.android.support:design:25.3.1'
+    compile 'com.android.support:percent:25.3.1'
+    compile 'com.android.support:recyclerview-v7:25.3.1'
+    compile 'com.android.support:gridlayout-v7:25.3.1'
+    compile 'org.jetbrains:annotations-java5:15.0'
+    compile 'com.google.android:flexbox:0.2.6'
+    compile 'com.squareup.okio:okio:1.13.0'
+    compile 'com.squareup.okhttp:okhttp:2.7.5'
+    compile 'me.zhanghai.android.materialratingbar:library:1.0.2'
+    compile 'commons-codec:commons-codec:1.9'
+    //依赖Im相关
+    compile(name: 'boke-im', ext: 'aar')
+}

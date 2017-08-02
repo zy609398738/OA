@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<Process Caption="周报审批流" Key="WF_OA_WeeklyReport" IDSeed="31" FormKey="OA_weeklyreport">
-    <Begin Caption="开始" ID="1" Key="Begin1">
+<Process Caption="周报审批流" Key="WF_OA_WeeklyReport" IDSeed="31" FormKey="OA_weeklyreport"  TemplateKey="OA_TmpTest">
+    <Begin Caption="开始" ID="1" Key="Begin1" pattern="Normal">
         <TransitionCollection>
             <SequenceFlow Caption="顺序流" ID="18" Key="SequenceFlow10" TargetNodeKey="State2"/>
         </TransitionCollection>
         <NodeGraphic X="8" Y="20" Height="40" Width="40"/>
         <NodeAttachment/>
     </Begin>
-    <Audit Caption="审批" ID="2" Key="Audit1">
+    <Audit Caption="审批" ID="2" Key="Audit1" AutoIgnoreNoParticipator="true" pattern="Normal">
         <TransitionCollection>
             <SequenceFlow Caption="顺序流" ID="6" Key="SequenceFlow2" TargetNodeKey="State1"/>
             <SequenceFlow Caption="顺序流" ID="20" Key="SequenceFlow11" TargetNodeKey="State5" Condition="False"/>
@@ -27,7 +27,7 @@
         <Perm/>
         <DirectAuditCondition/>
     </Audit>
-    <State Caption="已审批" ID="3" Key="State1" Status="approved">
+    <State Caption="已审批" ID="3" Key="State1" Status="approved" pattern="Normal">
         <TransitionCollection>
             <SequenceFlow Caption="顺序流" ID="7" Key="SequenceFlow3" TargetNodeKey="End1"/>
         </TransitionCollection>
@@ -36,11 +36,11 @@
         <ParticipatorCollection/>
         <Perm/>
     </State>
-    <End Caption="结束节点" ID="4" Key="End1">
+    <End Caption="结束节点" ID="4" Key="End1" pattern="Normal">
         <NodeGraphic X="640" Y="20" Height="40" Width="40"/>
         <NodeAttachment/>
     </End>
-    <State Caption="审批中" ID="8" Key="State2" Status="approving">
+    <State Caption="审批中" ID="8" Key="State2" Status="approving" pattern="Normal">
         <TransitionCollection>
             <SequenceFlow Caption="顺序流" ID="9" Key="SequenceFlow4" TargetNodeKey="ServiceTask1"/>
         </TransitionCollection>
@@ -49,7 +49,7 @@
         <ParticipatorCollection/>
         <Perm/>
     </State>
-    <State Caption="初始状态" ID="19" Key="State5" Status="init">
+    <State Caption="初始状态" ID="19" Key="State5" Status="init" pattern="Normal">
         <TransitionCollection>
             <SequenceFlow Caption="顺序流" ID="22" Key="SequenceFlow12" TargetNodeKey="Audit3"/>
         </TransitionCollection>
@@ -58,7 +58,7 @@
         <ParticipatorCollection/>
         <Perm/>
     </State>
-    <Audit Caption="重新提交" ID="21" Key="Audit3" FinishTrigger="OA_WeeklyReport.Status=1100">
+    <Audit Caption="重新提交" ID="21" Key="Audit3" FinishTrigger="OA_WeeklyReport.Status=1100" AutoIgnoreNoParticipator="true" pattern="Normal">
         <TransitionCollection>
             <SequenceFlow Caption="顺序流" ID="23" Key="SequenceFlow13" TargetNodeKey="State6"/>
         </TransitionCollection>
@@ -81,7 +81,7 @@
         <Perm/>
         <DirectAuditCondition/>
     </Audit>
-    <State Caption="审批中" ID="24" Key="State6" Status="approving">
+    <State Caption="审批中" ID="24" Key="State6" Status="approving" pattern="Normal">
         <TransitionCollection>
             <SequenceFlow Caption="顺序流" ID="25" Key="SequenceFlow14" TargetNodeKey="ServiceTask2"/>
         </TransitionCollection>
@@ -90,7 +90,7 @@
         <ParticipatorCollection/>
         <Perm/>
     </State>
-    <ServiceTask Caption="覆盖标题" ID="29" Key="ServiceTask2">
+    <ServiceTask Caption="覆盖标题" ID="29" Key="ServiceTask2" pattern="Normal">
         <TransitionCollection>
             <SequenceFlow Caption="顺序流" ID="30" Key="SequenceFlow16" TargetNodeKey="Audit1"/>
         </TransitionCollection>
@@ -102,7 +102,7 @@
                          +GetDictValue('Operator', GetOperator(), 'Name')+" 提交";]]>
         </Action>
     </ServiceTask>
-    <ServiceTask Caption="生成标题" ID="27" Key="ServiceTask1">
+    <ServiceTask Caption="生成标题" ID="27" Key="ServiceTask1" pattern="Normal">
         <TransitionCollection>
             <SequenceFlow Caption="顺序流" ID="28" Key="SequenceFlow15" TargetNodeKey="Audit1"/>
         </TransitionCollection>

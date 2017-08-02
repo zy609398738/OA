@@ -1,29 +1,71 @@
 package com.bokesoft.oa.mid.wf;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
-import com.bokesoft.yes.bpm.meta.transform.WorkitemInfo;
+import com.bokesoft.oa.base.OAContext;
+import com.bokesoft.oa.mid.wf.base.NodeProperty;
+import com.bokesoft.oa.mid.wf.base.NodePropertyCreate;
+import com.bokesoft.oa.mid.wf.base.NodePropertyCreateMap;
+import com.bokesoft.oa.mid.wf.base.NodePropertyFinish;
+import com.bokesoft.oa.mid.wf.base.NodePropertyFinishMap;
+import com.bokesoft.oa.mid.wf.base.Operation;
+import com.bokesoft.oa.mid.wf.base.OperationSel;
+import com.bokesoft.oa.mid.wf.base.OperationSelDtl;
+import com.bokesoft.oa.mid.wf.base.OperatorSel;
+import com.bokesoft.oa.mid.wf.base.RightSel;
+import com.bokesoft.oa.mid.wf.base.RightSelField;
+import com.bokesoft.oa.mid.wf.base.RightSelFieldMap;
+import com.bokesoft.oa.mid.wf.base.RightSelOperation;
+import com.bokesoft.oa.mid.wf.base.RightSelOperationMap;
+import com.bokesoft.oa.mid.wf.base.WorkflowDesigneDtl;
+import com.bokesoft.oa.mid.wf.base.WorkflowTypeDtl;
+import com.bokesoft.oa.mid.wf.base.WorkflowTypeDtlMap;
+import com.bokesoft.oa.mid.wf.base.WorkingCalendar;
+import com.bokesoft.oa.mid.wf.base.WorkingCalendarDtl;
+import com.bokesoft.oa.mid.wf.base.WorkingCalendarDtlMap;
+import com.bokesoft.oa.mid.wf.base.WorkingCalendarMap;
+import com.bokesoft.oa.mid.wf.base.WorkingTime;
+import com.bokesoft.yes.bpm.engine.common.BPMContext;
+import com.bokesoft.yes.bpm.workitem.Workitem;
 import com.bokesoft.yes.common.util.StringUtil;
 import com.bokesoft.yigo.bpm.dev.Spoon;
 import com.bokesoft.yigo.bpm.dev.Template;
-import com.bokesoft.yigo.common.util.TypeConvertor;
 import com.bokesoft.yigo.meta.bpm.process.MetaProcess;
 import com.bokesoft.yigo.meta.bpm.process.attribute.MetaBPMOperation;
 import com.bokesoft.yigo.meta.bpm.process.attribute.participator.MetaDictionary;
 import com.bokesoft.yigo.meta.bpm.process.attribute.participator.Participator;
+import com.bokesoft.yigo.meta.bpm.process.attribute.timer.MetaTimerAutoDeny;
+import com.bokesoft.yigo.meta.bpm.process.attribute.timer.MetaTimerAutoPass;
+import com.bokesoft.yigo.meta.bpm.process.attribute.timer.MetaTimerItem;
+import com.bokesoft.yigo.meta.bpm.process.attribute.timer.MetaTimerItemCollection;
 import com.bokesoft.yigo.meta.bpm.process.node.MetaNode;
+import com.bokesoft.yigo.meta.bpm.process.perm.MetaEnablePerm;
+import com.bokesoft.yigo.meta.bpm.process.perm.MetaEnablePermItem;
+import com.bokesoft.yigo.meta.bpm.process.perm.MetaOptPerm;
+import com.bokesoft.yigo.meta.bpm.process.perm.MetaOptPermItem;
+import com.bokesoft.yigo.meta.bpm.process.perm.MetaPerm;
+import com.bokesoft.yigo.meta.bpm.process.perm.MetaVisiblePerm;
+import com.bokesoft.yigo.meta.bpm.process.perm.MetaVisiblePermItem;
 import com.bokesoft.yigo.meta.bpm.total.MetaBPM;
+import com.bokesoft.yigo.meta.bpm.total.MetaProcessDeployInfo;
+import com.bokesoft.yigo.meta.bpm.total.MetaProcessDeployInfoCollection;
 import com.bokesoft.yigo.meta.bpm.total.MetaProcessMap;
-import com.bokesoft.yigo.meta.bpm.total.MetaProcessMapCollection;
+import com.bokesoft.yigo.meta.calendar.MetaDay;
+import com.bokesoft.yigo.meta.calendar.MetaVacation;
+import com.bokesoft.yigo.meta.calendar.MetaWorkingCalendar;
+import com.bokesoft.yigo.meta.calendar.MetaWorkingCalendarCollection;
 import com.bokesoft.yigo.meta.common.MetaBaseScript;
 import com.bokesoft.yigo.meta.commondef.MetaOperation;
 import com.bokesoft.yigo.meta.commondef.MetaOperationCollection;
 import com.bokesoft.yigo.meta.factory.IMetaFactory;
 import com.bokesoft.yigo.meta.form.MetaForm;
 import com.bokesoft.yigo.mid.base.DefaultContext;
-import com.bokesoft.yigo.mid.connection.IDBManager;
-import com.bokesoft.yigo.struct.datatable.DataTable;
+import com.bokesoft.yigo.mid.service.IExtService;
 import com.bokesoft.yigo.struct.document.Document;
 
 /**
@@ -35,170 +77,53 @@ public class OaWfTemplate implements Template {
 	 * 根据单据的Key获得已部署的流程对象
 	 * 
 	 * @param context
-	 *            中间层对象
+	 *            上下文对象
 	 * @param dataObjectKey
 	 *            当前数据对象的key
 	 * @param formKey
 	 *            当前单据对象的Key
 	 * @return 流程的集合
 	 */
-	@Override
 	public MetaProcessMap getMapInfoByMetaKey(DefaultContext context, String dataObjectKey, String formKey)
 			throws Throwable {
+		OAContext oaContext = new OAContext(context);
 		// 如果未指定配置的Key,直接返回
 		if (formKey == null) {
+			return null;
+		}
+		WorkflowTypeDtl workflowTypeDtl = oaContext.getWorkflowTypeDtlMap().getWorkflowTypeDtl(formKey, "");
+		if (workflowTypeDtl == null) {
 			return null;
 		}
 		IMetaFactory metaFactory = context.getVE().getMetaFactory();
 		MetaBPM metaBPM = metaFactory.getMetaBPM();
 		MetaForm metaForm = metaFactory.getMetaForm(formKey);
-
-		MetaProcessMapCollection deployInfoCol = metaBPM.getMetaProcessMapCollection();
-		DataTable dt = getWorkflowTypeDtl(context, formKey);
-		if (dt.size() <= 0) {
-			// 如果未找到流程定义ID，根据配置的别名再去找一下
-			formKey = getAliasKey(context, formKey);
-			if (!StringUtil.isBlankOrNull(formKey)) {
-				dt = getWorkflowTypeDtl(context, formKey);
-			}
-		}
-		if (dt.size() <= 0) {
-			return null;
-		}
+		MetaProcessDeployInfoCollection deployInfoCol = metaBPM.getMetaBPMDeployInfoCollection();
+		String workflowKey = workflowTypeDtl.getWorkflow().getWorkflowKey();
 		MetaProcessMap metaProcessMap = null;
-		dt.beforeFirst();
-		while (dt.next()) {
-			String workflowKey = dt.getString("WorkflowKey");
-			for (MetaProcessMap processMap : deployInfoCol) {
-				String processKey = processMap.getProcessKey();
-				if (processKey.equals(workflowKey)) {
-					metaProcessMap = processMap;
-					break;
-				}
-			}
+		MetaProcessDeployInfo deployInfo = deployInfoCol.get(workflowKey);
+		if (deployInfo == null) {
+			throw new Error("当前单据：" + metaForm.getCaption() + "，对应的工作流： " + workflowKey + " 未部署，请先部署单据对应的工作流。");
 		}
-		if (metaProcessMap == null) {
-			throw new Error("当前单据：" + metaForm.getCaption() + "，没有已部署的工作流，请先部署单据对应的工作流。");
+		metaProcessMap = new MetaProcessMap();
+		metaProcessMap.setInitDate(deployInfo.getInitDate());
+		metaProcessMap.setKey(formKey);
+		metaProcessMap.setProcessKey(workflowKey);
+		metaProcessMap.setStartCaption(workflowTypeDtl.getStartCaption());
+		String startAction = workflowTypeDtl.getStartAction();
+		if (StringUtil.isBlankOrNull(startAction)) {
+			startAction = "OA_StartInstance('" + formKey + "'," + workflowTypeDtl.getOID() + "," + context.getOID()
+					+ ")";
 		}
+		metaProcessMap.setStartAction(startAction);
 		return metaProcessMap;
-	}
-
-	/**
-	 * 获得流程类别明细数据集
-	 * 
-	 * @param context
-	 *            中间层对象
-	 * @param formKey
-	 *            单据的key
-	 * @param workflowTypeDtlID
-	 *            流程类别明细ID
-	 * @return 流程类别明细数据集
-	 * @throws Throwable
-	 */
-	public static DataTable getWorkflowTypeDtl(DefaultContext context, String formKey, Long workflowTypeDtlID)
-			throws Throwable {
-		DataTable dt = null;
-		// 如果流程类别明细ID不为空,根据流程类型明细ID获得流程类型的数据集
-		if (workflowTypeDtlID != null && workflowTypeDtlID > 0) {
-			dt = getDtByWorkflowTypeDtlID(context, workflowTypeDtlID);
-		} else {
-			// 否则，根据单据Key获得流程类型的数据集
-			dt = getDtFormKey(context, formKey);
-		}
-		return dt;
-	}
-
-	/**
-	 * 获得流程类别明细数据集
-	 * 
-	 * @param context
-	 *            中间层对象
-	 * @param formKey
-	 *            单据的key
-	 * @return 流程类别明细数据集
-	 * @throws Throwable
-	 */
-	public static DataTable getWorkflowTypeDtl(DefaultContext context, String formKey) throws Throwable {
-		String WorkflowTypeDtlIDName = "WorkflowTypeDtlID";// OID
-		// 获得当前单据参数中的流程类别明细ID
-		Object paraValue = context.getPara(WorkflowTypeDtlIDName);
-		DataTable dt = null;
-		// 如果流程类别明细ID不为空,根据流程类型明细ID获得流程类型的数据集
-		if (paraValue != null) {
-			long workflowTypeDtlID = TypeConvertor.toLong(paraValue);
-			dt = getDtByWorkflowTypeDtlID(context, workflowTypeDtlID);
-		} else {
-			Document doc = context.getDocument();
-			// 如果当期单据对象不存在
-			if (doc == null) {
-				// 根据单据Key获得流程类型的数据集
-				dt = getDtFormKey(context, formKey);
-			} else {
-				String mainTableKey = doc.getMetaDataObject().getMainTableKey();
-				DataTable srcDt = doc.get(mainTableKey);
-				// 否则，如果主表中存在WorkflowTypeDtlID数据字段，根据WorkflowTypeDtlID数据字段的值获得流程类型的数据集
-				if (srcDt != null && srcDt.getMetaData().constains(WorkflowTypeDtlIDName)) {
-					long workflowTypeDtlID = TypeConvertor.toLong(srcDt.getObject(WorkflowTypeDtlIDName));
-					// 如果主表中存在WorkflowTypeDtlID大于0，根据WorkflowTypeDtlID获得流程类型的数据集
-					if (workflowTypeDtlID > 0) {
-						dt = getDtByWorkflowTypeDtlID(context, workflowTypeDtlID);
-					} else {
-						// 否则，根据单据Key获得流程类型的数据集
-						dt = getDtFormKey(context, formKey);
-					}
-				} else {
-					// 否则，根据单据Key获得流程类型的数据集
-					dt = getDtFormKey(context, formKey);
-				}
-			}
-		}
-		return dt;
-	}
-
-	/**
-	 * 根据单据Key获得流程类型的数据集
-	 * 
-	 * @param context
-	 *            中间层对象
-	 * @param formKey
-	 *            单据Key
-	 * @return 流程类型的数据集
-	 * @throws Throwable
-	 */
-	public static DataTable getDtFormKey(DefaultContext context, String formKey) throws Throwable {
-		DataTable dt;
-		String sql = "select d.BillKey,w.WorkflowKey,d.WorkflowID from OA_WorkflowType_H h join OA_WorkflowType_D d on h.oid=d.soid join OA_Workflow_H w on d.WorkflowID=w.OID where h.oid>0 and h.status=1 and d.BillKey=?";
-		dt = context.getDBManager().execPrepareQuery(sql, formKey);
-		if (dt.size() <= 0) {
-			// 如果未找到流程定义ID，根据配置的别名再去找一下
-			formKey = getAliasKey(context, formKey);
-			dt = context.getDBManager().execPrepareQuery(sql, formKey);
-		}
-		return dt;
-	}
-
-	/**
-	 * 根据流程类型明细ID获得流程类型的数据集
-	 * 
-	 * @param context
-	 *            中间层对象
-	 * @param workflowTypeDtlID
-	 *            流程类型明细ID
-	 * @return 流程类型的数据集
-	 * @throws Throwable
-	 */
-	public static DataTable getDtByWorkflowTypeDtlID(DefaultContext context, long workflowTypeDtlID) throws Throwable {
-		DataTable dt;
-		String sql = "select d.BillKey,w.WorkflowKey,d.WorkflowID from OA_WorkflowType_H h join OA_WorkflowType_D d on h.oid=d.soid join OA_Workflow_H w on d.WorkflowID=w.OID where h.oid>0 and h.status=1 and d.OID=?";
-		dt = context.getDBManager().execPrepareQuery(sql, workflowTypeDtlID);
-		return dt;
 	}
 
 	/**
 	 * 获得当前流程的的操作列表
 	 * 
 	 * @param context
-	 *            中间层对象
+	 *            上下文对象
 	 * @param pd
 	 *            当前流程对象
 	 * @param node
@@ -207,60 +132,52 @@ public class OaWfTemplate implements Template {
 	 *            决定是否替换原有的操作列表
 	 * @return 操作列表
 	 */
-	@Override
-	public List<MetaBPMOperation> getOperationList(DefaultContext context, MetaProcess pd, MetaNode node, Spoon spoon)
-			throws Throwable {
-		String pdKey = pd.getKey();
-		int nodeID = node.getID();
-
-		Long workflowOID = getWorkflowID(context);
-
-		IDBManager dbm = context.getDBManager();
-		String sql = "select h.BillKey,h.OID from OA_WorkflowDesigne_H h join OA_WorkflowDesigne_D d on h.oid=d.soid where h.oid>0 and h.status=100 and WorkflowKey=? and AuditNode=? and tag1=? and tag2=?";
-		DataTable dt = dbm.execPrepareQuery(sql, pdKey, nodeID, "OA_Workflow", workflowOID);
-		DataTable operationDt = null;
-		if (dt.size() > 0) {
-			String billKey = dt.getString("BillKey");
-			long oid = dt.getLong("OID");
-			String operationSql = "select o.Code,o.Name,o.SendType,o.Action,o.OptEnable,o.OptVisible,o.OptIcon,o.TemplateKey,o.UserDefined,o.UserAction,o.UserOptEnable,o.UserOptVisible,o.UserOptIcon,o.UserTemplateKey,d.Name OperationName from OA_OperationSel_H h join OA_OperationSel_D d on h.oid=d.soid join OA_OptModule_H o on o.OID=d.OptID where h.oid>0 and h.status=100 and h.SourceKey=? and h.SourceID=? and h.Tag1=? and Tag2=?";
-			operationDt = dbm.execPrepareQuery(operationSql, billKey, oid, pdKey, nodeID);
-			if (operationDt.size() <= 0) {
-				operationDt = getOperationDt(context, pd, node);
-			}
-		} else {
-			operationDt = getOperationDt(context, pd, node);
+	public List<MetaBPMOperation> getOperationList(DefaultContext context, MetaProcess process, MetaNode node,
+			Spoon spoon) throws Throwable {
+		if (context.getDocument() == null) {
+			return null;
 		}
-
+		OAContext oaContext = new OAContext(context);
+		oaContext.setMetaProcess(process);
+		oaContext.setMetaNode(node);
+		Integer nodeID = node.getID();
+		String pdKey = process.getKey();
+		WorkflowTypeDtl workflowTypeDtl = oaContext.getWorkflowTypeDtlMap().getWorkflowTypeDtl(context.getFormKey(),
+				pdKey);
+		WorkflowDesigneDtl workflowDesigneDtl = workflowTypeDtl.getWorkflowDesigneDtl(nodeID.toString());
+		OperationSel operationSel = workflowDesigneDtl.getAuditOptSel();
+		// 如果选择操作为空，直接退出
+		if (operationSel == null) {
+			return null;
+		}
+		Collection<OperationSelDtl> operationSelDtlCol = operationSel.getOperationSelDtlMap().values();
 		List<MetaBPMOperation> list = new ArrayList<MetaBPMOperation>();
 		// 如果选择操作为空，直接退出
-		if (operationDt == null || operationDt.size() <= 0) {
+		if (operationSelDtlCol.size() <= 0) {
 			return null;
 		} else {// 否则设置为true，替换
 			spoon.setMarked(true);
 		}
 
-		operationDt.beforeFirst();
-		while (operationDt.next()) {
+		for (OperationSelDtl operationSelDtl : operationSelDtlCol) {
 			MetaBPMOperation metaBPMOperation = new MetaBPMOperation();
-			String code = operationDt.getString("Code");
+			Operation operation = operationSelDtl.getOperation();
+			String code = operation.getCode();
 			metaBPMOperation.setKey(code);
-			String operationName = operationDt.getString("OperationName");
-			if (StringUtil.isBlankOrNull(operationName)) {
-				operationName = operationDt.getString("Name");
-			}
+			String operationName = operationSelDtl.getName();
 			metaBPMOperation.setCaption(operationName);
 			MetaBaseScript metaBaseScript = new MetaBaseScript("Action");
 
-			if (operationDt.getInt("UserDefined") == 1) {
-				String userAction = operationDt.getString("UserAction");
+			if (operation.getUserDefined() == 1) {
+				String userAction = operation.getUserAction();
 				userAction = userAction.replace("OptKey:{''}", "OptKey:{'" + code + "'}");
 				metaBaseScript.setContent(userAction);
 				metaBPMOperation.setAction(metaBaseScript);
-				metaBPMOperation.setEnable(TypeConvertor.toString(operationDt.getString("UserOptEnable")));
-				metaBPMOperation.setVisible(TypeConvertor.toString(operationDt.getString("UserOptVisible")));
+				metaBPMOperation.setEnable(operation.getUserOptEnable());
+				metaBPMOperation.setVisible(operation.getUserOptVisible());
 				metaBPMOperation.setCustomKey("");
-				metaBPMOperation.setIcon(TypeConvertor.toString(operationDt.getString("UserOptIcon")));
-				metaBPMOperation.setTemplateKey(TypeConvertor.toString(operationDt.getString("UserTemplateKey")));
+				metaBPMOperation.setIcon(operation.getUserOptIcon());
+				metaBPMOperation.setTemplateKey(operation.getUserTemplateKey());
 			} else {
 				MetaOperationCollection moc = context.getVE().getMetaFactory().getMetaForm("OA_OptTemplate")
 						.getOperationCollection();
@@ -281,41 +198,10 @@ public class OaWfTemplate implements Template {
 	}
 
 	/**
-	 * 获得审批操作的数据
-	 * 
-	 * @param context
-	 *            中间层对象
-	 * @param pd
-	 *            流程对象
-	 * @param node
-	 *            流程节点对象
-	 * @return 审批操作的数据
-	 * @throws Throwable
-	 */
-	private DataTable getOperationDt(DefaultContext context, MetaProcess pd, MetaNode node) throws Throwable {
-		String pdKey = pd.getKey();
-		int nodeID = node.getID();
-		String sql;
-		DataTable dt;
-		DataTable operationDt;
-		String billKey;
-		long oid;
-		String operationSql;
-		sql = "select h.BillKey,h.OID from OA_WorkflowDesigne_H h join OA_WorkflowDesigne_D d on h.oid=d.soid where h.oid>0 and h.status=100 and WorkflowKey=? and AuditNode=? and tag1=?";
-		dt = context.getDBManager().execPrepareQuery(sql, pdKey, nodeID, "OA_WorkflowSet");
-		checkWorkflowDesigneDt(dt, pd, node);
-		billKey = dt.getString("BillKey");
-		oid = dt.getLong("OID");
-		operationSql = "select o.Code,o.Name,o.SendType,o.Action,o.OptEnable,o.OptVisible,o.OptIcon,o.TemplateKey,o.UserDefined,o.UserAction,o.UserOptEnable,o.UserOptVisible,o.UserOptIcon,o.UserTemplateKey,d.Name OperationName from OA_OperationSel_H h join OA_OperationSel_D d on h.oid=d.soid join OA_OptModule_H o on o.OID=d.OptID where h.oid>0 and h.status=100 and h.SourceKey=? and h.SourceID=? and h.Tag1=? and Tag2=?";
-		operationDt = context.getDBManager().execPrepareQuery(operationSql, billKey, oid, pdKey, nodeID);
-		return operationDt;
-	}
-
-	/**
 	 * 获得当前流程的参与者列表
 	 * 
 	 * @param context
-	 *            中间层对象
+	 *            上下文对象
 	 * @param pd
 	 *            当前流程对象
 	 * @param node
@@ -324,18 +210,20 @@ public class OaWfTemplate implements Template {
 	 *            决定是否替换参与者列表
 	 * @return 参与者列表
 	 */
-	@Override
-	public List<Participator> getParticipatorList(DefaultContext context, MetaProcess pd, MetaNode node, Spoon spoon)
-			throws Throwable {
+	public List<Participator> getParticipatorList(DefaultContext context, MetaProcess process, MetaNode node,
+			Spoon spoon) throws Throwable {
+		if (context.getDocument() == null) {
+			return null;
+		}
 		// 设置为true，替换，否则不替换
 		spoon.setMarked(true);
-		String pdKey = pd.getKey();
-		int nodeID = node.getID();
-
-		Long workflowOID = getWorkflowID(context);
-
-		String ids = getOperatorIDs(context, pd, node, pdKey, nodeID, workflowOID);
-
+		OAContext oaContext = new OAContext(context);
+		oaContext.setMetaProcess(process);
+		oaContext.setMetaNode(node);
+		String pdKey = process.getKey();
+		WorkflowTypeDtl workflowTypeDtl = oaContext.getWorkflowTypeDtlMap().getWorkflowTypeDtl(context.getFormKey(),
+				pdKey);
+		String ids = getOperatorIDs(oaContext, process, node, workflowTypeDtl);
 		List<Participator> list = new ArrayList<Participator>();
 		MetaDictionary metaDictionary = new MetaDictionary();
 		metaDictionary.setDictionaryKey("Operator");
@@ -345,247 +233,460 @@ public class OaWfTemplate implements Template {
 	}
 
 	/**
-	 * 获得流程定义的ID
+	 * 获取操作员ID字符串，以冒号分隔
 	 * 
-	 * @param context
-	 *            中间层对象
-	 * @return 流程定义的ID
+	 * @param oaContext
+	 *            OA上下文
+	 * @param pd
+	 *            当前流程对象
+	 * @param node
+	 *            当前流程节点
+	 * @param workflowTypeDtl
+	 *            流程类别明细
+	 * @return 操作员ID字符串
 	 * @throws Throwable
 	 */
-	private Long getWorkflowID(DefaultContext context) throws Throwable {
-		Long workflowOID = new Long(-1);
-		String formKey = context.getFormKey();
-		if (formKey != null) {
-			DataTable workflowTypeDt = getWorkflowTypeDtl(context, formKey);
-			if (workflowTypeDt.size() <= 0) {
-				// 如果未找到流程定义ID，根据配置的别名再去找一下
-				formKey = getAliasKey(context, formKey);
-				if (!StringUtil.isBlankOrNull(formKey)) {
-					workflowTypeDt = getWorkflowTypeDtl(context, formKey);
-				}
-			}
-			if (workflowTypeDt.size() > 0) {
-				workflowOID = workflowTypeDt.getLong("WorkflowID");
-			}
-		}
-		return workflowOID;
-	}
-
-	private String getOperatorIDs(DefaultContext context, MetaProcess pd, MetaNode node, String pdKey, int nodeID,
-			Long workflowOID) throws Throwable, Error {
-		IDBManager dbm = context.getDBManager();
+	private String getOperatorIDs(OAContext oaContext, MetaProcess pd, MetaNode node, WorkflowTypeDtl workflowTypeDtl)
+			throws Throwable, Error {
+		DefaultContext context = oaContext.getContext();
 		Document doc = context.getDocument();
 		Long billOID = doc.getOID();
 		String formKey = context.getFormKey();
-
-		Integer preNodeID = getPreNodeID(context, pdKey, nodeID, workflowOID);
-
-		DataTable participatorDt = null;
-		if (preNodeID > 0) {
-			String nextParticipatorSql = "select n.ParticipatorID OID from OA_NextParticipator n where WorkflowBillKey=? and WorkflowOID=? and WorkflowKey=? and NodeId=?";
-			participatorDt = dbm.execPrepareQuery(nextParticipatorSql, formKey, billOID, pdKey, preNodeID);
-			if (participatorDt.size() <= 0) {
-				formKey = getAliasKey(context, formKey);
-				nextParticipatorSql = "select n.ParticipatorID OID from OA_NextParticipator n where WorkflowBillKey=? and WorkflowOID=? and WorkflowKey=? and NodeId=?";
-				participatorDt = dbm.execPrepareQuery(nextParticipatorSql, formKey, billOID, pdKey, preNodeID);
-			}
+		Integer nodeID = node.getID();
+		WorkflowDesigneDtl workflowDesigneDtl = workflowTypeDtl.getWorkflowDesigneDtl(nodeID.toString());
+		WorkflowDesigneDtl preNode = getPreNodeID(oaContext, workflowDesigneDtl);
+		String workflowKey = preNode.getHeadBase().getWorkflowKey();
+		String ids = oaContext.getNextParticipatorMap().getIDs(formKey, billOID, workflowKey, preNode.getAuditNode(),
+				":");
+		if (!StringUtil.isBlankOrNull(ids)) {
+			return ids;
 		}
-		if (participatorDt == null || participatorDt.size() <= 0) {
-			String sql = "select h.BillKey,h.OID from OA_WorkflowDesigne_H h join OA_WorkflowDesigne_D d on h.oid=d.soid where h.oid>0 and h.status=100 and WorkflowKey=? and AuditNode=? and tag1=? and tag2=?";
-			DataTable dt = dbm.execPrepareQuery(sql, pdKey, nodeID, "OA_Workflow", workflowOID);
-			String participatorSql = "";
-			if (dt.size() > 0) {
-				participatorSql = getParticipatorSql(context, pdKey, nodeID, dt);
-				if (participatorSql.length() <= 0) {
-					participatorSql = getParticipatorSql(context, pd, node);
-				}
-			} else {
-				participatorSql = getParticipatorSql(context, pd, node);
-			}
-			if (participatorSql.length() <= 0) {
+		OperatorSel operaorSel = workflowDesigneDtl.getAuditPerSel();
+		if (operaorSel != null) {
+			ids = operaorSel.getParticipatorIDs(billOID);
+		}
+		if (StringUtil.isBlankOrNull(ids)) {
+			if (preNode.getNodeProperty().getNoPer() != 1) {
 				throw new Error(
-						"流程“" + pd.getCaption() + "”的流程节点“" + node.getCaption() + "”，没有设置对应的人员，请先设置流程节点对应的人员选择。");
+						"流程“" + pd.getCaption() + "”的流程节点“" + node.getCaption() + "”，人员选择的结果为空，请修正流程节点对应的人员选择。");
 			}
-			participatorDt = dbm.execQuery(participatorSql);
-		}
-
-		if (participatorDt == null || participatorDt.size() <= 0) {
-			throw new Error("流程“" + pd.getCaption() + "”的流程节点“" + node.getCaption() + "”，人员选择的结果为空，请修正流程节点对应的人员选择。");
-		}
-
-		String ids = "";
-		participatorDt.beforeFirst();
-		while (participatorDt.next()) {
-			String optId = TypeConvertor.toString(participatorDt.getObject("OID"));
-			ids = ids + ":" + optId;
-		}
-		if (ids.length() > 0) {
-			ids = ids.substring(1);
 		}
 		return ids;
 	}
 
 	/**
-	 * 获取表单的别名
+	 * 
+	 * 根据当前审批节点获得前一个审批节点明细
 	 * 
 	 * @param context
-	 *            中间层对象
-	 * @param formKey
-	 *            表单的Key
-	 * @return 表单的别名
-	 * @throws Throwable
-	 */
-	public static String getAliasKey(DefaultContext context, String formKey) throws Throwable {
-		return context.getVE().getMetaFactory().getMetaForm(formKey).getAliasKey();
-	}
-
-	/**
-	 * 获得参与者SQL
-	 * 
-	 * @param context
-	 *            中间层对象
-	 * @param pd
-	 *            流程对象
-	 * @param node
-	 *            流程节点对象
-	 * @return 参与者SQL
-	 * @throws Throwable
-	 */
-	private String getParticipatorSql(DefaultContext context, MetaProcess pd, MetaNode node) throws Throwable {
-		String pdKey = pd.getKey();
-		int nodeID = node.getID();
-		String sql;
-		DataTable dt;
-		String participatorSql;
-		sql = "select h.BillKey,h.OID from OA_WorkflowDesigne_H h join OA_WorkflowDesigne_D d on h.oid=d.soid where h.oid>0 and h.status=100 and WorkflowKey=? and AuditNode=? and tag1=?";
-		dt = context.getDBManager().execPrepareQuery(sql, pdKey, nodeID, "OA_WorkflowSet");
-		checkWorkflowDesigneDt(dt, pd, node);
-		participatorSql = getParticipatorSql(context, pdKey, nodeID, dt);
-		return participatorSql;
-	}
-
-	/**
-	 * 检查流程设计数据
-	 * 
-	 * @param dt
-	 *            流程设计数据
-	 * @param pd
-	 *            流程对象
-	 * @param node
-	 *            流程节点对象
-	 * @throws Throwable
-	 */
-	public void checkWorkflowDesigneDt(DataTable dt, MetaProcess pd, MetaNode node) throws Throwable {
-		if (dt.size() <= 0) {
-			throw new Error("流程“" + pd.getCaption() + "”的流程节点“" + node.getCaption() + "”，没有在流程设置中找到对应的节点设置，请修正。");
-		} else if (dt.size() > 1) {
-			throw new Error("流程“" + pd.getCaption() + "”的流程节点“" + node.getCaption() + "”，在流程设置中找到多个节点设置，只能一个，请修正。");
-		}
-	}
-
-	/**
-	 * 获得参与者SQL
-	 * 
-	 * @param context
-	 *            中间层对象
-	 * @param pdKey
-	 *            流程Key
-	 * @param nodeID
-	 *            流程节点ID
-	 * @param dt
-	 *            流程设计数据
-	 * @return 参与者SQL
-	 * @throws Throwable
-	 */
-	public String getParticipatorSql(DefaultContext context, String pdKey, int nodeID, DataTable dt) throws Throwable {
-		String billKey = dt.getString("BillKey");
-		long oid = dt.getLong("OID");
-		GetParticipatorSql getParticipatorSql = new GetParticipatorSql();
-		getParticipatorSql.setContext(context);
-		String participatorSql = getParticipatorSql.getParticipatorSql(billKey, oid, pdKey,
-				TypeConvertor.toString(nodeID));
-		return participatorSql;
-	}
-
-	/**
-	 * 
-	 * 根据当前审批节点获得前一个审批节点
-	 * 
-	 * @param context
-	 *            中间层对象
-	 * @param pdKey
-	 *            流程的Key
-	 * @param nodeID
-	 *            当前审批节点
-	 * @param workflowOID
-	 *            当前流程定义的OID
+	 *            OA上下文
+	 * @param workflowDesigneDtl
+	 *            流程设计明细
 	 * @return 前一个审批节点
 	 * @return
 	 * @throws Throwable
 	 */
-	private Integer getPreNodeID(DefaultContext context, String pdKey, int nodeID, Long workflowOID) throws Throwable {
-		IDBManager dbm = context.getDBManager();
-		Document doc = context.getDocument();
-		Integer preNodeID = -1;
-		Object info = doc.getExpandData("WorkitemInfo");
-		if (info != null) {
-			WorkitemInfo workitemInfo = (WorkitemInfo) info;
-			preNodeID = workitemInfo.getNodeID();
-		} else {
-			String sequenceSql = "select d.Sequence,d.SOID from OA_WorkflowDesigne_H h join OA_WorkflowDesigne_D d on h.oid=d.soid where h.oid>0 and h.status=100 and WorkflowKey=? and AuditNode=? and tag1=? and tag2=?";
-			DataTable sequenceDt = dbm.execPrepareQuery(sequenceSql, pdKey, nodeID, "OA_Workflow", workflowOID);
-			if (sequenceDt.size() <= 0) {
-				sequenceSql = "select d.Sequence,d.SOID from OA_WorkflowDesigne_H h join OA_WorkflowDesigne_D d on h.oid=d.soid where h.oid>0 and h.status=100 and WorkflowKey=? and AuditNode=? and tag1=?";
-				sequenceDt = dbm.execPrepareQuery(sequenceSql, pdKey, nodeID, "OA_WorkflowSet");
-			}
-
-			if (sequenceDt.size() > 0) {
-				Integer sequence = sequenceDt.getInt("Sequence");
-				Long designeOID = sequenceDt.getLong("SOID");
-				String preSql = "select AuditNode from OA_WorkflowDesigne_D where SOID=? and Sequence=(select max(Sequence) from OA_WorkflowDesigne_D where  SOID=? and Sequence<?)";
-				DataTable preDt = dbm.execPrepareQuery(preSql, designeOID, designeOID, sequence);
-				if (preDt.size() > 0) {
-					preNodeID = preDt.getInt("AuditNode");
-				}
-			}
+	private WorkflowDesigneDtl getPreNodeID(OAContext context, WorkflowDesigneDtl workflowDesigneDtl) throws Throwable {
+		BPMContext bPMContext = (BPMContext) context.getContext();
+		Workitem workitem = bPMContext.getUpdateWorkitem();
+		// 如果当前工作项为空，取当前节点
+		if (workitem == null) {
+			return workflowDesigneDtl;
 		}
-		return preNodeID;
+		Long workitemID = workitem.getWorkItemID();
+		WorkflowDesigneDtl preNode = workflowDesigneDtl.getHeadBase().getWorkflowDesigneDtlMap().getPreNode(workitemID);
+		// 如果前一个为空，取当前节点
+		if (preNode == null) {
+			return workflowDesigneDtl;
+		}
+		return preNode;
 	}
 
 	/**
-	 * 根据当前审批节点获得下一个审批节点
-	 * 
-	 * @param context
-	 *            中间层对象
-	 * @param pkKey
-	 *            流程的Key
-	 * @param nodeID
-	 *            当前审批节点
-	 * @param workflowOID
-	 *            当前流程定义的OID
-	 * @return 下一个审批节点
-	 * @throws Throwable
+	 * 无参与者自动略过
 	 */
-	public static Integer getNextNodeID(DefaultContext context, String pkKey, int nodeID, Long workflowOID)
+	public boolean getAutoIgnoreNoParticipator(DefaultContext context, MetaProcess process, MetaNode node, Spoon spoon)
 			throws Throwable {
-		IDBManager dbm = context.getDBManager();
-		Integer nexNodeID = -1;
-		String sequenceSql = "select d.Sequence,d.SOID from OA_WorkflowDesigne_H h join OA_WorkflowDesigne_D d on h.oid=d.soid where h.oid>0 and h.status=100 and WorkflowKey=? and AuditNode=? and tag1=? and tag2=?";
-		DataTable sequenceDt = dbm.execPrepareQuery(sequenceSql, pkKey, nodeID, "OA_Workflow", workflowOID);
-		if (sequenceDt.size() <= 0) {
-			sequenceSql = "select d.Sequence,d.SOID from OA_WorkflowDesigne_H h join OA_WorkflowDesigne_D d on h.oid=d.soid where h.oid>0 and h.status=100 and WorkflowKey=? and AuditNode=? and tag1=?";
-			sequenceDt = dbm.execPrepareQuery(sequenceSql, pkKey, nodeID, "OA_WorkflowSet");
+		Boolean ignore = false;
+		// 设置为true，替换，否则不替换
+		spoon.setMarked(true);
+		OAContext oaContext = new OAContext(context);
+		oaContext.setMetaProcess(process);
+		oaContext.setMetaNode(node);
+		String pdKey = process.getKey();
+		WorkflowTypeDtl workflowTypeDtl = oaContext.getWorkflowTypeDtlMap().getWorkflowTypeDtl(context.getFormKey(),
+				pdKey);
+		Integer nodeID = node.getID();
+		// WorkflowDesigneDtl preNode = getPreNodeID(context, pdKey,
+		// nodeID.toString(), workflowTypeDtl);
+		WorkflowDesigneDtl workflowDesigneDtl = workflowTypeDtl.getWorkflowDesigneDtl(nodeID.toString());
+		if (workflowDesigneDtl.getNodeProperty().getNoPer() == 1) {
+			ignore = true;
 		}
+		return ignore;
+	}
 
-		if (sequenceDt.size() > 0) {
-			Integer sequence = sequenceDt.getInt("Sequence");
-			Long designeOID = sequenceDt.getLong("SOID");
-			String preSql = "select AuditNode from OA_WorkflowDesigne_D where SOID=? and Sequence=(select min(Sequence) from OA_WorkflowDesigne_D where  SOID=? and Sequence>?)";
-			DataTable preDt = dbm.execPrepareQuery(preSql, designeOID, designeOID, sequence);
-			if (preDt.size() > 0) {
-				nexNodeID = preDt.getInt("AuditNode");
+	/**
+	 * 工作项创建事件
+	 */
+	public String getCreateTrigger(DefaultContext context, MetaProcess process, MetaNode node, Spoon spoon)
+			throws Throwable {
+		String creatrFormula = "";
+		BPMContext bPMContext = (BPMContext) context;
+		Long workitemID = bPMContext.getNewWorkitemID();
+		String pdKey = process.getKey();
+		OAContext oaContext = new OAContext(context);
+		oaContext.setMetaProcess(process);
+		oaContext.setMetaNode(node);
+		Integer nodeID = node.getID();
+		String formKey = context.getFormKey();
+		WorkflowTypeDtl workflowTypeDtl = oaContext.getWorkflowTypeDtlMap().getWorkflowTypeDtl(formKey, pdKey);
+		WorkflowDesigneDtl workflowDesigneDtl = workflowTypeDtl.getWorkflowDesigneDtl(nodeID.toString());
+		NodeProperty nodeProperty = workflowDesigneDtl.getNodeProperty();
+		NodePropertyCreateMap nodePropertyCreateMap = nodeProperty.getNodePropertyCreateMap();
+		for (NodePropertyCreate nodePropertyCreate : nodePropertyCreateMap.values()) {
+			String formula = nodePropertyCreate.getFormula();
+			IExtService iExtService = (IExtService) Class.forName(formula).newInstance();
+			ArrayList<Object> list = new ArrayList<Object>();
+			list.add(oaContext);
+			list.add(formKey);
+			list.add(process);
+			list.add(node);
+			list.add(spoon);
+			list.add(workflowDesigneDtl);
+			list.add(workitemID);
+			iExtService.doCmd(context, list);
+		}
+		creatrFormula = nodeProperty.getFormulaCreate();
+		if (!StringUtil.isBlankOrNull(creatrFormula)) {
+			// 设置为true，替换，否则不替换
+			spoon.setMarked(true);
+		}
+		return creatrFormula;
+	}
+
+	/**
+	 * 工作项完成事件
+	 */
+	public String getFinishTrigger(DefaultContext context, MetaProcess process, MetaNode node, Spoon spoon)
+			throws Throwable {
+		String finishFormula = "";
+		BPMContext bPMContext = (BPMContext) context;
+		Long workitemID = bPMContext.getNewWorkitemID();
+		String pdKey = process.getKey();
+		OAContext oaContext = new OAContext(context);
+		oaContext.setMetaProcess(process);
+		oaContext.setMetaNode(node);
+		Integer nodeID = node.getID();
+		String formKey = context.getFormKey();
+		WorkflowTypeDtl workflowTypeDtl = oaContext.getWorkflowTypeDtlMap().getWorkflowTypeDtl(formKey, pdKey);
+		WorkflowDesigneDtl workflowDesigneDtl = workflowTypeDtl.getWorkflowDesigneDtl(nodeID.toString());
+		NodeProperty nodeProperty = workflowDesigneDtl.getNodeProperty();
+		NodePropertyFinishMap nodePropertyFinishMap = nodeProperty.getNodePropertyFinishMap();
+		for (NodePropertyFinish nodePropertyFinish : nodePropertyFinishMap.values()) {
+			String formula = nodePropertyFinish.getFormula();
+			IExtService iExtService = (IExtService) Class.forName(formula).newInstance();
+			ArrayList<Object> list = new ArrayList<Object>();
+			list.add(oaContext);
+			list.add(formKey);
+			list.add(process);
+			list.add(node);
+			list.add(spoon);
+			list.add(workflowDesigneDtl);
+			list.add(workitemID);
+			iExtService.doCmd(context, list);
+		}
+		finishFormula = nodeProperty.getFormulaFinish();
+		if (!StringUtil.isBlankOrNull(finishFormula)) {
+			// 设置为true，替换，否则不替换
+			spoon.setMarked(true);
+		}
+		return finishFormula;
+	}
+
+	/**
+	 * 获得当前节点的审批超时
+	 */
+	public MetaTimerItemCollection getTimeritemList(DefaultContext context, MetaProcess process, MetaNode node,
+			Spoon spoon) throws Throwable {
+		BPMContext bPMContext = (BPMContext) context;
+		Long billOID = context.getDocument().getOID();
+		Long workitemID = bPMContext.getNewWorkitemID();
+		String pdKey = process.getKey();
+		OAContext oaContext = new OAContext(context);
+		oaContext.setMetaProcess(process);
+		oaContext.setMetaNode(node);
+		Integer nodeID = node.getID();
+		String formKey = context.getFormKey();
+		WorkflowTypeDtl workflowTypeDtl = oaContext.getWorkflowTypeDtlMap().getWorkflowTypeDtl(formKey, pdKey);
+		Long workflowTypeDtlID = workflowTypeDtl.getOID();
+		WorkflowDesigneDtl workflowDesigneDtl = workflowTypeDtl.getWorkflowDesigneDtl(nodeID.toString());
+		Long workflowDesigneDtlID = workflowDesigneDtl.getOID();
+		NodeProperty nodeProperty = workflowDesigneDtl.getNodeProperty();
+		Long informPerOID = nodeProperty.getInformPerOID();
+		MetaTimerItemCollection metaTimerItemCollection = new MetaTimerItemCollection();
+		// 过时通知
+		if (nodeProperty.getOutdateNotice() == 1) {
+			Integer common = nodeProperty.getCommon();
+			// 一般
+			if (common == 1) {
+				String peroidFrom = nodeProperty.getFrom_One();
+				if (!StringUtil.isBlankOrNull(peroidFrom)) {
+					String key = nodeProperty.getOID().toString();
+					MetaTimerItem metaTimerItem = new MetaTimerItem();
+					metaTimerItemCollection.add(metaTimerItem);
+					setMetaTimerItem(formKey, billOID, workitemID, pdKey, nodeID, workflowTypeDtlID,
+							workflowDesigneDtlID, informPerOID, common, peroidFrom, key, metaTimerItem);
+				}
+			}
+			// 紧急
+			Integer urgency = nodeProperty.getUrgency();
+			if (urgency == 1) {
+				String peroidFrom = nodeProperty.getFrom_Two();
+				String key = nodeProperty.getOID().toString();
+				MetaTimerItem metaTimerItem = new MetaTimerItem();
+				metaTimerItemCollection.add(metaTimerItem);
+				setMetaTimerItem(formKey, billOID, workitemID, pdKey, nodeID, workflowTypeDtlID, workflowDesigneDtlID,
+						informPerOID, urgency, peroidFrom, key, metaTimerItem);
+
+			}
+			// 特急
+			Integer extraUrgent = nodeProperty.getExtraUrgent();
+			if (extraUrgent == 1) {
+				String peroidFrom = nodeProperty.getFrom_Three();
+				String key = nodeProperty.getOID().toString();
+				MetaTimerItem metaTimerItem = new MetaTimerItem();
+				metaTimerItemCollection.add(metaTimerItem);
+				setMetaTimerItem(formKey, billOID, workitemID, pdKey, nodeID, workflowTypeDtlID, workflowDesigneDtlID,
+						informPerOID, extraUrgent, peroidFrom, key, metaTimerItem);
+
 			}
 		}
-		return nexNodeID;
+		// 过时处理
+		if (nodeProperty.getOutdateDeal() == 1) {
+			String deadline = nodeProperty.getDeadline();
+			if (!StringUtil.isBlankOrNull(deadline)) {
+				Integer dealType = nodeProperty.getDealType();
+				String key = nodeProperty.getOID().toString();
+				if (dealType == 10) {
+					String autoDealFun = nodeProperty.getAutoDealFun();
+					if (autoDealFun.equalsIgnoreCase("pass")) {
+						MetaTimerAutoPass metaTimerAuto = new MetaTimerAutoPass();
+						metaTimerItemCollection.add(metaTimerAuto);
+						metaTimerAuto.setKey(key);
+						metaTimerAuto.setPeroid(deadline);
+					} else if (autoDealFun.equalsIgnoreCase("deny")) {
+						MetaTimerAutoDeny metaTimerAuto = new MetaTimerAutoDeny();
+						metaTimerItemCollection.add(metaTimerAuto);
+						metaTimerAuto.setKey(key);
+						metaTimerAuto.setPeroid(deadline);
+					}
+				}
+			}
+		}
+
+		if (metaTimerItemCollection.size() >= 0) {
+			// 设置为true，替换，否则不替换
+			spoon.setMarked(true);
+		}
+		return metaTimerItemCollection;
+	}
+
+	/**
+	 * 设置超时项目
+	 * 
+	 * @param formKey
+	 *            配置标识
+	 * @param workitemID
+	 *            工作项标识
+	 * @param pdKey
+	 *            流程标识
+	 * @param nodeID
+	 *            流程节点标识
+	 * @param workflowTypeDtlID
+	 *            流程类别标识
+	 * @param workflowDesigneDtlID
+	 *            流程设计明细标识
+	 * @param informPerOID
+	 *            通知人员选择标识
+	 * @param urgencyDeg
+	 *            紧急程度
+	 * @param peroid
+	 *            超时内容
+	 * @param key
+	 *            超时项目标识
+	 * @param metaTimerItem
+	 *            超时项目
+	 */
+	private void setMetaTimerItem(String formKey, Long billOID, Long workitemID, String pdKey, Integer nodeID,
+			Long workflowTypeDtlID, Long workflowDesigneDtlID, Long informPerOID, Integer urgencyDeg, String peroid,
+			String key, MetaTimerItem metaTimerItem) {
+		metaTimerItem.setKey(key);
+		metaTimerItem.setPeroid(peroid);
+		metaTimerItem.setRepeat(false);
+		metaTimerItem.setTrigger(
+				"TimeoutNotice(" + formKey + "," + billOID + "," + workitemID + "," + pdKey + "," + nodeID + ","
+						+ workflowTypeDtlID + "," + workflowDesigneDtlID + "," + informPerOID + "," + urgencyDeg + ")");
+	}
+
+	/**
+	 * 获得工作日历
+	 */
+	public MetaWorkingCalendarCollection getWorkingCalendar(DefaultContext context, MetaProcess process, MetaNode node,
+			Spoon spoon) throws Throwable {
+		Calendar cal = Calendar.getInstance();
+		MetaWorkingCalendarCollection metaWorkingCalendarCollection = new MetaWorkingCalendarCollection();
+		OAContext oaContext = new OAContext(context);
+		oaContext.setMetaProcess(process);
+		oaContext.setMetaNode(node);
+		WorkingCalendarMap workingCalendarMap = oaContext.getWorkingCalendarMap().getAll();
+		for (WorkingCalendar workingCalendar : workingCalendarMap.values()) {
+			WorkingCalendarDtlMap workingCalendarDtlMap = workingCalendar.getWorkingCalendarDtlMap();
+			// 如果工作日历的明细为空，直接跳过
+			if (workingCalendarDtlMap == null || workingCalendarDtlMap.size() <= 0) {
+				continue;
+			}
+			MetaWorkingCalendar metaWorkingCalendar = new MetaWorkingCalendar();
+			metaWorkingCalendarCollection.add(metaWorkingCalendar);
+			WorkingTime workingTimew = workingCalendar.getWorkingTime();
+			metaWorkingCalendar.setKey(workingCalendar.getCode());
+			String weekend = workingTimew.getWeekend();
+			List<Integer> weekendList = workingTimew.getWeekendList();
+			metaWorkingCalendar.setWeekend(weekend);
+			metaWorkingCalendar.setOfficeHour(workingTimew.getOfficeHour());
+			// 休息日集合
+			MetaVacation offDayVacation = new MetaVacation();
+			metaWorkingCalendar.add(offDayVacation);
+			offDayVacation.setCaption(workingTimew.getCaption());
+			// 工作日集合
+			MetaVacation workDayVacation = new MetaVacation();
+			metaWorkingCalendar.add(workDayVacation);
+			workDayVacation.setCaption(workingTimew.getCaption());
+			for (WorkingCalendarDtl workingCalendarDtl : workingCalendarDtlMap.values()) {
+				cal.setTime(workingCalendarDtl.getDateOfYear());
+				// 是否休息日
+				if (workingCalendarDtl.getOffDay() == 1) {
+					// 排除每周固定休息日
+					for (Integer i : weekendList) {
+						if (cal.get(Calendar.DAY_OF_WEEK) == i) {
+							continue;
+						}
+					}
+					// 设置休息日
+					MetaDay day = new MetaDay();
+					offDayVacation.add(day);
+					day.setYear(cal.get(Calendar.YEAR));
+					day.setMonth(cal.get(Calendar.MONTH));
+					day.setDay(cal.get(Calendar.DAY_OF_MONTH));
+					day.setOffDay(true);
+				} else {
+					// 设置工作日的每周固定休息日
+					for (Integer i : weekendList) {
+						if (cal.get(Calendar.DAY_OF_WEEK) == i) {
+							MetaDay day = new MetaDay();
+							workDayVacation.add(day);
+							day.setYear(cal.get(Calendar.YEAR));
+							day.setMonth(cal.get(Calendar.MONTH));
+							day.setDay(cal.get(Calendar.DAY_OF_MONTH));
+							day.setOffDay(false);
+						}
+					}
+				}
+			}
+		}
+		if (metaWorkingCalendarCollection.size() >= 0) {
+			// 设置为true，替换，否则不替换
+			spoon.setMarked(true);
+		}
+
+		return metaWorkingCalendarCollection;
+	}
+
+	public Long getWorkitemID(DefaultContext arg0, MetaProcess arg1, MetaNode arg2, Spoon arg3) throws Throwable {
+		return null;
+	}
+
+	/**
+	 * 获得权限
+	 */
+	public MetaPerm getPerm(DefaultContext context, MetaProcess process, MetaNode node, Spoon spoon) throws Throwable {
+		Long oid = context.getOID();
+		if (oid <= 0) {
+			return null;
+		}
+		OAContext oaContext = new OAContext(context);
+		oaContext.setMetaProcess(process);
+		oaContext.setMetaNode(node);
+		String pdKey = process.getKey();
+		String formKey = context.getFormKey();
+		WorkflowTypeDtlMap workflowTypeDtlMap = oaContext.getWorkflowTypeDtlMap();
+		WorkflowTypeDtl workflowTypeDtl = workflowTypeDtlMap.getWorkflowTypeDtl(formKey, pdKey, oid);
+		if (workflowTypeDtl == null) {
+			return null;
+		}
+		Integer nodeID = node.getID();
+		WorkflowDesigneDtl workflowDesigneDtl = workflowTypeDtl.getWorkflowDesigneDtl(nodeID.toString());
+		OperatorSel operatorSel = workflowDesigneDtl.getAuditPerSel();
+		Long operatorID = context.getEnv().getUserID();
+		Set<RightSel> rightSelSet = operatorSel.getRightSelSet(operatorID, oid);
+		MetaPerm metaPerm = new MetaPerm();
+		metaPerm.setProcessKey(pdKey);
+		MetaOptPerm optPerm = new MetaOptPerm();
+		metaPerm.setOptPerm(optPerm);
+		MetaVisiblePerm visiblePerm = new MetaVisiblePerm();
+		metaPerm.setVisiblePerm(visiblePerm);
+		MetaEnablePerm enablePerm = new MetaEnablePerm();
+		metaPerm.setEnablePerm(enablePerm);
+		Set<String> optSet = new HashSet<String>();
+		Set<String> visibleSet = new HashSet<String>();
+		Set<String> enableSet = new HashSet<String>();
+		for (RightSel rightSel : rightSelSet) {
+			RightSelOperationMap rightSelOperationMap = rightSel.getRightSelOperationMap();
+			for (RightSelOperation rightSelOperation : rightSelOperationMap.values()) {
+				if (rightSelOperation.getOperationEnable() != 1) {
+					continue;
+				}
+				String key = rightSelOperation.getOperationKey();
+				if (optSet.contains(key)) {
+					continue;
+				} else {
+					optSet.add(key);
+				}
+				MetaOptPermItem metaOptPermItem = new MetaOptPermItem();
+				metaOptPermItem.setKey(key);
+				optPerm.add(metaOptPermItem);
+			}
+			RightSelFieldMap rightSelFieldMap = rightSel.getRightSelFieldMap();
+			for (RightSelField rightSelField : rightSelFieldMap.values()) {
+				if (rightSelField.getFieldVisible() != 1) {
+					String key = rightSelField.getFieldKey();
+					if (visibleSet.contains(key)) {
+						continue;
+					} else {
+						visibleSet.add(key);
+					}
+					MetaVisiblePermItem metaVisiblePermItem = new MetaVisiblePermItem();
+					metaVisiblePermItem.setKey(key);
+					visiblePerm.add(metaVisiblePermItem);
+				}
+				if (rightSelField.getFieldEnable() == 1) {
+					String key = rightSelField.getFieldKey();
+					if (enableSet.contains(key)) {
+						continue;
+					} else {
+						enableSet.add(key);
+					}
+					MetaEnablePermItem metaEnablePermItem = new MetaEnablePermItem();
+					metaEnablePermItem.setKey(key);
+					enablePerm.add(metaEnablePermItem);
+				}
+			}
+		}
+
+		if (optSet.size() > 0 || visibleSet.size() > 0 || enableSet.size() > 0) {
+			// 设置为true，替换，否则不替换
+			spoon.setMarked(true);
+		}
+		return metaPerm;
 	}
 }

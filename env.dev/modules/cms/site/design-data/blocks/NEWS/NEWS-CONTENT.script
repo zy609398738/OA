@@ -1,0 +1,18 @@
+cms.PageExp.Local('userid',cms.Yigo2MidExp.GetLoginOperator());
+cms.PageExp.Local(
+    'data',
+    cms.DataExp.QueryList({
+      SELECT onews.oid as id, onh.name AS col1,onews.topic as col2 ,sys.name  as col3,onews.CreateTime AS col4 ,onews.newscontent as mynews FROM 
+      oa_newsdraft_h  onews left join oa_newstype_h onh on onh.oid=onews.newstypeid   left join sys_operator  sys on  sys.oid=onews.Creator where  onews.oid=${id} 
+}));
+cms.PageExp.Local('newsview','true');
+cms.PageExp.Local(
+    'preid',
+    oa.TodoMidExp.queryListByTop("
+       select * from (select oid as preid from oa_newsdraft_h where oid<${id} order by oid desc) news
+",1));
+cms.PageExp.Local(
+    'nextid',
+    oa.TodoMidExp.queryListByTop("
+       select * from (select oid as nextid from oa_newsdraft_h where oid>${id} order by oid ) news  
+",1));

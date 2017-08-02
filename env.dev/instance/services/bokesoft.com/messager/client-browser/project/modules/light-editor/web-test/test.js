@@ -11,11 +11,13 @@ var leditor = require("..");
 
 var $ = require("jquery");
 
-window.setUpWithQQ = function(){
-	leditor.build({
-		editor: ".editorQQ",
-		triggerEmoji: ".btnInsertQQ",
-		triggerUpload: ".btnUploadQQ",
+var editorDefault, editorAndroid;
+
+window.setUpEmojiDefault = function(){
+	editorDefault = leditor.build({
+		editor: ".editorDefault",
+		triggerEmoji: ".btnInsertDefault",
+		triggerUpload: ".btnUploadDefault",
 		uploadUrl: "/upload",
 		uploadCaller: {
 			progress: function(event, position, total, percent, files) {
@@ -25,12 +27,12 @@ window.setUpWithQQ = function(){
 	});
 }
 
-window.setupWithTieba = function(){
-	leditor.build({
-		editor: ".editorTieba",
-		triggerEmoji: ".btnInsertTieba",
-		emojiType: "tieba",
-		triggerUpload: ".btnUploadTieba",
+window.setUpEmojiAndroid = function(){
+	editorAndroid = leditor.build({
+		emojiType: "android",
+		editor: ".editorAndroid",
+		triggerEmoji: ".btnInsertAndroid",
+		triggerUpload: ".btnUploadAndroid",
 		uploadUrl: "/upload",
 		uploadCaller: {
 			progress: function(event, position, total, percent, files) {
@@ -39,3 +41,18 @@ window.setupWithTieba = function(){
 		}
 	});
 }
+
+$(".btnDefaultTestGetText").click(function(){
+	var html = $(".editorDefault").html();
+	var text = editorDefault.getText();
+	alert(html + "\n--------------------------------\n" + text);
+});
+$(".btnDefaultTestRenderHtml").click(function(){
+	var text = editorDefault.getText();
+	var html = "<h4>当前表情类型：</h4><hr>" + editorDefault.renderHtml(text);
+	html += "<hr/>";
+	html += "<h4>目标表情类型：</h4><hr>" + editorDefault.renderHtml(text, editorAndroid.emojiInfo.emoji_realtype);
+	html += "<hr/>";
+	alert(html);
+	$(".editorAndroid").html(html);
+});

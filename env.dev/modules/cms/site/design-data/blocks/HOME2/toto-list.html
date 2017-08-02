@@ -1,0 +1,236 @@
+<div class="task-container">
+<!-- 	<a class="filter">筛选</a> -->
+	<div class="item todo">
+		<h3><span>待处理任务</span></h3>
+		<div class='item_c'>
+			<div class="cont Pending-list">
+			</div>
+			<div class='item_c-listPager Pending-listPager'></div>
+		</div>
+	</div>
+	<div class="item backed">
+		<h3><span>退回给我的任务</span></h3>
+		<div class='item_c'>
+			<div class="cont backed-list">
+			</div>
+			<div class='item_c-listPager backed-listPager'></div>
+		</div>
+	</div>
+	<div class="item loved">
+		<h3><span>我关注的任务</span></h3>
+		<div class='item_c'>
+			<div class="cont loved-list">
+			</div>
+			<div class='item_c-listPager loved-listPager'></div>
+		</div>
+	</div>
+</div>
+<!-- 分页代码支持文件 -->
+<script type="text/javascript" src="${staticRoot}/resources/@buildin/js/lodash.min.js"></script>
+<script type="text/javascript" src="${staticRoot}/resources/@buildin/js/estorecommon.js"></script>
+<script type="text/javascript" src="${staticRoot}/resources/@buildin/js/jquery.paging.js"></script>
+<script type="text/template" class="Pending-list-template">
+<table>
+	<thead>
+	<tr>
+		<th class='tdwidth10'>任务ID</th>
+		<th class='tdwidth20'>任务名称</th>
+		<th class='tdwidth10'>提交人</th>
+		<th class='tdwidth20'>任务到达时间</th>
+		<th class='tdwidth10'>当前处理</th>
+		<th class='tdwidth20'>停留时间</th>
+		<th class='tdwidth10'>操作</th>
+	</tr>
+	</thead>
+	<tbody>
+	<% 
+		function formatDate(now) { 
+			var year=now.getYear(); 
+			var month=now.getMonth()+1; 
+			var date=now.getDate(); 
+			var hour=now.getHours(); 
+			var minute=now.getMinutes(); 
+			var second=now.getSeconds(); 
+			return 1900+year+"-"+month+"-"+date+" "+hour+":"+minute+":"+second; 
+			} 
+
+	_.each(items, function(todo){ %>
+				<tr>
+					<td><%= todo.WORKITEMID%></td>
+					<td><a onclick="openWorkitem(<%= todo.WORKITEMID%>)"><span><%= todo.TOPIC%></span></a></td>
+					<td><%= todo.OPERATORNAME%></td>
+					<td><%= formatDate(new Date(todo.CREATTIME)) %></td>
+					<td><%= todo.WORKITEMNAME%></td>
+					<td><%= todo.DAYTIME%>天<%= todo.HOURTIME%> 小时</td>
+					<td><nobr><a class="min-btn" onclick="openWorkitem(<%= todo.WORKITEMID%>)">处理</a>
+                      <a class="min-btn" onclick="attention(<%= todo.WORKITEMID%>,<%= todo.OID%>,'<%= todo.FORMKEY%>')">关注</a></nobr></td>
+				</tr>	
+
+	<% }); %>
+	</tbody>
+</table>
+</script>
+<script type="text/javascript">
+$(function () {
+	//分页查询方法
+	var Pendinglist = function(defaultPageNo){
+		estoreCommon.pagingShow({
+			pager:" .Pending-listPager",
+			render:" .Pending-list",
+			tmpl: " .Pending-list-template",
+			format: '[<ncnnn>]',
+			defaultPageNo: defaultPageNo,
+			dataCallback: function(pageNo,callback){
+				var pager = this;
+				estoreCommon.postJson(
+					"/yigo/Pending-list.action",{no:2,pageNo:pageNo},
+					function(pageData){		
+						callback.call(pager,pageData)
+					}
+				);
+			},
+		});
+	};
+	Pendinglist();
+});
+</script>
+<script type="text/template" class="backed-list-template">
+<table>
+	<thead>
+	<tr>
+		<th class='tdwidth10'>任务ID</th>
+		<th class='tdwidth20'>任务名称</th>
+		<th class='tdwidth10'>提交人</th>
+		<th class='tdwidth20'>任务到达时间</th>
+		<th class='tdwidth10'>当前处理</th>
+		<th class='tdwidth20'>停留时间</th>
+		<th class='tdwidth10'>操作</th>
+	</tr>
+	</thead>
+	<tbody>
+	<% 
+		function formatDate(now) { 
+			var year=now.getYear(); 
+			var month=now.getMonth()+1; 
+			var date=now.getDate(); 
+			var hour=now.getHours(); 
+			var minute=now.getMinutes(); 
+			var second=now.getSeconds(); 
+			return 1900+year+"-"+month+"-"+date+" "+hour+":"+minute+":"+second; 
+			} 
+
+	_.each(items, function(todo){ %>
+				<tr>
+					<td><%= todo.WORKITEMID%></td>
+					<td><a onclick="openWorkitem(<%= todo.WORKITEMID%>)"><span><%= todo.TOPIC%></span></a></td>
+					<td><%= todo.OPERATORNAME%></td>
+					<td><%= formatDate(new Date(todo.CREATTIME)) %></td>
+					<td><%= todo.WORKITEMNAME%></td>
+					<td><%= todo.DAYTIME%>天<%= todo.HOURTIME%> 小时</td>
+                    <td><nobr><a class="min-btn" onclick="openWorkitem(<%= todo.WORKITEMID%>)">处理</a>
+                    <a class="min-btn" onclick="attention(<%= todo.WORKITEMID%>,<%= todo.OID%>,'<%= todo.FORMKEY%>')">关注</a></nobr></td>
+				</tr>	
+
+	<% }); %>
+	</tbody>
+</table>
+</script>
+<script type="text/javascript">
+$(function () {
+	//分页查询方法
+	var backedlist = function(defaultPageNo){
+		estoreCommon.pagingShow({
+			pager:" .backed-listPager",
+			render:" .backed-list",
+			tmpl: " .backed-list-template",
+			format: '[<ncnnn>]',
+			defaultPageNo: defaultPageNo,
+			dataCallback: function(pageNo,callback){
+				var pager = this;
+				estoreCommon.postJson(
+					"/yigo/backed-list.action",{no:2,pageNo:pageNo},
+					function(pageData){		
+						callback.call(pager,pageData)
+					}
+				);
+			},
+		});
+	};
+	backedlist();
+});
+</script>
+<script type="text/template" class="loved-list-template">
+<table>
+	<thead>
+	<tr>
+		<th class='tdwidth10'>任务ID</th>
+		<th class='tdwidth20'>任务名称</th>
+		<th class='tdwidth10'>提交人</th>
+		<th class='tdwidth20'>任务到达时间</th>
+		<th class='tdwidth10'>当前处理</th>
+		<th class='tdwidth20'>停留时间</th>
+		<th class='tdwidth10'>操作</th>
+	</tr>
+	</thead>
+	<tbody>
+	<% 
+		function formatDate(now) { 
+			var year=now.getYear(); 
+			var month=now.getMonth()+1; 
+			var date=now.getDate(); 
+			var hour=now.getHours(); 
+			var minute=now.getMinutes(); 
+			var second=now.getSeconds(); 
+			return 1900+year+"-"+month+"-"+date+" "+hour+":"+minute+":"+second; 
+			} 
+
+	_.each(items, function(todo){ %>
+				<tr>
+					<td><%= todo.WORKITEMID%></td>
+					<td><a onclick="openWorkitem(<%= todo.WORKITEMID%>)"><span><%= todo.TOPIC%></span></a></td>
+					<td><%= todo.OPERATORNAME%></td>
+					<td><%= formatDate(new Date(todo.CREATTIME)) %></td>
+					<td><%= todo.WORKITEMNAME%></td>
+					<td><%= todo.DAYTIME%>天<%= todo.HOURTIME%> 小时</td>
+					<td><nobr><a class="min-btn" onclick="openWorkitem(<%= todo.WORKITEMID%>)">查看</a>
+                      <a class="min-btn" onclick="attentionCancel(<%= todo.WORKITEMID%>,<%= todo.OID%>)">取消关注</a></nobr></td>
+				</tr>	
+
+	<% }); %>
+	</tbody>
+</table>
+</script>
+<script type="text/javascript">
+$(function () {
+	//分页查询方法
+	var lovedlist = function(defaultPageNo){
+		estoreCommon.pagingShow({
+			pager:" .loved-listPager",
+			render:" .loved-list",
+			tmpl: " .loved-list-template",
+			format: '[<ncnnn>]',
+			defaultPageNo: defaultPageNo,
+			dataCallback: function(pageNo,callback){
+				var pager = this;
+				estoreCommon.postJson(
+					"/yigo/loved-list.action",{no:2,pageNo:pageNo},
+					function(pageData){		
+						callback.call(pager,pageData)
+					}
+				);
+			},
+		});
+	};
+	lovedlist();
+});
+</script>
+<script type="text/javascript">
+function attention(workitemID,oid){
+		attentionWorkflow(workitemID,oid);
+  		window.location.reload();
+	};
+function attentionCancel(workitemID,oid){
+		attentionWorkflowCancel(workitemID,oid);
+  		window.location.reload();
+	};
+</script>

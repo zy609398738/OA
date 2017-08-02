@@ -3,6 +3,9 @@
 var $ = require("jquery");
 var _ = require("lodash");
 
+var fileTypes = require("../../file-types");
+var ActionData = require("../../action-data");
+
 /**
  * 创建本地数据(消息历史)的处理对象
  */
@@ -21,7 +24,6 @@ var LocalDataClient = function(options){
 	 *            - IMAGE/FILE 消息 - 字段结构如下:
 	 *             - uploadingId: "XXXX",     //唯一的,代表一次上传过程的 ID
 	 *             - uploadPercent: 99,       //上传的进度(0-100), 在上传完成后这个数值会变为 -1;
-	 *             - fileIcon: "XXXXXX",      //消息内容的图标(URL)
 	 *             - fileName: "XXXXXX",      //消息内容的文件名
 	 *             - fileUrl: "XXXXXXX",      //消息内容的下载地址
 	 *         rendered: true|false,    //消息是否已经显示在界面上
@@ -32,6 +34,12 @@ var LocalDataClient = function(options){
 	 * }
 	 */
 	this.userMsgTable = {};
+	
+	/** 当前连接用户的信息 */
+	this.userInfo = {};
+	
+	/** 用于处理消息显示的 light editor */
+	this.lightEditor = null;
 	
 	/**
 	 * 用于缓存会话用户的连接历史, 以便辅助实现会话列表的显示;
@@ -62,6 +70,21 @@ var LocalDataClient = function(options){
 LocalDataClient.prototype.reset = function(){
 	this.userMsgTable = {};
 	this.connectingHistory = {};
+	this.userInfo = {};
+}
+
+/**
+ * 记录当前用户信息
+ */
+LocalDataClient.prototype.rememberUserInfo = function(userInfo){
+	this.userInfo = userInfo;
+}
+
+/**
+ * 设置用于处理消息显示的 light editor
+ */
+LocalDataClient.prototype.setLightEditor = function(lightEditor){
+	this.lightEditor = lightEditor;
 }
 
 /**
@@ -203,13 +226,13 @@ var renderMessageHistory = function(self, otherSide){
         		
         		var messageBody = "";
         		if ("TEXT"==msg.type){
-        			messageBody = _renderTextMsg(msg);
+        			messageBody = _renderTextMsg(self, msg);
         		}
         		if ("IMAGE"==msg.type){
-        			messageBody = _renderFileMsg(msg, self.options.fileUploadUrl);
+        			messageBody = _renderFileMsg(msg, self.options.fileUploadUrl, self.userInfo.userToken);
         		}
         		if ("FILE"==msg.type){
-        			messageBody = _renderFileMsg(msg, self.options.fileUploadUrl);
+        			messageBody = _renderFileMsg(msg, self.options.fileUploadUrl, self.userInfo.userToken);
         		}
         		
         		if (messageBody){
@@ -231,11 +254,23 @@ var renderMessageHistory = function(self, otherSide){
         $content[0].scrollTop = $content[0].scrollHeight; 
     });
 }
-var _renderTextMsg = function(msg){
+var _renderTextMsg = function(self, msg){
 	var text=msg.data;
-	var LightEditor = require("../../light-editor");
-	text = LightEditor.build().renderHtml(text);
-	return text;
+	var tmp = new Array();
+	ActionData.parseActionData(tmp,text);
+	var divClass = "action-data";
+	var $div = $("<div class= '"+divClass+"'/>");
+	for(var i=0;i<tmp.length;i++){
+		if(tmp[i].type == "text"){
+			var $b = $("<span/>").text(tmp[i].data).appendTo($div);
+		}
+		if(tmp[i].type == "action"){
+			var tmpObj = JSON.parse(tmp[i].data);
+			var $a = $("<a/>").attr("data-bkim-action", tmpObj.actionData).attr("href", "javascript:void(0)").text(tmpObj.title).appendTo($div);
+		}			
+	}				
+	return $("<div/>").append($div).html();			
+
 }
 var _doRenderUploading = function(msg, uploadingId){
 	var result = null;
@@ -259,7 +294,7 @@ var _doRenderUploading = function(msg, uploadingId){
 		//如果找不到, 创建显示区域
 		$div = $("<div class='"+divClass+"'/>").attr("id", uploadingId);
 		$("<svg class='percent'/>").appendTo($div);
-		$("<img/>").attr("src", msg.data.fileIcon).appendTo($div);
+		$("<img/>").attr("src", _calcFileIcon(msg)).appendTo($div);
 		$("<div class='fileName'/>").append($("<code/>").text(msg.data.fileName)).appendTo($div);
 
 		var svgTpl =
@@ -286,25 +321,34 @@ var _doRenderUploading = function(msg, uploadingId){
 	}
 	return result;	
 }
-var _doRenderUploaded = function(msg, fileUploadUrl){
+var _calcFileIcon = function(msg){
+	var name = msg.data.fileName;
+	var type = msg.type;
+	if ("IMAGE" == type){
+		return fileTypes.getImageIcon(name);
+	}else{ // type=="FILE"
+		return fileTypes.getFileIcon(name);
+	}
+}
+var _doRenderUploaded = function(msg, fileUploadUrl, userToken){
 	var divClass = "file-message";
-	var fileIcon = msg.data.fileIcon;
+	var fileIcon = _calcFileIcon(msg);
 	if ("IMAGE" == msg.type){
 		divClass = "image-message";
-		fileIcon = fileUploadUrl + fileIcon;
+		fileIcon = fileUploadUrl + msg.data.fileUrl;
 	}
     var fileUrl = fileUploadUrl + msg.data.fileUrl;
 
 	var $div = $("<div class='"+divClass+"'/>");
 	
-	var $a = $("<a/>").attr("target", "_blank").attr("href", fileUrl).appendTo($div);
-	$("<img/>").attr("src", fileIcon).appendTo($a);
+	var $a = $("<a/>").attr("target", "_blank").attr("href", fileUrl+"?t="+userToken).appendTo($div);
+	$("<img/>").attr("src", fileIcon+"?t="+userToken).appendTo($a);
 	
 	$("<div/>").append($("<code/>").text(msg.data.fileName)).appendTo($a);
 	
 	return $("<div/>").append($div).html();
 }
-var _renderFileMsg = function(msg, fileUploadUrl){
+var _renderFileMsg = function(msg, fileUploadUrl, userToken){
 	var result = null;
 	
 	var uploadingId = msg.data.uploadingId;
@@ -312,7 +356,7 @@ var _renderFileMsg = function(msg, fileUploadUrl){
 		result = _doRenderUploading(msg, uploadingId);
 	}else{
 		//没有 uploadingId 说明上传已经完成
-		result = _doRenderUploaded(msg, fileUploadUrl);
+		result = _doRenderUploaded(msg, fileUploadUrl, userToken);
 	}
 	return result;
 }

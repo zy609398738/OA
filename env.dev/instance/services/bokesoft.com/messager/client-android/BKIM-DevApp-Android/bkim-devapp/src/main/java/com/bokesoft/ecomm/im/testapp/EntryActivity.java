@@ -30,8 +30,10 @@ public class EntryActivity extends AppCompatActivity {
     private static final String PREF_NAME_IM_SERVER = "imServer";
     private static final String PREF_NAME_HOST_SERVER = "hostServer";
     private static final String PREF_NAME_CLIENT_ID = "clientId";
-    private static final String DEF_VAL_IM_SERVER = "10.0.2.2:7778/boke-messager";
-    private static final String DEF_VAL_HOST_SERVER = "10.0.2.2:8080/im-service/${service}.json";
+//    private static final String DEF_VAL_IM_SERVER = "192.168.1.117:7778/boke-messager";
+        private static final String DEF_VAL_IM_SERVER = "dev.bokesoft.com:7778/boke-messager";
+    private static final String DEF_VAL_HOST_SERVER = "dev.bokesoft.com:20242/yigo/im-service/buddies.action";
+//    private static final String DEF_VAL_HOST_SERVER = "192.168.1.117:8080/im-service/${service}.json";
     private static final String DEF_VAL_CLIENT_ID = "boke-test-001";
 
     protected EditText imSvrAddrView;
@@ -77,10 +79,12 @@ public class EntryActivity extends AppCompatActivity {
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 //Do nothing
             }
+
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 //Do nothing
             }
+
             @Override
             public void afterTextChanged(Editable s) {
                 toClientIdView.setText("");
@@ -114,7 +118,7 @@ public class EntryActivity extends AppCompatActivity {
                 String token = "dev-mode-test-token:" + clientId;
                 facada.init(imSvrAddr, hostSrvAddr, clientId, token);
                 Toast.makeText(EntryActivity.this,
-                        "已为用户 '"+clientIdView.getText()+"' 完成 IM 环境的初始化",
+                        "已为用户 '" + clientIdView.getText() + "' 完成 IM 环境的初始化",
                         Toast.LENGTH_LONG).show();
             }
         });
@@ -122,21 +126,22 @@ public class EntryActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String toClientId = toClientIdView.getText().toString().trim();
-                if (! TextUtils.isEmpty(toClientId)){
+                if (!TextUtils.isEmpty(toClientId)) {
                     facada.openConversationActivity(toClientId);
-                }else{
+                } else {
                     facada.startMainActivity();
                 }
             }
+
         });
 
         facada = new AndroidUIFacada(this);
         facada.setSessionListener(new AndroidUIFacada.SessionListener() {
             @Override
             public void perform(MyActiveConnectData connectedSessionsData, boolean inMainThread) {
-                if (inMainThread){
+                if (inMainThread) {
                     int count = connectedSessionsData.getTotal();
-                    EntryActivity.this.setTitle("未读消息: "+count
+                    EntryActivity.this.setTitle("未读消息: " + count
 
                     );
                 }
@@ -145,9 +150,9 @@ public class EntryActivity extends AppCompatActivity {
         facada.setErrorListener(new AndroidUIFacada.ErrorListener() {
             @Override
             public void onError(String errorMessage, Throwable exception, boolean inMainThread) {
-                if (inMainThread){
+                if (inMainThread) {
                     Toast.makeText(
-                            EntryActivity.this, errorMessage+ (null==exception?"":": "+exception.getMessage()),
+                            EntryActivity.this, errorMessage + (null == exception ? "" : ": " + exception.getMessage()),
                             Toast.LENGTH_LONG).show();
                 }
             }
@@ -170,7 +175,7 @@ public class EntryActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int menuId = item.getItemId();
         AlertDialog.Builder bd;
-        switch (menuId){
+        switch (menuId) {
             case R.id.activity_entry_menu_reset:
                 bd = new AlertDialog.Builder(this);
                 bd.setTitle("Confirmation");
@@ -224,36 +229,39 @@ public class EntryActivity extends AppCompatActivity {
         }
         return text;
     }
-    private void saveEditTextToPref(EditText editor, String defVal, SharedPreferences sp, String prefName){
+
+    private void saveEditTextToPref(EditText editor, String defVal, SharedPreferences sp, String prefName) {
         SharedPreferences.Editor ed = sp.edit();
 
         String text = editor.getText().toString().trim();
-        if (TextUtils.isEmpty(text) || defVal.equals(text)){
+        if (TextUtils.isEmpty(text) || defVal.equals(text)) {
             ed.remove(prefName);
-        }else{
+        } else {
             ed.putString(prefName, text);
         }
 
         ed.commit();
     }
-    private void loadEditTextFromPref(EditText editor, String defVal, SharedPreferences sp, String prefName){
+
+    private void loadEditTextFromPref(EditText editor, String defVal, SharedPreferences sp, String prefName) {
         String prefVal = sp.getString(prefName, "").trim();
-        if (! TextUtils.isEmpty(prefVal)){
+        if (!TextUtils.isEmpty(prefVal)) {
             editor.setText(prefVal);
-        }else{
+        } else {
             editor.setText(defVal);
         }
     }
 
-    private void showSelectItems(final EditText editor, String exclude, boolean withEmpty){
+    private void showSelectItems(final EditText editor, String exclude, boolean withEmpty) {
         final List<String> items = new ArrayList<String>();
         final String empty = "(No Client ID)";
-        if (withEmpty){
+        if (withEmpty) {
             items.add(empty);
         }
-        for(int i=1; i<=9; i++){
-            String uid = "boke-test-00"+i;
-            if (!uid.equals(exclude)){
+
+        for (int i = 1; i <= 9; i++) {
+            String uid = "boke-test-00" + i;
+            if (!uid.equals(exclude)) {
                 items.add(uid);
             }
         }
@@ -266,8 +274,8 @@ public class EntryActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
                 String cid = items.get(which);
-                if (empty.equals(cid)){
-                    cid="";
+                if (empty.equals(cid)) {
+                    cid = "";
                 }
                 editor.setText(cid);
             }

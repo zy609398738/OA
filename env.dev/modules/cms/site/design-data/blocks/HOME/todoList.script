@@ -1,0 +1,63 @@
+cms.PageExp.Local('root', cms.PageExp.RelContextRoot());
+cms.PageExp.Local("operatorID", cms.Yigo2MidExp.GetLoginOperator());
+cms.PageExp.Local(
+    "data",
+    oa.TodoMidExp.queryListByTop("SELECT h.*,em.Name EmpName FROM
+    (
+        SELECT
+            i.ProcessKey,
+            i.formkey,
+            i.oid,
+            Topic,
+            UrgencyDeg,
+            EmpID,
+            DeptID,
+            BillStatus,
+            BillCreatTime,
+            w.workItemID,
+            w.workItemName,
+            10 mark,
+            -1 SourceOID
+        FROM
+            WF_Workitem w
+        JOIN WF_Participator p ON w.WorkitemID = p.WorkitemID
+        JOIN BPM_Log l ON w.WorkitemID = l.WorkitemID
+        JOIN bpm_workiteminfo wi ON w.WorkitemID = wi.WorkitemID
+        JOIN BPM_Instance i ON l.instanceID = i.instanceID
+        JOIN BPM_Migration m ON i.OID = m.BillOID
+        WHERE
+            p.OperatorID=${operatorID}
+        UNION
+            SELECT
+                NULL ProcessKey,
+                im.FormKey,
+                im.oid,
+                im.SourceName AS Topic,
+                10 UrgencyDeg,
+                - 1 EmpID,
+                - 1 DeptID,
+                0 BillStatus,
+                im.CreateDate AS BillCreatTime,
+                - 1 workItemID,
+                '新增' workItemName,
+                20 mark,
+                im.SourceOID
+            FROM
+                oa_itemremind im
+            JOIN OA_ParticipatorIDs_D p ON im.sourceoid = p.soid
+            WHERE
+                (im.OptIDs IS NULL AND 1 = 1)
+            OR  p.OptID=${operatorID}
+                OR im.Sourcecreator=${operatorID}
+            
+            AND billoid < 0
+            ORDER BY
+                UrgencyDeg DESC,
+                BillCreatTime DESC
+    ) h join oa_employee_h em on em.OID=h.EmpID", 7
+    )
+);
+cms.PageExp.Local(
+    "bccount",
+    oa.TodoMidExp.ReadCount(cms.PageExp.Local("operatorID"), "todolist", "")
+);

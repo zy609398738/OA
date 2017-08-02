@@ -23,21 +23,15 @@
                         <Parameter DataType="Long" Formula="GetOperator()"/>
                     </ParameterCollection>
                     <Statement>
-                        <![CDATA[select i.oid,i.FormKey,w.WorkitemID,Topic,empid,deptid,BillStatus,i.ProcessKey,W.creatTime  from wf_workitem w join bpm_workiteminfo bw on w.WorkitemID=bw.WorkitemID join bpm_instance i on bw.InstanceID=i.InstanceID join BPM_migration m on i.OID=m.BillOID where m.BillCreator=? and bw.WorkitemID IN (select max(WorkitemID) from bpm_workiteminfo bpw GROUP BY bpw.InstanceID order by creattime desc)]]>
+                        <![CDATA[select * from (select i.oid,i.FormKey,w.WorkitemID,Topic,empid,deptid,BillStatus,i.ProcessKey,W.creatTime  from wf_workitem w join bpm_workiteminfo bw on w.WorkitemID=bw.WorkitemID join bpm_instance i on bw.InstanceID=i.InstanceID join BPM_migration m on i.OID=m.BillOID where m.BillCreator=?  and BillStatus<1200 and bw.WorkitemID IN (select max(WorkitemID) from bpm_workiteminfo bpw GROUP BY bpw.InstanceID) order by W.creatTime desc) h]]>
                     </Statement>
                 </Table>
             </TableCollection>
         </DataObject>
     </DataSource>
-    <OperationCollection>
-        <Operation Key="Setfirst_headVisible" Caption="查询" RefKey="Setfirst_headVisible"/>
-    </OperationCollection>
     <Body>
         <Block>
             <FlexFlowLayoutPanel Key="main">
-                <ToolBar Key="main_toolbar" Height="pref">
-                    <ToolBarItemCollection/>
-                </ToolBar>
                 <GridLayoutPanel Key="GridLayoutPanel1" Height="80px" Padding="5px" Caption="GridLayoutPanel1" Visible="first_headVisible==1">
                     <DatePicker Key="From" Caption="申请日期" BuddyKey="Lab_From" X="1" Y="0">
                         <Condition ColumnKey="createTime" TableKey="OA_SendList" CondSign="between" Group="A" GroupHead="true"/>
@@ -122,6 +116,11 @@ ShowData();]]>
                         <ListViewColumn Key="BillStatus" Caption="状态" ColumnType="ComboBox" DataColumnKey="BillStatus" SourceType="Status"/>
                         <ListViewColumn Key="WorkitemID" Caption="工作项标识" DataColumnKey="WorkitemID" Visible="false"/>
                         <ListViewColumn Key="OID" Caption="OID" DataColumnKey="OID" Visible="FALSE"/>
+                        <ListViewColumn Key="Urge" Caption="催办" ColumnType="HyperLink" DefaultValue="催办">
+                            <OnClick>
+                                <![CDATA[OA_ShowFeedbackUI(GetCellValue("ListView1", -1, "FormKey"),GetCellValue("ListView1", -1, "WorkitemID"),GetCellValue("ListView1", -1, "OID"),20); ]]>
+                            </OnClick>
+                        </ListViewColumn>
                     </ListViewColumnCollection>
                     <RowDblClick>
                         <![CDATA[OpenWorkitem(WorkitemID,true)]]>

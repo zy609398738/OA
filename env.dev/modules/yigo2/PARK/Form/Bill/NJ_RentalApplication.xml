@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <Form Key="NJ_RentalApplication" Caption="租房申请" FormType="Entity">
     <DataSource>
-        <DataObject Key="NJ_RentalApplication" Caption="租房申请" NoPrefix="ZFSQ" PrimaryTableKey="NJ_SCM_RentalApplicationHead" PrimaryType="Entity" ZeroPrefix="3">
+        <DataObject Key="NJ_RentalApplication" Caption="租房申请" NoPrefix="ZFSQ" PrimaryTableKey="NJ_SCM_RentalApp_H" PrimaryType="Entity" ZeroPrefix="3">
             <TableCollection>
                 <Table Key="NJ_SCM_RentalApplicationDtl" Caption="NJ_SCM_RentalApplicationDtl" TableMode="Detail">
                     <Column Key="OID" Caption="对象标识" DataType="Long"/>
@@ -18,7 +18,7 @@
                     <Column Key="RentalUse" Caption="RentalUse" DataType="Long"/>
                     <Column Key="MapCount" Caption="映射数量标记" DataType="Integer"/>
                 </Table>
-                <Table Key="NJ_SCM_RentalApplicationHead" Caption="NJ_SCM_RentalApplicationHead" DBTableName="NJ_SCM_RentalApplicationHead">
+                <Table Key="NJ_SCM_RentalApp_H" Caption="NJ_SCM_RentalApp_H" DBTableName="NJ_SCM_RentalApp_H">
                     <Column Key="OID" Caption="对象标识" DataType="Long"/>
                     <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
                     <Column Key="POID" Caption="父对象标识" DataType="Long"/>
@@ -51,7 +51,7 @@
         <Operation Key="Save" Caption="保存" Visible="!ReadOnly()">
             <Action>
                 <![CDATA[SaveData();UpdateView();
-DBUpdate('UPDATE NJ_SCM_RentalApplicationHead SET RoomNumber=(select GROUP_CONCAT(c.Name) name from NJ_SCM_RentalApplicationDtl b LEFT JOIN nj_cp_roomhead c ON b.Room=c.OID WHERE b.SOID=?) WHERE OID=?', GetOID(), GetOID());]]>
+DBUpdate('UPDATE NJ_SCM_RentalApp_H SET RoomNumber=(select GROUP_CONCAT(c.Name) name from NJ_SCM_RentalApplicationDtl b LEFT JOIN nj_cp_roomhead c ON b.Room=c.OID WHERE b.SOID=?) WHERE OID=?', GetOID(), GetOID());]]>
             </Action>
         </Operation>
         <Operation Key="Delete" Caption="删除">
@@ -97,43 +97,43 @@ var no=ToString(DBQueryValue('SELECT no FROM nj_scm_leasecontracthead WHERE oid=
                     <TabPanel Caption="TabPanel1" Height="100%" Key="TabPanel1">
                         <GridLayoutPanel Key="first_head" Height="pref" Padding="5px" Caption="基本信息">
                             <TextEditor Key="NO" Caption="申请编号" BuddyKey="Lab_NO" X="2" Y="0" Enable="false">
-                                <DataBinding ColumnKey="NO" TableKey="NJ_SCM_RentalApplicationHead"/>
+                                <DataBinding ColumnKey="NO" TableKey="NJ_SCM_RentalApp_H"/>
                             </TextEditor>
                             <Label Key="Lab_NO" Caption="申请编号" X="1" Y="0"/>
                             <DatePicker Key="BillDate" Caption="申请日期" BuddyKey="Lab_BillDate" X="5" Y="0" OnlyDate="true">
-                                <DataBinding ColumnKey="BillDate" DefaultFormulaValue="ServerDate();" TableKey="NJ_SCM_RentalApplicationHead"/>
+                                <DataBinding ColumnKey="BillDate" DefaultFormulaValue="ServerDate();" TableKey="NJ_SCM_RentalApp_H"/>
                             </DatePicker>
                             <Label Key="Lab_BillDate" Caption="申请日期" X="4" Y="0"/>
                             <ComboBox Key="Status" Caption="单据状态" BuddyKey="Lab_Status" X="8" Y="0" Enable="false" SourceType="Status">
-                                <DataBinding ColumnKey="Status" TableKey="NJ_SCM_RentalApplicationHead" DefaultValue="100"/>
+                                <DataBinding ColumnKey="Status" TableKey="NJ_SCM_RentalApp_H" DefaultValue="100"/>
                             </ComboBox>
                             <Label Key="Lab_Status" Caption="单据状态" X="7" Y="0"/>
                             <Dict Key="EmpID" Caption="业务员" BuddyKey="Lab_EmpID" X="5" Y="3" ItemKey="OA_Employee">
-                                <DataBinding ColumnKey="EmpID" DefaultFormulaValue="GetDictValue('Operator', Creator, 'SYS_Operator.EmpID')" TableKey="NJ_SCM_RentalApplicationHead"/>
+                                <DataBinding ColumnKey="EmpID" DefaultFormulaValue="GetDictValue('Operator', Creator, 'SYS_Operator.EmpID')" TableKey="NJ_SCM_RentalApp_H"/>
                             </Dict>
                             <Label Key="Lab_EmpID" Caption="业务员" X="4" Y="3"/>
                             <TextEditor Key="Notes" Caption="备注" BuddyKey="Lab_Notes" X="8" Y="3">
-                                <DataBinding ColumnKey="Notes" TableKey="NJ_SCM_RentalApplicationHead" ValueDependency="Room"/>
+                                <DataBinding ColumnKey="Notes" TableKey="NJ_SCM_RentalApp_H" ValueDependency="Room"/>
                             </TextEditor>
                             <Label Key="Lab_Notes" Caption="备注" X="7" Y="3"/>
                             <Dict Key="CustomerId" Caption="租赁客户 *" BuddyKey="Lab_CustomerId" X="2" Y="1" ItemKey="NJ_CP_Customer">
-                                <DataBinding ColumnKey="CustomerId" TableKey="NJ_SCM_RentalApplicationHead" Required="true"/>
+                                <DataBinding ColumnKey="CustomerId" TableKey="NJ_SCM_RentalApp_H" Required="true"/>
                             </Dict>
                             <Label Key="Lab_CustomerId" Caption="租赁客户" X="1" Y="1"/>
                             <TextEditor Key="UsePeople" Caption="联系人" BuddyKey="Lab_UsePeople" X="5" Y="1">
-                                <DataBinding ColumnKey="UsePeople" TableKey="NJ_SCM_RentalApplicationHead"/>
+                                <DataBinding ColumnKey="UsePeople" TableKey="NJ_SCM_RentalApp_H"/>
                             </TextEditor>
                             <Label Key="Lab_UsePeople" Caption="联系人" X="4" Y="1"/>
                             <NumberEditor Key="TotalArea" Caption="总面积" BuddyKey="Lab_TotalArea" X="2" Y="3" Enable="false">
-                                <DataBinding ColumnKey="TotalArea" DefaultFormulaValue="Sum('Area');" TableKey="NJ_SCM_RentalApplicationHead" ValueDependency="Area"/>
+                                <DataBinding ColumnKey="TotalArea" DefaultFormulaValue="Sum('Area');" TableKey="NJ_SCM_RentalApp_H" ValueDependency="Area"/>
                             </NumberEditor>
                             <Label Key="Lab_TotalArea" Caption="总面积" X="1" Y="3"/>
                             <TextEditor Key="ContactNumber" Caption="联系电话" BuddyKey="Lab_ContactNumber" X="8" Y="1">
-                                <DataBinding ColumnKey="ContactNumber" TableKey="NJ_SCM_RentalApplicationHead"/>
+                                <DataBinding ColumnKey="ContactNumber" TableKey="NJ_SCM_RentalApp_H"/>
                             </TextEditor>
                             <Label Key="Lab_ContactNumber" Caption="联系电话" X="7" Y="1"/>
                             <NumberEditor Key="Term" Caption="租期(月)" BuddyKey="Lab_Term" X="2" Y="2" IntegerValue="true">
-                                <DataBinding ColumnKey="Term" TableKey="NJ_SCM_RentalApplicationHead">
+                                <DataBinding ColumnKey="Term" TableKey="NJ_SCM_RentalApp_H">
                                     <ValueChanged>
                                         <![CDATA[EndDate=DateAdd(StartDate, 'm', Term);]]>
                                     </ValueChanged>
@@ -141,7 +141,7 @@ var no=ToString(DBQueryValue('SELECT no FROM nj_scm_leasecontracthead WHERE oid=
                             </NumberEditor>
                             <Label Key="Lab_Term" Caption="租期(月)" X="1" Y="2"/>
                             <DatePicker Key="StartDate" Caption="起租日" BuddyKey="Lab_StartDate" X="5" Y="2" OnlyDate="true">
-                                <DataBinding ColumnKey="StartDate" TableKey="NJ_SCM_RentalApplicationHead">
+                                <DataBinding ColumnKey="StartDate" TableKey="NJ_SCM_RentalApp_H">
                                     <ValueChanged>
                                         <![CDATA[EndDate=DateAdd(StartDate, 'm', Term);]]>
                                     </ValueChanged>
@@ -149,11 +149,11 @@ var no=ToString(DBQueryValue('SELECT no FROM nj_scm_leasecontracthead WHERE oid=
                             </DatePicker>
                             <Label Key="Lab_StartDate" Caption="起租日" X="4" Y="2"/>
                             <DatePicker Key="EndDate" Caption="到期日" BuddyKey="Lab_EndDate" X="8" Y="2" Enable="false" OnlyDate="true">
-                                <DataBinding ColumnKey="EndDate" TableKey="NJ_SCM_RentalApplicationHead"/>
+                                <DataBinding ColumnKey="EndDate" TableKey="NJ_SCM_RentalApp_H"/>
                             </DatePicker>
                             <Label Key="Lab_EndDate" Caption="到期日" X="7" Y="2"/>
                             <TextEditor Key="RoomNumber" Caption="房间号" BuddyKey="Lab_RoomNumber" X="8" Y="3" Visible="false">
-                                <DataBinding ColumnKey="RoomNumber" TableKey="NJ_SCM_RentalApplicationHead"/>
+                                <DataBinding ColumnKey="RoomNumber" TableKey="NJ_SCM_RentalApp_H"/>
                             </TextEditor>
                             <Label Key="Lab_RoomNumber" Caption="房间号" X="7" Y="3"/>
                             <RowDefCollection RowGap="4">
@@ -178,27 +178,27 @@ var no=ToString(DBQueryValue('SELECT no FROM nj_scm_leasecontracthead WHERE oid=
                         </GridLayoutPanel>
                         <GridLayoutPanel Key="SysTab" Caption="系统信息">
                             <Dict Key="Creator" Caption="创建人" BuddyKey="Lab_Creator" X="2" Y="0" Enable="false" ItemKey="Operator">
-                                <DataBinding ColumnKey="Creator" DefaultFormulaValue="GetOperator()" TableKey="NJ_SCM_RentalApplicationHead"/>
+                                <DataBinding ColumnKey="Creator" DefaultFormulaValue="GetOperator()" TableKey="NJ_SCM_RentalApp_H"/>
                             </Dict>
                             <Label Key="Lab_Creator" Caption="创建人" X="1" Y="0"/>
                             <Dict Key="Modifier" Caption="修改人" BuddyKey="Lab_Modifier" X="2" Y="1" Enable="false" ItemKey="Operator">
-                                <DataBinding ColumnKey="Modifier" DefaultFormulaValue="GetOperator()" TableKey="NJ_SCM_RentalApplicationHead"/>
+                                <DataBinding ColumnKey="Modifier" DefaultFormulaValue="GetOperator()" TableKey="NJ_SCM_RentalApp_H"/>
                             </Dict>
                             <DatePicker Key="CreateTime" Caption="创建日期" BuddyKey="Lab_CreateTime" X="5" Y="0" Enable="false">
-                                <DataBinding ColumnKey="CreateTime" DefaultFormulaValue="ServerDate()" TableKey="NJ_SCM_RentalApplicationHead"/>
+                                <DataBinding ColumnKey="CreateTime" DefaultFormulaValue="ServerDate()" TableKey="NJ_SCM_RentalApp_H"/>
                             </DatePicker>
                             <Label Key="Lab_CreateTime" Caption="创建时间" X="4" Y="0"/>
                             <Label Key="Lab_Modifier" Caption="修改人" X="1" Y="1"/>
                             <DatePicker Key="ModifyTime" Caption="修改日期" BuddyKey="Lab_ModifyTime" X="5" Y="1" Enable="false">
-                                <DataBinding ColumnKey="ModifyTime" DefaultFormulaValue="ServerDate()" TableKey="NJ_SCM_RentalApplicationHead"/>
+                                <DataBinding ColumnKey="ModifyTime" DefaultFormulaValue="ServerDate()" TableKey="NJ_SCM_RentalApp_H"/>
                             </DatePicker>
                             <Label Key="Lab_ModifyTime" Caption="修改时间" X="4" Y="1"/>
                             <TextEditor Key="BillKey" Caption="单据Key" BuddyKey="Lab_BillKey" X="8" Y="0">
-                                <DataBinding ColumnKey="BillKey" DefaultFormulaValue="GetFormKey()" TableKey="NJ_SCM_RentalApplicationHead"/>
+                                <DataBinding ColumnKey="BillKey" DefaultFormulaValue="GetFormKey()" TableKey="NJ_SCM_RentalApp_H"/>
                             </TextEditor>
                             <Label Key="Lab_BillKey" Caption="单据Key" X="7" Y="0"/>
                             <Dict Key="ClusterID" Caption="集团" BuddyKey="Lab_ClusterID" X="8" Y="1" Enable="false" ItemKey="Client">
-                                <DataBinding ColumnKey="ClusterID" TableKey="NJ_SCM_RentalApplicationHead"/>
+                                <DataBinding ColumnKey="ClusterID" TableKey="NJ_SCM_RentalApp_H"/>
                             </Dict>
                             <Label Key="Lab_ClusterID" Caption="集团" X="7" Y="1"/>
                             <RowDefCollection RowGap="4">

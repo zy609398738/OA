@@ -177,7 +177,7 @@ SaveData(); UpdateView();LoadData();
                 <![CDATA[Edit();]]>
             </Action>
         </Operation>
-        <Operation Key="AuditEdit" Caption="填写部门答复" Visible="ReadOnly()&amp;&amp;Status==1100" Enable="GetOperator()==GetDictValue('OA_Group', OA_weeklyreport.GroupID, 'OA_Group.Audit')">
+        <Operation Key="ApproverEdit" Caption="填写部门答复" Visible="ReadOnly()&amp;&amp;Status==1100" Enable="GetOperator()==GetDictValue('OA_Group', OA_weeklyreport.GroupID, 'OA_Group.Approver')">
             <Action>
                 <![CDATA[Edit();SetEnable('TWPlan', false);SetNewEmptyRow('TWPlan', false);SetEnable('TWSaturation', false);SetNewEmptyRow('TWSaturation', false);SetEnable('TWProblem', false);SetNewEmptyRow('TWProblem', false);SetEnable('GroupID', false)]]>
             </Action>

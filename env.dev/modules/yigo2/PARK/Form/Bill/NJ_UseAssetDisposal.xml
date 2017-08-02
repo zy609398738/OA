@@ -26,7 +26,7 @@
                     <Column Key="AssetsCode" Caption="AssetsCode" DataType="Varchar"/>
                     <Column Key="AssetsOID" Caption="AssetsOID" DataType="Varchar"/>
                 </Table>
-                <Table Key="NJ_SCM_UseAssetDisposalHead" Caption="NJ_SCM_UseAssetDisposalHead" DBTableName="NJ_SCM_UseAssetDisposalHead">
+                <Table Key="NJ_SCM_UseAssetDisposalHead" Caption="NJ_SCM_UseAssetDisposalHead" DBTableName="NJ_SCM_UseAssetDisposalHead" IndexPrefix="I_UA">
                     <Column Key="OID" Caption="对象标识" DataType="Long"/>
                     <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
                     <Column Key="POID" Caption="父对象标识" DataType="Long"/>

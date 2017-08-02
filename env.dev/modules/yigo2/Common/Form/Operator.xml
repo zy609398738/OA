@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<Form Caption="操作员" FormType="Dict" Key="Operator" Platform="">
+<Form Caption="操作员" FormType="ChainDict" Key="Operator">
     <DataSource>
-        <DataObject Caption="操作员" Key="Operator" PrimaryTableKey="SYS_Operator" PrimaryType="Entity" SecondaryType="Dict">
+        <DataObject Caption="操作员" Key="Operator" PrimaryTableKey="SYS_Operator" PrimaryType="Entity" SecondaryType="ChainDict" DisplayFields="Name">
             <TableCollection>
                 <Table Caption="基本信息" DBTableName="SYS_Operator" Key="SYS_Operator">
                     <Column Caption="对象标识" DBColumnName="OID" DataType="Long" Key="OID"/>

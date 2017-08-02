@@ -31,7 +31,7 @@ var fileTypes = require("../boke-cms-file-types");
  *           - fileUrl: 文件从服务器下载的 URL & 文件网页显示的 URL, 是基于当前 Web 上下文路径的相对路径;
  *
  * @param options - 选项
- *  - uploadUrl 文件上传 URL, 注意, 此 URL 不需要考虑拼接上 ctxPath，甚至可以是一个与 ctxPath 无关的绝对路径
+ *  - uploadAction 文件上传 URL, 注意, 此 URL 不需要考虑拼接上 ctxPath，甚至可以是一个与 ctxPath 无关的绝对路径
  *  - uploadType 控制是否只能上传图片,默认file
  *    -- image 上传图片,只能上传图片格式的文件;
  *    -- file 上传文件,可以上传所有格式的文件;
@@ -58,7 +58,7 @@ var defaultInit = function(options){
     var $uploadArea = options.$uploadArea,
 		$uploadFileShow = options.$uploadFileShow || $($uploadArea).find(".upload-file-show"),
 		$uploadBtn = $(options.$uploadBtn || $($uploadArea).find(".upload-button")),
-		acceptType = (options.uploadType || 'file') == "image" ? "image/*":"*";
+		acceptType = (options.uploadType || 'file') == "image" ? "image/jpg,image/jpeg,image/png,image/gif,image/bmp":"*";
 
 	/**
 	*  显示进度条的封装方法

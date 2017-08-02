@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<Form Key="OA_NewsDraft" Caption="新闻发布" FormType="Entity" AliasKey="MOA_NewsDraft">
+<Form Key="OA_NewsDraft" Caption="新闻发布" FormType="Entity">
     <DataSource>
         <DataObject Key="OA_NewsDraft" Caption="新闻发布" PrimaryTableKey="OA_NewsDraft_H" NoPrefix="ND" PrimaryType="Entity">
             <TableCollection>
@@ -40,11 +40,7 @@
     <OperationCollection>
         <Operation Key="BPM" Caption="BPM" Tag="BPM" RefKey="BPM"/>
         <Operation Key="WORKITEM" Caption="WORKITEM" Tag="WORKITEM" RefKey="WORKITEM"/>
-        <Operation Key="Save" Caption="保存" Visible="!ReadOnly()">
-            <Action>
-                <![CDATA[SaveData();]]>
-            </Action>
-        </Operation>
+        <Operation Key="Save" Caption="保存" Visible="!ReadOnly()" RefKey="Save"/>
         <Operation Key="Delete" Caption="删除" RefKey="Delete"/>
         <Operation Key="Edit" Caption="编辑" RefKey="Edit"/>
         <Operation Key="Cancel" Caption="取消" RefKey="Cancel"/>
@@ -52,13 +48,19 @@
         <Operation Key="Read" Caption="阅读记录" RefKey="Read"/>
         <Operation Key="HaveRead" Caption="已阅" Visible="IIF(DBNamedQueryValue('queryStatus',GetOperator(),GetOID())==20,false,IIF(DBQueryValue(&quot;select a.ReadUser from oa_Read a where a.billoid=? and a.BillKey=? and a.ReadUser=?&quot;,GetOID(),GetFormKey(),GetOperator())==GetOperator(),true,false))">
             <Action>
-                <![CDATA[ DBUpdate('Insert into OA_ReadRecord (OID,SOID,POID,VERID,DVERID,Reader,ReadTime,BillKey,BillOID) values (?,OID,null,0,0,?,?,?,?)',
-ApplyNewOID(),GetOperator(),Format(ServerDate(), "yyyy-MM-dd HH:mm:ss"),GetValue('BillKey'),GetOID());
- DBUpdate('Update OA_read set status = 20,ReadTime=? where  readuser=? and billoid=?',Format(ServerDate(), "yyyy-MM-dd HH:mm:ss"),GetOperator(),GetOID());]]>
+                <![CDATA[var workitemID = DBQueryValue("select workitemid from oa_read where billoid=?", GetOID());
+OA_ShowFeedbackUI(GetFormKey(),workitemID,GetOID(),10); ]]>
             </Action>
         </Operation>
         <Operation Key="ShowLog" Caption="审批记录" RefKey="ShowWFLog"/>
         <Operation Key="Print" Caption="打印" Visible="false"/>
+        <Operation Key="StartInstance" Caption="提交" Visible="!ReadOnly()&amp;&amp;Status&lt;=100">
+            <Action>
+                <![CDATA[SaveData(); 
+UpdateView();
+OA_StartInstance(GetFormKey(),WorkflowTypeDtlID,GetOID());]]>
+            </Action>
+        </Operation>
     </OperationCollection>
     <Body>
         <Block>
@@ -76,12 +78,8 @@ ApplyNewOID(),GetOperator(),Format(ServerDate(), "yyyy-MM-dd HH:mm:ss"),GetValue
                             <DataBinding ColumnKey="BillDate" TableKey="OA_NewsDraft_H" DefaultFormulaValue="ServerDate()"/>
                         </DatePicker>
                         <Label Key="Lab_BillDate" Caption="发布日期" X="4" Y="0"/>
-                        <ComboBox Key="UrgencyDeg" Caption="紧急程度" BuddyKey="Lab_UrgencyDeg" X="8" Y="0">
-                            <DataBinding ColumnKey="UrgencyDeg" TableKey="OA_NewsDraft_H"/>
-                            <Item Caption="一般" Key="10" Value="10"/>
-                            <Item Caption="紧急" Key="20" Value="20"/>
-                            <Item Caption="特急" Key="30" Value="30"/>
-                            <Item Key="0" Value="0"/>
+                        <ComboBox Key="UrgencyDeg" Caption="紧急程度" BuddyKey="Lab_UrgencyDeg" X="8" Y="0" SourceType="ParaGroup" GroupKey="UrgencyDeg">
+                            <DataBinding ColumnKey="UrgencyDeg" TableKey="OA_NewsDraft_H" DefaultValue="10"/>
                         </ComboBox>
                         <Label Key="Lab_UrgencyDeg" Caption="紧急程度" X="7" Y="0"/>
                         <TextEditor Key="Topic" Caption="主题" BuddyKey="Lab_Topic" X="1" Y="1" XSpan="8">
@@ -131,13 +129,11 @@ ApplyNewOID(),GetOperator(),Format(ServerDate(), "yyyy-MM-dd HH:mm:ss"),GetValue
                             <DataBinding ColumnKey="NewsContent" TableKey="OA_NewsDraft_H"/>
                         </RichEditor>
                         <Label Key="Lab_NewsContent" Caption="新闻内容" X="0" Y="9"/>
-                        <Embed Caption="图片附件" FormKey="OA_Attchment_Pho" Key="OA_Attchment_Pho" RootKey="Grid3" X="1" XSpan="8" Y="6">
-                            <Var Key="ParentKey" Value="OA_NewsDraft_H"/>
-                        </Embed>
+                        <Embed Caption="图片附件" FormKey="OA_Attchment_Pho" Key="OA_Attchment_Pho" RootKey="OA_NewsDraft_Pho" X="1" XSpan="8" Y="6"/>
                         <Label Key="Label_OA_Attachment_Pho" Caption="新闻图片" X="0" Y="6">
                             <Format HAlign="Left" VAlign="Top"/>
                         </Label>
-                        <Embed Caption="附件" FormKey="OA_Attachment" Key="OA_Attachment" RootKey="Grid2" X="1" XSpan="8" Y="12"/>
+                        <Embed Caption="附件" FormKey="OA_Attachment" Key="OA_Attachment" RootKey="OA_Attachment" X="1" XSpan="8" Y="12"/>
                         <Label Key="Label_OA_Attachment" Caption="附件" X="0" Y="12"/>
                         <NumberEditor Key="NewsDate" Caption="有效期(天)" BuddyKey="Lab_NewsDate" X="8" Y="3" Scale="0">
                             <DataBinding ColumnKey="NewsDate" TableKey="OA_NewsDraft_H"/>

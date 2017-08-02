@@ -305,11 +305,7 @@ Ext.define('Ext.calendar.App', {
 			billKey="OA_MySchedule",
 			oid=rec.data.EventId;				
 		}
-		var args = {
-			formKey: billKey,
-			OID: oid
-		};
-		parent.parent.openForm(args);
+		parent.openForm(billKey,oid);
 		/*//靠右显示详情
 		var border=parent.document.getElementById("schedule-content");
 		$(border).html("");

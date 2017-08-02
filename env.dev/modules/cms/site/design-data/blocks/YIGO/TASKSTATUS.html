@@ -1,0 +1,90 @@
+<link rel="stylesheet" type="text/css" media="screen" href="/yigo/_$/resources/jquery-ui-1.12.1/jquery-ui.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="/yigo/_$/resources/Guriddo_jqGrid_JS_5.2.1/css/ui.jqgrid.css" />
+<h2><span>任务状态</span></h2>
+<div class="task-content">
+    <table id="tasktree"></table>
+    <div id="pager"></div>
+</div>
+<p>demo来源：<a href="https://github.com/tonytomov/jqGrid">https://github.com/tonytomov/jqGrid</a></p>
+<script type="text/javascript" src="/yigo/_$/resources/jquery-ui-1.12.1/jquery-ui.min.js"></script>
+<script type="text/javascript" src="/yigo/_$/resources/Guriddo_jqGrid_JS_5.2.1/js/jquery.jqGrid.js"></script>
+<script type="text/javascript" src="/yigo/_$/resources/Guriddo_jqGrid_JS_5.2.1/js/i18n/grid.locale-cn.js"></script>
+#set( $R_ROOT = "$this.eval('#!spring:cms.PageExp.RelContextRoot()')" )
+<script type="text/javascript">
+$(function(){
+	$('#tasktree').jqGrid({
+		"url":"$R_ROOT/getTaskStatus.action",
+  		//"url":"/yigo/_$/resources/Guriddo_jqGrid_JS_5.2.1/data.json",
+		"colModel":[
+			{
+				"name":"category_id",
+				"index":"accounts.account_id",
+				"sorttype":"int",
+				"key":true,
+				"hidden":true
+			},{
+				"name":"name",
+				"index":"name",
+				"sorttype":"string",
+				"label":"主题"
+			},{
+				"name":"persent",
+				"index":"persent",
+				"sorttype":"numeric",
+				"label":"完成程度",
+				"align":"right"
+			},{
+				"name":"tast_num",
+				"index":"tast_num",
+				"sorttype":"int",
+				"label":"编号",
+				"align":"right"
+			},{
+				"name":"publishDate",
+				"index":"publishDate",
+				"sorttype":"date",
+				"label":"发布日期",
+				"align":"right"
+			},{
+				"name":"lft"
+			},{
+				"name":"rgt"
+			},{
+				"name":"level"
+			},{
+				"name":"uiicon"
+			}
+		],
+		"width":"1100",
+		"hoverrows":false,
+		"viewrecords":false,
+		"gridview":true,
+		"height":"auto",
+		"sortname":"lft",
+		"loadonce":false,
+		"rowNum":100,
+		"scrollrows":true,
+		// enable tree grid
+		"treeGrid":true,
+		// which column is expandable
+		"ExpandColumn":"name",
+		// datatype
+		"treedatatype":"json",
+		// the model used
+		"treeGridModel":"nested",
+		// configuration of the data comming from server
+		"treeReader":{
+			"left_field":"lft",
+			"right_field":"rgt",
+			"level_field":"level",
+			"leaf_field":"isLeaf",
+			"expanded_field":"expanded",
+			"loaded":"loaded",
+			"icon_field":"icon"
+		},
+		"sortorder":"asc",
+		"datatype":"json",
+		"pager":"#pager"
+	}); 
+})
+</script>

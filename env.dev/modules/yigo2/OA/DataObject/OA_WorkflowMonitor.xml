@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<DataObject Key="OA_WorkflowMonitor" Caption="流程监控" PrimaryType="Entity">
+    <TableCollection>
+        <Table Key="OA_WorkflowMonitor" Caption="流程监控" TableMode="Detail" DBTableName="OA_WorkflowMonitor">
+            <Column Key="OID" Caption="对象标识" DataType="Long"/>
+            <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+            <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+            <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+            <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+            <Column Key="FormKey" Caption="单据标识" DataType="Varchar"/>
+            <Column Key="ProcessKey" Caption="流程标识" DataType="Varchar"/>
+            <Column Key="NodeKey" Caption="节点标识" DataType="Varchar"/>
+            <Column Key="Operator" Caption="监控人员" DataType="Long"/>
+            <Column Key="Version" Caption="流程版本" DataType="Integer"/>
+            <Column Key="WorkitemID" Caption="工作项标识" DataType="Long"/>
+            <Column Key="BillOID" Caption="单据ID" DataType="Long"/>
+            <Column Key="InstanceID" Caption="流程ID" DataType="Long"/>
+        </Table>
+    </TableCollection>
+</DataObject>

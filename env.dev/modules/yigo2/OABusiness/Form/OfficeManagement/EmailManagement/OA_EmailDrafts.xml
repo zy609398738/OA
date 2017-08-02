@@ -202,9 +202,7 @@ SetValue("AttachmentVisiable",0);
                     </ColumnDefCollection>
                 </GridLayoutPanel>
                 <GridLayoutPanel Key="GridLayoutPanel1" Height="185px" OverflowY="Auto" Padding="5px" Caption="GridLayoutPanel1" Visible="AttachmentVisiable==1||DBNamedQueryValue(&quot;QueryAtt&quot;, OID)&gt;0">
-                    <Embed Caption="附件" FormKey="OA_Attachment" Key="OA_Attachment" RootKey="Grid2" X="1" XSpan="5" Y="0">
-                        <Var Key="ParentKey" Value="OA_EmailWrite_H"/>
-                    </Embed>
+                    <Embed Caption="附件" FormKey="OA_Attachment" Key="OA_Attachment" RootKey="OA_Attachment" X="1" XSpan="5" Y="0"/>
                     <RowDefCollection RowGap="5">
                         <RowDef Height="170px"/>
                     </RowDefCollection>

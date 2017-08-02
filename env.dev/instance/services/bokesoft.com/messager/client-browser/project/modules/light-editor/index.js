@@ -17,13 +17,13 @@ require('malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css');
 })();
 require('./jQuery-emoji-1.2/dist/css/jquery.emoji.css');
 
-//require('./data/data.js');	//Force deploy emoji images as it's original path, such as "dist/img/qq/1.gif"
-//require('!!file?name=emoji/img/spacer.gif!./jQuery-emoji-1.2/dist/img/spacer.gif');
 var spacerGif = require("./jQuery-emoji-1.2/dist/img/spacer.gif");
 
 var $ = require("jquery");
 var json = require("JSON2");
 var FastUpload = require('fast-upload');
+
+var emojiData = require('./unicode-emoji-data/data.js');
 
 /**
  * 初始化 light-editor.
@@ -74,35 +74,59 @@ var build = function(options){
     /**
      * 获取编辑区域的内容文本：1.HTML换行(br、p等)需要变为"\n"; 2.表情符号需要变为 unicode 字符串
      */
-    editorObject.getText = function(text){
-		text = text.replace(/(^\s*)(\s*$)/g, "");//Trim
-		
+    editorObject.getText = function(){
+    	var html = $(this.settings.editor).html();
+    	
+		var text = html.replace(/^\s+|\s+$/g, '');	//Trim
+
+		//Chrome - 段落使用 <div>...</div>, 空行是 <div><br></div>
+		text = text.replace(/(<div><br><\/div>)/g, "<br>");
 		text = text.replace(/(<div>)/g, "");
 		text = text.replace(/(<\/div>)/g, "\n");
-		text = text.replace(/(<br>)/g, "\n");
-		text = text.replace(/(<p>)/g, "");
-		text = text.replace(/(<\/p>)/g, "");
 
-		text = text.replace(/&nbsp;/gi, " ");
-        var arrEntities={'lt':'<','gt':'>','nbsp':' ','amp':'&','quot':'"'};
-        text = text.replace(/&(lt|gt|nbsp|amp|quot);/ig,function(all,t){return arrEntities[t];});
+		//IE 11 - 段落使用 <p>...</p>, 空行是 <p><br></p>
+		text = text.replace(/(<p><br><\/p>)/g, "<br>");
+		text = text.replace(/(<p>)/g, "");
+		text = text.replace(/(<\/p>)/g, "\n");
+
+		//IE8 - 段落使用 <P>...</P> 并且行后面有回车, 换行使用 <BR>
+		text = text.replace(/(<P>)/g, "");
+		text = text.replace(/(<\/P>)/g, "");
+		text = text.replace(/(<BR>)/g, "<br>");
+
+		//IE11/Chrome - 换行使用 <br>, Firefox 段落换行也使用 <br>
+		text = text.replace(/(<br>)/g, "\n");
+
+        text = text.replace(/&(lt|gt|nbsp|amp|quot);/ig,function(all,t){
+            var entities={'lt':'<','gt':'>','nbsp':' ','amp':'&','quot':'"'};
+        	return entities[t];
+        });
     	text = text.replace(/<img [^>]*data-emoji_code=['"]([^'"]+)[^>]*>/gi,function(match,capture){
 			return capture;
 		});
+    	
+    	//Trim again
+    	text = text.replace(/^\s+|\s+$/g, '');
+    	
 		return text;
     }
     /**
      * 将文本内容以 HTML 方式显示
+     * @参数 text 文本内容
+     * @参数 emojiType 表情符号的类型(apple、android、...), 可选, 默认为当前 editor 的表情符号类型
      */
-    editorObject.renderHtml = function(text){
+    editorObject.renderHtml = function(text, emojiType){
+    	if (! text) text ="";
+    	if (! emojiType) emojiType = this.emojiInfo.emoji_realtype;
 
-        text = text.replace(/[<>&"]/g,function(c){return {'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c];});
-		text = text.replace(/[\n\r]/g,'<br/>');
+		text = text.replace(/[<>&"]/g,function(c){
+        	return {'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c];
+        });
 
-		var emojiData = require('./unicode-emoji-data/data.js');
 		for(var i=0; i < emojiData.length; i++){
 			var char = emojiData[i].char;
-			var img = "<img data-emoji_code='"+char+"' class='"+emojiData[i].className+"' src='"+spacerGif+"'>";
+			var classes = emojiData[i].className+"-"+emojiType;
+			var img = "<img data-emoji_code='"+char+"' class='"+classes+"' src='"+spacerGif+"'>";
 			text = text.replace(new RegExp(char,"g"),img);
 		}
 		
@@ -111,6 +135,14 @@ var build = function(options){
 			var url2 = (c == 'www.') ?  'http://' +url : url;
 			return '<a href="' + url2 + '" target="_blank">' + url + '</a>';
 		});		
+
+		//FIXME: 不能简单的替换空格, 否则会影响自动查找 url
+		//text = text.replace(/[ ]/g, '&nbsp;');
+		
+		text = text.replace(/\n\r/g, '<br/>');
+		text = text.replace(/\r\n/g, '<br/>');
+		text = text.replace(/[\n\r]/g, '<br/>');
+
 		return text;
     }
     
@@ -217,24 +249,8 @@ var _insertHTML = function(div, html) {
     }
 }
 
-var _initEmoji = function($editor, $button, type){
-	var emojiData = require('./unicode-emoji-data/data.js');
-	var emojimaxNum = emojiData.length;
-	var emojiChars = {}, emojiNames = {}, emojiClassNames = {};
-	for(var i=0; i<emojimaxNum; i++){
-		var j = i+1;
-		emojiChars[j] = emojiData[i].char;
-		emojiNames[j]= emojiData[i].name;
-		emojiClassNames[j] = emojiData[i].className;
-	}
-	var icons = [{
-			name: "表情",
-			path: spacerGif,
-			maxNum: emojimaxNum,
-			alias: emojiChars,
-			title: emojiNames,
-			className: emojiClassNames
-	}];
+var _loadEmojiCss = function(type){
+	var realType = type;
 	switch (type) {
 		case 'apple':
 			require('./unicode-emoji-data/emoji-apple.css');
@@ -245,7 +261,32 @@ var _initEmoji = function($editor, $button, type){
 		case 'samsung':
 			require('./unicode-emoji-data/emoji-samsung.css');
 			break;
+		default:
+			//默认是 apple 表情
+			realType = "apple";
+			require('./unicode-emoji-data/emoji-apple.css');
 	}
+	return realType;
+}
+var _initEmoji = function($editor, $button, type){
+	var realType = _loadEmojiCss(type);
+
+	var emojimaxNum = emojiData.length;
+	var emojiChars = {}, emojiNames = {}, emojiClassNames = {};
+	for(var i=0; i<emojimaxNum; i++){
+		var j = i+1;
+		emojiChars[j] = emojiData[i].char;
+		emojiNames[j]= emojiData[i].name;
+		emojiClassNames[j] = emojiData[i].className + "-" + realType;
+	}
+	var icons = [{
+			name: "表情",
+			path: spacerGif,
+			maxNum: emojimaxNum,
+			alias: emojiChars,
+			title: emojiNames,
+			className: emojiClassNames
+	}];
 	$($editor).emoji({
 	    button: $button,
 	    showTab: false,
@@ -259,6 +300,7 @@ var _initEmoji = function($editor, $button, type){
 	
 	//返回相关信息
 	return {
+		emoji_realtype: realType,
 		emoji_index: emoji_index,
 		emoji_container_id: emoji_container_id
 	};

@@ -1,0 +1,140 @@
+<style>
+.container_showStatisticInfo{
+	width:100%;
+	height:110px;
+	clear:both;
+    margin-bottom: 20px;
+}
+.div_showStatisticInfo{
+	width:25%;
+	float:left;
+}
+.btn_showStatisticInfo{
+	color:#ffffff;
+	height:110px;
+	float:left;
+}
+.meetingInfo .div_showStatisticBox{
+    padding-left: 20px;
+}
+.mailInfo .div_showStatisticBox{
+    padding-left: 20px;
+}
+.mediaInfo .div_showStatisticBox{
+    padding-left: 20px;
+}
+.announcementInfo .btn_showStatisticInfo{
+	background-image:url('$staticRoot/images/index/announcement.png');
+    width: 100%;
+}
+.meetingInfo .btn_showStatisticInfo{
+  	background-image:url('$staticRoot/images/index/meeting.png');
+    width: 100%;
+}
+.mailInfo .btn_showStatisticInfo{
+  	background-image:url('$staticRoot/images/index/unreadmail.png');
+    width: 100%;
+}
+.mediaInfo .btn_showStatisticInfo{
+  	background-image:url('$staticRoot/images/index/mediareport.png');
+    width: 100%;
+}
+.btn_showStatisticInfo .infocontainer{
+	margin-top:50px;
+	margin-left:60%;
+}
+.btn_showStatisticInfo .infoTitle{
+	margin:5px;
+	width:80px;
+	font-size:18px;
+}
+.btn_showStatisticInfo .infoCount{
+	width:80px;
+	font-size:36px;
+	text-align: center;
+}
+</style>
+<div class="container_showStatisticInfo">
+	<div class="div_showStatisticInfo announcementInfo">
+      <div class="div_showStatisticBox">
+		<div class="btn_showStatisticInfo" data-info="announcementInfo">
+			<div class="infocontainer">
+				<div class="infoCount">
+					<span>$!COUNT_ANNOUNCEMENT[0].COUNTQTY</span>
+				</div>
+				<div class="infoTitle">
+					<span>通知公告</span>
+				</div>
+			</div>
+		</div>
+      </div>
+	</div>
+	<div class="div_showStatisticInfo meetingInfo">
+      <div class="div_showStatisticBox">
+		<div class="btn_showStatisticInfo" data-info="meetingInfo">
+			<div class="infocontainer">			
+				<div class="infoCount">
+					<span>$!COUNT_MEETING[0].COUNTQTY</span>
+				</div>
+				<div class="infoTitle">
+					<span>会议通知</span>
+				</div>
+			</div>
+		</div>
+		</div>
+	</div>
+	<div class="div_showStatisticInfo mailInfo">
+      <div class="div_showStatisticBox ">
+		<div class="btn_showStatisticInfo" data-info="mailInfo">
+			<div class="infocontainer">
+				<div class="infoCount">
+					<span>$!COUNT_MAIL[0].COUNTQTY</span>
+				</div>
+				<div class="infoTitle">
+					<span>未读邮件</span>
+				</div>
+			</div>
+		</div>
+		</div>
+	</div>
+	<div class="div_showStatisticInfo mediaInfo">
+      <div class="div_showStatisticBox">
+		<div class="btn_showStatisticInfo" data-info="mediaInfo">
+			<div class="infocontainer">
+				<div class="infoCount">
+					<span>$!COUNT_MEDIA[0].COUNTQTY</span>
+				</div>
+				<div class="infoTitle">
+					<span>媒体报道</span>
+				</div>
+			</div>
+		</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	var showMoreAnnouncementInfo = function(){
+		window.location.href = "newslist.page?typecode=04";
+	}
+	var showMoreMeetingInfo = function(){
+		openParentEntry('OABusiness/OA/OA_PersonalUse/MeetingManagement/OA_ParticipantMList');
+	}
+	var showMoreMailInfo = function(){
+		openParentEntry('OABusiness/OA/OA_PersonalUse/EmailManagement/OA_EmailInboxView');
+	}
+	var showMoreMediaInfo = function(){
+		window.location.href = "newslist.page?typecode=02";
+	}
+	$(".btn_showStatisticInfo").click(function(){
+		var itself = $(this);
+		if(itself.attr("data-info") == "announcementInfo"){
+			showMoreAnnouncementInfo();
+		}else if(itself.attr("data-info") == "meetingInfo"){
+			showMoreMeetingInfo();
+		}else if(itself.attr("data-info") == "mailInfo"){
+			showMoreMailInfo();
+		}else if(itself.attr("data-info") == "mediaInfo"){
+			showMoreMediaInfo();
+		}
+	});
+</script>

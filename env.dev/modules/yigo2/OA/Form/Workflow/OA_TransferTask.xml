@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="OA_TransferTask" Caption="指派对话框">
+    <Body PopHeight="150px" PopWidth="600px">
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板">
+                <GridLayoutPanel Key="GridLayoutPanel0" Height="pref" Padding="5px" Caption="GridLayoutPanel0">
+                    <Dict Key="TransferOpt" Caption="指派人员" BuddyKey="Lab_TransferOpt" X="1" Y="0" ItemKey="Operator"/>
+                    <Label Key="Lab_TransferOpt" Caption="指派人员" X="0" Y="0"/>
+                    <TextEditor Key="Opinion" Caption="指派意见" BuddyKey="Lab_Opinion" X="1" Y="1"/>
+                    <Label Key="Lab_Opinion" Caption="指派意见" X="0" Y="1"/>
+                    <RowDefCollection RowGap="4">
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="4">
+                        <ColumnDef Width="100px"/>
+                        <ColumnDef Width="100%"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+                <GridLayoutPanel Key="GridLayoutPanel1" Height="pref" Caption="GridLayoutPanel1">
+                    <Button Key="TransferTask" Caption="指派" X="1" Y="0" Enable="True">
+                        <OnClick>
+                            <![CDATA[var x = Para("pWorkitemID");
+parent.TransferTask(x,TransferOpt,false,Opinion);
+Close();
+parent.Confirm("指派成功");]]>
+                        </OnClick>
+                    </Button>
+                    <Button Key="cancel" Caption="取消" X="2" Y="0" Enable="True">
+                        <OnClick>
+                            <![CDATA[
+			
+			Close();
+			
+			]]>
+                        </OnClick>
+                    </Button>
+                    <RowDefCollection RowGap="5">
+                        <RowDef Height="30px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="5">
+                        <ColumnDef Width="50%"/>
+                        <ColumnDef Width="100px"/>
+                        <ColumnDef Width="100px"/>
+                        <ColumnDef Width="50%"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

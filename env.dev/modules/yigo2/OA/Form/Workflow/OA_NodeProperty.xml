@@ -1,0 +1,574 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="OA_NodeProperty" Caption="节点属性" FormType="Entity" InitState="Default">
+    <DataSource>
+        <DataObject Key="OA_NodeProperty" Caption="节点属性" PrimaryTableKey="OA_NodeProperty_H" PrimaryType="Entity">
+            <TableCollection>
+                <Table Key="OA_NodeProperty_H" Caption="节点属性" DBTableName="OA_NodeProperty_H">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="FirstOpt" Caption="第一个用户" DataType="Integer"/>
+                    <Column Key="GotoRequired" Caption="跳转意见必填" DataType="Integer"/>
+                    <Column Key="RestartRequired" Caption="重启意见必填" DataType="Integer"/>
+                    <Column Key="StdProTime" Caption="标准处理时间" DataType="Varchar"/>
+                    <Column Key="NOPer" Caption="无参与者" DataType="Integer"/>
+                    <Column Key="Sender" Caption="发送者本人" DataType="Integer"/>
+                    <Column Key="NextPer" Caption="下一步处理人一样" DataType="Integer"/>
+                    <Column Key="AnyPer" Caption="前面任一步一样" DataType="Integer"/>
+                    <Column Key="DealType" Caption="处理类型" DataType="Integer"/>
+                    <Column Key="IsSave" Caption="是否保留当前步骤" DataType="Integer"/>
+                    <Column Key="SetNextPer" Caption="下一步参与者" DataType="Integer"/>
+                    <Column Key="MessageSet" Caption="发送方式" DataType="Long"/>
+                    <Column Caption="单据状态" DataType="Integer" Key="Status"/>
+                    <Column Key="OutdateDeal" Caption="过时处理" DataType="Integer"/>
+                    <Column Key="OutdateNotice" Caption="过时通知" DataType="Integer"/>
+                    <Column Key="AutoTransmit" Caption="自动转发" DataType="Integer"/>
+                    <Column Key="DeleteAtt" Caption="删除附件" DataType="Integer"/>
+                    <Column Key="AddAtt" Caption="添加附件" DataType="Integer"/>
+                    <Column Key="RestartTask" Caption="重启任务" DataType="Integer"/>
+                    <Column Key="NOWriteOpn" Caption="不允许填写意见" DataType="Integer"/>
+                    <Column Key="TransmitTask" Caption="转让任务" DataType="Integer"/>
+                    <Column Key="CallbackTask" Caption="撤回" DataType="Integer"/>
+                    <Column Key="PauseTask" Caption="暂停任务" DataType="Integer"/>
+                    <Column Key="GotoTask" Caption="跳转任务" DataType="Integer"/>
+                    <Column Key="BatchDeal" Caption="批处理" DataType="Integer"/>
+                    <Column Key="NOViewAtt" Caption="不允许查看附件" DataType="Integer"/>
+                    <Column Key="CallbackTaskRequired" Caption="撤回必填" DataType="Integer"/>
+                    <Column Key="StopTask" Caption="停止任务" DataType="Integer"/>
+                    <Column Key="Common" Caption="一般" DataType="Integer"/>
+                    <Column Key="Urgency" Caption="紧急" DataType="Integer"/>
+                    <Column Key="ExtraUrgent" Caption="特急" DataType="Integer"/>
+                    <Column Key="From_One" Caption="从" DataType="Varchar"/>
+                    <Column Key="From_Two" Caption="从" DataType="Varchar"/>
+                    <Column Key="From_Three" Caption="从" DataType="Varchar"/>
+                    <Column Key="Every_One" Caption="每" DataType="Varchar"/>
+                    <Column Key="Every_Two" Caption="每" DataType="Varchar"/>
+                    <Column Key="Every_Three" Caption="每" DataType="Varchar"/>
+                    <Column Key="Deadline" Caption="截止日期" DataType="Varchar"/>
+                    <Column Key="Extend" Caption="延续时间" DataType="Varchar"/>
+                    <Column Key="Delayed" Caption="超过截止日期" DataType="Integer"/>
+                    <Column Key="StartUsingCheck" Caption="启用考核" DataType="Integer"/>
+                    <Column Key="WorkType" Caption="工作类型" DataType="Integer"/>
+                    <Column Caption="单据编号" DataType="Varchar" Key="No"/>
+                    <Column Caption="单据日期" DataType="Date" Key="BillDate"/>
+                    <Column Caption="创建人" DataType="Long" Key="Creator"/>
+                    <Column Caption="创建日期" DataType="DateTime" Key="CreateTime"/>
+                    <Column Caption="修改人" DataType="Long" Key="Modifier"/>
+                    <Column Caption="修改日期" DataType="DateTime" Key="ModifyTime"/>
+                    <Column Caption="单据Key" DataType="Varchar" Key="BillKey"/>
+                    <Column Caption="集团" DataType="Long" Key="ClusterID"/>
+                    <Column Key="SourceKey" Caption="源表单Key" DataType="Varchar"/>
+                    <Column Key="SourceID" Caption="源表单ID" DataType="Long" Precision="16" Scale="2"/>
+                    <Column Key="Tag1" Caption="Tag1" DataType="Varchar"/>
+                    <Column Key="Tag2" Caption="Tag2" DataType="Varchar"/>
+                    <Column Key="Tag3" Caption="Tag3" DataType="Varchar"/>
+                    <Column Key="Tag4" Caption="Tag4" DataType="Varchar"/>
+                    <Column Key="OptDesc" Caption="选择结果描述" DataType="Varchar" Length="1000"/>
+                    <Column Key="AutoDealFun" Caption="自动处理方法" DataType="Varchar"/>
+                    <Column Key="Retain" Caption="是否保留当前步骤" DataType="Integer"/>
+                    <Column Key="UserInfoCheck" Caption="审批意见必填" DataType="Integer"/>
+                    <Column Key="E_SignatureEnable" Caption="电子签名可用" DataType="Integer"/>
+                    <Column Key="E_SignatureFill" Caption="电子签名必填" DataType="Integer"/>
+                    <Column Key="InformPerDepict" Caption="通知人员描述" DataType="Varchar" Length="4000"/>
+                    <Column Key="InformPerOID" DataType="Long" Caption="通知人员选择ID"/>
+                    <Column Key="FormulaCreate" Caption="创建执行内容" DataType="Varchar" Length="4000"/>
+                    <Column Key="FormulaFinish" Caption="完成执行内容" DataType="Varchar" Length="4000"/>
+                    <Column Key="CommonOpinion" Caption="允许使用常用意见" DataType="Integer"/>
+                    <Column Key="SendTypeID" Caption="发送方式" DataType="Long"/>
+                    <Column Key="IsSaveData" Caption="是否保存数据" DataType="Integer"/>
+                    <Column Key="AuditAfterClose" Caption="审批后不关闭界面" DataType="Integer"/>
+                    <Column Key="AuditAfterNextPre" Caption="审批后不提示下一步处理者" DataType="Integer"/>
+                </Table>
+                <Table Key="OA_NodeProperty_Create" Caption="节点创建" DBTableName="OA_NodeProperty_Create" TableMode="Detail">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="Sequence" Caption="序号" DataType="Integer"/>
+                    <Column Key="Formula" Caption="执行内容" DataType="Varchar" Length="500"/>
+                </Table>
+                <Table Key="OA_NodeProperty_Finish" Caption="节点完成" DBTableName="OA_NodeProperty_Finish" TableMode="Detail">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="Sequence" Caption="序号" DataType="Integer"/>
+                    <Column Key="Formula" Caption="执行内容" DataType="Varchar" Length="500"/>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <Body PopHeight="90%" PopWidth="60%" LeftMargin="10px" TopMargin="10px">
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板" Height="pref" Width="pref" BottomPadding="20px">
+                <TabPanel Caption="TabPanel1" Height="pref" Key="TabPanel1">
+                    <GridLayoutPanel Key="GridLayoutPanel3" Padding="10px" Caption="常规">
+                        <CheckBox Caption="为下一步指定参与者" Key="SetNextPer" X="0" XSpan="2" Y="0">
+                            <DataBinding ColumnKey="SetNextPer" TableKey="OA_NodeProperty_H"/>
+                        </CheckBox>
+                        <CheckBox Caption="审批意见必填" Key="UserInfoCheck" X="0" Y="2" XSpan="2">
+                            <DataBinding ColumnKey="UserInfoCheck" TableKey="OA_NodeProperty_H"/>
+                        </CheckBox>
+                        <CheckBox Caption="电子签名可用" Key="E_SignatureEnable" X="0" Y="3" XSpan="2">
+                            <DataBinding ColumnKey="E_SignatureEnable" TableKey="OA_NodeProperty_H"/>
+                        </CheckBox>
+                        <CheckBox Caption="电子签名必填" Key="E_SignatureFill" X="0" Y="4" XSpan="2">
+                            <DataBinding ColumnKey="E_SignatureFill" TableKey="OA_NodeProperty_H"/>
+                        </CheckBox>
+                        <CheckBox Caption="允许使用常用意见" Key="CommonOpinion" X="0" Y="1" XSpan="2">
+                            <DataBinding ColumnKey="CommonOpinion" TableKey="OA_NodeProperty_H"/>
+                        </CheckBox>
+                        <CheckBox Caption="是否保存数据" Key="IsSaveData" X="2" Y="2" XSpan="2">
+                            <DataBinding ColumnKey="IsSaveData" TableKey="OA_NodeProperty_H"/>
+                        </CheckBox>
+                        <CheckBox Caption="审批后不关闭界面" Key="AuditAfterClose" X="2" XSpan="2" Y="1">
+                            <DataBinding ColumnKey="AuditAfterClose" TableKey="OA_NodeProperty_H"/>
+                        </CheckBox>
+                        <CheckBox Caption="审批后不提示下一步参与者" Key="AuditAfterNextPre" X="2" XSpan="2" Y="0">
+                            <DataBinding ColumnKey="AuditAfterNextPre" TableKey="OA_NodeProperty_H"/>
+                        </CheckBox>
+                        <RowDefCollection RowGap="5">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="5">
+                            <ColumnDef Width="100px"/>
+                            <ColumnDef Width="50%"/>
+                            <ColumnDef Width="100px"/>
+                            <ColumnDef Width="50%"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <GridLayoutPanel Key="Dealer" Padding="10px" Caption="处理者">
+                        <CheckBox Caption="无对应参与者跳过本节点" Key="NOPer" X="0" XSpan="4" Y="1">
+                            <DataBinding ColumnKey="NOPer" TableKey="OA_NodeProperty_H"/>
+                        </CheckBox>
+                        <CheckBox Caption="处理者为提交人则跳过本节点" Key="Sender" X="0" XSpan="4" Y="2">
+                            <DataBinding ColumnKey="Sender" TableKey="OA_NodeProperty_H"/>
+                        </CheckBox>
+                        <CheckBox Caption="处理者与前一步骤处理者相同跳过本节点" Key="NextPer" X="0" XSpan="4" Y="3">
+                            <DataBinding ColumnKey="NextPer" TableKey="OA_NodeProperty_H"/>
+                        </CheckBox>
+                        <CheckBox Caption="处理者与前面任一步骤处理者相同跳过本节点" Key="AnyPer" X="0" XSpan="4" Y="4">
+                            <DataBinding ColumnKey="AnyPer" TableKey="OA_NodeProperty_H"/>
+                        </CheckBox>
+                        <CheckBox Caption="第一个用户" Key="FirstOpt" X="0" Y="0">
+                            <DataBinding ColumnKey="FirstOpt" TableKey="OA_NodeProperty_H"/>
+                        </CheckBox>
+                        <RowDefCollection RowGap="5">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="5">
+                            <ColumnDef Width="100px"/>
+                            <ColumnDef Width="50%"/>
+                            <ColumnDef Width="100px"/>
+                            <ColumnDef Width="50%"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <SplitPanel Key="SplitPanel1" Orientation="Vertical" Height="100%" Caption="超时通知" Width="100%" Padding="10px">
+                        <GridLayoutPanel Key="GridLayoutPanel4" Caption="过时/催办">
+                            <CheckBox Caption="过时通知" Key="OutdateNotice" X="0" Y="0">
+                                <DataBinding ColumnKey="OutdateNotice" TableKey="OA_NodeProperty_H"/>
+                            </CheckBox>
+                            <CheckBox Caption="一般" Enable="OutdateNotice==1" Key="Common" X="0" Y="1">
+                                <DataBinding ColumnKey="Common" TableKey="OA_NodeProperty_H"/>
+                            </CheckBox>
+                            <CheckBox Caption="紧急" Enable="OutdateNotice==1" Key="Urgency" X="0" Y="2">
+                                <DataBinding ColumnKey="Urgency" TableKey="OA_NodeProperty_H"/>
+                            </CheckBox>
+                            <CheckBox Caption="特急" Enable="OutdateNotice==1" Key="ExtraUrgent" X="0" Y="3">
+                                <DataBinding ColumnKey="ExtraUrgent" TableKey="OA_NodeProperty_H"/>
+                            </CheckBox>
+                            <Label Key="Lab_From_One" Caption="从" X="1" Y="1"/>
+                            <TextEditor Key="From_One" Caption="从" BuddyKey="Lab_From_One" X="2" Y="1" Enable="OutdateNotice==1">
+                                <DataBinding ColumnKey="From_One" TableKey="OA_NodeProperty_H"/>
+                            </TextEditor>
+                            <TextEditor Key="From_Two" Caption="从" BuddyKey="Lab_From_Two" X="2" Y="2" Enable="OutdateNotice==1">
+                                <DataBinding ColumnKey="From_Two" TableKey="OA_NodeProperty_H"/>
+                            </TextEditor>
+                            <Label Key="Lab_From_Two" Caption="从" X="1" Y="2"/>
+                            <TextEditor Key="From_Three" Caption="从" BuddyKey="Lab_From_Three" X="2" Y="3" Enable="OutdateNotice==1">
+                                <DataBinding ColumnKey="From_Three" TableKey="OA_NodeProperty_H"/>
+                            </TextEditor>
+                            <Label Key="Lab_From_Three" Caption="从" X="1" Y="3"/>
+                            <Label Key="Label1" Caption="小时" X="3" Y="1"/>
+                            <Label Key="Label2" Caption="小时" X="3" Y="2"/>
+                            <Label Key="Label3" Caption="小时" X="3" Y="3"/>
+                            <TextEditor Key="Every_One" Caption="每" BuddyKey="Lab_Every_One" X="5" Y="1" Enable="OutdateNotice==1">
+                                <DataBinding ColumnKey="Every_One" TableKey="OA_NodeProperty_H"/>
+                            </TextEditor>
+                            <Label Key="Lab_Every_One" Caption="每" X="4" Y="1"/>
+                            <TextEditor Key="Every_Two" Caption="每" BuddyKey="Lab_Every_Two" X="5" Y="2" Enable="OutdateNotice==1">
+                                <DataBinding ColumnKey="Every_Two" TableKey="OA_NodeProperty_H"/>
+                            </TextEditor>
+                            <Label Key="Lab_Every_Two" Caption="每" X="4" Y="2"/>
+                            <TextEditor Key="Every_Three" Caption="每" BuddyKey="Lab_Every_Three" X="5" Y="3" Enable="OutdateNotice==1">
+                                <DataBinding ColumnKey="Every_Three" TableKey="OA_NodeProperty_H"/>
+                            </TextEditor>
+                            <Label Key="Lab_Every_Three" Caption="每" X="4" Y="3"/>
+                            <Label Key="Label4" Caption="小时" X="6" Y="1"/>
+                            <Label Key="Label5" Caption="小时" X="6" Y="2"/>
+                            <Label Key="Label6" Caption="小时" X="6" Y="3"/>
+                            <HyperLink Caption="通知人员选择" Key="InformPerSel" X="0" Y="4">
+                                <OnClick>
+                                    <![CDATA[OA_ShowInformPerSelID();]]>
+                                </OnClick>
+                            </HyperLink>
+                            <TextArea Key="InformPerDepict" Caption="通知人员" BuddyKey="Lab_InformPerDepict" X="1" Y="5" XSpan="5">
+                                <DataBinding ColumnKey="InformPerDepict" TableKey="OA_NodeProperty_H"/>
+                            </TextArea>
+                            <Label Key="Lab_InformPerDepict" Caption="通知人员" X="0" Y="5"/>
+                            <NumberEditor Key="InformPerOID" Caption="通知人员选择ID" BuddyKey="Lab_InformPerOID" X="1" Y="6" XSpan="2">
+                                <DataBinding ColumnKey="InformPerOID" TableKey="OA_NodeProperty_H"/>
+                            </NumberEditor>
+                            <Label Key="Lab_InformPerOID" Caption="通知人员选择ID" X="0" Y="6"/>
+                            <Dict Key="SendTypeID" Caption="发送方式" BuddyKey="Lab_SendTypeID" X="5" Y="4" ItemKey="OA_MessageSet">
+                                <DataBinding ColumnKey="SendTypeID" TableKey="OA_NodeProperty_H"/>
+                            </Dict>
+                            <Label Key="Lab_SendTypeID" Caption="发送方式" X="4" Y="4"/>
+                            <RowDefCollection RowGap="5">
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="5">
+                                <ColumnDef Width="100px"/>
+                                <ColumnDef Width="20px"/>
+                                <ColumnDef Width="100px"/>
+                                <ColumnDef Width="40px"/>
+                                <ColumnDef Width="20px"/>
+                                <ColumnDef Width="100px"/>
+                                <ColumnDef Width="40px"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
+                        <SplitSize Size="165px"/>
+                    </SplitPanel>
+                    <GridLayoutPanel Key="GridLayoutPanel5" Height="100%" Caption="超时处理">
+                        <CheckBox Caption="过时处理" Key="OutdateDeal" X="0" XSpan="2" Y="0">
+                            <DataBinding ColumnKey="OutdateDeal" TableKey="OA_NodeProperty_H"/>
+                        </CheckBox>
+                        <Label Key="Lab_Deadline" Caption="标准小时数或截至日期" X="0" Y="1" XSpan="2"/>
+                        <RadioButton Caption="自动处理" Enable="OutdateDeal==1" GroupKey="DealType" IsGroupHead="true" Key="AutoDeal" Value="10" X="1" Y="2">
+                            <DataBinding ColumnKey="DealType" TableKey="OA_NodeProperty_H"/>
+                        </RadioButton>
+                        <RadioButton Caption="给处理者列表中的下一人处理" Enable="OutdateDeal==1" GroupKey="DealType" Key="NextDeal" Value="20" X="1" XSpan="4" Y="3"/>
+                        <RadioButton Caption="进入别的处理步骤" Enable="OutdateDeal==1" GroupKey="DealType" Key="NextAudit" Value="30" X="1" XSpan="2" Y="4"/>
+                        <TextEditor Key="Deadline" Caption="标准小时数或截至日期" BuddyKey="Lab_Deadline" X="2" Y="1" Enable="OutdateDeal==1" XSpan="2">
+                            <DataBinding ColumnKey="Deadline" TableKey="OA_NodeProperty_H"/>
+                        </TextEditor>
+                        <Label Key="Label9" Caption="过时后：" X="4" Y="1"/>
+                        <CheckBox Caption="若任务到达时已超过截止日期，则自动延续" Enable="OutdateDeal==1" Key="Delayed" X="0" XSpan="4" Y="5">
+                            <DataBinding ColumnKey="Retain" TableKey="OA_NodeProperty_H"/>
+                            <Format HAlign="Left"/>
+                        </CheckBox>
+                        <TextEditor Key="Extend" Caption="自动延续" X="4" Y="5" Enable="OutdateDeal==1">
+                            <DataBinding ColumnKey="Extend" TableKey="OA_NodeProperty_H"/>
+                        </TextEditor>
+                        <Label Key="Label11" Caption="小时" X="5" Y="5"/>
+                        <ComboBox Key="AutoDealFun" Caption="自动处理方法" BuddyKey="Lab_AutoDealFun" X="2" Y="2" XSpan="2">
+                            <DataBinding ColumnKey="AutoDealFun" TableKey="OA_NodeProperty_H"/>
+                            <Item Caption="通过" Key="pass" Value="pass"/>
+                            <Item Caption="拒绝" Key="deny" Value="deny"/>
+                        </ComboBox>
+                        <Label Key="Lab_AutoDealFun" Caption="自动处理方法" X="1" Y="2" Visible="false"/>
+                        <CheckBox Caption="是否保留当前步骤" Key="Retain" X="4" Y="4">
+                            <DataBinding ColumnKey="Retain" TableKey="OA_NodeProperty_H"/>
+                        </CheckBox>
+                        <RowDefCollection RowGap="5">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="5">
+                            <ColumnDef Width="40px"/>
+                            <ColumnDef Width="89px"/>
+                            <ColumnDef Width="100px"/>
+                            <ColumnDef Width="20px"/>
+                            <ColumnDef Width="100px"/>
+                            <ColumnDef Width="50px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <GridLayoutPanel Key="GridLayoutPanel2" Padding="10px" Caption="安全与权限">
+                        <CheckBox Caption="允许处理者转发该任务给他人" Key="TransmitTask" X="0" XSpan="2" Y="1">
+                            <DataBinding ColumnKey="TransmitTask" TableKey="OA_NodeProperty_H"/>
+                        </CheckBox>
+                        <CheckBox Caption="允许处理者撤回该任务" Key="CallbackTask" X="0" XSpan="2" Y="2">
+                            <DataBinding ColumnKey="CallbackTask" TableKey="OA_NodeProperty_H"/>
+                        </CheckBox>
+                        <CheckBox Caption="自动转发该任务给代理人" Key="AutoTransmit" X="0" XSpan="2" Y="0">
+                            <DataBinding ColumnKey="AutoTransmit" TableKey="OA_NodeProperty_H"/>
+                        </CheckBox>
+                        <CheckBox Caption="允许处理者暂停（挂起）该任务" Key="PauseTask" X="0" XSpan="2" Y="3">
+                            <DataBinding ColumnKey="PauseTask" TableKey="OA_NodeProperty_H"/>
+                        </CheckBox>
+                        <CheckBox Caption="允许批处理任务" Key="BatchDeal" X="0" XSpan="2" Y="10">
+                            <DataBinding ColumnKey="BatchDeal" TableKey="OA_NodeProperty_H"/>
+                        </CheckBox>
+                        <CheckBox Caption="允许处理者停止该任务" Key="StopTask" X="0" XSpan="2" Y="4">
+                            <DataBinding ColumnKey="StopTask" TableKey="OA_NodeProperty_H"/>
+                        </CheckBox>
+                        <CheckBox Caption="允许处理者跳转" Key="GotoTask" X="0" XSpan="2" Y="5">
+                            <DataBinding ColumnKey="GotoTask" TableKey="OA_NodeProperty_H"/>
+                        </CheckBox>
+                        <CheckBox Caption="允许添加附件" Key="AddAtt" X="0" XSpan="2" Y="7">
+                            <DataBinding ColumnKey="AddAtt" TableKey="OA_NodeProperty_H"/>
+                        </CheckBox>
+                        <CheckBox Caption="允许处理者重启该任务" Key="RestartTask" X="0" XSpan="2" Y="8">
+                            <DataBinding ColumnKey="RestartTask" TableKey="OA_NodeProperty_H"/>
+                        </CheckBox>
+                        <CheckBox Caption="允许删除附件" Key="DeleteAtt" X="0" XSpan="2" Y="6">
+                            <DataBinding ColumnKey="DeleteAtt" TableKey="OA_NodeProperty_H"/>
+                        </CheckBox>
+                        <CheckBox Caption="不允许填写意见" Key="NOWriteOpn" X="0" XSpan="2" Y="9">
+                            <DataBinding ColumnKey="NOWriteOpn" TableKey="OA_NodeProperty_H"/>
+                        </CheckBox>
+                        <CheckBox Caption="撤回意见必填" Key="CallbackTaskRequired" X="2" XSpan="2" Y="2">
+                            <DataBinding ColumnKey="CallbackTaskRequired" TableKey="OA_NodeProperty_H"/>
+                        </CheckBox>
+                        <CheckBox Caption="跳转意见必填" Key="GotoRequired" X="2" XSpan="2" Y="5">
+                            <DataBinding ColumnKey="GotoRequired" TableKey="OA_NodeProperty_H"/>
+                        </CheckBox>
+                        <CheckBox Caption="重启意见必填" Key="RestartRequired" X="2" Y="8">
+                            <DataBinding ColumnKey="RestartRequired" TableKey="OA_NodeProperty_H"/>
+                        </CheckBox>
+                        <CheckBox Caption="不允许查看附件" Key="NOViewAtt" X="0" XSpan="2" Y="11">
+                            <DataBinding ColumnKey="NOViewAtt" TableKey="OA_NodeProperty_H"/>
+                        </CheckBox>
+                        <RowDefCollection RowGap="5">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="5">
+                            <ColumnDef Width="100px"/>
+                            <ColumnDef Width="50%"/>
+                            <ColumnDef Width="100px"/>
+                            <ColumnDef Width="50%"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <GridLayoutPanel Key="GridLayoutPanel6" Padding="10px" Caption="绩效考核">
+                        <CheckBox Caption="启用考核" Key="StartUsingCheck" X="0" Y="0">
+                            <DataBinding ColumnKey="StartUsingCheck" TableKey="OA_NodeProperty_H"/>
+                        </CheckBox>
+                        <TextEditor Key="StdProTime" Caption="标准处理时间" BuddyKey="Lab_StdProTime" X="1" Y="1">
+                            <DataBinding ColumnKey="StdProTime" TableKey="OA_NodeProperty_H"/>
+                        </TextEditor>
+                        <Label Key="Lab_StdProTime" Caption="标准处理时间" X="0" Y="1"/>
+                        <ComboBox Key="WorkType" Caption="工作类型" X="2" Y="1">
+                            <DataBinding ColumnKey="WorkType" TableKey="OA_NodeProperty_H"/>
+                        </ComboBox>
+                        <RowDefCollection RowGap="5">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="5">
+                            <ColumnDef Width="100px"/>
+                            <ColumnDef Width="100px"/>
+                            <ColumnDef Width="100px"/>
+                            <ColumnDef Width="100px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <SplitPanel Key="SplitPanel2" Orientation="Vertical" Caption="节点创建">
+                        <Grid Key="Grid1" Caption="Grid1">
+                            <GridColumnCollection>
+                                <GridColumn Key="CreateFormula" Caption="执行内容" Width="400px"/>
+                            </GridColumnCollection>
+                            <GridRowCollection>
+                                <GridRow Key="row1" RowHeight="35" TableKey="OA_NodeProperty_Create">
+                                    <GridCell Key="CreateFormula" Caption="执行内容" CellType="ComboBox" SourceType="ParaGroup" GroupKey="AuditNodeCreate">
+                                        <DataBinding ColumnKey="Formula"/>
+                                    </GridCell>
+                                </GridRow>
+                            </GridRowCollection>
+                        </Grid>
+                        <TabPanel Caption="TabPanel2" Key="TabPanel2">
+                            <TextArea Key="FormulaCreate" Caption="自定义执行内容">
+                                <DataBinding ColumnKey="FormulaCreate" TableKey="OA_NodeProperty_H"/>
+                            </TextArea>
+                        </TabPanel>
+                        <SplitSize Size="50%"/>
+                        <SplitSize Size="50%"/>
+                    </SplitPanel>
+                    <SplitPanel Key="SplitPanel3" Orientation="Vertical" Caption="节点完成">
+                        <Grid Key="Grid2" Caption="Grid2">
+                            <GridColumnCollection>
+                                <GridColumn Key="FinishFormula" Caption="执行内容" Width="400px"/>
+                            </GridColumnCollection>
+                            <GridRowCollection>
+                                <GridRow Key="row1" RowHeight="35" TableKey="OA_NodeProperty_Finish">
+                                    <GridCell Key="FinishFormula" CellType="ComboBox" Caption="执行内容" GroupKey="AuditNodeFinish" SourceType="ParaGroup">
+                                        <DataBinding ColumnKey="Formula"/>
+                                    </GridCell>
+                                </GridRow>
+                            </GridRowCollection>
+                        </Grid>
+                        <TabPanel Caption="TabPanel3" Key="TabPanel3">
+                            <TextArea Key="FormulaFinish" Caption="自定义执行内容">
+                                <DataBinding ColumnKey="FormulaFinish" TableKey="OA_NodeProperty_H"/>
+                            </TextArea>
+                        </TabPanel>
+                        <SplitSize Size="50%"/>
+                        <SplitSize Size="50%"/>
+                    </SplitPanel>
+                    <GridLayoutPanel Caption="系统信息" Key="SysTab" Height="pref" Visible="false">
+                        <Dict BuddyKey="Lab_Creator" Caption="创建人" Enable="false" ItemKey="Operator" Key="Creator" X="1" XSpan="2" Y="0">
+                            <DataBinding ColumnKey="Creator" TableKey="OA_NodeProperty_H" DefaultFormulaValue="GetOperator()"/>
+                        </Dict>
+                        <Label Caption="创建人" Key="Lab_Creator" X="0" Y="0"/>
+                        <Dict BuddyKey="Lab_Modifier" Caption="修改人" Enable="false" ItemKey="Operator" Key="Modifier" X="1" XSpan="2" Y="1">
+                            <DataBinding ColumnKey="Modifier" TableKey="OA_NodeProperty_H" DefaultFormulaValue="GetOperator()"/>
+                        </Dict>
+                        <DatePicker BuddyKey="Lab_CreateTime" Caption="创建日期" Enable="false" Key="CreateTime" X="5" XSpan="2" Y="0">
+                            <DataBinding ColumnKey="CreateTime" TableKey="OA_NodeProperty_H" DefaultFormulaValue="ServerDate()"/>
+                        </DatePicker>
+                        <Label Caption="创建时间" Key="Lab_CreateTime" X="4" Y="0"/>
+                        <Label Caption="修改人" Key="Lab_Modifier" X="0" Y="1"/>
+                        <DatePicker BuddyKey="Lab_ModifyTime" Caption="修改日期" Enable="false" Key="ModifyTime" X="5" XSpan="2" Y="1">
+                            <DataBinding ColumnKey="ModifyTime" TableKey="OA_NodeProperty_H" DefaultFormulaValue="ServerDate()"/>
+                        </DatePicker>
+                        <Label Caption="修改时间" Key="Lab_ModifyTime" X="4" Y="1"/>
+                        <TextEditor BuddyKey="Lab_BillKey" Caption="单据Key" Key="BillKey" X="9" XSpan="2" Y="0">
+                            <DataBinding ColumnKey="BillKey" TableKey="OA_NodeProperty_H" DefaultFormulaValue="GetFormKey()"/>
+                        </TextEditor>
+                        <Label Caption="单据Key" Key="Lab_BillKey" X="8" Y="0"/>
+                        <Dict BuddyKey="Lab_ClusterID" Caption="集团" Enable="false" ItemKey="Client" Key="ClusterID" X="9" XSpan="2" Y="1">
+                            <DataBinding ColumnKey="ClusterID" TableKey="OA_NodeProperty_H"/>
+                        </Dict>
+                        <Label Caption="集团" Key="Lab_ClusterID" X="8" Y="1"/>
+                        <TextEditor BuddyKey="Lab_No" Caption="单据编号" Key="No" X="1" XSpan="2" Y="2">
+                            <DataBinding ColumnKey="No" TableKey="OA_NodeProperty_H"/>
+                        </TextEditor>
+                        <Label Caption="单据编号" Key="Lab_No" X="0" Y="2"/>
+                        <DatePicker BuddyKey="Lab_BillDate" Caption="单据日期" Key="BillDate" X="5" XSpan="2" Y="2">
+                            <DataBinding ColumnKey="BillDate" TableKey="OA_NodeProperty_H" DefaultFormulaValue="ServerDate()"/>
+                        </DatePicker>
+                        <Label Caption="单据日期" Key="Lab_BillDate" X="4" Y="2"/>
+                        <Label Key="Lab_status" X="7" Y="0"/>
+                        <Label Caption="单据状态" Key="Label_Status" X="8" Y="2"/>
+                        <ComboBox BuddyKey="Label_Status" Caption="单据状态" Key="Status" SourceType="Status" X="9" XSpan="2" Y="2">
+                            <DataBinding ColumnKey="Status" TableKey="OA_NodeProperty_H" DefaultValue="100"/>
+                        </ComboBox>
+                        <TextEditor Key="SourceKey" Caption="源表单Key" BuddyKey="Lab_SourceKey" X="1" Y="3">
+                            <DataBinding ColumnKey="SourceKey" TableKey="OA_NodeProperty_H" DefaultFormulaValue="Para(&quot;SourceKey&quot;)"/>
+                        </TextEditor>
+                        <Label Key="Lab_SourceKey" Caption="源表单Key" X="0" Y="3"/>
+                        <NumberEditor Key="SourceID" Caption="源表单ID" BuddyKey="Lab_SourceID" X="5" Y="3" IntegerValue="true">
+                            <DataBinding ColumnKey="SourceID" TableKey="OA_NodeProperty_H" DefaultFormulaValue="Para(&quot;SourceID&quot;)"/>
+                        </NumberEditor>
+                        <Label Key="Lab_SourceID" Caption="源表单ID" X="4" Y="3"/>
+                        <TextEditor Key="Tag1" Caption="判断标识1" BuddyKey="Lab_Tag1" X="9" Y="3">
+                            <DataBinding ColumnKey="Tag1" TableKey="OA_NodeProperty_H" DefaultFormulaValue="Para(&quot;Tag1&quot;)"/>
+                        </TextEditor>
+                        <Label Key="Lab_Tag1" Caption="判断标识1" X="8" Y="3"/>
+                        <TextEditor Key="Tag2" Caption="判断标识2" BuddyKey="Lab_Tag2" X="1" Y="4">
+                            <DataBinding ColumnKey="Tag2" TableKey="OA_NodeProperty_H" DefaultFormulaValue="Para(&quot;Tag2&quot;)"/>
+                        </TextEditor>
+                        <Label Key="Lab_Tag2" Caption="判断标识2" X="0" Y="4"/>
+                        <TextEditor Key="Tag3" Caption="判断标识3" BuddyKey="Lab_Tag3" X="5" Y="4">
+                            <DataBinding ColumnKey="Tag3" TableKey="OA_NodeProperty_H" DefaultFormulaValue="Para(&quot;Tag3&quot;)"/>
+                        </TextEditor>
+                        <Label Key="Lab_Tag3" Caption="判断标识3" X="4" Y="4"/>
+                        <TextEditor Key="Tag4" Caption="判断标识4" BuddyKey="Lab_Tag4" X="9" Y="4">
+                            <DataBinding ColumnKey="Tag4" TableKey="OA_NodeProperty_H" DefaultFormulaValue="Para(&quot;Tag4&quot;)"/>
+                        </TextEditor>
+                        <Label Key="Lab_Tag4" Caption="判断标识4" X="8" Y="4"/>
+                        <TextArea Key="OptDesc" Caption="选择结果描述" BuddyKey="Lab_OptDesc" X="1" Y="5" XSpan="10">
+                            <DataBinding ColumnKey="OptDesc" TableKey="OA_NodeProperty_H"/>
+                        </TextArea>
+                        <Label Key="Lab_OptDesc" Caption="选择结果描述" X="0" Y="5"/>
+                        <RowDefCollection RowGap="4">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="4">
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="33%"/>
+                            <ColumnDef Width="20px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="33%"/>
+                            <ColumnDef Width="20px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="34%"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                </TabPanel>
+                <GridLayoutPanel Key="GridLayoutPanel8" Height="pref" Caption="GridLayoutPanel8">
+                    <Button Key="OK" Caption="确定" X="1" Y="0" Enable="true">
+                        <OnClick>
+                            <![CDATA[if(IsNull(Para("GridKey")) || Para("GridKey")==""){
+    parent.SetValue(Para("FieldKey1"), GetOID());
+}else{
+    parent.SetCellValue(Para("GridKey"), -1, Para("FieldKey1"), GetOID());
+}
+SaveData();
+Close();]]>
+                        </OnClick>
+                    </Button>
+                    <Button Key="Cancel" Caption="取消" X="3" Y="0">
+                        <OnClick>
+                            <![CDATA[Close()]]>
+                        </OnClick>
+                    </Button>
+                    <RowDefCollection RowGap="5">
+                        <RowDef Height="30px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="5">
+                        <ColumnDef Width="50%"/>
+                        <ColumnDef Width="100px"/>
+                        <ColumnDef Width="20px"/>
+                        <ColumnDef Width="100px"/>
+                        <ColumnDef Width="50%"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+    <OnPostShow>
+        <![CDATA[Edit();]]>
+    </OnPostShow>
+    <MacroCollection>
+        <Macro Key="OA_ShowInformPerSelID">
+            <![CDATA[SetPara("GetInformPerSelID", OA_GetInformPerSelID());
+IIF(GetPara("GetInformPerSelID")>0,
+    Open("OA_OperatorSel", GetPara("GetInformPerSelID"), "modal","SourceKey:{BillKey},SourceID:{GetOID()},Tag1:{Tag1},Tag2:{Tag2},FieldKey1:{'InformPerDepict'},FieldKey2:{'InformPerOID'}"),
+    New("OA_OperatorSel","modal","SourceKey:{BillKey},SourceID:{GetOID()},Tag1:{Tag1},Tag2:{Tag2},FieldKey1:{'InformPerDepict'},FieldKey2:{'InformPerOID'}")
+);]]>
+        </Macro>
+        <Macro Key="OA_GetInformPerSelID">
+            <![CDATA[DBQueryValue("Select OID From OA_OperatorSel_H Where SourceKey=? and SourceID=? and Tag1=? and Tag2=?", GetFormKey(),GetOID(),Tag1,Tag2);]]>
+        </Macro>
+    </MacroCollection>
+</Form>

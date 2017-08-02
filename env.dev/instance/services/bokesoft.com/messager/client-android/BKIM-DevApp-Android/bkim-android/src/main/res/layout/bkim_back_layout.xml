@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.bokesoft.ecomm.im.android.ui.view.TitleLayout
+    <com.bokesoft.ecomm.im.android.ui.widget.TitleLayout
         android:id="@+id/iv_title_back"
         android:layout_width="24dp"
         android:layout_height="24dp"

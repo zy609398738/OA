@@ -1,8 +1,8 @@
 package com.bokesoft.oa.mid.message;
 
 import com.bokesoft.oa.base.DtlBase;
+import com.bokesoft.oa.base.OAContext;
 import com.bokesoft.oa.config.Settings;
-import com.bokesoft.yigo.mid.base.DefaultContext;
 
 /**
  * 消息设置明细
@@ -66,9 +66,9 @@ public class MessageSetDtl extends DtlBase<MessageSet> {
 	 * 构造消息设置明细对象
 	 * 
 	 * @param context
-	 *            中间层对象
+	 *            上下文对象
 	 */
-	public MessageSetDtl(DefaultContext context) {
-		super(context);
+	public MessageSetDtl(OAContext context, MessageSet messageSet) {
+		super(context, messageSet);
 	}
 }

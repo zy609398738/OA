@@ -1,35 +1,7 @@
 "use strict";
 
-/**
- * Browser version check
- */
-if (window.attachEvent && !window.addEventListener){
-	// "bad" IE (IE8 or less)
-	var appVer = navigator.appVersion;
-	if (appVer.indexOf("MSIE 8.0") > 0){
-		//IE 8 - check flash install and version > 10.0.0
-		require("../../web-socket-js/swfobject.js");
-		var ver = swfobject.getFlashPlayerVersion();
-		if (ver.major < 10) {
-			var err = "IM 在 IE8 上运行时需要版本 10 以上的 Flash 支持，请安装最新版本的 Flash Player" +
-					  "(参考: 目前的 Flash 版本是 '"+ver.major+"."+ver.minor+"."+ver.release+"').";
-			alert(err);
-			throw err;
-		}
-	}else{ //IE 7、IE6、...
-		var err = "IM 不支持版本早于 IE8 的浏览器，请升级您的浏览器(参考: 目前 IE 浏览器版本是 '"+appVer+"').";
-		alert(err);
-		throw err;
-	}
-}
-/**
- * IE8 support;
- * see also:
- *     - https://github.com/webpack/style-loader/issues/42
- *     - https://github.com/coderwin/ES5Shim4Webpack
- *     - https://github.com/es-shims/es5-shim
- */
-require('es5-shim');
+require("./ie8-polyfill");
+
 var _ = require("lodash");
 var $ = require("jquery");
 var json = require("JSON2");
@@ -58,7 +30,8 @@ var stateIconTable = {
 require("./tmpl/css/style.css");
 
 var WebSocket = require("../../websocket");
-var LightEditor = require("../../light-editor");
+
+var lightEditor = null;
 
 var webSocketClient = null;
 var backendClient = null;
@@ -212,15 +185,33 @@ var refreshActiveConnectSessions = function(activeConnectData){
 		};
 		var html = compiled(data);
 		
+
 		var $container = $root.find(".item-sessions");
 		$container.find(".chat_item").unbind();
+		$container.find(".del_button").unbind();
 		$container.html(html);
 		$container.find(".chat_item").click(showTalkBox);
-		var $del_btn = $container.find(".del_button");
-		$del_btn.on('click', {delbtn: $del_btn,activeUserCode:activeConnectData.currentReceiver}, remove_chatitem);
+		$container.find(".del_button").on('click', {
+			activeUserCode: activeConnectData.currentReceiver
+		}, function(event){
+			var activeUserCode = event.data.activeUserCode;
+			localDataClient.removeLocalHistorySessions(activeUserCode);
+
+			var nextItem=$(this).parents(".chat_active").next();
+			nextItem.addClass("chat_active");
+			$(this).parents(".chat_active").remove();
+			if (nextItem.length > 0){
+				showTalkBox.call(nextItem);
+			}else{
+				//消息及编辑/发送区域的初始状态
+				resetTalkBox();
+				//切换到 self connect 连接模式
+				websocketConnect2Self();
+			}
+		});
 		
 		patchGrayscale();
-    });
+	});
 }
 
 var showChatList=function(){
@@ -229,24 +220,31 @@ var showChatList=function(){
     var $root = $(globalOptions.$rootElm);
     $root.find(".user-list").hide().eq($('.tab-item').index(this)).show();
 }
-var remove_chatitem=function(event){
-	var del_btn = event.data.delbtn;
-	var activeUserCode = event.data.activeUserCode;
-	localDataClient.removeLocalHistorySessions(activeUserCode);
 
-	var nextItem=$(this).parents(".chat_active").next();
-	console.log(nextItem);
+var _initLightEditor = function(){
+	var $root = $(globalOptions.$rootElm);
 	
-	nextItem.addClass("chat_active");
-	$(this).parents(".chat_active").remove();
-	if (nextItem.length > 0){
-		showTalkBox.call(nextItem);
-	}else{
-		//消息及编辑/发送区域的初始状态
-		resetTalkBox();
-		//切换到 self connect 连接模式
-		websocketConnect2Self();
-	}
+    //初始化表情及文件上传
+    uploadHandler = require("./service-upload.js").create({
+		webSocketClient: webSocketClient,
+		localDataClient: localDataClient,
+		localVars: localVars
+	});
+    lightEditor = require("../../light-editor").build({
+		editor: $root.find(".chatTextarea"),
+		triggerEmoji: $root.find(".emojiBtn"),
+		triggerUpload: $root.find(".uploadBtn"),
+		uploadUrl: globalOptions.fileUploadUrl + "?t=" + clientToken,
+		uploadCaller: uploadHandler
+	});
+    localDataClient.setLightEditor(lightEditor);
+    //调整表情窗口的显示
+    var $emojiContainer = $("#"+lightEditor.emojiInfo.emoji_container_id);
+    $emojiContainer.css("top", "-120px");
+    $emojiContainer.css("left", "0px");
+    $emojiContainer.css("width", "330px");
+    $emojiContainer.css("z-index", "11");	//后面的 上传 按钮运行时会设置 z-index=10
+    $emojiContainer.find(".emoji_content").css("height", "170px");
 }
 
 var showTalkBox=function(){
@@ -271,38 +269,16 @@ var showTalkBox=function(){
 		.focus()
 		.keydown(function(e){
 			if ( !e.shiftKey && !e.ctrlKey && (e.which == 13 || e.which == 10) ) {
+				sendText();
 				e.preventDefault();
 			}
-		})
-		.keyup(function(e){
-			if( !e.shiftKey && !e.ctrlKey && (e.which == 13 || e.which == 10) ) {
-				sendText();
-			}
 	    });
+    //每次重置 chatTextarea 后需要重新初始化 LightEditor
+    _initLightEditor();
+    
     $root.find(".chatSendBtn")
 		.unbind()
 		.click(sendText);
-
-    //初始化表情及文件上传
-    uploadHandler = require("./service-upload.js").create({
-		webSocketClient: webSocketClient,
-		localDataClient: localDataClient,
-		localVars: localVars
-	});
-    var lEditor = LightEditor.build({
-		editor: $root.find(".chatTextarea"),
-		triggerEmoji: $root.find(".emojiBtn"),
-		triggerUpload: $root.find(".uploadBtn"),
-		uploadUrl: globalOptions.fileUploadUrl,
-		uploadCaller: uploadHandler
-	});
-    //调整表情窗口的显示
-    var $emojiContainer = $("#"+lEditor.emojiInfo.emoji_container_id);
-    $emojiContainer.css("top", "-120px");
-    $emojiContainer.css("left", "0px");
-    $emojiContainer.css("width", "280px");
-    $emojiContainer.css("z-index", "11");	//后面的 上传 按钮运行时会设置 z-index=10
-    $emojiContainer.find(".emoji_content").css("height", "170px");
 
     //如果是在第二个列表(包含分组的列表)中点击, 那么强制切到第一个列表
     if ($this.parents(".chat_group").html()){
@@ -391,7 +367,7 @@ var showMainPanel = function(){
 	$main.animate({top: top+'px'}, "show");		//动画从右下边沿弹出
 	$root.find(".showMessage").hide();			//浮动消息区域隐藏
 	
-	safeSetInterval("refreshBuddies", function(){refreshBuddies()}, 30*1000);
+	safeSetInterval("refreshBuddies", function(){refreshBuddies()}, 5*60*1000);
 }
 var closeMainPanel=function(){
     //切换回 self-self 的连接获取当前连接用户等信息
@@ -408,8 +384,7 @@ var sendText = function(){
 	var $root = $(globalOptions.$rootElm);
 	var $ta = $root.find(".chatTextarea");
 	
-	var text = $ta.html();
-	text = LightEditor.build().getText(text);
+	var text = lightEditor.getText();
 	if (text) {
 		var msg = {
 				type: "TEXT", data: text,
@@ -434,7 +409,7 @@ var beginSendPing = function(){
 			var msg = {type: "BLANK", data: "ping"};
 			webSocketClient.sendText(json.stringify(msg));
 		}
-	}, 20*1000);
+	}, 5*60*1000);
 }
 
 /**
@@ -447,6 +422,10 @@ var beginSendPing = function(){
  *   - wsServerPort Messager 服务器的 WebSocket 端口, 默认为 7778
  *   - wsFlashPolicyPort Messager 服务器的 FlashPolicyFile 端口(为了可以使用 Flash WebSocket 客户端), 默认为 7843
  *   - pageBuddiesManager 主应用的 "好友管理" Web 页面, 用于 IM 和 主应用 之间的界面集成, 默认为空
+ *   - hostCallback 用于让业务系统注入响应回调的 function，参数为：
+ *        - type: 字符串; 目前只支持 HOST_ACTION - 业务系统自定义操作;
+ *        - data: 字符串; 与具体 type 相关的数据，对于 HOST_ACTION, 此数据即为 actionData;
+ *        - globalOptions: 目前 IM 系统中的”全局属性“对象; 
  */
 var globalOptions = {};
 /**
@@ -464,7 +443,9 @@ var doSetupGlobal = function(options){
 		wsServerPort: options.wsServerPort || 7778,
 		wsFlashPolicyPort: options.wsFlashPolicyPort || 7843,
 		
-		pageBuddiesManager: options.pageBuddiesManager
+		pageBuddiesManager: options.pageBuddiesManager,
+		
+		hostCallback: options.hostCallback
 	};
 	
 	/** 一些会跟随 ws* 变化的选项 */
@@ -505,9 +486,11 @@ var doInitMessager = function(){
     var compiled = _.template(tmplDialog);
     
     var initWithUser = function(userInfo){
+		localDataClient.rememberUserInfo(userInfo);
+
 		clientToken = userInfo.userToken;
 
-		userInfo.defMyselfIcon = defMyselfIcon;
+		userInfo.userIcon = userInfo.userIcon || defMyselfIcon;
 		userInfo.states = stateIconTable;
 		userInfo.pageBuddiesManager = globalOptions.pageBuddiesManager;
 		var html = compiled(userInfo);
@@ -519,6 +502,15 @@ var doInitMessager = function(){
 	    $root.find(".tab-item").click(showChatList);
 	    $root.find('.close-btn').click(closeMainPanel);
 	    $root.find(".showMessage").click(showMainPanel);
+		$root.find(globalOptions.$chatContentElm).click(function(e){			
+			if ($(e.target).data("bkimAction")){
+				var actionData = $(e.target).data("bkimAction");
+				globalOptions.hostCallback("HOST_ACTION", actionData, globalOptions);
+			}
+		});
+	    
+	    //启动的时候就需要初始化一次 LightEditor
+	    _initLightEditor();
 	    
 	    //好友搜索
 		$root.find(".search-in-panel-buddies .web_wechat_search").click(refreshBuddies);
@@ -780,7 +772,7 @@ var searchMessages = function(curUserCode){
 
 var queryHistory = function(queryData, $panel, $result, $pager){
 	var ajax = require("boke-cms-ajax");
-    ajax.post(globalOptions.queryHistoryUrl, {data: json.stringify(queryData)}, function(data){
+    ajax.post(globalOptions.queryHistoryUrl, {t: clientToken, data: json.stringify(queryData)}, function(data){
     	console.log(data);
     	var startTime = data.startTimestamp;
     	var endTime = data.endTimestamp;
@@ -798,7 +790,7 @@ var queryHistory = function(queryData, $panel, $result, $pager){
     			if (msg.type=="TEXT"){
     				return msg.data;
     			}else if (msg.type=="IMAGE" || msg.type=="FILE"){
-    				var url = globalOptions.fileUploadUrl + msg.data.fileUrl;
+    				var url = globalOptions.fileUploadUrl + msg.data.fileUrl + "?t=" + clientToken;
     				var html = 
     					$("<a/>").attr("target", "_blank").attr("href", url).text(msg.data.fileName)[0].outerHTML;
     				return html;
@@ -980,7 +972,7 @@ var updateUserState = function(userCode, state, callback){
 	stateData[userCode] = state;
 	
 	var ajax = require("boke-cms-ajax");
-    ajax.post(globalOptions.userStateUrl, {data: json.stringify(stateData)}, function(data){
+    ajax.post(globalOptions.userStateUrl, {t: clientToken, data: json.stringify(stateData)}, function(data){
     	callback(data);
     }, {errorStyle: "notify"});
 }
@@ -996,7 +988,7 @@ var queryUserStates = function(userCodes, callback){
 	var userCodeParams = "u="+userCodes.join("&u=");
 	
 	var ajax = require("boke-cms-ajax");
-	var url = globalOptions.userStateUrl+"?"+userCodeParams;
+	var url = globalOptions.userStateUrl+"?"+userCodeParams+"&t="+clientToken;
 	url = url + "&" + (new Date()).getTime();  //GET 方法容易有缓存
     ajax.get(url, {}, function(data){
     	callback(data);

@@ -1,0 +1,30 @@
+{
+	"rows":[
+		{"category_id":"1","name":"任务1","persent":"30%","tast_num":"0","publishDate":"","lft":"1","rgt":"44","level":"0","uiicon":""},
+		{"category_id":"2","name":"TELEVISIONS","persent":"40%","tast_num":"0","publishDate":"","lft":"2","rgt":"19","level":"1","uiicon":""},
+		{"category_id":"3","name":"TUBE","persent":"40%","tast_num":"0","publishDate":"","lft":"3","rgt":"8","level":"2","uiicon":""},
+		{"category_id":"11","name":"26 \" TV","persent":"200.00","tast_num":"1","publishDate":"black","lft":"4","rgt":"5","level":"3","uiicon":"ui-icon-image"},
+		{"category_id":"12","name":"30 \" TV","persent":"350.00","tast_num":"2","publishDate":"black","lft":"6","rgt":"7","level":"3","uiicon":"ui-icon-document"},
+		{"category_id":"4","name":"LCD","persent":"40%","tast_num":"0","publishDate":"","lft":"9","rgt":"12","level":"2","uiicon":""},
+		{"category_id":"13","name":"Super-LCD 42\" ","persent":"400.00","tast_num":"10","publishDate":"all","lft":"10","rgt":"11","level":"3","uiicon":"ui-icon-video"},
+		{"category_id":"5","name":"PLASMA","persent":"40%","tast_num":"0","publishDate":"","lft":"13","rgt":"18","level":"2","uiicon":""},
+		{"category_id":"14","name":"Ultra-Plasma 62\" ","persent":"440.00","tast_num":"2","publishDate":"silver","lft":"14","rgt":"15","level":"3","uiicon":"ui-icon-clipboard"},
+		{"category_id":"15","name":"Value Plasma 38\" ","persent":"312.00","tast_num":"0","publishDate":"silver","lft":"16","rgt":"17","level":"3","uiicon":"ui-icon-clipboard"},
+		{"category_id":"6","name":"PORTABLE 任务1","persent":"40%","tast_num":"0","publishDate":"","lft":"20","rgt":"43","level":"1","uiicon":""},
+		{"category_id":"7","name":"MP3 PLAYERS","persent":"40%","tast_num":"0","publishDate":"","lft":"21","rgt":"32","level":"2","uiicon":""},
+		{"category_id":"8","name":"FLASH","persent":"40%","tast_num":"0","publishDate":"","lft":"22","rgt":"29","level":"3","uiicon":""},
+		{"category_id":"17","name":"Super-Shuffle 1gb","persent":"20.00","tast_num":"11","publishDate":"all","lft":"23","rgt":"24","level":"4","uiicon":"ui-icon-note"},
+		{"category_id":"21","name":"5Gb Flash","persent":"40%","tast_num":"0","publishDate":"","lft":"25","rgt":"26","level":"4","uiicon":"ui-icon-comment"},
+		{"category_id":"22","name":"10Gb  flash ","persent":"40%","tast_num":"0","publishDate":"","lft":"27","rgt":"28","level":"4","uiicon":"ui-icon-tag"},
+		{"category_id":"16","name":" Power-MP3 128mb","persent":"123.00","tast_num":"2","publishDate":"withe","lft":"30","rgt":"31","level":"3","uiicon":"ui-icon-signal-diag"},
+		{"category_id":"9","name":"CD PLAYERS","persent":"40%","tast_num":"0","publishDate":"","lft":"33","rgt":"38","level":"2","uiicon":""},
+		{"category_id":"18","name":" Porta CD ","persent":"10.00","tast_num":"0","publishDate":"","lft":"34","rgt":"35","level":"3","uiicon":"ui-icon-eject"},
+		{"category_id":"19","name":"CD To go!","persent":"110.00","tast_num":"11","publishDate":"","lft":"36","rgt":"37","level":"3","uiicon":"ui-icon-power"},
+		{"category_id":"10","name":"2 WAY RADIOS","persent":"40%","tast_num":"0","publishDate":"","lft":"39","rgt":"42","level":"2","uiicon":""},
+		{"category_id":"20","name":"Family Talk 360 ","persent":"200.00","tast_num":"15","publishDate":"","lft":"40","rgt":"41","level":"3","uiicon":"ui-icon-volume-on"},
+		{"category_id":"23","name":"COMPUTERS","persent":"40%","tast_num":"0","publishDate":"","lft":"45","rgt":"50","level":"0","uiicon":""},
+		{"category_id":"25","name":"DESKTOP ","persent":"40%","tast_num":"0","publishDate":"","lft":"46","rgt":"47","level":"1","uiicon":""},
+		{"category_id":"26","name":"LAPTOPS","persent":"40%","tast_num":"0","publishDate":"","lft":"48","rgt":"49","level":"1","uiicon":""},
+		{"category_id":"24","name":"APPLIANCES","persent":"40%","tast_num":"0","publishDate":"","lft":"51","rgt":"52","level":"0","uiicon":""}
+	]
+}

@@ -26,6 +26,10 @@
                     <Column Key="POID" Caption="父对象标识" DataType="Long"/>
                     <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
                     <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="ParentID" Caption="父节点ID" DataType="Long"/>
+                    <Statement>
+                        <![CDATA[select ParentID,OID from OA_NewsType_H]]>
+                    </Statement>
                 </Table>
             </TableCollection>
         </DataObject>
@@ -37,7 +41,6 @@
             </Action>
         </Operation>
         <Operation Key="Close" Caption="关闭" RefKey="Close"/>
-        <Operation Key="Setfirst_headVisible" Caption="查询" RefKey="Setfirst_headVisible"/>
     </OperationCollection>
     <Body>
         <Block>
@@ -54,6 +57,7 @@
                             <GridRow Key="row1" RowHeight="35" TableKey="OA_NewsType_H">
                                 <GridCell Key="NewsType" CellType="Dict" Caption="新闻类别" ItemKey="OA_NewsType" Sort="Code">
                                     <DataBinding ColumnKey="OID"/>
+                                    <TreeDef TreeType="Dict"/>
                                 </GridCell>
                             </GridRow>
                         </GridRowCollection>

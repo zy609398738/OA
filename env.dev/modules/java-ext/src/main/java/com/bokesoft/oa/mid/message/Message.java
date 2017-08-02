@@ -2,14 +2,19 @@ package com.bokesoft.oa.mid.message;
 
 import java.util.Date;
 
+import com.bokesoft.oa.base.Base;
 import com.bokesoft.oa.base.Ids;
+import com.bokesoft.oa.base.OAContext;
+import com.bokesoft.oa.util.OASettings;
+import com.bokesoft.yes.common.util.StringUtil;
 
 /**
+ * 消息
  * 
  * @author chenbiao
  *
  */
-public class Message {
+public class Message extends Base {
 	/**
 	 * 是否新增发送记录
 	 */
@@ -45,6 +50,9 @@ public class Message {
 	 * @return 模块标识
 	 */
 	public String getModuleKey() {
+		if (StringUtil.isBlankOrNull(moduleKey)) {
+			moduleKey = OASettings.OA_MODULE_KEY;
+		}
 		return moduleKey;
 	}
 
@@ -325,4 +333,111 @@ public class Message {
 		this.messageSetDtl = messageSetDtl;
 	}
 
+	/**
+	 * 邮件模板
+	 */
+	private String emailTemp;
+
+	/**
+	 * 邮件模板
+	 * 
+	 * @return 邮件模板
+	 */
+	public String getEmailTemp() {
+		return emailTemp;
+	}
+
+	/**
+	 * 邮件模板
+	 * 
+	 * @param emailTemp
+	 *            邮件模板
+	 */
+	public void setEmailTemp(String emailTemp) {
+		this.emailTemp = emailTemp;
+	}
+
+	/**
+	 * 是否保存发送消息
+	 */
+	private Boolean saveSendMessage;
+
+	/**
+	 * 是否保存发送消息
+	 * 
+	 * @return 是否保存发送消息
+	 */
+	public Boolean getSaveSendMessage() {
+		return saveSendMessage;
+	}
+
+	/**
+	 * 是否保存发送消息
+	 * 
+	 * @param saveSendMessage
+	 *            是否保存发送消息
+	 */
+	public void setSaveSendMessage(Boolean saveSendMessage) {
+		this.saveSendMessage = saveSendMessage;
+	}
+
+	/**
+	 * 构造消息对象
+	 */
+	public Message(OAContext context) {
+		super(context);
+	}
+	
+	/**
+	 * 构造消息对象
+	 * 
+	 * @param context
+	 *            上下文
+	 * @param saveSendMessage
+	 *            是否保存发送消息
+	 * @param isNewSend
+	 *            是否新增发送记录
+	 * @param moduleKey
+	 *            模块Key
+	 * @param sendDate
+	 *            发送时间
+	 * @param sendOptID
+	 *            发送人员
+	 * @param topic
+	 *            主题
+	 * @param content
+	 *            消息内容
+	 * @param receiveIDs
+	 *            接受人员
+	 * @param messageSet
+	 *            发送消息设置
+	 * @param srcBillKey
+	 *            源表单Key
+	 * @param srcBillNO
+	 *            源表单编号
+	 * @param srcOid
+	 *            源表单OID
+	 * @throws Throwable
+	 */
+	public Message(OAContext oaContext, Boolean saveSendMessage, Boolean isNewSend, String moduleKey,Date sendDate, Long sendOptID,
+			String topic, String content, String receiveIDs, MessageSet messageSet, String srcBillKey, String srcBillNO,
+			Long srcOid) throws Throwable {
+		super(oaContext);
+		setSaveSendMessage(saveSendMessage);
+		setIsNewSend(isNewSend);
+		setModuleKey(moduleKey);
+		setSendOptID(sendOptID);
+		setSendDate(sendDate);
+		setTopic(topic);
+		setContent(content);
+		if (receiveIDs == "") {
+			setReceiveIDs(null);
+		} else {
+			setReceiveIDs(new Ids(receiveIDs));
+		}
+		setMessageSet(messageSet);
+		setSrcBillKey(srcBillKey);
+		setSrcBillNO(srcBillNO);
+		setSrcOid(srcOid);
+	}
 }

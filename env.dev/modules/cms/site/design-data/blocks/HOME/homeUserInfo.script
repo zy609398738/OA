@@ -1,0 +1,2 @@
+cms.PageExp.Local('username',oa.TodoMidExp.queryUserNameByID(cms.Yigo2MidExp.GetLoginOperator()));
+cms.PageExp.Local('EmpID',oa.TodoMidExp.queryEmpIDByID(cms.Yigo2MidExp.GetLoginOperator()));

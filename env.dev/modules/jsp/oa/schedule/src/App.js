@@ -321,11 +321,7 @@ Ext.define('Ext.calendar.App', {
 			$(border).append(title).append(time).append(sum).append(edit_icon);
 			$(border).show();
 			edit_icon.on('click',function(){
-				var args = {
-						formKey: 'OA_MySchedule',
-						OID: rec.data.EventId
-					};
-				parent.parent.openForm(args);
+				parent.openForm('OA_MySchedule',rec.data.EventId);
 			})
 			setTimeout(function(){
 				$(border).hide();

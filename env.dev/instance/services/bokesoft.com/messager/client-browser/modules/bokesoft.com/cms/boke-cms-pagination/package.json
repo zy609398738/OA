@@ -2,7 +2,7 @@
   "name": "boke-cms-pagination",
   "version": "1.0.0",
   "description": "data pagination",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "test": "echo \"Run 'node test-server.js' then open 'http://localhost:<port>/web-test/test.html' to run test.\" && exit 1"
   },

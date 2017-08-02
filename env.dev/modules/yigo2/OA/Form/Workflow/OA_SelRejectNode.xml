@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="OA_SelRejectNode" Caption="选择驳回节点" FormType="View">
+    <DataSource>
+        <DataObject Key="OA_SelRejectNode" Caption="选择驳回节点">
+            <TableCollection>
+                <Table Key="OA_SelRejectNode" Caption="选择驳回节点" TableMode="Detail" SourceType="Query" Persist="false">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="RejectNode" Caption="直送驳回节点" DataType="Integer"/>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板" Height="300px" Width="200px">
+                <GridLayoutPanel Key="first_head" Padding="5px" Height="pref" Caption="基本信息">
+                    <ComboBox Key="RejectNode" Caption="直送驳回节点" BuddyKey="Lab_RejectNode" X="2" Y="0" SourceType="Formula">
+                        <DataBinding TableKey="OA_SelRejectNode" ColumnKey="RejectNode"/>
+                        <FormulaItems>
+                            <![CDATA[GetValidNodes(Para("nodeid"),Para("processKey"));]]>
+                        </FormulaItems>
+                    </ComboBox>
+                    <Label Key="Lab_RejectNode" Caption="直送驳回节点" X="1" Y="0"/>
+                    <Button Key="OK" Caption="确定" X="1" Y="1">
+                        <OnClick>
+                            <![CDATA[parent.parent.CommitWorkitem(-1,0,Para("opinion"),"Return",Para("nodeid"));
+Close();
+parent.Close();]]>
+                        </OnClick>
+                    </Button>
+                    <Button Key="Cancel" Caption="取消" X="2" Y="1">
+                        <OnClick>
+                            <![CDATA[Close();]]>
+                        </OnClick>
+                    </Button>
+                    <RowDefCollection RowGap="8">
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="8">
+                        <ColumnDef Width="100px"/>
+                        <ColumnDef Width="100px"/>
+                        <ColumnDef Width="100px"/>
+                        <ColumnDef Width="100px"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

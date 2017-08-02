@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:gravity="center"
+              android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textAppearance="@style/BKIMTextAppearance.Normal"
+        android:textColor="@color/bkim_commom_label_color"
+        android:paddingLeft="15dp"
+        android:text="IM Server Address(http:// | ws://):"
+        android:id="@+id/activity_entry_lb_im_server_addr"
+        android:labelFor="@+id/activity_entry_et_im_server_addr" />
+    <EditText
+        android:id="@+id/activity_entry_et_im_server_addr"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/BKIMTextAppearance.Normal"
+        android:textColor="@color/bkim_common_gray"
+        android:maxLength="50"
+        android:paddingLeft="30dp"
+        android:gravity="center_vertical"
+        android:singleLine="true"
+        android:hint="IM Server Address"
+        android:textColorHint="@color/bkim_commom_hint_color" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textAppearance="@style/BKIMTextAppearance.Normal"
+        android:textColor="@color/bkim_commom_label_color"
+        android:paddingLeft="15dp"
+        android:text="Host Server Address(http://):"
+        android:id="@+id/activity_entry_lb_host_server_addr"
+        android:labelFor="@+id/activity_entry_et_host_server_addr" />
+    <EditText
+        android:id="@+id/activity_entry_et_host_server_addr"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/BKIMTextAppearance.Normal"
+        android:textColor="@color/bkim_common_gray"
+        android:maxLength="50"
+        android:paddingLeft="30dp"
+        android:gravity="center_vertical"
+        android:singleLine="true"
+        android:hint="Host Server Address"
+        android:textColorHint="@color/bkim_commom_hint_color" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textAppearance="@style/BKIMTextAppearance.Normal"
+        android:textColor="@color/bkim_commom_label_color"
+        android:paddingLeft="15dp"
+        android:text="Client ID:"
+        android:id="@+id/activity_entry_lb_clientid"
+        android:labelFor="@+id/activity_entry_et_clientid" />
+    <EditText
+        android:id="@+id/activity_entry_et_clientid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/BKIMTextAppearance.Normal"
+        android:textColor="@color/bkim_common_gray"
+        android:maxLength="50"
+        android:paddingLeft="30dp"
+        android:gravity="center_vertical"
+        android:singleLine="true"
+        android:hint="Client ID"
+        android:textColorHint="@color/bkim_commom_hint_color" />
+    <Button
+        android:id="@+id/activity_entry_btn_init"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:textColor="@android:color/white"
+        android:background="@color/bkim_common_blue"
+        android:textAppearance="@style/BKIMTextAppearance.Normal.Bold"
+        android:text="Start IM (Initialize)"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textAppearance="@style/BKIMTextAppearance.Normal"
+        android:textColor="@color/bkim_commom_label_color"
+        android:paddingLeft="15dp"
+        android:text="To Client ID(Optional):"
+        android:id="@+id/activity_entry_lb_to_clientid"
+        android:labelFor="@+id/activity_entry_et_to_clientid" />
+    <EditText
+        android:id="@+id/activity_entry_et_to_clientid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/BKIMTextAppearance.Normal"
+        android:textColor="@color/bkim_common_gray"
+        android:maxLength="50"
+        android:paddingLeft="30dp"
+        android:gravity="center_vertical"
+        android:singleLine="true"
+        android:hint="to Client ID"
+        android:textColorHint="@color/bkim_commom_hint_color" />
+
+    <Button
+        android:id="@+id/activity_entry_btn_load"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/bkim_common_blue"
+        android:text="Start conversation ..."
+        android:textAppearance="@style/BKIMTextAppearance.Normal.Bold"
+        android:textColor="@android:color/white" />
+
+</LinearLayout>

@@ -8,10 +8,11 @@
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {},
-  "devDependencies": {
+  "dependencies": {
     "jquery": "^3.1.1",
-    "chosen-js": "^1.6.2",
+    "chosen-js": "^1.6.2"
+  },
+  "devDependencies": {
     "webpack-dev-web-test": "../../../supports/webpack-dev-web-test"
   }
 }

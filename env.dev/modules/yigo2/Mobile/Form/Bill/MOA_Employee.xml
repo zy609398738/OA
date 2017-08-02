@@ -9,7 +9,21 @@
         <Block>
             <LinearLayoutPanel Caption="LinearLayoutPanel1" Key="LinearLayoutPanel1" Orientation="Vertical">
                 <LinearLayoutPanel Caption="LinearLayoutPanel2" Height="pref" Key="LinearLayoutPanel2" Width="pref">
-                    <Image Key="Photo" Caption="照片" ResourceType="Data" HasBorder="true" Height="auto" Width="auto" ImageScaleType="Fit_Center" Weight="1.0"/>
+                    <Image Key="Photo" Caption="照片" Enable="Visiable_Photo==1" ResourceType="Data" HasBorder="true" Height="pref" Width="auto" ImageScaleType="Fit_Center" Weight="1.0"/>
+                    <HyperLink Caption="修改" Height="auto" Key="Modify_Photo" Visible="Visiable_Photo==0" Width="50px">
+                        <OnClick>
+                            <![CDATA[SetValue("Visiable_Photo", 1);]]>
+                        </OnClick>
+                    </HyperLink>
+                    <HyperLink Caption="保存" Height="auto" Key="Save_Photo" Visible="Visiable_Photo==1" Width="50px">
+                        <OnClick>
+                            <![CDATA[DBUpdate("Update OA_Employee_H set Photo=? Where OID=?", Photo,GetDictValue('Operator',GetOperator(),'SYS_Operator.EmpID'));
+SetValue("Visiable_Photo", 0);
+OA_RefreshDictItem("OA_Employee",GetDictValue('Operator',GetOperator(),'SYS_Operator.EmpID'));
+]]>
+                        </OnClick>
+                    </HyperLink>
+                    <CheckBox Caption="修改头像" Height="pref" Key="Visiable_Photo" Visible="false" Width="pref"/>
                 </LinearLayoutPanel>
                 <LinearLayoutPanel Caption="LinearLayoutPanel3" Height="40px" Key="LinearLayoutPanel3" Width="auto">
                     <Label Key="Lab_Code" Caption="工号" Height="auto" Width="80px">

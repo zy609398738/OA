@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<Form Key="OA_MessageSet" Caption="消息设置" FormType="Dict" Platform="">
+<Form Key="OA_MessageSet" Caption="发送方式" FormType="Dict">
     <DataSource>
-        <DataObject Key="OA_MessageSet" Caption="消息设置" PrimaryTableKey="OA_MessageSet_H" SecondaryType="Dict" PrimaryType="Entity">
+        <DataObject Key="OA_MessageSet" Caption="发送方式" PrimaryTableKey="OA_MessageSet_H" SecondaryType="Dict" PrimaryType="Entity">
             <TableCollection>
-                <Table Key="OA_MessageSet_H" Caption="消息设置" DBTableName="OA_MessageSet_H">
+                <Table Key="OA_MessageSet_H" Caption="发送方式" DBTableName="OA_MessageSet_H">
                     <Column Key="OID" Caption="对象标识" DataType="Long"/>
                     <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
                     <Column Key="POID" Caption="父对象标识" DataType="Long"/>
@@ -27,12 +27,13 @@
                     <Column Key="OrderNum" Caption="显示顺序" DataType="Integer"/>
                     <Column Key="IsDefault" Caption="默认" DataType="Integer"/>
                 </Table>
-                <Table Key="OA_MessageSet_D" Caption="消息设置明细" DBTableName="OA_MessageSet_D" TableMode="Detail" ParentKey="OA_MessageSet_H">
+                <Table Key="OA_MessageSet_D" Caption="发送方式明细" DBTableName="OA_MessageSet_D" TableMode="Detail" ParentKey="OA_MessageSet_H">
                     <Column Key="OID" Caption="对象标识" DataType="Long"/>
                     <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
                     <Column Key="POID" Caption="父对象标识" DataType="Long"/>
                     <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
                     <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="Sequence" Caption="序号" DataType="Integer"/>
                     <Column Key="MessageType" Caption="消息类型" DataType="Varchar"/>
                     <Column Key="IsSucceed" Caption="继续发送" DataType="Integer"/>
                 </Table>

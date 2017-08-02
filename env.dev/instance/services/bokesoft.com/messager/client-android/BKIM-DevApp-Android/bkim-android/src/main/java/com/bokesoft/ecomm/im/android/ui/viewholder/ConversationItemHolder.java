@@ -1,17 +1,14 @@
 package com.bokesoft.ecomm.im.android.ui.viewholder;
 
-import android.content.Intent;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bokesoft.ecomm.im.android.event.StartConversationEvent;
+import com.bokesoft.services.messager.server.model.Message;
 import com.bokesoft.services.messager.server.model.MyActiveConnectData;
-import com.bokesoft.ecomm.im.android.activity.ConversationActivity;
 import com.bokesoft.ecomm.im.android.backend.HostServiceFacade;
 import com.bokesoft.ecomm.im.android.instance.ClientInstance;
 import com.bokesoft.ecomm.im.android.model.UserInfo;
@@ -19,20 +16,22 @@ import com.bokesoft.ecomm.im.android.ui.viewholder.base.CommonViewHolder;
 import com.squareup.picasso.Picasso;
 
 import com.bokesoft.ecomm.im.android.R;
-import com.bokesoft.ecomm.im.android.utils.BKIMConstants;
+
+import org.ocpsoft.prettytime.PrettyTime;
+
+import java.util.Date;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * 会话 item 对应的 holder
  */
 public class ConversationItemHolder extends CommonViewHolder {
-
-    ImageView avatarView;
-    TextView unreadView;
-    TextView messageView;
-    TextView timeView;
-    TextView nameView;
-    RelativeLayout avatarLayout;
-    LinearLayout contentLayout;
+    private ImageView avatarView;
+    private TextView unreadView;
+    private TextView messageView;
+    private TextView timeView;
+    private TextView nameView;
 
     public ConversationItemHolder(ViewGroup root) {
         super(root.getContext(), root, R.layout.bkim_conversation_item);
@@ -45,8 +44,6 @@ public class ConversationItemHolder extends CommonViewHolder {
         timeView = (TextView) itemView.findViewById(R.id.conversation_item_tv_time);
         unreadView = (TextView) itemView.findViewById(R.id.conversation_item_tv_unread);
         messageView = (TextView) itemView.findViewById(R.id.conversation_item_tv_message);
-        avatarLayout = (RelativeLayout) itemView.findViewById(R.id.conversation_item_layout_avatar);
-        contentLayout = (LinearLayout) itemView.findViewById(R.id.conversation_item_layout_content);
     }
 
     @Override
@@ -108,7 +105,6 @@ public class ConversationItemHolder extends CommonViewHolder {
                 if (avatarUrl.startsWith("/")){
                     //拼接为绝对路径
                     avatarUrl = ClientInstance.getInstance().getServiceUrlBase() + avatarUrl;
-                //    Log.e("ip===", ClientInstance.getInstance().getServiceUrlBase());
                 }
                 Picasso.with(getContext()).load(avatarUrl).into(avatarView);
             } else {
@@ -126,7 +122,7 @@ public class ConversationItemHolder extends CommonViewHolder {
      */
     private void updateUnreadCount(MyActiveConnectData.SessionStat conversation) {
         int num = conversation.getCount();
-        unreadView.setText(num + "");
+        unreadView.setText(Integer.toString(num));
         unreadView.setVisibility(num > 0 ? View.VISIBLE : View.GONE);
     }
 
@@ -137,17 +133,39 @@ public class ConversationItemHolder extends CommonViewHolder {
      * @param conversation
      */
     private void updateLastMessageByConversation(final MyActiveConnectData.SessionStat conversation) {
-        // TODO 目前后台没有返回最后的消息
-        timeView.setText("*");
-        messageView.setText("(无消息)");
+        Message lastMsg = conversation.getLastMsg();
+
+        if (null!=lastMsg){
+            PrettyTime p = new PrettyTime();
+            Date msgTime = new Date(lastMsg.getTimestamp());
+            String time = p.format(msgTime);
+            timeView.setText(time);
+
+            String msgType = lastMsg.getType();
+            if (null==msgType){
+                //此处是不太可能达到的地方
+            }else if (msgType.equals("TEXT")) {
+                messageView.setText(lastMsg.getData() + "");
+            } else if (msgType.equals("IMAGE")) {
+                messageView.setText("[图片]");
+            } else if (msgType.equals("FILE")) {
+                messageView.setText("[文件]");
+            } else {
+                messageView.setText("[未知类型]:" + msgType);
+            }
+        }else{
+            timeView.setText("");
+            messageView.setText("");
+        }
     }
 
-    private void onConversationItemClick(MyActiveConnectData.SessionStat conversation) {
-        Intent intent = new Intent(getContext(), ConversationActivity.class);
-        intent.putExtra(BKIMConstants.PEER_ID, conversation.getCode());
-        getContext().startActivity(intent);
+    private void onConversationItemClick(MyActiveConnectData.SessionStat session) {
+        EventBus.getDefault().post(new StartConversationEvent(session.getCode()));
     }
 
+    /**
+     * {@link CommonViewHolder 必须申明这个方法}
+     */
     public static ViewHolderCreator HOLDER_CREATOR = new ViewHolderCreator<ConversationItemHolder>() {
         @Override
         public ConversationItemHolder createByViewGroupAndType(ViewGroup parent, int viewType) {

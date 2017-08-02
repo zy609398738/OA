@@ -24,7 +24,7 @@ public class GetOperatorIDsByEmp implements IExtService {
 	 * 根据人员多选字典选择内容列表对象取得对应操作员OID字符串
 	 * 
 	 * @param context
-	 *            中间层对象
+	 *            上下文对象
 	 * @param dicIds
 	 *            多选字典对象
 	 * @param sep

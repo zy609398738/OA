@@ -2,10 +2,10 @@
 	"@type":"com.bokesoft.cms2.impl.buildin.modelio.vo.BlockVO",
 	"block":{
 		"@type":"com.bokesoft.cms2.model.blocks.TmplBlock",
-		"formulaText":"cms.PageExp.Local(\n    \"parentdata\",cms.DataExp.QueryList(\"select a.oid,a.Name from OA_WorkflowType_H a\")\n);\ncms.PageExp.Local(\n    \"data\",cms.DataExp.QueryList(\"select b.oid,b.soid,b.BillKey,b.billname from OA_WorkflowType_D b\")\n);",
+		"formulaText":"",
 		"notes":"",
 		"parameters":[],
-		"tmplText":"<style>\n   .popupLayer {\n    \tbackground:none !important;\n        border:none;\n   }\n   .workflowType_D{\n   \t\tfloat:left;\n   }\n   .workflowType_D li{\n   \t\tfloat:left;\n   }\n   #popupContent_1,.popupContent_2,.popupContent{\n    \tbackground: none !important;\n    \tpadding-top: 0px !important;\n   }\n   a{\n   \t\tcolor:blue;\n   }\n</style>\n<script>\n\tfunction openWorkForm(workflowType){\n \n    };\n</script>\n<div class=\"pop_createflow\">\n   <ul class=\"workflow_main\">\n      #foreach($pdata in $parentdata)\n      <li style=\"overflow:hidden;margin-top:40px;margin-left:150px;\">\n         <span class=\"workflowType_H\"><a>$pdata.NAME</a></span>  \n         <ul class=\"workflowType_D\">\n            #foreach($da in $data)\n            \t#if($da.SOID==$pdata.OID)\n            \t\t<li style=\"margin-left:20px;\"><a href=\"\" onclick=\"openParentForm('$da.BILLKEY',-1)\">$da.BILLNAME</a></li>\n                #end\n            #end\n         </ul>\n      </li>\n      #end   \n   </ul>\n</div>",
+		"tmplText":"",
 		"type":"TMPL"
 	},
 	"code":"create-workflow",

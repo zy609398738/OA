@@ -61,14 +61,19 @@ public class SessionUtils {
 	 * @return
 	 */
 	public static MyActiveConnectData buildAllSesssionsData(ConnectedSessionBaseInfo connInfo){
-		MyActiveConnectData result = new MyActiveConnectData();
 		String myself = connInfo.getSender();
 		String curOtherSide = connInfo.getReceiver();
+		boolean isSelfConn = connInfo.isSelfConnection();
 		
+		return doBuildAllSesssionsData(myself, curOtherSide, isSelfConn);
+	}
+
+	private static MyActiveConnectData doBuildAllSesssionsData(String myself, String curOtherSide, boolean isSelfConn) {
+		MyActiveConnectData result = new MyActiveConnectData();
 		Map<String, SessionStat> statTable = new HashMap<String, SessionStat>();
 		SessionStat stat;
 		//第一个应该是当前在连接的对方用户(注意：不包括 SelfConnection)
-		if (! connInfo.isSelfConnection()){
+		if (! isSelfConn){
 			stat = new SessionStat(curOtherSide, SessionStat.CONNECTED, 0);
 			result.getSessions().add(stat);
 			statTable.put(curOtherSide, stat);
@@ -108,11 +113,15 @@ public class SessionUtils {
 		//计算消息总数
 		result.setTotal(newMessages.size());
 		//标识当前连接的用户
-		if (! connInfo.isSelfConnection()){
+		if (! isSelfConn){
 			result.setCurrentReceiver(curOtherSide);
 		}else{
 			result.setCurrentReceiver(null);
 		}
+		
+		//补充必要的历史会话信息
+		List<SessionStat> list = result.getSessions();
+		MessageRecordManager.appendHistorySession(myself, list);
 		
 		//设置与对方的最后活动会话信息
 		for(SessionStat sessionStat : result.getSessions()){
@@ -133,6 +142,12 @@ public class SessionUtils {
 		}
 	}
 	
+	/**
+	 * 构造提供给客户端开始聊天时自动显示的的用户聊天记录历史信息
+	 * @param connInfo
+	 * @param limits
+	 * @return
+	 */
 	public static RecentHistory buildHistoryData(ConnectedSessionBaseInfo connInfo, int limits){
 		RecentHistory result = new RecentHistory();
 		String myself = connInfo.getSender();
@@ -157,4 +172,36 @@ public class SessionUtils {
 		result.setMessages(historyMsgs);
 		return result;
 	}
+	
+	/**
+	 * 根据消息的 发送方 计算需要提醒哪些 消息接收方 更新 MyActiveConnectData 信息
+	 * @param connInfo
+	 */
+	public static void markNotifyClientPeerIds(ConnectedSessionBaseInfo connInfo){
+		//获取当前发送方的 MyActiveConnectData 信息 -- 其中包含相关的消息接收方信息
+		MyActiveConnectData activeConnData = buildAllSesssionsData(connInfo);
+		
+		doMarkNotifyClientPeerIds(connInfo.getSender(), activeConnData);
+	}
+
+	/**
+	 * 根据消息的 发送方 计算需要提醒哪些 消息接收方 更新 MyActiveConnectData 信息
+	 * @param senderPeerId
+	 */
+	public static void markNotifyClientPeerIds(String senderPeerId) {
+		//模拟一个 self connection 获得 sender 的 MyActiveConnectData 信息
+		MyActiveConnectData activeConnData = doBuildAllSesssionsData(senderPeerId, senderPeerId, true);
+		
+		doMarkNotifyClientPeerIds(senderPeerId, activeConnData);
+	}
+
+	private static void doMarkNotifyClientPeerIds(String senderPeerId, MyActiveConnectData activeConnData) {
+		List<SessionStat> sessions = activeConnData.getSessions();
+		for(SessionStat session: sessions){
+			ConnectedSessionMgr.mark4ConnDataNotify(session.getCode());
+		}
+		//考虑到当前用户可能有几个实例, 所以同时也要标记“影响自身的 MyActiveConnectData 状态”
+		ConnectedSessionMgr.mark4ConnDataNotify(senderPeerId);
+	}
+
 }

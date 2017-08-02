@@ -5,25 +5,49 @@
 	"deliveryVOs":[
 		{
 			"@type":"com.bokesoft.cms2.impl.buildin.modelio.vo.PageVO$DeliveryVO",
-			"areaCode":"content",
+			"areaCode":"newslist",
 			"blockCode":"HOME.CREATE-WORKFLOW",
-			"groupName":"",
-			"name":"新流程",
+			"groupName":"all_workflow",
+			"name":"全部流程",
 			"options":[
-				"Raw"
+				"WithHeader"
 			],
 			"parameters":{"@type":"java.util.HashMap"},
 			"sequence":"1"
+		},
+		{
+			"@type":"com.bokesoft.cms2.impl.buildin.modelio.vo.PageVO$DeliveryVO",
+			"areaCode":"newslist",
+			"blockCode":"HOME.MYWORKFLOW",
+			"groupName":"all_workflow",
+			"name":"  我的流程",
+			"options":[
+				"WithHeader"
+			],
+			"parameters":{"@type":"java.util.HashMap"},
+			"sequence":"2"
+		},
+		{
+			"@type":"com.bokesoft.cms2.impl.buildin.modelio.vo.PageVO$DeliveryVO",
+			"areaCode":"newslist",
+			"blockCode":"HOME.COMMONWORKFLOW",
+			"groupName":"all_workflow",
+			"name":"常用流程",
+			"options":[
+				"WithHeader"
+			],
+			"parameters":{"@type":"java.util.HashMap"},
+			"sequence":"3"
 		}
 	],
 	"enabled":true,
 	"groups":[
 		{
-			"groupName":""
+			"groupName":"all_workflow"
 		}
 	],
 	"name":"新流程",
 	"title":"新流程",
-	"tmplCode":"ONLYCONTENT",
+	"tmplCode":"WORKFLOW.CREATE-WORKFLOW",
 	"url":"/new-workflow.page"
 }

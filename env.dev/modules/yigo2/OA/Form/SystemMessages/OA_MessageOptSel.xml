@@ -82,7 +82,7 @@ from (Select OID,Name,Code from SYS_Operator
     where OID>0) e 
 left join (select 1 SelField,OID from SYS_Operator 
     where OID in ("&Para("SendToIDs")&")) s on e.OID=s.OID 
-order by convert(e.name USING gbk) COLLATE gbk_chinese_ci asc ";
+order by e.code asc ";
 
 FillGridData("Grid1", DBQuery(sql));]]>
     </OnPostShow>

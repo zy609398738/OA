@@ -24,28 +24,40 @@ public class GetDropStrBySql implements IExtService {
 	 * 根据列名获得查询内容的下拉字符串
 	 * 
 	 * @param context
-	 *            中间层对象
+	 *            上下文对象
 	 * @param sql
 	 *            SQL语句
-	 * @param valueName
-	 *            值列
-	 * @param valueName
-	 *            名称列
+	 * @param valueNames
+	 *            值列名字符串，以“:”分隔
+	 * @param captionNames
+	 *            名称列名字符串，以“:”分隔
 	 * @return 列内容的下拉字符串
 	 * @throws Throwable
 	 */
-	public static String getDropStrBySql(DefaultContext context, String sql, String valueName, String captionName)
+	public static String getDropStrBySql(DefaultContext context, String sql, String valueNames, String captionNames)
 			throws Throwable {
 		DataTable dt = context.getDBManager().execQuery(sql);
-		String valueStr = "";
+		String[] valueArray = valueNames.split(":");
+		String[] captionArray = captionNames.split(":");
+		StringBuffer valueStr = new StringBuffer();
 		dt.beforeFirst();
+		int len = valueArray.length;
 		while (dt.next()) {
-			valueStr = valueStr + ";" + TypeConvertor.toString(dt.getObject(valueName)) + ","
-					+ TypeConvertor.toString(dt.getObject(captionName));
+			StringBuffer value = new StringBuffer();
+			StringBuffer caption = new StringBuffer();
+			for (int i = 0; i < len; i++) {
+				value.append(TypeConvertor.toString(dt.getObject(valueArray[i])));
+				caption.append(TypeConvertor.toString(dt.getObject(captionArray[i])));
+			}
+			valueStr.append(";");
+			valueStr.append(value.toString());
+			valueStr.append(",");
+			valueStr.append(caption.toString());
 		}
-		if (valueStr.length() > 0) {
-			valueStr = valueStr.substring(1);
+		String str = valueStr.toString();
+		if (str.length() > 0) {
+			str = str.substring(1);
 		}
-		return valueStr;
+		return str;
 	}
 }

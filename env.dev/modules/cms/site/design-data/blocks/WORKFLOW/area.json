@@ -1,0 +1,20 @@
+{
+	"@type":"com.bokesoft.cms2.impl.buildin.modelio.vo.BlockVO",
+	"block":{
+		"@type":"com.bokesoft.cms2.model.blocks.TmplBlock",
+		"formulaText":"",
+		"notes":"",
+		"parameters":[],
+		"tmplText":"",
+		"type":"TMPL"
+	},
+	"code":"area",
+	"name":"依区域",
+	"params":[
+		{
+			"caption":"类型",
+			"key":"partitiontype",
+			"type":"common"
+		}
+	]
+}

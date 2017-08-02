@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<Form Key="OA_RootSpoFileView" Caption="一键发文列表" FormType="View" Platform="">
+<Form Key="OA_RootSpoFileView" Caption="一键发文列表" FormType="View">
     <DataSource>
         <DataObject Key="OA_RootSpoFileView" Caption="一键发文列表">
             <TableCollection>
@@ -34,7 +34,6 @@
                 <![CDATA[New('OA_RootSpoFile');]]>
             </Action>
         </Operation>
-        <Operation Key="Setfirst_headVisible" Caption="查询" RefKey="Setfirst_headVisible"/>
     </OperationCollection>
     <Body>
         <Block>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <Form Key="NJ_UseAssetInventory" Caption="在用资产盘点" FormType="Entity">
     <DataSource>
-        <DataObject Key="NJ_UseAssetInventory" Caption="在用资产盘点" NoPrefix="ZYZCPD" PrimaryTableKey="NJ_SCM_UseAssetInventoryHead" PrimaryType="Entity" ZeroPrefix="3">
+        <DataObject Key="NJ_UseAssetInventory" Caption="在用资产盘点" NoPrefix="ZYZCPD" PrimaryTableKey="NJ_SCM_UseAssetInv_H" PrimaryType="Entity" ZeroPrefix="3">
             <TableCollection>
                 <Table Key="NJ_SCM_AssetCode" Caption="NJ_SCM_AssetCode" TableMode="Detail">
                     <Column Key="OID" Caption="对象标识" DataType="Long"/>
@@ -31,7 +31,7 @@
                     <Column Key="AssetsBarId" Caption="AssetsBarId" DataType="Long"/>
                     <Column Key="Amount" Caption="Amount" DataType="Integer"/>
                 </Table>
-                <Table Key="NJ_SCM_UseAssetInventoryHead" Caption="NJ_SCM_UseAssetInventoryHead" DBTableName="NJ_SCM_UseAssetInventoryHead">
+                <Table Key="NJ_SCM_UseAssetInv_H" Caption="NJ_SCM_UseAssetInv_H" DBTableName="NJ_SCM_UseAssetInv_H">
                     <Column Key="OID" Caption="对象标识" DataType="Long"/>
                     <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
                     <Column Key="POID" Caption="父对象标识" DataType="Long"/>
@@ -86,23 +86,23 @@ SaveData();UpdateView();]]>
                     <TabPanel Caption="TabPanel1" Height="100%" Key="TabPanel1">
                         <GridLayoutPanel Key="first_head" Height="pref" Padding="5px" Caption="基本信息">
                             <TextEditor Key="NO" Caption="盘点编号" BuddyKey="Lab_NO" X="2" Y="0" Enable="false">
-                                <DataBinding ColumnKey="NO" TableKey="NJ_SCM_UseAssetInventoryHead"/>
+                                <DataBinding ColumnKey="NO" TableKey="NJ_SCM_UseAssetInv_H"/>
                             </TextEditor>
                             <Label Key="Lab_NO" Caption="盘点编号" X="1" Y="0"/>
                             <DatePicker Key="BillDate" Caption="盘点日期" BuddyKey="Lab_BillDate" X="5" Y="0" OnlyDate="true">
-                                <DataBinding ColumnKey="BillDate" DefaultFormulaValue="ServerDate();" TableKey="NJ_SCM_UseAssetInventoryHead"/>
+                                <DataBinding ColumnKey="BillDate" DefaultFormulaValue="ServerDate();" TableKey="NJ_SCM_UseAssetInv_H"/>
                             </DatePicker>
                             <Label Key="Lab_BillDate" Caption="盘点日期" X="4" Y="0"/>
                             <ComboBox Key="Status" Caption="单据状态" BuddyKey="Lab_Status" X="8" Y="0" Enable="false" SourceType="Status">
-                                <DataBinding ColumnKey="Status" TableKey="NJ_SCM_UseAssetInventoryHead" DefaultValue="100"/>
+                                <DataBinding ColumnKey="Status" TableKey="NJ_SCM_UseAssetInv_H" DefaultValue="100"/>
                             </ComboBox>
                             <Label Key="Lab_Status" Caption="单据状态" X="7" Y="0"/>
                             <TextEditor Key="Notes" Caption="备注" BuddyKey="Lab_Notes" X="5" Y="1" XSpan="4">
-                                <DataBinding ColumnKey="Notes" TableKey="NJ_SCM_UseAssetInventoryHead"/>
+                                <DataBinding ColumnKey="Notes" TableKey="NJ_SCM_UseAssetInv_H"/>
                             </TextEditor>
                             <Label Key="Lab_Notes" Caption="备注" X="4" Y="1"/>
                             <ComboBox Key="UseType" Caption="使用类型" BuddyKey="Lab_UseType" X="2" Y="1" Enable="false">
-                                <DataBinding ColumnKey="UseType" DefaultFormulaValue="2" TableKey="NJ_SCM_UseAssetInventoryHead"/>
+                                <DataBinding ColumnKey="UseType" DefaultFormulaValue="2" TableKey="NJ_SCM_UseAssetInv_H"/>
                                 <Item Caption="内部" Key="1" Value="1"/>
                                 <Item Caption="外部" Key="2" Value="2"/>
                             </ComboBox>
@@ -126,27 +126,27 @@ SaveData();UpdateView();]]>
                         </GridLayoutPanel>
                         <GridLayoutPanel Key="SysTab" Caption="系统信息">
                             <Dict Key="Creator" Caption="创建人" BuddyKey="Lab_Creator" X="2" Y="0" Enable="false" ItemKey="Operator">
-                                <DataBinding ColumnKey="Creator" DefaultFormulaValue="GetOperator()" TableKey="NJ_SCM_UseAssetInventoryHead"/>
+                                <DataBinding ColumnKey="Creator" DefaultFormulaValue="GetOperator()" TableKey="NJ_SCM_UseAssetInv_H"/>
                             </Dict>
                             <Label Key="Lab_Creator" Caption="创建人" X="1" Y="0"/>
                             <Dict Key="Modifier" Caption="修改人" BuddyKey="Lab_Modifier" X="2" Y="1" Enable="false" ItemKey="Operator">
-                                <DataBinding ColumnKey="Modifier" DefaultFormulaValue="GetOperator()" TableKey="NJ_SCM_UseAssetInventoryHead"/>
+                                <DataBinding ColumnKey="Modifier" DefaultFormulaValue="GetOperator()" TableKey="NJ_SCM_UseAssetInv_H"/>
                             </Dict>
                             <DatePicker Key="CreateTime" Caption="创建日期" BuddyKey="Lab_CreateTime" X="5" Y="0" Enable="false">
-                                <DataBinding ColumnKey="CreateTime" DefaultFormulaValue="ServerDate()" TableKey="NJ_SCM_UseAssetInventoryHead"/>
+                                <DataBinding ColumnKey="CreateTime" DefaultFormulaValue="ServerDate()" TableKey="NJ_SCM_UseAssetInv_H"/>
                             </DatePicker>
                             <Label Key="Lab_CreateTime" Caption="创建时间" X="4" Y="0"/>
                             <Label Key="Lab_Modifier" Caption="修改人" X="1" Y="1"/>
                             <DatePicker Key="ModifyTime" Caption="修改日期" BuddyKey="Lab_ModifyTime" X="5" Y="1" Enable="false">
-                                <DataBinding ColumnKey="ModifyTime" DefaultFormulaValue="ServerDate()" TableKey="NJ_SCM_UseAssetInventoryHead"/>
+                                <DataBinding ColumnKey="ModifyTime" DefaultFormulaValue="ServerDate()" TableKey="NJ_SCM_UseAssetInv_H"/>
                             </DatePicker>
                             <Label Key="Lab_ModifyTime" Caption="修改时间" X="4" Y="1"/>
                             <TextEditor Key="BillKey" Caption="单据Key" BuddyKey="Lab_BillKey" X="8" Y="0">
-                                <DataBinding ColumnKey="BillKey" DefaultFormulaValue="GetFormKey()" TableKey="NJ_SCM_UseAssetInventoryHead"/>
+                                <DataBinding ColumnKey="BillKey" DefaultFormulaValue="GetFormKey()" TableKey="NJ_SCM_UseAssetInv_H"/>
                             </TextEditor>
                             <Label Key="Lab_BillKey" Caption="单据Key" X="7" Y="0"/>
                             <Dict Key="ClusterID" Caption="集团" BuddyKey="Lab_ClusterID" X="8" Y="1" Enable="false" ItemKey="Client">
-                                <DataBinding ColumnKey="ClusterID" TableKey="NJ_SCM_UseAssetInventoryHead"/>
+                                <DataBinding ColumnKey="ClusterID" TableKey="NJ_SCM_UseAssetInv_H"/>
                             </Dict>
                             <Label Key="Lab_ClusterID" Caption="集团" X="7" Y="1"/>
                             <RowDefCollection RowGap="4">

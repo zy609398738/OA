@@ -56,7 +56,7 @@ public class GetSumDataTable implements IMidProcess<IServiceContext> {
 	 * 根据列名获得查询内容的字符串
 	 * 
 	 * @param context
-	 *            中间层对象
+	 *            上下文对象
 	 * @param sql
 	 *            SQL语句
 	 * @param fieldName

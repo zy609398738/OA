@@ -28,4 +28,14 @@ public class OASettings {
 	public static Settings getSystemMessageSettings() throws Throwable {
 		return Configuration.getConfiguration(OA_MODULE_KEY).getMap(SYSTEM_MESSAGE_KEY);
 	}
+	
+	/**
+	 * 获得系统消息的消息类型
+	 * 
+	 * @return 系统消息的消息类型
+	 * @throws Throwable
+	 */
+	public static Settings getSystemMessageType() throws Throwable {
+		return getSystemMessageSettings().getMap("MessageType");
+	}
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<Form Key="MOA_Taskdistribution" Caption="任务派发" FormType="Entity" AliasKey="OA_Taskdistribution">
+<Form Key="MOA_Taskdistribution" Caption="任务派发" FormType="Entity" AliasKey="OA_Taskdistribution" Platform="Mobile">
     <DataSource>
         <DataObject Key="MOA_Taskdistribution" Caption="任务派发" PrimaryTableKey="MOA_Taskdistribution" PrimaryType="Entity">
             <TableCollection>

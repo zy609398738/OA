@@ -27,7 +27,7 @@ public class GetValueStrByMutilSel implements IExtService {
 	 * 根据多选字典选择内容列表对象取得对应OID字符串
 	 * 
 	 * @param context
-	 *            中间层对象
+	 *            上下文对象
 	 * @param dicIds
 	 *            多选字典对象
 	 * @return 列内容的字符串

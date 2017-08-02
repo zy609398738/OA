@@ -104,6 +104,38 @@ app.start({}, function(app){
 			         code: "boke-test-012",
 			         name: "测试用户12",
 			         icon: null
+		      }, {
+			         code: "boke-test-013",
+			         name: "测试用户13",
+			         icon: null
+		      }, {
+			         code: "boke-test-014",
+			         name: "测试用户14",
+			         icon: null
+		      }, {
+			         code: "boke-test-015",
+			         name: "测试用户15",
+			         icon: null
+		      }, {
+			         code: "boke-test-016",
+			         name: "测试用户16",
+			         icon: null
+		      }, {
+			         code: "boke-test-017",
+			         name: "测试用户17",
+			         icon: null
+		      }, {
+			         code: "boke-test-018",
+			         name: "测试用户18",
+			         icon: null
+		      }, {
+			         code: "boke-test-019",
+			         name: "测试用户19",
+			         icon: null
+		      }, {
+			         code: "boke-test-020",
+			         name: "测试用户20",
+			         icon: null
 		      }]
 		},{
 			groupName: "黑名单",
@@ -118,7 +150,7 @@ app.start({}, function(app){
 				icon: null
 			}]
 		}];
-        console.log(">>> Client request 'buddies' ...", new Date());
+        console.log(">>> Client request 'buddies' ...", req.body, new Date());
         resp.send(JSON.stringify(data));
     });
 });

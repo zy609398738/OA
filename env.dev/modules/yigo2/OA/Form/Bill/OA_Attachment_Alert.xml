@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="OA_Attachment_Alert" Caption="附件" FormType="Entity">
+    <DataSource>
+        <DataObject Key="OA_Attachment_Alert" Caption="附件" NoPrefix="ATT" PrimaryType="Entity">
+            <TableCollection>
+                <Table Key="OA_Attachment_Alert" Caption="附件" DBTableName="OA_Attachment_Alert" TableMode="Detail">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="UploadTime" Caption="上传时间" DataType="DateTime"/>
+                    <Column Key="UploadOperator" Caption="上传人" DataType="Long"/>
+                    <Column Key="Path" Caption="上传路径" DataType="Varchar"/>
+                    <Column Key="Name" Caption="上传文件名" DataType="Varchar"/>
+                    <Column Key="AttachmentType_D" Caption="附件类型" DataType="Varchar"/>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="Save" Caption="保存" RefKey="Save"/>
+    </OperationCollection>
+    <ScriptCollection>
+        <Script Key="Load" Caption="载入" Range="Action" Verb="Load">
+            <![CDATA[LoadData()]]>
+        </Script>
+    </ScriptCollection>
+    <Body PopHeight="600px" PopWidth="1200px">
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板">
+                <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <Grid Key="OA_Attachment_Alert" Caption="附件" Height="100%">
+                    <GridColumnCollection>
+                        <GridColumn Key="FileOID" Caption="附件标识" Width="80px" Visible="false"/>
+                        <GridColumn Key="SOID" Caption="SOID" Width="80px"/>
+                        <GridColumn Key="UploadTime" Caption="上传时间" Width="160px"/>
+                        <GridColumn Key="UploadOperator" Caption="上传人" Width="120px"/>
+                        <GridColumn Key="Path" Caption="上传路径" Width="120px" Visible="false"/>
+                        <GridColumn Key="Name" Caption="上传文件名" Width="200px"/>
+                        <GridColumn Key="AttachmentType_D" Caption="附件类型" Width="80px"/>
+                        <GridColumn Key="Upload" Caption="上传" Width="80px"/>
+                        <GridColumn Key="Download" Caption="下载" Width="80px"/>
+                        <GridColumn Key="Delete" Caption="删除" Width="80px"/>
+                        <GridColumn Key="PreView" Caption="预览" Width="80px"/>
+                        <GridColumn Key="E_Seal" Caption="电子签章" Width="80px"/>
+                    </GridColumnCollection>
+                    <GridRowCollection>
+                        <GridRow Key="row1" RowHeight="35" TableKey="OA_Attachment_Alert">
+                            <GridCell Key="FileOID" Caption="附件标识">
+                                <DataBinding ColumnKey="OID"/>
+                            </GridCell>
+                            <GridCell Key="SOID" Caption="SOID" CellType="TextEditor">
+                                <DataBinding ColumnKey="SOID" DefaultFormulaValue="parent.GetOID()"/>
+                            </GridCell>
+                            <GridCell Key="UploadTime" Caption="上传时间" CellType="DatePicker" Enable="false">
+                                <DataBinding ColumnKey="UploadTime"/>
+                            </GridCell>
+                            <GridCell Key="UploadOperator" Caption="上传人" CellType="Dict" Enable="false" ItemKey="Operator">
+                                <DataBinding ColumnKey="UploadOperator"/>
+                            </GridCell>
+                            <GridCell Key="Path" Caption="上传路径" CellType="TextEditor" Enable="false">
+                                <DataBinding ColumnKey="Path"/>
+                            </GridCell>
+                            <GridCell Key="Name" Caption="上传文件名" CellType="TextEditor" Enable="false">
+                                <DataBinding ColumnKey="Name"/>
+                            </GridCell>
+                            <GridCell Key="AttachmentType_D" Caption="附件类型" CellType="ComboBox" GroupKey="AttachmentType" SourceType="ParaGroup">
+                                <DataBinding ColumnKey="AttachmentType_D"/>
+                            </GridCell>
+                            <GridCell Key="Upload" Caption="上传" CellType="Button" Type="Upload">
+                                <OnClick>
+                                    <![CDATA[var attachPath=Para("AttachPath");
+var attachmentType=GetPara("AttachmentType");
+if(!IsNull(attachPath) && Length(attachPath)>0){
+    UploadAttachment(FileOID,"OA_Attachment",-1,"",true,attachPath);
+    if(UploadAttachment(FileOID,"OA_Attachment",-1,"",true,attachPath)){
+    if(IsNull(attachmentType)){
+        SetCellValue("OA_Attachment_Alert", -1, "AttachmentType_D", "common")
+    }else{
+        SetCellValue("OA_Attachment_Alert", -1, "AttachmentType_D", attachmentType)
+    }
+        SetCellValue("OA_Attachment_Alert", -1, "SOID", parent.GetOID())
+  }
+}else{
+    var flag2=UploadAttachment(FileOID,"OA_Attachment",-1,"",true);
+    if(flag2){
+    if(IsNull(attachmentType)){
+        SetCellValue("OA_Attachment_Alert", -1, "AttachmentType_D", "common")
+    }else{
+        SetCellValue("OA_Attachment_Alert", -1, "AttachmentType_D", attachmentType)
+    }
+     SetCellValue("OA_Attachment_Alert", -1, "SOID", parent.GetOID())
+  }
+}]]>
+                                </OnClick>
+                            </GridCell>
+                            <GridCell Key="Download" Caption="下载" CellType="Button" Enable="true">
+                                <OnClick>
+                                    <![CDATA[DownloadAttachment(FileOID,"OA_Attachment");]]>
+                                </OnClick>
+                            </GridCell>
+                            <GridCell Key="Delete" Caption="删除" CellType="Button" Enable="InvokeService(&quot;OA_GetWorkflowDesigneValue&quot;, false, false,Para(&quot;pWorkitemID&quot;),Para(&quot;workflowBillKey&quot;),Para(&quot;WorkflowTypeDtlID&quot;),&quot;DeleteAtt&quot;)==1">
+                                <OnClick>
+                                    <![CDATA[DeleteAttachment(FileOID,"OA_Attachment");]]>
+                                </OnClick>
+                            </GridCell>
+                            <GridCell Key="PreView" Caption="预览" CellType="Button" Enable="true">
+                                <OnClick>
+                                    <![CDATA[if(Path!=""){
+Var fileUrl=InvokeService('OA_PreviewAttchment', true, false, Path, Name);
+New("OA_ShowWeb", "newtab","URL:{'"&fileUrl&"'}")}]]>
+                                </OnClick>
+                            </GridCell>
+                            <GridCell Key="E_Seal" Caption="电子签章" CellType="Button" Enable="true">
+                                <OnClick>
+                                    <![CDATA[if(Path!=""){
+Var fileUrl=InvokeService('OA_ElectronicSeal', true, false, Path, Name);
+New("OA_FileSeal", "newtab","URL:{'"&fileUrl&"'}")}]]>
+                                </OnClick>
+                            </GridCell>
+                        </GridRow>
+                    </GridRowCollection>
+                </Grid>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+    <OnPostShow>
+        <![CDATA[var sql="select * from OA_Attachment where soid = ?";
+FillGridData("OA_Attachment_Alert", DBQuery(sql, parent.GetOID()), true);]]>
+    </OnPostShow>
+</Form>

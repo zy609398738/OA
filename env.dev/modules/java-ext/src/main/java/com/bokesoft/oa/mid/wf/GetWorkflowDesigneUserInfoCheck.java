@@ -2,69 +2,65 @@ package com.bokesoft.oa.mid.wf;
 
 import java.util.ArrayList;
 
+import com.bokesoft.oa.base.OAContext;
+import com.bokesoft.oa.mid.wf.base.OperationSel;
+import com.bokesoft.oa.mid.wf.base.OperationSelDtl;
+import com.bokesoft.oa.mid.wf.base.OperationSelDtlMap;
+import com.bokesoft.oa.mid.wf.base.WorkflowDesigneDtl;
 import com.bokesoft.yigo.common.util.TypeConvertor;
 import com.bokesoft.yigo.mid.base.DefaultContext;
-import com.bokesoft.yigo.mid.connection.IDBManager;
 import com.bokesoft.yigo.mid.service.IExtService;
-import com.bokesoft.yigo.struct.datatable.DataTable;
 
 /**
- * 获取流程设计中审批意见必填的值
+ * 获取流程设计中操作对应的审批意见必填的值
  * 
- * @author zhkh
+ * @author minjian
  *
  */
 public class GetWorkflowDesigneUserInfoCheck implements IExtService {
 	@Override
 	public Object doCmd(DefaultContext paramDefaultContext, ArrayList<Object> paramArrayList) throws Throwable {
-		if (paramArrayList.size() <= 2) {
-			return getWorkflowDesigneUserInfoCheck(paramDefaultContext, TypeConvertor.toLong(paramArrayList.get(0)),
-					TypeConvertor.toString(paramArrayList.get(1)), null);
-		} else {
-			return getWorkflowDesigneUserInfoCheck(paramDefaultContext, TypeConvertor.toLong(paramArrayList.get(0)),
-					TypeConvertor.toString(paramArrayList.get(1)), TypeConvertor.toLong(paramArrayList.get(2)));
-		}
+		return getWorkflowDesigneUserInfoCheck(paramDefaultContext, TypeConvertor.toLong(paramArrayList.get(0)),
+				TypeConvertor.toString(paramArrayList.get(1)), TypeConvertor.toLong(paramArrayList.get(2)),
+				TypeConvertor.toString(paramArrayList.get(3)));
 	}
 
 	/**
-	 * 获得流程设计的指定字段值 x
+	 * 获取流程设计中操作对应的审批意见必填的值
 	 * 
 	 * @param context
-	 *            中间层对象
+	 *            上下文对象
 	 * @param workItemID
 	 *            流程工作项
 	 * @param formKey
 	 *            流程单据Key
 	 * @param workflowTypeDtlID
 	 *            流程类别明细ID
-	 * @return 流程设计的指定字段值
+	 * @param operationKey
+	 *            操作的key
+	 * @return 获取流程设计中操作对应的审批意见必填的值
 	 * @throws Throwable
 	 */
 	public Object getWorkflowDesigneUserInfoCheck(DefaultContext context, Long workItemID, String formKey,
-			Long workflowTypeDtlID) throws Throwable {
-		IDBManager dbm = context.getDBManager();
-		String wfSql = "select nodeID,InstanceID from bpm_workiteminfo w where w.workItemID=?";
-		DataTable wfDt = context.getDBManager().execPrepareQuery(wfSql, workItemID);
-		Long pdKey = wfDt.getLong("InstanceID");
-		int nodeID = wfDt.getInt("nodeID");
-		String pkSql = "select Processkey from bpm_instance i where i.instanceID=?";
-		DataTable pkDt = context.getDBManager().execPrepareQuery(pkSql, pdKey);
-		String pkKey = pkDt.getString("Processkey");
-
-		DataTable workflowTypeDt = OaWfTemplate.getWorkflowTypeDtl(context, formKey, workflowTypeDtlID);
-		if (workflowTypeDt.size() <= 0) {
-			return null;
+			Long workflowTypeDtlID, String operatorSelKey) throws Throwable {
+		Integer value = 0;
+		OAContext oaContext = new OAContext(context);
+		WorkflowDesigneDtl workflowDesigneDtl = oaContext.getWorkflowTypeDtlMap().getWorkflowDesigneDtl(formKey,
+				workflowTypeDtlID, workItemID);
+		if (workflowDesigneDtl == null) {
+			return value;
 		}
-		Long workflowOID = workflowTypeDt.getLong("WorkflowID");
+		OperationSel operationSel = workflowDesigneDtl.getAuditOptSel();
 
-		String sql = "select UserInfoCheck from OA_WorkflowDesigne_H h join OA_WorkflowDesigne_D d on h.oid=d.soid where h.oid>0 and h.status=100 and WorkflowKey=? and AuditNode=? and tag1=? and tag2=?";
-		DataTable dt = dbm.execPrepareQuery(sql, pkKey, nodeID, "OA_Workflow", workflowOID);
-		if (dt.size() <= 0) {
-			sql = "select UserInfoCheck from OA_WorkflowDesigne_H h join OA_WorkflowDesigne_D d on h.oid=d.soid where h.oid>0 and h.status=100 and WorkflowKey=? and AuditNode=? and tag1=?";
-			dt = dbm.execPrepareQuery(sql, pkKey, nodeID, "OA_WorkflowSet");
+		if (operationSel == null) {
+			return value;
 		}
-
-		int value = dt.getInt("UserInfoCheck");
+		OperationSelDtlMap operationSelDtlMap = operationSel.getOperationSelDtlMap();
+		if (operationSelDtlMap == null || operationSelDtlMap.size() <= 0) {
+			return value;
+		}
+		OperationSelDtl operationSelDtl = operationSelDtlMap.get(operatorSelKey);
+		value = operationSelDtl.getOpinion();
 		return value;
 	}
 }

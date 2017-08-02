@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8" />   <!--必须, 否则在 IE9 中 嵌入的 MAP Portal.jsp 导航菜单会失效-->
+    <meta charset="utf-8">
+    <title>博科协同办公管理系统首页模板</title>
+</head>
+<body>
+<div class="bootjs-box"><!--此处只为加载js等文件，故设置其：height:0-->
+   <div yigo-cms:block="static?staticFile=buildin/boot-js.vm"/>
+</div>
+<!--头部 header-->
+<div class="container" id="header" style="display:none;">
+    <div class="row clearfix top_bg">
+  <div yigo-cms:block="header"/>
+    </div>
+</div>
+<!--头部 header end-->
+<div>
+	<div yigo-cms:area="newslist" />
+</div>
+</body>
+</html>

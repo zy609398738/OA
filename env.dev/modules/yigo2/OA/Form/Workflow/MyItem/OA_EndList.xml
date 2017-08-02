@@ -29,15 +29,9 @@
             </TableCollection>
         </DataObject>
     </DataSource>
-    <OperationCollection>
-        <Operation Key="Setfirst_headVisible" Caption="查询" RefKey="Setfirst_headVisible"/>
-    </OperationCollection>
     <Body>
         <Block>
             <FlexFlowLayoutPanel Key="main">
-                <ToolBar Key="main_toolbar" Height="pref">
-                    <ToolBarItemCollection/>
-                </ToolBar>
                 <GridLayoutPanel Key="GridLayoutPanel1" Height="80px" Padding="5px" Caption="GridLayoutPanel1" Visible="first_headVisible==1">
                     <DatePicker Key="From" Caption="申请日期" BuddyKey="Lab_From" X="1" Y="0">
                         <Condition ColumnKey="createTime" TableKey="OA_EndList" CondSign="between" Group="A" GroupHead="true"/>

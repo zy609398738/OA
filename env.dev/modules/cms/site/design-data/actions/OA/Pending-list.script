@@ -1,0 +1,22 @@
+cms.ReqExp.Var("operatorID", cms.Yigo2MidExp.GetLoginOperator());
+cms.ActionExp.Data( cms.DataExp.PagingQuery("
+        	SELECT i.formkey,
+       i.oid,
+       m.Topic,
+       l.CreatTime,
+       p.workItemID,
+       l.workItemName,
+       j.name operatorname,
+          floor(SYSDATE - l.CreatTime) daytime,
+          CEIL(((SYSDATE-l.CreatTime)-floor(SYSDATE-l.CreatTime)) * 24) hourtime
+  FROM (SELECT *
+          FROM WF_Participator
+         WHERE OperatorID = ${operatorID}) p
+       JOIN BPM_Log l ON p.WorkitemID = l.WorkitemID
+       JOIN bpm_workiteminfo wi ON p.WorkitemID = wi.WorkitemID
+       JOIN BPM_Instance i ON l.instanceID = i.instanceID
+       JOIN BPM_Migration m ON i.OID = m.BillOID
+       LEFT JOIN SYS_Operator j ON j.EmpID = m.EmpID
+    Order by l.CreatTime
+",5,cms.ReqExp.Var("pageNo")));
+cms.ActionExp.Viewer("json");

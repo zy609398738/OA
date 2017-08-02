@@ -25,6 +25,7 @@
                     <Column Caption="单据Key" DataType="Varchar" Key="BillKey"/>
                     <Column Caption="集团" DataType="Long" Key="ClusterID"/>
                     <Column Caption="显示顺序" DataType="Integer" Key="OrderNum"/>
+                    <Column Key="PartitionType" Caption="类型" DataType="Varchar"/>
                 </Table>
                 <Table Caption="明细" DBTableName="OA_WorkflowType_D" Key="OA_WorkflowType_D" ParentKey="OA_WorkflowType_H" TableMode="Detail">
                     <Column Caption="对象标识" DataType="Long" Key="OID"/>
@@ -33,22 +34,25 @@
                     <Column Caption="对象版本" DataType="Integer" Key="VERID"/>
                     <Column Caption="对象明细版本" DataType="Integer" Key="DVERID"/>
                     <Column Caption="序号" DataType="Integer" Key="Sequence"/>
-                    <Column Caption="流程ID" DataType="Long" Key="WFID"/>
-                    <Column Caption="流程定义" DataType="Long" Key="WorkflowID"/>
-                    <Column Caption="流程标识" DataType="Varchar" Key="WorkflowKey" Length="100"/>
                     <Column Caption="关联表单标识" DataType="Varchar" Key="BillKey" Length="100"/>
                     <Column Key="BillName" Caption="表单名称" DataType="Varchar"/>
-                    <Column Caption="流程名称" DataType="Varchar" Key="WorkflowName" Length="100"/>
-                    <Column Caption="分配人" DataType="Varchar" Key="OptDesc" Length="1000"/>
-                    <Column Caption="所属公司" DataType="Long" Key="CCID"/>
+                    <Column Caption="流程定义" DataType="Long" Key="WorkflowID"/>
+                    <Column Key="StartCaption" Caption="启动操作名称" DataType="Varchar"/>
+                    <Column Key="StartAction" Caption="启动操作" DataType="Varchar"/>
+                    <Column Key="RightSelOID" Caption="权限设置标识" DataType="Long"/>
+                    <Column Key="RightSelDepict" Caption="权限设置描述" DataType="Varchar" Length="500"/>
                     <Column Caption="显示顺序" DataType="Integer" Key="OrderNum"/>
-                    <Column Caption="流程备注" DataType="Varchar" Key="WFNotes" Length="100"/>
-                    <Column Caption="变更类别" DataType="Long" Key="ChangeType"/>
-                    <Column Key="AuditPerdepict" Caption="人员描述" DataType="Varchar"/>
+                    <Column Key="IsCommon" Caption="是否常用" DataType="Integer"/>
+                    <Column Key="WorkflowDesigneID" Caption="流程设计标识" DataType="Long"/>
                 </Table>
             </TableCollection>
         </DataObject>
     </DataSource>
+    <UICheckRuleCollection>
+        <UICheckRule Description="单据名称不能重复" ErrorInfo="单据名称不能重复">
+            <![CDATA[!CheckDuplicate("BillName")]]>
+        </UICheckRule>
+    </UICheckRuleCollection>
     <Body>
         <Block>
             <FlexFlowLayoutPanel Caption="FlexFlowLayoutPanel1" Key="FlexFlowLayoutPanel1">
@@ -63,10 +67,14 @@
                                 <DataBinding ColumnKey="Name" TableKey="OA_WorkflowType_H"/>
                             </TextEditor>
                             <Label Caption="名称" Key="Lab_Name" X="3" Y="0"/>
-                            <NumberEditor BuddyKey="Lab_OrderNum" Caption="显示顺序" Key="OrderNum" Scale="0" X="1" Y="1">
+                            <NumberEditor BuddyKey="Lab_OrderNum" Caption="显示顺序" Key="OrderNum" Scale="0" X="1" Y="1" IntegerValue="true">
                                 <DataBinding ColumnKey="OrderNum" TableKey="OA_WorkflowType_H"/>
                             </NumberEditor>
                             <Label Caption="显示顺序" Key="Lab_OrderNum" X="0" Y="1"/>
+                            <ComboBox Key="PartitionType" Caption="类型" BuddyKey="Lab_PartitionType" X="4" Y="1" SourceType="ParaGroup" GroupKey="PartitionType">
+                                <DataBinding ColumnKey="PartitionType" TableKey="OA_WorkflowType_H" DefaultValue="common" Required="true"/>
+                            </ComboBox>
+                            <Label Key="Lab_PartitionType" Caption="类型" X="3" Y="1"/>
                             <RowDefCollection RowGap="4">
                                 <RowDef Height="30px"/>
                                 <RowDef Height="30px"/>
@@ -85,14 +93,17 @@
                                     <GridColumn Key="Sel" Caption="选择" Width="80px"/>
                                     <GridColumn Key="OID" Caption="明细ID" Width="80px" Visible="false"/>
                                     <GridColumn Key="BillKey_D" Caption="关联表单" Width="150px"/>
-                                    <GridColumn Key="BillName" Caption="表单名称" Width="250px"/>
-                                    <GridColumn Key="BillOptSel" Caption="单据关联人员" Width="80px" Visible="false"/>
-                                    <GridColumn Key="AuditPerdepict" Caption="人员描述" Width="80px" Visible="false"/>
-                                    <GridColumn Key="WorkflowID" Caption="流程定义" Width="250px"/>
-                                    <GridColumn Key="WorkflowKey" Caption="流程标识" Width="80px" Visible="false"/>
-                                    <GridColumn Key="EditWorkflow" Caption="编辑流程定义" Width="80px" Visible="false"/>
-                                    <GridColumn Key="WFNotes" Caption="流程备注" Width="80px"/>
+                                    <GridColumn Key="BillName" Caption="表单名称" Width="200px"/>
+                                    <GridColumn Key="WorkflowID" Caption="流程定义" Width="200px"/>
+                                    <GridColumn Key="StartCaption" Caption="启动操作名称" Width="80px"/>
+                                    <GridColumn Key="StartAction" Caption="启动操作" Width="80px" Visible="false"/>
+                                    <GridColumn Key="RightSel" Caption="流程权限设置" Width="100px"/>
+                                    <GridColumn Key="RightSelOID" Caption="权限设置标识" Width="80px" Visible="false"/>
+                                    <GridColumn Key="RightSelDepict" Caption="权限设置描述" Width="80px"/>
+                                    <GridColumn Key="WorkflowDesigne" Caption="流程设置" Width="80px"/>
+                                    <GridColumn Key="WorkflowDesigneID" Caption="流程设计标识" Width="80px" Visible="false"/>
                                     <GridColumn Key="OrderNum_D" Caption="显示顺序" Width="80px"/>
+                                    <GridColumn Key="IsCommon" Caption="是否常用" Width="80px"/>
                                 </GridColumnCollection>
                                 <GridRowCollection>
                                     <GridRow Key="row-0" TableKey="OA_WorkflowType_D">
@@ -103,8 +114,8 @@
                                                 <![CDATA[]]>
                                             </DblClick>
                                         </GridCell>
-                                        <GridCell Key="BillKey_D" Caption="关联表单" CellType="ComboBox" SourceType="Formula">
-                                            <DataBinding ColumnKey="BillKey">
+                                        <GridCell Key="BillKey_D" Caption="关联表单" CellType="ComboBox" SourceType="Formula" Editable="true" ItemsDependency="Code">
+                                            <DataBinding ColumnKey="BillKey" Required="true">
                                                 <ValueChanged>
                                                     <![CDATA[BillName=GetCellCaption("Dtl",-1, "BillKey_D")]]>
                                                 </ValueChanged>
@@ -114,37 +125,41 @@
                                             </FormulaItems>
                                         </GridCell>
                                         <GridCell Key="BillName" Caption="表单名称" CellType="TextEditor">
-                                            <DataBinding ColumnKey="BillName"/>
-                                        </GridCell>
-                                        <GridCell Key="BillOptSel" Caption="单据关联人员" CellType="HyperLink" Enable="true">
-                                            <DataBinding/>
-                                            <OnClick>
-                                                <![CDATA[OA_ShowWorkflowOptBill()]]>
-                                            </OnClick>
-                                        </GridCell>
-                                        <GridCell Key="AuditPerdepict" Caption="人员描述" CellType="TextEditor">
-                                            <DataBinding ColumnKey="AuditPerdepict"/>
+                                            <DataBinding ColumnKey="BillName" Required="true"/>
                                         </GridCell>
                                         <GridCell Key="WorkflowID" Caption="流程定义" CellType="Dict" ItemKey="OA_Workflow">
-                                            <DataBinding ColumnKey="WorkflowID">
-                                                <ValueChanged>
-                                                    <![CDATA[WorkflowKey=GetDictValue("OA_Workflow", GetCellValue("Dtl",-1,"WorkflowID"), "OA_Workflow_H.WorkflowKey")]]>
-                                                </ValueChanged>
-                                            </DataBinding>
+                                            <DataBinding ColumnKey="WorkflowID" Required="true"/>
                                         </GridCell>
-                                        <GridCell Key="WorkflowKey" Caption="流程标识" CellType="TextEditor">
-                                            <DataBinding ColumnKey="WorkflowKey"/>
+                                        <GridCell Key="StartCaption" Caption="启动操作名称" CellType="TextEditor" CellSortType="None">
+                                            <DataBinding ColumnKey="StartCaption" DefaultValue="提交审批" Required="true"/>
                                         </GridCell>
-                                        <GridCell Key="EditWorkflow" Caption="编辑流程定义" CellType="HyperLink" Enable="true">
+                                        <GridCell Key="StartAction" Caption="启动操作" CellType="TextEditor" MaxLength="4000" CellSortType="None">
+                                            <DataBinding ColumnKey="StartAction"/>
+                                        </GridCell>
+                                        <GridCell Key="RightSel" Caption="流程权限设置" CellType="Button" Enable="true">
                                             <OnClick>
-                                                <![CDATA[OA_ShowWorkflowDic();]]>
+                                                <![CDATA[OA_ShowRightSel();]]>
                                             </OnClick>
                                         </GridCell>
-                                        <GridCell Key="WFNotes" Caption="流程备注" CellType="TextEditor">
-                                            <DataBinding ColumnKey="WFNotes"/>
+                                        <GridCell Key="RightSelOID" Caption="权限设置标识" CellType="NumberEditor" IntegerValue="true" UseGroupingSeparator="false">
+                                            <DataBinding ColumnKey="RightSelOID"/>
                                         </GridCell>
-                                        <GridCell Key="OrderNum_D" Caption="显示顺序" CellType="NumberEditor">
+                                        <GridCell Key="RightSelDepict" Caption="权限设置描述">
+                                            <DataBinding ColumnKey="RightSelDepict"/>
+                                        </GridCell>
+                                        <GridCell Key="WorkflowDesigne" Caption="流程设置" CellType="Button" Enable="true">
+                                            <OnClick>
+                                                <![CDATA[OA_ShowWorkflowDesigne();]]>
+                                            </OnClick>
+                                        </GridCell>
+                                        <GridCell Key="WorkflowDesigneID" Caption="流程设计标识" CellType="NumberEditor" IntegerValue="true" UseGroupingSeparator="false">
+                                            <DataBinding ColumnKey="WorkflowDesigneID"/>
+                                        </GridCell>
+                                        <GridCell Key="OrderNum_D" Caption="显示顺序" CellType="NumberEditor" IntegerValue="true">
                                             <DataBinding ColumnKey="OrderNum"/>
+                                        </GridCell>
+                                        <GridCell Key="IsCommon" Caption="是否常用" CellType="CheckBox" CellSortType="None">
+                                            <DataBinding ColumnKey="IsCommon"/>
                                         </GridCell>
                                     </GridRow>
                                 </GridRowCollection>
@@ -216,6 +231,26 @@ IIF(GetPara("OperatorSelID")>0,
     parent.Open("OA_Workflow", GetCellValue("Dtl",-1,"WorkflowID"), "modal"),
     parent.New("OA_Workflow","modal")
 );]]>
+        </Macro>
+        <Macro Key="OA_ShowRightSel">
+            <![CDATA[SetPara("rightSelID", OA_GetRightSelID());
+IIF(ToLong(GetPara("rightSelID"))>0,
+    Open("OA_RightSel", GetPara("rightSelID"), "modal","SourceKey:{BillKey},SourceID:{GetOID()},Tag1:{OID},Tag2:{BillKey_D},GridKey:{'Dtl'},FieldKey1:{'RightSelDepict'},FieldKey2:{'RightSelOID'}"),
+    New("OA_RightSel","modal","SourceKey:{BillKey},SourceID:{GetOID()},Tag1:{OID},Tag2:{BillKey_D},GridKey:{'Dtl'},FieldKey1:{'RightSelDepict'},FieldKey2:{'RightSelOID'}")
+);]]>
+        </Macro>
+        <Macro Key="OA_GetRightSelID">
+            <![CDATA[DBQueryValue("Select OID From OA_RightSel_H Where SourceKey=? and SourceID=? and Tag1=?", BillKey,GetOID(),OID);]]>
+        </Macro>
+        <Macro Key="OA_ShowWorkflowDesigne">
+            <![CDATA[var workflowKey=ToString(GetDictValue("OA_Workflow", WorkflowID, "OA_Workflow_H.WorkflowKey"));
+var workflowVersion=ToInt(GetDictValue("OA_Workflow", WorkflowID, "OA_Workflow_H.WorkflowVersion"));
+var workflowDesigneID=ToLong(DBQueryValue("Select OID From OA_WorkflowDesigne_H Where WorkflowKey=? and WorkflowVersion=? And Tag1=? And Tag2=?", workflowKey,workflowVersion,GetFormKey(),OID));
+if(workflowDesigneID>0){
+    parent.Open("OA_WorkflowDesigne", workflowDesigneID, "newtab","WorkflowKey:{'"+workflowKey+"'},WorkflowVersion:{"+workflowVersion+"},WorkflowFormKey:{'"+BillKey_D+"'},Tag1:{'OA_WorkflowType'},Tag2:{"+OID+"},GridKey:{'Dtl'},FieldKey1:{'WorkflowDesigneID'},QueryFormKey:{'OA_WorkflowSet'}");
+}else{
+    parent.New("OA_WorkflowDesigne","newtab","WorkflowKey:{'"+workflowKey+"'},WorkflowVersion:{"+workflowVersion+"},WorkflowFormKey:{'"+BillKey_D+"'},Tag1:{'OA_WorkflowType'},Tag2:{"+OID+"},GridKey:{'Dtl'},FieldKey1:{'WorkflowDesigneID'},QueryFormKey:{'OA_WorkflowSet'}");
+}]]>
         </Macro>
     </MacroCollection>
 </Form>

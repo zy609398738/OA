@@ -2,10 +2,10 @@
 <div class="meeting_manage">
   #foreach($line in $data)
     <div class="meeting-notice">
-      <a href="#" onclick="openParentForm('OA_MeetingInSide',$line.OID)" class="f333">
+      <a href="#" onclick="openForm('OA_MeetingInSide',$line.OID)" class="f333">
         <h2>$line.TOPIC</h2>
       </a>
-      <span class="emp_meeting f999">时间：$line.STARTTIME</span>
+      <span class="emp_meeting f999">时间：$date.format("yyyy-HH-dd HH:mm:ss",$line.STARTTIME)</span>
       <span class="emp_meeting f999">地点：$line.ADDRE</span>
       <span class="emp_meeting f999">发起人：$line.CREATOR</span>
     </div>

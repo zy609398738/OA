@@ -1,6 +1,5 @@
 package com.bokesoft.ecomm.im.android.ui.viewholder;
 
-import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
@@ -12,7 +11,6 @@ import com.bokesoft.ecomm.im.android.R;
 import com.bokesoft.ecomm.im.android.activity.FileActivity;
 import com.bokesoft.ecomm.im.android.instance.ClientInstance;
 import com.bokesoft.ecomm.im.android.utils.BKIMConstants;
-import com.bokesoft.ecomm.im.android.utils.LogUtils;
 import com.bokesoft.services.messager.server.model.Message;
 import com.bokesoft.ecomm.im.android.model.LocalMessage;
 
@@ -42,18 +40,15 @@ public class ChatItemTextHolder extends ChatItemHolder {
        contentView.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View view) {
-               try {
-                   Intent intent = new Intent(getContext(), FileActivity.class);
-                   intent.setPackage(getContext().getPackageName());
-                   JSONObject data = (JSONObject) message.getData();
-                   String fileName = data.getString("fileName");
-                   String fileUrl = ClientInstance.getInstance().getFileUploadUrl() + data.getString("fileUrl");
-                   intent.putExtra(BKIMConstants.FILE_NAME, fileName);
-                   intent.putExtra(BKIMConstants.FILE_URL, fileUrl);
-                   getContext().startActivity(intent);
-               } catch (ActivityNotFoundException exception) {
-                   LogUtils.i(exception.toString());
-               }
+               Intent intent = new Intent(getContext(), FileActivity.class);
+               intent.setPackage(getContext().getPackageName());
+               JSONObject data = (JSONObject) message.getData();
+               String fileName = data.getString("fileName");
+               String fileUrl = ClientInstance.getInstance().getFileUploadUrl() + data.getString("fileUrl");
+               fileUrl += "?"+ClientInstance.PARAM_NAME_TOKEN+"=" + ClientInstance.getInstance().getClientToken();
+               intent.putExtra(BKIMConstants.FILE_NAME, fileName);
+               intent.putExtra(BKIMConstants.FILE_URL, fileUrl);
+               getContext().startActivity(intent);
            }
        });
     }
@@ -62,11 +57,11 @@ public class ChatItemTextHolder extends ChatItemHolder {
     public void bindData(Object o) {
         super.bindData(o);
         LocalMessage message = (LocalMessage) o;
-        if (Message.MSG_TYPE_TEXT.equals(((LocalMessage) o).getType())){
+        String msgType = ((LocalMessage) o).getType();
+        if (Message.MSG_TYPE_TEXT.equals(msgType)){
             contentView.setText(message.getData().toString());
             contentView.setOnClickListener(null);
-        }
-        if(Message.MSG_TYPE_FILE.equals(((LocalMessage) o).getType())){
+        }else if(Message.MSG_TYPE_FILE.equals(msgType)){
             JSONObject data = (JSONObject) message.getData();
             String fileName = data.getString("fileName");
             contentView.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);

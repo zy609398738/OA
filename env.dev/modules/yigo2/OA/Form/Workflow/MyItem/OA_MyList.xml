@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<Form Key="OA_MyList" Caption="已办事项" FormType="View">
+<Form Key="OA_MyList" Caption="已办事项" FormType="View" FormulaCaption="if(!IsNull(Para('FormCaption')) &amp;&amp; Length(Para('FormCaption'))&gt;0){Para('FormCaption');}else{&quot;已办事项&quot;;}">
     <DataSource>
         <DataObject Key="OA_MyList" Caption="已办事项">
             <TableCollection>
@@ -19,35 +19,58 @@
                     <Column Key="InstanceState" Caption="InstanceState" DataType="Integer"/>
                     <Column Key="FormKey" Caption="业务类型" DataType="Varchar"/>
                     <ParameterCollection>
-                        <Parameter DataType="Long" Formula="GetOperator()"/>
-                        <Parameter DataType="Long" Formula="GetOperator()"/>
+                        <Parameter Formula="GetOperator()" DataType="Long"/>
+                        <Parameter Formula="GetOperator()" DataType="Long"/>
+                        <Parameter Formula="GetOperator()" DataType="Long"/>
+                        <Parameter Formula="GetOperator()" DataType="Long"/>
                     </ParameterCollection>
                     <Statement>
                         <![CDATA[select * from (
-select i.formkey,i.oid,w.WorkitemID,topic,empid,deptid,BillStatus,i.ProcessKey,w.creatTime
+select 
+i.ProcessKey,
+i.formkey,
+i.oid,
+topic,
+empid,
+deptid,
+BillStatus,
+w.creatTime,
+w.WorkitemID,
+10 mark, 
+NULL SourceOID 
 from wf_workitem w  
 join bpm_log l on w.WorkitemID=l.WorkitemID 
 join BPM_Instance i on  l.instanceID=i.instanceID  
 join bpm_migration M on i.OID = m.BillOID   
 where l.WorkitemState=2 and l.OperatorID=? and l.WorkitemID 
-in(select MAX(WorkitemID) 
-from bpm_log ll 
+in(select MAX(WorkitemID) from bpm_log ll 
 where ll.operatorID=?  
-GROUP BY ll.InstanceID) and i.instancestate!=3 ORDER BY CreatTime desc) h]]>
+GROUP BY ll.InstanceID) and i.instancestate!=3 
+union 
+select 
+NULL ProcessKey,
+im.FormKey,
+im.oid,
+im.SourceName AS Topic,
+- 1 EmpID,
+- 1 DeptID,
+0 BillStatus,
+im.CreateDate AS BillCreatTime,
+- 1 workItemID,
+20 mark,
+im.SourceOID
+FROM
+oa_itemremind im JOIN OA_ParticipatorIDs_D p ON im.sourceoid = p.soid
+WHERE (im.OptIDs IS NULL AND 1 = 1) OR  p.OptID=? 
+OR im.Sourcecreator =? ORDER BY CreatTime desc) h]]>
                     </Statement>
                 </Table>
             </TableCollection>
         </DataObject>
     </DataSource>
-    <OperationCollection>
-        <Operation Key="Setfirst_headVisible" Caption="查询" RefKey="Setfirst_headVisible"/>
-    </OperationCollection>
     <Body>
         <Block>
             <FlexFlowLayoutPanel Key="main">
-                <ToolBar Key="main_toolbar" Height="pref">
-                    <ToolBarItemCollection/>
-                </ToolBar>
                 <GridLayoutPanel Key="GridLayoutPanel1" Height="80px" Padding="5px" Caption="GridLayoutPanel1" Visible="first_headVisible==1">
                     <DatePicker Key="From" Caption="申请日期" BuddyKey="Lab_From" X="1" Y="0">
                         <Condition ColumnKey="creatTime" TableKey="OA_MyList" CondSign="between" Group="A" GroupHead="true"/>

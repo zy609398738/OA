@@ -1,0 +1,75 @@
+/**
+ * 覆盖主要定义在 /yesui/v2/yesui/ui/res/css/blue/core.css 中的 单据界面 样式
+ */
+
+/*不可编辑状态的颜色和背景*/
+ .ui-txted.ui-readonly input,  .ui-numed.ui-readonly input,  .ui-cmb.ui-readonly .txt,  .ui-dict.ui-readonly .txt,  .ui-chaindict.ui-readonly .txt,  .ui-dp.ui-readonly .txt,
+ input.ui-readonly,  .ui-splbtn.ui-readonly button.btn,  .ui-dropbtn.ui-readonly a,  .ui-btn.ui-readonly button,  .ui-txta.ui-readonly textarea {
+    background-color: #f8f8f8;
+    color: #666;
+    /*
+    background-color: #f3f3f3;
+    color: #b4b4b4;
+    */
+}
+
+/*表格行操作按钮*/
+ .ui-ygrid .ui-ygrid-pager {
+	height: auto !important;
+	/*
+    border-left: 0 none !important;
+    border-right: 0 none !important;
+    border-bottom: 0 none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    position: relative;
+    height: 30px;
+    white-space: nowrap;
+    overflow: hidden;
+    font-size: 11px;
+    */
+}
+
+
+ .ui-ygrid .ui-ygrid-pager .ui-pg-button {
+/*     height: 48px!important;
+width: 48px; */
+    cursor: pointer;    
+}
+
+
+/*  单据表格操作图标替换  */
+ .ui-state-default .ui-icon{
+/*     background-image: url(../images/icon/tableicons.png); */
+}
+
+ .ui-icon-plus {
+    background-position:-106px -263px;
+}
+ .ui-icon-trash {
+    background-position: 0px -263px;
+}
+ .ui-icon-up {
+    background-position: -35px -263px;
+}
+ .ui-icon-down {
+    background-position: -70px -263px;
+}
+
+/* .ui-icon-plus:hover {
+    background-position: -105px -42px;
+}
+.ui-icon-trash:hover {
+    background-position: 0 -42px;
+}
+.ui-icon-up:hover {
+    background-position: -70px -42px;
+}
+.ui-icon-down:hover {
+    background-position: -35px -42px;
+}
+ */
+
+  .ui-tabs-body  .ui-tabs-nav .aria-selected a{
+    background: #63b6eb!important;
+ }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<Form Key="OA_InfoDelReport" Caption="新闻明细表" FormType="Report" Platform="">
+<Form Key="OA_InfoDelReport" Caption="新闻明细表" FormType="Report">
     <DataSource>
         <DataObject Key="OA_InfoDelReport" Caption="新闻明细表">
             <TableCollection>
@@ -76,7 +76,7 @@ ShowData()]]>
                         <Condition TableKey="OA_InfoDelReport" CondSign="in" ColumnKey="NewsTypeID"/>
                     </Dict>
                     <Label Key="Lab_Q_NewsTypeID" Caption="新闻分类" X="2" Y="2"/>
-                    <CheckBox Caption="是否置顶" Key="Q_Top" X="2" Y="3"/>
+                    <CheckBox Caption="是否置顶" Key="Q_Top" X="3" Y="3"/>
                     <NumberEditor Key="Q_NewsDate" Caption="有效期" BuddyKey="Lab_Q_NewsDate" X="1" Y="2">
                         <Condition TableKey="OA_InfoDelReport" CondSign="between" ColumnKey="NewsDate" Group="A" GroupHead="true"/>
                     </NumberEditor>
@@ -112,7 +112,7 @@ ShowData()]]>
                         <ColumnDef Width="80px"/>
                     </ColumnDefCollection>
                 </GridLayoutPanel>
-                <Grid Key="Grid1" Caption="Grid1" Enable="false" NewEmptyRow="false" PageLoadType="UI" CanDelete="false" CanInsert="false" Height="100%">
+                <Grid Key="Grid1" Caption="Grid1" Enable="false" NewEmptyRow="false" PageLoadType="DB" CanDelete="false" CanInsert="false" Height="100%">
                     <GridColumnCollection>
                         <GridColumn Key="NO" Caption="单据编号" Width="200px"/>
                         <GridColumn Key="NewsTypeID" Caption="新闻分类" Width="80px"/>

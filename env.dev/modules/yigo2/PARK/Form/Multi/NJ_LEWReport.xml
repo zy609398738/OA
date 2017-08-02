@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <Form Key="NJ_LEWReport" Caption="资产门户" FormType="Entity" InitState="Default">
     <DataSource>
-        <DataObject Key="NJ_LEWReport" Caption="资产门户" PrimaryTableKey="NJ_LEWReport" PrimaryType="Entity">
+        <DataObject Key="NJ_LEWReport" Caption="资产门户" PrimaryType="Entity">
             <TableCollection>
                 <Table Key="NJ_LEWReport" Caption="NJ_LEWReport" DBTableName="NJ_LEWReport" TableMode="Detail" SourceType="Query" Persist="false" OrderBy="EndDate">
                     <Column Key="OID" Caption="对象标识" DataType="Long"/>
@@ -9,10 +9,6 @@
                     <Column Key="POID" Caption="父对象标识" DataType="Long"/>
                     <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
                     <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
-                    <Column Key="MapCount" Caption="映射数量标记" DataType="Integer"/>
-                    <Column Key="MapKey" Caption="映射标识" DataType="Varchar"/>
-                    <Column Key="SrcOID" Caption="来源行标识" DataType="Long"/>
-                    <Column Key="SrcSOID" Caption="来源表单标识" DataType="Long"/>
                     <Column Key="CustomerId" Caption="CustomerId" DataType="Long"/>
                     <Column Key="UsePeople" Caption="UsePeople" DataType="Varchar"/>
                     <Column Key="RoomNumber" Caption="RoomNumber" DataType="Varchar"/>
@@ -26,12 +22,8 @@
                     <Column Key="Term" Caption="Term" DataType="Numeric" Precision="16" Scale="2"/>
                     <Column Key="Rent" Caption="Rent" DataType="Numeric" Precision="16" Scale="2"/>
                     <Column Key="PaymentMethod" Caption="PaymentMethod" DataType="Varchar"/>
-                    <Column Key="yqts" Caption="yqts" DataType="Integer"/>
-                    <ParameterCollection>
-                        <Parameter DataType="Integer" Formula="IIF(GetPara('yjtqts')&lt;=0, 90, GetPara('yjtqts'));"/>
-                    </ParameterCollection>
                     <Statement>
-                        <![CDATA[SELECT * FROM (select TIMESTAMPDIFF(DAY,NOW(),EndDate) yqts,NO,BillDate,CustomerId,UsePeople,ContactNumber,RoomNumber,TotalArea,Rent,PaymentMethod,Term,StartDate,EndDate,EmpID FROM NJ_SCM_LeaseContractHead WHERE Status=200) a WHERE yqts<=?]]>
+                        <![CDATA[SELECT * FROM (select NO,BillDate,CustomerId,UsePeople,ContactNumber,RoomNumber,TotalArea,Rent,PaymentMethod,Term,StartDate,EndDate,EmpID FROM NJ_SCM_LeaseContractHead WHERE Status=200) a ]]>
                     </Statement>
                 </Table>
                 <Table Key="NJ_RDEWReportDetail" Caption="NJ_RDEWReportDetail" DBTableName="NJ_RDEWReportDetail" TableMode="Detail" Persist="false" SourceType="Query" OrderBy="NO,PlanDate">
@@ -50,14 +42,35 @@
                     <Column Key="PlanDate" Caption="PlanDate" DataType="DateTime"/>
                     <Column Key="ReceivedMoney" Caption="ReceivedMoney" DataType="Numeric" Precision="16" Scale="2"/>
                     <Column Key="CollectionMoney" Caption="CollectionMoney" DataType="Numeric" Precision="16" Scale="2"/>
-                    <Column Key="yqts" Caption="yqts" DataType="Integer"/>
                     <Column Key="ActualMoney" Caption="ActualMoney" DataType="Numeric" Precision="16" Scale="2"/>
                     <Column Key="BillDate" Caption="BillDate" DataType="DateTime"/>
-                    <ParameterCollection>
-                        <Parameter DataType="Integer" Formula="IIF(GetPara('yjtqts')&lt;=0, 90, GetPara('yjtqts'));"/>
-                    </ParameterCollection>
                     <Statement>
-                        <![CDATA[SELECT * FROM (select TIMESTAMPDIFF(DAY,NOW(),planDate) yqts,a.NO,a.BillDate,a.EmpID,a.CustomerId,a.UsePeople,a.ContactNumber,a.RoomNumber,a.TotalArea,b.OID,b.PlanDate,b.ActualMoney,c.CollectionMoney ReceivedMoney,b.ActualMoney-IFNULL(c.ReceivedMoney,0) CollectionMoney from NJ_SCM_LeaseContractHead a LEFT JOIN NJ_SCM_LeaseContractPlan b ON a.OID=b.SOID LEFT JOIN (select SourceOID,sum(CollectionMoney) CollectionMoney,sum(CollectionMoney)-sum(IncreaseMoney) ReceivedMoney from NJ_ContractPaymentDtl group by SourceOID) c ON b.OID=c.SourceOID WHERE a.Status<>340 AND b.ActualMoney-IFNULL(c.ReceivedMoney,0)>0) a WHERE yqts<=?]]>
+                        <![CDATA[SELECT *
+  FROM (SELECT a.NO,
+               a.BillDate,
+               a.EmpID,
+               a.CustomerId,
+               a.UsePeople,
+               a.ContactNumber,
+               a.RoomNumber,
+               a.TotalArea,
+               b.OID,
+               b.PlanDate,
+               b.ActualMoney,
+               c.CollectionMoney ReceivedMoney,
+               b.ActualMoney - COALESCE(c.ReceivedMoney, 0) CollectionMoney
+          FROM NJ_SCM_LeaseContractHead a
+               LEFT JOIN NJ_SCM_LeaseContractPlan b ON a.OID = b.SOID
+               LEFT JOIN
+               (  SELECT SourceOID,
+                         SUM(CollectionMoney) CollectionMoney,
+                         SUM(CollectionMoney) - SUM(IncreaseMoney)
+                            ReceivedMoney
+                    FROM NJ_ContractPaymentDtl
+                GROUP BY SourceOID) c
+                  ON b.OID = c.SourceOID
+         WHERE     a.Status <> 340
+               AND b.ActualMoney - COALESCE(c.ReceivedMoney, 0) > 0) a]]>
                     </Statement>
                 </Table>
             </TableCollection>
@@ -88,11 +101,6 @@
                             </OnClick>
                         </Button>
                         <NumberEditor Key="yqts_cond" Caption="预警提前期(天)" BuddyKey="Lab_yqts_cond" X="2" Y="0" Enable="true" IntegerValue="true" Clearable="false">
-                            <DataBinding DefaultValue="90">
-                                <ValueChanged>
-                                    <![CDATA[SetPara('yjtqts',GetValue('yqts_cond'))]]>
-                                </ValueChanged>
-                            </DataBinding>
                             <Condition ColumnKey="yqts" TableKey="NJ_LEWReport" CondSign="none"/>
                         </NumberEditor>
                         <Label Key="Lab_yqts_cond" Caption="预警提前期(天)" X="1" Y="0"/>
@@ -128,7 +136,6 @@
                                 <GridColumn Key="Term" Caption="租期(月)" Width="80px"/>
                                 <GridColumn Key="StartDate" Caption="起租日" Width="120px"/>
                                 <GridColumn Key="EndDate" Caption="到期日" Width="120px"/>
-                                <GridColumn Key="yqts" Caption="距到期日" Width="120px" Visible="false"/>
                                 <GridColumn Key="EmpID" Caption="经办人" Width="120px"/>
                             </GridColumnCollection>
                             <GridRowCollection>
@@ -186,10 +193,6 @@
                                         <DataBinding ColumnKey="EndDate"/>
                                         <CellFormat HAlign="Center"/>
                                     </GridCell>
-                                    <GridCell Key="yqts" Caption="距到期日" CellType="NumberEditor" IntegerValue="true">
-                                        <DataBinding ColumnKey="yqts"/>
-                                        <CellFormat HAlign="Center"/>
-                                    </GridCell>
                                     <GridCell Key="EmpID" Caption="经办人" CellType="Dict" ItemKey="OA_Employee">
                                         <DataBinding ColumnKey="EmpID"/>
                                         <CellFormat HAlign="Center"/>
@@ -224,7 +227,6 @@
                                 <GridColumn Key="ActualMoney" Caption="实际应收" Width="100px"/>
                                 <GridColumn Key="ReceivedMoney" Caption="已收款" Width="100px"/>
                                 <GridColumn Key="CollectionMoney" Caption="未收款" Width="100px"/>
-                                <GridColumn Key="yqts1" Caption="距应收日" Width="80px" Visible="false"/>
                             </GridColumnCollection>
                             <GridRowCollection>
                                 <GridRow Key="R2" TableKey="NJ_RDEWReportDetail">
@@ -274,10 +276,6 @@
                                     </GridCell>
                                     <GridCell Key="CollectionMoney" Caption="未收款" CellType="NumberEditor">
                                         <DataBinding ColumnKey="CollectionMoney"/>
-                                        <CellFormat HAlign="Center"/>
-                                    </GridCell>
-                                    <GridCell Key="yqts1" Caption="距应收日" CellType="NumberEditor" IntegerValue="true">
-                                        <DataBinding ColumnKey="yqts"/>
                                         <CellFormat HAlign="Center"/>
                                     </GridCell>
                                 </GridRow>

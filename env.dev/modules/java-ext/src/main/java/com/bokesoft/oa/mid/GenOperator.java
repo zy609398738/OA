@@ -2,6 +2,8 @@ package com.bokesoft.oa.mid;
 
 import java.util.ArrayList;
 
+import com.bokesoft.oa.base.OAContext;
+import com.bokesoft.oa.mid.wf.base.Employee;
 import com.bokesoft.yigo.meta.dataobject.MetaDataObject;
 import com.bokesoft.yigo.meta.factory.MetaFactory;
 import com.bokesoft.yigo.mid.base.DefaultContext;
@@ -34,17 +36,21 @@ public class GenOperator implements IExtService {
 	 * @throws Throwable
 	 */
 	public Boolean genOperator(DefaultContext context) throws Throwable {
+		OAContext oac = new OAContext(context);
 		// 通过上下文获取Document
 		Document doc = context.getDocument();
-		// 通过Document获取数据源(DataTable,代替了以前的BKRowset)
-		DataTable empDt = doc.get("OA_Employee_H");
 		long oid = doc.getOID();
+		// 通过Document获取数据源(DataTable,代替了以前的BKRowset)
 
-		String sql = "select oid from SYS_Operator where EmpID=?";
+		Employee eh = new Employee(oac);
+		eh = oac.getEmployeeMap().get(oid);
+		// DataTable empDt = doc.get("OA_Employee_H");
+
+		String sql = "select oid from SYS_Operator where EmpID=? or Code=?";
 
 		// 通过上下文可以获取IDBManager,用于Sql执行
 		IDBManager dbManager = context.getDBManager();
-		DataTable dtQuery = dbManager.execPrepareQuery(sql, oid);
+		DataTable dtQuery = dbManager.execPrepareQuery(sql, oid, eh.getCode());
 		String operatorKey = "Operator";
 		// 创建数据对象
 		MetaDataObject operatorDo = MetaFactory.getGlobalInstance().getDataObject(operatorKey);
@@ -55,28 +61,29 @@ public class GenOperator implements IExtService {
 			operatorDoc.setNew();
 			DataTable operatorDt = operatorDoc.get("SYS_Operator");
 			// operatorDt.insert();
-			operatorDt.setObject("Code", empDt.getObject("Code"));
-			operatorDt.setObject("Name", empDt.getObject("Name"));
-			operatorDt.setObject("EmpID", oid);
-			operatorDt.setObject("DeptID", empDt.getObject("DeptID"));
+
+			// Operator operator = new Operator(oac);
+			operatorDt.setString("Code", eh.getCode());
+			operatorDt.setString("Name", eh.getName());
+			operatorDt.setLong("EmpID", oid);
+			operatorDt.setLong("DeptID", eh.getDepartmentID());
 
 			DataTable roleDt = operatorDoc.get("SYS_OperatorRole");
 			DataTable empRoleDt = doc.get("OA_Employee_Role");
 			empRoleDt.beforeFirst();
 			while (empRoleDt.next()) {
 				roleDt.append();
-				roleDt.setObject("Role", empRoleDt.getObject("RoleID"));
+				roleDt.setLong("Role", empRoleDt.getLong("RoleID"));
 			}
 		} else {
 			operatorDoc.setModified();
 			long operatorOid = dtQuery.getLong("oid");
 			LoadData loadData = new LoadData(operatorKey, operatorOid);
-			DefaultContext newContext=new DefaultContext(context);
+			DefaultContext newContext = new DefaultContext(context);
 			operatorDoc = loadData.load(newContext, operatorDoc);
 			DataTable operatorDt = operatorDoc.get("SYS_Operator");
-			operatorDt.setObject("Code", empDt.getObject("Code"));
-			operatorDt.setObject("Name", empDt.getObject("Name"));
-			operatorDt.setObject("DeptID", empDt.getObject("DeptID"));
+			operatorDt.setLong("EmpID", oid);
+			operatorDt.setLong("DeptID", eh.getDepartmentID());
 			DataTable roleDt = operatorDoc.get("SYS_OperatorRole");
 			DataTable empRoleDt = doc.get("OA_Employee_Role");
 			roleDt.beforeFirst();
@@ -93,14 +100,14 @@ public class GenOperator implements IExtService {
 				long roleID = empRoleDt.getLong("RoleID");
 				if (roleDt.findRow("Role", roleID) < 0) {
 					roleDt.append();
-					roleDt.setObject("Role", roleID);
+					roleDt.setLong("Role", roleID);
 				}
 			}
 		}
 		DocumentUtil.calcSequence(operatorDoc);
 		// 保存Document
 		SaveData saveData = new SaveData(operatorDo, null, operatorDoc);
-		DefaultContext newContext=new DefaultContext(context);
+		DefaultContext newContext = new DefaultContext(context);
 		operatorDoc = saveData.save(newContext);
 		return true;
 	}

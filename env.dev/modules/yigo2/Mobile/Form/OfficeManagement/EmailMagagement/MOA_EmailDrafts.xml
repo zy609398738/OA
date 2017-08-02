@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<Form Key="MOA_EmailDrafts" Caption="草稿箱" FormType="Entity">
+<Form Key="MOA_EmailDrafts" Caption="草稿箱" FormType="Entity" Platform="Mobile">
     <DataSource>
         <DataObject Key="MOA_EmailDrafts" Caption="草稿箱" PrimaryTableKey="MOA_EmailDrafts_H" NoPrefix="MEW" PrimaryType="Entity">
             <TableCollection>

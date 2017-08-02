@@ -1,0 +1,21 @@
+var where='';
+cms.PageExp.Local("domainwhere",where);
+if(cms.PageExp.UrlVar('domainwhere')){
+  	where=cms.PageExp.UrlVar('domainwhere');
+  	cms.PageExp.Local("domainwhere",where);
+   	where=" and billname like '%"+where+"%' ";
+}
+
+cms.PageExp.Local("operatorID", cms.Yigo2MidExp.GetLoginOperator());
+cms.PageExp.Local(
+    "mydata",oa.TodoMidExp.getWorkflowEntry("select b.oid,b.soid,b.BillKey,b.billname from OA_MyWorkflow a join OA_WorkflowType_D b on a.SrcDtlOID=b.oid where a.operator ="+cms.PageExp.Local("operatorID")+where+" order by b.soid,b.OrderNum,b.Sequence","TSL/TSL_Approval/ExtendBus")
+);
+cms.PageExp.Local(
+    "areadata",cms.DataExp.QueryList("select t.oid,t.Name from OA_WorkflowArea_H t order by t.OrderNum,t.Code")
+);
+cms.PageExp.Local(
+    "parentdata",cms.DataExp.QueryList("select d.soid,t.oid,t.Name from OA_WorkflowArea_D d join OA_WorkflowType_H t on d.WorkflowTypeID=t.oid order by d.soid,d.OrderNum,d.Sequence")
+);
+cms.PageExp.Local(
+    "data",oa.TodoMidExp.getWorkflowEntry("select b.oid,b.soid,b.BillKey,b.billname  from OA_WorkflowType_D b where 1=1 "+where+" order by b.soid,b.OrderNum,b.Sequence","TSL/TSL_Approval/ExtendBus")
+);

@@ -135,9 +135,7 @@
                             <DataBinding ColumnKey="Matter" TableKey="OA_MeetingOutSide_H"/>
                         </TextArea>
                         <Label Key="Lab_Matter" Caption="会议纪要" X="0" Y="0" YSpan="5"/>
-                        <Embed Caption="附件" Key="OA_Attachment" X="1" XSpan="3" Y="5" FormKey="OA_Attachment" RootKey="Grid2">
-                            <Var Key="ParentKey" Value="OA_MeetingOutSide_H"/>
-                        </Embed>
+                        <Embed Caption="附件" Key="OA_Attachment" X="1" XSpan="3" Y="5" FormKey="OA_Attachment" RootKey="OA_Attachment"/>
                         <Label Key="Label_OA_Attachment" Caption="附件" X="0" Y="5"/>
                         <RowDefCollection RowGap="5">
                             <RowDef Height="30px"/>

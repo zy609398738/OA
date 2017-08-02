@@ -33,7 +33,7 @@
                                         <DataBinding ColumnKey="SOID" TableKey="MOA_WorkflowType"/>
                                         <Format HAlign="Center"/>
                                     </Dict>
-                                    <HyperLink Caption="创建流程" Height="auto" Key="Name_D" Width="100px">
+                                    <HyperLink Caption="新建流程" Height="auto" Key="Name_D" Width="100px">
                                         <DataBinding ColumnKey="BillName"/>
                                         <Format ForeColor="#0c87ff" HAlign="Center"/>
                                         <OnClick>

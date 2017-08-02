@@ -10,6 +10,6 @@ apply from: "../../instance/infrastructure/gradle/boke-devops/boke-devops.gradle
 devOpsApply from: "deps.gradle"
 
 devOpsDefineExports (
-	include: ["mail-*.jar","JNative*.jar","jodd-*.jar"],
+	include: ["mail-*.jar","JNative*.jar","jodd-*.jar","bokedeehttpclient.jar","ojdbc*.jar","core-*.jar","javase-*.jar"],
 	exclude: []
 )

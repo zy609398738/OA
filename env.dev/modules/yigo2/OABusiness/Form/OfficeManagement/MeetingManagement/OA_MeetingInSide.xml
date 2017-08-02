@@ -23,7 +23,7 @@
                     <Column Key="Partake" Caption="会议共享" DataType="Varchar"/>
                     <Column Key="BillDate" Caption="申请日期" DataType="DateTime"/>
                     <Column Key="AllDay" Caption="全天" DataType="Integer"/>
-                    <Column Key="MessageSet" Caption="发送方式" DataType="Long"/>
+                    <Column Key="MessageSet" Caption="通知方式" DataType="Long"/>
                     <Column Key="NO" Caption="单据编号" DataType="Varchar"/>
                     <Column Key="Status" Caption="状态" DataType="Integer"/>
                     <Column Caption="创建人" DataType="Long" Key="Creator"/>
@@ -37,6 +37,8 @@
                     <Column Key="Notes" Caption="备注" DataType="Varchar" Length="4000"/>
                     <Column Key="WorkflowTypeDtlID" Caption="流程类别明细ID" DataType="Long"/>
                     <Column Key="UrgencyDeg" Caption="紧急程度" DataType="Integer"/>
+                    <Column Key="OptIDs" Caption="参与者IDs" DataType="Varchar" Length="4000"/>
+                    <Column Key="PartakeIDs" Caption="共享人员IDs" DataType="Varchar" Length="4000"/>
                 </Table>
             </TableCollection>
         </DataObject>
@@ -46,9 +48,18 @@
         <Operation Key="BPM" Caption="BPM" Tag="BPM"/>
         <Operation Key="Save" Caption="保存" Visible="!ReadOnly()">
             <Action>
-                <![CDATA[IIF(TimeUse()>0,
-      Confirm('抱歉会议室已被占用'), 
-      SaveData());]]>
+                <![CDATA[if(TimeUse()>0){
+    Confirm('抱歉会议室已被占用');
+}else{
+    var errmseg=InvokeService("OA_JudgeScheduleTime", true, false);
+    if(errmseg!=""){
+        Confirm(errmseg);
+        }else{
+            if(InvokeService("OA_GetOptIDsDetail", true, false,"OA_MeetingInSide_H","OptIDs",10)&&InvokeService("OA_GetOptIDsDetail", true, false,"OA_MeetingInSide_H","PartakeIDs",20)){
+            SaveData();
+            }
+        }
+    }   ]]>
             </Action>
         </Operation>
         <Operation Key="Delete" Caption="删除" RefKey="Delete"/>
@@ -77,6 +88,27 @@
     <UICheckRuleCollection>
         <UICheckRule Description="结束时间大于开始时间" ErrorInfo="结束时间大于开始时间">
             <![CDATA[EndTime>StartTime]]>
+        </UICheckRule>
+        <UICheckRule Description="会议主持人和会议纪要人员冲突" ErrorInfo="会议主持人和会议纪要人员冲突">
+            <![CDATA[if(!IsNull(Moderator)&&(Moderator!="")){
+    Moderator!=Recorder;
+}else{
+    1==1;
+}]]>
+        </UICheckRule>
+        <UICheckRule Description="会议主持人和参与者冲突" ErrorInfo="会议主持人和参与者冲突">
+            <![CDATA[if(!IsNull(OptIDs)&&(OptIDs!="")){
+    InvokeService("OA_JudgeExist", true, false, OptIDs,Moderator);
+}else{
+    1==1;
+}]]>
+        </UICheckRule>
+        <UICheckRule Description="会议纪要人员和参与者冲突" ErrorInfo="会议纪要人员和参与者冲突">
+            <![CDATA[if(!IsNull(OptIDs)&&(OptIDs!="")){
+    InvokeService("OA_JudgeExist", true, false, OptIDs,Recorder);
+}else{
+    1==1;
+}]]>
         </UICheckRule>
     </UICheckRuleCollection>
     <Body>
@@ -132,12 +164,20 @@
                         </Dict>
                         <Label Key="Lab_Recorder" Caption="会议纪要录入人员" X="0" Y="5"/>
                         <Dict Key="Participants" Caption="参与人员" BuddyKey="Lab_Participants" X="1" Y="6" AllowMultiSelection="true" ItemKey="OA_Employee" XSpan="7">
-                            <DataBinding ColumnKey="Participants" TableKey="OA_MeetingInSide_H" Required="true"/>
+                            <DataBinding ColumnKey="Participants" TableKey="OA_MeetingInSide_H" Required="true">
+                                <ValueChanged>
+                                    <![CDATA[OptIDs=InvokeService("OA_GetOperatorIDsByEmp", true, false, Participants,",")]]>
+                                </ValueChanged>
+                            </DataBinding>
                             <Format VAlign="Top" HAlign="Left"/>
                         </Dict>
                         <Label Key="Lab_Participants" Caption="参与人员" X="0" Y="6"/>
                         <Dict Key="Partake" Caption="会议共享" BuddyKey="Lab_Partake" X="1" Y="7" AllowMultiSelection="true" ItemKey="OA_Employee" XSpan="7">
-                            <DataBinding ColumnKey="Partake" TableKey="OA_MeetingInSide_H"/>
+                            <DataBinding ColumnKey="Partake" TableKey="OA_MeetingInSide_H">
+                                <ValueChanged>
+                                    <![CDATA[PartakeIDs=InvokeService("OA_GetOperatorIDsByEmp", true, false, Partake,",")]]>
+                                </ValueChanged>
+                            </DataBinding>
                             <Format VAlign="Top" HAlign="Left"/>
                         </Dict>
                         <Label Key="Lab_Partake" Caption="会议共享" X="0" Y="7"/>
@@ -153,18 +193,26 @@
                         </TextArea>
                         <Label Key="Lab_Notes" Caption="备注" X="0" Y="9" YSpan="3"/>
                         <ComboBox Key="UrgencyDeg" Caption="紧急程度" BuddyKey="Lab_UrgencyDeg" X="6" Y="5" IntegerValue="true" XSpan="2">
-                            <DataBinding ColumnKey="UrgencyDeg" TableKey="OA_MeetingInSide_H" DefaultValue="0"/>
-                            <Item Key="0" Value="0"/>
+                            <DataBinding ColumnKey="UrgencyDeg" TableKey="OA_MeetingInSide_H" DefaultValue="10"/>
                             <Item Caption="一般" Key="10" Value="10"/>
                             <Item Caption="紧急" Key="20" Value="20"/>
                             <Item Caption="特急" Key="30" Value="30"/>
                         </ComboBox>
                         <Label Key="Lab_UrgencyDeg" Caption="紧急程度" X="5" Y="5"/>
-                        <Dict Key="MessageSet" Caption="发送方式" BuddyKey="Lab_MessageSet" X="1" Y="8" ItemKey="OA_MessageSet" XSpan="3">
+                        <Dict Key="MessageSet" Caption="通知方式" BuddyKey="Lab_MessageSet" X="1" Y="8" ItemKey="OA_MessageSet" XSpan="3">
                             <DataBinding ColumnKey="MessageSet" TableKey="OA_MeetingInSide_H" Required="true"/>
                         </Dict>
-                        <Label Key="Lab_MessageSet" Caption="发送方式" X="0" Y="8"/>
+                        <Label Key="Lab_MessageSet" Caption="通知方式" X="0" Y="8"/>
+                        <TextArea Key="OptIDs" Caption="参与者IDs" BuddyKey="Lab_OptIDs" X="1" Y="12" Visible="false" XSpan="3">
+                            <DataBinding ColumnKey="OptIDs" TableKey="OA_MeetingInSide_H"/>
+                        </TextArea>
+                        <Label Key="Lab_OptIDs" Caption="参与者IDs" X="0" Y="12"/>
+                        <TextArea Key="PartakeIDs" Caption="共享人员IDs" BuddyKey="Lab_PartakeIDs" X="6" Y="12" Visible="false" XSpan="2">
+                            <DataBinding ColumnKey="PartakeIDs" TableKey="OA_MeetingInSide_H"/>
+                        </TextArea>
+                        <Label Key="Lab_PartakeIDs" Caption="共享人员IDs" X="5" Y="12"/>
                         <RowDefCollection RowGap="4">
+                            <RowDef Height="30px"/>
                             <RowDef Height="30px"/>
                             <RowDef Height="30px"/>
                             <RowDef Height="30px"/>
@@ -194,9 +242,7 @@
                             <DataBinding ColumnKey="Matter" TableKey="OA_MeetingInSide_H"/>
                         </TextArea>
                         <Label Key="Lab_Matter" Caption="会议纪要" X="0" Y="0" YSpan="5"/>
-                        <Embed Caption="附件" FormKey="OA_Attachment" Key="OA_Attachment" X="1" XSpan="3" Y="5" RootKey="Grid2">
-                            <Var Key="ParentKey" Value="OA_MeetingInSide_H"/>
-                        </Embed>
+                        <Embed Caption="附件" FormKey="OA_Attachment" Key="OA_Attachment" X="1" XSpan="3" Y="5" RootKey="OA_Attachment"/>
                         <Label Key="Label_OA_Attachment" Caption="附件" X="0" Y="5"/>
                         <RowDefCollection RowGap="5">
                             <RowDef Height="30px"/>
@@ -283,6 +329,10 @@
             <![CDATA[DBQueryValue("select count(oid) from (select oid from OA_MeetingInSide_h a where a.MeetingRoom=? and ((a.StartTime>? and a.StartTime<?) or (a.EndTime>? and a.EndTime<?) or(a.StartTime<? and a.EndTime>?))
  union select oid from OA_MeetingOutSide_h a where a.MeetingRoom=? and ((a.StartTime>? and a.StartTime<?) or (a.EndTime>? and a.EndTime<?) or(a.StartTime<? and a.EndTime>?)))j", 
 MeetingRoom,StartTime,EndTime,StartTime,EndTime,StartTime,EndTime,MeetingRoom,StartTime,EndTime,StartTime,EndTime,StartTime,EndTime);]]>
+        </Macro>
+        <Macro Key="Schedule">
+            <![CDATA[DBQueryValue("select count(oid) from OA_MySchedule_H a where(a.StartTime>? and a.StartTime<?) or (a.EndTime>? and a.EndTime<?) or(a.StartTime<? and a.EndTime>?)",
+ StartTime,EndTime,StartTime,EndTime,StartTime,EndTime);]]>
         </Macro>
     </MacroCollection>
 </Form>

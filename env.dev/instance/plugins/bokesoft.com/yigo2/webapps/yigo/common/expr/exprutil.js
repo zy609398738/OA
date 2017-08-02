@@ -69,6 +69,31 @@ YIUI.ExprUtil = (function () {
             	value = new Date(value);
 			}
     		return value;
+    	},
+        getJSONValue: function (form, key, cxt) {
+    		var reValue;
+    		var comp = form.getComponent(key);
+			if (!comp) {
+	            YIUI.ViewException.throwException(YIUI.ViewException.COMPONENT_NOT_EXISTS);
+			}
+			
+			var type = comp.type;
+			switch(type) {
+				case YIUI.CONTROLTYPE.DICT:
+				case YIUI.CONTROLTYPE.DYNAMICDICT:
+				case YIUI.CONTROLTYPE.COMPDICT:
+					value = comp.getValue();
+					if (value instanceof YIUI.ItemData) {
+						reValue = value.toJSON();
+					} else if ($.isArray(value)) {
+						reValue = new Array();
+						for(var i = 0 ; i < value.length;i++){
+							reValue[i] = value[i].toJSON();
+						}
+					}
+			}
+			
+			return reValue;
     	}
     };
     return Return;

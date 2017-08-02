@@ -55,6 +55,15 @@ public class LocalMessageManager {
         return new ArrayList<>(msgs);
     }
 
+    /**
+     * 清除本地消息
+     * @param conversationUserCode
+     */
+    public void clearMessages(String conversationUserCode){
+        List<LocalMessage> msgs = getCurrentLocalMessages(conversationUserCode);
+        msgs.clear();
+    }
+
     private void putMessage(String conversationUserCode, LocalMessage message){
         List<LocalMessage> msgs = getCurrentLocalMessages(conversationUserCode);
         msgs.add(message);

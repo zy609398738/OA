@@ -10,7 +10,6 @@ import com.bokesoft.ecomm.im.android.backend.WebSocketFacade;
 import com.bokesoft.ecomm.im.android.event.WebSocketEvent;
 import com.bokesoft.ecomm.im.android.instance.ClientInstance;
 import com.bokesoft.ecomm.im.android.utils.LogUtils;
-
 import de.greenrobot.event.EventBus;
 
 public class WebSocketService extends Service {

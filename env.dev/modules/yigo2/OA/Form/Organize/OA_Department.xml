@@ -46,11 +46,8 @@
                         <TextEditor BuddyKey="Lab_Name" Caption="名称" Key="Name" X="4" Y="1">
                             <DataBinding ColumnKey="Name" TableKey="OA_Department_H" Required="true"/>
                         </TextEditor>
-                        <ComboBox BuddyKey="Lab_ORG_Level" Caption="层级" Key="ORG_Level" X="1" Y="0">
-                            <DataBinding ColumnKey="ORG_Level" TableKey="OA_Department_H"/>
-                            <Item Caption="集团" Key="1" Value="1"/>
-                            <Item Caption="公司" Key="2" Value="2"/>
-                            <Item Caption="部门" Key="3" Value="3"/>
+                        <ComboBox BuddyKey="Lab_ORG_Level" Caption="层级" Key="ORG_Level" X="1" Y="0" SourceType="ParaGroup" GroupKey="ORG_Level">
+                            <DataBinding ColumnKey="ORG_Level" TableKey="OA_Department_H" DefaultValue="2" Required="true"/>
                         </ComboBox>
                         <Label Caption="层级" Key="Lab_ORG_Level" X="0" Y="0"/>
                         <Label Caption="简称" Key="Lab_ShortName" X="0" Y="2"/>
@@ -104,7 +101,7 @@
                         </Dict>
                         <Label Caption="创建人员" Key="Lab_Creator" X="0" Y="0"/>
                         <Label Caption="创建时间" Key="Lab_CreateTime" X="3" Y="0"/>
-                        <DatePicker BuddyKey="Lab_CreateTime" Caption="创建时间" Enable="false" Key="CreateTime" OnlyDate="false" X="4" Y="0">
+                        <DatePicker BuddyKey="Lab_CreateTime" Caption="创建时间" Enable="false" Key="CreateTime" X="4" Y="0">
                             <DataBinding ColumnKey="CreateTime" TableKey="OA_Department_H" DefaultFormulaValue="ServerDate()" Required="true"/>
                         </DatePicker>
                         <Label Caption="修改人员" Key="Lab_Modifier" X="0" Y="1"/>
@@ -112,7 +109,7 @@
                             <DataBinding ColumnKey="Modifier" TableKey="OA_Department_H" DefaultFormulaValue="GetOperator()" Required="true"/>
                         </Dict>
                         <Label Caption="修改时间" Key="Lab_ModifyTime" X="3" Y="1"/>
-                        <DatePicker BuddyKey="Lab_ModifyTime" Caption="修改时间" Enable="false" Key="ModifyTime" OnlyDate="false" X="4" Y="1">
+                        <DatePicker BuddyKey="Lab_ModifyTime" Caption="修改时间" Enable="false" Key="ModifyTime" X="4" Y="1">
                             <DataBinding ColumnKey="ModifyTime" TableKey="OA_Department_H" DefaultFormulaValue="ServerDate()" Required="true"/>
                         </DatePicker>
                         <Label Caption="备注" Key="Lab_Notes" X="0" Y="2"/>

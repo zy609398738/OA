@@ -17,7 +17,7 @@
                     <Column Key="Enable" Caption="启用标记" DataType="Integer"/>
                     <Column Key="TLeft" Caption="TLeft" DataType="Integer"/>
                     <Column Key="TRight" Caption="TRight" DataType="Integer"/>
-                    <Column Key="Audit" Caption="审批人" DataType="Long" Cache="true"/>
+                    <Column Key="Approver" Caption="审批人" DataType="Long" Cache="true"/>
                     <Column Key="Leader" Caption="组长" DataType="Long" Cache="true"/>
                 </Table>
                 <Table Key="OA_GroupMember" TableMode="Detail">
@@ -76,10 +76,10 @@
                         </GridRow>
                     </GridRowCollection>
                 </Grid>
-                <Dict Key="Audit" Caption="审批人" BuddyKey="Lab_Audit" X="1" Y="5" ItemKey="Operator">
-                    <DataBinding ColumnKey="Audit" TableKey="OA_Group"/>
+                <Dict Key="Approver" Caption="审批人" BuddyKey="Lab_Approver" X="1" Y="5" ItemKey="Operator">
+                    <DataBinding ColumnKey="Approver" TableKey="OA_Group"/>
                 </Dict>
-                <Label Key="Lab_Audit" Caption="审批人" X="0" Y="5"/>
+                <Label Key="Lab_Approver" Caption="审批人" X="0" Y="5"/>
                 <Dict Key="Leader" Caption="组长" BuddyKey="Lab_Leader" X="1" Y="4" ItemKey="Operator">
                     <DataBinding ColumnKey="Leader" TableKey="OA_Group" Required="true"/>
                 </Dict>

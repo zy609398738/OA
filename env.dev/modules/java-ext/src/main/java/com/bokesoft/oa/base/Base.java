@@ -1,7 +1,5 @@
 package com.bokesoft.oa.base;
 
-import com.bokesoft.yigo.mid.base.DefaultContext;
-
 /**
  * 配置基础
  * 
@@ -10,40 +8,40 @@ import com.bokesoft.yigo.mid.base.DefaultContext;
  */
 public class Base {
 	/**
-	 * 中间层对象
+	 * 上下文对象
 	 */
-	private DefaultContext context;
+	private OAContext context;
 
 	/**
-	 * 中间层对象
+	 * 上下文对象
 	 * 
-	 * @return 中间层对象
+	 * @return 上下文对象
 	 */
-	public DefaultContext getContext() {
+	public OAContext getContext() {
 		return context;
 	}
 
 	/**
-	 * 中间层对象
+	 * 上下文对象
 	 * 
 	 * @param context
-	 *            中间层对象
+	 *            上下文对象
 	 */
-	public void setContext(DefaultContext context) {
+	public void setContext(OAContext context) {
 		this.context = context;
 	}
 
 	/**
 	 * 唯一标识
 	 */
-	private Long oid=-1L;
+	private Long oid = 0L;
 
 	/**
 	 * 唯一标识
 	 * 
 	 * @return 唯一标识
 	 */
-	public Long getOid() {
+	public Long getOID() {
 		return oid;
 	}
 
@@ -53,7 +51,7 @@ public class Base {
 	 * @param oid
 	 *            唯一标识
 	 */
-	public void setOid(Long oid) {
+	public void setOID(Long oid) {
 		this.oid = oid;
 	}
 
@@ -61,9 +59,16 @@ public class Base {
 	 * 构造配置基础对象
 	 * 
 	 * @param context
-	 *            中间层对象
+	 *            上下文对象
 	 */
-	public Base(DefaultContext context) {
+	public Base(OAContext context) {
 		setContext(context);
+	}
+
+	/**
+	 * 重载，输出标识ID
+	 */
+	public String toString() {
+		return "标识ID：" + oid.toString();
 	}
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<Form Key="OA_EmailInbox" Caption="收件箱" FormType="Entity" Platform="">
+<Form Key="OA_EmailInbox" Caption="收件箱" FormType="Entity">
     <DataSource>
         <DataObject Key="OA_EmailInbox" Caption="收件箱" NoPrefix="EI" PrimaryTableKey="OA_EmailInbox_H" PrimaryType="Entity">
             <TableCollection>
@@ -167,9 +167,7 @@ SetValue("AttachmentVisiable",0);
                     </ColumnDefCollection>
                 </GridLayoutPanel>
                 <GridLayoutPanel Key="GridLayoutPanel1" Height="185px" OverflowY="Auto" Padding="5px" Caption="GridLayoutPanel1" Visible="AttachmentVisiable==1||DBNamedQueryValue(&quot;QueryAtt&quot;, OID)&gt;0">
-                    <Embed Caption="附件" Key="OA_Attachment" X="1" XSpan="5" Y="0" FormKey="OA_Attachment" RootKey="Grid2">
-                        <Var Key="ParentKey" Value="OA_EmailInbox_H"/>
-                    </Embed>
+                    <Embed Caption="附件" Key="OA_Attachment" X="1" XSpan="5" Y="0" FormKey="OA_Attachment" RootKey="OA_Attachment"/>
                     <RowDefCollection RowGap="5">
                         <RowDef Height="170px"/>
                     </RowDefCollection>

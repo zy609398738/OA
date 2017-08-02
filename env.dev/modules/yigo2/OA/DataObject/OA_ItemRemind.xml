@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<DataObject Key="OA_ItemRemind" Caption="事项提醒" PrimaryTableKey="OA_ItemRemind" PrimaryType="Entity">
+    <TableCollection>
+        <Table Key="OA_ItemRemind" Caption="事项提醒" DBTableName="OA_ItemRemind">
+            <Column Key="OID" Caption="对象标识" DataType="Long"/>
+            <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+            <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+            <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+            <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+            <Column Key="ProcessKey" Caption="流程名称" DataType="Varchar"/>
+            <Column Key="WorkflowType" Caption="流程类别" DataType="Long"/>
+            <Column Key="FormKey" Caption="单据名称" DataType="Varchar"/>
+            <Column Key="CreateDate" Caption="单据日期" DataType="DateTime"/>
+            <Column Key="SourceName" Caption="主题" DataType="Varchar"/>
+            <Column Key="BillOid" Caption="单据OID" DataType="Long"/>
+            <Column Key="OptIDs" Caption="参与者ID" DataType="Varchar"/>
+            <Column Key="BillName" Caption="表单名称" DataType="Varchar"/>
+            <Column Key="SourceOID" Caption="源OID" DataType="Long"/>
+            <Column Key="SourceCreator" Caption="创建人" DataType="Long"/>
+            <Column Key="Status" Caption="状态" DataType="Integer"/>
+        </Table>
+    </TableCollection>
+</DataObject>

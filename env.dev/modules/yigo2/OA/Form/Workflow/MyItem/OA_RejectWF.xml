@@ -24,31 +24,25 @@
 topic,
 EmpID, 
 DeptID,
-max(WF_Workitem.WorkitemID) as workitemid,
-WF_Workitem.creatTime,
-BPM_Instance.ProcessKey,
-BPM_Instance.formkey, BPM_Instance.oid 
+max(w.WorkitemID) as workitemid,
+w.creatTime,
+i.ProcessKey,
+i.formkey, i.oid 
 FROM  
-WF_Workitem 
-JOIN BPM_Log ON WF_Workitem.WorkitemID = BPM_Log.WorkitemID 
-JOIN bpm_workiteminfo ON wf_workitem.WorkitemID=bpm_workiteminfo.WorkitemID 
-JOIN BPM_Instance ON BPM_Log.instanceID = BPM_Instance.instanceID 
-join BPM_Migration on  BPM_Instance.OID=BPM_Migration.BillOID
-WHERE BPM_Migration.Billcreator=? AND BPM_Instance.OID =BPM_Migration.Billoid AND WF_Workitem.AuditResult = 0 GROUP BY topic,EmpID,DeptID,WF_Workitem.creatTime,BPM_Instance.ProcessKey ) k ]]>
+WF_Workitem w 
+JOIN BPM_Log l ON w.WorkitemID = l.WorkitemID 
+JOIN bpm_workiteminfo wi ON w.WorkitemID=wi.WorkitemID 
+JOIN BPM_Instance i ON l.instanceID = i.instanceID 
+join BPM_Migration m on  i.OID=m.BillOID
+WHERE m.Billcreator=? AND i.OID =m.Billoid AND w.AuditResult = 0 GROUP BY topic,EmpID,DeptID,w.creatTime,i.ProcessKey,i.formkey,i.oid) k ]]>
                     </Statement>
                 </Table>
             </TableCollection>
         </DataObject>
     </DataSource>
-    <OperationCollection>
-        <Operation Key="Setfirst_headVisible" Caption="查询" RefKey="Setfirst_headVisible"/>
-    </OperationCollection>
     <Body>
         <Block>
             <FlexFlowLayoutPanel Key="main">
-                <ToolBar Key="main_toolbar" Height="pref">
-                    <ToolBarItemCollection/>
-                </ToolBar>
                 <GridLayoutPanel Key="GridLayoutPanel1" Height="80px" Padding="5px" Caption="GridLayoutPanel1" Visible="first_headVisible==1">
                     <DatePicker Key="From" Caption="申请日期" BuddyKey="Lab_From" X="1" Y="0">
                         <Condition ColumnKey="creatTime" TableKey="OA_RejectWF" CondSign="between" Group="A" GroupHead="true"/>

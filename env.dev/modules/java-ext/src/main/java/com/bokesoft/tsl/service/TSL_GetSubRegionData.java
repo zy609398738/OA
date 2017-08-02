@@ -1,0 +1,48 @@
+package com.bokesoft.tsl.service;
+
+import java.util.Map;
+
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import com.bokesoft.tsl.common.TSL_BokeDeeFactory;
+import com.bokesoft.yigo.common.def.DataType;
+import com.bokesoft.yigo.common.util.TypeConvertor;
+import com.bokesoft.yigo.mid.base.DefaultContext;
+import com.bokesoft.yigo.mid.service.IExtService2;
+import com.bokesoft.yigo.struct.datatable.ColumnInfo;
+import com.bokesoft.yigo.struct.datatable.DataTable;
+
+public class TSL_GetSubRegionData implements IExtService2 {
+	private static String ACTION = "ERP_SUBREGIONAREA_TO_BPM";
+
+	@Override
+	public Object doCmd(DefaultContext context, Map<String, Object> args) throws Throwable {
+		String region = TypeConvertor.toString(args.get("region"));
+		TSL_BokeDeeFactory factory = new TSL_BokeDeeFactory();
+
+		JSONArray ja = new JSONArray();
+		JSONObject jo = factory.createCondition("region", "=", region);
+		ja.add(jo);
+
+		factory.addParameter("json", ja.toString());
+		String stringJson = factory.executeAction(ACTION);
+
+		DataTable dt = new DataTable();
+		dt.addColumn(new ColumnInfo("Value", DataType.STRING));
+		dt.addColumn(new ColumnInfo("Name", DataType.STRING));
+		JSONObject reJSONObject = JSONObject.parseObject(stringJson);
+		Object data = reJSONObject.get("data");
+		if (data instanceof JSONArray) {
+			JSONArray reJSONArray = (JSONArray) data;
+			for (int i = 0; i < reJSONArray.size(); ++i) {
+				JSONObject jsonObject = (JSONObject) reJSONArray.get(i);
+				String subRegion = jsonObject.get("subregion").toString();
+				dt.append();
+				dt.setObject("Value", subRegion);
+				dt.setObject("Name", subRegion);
+			}
+		}
+
+		return dt;
+	}
+}

@@ -3,7 +3,7 @@
     <Session SessionParaProcess="com.bokesoft.oa.mid.im.WebSession"/>
     <Cluster Type=""/>
     <Entry Style="Tree"/>
-    <BPMSetting QueryActiveWorkitem="true" QueryActiveStateWorkitem="false" BPMTemplatePath="com.bokesoft.oa.mid.wf.OaWfTemplate">
+    <BPMSetting QueryActiveWorkitem="true" QueryActiveStateWorkitem="false" BPMTemplatePath="com.bokesoft.oa.mid.wf.OaWfTemplate" CreateLog4BeginNode="true" RecordFormRights="true">
         <DefaultBatchStateAction>
             <![CDATA[]]>
         </DefaultBatchStateAction>
@@ -29,6 +29,7 @@
             <Column Key="DeptID" Caption="部门" DataType="Long"/>
             <Column Key="UrgencyDeg" Caption="紧急程度" DataType="Integer"/>
             <Column Key="BillNo" Caption="单据编号" DataType="Varchar"/>
+            <Column Key="BillKey" Caption="表单名称" DataType="Varchar"/>
             <Column Key="Migration" Caption="Migration" DataType="Varchar"/>
             <Column Key="BILLSOID" Caption="BILLSOID" DataType="Long"/>
         </Table>

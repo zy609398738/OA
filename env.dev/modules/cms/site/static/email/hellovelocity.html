@@ -1,0 +1,69 @@
+<html>
+<!-- 模板采用了velocity技术，具体velocity语法说明可以上网查阅有关资料。 -->
+	<head>
+		<!-- 取单据名称固定用法:$OA_Curr_Form_Caption，注意大小写，默认此名称。 -->
+		<title>$OA_Curr_Form_Caption</title>
+<style>
+.email-dtl table{
+	text-align:center;
+	width:100%;
+}
+.email-dtl th{
+	color:#999;
+	background: -moz-linear-gradient(top, #ffffff 0%, #f2f2f2 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#f2f2f2));
+    background: -webkit-linear-gradient(top, #ffffff 0%,#f2f2f2 100%);
+    background: -o-linear-gradient(top, #ffffff 0%,#f2f2f2 100%);
+    background: -ms-linear-gradient(top, #ffffff 0%,#f2f2f2 100%);
+	font-size:14px;
+	border-bottom: 2px solid #d2d2d2;
+	padding:12px;
+	text-align:center;
+	font-family: "Microsoft Yahei", "微软雅黑","宋体", Verdana, Arial, Geneva, sans-serif;	
+}
+.email-dtl td{
+	padding:10px;
+	font-size:12px;
+	color:#666;
+}
+.email-dtl td a{
+	color:#353944;
+}
+.email-dtl td a span{
+	display:block;
+}
+.email-dtl tr{
+	background-color:#fff;
+}
+
+.email-dtl tr:hover{
+	background-color:#D3ECFB;
+}
+		</style>		
+	</head>
+	<body> 
+		<!-- 头表字段取法:$+字段数据列标识，注意大小写，例：$NO。 -->
+		<div>发文编号：<span>$NO</span></div>
+		<div>主    题：<span>$Topic</span></div>
+		<div class="email-dtl">
+		<table>
+			<thead>
+			<tr>
+				<th>附件名称</th>
+				<th>上传时间</th>
+			</tr>
+			</thead>
+			<tbody>
+			<!-- 	明细表取法:$+数据表名，注意大小写，例：$OA_Attachment。首先遍历明细表，获得当前行:$+行标识，注意大小写，例：$Line -->
+			#foreach($Line in $OA_Attachment)
+			<tr>
+				<!-- 明细字段取法:$+行标识+.+$+字段数据列标识，注意大小写，例：$Line.Name。 -->
+				<td>$Line.Name</td>
+				<td>$Line.UploadTime</td>
+			</tr>	
+			#end
+			</tbody>
+		</table>
+		</div>
+	</body>
+</html>

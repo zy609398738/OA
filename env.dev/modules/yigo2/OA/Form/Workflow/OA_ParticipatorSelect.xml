@@ -87,7 +87,7 @@ from (Select OID,CODE,NAME from sys_operator
     where OID in ("&Para("ParticipatorIDs")&")) o 
 left join (select 1 SelField,OID from sys_operator 
     where OID in ("&Para("NextOpt")&")) s on o.OID=s.OID 
-order by convert(o.name using gbk) asc";
+order by o.code asc";
 
 FillGridData("Grid1", DBQuery(sql));
 ]]>

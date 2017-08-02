@@ -9,6 +9,12 @@ var testdata = json.stringify([
 	{title:"前端的发展趋势与展望",price:"￥98",publishtime:"2015-12-23"},
 ]);
 
+var sleep = function(milliSecond) {
+    var startTime = new Date().getTime();
+    while(new Date().getTime() <= milliSecond + startTime) {
+        //Yes, do nothing
+    }
+}
 
 app.start({}, function(app){
     /** The response for ajax post testing */
@@ -21,7 +27,7 @@ app.start({}, function(app){
         		data[i].title += "(第"+(parseInt(pn)+1)+"页)";
         	}
     	}
-
+		sleep(1000);	//Sleep 5 seconds
     	var result={
 			pageNo: parseInt(pn)||0,
 			pageSize: 4,

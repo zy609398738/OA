@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE urlrewrite
+    PUBLIC "-//tuckey.org//DTD UrlRewrite 4.0//EN"
+    "http://www.tuckey.org/res/dtds/urlrewrite4.0.dtd">
+
+<urlrewrite>
+    <rule match-type="wildcard">
+       <from>/login.jsp</from>
+       <to type="forward">/yigo2-theme/patches/login.jsp</to>
+    </rule>
+
+    <rule match-type="wildcard">
+       <from>/main_pure.jsp</from>
+       <to type="forward">/yigo2-theme/patches/main_pure.jsp</to>
+    </rule>
+
+    <rule match-type="wildcard">
+       <from>/home/navigation.js</from>
+       <to type="forward">/yigo2-theme/patches/home/navigation.js</to>
+    </rule>
+
+    <rule match-type="wildcard">
+       <from>/yesui/v2/yesui/ui/maintree.js</from>
+       <to type="forward">/yigo2-theme/patches/yesui/v2/yesui/ui/maintree.js</to>
+    </rule>
+</urlrewrite>

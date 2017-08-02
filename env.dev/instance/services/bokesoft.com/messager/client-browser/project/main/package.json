@@ -13,14 +13,13 @@
   },
   "devDependencies": {
     "css-loader": "^0.23.1",
-    "express": "^4.13.4",
-    "file-loader": "^0.8.5",
-    "html-loader": "^0.4.3",
-    "proxy-middleware": "^0.15.0",
+    "exports-loader": "^0.6.3",
+    "file-loader": "^0.10.0",
+    "imports-loader": "^0.6.5",
+    "less-loader": "^2.2.3",
     "style-loader": "^0.13.1",
-    "url": "^0.11.0",
     "url-loader": "^0.5.7",
-    "webpack": "^1.12.14",
-    "webpack-dev-server": "^1.14.1"
+    "webpack-dev-web-test": "../../modules/supports/webpack-dev-web-test",
+    "webpack-public-path-fix": "../../modules/supports/webpack-public-path-fix"
   }
 }

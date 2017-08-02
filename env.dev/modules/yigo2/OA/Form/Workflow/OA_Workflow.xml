@@ -27,27 +27,82 @@
                     <Column Key="WorkflowRelevance" Caption="流程关联" DataType="Varchar"/>
                     <Column Key="WorkflowKey" Caption="流程标识" DataType="Varchar" Cache="true"/>
                     <Column Key="WorkflowName" Caption="流程名称" DataType="Varchar"/>
-                    <Column Key="WorkflowVersion" Caption="流程版本" DataType="Integer"/>
-                </Table>
-                <Table Caption="流程设置" Key="OA_Workflow_D" ParentKey="OA_Workflow_H" TableMode="Detail">
-                    <Column Caption="对象标识" DataType="Long" Key="OID"/>
-                    <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
-                    <Column Caption="父对象标识" DataType="Long" Key="POID"/>
-                    <Column Caption="对象版本" DataType="Integer" Key="VERID"/>
-                    <Column Caption="对象明细版本" DataType="Integer" Key="DVERID"/>
-                    <Column Caption="序号" DataType="Integer" Key="Sequence"/>
-                    <Column Caption="审批节点" DataType="Varchar" Key="AuditNode"/>
-                    <Column Key="AuditPerDepict" Caption="审批人员描述" DataType="Varchar"/>
-                    <Column Key="AuditOptDepict" Caption="审批操作描述" DataType="Varchar"/>
-                    <Column Caption="为下一步指定参与者" DataType="Integer" Key="SetNextPer"/>
-                    <Column Caption="审批意见必填" DataType="Integer" Key="UserInfoCheck"/>
+                    <Column Key="WorkflowVersion" Caption="流程版本" DataType="Integer" Cache="true"/>
+                    <Column Key="WorkflowDesigneID" Caption="流程设计ID" DataType="Long"/>
+                    <Column Key="WorkflowRelevanceID" Caption="流程关联ID" DataType="Long"/>
+                    <Column Key="WorkflowState" Caption="WorkflowState" DataType="Integer"/>
                 </Table>
             </TableCollection>
         </DataObject>
     </DataSource>
+    <OperationCollection>
+        <Operation Key="SaveDict" Caption="保存(S)" Visible="IsNewOrEdit()">
+            <Action>
+                <![CDATA[SaveData();]]>
+            </Action>
+        </Operation>
+        <Operation Key="ModifyDict" Caption="修改(M)" Visible="!IsNewOrEdit()">
+            <Action>
+                <![CDATA[Edit();]]>
+            </Action>
+        </Operation>
+        <Operation Key="CancelDict" Caption="取消(Z)" Visible="IsNewOrEdit()">
+            <Action>
+                <![CDATA[Cancel();]]>
+            </Action>
+        </Operation>
+        <Operation Key="EnabledDict" Caption="启用" Enable="Enable&lt;&gt;1">
+            <Action>
+                <![CDATA[EnabledDict(GetDataObjectKey(),GetOID());
+Enable=1;
+LoadData()]]>
+            </Action>
+        </Operation>
+        <Operation Key="DisabledDict" Caption="停用" Enable="Enable==1">
+            <Action>
+                <![CDATA[if(DBNamedQueryValue("queryWorkflowID",GetOID())>0){
+    Confirm("该流程定义已被流程类别使用,无法停用");
+}else{
+EnabledDict(GetDataObjectKey(),GetOID(),0);
+Enable=0;
+LoadData();}				]]>
+            </Action>
+        </Operation>
+        <Operation Key="InvalidDict" Caption="作废" Enable="Enable==0">
+            <Action>
+                <![CDATA[EnabledDict(GetDataObjectKey(),GetOID(),-1);
+Enable=-1;
+LoadData()				]]>
+            </Action>
+        </Operation>
+        <Operation Key="DeleteDict" Caption="删除" Enable="Enable==-1">
+            <Action>
+                <![CDATA[Confirm('确定要删除吗？','YES_NO',{
+	YES:{
+	DeleteData();
+        InvokeService("OA_DeleteBillByOID",false,false,"OA_WorkflowDesigne_Ex",WorkflowDesigneID);
+	}
+})
+				]]>
+            </Action>
+        </Operation>
+    </OperationCollection>
+    <QueryCollection>
+        <Query Key="queryWorkflowID">
+            <Statement DBType="Oracle">
+                <![CDATA[select d.oid from oa_workflowtype_d d where d.WorkflowID=?]]>
+            </Statement>
+            <ParameterCollection>
+                <Parameter DataType="Long"/>
+            </ParameterCollection>
+        </Query>
+    </QueryCollection>
     <Body PopHeight="pref" PopWidth="pref">
         <Block>
             <FlexFlowLayoutPanel Caption="FlexFlowLayoutPanel1" Key="FlexFlowLayoutPanel1" Height="0px">
+                <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
+                    <ToolBarItemCollection/>
+                </ToolBar>
                 <TabPanel Caption="TabPanel1" Height="100%" Key="TabPanel1">
                     <GridLayoutPanel Caption="基本信息" Key="GridLayoutPanel1">
                         <TextEditor BuddyKey="Lab_Code" Caption="流程定义代码" Key="Code" X="1" Y="2">
@@ -62,7 +117,7 @@
                         <NumberEditor BuddyKey="Lab_WorkflowVersion" Caption="版本" Key="WorkflowVersion" Scale="0" X="1" Y="3" Enable="false">
                             <DataBinding ColumnKey="WorkflowVersion" TableKey="OA_Workflow_H"/>
                         </NumberEditor>
-                        <ComboBox Key="WorkflowRelevance" Caption="流程关联" BuddyKey="Lab_WorkflowRelevance" X="1" Y="0" SourceType="Formula">
+                        <ComboBox Key="WorkflowRelevance" Caption="流程关联" BuddyKey="Lab_WorkflowRelevance" X="1" Y="0" SourceType="Formula" Editable="true">
                             <DataBinding ColumnKey="WorkflowRelevance" TableKey="OA_Workflow_H">
                                 <ValueChanged>
                                     <![CDATA[WorkflowKey=OA_GetWorkflowAttribute(WorkflowRelevance,0,"Key");
@@ -70,7 +125,8 @@ WorkflowName=OA_GetWorkflowAttribute(WorkflowRelevance,0,"Caption");
 Code=WorkflowRelevance;
 WorkflowVersion=OA_GetWorkflowAttribute(WorkflowRelevance,0,"Version");
 Name=WorkflowName&"_版本("&WorkflowVersion&")";
-WorkflowState=OA_GetWorkflowAttribute(WorkflowRelevance,0,"State");  ]]>
+WorkflowState=OA_GetWorkflowAttribute(WorkflowRelevance,0,"State"); 
+WorkflowRelevanceID=OA_GetWorkflowRelevanceID();]]>
                                 </ValueChanged>
                             </DataBinding>
                             <FormulaItems>
@@ -92,12 +148,26 @@ WorkflowState=OA_GetWorkflowAttribute(WorkflowRelevance,0,"State");  ]]>
                             <DataBinding ColumnKey="WorkflowKey" TableKey="OA_Workflow_H"/>
                         </TextEditor>
                         <Label Key="Lab_WorkflowKey" Caption="流程标识" X="0" Y="1"/>
-                        <Button Caption="流程设置" Key="WorkflowSet" X="4" Y="0">
+                        <Button Caption="流程设置" Key="WorkflowSet" X="4" Y="0" Enable="true" Visible="false">
                             <OnClick>
                                 <![CDATA[OA_ShowWorkflowDesigne()]]>
                             </OnClick>
                         </Button>
+                        <NumberEditor Key="WorkflowDesigneID" Caption="流程设计ID" BuddyKey="Lab_WorkflowDesigneID" X="4" Y="4" IntegerValue="true" UseGroupingSeparator="false">
+                            <DataBinding ColumnKey="WorkflowDesigneID" TableKey="OA_Workflow_H"/>
+                        </NumberEditor>
+                        <Label Key="Lab_WorkflowDesigneID" Caption="流程设计ID" X="3" Y="4"/>
+                        <NumberEditor Key="WorkflowRelevanceID" Caption="流程关联ID" BuddyKey="Lab_WorkflowRelevanceID" X="1" Y="4" Visible="true" IntegerValue="true" UseGroupingSeparator="false">
+                            <DataBinding ColumnKey="WorkflowRelevanceID" TableKey="OA_Workflow_H"/>
+                        </NumberEditor>
+                        <Label Key="Lab_WorkflowRelevanceID" Caption="流程关联ID" X="0" Y="4"/>
+                        <ComboBox Key="Enable" Caption="启用标记" BuddyKey="Lab_Enable" X="1" Y="5" SourceType="ParaGroup" GroupKey="Enable">
+                            <DataBinding ColumnKey="Enable" TableKey="OA_Workflow_H"/>
+                        </ComboBox>
+                        <Label Key="Lab_Enable" Caption="启用标记" X="0" Y="5"/>
                         <RowDefCollection RowGap="4">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
                             <RowDef Height="30px"/>
                             <RowDef Height="30px"/>
                             <RowDef Height="30px"/>
@@ -165,14 +235,19 @@ WorkflowState=OA_GetWorkflowAttribute(WorkflowRelevance,0,"State");  ]]>
     </Body>
     <MacroCollection>
         <Macro Key="OA_ShowWorkflowDesigne">
-            <![CDATA[SetPara("WorkflowDesigneID", OA_GetWorkflowDesigneID());
-IIF(GetPara("WorkflowDesigneID")>0,
-    parent.Open("OA_WorkflowDesigne_Ex", GetPara("WorkflowDesigneID"), "newtab","WorkflowKey:{Container.GetValue('WorkflowKey')},WorkflowVersion:{Container.GetValue('WorkflowVersion')},Tag1:{Container.GetValue('BillKey')},Tag2:{Container.GetOID()}"),
-    parent.New("OA_WorkflowDesigne_Ex","newtab","WorkflowKey:{Container.GetValue('WorkflowKey')},WorkflowVersion:{Container.GetValue('WorkflowVersion')},Tag1:{Container.GetValue('BillKey')},Tag2:{Container.GetOID()}")
-);]]>
+            <![CDATA[var workflowDesigneID=ToLong(OA_GetWorkflowDesigneID());
+if(workflowDesigneID>0){
+    Open("OA_WorkflowDesigne", workflowDesigneID, "newtab","WorkflowKey:{GetValue('WorkflowKey')},WorkflowVersion:{GetValue('WorkflowVersion')},Tag1:{GetFormKey()},Tag2:{GetOID()},FieldKey1:{'WorkflowDesigneID'},QueryFormKey:{'OA_WorkflowSet'}");
+}else{
+    New("OA_WorkflowDesigne","newtab","WorkflowKey:{GetValue('WorkflowKey')},WorkflowVersion:{GetValue('WorkflowVersion')},Tag1:{GetFormKey()},Tag2:{GetOID()},FieldKey1:{'WorkflowDesigneID'},QueryFormKey:{'OA_WorkflowSet'}");
+}]]>
         </Macro>
         <Macro Key="OA_GetWorkflowDesigneID">
-            <![CDATA[DBQueryValue("Select OID From OA_WorkflowDesigne_H Where WorkflowKey=? and WorkflowVersion=? And Tag1=? And Tag2=?", WorkflowKey,WorkflowVersion,BillKey,OID);]]>
+            <![CDATA[DBQueryValue("Select OID From OA_WorkflowDesigne_H Where WorkflowKey=? and WorkflowVersion=? And Tag1=? And Tag2=?", GetValue("WorkflowKey"),GetValue("WorkflowVersion"),GetFormKey(),GetOID());]]>
+        </Macro>
+        <Macro Key="OA_GetWorkflowRelevanceID">
+            <![CDATA[DBQueryValue("Select OID From OA_WorkflowDesigne_H Where WorkflowKey=? and WorkflowVersion=? And Tag1=?",WorkflowKey,WorkflowVersion,"OA_WorkflowSet");
+    ]]>
         </Macro>
     </MacroCollection>
 </Form>

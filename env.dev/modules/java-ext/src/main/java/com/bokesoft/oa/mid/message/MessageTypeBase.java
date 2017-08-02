@@ -3,6 +3,7 @@ package com.bokesoft.oa.mid.message;
 import java.util.Date;
 import java.util.List;
 
+import com.bokesoft.oa.base.OAContext;
 import com.bokesoft.oa.mid.GetValueStrBySql;
 import com.bokesoft.yigo.meta.dataobject.MetaDataObject;
 import com.bokesoft.yigo.mid.base.DefaultContext;
@@ -17,9 +18,10 @@ import com.bokesoft.yigo.tools.document.DocumentFactory;
  *
  */
 public abstract class MessageTypeBase {
-	public abstract Object sendMessage(DefaultContext context, Message message) throws Throwable;
+	public abstract Object sendMessage(OAContext oaContext, Message message) throws Throwable;
 
-	public Boolean saveSendMessage(DefaultContext context, Message message) throws Throwable {
+	public Boolean saveSendMessage(OAContext oaContext, Message message) throws Throwable {
+		DefaultContext context=oaContext.getContext();
 		DefaultContext newContext = new DefaultContext(context);
 		DocumentFactory df = new DocumentFactory();
 		MetaDataObject metaDataObject = context.getVE().getMetaFactory().getDataObject("OA_SendMessages");
@@ -32,7 +34,7 @@ public abstract class MessageTypeBase {
 		DataTable receiveMainDt = d.get("OA_SendMessages_H");
 		receiveMainDt.setLong("SendEmpID", message.getSendOptID());
 		receiveMainDt.setDateTime("SendTime", message.getSendDate());
-		receiveMainDt.setLong("MessageSet", message.getMessageSet().getOid());
+		receiveMainDt.setLong("MessageSet", message.getMessageSet().getOID());
 		receiveMainDt.setInt("Status", 100);
 		receiveMainDt.setString("Topic", message.getTopic());
 		receiveMainDt.setString("Content", message.getContent());
@@ -61,7 +63,7 @@ public abstract class MessageTypeBase {
 			DataTable receiveMainDt = d.get("OA_ReceiveMessages_H");
 			receiveMainDt.setLong("SendEmpID", message.getSendOptID());
 			receiveMainDt.setDateTime("SendTime", message.getSendDate());
-			receiveMainDt.setLong("MessageSet", message.getMessageSet().getOid());
+			receiveMainDt.setLong("MessageSet", message.getMessageSet().getOID());
 			receiveMainDt.setString("MessageType", message.getMessageSetDtl().getMessageType().getName());
 			receiveMainDt.setDateTime("ReceiveTime", new Date());
 			receiveMainDt.setInt("Status", 100);
@@ -73,9 +75,7 @@ public abstract class MessageTypeBase {
 			receiveMainDt.setLong("ReceiveEmpID", receiveID);
 			receiveMainDt.setString("BillKey", "OA_ReceiveMessages");
 			receiveMainDt.setLong("ClusterID", (long) -1);
-
 			SaveData saveData = new SaveData(metaDataObject, null, d);
-
 			DefaultContext newContext = new DefaultContext(context);
 			d = saveData.save(newContext);
 		}

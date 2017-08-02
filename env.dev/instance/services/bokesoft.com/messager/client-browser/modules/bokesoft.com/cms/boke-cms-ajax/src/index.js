@@ -13,6 +13,8 @@ var postedUrls = [];
 var loadingSelector_default = ".boke-cms-ajax-loading";
 //默认的错误显示效果
 var errorStyle_default = "alert";
+//默认返回数据类型
+var dataType_default = "json";
 /**
  * 提交 json 数据到服务器并在请求成功返回后执行回调；
  * 如果使用 option.loadingSelector 指定了 loading 指示器，在执行时 AJAX 调用时会显示相应的元素.
@@ -23,18 +25,19 @@ var errorStyle_default = "alert";
  * @param options 其它选项
  *   - loadingSelector: loading 指示器(支持各类 jQuery 选择器), 默认为 'class="boke-cms-ajax-loading"'
  *   - errorStyle: 错误显示风格 - alert: 使用 alert 方法弹出错误; notify: 简单的 notification 效果; none: 不显示错误。
+ *   - dataType : json/text
  */
-var _jsonAjax = function(url, method, dataObj, successCallback, options){
+var _Ajax = function(url, method, dataObj, successCallback, options){
     if (postedUrls.indexOf(url) > -1) {
     	console.warn("url '"+url+"' duplication found: skip current request.");
         return;
     } else {
         postedUrls.push(url);
-    }
-
-    if (! options) options = {};
+    }	
+	var options = options || {};
     var loadingSelector = ( options.loadingSelector || loadingSelector_default );
-    var errorStyle = ( options.errorStyle || errorStyle_default )
+    var errorStyle = ( options.errorStyle || errorStyle_default );
+	var dataType = ( options.dataType || dataType_default );
 
     //准备显示效果
     var _alert = function(msg){
@@ -62,10 +65,10 @@ var _jsonAjax = function(url, method, dataObj, successCallback, options){
         type: method,
         url: url,
         data: dataObj,
-        dataType: "json",
-        success: function(json){
+        dataType: dataType,
+        success: function(data){
             postedUrls.pop(url);
-            successCallback(json);
+            successCallback(data);
             if($loadingSelector.length) $loadingSelector.hide();
         },
         error: function(xhr/*XMLHttpRequest对象*/, err/*错误信息*/, errStatus/*（可选）捕获的异常对象*/){
@@ -125,10 +128,10 @@ var _jsonAjax = function(url, method, dataObj, successCallback, options){
 };
 
 var _post = function(url, dataObj, successCallback, options){
-	_jsonAjax(url, "POST", dataObj, successCallback, options);
+	_Ajax(url, "POST", dataObj, successCallback, options);
 }
 var _get = function(url, dataObj, successCallback, options){
-	_jsonAjax(url, "GET", dataObj, successCallback, options);
+	_Ajax(url, "GET", dataObj, successCallback, options);
 }
 
 /** Define the export point for module */

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <Entry Caption="根" Key="root">
-    <Entry Caption="协同办公" Key="OA">
+    <Entry Caption="协同办公" Key="OA" Visible="true">
         <EntryItem Caption="办公门户" FormKey="OA_Index" Key="OA_Index" Parameters="URL=index.page" Type="Form"/>
+        <EntryItem Caption="新建流程" FormKey="OA_ShowWeb" Key="OA_CearteWorkflow" Parameters="URL=tslworkflow.page;FormCaption=新建流程" Type="Form"/>
         <Entry Caption="个人事务" Key="OA_PersonalUse">
             <Entry Caption="邮箱" Key="EmailManagement">
                 <EntryItem Caption="写邮件" FormKey="OA_EmailWrite" Key="OA_EmailWrite" Type="Form"/>
@@ -23,19 +24,31 @@
             <Entry Caption="流程" Key="Workflow">
                 <EntryItem Caption="待办流程" FormKey="OA_ToDoList" Key="OA_ToDoList" Type="Form"/>
                 <EntryItem Caption="驳回流程" FormKey="OA_RejectWF" Key="OA_RejectWF" Type="Form"/>
-                <EntryItem Caption="全部流程" FormKey="OA_MyList" Key="WFQuery" Type="Form"/>
+                <EntryItem Caption="已办流程" FormKey="OA_DoneWorkflow" Key="OA_DoneWorkflow" Type="Form"/>
+                <EntryItem Caption="结束流程" FormKey="OA_EndList" Key="OA_EndList" Type="Form"/>
+                <EntryItem Caption="流程查询" FormKey="OA_QueryWorkflow" Key="OA_QueryWorkflow" Type="Form"/>
+                <EntryItem Caption="关注流程" FormKey="OA_FocusWorkflow" Key="OA_FocusWorkflow" Type="Form"/>
+                <EntryItem Caption="监控流程" FormKey="OA_MonitoringWF" Key="OA_MonitoringWF" Type="Form"/>
+                <EntryItem Caption="反馈列表" FormKey="OA_FeedbackList" Key="OA_FeedbackList" Type="Form"/>
                 <EntryItem Caption="阅读日志" FormKey="OA_ReadLogView" Key="OA_ReadLogView" Type="Form"/>
                 <EntryItem Caption="传阅列表" FormKey="OA_ForRead" Key="OA_ForRead" Type="Form"/>
-                <EntryItem Caption="结束流程" FormKey="OA_EndList" Key="OA_EndList" Type="Form"/>
+                <EntryItem Caption="绩效报表" FormKey="OA_PerfReport" Key="OA_PerfReport" Type="Form"/>
+                <EntryItem Caption="代理出去的表单" FormKey="OA_AgencyList" Key="OA_AgencyList" Type="Form"/>
             </Entry>
             <Entry Caption="事项" Key="PaseUse">
-                <EntryItem Caption="待办事项" FormKey="OA_ToDoList" Key="OA_ToDoList" Type="Form"/>
+                <EntryItem Caption="待办事项" FormKey="OA_ToDoWorkflow" Key="OA_ToDoWorkflow" Type="Form"/>
                 <EntryItem Caption="已办事项" FormKey="OA_MyList" Key="OA_MyList" Type="Form"/>
                 <EntryItem Caption="已发事项" FormKey="OA_SendList" Key="OA_SendList" Type="Form"/>
                 <EntryItem Caption="待阅事项" FormKey="OA_ToReadList" Key="OA_ToReadList" Type="Form"/>
             </Entry>
             <Entry Caption="任务" Key="TaskDistribution">
                 <EntryItem Caption="任务派发" FormKey="OA_TaskdistributionView" Key="OA_TaskdistributionView" Type="Form"/>
+                <EntryItem Caption="待办任务" FormKey="OA_TodoTask" Key="OA_TodoTask" Type="Form"/>
+                <EntryItem Caption="共享任务" FormKey="OA_ShareTask" Key="OA_ShareTask" Type="Form"/>
+                <EntryItem Caption="安排任务" FormKey="OA_ArrangeTask" Key="OA_ArrangeTask" Type="Form"/>
+                <EntryItem Caption="工作统计" FormKey="OA_WorkStatistics" Key="OA_WorkStatistics" Type="Form"/>
+                <EntryItem Caption="反馈消息列表" FormKey="OA_FeedbackList" Key="OA_FeedbackList" Type="Form"/>
+                <EntryItem Caption="任务状态" FormKey="OA_ShowWeb" Key="TaskStatus" Parameters="URL=TaskStatus.page" Type="Form"/>
             </Entry>
             <Entry Caption="会议" Key="MeetingManagement">
                 <EntryItem Caption="我参与的会议" FormKey="OA_ParticipantMList" Key="OA_ParticipantMList" Type="Form"/>
@@ -82,27 +95,33 @@
             <EntryItem Caption="通讯录" FormKey="OA_AddressBook" Key="OA_AddressBook" Type="Form"/>
         </Entry>
         <Entry Caption="电子审批" Key="OA_Approval">
-            <EntryItem Caption="创建新流程" FormKey="OA_CearteWorkflow" Key="OA_CearteWorkflow" Type="Form"/>
             <Entry Caption="流程管理" Key="OA_BPM">
                 <EntryItem Caption="流程设置" FormKey="OA_WorkflowSet" Key="OA_WorkflowSet" Type="Form"/>
-                <EntryItem Caption="流程定义" FormKey="DictEdit" Key="OA_Workflow" Parameters="FormKey=OA_Workflow" Type="Form"/>
+                <EntryItem Caption="流程定义" FormKey="OA_WorkflowView" Key="OA_WorkflowView" Type="Form"/>
                 <EntryItem Caption="流程类别" FormKey="DictEdit" Key="OA_WorkflowType" Parameters="FormKey=OA_WorkflowType" Type="Form"/>
+                <EntryItem Caption="流程域" FormKey="DictEdit" Key="OA_WorkflowArea" Parameters="FormKey=OA_WorkflowArea" Type="Form"/>
+                <EntryItem Caption="常用流程" FormKey="OA_CommonWorkflow" Key="OA_CommonWorkflow" Type="Form"/>
             </Entry>
             <Entry Caption="审批权限" Key="OA_OfficeRights">
-                <EntryItem Caption="人员选择群组" FormKey="DictEdit" Key="OA_OptPublic" Parameters="FormKey=OA_OptPublic" Type="Form"/>
-                <EntryItem Caption="人员选择规则" FormKey="DictEdit" Key="OA_OptRule" Parameters="FormKey=OA_OptRule" Type="Form"/>
+                <EntryItem Caption="人员群组" FormKey="DictEdit" Key="OA_OptPublic" Parameters="FormKey=OA_OptPublic" Type="Form"/>
+                <EntryItem Caption="人员自定义" FormKey="DictEdit" Key="OA_OptRule" Parameters="FormKey=OA_OptRule" Type="Form"/>
+                <EntryItem Caption="业务来源" FormKey="DictEdit" Key="OA_BusinessSource" Parameters="FormKey=OA_BusinessSource" Type="Form"/>
+                <EntryItem Caption="用户来源" FormKey="DictEdit" Key="OA_EmployeeSource" Parameters="FormKey=OA_EmployeeSource" Type="Form"/>
+                <EntryItem Caption="选择规则" FormKey="DictEdit" Key="OA_SelRule" Parameters="FormKey=OA_SelRule" Type="Form"/>
             </Entry>
             <Entry Caption="审批设置" Key="OA_AuditSet">
+                <EntryItem Caption="邮件设置" FormKey="OA_EmailSetView" Key="OA_EmailSetView" Type="Form"/>
+		<EntryItem Caption="发送方式" FormKey="DictEdit" Key="OA_MessageSet" Parameters="FormKey=OA_MessageSet" Type="Form"/>
                 <EntryItem Caption="审批操作" FormKey="DictEdit" Key="OA_OptModule" Parameters="FormKey=OA_OptModule" Type="Form"/>
                 <EntryItem Caption="常用意见" FormKey="OA_CommonViews" Key="OA_CommonViews" Type="Form"/>
-                <EntryItem Caption="代理设置" FormKey="Delegate" Key="Delegate" Type="Form"/>
+                <EntryItem Caption="我的代理授权" FormKey="OA_Delegate" Key="OA_Delegate" Type="Form"/>
             </Entry>
         </Entry>
         <Entry Caption="办公设置" Key="OA_OfficeManagement">
-            <EntryItem Caption="发文类型" FormKey="DictEdit" Key="OA_FileType" Parameters="FormKey=OA_FileType" Type="Form"/>
+            <EntryItem Caption="公文类型" FormKey="DictEdit" Key="OA_FileType" Parameters="FormKey=OA_FileType" Type="Form"/>
             <EntryItem Caption="发文字号" FormKey="DictEdit" Key="OA_WordSize" Parameters="FormKey=OA_WordSize" Type="Form"/>
             <EntryItem Caption="日程类别" FormKey="DictEdit" Key="OA_ScheduleType" Parameters="FormKey=OA_ScheduleType" Type="Form"/>
-            <EntryItem Caption="文档类别" FormKey="DictEdit" Key="OA_DocType" Parameters="FormKey=OA_DocType" Type="Form"/>
+            <EntryItem Caption="文档类别" FormKey="OA_OptDictEdit" Key="OA_DocType" Parameters="FormKey=OA_DocType" Type="Form"/>
             <EntryItem Caption="新闻类别" FormKey="DictEdit" Key="OA_NewsType" Parameters="FormKey=OA_NewsType" Type="Form"/>
             <EntryItem Caption="常用链接" FormKey="OA_CommonLinkView" Key="OA_CommonLinkView" Type="Form"/>
             <EntryItem Caption="印章名称" FormKey="DictEdit" Key="OA_Seal" Parameters="FormKey=OA_Seal" Type="Form"/>
@@ -111,7 +130,10 @@
             <EntryItem Caption="问题类型" FormKey="DictEdit" Key="OA_ProblemType" Parameters="FormKey=OA_ProblemType" Type="Form"/>
             <EntryItem Caption="工作周期" FormKey="DictEdit" Key="OA_Week" Parameters="FormKey=OA_Week" Type="Form"/>
             <EntryItem Caption="工作分类" FormKey="DictEdit" Key="OA_WorkType" Parameters="FormKey=OA_WorkType" Type="Form"/>
-            <EntryItem Caption="消息设置" FormKey="DictEdit" Key="OA_MessageSet" Parameters="FormKey=OA_MessageSet" Type="Form"/>
+            <EntryItem Caption="发送方式" FormKey="DictEdit" Key="OA_MessageSet" Parameters="FormKey=OA_MessageSet" Type="Form"/>
+            <EntryItem Caption="事项提醒" FormKey="OA_OptDictEdit" Key="OA_ItemSet" Parameters="FormKey=OA_InherentRemind" Type="Form"/>
+            <EntryItem Caption="工作日历" FormKey="DictEdit" Key="OA_WorkingCalendar" Parameters="FormKey=OA_WorkingCalendar" Type="Form"/>
+            <EntryItem Caption="工时区间" FormKey="DictEdit" Key="OA_WorkingTime" Parameters="FormKey=OA_WorkingTime" Type="Form"/>
         </Entry>
         <Entry Caption="办公报表" Key="OA_Report">
             <Entry Caption="公文报表" Key="OA_OfficialReport">
@@ -168,6 +190,15 @@
             <EntryItem Caption="加班登记单" FormKey="OA_OvertimeRegistrationView" Key="OA_OvertimeRegistrationView" Type="Form"/>
             <EntryItem Caption="请假登记单" FormKey="OA_VacationView" Key="OA_VacationView" Type="Form"/>
             <EntryItem Caption="业务招待" FormKey="OA_BusEntertainView" Key="OA_BusEntertainView" Type="Form"/>
+        </Entry>
+        <Entry Caption="拓展业务" Key="ExtendBus" Visible="false">
+            <EntryItem Caption="收文" FormKey="OA_ForeignLan" Key="OA_ForeignLan" Type="Form"/>
+            <EntryItem Caption="发文" FormKey="OA_SpoFile" Key="OA_SpoFile" Type="Form"/>
+            <EntryItem Caption="新闻发布" FormKey="OA_NewsDraft" Key="OA_NewsDraft" Type="Form"/>
+            <EntryItem Caption="任务派发" FormKey="OA_Taskdistribution" Key="OA_Taskdistribution" Type="Form"/>
+            <EntryItem Caption="文档管理" FormKey="OA_Doc" Key="OA_Doc" Type="Form"/>
+            <EntryItem Caption="外部会议表单" FormKey="OA_MeetingOutSide" Key="OA_MeetingOutSide" Type="Form"/>
+            <EntryItem Caption="内部会议表单" FormKey="OA_MeetingInSide" Key="OA_MeetingInSide" Type="Form"/>
         </Entry>
     </Entry>
 </Entry>

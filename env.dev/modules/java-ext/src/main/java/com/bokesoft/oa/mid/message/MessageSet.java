@@ -1,8 +1,7 @@
 package com.bokesoft.oa.mid.message;
 
 import com.bokesoft.oa.base.DicBase;
-import com.bokesoft.yigo.mid.base.DefaultContext;
-import com.bokesoft.yigo.mid.connection.IDBManager;
+import com.bokesoft.oa.base.OAContext;
 import com.bokesoft.yigo.struct.datatable.DataTable;
 
 /**
@@ -39,14 +38,24 @@ public class MessageSet extends DicBase {
 	/**
 	 * 消息设置设置明细集合
 	 */
-	private MessageSetDtlMap messageSetDtlMap = new MessageSetDtlMap(getContext());
+	private MessageSetDtlMap messageSetDtlMap;
 
 	/**
 	 * 消息设置设置明细集合
 	 * 
 	 * @return 消息设置设置明细集合
+	 * @throws Throwable
 	 */
-	public MessageSetDtlMap getMessageSetDtlMap() {
+	public MessageSetDtlMap getMessageSetDtlMap() throws Throwable {
+		if (messageSetDtlMap == null) {
+			messageSetDtlMap = new MessageSetDtlMap(getContext(), this);
+			Long oid = getOID();
+			if (oid > 0) {
+				String dtlSql = "select * from OA_MessageSet_D where OID>0 and SOID=? order by Sequence";
+				DataTable dtlDt = getContext().getContext().getDBManager().execPrepareQuery(dtlSql, oid);
+				messageSetDtlMap.loadData(dtlDt);
+			}
+		}
 		return messageSetDtlMap;
 	}
 
@@ -64,9 +73,9 @@ public class MessageSet extends DicBase {
 	 * 构造消息设置对象
 	 * 
 	 * @param context
-	 *            中间层对象
+	 *            上下文对象
 	 */
-	public MessageSet(DefaultContext context) {
+	public MessageSet(OAContext context) {
 		super(context);
 	}
 
@@ -77,24 +86,8 @@ public class MessageSet extends DicBase {
 	 *            头表数据集
 	 * @throws Throwable
 	 */
-	public void loadData(Long oid) throws Throwable {
-		IDBManager dbm = getContext().getDBManager();
-		String headSql = "select * from OA_MessageSet_H where OID=?";
-		DataTable headDt = dbm.execPrepareQuery(headSql, oid);
-		String dtlSql = "select * from OA_MessageSet_D where SOID=?";
-		DataTable dtlDt = dbm.execPrepareQuery(dtlSql, oid);
-		loadData(headDt, dtlDt);
-	}
-
-	/**
-	 * 载入数据
-	 * 
-	 * @param dt
-	 *            头表数据集
-	 * @throws Throwable
-	 */
 	public void loadData(DataTable dt) throws Throwable {
-		setOid(dt.getLong("OID"));
+		setOID(dt.getLong("OID"));
 		setCode(dt.getString("Code"));
 		setName(dt.getString("Name"));
 		setIsDefault(dt.getInt("IsDefault"));

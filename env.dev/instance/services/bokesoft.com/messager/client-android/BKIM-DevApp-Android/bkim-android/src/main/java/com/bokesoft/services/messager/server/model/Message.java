@@ -1,8 +1,6 @@
 package com.bokesoft.services.messager.server.model;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import com.bokesoft.services.messager.server.model.base.AttachmentBase;
@@ -29,6 +27,11 @@ public class Message {
 	/** 消息的接收方 */
 	private String receiver;
 	
+	/** 消息的发送方名称(快照) */
+	private String senderName;
+	/** 消息的接收方名称(快照) */
+	private String receiverName;
+	
 	/** 消息数据 */
 	private Object data;
 
@@ -38,10 +41,13 @@ public class Message {
 	/** 读取时间, 小于等于 0 代表未读 */
 	private long readTimestamp = -1L;
 	
+	/** 是否为黑名单消息 */
+	private boolean blocked = false;
+	
 	/** 消息存储的 ID, 主要是供存储层对已存在消息进行修改, 默认为空, 一般情况下由存储层负责处理 */
 	private String storeId;
 
-	protected Message(){
+	public Message(){
 		//Empty constructor just for JSON parsing
 	}
 
@@ -103,6 +109,14 @@ public class Message {
 		this.readTimestamp = readTimestamp;
 	}
 
+	public boolean isBlocked() {
+		return blocked;
+	}
+
+	public void setBlocked(boolean blocked) {
+		this.blocked = blocked;
+	}
+
 	public String getStoreId() {
 		return storeId;
 	}
@@ -110,34 +124,33 @@ public class Message {
 		this.storeId = storeId;
 	}
 
-	/**
-	 * 静态方法, 对消息列表按照时间进行倒序处理
-	 * @param messages
-	 */
-	public static void sortDesc(List<Message> messages){
-		Collections.sort(messages, new Comparator<Message>(){
-			@Override
-			public int compare(Message o1, Message o2) {
-				Long t1 = o1.getTimestamp();
-				Long t2 = o2.getTimestamp();
-				return t1.compareTo(t2);
-			}
-		});
+	public String getSenderName() {
+		return senderName;
+	}
+	public void setSenderName(String senderName) {
+		this.senderName = senderName;
 	}
 
-	protected void setAttachments(List<AttachmentBase> attachments) {
+	public String getReceiverName() {
+		return receiverName;
+	}
+	public void setReceiverName(String receiverName) {
+		this.receiverName = receiverName;
+	}
+
+	public void setAttachments(List<AttachmentBase> attachments) {
 		this.attachments = attachments;
 	}
-	protected void setReceiver(String receiver) {
+	public void setReceiver(String receiver) {
 		this.receiver = receiver;
 	}
-	protected void setSender(String sender) {
+	public void setSender(String sender) {
 		this.sender = sender;
 	}
-	protected void setTimestamp(long timestamp) {
+	public void setTimestamp(long timestamp) {
 		this.timestamp = timestamp;
 	}
-	protected void setType(String type) {
+	public void setType(String type) {
 		this.type = type;
 	}
 }

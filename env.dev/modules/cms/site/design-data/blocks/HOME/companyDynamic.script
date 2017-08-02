@@ -1,0 +1,7 @@
+cms.PageExp.Local('href', cms.PageExp.RelContextRoot()&{/news/newsview.page?id=});
+cms.PageExp.Local(
+    "picdata",
+    oa.TodoMidExp.queryListByTop("
+		select  oan.topic,oan.oid as id,oap.name as filename,oap.path from oa_newsdraft_h oan RIGHT JOIN oa_newsdraft_pho oap on oan.OID=oap.SOID where oan.status=1200 order by billdate desc ",4
+    )
+)

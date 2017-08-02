@@ -21,7 +21,7 @@ public class CheckEmptyMutilSel implements IExtService {
 	 * 检查多选字典是否为空
 	 * 
 	 * @param context
-	 *            中间层对象
+	 *            上下文对象
 	 * @param dicIds
 	 *            多选字典对象
 	 * @return 多选字典内容内容为空返回true,否则返回false

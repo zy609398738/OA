@@ -1,0 +1,8 @@
+cms.PageExp.Local("operatorID", cms.Yigo2MidExp.GetLoginOperator());
+cms.PageExp.Local(
+    "parentdata",cms.DataExp.QueryList("select t.oid,t.Name from OA_WorkflowType_H t where exists(select b.soid from OA_MyWorkflow a join OA_WorkflowType_D b on a.SrcDtlOID=b.oid where a.operator = ${operatorID} and t.oid=b.soid) order by t.OrderNum")
+);
+
+cms.PageExp.Local(
+    "data",oa.TodoMidExp.getWorkflowEntry("select b.oid,b.soid,b.BillKey,b.billname from OA_MyWorkflow a join OA_WorkflowType_D b on a.SrcDtlOID=b.oid where a.operator ="+cms.PageExp.Local("operatorID")+" order by b.soid,b.OrderNum,b.Sequence","OABusiness/OA/ExtendBus")
+);

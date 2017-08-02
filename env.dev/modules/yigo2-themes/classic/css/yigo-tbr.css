@@ -1,0 +1,158 @@
+/**
+ * 覆盖主要定义在 /yesui/v2/yesui/ui/res/css/blue/core.css 中的 toolbar 样式
+ */
+
+.tbr-ul .tbr-item {
+    margin: 1px 2px 10px 2px;
+    border: 1px solid #d2d2d2;
+    background: #f3f3f3;
+    border-radius: 3px;
+}
+.ui-tbr{
+    background: #fff;
+    border:none;
+}
+.ui-tbr .tbr-ul{
+    margin: 0px 2px;
+    padding: 10px 0;
+    background: #fff;
+    overflow: hidden!important;
+    height: 55px;
+}
+
+.tbr-ul a .txt {
+    font-size: 16px;
+    height: 32px;
+    line-height: 32px;
+    /*
+    height: 24px;
+    line-height: 24px;
+    padding: 0 10px;
+    cursor: pointer;
+    color: #323232;
+    */
+}
+
+.tbr-ul .icon {
+    top: 0px;
+    left: 0px;
+    height: 24px;
+    width: 24px;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: 3px;
+    /*
+    position: absolute;
+    top: 3px;
+    left: 5px;
+    height: 16px;
+    width: 16px;
+    */
+}
+
+.tbr-ul .tbr-btn {
+    display: inline-block;
+    height: 31px;
+    padding-left: 20px;
+    /*
+    vertical-align: middle;
+    position: relative;
+    */
+}
+.tbr-ul li:hover{
+    background-color:#e9f3fd; 
+    border:1px solid #47a1f8;
+}
+.tbr-ul li:hover .txt{
+    color:#2d6ab4;
+}
+
+/* 操作图标 */
+.tbr-ul li .tbr-btn{
+    background: url(../images/icon/edit.png);
+    background-position: 9px center;
+    background-repeat: no-repeat;
+}
+.tbr-ul li .tbr-btn:hover{
+    background: url(../images/icon/edit_pre.png);
+    background-position: 9px center;
+    background-repeat: no-repeat;
+}
+.tbr-ul li[key='Edit'] .tbr-btn{
+    background: url(../images/icon/edit.png);
+    background-position: 9px center;
+    background-repeat: no-repeat;
+}
+.tbr-ul li[key='Edit'] .tbr-btn:hover{
+    background-image: url(../images/icon/edit_pre.png);
+}
+.tbr-ul li[key='save'] .tbr-btn,
+.tbr-ul li[key='Save1'] .tbr-btn{
+    background: url(../images/icon/save.png);
+    background-position: 9px center;
+    background-repeat: no-repeat;
+}
+.tbr-ul li[key='save'] .tbr-btn:hover,
+.tbr-ul li[key='Save1'] .tbr-btn:hover{
+    background-image: url(../images/icon/save_pre.png);
+}
+.tbr-ul li[key='Cancel'] .tbr-btn,
+.tbr-ul li[key='OPTReject'] .tbr-btn,
+.tbr-ul li[key='OPTRejectT'] .tbr-btn,
+.tbr-ul li[key='OPTRollBackToWorkitem'] .tbr-btn
+{
+    background: url(../images/icon/return.png);
+    background-position: 9px center;
+    background-repeat: no-repeat;
+}
+.tbr-ul li[key='Cancel'] .tbr-btn:hover,
+.tbr-ul li[key='OPTReject'] .tbr-btn:hover,
+.tbr-ul li[key='OPTRejectT'] .tbr-btn:hover
+.tbr-ul li[key='OPTRollBackToWorkitem'] .tbr-btn:hover
+{
+    background-image: url(../images/icon/return_pre.png);
+}
+.tbr-ul li[key='WFLog'] .tbr-btn{
+    background: url(../images/icon/new.png);
+    background-position: 9px center;
+    background-repeat: no-repeat;
+}
+.tbr-ul li[key='WFLog'] .tbr-btn:hover{
+    background-image: url(../images/icon/new_pre.png);
+}
+.tbr-ul li[key='OPTAudit'] .tbr-btn{
+    background: url(../images/icon/new.png);
+    background-position: 9px center;
+    background-repeat: no-repeat;
+}
+.tbr-ul li[key='OPTAudit'] .tbr-btn:hover{
+    background-image: url(../images/icon/new_pre.png);
+}
+.tbr-ul li[key='Setfirst_headVisible'] .tbr-btn,
+.tbr-ul li[key='NewDict'] .tbr-btn
+
+{
+    background: url(../images/icon/increase.png);
+    background-position: 9px center;
+    background-repeat: no-repeat;
+}
+.tbr-ul li[key='Setfirst_headVisible'] .tbr-btn:hover,
+.tbr-ul li[key='NewDict'] .tbr-btn:hover{
+    background-image: url(../images/icon/increase_pre.png);
+}
+
+.tbr-ul li[key='DeleteDict'] .tbr-btn{
+    background: url(../images/icon/del.png);
+    background-position: 9px center;
+    background-repeat: no-repeat;
+}
+.tbr-ul li[key='DeleteDict'] .tbr-btn:hover{
+    background-image: url(../images/icon/del_pre.png);
+}
+
+.tbr-ul .tbr-btn.pri-icon {
+    padding-left: 18px;
+    /*
+    padding-left: 15px;
+    */
+}

@@ -23,7 +23,7 @@ public class ElectronicSeal implements IExtService {
 	 * 根据列名获得查询内容的下拉字符串
 	 * 
 	 * @param context
-	 *            中间层对象
+	 *            上下文对象
 	 * @param path
 	 *            附件路径
 	 * @param name

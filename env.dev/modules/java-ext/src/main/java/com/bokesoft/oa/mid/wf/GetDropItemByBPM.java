@@ -5,14 +5,11 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map.Entry;
 
-import com.bokesoft.yes.common.util.StringUtil;
 import com.bokesoft.yigo.common.util.TypeConvertor;
 import com.bokesoft.yigo.meta.bpm.process.ProcessDefinitionProfile;
 import com.bokesoft.yigo.meta.bpm.total.MetaBPM;
 import com.bokesoft.yigo.meta.bpm.total.MetaProcessDeployInfo;
 import com.bokesoft.yigo.meta.bpm.total.MetaProcessDeployInfoCollection;
-import com.bokesoft.yigo.meta.bpm.total.MetaProcessMap;
-import com.bokesoft.yigo.meta.bpm.total.MetaProcessMapCollection;
 import com.bokesoft.yigo.mid.base.DefaultContext;
 import com.bokesoft.yigo.mid.service.IExtService;
 
@@ -40,7 +37,7 @@ public class GetDropItemByBPM implements IExtService {
 	 * 获得流程的下拉字符串，由"流程名称,流程Key"组成
 	 * 
 	 * @param context
-	 *            中间层对象
+	 *            上下文对象
 	 * @param type
 	 *            "Process"表示已关联流程,"Deploy"表示已部署流程，默认表示全部
 	 * @param suffixVersion
@@ -52,7 +49,7 @@ public class GetDropItemByBPM implements IExtService {
 		String dropItem = "";
 		if (type.equalsIgnoreCase("Process")) {
 			dropItem = getDropItemByProcess(context, suffixVersion);
-		} else if (StringUtil.isBlankOrStrNull("Deploy")) {
+		} else if (type.equalsIgnoreCase("Deploy")) {
 			dropItem = getDropItemByDeploy(context, suffixVersion);
 		} else {
 			dropItem = getDropItemByBPM(context, suffixVersion);
@@ -64,7 +61,7 @@ public class GetDropItemByBPM implements IExtService {
 	 * 获得所有流程的下拉字符串，包括已部署的流程，未部署的流程，由"流程名称,流程Key"组成
 	 * 
 	 * @param context
-	 *            中间层对象
+	 *            上下文对象
 	 * @return 所有流程的下拉字符串
 	 * @throws Throwable
 	 */
@@ -86,7 +83,7 @@ public class GetDropItemByBPM implements IExtService {
 	 * 获得已部署流程的下拉字符串，由"流程名称,流程Key"组成
 	 * 
 	 * @param context
-	 *            中间层对象
+	 *            上下文对象
 	 * @return 已部署流程的下拉字符串
 	 * @throws Throwable
 	 */
@@ -97,10 +94,10 @@ public class GetDropItemByBPM implements IExtService {
 		MetaProcessDeployInfoCollection deployInfoCol = metaBPM.getMetaBPMDeployInfoCollection();
 		for (Iterator<MetaProcessDeployInfo> iterator = deployInfoCol.iterator(); iterator.hasNext();) {
 			MetaProcessDeployInfo e = iterator.next();
-			String key = e.getKey();
+			String key = e.getKey() + "_V" + e.getVersion();
 			ProcessDefinitionProfile p = profileMap.get(key);
 			if (p == null) {
-				throw new Error("流程=" + key + "，为空");
+				throw new Error("流程=" + key + "，缺少对应的流程配置。");
 			}
 			dropItem = getDropItem(dropItem, p, suffixVersion);
 		}
@@ -112,7 +109,7 @@ public class GetDropItemByBPM implements IExtService {
 	 * 获得已关联流程的下拉字符串，由"流程名称,流程Key"组成
 	 * 
 	 * @param context
-	 *            中间层对象
+	 *            上下文对象
 	 * @return 已关联流程的下拉字符串
 	 * @throws Throwable
 	 */
@@ -120,9 +117,9 @@ public class GetDropItemByBPM implements IExtService {
 		String dropItem = "";
 		MetaBPM metaBPM = context.getVE().getMetaFactory().getMetaBPM();
 		HashMap<String, ProcessDefinitionProfile> profileMap = metaBPM.getProfileMap();
-		MetaProcessMapCollection deployInfoCol = metaBPM.getMetaProcessMapCollection();
-		for (Iterator<MetaProcessMap> iterator = deployInfoCol.iterator(); iterator.hasNext();) {
-			MetaProcessMap e = iterator.next();
+		MetaProcessDeployInfoCollection deployInfoCol = metaBPM.getMetaBPMDeployInfoCollection();
+		for (Iterator<MetaProcessDeployInfo> iterator = deployInfoCol.iterator(); iterator.hasNext();) {
+			MetaProcessDeployInfo e = iterator.next();
 			String key = e.getKey();
 			ProcessDefinitionProfile p = profileMap.get(key);
 			if (p == null) {

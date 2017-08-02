@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<Form Key="MobileLogin" Caption="移动登陆" FormType="View" Platform="" HasNavigationBar="false">
+<Form Key="MobileLogin" Caption="移动登陆" FormType="View" HasNavigationBar="false" Authenticate="false">
     <Body>
         <Block>
             <GridLayoutPanel Key="GridLayoutPanel1" Caption="GridLayoutPanel1">
@@ -10,21 +10,21 @@
                 <TableView Caption="LoginView" Key="LoginView" X="0" Y="3" Height="pref" Width="pref">
                     <Format BackColor="transparent"/>
                     <TableRowCollection>
-                        <TableRow BackColor="transparent">
+                        <TableRow BackColor="transparent" Key="UserName">
                             <LinearLayoutPanel Caption="LinearLayoutPanel1" Key="LinearLayoutPanel1" Height="40px" Width="auto">
                                 <TextEditor Key="UserCode" Caption="用户名" Height="auto" Width="auto" EmbedText="用户名:  " PreIcon="username-login.png" LeftMargin="70px" RightMargin="70px" PromptText="请输入用户名">
                                     <Format BackColor="#ffffff"/>
                                 </TextEditor>
                             </LinearLayoutPanel>
                         </TableRow>
-                        <TableRow BackColor="transparent">
+                        <TableRow BackColor="transparent" Key="PassWord">
                             <LinearLayoutPanel Caption="LinearLayoutPanel2" Key="LinearLayoutPanel2" Height="40px" Width="auto">
                                 <PasswordEditor Key="Password" Caption="Password" Height="auto" Width="auto" PreIcon="password-login.png" EmbedText="密    码:  " LeftMargin="70px" RightMargin="70px" PromptText="请输入密码">
                                     <Format BackColor="#ffffff"/>
                                 </PasswordEditor>
                             </LinearLayoutPanel>
                         </TableRow>
-                        <TableRow BackColor="transparent">
+                        <TableRow BackColor="transparent" Key="Login">
                             <LinearLayoutPanel Caption="LinearLayoutPanel3" Key="LinearLayoutPanel3" Height="60px" Width="auto">
                                 <Button Key="LoginBtn" Caption="登入" Height="auto" LeftPadding="10px" Width="pref" Weight="1.0" LeftMargin="70px" RightMargin="70px" TopMargin="20px">
                                     <Format BackColor="#31a66b" HighlightColor="#cccccc"/>

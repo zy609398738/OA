@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="OA_WorkingCalendar" Caption="工作日历" FormType="Dict">
+    <DataSource>
+        <DataObject Key="OA_WorkingCalendar" Caption="工作日历" PrimaryTableKey="OA_WorkingCalendar_H" SecondaryType="Dict" PrimaryType="Entity">
+            <TableCollection>
+                <Table Key="OA_WorkingCalendar_H" Caption="工作日历头表" DBTableName="OA_WorkingCalendar_H" IndexPrefix="OA_WorkingCalendar_H">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="Code" Caption="代码" DataType="Varchar" Length="50"/>
+                    <Column Key="Name" Caption="名称" DataType="Varchar" Length="100"/>
+                    <Column Key="Status" Caption="状态" DataType="Integer"/>
+                    <Column Key="Enable" Caption="启用标记" DataType="Integer" DefaultValue="1"/>
+                    <Column Key="ParentID" Caption="父节点" DataType="Long"/>
+                    <Column Key="NodeType" Caption="节点类型" DataType="Integer"/>
+                    <Column Key="TLeft" Caption="TLeft" DataType="Integer"/>
+                    <Column Key="TRight" Caption="TRight" DataType="Integer"/>
+                    <Column Key="StartDate" Caption="开始日期" DataType="DateTime"/>
+                    <Column Key="EndDate" Caption="结束日期" DataType="DateTime"/>
+                    <Column Key="WorkingTimeID" Caption="工时区间" DataType="Long"/>
+                </Table>
+                <Table Key="OA_WorkingCalendar_D" Caption="工作日历明细表" DBTableName="OA_WorkingCalendar_D" TableMode="Detail" OrderBy="DateOfYear" IndexPrefix="OA_WorkingCalendar_D">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="Sequence" Caption="序号" DataType="Integer"/>
+                    <Column Key="DateOfYear" Caption="日期" DataType="DateTime" SortType="Asc"/>
+                    <Column Key="OffDay" Caption="是否工作日" DataType="Integer"/>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <ScriptCollection>
+        <Script Key="Load" Caption="载入" Description="载入事件" Range="Action" Verb="Load">
+            <![CDATA[LoadData();ShowData()]]>
+        </Script>
+    </ScriptCollection>
+    <UICheckRuleCollection>
+        <UICheckRule Description="结束日期大于开始日期" ErrorInfo="结束日期大于开始日期">
+            <![CDATA[EndDate>StartDate]]>
+        </UICheckRule>
+        <UICheckRule Description="开始日期要和明细表第一行一致" ErrorInfo="开始日期要和第一行一致">
+            <![CDATA[if(GetRowCount("Grid1")>0){
+    GetCellValue("Grid1", 0, "DateOfYear")==StartDate;
+}]]>
+        </UICheckRule>
+        <UICheckRule Description="结束日期要和明细表最后一行一致" ErrorInfo="结束日期要和明细表最后一行一致">
+            <![CDATA[if(GetRowCount("Grid1")>0){
+    GetCellValue("Grid1",GetRowCount("Grid1")-1 , "DateOfYear")==EndDate;
+}]]>
+        </UICheckRule>
+        <UICheckRule Description="工作区间重复" ErrorInfo="工作区间重复">
+            <![CDATA[InvokeService("OA_CheckWorkCalendarSection", true, false);]]>
+        </UICheckRule>
+    </UICheckRuleCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板">
+                <GridLayoutPanel Key="first_head" Padding="5px" Height="pref" Caption="基本信息">
+                    <TextEditor Key="Code" Caption="代码" BuddyKey="Lab_Code" X="1" Y="0" XSpan="2">
+                        <DataBinding ColumnKey="Code" TableKey="OA_WorkingCalendar_H" Required="true"/>
+                    </TextEditor>
+                    <Label Key="Lab_Code" Caption="代码" X="0" Y="0"/>
+                    <TextEditor Key="Name" Caption="名称" BuddyKey="Lab_Name" X="4" Y="0" XSpan="2">
+                        <DataBinding ColumnKey="Name" TableKey="OA_WorkingCalendar_H" Required="true"/>
+                    </TextEditor>
+                    <Label Key="Lab_Name" Caption="名称" X="3" Y="0"/>
+                    <DatePicker Key="StartDate" Caption="开始日期" BuddyKey="Lab_StartDate" X="1" Y="1" OnlyDate="true" XSpan="2">
+                        <DataBinding ColumnKey="StartDate" TableKey="OA_WorkingCalendar_H" Required="true"/>
+                    </DatePicker>
+                    <Label Key="Lab_StartDate" Caption="开始日期" X="0" Y="1"/>
+                    <DatePicker Key="EndDate" Caption="结束日期" BuddyKey="Lab_EndDate" X="4" Y="1" OnlyDate="true" XSpan="2">
+                        <DataBinding ColumnKey="EndDate" TableKey="OA_WorkingCalendar_H" Required="true"/>
+                    </DatePicker>
+                    <Label Key="Lab_EndDate" Caption="结束日期" X="3" Y="1"/>
+                    <Button Key="CreateWorkingCalendar" Caption="生成工作日历" X="0" Y="2" Enable="!IsNull(StartDate)&amp;&amp;!IsNull(EndDate)&amp;&amp;(EndDate&gt;StartDate)&amp;&amp;!IsNull(WorkingTimeID)" XSpan="2">
+                        <OnClick>
+                            <![CDATA[FillGridData("Grid1", InvokeService("OA_CreateWorkingCalendar", true, false), true);]]>
+                        </OnClick>
+                    </Button>
+                    <Dict Key="WorkingTimeID" Caption="工时区间" BuddyKey="Lab_WorkingTimeID" X="4" Y="2" ItemKey="OA_WorkingTime" XSpan="2">
+                        <DataBinding ColumnKey="WorkingTimeID" TableKey="OA_WorkingCalendar_H" Required="true"/>
+                    </Dict>
+                    <Label Key="Lab_WorkingTimeID" Caption="工时区间" X="3" Y="2"/>
+                    <RowDefCollection RowGap="8">
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="8">
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="40px"/>
+                        <ColumnDef Width="50%"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="40px"/>
+                        <ColumnDef Width="50%"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+                <Grid Key="Grid1" Caption="Grid1" NewEmptyRow="false" Height="100%" CanDelete="false" CanInsert="false">
+                    <GridColumnCollection>
+                        <GridColumn Key="DateOfYear" Caption="日期" Width="120px"/>
+                        <GridColumn Key="OffDay" Caption="是否休息日" Width="100px"/>
+                    </GridColumnCollection>
+                    <GridRowCollection>
+                        <GridRow Key="row1" RowHeight="35" TableKey="OA_WorkingCalendar_D">
+                            <GridCell Key="DateOfYear" Caption="日期" CellType="DatePicker" OnlyDate="true" Format="yyyy-MM-dd">
+                                <DataBinding ColumnKey="DateOfYear"/>
+                            </GridCell>
+                            <GridCell Key="OffDay" Caption="是否休息日" CellType="CheckBox">
+                                <DataBinding ColumnKey="OffDay"/>
+                            </GridCell>
+                        </GridRow>
+                    </GridRowCollection>
+                </Grid>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

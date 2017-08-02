@@ -1,0 +1,9 @@
+{
+	"@type":"com.bokesoft.cms2.model.Action",
+	"actionExp":"",
+	"actionUrl":"/getTaskStatus.action",
+	"attributes":{"@type":"java.util.LinkedHashMap"},
+	"code":"GetTaskStatus",
+	"name":"获取任务状态",
+	"notes":""
+}

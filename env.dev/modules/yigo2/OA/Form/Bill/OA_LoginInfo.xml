@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<Form Key="OA_LoginInfo" Caption="登录记录" FormType="Entity" Platform="">
+<Form Key="OA_LoginInfo" Caption="登录记录" FormType="Entity">
     <DataSource>
         <DataObject Key="OA_LoginInfo" Caption="登录记录" PrimaryType="Entity">
             <TableCollection>
@@ -15,7 +15,15 @@
                     <Column Key="Host" Caption="机器名" DataType="Varchar"/>
                     <Column Key="Port" Caption="端口号" DataType="Varchar" Precision="16" Scale="2"/>
                     <Statement>
-                        <![CDATA[select * from (select OID,Operator,HappenTime,IP,Host,Port from sys_sessionlog where HappenTime>CURDATE() ORDER BY HappenTime DESC) h]]>
+                        <![CDATA[SELECT *
+  FROM (   SELECT OID,
+                  Operator,
+                  HappenTime,
+                  IP,
+                  HOST,
+                  Port
+             FROM sys_sessionlog
+            ORDER BY HappenTime DESC) h]]>
                     </Statement>
                 </Table>
             </TableCollection>

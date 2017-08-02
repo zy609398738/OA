@@ -12,6 +12,7 @@
                     <Column Caption="审批意见" DBColumnName="userInfo" DataType="Varchar" Key="userInfo" Length="200"/>
                     <Column Caption="审批结果" DBColumnName="auditResult" DataType="Integer" Key="auditResult"/>
                     <Column Key="E_Signature" Caption="电子签名" DataType="Varchar" DBColumnName="E_Signature"/>
+                    <Column Key="Srcoperatorid" Caption="代理人" DataType="Long" DBColumnName="Srcoperatorid"/>
                     <TableFilter>
                         <![CDATA[instanceID=(select instanceID from BPM_Instance where OID=?)]]>
                     </TableFilter>
@@ -19,8 +20,10 @@
                         <Parameter Caption="标识" Formula="GetOID();" Key="OID" TargetColumn="workItemID"/>
                     </ParameterCollection>
                     <Statement>
-                        <![CDATA[select workItemID,workItemName,creatTime,finishTime,operatorID,auditResult,userInfo ,(case when auditResult=-1 then '' else E_Signature end) as E_Signature from BPM_Log
-]]>
+                        <![CDATA[select 
+l.workItemID,l.workItemName,l.creatTime,l.finishTime,
+case when l.operatorID=-1 then p.operatorid else l.operatorID end operatorID,l.auditResult,
+l.userInfo ,case when l.auditResult=-1 then '' else E_Signature end E_Signature,case when w.srcoperatorid=-1 then p.srcoperatorid else w.srcoperatorid end  srcoperatorid from BPM_Log l left join wf_participator p on l.workitemid = p.workitemid join wf_workitem w on w.workitemid = l.workitemid where w.transfertype in (-1,1)]]>
                     </Statement>
                 </Table>
             </TableCollection>
@@ -28,18 +31,19 @@
     </DataSource>
     <Body>
         <Block>
-            <FlexFlowLayoutPanel Key="root" Caption="根面板">
-                <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
+            <FlexFlowLayoutPanel Key="BPM_Log_root" Caption="根面板">
+                <ToolBar Key="ToolBar123" Height="pref" Caption="ToolBar1">
                     <ToolBarItemCollection/>
                 </ToolBar>
-                <FlexFlowLayoutPanel Key="FlexFlowLayoutPanel1" Caption="FlexFlowLayoutPanel1" Height="230px" OverflowY="Auto">
-                    <Grid Key="Grid1" Caption="Grid1" NewEmptyRow="false" Height="230px" CanDelete="false" CanInsert="false">
+                <FlexFlowLayoutPanel Key="FlexFlowLayoutPanel1233" Caption="FlexFlowLayoutPanel1" Height="230px" OverflowY="Auto">
+                    <Grid Key="OA_BPM_Log" Caption="Grid122" NewEmptyRow="false" CanDelete="false" CanInsert="false" Height="230px">
                         <GridColumnCollection>
                             <GridColumn Key="workItemID" Caption="工作项标识" Width="80px" Visible="false"/>
                             <GridColumn Caption="操作名称" Key="workItemName" Width="150px" ColumnType="Detail" ColumnExpand="false"/>
                             <GridColumn Caption="创建时间" Key="creatTime" Width="160px" ColumnType="Detail" Visible="false" ColumnExpand="false"/>
                             <GridColumn Caption="审批时间" Key="finishTime" Width="160px" ColumnType="Detail" ColumnExpand="false"/>
-                            <GridColumn Caption="人员" Key="operatorID" Width="150px" ColumnType="Detail" ColumnExpand="false"/>
+                            <GridColumn Caption="处理人员" Key="operatorID" Width="150px" ColumnType="Detail" ColumnExpand="false"/>
+                            <GridColumn Key="Srcoperatorid" Caption="源操作员" Width="150px"/>
                             <GridColumn Caption="审批结果" Key="auditResult" Width="65px" ColumnType="Detail" ColumnExpand="false"/>
                             <GridColumn Caption="审批意见" Key="userInfo" Width="200px" ColumnType="Detail" ColumnExpand="false"/>
                             <GridColumn Key="E_Signature" Caption="电子签名" Width="200px"/>
@@ -59,13 +63,14 @@
                                 <GridCell Caption="审批时间" CellType="DatePicker" Key="finishTime">
                                     <DataBinding ColumnKey="finishTime"/>
                                 </GridCell>
-                                <GridCell Caption="人员" Key="operatorID" CellType="Dict" ItemKey="Operator">
+                                <GridCell Caption="处理人员" Key="operatorID" CellType="Dict" ItemKey="Operator">
                                     <DataBinding ColumnKey="operatorID"/>
                                 </GridCell>
-                                <GridCell Caption="审批结果" Key="auditResult" CellType="ComboBox">
+                                <GridCell Key="Srcoperatorid" Caption="源操作员" CellType="Dict" CellSortType="None" ItemKey="Operator">
+                                    <DataBinding ColumnKey="Srcoperatorid"/>
+                                </GridCell>
+                                <GridCell Caption="审批结果" Key="auditResult" CellType="ComboBox" GroupKey="AuditResult" SourceType="ParaGroup">
                                     <DataBinding ColumnKey="auditResult"/>
-                                    <Item Caption="通过" Key="1" Value="1"/>
-                                    <Item Caption="驳回" Key="0" Value="0"/>
                                 </GridCell>
                                 <GridCell Caption="审批意见" Key="userInfo">
                                     <DataBinding ColumnKey="userInfo"/>

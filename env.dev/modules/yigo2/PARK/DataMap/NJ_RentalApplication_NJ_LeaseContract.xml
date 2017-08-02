@@ -6,7 +6,7 @@
             <SourceField Definition="Room" TargetFieldKey="Room" Editable="false"/>
             <SourceField Definition="RentalUse" TargetFieldKey="RentalUse" Editable="false"/>
         </SourceTable>
-        <SourceTable Key="NJ_SCM_RentalApplicationHead" TargetTableKey="NJ_SCM_LeaseContractHead">
+        <SourceTable Key="NJ_SCM_RentalApp_H" TargetTableKey="NJ_SCM_LeaseContractHead">
             <SourceField Definition="EmpID" TargetFieldKey="EmpID"/>
             <SourceField Definition="UsePeople" TargetFieldKey="UsePeople"/>
             <SourceField Definition="CustomerId" TargetFieldKey="CustomerId" Editable="false"/>

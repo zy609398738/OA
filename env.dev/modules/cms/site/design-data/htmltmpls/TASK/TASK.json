@@ -1,0 +1,28 @@
+{
+	"@type":"com.bokesoft.cms2.model.HtmlTmpl",
+	"code":"TASK",
+	"htmlText":"",
+	"name":"任务",
+	"notes":"",
+	"slices":[
+		{
+			"followHtml":"<!DOCTYPE html>\n<html lang=\"zh-CN\">\n<head>\n    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=EmulateIE8\" />   <!--必须, 否则在 IE9 中 嵌入的 MAP Portal.jsp 导航菜单会失效-->\n    <meta charset=\"utf-8\">\n    "
+		},
+		{
+			"code":"博科协同办公管理系统首页模板",
+			"followHtml":"\n</head>\n<body>\n<div class=\"bootjs-box\"><!--此处只为加载js等文件，故设置其：height:0-->\n   ",
+			"tag":"yigo-cms:title"
+		},
+		{
+			"code":"static?staticFile=buildin/boot-js.vm",
+			"followHtml":"\n</div>\n<div class=\"tast-container\">\n\t",
+			"tag":"yigo-cms:block"
+		},
+		{
+			"code":"task",
+			"followHtml":"\n</div>\n</body>\n</html>",
+			"name":"task",
+			"tag":"yigo-cms:area"
+		}
+	]
+}

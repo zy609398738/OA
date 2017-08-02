@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<Process Caption="新闻发布审批流程" IDSeed="18" Key="WF_OA_NewsDraftView" FormKey="OA_NewsDraft">
-    <Begin Caption="开始节点" ID="1" Key="Begin1">
+<Process Caption="新闻发布审批流程" IDSeed="22" Key="WF_OA_NewsDraftView" FormKey="OA_NewsDraft"  TemplateKey="OA_TmpTest">
+    <Begin Caption="开始节点" ID="1" Key="Begin1" pattern="Normal">
         <TransitionCollection>
             <SequenceFlow Caption="顺序流" ID="4" Key="SequenceFlow1" TargetNodeKey="State1"/>
         </TransitionCollection>
         <NodeGraphic X="80" Y="342" Height="40" Width="40"/>
         <NodeAttachment/>
     </Begin>
-    <End Caption="结束节点" ID="2" Key="End1">
+    <End Caption="结束节点" ID="2" Key="End1" pattern="Normal">
         <NodeGraphic X="624" Y="342" Height="40" Width="40"/>
         <NodeAttachment/>
     </End>
-    <Audit Caption="一审" ID="3" Key="Audit1">
+    <Audit Caption="一审" ID="3" Key="Audit1" pattern="Normal" AutoIgnoreNoParticipator="true">
         <TransitionCollection>
             <SequenceFlow Caption="顺序流" ID="6" Key="SequenceFlow2" TargetNodeKey="Decision1"/>
             <SequenceFlow Caption="顺序流" Condition="False" ID="16" Key="SequenceFlow8" TargetNodeKey="State3"/>
@@ -33,17 +33,15 @@
         <Perm/>
         <DirectAuditCondition/>
     </Audit>
-    <Decision Caption="是否紧急" Condition="GetValue(&quot;UrgencyDeg&quot;)&gt;10" ID="5" Key="Decision1">
+    <Decision Caption="是否紧急" Condition="GetValue(&quot;UrgencyDeg&quot;)&gt;10" ID="5" Key="Decision1" pattern="Normal">
         <TransitionCollection>
             <SequenceFlow Caption="顺序流" ID="8" Key="SequenceFlow3" TargetNodeKey="Audit2" Condition="false"/>
-            <SequenceFlow Caption="顺序流" ID="10" Key="SequenceFlow5" TargetNodeKey="State2">
-                <TransitionGraphic LineStyle="ChamferCurveVOne"/>
-            </SequenceFlow>
+            <SequenceFlow Caption="顺序流" ID="22" Key="SequenceFlow13" TargetNodeKey="State2"/>
         </TransitionCollection>
         <NodeGraphic X="395" Y="233" Width="50"/>
         <NodeAttachment/>
     </Decision>
-    <Audit Caption="二审" ID="7" Key="Audit2">
+    <Audit Caption="二审" ID="7" Key="Audit2" pattern="Normal" AutoIgnoreNoParticipator="true">
         <TransitionCollection>
             <SequenceFlow Caption="顺序流" ID="9" Key="SequenceFlow4" TargetNodeKey="State2"/>
             <SequenceFlow Caption="顺序流" Condition="False" ID="17" Key="SequenceFlow9" TargetNodeKey="State3"/>
@@ -65,7 +63,7 @@
         <Perm/>
         <DirectAuditCondition/>
     </Audit>
-    <State Caption="审批中" ID="11" Key="State1" Status="approving">
+    <State Caption="审批中" ID="11" Key="State1" Status="approving" pattern="Normal">
         <TransitionCollection>
             <SequenceFlow Caption="顺序流" ID="13" Key="SequenceFlow6" TargetNodeKey="Audit1"/>
         </TransitionCollection>
@@ -74,7 +72,7 @@
         <ParticipatorCollection/>
         <Perm/>
     </State>
-    <State Caption="审批通过" ID="12" Key="State2" Status="approved">
+    <State Caption="审批通过" ID="12" Key="State2" Status="approved" pattern="Normal">
         <TransitionCollection>
             <SequenceFlow Caption="顺序流" ID="14" Key="SequenceFlow7" TargetNodeKey="End1"/>
         </TransitionCollection>
@@ -83,7 +81,7 @@
         <ParticipatorCollection/>
         <Perm/>
     </State>
-    <State Caption="否决" ID="15" Key="State3" Status="reject">
+    <State Caption="否决" ID="15" Key="State3" Status="reject" pattern="Normal">
         <TransitionCollection>
             <SequenceFlow Caption="顺序流" ID="18" Key="SequenceFlow10" TargetNodeKey="End1">
                 <TransitionGraphic LineStyle="ChamferCurveVOne"/>
@@ -103,6 +101,9 @@
         <Field Key="BillOID" SourceFieldKey="OID"/>
         <Field Key="DeptID" SourceFieldKey="DeptID"/>
         <Field Key="UrgencyDeg" SourceFieldKey="UrgencyDeg"/>
+        <Field Key="BillNo" SourceFieldKey="NO"/>
+        <Field Key="BillKey" SourceFieldKey="BillKey"/>
+        <Field Key="BILLSOID" SourceFieldKey="SOID"/>
     </DMTable>
     <AttachmentCollection/>
 </Process>

@@ -14,6 +14,7 @@ import org.apache.commons.lang3.StringUtils;
 import com.alibaba.fastjson.JSONObject;
 import com.bokesoft.services.messager.server.impl.UserStateManager;
 import com.bokesoft.services.messager.server.impl.utils.ServletUtils;
+import com.bokesoft.services.messager.server.impl.utils.SessionUtils;
 import com.bokesoft.services.messager.server.model.RpcReturnCode;
 
 public class StateServlet extends HttpServlet {
@@ -29,9 +30,14 @@ public class StateServlet extends HttpServlet {
 	 */
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		ServletUtils.checkAccessToken(req);
+		
 		JSONObject dataJson = ServletUtils.getParamDataAsJson(req);
 		for (String userCode : dataJson.keySet()){
 			UserStateManager.setState(userCode, dataJson.get(userCode).toString());
+			//计算当前用户连接会“影响其他哪些用户的 MyActiveConnectData 状态”
+			SessionUtils.markNotifyClientPeerIds(userCode);
 		}
 		
 		ServletUtils.returnAsJson(resp, RpcReturnCode.success());
@@ -46,7 +52,10 @@ public class StateServlet extends HttpServlet {
 	 */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {		
+			throws ServletException, IOException {	
+		
+		ServletUtils.checkAccessToken(req);
+		
 		String[] userCodes = req.getParameterValues("u");	
 		Map<String, Object> result = new HashMap<String, Object>();
 		if(userCodes!=null){

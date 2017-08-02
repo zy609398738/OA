@@ -1,2 +1,8 @@
-cms.ActionExp.Data(cms.DataExp.PagingQuery({select OID,title,date_format(NewsDate,'%Y-%m-%d') as newsdate from cms_news where NewsType= '}&cms.ReqExp.Var('type')&{' and status=1200  order by NewsDate desc},cms.ReqExp.Var('pageSize'),cms.ReqExp.Var('pageNo')));
-cms.ActionExp.Viewer('json');
+#!spring
+""
++ cms.ActionExp.Data(
+  T(com.bokesoft.redist.cms2.site.NewsHandle).getNewsList(
+    cms.ReqExp.Var('type'), cms.ReqExp.Var('pageNo'), cms.ReqExp.Var('pageSize')
+  )
+)
++ cms.ActionExp.Viewer('json')

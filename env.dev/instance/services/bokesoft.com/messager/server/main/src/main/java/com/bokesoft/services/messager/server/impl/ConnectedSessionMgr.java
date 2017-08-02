@@ -1,14 +1,19 @@
 package com.bokesoft.services.messager.server.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.commons.lang3.StringUtils;
+import org.eclipse.jetty.util.ConcurrentHashSet;
 import org.eclipse.jetty.websocket.api.Session;
 
 import com.bokesoft.services.messager.server.model.ConnectedSessionBaseInfo;
+import com.bokesoft.services.messager.server.model.MyActiveConnectData;
 
 /**
  * 统一管理所有的 WebSocket 会话
@@ -26,6 +31,12 @@ public class ConnectedSessionMgr {
 	private static Map<String, List<String>> receiverSessionIdsTable = new ConcurrentHashMap<String, List<String>>();
 	/** 反过来记录 sessionId 与 消息接收方 的关系 */
 	private static Map<String, String> idReceiverTable = new ConcurrentHashMap<String, String>();
+	/** 记录已连接的用户(self-connection)和 sessionId 的关系 */
+	private static Map<String, List<String>> selfSessionIdsTable = new ConcurrentHashMap<String, List<String>>();
+	/** 反过来记录 sessionId 与 用户(self-connection)的关系 */
+	private static Map<String, String> idSelfTable = new ConcurrentHashMap<String, String>();
+	/** 记录需要刷新 {@link MyActiveConnectData} 数据的客户端(userCode) */
+	private static Set<String> connDataNotifyCache = new ConcurrentHashSet<String>();
 	
 	/**
 	 * 在会话连接时, 记录相关连接数据
@@ -37,12 +48,13 @@ public class ConnectedSessionMgr {
 		idConnectInfoTable.put(id, connInfo);
 		idSessionTable.put(id, session);
 
-		if (!connInfo.isSelfConnection()){	//对于 SelfConnection, 不需要记录 sender/receiver 的相关关系
-			String sender = connInfo.getSender();
-			String receiver = connInfo.getReceiver();
-			
+		String sender = connInfo.getSender();
+		String receiver = connInfo.getReceiver();
+		if (!connInfo.isSelfConnection()) {	//对于 SelfConnection, 不需要记录 sender/receiver 的相关关系
 			handleRememberSessionTable(id, sender, senderSessionIdsTable, idSenderTable);
 			handleRememberSessionTable(id, receiver, receiverSessionIdsTable, idReceiverTable);
+		} else {
+			handleRememberSessionTable(id, sender, selfSessionIdsTable, idSelfTable);
 		}
 	}
 
@@ -71,9 +83,11 @@ public class ConnectedSessionMgr {
 		
 		idSessionTable.remove(id);
 		idConnectInfoTable.remove(id);
+		idSelfTable.remove(id);
 		
 		handleRemoveSessionTable(id, sender, senderSessionIdsTable, idSenderTable);
 		handleRemoveSessionTable(id, receiver, receiverSessionIdsTable, idReceiverTable);
+		handleRemoveSessionTable(id, receiver, selfSessionIdsTable, idSelfTable);
 	}
 
 	private static void handleRemoveSessionTable(
@@ -87,7 +101,16 @@ public class ConnectedSessionMgr {
 	}
 	
 	/**
-	 * 根据 id 获取会话连接
+	 * 根据 会话 id 获得会话信息
+	 * @param id
+	 * @return
+	 */
+	public static ConnectedSessionBaseInfo getConnectedSessionInfoById(String id){
+		return idConnectInfoTable.get(id);
+	}
+	
+	/**
+	 * 根据 会话 id 获取会话连接
 	 * @param id
 	 * @return
 	 */
@@ -97,27 +120,60 @@ public class ConnectedSessionMgr {
 	}
 	
 	/**
+	 * 寻找所有可以发送消息给某个用户的可用 session 信息
+	 * @param senderCode 作为消息连接中发送方的 userCode(接收方实际上不会直接与发送方形成 WebSokcet 连接, 而是同样以发送方身份连接到服务器)
+	 * @return
+	 */
+	public static Map<String, Session> getConnectedSessions4SendMessage(String senderCode){
+		Map<String, Session> result = new HashMap<String, Session>();
+		
+		List<String> senderIds = new ArrayList<String>();
+		if (isUserConnected(senderCode)){
+			//首先到 sender 连接的集合中查找
+			List<String> ids = senderSessionIdsTable.get(senderCode);
+			if(null!=ids){
+				senderIds.addAll(ids);
+			}
+			//同时考虑符合条件的 self connection 会话连接
+			ids = selfSessionIdsTable.get(senderCode);
+			if (null!=ids){
+				senderIds.addAll(ids);
+			}
+		}
+		for(String sessionId: senderIds){
+			fillSessionAndId(result, sessionId);
+		}
+		
+		return result;
+	}
+	
+	/**
 	 * 寻找 sender => receiver 的连接, 这个连接({@link Session})正好可以用于 receiver 回复给 sender
 	 * @param sender
 	 * @param receiver
 	 * @return
 	 */
-	public static List<Session> getConnectedSessions4Reply(String sender, String receiver){
-		ArrayList<Session> result = new ArrayList<Session>();
+	public static Map<String, Session> getConnectedSessions4SendReplyingMessage(String sender, String receiver){
+		Map<String, Session> result = new HashMap<String, Session>();
+		
 		List<String> senderIds = senderSessionIdsTable.get(sender);
 		List<String> receiverIds = receiverSessionIdsTable.get(receiver);
 		
-		if (null!=senderIds){
+		if (null!=senderIds && null!=receiverIds){
 			for (String id: senderIds){
-				if (null!=receiverIds && receiverIds.contains(id)){
-					Session ses = getConnectedSessionById(id);
-					if (null!=ses && ses.isOpen()){
-						result.add(ses);
-					}
+				if (receiverIds.contains(id)){
+					fillSessionAndId(result, id);
 				}
 			}
 		}
 		return result;
+	}
+
+	private static void fillSessionAndId(Map<String, Session> result, String id) {
+		Session ses = getConnectedSessionById(id);
+		if (null!=ses && ses.isOpen()){
+			result.put(id, ses);
+		}
 	}
 	
 	/**
@@ -170,5 +226,34 @@ public class ConnectedSessionMgr {
 			}
 		}
 		return false;
+	}
+	
+	/**
+	 * 记录 {@link MyActiveConnectData} 已经发生改变的客户端(userCode)
+	 * @param userCode
+	 */
+	public static void mark4ConnDataNotify(String userCode) {
+		if (StringUtils.isNotBlank(userCode)){
+			connDataNotifyCache.add(userCode);
+		}
+	}
+	
+	/**
+	 * 清除 {@link MyActiveConnectData} 发生改变的客户端(userCode)的记录
+	 * @param userCode
+	 */
+	public static void unmark4ConnDataNotify(String userCode) {
+		if (StringUtils.isNotBlank(userCode)){
+			connDataNotifyCache.remove(userCode);
+		}
+	}
+	
+	/**
+	 * 读取全部需要通知 {@link MyActiveConnectData} 发生改变的客户端(userCode)
+	 * @return
+	 */
+	public synchronized static Set<String> readConnDataNotifyCache(){
+		Set<String> dataCopy = new HashSet<String>(connDataNotifyCache);
+		return dataCopy;
 	}
 }

@@ -28,7 +28,7 @@ public class GetWorkflowAttribute implements IExtService {
 	 * 获得流程的属性
 	 * 
 	 * @param context
-	 *            中间层对象
+	 *            上下文对象
 	 * @param profileKey
 	 *            流程的Key
 	 * @param version
@@ -48,6 +48,11 @@ public class GetWorkflowAttribute implements IExtService {
 		// 如果流程版本为0，直接使用流程的Key获得流程对象
 		if (version <= 0) {
 			profile = getProfile(context, profileKey);
+			if(profile==null){
+				String sql = "delete from OA_Workflow_H where WorkflowRelevance = ?";
+				context.getDBManager().execPrepareUpdate(sql, profileKey);
+				return "";
+			}
 			workflowKey = profile.getKey();
 			version = profile.getVersion();
 		} else {// 否则，根据流程的Key+流程的版本后缀获得流程对象
@@ -79,7 +84,7 @@ public class GetWorkflowAttribute implements IExtService {
 	 * 根据流程Key获得流程配置对象
 	 * 
 	 * @param context
-	 *            中间层对象
+	 *            上下文对象
 	 * @param workflowKey
 	 *            流程的Key
 	 * @return 流程信息对象

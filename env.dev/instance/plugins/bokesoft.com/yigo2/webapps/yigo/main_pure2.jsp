@@ -5,13 +5,13 @@
 		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 		<title>工作台</title>
 		
-		<script type="text/javascript" src="yes2/yesui/ui/allfile.js"></script>
+		<script type="text/javascript" src="yesui/v1/ui/allfile.js"></script>
 		
 		<script type="text/javascript">
 
 			window.onerror = function(msg) {
 				$(".loading").hide();
-				msg = msg.replace("Uncaught Error:", "");
+				msg = msg.replace("Uncaught Error: ", "");
 				var dialog = $("<div></div>").attr("id", "error_dialog");
 	            dialog.modalDialog(msg, {title: "错误", showClose: true, type: "error", height: 200, width: 400});
 			};
@@ -69,9 +69,9 @@
 			    YIUIContainer.el = YIUIContainer.container.el;
 			    YIUIContainer.build = function (form) {
 			        if (YIUIContainer.container) {
-			        	form.setContainer(YIUIContainer);
 			            YIUIContainer.container.add(form.getRoot());
-			            //YIUIContainer.container.doRenderChildren();
+			            YIUIContainer.container.doRenderChildren();
+			        	form.setContainer(YIUIContainer);
 			        }
 			    };
 			    YIUIContainer.removeForm = function (form) {
@@ -98,7 +98,7 @@
 			    YIUI.MainContainer = YIUIContainer;
 			    var url = window.location.href;
 			    var appResult = Svr.SvrMgr.getAppList();
-			    var paras;
+			    var result;
 			    var appKey;
 			    if (url.indexOf("appkey=") != -1) {
 			   		var index =  url.lastIndexOf("appkey=")+7;
@@ -107,10 +107,12 @@
 			    		indexEnd = url.length;
 			    	}
 			    	appKey = url.substring(index,indexEnd);
-			    	paras = {
-		    			appKey:appKey
+			    	var paras = {
+			    			appKey:appKey,
 			    	};
+			    	result = Svr.SvrMgr.loadTreeMenu(paras);
 			    } else {
+			    	result = Svr.SvrMgr.loadTreeMenu();
 			    	appKey = appResult.serverList.defaltKey;
 			    }
 				var serverList = appResult.serverList.servers;
@@ -142,38 +144,19 @@
 						_li.appendTo($(".appItems ul"));
 					}
 				}
-
-				var mainTree = null;
-		    	Svr.SvrMgr.loadTreeMenu().done(function(result) {
-		    		var rootEntry = result.entry;
-					var status = appResult.status;
-					window.setStatus(status);
-					var caption = result.caption;
-					$(".logo-text").html(caption);
-					mainTree = new YIUI.MainTree(rootEntry, $("#listBox"), YIUIContainer);
-				    //滚动条
-					$('#listBox').scrollbar({
-						events : [{
-							obj : $('.tm a'),
-							ev : 'click'
-						},{
-							obj : $(window),
-							ev : 'resize'
-						},{
-							obj : $('.mainMiddle'),
-							ev : 'drag'
-						}]
-					});
-		    	});
-				
+				var rootEntry = result.entry;
+				var status = appResult.status;
+				window.setStatus(status);
+				var caption = result.caption;
+				$(".logo-text").html(caption);
+				var mainTree = new YIUI.MainTree(rootEntry, $("#listBox"), YIUIContainer);
 				YIUI.MenuTree = {};
 				YIUI.MenuTree.reload = function(entryPath) {
-					Svr.SvrMgr.loadTreeMenu({rootEntry: entryPath}).done(function(result) {
-						var entry = result.entry;
-						var status = appResult.status;
-						window.setStatus(status);
-						mainTree.reload(entry);
-					});
+					var result = Svr.SvrMgr.loadTreeMenu({rootEntry: entryPath});
+					var entry = result.entry;
+					var status = appResult.status;
+					window.setStatus(status);
+					mainTree.reload(entry);
 				};
 	
 			    $(".searchBox .searchtext").focusin(function () {
@@ -314,6 +297,21 @@
 			        }
 			    });
 			    
+
+			    //滚动条
+				$('#listBox').scrollbar({
+					events : [{
+						obj : $('.tm a'),
+						ev : 'click'
+					},{
+						obj : $(window),
+						ev : 'resize'
+					},{
+						obj : $('.mainMiddle'),
+						ev : 'drag'
+					}]
+				});
+			    
 		        var paras = {
 	                cmd: "GetPreLoadItems",
 	                service: "PureMeta"
@@ -338,35 +336,22 @@
 			}
 			
 			function logout() {
-			    Svr.SvrMgr.doLogout().done(function() {
-				    $.cookie("clientID", null);
-				    $.cookie("oldURL",null);
-				    window.location.reload();
-			    });
+			    Svr.SvrMgr.doLogout();
+			    $.cookie("clientID", null);
+			    $.cookie("oldURL",null);
+			    window.location.reload();
 			}
 			function exit() {
-			    Svr.SvrMgr.doLogout().done(function() {
-			    	$.cookie("clientID", null);
-	 			    $.cookie("oldURL",null);
-				    window.location.replace("about:blank");
-			    });
+			    Svr.SvrMgr.doLogout();
+			    $.cookie("clientID", null);
+			    $.cookie("oldURL",null);
+			    window.location.replace("about:blank");
 			}
 			
 			function modifyPwd() {
-		        // var paras = {formKey: "ChangePassWord", cmd: "PureShowForm", async: false};
-		        // var jsonObj = Svr.SvrMgr.dealWithPureForm(paras);
-		        // YIUI.FormBuilder.build(jsonObj, YIUI.FormTarget.MODAL);
-
-
-		        var paras = {formKey: "ChangePassWord"};
-		        Svr.SvrMgr.getEmptyForm(paras).done(function(data) {
-		        	var cxt = {
-		        		target: YIUI.FormTarget.MODAL
-		        	};
-		       		// YIUI.FormBuilder.build(data, YIUI.FormTarget.MODAL);
-                	// YIUI.UIUtil.show(data, cxt);
-            		YIUI.UIUtil.show(data, cxt, false);
-	        	});
+		        var paras = {formKey: "ChangePassWord", cmd: "PureShowForm", async: false};
+		        var jsonObj = Svr.SvrMgr.dealWithPureForm(paras);
+		        YIUI.FormBuilder.build(jsonObj, YIUI.FormTarget.MODAL);
 			}
 	
 			function about() {
@@ -524,7 +509,6 @@
 		    <div class="nav-left">
 				<div class="nav-left-icon"></div>
 		    </div>
-		    <!-- <div class="logoBtn" id="logoBtn"></div> -->
 		    <span class="logo-text">Yigo应用</span>
 		    <div class="navRight">
 		    	<label class="org_lbl" ></label>
@@ -570,7 +554,7 @@
 		
 		<div class="loading mask" style="display: none;"></div>
 		<div class="loading image" style="position: absolute; display: none;">
-		    <img alt='loading' src='yesui/ui/res/images/loading.gif'>
+		    <img alt='loading' src='yesui/v1/yesui/ui/res/images/loading.gif'>
 		</div>
 	</body>
 </html>

@@ -1,0 +1,57 @@
+<div class="nav clearfix">
+  <div class="nav_nmt">导航模式</div>
+  <div class="nav_t">常用表单</div>
+  <ul class="clearfix">
+   #set ($myCount=0)
+   #foreach($myda in $mydata)
+	#set ($myCount=$myCount+1)
+    <li>
+      	<a href="" class="doc-name" onclick="newForm('$myda.BILLKEY','','WorkflowTypeDtlID:{$myda.OID}')">$myda.BILLNAME</a>
+        <a href="javascript:void(0);" data-oid="$myda.OID" class="addBtn deleteworkflow" title="将当前流程从我的流程中删除">-</a> 
+   	</li>
+   #end
+   #if($myCount==0)
+    <li>
+      	<a href="" class="doc-name">&nbsp;</a>
+   	</li>
+   #end
+  </ul>
+  <div class="search-box from">
+    <div class="search-c">
+      <form>
+        <input type="text" class="form-control" placeholder="表单关键字">
+        <input class="min-btn" type="button"  value="查询">
+
+      </form>
+    </div>
+  </div>
+</div>
+<div class="main-content">
+    <ul>#set ($bg_color=0)
+  	#foreach($pdata in $parentdata)
+        <li class="workflow-row clearfix">
+            #set ($bg_color=$bg_color+1)
+            <div class="items-title bg_color$bg_color">$pdata.NAME</div>
+            <div class="items-content">
+                <ul class="clearfix">
+    			#set ($pCount=0)
+            	#foreach($da in $data)
+            		#if($da.SOID==$pdata.OID)
+                	#set ($pCount=$pCount+1)
+                    <li class="items-txt">
+                          <a href="" class="doc-name" onclick="newForm('$da.BILLKEY','','WorkflowTypeDtlID:{$da.OID}')">$da.BILLNAME</a>
+                          <a href="javascript:void(0);" data-oid="$da.OID" class="addBtn addworkflow" title="将当前流程添加到我的流程中">＋</a> 
+                  	</li>
+                  	#end
+            	#end
+            	#if($pCount==0)
+                    <li class="items-txt">
+                      	<a href="" class="doc-name">&nbsp;</a>
+                  	</li>
+            	#end
+                </ul>
+            </div>
+        </li>
+    #end
+    </ul>
+</div> 

@@ -342,7 +342,7 @@ ClearAllRows('Grid3');
                                 </GridRow>
                             </GridRowCollection>
                         </Grid>
-                        <Embed Caption="附件" Key="OA_Attachment" FormKey="OA_Attachment" RootKey="Grid2">
+                        <Embed Caption="附件" Key="OA_Attachment" FormKey="OA_Attachment" RootKey="OA_Attachment">
                             <Var Key="ParentKey" Value="NJ_ParkingApp"/>
                         </Embed>
                     </TabPanel>

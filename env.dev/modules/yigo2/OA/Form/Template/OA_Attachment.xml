@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<Form Key="OA_Attachment" Caption="附件" FormType="Template" Platform="">
+<Form Key="OA_Attachment" Caption="附件" FormType="Template">
     <DataSource>
         <DataObject Key="OA_Attachment" Caption="附件" NoPrefix="ATT" PrimaryType="Entity">
             <TableCollection>
@@ -23,7 +23,7 @@
                 <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
                     <ToolBarItemCollection/>
                 </ToolBar>
-                <Grid Key="Grid2" Caption="附件" Height="100%">
+                <Grid Key="OA_Attachment" Caption="附件" Height="100%">
                     <GridColumnCollection>
                         <GridColumn Key="FileOID" Caption="附件标识" Width="80px" Visible="false"/>
                         <GridColumn Key="UploadTime" Caption="上传时间" Width="160px"/>
@@ -35,6 +35,7 @@
                         <GridColumn Key="Delete" Caption="删除" Width="80px"/>
                         <GridColumn Key="PreView" Caption="预览" Width="80px"/>
                         <GridColumn Key="E_Seal" Caption="电子签章" Width="80px"/>
+                        <GridColumn Key="WordToPDF" Caption="Word转PDF" Width="120px"/>
                     </GridColumnCollection>
                     <GridRowCollection>
                         <GridRow Key="row1" RowHeight="35" TableKey="OA_Attachment">
@@ -55,7 +56,12 @@
                             </GridCell>
                             <GridCell Key="Upload" Caption="上传" CellType="Button" Type="Upload">
                                 <OnClick>
-                                    <![CDATA[UploadAttachment(FileOID,"OA_Attachment");]]>
+                                    <![CDATA[var attachPath=Para("AttachPath");
+if(!IsNull(attachPath)&& Length(attachPath)>0){
+    UploadAttachment(FileOID,"OA_Attachment",-1,"",true,attachPath);
+}else{
+    UploadAttachment(FileOID,"OA_Attachment",-1,"",true);
+}]]>
                                 </OnClick>
                             </GridCell>
                             <GridCell Key="Download" Caption="下载" CellType="Button" Enable="true">
@@ -63,12 +69,12 @@
                                     <![CDATA[DownloadAttachment(FileOID,"OA_Attachment");]]>
                                 </OnClick>
                             </GridCell>
-                            <GridCell Key="Delete" Caption="删除" CellType="Button">
+                            <GridCell Key="Delete" Caption="删除" CellType="Button" Enable="InvokeService(&quot;OA_GetWorkflowDesigneValue&quot;, false, false,Para(&quot;pWorkitemID&quot;),Para(&quot;workflowBillKey&quot;),Para(&quot;WorkflowTypeDtlID&quot;),&quot;DeleteAtt&quot;)==1">
                                 <OnClick>
                                     <![CDATA[DeleteAttachment(FileOID,"OA_Attachment");]]>
                                 </OnClick>
                             </GridCell>
-                            <GridCell Key="PreView" Caption="预览" CellType="Button" Enable="true">
+                            <GridCell Key="PreView" Caption="预览" CellType="Button" Enable="InvokeService(&quot;OA_GetWorkflowDesigneValue&quot;, false, false,Para(&quot;pWorkitemID&quot;),Para(&quot;workflowBillKey&quot;),Para(&quot;WorkflowTypeDtlID&quot;),&quot;NOViewAtt&quot;)==0">
                                 <OnClick>
                                     <![CDATA[if(Path!=""){
 Var fileUrl=InvokeService('OA_PreviewAttchment', true, false, Path, Name);
@@ -80,6 +86,18 @@ New("OA_ShowWeb", "newtab","URL:{'"&fileUrl&"'}")}]]>
                                     <![CDATA[if(Path!=""){
 Var fileUrl=InvokeService('OA_ElectronicSeal', true, false, Path, Name);
 New("OA_FileSeal", "newtab","URL:{'"&fileUrl&"'}")}]]>
+                                </OnClick>
+                            </GridCell>
+                            <GridCell Key="WordToPDF" Caption="Word转PDF" CellType="Button" Enable="true">
+                                <OnClick>
+                                    <![CDATA[if(Name!=""){
+var fileType=InvokeService("OA_GetFileType", true, false, Name);
+if(fileType=="DOC"||fileType=="DOCX"){
+    Var fileUrl="../../pageoffice/FileMakerPDF/DefaultYigo.jsp?filePath=" + Path + "&fileName=" + Name+ "&QRString=" + GetValue("NO");
+    New("OA_ShowWeb", "newtab","URL:{'"&fileUrl&"'},Path:{Path}")
+}else{
+    Confirm("不支持的文件类型，仅支持Word!")
+}}]]>
                                 </OnClick>
                             </GridCell>
                         </GridRow>

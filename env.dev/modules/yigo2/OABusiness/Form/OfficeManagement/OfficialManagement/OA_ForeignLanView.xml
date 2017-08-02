@@ -22,11 +22,16 @@
                     <Column Key="EmpID" Caption="收文人员" DataType="Long"/>
                     <Column Key="Creator" Caption="创建人员" DataType="Long"/>
                     <ParameterCollection>
-                        <Parameter Formula="GetOperator();"/>
-                        <Parameter Formula="GetPara('ViewAcl')"/>
+                        <Parameter Formula="GetOperator();" DataType="Long"/>
+                        <Parameter Formula="GetOperator();" DataType="Long"/>
                     </ParameterCollection>
                     <Statement>
-                        <![CDATA[select * from (select *  from OA_ForeignLan_H where (Creator=? or CONCAT(',',OptIDs,',') like ? )order by BillDate desc) h]]>
+                        <![CDATA[select * from (select * from (
+select a.NO,a.Status,a.BillDate,a.Topic,a.UrgencyDeg,a.SecretL,a.ReminderDeg,a.ReadTitle,a.LevUnit,a.DeptID,a.EmpID,a.Creator,a.OID
+ from OA_ForeignLan_H a WHERE Creator=?
+UNION
+select a.NO,a.Status,a.BillDate,a.Topic,a.UrgencyDeg,a.SecretL,a.ReminderDeg,a.ReadTitle,a.LevUnit,a.DeptID,a.EmpID,a.Creator,a.OID
+ from OA_ForeignLan_H a JOIN OA_ParticipatorIDs_D b ON a.OID=b.SOID AND b.OptType=10 AND b.OptID=?)j order by BillDate desc)h]]>
                     </Statement>
                 </Table>
             </TableCollection>
@@ -38,7 +43,6 @@
                 <![CDATA[New('OA_ForeignLan');]]>
             </Action>
         </Operation>
-        <Operation Key="Setfirst_headVisible" Caption="查询" RefKey="Setfirst_headVisible"/>
     </OperationCollection>
     <Body>
         <Block>
@@ -167,7 +171,4 @@ ShowData();]]>
     <OnLoad>
         <![CDATA[LoadData()]]>
     </OnLoad>
-    <FormParaCollection>
-        <FormPara DataType="Varchar" Formula="'%,' &amp; ToString(GetOperator()) &amp; ',%';" Key="ViewAcl" Type="Formula"/>
-    </FormParaCollection>
 </Form>

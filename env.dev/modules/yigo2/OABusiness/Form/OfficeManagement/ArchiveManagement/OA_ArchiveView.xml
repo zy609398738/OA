@@ -35,9 +35,6 @@ FROM  OA_Archive_H a ORDER BY a.BillDate DESC,a.Deadline DESC,a.ArchiveTypeID AS
             </TableCollection>
         </DataObject>
     </DataSource>
-    <OperationCollection>
-        <Operation Key="Setfirst_headVisible" Caption="查询" RefKey="Setfirst_headVisible"/>
-    </OperationCollection>
     <QueryCollection>
         <Query Key="SelectArchiveByArchiveTypeID" Description="根据归档类别查询归档单据">
             <Statement>
@@ -49,9 +46,6 @@ FROM  OA_Archive_H a WHERE a.ArchiveTypeID=? ORDER BY a.BillDate,a.ArchiveTypeID
     <Body>
         <Block>
             <FlexFlowLayoutPanel Key="root" Caption="根面板">
-                <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
-                    <ToolBarItemCollection/>
-                </ToolBar>
                 <SplitPanel Key="SplitPanel1" Height="100%" Caption="SplitPanel1">
                     <Grid Key="Grid1" Caption="Grid1" NewEmptyRow="false" Enable="false" CanDelete="false" CanInsert="false">
                         <GridColumnCollection>
@@ -61,6 +55,7 @@ FROM  OA_Archive_H a WHERE a.ArchiveTypeID=? ORDER BY a.BillDate,a.ArchiveTypeID
                             <GridRow Key="row1" RowHeight="35" TableKey="OA_ArchiveType_H">
                                 <GridCell Key="ArchiveTypeID_G" Caption="归档分类" CellType="Dict" ItemKey="OA_ArchiveType">
                                     <DataBinding ColumnKey="OID"/>
+                                    <TreeDef TreeType="Dict"/>
                                 </GridCell>
                             </GridRow>
                         </GridRowCollection>

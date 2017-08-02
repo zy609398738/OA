@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<DataObject Key="OA_Feedback" Caption="反馈消息" PrimaryTableKey="OA_Feedback" PrimaryType="Entity">
+    <TableCollection>
+        <Table Key="OA_Feedback" Caption="反馈消息" DBTableName="OA_Feedback">
+            <Column Key="OID" Caption="对象标识" DataType="Long"/>
+            <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+            <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+            <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+            <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+            <Column Key="Status" Caption="状态" DataType="Integer"/>
+            <Column Key="WorkItemName" Caption="审批节点名称" DataType="Varchar"/>
+            <Column Key="ProcessKey" Caption="流程名称" DataType="Varchar"/>
+            <Column Key="Operator" Caption="反馈人员" DataType="Long"/>
+            <Column Key="SourceOID" Caption="源OID" DataType="Long"/>
+            <Column Key="Content" Caption="反馈信息" DataType="Varchar"/>
+            <Column Key="BillKey" Caption="单据名称" DataType="Varchar"/>
+            <Column Key="BillDate" Caption="反馈时间" DataType="DateTime"/>
+            <Column Key="FeedbackType" Caption="反馈类型" DataType="Integer"/>
+            <Column Key="BeFeedback" Caption="反馈目标" DataType="Long"/>
+            <Column Key="WorkitemID" Caption="工作项标识" DataType="Long"/>
+        </Table>
+    </TableCollection>
+</DataObject>

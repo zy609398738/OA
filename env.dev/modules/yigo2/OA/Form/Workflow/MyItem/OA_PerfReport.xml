@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="OA_PerfReport" Caption="绩效报表" FormType="View">
+    <DataSource>
+        <DataObject Key="OA_PerfReport" Caption="绩效报表">
+            <TableCollection>
+                <Table Key="OA_PerfReport" Caption="绩效报表" TableMode="Detail" SourceType="Query" Persist="false">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Caption="工作项标识" DBColumnName="WorkitemID" DataType="Long" Key="WorkitemID"/>
+                    <Column Caption="工作项名称" DBColumnName="WorkitemName" DataType="Varchar" Key="WorkitemName"/>
+                    <Column Caption="创建时间" DBColumnName="CreatTime" DataType="DateTime" Key="CreatTime"/>
+                    <Column Key="BillCreatTime" Caption="单据时间" DataType="DateTime" DBColumnName="BillCreatTime"/>
+                    <Column Caption="单据日期" DBColumnName="BillDate" DataType="DateTime" Key="BillDate"/>
+                    <Column Key="BillNO" Caption="单据编号" DataType="Varchar" DBColumnName="BillNO" IsPrimary="true"/>
+                    <Column Key="DeptID" Caption="申请部门" DataType="Long" DBColumnName="DeptID"/>
+                    <Column Key="EmpID" Caption="申请人" DataType="Long" DBColumnName="EmpID"/>
+                    <Column Key="Topic" Caption="主题" DataType="Varchar" Length="0" DBColumnName="Topic"/>
+                    <Column Key="ProcessKey" Caption="流程标识" DataType="Varchar" Length="0"/>
+                    <Column Key="BillStatus" Caption="状态" DataType="Integer"/>
+                    <Column Key="UrgencyDeg" Caption="紧急程度" DataType="Integer"/>
+                    <Column Key="FormKey" Caption="业务类型" DataType="Varchar"/>
+                    <Column Key="InstanceID" Caption="流程ID" DataType="Long"/>
+                    <Column Key="TotalTime" Caption="花费时间" DataType="Numeric" Precision="16" Scale="2"/>
+                    <Column Key="AVGTimeConsuming" Caption="平均耗时" DataType="Varchar"/>
+                    <Column Key="NodeID" DataType="Integer" Caption="节点ID"/>
+                    <Statement>
+                        <![CDATA[select * from (select 
+i.ProcessKey,
+i.formkey,
+i.oid,
+i.verid,
+l.nodeid,
+i.instanceid,
+BillNO,Topic,UrgencyDeg,EmpID,DeptID,BillStatus,BillCreatTime,
+w.workItemName,w.workitemid,
+(W.FINISHTIME-W.CREATTIME)*24 totaltime
+from WF_Workitem w 
+join BPM_Log l on w.WorkitemID=l.WorkitemID 
+join BPM_Instance i on  l.instanceID=i.instanceID
+join BPM_Migration m on  i.OID=m.BillOID order by i.instanceid ) h ]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板" Height="pref" Width="pref">
+                <SplitPanel Key="SplitPanel1" Orientation="Vertical" Height="100%" Caption="SplitPanel1">
+                    <GridLayoutPanel Key="GridLayoutPanel1" Height="110px" Padding="5px" Caption="GridLayoutPanel1" Visible="first_headVisible==1">
+                        <DatePicker Key="From" Caption="申请日期" BuddyKey="Lab_From" X="1" Y="0">
+                            <Condition ColumnKey="BillCreatTime" TableKey="OA_PerfReport" CondSign="between" Group="A" GroupHead="true"/>
+                        </DatePicker>
+                        <Label Key="Lab_From" Caption="申请日期" X="0" Y="0"/>
+                        <Label Key="Label1" Caption="到" X="2" Y="0"/>
+                        <DatePicker Key="To" Caption="到" X="3" Y="0">
+                            <Condition ColumnKey="BillCreatTime" TableKey="OA_PerfReport" CondSign="between" Group="A" GroupTail="true"/>
+                        </DatePicker>
+                        <TextEditor Key="QueryTheme" Caption="主题" BuddyKey="Lab_QueryTheme" X="9" Y="1">
+                            <Condition ColumnKey="Topic" TableKey="OA_PerfReport" CondSign="like"/>
+                        </TextEditor>
+                        <Label Key="Lab_QueryTheme" Caption="主题" X="8" Y="1"/>
+                        <Button Key="Button1" Caption="查询" X="11" Y="0">
+                            <OnClick>
+                                <![CDATA[DealCondition();
+LoadData();
+ShowData();]]>
+                            </OnClick>
+                        </Button>
+                        <Dict Key="QueryApplicant" Caption="申请人" BuddyKey="Lab_QueryApplicant" X="9" Y="0" ItemKey="OA_Employee">
+                            <Condition ColumnKey="EmpID" TableKey="OA_PerfReport" CondSign="="/>
+                        </Dict>
+                        <Label Key="Lab_QueryApplicant" Caption="申请人" X="8" Y="0"/>
+                        <Dict Key="QueryDeptID" Caption="申请部门" BuddyKey="Lab_QueryDeptID" X="6" Y="0" ItemKey="OA_Department">
+                            <Condition ColumnKey="DeptID" TableKey="OA_PerfReport" CondSign="="/>
+                        </Dict>
+                        <Label Key="Lab_QueryDeptID" Caption="申请部门" X="5" Y="0"/>
+                        <Button Key="Cancel" Caption="取消" X="11" Y="1">
+                            <OnClick>
+                                <![CDATA[ResetCondition();]]>
+                            </OnClick>
+                        </Button>
+                        <CheckBox Caption="表头可见" Key="first_headVisible" Visible="false" X="10" Y="1">
+                            <DataBinding DefaultValue="1"/>
+                        </CheckBox>
+                        <ComboBox Key="ComboBox1" Caption="业务类型" BuddyKey="Lab_ComboBox1" X="1" Y="2" SourceType="Formula" XSpan="3">
+                            <Condition ColumnKey="FormKey" TableKey="OA_PerfReport" CondSign="in"/>
+                            <FormulaItems>
+                                <![CDATA[GetFormByType("Entity")]]>
+                            </FormulaItems>
+                        </ComboBox>
+                        <Label Key="Lab_ComboBox1" Caption="业务类型" X="0" Y="2"/>
+                        <ComboBox Key="Q_ProcessKey" Caption="流程名称" BuddyKey="Lab_Q_ProcessKey" X="1" Y="1" SourceType="Formula" XSpan="3">
+                            <Condition ColumnKey="ProcessKey" TableKey="OA_PerfReport" CondSign="="/>
+                            <FormulaItems>
+                                <![CDATA[OA_GetDropItemByBPM()]]>
+                            </FormulaItems>
+                        </ComboBox>
+                        <Label Key="Lab_Q_ProcessKey" Caption="流程名称" X="0" Y="1"/>
+                        <ComboBox Key="Q_Version" Caption="流程版本" BuddyKey="Lab_Q_Version" X="6" Y="1" SourceType="Query" ItemsDependency="Q_ProcessKey">
+                            <Condition ColumnKey="VERID" TableKey="OA_PerfReport" CondSign="="/>
+                            <QueryDef>
+                                <Statement>
+                                    <![CDATA[Select distinct WorkflowVersion,WorkflowKey  from OA_Workflow_H where WorkflowKey = ?]]>
+                                </Statement>
+                                <ParameterCollection>
+                                    <Parameter DataType="Varchar" Formula="GetValue(&quot;Q_ProcessKey&quot;);"/>
+                                </ParameterCollection>
+                            </QueryDef>
+                        </ComboBox>
+                        <Label Key="Lab_Q_Version" Caption="流程版本" X="5" Y="1"/>
+                        <RowDefCollection RowGap="5">
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="5">
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="16%"/>
+                            <ColumnDef Width="20px"/>
+                            <ColumnDef Width="17%"/>
+                            <ColumnDef Width="10px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="33%"/>
+                            <ColumnDef Width="10px"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="34%"/>
+                            <ColumnDef Width="10px"/>
+                            <ColumnDef Width="80px"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <Grid Key="Grid1" Caption="Grid1" NewEmptyRow="false" Enable="false" Height="100%">
+                        <GridColumnCollection>
+                            <GridColumn Key="BillNO" Caption="单据编号" Width="200px" Enable="true"/>
+                            <GridColumn Key="FormKey" Caption="单据名称" Width="200px"/>
+                            <GridColumn Key="OID" Caption="OID" Width="80px" Visible="false"/>
+                            <GridColumn Key="ProcessKey" Caption="流程标识" Width="80px" Visible="false"/>
+                            <GridColumn Key="Verid" Caption="版本" Width="80px" Visible="false"/>
+                            <GridColumn Key="TotalTime" Caption="操作节点花费时间(小时)" ColumnType="Detail" Width="150px">
+                                <ColumnExpand ExpandType="Title">
+                                    <![CDATA[]]>
+                                </ColumnExpand>
+                                <GridColumnCollection>
+                                    <GridColumn Key="column3" Caption="花费时间" Width="150px">
+                                        <ColumnExpand ColumnKey="NodeID">
+                                            <![CDATA[InvokeService("OA_GetAuditNodeByBPM",true,false,Q_ProcessKey,Q_Version);]]>
+                                        </ColumnExpand>
+                                    </GridColumn>
+                                </GridColumnCollection>
+                            </GridColumn>
+                        </GridColumnCollection>
+                        <GridRowCollection>
+                            <GridRow Key="row1" RowHeight="35" TableKey="OA_PerfReport">
+                                <GridCell Key="BillNO" Caption="单据编号" CellType="HyperLink">
+                                    <DataBinding ColumnKey="BillNO"/>
+                                    <OnClick>
+                                        <![CDATA[Open(FormKey,OID);]]>
+                                    </OnClick>
+                                </GridCell>
+                                <GridCell Key="FormKey" Caption="单据名称" CellType="ComboBox" SourceType="Formula">
+                                    <DataBinding ColumnKey="FormKey"/>
+                                    <FormulaItems>
+                                        <![CDATA[GetFormByType("Entity")]]>
+                                    </FormulaItems>
+                                </GridCell>
+                                <GridCell Key="OID" Caption="OID">
+                                    <DataBinding ColumnKey="OID"/>
+                                </GridCell>
+                                <GridCell Key="ProcessKey" Caption="流程标识" CellType="ComboBox" SourceType="Formula">
+                                    <DataBinding ColumnKey="ProcessKey"/>
+                                    <FormulaItems>
+                                        <![CDATA[OA_GetDropItemByBPM()]]>
+                                    </FormulaItems>
+                                </GridCell>
+                                <GridCell Key="Verid" Caption="版本" CellType="NumberEditor" IntegerValue="true">
+                                    <DataBinding ColumnKey="VERID"/>
+                                </GridCell>
+                                <GridCell Key="TotalTime" Caption="花费时间" CellType="NumberEditor" Scale="4">
+                                    <DataBinding ColumnKey="TotalTime"/>
+                                </GridCell>
+                            </GridRow>
+                            <GridRow Key="row2" RowHeight="35" RowType="Total">
+                                <GridCell Key="LAB_ATC" Caption="平均耗时(小时)"/>
+                                <GridCell/>
+                                <GridCell/>
+                                <GridCell/>
+                                <GridCell/>
+                                <GridCell Key="AVGTimeConsuming" Caption="平均耗时">
+                                    <DataBinding DefaultFormulaValue="Sum(&quot;TotalTime&quot;)/(GetRowCount(&quot;Grid1&quot;)-1)"/>
+                                </GridCell>
+                            </GridRow>
+                        </GridRowCollection>
+                    </Grid>
+                    <SplitSize Size="110px"/>
+                    <SplitSize Size="100%"/>
+                </SplitPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

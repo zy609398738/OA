@@ -24,7 +24,7 @@ public class GetIdExistsSqlIncludeAll implements IExtService {
 	 * 获取判断OID是否存在的SQL语句，包括所有父节点
 	 * 
 	 * @param context
-	 *            中间层对象
+	 *            上下文对象
 	 * @param tableName
 	 *            字典的主表名称
 	 * @param dicIds

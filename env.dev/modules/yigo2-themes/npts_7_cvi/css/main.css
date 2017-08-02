@@ -1,0 +1,263 @@
+@charset "utf-8";
+/*
+@名称: main
+@功能: 主体左侧 头部
+@使用方法: ；
+*/
+
+/* 左侧滚动条 */
+.scroll-middle-V{
+	background: transparent;
+}
+.scroll-top,
+.scroll-bottom,
+.scroll-left,
+.scroll-right {
+	background: transparent;
+}
+.scroll-top:after{
+	margin-top: 0;
+	border-bottom: none;
+	border-left: none;
+	border-right: none;
+}
+.scroll-bottom:after{
+	margin-top: 0;
+	border-top: none;
+	border-left: none;
+	border-right: none;
+}
+.scroll-slider-V,
+.scroll-slider-H {
+	background:rgba(0,0,0,0.3);
+}
+.scroll-slider-V:hover,
+.scroll-slider-H:hover,
+.scroll-top:hover,
+.scroll-bottom:hover,
+.scroll-left:hover,
+.scroll-right:hover  {
+	background: transparent;
+}
+
+/* core.css Tab切换按钮 */
+
+.ui-tabs-nav li {
+    border-radius: 5px;
+    background: #8db1e0;
+    -webkit-border-radius:5px;
+    -moz-border-radius:5px;
+}
+.ui-tabpnl .ui-tabs-nav .aria-selected a{
+    background:#336699;
+}
+.ui-tabs-nav li a:hover {
+	background-color: #336699;
+}
+.ui-tabpnl .ui-tabs-nav li a:hover {
+	background-color: #336699;
+}
+.ui-tabs-nav li a label {
+    color: #fff;
+}
+.ui-tabs.dropdownBtn {
+    height: 61px;
+    background-color: #eef1f5;
+}
+.ui-tabcnt .ui-tabs.dropdownBtn.show {
+    background-color: #eef1f5;
+}
+.ui-tabcnt > .ui-tabs-header > .ui-tabs-nav {
+    background:#eef1f5;
+    border-bottom:none;
+    padding:10px;
+}
+.ui-tabcnt .ui-tabs-nav li.ui-tabcontainer.aria-selected {
+    background: #336699;
+}
+.ui-tabcnt .ui-tabs-nav li.ui-tabcontainer.aria-selected:after{
+	background: transparent;
+}
+
+/* 主体样式 */
+body,html {
+	background:url(../images/main/bg.png) no-repeat center top;
+}
+.nav { 
+	background: transparent;
+}
+.nav-field-box { 
+	border-left: none;
+	background: transparent;
+}
+.nav-field-box.setting .nav-field-btn {
+	background-image:url(../images/main/set_icon.png);
+	background-color: transparent;
+	border: none;
+}
+.main {
+	background-color: transparent;
+}
+.mainLeft { 
+	width: 225px;
+	padding: 10px;
+}
+.mainMiddle { 
+  	border:none;
+  	display: none;
+  	background: transparent;
+}
+.mainRight {
+	background: #eef1f5;
+	position: relative;
+}
+.searchBox {
+	background: transparent;
+	border-radius: 5px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	background:rgba(0,0,0,.1);
+}
+.searchBox:hover {
+	background:rgba(0,0,0,.1);
+}
+.mainLeft .search {  
+	background:url(../images/main/search-btn.png) no-repeat center;
+}
+#listBox {
+	margin-top:10px;
+	border-radius: 5px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	background:rgba(0,0,0,.1);
+}
+.tm {
+	color:#cccccc;
+}
+.tm li a:hover{
+	background-color: rgba(0,0,0,0.4);
+}
+.tm li a.clicked {
+	background: rgba(0,0,0,.4);
+	font-weight: 300;
+}
+.tm li a.clicked span{
+	border-left:3px solid #fff;
+	padding-left: 10px;
+}
+.tm li a.clicked:before{
+
+}
+
+li.isparent  a.open,
+.tree li.isparent.top-level > a.open{
+	background-image:url(../images/main/expand_l.png);
+}
+li.isparent  a.close,
+.tree li.isparent.top-level > a.close{
+	background-image:url(../images/main/collapse_l.png);
+}
+.ui-tabcnt > .ui-tabs-header > .ui-tabs-nav {
+	height: 60px;
+}
+.ui-tabcnt .ui-tabs-header{
+	padding-left: 30px;
+	border-bottom: 1px solid #d2d2d2;
+}
+/* .ui-tabcnt .ui-tabs-header:before{
+	content: '';
+	position: absolute;
+	left:0;
+	width: 0;
+    height: 0;
+    border-top: 24px solid #333366;
+    border-right: 24px solid #eef1f5;
+    border-bottom: 24px solid #eef1f5;
+    border-left: 24px solid #333366;
+  	-webkit-box-shadow:3px 3px 10px rgba(0, 0, 0, .3);  
+  	-moz-box-shadow:3px 3px 10px rgba(0, 0, 0, .3);  
+  	box-shadow:3px 3px 10px rgba(0, 0, 0, .3); 
+} */
+
+.nav-left{
+	float:left; 
+	width: 50px;
+	height: 50px;
+	color:#0078d7;
+	background:#0078d7;
+	transition: .3s;
+	display: none;
+}
+.logo{
+	display: block;
+	margin:10px 10px 0 20px;
+	width:171px;
+	height: 40px;
+	background: url(../images/main/th_logo.png) no-repeat center top;
+    background-size: 171px 40px;
+	float: left;
+}
+.logo-text{
+	color: #fafafa;
+    line-height: 60px;
+    margin-top: 7px;
+}
+.navcenter{
+	color:#fff;
+	float: right;
+	width:500px;
+	margin: 10px 40px 0 0;
+	padding: 5px 10px;
+	background: #003366;
+	border: 1px solid #003333;
+	border-radius: 15px;
+	-moz-border-radius: 15px;
+	-webkit-border-radius: 15px;
+}
+.navRight{
+    margin-top: 10px;
+}
+
+.navcenter .nav-date,.navcenter .nav-time{
+    font-size: 14px;
+    margin-right: 10px;
+    width: 120px;
+    line-height: 20px;
+    height: 20px;
+    display: inline-block;
+    text-align: left;
+    padding-left: 30px;
+    position: relative;
+    background: url(../images/main/vector-icon.png) no-repeat;
+}
+.navcenter .nav-date{
+	background-position: 0 1px;
+}
+.navcenter .nav-time{
+	background-position: 0 -61px;
+	letter-spacing: 2px;
+}
+.navcenter .nav-time:after,.navcenter .nav-date:after{
+    content: '';
+    height: 10px;
+    width: 2px;
+    position: absolute;
+    top: 5px;
+    right: 0px;
+    border-left: 1px solid #ffffff;
+}
+.navcenter .nav-weather iframe{
+	height: 20px;
+	width:200px;
+}
+.navcenter .nav-weather .box a{
+	color:#fff!important;
+}
+
+.nav-watchword{
+	color:#fff;
+	float: left;
+	width:500px;
+	margin: 18px 0 0 33px;
+    font-size: 26px;
+}

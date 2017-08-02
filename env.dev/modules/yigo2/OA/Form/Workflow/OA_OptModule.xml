@@ -36,8 +36,11 @@
                     <Column Key="UserTemplateKey" Caption="操作模板" DataType="Varchar"/>
                     <Column Key="UserAction" Caption="执行公式" DataType="Varchar" Length="4000"/>
                     <Column Key="UserOptEnable" Caption="可用性" DataType="Varchar" Length="1000"/>
-                    <Column Key="UserOptVisible" Caption="UserVisible" DataType="Varchar" Length="1000"/>
+                    <Column Key="UserOptVisible" Caption="可见性" DataType="Varchar" Length="1000"/>
                     <Column Key="SendType" Caption="发送方式" DataType="Long"/>
+                    <Column Key="ISDefaultAdd" Caption="是否默认添加在操作选择中" DataType="Integer"/>
+                    <Column Key="OrderNum" Caption="显示顺序" DataType="Integer"/>
+                    <Column Key="EmailTemp" Caption="邮件模板" DataType="Varchar"/>
                 </Table>
             </TableCollection>
         </DataObject>
@@ -87,7 +90,22 @@ SetValue("UserVisible", OptVisible);
                             <DataBinding ColumnKey="SendType" TableKey="OA_OptModule_H"/>
                         </Dict>
                         <Label Key="Lab_SendType" Caption="发送方式" X="0" Y="2"/>
+                        <CheckBox Caption="是否默认添加在操作选择中" Key="ISDefaultAdd" X="4" Y="3">
+                            <DataBinding ColumnKey="ISDefaultAdd" TableKey="OA_OptModule_H"/>
+                        </CheckBox>
+                        <NumberEditor Key="OrderNum" Caption="显示顺序" BuddyKey="Lab_OrderNum" X="1" Y="3" IntegerValue="true">
+                            <DataBinding ColumnKey="OrderNum" TableKey="OA_OptModule_H"/>
+                        </NumberEditor>
+                        <Label Key="Lab_OrderNum" Caption="显示顺序" X="0" Y="3"/>
+                        <ComboBox Key="EmailTemp" Caption="邮件模板" BuddyKey="Lab_EmailTemp" X="4" Y="2" SourceType="Formula">
+                            <DataBinding ColumnKey="EmailTemp" TableKey="OA_OptModule_H"/>
+                            <FormulaItems>
+                                <![CDATA[InvokeService("OA_GetFileNameStr", false, true, "../../modules/cms/site/static/email/")]]>
+                            </FormulaItems>
+                        </ComboBox>
+                        <Label Key="Lab_EmailTemp" Caption="邮件模板" X="3" Y="2"/>
                         <RowDefCollection RowGap="4">
+                            <RowDef Height="30px"/>
                             <RowDef Height="30px"/>
                             <RowDef Height="30px"/>
                             <RowDef Height="30px"/>
@@ -198,11 +216,11 @@ SetValue("UserVisible", OptVisible);
                             <DataBinding ColumnKey="UserAction" TableKey="OA_OptModule_H"/>
                         </TextArea>
                         <Label Key="Lab_UserAction" Caption="执行公式" X="0" Y="1"/>
-                        <TextArea Key="UserEnable" Caption="可用性" BuddyKey="Lab_UserEnable" X="1" Y="2" XSpan="4" MaxLength="4000">
+                        <TextArea Key="UserEnable" Caption="可用性" BuddyKey="Lab_UserEnable" X="1" Y="2" XSpan="4" MaxLength="1000">
                             <DataBinding ColumnKey="UserOptEnable" TableKey="OA_OptModule_H"/>
                         </TextArea>
                         <Label Key="Lab_UserEnable" Caption="可用性" X="0" Y="2"/>
-                        <TextArea Key="UserVisible" Caption="可见性" BuddyKey="Lab_UserVisible" X="1" Y="3" XSpan="4" MaxLength="4000">
+                        <TextArea Key="UserVisible" Caption="可见性" BuddyKey="Lab_UserVisible" X="1" Y="3" XSpan="4" MaxLength="1000">
                             <DataBinding ColumnKey="UserOptVisible" TableKey="OA_OptModule_H"/>
                         </TextArea>
                         <Label Key="Lab_UserVisible" Caption="可见性" X="0" Y="3"/>
@@ -239,11 +257,13 @@ IIF(GetPara("OperatorSelID")>0,
             <![CDATA[DBQueryValue("Select OID From OA_OperatorSel_H Where SourceKey=? and SourceID=? and Tag1=?", BillKey,OID,OID);]]>
         </Macro>
         <Macro Key="OA_SetOperationByKey" Args="codeReplace">
-            <![CDATA[ReplaceTable("OA_OptModule_H", InvokeService("OA_SetOperationByKey",true,false,"OA_OptTemplate",OptTemplateRelevance,codeReplace));
-RefreshControl("Action");
-RefreshControl("OptIcon");
-RefreshControl("OptEnable");
-RefreshControl("OptVisible");]]>
+            <![CDATA[var a = InvokeService("OA_SetOperationByKey",true,false,"OA_OptTemplate",OptTemplateRelevance,codeReplace);
+SetValue("Code",a.Code);
+SetValue("Name",a.Name);
+SetValue("OptIcon",a.OptIcon);
+SetValue("Action",a.Action);
+SetValue("OptVisible",a.OptVisible);
+SetValue("OptEnable",a.OptEnable);]]>
         </Macro>
     </MacroCollection>
 </Form>

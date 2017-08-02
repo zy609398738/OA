@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<Form Key="MOA_ForeignLan" Caption="收文(移动)" FormType="Entity" AliasKey="OA_ForeignLan">
+<Form Key="MOA_ForeignLan" Caption="收文(移动)" FormType="Entity" AliasKey="OA_ForeignLan" Platform="Mobile">
     <DataSource>
         <DataObject Key="MOA_ForeignLan" Caption="收文" PrimaryTableKey="MOA_ForeignLan_H" NoPrefix="MFL" PrimaryType="Entity">
             <TableCollection>

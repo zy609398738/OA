@@ -68,6 +68,7 @@
                             <GridRow Key="row1" RowHeight="35" TableKey="OA_Department_H">
                                 <GridCell Key="DeptID" Caption="部门" CellType="Dict" Enable="false" ItemKey="OA_Department" Sort="Code">
                                     <DataBinding ColumnKey="OID"/>
+                                    <TreeDef TreeType="Dict"/>
                                 </GridCell>
                                 <GridCell Key="Name" Caption="名称">
                                     <DataBinding ColumnKey="Name"/>

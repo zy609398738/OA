@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<Form Caption="待办事项" FormType="View" Key="OA_ToDoList">
+<Form Caption="待办流程" FormType="View" Key="OA_ToDoList" FormulaCaption="if(!IsNull(Para('FormCaption'))){if(Length(Para('FormCaption'))&gt;0){Para('FormCaption');}else{&quot;待办流程&quot;;}}">
     <DataSource>
-        <DataObject Caption="待办事项" Key="OA_ToDoList">
+        <DataObject Caption="待办流程" Key="OA_ToDoList">
             <TableCollection>
                 <Table Caption="待办信息" DBTableName="WF_workitem" Key="OA_ToDoList" Persist="false" SourceType="Query" TableMode="Detail">
                     <Column Caption="工作项标识" DBColumnName="WorkitemID" DataType="Long" Key="WorkitemID"/>
@@ -24,35 +24,29 @@
                     </ParameterCollection>
                     <Statement>
                         <![CDATA[select * from (select 
-BPM_Instance.ProcessKey,
-BPM_Instance.formkey,
-BPM_Instance.oid,
-bpm_workiteminfo.ParentWorkitemID,
+i.ProcessKey,
+i.formkey,
+i.oid,wi.NodeID,
+wi.ParentWorkitemID,
 Topic,UrgencyDeg,EmpID,DeptID,BillStatus,BillCreatTime,
-WF_Workitem.workItemID,
-WF_Workitem.workItemName 
-from WF_Workitem 
-join WF_Participator on WF_Workitem.WorkitemID=WF_Participator.WorkitemID 
-join BPM_Log on WF_Workitem.WorkitemID=BPM_Log.WorkitemID 
-join bpm_workiteminfo on wf_workitem.WorkitemID=bpm_workiteminfo.WorkitemID 
-join BPM_Instance on  BPM_Log.instanceID=BPM_Instance.instanceID
-join BPM_Migration on  BPM_Instance.OID=BPM_Migration.BillOID
-where WF_Participator.OperatorID=? order by UrgencyDeg desc,BillCreatTime desc ) h]]>
+w.workItemID,
+w.workItemName  
+from WF_Workitem w 
+join WF_Participator p on w.WorkitemID=p.WorkitemID 
+join BPM_Log l on w.WorkitemID=l.WorkitemID 
+join bpm_workiteminfo wi on w.WorkitemID=wi.WorkitemID 
+join BPM_Instance i on  l.instanceID=i.instanceID
+join BPM_Migration m on  i.OID=m.BillOID
+where p.OperatorID=? order by UrgencyDeg desc,BillCreatTime desc ) h]]>
                     </Statement>
                 </Table>
             </TableCollection>
             <OIDFilter/>
         </DataObject>
     </DataSource>
-    <OperationCollection>
-        <Operation Key="Setfirst_headVisible" Caption="查询" RefKey="Setfirst_headVisible"/>
-    </OperationCollection>
     <Body>
         <Block>
             <FlexFlowLayoutPanel Key="main" Height="100%" Width="100%">
-                <ToolBar Height="pref" Key="main_toolbar">
-                    <ToolBarItemCollection/>
-                </ToolBar>
                 <GridLayoutPanel Key="GridLayoutPanel1" Height="80px" Padding="5px" Caption="GridLayoutPanel1" Visible="first_headVisible==1">
                     <DatePicker Key="From" Caption="申请日期" BuddyKey="Lab_From" X="1" Y="0">
                         <Condition ColumnKey="BillCreatTime" TableKey="OA_ToDoList" CondSign="between" Group="A" GroupHead="true"/>
@@ -115,7 +109,7 @@ ShowData();]]>
                         <ColumnDef Width="80px"/>
                     </ColumnDefCollection>
                 </GridLayoutPanel>
-                <ListView Height="100%" Key="list" TableKey="OA_ToDoList">
+                <ListView Height="100%" Key="list" TableKey="OA_ToDoList" PageLoadType="DB">
                     <ListViewColumnCollection>
                         <ListViewColumn Key="ProcessKey" Caption="流程名称" ColumnType="ComboBox" DataColumnKey="ProcessKey" Width="148px" SourceType="Formula">
                             <FormulaItems>
@@ -137,12 +131,13 @@ ShowData();]]>
                             <Item Key="0" Value="0"/>
                         </ListViewColumn>
                         <ListViewColumn Key="BillCreatTime" Caption="创建时间" ColumnType="DatePicker" DataColumnKey="BillCreatTime" Width="200px"/>
+                        <ListViewColumn Key="WorkitemName" Caption="审批操作" ColumnType="TextEditor" DataColumnKey="WorkitemName"/>
                         <ListViewColumn Key="BillStatus" Caption="状态" ColumnType="ComboBox" DataColumnKey="BillStatus" Width="100px" SourceType="Status"/>
-                        <ListViewColumn Caption="工作项标识" DataColumnKey="WorkitemID" Key="WorkitemID" Width="30px" Visible="false"/>
+                        <ListViewColumn Caption="工作项标识" DataColumnKey="WorkitemID" Key="WorkitemID" Width="30px" Visible="false" ColumnType="TextEditor"/>
                         <ListViewColumn Key="OID" Caption="OID" DataColumnKey="OID" Visible="FALSE"/>
                     </ListViewColumnCollection>
                     <RowDblClick>
-                        <![CDATA[OpenWorkitem(WorkitemID)]]>
+                        <![CDATA[OpenWorkitem(WorkitemID);]]>
                     </RowDblClick>
                 </ListView>
             </FlexFlowLayoutPanel>

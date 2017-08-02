@@ -2,15 +2,25 @@
 SETLOCAL
 
 :: Javascript debug option
-::set THINKBASE_NET_RHINO_DEBUGGER=local://BOOT
+:: set THINKBASE_NET_RHINO_DEBUGGER=local://BOOT
 
 :: PROFILE 通常可以设置为基于 ${PROFILE_REPO} 的相对目录, 如果 bat 文件就放在 profile 下则可以不设, 或者简单的设为 %~dp0
 set PROFILE=%~dp0
-
+:: 设置远程调试端口
+set JPDA_PORT=37777
 :: 设置数据库连接信息(注意 MySQL 的 url 在命令行环境变量中要把 "&" 表示为 "^&" )
 set JDBC_URL=jdbc:mysql://localhost:3306/oa?useUnicode=true^&characterEncoding=UTF-8^&zeroDateTimeBehavior=convertToNull
 set DB_USERNAME=root
 set DB_PASSWORD=******
+
+:: set JDBC_URL=jdbc:oracle:thin:@localhost:1521:XE
+:: set DB_USERNAME=oa
+:: set DB_PASSWORD=******
+
+:: 设置系统使用的样式，主题
+:: set YIGO2_THEME=oa_trunk
+:: 设置CMS的开发模式
+:: set DEVELOP_MODE=true
 
 :: 最后简单的调用 boot.bat
 call "%~dp0..\..\instance\etc\runner\boot.bat"

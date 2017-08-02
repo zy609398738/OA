@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="OA_CommonWorkflow" Caption="常用流程" FormType="View">
+    <DataSource>
+        <DataObject Key="OA_CommonWorkflow" Caption="常用流程">
+            <TableCollection>
+                <Table Key="OA_CommonWorkflow" Caption="常用流程" TableMode="Detail" SourceType="Query" Persist="false">
+                    <Column Caption="对象标识" DataType="Long" Key="OID"/>
+                    <Column Caption="主对象标识" DataType="Long" Key="SOID"/>
+                    <Column Caption="父对象标识" DataType="Long" Key="POID"/>
+                    <Column Caption="对象版本" DataType="Integer" Key="VERID"/>
+                    <Column Caption="对象明细版本" DataType="Integer" Key="DVERID"/>
+                    <Column Caption="序号" DataType="Integer" Key="Sequence"/>
+                    <Column Caption="流程ID" DataType="Long" Key="WFID"/>
+                    <Column Caption="流程定义" DataType="Long" Key="WorkflowID"/>
+                    <Column Caption="流程标识" DataType="Varchar" Key="WorkflowKey" Length="100"/>
+                    <Column Caption="关联表单标识" DataType="Varchar" Key="BillKey" Length="100"/>
+                    <Column Key="BillName" Caption="表单名称" DataType="Varchar"/>
+                    <Column Caption="流程名称" DataType="Varchar" Key="WorkflowName" Length="100"/>
+                    <Column Caption="分配人" DataType="Varchar" Key="OptDesc" Length="1000"/>
+                    <Column Caption="所属公司" DataType="Long" Key="CCID"/>
+                    <Column Caption="显示顺序" DataType="Integer" Key="OrderNum"/>
+                    <Column Caption="流程备注" DataType="Varchar" Key="WFNotes" Length="100"/>
+                    <Column Caption="变更类别" DataType="Long" Key="ChangeType"/>
+                    <Column Key="AuditPerdepict" Caption="人员描述" DataType="Varchar"/>
+                    <Column Key="Name" Caption="名称" DataType="Varchar"/>
+                    <Column Key="IsCommon" Caption="是否常用" DataType="Integer"/>
+                    <Statement>
+                        <![CDATA[select h.name,d.oid,d.billkey,d.billname,d.WorkflowID,d.WorkflowKey,d.WFNotes,d.OrderNum ,d.IsCommon from OA_WorkflowType_H h join OA_WorkflowType_D d on h.oid = d.soid]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="Save" Caption="保存">
+            <Action>
+                <![CDATA[InvokeService("OA_UpdateSql", true, false);
+Confirm("保存成功");]]>
+            </Action>
+        </Operation>
+    </OperationCollection>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板">
+                <ToolBar Caption="ToolBar1" Height="pref" Key="ToolBar1">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <Grid Caption="明细" Height="100%" Key="Dtl" NewEmptyRow="false" Enable="false" Width="100%">
+                    <GridColumnCollection>
+                        <GridColumn Key="Name" Caption="名称" Width="80px"/>
+                        <GridColumn Key="IsCommon" Caption="是否常用" Width="80px" Enable="true"/>
+                        <GridColumn Key="OID" Caption="明细ID" Width="80px" Visible="false"/>
+                        <GridColumn Key="BillKey" Caption="关联表单" Width="150px"/>
+                        <GridColumn Key="BillName" Caption="表单名称" Width="250px"/>
+                        <GridColumn Key="BillOptSel" Caption="单据关联人员" Width="80px" Visible="false"/>
+                        <GridColumn Key="AuditPerdepict" Caption="人员描述" Width="80px" Visible="false"/>
+                        <GridColumn Key="WorkflowID" Caption="流程定义" Width="250px"/>
+                        <GridColumn Key="WorkflowKey" Caption="流程标识" Width="80px" Visible="false"/>
+                        <GridColumn Key="EditWorkflow" Caption="编辑流程定义" Width="80px" Visible="false"/>
+                        <GridColumn Key="WFNotes" Caption="流程备注" Width="80px"/>
+                        <GridColumn Key="OrderNum_D" Caption="显示顺序" Width="80px"/>
+                    </GridColumnCollection>
+                    <GridRowCollection>
+                        <GridRow Key="row-0" TableKey="OA_CommonWorkflow">
+                            <GridCell Key="Name" Caption="名称" CellType="TextEditor" CellSortType="None">
+                                <DataBinding ColumnKey="Name"/>
+                            </GridCell>
+                            <GridCell Key="IsCommon" Caption="是否常用" CellType="CheckBox" Enable="true" CellSortType="None" IsSelect="true">
+                                <DataBinding ColumnKey="IsCommon"/>
+                            </GridCell>
+                            <GridCell Key="OID" Caption="明细ID" CellSortType="None">
+                                <DataBinding ColumnKey="OID"/>
+                                <DblClick>
+                                    <![CDATA[]]>
+                                </DblClick>
+                            </GridCell>
+                            <GridCell Key="BillKey" Caption="关联表单" CellType="ComboBox" CellSortType="None" SourceType="Formula">
+                                <DataBinding ColumnKey="BillKey">
+                                    <ValueChanged>
+                                        <![CDATA[BillName=GetCellCaption("Dtl",-1, "BillKey_D")]]>
+                                    </ValueChanged>
+                                </DataBinding>
+                                <FormulaItems>
+                                    <![CDATA[GetFormByType("Entity")]]>
+                                </FormulaItems>
+                            </GridCell>
+                            <GridCell Key="BillName" Caption="表单名称" CellType="TextEditor" CellSortType="None">
+                                <DataBinding ColumnKey="BillName"/>
+                            </GridCell>
+                            <GridCell Key="BillOptSel" Caption="单据关联人员" CellType="HyperLink" Enable="true" CellSortType="None">
+                                <DataBinding/>
+                                <OnClick>
+                                    <![CDATA[OA_ShowWorkflowOptBill()]]>
+                                </OnClick>
+                            </GridCell>
+                            <GridCell Key="AuditPerdepict" Caption="人员描述" CellType="TextEditor" CellSortType="None">
+                                <DataBinding ColumnKey="AuditPerdepict"/>
+                            </GridCell>
+                            <GridCell Key="WorkflowID" Caption="流程定义" CellType="Dict" ItemKey="OA_Workflow" CellSortType="None">
+                                <DataBinding ColumnKey="WorkflowID">
+                                    <ValueChanged>
+                                        <![CDATA[WorkflowKey=GetDictValue("OA_Workflow", GetCellValue("Dtl",-1,"WorkflowID"), "OA_Workflow_H.WorkflowKey")]]>
+                                    </ValueChanged>
+                                </DataBinding>
+                            </GridCell>
+                            <GridCell Key="WorkflowKey" Caption="流程标识" CellType="TextEditor" CellSortType="None">
+                                <DataBinding ColumnKey="WorkflowKey"/>
+                            </GridCell>
+                            <GridCell Key="EditWorkflow" Caption="编辑流程定义" CellType="HyperLink" Enable="true" CellSortType="None">
+                                <OnClick>
+                                    <![CDATA[OA_ShowWorkflowDic();]]>
+                                </OnClick>
+                            </GridCell>
+                            <GridCell Key="WFNotes" Caption="流程备注" CellType="TextEditor" CellSortType="None">
+                                <DataBinding ColumnKey="WFNotes"/>
+                            </GridCell>
+                            <GridCell Key="OrderNum_D" Caption="显示顺序" CellType="NumberEditor" CellSortType="None">
+                                <DataBinding ColumnKey="OrderNum"/>
+                            </GridCell>
+                        </GridRow>
+                    </GridRowCollection>
+                </Grid>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+    <OnLoad>
+        <![CDATA[LoadData()]]>
+    </OnLoad>
+</Form>

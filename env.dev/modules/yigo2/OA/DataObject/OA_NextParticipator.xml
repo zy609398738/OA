@@ -10,7 +10,7 @@
             <Column Key="WorkflowBillKey" Caption="流程单据Key" DataType="Varchar"/>
             <Column Key="WorkflowOID" Caption="流程单据ID" DataType="Long"/>
             <Column Key="WorkflowKey" Caption="流程Key" DataType="Varchar"/>
-            <Column Key="NodeID" Caption="流程节点" DataType="Integer"/>
+            <Column Key="NodeID" Caption="流程节点" DataType="Varchar"/>
             <Column Key="WorkitemID" Caption="审批项目" DataType="Long"/>
             <Column Key="OperatorID" Caption="操作员" DataType="Long"/>
             <Column Key="ParticipatorID" Caption="参与者" DataType="Long"/>

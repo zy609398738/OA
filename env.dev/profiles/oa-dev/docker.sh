@@ -27,6 +27,11 @@ export DB_PASSWORD="${DB_PASSWORD}"
 # export JAVA_HOME="/data/dada/java/jdk"
 # export PATH="$JAVA_HOME/bin:$PATH"
 
+
+yum install kde-l10n-Chinese -y;
+localedef -c -f UTF-8 -i en_US en_US.UTF-8;
+export LC_ALL=en_US.UTF-8;
+
 # 最后简单的调用 boot.sh
 chmod 777 "$PROFILE/../../instance/etc/runner/boot.sh"
 echo "su u99 -c $PROFILE/../../instance/etc/runner/boot.sh"

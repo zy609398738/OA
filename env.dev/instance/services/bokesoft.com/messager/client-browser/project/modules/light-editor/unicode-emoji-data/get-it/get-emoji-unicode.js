@@ -63,17 +63,29 @@ for (let emoji of emojiOPPO ) {
         className: className
     });
 
-    var _buildCss = function(emoji, className, imgUrl){
-        return "/*"+emoji+"*/\n."+className + "{\n\tbackground-image: url("+imgUrl+")\n}"
+    var _buildCss = function(emoji, className, imgType){
+    	var imgUrl = result.images[imgType];
+    	
+    	//Resize to 30*30
+    	var img = new Image();
+    	img.src = imgUrl;
+    	var canvas = document.createElement("canvas");
+    	canvas.width = 30;
+    	canvas.height = 30;
+    	var ctx = canvas.getContext("2d");
+    	ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    	imgUrl = canvas.toDataURL("image/png")
+    	
+        return "/*"+emoji+"*/\n."+className + "-"+imgType + "{\n\tbackground-image: url("+imgUrl+")\n}"
     }
-    emojiCssAndroid.push(_buildCss(emoji, className, result.images.android));
-    emojiCssApple.push(_buildCss(emoji, className, result.images.apple));
-    emojiCssSamsung.push(_buildCss(emoji, className, result.images.samsung));
+    emojiCssAndroid.push(_buildCss(emoji, className, "android"));
+    emojiCssApple.push(_buildCss(emoji, className, "apple"));
+    emojiCssSamsung.push(_buildCss(emoji, className, "samsung"));
 }
 
-window.localStorage.emojiData = "/** emoji-data */ module.exports =" + JSON.stringify(emojiData, null, 2) + ";";
-window.localStorage.emojiCssAndroid = "/** emoji-css-android */\n" + emojiCssAndroid.join("\n");
-window.localStorage.emojiCssApple = "/** emoji-css-apple */\n" + emojiCssApple.join("\n");
-window.localStorage.emojiCssSamsung = "/** emoji-css-samsung */\n" + emojiCssSamsung.join("\n");
+window.localStorage["data.js"] = "/** emoji-data */ module.exports =" + JSON.stringify(emojiData, null, 2) + ";";
+window.localStorage["emoji-android.css"] = "/** emoji-css-android */\n" + emojiCssAndroid.join("\n");
+window.localStorage["emoji-apple.css"] = "/** emoji-css-apple */\n" + emojiCssApple.join("\n");
+window.localStorage["emoji-samsung.css"] = "/** emoji-css-samsung */\n" + emojiCssSamsung.join("\n");
 
 alert("Strip emoji finish, see data javascript and css from localStorage.");

@@ -1,0 +1,11 @@
+<div class="tab_item p_5 f666" style="height:167px">
+<ul>
+  #foreach( $line in $data )
+        <li> <a href="$href$line.ID">$esc.html($line.COL2)</a> </li>
+  #end 
+</ul>
+ <a href="newslist.page?typecode=${typecode}" class="a_more" id=${typecode}>...</a>
+</div>
+<script>
+	$(".tabtitle.tabtitle-delivery-HOME-homeNotice").prepend("<span class='notice-icon'></span>");
+</script>

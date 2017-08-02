@@ -47,7 +47,7 @@ public class Message {
 	/** 消息存储的 ID, 主要是供存储层对已存在消息进行修改, 默认为空, 一般情况下由存储层负责处理 */
 	private String storeId;
 
-	protected Message(){
+	public Message(){
 		//Empty constructor just for JSON parsing
 	}
 
@@ -136,5 +136,21 @@ public class Message {
 	}
 	public void setReceiverName(String receiverName) {
 		this.receiverName = receiverName;
+	}
+
+	public void setAttachments(List<AttachmentBase> attachments) {
+		this.attachments = attachments;
+	}
+	public void setReceiver(String receiver) {
+		this.receiver = receiver;
+	}
+	public void setSender(String sender) {
+		this.sender = sender;
+	}
+	public void setTimestamp(long timestamp) {
+		this.timestamp = timestamp;
+	}
+	public void setType(String type) {
+		this.type = type;
 	}
 }
