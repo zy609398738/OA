@@ -2,6 +2,7 @@
 /.svn/
 /docs/
 /env.dev/profiles/oa-dev/*.bat
+/env.dev/instance/.svn/
 /env.dev/instance/infrastructure/tomcat/temp/*.data
 /env.dev/instance/infrastructure/tomcat/temp/*.lock
 /env.dev/instance/infrastructure/tomcat/logs
@@ -22,6 +23,7 @@
 /env.dev/instance/plugins/bokesoft.com/yigo2/webapps/yigo/WEB-INF/classes/dbcp.properties
 /env.dev/instance/plugins/bokesoft.com/yigo2/webapps/yigo/WEB-INF/classes/license
 /env.dev/instance/plugins/bokesoft.com/yigo2/webapps/yigo/WEB-INF/classes/quartz_jobs.xml
+/env.dev/instance/services/bokesoft.com/messager/client-browser/modules/.svn/
 /env.dev/modules/yigo2/Config.md5
 /env.dev/profiles/oa-dev/.runtime
 /env.dev/profiles/oa-dev/im-data
