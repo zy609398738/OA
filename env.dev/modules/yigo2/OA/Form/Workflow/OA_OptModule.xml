@@ -100,7 +100,7 @@ SetValue("UserVisible", OptVisible);
                         <ComboBox Key="EmailTemp" Caption="邮件模板" BuddyKey="Lab_EmailTemp" X="4" Y="2" SourceType="Formula">
                             <DataBinding ColumnKey="EmailTemp" TableKey="OA_OptModule_H"/>
                             <FormulaItems>
-                                <![CDATA[InvokeService("OA_GetFileNameStr", false, true, "../../modules/cms/site/static/email/")]]>
+                                <![CDATA[InvokeService("OA_GetFileNameStr", false, true, "../cms/site/static/email")]]>
                             </FormulaItems>
                         </ComboBox>
                         <Label Key="Lab_EmailTemp" Caption="邮件模板" X="3" Y="2"/>

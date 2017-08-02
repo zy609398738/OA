@@ -36,6 +36,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="40dp"
                     android:layout_marginTop="35dp"
+                    android:visibility="gone"
                     android:background="@drawable/icon_online" />
 
             </FrameLayout>

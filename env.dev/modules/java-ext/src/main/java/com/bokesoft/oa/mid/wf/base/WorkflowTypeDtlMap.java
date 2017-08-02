@@ -312,7 +312,7 @@ public class WorkflowTypeDtlMap extends DtlBaseMap<Long, WorkflowTypeDtl, Workfl
 		}
 		DefaultContext context = getContext().getContext();
 		String tableName = context.getVE().getMetaFactory().getMetaForm(formKey).getDataSource().getDataObject()
-				.getMainTable().getDBTableName();
+				.getMainTable().getBindingDBTableName();
 		String sql = "select " + Workflow.WorkflowTypeDtlID + " from " + tableName + " where oid=?";
 		DataTable dt = context.getDBManager().execPrepareQuery(sql, oid);
 		WorkflowTypeDtl dtl = null;

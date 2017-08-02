@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.bokesoft.ecomm.im.android">
 
@@ -12,11 +13,10 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application>
-
         <activity
             android:name=".activity.MainActivity"
             android:theme="@style/BKIMActivity.NoActionBar" />
-        <!--会话详情页-->
+        <!-- 会话详情页 -->
         <activity
             android:name=".activity.ConversationActivity"
             android:launchMode="singleTask"
@@ -24,29 +24,30 @@
         <activity
             android:name=".activity.ImageActivity"
             android:theme="@style/BKIMActivity.NoActionBar" />
-
         <activity
             android:name=".activity.FileActivity"
             android:theme="@style/BKIMActivity.NoActionBar" />
-        <!--查找好友的Activity-->
+        <!-- 查找好友的Activity -->
         <activity
             android:name=".activity.AddConversionPopupActivity"
             android:theme="@style/dialog" />
-        <!--展示聊天记录的Activity-->
+        <!-- 展示聊天记录的Activity -->
         <activity
             android:name=".activity.HistorySearchActivity"
             android:theme="@style/BKIMActivity.NoActionBar" />
-        <!--展示指定ID的聊天记录的Activity-->
+        <!-- 展示指定ID的聊天记录的Activity -->
         <activity
             android:name=".activity.SpecifiedSearchActivity"
             android:theme="@style/BKIMActivity.NoActionBar" />
-        <!--搜索内容的Activity-->
+        <!-- 搜索内容的Activity -->
         <activity
             android:name=".activity.ContentSearchActivity"
             android:theme="@style/BKIMActivity.NoActionBar" />
+
         <service
             android:name=".services.WebSocketService"
             android:enabled="true" />
+
     </application>
 
 </manifest>

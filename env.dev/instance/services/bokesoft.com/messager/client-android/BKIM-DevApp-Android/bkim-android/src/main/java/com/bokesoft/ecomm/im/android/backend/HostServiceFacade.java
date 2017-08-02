@@ -1,6 +1,7 @@
 package com.bokesoft.ecomm.im.android.backend;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -8,12 +9,9 @@ import com.bokesoft.ecomm.im.android.instance.ClientInstance;
 import com.bokesoft.ecomm.im.android.model.GroupInfo;
 import com.bokesoft.ecomm.im.android.model.UserInfo;
 import com.bokesoft.ecomm.im.android.utils.HttpHelper;
-import com.bokesoft.ecomm.im.android.utils.LogUtils;
 import com.loopj.android.http.RequestParams;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -53,7 +51,6 @@ public class HostServiceFacade {
                             updateUserInfoCache(ui);
                         }
                     }
-
                     //回调业务处理
                     callback.perform(groups);
                 } catch (Exception ex) {
@@ -87,14 +84,32 @@ public class HostServiceFacade {
         ClientInstance ci = ClientInstance.getInstance();
         final String url = ci.getServiceUserInfoUrl();
 
+
         RequestParams p = new RequestParams();
         p.put(ClientInstance.PARAM_NAME_TOKEN, ci.getClientToken());
         p.put("users", JSON.toJSONString(codesToQuery));
         HttpHelper.post(context, url, p, new HttpHelper.HttpCallback() {
             @Override
             public Object perform(String data) {
+
+                /**
+                 * OA下用这个
+                 */
+//                                List<MsgInfo> msgInfos = JSON.parseArray(data, MsgInfo.class);
+//                for (MsgInfo msgInfo : msgInfos) {
+//                    List<MsgInfo.UsersBean> users = msgInfo.getUsers();
+//                    for (MsgInfo.UsersBean user : users) {
+//                        userCodeCache.put(user.getCode(), new UserInfo(user.getCode(),
+//                                user.getName(), user.getIcon()));
+//                    }
+//
+//                }
+//                callback.perform(userInfoProvider);
+
+                //获取联系人列表的数据解析
                 try {
                     JSONObject userInfoMap = JSON.parseObject(data);
+
                     for (Map.Entry<String, Object> en : userInfoMap.entrySet()) {
                         String userCode = en.getKey();
                         JSONObject userInfo = (JSONObject) en.getValue();
@@ -102,10 +117,10 @@ public class HostServiceFacade {
                         String icon = userInfo.getString("icon");
                         userCodeCache.put(userCode, new UserInfo(userCode, userName, icon));
                     }
-
                     callback.perform(userInfoProvider);
                 } catch (Exception ex) {
                     HttpHelper.processException(context, url, ex);
+                    Log.d("ServiceUserInfoUrl==", "infor............");
                 }
                 return null;
             }

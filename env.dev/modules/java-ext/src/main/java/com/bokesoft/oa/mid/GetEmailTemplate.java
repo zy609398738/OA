@@ -1,6 +1,5 @@
 package com.bokesoft.oa.mid;
 
-import java.io.File;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -12,10 +11,8 @@ import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 
 import com.bokesoft.oa.base.OAContext;
-import com.bokesoft.oa.config.Settings;
 import com.bokesoft.oa.util.OASettings;
 import com.bokesoft.yes.common.util.StringUtil;
-import com.bokesoft.yes.mid.base.CoreSetting;
 import com.bokesoft.yigo.common.util.TypeConvertor;
 import com.bokesoft.yigo.meta.dataobject.MetaDataObject;
 import com.bokesoft.yigo.meta.dataobject.MetaTable;
@@ -62,12 +59,8 @@ public class GetEmailTemplate implements IExtService {
 			return "";
 		}
 		// 初始化并取得Velocity引擎
-		VelocityEngine ve = new VelocityEngine();
-		String solutionPath = CoreSetting.getInstance().getSolutionPath();
-
-		Settings settings = OASettings.getSystemMessageType();
-		String templatePath = settings.getMap("Email").getProperty("TemplatePath");
-		templatePath = solutionPath + File.separator + templatePath;
+		VelocityEngine ve = new VelocityEngine(); 
+		String templatePath = OASettings.getTemplatePath();
 		ve.setProperty(VelocityEngine.FILE_RESOURCE_LOADER_PATH, templatePath);
 		ve.setProperty(VelocityEngine.ENCODING_DEFAULT, "UTF-8");
 		ve.setProperty(VelocityEngine.INPUT_ENCODING, "UTF-8");
@@ -100,7 +93,7 @@ public class GetEmailTemplate implements IExtService {
 					map.put(columnKey, value);
 				}
 			}
-			vc.put(metaTable.getDBTableName(), list);
+			vc.put(metaTable.getBindingDBTableName(), list);
 		}
 		// 输出流
 		StringWriter writer = new StringWriter();

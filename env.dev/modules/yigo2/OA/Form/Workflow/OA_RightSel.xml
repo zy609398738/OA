@@ -24,7 +24,7 @@
                     <Column Key="Tag2" Caption="Tag2" DataType="Varchar"/>
                     <Column Key="Tag3" Caption="Tag3" DataType="Varchar"/>
                     <Column Key="Tag4" Caption="Tag4" DataType="Varchar"/>
-                    <Column Key="OptDesc" Caption="选择结果描述" DataType="Varchar" Length="1000"/>
+                    <Column Key="OptDesc" Caption="选择结果描述" DataType="Varchar" Length="4000"/>
                     <Column Key="StartFormKey" Caption="开始表单标识" DataType="Varchar"/>
                     <Column Key="WorkflowFormKey" Caption="流程表单标识" DataType="Varchar"/>
                 </Table>
@@ -332,10 +332,10 @@ parent.SaveData();]]>
                                 <DataBinding ColumnKey="Tag4" TableKey="OA_RightSel_H" DefaultFormulaValue="Para(&quot;Tag4&quot;)"/>
                             </TextEditor>
                             <Label Key="Lab_Tag4" Caption="判断标识4" X="8" Y="4"/>
-                            <TextArea Key="OptDesc" Caption="选择结果描述" BuddyKey="Lab_OptDesc" X="1" Y="5" XSpan="10">
+                            <TextArea Key="OptDesc" Caption="选择结果描述" BuddyKey="Lab_OptDesc" X="3" Y="5" XSpan="8">
                                 <DataBinding ColumnKey="OptDesc" TableKey="OA_RightSel_H"/>
                             </TextArea>
-                            <Label Key="Lab_OptDesc" Caption="选择结果描述" X="0" Y="5"/>
+                            <Label Key="Lab_OptDesc" Caption="选择结果描述" X="2" Y="5"/>
                             <TextEditor Key="StartFormKey" Caption="开始表单标识" BuddyKey="Lab_StartFormKey" X="1" Y="6" XSpan="2">
                                 <DataBinding ColumnKey="StartFormKey" TableKey="OA_RightSel_H" DefaultFormulaValue="Para(&quot;StartFormKey&quot;);"/>
                             </TextEditor>

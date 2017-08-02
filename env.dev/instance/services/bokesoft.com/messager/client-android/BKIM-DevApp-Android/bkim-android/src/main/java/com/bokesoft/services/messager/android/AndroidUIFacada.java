@@ -25,29 +25,31 @@ public class AndroidUIFacada {
     private SessionListener sessionListener;
     private ErrorListener errorListener;
 
-    public AndroidUIFacada(Activity bindActivity){
+    public AndroidUIFacada(Activity bindActivity) {
         this.bindActivity = bindActivity;
     }
 
     /**
      * 判断当前是否已经完成 IM 初始化
+     *
      * @return
      */
     public boolean isReady() {
-        return (null!=this.bindActivity && initialized);
+        return (null != this.bindActivity && initialized);
     }
 
     /**
      * 初始化 IM 客户端环境
-     * @param imServerBaseUrl IM 服务器的基本地址, 格式类似 "10.0.2.2:7778/boke-messager".
+     *
+     * @param imServerBaseUrl   IM 服务器的基本地址, 格式类似 "10.0.2.2:7778/boke-messager".
      * @param hostServerBaseUrl 主系统服务器的基本地址, 格式类似 "10.0.2.2:8080/im-service/${service}.action",
-     *                             其中 "${service}" 用于代替具体的服务如 userinfo、buddies 等.
-     * @param clientId 聊天用户的唯一 ID
-     * @param token 聊天会话的 token, 此 token 一方面用于在 WebSocket 请求时供 IM 服务器进行身份识别, 同时也用于调用主服
-     *               务器 userinfo、buddies 等服务时的身份识别.
+     *                          其中 "${service}" 用于代替具体的服务如 userinfo、buddies 等.
+     * @param clientId          聊天用户的唯一 ID
+     * @param token             聊天会话的 token, 此 token 一方面用于在 WebSocket 请求时供 IM 服务器进行身份识别, 同时也用于调用主服
+     *                          务器 userinfo、buddies 等服务时的身份识别.
      */
-    public void init(String imServerBaseUrl, String hostServerBaseUrl, String clientId, String token){
-        if (null==token){
+    public void init(String imServerBaseUrl, String hostServerBaseUrl, String clientId, String token) {
+        if (null == token) {
             Toast.makeText(
                     this.bindActivity, "无法初始化 IM: 无效的 token", Toast.LENGTH_LONG).show();
             return;
@@ -58,39 +60,40 @@ public class AndroidUIFacada {
 
         WebSocketService.resetWebSocketService(this.bindActivity, null);
 
-        if (! this.initialized){
+        if (!this.initialized) {
             EventBus.getDefault().register(this);
             this.initialized = true;
         }
     }
 
-    public void setSessionListener(SessionListener listener){
+    public void setSessionListener(SessionListener listener) {
         this.sessionListener = listener;
     }
 
-    public void setErrorListener(ErrorListener listener){
+    public void setErrorListener(ErrorListener listener) {
         this.errorListener = listener;
     }
 
-    public void close(){
+    public void close() {
         EventBus.getDefault().unregister(this);
         this.initialized = false;
         this.bindActivity = null;
     }
 
-    public void startMainActivity (){
-        if (isReady()){
+    //启动IM界面
+    public void startMainActivity() {
+        if (isReady()) {
             Intent intent = new Intent(this.bindActivity, MainActivity.class);
             this.bindActivity.startActivity(intent);
-        }else{
+        } else {
             UIUtils.alert(this.bindActivity, "BKIM API 错误", "未初始化的情况下无法启动 MainActivity.");
         }
     }
 
-    public void openConversationActivity(String peerId){
-        if (isReady()){
+    public void openConversationActivity(String peerId) {
+        if (isReady()) {
             EventBus.getDefault().post(new StartConversationEvent(peerId));
-        }else{
+        } else {
             UIUtils.alert(this.bindActivity, "BKIM API 错误",
                     "未初始化的情况下无法启动 ConversationActivity.");
         }
@@ -99,6 +102,7 @@ public class AndroidUIFacada {
     public static interface SessionListener {
         public void perform(MyActiveConnectData connectedSessionsData, boolean inMainThread);
     }
+
     public static interface ErrorListener {
         public void onError(String errorMessage, Throwable exception, boolean inMainThread);
     }
@@ -115,28 +119,31 @@ public class AndroidUIFacada {
 
     /**
      * 事件处理 - WebSocket 事件
+     *
      * @param event
      */
     public void onEvent(WebSocketEvent event) {
         handleWebSocketEvent(event, false);
     }
+
     /**
      * 事件处理 - WebSocket 事件
+     *
      * @param event
      */
     public void onEventMainThread(WebSocketEvent event) {
         handleWebSocketEvent(event, true);
     }
 
-    private void handleWebSocketEvent(WebSocketEvent event, boolean inMainThread){
-        if (null!=this.errorListener && WebSocketEvent.TYPE_EXCEPTION == event.getType()){
+    private void handleWebSocketEvent(WebSocketEvent event, boolean inMainThread) {
+        if (null != this.errorListener && WebSocketEvent.TYPE_EXCEPTION == event.getType()) {
             String msg = "WebSocket Error";
             Throwable ex = event.getException();
             this.errorListener.onError(msg, ex, inMainThread);
         }
-        if (null!=this.sessionListener && WebSocketEvent.TYPE_MESSAGE == event.getType()){
+        if (null != this.sessionListener && WebSocketEvent.TYPE_MESSAGE == event.getType()) {
             MyActiveConnectData sessionData = event.getMyActiveConnectData();
-            if (null!=sessionData){
+            if (null != sessionData) {
                 this.sessionListener.perform(sessionData, inMainThread);
             }
         }

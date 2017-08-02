@@ -131,8 +131,8 @@ ShowData();]]>
                             <Item Key="0" Value="0"/>
                         </ListViewColumn>
                         <ListViewColumn Key="BillCreatTime" Caption="创建时间" ColumnType="DatePicker" DataColumnKey="BillCreatTime" Width="200px"/>
-                        <ListViewColumn Key="WorkitemName" Caption="审批操作" ColumnType="TextEditor" DataColumnKey="WorkitemName"/>
-                        <ListViewColumn Key="BillStatus" Caption="状态" ColumnType="ComboBox" DataColumnKey="BillStatus" Width="100px" SourceType="Status"/>
+                        <ListViewColumn Key="WorkitemName" Caption="审批操作" ColumnType="TextEditor" DataColumnKey="WorkitemName" Visible="false"/>
+                        <ListViewColumn Key="BillStatus" Caption="状态" ColumnType="ComboBox" DataColumnKey="BillStatus" Width="100px" Visible="false" SourceType="Status"/>
                         <ListViewColumn Caption="工作项标识" DataColumnKey="WorkitemID" Key="WorkitemID" Width="30px" Visible="false" ColumnType="TextEditor"/>
                         <ListViewColumn Key="OID" Caption="OID" DataColumnKey="OID" Visible="FALSE"/>
                         <ListViewColumn Key="Instanceid" Caption="流程标识" DataColumnKey="Instanceid" Visible="false"/>

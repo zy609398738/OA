@@ -24,7 +24,7 @@
                     <Column Key="Tag2" Caption="Tag2" DataType="Varchar"/>
                     <Column Key="Tag3" Caption="Tag3" DataType="Varchar"/>
                     <Column Key="Tag4" Caption="Tag4" DataType="Varchar"/>
-                    <Column Key="OptDesc" Caption="选择结果描述" DataType="Varchar" Length="1000"/>
+                    <Column Key="OptDesc" Caption="选择结果描述" DataType="Varchar" Length="4000"/>
                     <Column Key="StartFormKey" Caption="开始表单标识" DataType="Varchar"/>
                 </Table>
                 <Table Key="OA_OperationSel_D" Caption="操作选择结果" DBTableName="OA_OperationSel_D" TableMode="Detail">
@@ -212,7 +212,7 @@ Close();]]>
                                     <GridCell Key="EmailTemp" Caption="邮件模板" CellType="ComboBox" SourceType="Formula">
                                         <DataBinding ColumnKey="EmailTemp"/>
                                         <FormulaItems>
-                                            <![CDATA[InvokeService("OA_GetFileNameStr", false, true, "../../modules/cms/site/static/email/")]]>
+                                            <![CDATA[InvokeService("OA_GetFileNameStr", false, true, "../cms/site/static/email")]]>
                                         </FormulaItems>
                                     </GridCell>
                                 </GridRow>

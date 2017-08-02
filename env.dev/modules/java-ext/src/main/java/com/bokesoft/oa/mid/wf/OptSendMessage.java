@@ -109,7 +109,7 @@ public class OptSendMessage implements IExtService {
 
 		OperatorSel ccOptSel = operationSelDtl.getCcOptSel();
 		if (ccOptSel != null && ccOptSel.getOperatorSelDtlMap().size() > 0) {
-			ids = ccOptSel.getParticipatorIDs(oid);
+			ids = ccOptSel.getParticipatorIDs(oid, ",");
 			if (!StringUtil.isBlankOrNull(ids)) {
 				Message message = new Message(oaContext, false, false, "", time, userID, topic, content, ids,
 						messageSet, formKey, billNO, oid);

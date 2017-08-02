@@ -20,7 +20,9 @@ set JDBC_URL=
 :: Call rhino-shell
 set XP_PATCH_KILL_BY_CMDLINE=!REDIST_ROOT!\etc\runner\vbs\killByStamp.vbs
 set CLASSPATH=!SHELL_ROOT!/main/src/main/resources;!SHELL_ROOT!/main/dist/jars/*;!SHELL_ROOT!/main/dist/libs/*
-set CMDLINE="!JAVA_HOME!\bin\java" -Dplugin.stamp=bokesoft-messager@!PROFILE! -cp "!CLASSPATH!" com.bokesoft.services.messager.Starter
+::Uncomment this statement to enable JPDA debugging
+set JPDA_OPTS=-Xdebug -Xnoagent -Xrunjdwp:transport=dt_socket,address=47777,server=y,suspend=n
+set CMDLINE="!JAVA_HOME!\bin\java" %JPDA_OPTS% -Dplugin.stamp=bokesoft-messager@!PROFILE! -cp "!CLASSPATH!" com.bokesoft.services.messager.Starter
 echo !CMDLINE!
 call !CMDLINE!
 

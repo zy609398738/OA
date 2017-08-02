@@ -18,7 +18,7 @@ public class ClientInstance {
     private String webSocketBaseUrl;
     private String fileUploadUrl;
     private String historyServiceUrl;
-    private String stateServiceUrl;
+//    private String stateServiceUrl;
 
     private String serviceUrlBase;  //通过传入的 Host Server Address 字符串计算出来的 Base Url, 主要是为了处理头像等图片路径
 
@@ -31,15 +31,15 @@ public class ClientInstance {
     private String toClientId;
 
     public ClientInstance config(String imServerUrl, String hostServerUrl) {
-        webSocketBaseUrl = "ws://" + imServerUrl + "/messager";
-        fileUploadUrl = "http://" + imServerUrl + "/upload/";
-        stateServiceUrl = "http://" + imServerUrl + "/state/";
-        historyServiceUrl = "http://" + imServerUrl + "/history/";
+        webSocketBaseUrl = "ws://" + imServerUrl + "/messager";//获取消息接口
+        fileUploadUrl = "http://" + imServerUrl + "/upload/";//上传文本接口
+//        stateServiceUrl = "http://" + imServerUrl + "/state/";//状态的接口
+        historyServiceUrl = "http://" + imServerUrl + "/history/";//获取历史记录的接口
 
         serviceUrlBase = hostServerUrl.substring(0, hostServerUrl.indexOf("/"));
         serviceUrlBase = "http://" + serviceUrlBase;
         serviceIdentityUrl = ("http://" + hostServerUrl).replace("${service}", "identity");
-        serviceUserInfoUrl = ("http://" + hostServerUrl).replace("${service}", "userinfo");
+        serviceUserInfoUrl = ("http://" + hostServerUrl).replace("${service}", "userinfo");//获取联系人列表接口
         serviceBuddiesUrl = ("http://" + hostServerUrl).replace("${service}", "buddies");
 
         return this;
@@ -70,9 +70,9 @@ public class ClientInstance {
     public String getFileUploadUrl() {
         return fileUploadUrl;
     }
-    public String getStateServiceUrl() {
-        return stateServiceUrl;
-    }
+//    public String getStateServiceUrl() {
+//        return stateServiceUrl;
+//  }
     public String getHistoryServiceUrl() {
         return historyServiceUrl;
     }

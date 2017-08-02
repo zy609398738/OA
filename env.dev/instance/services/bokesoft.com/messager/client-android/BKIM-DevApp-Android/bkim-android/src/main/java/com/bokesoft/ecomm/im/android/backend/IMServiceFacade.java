@@ -3,21 +3,16 @@ package com.bokesoft.ecomm.im.android.backend;
 import android.content.Context;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.bokesoft.ecomm.im.android.instance.ClientInstance;
 import com.bokesoft.ecomm.im.android.utils.HttpHelper;
 import com.bokesoft.services.messager.server.model.HistoryMessagesData;
 import com.loopj.android.http.RequestParams;
 
-import org.apache.commons.lang3.StringUtils;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -88,19 +83,19 @@ public class IMServiceFacade {
      * @param context
      * @param states
      */
-    public static void setUserStates(final Context context, UserStates states) {
-        ClientInstance ci = ClientInstance.getInstance();
-        String url = ci.getStateServiceUrl();
-        RequestParams p = new RequestParams();
-        p.put(ClientInstance.PARAM_NAME_TOKEN, ci.getClientToken());
-        p.put("data", JSON.toJSONString(states.getStates()));
-        HttpHelper.post(context, url, p, new HttpHelper.HttpCallback() {
-            @Override
-            public Object perform(String data) {
-                return null;
-            }
-        });
-    }
+//    public static void setUserStates(final Context context, UserStates states) {
+//        ClientInstance ci = ClientInstance.getInstance();
+//        String url = ci.getStateServiceUrl();
+//        RequestParams p = new RequestParams();
+//        p.put(ClientInstance.PARAM_NAME_TOKEN, ci.getClientToken());
+//        p.put("data", JSON.toJSONString(states.getStates()));
+//        HttpHelper.post(context, url, p, new HttpHelper.HttpCallback() {
+//            @Override
+//            public Object perform(String data) {
+//                return null;
+//            }
+//        });
+//    }
 
     /**
      * 获取用户状态
@@ -109,32 +104,32 @@ public class IMServiceFacade {
      * 返回数据格式：
      * {userCode1: state1, userCode2: state2, ...}
      */
-    public static void getUserStates(final Context context, String[] userCodes, final QueryUserStatesCallback callback) {
-        ClientInstance ci = ClientInstance.getInstance();
-        String url = ci.getStateServiceUrl();
-        List<String> params = new ArrayList<>();
-        for (int i = 0; i < userCodes.length; i++) {
-            String userCode = userCodes[i];
-            userCode = encodeUrlPart(userCode);
-            params.add("u=" + userCode);
-        }
-        url = url
-                + "?" + ClientInstance.PARAM_NAME_TOKEN + "=" + ClientInstance.getInstance().getClientToken()
-                + "&" + StringUtils.join(params, "&");
-        HttpHelper.get(context, url, new RequestParams(), new HttpHelper.HttpCallback() {
-            @Override
-            public Object perform(String data) {
-                UserStates result = new UserStates();
-                JSONObject userStates = JSON.parseObject(data);
-                for (String userCode : userStates.keySet()) {
-                    String state = userStates.getString(userCode);
-                    result.setState(userCode, state);
-                }
-                callback.perform(result);
-                return null;
-            }
-        });
-    }
+//    public static void getUserStates(final Context context, String[] userCodes, final QueryUserStatesCallback callback) {
+//        ClientInstance ci = ClientInstance.getInstance();
+//        String url = ci.getStateServiceUrl();
+//        List<String> params = new ArrayList<>();
+//        for (int i = 0; i < userCodes.length; i++) {
+//            String userCode = userCodes[i];
+//            userCode = encodeUrlPart(userCode);
+//            params.add("u=" + userCode);
+//        }
+//        url = url
+//                + "?" + ClientInstance.PARAM_NAME_TOKEN + "=" + ClientInstance.getInstance().getClientToken()
+//                + "&" + StringUtils.join(params, "&");
+//        HttpHelper.get(context, url, new RequestParams(), new HttpHelper.HttpCallback() {
+//            @Override
+//            public Object perform(String data) {
+//                UserStates result = new UserStates();
+//                JSONObject userStates = JSON.parseObject(data);
+//                for (String userCode : userStates.keySet()) {
+//                    String state = userStates.getString(userCode);
+//                    result.setState(userCode, state);
+//                }
+//                callback.perform(result);
+//                return null;
+//            }
+//        });
+//    }
 
     public static class UserStates {
         /**

@@ -56,6 +56,7 @@ public class HttpHelper {
         LogUtils.logException(e);
         Toast.makeText(context.getApplicationContext(),
                 url + ":" + e.getMessage(), Toast.LENGTH_LONG).show();
+
     }
 
     public static interface HttpCallback {

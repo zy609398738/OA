@@ -11,10 +11,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bokesoft.ecomm.im.android.R;
-import com.bokesoft.ecomm.im.android.utils.BKIMConstants;
 import com.bokesoft.ecomm.im.android.backend.HostServiceFacade;
 import com.bokesoft.ecomm.im.android.model.UserInfo;
 import com.bokesoft.ecomm.im.android.ui.view.ConversationFragment;
+import com.bokesoft.ecomm.im.android.utils.BKIMConstants;
 
 /**
  * 会话详情页
@@ -99,6 +99,7 @@ public class ConversationActivity extends AppCompatActivity {
      */
     private void showToast(String content) {
         Toast.makeText(ConversationActivity.this, content, Toast.LENGTH_SHORT).show();
+
 
     }
 

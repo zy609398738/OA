@@ -10,10 +10,57 @@ Target Server Type    : MYSQL
 Target Server Version : 50024
 File Encoding         : 65001
 
-Date: 2017-06-09 11:28:41
+Date: 2017-08-02 15:10:00
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for attachment_detail
+-- ----------------------------
+DROP TABLE IF EXISTS `attachment_detail`;
+CREATE TABLE `attachment_detail` (
+  `OID` bigint(20) NOT NULL default '0',
+  `SOID` bigint(20) default NULL,
+  `POID` bigint(20) default NULL,
+  `VERID` int(11) default NULL,
+  `DVERID` int(11) default NULL,
+  `UploadTime` datetime default NULL,
+  `UploadOperator` bigint(20) default NULL,
+  `Path` varchar(255) default NULL,
+  `MapCount` int(11) default NULL,
+  `Slock` int(11) default NULL,
+  PRIMARY KEY  (`OID`),
+  KEY `I_tachment_Detail_SOID` (`SOID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of attachment_detail
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for attachment_detail2
+-- ----------------------------
+DROP TABLE IF EXISTS `attachment_detail2`;
+CREATE TABLE `attachment_detail2` (
+  `OID` bigint(20) NOT NULL default '0',
+  `SOID` bigint(20) default NULL,
+  `POID` bigint(20) default NULL,
+  `VERID` int(11) default NULL,
+  `DVERID` int(11) default NULL,
+  `FileOID2` decimal(16,2) default NULL,
+  `UploadTime2` datetime default NULL,
+  `UploadOperator2` bigint(20) default NULL,
+  `Path2` varchar(255) default NULL,
+  `MapCount` int(11) default NULL,
+  `Slock` int(11) default NULL,
+  PRIMARY KEY  (`OID`),
+  KEY `I_achment_Detail2_SOID` (`SOID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of attachment_detail2
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for billtemp_d
@@ -65,6 +112,231 @@ CREATE TABLE `billtemp_h` (
 
 -- ----------------------------
 -- Records of billtemp_h
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for bill_leaveapplication
+-- ----------------------------
+DROP TABLE IF EXISTS `bill_leaveapplication`;
+CREATE TABLE `bill_leaveapplication` (
+  `OID` bigint(20) NOT NULL default '0',
+  `SOID` bigint(20) default NULL,
+  `POID` bigint(20) default NULL,
+  `VERID` int(11) default NULL,
+  `DVERID` int(11) default NULL,
+  `Creator` bigint(20) default NULL,
+  `CreateTime` datetime default NULL,
+  `Modifier` bigint(20) default NULL,
+  `ModifyTime` datetime default NULL,
+  `Formcode` varchar(255) default NULL,
+  `No` varchar(255) default NULL,
+  `MakeFormPersonName` bigint(20) default NULL,
+  `ApplicationDate` datetime default NULL,
+  `ProposerWorkNO` bigint(20) default NULL,
+  `ProposerName` varchar(255) default NULL,
+  `ProposerDepartment` bigint(20) default NULL,
+  `EmployeeType` varchar(255) default NULL,
+  `ProposerPosition` varchar(255) default NULL,
+  `StartingDate` datetime default NULL,
+  `ProposerState` varchar(255) default NULL,
+  `ProposerTelephone` varchar(255) default NULL,
+  `YearHolidaysSurplus` varchar(255) default NULL,
+  `SickLeaveSurplus` varchar(255) default NULL,
+  `AdjustToRest` varchar(255) default NULL,
+  `ItemSort` varchar(255) default NULL,
+  `Reason` varchar(255) default NULL,
+  `LeaveDateFrom` datetime default NULL,
+  `LeaveDateTo` datetime default NULL,
+  `LeaveSumHour` varchar(255) default NULL,
+  `LeaveSumDay` varchar(255) default NULL,
+  `DeputyWorkNO` bigint(20) default NULL,
+  `DeputyName` varchar(255) default NULL,
+  `DeputyDepartment` bigint(20) default NULL,
+  `DeputyPosition` varchar(255) default NULL,
+  `MakeFormPersonDept` bigint(20) default NULL,
+  `OperationUnit` varchar(255) default NULL,
+  `MapCount` int(11) default NULL,
+  `Slock` int(11) default NULL,
+  `ProposerWork` varchar(255) default NULL,
+  `Check` varchar(255) default NULL,
+  `MakeFormPersonNo` varchar(255) default NULL,
+  `ProposerAccount` varchar(255) default NULL,
+  `ProposerLevel` varchar(255) default NULL,
+  `OU_CODE` varchar(255) default NULL,
+  `DeputyAccount` varchar(255) default NULL,
+  `DeputyLevel` varchar(255) default NULL,
+  `IsCSBU` varchar(255) default NULL,
+  PRIMARY KEY  (`OID`),
+  UNIQUE KEY `I_eaveApplication_SOID` (`SOID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of bill_leaveapplication
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for bill_oracleaaca
+-- ----------------------------
+DROP TABLE IF EXISTS `bill_oracleaaca`;
+CREATE TABLE `bill_oracleaaca` (
+  `OID` bigint(20) NOT NULL default '0',
+  `SOID` bigint(20) default NULL,
+  `POID` bigint(20) default NULL,
+  `VERID` int(11) default NULL,
+  `DVERID` int(11) default NULL,
+  `SN` varchar(255) default NULL,
+  `ApplicationDate` datetime default NULL,
+  `ApplyType` varchar(255) default NULL,
+  `ProposerNO` varchar(255) default NULL,
+  `Tel` varchar(255) default NULL,
+  `CaiWuText` varchar(255) default NULL,
+  `CaiGouText` varchar(255) default NULL,
+  `P6Text` varchar(255) default NULL,
+  `ShenHeText` varchar(255) default NULL,
+  `Email` varchar(255) default NULL,
+  `Code` varchar(255) default NULL,
+  `TextArea2` varchar(4000) default NULL,
+  `Creator` bigint(20) default NULL,
+  `Modifier` bigint(20) default NULL,
+  `CreateTime` datetime default NULL,
+  `ModifyTime` datetime default NULL,
+  `InstanceID` bigint(20) default NULL,
+  `ProposerName` bigint(20) default NULL,
+  `ProposerDepartment` bigint(20) default NULL,
+  `MapCount` int(11) default NULL,
+  `Slock` int(11) default NULL,
+  PRIMARY KEY  (`OID`),
+  UNIQUE KEY `I_Bill_OracleAACA_SOID` (`SOID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of bill_oracleaaca
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for bill_salescontractdetail
+-- ----------------------------
+DROP TABLE IF EXISTS `bill_salescontractdetail`;
+CREATE TABLE `bill_salescontractdetail` (
+  `OID` bigint(20) NOT NULL default '0',
+  `SOID` bigint(20) default NULL,
+  `POID` bigint(20) default NULL,
+  `VERID` int(11) default NULL,
+  `DVERID` int(11) default NULL,
+  `Model` varchar(255) default NULL,
+  `ModelDesc` varchar(255) default NULL,
+  `AmountUSD` decimal(16,6) default NULL,
+  `AmountRMB` decimal(16,6) default NULL,
+  `Amount` decimal(16,6) default NULL,
+  `ASPUSD` decimal(16,6) default NULL,
+  `ASPRMB` decimal(16,6) default NULL,
+  `Power` decimal(16,6) default NULL,
+  `PINo` varchar(255) default NULL,
+  `Remark` varchar(255) default NULL,
+  `NakedPrice` decimal(16,2) default NULL,
+  `IsPerc` varchar(255) default NULL,
+  `COGS` decimal(16,4) default NULL,
+  `ProductCategory` varchar(255) default NULL,
+  `LineID` varchar(255) default NULL,
+  `FactoryStorage` decimal(16,4) default NULL,
+  `LogisticsInland` decimal(16,4) default NULL,
+  `LogisticsSea` decimal(16,4) default NULL,
+  `LogisticsRegion` decimal(16,4) default NULL,
+  `ASP` decimal(16,4) default NULL,
+  `StorageRegion` decimal(16,4) default NULL,
+  `CM` decimal(16,6) default NULL,
+  `MapCount` int(11) default NULL,
+  `Slock` int(11) default NULL,
+  PRIMARY KEY  (`OID`),
+  KEY `I_sContractDetail_SOID` (`SOID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of bill_salescontractdetail
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for bill_salescontracthead
+-- ----------------------------
+DROP TABLE IF EXISTS `bill_salescontracthead`;
+CREATE TABLE `bill_salescontracthead` (
+  `OID` bigint(20) NOT NULL default '0',
+  `SOID` bigint(20) default NULL,
+  `POID` bigint(20) default NULL,
+  `VERID` int(11) default NULL,
+  `DVERID` int(11) default NULL,
+  `SN` varchar(255) default NULL,
+  `Status` int(11) default NULL,
+  `ApplicationDate` datetime default NULL,
+  `Creator` bigint(20) default NULL,
+  `CreateTime` datetime default NULL,
+  `Modifier` bigint(20) default NULL,
+  `ModifyTime` datetime default NULL,
+  `InstanceID` bigint(20) default NULL,
+  `ApplicantDept` bigint(20) default NULL,
+  `BillerName` bigint(20) default NULL,
+  `CustomerName` varchar(255) default NULL,
+  `CustomerID` bigint(20) default NULL,
+  `OperatingUnit` varchar(255) default NULL,
+  `Contract` varchar(255) default NULL,
+  `Currency` bigint(20) default NULL,
+  `ContractBarcode` varchar(255) default NULL,
+  `SubRegion` varchar(255) default NULL,
+  `GoodsArrivalRegion` bigint(20) default NULL,
+  `ArrivalSubRegion` bigint(20) default NULL,
+  `PaymentTerms` varchar(255) default NULL,
+  `DeliveryDate` varchar(255) default NULL,
+  `ContractYear` int(11) default NULL,
+  `Quarter` varchar(255) default NULL,
+  `Perpayment` varchar(255) default NULL,
+  `IsReplaced` varchar(255) default NULL,
+  `OU_CODE` varchar(255) default NULL,
+  `Cur_CODE` varchar(255) default NULL,
+  `TotalCM` decimal(16,6) default NULL,
+  `TotalCM_RMB` decimal(16,6) default NULL,
+  `TotalAmount` decimal(16,2) default NULL,
+  `TotalAmountUSD` decimal(16,6) default NULL,
+  `CurrentASP` decimal(16,6) default NULL,
+  `HowMuchImpact` decimal(16,6) default NULL,
+  `HowMuchImpactUSD` decimal(16,6) default NULL,
+  `RelatedParty` varchar(255) default NULL,
+  `StandardOrNot` varchar(255) default NULL,
+  `OutofCreditTermCombo` varchar(255) default NULL,
+  `Region` varchar(255) default NULL,
+  `OU_NAME` varchar(255) default NULL,
+  `ApplicantName` bigint(20) default NULL,
+  `TradeTerms` bigint(20) default NULL,
+  `WithinCreditTermCombo` varchar(255) default NULL,
+  `RateUSD` decimal(16,6) default NULL,
+  `RateRMB` decimal(16,6) default NULL,
+  `RateCode` varchar(255) default NULL,
+  `TotalAmountRMB` decimal(16,6) default NULL,
+  `WithinCreditTerm` varchar(255) default NULL,
+  `SumQuantityMW` decimal(16,2) default NULL,
+  `SumAmountM` decimal(16,2) default NULL,
+  `SumAmountMUSD` decimal(16,2) default NULL,
+  `SumAmountMRMB` decimal(16,2) default NULL,
+  `ContractBarcodeID` varchar(500) default NULL,
+  `RadioButton11` varchar(255) default NULL,
+  `SumAmountM2` decimal(16,2) default NULL,
+  `SumAmountMUSD2` decimal(16,2) default NULL,
+  `SumAmountMRMB2` decimal(16,2) default NULL,
+  `SumAmountM3` decimal(16,2) default NULL,
+  `SumAmountMUSD3` decimal(16,2) default NULL,
+  `SumAmountMRMB3` decimal(16,2) default NULL,
+  `OutofCreditTerm` varchar(255) default NULL,
+  `ContractCategory` varchar(255) default NULL,
+  `CreditTerms` varchar(255) default NULL,
+  `Prepayment` varchar(255) default NULL,
+  `SumCM` decimal(16,2) default NULL,
+  `MapCount` int(11) default NULL,
+  `Slock` int(11) default NULL,
+  PRIMARY KEY  (`OID`),
+  UNIQUE KEY `I_lesContractHead_SOID` (`SOID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of bill_salescontracthead
 -- ----------------------------
 
 -- ----------------------------
@@ -3155,6 +3427,29 @@ CREATE TABLE `bpm_directtransitionrb` (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for bpm_eventlog
+-- ----------------------------
+DROP TABLE IF EXISTS `bpm_eventlog`;
+CREATE TABLE `bpm_eventlog` (
+  `InstanceID` bigint(20) NOT NULL default '0',
+  `LogID` bigint(20) NOT NULL default '0',
+  `EventTime` datetime default NULL,
+  `ActionType` int(11) default NULL,
+  `Name` varchar(255) default NULL,
+  `Soperator` bigint(20) default NULL,
+  `Toperator` bigint(20) default NULL,
+  `UserInfo` varchar(255) default NULL,
+  `MapCount` int(11) default NULL,
+  `Slock` int(11) default NULL,
+  PRIMARY KEY  (`InstanceID`,`LogID`),
+  KEY `I_BPM_EventLogInstanceID` (`InstanceID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of bpm_eventlog
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for bpm_focusedinstance
 -- ----------------------------
 DROP TABLE IF EXISTS `bpm_focusedinstance`;
@@ -3264,6 +3559,8 @@ CREATE TABLE `bpm_instance` (
   `MapCount` int(11) default NULL,
   `Slock` int(11) default NULL,
   `FormName` varchar(255) default NULL,
+  `EventSeed` int(11) default NULL,
+  `TransitTo` int(11) default NULL,
   PRIMARY KEY  (`InstanceID`),
   KEY `I_BPM_InstanceOID` (`OID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -3271,110 +3568,112 @@ CREATE TABLE `bpm_instance` (
 -- ----------------------------
 -- Records of bpm_instance
 -- ----------------------------
-INSERT INTO `bpm_instance` VALUES ('1', 'WF_OA05_NewsDraftView', '1', '2016-08-08 00:00:00', '2016-08-08 00:00:00', '36925', '2', 'OA05_NewsDraft', 'OA05_NewsDraft', '13081', '0', null, '4', '2', '1', '1', '-1', '2', null, '1', null);
-INSERT INTO `bpm_instance` VALUES ('257', 'WF_OA_TASK', '1', '2016-08-29 00:00:00', null, '-1', '1', 'OA_Taskdistribution', 'OA_Taskdistribution', '16914', '0', null, '18', '12', '9', '9', '-1', '6', null, '1', '任务派发');
-INSERT INTO `bpm_instance` VALUES ('514', 'WF_StandardWorkFlow', '1', '2016-08-29 00:00:00', null, '-1', '1', 'OA_Meeting', 'OA_Meeting', '17683', '0', null, '2', '1', '1', '1', '-1', '1', null, null, '会议表单');
-INSERT INTO `bpm_instance` VALUES ('769', 'WF_OA_TASK', '1', '2016-09-05 00:00:00', null, '-1', '1', 'OA_Taskdistribution', 'OA_Taskdistribution', '19218', '0', null, '8', '4', '4', '4', '-1', '4', null, '1', '任务派发');
-INSERT INTO `bpm_instance` VALUES ('770', 'WF_OA_TASK', '1', '2016-09-05 00:00:00', '2016-09-05 00:00:00', '49138', '2', 'OA_Taskdistribution', 'OA_Taskdistribution', '19221', '0', null, '10', '5', '4', '4', '-1', '5', null, '1', '任务派发');
-INSERT INTO `bpm_instance` VALUES ('771', 'WF_OA_NewsDraftView', '1', '2016-09-05 00:00:00', null, '-1', '1', 'OA_NewsDraft', 'OA_NewsDraft', '19227', '0', null, '2', '1', '1', '1', '-1', '1', null, null, '信息发布');
-INSERT INTO `bpm_instance` VALUES ('1026', 'WF_StandardWorkFlow', '1', '2016-09-05 00:00:00', '2016-09-05 00:00:00', '53294', '2', 'OA_Meeting', 'OA_Meeting', '19474', '0', null, '4', '2', '1', '1', '-1', '2', null, '1', '会议表单');
-INSERT INTO `bpm_instance` VALUES ('1027', 'WF_StandardWorkFlow', '1', '2016-09-05 00:00:00', null, '-1', '1', 'OA_Meeting', 'OA_Meeting', '19479', '0', null, '2', '1', '1', '1', '-1', '1', null, null, '会议表单');
-INSERT INTO `bpm_instance` VALUES ('1028', 'WF_StandardWorkFlow', '1', '2016-09-05 00:00:00', null, '-1', '1', 'OA_Doc', 'OA_Doc', '19494', '0', null, '2', '1', '1', '1', '-1', '1', null, null, '文档管理');
-INSERT INTO `bpm_instance` VALUES ('2305', 'WF_OA_NewsDraftView', '1', '2016-09-12 00:00:00', null, '-1', '1', 'OA_NewsDraft', 'OA_NewsDraft', '25362', '0', null, '2', '1', '1', '1', '-1', '1', null, null, '信息发布');
-INSERT INTO `bpm_instance` VALUES ('4609', 'WF_StandardWorkFlow', '1', '2016-09-13 00:00:00', '2016-09-22 00:00:00', '811095', '2', 'OA_NewsDraft', 'OA_NewsDraft', '30226', '0', null, '4', '2', '1', '1', '-1', '2', null, '1', '新闻发布');
-INSERT INTO `bpm_instance` VALUES ('4610', 'WF_StandardWorkFlow', '1', '2016-09-13 00:00:00', '2016-09-22 00:00:00', '816904', '2', 'OA_NewsDraft', 'OA_NewsDraft', '29970', '0', null, '4', '2', '1', '1', '-1', '2', null, '1', '新闻发布');
-INSERT INTO `bpm_instance` VALUES ('4865', 'WF_StandardWorkFlow', '1', '2016-09-13 00:00:00', '2016-09-22 00:00:00', '818632', '2', 'OA_NewsDraft', 'OA_NewsDraft', '31762', '0', null, '4', '2', '1', '1', '-1', '2', null, '1', '新闻发布');
-INSERT INTO `bpm_instance` VALUES ('5121', 'WF_StandardWorkFlow', '1', '2016-09-13 00:00:00', '2016-09-22 00:00:00', '816808', '2', 'OA_NewsDraft', 'OA_NewsDraft', '32018', '0', null, '4', '2', '1', '1', '-1', '2', null, '1', '新闻发布');
-INSERT INTO `bpm_instance` VALUES ('5377', 'WF_StandardWorkFlow', '1', '2016-09-14 00:00:00', '2016-09-22 00:00:00', '732240', '2', 'OA_NewsDraft', 'OA_NewsDraft', '32530', '0', null, '4', '2', '1', '1', '-1', '2', null, '1', '新闻发布');
-INSERT INTO `bpm_instance` VALUES ('5378', 'WF_StandardWorkFlow', '1', '2016-09-14 00:00:00', '2016-09-22 00:00:00', '732248', '2', 'OA_NewsDraft', 'OA_NewsDraft', '32541', '0', null, '4', '2', '1', '1', '-1', '2', null, '1', '新闻发布');
-INSERT INTO `bpm_instance` VALUES ('5633', 'WF_StandardWorkFlow', '1', '2016-09-14 00:00:00', '2016-09-22 00:00:00', '732260', '2', 'OA_NewsDraft', 'OA_NewsDraft', '32786', '0', null, '4', '2', '1', '1', '-1', '2', null, '1', '新闻发布');
-INSERT INTO `bpm_instance` VALUES ('5634', 'WF_StandardWorkFlow', '1', '2016-09-14 00:00:00', '2016-09-22 00:00:00', '732287', '2', 'OA_NewsDraft', 'OA_NewsDraft', '32789', '0', null, '4', '2', '1', '1', '-1', '2', null, '1', '新闻发布');
-INSERT INTO `bpm_instance` VALUES ('6145', 'WF_StandardWorkFlow', '1', '2016-09-14 00:00:00', '2016-09-22 00:00:00', '732292', '2', 'OA_NewsDraft', 'OA_NewsDraft', '33043', '0', null, '8', '4', '1', '1', '-1', '4', null, '1', '新闻发布');
-INSERT INTO `bpm_instance` VALUES ('6146', 'WF_StandardWorkFlow', '1', '2016-09-14 00:00:00', '2016-09-22 00:00:00', '732300', '2', 'OA_NewsDraft', 'OA_NewsDraft', '33311', '0', null, '4', '2', '1', '1', '-1', '2', null, '1', '新闻发布');
-INSERT INTO `bpm_instance` VALUES ('6147', 'WF_StandardWorkFlow', '1', '2016-09-14 00:00:00', '2016-09-22 00:00:00', '732314', '2', 'OA_NewsDraft', 'OA_NewsDraft', '33314', '0', null, '4', '2', '1', '1', '-1', '2', null, '1', '新闻发布');
-INSERT INTO `bpm_instance` VALUES ('6155', 'WF_StandardWorkFlow', '1', '2016-09-14 00:00:00', '2016-09-22 00:00:00', '732320', '2', 'OA_NewsDraft', 'OA_NewsDraft', '33317', '0', null, '4', '2', '1', '1', '-1', '2', null, '1', '新闻发布');
-INSERT INTO `bpm_instance` VALUES ('6158', 'WF_StandardWorkFlow', '1', '2016-09-14 00:00:00', '2016-09-22 00:00:00', '732326', '2', 'OA_NewsDraft', 'OA_NewsDraft', '33327', '0', null, '4', '2', '1', '1', '-1', '2', null, '1', '新闻发布');
-INSERT INTO `bpm_instance` VALUES ('6657', 'WF_StandardWorkFlow', '1', '2016-09-14 00:00:00', '2016-09-22 00:00:00', '732338', '2', 'OA_NewsDraft', 'OA_NewsDraft', '33556', '0', null, '4', '2', '1', '1', '-1', '2', null, '1', '新闻发布');
-INSERT INTO `bpm_instance` VALUES ('6913', 'WF_StandardWorkFlow', '1', '2016-09-14 00:00:00', '2016-09-22 00:00:00', '732358', '2', 'OA_NewsDraft', 'OA_NewsDraft', '34066', '0', null, '4', '2', '1', '1', '-1', '2', null, '1', '新闻发布');
-INSERT INTO `bpm_instance` VALUES ('6914', 'WF_StandardWorkFlow', '1', '2016-09-14 00:00:00', '2016-09-22 00:00:00', '732365', '2', 'OA_NewsDraft', 'OA_NewsDraft', '34069', '0', null, '4', '2', '1', '1', '-1', '2', null, '1', '新闻发布');
-INSERT INTO `bpm_instance` VALUES ('7169', 'WF_StandardWorkFlow', '1', '2016-09-18 00:00:00', '2016-09-22 00:00:00', '386775', '2', 'OA_NewsDraft', 'OA_NewsDraft', '35859', '0', null, '4', '2', '1', '1', '-1', '2', null, '1', '新闻发布');
-INSERT INTO `bpm_instance` VALUES ('7170', 'WF_StandardWorkFlow', '1', '2016-09-18 00:00:00', '2016-09-22 00:00:00', '401932', '2', 'OA_NewsDraft', 'OA_NewsDraft', '35860', '0', null, '4', '2', '1', '1', '-1', '2', null, '1', '新闻发布');
-INSERT INTO `bpm_instance` VALUES ('7171', 'WF_StandardWorkFlow', '1', '2016-09-18 00:00:00', '2016-09-22 00:00:00', '401943', '2', 'OA_NewsDraft', 'OA_NewsDraft', '35861', '0', null, '4', '2', '1', '1', '-1', '2', null, '1', '新闻发布');
-INSERT INTO `bpm_instance` VALUES ('7172', 'WF_StandardWorkFlow', '1', '2016-09-18 00:00:00', '2016-09-22 00:00:00', '401949', '2', 'OA_NewsDraft', 'OA_NewsDraft', '35862', '0', null, '4', '2', '1', '1', '-1', '2', null, '1', '新闻发布');
-INSERT INTO `bpm_instance` VALUES ('7425', 'WF_StandardWorkFlow', '1', '2016-09-19 00:00:00', '2016-09-22 00:00:00', '315555', '2', 'OA_NewsDraft', 'OA_NewsDraft', '36370', '0', null, '4', '2', '1', '1', '-1', '2', null, '1', '新闻发布');
-INSERT INTO `bpm_instance` VALUES ('7426', 'WF_StandardWorkFlow', '1', '2016-09-19 00:00:00', '2016-09-22 00:00:00', '315560', '2', 'OA_NewsDraft', 'OA_NewsDraft', '36371', '0', null, '4', '2', '1', '1', '-1', '2', null, '1', '新闻发布');
-INSERT INTO `bpm_instance` VALUES ('7937', 'WF_StandardWorkFlow', '1', '2016-09-19 00:00:00', '2016-09-22 00:00:00', '315566', '2', 'OA_NewsDraft', 'OA_NewsDraft', '37394', '0', null, '4', '2', '1', '1', '-1', '2', null, '1', '新闻发布');
-INSERT INTO `bpm_instance` VALUES ('8194', 'WF_StandardWorkFlow', '1', '2016-09-19 00:00:00', '2016-09-19 00:00:00', '52542', '2', 'OA_NewsDraft', 'OA_NewsDraft', '38176', '0', null, '4', '2', '1', '1', '-1', '2', null, '1', '新闻发布');
-INSERT INTO `bpm_instance` VALUES ('8195', 'WF_OA_NewsDraftView', '1', '2016-09-19 00:00:00', '2016-09-19 00:00:00', '52828', '2', 'OA_NewsDraft', 'OA_NewsDraft', '38177', '0', null, '6', '3', '2', '2', '-1', '3', null, '1', '新闻发布');
-INSERT INTO `bpm_instance` VALUES ('8449', 'WF_StandardWorkFlow', '1', '2016-09-19 00:00:00', '2016-09-19 00:00:00', '61023', '2', 'OA_NewsDraft', 'OA_NewsDraft', '38933', '0', null, '4', '2', '1', '1', '-1', '2', null, '1', '新闻发布');
-INSERT INTO `bpm_instance` VALUES ('8450', 'WF_StandardWorkFlow', '1', '2016-09-19 00:00:00', '2016-09-23 00:00:00', '391215', '2', 'OA_Doc', 'OA_Doc', '38936', '0', null, '6', '3', '1', '1', '-1', '3', null, '1', '文档管理');
-INSERT INTO `bpm_instance` VALUES ('8705', 'WF_OA_MeetingInSideWorkFlow', '1', '2016-09-19 00:00:00', '2016-09-22 00:00:00', '292489', '2', 'OA_MeetingInSide', 'OA_MeetingInSide', '39186', '0', null, '4', '2', '1', '1', '-1', '2', null, '1', '内部会议表单');
-INSERT INTO `bpm_instance` VALUES ('8706', 'WF_OA_TASK', '1', '2016-09-19 00:00:00', null, '-1', '1', 'OA_Taskdistribution', 'OA_Taskdistribution', '39191', '0', null, '2', '1', '1', '1', '-1', '1', null, null, '任务派发');
-INSERT INTO `bpm_instance` VALUES ('8961', 'WF_OA_NewsDraftView', '1', '2016-09-20 00:00:00', '2016-10-26 00:00:00', '3176133', '2', 'OA_NewsDraft', 'OA_NewsDraft', '44056', '0', null, '5', '2', '1', '1', '-1', '2', null, '1', '新闻发布');
-INSERT INTO `bpm_instance` VALUES ('9217', 'WF_OA_MeetingInSideWorkFlow', '1', '2016-09-22 00:00:00', '2016-09-22 00:00:00', '33290', '2', 'OA_MeetingInSide', 'OA_MeetingInSide', '55063', '0', null, '4', '2', '1', '1', '-1', '2', null, '1', '内部会议表单');
-INSERT INTO `bpm_instance` VALUES ('9987', 'WF_OA_TASK', '1', '2016-09-22 00:00:00', '2016-10-26 00:00:00', '3003377', '2', 'OA_Taskdistribution', 'OA_Taskdistribution', '57620', '0', null, '10', '4', '3', '3', '-1', '4', null, '1', '任务派发');
-INSERT INTO `bpm_instance` VALUES ('10241', 'WF_OA_NewsDraftView', '1', '2016-09-22 00:00:00', '2016-10-26 00:00:00', '3003345', '2', 'OA_NewsDraft', 'OA_NewsDraft', '58642', '0', null, '5', '2', '1', '1', '-1', '2', null, '1', '新闻发布');
-INSERT INTO `bpm_instance` VALUES ('10497', 'WF_OA_NewsDraftView', '1', '2016-09-22 00:00:00', '2016-10-26 00:00:00', '3003388', '2', 'OA_NewsDraft', 'OA_NewsDraft', '59156', '0', null, '5', '2', '1', '1', '-1', '2', null, '1', '新闻发布');
-INSERT INTO `bpm_instance` VALUES ('10498', 'WF_OA_NewsDraftView', '1', '2016-09-22 00:00:00', '2016-10-26 00:00:00', '3003355', '2', 'OA_NewsDraft', 'OA_NewsDraft', '59158', '0', null, '7', '3', '2', '2', '-1', '3', null, '1', '新闻发布');
-INSERT INTO `bpm_instance` VALUES ('10753', 'WF_StandardWorkFlow', '1', '2016-09-23 00:00:00', '2016-09-23 00:00:00', '50977', '2', 'OA_Doc', 'OA_Doc', '66609', '0', null, '4', '2', '1', '1', '-1', '2', null, '1', '文档管理');
-INSERT INTO `bpm_instance` VALUES ('10754', 'WF_StandardWorkFlow', '1', '2016-09-23 00:00:00', '2016-09-23 00:00:00', '51069', '2', 'OA_Doc', 'OA_Doc', '66610', '0', null, '4', '2', '1', '1', '-1', '2', null, '1', '文档管理');
-INSERT INTO `bpm_instance` VALUES ('11009', 'WF_StandardWorkFlow', '1', '2016-09-23 00:00:00', '2016-09-23 00:00:00', '55251', '2', 'OA_Doc', 'OA_Doc', '67090', '0', null, '4', '2', '1', '1', '-1', '2', null, '1', '文档管理');
-INSERT INTO `bpm_instance` VALUES ('11265', 'WF_StandardWorkFlow', '1', '2016-09-23 00:00:00', '2016-09-23 00:00:00', '56904', '2', 'OA_Doc', 'OA_Doc', '68376', '0', null, '4', '2', '1', '1', '-1', '2', null, '1', '文档管理');
-INSERT INTO `bpm_instance` VALUES ('11521', 'WF_OA_TASK', '1', '2016-09-23 00:00:00', '2017-01-13 00:00:00', '9717326', '2', 'OA_Taskdistribution', 'OA_Taskdistribution', '68626', '0', null, '9', '4', '3', '3', '-1', '4', null, '1', '任务派发');
-INSERT INTO `bpm_instance` VALUES ('11522', 'WF_OA_MeetingInSideWorkFlow', '1', '2016-09-23 00:00:00', '2016-09-23 00:00:00', '57543', '2', 'OA_MeetingInSide', 'OA_MeetingInSide', '68627', '0', null, '4', '2', '1', '1', '-1', '2', null, '1', '内部会议表单');
-INSERT INTO `bpm_instance` VALUES ('11777', 'WF_OA_MeetingOutSideWorkFlow', '1', '2016-09-23 00:00:00', '2016-09-23 00:00:00', '58286', '2', 'OA_MeetingOutSide', 'OA_MeetingOutSide', '69139', '0', null, '4', '2', '1', '1', '-1', '2', null, '1', '外部会议表单');
-INSERT INTO `bpm_instance` VALUES ('11778', 'WF_StandardWorkFlow', '1', '2016-09-23 00:00:00', '2016-09-23 00:00:00', '58720', '2', 'OA_Doc', 'OA_Doc', '69145', '0', null, '6', '3', '1', '1', '-1', '3', null, '1', '文档管理');
-INSERT INTO `bpm_instance` VALUES ('12033', 'WF_StandardWorkFlow', '1', '2016-09-23 00:00:00', '2016-09-23 00:00:00', '59818', '2', 'OA_SpoFile', 'OA_SpoFile', '69399', '0', null, '4', '2', '1', '1', '-1', '2', null, '1', '发文');
-INSERT INTO `bpm_instance` VALUES ('12289', 'WF_OA_NewsDraftView', '1', '2016-09-23 00:00:00', '2016-10-26 00:00:00', '2916917', '2', 'OA_NewsDraft', 'OA_NewsDraft', '42528', '0', null, '5', '2', '1', '1', '-1', '2', null, '1', '新闻发布');
-INSERT INTO `bpm_instance` VALUES ('12545', 'WF_OA_NewsDraftView', '1', '2016-09-26 00:00:00', '2017-01-13 00:00:00', '9458196', '2', 'OA_NewsDraft', 'OA_NewsDraft', '70418', '0', null, '5', '2', '1', '1', '-1', '2', null, '1', '新闻发布');
-INSERT INTO `bpm_instance` VALUES ('12546', 'WF_OA_TASK', '1', '2016-09-26 00:00:00', '2017-01-13 00:00:00', '9458175', '2', 'OA_Taskdistribution', 'OA_Taskdistribution', '70421', '0', null, '10', '4', '3', '3', '-1', '4', null, '1', '任务派发');
-INSERT INTO `bpm_instance` VALUES ('12801', 'WF_OA_MeetingInSideWorkFlow', '1', '2016-10-12 00:00:00', '2016-10-12 00:00:00', '39439', '2', 'OA_MeetingInSide', 'OA_MeetingInSide', '90391', '0', null, '4', '2', '1', '1', '-1', '2', null, '1', '内部会议表单');
-INSERT INTO `bpm_instance` VALUES ('12802', 'WF_StandardWorkFlow', '1', '2016-10-12 00:00:00', '2016-10-12 00:00:00', '42293', '2', 'OA_ForeignLan', 'OA_ForeignLan', '69398', '0', null, '4', '2', '1', '1', '-1', '2', null, '1', '收文');
-INSERT INTO `bpm_instance` VALUES ('13057', 'WF_OA_ForeignLan', '1', '2016-10-12 00:00:00', '2016-10-12 00:00:00', '48264', '2', 'OA_ForeignLan', 'OA_ForeignLan', '90170', '0', null, '10', '5', '4', '4', '-1', '5', null, '1', '收文');
-INSERT INTO `bpm_instance` VALUES ('13313', 'WF_StandardWorkFlow', '1', '2016-10-12 00:00:00', '2017-01-13 00:00:00', '8075029', '2', 'OA_SpoFile', 'OA_SpoFile', '93202', '0', null, '10', '5', '1', '1', '-1', '5', null, '1', '发文');
-INSERT INTO `bpm_instance` VALUES ('13569', 'WF_OA_ForeignLan', '1', '2016-10-12 00:00:00', '2016-10-12 00:00:00', '55973', '2', 'OA_ForeignLan', 'OA_ForeignLan', '93460', '0', null, '10', '5', '4', '4', '-1', '5', null, '1', '收文');
-INSERT INTO `bpm_instance` VALUES ('13825', 'WF_OA_NewsDraftView', '1', '2016-10-26 00:00:00', '2016-10-26 00:00:00', '65658', '2', 'OA_NewsDraft', 'OA_NewsDraft', '84761', '0', null, '6', '3', '2', '2', '-1', '3', null, '1', '新闻发布');
-INSERT INTO `bpm_instance` VALUES ('14081', 'WF_OA_NewsDraftView', '1', '2016-10-26 00:00:00', '2016-10-26 00:00:00', '65706', '2', 'OA_NewsDraft', 'OA_NewsDraft', '94226', '0', null, '6', '3', '2', '2', '-1', '3', null, '1', '新闻发布');
-INSERT INTO `bpm_instance` VALUES ('14337', 'WF_OA_NewsDraftView', '1', '2016-10-27 00:00:00', '2016-10-27 00:00:00', '32075', '2', 'OA_NewsDraft', 'OA_NewsDraft', '84757', '0', null, '6', '3', '2', '2', '-1', '3', null, '1', '新闻发布');
-INSERT INTO `bpm_instance` VALUES ('14338', 'WF_OA_NewsDraftView', '1', '2016-10-27 00:00:00', '2016-10-27 00:00:00', '32104', '2', 'OA_NewsDraft', 'OA_NewsDraft', '84759', '0', null, '6', '3', '2', '2', '-1', '3', null, '1', '新闻发布');
-INSERT INTO `bpm_instance` VALUES ('14339', 'WF_OA_NewsDraftView', '1', '2016-10-27 00:00:00', null, '-1', '1', 'OA_NewsDraft', 'OA_NewsDraft', '84755', '0', null, '2', '1', '1', '1', '-1', '1', null, null, '新闻发布');
-INSERT INTO `bpm_instance` VALUES ('14340', 'WF_OA_MeetingInSideWorkFlow', '1', '2016-10-27 00:00:00', '2016-10-27 00:00:00', '34770', '2', 'OA_MeetingInSide', 'OA_MeetingInSide', '45855', '0', null, '4', '2', '1', '1', '-1', '2', null, '1', '内部会议表单');
-INSERT INTO `bpm_instance` VALUES ('14593', 'WF_OA_MeetingInSideWorkFlow', '1', '2016-10-28 00:00:00', '2016-10-28 00:00:00', '43772', '2', 'OA_MeetingInSide', 'OA_MeetingInSide', '94492', '0', null, '4', '2', '1', '1', '-1', '2', null, '1', '内部会议表单');
-INSERT INTO `bpm_instance` VALUES ('14849', 'WF_OA_ForeignLan', '1', '2016-10-28 00:00:00', '2017-01-13 00:00:00', '6693103', '2', 'OA_ForeignLan', 'OA_ForeignLan', '97043', '0', null, '10', '5', '4', '4', '-1', '5', null, '1', '收文');
-INSERT INTO `bpm_instance` VALUES ('14850', 'WF_OA_ForeignLan', '1', '2016-10-28 00:00:00', '2016-10-28 00:00:00', '59661', '2', 'OA_ForeignLan', 'OA_ForeignLan', '97044', '0', null, '10', '5', '6', '6', '-1', '7', null, '1', '收文');
-INSERT INTO `bpm_instance` VALUES ('14851', 'WF_OA_ForeignLan', '1', '2016-10-28 00:00:00', '2017-01-13 00:00:00', '6692974', '2', 'OA_ForeignLan', 'OA_ForeignLan', '97067', '0', null, '10', '5', '4', '4', '-1', '5', null, '1', '收文');
-INSERT INTO `bpm_instance` VALUES ('14852', 'WF_OA_ForeignLan', '1', '2016-10-28 00:00:00', '2017-01-13 00:00:00', '6693439', '2', 'OA_ForeignLan', 'OA_ForeignLan', '97075', '0', null, '14', '7', '5', '5', '-1', '7', null, '1', '收文');
-INSERT INTO `bpm_instance` VALUES ('15105', 'WF_StandardWorkFlow', '1', '2016-10-31 00:00:00', '2016-10-31 00:00:00', '56216', '2', 'OA_Doc', 'OA_Doc', '97301', '0', null, '4', '2', '1', '1', '-1', '2', null, '1', '文档管理');
-INSERT INTO `bpm_instance` VALUES ('15621', 'WF_OA_TASK', '1', '2016-11-02 00:00:00', '2016-11-02 00:00:00', '48734', '2', 'OA_Taskdistribution', 'OA_Taskdistribution', '102682', '0', null, '10', '4', '3', '3', '-1', '4', null, '1', '任务派发');
-INSERT INTO `bpm_instance` VALUES ('15873', 'WF_OA_TASK', '1', '2016-11-02 00:00:00', null, '-1', '1', 'OA_Taskdistribution', 'OA_Taskdistribution', '102683', '0', null, '8', '3', '3', '3', '-1', '3', null, '1', '任务派发');
-INSERT INTO `bpm_instance` VALUES ('16129', 'WF_OA_NewsDraftView', '1', '2016-11-03 00:00:00', '2016-11-03 00:00:00', '36285', '2', 'OA_NewsDraft', 'OA_NewsDraft', '104210', '0', null, '6', '3', '2', '2', '-1', '3', null, '1', '新闻发布');
-INSERT INTO `bpm_instance` VALUES ('16130', 'WF_OA_NewsDraftView', '1', '2016-11-03 00:00:00', '2016-11-03 00:00:00', '36348', '2', 'OA_NewsDraft', 'OA_NewsDraft', '42519', '0', null, '5', '2', '1', '1', '-1', '2', null, '1', '新闻发布');
-INSERT INTO `bpm_instance` VALUES ('16385', 'WF_OA_NewsDraftView', '1', '2016-11-04 00:00:00', '2016-11-04 00:00:00', '37629', '2', 'OA_NewsDraft', 'OA_NewsDraft', '106003', '0', null, '8', '4', '2', '2', '-1', '4', null, '1', '新闻发布');
-INSERT INTO `bpm_instance` VALUES ('16386', 'WF_OA_NewsDraftView', '1', '2016-11-04 00:00:00', '2016-11-04 00:00:00', '38170', '2', 'OA_NewsDraft', 'OA_NewsDraft', '106005', '0', null, '6', '3', '2', '2', '-1', '3', null, '1', '新闻发布');
-INSERT INTO `bpm_instance` VALUES ('16387', 'WF_OA_NewsDraftView', '1', '2016-11-04 00:00:00', '2016-11-04 00:00:00', '38331', '2', 'OA_NewsDraft', 'OA_NewsDraft', '106007', '0', null, '6', '3', '2', '2', '-1', '3', null, '1', '新闻发布');
-INSERT INTO `bpm_instance` VALUES ('16641', 'WF_OA_ForeignLan', '1', '2016-11-04 00:00:00', null, '-1', '1', 'OA_ForeignLan', 'OA_ForeignLan', '106259', '0', null, '20', '10', '11', '11', '-1', '12', null, '1', '收文');
-INSERT INTO `bpm_instance` VALUES ('16897', 'WF_OA_ForeignLan', '1', '2016-11-24 00:00:00', '2017-01-13 00:00:00', '4360498', '2', 'OA_ForeignLan', 'OA_ForeignLan', '97300', '0', null, '10', '5', '4', '4', '-1', '5', null, '1', '收文');
-INSERT INTO `bpm_instance` VALUES ('16898', 'WF_OA_ForeignLan', '1', '2016-11-24 00:00:00', '2016-12-19 00:00:00', '2217241', '2', 'OA_ForeignLan', 'OA_ForeignLan', '117527', '0', null, '20', '10', '9', '9', '-1', '11', null, '1', '收文');
-INSERT INTO `bpm_instance` VALUES ('17153', 'WF_OA_NewsDraftView', '1', '2016-11-29 00:00:00', '2016-11-29 00:00:00', '35677', '2', 'OA_NewsDraft', 'OA_NewsDraft', '122201', '0', null, '5', '2', '1', '1', '-1', '2', null, '1', '新闻发布');
-INSERT INTO `bpm_instance` VALUES ('17409', 'WF_OA_ForeignLan', '1', '2016-12-14 00:00:00', null, '-1', '1', 'OA_ForeignLan', 'OA_ForeignLan', '139282', '0', null, '12', '6', '6', '6', '-1', '9', null, '1', '收文');
-INSERT INTO `bpm_instance` VALUES ('17665', 'WF_OA_ForeignLan', '1', '2016-12-22 00:00:00', '2016-12-29 00:00:00', '662147', '2', 'OA_ForeignLan', 'OA_ForeignLan', '143894', '0', null, '64', '32', '6', '6', '-1', '34', null, '1', '收文');
-INSERT INTO `bpm_instance` VALUES ('17921', 'WF_OA_ForeignLan', '1', '2017-01-04 00:00:00', '2017-01-13 00:00:00', '818857', '2', 'OA_ForeignLan', 'OA_ForeignLan', '144658', '0', null, '14', '7', '6', '6', '-1', '7', null, '1', '收文');
-INSERT INTO `bpm_instance` VALUES ('18177', 'WF_OA_ForeignLan', '1', '2017-01-06 00:00:00', null, '-1', '1', 'MOA_ForeignLan', 'MOA_ForeignLan', '157460', '0', null, '4', '2', '2', '2', '-1', '2', null, '1', '收文');
-INSERT INTO `bpm_instance` VALUES ('18433', 'WF_OA_ForeignLan', '1', '2017-01-09 00:00:00', '2017-01-09 00:00:00', '38303', '2', 'OA_ForeignLan', 'OA_ForeignLan', '158227', '0', null, '12', '6', '5', '5', '-1', '6', null, '1', '收文');
-INSERT INTO `bpm_instance` VALUES ('18434', 'WF_OA_ForeignLan', '1', '2017-01-09 00:00:00', null, '-1', '1', 'OA_ForeignLan', 'OA_ForeignLan', '158240', '0', null, '6', '3', '4', '4', '-1', '3', null, '1', '收文');
-INSERT INTO `bpm_instance` VALUES ('18689', 'WF_OA_ForeignLan', '1', '2017-01-10 00:00:00', null, '-1', '1', 'OA_ForeignLan', 'OA_ForeignLan', '158484', '0', null, '6', '3', '3', '3', '-1', '3', null, '1', '收文');
-INSERT INTO `bpm_instance` VALUES ('18945', 'WF_OA_ForeignLan', '1', '2017-04-20 00:00:00', null, '-1', '1', 'OA_ForeignLan', 'OA_ForeignLan', '159762', '0', null, '4', '2', '2', '2', '-1', '2', null, '1', '收文');
-INSERT INTO `bpm_instance` VALUES ('19201', 'WF_OA_MeetingInSideWorkFlow', '1', '2017-04-24 00:00:00', '2017-04-24 00:00:00', '35962', '2', 'OA_MeetingInSide', 'OA_MeetingInSide', '170258', '0', null, '4', '2', '1', '1', '-1', '2', null, '1', '内部会议表单');
-INSERT INTO `bpm_instance` VALUES ('19202', 'WF_OA_MeetingInSideWorkFlow', '1', '2017-04-24 00:00:00', '2017-04-24 00:00:00', '49632', '2', 'OA_MeetingInSide', 'OA_MeetingInSide', '170261', '0', null, '6', '3', '1', '1', '-1', '3', null, '1', '内部会议表单');
-INSERT INTO `bpm_instance` VALUES ('19203', 'WF_OA_MeetingInSideWorkFlow', '1', '2017-04-24 00:00:00', '2017-04-24 00:00:00', '37063', '2', 'OA_MeetingInSide', 'OA_MeetingInSide', '170268', '0', null, '18', '9', '1', '1', '-1', '9', null, '1', '内部会议表单');
-INSERT INTO `bpm_instance` VALUES ('19457', 'WF_OA_TASK', '1', '2017-05-17 00:00:00', null, '-1', '1', 'OA_Taskdistribution', 'OA_Taskdistribution', '185619', '0', null, '5', '2', '2', '2', '-1', '2', null, '1', '任务派发');
-INSERT INTO `bpm_instance` VALUES ('19723', 'WF_OA_ForeignLan', '1', '2017-06-06 13:13:23', null, '-1', '1', 'OA_ForeignLan', 'OA_ForeignLan', '197395', '0', null, '10', '5', '5', '5', '-1', '5', null, '1', '收文');
-INSERT INTO `bpm_instance` VALUES ('20225', 'WF_OA_ForeignLan', '1', '2017-06-06 16:10:18', null, '-1', '1', 'OA_ForeignLan', 'OA_ForeignLan', '198677', '0', null, '2', '1', '1', '1', '-1', '1', null, null, '收文');
-INSERT INTO `bpm_instance` VALUES ('20226', 'WF_OA_ForeignLan', '1', '2017-06-06 16:10:50', null, '-1', '1', 'OA_ForeignLan', 'OA_ForeignLan', '198930', '0', null, '2', '1', '1', '1', '-1', '1', null, null, '收文');
-INSERT INTO `bpm_instance` VALUES ('21249', 'WF_OA_ForeignLan', '1', '2017-06-07 17:40:24', null, '-1', '1', 'OA_ForeignLan', 'OA_ForeignLan', '202259', '0', null, '4', '2', '2', '2', '-1', '2', null, '1', '收文');
-INSERT INTO `bpm_instance` VALUES ('21764', 'WF_OA_ForeignLan', '1', '2017-06-08 14:19:25', null, '-1', '1', 'OA_ForeignLan', 'OA_ForeignLan', '206610', '0', null, '2', '1', '1', '1', '-1', '1', null, null, '收文');
-INSERT INTO `bpm_instance` VALUES ('22273', 'WF_OA_ForeignLan', '1', '2017-06-08 15:17:13', null, '-1', '1', 'OA_ForeignLan', 'OA_ForeignLan', '206611', '0', null, '6', '3', '8', '8', '-1', '3', null, '1', '收文');
-INSERT INTO `bpm_instance` VALUES ('22529', 'WF_OA_ForeignLan', '1', '2017-06-08 16:35:43', '2017-06-08 16:38:20', '157', '2', 'OA_ForeignLan', 'OA_ForeignLan', '208658', '0', null, '10', '5', '5', '5', '-1', '6', null, '1', '收文');
+INSERT INTO `bpm_instance` VALUES ('1', 'WF_OA05_NewsDraftView', '1', '2016-08-08 00:00:00', '2016-08-08 00:00:00', '36925', '2', 'OA05_NewsDraft', 'OA05_NewsDraft', '13081', '0', null, '4', '2', '1', '1', '-1', '2', null, '1', null, null, null);
+INSERT INTO `bpm_instance` VALUES ('257', 'WF_OA_TASK', '1', '2016-08-29 00:00:00', null, '-1', '1', 'OA_Taskdistribution', 'OA_Taskdistribution', '16914', '0', null, '18', '12', '9', '9', '-1', '6', null, '1', '任务派发', null, null);
+INSERT INTO `bpm_instance` VALUES ('514', 'WF_StandardWorkFlow', '1', '2016-08-29 00:00:00', null, '-1', '1', 'OA_Meeting', 'OA_Meeting', '17683', '0', null, '2', '1', '1', '1', '-1', '1', null, null, '会议表单', null, null);
+INSERT INTO `bpm_instance` VALUES ('769', 'WF_OA_TASK', '1', '2016-09-05 00:00:00', null, '-1', '1', 'OA_Taskdistribution', 'OA_Taskdistribution', '19218', '0', null, '8', '4', '4', '4', '-1', '4', null, '1', '任务派发', null, null);
+INSERT INTO `bpm_instance` VALUES ('770', 'WF_OA_TASK', '1', '2016-09-05 00:00:00', '2016-09-05 00:00:00', '49138', '2', 'OA_Taskdistribution', 'OA_Taskdistribution', '19221', '0', null, '10', '5', '4', '4', '-1', '5', null, '1', '任务派发', null, null);
+INSERT INTO `bpm_instance` VALUES ('771', 'WF_OA_NewsDraftView', '1', '2016-09-05 00:00:00', null, '-1', '1', 'OA_NewsDraft', 'OA_NewsDraft', '19227', '0', null, '2', '1', '1', '1', '-1', '1', null, null, '信息发布', null, null);
+INSERT INTO `bpm_instance` VALUES ('1026', 'WF_StandardWorkFlow', '1', '2016-09-05 00:00:00', '2016-09-05 00:00:00', '53294', '2', 'OA_Meeting', 'OA_Meeting', '19474', '0', null, '4', '2', '1', '1', '-1', '2', null, '1', '会议表单', null, null);
+INSERT INTO `bpm_instance` VALUES ('1027', 'WF_StandardWorkFlow', '1', '2016-09-05 00:00:00', null, '-1', '1', 'OA_Meeting', 'OA_Meeting', '19479', '0', null, '2', '1', '1', '1', '-1', '1', null, null, '会议表单', null, null);
+INSERT INTO `bpm_instance` VALUES ('1028', 'WF_StandardWorkFlow', '1', '2016-09-05 00:00:00', null, '-1', '1', 'OA_Doc', 'OA_Doc', '19494', '0', null, '2', '1', '1', '1', '-1', '1', null, null, '文档管理', null, null);
+INSERT INTO `bpm_instance` VALUES ('2305', 'WF_OA_NewsDraftView', '1', '2016-09-12 00:00:00', null, '-1', '1', 'OA_NewsDraft', 'OA_NewsDraft', '25362', '0', null, '2', '1', '1', '1', '-1', '1', null, null, '信息发布', null, null);
+INSERT INTO `bpm_instance` VALUES ('4609', 'WF_StandardWorkFlow', '1', '2016-09-13 00:00:00', '2016-09-22 00:00:00', '811095', '2', 'OA_NewsDraft', 'OA_NewsDraft', '30226', '0', null, '4', '2', '1', '1', '-1', '2', null, '1', '新闻发布', null, null);
+INSERT INTO `bpm_instance` VALUES ('4610', 'WF_StandardWorkFlow', '1', '2016-09-13 00:00:00', '2016-09-22 00:00:00', '816904', '2', 'OA_NewsDraft', 'OA_NewsDraft', '29970', '0', null, '4', '2', '1', '1', '-1', '2', null, '1', '新闻发布', null, null);
+INSERT INTO `bpm_instance` VALUES ('4865', 'WF_StandardWorkFlow', '1', '2016-09-13 00:00:00', '2016-09-22 00:00:00', '818632', '2', 'OA_NewsDraft', 'OA_NewsDraft', '31762', '0', null, '4', '2', '1', '1', '-1', '2', null, '1', '新闻发布', null, null);
+INSERT INTO `bpm_instance` VALUES ('5121', 'WF_StandardWorkFlow', '1', '2016-09-13 00:00:00', '2016-09-22 00:00:00', '816808', '2', 'OA_NewsDraft', 'OA_NewsDraft', '32018', '0', null, '4', '2', '1', '1', '-1', '2', null, '1', '新闻发布', null, null);
+INSERT INTO `bpm_instance` VALUES ('5377', 'WF_StandardWorkFlow', '1', '2016-09-14 00:00:00', '2016-09-22 00:00:00', '732240', '2', 'OA_NewsDraft', 'OA_NewsDraft', '32530', '0', null, '4', '2', '1', '1', '-1', '2', null, '1', '新闻发布', null, null);
+INSERT INTO `bpm_instance` VALUES ('5378', 'WF_StandardWorkFlow', '1', '2016-09-14 00:00:00', '2016-09-22 00:00:00', '732248', '2', 'OA_NewsDraft', 'OA_NewsDraft', '32541', '0', null, '4', '2', '1', '1', '-1', '2', null, '1', '新闻发布', null, null);
+INSERT INTO `bpm_instance` VALUES ('5633', 'WF_StandardWorkFlow', '1', '2016-09-14 00:00:00', '2016-09-22 00:00:00', '732260', '2', 'OA_NewsDraft', 'OA_NewsDraft', '32786', '0', null, '4', '2', '1', '1', '-1', '2', null, '1', '新闻发布', null, null);
+INSERT INTO `bpm_instance` VALUES ('5634', 'WF_StandardWorkFlow', '1', '2016-09-14 00:00:00', '2016-09-22 00:00:00', '732287', '2', 'OA_NewsDraft', 'OA_NewsDraft', '32789', '0', null, '4', '2', '1', '1', '-1', '2', null, '1', '新闻发布', null, null);
+INSERT INTO `bpm_instance` VALUES ('6145', 'WF_StandardWorkFlow', '1', '2016-09-14 00:00:00', '2016-09-22 00:00:00', '732292', '2', 'OA_NewsDraft', 'OA_NewsDraft', '33043', '0', null, '8', '4', '1', '1', '-1', '4', null, '1', '新闻发布', null, null);
+INSERT INTO `bpm_instance` VALUES ('6146', 'WF_StandardWorkFlow', '1', '2016-09-14 00:00:00', '2016-09-22 00:00:00', '732300', '2', 'OA_NewsDraft', 'OA_NewsDraft', '33311', '0', null, '4', '2', '1', '1', '-1', '2', null, '1', '新闻发布', null, null);
+INSERT INTO `bpm_instance` VALUES ('6147', 'WF_StandardWorkFlow', '1', '2016-09-14 00:00:00', '2016-09-22 00:00:00', '732314', '2', 'OA_NewsDraft', 'OA_NewsDraft', '33314', '0', null, '4', '2', '1', '1', '-1', '2', null, '1', '新闻发布', null, null);
+INSERT INTO `bpm_instance` VALUES ('6155', 'WF_StandardWorkFlow', '1', '2016-09-14 00:00:00', '2016-09-22 00:00:00', '732320', '2', 'OA_NewsDraft', 'OA_NewsDraft', '33317', '0', null, '4', '2', '1', '1', '-1', '2', null, '1', '新闻发布', null, null);
+INSERT INTO `bpm_instance` VALUES ('6158', 'WF_StandardWorkFlow', '1', '2016-09-14 00:00:00', '2016-09-22 00:00:00', '732326', '2', 'OA_NewsDraft', 'OA_NewsDraft', '33327', '0', null, '4', '2', '1', '1', '-1', '2', null, '1', '新闻发布', null, null);
+INSERT INTO `bpm_instance` VALUES ('6657', 'WF_StandardWorkFlow', '1', '2016-09-14 00:00:00', '2016-09-22 00:00:00', '732338', '2', 'OA_NewsDraft', 'OA_NewsDraft', '33556', '0', null, '4', '2', '1', '1', '-1', '2', null, '1', '新闻发布', null, null);
+INSERT INTO `bpm_instance` VALUES ('6913', 'WF_StandardWorkFlow', '1', '2016-09-14 00:00:00', '2016-09-22 00:00:00', '732358', '2', 'OA_NewsDraft', 'OA_NewsDraft', '34066', '0', null, '4', '2', '1', '1', '-1', '2', null, '1', '新闻发布', null, null);
+INSERT INTO `bpm_instance` VALUES ('6914', 'WF_StandardWorkFlow', '1', '2016-09-14 00:00:00', '2016-09-22 00:00:00', '732365', '2', 'OA_NewsDraft', 'OA_NewsDraft', '34069', '0', null, '4', '2', '1', '1', '-1', '2', null, '1', '新闻发布', null, null);
+INSERT INTO `bpm_instance` VALUES ('7169', 'WF_StandardWorkFlow', '1', '2016-09-18 00:00:00', '2016-09-22 00:00:00', '386775', '2', 'OA_NewsDraft', 'OA_NewsDraft', '35859', '0', null, '4', '2', '1', '1', '-1', '2', null, '1', '新闻发布', null, null);
+INSERT INTO `bpm_instance` VALUES ('7170', 'WF_StandardWorkFlow', '1', '2016-09-18 00:00:00', '2016-09-22 00:00:00', '401932', '2', 'OA_NewsDraft', 'OA_NewsDraft', '35860', '0', null, '4', '2', '1', '1', '-1', '2', null, '1', '新闻发布', null, null);
+INSERT INTO `bpm_instance` VALUES ('7171', 'WF_StandardWorkFlow', '1', '2016-09-18 00:00:00', '2016-09-22 00:00:00', '401943', '2', 'OA_NewsDraft', 'OA_NewsDraft', '35861', '0', null, '4', '2', '1', '1', '-1', '2', null, '1', '新闻发布', null, null);
+INSERT INTO `bpm_instance` VALUES ('7172', 'WF_StandardWorkFlow', '1', '2016-09-18 00:00:00', '2016-09-22 00:00:00', '401949', '2', 'OA_NewsDraft', 'OA_NewsDraft', '35862', '0', null, '4', '2', '1', '1', '-1', '2', null, '1', '新闻发布', null, null);
+INSERT INTO `bpm_instance` VALUES ('7425', 'WF_StandardWorkFlow', '1', '2016-09-19 00:00:00', '2016-09-22 00:00:00', '315555', '2', 'OA_NewsDraft', 'OA_NewsDraft', '36370', '0', null, '4', '2', '1', '1', '-1', '2', null, '1', '新闻发布', null, null);
+INSERT INTO `bpm_instance` VALUES ('7426', 'WF_StandardWorkFlow', '1', '2016-09-19 00:00:00', '2016-09-22 00:00:00', '315560', '2', 'OA_NewsDraft', 'OA_NewsDraft', '36371', '0', null, '4', '2', '1', '1', '-1', '2', null, '1', '新闻发布', null, null);
+INSERT INTO `bpm_instance` VALUES ('7937', 'WF_StandardWorkFlow', '1', '2016-09-19 00:00:00', '2016-09-22 00:00:00', '315566', '2', 'OA_NewsDraft', 'OA_NewsDraft', '37394', '0', null, '4', '2', '1', '1', '-1', '2', null, '1', '新闻发布', null, null);
+INSERT INTO `bpm_instance` VALUES ('8194', 'WF_StandardWorkFlow', '1', '2016-09-19 00:00:00', '2016-09-19 00:00:00', '52542', '2', 'OA_NewsDraft', 'OA_NewsDraft', '38176', '0', null, '4', '2', '1', '1', '-1', '2', null, '1', '新闻发布', null, null);
+INSERT INTO `bpm_instance` VALUES ('8195', 'WF_OA_NewsDraftView', '1', '2016-09-19 00:00:00', '2016-09-19 00:00:00', '52828', '2', 'OA_NewsDraft', 'OA_NewsDraft', '38177', '0', null, '6', '3', '2', '2', '-1', '3', null, '1', '新闻发布', null, null);
+INSERT INTO `bpm_instance` VALUES ('8449', 'WF_StandardWorkFlow', '1', '2016-09-19 00:00:00', '2016-09-19 00:00:00', '61023', '2', 'OA_NewsDraft', 'OA_NewsDraft', '38933', '0', null, '4', '2', '1', '1', '-1', '2', null, '1', '新闻发布', null, null);
+INSERT INTO `bpm_instance` VALUES ('8450', 'WF_StandardWorkFlow', '1', '2016-09-19 00:00:00', '2016-09-23 00:00:00', '391215', '2', 'OA_Doc', 'OA_Doc', '38936', '0', null, '6', '3', '1', '1', '-1', '3', null, '1', '文档管理', null, null);
+INSERT INTO `bpm_instance` VALUES ('8705', 'WF_OA_MeetingInSideWorkFlow', '1', '2016-09-19 00:00:00', '2016-09-22 00:00:00', '292489', '2', 'OA_MeetingInSide', 'OA_MeetingInSide', '39186', '0', null, '4', '2', '1', '1', '-1', '2', null, '1', '内部会议表单', null, null);
+INSERT INTO `bpm_instance` VALUES ('8706', 'WF_OA_TASK', '1', '2016-09-19 00:00:00', null, '-1', '1', 'OA_Taskdistribution', 'OA_Taskdistribution', '39191', '0', null, '2', '1', '1', '1', '-1', '1', null, null, '任务派发', null, null);
+INSERT INTO `bpm_instance` VALUES ('8961', 'WF_OA_NewsDraftView', '1', '2016-09-20 00:00:00', '2016-10-26 00:00:00', '3176133', '2', 'OA_NewsDraft', 'OA_NewsDraft', '44056', '0', null, '5', '2', '1', '1', '-1', '2', null, '1', '新闻发布', null, null);
+INSERT INTO `bpm_instance` VALUES ('9217', 'WF_OA_MeetingInSideWorkFlow', '1', '2016-09-22 00:00:00', '2016-09-22 00:00:00', '33290', '2', 'OA_MeetingInSide', 'OA_MeetingInSide', '55063', '0', null, '4', '2', '1', '1', '-1', '2', null, '1', '内部会议表单', null, null);
+INSERT INTO `bpm_instance` VALUES ('9987', 'WF_OA_TASK', '1', '2016-09-22 00:00:00', '2016-10-26 00:00:00', '3003377', '2', 'OA_Taskdistribution', 'OA_Taskdistribution', '57620', '0', null, '10', '4', '3', '3', '-1', '4', null, '1', '任务派发', null, null);
+INSERT INTO `bpm_instance` VALUES ('10241', 'WF_OA_NewsDraftView', '1', '2016-09-22 00:00:00', '2016-10-26 00:00:00', '3003345', '2', 'OA_NewsDraft', 'OA_NewsDraft', '58642', '0', null, '5', '2', '1', '1', '-1', '2', null, '1', '新闻发布', null, null);
+INSERT INTO `bpm_instance` VALUES ('10497', 'WF_OA_NewsDraftView', '1', '2016-09-22 00:00:00', '2016-10-26 00:00:00', '3003388', '2', 'OA_NewsDraft', 'OA_NewsDraft', '59156', '0', null, '5', '2', '1', '1', '-1', '2', null, '1', '新闻发布', null, null);
+INSERT INTO `bpm_instance` VALUES ('10498', 'WF_OA_NewsDraftView', '1', '2016-09-22 00:00:00', '2016-10-26 00:00:00', '3003355', '2', 'OA_NewsDraft', 'OA_NewsDraft', '59158', '0', null, '7', '3', '2', '2', '-1', '3', null, '1', '新闻发布', null, null);
+INSERT INTO `bpm_instance` VALUES ('10753', 'WF_StandardWorkFlow', '1', '2016-09-23 00:00:00', '2016-09-23 00:00:00', '50977', '2', 'OA_Doc', 'OA_Doc', '66609', '0', null, '4', '2', '1', '1', '-1', '2', null, '1', '文档管理', null, null);
+INSERT INTO `bpm_instance` VALUES ('10754', 'WF_StandardWorkFlow', '1', '2016-09-23 00:00:00', '2016-09-23 00:00:00', '51069', '2', 'OA_Doc', 'OA_Doc', '66610', '0', null, '4', '2', '1', '1', '-1', '2', null, '1', '文档管理', null, null);
+INSERT INTO `bpm_instance` VALUES ('11009', 'WF_StandardWorkFlow', '1', '2016-09-23 00:00:00', '2016-09-23 00:00:00', '55251', '2', 'OA_Doc', 'OA_Doc', '67090', '0', null, '4', '2', '1', '1', '-1', '2', null, '1', '文档管理', null, null);
+INSERT INTO `bpm_instance` VALUES ('11265', 'WF_StandardWorkFlow', '1', '2016-09-23 00:00:00', '2016-09-23 00:00:00', '56904', '2', 'OA_Doc', 'OA_Doc', '68376', '0', null, '4', '2', '1', '1', '-1', '2', null, '1', '文档管理', null, null);
+INSERT INTO `bpm_instance` VALUES ('11521', 'WF_OA_TASK', '1', '2016-09-23 00:00:00', '2017-01-13 00:00:00', '9717326', '2', 'OA_Taskdistribution', 'OA_Taskdistribution', '68626', '0', null, '9', '4', '3', '3', '-1', '4', null, '1', '任务派发', null, null);
+INSERT INTO `bpm_instance` VALUES ('11522', 'WF_OA_MeetingInSideWorkFlow', '1', '2016-09-23 00:00:00', '2016-09-23 00:00:00', '57543', '2', 'OA_MeetingInSide', 'OA_MeetingInSide', '68627', '0', null, '4', '2', '1', '1', '-1', '2', null, '1', '内部会议表单', null, null);
+INSERT INTO `bpm_instance` VALUES ('11777', 'WF_OA_MeetingOutSideWorkFlow', '1', '2016-09-23 00:00:00', '2016-09-23 00:00:00', '58286', '2', 'OA_MeetingOutSide', 'OA_MeetingOutSide', '69139', '0', null, '4', '2', '1', '1', '-1', '2', null, '1', '外部会议表单', null, null);
+INSERT INTO `bpm_instance` VALUES ('11778', 'WF_StandardWorkFlow', '1', '2016-09-23 00:00:00', '2016-09-23 00:00:00', '58720', '2', 'OA_Doc', 'OA_Doc', '69145', '0', null, '6', '3', '1', '1', '-1', '3', null, '1', '文档管理', null, null);
+INSERT INTO `bpm_instance` VALUES ('12033', 'WF_StandardWorkFlow', '1', '2016-09-23 00:00:00', '2016-09-23 00:00:00', '59818', '2', 'OA_SpoFile', 'OA_SpoFile', '69399', '0', null, '4', '2', '1', '1', '-1', '2', null, '1', '发文', null, null);
+INSERT INTO `bpm_instance` VALUES ('12289', 'WF_OA_NewsDraftView', '1', '2016-09-23 00:00:00', '2016-10-26 00:00:00', '2916917', '2', 'OA_NewsDraft', 'OA_NewsDraft', '42528', '0', null, '5', '2', '1', '1', '-1', '2', null, '1', '新闻发布', null, null);
+INSERT INTO `bpm_instance` VALUES ('12545', 'WF_OA_NewsDraftView', '1', '2016-09-26 00:00:00', '2017-01-13 00:00:00', '9458196', '2', 'OA_NewsDraft', 'OA_NewsDraft', '70418', '0', null, '5', '2', '1', '1', '-1', '2', null, '1', '新闻发布', null, null);
+INSERT INTO `bpm_instance` VALUES ('12546', 'WF_OA_TASK', '1', '2016-09-26 00:00:00', '2017-01-13 00:00:00', '9458175', '2', 'OA_Taskdistribution', 'OA_Taskdistribution', '70421', '0', null, '10', '4', '3', '3', '-1', '4', null, '1', '任务派发', null, null);
+INSERT INTO `bpm_instance` VALUES ('12801', 'WF_OA_MeetingInSideWorkFlow', '1', '2016-10-12 00:00:00', '2016-10-12 00:00:00', '39439', '2', 'OA_MeetingInSide', 'OA_MeetingInSide', '90391', '0', null, '4', '2', '1', '1', '-1', '2', null, '1', '内部会议表单', null, null);
+INSERT INTO `bpm_instance` VALUES ('12802', 'WF_StandardWorkFlow', '1', '2016-10-12 00:00:00', '2016-10-12 00:00:00', '42293', '2', 'OA_ForeignLan', 'OA_ForeignLan', '69398', '0', null, '4', '2', '1', '1', '-1', '2', null, '1', '收文', null, null);
+INSERT INTO `bpm_instance` VALUES ('13057', 'WF_OA_ForeignLan', '1', '2016-10-12 00:00:00', '2016-10-12 00:00:00', '48264', '2', 'OA_ForeignLan', 'OA_ForeignLan', '90170', '0', null, '10', '5', '4', '4', '-1', '5', null, '1', '收文', null, null);
+INSERT INTO `bpm_instance` VALUES ('13313', 'WF_StandardWorkFlow', '1', '2016-10-12 00:00:00', '2017-01-13 00:00:00', '8075029', '2', 'OA_SpoFile', 'OA_SpoFile', '93202', '0', null, '10', '5', '1', '1', '-1', '5', null, '1', '发文', null, null);
+INSERT INTO `bpm_instance` VALUES ('13569', 'WF_OA_ForeignLan', '1', '2016-10-12 00:00:00', '2016-10-12 00:00:00', '55973', '2', 'OA_ForeignLan', 'OA_ForeignLan', '93460', '0', null, '10', '5', '4', '4', '-1', '5', null, '1', '收文', null, null);
+INSERT INTO `bpm_instance` VALUES ('13825', 'WF_OA_NewsDraftView', '1', '2016-10-26 00:00:00', '2016-10-26 00:00:00', '65658', '2', 'OA_NewsDraft', 'OA_NewsDraft', '84761', '0', null, '6', '3', '2', '2', '-1', '3', null, '1', '新闻发布', null, null);
+INSERT INTO `bpm_instance` VALUES ('14081', 'WF_OA_NewsDraftView', '1', '2016-10-26 00:00:00', '2016-10-26 00:00:00', '65706', '2', 'OA_NewsDraft', 'OA_NewsDraft', '94226', '0', null, '6', '3', '2', '2', '-1', '3', null, '1', '新闻发布', null, null);
+INSERT INTO `bpm_instance` VALUES ('14337', 'WF_OA_NewsDraftView', '1', '2016-10-27 00:00:00', '2016-10-27 00:00:00', '32075', '2', 'OA_NewsDraft', 'OA_NewsDraft', '84757', '0', null, '6', '3', '2', '2', '-1', '3', null, '1', '新闻发布', null, null);
+INSERT INTO `bpm_instance` VALUES ('14338', 'WF_OA_NewsDraftView', '1', '2016-10-27 00:00:00', '2016-10-27 00:00:00', '32104', '2', 'OA_NewsDraft', 'OA_NewsDraft', '84759', '0', null, '6', '3', '2', '2', '-1', '3', null, '1', '新闻发布', null, null);
+INSERT INTO `bpm_instance` VALUES ('14339', 'WF_OA_NewsDraftView', '1', '2016-10-27 00:00:00', null, '-1', '1', 'OA_NewsDraft', 'OA_NewsDraft', '84755', '0', null, '2', '1', '1', '1', '-1', '1', null, null, '新闻发布', null, null);
+INSERT INTO `bpm_instance` VALUES ('14340', 'WF_OA_MeetingInSideWorkFlow', '1', '2016-10-27 00:00:00', '2016-10-27 00:00:00', '34770', '2', 'OA_MeetingInSide', 'OA_MeetingInSide', '45855', '0', null, '4', '2', '1', '1', '-1', '2', null, '1', '内部会议表单', null, null);
+INSERT INTO `bpm_instance` VALUES ('14593', 'WF_OA_MeetingInSideWorkFlow', '1', '2016-10-28 00:00:00', '2016-10-28 00:00:00', '43772', '2', 'OA_MeetingInSide', 'OA_MeetingInSide', '94492', '0', null, '4', '2', '1', '1', '-1', '2', null, '1', '内部会议表单', null, null);
+INSERT INTO `bpm_instance` VALUES ('14849', 'WF_OA_ForeignLan', '1', '2016-10-28 00:00:00', '2017-01-13 00:00:00', '6693103', '2', 'OA_ForeignLan', 'OA_ForeignLan', '97043', '0', null, '10', '5', '4', '4', '-1', '5', null, '1', '收文', null, null);
+INSERT INTO `bpm_instance` VALUES ('14850', 'WF_OA_ForeignLan', '1', '2016-10-28 00:00:00', '2016-10-28 00:00:00', '59661', '2', 'OA_ForeignLan', 'OA_ForeignLan', '97044', '0', null, '10', '5', '6', '6', '-1', '7', null, '1', '收文', null, null);
+INSERT INTO `bpm_instance` VALUES ('14851', 'WF_OA_ForeignLan', '1', '2016-10-28 00:00:00', '2017-01-13 00:00:00', '6692974', '2', 'OA_ForeignLan', 'OA_ForeignLan', '97067', '0', null, '10', '5', '4', '4', '-1', '5', null, '1', '收文', null, null);
+INSERT INTO `bpm_instance` VALUES ('14852', 'WF_OA_ForeignLan', '1', '2016-10-28 00:00:00', '2017-01-13 00:00:00', '6693439', '2', 'OA_ForeignLan', 'OA_ForeignLan', '97075', '0', null, '14', '7', '5', '5', '-1', '7', null, '1', '收文', null, null);
+INSERT INTO `bpm_instance` VALUES ('15105', 'WF_StandardWorkFlow', '1', '2016-10-31 00:00:00', '2016-10-31 00:00:00', '56216', '2', 'OA_Doc', 'OA_Doc', '97301', '0', null, '4', '2', '1', '1', '-1', '2', null, '1', '文档管理', null, null);
+INSERT INTO `bpm_instance` VALUES ('15621', 'WF_OA_TASK', '1', '2016-11-02 00:00:00', '2016-11-02 00:00:00', '48734', '2', 'OA_Taskdistribution', 'OA_Taskdistribution', '102682', '0', null, '10', '4', '3', '3', '-1', '4', null, '1', '任务派发', null, null);
+INSERT INTO `bpm_instance` VALUES ('15873', 'WF_OA_TASK', '1', '2016-11-02 00:00:00', null, '-1', '1', 'OA_Taskdistribution', 'OA_Taskdistribution', '102683', '0', null, '8', '3', '3', '3', '-1', '3', null, '1', '任务派发', null, null);
+INSERT INTO `bpm_instance` VALUES ('16129', 'WF_OA_NewsDraftView', '1', '2016-11-03 00:00:00', '2016-11-03 00:00:00', '36285', '2', 'OA_NewsDraft', 'OA_NewsDraft', '104210', '0', null, '6', '3', '2', '2', '-1', '3', null, '1', '新闻发布', null, null);
+INSERT INTO `bpm_instance` VALUES ('16130', 'WF_OA_NewsDraftView', '1', '2016-11-03 00:00:00', '2016-11-03 00:00:00', '36348', '2', 'OA_NewsDraft', 'OA_NewsDraft', '42519', '0', null, '5', '2', '1', '1', '-1', '2', null, '1', '新闻发布', null, null);
+INSERT INTO `bpm_instance` VALUES ('16385', 'WF_OA_NewsDraftView', '1', '2016-11-04 00:00:00', '2016-11-04 00:00:00', '37629', '2', 'OA_NewsDraft', 'OA_NewsDraft', '106003', '0', null, '8', '4', '2', '2', '-1', '4', null, '1', '新闻发布', null, null);
+INSERT INTO `bpm_instance` VALUES ('16386', 'WF_OA_NewsDraftView', '1', '2016-11-04 00:00:00', '2016-11-04 00:00:00', '38170', '2', 'OA_NewsDraft', 'OA_NewsDraft', '106005', '0', null, '6', '3', '2', '2', '-1', '3', null, '1', '新闻发布', null, null);
+INSERT INTO `bpm_instance` VALUES ('16387', 'WF_OA_NewsDraftView', '1', '2016-11-04 00:00:00', '2016-11-04 00:00:00', '38331', '2', 'OA_NewsDraft', 'OA_NewsDraft', '106007', '0', null, '6', '3', '2', '2', '-1', '3', null, '1', '新闻发布', null, null);
+INSERT INTO `bpm_instance` VALUES ('16641', 'WF_OA_ForeignLan', '1', '2016-11-04 00:00:00', null, '-1', '1', 'OA_ForeignLan', 'OA_ForeignLan', '106259', '0', null, '20', '10', '11', '11', '-1', '12', null, '1', '收文', null, null);
+INSERT INTO `bpm_instance` VALUES ('16897', 'WF_OA_ForeignLan', '1', '2016-11-24 00:00:00', '2017-01-13 00:00:00', '4360498', '2', 'OA_ForeignLan', 'OA_ForeignLan', '97300', '0', null, '10', '5', '4', '4', '-1', '5', null, '1', '收文', null, null);
+INSERT INTO `bpm_instance` VALUES ('16898', 'WF_OA_ForeignLan', '1', '2016-11-24 00:00:00', '2016-12-19 00:00:00', '2217241', '2', 'OA_ForeignLan', 'OA_ForeignLan', '117527', '0', null, '20', '10', '9', '9', '-1', '11', null, '1', '收文', null, null);
+INSERT INTO `bpm_instance` VALUES ('17153', 'WF_OA_NewsDraftView', '1', '2016-11-29 00:00:00', '2016-11-29 00:00:00', '35677', '2', 'OA_NewsDraft', 'OA_NewsDraft', '122201', '0', null, '5', '2', '1', '1', '-1', '2', null, '1', '新闻发布', null, null);
+INSERT INTO `bpm_instance` VALUES ('17409', 'WF_OA_ForeignLan', '1', '2016-12-14 00:00:00', null, '-1', '1', 'OA_ForeignLan', 'OA_ForeignLan', '139282', '0', null, '12', '6', '6', '6', '-1', '9', null, '1', '收文', null, null);
+INSERT INTO `bpm_instance` VALUES ('17665', 'WF_OA_ForeignLan', '1', '2016-12-22 00:00:00', '2016-12-29 00:00:00', '662147', '2', 'OA_ForeignLan', 'OA_ForeignLan', '143894', '0', null, '64', '32', '6', '6', '-1', '34', null, '1', '收文', null, null);
+INSERT INTO `bpm_instance` VALUES ('17921', 'WF_OA_ForeignLan', '1', '2017-01-04 00:00:00', '2017-01-13 00:00:00', '818857', '2', 'OA_ForeignLan', 'OA_ForeignLan', '144658', '0', null, '14', '7', '6', '6', '-1', '7', null, '1', '收文', null, null);
+INSERT INTO `bpm_instance` VALUES ('18177', 'WF_OA_ForeignLan', '1', '2017-01-06 00:00:00', null, '-1', '1', 'MOA_ForeignLan', 'MOA_ForeignLan', '157460', '0', null, '4', '2', '2', '2', '-1', '2', null, '1', '收文', null, null);
+INSERT INTO `bpm_instance` VALUES ('18433', 'WF_OA_ForeignLan', '1', '2017-01-09 00:00:00', '2017-01-09 00:00:00', '38303', '2', 'OA_ForeignLan', 'OA_ForeignLan', '158227', '0', null, '12', '6', '5', '5', '-1', '6', null, '1', '收文', null, null);
+INSERT INTO `bpm_instance` VALUES ('18434', 'WF_OA_ForeignLan', '1', '2017-01-09 00:00:00', null, '-1', '1', 'OA_ForeignLan', 'OA_ForeignLan', '158240', '0', null, '6', '3', '4', '4', '-1', '3', null, '1', '收文', null, null);
+INSERT INTO `bpm_instance` VALUES ('18689', 'WF_OA_ForeignLan', '1', '2017-01-10 00:00:00', null, '-1', '1', 'OA_ForeignLan', 'OA_ForeignLan', '158484', '0', null, '6', '3', '3', '3', '-1', '3', null, '1', '收文', null, null);
+INSERT INTO `bpm_instance` VALUES ('18945', 'WF_OA_ForeignLan', '1', '2017-04-20 00:00:00', null, '-1', '1', 'OA_ForeignLan', 'OA_ForeignLan', '159762', '0', null, '4', '2', '2', '2', '-1', '2', null, '1', '收文', null, null);
+INSERT INTO `bpm_instance` VALUES ('19201', 'WF_OA_MeetingInSideWorkFlow', '1', '2017-04-24 00:00:00', '2017-04-24 00:00:00', '35962', '2', 'OA_MeetingInSide', 'OA_MeetingInSide', '170258', '0', null, '4', '2', '1', '1', '-1', '2', null, '1', '内部会议表单', null, null);
+INSERT INTO `bpm_instance` VALUES ('19202', 'WF_OA_MeetingInSideWorkFlow', '1', '2017-04-24 00:00:00', '2017-04-24 00:00:00', '49632', '2', 'OA_MeetingInSide', 'OA_MeetingInSide', '170261', '0', null, '6', '3', '1', '1', '-1', '3', null, '1', '内部会议表单', null, null);
+INSERT INTO `bpm_instance` VALUES ('19203', 'WF_OA_MeetingInSideWorkFlow', '1', '2017-04-24 00:00:00', '2017-04-24 00:00:00', '37063', '2', 'OA_MeetingInSide', 'OA_MeetingInSide', '170268', '0', null, '18', '9', '1', '1', '-1', '9', null, '1', '内部会议表单', null, null);
+INSERT INTO `bpm_instance` VALUES ('19457', 'WF_OA_TASK', '1', '2017-05-17 00:00:00', null, '-1', '1', 'OA_Taskdistribution', 'OA_Taskdistribution', '185619', '0', null, '5', '2', '2', '2', '-1', '2', null, '1', '任务派发', null, null);
+INSERT INTO `bpm_instance` VALUES ('19723', 'WF_OA_ForeignLan', '1', '2017-06-06 13:13:23', null, '-1', '1', 'OA_ForeignLan', 'OA_ForeignLan', '197395', '0', null, '10', '5', '5', '5', '-1', '5', null, '1', '收文', null, null);
+INSERT INTO `bpm_instance` VALUES ('20225', 'WF_OA_ForeignLan', '1', '2017-06-06 16:10:18', null, '-1', '1', 'OA_ForeignLan', 'OA_ForeignLan', '198677', '0', null, '2', '1', '1', '1', '-1', '1', null, null, '收文', null, null);
+INSERT INTO `bpm_instance` VALUES ('20226', 'WF_OA_ForeignLan', '1', '2017-06-06 16:10:50', null, '-1', '1', 'OA_ForeignLan', 'OA_ForeignLan', '198930', '0', null, '2', '1', '1', '1', '-1', '1', null, null, '收文', null, null);
+INSERT INTO `bpm_instance` VALUES ('21249', 'WF_OA_ForeignLan', '1', '2017-06-07 17:40:24', null, '-1', '1', 'OA_ForeignLan', 'OA_ForeignLan', '202259', '0', null, '4', '2', '2', '2', '-1', '2', null, '1', '收文', null, null);
+INSERT INTO `bpm_instance` VALUES ('21764', 'WF_OA_ForeignLan', '1', '2017-06-08 14:19:25', null, '-1', '1', 'OA_ForeignLan', 'OA_ForeignLan', '206610', '0', null, '2', '1', '1', '1', '-1', '1', null, null, '收文', null, null);
+INSERT INTO `bpm_instance` VALUES ('22273', 'WF_OA_ForeignLan', '1', '2017-06-08 15:17:13', null, '-1', '1', 'OA_ForeignLan', 'OA_ForeignLan', '206611', '0', null, '6', '3', '8', '8', '-1', '3', null, '1', '收文', null, null);
+INSERT INTO `bpm_instance` VALUES ('22529', 'WF_OA_ForeignLan', '1', '2017-06-08 16:35:43', '2017-06-08 16:38:20', '157', '2', 'OA_ForeignLan', 'OA_ForeignLan', '208658', '0', null, '10', '5', '5', '5', '-1', '6', null, '1', '收文', null, null);
+INSERT INTO `bpm_instance` VALUES ('22785', 'WF_OA_ForeignLan', '1', '2017-07-28 12:54:21', null, '-1', '1', 'OA_ForeignLan', 'OA_ForeignLan', '211733', '0', null, '4', '2', '3', '3', '-1', '2', null, '1', '收文', '0', '-1');
+INSERT INTO `bpm_instance` VALUES ('23041', 'WF_OA_NewsDraftView', '1', '2017-08-01 19:14:38', '2017-08-02 15:09:22', '71684', '2', 'OA_NewsDraft', 'OA_NewsDraft', '213522', '0', null, '16', '8', '6', '6', '-1', '8', null, '1', '新闻发布', '0', '-1');
 
 -- ----------------------------
 -- Table structure for bpm_log
@@ -3611,6 +3910,12 @@ INSERT INTO `bpm_log` VALUES ('22529', '2', '2', '-1', '10', '19970', '总经理
 INSERT INTO `bpm_log` VALUES ('22529', '3', '3', '-1', '43', '19971', '分管领导', '2', '2017-06-08 16:36:12', '2017-06-08 16:37:28', '21271', '1', '同意', null, null, '3', '5', null, null, 'OA_Employee\\21269\\E_Signature.png', '8089');
 INSERT INTO `bpm_log` VALUES ('22529', '4', '4', '-1', '43', '19972', '分管领导', '2', '2017-06-08 16:36:12', '2017-06-08 16:36:18', '21277', '1', '同意', null, null, '3', '4', null, null, 'OA_Employee\\21274\\E_Signature.png', null);
 INSERT INTO `bpm_log` VALUES ('22529', '5', '5', '-1', '46', '19973', '部门处理结果反馈', '2', '2017-06-08 16:37:29', '2017-06-08 16:38:20', '21277', '1', '已处理完成', null, null, '5', '6', null, null, 'OA_Employee\\21274\\E_Signature.png', '8089');
+INSERT INTO `bpm_log` VALUES ('22785', '1', '1', '-1', '2', '0', '开始节点', '2', '2017-07-28 12:54:21', '2017-07-28 12:54:21', '21277', '1', null, null, null, '1', '1', null, null, null, null);
+INSERT INTO `bpm_log` VALUES ('22785', '2', '2', '-1', '8', '20225', '办公室主任审批', '2', '2017-07-28 12:54:21', '2017-07-28 12:57:19', '21277', '1', '', null, null, '1', '2', null, null, '', '');
+INSERT INTO `bpm_log` VALUES ('22785', '3', '3', '-1', '10', '20226', '总经理审批', '1', '2017-07-28 12:57:19', null, '-1', '-1', null, null, null, '2', '2', null, null, null, null);
+INSERT INTO `bpm_log` VALUES ('23041', '1', '1', '-1', '1', '0', '开始节点', '2', '2017-08-01 19:14:38', '2017-08-01 19:14:38', '21277', '1', null, null, null, '1', '1', null, null, null, null);
+INSERT INTO `bpm_log` VALUES ('23041', '2', '2', '-1', '3', '20481', '一审', '2', '2017-08-01 19:14:38', '2017-08-02 15:09:10', '21277', '1', '', null, null, '1', '7', null, null, '', '');
+INSERT INTO `bpm_log` VALUES ('23041', '6', '6', '-1', '7', '20738', '二审', '2', '2017-08-02 15:09:10', '2017-08-02 15:09:22', '21277', '1', '', null, null, '7', '8', null, null, '', '');
 
 -- ----------------------------
 -- Table structure for bpm_logrb
@@ -4016,6 +4321,15 @@ INSERT INTO `bpm_logrb` VALUES ('22529', '4', '4', '-1', '43', '19972', '分管�
 INSERT INTO `bpm_logrb` VALUES ('22529', '4', '4', '-1', '43', '19972', '分管领导', '2', '2017-06-08 16:36:12', '2017-06-08 16:36:18', '21277', '1', '同意', null, null, '4', '3', null, null);
 INSERT INTO `bpm_logrb` VALUES ('22529', '5', '5', '-1', '46', '19973', '部门处理结果反馈', '1', '2017-06-08 16:37:29', null, '21277', '-1', null, null, null, '5', '5', null, null);
 INSERT INTO `bpm_logrb` VALUES ('22529', '5', '5', '-1', '46', '19973', '部门处理结果反馈', '2', '2017-06-08 16:37:29', '2017-06-08 16:38:20', '21277', '1', '已处理完成', null, null, '6', '5', null, null);
+INSERT INTO `bpm_logrb` VALUES ('22785', '1', '1', '-1', '2', '0', '开始节点', '2', '2017-07-28 12:54:21', '2017-07-28 12:54:21', '21277', '1', null, null, null, '1', '1', null, null);
+INSERT INTO `bpm_logrb` VALUES ('22785', '2', '2', '-1', '8', '20225', '办公室主任审批', '1', '2017-07-28 12:54:21', null, '-1', '-1', null, null, null, '1', '1', null, null);
+INSERT INTO `bpm_logrb` VALUES ('22785', '2', '2', '-1', '8', '20225', '办公室主任审批', '2', '2017-07-28 12:54:21', '2017-07-28 12:57:19', '21277', '1', '', null, null, '2', '1', null, null);
+INSERT INTO `bpm_logrb` VALUES ('22785', '3', '3', '-1', '10', '20226', '总经理审批', '1', '2017-07-28 12:57:19', null, '-1', '-1', null, null, null, '2', '2', null, null);
+INSERT INTO `bpm_logrb` VALUES ('23041', '1', '1', '-1', '1', '0', '开始节点', '2', '2017-08-01 19:14:38', '2017-08-01 19:14:38', '21277', '1', null, null, null, '1', '1', null, null);
+INSERT INTO `bpm_logrb` VALUES ('23041', '2', '2', '-1', '3', '20481', '一审', '1', '2017-08-01 19:14:38', null, '-1', '-1', null, null, null, '1', '1', null, null);
+INSERT INTO `bpm_logrb` VALUES ('23041', '2', '2', '-1', '3', '20481', '一审', '2', '2017-08-01 19:14:38', '2017-08-02 15:09:10', '21277', '1', '', null, null, '7', '1', null, null);
+INSERT INTO `bpm_logrb` VALUES ('23041', '6', '6', '-1', '7', '20738', '二审', '1', '2017-08-02 15:09:10', null, '-1', '-1', null, null, null, '7', '7', null, null);
+INSERT INTO `bpm_logrb` VALUES ('23041', '6', '6', '-1', '7', '20738', '二审', '2', '2017-08-02 15:09:10', '2017-08-02 15:09:22', '21277', '1', '', null, null, '8', '7', null, null);
 
 -- ----------------------------
 -- Table structure for bpm_migration
@@ -4144,6 +4458,8 @@ INSERT INTO `bpm_migration` VALUES ('21249', '21249', null, null, null, null, 'F
 INSERT INTO `bpm_migration` VALUES ('21764', '21764', null, null, null, null, 'FL20170608000002', null, null, null, '新流程测试5', '21274', '14886', '2017-06-08', '1000', '21277', '206610', '10', null, '206610', 'OA_ForeignLan');
 INSERT INTO `bpm_migration` VALUES ('22273', '22273', null, null, null, null, 'FL20170608000003', null, null, null, '流程测试6', '21274', '14886', '2017-06-08', '1100', '21277', '206611', '10', null, '206611', 'OA_ForeignLan');
 INSERT INTO `bpm_migration` VALUES ('22529', '22529', null, null, null, null, 'FL20170608000004', null, null, null, '新流程测试7', '21274', '14886', '2017-06-08', '1200', '21277', '208658', '10', null, '208658', 'OA_ForeignLan');
+INSERT INTO `bpm_migration` VALUES ('22785', '22785', null, null, null, null, 'FL20170728000001', null, null, null, '公文测试1', '21274', '14886', '2017-07-28', '1100', '21277', '211733', '10', null, '211733', 'OA_ForeignLan');
+INSERT INTO `bpm_migration` VALUES ('23041', '23041', null, null, null, null, 'ND20170801000001', null, null, null, '庆祝建军90周年大会举行 习近平出席并发表讲话', '21274', '14886', '2017-08-01', '1200', '21277', '213522', '10', null, '213522', 'OA_NewsDraft');
 
 -- ----------------------------
 -- Table structure for bpm_node
@@ -5097,6 +5413,27 @@ INSERT INTO `bpm_node` VALUES ('22529', '-1', '43', '-1', '4', '1', '-1', '-1', 
 INSERT INTO `bpm_node` VALUES ('22529', '-1', '46', '-1', '4', '1', '-1', '-1', '1', '6', null, null);
 INSERT INTO `bpm_node` VALUES ('22529', '-1', '49', '-1', '3', null, '-1', '-1', '1', '1', null, null);
 INSERT INTO `bpm_node` VALUES ('22529', '-1', '50', '-1', '10', null, '-1', '-1', '1', '1', null, null);
+INSERT INTO `bpm_node` VALUES ('22785', '-1', '2', '-1', '0', null, '-1', '-1', '1', '1', null, null);
+INSERT INTO `bpm_node` VALUES ('22785', '-1', '3', '-1', '1', null, '-1', '-1', '1', '1', null, null);
+INSERT INTO `bpm_node` VALUES ('22785', '-1', '4', '-1', '10', null, '-1', '-1', '1', '1', null, null);
+INSERT INTO `bpm_node` VALUES ('22785', '-1', '5', '-1', '10', null, '-1', '-1', '1', '1', null, null);
+INSERT INTO `bpm_node` VALUES ('22785', '-1', '8', '-1', '3', '1', '-1', '-1', '1', '2', null, null);
+INSERT INTO `bpm_node` VALUES ('22785', '-1', '9', '-1', '10', null, '-1', '-1', '1', '1', null, null);
+INSERT INTO `bpm_node` VALUES ('22785', '-1', '10', '-1', '3', '0', '-1', '20226', '1', '2', null, null);
+INSERT INTO `bpm_node` VALUES ('22785', '-1', '26', '-1', '10', null, '-1', '-1', '1', '1', null, null);
+INSERT INTO `bpm_node` VALUES ('22785', '-1', '28', '-1', '10', null, '-1', '-1', '1', '1', null, null);
+INSERT INTO `bpm_node` VALUES ('22785', '-1', '43', '-1', '4', null, '-1', '-1', '1', '1', null, null);
+INSERT INTO `bpm_node` VALUES ('22785', '-1', '46', '-1', '4', null, '-1', '-1', '1', '1', null, null);
+INSERT INTO `bpm_node` VALUES ('22785', '-1', '49', '-1', '3', null, '-1', '-1', '1', '1', null, null);
+INSERT INTO `bpm_node` VALUES ('22785', '-1', '50', '-1', '10', null, '-1', '-1', '1', '1', null, null);
+INSERT INTO `bpm_node` VALUES ('23041', '-1', '1', '-1', '0', null, '-1', '-1', '1', '1', null, null);
+INSERT INTO `bpm_node` VALUES ('23041', '-1', '2', '-1', '1', null, '-1', '-1', '1', '1', null, null);
+INSERT INTO `bpm_node` VALUES ('23041', '-1', '3', '-1', '3', '1', '0', '-1', '1', '7', null, null);
+INSERT INTO `bpm_node` VALUES ('23041', '-1', '5', '-1', '5', null, '-1', '-1', '1', '1', null, null);
+INSERT INTO `bpm_node` VALUES ('23041', '-1', '7', '-1', '3', '1', '0', '-1', '1', '8', null, null);
+INSERT INTO `bpm_node` VALUES ('23041', '-1', '11', '-1', '10', null, '-1', '-1', '1', '1', null, null);
+INSERT INTO `bpm_node` VALUES ('23041', '-1', '12', '-1', '10', null, '-1', '-1', '1', '1', null, null);
+INSERT INTO `bpm_node` VALUES ('23041', '-1', '15', '-1', '10', null, '-1', '-1', '1', '1', null, null);
 
 -- ----------------------------
 -- Table structure for bpm_noderb
@@ -6265,6 +6602,32 @@ INSERT INTO `bpm_noderb` VALUES ('22529', '-1', '46', '1', '-1', '4', null, null
 INSERT INTO `bpm_noderb` VALUES ('22529', '-1', '46', '6', '-1', '4', null, null, '-1', '1', null, null);
 INSERT INTO `bpm_noderb` VALUES ('22529', '-1', '49', '1', '-1', '3', null, null, '-1', '1', null, null);
 INSERT INTO `bpm_noderb` VALUES ('22529', '-1', '50', '1', '-1', '10', null, null, '-1', '1', null, null);
+INSERT INTO `bpm_noderb` VALUES ('22785', '-1', '2', '1', '-1', '0', null, null, '-1', '1', null, null);
+INSERT INTO `bpm_noderb` VALUES ('22785', '-1', '3', '1', '-1', '1', null, null, '-1', '1', null, null);
+INSERT INTO `bpm_noderb` VALUES ('22785', '-1', '4', '1', '-1', '10', null, null, '-1', '1', null, null);
+INSERT INTO `bpm_noderb` VALUES ('22785', '-1', '5', '1', '-1', '10', null, null, '-1', '1', null, null);
+INSERT INTO `bpm_noderb` VALUES ('22785', '-1', '8', '1', '-1', '3', null, null, '20225', '1', null, null);
+INSERT INTO `bpm_noderb` VALUES ('22785', '-1', '8', '2', '-1', '3', null, null, '-1', '1', null, null);
+INSERT INTO `bpm_noderb` VALUES ('22785', '-1', '9', '1', '-1', '10', null, null, '-1', '1', null, null);
+INSERT INTO `bpm_noderb` VALUES ('22785', '-1', '10', '1', '-1', '3', null, null, '-1', '1', null, null);
+INSERT INTO `bpm_noderb` VALUES ('22785', '-1', '10', '2', '-1', '3', null, null, '20226', '1', null, null);
+INSERT INTO `bpm_noderb` VALUES ('22785', '-1', '26', '1', '-1', '10', null, null, '-1', '1', null, null);
+INSERT INTO `bpm_noderb` VALUES ('22785', '-1', '28', '1', '-1', '10', null, null, '-1', '1', null, null);
+INSERT INTO `bpm_noderb` VALUES ('22785', '-1', '43', '1', '-1', '4', null, null, '-1', '1', null, null);
+INSERT INTO `bpm_noderb` VALUES ('22785', '-1', '46', '1', '-1', '4', null, null, '-1', '1', null, null);
+INSERT INTO `bpm_noderb` VALUES ('22785', '-1', '49', '1', '-1', '3', null, null, '-1', '1', null, null);
+INSERT INTO `bpm_noderb` VALUES ('22785', '-1', '50', '1', '-1', '10', null, null, '-1', '1', null, null);
+INSERT INTO `bpm_noderb` VALUES ('23041', '-1', '1', '1', '-1', '0', null, null, '-1', '1', null, null);
+INSERT INTO `bpm_noderb` VALUES ('23041', '-1', '2', '1', '-1', '1', null, null, '-1', '1', null, null);
+INSERT INTO `bpm_noderb` VALUES ('23041', '-1', '3', '1', '-1', '3', null, null, '20481', '1', null, null);
+INSERT INTO `bpm_noderb` VALUES ('23041', '-1', '3', '7', '-1', '3', null, null, '-1', '1', null, null);
+INSERT INTO `bpm_noderb` VALUES ('23041', '-1', '5', '1', '-1', '5', null, null, '-1', '1', null, null);
+INSERT INTO `bpm_noderb` VALUES ('23041', '-1', '7', '1', '-1', '3', null, null, '-1', '1', null, null);
+INSERT INTO `bpm_noderb` VALUES ('23041', '-1', '7', '7', '-1', '3', null, null, '20738', '1', null, null);
+INSERT INTO `bpm_noderb` VALUES ('23041', '-1', '7', '8', '-1', '3', null, null, '-1', '7', null, null);
+INSERT INTO `bpm_noderb` VALUES ('23041', '-1', '11', '1', '-1', '10', null, null, '-1', '1', null, null);
+INSERT INTO `bpm_noderb` VALUES ('23041', '-1', '12', '1', '-1', '10', null, null, '-1', '1', null, null);
+INSERT INTO `bpm_noderb` VALUES ('23041', '-1', '15', '1', '-1', '10', null, null, '-1', '1', null, null);
 
 -- ----------------------------
 -- Table structure for bpm_state
@@ -6886,6 +7249,16 @@ INSERT INTO `bpm_stepinfo` VALUES ('22529', '7', '-1', '43', '26', '5', '5', nul
 INSERT INTO `bpm_stepinfo` VALUES ('22529', '8', '-1', '26', '46', '5', '5', null, null);
 INSERT INTO `bpm_stepinfo` VALUES ('22529', '9', '-1', '46', '28', '6', '6', null, null);
 INSERT INTO `bpm_stepinfo` VALUES ('22529', '10', '-1', '28', '3', '6', '6', null, null);
+INSERT INTO `bpm_stepinfo` VALUES ('22785', '1', '-1', '2', '4', '1', '1', null, null);
+INSERT INTO `bpm_stepinfo` VALUES ('22785', '2', '-1', '4', '8', '1', '1', null, null);
+INSERT INTO `bpm_stepinfo` VALUES ('22785', '3', '-1', '8', '5', '2', '2', null, null);
+INSERT INTO `bpm_stepinfo` VALUES ('22785', '4', '-1', '5', '10', '2', '2', null, null);
+INSERT INTO `bpm_stepinfo` VALUES ('23041', '1', '-1', '1', '11', '1', '1', null, null);
+INSERT INTO `bpm_stepinfo` VALUES ('23041', '2', '-1', '11', '3', '1', '1', null, null);
+INSERT INTO `bpm_stepinfo` VALUES ('23041', '13', '-1', '3', '5', '7', '7', null, null);
+INSERT INTO `bpm_stepinfo` VALUES ('23041', '14', '-1', '5', '7', '7', '7', null, null);
+INSERT INTO `bpm_stepinfo` VALUES ('23041', '15', '-1', '7', '12', '8', '8', null, null);
+INSERT INTO `bpm_stepinfo` VALUES ('23041', '16', '-1', '12', '2', '8', '8', null, null);
 
 -- ----------------------------
 -- Table structure for bpm_stepinforb
@@ -7461,6 +7834,16 @@ INSERT INTO `bpm_stepinforb` VALUES ('22529', '7', '5', '-1', '43', '26', '5', n
 INSERT INTO `bpm_stepinforb` VALUES ('22529', '8', '5', '-1', '26', '46', '5', null, null);
 INSERT INTO `bpm_stepinforb` VALUES ('22529', '9', '6', '-1', '46', '28', '6', null, null);
 INSERT INTO `bpm_stepinforb` VALUES ('22529', '10', '6', '-1', '28', '3', '6', null, null);
+INSERT INTO `bpm_stepinforb` VALUES ('22785', '1', '1', '-1', '2', '4', '1', null, null);
+INSERT INTO `bpm_stepinforb` VALUES ('22785', '2', '1', '-1', '4', '8', '1', null, null);
+INSERT INTO `bpm_stepinforb` VALUES ('22785', '3', '2', '-1', '8', '5', '2', null, null);
+INSERT INTO `bpm_stepinforb` VALUES ('22785', '4', '2', '-1', '5', '10', '2', null, null);
+INSERT INTO `bpm_stepinforb` VALUES ('23041', '1', '1', '-1', '1', '11', '1', null, null);
+INSERT INTO `bpm_stepinforb` VALUES ('23041', '2', '1', '-1', '11', '3', '1', null, null);
+INSERT INTO `bpm_stepinforb` VALUES ('23041', '13', '7', '-1', '3', '5', '7', null, null);
+INSERT INTO `bpm_stepinforb` VALUES ('23041', '14', '7', '-1', '5', '7', '7', null, null);
+INSERT INTO `bpm_stepinforb` VALUES ('23041', '15', '8', '-1', '7', '12', '8', null, null);
+INSERT INTO `bpm_stepinforb` VALUES ('23041', '16', '8', '-1', '12', '2', '8', null, null);
 
 -- ----------------------------
 -- Table structure for bpm_timer
@@ -7568,6 +7951,7 @@ INSERT INTO `bpm_token` VALUES ('20226', '1', '-1', '8', '1', '1', null, null);
 INSERT INTO `bpm_token` VALUES ('21249', '1', '-1', '8', '1', '1', null, null);
 INSERT INTO `bpm_token` VALUES ('21764', '1', '-1', '8', '1', '1', null, null);
 INSERT INTO `bpm_token` VALUES ('22273', '3', '-1', '43', '3', '3', null, null);
+INSERT INTO `bpm_token` VALUES ('22785', '2', '-1', '10', '2', '2', null, null);
 
 -- ----------------------------
 -- Table structure for bpm_tokenrb
@@ -7939,6 +8323,13 @@ INSERT INTO `bpm_tokenrb` VALUES ('22529', '3', '3', '-1', '43', '3', null, null
 INSERT INTO `bpm_tokenrb` VALUES ('22529', '3', '5', '-1', '43', '3', null, null);
 INSERT INTO `bpm_tokenrb` VALUES ('22529', '4', '5', '-1', '46', '5', null, null);
 INSERT INTO `bpm_tokenrb` VALUES ('22529', '4', '6', '-1', '46', '5', null, null);
+INSERT INTO `bpm_tokenrb` VALUES ('22785', '1', '1', '-1', '8', '1', null, null);
+INSERT INTO `bpm_tokenrb` VALUES ('22785', '1', '2', '-1', '8', '1', null, null);
+INSERT INTO `bpm_tokenrb` VALUES ('22785', '2', '2', '-1', '10', '2', null, null);
+INSERT INTO `bpm_tokenrb` VALUES ('23041', '1', '1', '-1', '3', '1', null, null);
+INSERT INTO `bpm_tokenrb` VALUES ('23041', '1', '7', '-1', '3', '1', null, null);
+INSERT INTO `bpm_tokenrb` VALUES ('23041', '7', '7', '-1', '7', '7', null, null);
+INSERT INTO `bpm_tokenrb` VALUES ('23041', '7', '8', '-1', '7', '7', null, null);
 
 -- ----------------------------
 -- Table structure for bpm_transaction
@@ -8131,6 +8522,9 @@ INSERT INTO `bpm_transaction` VALUES ('22529', '2', '19970', '21277', '1', '1100
 INSERT INTO `bpm_transaction` VALUES ('22529', '3', '19972', '21277', '1', '1100', null, null);
 INSERT INTO `bpm_transaction` VALUES ('22529', '4', '19971', '21271', '1', '1100', null, null);
 INSERT INTO `bpm_transaction` VALUES ('22529', '5', '19973', '21277', '1', '1100', null, null);
+INSERT INTO `bpm_transaction` VALUES ('22785', '1', '20225', '21277', '1', '1000', null, null);
+INSERT INTO `bpm_transaction` VALUES ('23041', '6', '20481', '21277', '1', '1100', null, null);
+INSERT INTO `bpm_transaction` VALUES ('23041', '7', '20738', '21277', '1', '1100', null, null);
 
 -- ----------------------------
 -- Table structure for bpm_workiteminfo
@@ -8148,6 +8542,8 @@ CREATE TABLE `bpm_workiteminfo` (
   `Slock` int(11) default NULL,
   `NextWorkitemID` bigint(20) default NULL,
   `TransitTo` int(11) default NULL,
+  `NodeKey` varchar(255) default NULL,
+  `FormKey` varchar(255) default NULL,
   PRIMARY KEY  (`InstanceID`,`WorkitemID`),
   KEY `I_PM_WorkitemInfoInstanceID` (`InstanceID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -8155,203 +8551,207 @@ CREATE TABLE `bpm_workiteminfo` (
 -- ----------------------------
 -- Records of bpm_workiteminfo
 -- ----------------------------
-INSERT INTO `bpm_workiteminfo` VALUES ('1', '1', '-1', '3', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('257', '257', '-1', '5', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('257', '261', '-1', '6', '257', '3', '3', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('257', '264', '-1', '39', '262', '5', '5', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('257', '265', '-1', '45', '262', '5', '5', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('257', '266', '-1', '22', '264', '6', '6', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('514', '513', '-1', '5', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('769', '769', '-1', '6', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('769', '774', '-1', '22', '769', '2', '2', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('769', '775', '-1', '39', '774', '3', '3', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('769', '776', '-1', '58', '775', '4', '4', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('770', '770', '-1', '6', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('770', '771', '-1', '22', '770', '2', '2', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('770', '772', '-1', '39', '771', '3', '3', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('770', '773', '-1', '58', '772', '4', '4', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('771', '777', '-1', '3', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('1026', '1025', '-1', '5', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('1027', '1026', '-1', '5', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('1028', '1027', '-1', '5', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('2305', '1281', '-1', '3', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('4609', '1537', '-1', '5', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('4610', '1538', '-1', '5', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('4865', '1793', '-1', '5', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('5121', '2049', '-1', '5', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('5377', '2305', '-1', '5', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('5378', '2306', '-1', '5', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('5633', '2561', '-1', '5', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('5634', '2562', '-1', '5', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('6145', '2817', '-1', '5', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('6146', '2818', '-1', '5', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('6147', '2819', '-1', '5', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('6155', '2820', '-1', '5', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('6158', '2821', '-1', '5', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('6657', '3073', '-1', '5', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('6913', '3329', '-1', '5', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('6914', '3330', '-1', '5', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('7169', '3585', '-1', '5', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('7170', '3586', '-1', '5', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('7171', '3587', '-1', '5', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('7172', '3588', '-1', '5', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('7425', '3841', '-1', '5', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('7426', '3842', '-1', '5', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('7937', '4097', '-1', '5', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('8194', '4353', '-1', '5', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('8195', '4354', '-1', '3', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('8195', '4355', '-1', '7', '4354', '2', '2', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('8449', '4609', '-1', '5', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('8450', '4610', '-1', '5', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('8705', '4865', '-1', '19', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('8706', '4866', '-1', '6', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('8961', '5121', '-1', '3', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('9217', '5377', '-1', '19', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('9987', '5633', '-1', '6', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('9987', '9988', '-1', '22', '5633', '2', '2', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('9987', '9989', '-1', '39', '9988', '3', '3', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('10241', '5889', '-1', '3', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('10497', '6145', '-1', '3', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('10498', '6146', '-1', '3', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('10753', '6401', '-1', '5', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('10754', '6402', '-1', '5', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('11009', '6657', '-1', '5', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('11265', '7169', '-1', '5', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('11521', '7425', '-1', '6', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('11521', '7426', '-1', '22', '7425', '2', '2', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('11521', '15882', '-1', '39', '7426', '3', '3', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('11522', '7427', '-1', '19', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('11777', '7681', '-1', '5', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('11778', '7682', '-1', '5', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('12033', '7937', '-1', '5', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('12289', '8193', '-1', '3', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('12545', '8449', '-1', '3', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('12546', '8450', '-1', '6', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('12546', '15883', '-1', '22', '8450', '2', '2', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('12546', '15884', '-1', '39', '15883', '3', '3', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('12801', '8705', '-1', '19', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('12802', '8706', '-1', '5', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('13057', '8961', '-1', '8', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('13057', '8962', '-1', '10', '8961', '2', '2', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('13057', '8963', '-1', '27', '8962', '3', '3', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('13057', '8964', '-1', '29', '8963', '4', '4', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('13313', '9217', '-1', '5', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('13569', '9473', '-1', '8', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('13569', '9474', '-1', '10', '9473', '2', '2', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('13569', '9475', '-1', '27', '9474', '3', '3', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('13569', '9476', '-1', '29', '9475', '4', '4', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('13825', '9729', '-1', '3', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('13825', '9986', '-1', '7', '9729', '2', '2', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('14081', '9985', '-1', '3', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('14081', '9987', '-1', '7', '9985', '2', '2', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('14337', '10241', '-1', '3', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('14337', '10242', '-1', '7', '10241', '2', '2', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('14338', '10243', '-1', '3', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('14338', '10244', '-1', '7', '10243', '2', '2', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('14339', '10245', '-1', '3', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('14340', '10246', '-1', '19', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('14593', '10497', '-1', '19', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('14849', '10753', '-1', '8', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('14849', '15876', '-1', '10', '10753', '2', '2', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('14849', '15877', '-1', '43', '15876', '3', '3', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('14849', '15878', '-1', '46', '15877', '4', '4', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('14850', '10754', '-1', '8', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('14850', '10755', '-1', '10', '10754', '2', '2', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('14850', '10756', '-1', '43', '10755', '3', '3', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('14850', '10757', '-1', '43', '10755', '3', '3', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('14850', '10758', '-1', '46', '10756', '5', '5', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('14850', '10759', '-1', '46', '10756', '5', '5', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('14851', '10760', '-1', '8', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('14851', '15873', '-1', '10', '10760', '2', '2', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('14851', '15874', '-1', '43', '15873', '3', '3', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('14851', '15875', '-1', '46', '15874', '4', '4', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('14852', '10761', '-1', '8', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('14852', '10762', '-1', '10', '10761', '2', '2', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('14852', '12546', '-1', '43', '10762', '4', '4', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('14852', '12547', '-1', '46', '12546', '5', '5', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('15105', '11009', '-1', '5', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('15621', '11265', '-1', '6', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('15621', '11266', '-1', '22', '11265', '2', '2', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('15621', '11267', '-1', '39', '11266', '3', '3', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('15873', '11521', '-1', '6', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('15873', '13061', '-1', '22', '11521', '3', '3', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('16129', '11777', '-1', '3', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('16129', '11778', '-1', '7', '11777', '2', '2', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('16130', '11779', '-1', '3', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('16385', '12033', '-1', '3', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('16385', '12034', '-1', '7', '12033', '2', '2', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('16386', '12035', '-1', '3', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('16386', '12036', '-1', '7', '12035', '2', '2', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('16387', '12037', '-1', '3', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('16387', '12038', '-1', '7', '12037', '2', '2', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('16641', '12801', '-1', '46', '12291', '6', '6', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('16641', '12802', '-1', '46', '12291', '6', '6', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('16641', '12803', '-1', '49', '12801', '8', '8', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('16641', '12804', '-1', '8', '12803', '9', '9', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('16641', '12805', '-1', '10', '12804', '10', '10', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('16641', '13058', '-1', '43', '12805', '11', '11', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('16641', '13059', '-1', '43', '12805', '11', '11', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('16897', '13057', '-1', '8', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('16897', '15879', '-1', '10', '13057', '2', '2', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('16897', '15880', '-1', '43', '15879', '3', '3', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('16897', '15881', '-1', '46', '15880', '4', '4', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('16898', '13062', '-1', '8', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('16898', '13064', '-1', '10', '13062', '3', '3', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('16898', '13067', '-1', '43', '13064', '5', '5', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('16898', '13068', '-1', '43', '13064', '5', '5', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('16898', '13070', '-1', '46', '13067', '8', '8', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('17153', '13313', '-1', '3', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('17409', '13569', '-1', '8', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('17409', '13570', '-1', '10', '13569', '2', '2', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('17409', '13571', '-1', '43', '13570', '3', '3', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('17409', '13572', '-1', '43', '13570', '3', '3', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('17665', '13825', '-1', '8', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('17665', '13826', '-1', '10', '13825', '2', '2', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('17665', '13827', '-1', '43', '13826', '3', '3', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('17665', '13828', '-1', '43', '13826', '3', '3', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('17665', '13831', '-1', '46', '13827', '5', '5', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('17665', '13832', '-1', '46', '13827', '5', '5', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('17921', '14081', '-1', '8', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('17921', '15110', '-1', '10', '14081', '4', '4', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('17921', '15885', '-1', '43', '15110', '5', '5', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('17921', '15886', '-1', '46', '15885', '6', '6', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('18177', '14593', '-1', '8', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('18177', '14849', '-1', '10', '14593', '2', '2', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('18433', '15105', '-1', '8', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('18433', '15107', '-1', '10', '15105', '3', '3', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('18433', '15108', '-1', '43', '15107', '4', '4', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('18433', '15109', '-1', '46', '15108', '5', '5', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('18434', '15111', '-1', '8', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('18434', '15112', '-1', '10', '15111', '2', '2', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('18434', '15113', '-1', '43', '15112', '3', '3', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('18434', '15114', '-1', '43', '15112', '3', '3', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('18689', '15361', '-1', '8', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('18689', '15362', '-1', '10', '15361', '2', '2', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('18689', '15617', '-1', '43', '15362', '3', '3', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('18945', '16129', '-1', '8', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('19201', '16385', '-1', '19', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('19202', '16386', '-1', '19', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('19203', '16387', '-1', '19', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('19457', '16641', '-1', '6', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('19457', '16897', '-1', '22', '16641', '2', '2', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('19723', '17409', '-1', '8', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('20225', '18433', '-1', '8', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('20226', '18434', '-1', '8', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('21249', '18689', '-1', '8', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('21764', '19201', '-1', '8', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('22273', '19457', '-1', '8', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('22273', '19713', '-1', '10', '19457', '2', '2', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('22273', '19714', '-1', '43', '19713', '3', '3', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('22273', '19715', '-1', '43', '19713', '3', '3', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('22273', '19716', '-1', '43', '19713', '3', '3', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('22273', '19717', '-1', '43', '19713', '3', '3', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('22273', '19718', '-1', '43', '19713', '3', '3', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('22273', '19719', '-1', '43', '19713', '3', '3', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('22529', '19969', '-1', '8', '-1', '1', '1', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('22529', '19970', '-1', '10', '19969', '2', '2', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('22529', '19971', '-1', '43', '19970', '3', '3', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('22529', '19972', '-1', '43', '19970', '3', '3', null, null, null, null);
-INSERT INTO `bpm_workiteminfo` VALUES ('22529', '19973', '-1', '46', '19971', '5', '5', null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('1', '1', '-1', '3', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('257', '257', '-1', '5', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('257', '261', '-1', '6', '257', '3', '3', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('257', '264', '-1', '39', '262', '5', '5', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('257', '265', '-1', '45', '262', '5', '5', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('257', '266', '-1', '22', '264', '6', '6', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('514', '513', '-1', '5', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('769', '769', '-1', '6', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('769', '774', '-1', '22', '769', '2', '2', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('769', '775', '-1', '39', '774', '3', '3', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('769', '776', '-1', '58', '775', '4', '4', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('770', '770', '-1', '6', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('770', '771', '-1', '22', '770', '2', '2', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('770', '772', '-1', '39', '771', '3', '3', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('770', '773', '-1', '58', '772', '4', '4', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('771', '777', '-1', '3', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('1026', '1025', '-1', '5', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('1027', '1026', '-1', '5', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('1028', '1027', '-1', '5', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('2305', '1281', '-1', '3', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('4609', '1537', '-1', '5', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('4610', '1538', '-1', '5', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('4865', '1793', '-1', '5', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('5121', '2049', '-1', '5', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('5377', '2305', '-1', '5', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('5378', '2306', '-1', '5', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('5633', '2561', '-1', '5', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('5634', '2562', '-1', '5', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('6145', '2817', '-1', '5', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('6146', '2818', '-1', '5', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('6147', '2819', '-1', '5', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('6155', '2820', '-1', '5', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('6158', '2821', '-1', '5', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('6657', '3073', '-1', '5', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('6913', '3329', '-1', '5', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('6914', '3330', '-1', '5', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('7169', '3585', '-1', '5', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('7170', '3586', '-1', '5', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('7171', '3587', '-1', '5', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('7172', '3588', '-1', '5', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('7425', '3841', '-1', '5', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('7426', '3842', '-1', '5', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('7937', '4097', '-1', '5', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('8194', '4353', '-1', '5', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('8195', '4354', '-1', '3', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('8195', '4355', '-1', '7', '4354', '2', '2', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('8449', '4609', '-1', '5', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('8450', '4610', '-1', '5', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('8705', '4865', '-1', '19', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('8706', '4866', '-1', '6', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('8961', '5121', '-1', '3', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('9217', '5377', '-1', '19', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('9987', '5633', '-1', '6', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('9987', '9988', '-1', '22', '5633', '2', '2', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('9987', '9989', '-1', '39', '9988', '3', '3', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('10241', '5889', '-1', '3', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('10497', '6145', '-1', '3', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('10498', '6146', '-1', '3', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('10753', '6401', '-1', '5', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('10754', '6402', '-1', '5', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('11009', '6657', '-1', '5', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('11265', '7169', '-1', '5', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('11521', '7425', '-1', '6', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('11521', '7426', '-1', '22', '7425', '2', '2', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('11521', '15882', '-1', '39', '7426', '3', '3', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('11522', '7427', '-1', '19', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('11777', '7681', '-1', '5', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('11778', '7682', '-1', '5', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('12033', '7937', '-1', '5', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('12289', '8193', '-1', '3', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('12545', '8449', '-1', '3', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('12546', '8450', '-1', '6', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('12546', '15883', '-1', '22', '8450', '2', '2', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('12546', '15884', '-1', '39', '15883', '3', '3', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('12801', '8705', '-1', '19', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('12802', '8706', '-1', '5', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('13057', '8961', '-1', '8', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('13057', '8962', '-1', '10', '8961', '2', '2', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('13057', '8963', '-1', '27', '8962', '3', '3', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('13057', '8964', '-1', '29', '8963', '4', '4', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('13313', '9217', '-1', '5', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('13569', '9473', '-1', '8', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('13569', '9474', '-1', '10', '9473', '2', '2', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('13569', '9475', '-1', '27', '9474', '3', '3', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('13569', '9476', '-1', '29', '9475', '4', '4', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('13825', '9729', '-1', '3', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('13825', '9986', '-1', '7', '9729', '2', '2', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('14081', '9985', '-1', '3', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('14081', '9987', '-1', '7', '9985', '2', '2', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('14337', '10241', '-1', '3', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('14337', '10242', '-1', '7', '10241', '2', '2', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('14338', '10243', '-1', '3', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('14338', '10244', '-1', '7', '10243', '2', '2', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('14339', '10245', '-1', '3', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('14340', '10246', '-1', '19', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('14593', '10497', '-1', '19', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('14849', '10753', '-1', '8', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('14849', '15876', '-1', '10', '10753', '2', '2', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('14849', '15877', '-1', '43', '15876', '3', '3', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('14849', '15878', '-1', '46', '15877', '4', '4', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('14850', '10754', '-1', '8', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('14850', '10755', '-1', '10', '10754', '2', '2', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('14850', '10756', '-1', '43', '10755', '3', '3', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('14850', '10757', '-1', '43', '10755', '3', '3', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('14850', '10758', '-1', '46', '10756', '5', '5', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('14850', '10759', '-1', '46', '10756', '5', '5', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('14851', '10760', '-1', '8', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('14851', '15873', '-1', '10', '10760', '2', '2', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('14851', '15874', '-1', '43', '15873', '3', '3', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('14851', '15875', '-1', '46', '15874', '4', '4', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('14852', '10761', '-1', '8', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('14852', '10762', '-1', '10', '10761', '2', '2', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('14852', '12546', '-1', '43', '10762', '4', '4', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('14852', '12547', '-1', '46', '12546', '5', '5', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('15105', '11009', '-1', '5', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('15621', '11265', '-1', '6', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('15621', '11266', '-1', '22', '11265', '2', '2', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('15621', '11267', '-1', '39', '11266', '3', '3', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('15873', '11521', '-1', '6', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('15873', '13061', '-1', '22', '11521', '3', '3', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('16129', '11777', '-1', '3', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('16129', '11778', '-1', '7', '11777', '2', '2', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('16130', '11779', '-1', '3', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('16385', '12033', '-1', '3', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('16385', '12034', '-1', '7', '12033', '2', '2', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('16386', '12035', '-1', '3', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('16386', '12036', '-1', '7', '12035', '2', '2', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('16387', '12037', '-1', '3', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('16387', '12038', '-1', '7', '12037', '2', '2', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('16641', '12801', '-1', '46', '12291', '6', '6', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('16641', '12802', '-1', '46', '12291', '6', '6', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('16641', '12803', '-1', '49', '12801', '8', '8', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('16641', '12804', '-1', '8', '12803', '9', '9', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('16641', '12805', '-1', '10', '12804', '10', '10', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('16641', '13058', '-1', '43', '12805', '11', '11', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('16641', '13059', '-1', '43', '12805', '11', '11', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('16897', '13057', '-1', '8', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('16897', '15879', '-1', '10', '13057', '2', '2', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('16897', '15880', '-1', '43', '15879', '3', '3', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('16897', '15881', '-1', '46', '15880', '4', '4', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('16898', '13062', '-1', '8', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('16898', '13064', '-1', '10', '13062', '3', '3', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('16898', '13067', '-1', '43', '13064', '5', '5', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('16898', '13068', '-1', '43', '13064', '5', '5', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('16898', '13070', '-1', '46', '13067', '8', '8', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('17153', '13313', '-1', '3', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('17409', '13569', '-1', '8', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('17409', '13570', '-1', '10', '13569', '2', '2', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('17409', '13571', '-1', '43', '13570', '3', '3', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('17409', '13572', '-1', '43', '13570', '3', '3', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('17665', '13825', '-1', '8', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('17665', '13826', '-1', '10', '13825', '2', '2', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('17665', '13827', '-1', '43', '13826', '3', '3', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('17665', '13828', '-1', '43', '13826', '3', '3', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('17665', '13831', '-1', '46', '13827', '5', '5', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('17665', '13832', '-1', '46', '13827', '5', '5', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('17921', '14081', '-1', '8', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('17921', '15110', '-1', '10', '14081', '4', '4', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('17921', '15885', '-1', '43', '15110', '5', '5', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('17921', '15886', '-1', '46', '15885', '6', '6', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('18177', '14593', '-1', '8', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('18177', '14849', '-1', '10', '14593', '2', '2', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('18433', '15105', '-1', '8', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('18433', '15107', '-1', '10', '15105', '3', '3', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('18433', '15108', '-1', '43', '15107', '4', '4', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('18433', '15109', '-1', '46', '15108', '5', '5', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('18434', '15111', '-1', '8', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('18434', '15112', '-1', '10', '15111', '2', '2', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('18434', '15113', '-1', '43', '15112', '3', '3', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('18434', '15114', '-1', '43', '15112', '3', '3', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('18689', '15361', '-1', '8', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('18689', '15362', '-1', '10', '15361', '2', '2', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('18689', '15617', '-1', '43', '15362', '3', '3', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('18945', '16129', '-1', '8', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('19201', '16385', '-1', '19', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('19202', '16386', '-1', '19', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('19203', '16387', '-1', '19', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('19457', '16641', '-1', '6', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('19457', '16897', '-1', '22', '16641', '2', '2', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('19723', '17409', '-1', '8', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('20225', '18433', '-1', '8', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('20226', '18434', '-1', '8', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('21249', '18689', '-1', '8', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('21764', '19201', '-1', '8', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('22273', '19457', '-1', '8', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('22273', '19713', '-1', '10', '19457', '2', '2', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('22273', '19714', '-1', '43', '19713', '3', '3', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('22273', '19715', '-1', '43', '19713', '3', '3', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('22273', '19716', '-1', '43', '19713', '3', '3', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('22273', '19717', '-1', '43', '19713', '3', '3', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('22273', '19718', '-1', '43', '19713', '3', '3', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('22273', '19719', '-1', '43', '19713', '3', '3', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('22529', '19969', '-1', '8', '-1', '1', '1', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('22529', '19970', '-1', '10', '19969', '2', '2', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('22529', '19971', '-1', '43', '19970', '3', '3', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('22529', '19972', '-1', '43', '19970', '3', '3', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('22529', '19973', '-1', '46', '19971', '5', '5', null, null, null, null, null, null);
+INSERT INTO `bpm_workiteminfo` VALUES ('22785', '20225', '-1', '8', '-1', '1', '1', null, null, null, '-1', null, '');
+INSERT INTO `bpm_workiteminfo` VALUES ('22785', '20226', '-1', '10', '20225', '2', '2', null, null, null, '-1', null, '');
+INSERT INTO `bpm_workiteminfo` VALUES ('23041', '20481', '-1', '3', '-1', '1', '1', null, null, null, '-1', null, '');
+INSERT INTO `bpm_workiteminfo` VALUES ('23041', '20738', '-1', '7', '20481', '7', '7', null, null, null, '-1', null, '');
 
 -- ----------------------------
 -- Table structure for bpm_workiteminforb
@@ -8368,6 +8768,8 @@ CREATE TABLE `bpm_workiteminforb` (
   `MapCount` int(11) default NULL,
   `Slock` int(11) default NULL,
   `NextWorkitemID` bigint(20) default NULL,
+  `NodeKey` varchar(255) default NULL,
+  `FormKey` varchar(255) default NULL,
   PRIMARY KEY  (`InstanceID`,`WorkitemID`,`TransactionID`),
   KEY `I__WorkitemInfoRBInstanceID` (`InstanceID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -8375,211 +8777,215 @@ CREATE TABLE `bpm_workiteminforb` (
 -- ----------------------------
 -- Records of bpm_workiteminforb
 -- ----------------------------
-INSERT INTO `bpm_workiteminforb` VALUES ('1', '1', '1', '-1', '3', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('257', '257', '1', '-1', '5', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('257', '261', '3', '-1', '6', '257', '3', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('257', '262', '4', '-1', '22', '261', '4', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('257', '262', '6', '-1', '22', '261', '4', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('257', '264', '5', '-1', '39', '262', '5', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('257', '265', '5', '-1', '45', '262', '5', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('257', '266', '6', '-1', '22', '264', '6', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('514', '513', '1', '-1', '5', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('769', '769', '1', '-1', '6', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('769', '774', '2', '-1', '22', '769', '2', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('769', '775', '3', '-1', '39', '774', '3', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('769', '776', '4', '-1', '58', '775', '4', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('770', '770', '1', '-1', '6', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('770', '771', '2', '-1', '22', '770', '2', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('770', '772', '3', '-1', '39', '771', '3', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('770', '773', '4', '-1', '58', '772', '4', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('771', '777', '1', '-1', '3', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('1026', '1025', '1', '-1', '5', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('1027', '1026', '1', '-1', '5', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('1028', '1027', '1', '-1', '5', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('2305', '1281', '1', '-1', '3', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('4609', '1537', '1', '-1', '5', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('4610', '1538', '1', '-1', '5', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('4865', '1793', '1', '-1', '5', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('5121', '2049', '1', '-1', '5', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('5377', '2305', '1', '-1', '5', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('5378', '2306', '1', '-1', '5', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('5633', '2561', '1', '-1', '5', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('5634', '2562', '1', '-1', '5', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('6145', '2817', '1', '-1', '5', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('6146', '2818', '1', '-1', '5', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('6147', '2819', '1', '-1', '5', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('6155', '2820', '1', '-1', '5', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('6158', '2821', '1', '-1', '5', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('6657', '3073', '1', '-1', '5', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('6913', '3329', '1', '-1', '5', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('6914', '3330', '1', '-1', '5', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('7169', '3585', '1', '-1', '5', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('7170', '3586', '1', '-1', '5', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('7171', '3587', '1', '-1', '5', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('7172', '3588', '1', '-1', '5', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('7425', '3841', '1', '-1', '5', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('7426', '3842', '1', '-1', '5', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('7937', '4097', '1', '-1', '5', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('8194', '4353', '1', '-1', '5', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('8195', '4354', '1', '-1', '3', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('8195', '4355', '2', '-1', '7', '4354', '2', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('8449', '4609', '1', '-1', '5', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('8450', '4610', '1', '-1', '5', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('8705', '4865', '1', '-1', '19', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('8706', '4866', '1', '-1', '6', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('8961', '5121', '1', '-1', '3', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('9217', '5377', '1', '-1', '19', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('9987', '5633', '1', '-1', '6', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('9987', '9988', '2', '-1', '22', '5633', '2', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('9987', '9989', '3', '-1', '39', '9988', '3', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('10241', '5889', '1', '-1', '3', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('10497', '6145', '1', '-1', '3', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('10498', '6146', '1', '-1', '3', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('10753', '6401', '1', '-1', '5', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('10754', '6402', '1', '-1', '5', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('11009', '6657', '1', '-1', '5', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('11265', '7169', '1', '-1', '5', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('11521', '7425', '1', '-1', '6', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('11521', '7426', '2', '-1', '22', '7425', '2', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('11521', '15882', '3', '-1', '39', '7426', '3', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('11522', '7427', '1', '-1', '19', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('11777', '7681', '1', '-1', '5', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('11778', '7682', '1', '-1', '5', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('12033', '7937', '1', '-1', '5', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('12289', '8193', '1', '-1', '3', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('12545', '8449', '1', '-1', '3', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('12546', '8450', '1', '-1', '6', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('12546', '15883', '2', '-1', '22', '8450', '2', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('12546', '15884', '3', '-1', '39', '15883', '3', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('12801', '8705', '1', '-1', '19', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('12802', '8706', '1', '-1', '5', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('13057', '8961', '1', '-1', '8', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('13057', '8962', '2', '-1', '10', '8961', '2', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('13057', '8963', '3', '-1', '27', '8962', '3', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('13057', '8964', '4', '-1', '29', '8963', '4', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('13313', '9217', '1', '-1', '5', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('13569', '9473', '1', '-1', '8', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('13569', '9474', '2', '-1', '10', '9473', '2', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('13569', '9475', '3', '-1', '27', '9474', '3', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('13569', '9476', '4', '-1', '29', '9475', '4', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('13825', '9729', '1', '-1', '3', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('13825', '9986', '2', '-1', '7', '9729', '2', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('14081', '9985', '1', '-1', '3', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('14081', '9987', '2', '-1', '7', '9985', '2', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('14337', '10241', '1', '-1', '3', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('14337', '10242', '2', '-1', '7', '10241', '2', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('14338', '10243', '1', '-1', '3', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('14338', '10244', '2', '-1', '7', '10243', '2', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('14339', '10245', '1', '-1', '3', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('14340', '10246', '1', '-1', '19', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('14593', '10497', '1', '-1', '19', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('14849', '10753', '1', '-1', '8', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('14849', '15876', '2', '-1', '10', '10753', '2', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('14849', '15877', '3', '-1', '43', '15876', '3', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('14849', '15878', '4', '-1', '46', '15877', '4', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('14850', '10754', '1', '-1', '8', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('14850', '10755', '2', '-1', '10', '10754', '2', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('14850', '10756', '3', '-1', '43', '10755', '3', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('14850', '10757', '3', '-1', '43', '10755', '3', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('14850', '10758', '5', '-1', '46', '10756', '5', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('14850', '10759', '5', '-1', '46', '10756', '5', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('14851', '10760', '1', '-1', '8', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('14851', '15873', '2', '-1', '10', '10760', '2', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('14851', '15874', '3', '-1', '43', '15873', '3', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('14851', '15875', '4', '-1', '46', '15874', '4', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('14852', '10761', '1', '-1', '8', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('14852', '10762', '2', '-1', '10', '10761', '2', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('14852', '12546', '4', '-1', '43', '10762', '4', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('14852', '12547', '5', '-1', '46', '12546', '5', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('15105', '11009', '1', '-1', '5', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('15621', '11265', '1', '-1', '6', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('15621', '11266', '2', '-1', '22', '11265', '2', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('15621', '11267', '3', '-1', '39', '11266', '3', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('15873', '11521', '1', '-1', '6', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('15873', '13061', '3', '-1', '22', '11521', '3', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('16129', '11777', '1', '-1', '3', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('16129', '11778', '2', '-1', '7', '11777', '2', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('16130', '11779', '1', '-1', '3', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('16385', '12033', '1', '-1', '3', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('16385', '12034', '2', '-1', '7', '12033', '2', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('16386', '12035', '1', '-1', '3', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('16386', '12036', '2', '-1', '7', '12035', '2', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('16387', '12037', '1', '-1', '3', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('16387', '12038', '2', '-1', '7', '12037', '2', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('16641', '12289', '1', '-1', '8', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('16641', '12289', '9', '-1', '8', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('16641', '12290', '2', '-1', '10', '12289', '2', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('16641', '12290', '10', '-1', '10', '12289', '2', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('16641', '12291', '3', '-1', '43', '12290', '3', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('16641', '12291', '11', '-1', '43', '12290', '3', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('16641', '12801', '6', '-1', '46', '12291', '6', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('16641', '12802', '6', '-1', '46', '12291', '6', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('16641', '12803', '8', '-1', '49', '12801', '8', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('16641', '12804', '9', '-1', '8', '12803', '9', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('16641', '12805', '10', '-1', '10', '12804', '10', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('16641', '13058', '11', '-1', '43', '12805', '11', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('16641', '13059', '11', '-1', '43', '12805', '11', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('16897', '13057', '1', '-1', '8', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('16897', '15879', '2', '-1', '10', '13057', '2', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('16897', '15880', '3', '-1', '43', '15879', '3', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('16897', '15881', '4', '-1', '46', '15880', '4', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('16898', '13062', '1', '-1', '8', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('16898', '13064', '3', '-1', '10', '13062', '3', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('16898', '13067', '5', '-1', '43', '13064', '5', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('16898', '13068', '5', '-1', '43', '13064', '5', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('16898', '13070', '8', '-1', '46', '13067', '8', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('17153', '13313', '1', '-1', '3', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('17409', '13569', '1', '-1', '8', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('17409', '13570', '2', '-1', '10', '13569', '2', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('17409', '13571', '3', '-1', '43', '13570', '3', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('17409', '13572', '3', '-1', '43', '13570', '3', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('17665', '13825', '1', '-1', '8', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('17665', '13826', '2', '-1', '10', '13825', '2', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('17665', '13827', '3', '-1', '43', '13826', '3', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('17665', '13828', '3', '-1', '43', '13826', '3', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('17665', '13831', '5', '-1', '46', '13827', '5', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('17665', '13832', '5', '-1', '46', '13827', '5', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('17921', '14081', '1', '-1', '8', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('17921', '15110', '4', '-1', '10', '14081', '4', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('17921', '15885', '5', '-1', '43', '15110', '5', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('17921', '15886', '6', '-1', '46', '15885', '6', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('18177', '14593', '1', '-1', '8', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('18177', '14849', '2', '-1', '10', '14593', '2', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('18433', '15105', '1', '-1', '8', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('18433', '15107', '3', '-1', '10', '15105', '3', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('18433', '15108', '4', '-1', '43', '15107', '4', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('18433', '15109', '5', '-1', '46', '15108', '5', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('18434', '15111', '1', '-1', '8', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('18434', '15112', '2', '-1', '10', '15111', '2', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('18434', '15113', '3', '-1', '43', '15112', '3', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('18434', '15114', '3', '-1', '43', '15112', '3', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('18689', '15361', '1', '-1', '8', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('18689', '15362', '2', '-1', '10', '15361', '2', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('18689', '15617', '3', '-1', '43', '15362', '3', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('18945', '16129', '1', '-1', '8', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('19201', '16385', '1', '-1', '19', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('19202', '16386', '1', '-1', '19', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('19203', '16387', '1', '-1', '19', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('19457', '16641', '1', '-1', '6', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('19457', '16897', '2', '-1', '22', '16641', '2', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('19723', '17409', '1', '-1', '8', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('20225', '18433', '1', '-1', '8', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('20226', '18434', '1', '-1', '8', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('21249', '18689', '1', '-1', '8', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('21764', '19201', '1', '-1', '8', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('22273', '19457', '1', '-1', '8', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('22273', '19713', '2', '-1', '10', '19457', '2', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('22273', '19714', '3', '-1', '43', '19713', '3', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('22273', '19715', '3', '-1', '43', '19713', '3', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('22273', '19716', '3', '-1', '43', '19713', '3', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('22273', '19717', '3', '-1', '43', '19713', '3', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('22273', '19718', '3', '-1', '43', '19713', '3', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('22273', '19719', '3', '-1', '43', '19713', '3', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('22529', '19969', '1', '-1', '8', '-1', '1', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('22529', '19970', '2', '-1', '10', '19969', '2', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('22529', '19971', '3', '-1', '43', '19970', '3', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('22529', '19972', '3', '-1', '43', '19970', '3', null, null, null);
-INSERT INTO `bpm_workiteminforb` VALUES ('22529', '19973', '5', '-1', '46', '19971', '5', null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('1', '1', '1', '-1', '3', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('257', '257', '1', '-1', '5', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('257', '261', '3', '-1', '6', '257', '3', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('257', '262', '4', '-1', '22', '261', '4', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('257', '262', '6', '-1', '22', '261', '4', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('257', '264', '5', '-1', '39', '262', '5', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('257', '265', '5', '-1', '45', '262', '5', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('257', '266', '6', '-1', '22', '264', '6', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('514', '513', '1', '-1', '5', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('769', '769', '1', '-1', '6', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('769', '774', '2', '-1', '22', '769', '2', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('769', '775', '3', '-1', '39', '774', '3', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('769', '776', '4', '-1', '58', '775', '4', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('770', '770', '1', '-1', '6', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('770', '771', '2', '-1', '22', '770', '2', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('770', '772', '3', '-1', '39', '771', '3', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('770', '773', '4', '-1', '58', '772', '4', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('771', '777', '1', '-1', '3', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('1026', '1025', '1', '-1', '5', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('1027', '1026', '1', '-1', '5', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('1028', '1027', '1', '-1', '5', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('2305', '1281', '1', '-1', '3', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('4609', '1537', '1', '-1', '5', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('4610', '1538', '1', '-1', '5', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('4865', '1793', '1', '-1', '5', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('5121', '2049', '1', '-1', '5', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('5377', '2305', '1', '-1', '5', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('5378', '2306', '1', '-1', '5', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('5633', '2561', '1', '-1', '5', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('5634', '2562', '1', '-1', '5', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('6145', '2817', '1', '-1', '5', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('6146', '2818', '1', '-1', '5', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('6147', '2819', '1', '-1', '5', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('6155', '2820', '1', '-1', '5', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('6158', '2821', '1', '-1', '5', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('6657', '3073', '1', '-1', '5', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('6913', '3329', '1', '-1', '5', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('6914', '3330', '1', '-1', '5', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('7169', '3585', '1', '-1', '5', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('7170', '3586', '1', '-1', '5', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('7171', '3587', '1', '-1', '5', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('7172', '3588', '1', '-1', '5', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('7425', '3841', '1', '-1', '5', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('7426', '3842', '1', '-1', '5', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('7937', '4097', '1', '-1', '5', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('8194', '4353', '1', '-1', '5', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('8195', '4354', '1', '-1', '3', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('8195', '4355', '2', '-1', '7', '4354', '2', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('8449', '4609', '1', '-1', '5', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('8450', '4610', '1', '-1', '5', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('8705', '4865', '1', '-1', '19', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('8706', '4866', '1', '-1', '6', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('8961', '5121', '1', '-1', '3', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('9217', '5377', '1', '-1', '19', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('9987', '5633', '1', '-1', '6', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('9987', '9988', '2', '-1', '22', '5633', '2', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('9987', '9989', '3', '-1', '39', '9988', '3', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('10241', '5889', '1', '-1', '3', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('10497', '6145', '1', '-1', '3', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('10498', '6146', '1', '-1', '3', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('10753', '6401', '1', '-1', '5', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('10754', '6402', '1', '-1', '5', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('11009', '6657', '1', '-1', '5', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('11265', '7169', '1', '-1', '5', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('11521', '7425', '1', '-1', '6', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('11521', '7426', '2', '-1', '22', '7425', '2', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('11521', '15882', '3', '-1', '39', '7426', '3', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('11522', '7427', '1', '-1', '19', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('11777', '7681', '1', '-1', '5', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('11778', '7682', '1', '-1', '5', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('12033', '7937', '1', '-1', '5', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('12289', '8193', '1', '-1', '3', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('12545', '8449', '1', '-1', '3', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('12546', '8450', '1', '-1', '6', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('12546', '15883', '2', '-1', '22', '8450', '2', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('12546', '15884', '3', '-1', '39', '15883', '3', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('12801', '8705', '1', '-1', '19', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('12802', '8706', '1', '-1', '5', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('13057', '8961', '1', '-1', '8', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('13057', '8962', '2', '-1', '10', '8961', '2', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('13057', '8963', '3', '-1', '27', '8962', '3', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('13057', '8964', '4', '-1', '29', '8963', '4', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('13313', '9217', '1', '-1', '5', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('13569', '9473', '1', '-1', '8', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('13569', '9474', '2', '-1', '10', '9473', '2', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('13569', '9475', '3', '-1', '27', '9474', '3', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('13569', '9476', '4', '-1', '29', '9475', '4', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('13825', '9729', '1', '-1', '3', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('13825', '9986', '2', '-1', '7', '9729', '2', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('14081', '9985', '1', '-1', '3', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('14081', '9987', '2', '-1', '7', '9985', '2', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('14337', '10241', '1', '-1', '3', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('14337', '10242', '2', '-1', '7', '10241', '2', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('14338', '10243', '1', '-1', '3', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('14338', '10244', '2', '-1', '7', '10243', '2', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('14339', '10245', '1', '-1', '3', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('14340', '10246', '1', '-1', '19', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('14593', '10497', '1', '-1', '19', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('14849', '10753', '1', '-1', '8', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('14849', '15876', '2', '-1', '10', '10753', '2', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('14849', '15877', '3', '-1', '43', '15876', '3', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('14849', '15878', '4', '-1', '46', '15877', '4', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('14850', '10754', '1', '-1', '8', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('14850', '10755', '2', '-1', '10', '10754', '2', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('14850', '10756', '3', '-1', '43', '10755', '3', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('14850', '10757', '3', '-1', '43', '10755', '3', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('14850', '10758', '5', '-1', '46', '10756', '5', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('14850', '10759', '5', '-1', '46', '10756', '5', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('14851', '10760', '1', '-1', '8', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('14851', '15873', '2', '-1', '10', '10760', '2', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('14851', '15874', '3', '-1', '43', '15873', '3', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('14851', '15875', '4', '-1', '46', '15874', '4', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('14852', '10761', '1', '-1', '8', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('14852', '10762', '2', '-1', '10', '10761', '2', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('14852', '12546', '4', '-1', '43', '10762', '4', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('14852', '12547', '5', '-1', '46', '12546', '5', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('15105', '11009', '1', '-1', '5', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('15621', '11265', '1', '-1', '6', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('15621', '11266', '2', '-1', '22', '11265', '2', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('15621', '11267', '3', '-1', '39', '11266', '3', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('15873', '11521', '1', '-1', '6', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('15873', '13061', '3', '-1', '22', '11521', '3', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('16129', '11777', '1', '-1', '3', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('16129', '11778', '2', '-1', '7', '11777', '2', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('16130', '11779', '1', '-1', '3', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('16385', '12033', '1', '-1', '3', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('16385', '12034', '2', '-1', '7', '12033', '2', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('16386', '12035', '1', '-1', '3', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('16386', '12036', '2', '-1', '7', '12035', '2', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('16387', '12037', '1', '-1', '3', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('16387', '12038', '2', '-1', '7', '12037', '2', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('16641', '12289', '1', '-1', '8', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('16641', '12289', '9', '-1', '8', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('16641', '12290', '2', '-1', '10', '12289', '2', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('16641', '12290', '10', '-1', '10', '12289', '2', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('16641', '12291', '3', '-1', '43', '12290', '3', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('16641', '12291', '11', '-1', '43', '12290', '3', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('16641', '12801', '6', '-1', '46', '12291', '6', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('16641', '12802', '6', '-1', '46', '12291', '6', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('16641', '12803', '8', '-1', '49', '12801', '8', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('16641', '12804', '9', '-1', '8', '12803', '9', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('16641', '12805', '10', '-1', '10', '12804', '10', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('16641', '13058', '11', '-1', '43', '12805', '11', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('16641', '13059', '11', '-1', '43', '12805', '11', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('16897', '13057', '1', '-1', '8', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('16897', '15879', '2', '-1', '10', '13057', '2', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('16897', '15880', '3', '-1', '43', '15879', '3', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('16897', '15881', '4', '-1', '46', '15880', '4', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('16898', '13062', '1', '-1', '8', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('16898', '13064', '3', '-1', '10', '13062', '3', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('16898', '13067', '5', '-1', '43', '13064', '5', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('16898', '13068', '5', '-1', '43', '13064', '5', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('16898', '13070', '8', '-1', '46', '13067', '8', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('17153', '13313', '1', '-1', '3', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('17409', '13569', '1', '-1', '8', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('17409', '13570', '2', '-1', '10', '13569', '2', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('17409', '13571', '3', '-1', '43', '13570', '3', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('17409', '13572', '3', '-1', '43', '13570', '3', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('17665', '13825', '1', '-1', '8', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('17665', '13826', '2', '-1', '10', '13825', '2', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('17665', '13827', '3', '-1', '43', '13826', '3', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('17665', '13828', '3', '-1', '43', '13826', '3', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('17665', '13831', '5', '-1', '46', '13827', '5', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('17665', '13832', '5', '-1', '46', '13827', '5', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('17921', '14081', '1', '-1', '8', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('17921', '15110', '4', '-1', '10', '14081', '4', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('17921', '15885', '5', '-1', '43', '15110', '5', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('17921', '15886', '6', '-1', '46', '15885', '6', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('18177', '14593', '1', '-1', '8', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('18177', '14849', '2', '-1', '10', '14593', '2', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('18433', '15105', '1', '-1', '8', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('18433', '15107', '3', '-1', '10', '15105', '3', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('18433', '15108', '4', '-1', '43', '15107', '4', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('18433', '15109', '5', '-1', '46', '15108', '5', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('18434', '15111', '1', '-1', '8', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('18434', '15112', '2', '-1', '10', '15111', '2', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('18434', '15113', '3', '-1', '43', '15112', '3', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('18434', '15114', '3', '-1', '43', '15112', '3', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('18689', '15361', '1', '-1', '8', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('18689', '15362', '2', '-1', '10', '15361', '2', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('18689', '15617', '3', '-1', '43', '15362', '3', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('18945', '16129', '1', '-1', '8', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('19201', '16385', '1', '-1', '19', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('19202', '16386', '1', '-1', '19', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('19203', '16387', '1', '-1', '19', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('19457', '16641', '1', '-1', '6', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('19457', '16897', '2', '-1', '22', '16641', '2', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('19723', '17409', '1', '-1', '8', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('20225', '18433', '1', '-1', '8', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('20226', '18434', '1', '-1', '8', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('21249', '18689', '1', '-1', '8', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('21764', '19201', '1', '-1', '8', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('22273', '19457', '1', '-1', '8', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('22273', '19713', '2', '-1', '10', '19457', '2', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('22273', '19714', '3', '-1', '43', '19713', '3', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('22273', '19715', '3', '-1', '43', '19713', '3', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('22273', '19716', '3', '-1', '43', '19713', '3', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('22273', '19717', '3', '-1', '43', '19713', '3', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('22273', '19718', '3', '-1', '43', '19713', '3', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('22273', '19719', '3', '-1', '43', '19713', '3', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('22529', '19969', '1', '-1', '8', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('22529', '19970', '2', '-1', '10', '19969', '2', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('22529', '19971', '3', '-1', '43', '19970', '3', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('22529', '19972', '3', '-1', '43', '19970', '3', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('22529', '19973', '5', '-1', '46', '19971', '5', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('22785', '20225', '1', '-1', '8', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('22785', '20226', '2', '-1', '10', '20225', '2', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('23041', '20481', '1', '-1', '3', '-1', '1', null, null, null, null, null);
+INSERT INTO `bpm_workiteminforb` VALUES ('23041', '20738', '7', '-1', '7', '20481', '7', null, null, null, null, null);
 
 -- ----------------------------
 -- Table structure for cp_dicmodel
@@ -8891,6 +9297,404 @@ CREATE TABLE `dicttemp_h_rr` (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for dict_arrivalregion
+-- ----------------------------
+DROP TABLE IF EXISTS `dict_arrivalregion`;
+CREATE TABLE `dict_arrivalregion` (
+  `OID` bigint(20) NOT NULL default '0',
+  `SOID` bigint(20) default NULL,
+  `POID` bigint(20) default NULL,
+  `VERID` int(11) default NULL,
+  `DVERID` int(11) default NULL,
+  `Code` varchar(255) default NULL,
+  `Name` varchar(255) default NULL,
+  `NodeType` int(11) default NULL,
+  `ParentID` bigint(20) default NULL,
+  `Status` int(11) default NULL,
+  `Enable` int(11) default NULL,
+  `TLeft` int(11) default NULL,
+  `TRight` int(11) default NULL,
+  `MapCount` int(11) default NULL,
+  `Slock` int(11) default NULL,
+  `DataSort` varchar(10) default NULL,
+  PRIMARY KEY  (`OID`),
+  KEY `I_t_ArrivalRegion_SOID` (`SOID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of dict_arrivalregion
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for dict_arrivalregion_or
+-- ----------------------------
+DROP TABLE IF EXISTS `dict_arrivalregion_or`;
+CREATE TABLE `dict_arrivalregion_or` (
+  `OperatorID` bigint(20) NOT NULL default '0',
+  `FormKey` varchar(128) default NULL,
+  `DictID` bigint(20) NOT NULL default '0',
+  `HasRights` int(11) default NULL,
+  PRIMARY KEY  (`OperatorID`,`DictID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of dict_arrivalregion_or
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for dict_arrivalregion_rr
+-- ----------------------------
+DROP TABLE IF EXISTS `dict_arrivalregion_rr`;
+CREATE TABLE `dict_arrivalregion_rr` (
+  `RoleID` bigint(20) NOT NULL default '0',
+  `FormKey` varchar(128) default NULL,
+  `DictID` bigint(20) NOT NULL default '0',
+  `HasRights` int(11) default NULL,
+  PRIMARY KEY  (`RoleID`,`DictID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of dict_arrivalregion_rr
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for dict_currency
+-- ----------------------------
+DROP TABLE IF EXISTS `dict_currency`;
+CREATE TABLE `dict_currency` (
+  `OID` bigint(20) NOT NULL default '0',
+  `SOID` bigint(20) default NULL,
+  `POID` bigint(20) default NULL,
+  `VERID` int(11) default NULL,
+  `DVERID` int(11) default NULL,
+  `Code` varchar(255) default NULL,
+  `Name` varchar(255) default NULL,
+  `NodeType` int(11) default NULL,
+  `ParentID` bigint(20) default NULL,
+  `Status` int(11) default NULL,
+  `Enable` int(11) default NULL,
+  `TLeft` int(11) default NULL,
+  `TRight` int(11) default NULL,
+  `MapCount` int(11) default NULL,
+  `Slock` int(11) default NULL,
+  `DataSort` varchar(10) default NULL,
+  PRIMARY KEY  (`OID`),
+  KEY `I_Dict_Currency_SOID` (`SOID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of dict_currency
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for dict_currency_or
+-- ----------------------------
+DROP TABLE IF EXISTS `dict_currency_or`;
+CREATE TABLE `dict_currency_or` (
+  `OperatorID` bigint(20) NOT NULL default '0',
+  `FormKey` varchar(128) default NULL,
+  `DictID` bigint(20) NOT NULL default '0',
+  `HasRights` int(11) default NULL,
+  PRIMARY KEY  (`OperatorID`,`DictID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of dict_currency_or
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for dict_currency_rr
+-- ----------------------------
+DROP TABLE IF EXISTS `dict_currency_rr`;
+CREATE TABLE `dict_currency_rr` (
+  `RoleID` bigint(20) NOT NULL default '0',
+  `FormKey` varchar(128) default NULL,
+  `DictID` bigint(20) NOT NULL default '0',
+  `HasRights` int(11) default NULL,
+  PRIMARY KEY  (`RoleID`,`DictID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of dict_currency_rr
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for dict_customer
+-- ----------------------------
+DROP TABLE IF EXISTS `dict_customer`;
+CREATE TABLE `dict_customer` (
+  `OID` bigint(20) NOT NULL default '0',
+  `SOID` bigint(20) default NULL,
+  `POID` bigint(20) default NULL,
+  `VERID` int(11) default NULL,
+  `DVERID` int(11) default NULL,
+  `Code` varchar(255) default NULL,
+  `Name` varchar(255) default NULL,
+  `NodeType` int(11) default NULL,
+  `ParentID` bigint(20) default NULL,
+  `Status` int(11) default NULL,
+  `Enable` int(11) default NULL,
+  `TLeft` int(11) default NULL,
+  `TRight` int(11) default NULL,
+  `IsReplaced` int(11) default NULL,
+  `Flag` varchar(255) default NULL,
+  `MapCount` int(11) default NULL,
+  `Slock` int(11) default NULL,
+  `DataSort` varchar(10) default NULL,
+  PRIMARY KEY  (`OID`),
+  KEY `I_Dict_Customer_SOID` (`SOID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of dict_customer
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for dict_customer_or
+-- ----------------------------
+DROP TABLE IF EXISTS `dict_customer_or`;
+CREATE TABLE `dict_customer_or` (
+  `OperatorID` bigint(20) NOT NULL default '0',
+  `FormKey` varchar(128) default NULL,
+  `DictID` bigint(20) NOT NULL default '0',
+  `HasRights` int(11) default NULL,
+  PRIMARY KEY  (`OperatorID`,`DictID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of dict_customer_or
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for dict_customer_rr
+-- ----------------------------
+DROP TABLE IF EXISTS `dict_customer_rr`;
+CREATE TABLE `dict_customer_rr` (
+  `RoleID` bigint(20) NOT NULL default '0',
+  `FormKey` varchar(128) default NULL,
+  `DictID` bigint(20) NOT NULL default '0',
+  `HasRights` int(11) default NULL,
+  PRIMARY KEY  (`RoleID`,`DictID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of dict_customer_rr
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for dict_leavetype
+-- ----------------------------
+DROP TABLE IF EXISTS `dict_leavetype`;
+CREATE TABLE `dict_leavetype` (
+  `OID` bigint(20) NOT NULL default '0',
+  `SOID` bigint(20) default NULL,
+  `POID` bigint(20) default NULL,
+  `VERID` int(11) default NULL,
+  `DVERID` int(11) default NULL,
+  `Code` varchar(255) default NULL,
+  `Name` varchar(255) default NULL,
+  `NodeType` int(11) default NULL,
+  `ParentID` bigint(20) default NULL,
+  `Status` int(11) default NULL,
+  `Enable` int(11) default NULL,
+  `TLeft` int(11) default NULL,
+  `TRight` int(11) default NULL,
+  `DataSort` varchar(2) default NULL,
+  `LeaveID` int(11) default NULL,
+  `MapCount` int(11) default NULL,
+  `Slock` int(11) default NULL,
+  PRIMARY KEY  (`OID`),
+  KEY `I_Dict_LeaveType_SOID` (`SOID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of dict_leavetype
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for dict_leavetype_or
+-- ----------------------------
+DROP TABLE IF EXISTS `dict_leavetype_or`;
+CREATE TABLE `dict_leavetype_or` (
+  `OperatorID` bigint(20) NOT NULL default '0',
+  `FormKey` varchar(128) default NULL,
+  `DictID` bigint(20) NOT NULL default '0',
+  `HasRights` int(11) default NULL,
+  PRIMARY KEY  (`OperatorID`,`DictID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of dict_leavetype_or
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for dict_leavetype_rr
+-- ----------------------------
+DROP TABLE IF EXISTS `dict_leavetype_rr`;
+CREATE TABLE `dict_leavetype_rr` (
+  `RoleID` bigint(20) NOT NULL default '0',
+  `FormKey` varchar(128) default NULL,
+  `DictID` bigint(20) NOT NULL default '0',
+  `HasRights` int(11) default NULL,
+  PRIMARY KEY  (`RoleID`,`DictID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of dict_leavetype_rr
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for dict_subregion
+-- ----------------------------
+DROP TABLE IF EXISTS `dict_subregion`;
+CREATE TABLE `dict_subregion` (
+  `OID` bigint(20) NOT NULL default '0',
+  `SOID` bigint(20) default NULL,
+  `POID` bigint(20) default NULL,
+  `VERID` int(11) default NULL,
+  `DVERID` int(11) default NULL,
+  `Code` varchar(255) default NULL,
+  `Name` varchar(255) default NULL,
+  `NodeType` int(11) default NULL,
+  `ParentID` bigint(20) default NULL,
+  `Status` int(11) default NULL,
+  `Enable` int(11) default NULL,
+  `TLeft` int(11) default NULL,
+  `TRight` int(11) default NULL,
+  `ArrivalRegionID` bigint(20) default NULL,
+  `MapCount` int(11) default NULL,
+  `Slock` int(11) default NULL,
+  `DataSort` varchar(10) default NULL,
+  PRIMARY KEY  (`OID`),
+  KEY `I_Dict_SubRegion_SOID` (`SOID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of dict_subregion
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for dict_subregion_or
+-- ----------------------------
+DROP TABLE IF EXISTS `dict_subregion_or`;
+CREATE TABLE `dict_subregion_or` (
+  `OperatorID` bigint(20) NOT NULL default '0',
+  `FormKey` varchar(128) default NULL,
+  `DictID` bigint(20) NOT NULL default '0',
+  `HasRights` int(11) default NULL,
+  PRIMARY KEY  (`OperatorID`,`DictID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of dict_subregion_or
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for dict_subregion_rr
+-- ----------------------------
+DROP TABLE IF EXISTS `dict_subregion_rr`;
+CREATE TABLE `dict_subregion_rr` (
+  `RoleID` bigint(20) NOT NULL default '0',
+  `FormKey` varchar(128) default NULL,
+  `DictID` bigint(20) NOT NULL default '0',
+  `HasRights` int(11) default NULL,
+  PRIMARY KEY  (`RoleID`,`DictID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of dict_subregion_rr
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for dict_tradeterm
+-- ----------------------------
+DROP TABLE IF EXISTS `dict_tradeterm`;
+CREATE TABLE `dict_tradeterm` (
+  `OID` bigint(20) NOT NULL default '0',
+  `SOID` bigint(20) default NULL,
+  `POID` bigint(20) default NULL,
+  `VERID` int(11) default NULL,
+  `DVERID` int(11) default NULL,
+  `Code` varchar(255) default NULL,
+  `Name` varchar(255) default NULL,
+  `NodeType` int(11) default NULL,
+  `ParentID` bigint(20) default NULL,
+  `Status` int(11) default NULL,
+  `Enable` int(11) default NULL,
+  `TLeft` int(11) default NULL,
+  `TRight` int(11) default NULL,
+  `MapCount` int(11) default NULL,
+  `Slock` int(11) default NULL,
+  `DataSort` varchar(10) default NULL,
+  PRIMARY KEY  (`OID`),
+  KEY `I_Dict_TradeTerm_SOID` (`SOID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of dict_tradeterm
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for dict_tradeterm_or
+-- ----------------------------
+DROP TABLE IF EXISTS `dict_tradeterm_or`;
+CREATE TABLE `dict_tradeterm_or` (
+  `OperatorID` bigint(20) NOT NULL default '0',
+  `FormKey` varchar(128) default NULL,
+  `DictID` bigint(20) NOT NULL default '0',
+  `HasRights` int(11) default NULL,
+  PRIMARY KEY  (`OperatorID`,`DictID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of dict_tradeterm_or
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for dict_tradeterm_rr
+-- ----------------------------
+DROP TABLE IF EXISTS `dict_tradeterm_rr`;
+CREATE TABLE `dict_tradeterm_rr` (
+  `RoleID` bigint(20) NOT NULL default '0',
+  `FormKey` varchar(128) default NULL,
+  `DictID` bigint(20) NOT NULL default '0',
+  `HasRights` int(11) default NULL,
+  PRIMARY KEY  (`RoleID`,`DictID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of dict_tradeterm_rr
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for draftclip
+-- ----------------------------
+DROP TABLE IF EXISTS `draftclip`;
+CREATE TABLE `draftclip` (
+  `OID` bigint(20) NOT NULL default '0',
+  `SOID` bigint(20) default NULL,
+  `POID` bigint(20) default NULL,
+  `VERID` int(11) default NULL,
+  `DVERID` int(11) default NULL,
+  `SourceOID` bigint(20) default NULL,
+  `SourceFormKey` varchar(255) default NULL,
+  `SourceNo` varchar(255) default NULL,
+  `SourceCreateTime` datetime default NULL,
+  `SourceCreator` bigint(20) default NULL,
+  `SourceType` bigint(20) default NULL,
+  `MapCount` int(11) default NULL,
+  `Slock` int(11) default NULL,
+  `SourceBillerName` bigint(20) default NULL,
+  PRIMARY KEY  (`OID`),
+  UNIQUE KEY `I_DraftClip_MIGR` (`SourceOID`,`SourceFormKey`,`SourceNo`,`SourceCreateTime`,`SourceCreator`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of draftclip
+-- ----------------------------
+INSERT INTO `draftclip` VALUES ('-1', '-1', '-1', '-1', '-1', '-1', '#', '#', '1970-01-01 08:00:00', '-1', '-1', '-1', null, '-1');
+
+-- ----------------------------
 -- Table structure for moa_newsdraft
 -- ----------------------------
 DROP TABLE IF EXISTS `moa_newsdraft`;
@@ -8925,6 +9729,90 @@ CREATE TABLE `moa_newsdraft` (
 
 -- ----------------------------
 -- Records of moa_newsdraft
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for modulechoice
+-- ----------------------------
+DROP TABLE IF EXISTS `modulechoice`;
+CREATE TABLE `modulechoice` (
+  `OID` bigint(20) NOT NULL default '0',
+  `SOID` bigint(20) default NULL,
+  `POID` bigint(20) default NULL,
+  `VERID` int(11) default NULL,
+  `DVERID` int(11) default NULL,
+  `id` int(11) default NULL,
+  `Module` varchar(255) default NULL,
+  `Right1` varchar(255) default NULL,
+  `RESPONSIBILITY_Name` varchar(255) default NULL,
+  `RESPONSIBILITY_ID` varchar(255) default NULL,
+  `MapCount` int(11) default NULL,
+  `Slock` int(11) default NULL,
+  PRIMARY KEY  (`OID`),
+  KEY `I_ModuleChoice_SOID` (`SOID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of modulechoice
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for mt_db_cogs
+-- ----------------------------
+DROP TABLE IF EXISTS `mt_db_cogs`;
+CREATE TABLE `mt_db_cogs` (
+  `OID` bigint(20) NOT NULL default '0',
+  `SOID` bigint(20) default NULL,
+  `POID` bigint(20) default NULL,
+  `VERID` int(11) default NULL,
+  `DVERID` int(11) default NULL,
+  `Year` int(11) default NULL,
+  `Region` varchar(255) default NULL,
+  `SubRegion` varchar(255) default NULL,
+  `ProductCategory` varchar(255) default NULL,
+  `Quarter` varchar(255) default NULL,
+  `Price` decimal(16,4) default NULL,
+  `Remark` varchar(255) default NULL,
+  `IsPerc` varchar(255) default NULL,
+  `MapCount` int(11) default NULL,
+  `Slock` int(11) default NULL,
+  PRIMARY KEY  (`OID`),
+  KEY `I_MT_DB_COGS_SOID` (`SOID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of mt_db_cogs
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for mt_db_logisticsexpense
+-- ----------------------------
+DROP TABLE IF EXISTS `mt_db_logisticsexpense`;
+CREATE TABLE `mt_db_logisticsexpense` (
+  `OID` bigint(20) NOT NULL default '0',
+  `SOID` bigint(20) default NULL,
+  `POID` bigint(20) default NULL,
+  `VERID` int(11) default NULL,
+  `DVERID` int(11) default NULL,
+  `Year` int(11) default NULL,
+  `Region` bigint(20) default NULL,
+  `SubRegion` bigint(20) default NULL,
+  `ProductCategory` varchar(255) default NULL,
+  `TradeTerms` bigint(20) default NULL,
+  `Quarter` varchar(255) default NULL,
+  `FactoryStorage` decimal(18,4) default NULL,
+  `LogisticsInland` decimal(18,4) default NULL,
+  `LogisticsSea` decimal(18,4) default NULL,
+  `StorageRegion` decimal(18,4) default NULL,
+  `LogisticsRegion` decimal(18,4) default NULL,
+  `MapCount` int(11) default NULL,
+  `Slock` int(11) default NULL,
+  PRIMARY KEY  (`OID`),
+  KEY `I_ogisticsExpense_SOID` (`SOID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of mt_db_logisticsexpense
 -- ----------------------------
 
 -- ----------------------------
@@ -11593,6 +12481,24 @@ INSERT INTO `nj_scm_preorderhead` VALUES ('175394', '175394', null, '1', '0', 'Y
 INSERT INTO `nj_scm_preorderhead` VALUES ('175397', '175397', null, '0', '0', 'YXDJ20170427002', '2017-04-27 21:21:36', '1', '21277', '2017-04-27 21:22:10', '21277', '2017-04-27 21:22:10', 'NJ_SCM_PreOrderHead', '-1', '21274', '175382', '175381', 'b', '2', '1', 'b', '2000000.00', 'b', null, '1', '0', null, '175395', null);
 
 -- ----------------------------
+-- Table structure for nj_scm_preorderhead_fr
+-- ----------------------------
+DROP TABLE IF EXISTS `nj_scm_preorderhead_fr`;
+CREATE TABLE `nj_scm_preorderhead_fr` (
+  `OID` bigint(20) NOT NULL default '0',
+  `SOID` bigint(20) default NULL,
+  `OperatorID` bigint(20) default NULL,
+  `OptRights` varchar(1024) default NULL,
+  `Enables` varchar(1024) default NULL,
+  `unVisible` varchar(1024) default NULL,
+  PRIMARY KEY  (`OID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of nj_scm_preorderhead_fr
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for nj_scm_propertypaymentcost
 -- ----------------------------
 DROP TABLE IF EXISTS `nj_scm_propertypaymentcost`;
@@ -12503,6 +13409,40 @@ INSERT INTO `oa_attachment` VALUES ('158234', '158233', null, '0', '0', '2017-01
 INSERT INTO `oa_attachment` VALUES ('159763', '159762', null, '0', '0', '2017-01-12 15:11:13', '21277', 'OA_ForeignLan/159762/M-ICT2.0白皮书.pdf', 'M-ICT2.0白皮书.pdf', '0', null);
 INSERT INTO `oa_attachment` VALUES ('159764', '159762', null, '0', '0', '2017-01-12 15:11:17', '21277', 'OA_ForeignLan/159762/电子签章测试.docx', '电子签章测试.docx', '0', null);
 INSERT INTO `oa_attachment` VALUES ('159765', '159762', null, '0', '0', '2017-01-12 15:11:26', '21277', 'OA_ForeignLan/159762/中兴通讯.ppt', '中兴通讯.ppt', '0', null);
+INSERT INTO `oa_attachment` VALUES ('213526', '213525', null, '0', '0', '2017-08-01 19:27:02', '21277', 'OA_EmailInbox\\213525\\测试.JPEG', '测试.JPEG', null, null);
+INSERT INTO `oa_attachment` VALUES ('213527', '213525', null, '0', '0', '2017-08-01 19:27:02', '21277', 'OA_EmailInbox\\213525\\OA移动端开发需求20161223.docx', 'OA移动端开发需求20161223.docx', null, null);
+INSERT INTO `oa_attachment` VALUES ('213530', '213529', null, '0', '0', '2017-08-01 19:27:03', '21277', 'OA_EmailInbox\\213529\\OA报表设计.docx', 'OA报表设计.docx', null, null);
+INSERT INTO `oa_attachment` VALUES ('213531', '213529', null, '0', '0', '2017-08-01 19:27:03', '21277', 'OA_EmailInbox\\213529\\profile.js', 'profile.js', null, null);
+INSERT INTO `oa_attachment` VALUES ('213532', '213529', null, '0', '0', '2017-08-01 19:27:03', '21277', 'OA_EmailInbox\\213529\\shgzw.zip', 'shgzw.zip', null, null);
+INSERT INTO `oa_attachment` VALUES ('213535', '213534', null, '0', '0', '2017-08-01 19:27:03', '21277', 'OA_EmailInbox\\213534\\LINUX命令基础讲解(初级).ppt', 'LINUX命令基础讲解(初级).ppt', null, null);
+INSERT INTO `oa_attachment` VALUES ('213536', '213534', null, '0', '0', '2017-08-01 19:27:03', '21277', 'OA_EmailInbox\\213534\\OA报表设计.docx', 'OA报表设计.docx', null, null);
+INSERT INTO `oa_attachment` VALUES ('213541', '213540', null, '0', '0', '2017-08-01 19:27:04', '21277', 'OA_EmailInbox\\213540\\LINUX命令基础讲解(初级).ppt', 'LINUX命令基础讲解(初级).ppt', null, null);
+INSERT INTO `oa_attachment` VALUES ('213546', '213545', null, '0', '0', '2017-08-01 19:27:07', '21277', 'OA_EmailInbox\\213545\\1首页.jpg', '1首页.jpg', null, null);
+
+-- ----------------------------
+-- Table structure for oa_attachment_alert
+-- ----------------------------
+DROP TABLE IF EXISTS `oa_attachment_alert`;
+CREATE TABLE `oa_attachment_alert` (
+  `OID` bigint(20) NOT NULL default '0',
+  `SOID` bigint(20) default NULL,
+  `POID` bigint(20) default NULL,
+  `VERID` int(11) default NULL,
+  `DVERID` int(11) default NULL,
+  `UploadTime` datetime default NULL,
+  `UploadOperator` bigint(20) default NULL,
+  `Path` varchar(255) default NULL,
+  `Name` varchar(255) default NULL,
+  `AttachmentType_D` varchar(255) default NULL,
+  `MapCount` int(11) default NULL,
+  `Slock` int(11) default NULL,
+  PRIMARY KEY  (`OID`),
+  KEY `I_ttachment_Alert_SOID` (`SOID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of oa_attachment_alert
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for oa_attachment_his
@@ -13052,6 +13992,21 @@ CREATE TABLE `oa_department_h` (
   `Jingdu` varchar(255) default NULL,
   `MapCount` int(11) default NULL,
   `Slock` int(11) default NULL,
+  `Group_Name_Eng` varchar(255) default NULL,
+  `Dept_Level` varchar(255) default NULL,
+  `Effect_Date` datetime default NULL,
+  `Group_Status` varchar(255) default NULL,
+  `Cost_Center_Code` varchar(255) default NULL,
+  `Cost_Center_Name` varchar(255) default NULL,
+  `UnitID` varchar(255) default NULL,
+  `Group_ID` varchar(255) default NULL,
+  `Group_Name` varchar(255) default NULL,
+  `Group_Parent` varchar(255) default NULL,
+  `Group_LdID` varchar(255) default NULL,
+  `Tree_Effdt` datetime default NULL,
+  `Company` varchar(255) default NULL,
+  `New_Cost_Center` varchar(255) default NULL,
+  `New_Cost_Center_Name` varchar(255) default NULL,
   PRIMARY KEY  (`OID`),
   KEY `I_OA_Department_H_SOID` (`SOID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -13059,23 +14014,23 @@ CREATE TABLE `oa_department_h` (
 -- ----------------------------
 -- Records of oa_department_h
 -- ----------------------------
-INSERT INTO `oa_department_h` VALUES ('14871', '14871', null, '2', '0', '1', '1', '1', '0', '1', '6', '01', '集团', '21', '2016-08-09 11:35:27', '21277', '2016-09-19 13:52:47', null, 'OA_Department', '-1', '1', null, '0', '0', '0', null, null, '0', null, null, null, null, null, '0', '1');
-INSERT INTO `oa_department_h` VALUES ('14873', '14873', null, '3', '0', '1', '1', '1', '0', '7', '16', '0101', '公司A', '21', '2016-08-09 11:38:06', '21277', '2016-09-19 13:53:14', null, 'OA_Department', '-1', '2', null, '0', '0', '0', null, null, '0', null, null, null, null, null, '0', '1');
-INSERT INTO `oa_department_h` VALUES ('14875', '14875', null, '1', '0', '1', '1', '1', '14873', '8', '9', '010102', '子公司A', '21', '2016-08-09 11:39:54', '21277', '2016-09-19 13:53:50', null, 'OA_Department', '-1', '2', null, '0', '0', '0', null, null, '0', null, null, null, null, null, '0', '1');
-INSERT INTO `oa_department_h` VALUES ('14877', '14877', null, '1', '0', '1', '1', '1', '14873', '10', '11', '010104', '子公司B', '21', '2016-08-09 11:40:58', '21277', '2016-09-19 13:54:05', null, 'OA_Department', '-1', '2', null, '0', '0', '0', null, null, '0', null, null, null, null, null, '0', '1');
-INSERT INTO `oa_department_h` VALUES ('14878', '14878', null, '1', '0', '1', '1', '1', '14873', '12', '13', '010105', '子公司C', '21', '2016-08-09 11:41:31', '21277', '2016-09-19 13:54:22', null, 'OA_Department', '-1', '2', null, '0', '0', '0', null, null, '0', null, null, null, null, null, '0', '1');
-INSERT INTO `oa_department_h` VALUES ('14879', '14879', null, '2', '0', '1', '1', '1', '14873', '14', '15', '010106', '子公司D', '21', '2016-08-09 11:42:30', '21277', '2016-09-19 13:54:35', null, 'OA_Department', '-1', '2', null, '0', '0', '0', null, null, '0', null, null, null, null, null, '0', '1');
-INSERT INTO `oa_department_h` VALUES ('14883', '14883', null, '2', '0', '1', '1', '1', '0', '17', '34', '010203', '公司B', '21', '2016-08-09 11:45:49', '21277', '2016-09-19 13:53:28', null, 'OA_Department', '-1', '2', null, '0', '0', '0', null, null, '0', null, null, null, null, null, '0', '1');
-INSERT INTO `oa_department_h` VALUES ('14884', '14884', null, '2', '0', '1', '1', '0', '14883', '18', '19', '01020301', '办公室', '21', '2016-08-09 11:46:35', '21', '2016-08-09 12:01:11', null, 'OA_Department', '-1', '3', null, '0', '0', '0', null, null, '0', null, null, null, null, null, '0', '1');
-INSERT INTO `oa_department_h` VALUES ('14885', '14885', null, '1', '0', '1', '1', '0', '14883', '20', '21', '01020302', '财务处', '21', '2016-08-09 11:47:30', '21', '2016-08-09 11:47:38', null, 'OA_Department', '-1', '3', null, '0', '0', '0', null, null, '0', null, null, null, null, null, '0', '1');
-INSERT INTO `oa_department_h` VALUES ('14886', '14886', null, '9', '0', '1', '1', '0', '14883', '22', '23', '01020303', '网络部', '21', '2016-08-09 11:48:03', '21', '2016-08-09 12:20:35', null, 'OA_Department', '-1', '3', null, '0', '0', '0', null, null, '0', null, null, null, null, null, '0', '1');
-INSERT INTO `oa_department_h` VALUES ('14887', '14887', null, '1', '0', '1', '1', '0', '14883', '24', '25', '01020304', '运营部', '21', '2016-08-09 11:48:27', '21277', '2016-09-19 13:56:37', null, 'OA_Department', '-1', '3', null, '0', '0', '0', null, null, '0', null, null, null, null, null, '0', '1');
-INSERT INTO `oa_department_h` VALUES ('14888', '14888', null, '1', '0', '1', '1', '0', '14883', '26', '27', '01020305', '工程部', '21', '2016-08-09 11:49:00', '21277', '2016-09-19 13:55:41', null, 'OA_Department', '-1', '3', null, '0', '0', '0', null, null, '0', null, null, null, null, null, '0', '1');
-INSERT INTO `oa_department_h` VALUES ('14889', '14889', null, '2', '0', '1', '1', '0', '14883', '28', '29', '01020306', '保安部', '21', '2016-08-09 11:49:25', '21277', '2016-09-19 13:57:32', null, 'OA_Department', '-1', '3', null, '0', '0', '0', null, null, '0', null, null, null, null, null, '0', '1');
-INSERT INTO `oa_department_h` VALUES ('14890', '14890', null, '1', '0', '1', '1', '0', '14883', '30', '31', '01020307', '人事处', '21', '2016-08-09 11:49:51', '21277', '2016-09-19 13:55:10', null, 'OA_Department', '-1', '3', null, '0', '0', '0', null, null, '0', null, null, null, null, null, '0', '1');
-INSERT INTO `oa_department_h` VALUES ('14891', '14891', null, '1', '0', '1', '1', '0', '14883', '32', '33', '01020308', '总务处', '21', '2016-08-09 11:50:16', '21277', '2016-09-19 13:55:28', null, 'OA_Department', '-1', '3', null, '0', '0', '0', null, null, '0', null, null, null, null, null, '0', '1');
-INSERT INTO `oa_department_h` VALUES ('66612', '66612', null, '1', '0', '1', '1', '0', '14871', '2', '3', '0103', '总部', '21277', '2016-09-23 14:19:49', '21277', '2016-09-23 14:19:56', null, 'OA_Department', '-1', '2', null, '0', null, null, null, null, null, null, null, null, null, null, '0', '1');
-INSERT INTO `oa_department_h` VALUES ('97085', '97085', null, '1', '0', '1', '1', '0', '14871', '4', '5', '000001', '分公司', '21277', '2016-10-28 18:13:52', '21277', '2016-10-28 18:14:04', null, 'OA_Department', '-1', '2', null, '0', null, null, null, null, null, null, null, null, null, null, '0', '1');
+INSERT INTO `oa_department_h` VALUES ('14871', '14871', null, '2', '0', '1', '1', '1', '0', '1', '6', '01', '集团', '21', '2016-08-09 11:35:27', '21277', '2016-09-19 13:52:47', null, 'OA_Department', '-1', '1', null, '0', '0', '0', null, null, '0', null, null, null, null, null, '0', '1', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_department_h` VALUES ('14873', '14873', null, '3', '0', '1', '1', '1', '0', '7', '16', '0101', '公司A', '21', '2016-08-09 11:38:06', '21277', '2016-09-19 13:53:14', null, 'OA_Department', '-1', '2', null, '0', '0', '0', null, null, '0', null, null, null, null, null, '0', '1', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_department_h` VALUES ('14875', '14875', null, '1', '0', '1', '1', '1', '14873', '8', '9', '010102', '子公司A', '21', '2016-08-09 11:39:54', '21277', '2016-09-19 13:53:50', null, 'OA_Department', '-1', '2', null, '0', '0', '0', null, null, '0', null, null, null, null, null, '0', '1', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_department_h` VALUES ('14877', '14877', null, '1', '0', '1', '1', '1', '14873', '10', '11', '010104', '子公司B', '21', '2016-08-09 11:40:58', '21277', '2016-09-19 13:54:05', null, 'OA_Department', '-1', '2', null, '0', '0', '0', null, null, '0', null, null, null, null, null, '0', '1', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_department_h` VALUES ('14878', '14878', null, '1', '0', '1', '1', '1', '14873', '12', '13', '010105', '子公司C', '21', '2016-08-09 11:41:31', '21277', '2016-09-19 13:54:22', null, 'OA_Department', '-1', '2', null, '0', '0', '0', null, null, '0', null, null, null, null, null, '0', '1', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_department_h` VALUES ('14879', '14879', null, '2', '0', '1', '1', '1', '14873', '14', '15', '010106', '子公司D', '21', '2016-08-09 11:42:30', '21277', '2016-09-19 13:54:35', null, 'OA_Department', '-1', '2', null, '0', '0', '0', null, null, '0', null, null, null, null, null, '0', '1', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_department_h` VALUES ('14883', '14883', null, '2', '0', '1', '1', '1', '0', '17', '34', '010203', '公司B', '21', '2016-08-09 11:45:49', '21277', '2016-09-19 13:53:28', null, 'OA_Department', '-1', '2', null, '0', '0', '0', null, null, '0', null, null, null, null, null, '0', '1', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_department_h` VALUES ('14884', '14884', null, '2', '0', '1', '1', '0', '14883', '18', '19', '01020301', '办公室', '21', '2016-08-09 11:46:35', '21', '2016-08-09 12:01:11', null, 'OA_Department', '-1', '3', null, '0', '0', '0', null, null, '0', null, null, null, null, null, '0', '1', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_department_h` VALUES ('14885', '14885', null, '1', '0', '1', '1', '0', '14883', '20', '21', '01020302', '财务处', '21', '2016-08-09 11:47:30', '21', '2016-08-09 11:47:38', null, 'OA_Department', '-1', '3', null, '0', '0', '0', null, null, '0', null, null, null, null, null, '0', '1', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_department_h` VALUES ('14886', '14886', null, '9', '0', '1', '1', '0', '14883', '22', '23', '01020303', '网络部', '21', '2016-08-09 11:48:03', '21', '2016-08-09 12:20:35', null, 'OA_Department', '-1', '3', null, '0', '0', '0', null, null, '0', null, null, null, null, null, '0', '1', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_department_h` VALUES ('14887', '14887', null, '1', '0', '1', '1', '0', '14883', '24', '25', '01020304', '运营部', '21', '2016-08-09 11:48:27', '21277', '2016-09-19 13:56:37', null, 'OA_Department', '-1', '3', null, '0', '0', '0', null, null, '0', null, null, null, null, null, '0', '1', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_department_h` VALUES ('14888', '14888', null, '1', '0', '1', '1', '0', '14883', '26', '27', '01020305', '工程部', '21', '2016-08-09 11:49:00', '21277', '2016-09-19 13:55:41', null, 'OA_Department', '-1', '3', null, '0', '0', '0', null, null, '0', null, null, null, null, null, '0', '1', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_department_h` VALUES ('14889', '14889', null, '2', '0', '1', '1', '0', '14883', '28', '29', '01020306', '保安部', '21', '2016-08-09 11:49:25', '21277', '2016-09-19 13:57:32', null, 'OA_Department', '-1', '3', null, '0', '0', '0', null, null, '0', null, null, null, null, null, '0', '1', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_department_h` VALUES ('14890', '14890', null, '1', '0', '1', '1', '0', '14883', '30', '31', '01020307', '人事处', '21', '2016-08-09 11:49:51', '21277', '2016-09-19 13:55:10', null, 'OA_Department', '-1', '3', null, '0', '0', '0', null, null, '0', null, null, null, null, null, '0', '1', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_department_h` VALUES ('14891', '14891', null, '1', '0', '1', '1', '0', '14883', '32', '33', '01020308', '总务处', '21', '2016-08-09 11:50:16', '21277', '2016-09-19 13:55:28', null, 'OA_Department', '-1', '3', null, '0', '0', '0', null, null, '0', null, null, null, null, null, '0', '1', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_department_h` VALUES ('66612', '66612', null, '1', '0', '1', '1', '0', '14871', '2', '3', '0103', '总部', '21277', '2016-09-23 14:19:49', '21277', '2016-09-23 14:19:56', null, 'OA_Department', '-1', '2', null, '0', null, null, null, null, null, null, null, null, null, null, '0', '1', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_department_h` VALUES ('97085', '97085', null, '1', '0', '1', '1', '0', '14871', '4', '5', '000001', '分公司', '21277', '2016-10-28 18:13:52', '21277', '2016-10-28 18:14:04', null, 'OA_Department', '-1', '2', null, '0', null, null, null, null, null, null, null, null, null, null, '0', '1', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
 
 -- ----------------------------
 -- Table structure for oa_department_h_or
@@ -13770,6 +14725,20 @@ INSERT INTO `oa_emailinbox_h` VALUES ('157469', '157469', null, '0', '0', 'oa_te
 INSERT INTO `oa_emailinbox_h` VALUES ('157714', '157714', null, '0', '0', '网易棋牌<crazy3@service.netease.com>', 'oa_test_info@163.com<oa_test_info@163.com>', '', '送您的20000金币已到账，速领兑大礼！', '20', '20', 'oa_test_info@163.com', 'Data\\OA_EmailInbox\\157714\\Content.htm', '20', '<style type=\"text/css\">\r\nbody{width: 100%; background-color: #ededed; margin:0; padding:0; -webkit-font-smoothing: antialiased;}\r\ntable{border-collapse: collapse;} \r\n@media only screen and (max-width: 360px) {\r\nbody[yahoo] .deviceWidth {width:320px!important; }\r\n}\r\n</style><table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" width=\"100%\" align=\"center\" style=\"text-align: center; table-layout: fixed\" bgcolor=\"#ededed\">  <tbody><tr>    <td><table class=\"deviceWidth\" width=\"600\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" align=\"center\" style=\"table-layout:fixed\">        <tbody><tr>          <td width=\"100%\" align=\"right\" style=\"font-size: 12px;color:#666;\" height=\"40\">如果邮件无法正常显示，请点击<a href=\"http://stat.nm.netease.com/c?D=20537462N84940&V=1680331471&Redirect=http://game.cp.163.com/exchangeShow.html?from=tgnzjhcpzy2\" target=\"_blank\" style=\"text-decoration: none;color:#3E79B0\">这里</a></td>        </tr>        <tr>          <td width=\"100%\" align=\"center\" valign=\"top\" style=\"padding: 0;\"><a href=\"http://stat.nm.netease.com/c?D=20537462N84940&V=1680331471&Redirect=http://game.cp.163.com/exchangeShow.html?from=tgnzjhcpzy2\" style=\"display: block\" target=\"_blank\"><img class=\"deviceWidth\" src=\"http://pimg1.126.net/baoxian/images/upload/mail/201612/20161229205312_mb.jpg\" width=\"600\" border=\"0\" alt=\"\" /></a></td>        </tr>        </tbody></table></td></tr>              </tbody><img src=\"http://stat.nm.netease.com/r?D=20537462N84940\" width=\"1\" height=\"1\"/></table>            <br />', 'EI20170109000001', '2017-01-09 09:57:02', '100', '<20537462N84940>', '2017-01-08 08:24:37', '20', '21277', '0', null, null, null);
 INSERT INTO `oa_emailinbox_h` VALUES ('158233', '158233', null, '0', '0', 'oa_test_info@163.com<oa_test_info@163.com>', 'oa_test_info@163.com<oa_test_info@163.com>', '', 'ssh -v -nNT -R 20232:1.1.8.40:8089 \\      sshdisp@dev.bokesoft.com -p 20299 -o ControlPath=/tmp/ssh_reverse_tunnel_20232', '20', '20', 'oa_test_info@163.com', 'Data\\OA_EmailInbox\\158233\\Content.htm', '20', '<p>ssh -v -nNT -R 20232:1.1.8.40:8089 \\\r\n<br>     sshdisp@dev.bokesoft.com -p 20299 -o ControlPath=/tmp/ssh_reverse_tunnel_20232ssh -v -nNT -R 20232:1.1.8.40:8089 \\<br></p><br>     sshdisp@dev.bokesoft.com -p 20299 -o ControlPath=/tmp/ssh_reverse_tunnel_20232', 'EI20170109000002', '2017-01-09 11:27:09', '100', '<23793009.1.1483932058455.JavaMail.xiaoyun@Alex-PC>', '2017-01-09 11:20:39', '20', '21277', '0', null, null, null);
 INSERT INTO `oa_emailinbox_h` VALUES ('162580', '162580', null, '0', '0', '立马理财<lmlc@service.netease.com>', 'oa_test_info@163.com<oa_test_info@163.com>', '', '恭喜！您已获得网易出品的银行级安全高收益理财特权，请及时领取！', '20', '20', 'oa_test_info@163.com', 'Data\\OA_EmailInbox\\162580\\Content.htm', '10', '<div style=\"display:none;\">感谢您关注网易立马理财，新用户专享1个月6.2%高收益产品，银行级安全让您赚钱更安心！</div><p style=\"width: 527px; margin: 15px auto 0;text-align: right;font-size: 12px;color: #cdcdcf;line-height: 1.2;\">如果邮件无法正常显示，请点击<a href=\"http://stat.nm.netease.com/c?D=20652319N32092&V=1926007691&Redirect=https://pop.lmlc.com/web/activity/practiceGold/index.html?from=tgndszy-model-1\" style=\"color: #2770cb;\">这里</a></p><p style=\"position: relative;width: 527px; margin: 0 auto;\"><img src=\"https://www.lmlc.com/cdn/product/1482999152852.png\" alt=\"\" /><a href=\"http://stat.nm.netease.com/c?D=20652319N32092&V=3063587185&Redirect=https://www.lmlc.com/activity/feedback/index.html\" style=\"position: absolute; right: 5px;bottom: 0;font-size: 12px;color: #2770cb;\">我要投诉</a></p><p style=\"width: 527px; margin: 0 auto;\"><a href=\"http://stat.nm.netease.com/c?D=20652319N32092&V=1926007691&Redirect=https://pop.lmlc.com/web/activity/practiceGold/index.html?from=tgndszy-model-1\"><img src=\"https://www.lmlc.com/cdn/product/1483001302945.jpg\" alt=\"\" style=\"margin-top: 19px;\" /></a></p><p style=\"width: 527px; margin: 15px auto 0;text-align: center;font-size: 12px;color: #cdcdcf;line-height: 1.2;\">如您不想在收到立马理财的推荐邮件，请点击这里<a href=\"http://stat.nm.netease.com/c?D=20652319N32092&V=1441272168&Redirect=http://mail.163.com/html/130319_subscribe/succ.htm\" style=\"color: #2770cb;\">退订</a><img src=\"http://stat.nm.netease.com/r?D=20652319N32092\" width=\"1\" height=\"1\"/></p>  ', 'EI20170113000001', '2017-01-13 10:57:02', '100', '<20652319N32092>', '2017-01-13 07:10:46', '20', '21277', '0', null, null, null);
+INSERT INTO `oa_emailinbox_h` VALUES ('213523', '213523', null, '0', '0', 'oa_test_info@163.com<oa_test_info@163.com>', 'oa_test_info@163.com<oa_test_info@163.com>', '', '测试20170113', '20', '20', 'oa_test_info@163.com', 'Data\\OA_EmailInbox\\213523\\Content.htm', '20', '<p>测试20170113测试20170113测试20170113测试20170113测试20170113测试20170113<br></p>', 'EI20170801000001', '2017-08-01 19:27:02', '100', '<27455642.1.1484278995171.JavaMail.xiaoyun@Alex-PC>', '2017-01-13 11:42:43', '0', '21277', '0', null, null, null);
+INSERT INTO `oa_emailinbox_h` VALUES ('213525', '213525', null, '0', '0', 'oa_test_info@163.com<oa_test_info@163.com>', 'oa_test_info@163.com<oa_test_info@163.com>', '', '测试邮件状态', '20', '20', 'oa_test_info@163.com', 'Data\\OA_EmailInbox\\213525\\Content.htm', '20', '<p>测试邮件状态测试邮件状态测试邮件状态测试邮件状态测试邮件状态<br></p>', 'EI20170801000002', '2017-08-01 19:27:02', '100', '<12905757.1.1484530664682.JavaMail.xiaoyun@Alex-PC>', '2017-01-16 09:37:46', '0', '21277', '0', null, null, null);
+INSERT INTO `oa_emailinbox_h` VALUES ('213529', '213529', null, '0', '0', 'oa_test_info@163.com<oa_test_info@163.com>', 'oa_test_info@163.com<oa_test_info@163.com>', '', '测试20170123', '20', '20', 'oa_test_info@163.com', 'Data\\OA_EmailInbox\\213529\\Content.htm', '20', '<p>测试20170123测试20170123测试20170123测试20170123测试20170123测试20170123测试20170123测试20170123测试20170123<br></p>', 'EI20170801000003', '2017-08-01 19:27:03', '100', '<5356367.1.1485154763693.JavaMail.xiaoyun@Alex-PC>', '2017-01-23 14:59:24', '0', '21277', '0', null, null, null);
+INSERT INTO `oa_emailinbox_h` VALUES ('213534', '213534', null, '0', '0', 'oa_test_info@163.com<oa_test_info@163.com>', 'oa_test_info@163.com<oa_test_info@163.com>', '', '测试20170223', '20', '20', 'oa_test_info@163.com', 'Data\\OA_EmailInbox\\213534\\Content.htm', '20', '<p>测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223测试20170223<br></p>', 'EI20170801000004', '2017-08-01 19:27:03', '100', '<723723.1.1487814713513.JavaMail.xiaoyun@Alex-PC>', '2017-02-23 09:51:52', '0', '21277', '0', null, null, null);
+INSERT INTO `oa_emailinbox_h` VALUES ('213538', '213538', null, '0', '0', '疯狂炸金花<ddz@service.netease.com>', 'oa_test_info@163.com<oa_test_info@163.com>', '', '恭喜，送您的20000.0金币已到账，速领可提现！', '20', '20', 'oa_test_info@163.com', 'Data\\OA_EmailInbox\\213538\\Content.htm', '20', '<div style=\"display: none;\">点击领取金币红包，速领可提现哦！</div> <div style=\"text-align:center;\"> <div style=\"width: 406px; margin: 0px auto; text-align: left; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;\"> <table width=\"406\" height=\"545\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" align=\"center\" style=\"background-color: rgb(255, 255, 255); font-size: 0px; line-height: 0;\"> <tbody><tr> <td align=\"center\" valign=\"top\" width=\"0\" height=\"0\" style=\"font-size:0; line-height:0; padding:0; \">&nbsp;</td> <td align=\"center\" valign=\"top\" width=\"406\" height=\"0\" style=\"font-size:0; line-height:0; padding:0; \">&nbsp;</td> </tr> <tr> <td align=\"center\" valign=\"top\" width=\"0\" height=\"545\" style=\"font-size:0; line-height:0; padding:0; \">&nbsp;</td> <td align=\"center\" valign=\"top\" width=\"406\" height=\"545\" style=\"font-size:0; line-height:0; padding:0; \"><a href=\"http://stat.nm.netease.com/c?D=21604816N53634&V=552649269&Redirect=http://game.cp.163.com/zjh_download.html?from=tgnzjhcpzy\" target=\"_blank\" style=\"font-size:0; line-height:0; padding:0;\"> <img src=\"https://pimg1.126.net/silver/product/fams/banner/72418e35-2a5e-48d1-b21b-1e9993162b9e.png\" width=\"406\" height=\"545\" border=\"0\" style=\"display:block; zoom:1;\" alt=\"\" /> </a></td> </tr> </tbody></table><span style=\"font-family:Microsoft YaHei;font-size:10px;\"><span style=\"color: rgb(192, 192, 192); background-color: rgb(255, 255, 255);\">&nbsp;&nbsp;</span><span style=\"color:#666666;background-color: rgb(255, 255, 255);\">如果您不想再收到该产品的推荐邮件，请点击&nbsp;<a href=\"http://stat.nm.netease.com/c?D=21604816N53634&V=1615471197&Redirect=https://game.cp.163.com/nfop/tgnyxtd/index.htm\" target=\"_blank\" yahei=\"\" style=\"text-align: right;\">退订</a>&nbsp;<span yahei=\"\" style=\"text-align: right;\">或&nbsp;</span><a href=\"http://stat.nm.netease.com/c?D=21604816N53634&V=1615471197&Redirect=https://game.cp.163.com/nfop/tgnyxts/index.htm\" target=\"_blank\" yahei=\"\" style=\"text-align: right;\">投诉</a>&nbsp;。</span></span><br /> </div> <img src=\"http://stat.nm.netease.com/r?D=21604816N53634\" width=\"1\" height=\"1\"/></div> ', 'EI20170801000005', '2017-08-01 19:27:03', '100', '<21604816N53634>', '2017-02-26 10:47:56', '0', '21277', '0', null, null, null);
+INSERT INTO `oa_emailinbox_h` VALUES ('213540', '213540', null, '0', '0', 'oa_test_info@163.com<oa_test_info@163.com>', 'oa_test_info@163.com<oa_test_info@163.com>', '', '测试邮件20170228', '20', '20', 'oa_test_info@163.com', 'Data\\OA_EmailInbox\\213540\\Content.htm', '20', '<p>测试邮件20170228测试邮件20170228测试邮件20170228测试邮件20170228测试邮件20170228<br></p>', 'EI20170801000006', '2017-08-01 19:27:04', '100', '<21433606.1.1488260754553.JavaMail.xiaoyun@Alex-PC>', '2017-02-28 13:45:46', '0', '21277', '0', null, null, null);
+INSERT INTO `oa_emailinbox_h` VALUES ('213543', '213543', null, '0', '0', 'oa_test_info@163.com<oa_test_info@163.com>', 'oa_test_info@163.com<oa_test_info@163.com>', 'minjian_1@qq.com<minjian_1@qq.com>', '测试邮件功能', '20', '20', 'oa_test_info@163.com', 'Data\\OA_EmailInbox\\213543\\Content.htm', '20', '<p>测试邮件功能<br></p>', 'EI20170801000007', '2017-08-01 19:27:05', '100', '<25815461.1.1488423136890.JavaMail.minjian@minjian3>', '2017-03-02 10:52:03', '0', '21277', '0', null, null, null);
+INSERT INTO `oa_emailinbox_h` VALUES ('213545', '213545', null, '0', '0', 'oa_test_info@163.com<oa_test_info@163.com>', 'oa_test_info@163.com<oa_test_info@163.com>', '', '测试是测试', '20', '20', 'oa_test_info@163.com', 'Data\\OA_EmailInbox\\213545\\Content.htm', '20', '<p>测试是测试测试是测试测试是测试测试是测试<br></p>', 'EI20170801000008', '2017-08-01 19:27:07', '100', '<8873727.1.1488436655292.JavaMail.xiaoyun@Alex-PC>', '2017-03-02 14:37:25', '0', '21277', '0', null, null, null);
+INSERT INTO `oa_emailinbox_h` VALUES ('213548', '213548', null, '0', '0', '网易保险<baoxian@service.netease.com>', 'oa_test_info@163.com<oa_test_info@163.com>', '', '【邀请函】oa_test_info', '20', '20', 'oa_test_info@163.com', 'Data\\OA_EmailInbox\\213548\\Content.htm', '20', '<div style=\"text-align:center;\">&nbsp;&nbsp;<div style=\"width:650px; margin:0 auto; text-align:left; background:#fff;\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<table width=\"650\" height=\"700\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" align=\"center\" style=\"font-size:0; line-height:0;\"><tbody><tr><td align=\"center\" valign=\"top\" width=\"0\" height=\"0\" style=\"font-size:0; line-height:0; padding:0; \">&nbsp;</td><td align=\"center\" valign=\"top\" width=\"650\" height=\"0\" style=\"font-size:0; line-height:0; padding:0; \">&nbsp;</td></tr><tr><td align=\"center\" valign=\"top\" width=\"0\" height=\"700\" style=\"font-size:0; line-height:0; padding:0; \">&nbsp;</td><td align=\"center\" valign=\"top\" width=\"650\" height=\"700\" style=\"font-size:0; line-height:0; padding:0; \"><a href=\"http://stat.nm.netease.com/c?D=21737639N53634&V=1940815806&Redirect=https://baoxian.163.com/zengxian/only/index.html?actiId=2017020917act223457909&amp;remark=zxcs2\" target=\"_blank\" style=\"font-size:0; line-height:0; padding:0;\"> <img src=\"http://pimg1.126.net/baoxian/images/upload/mail/201702/20170223193335_taikang_mail_50W.gif\" width=\"650\" height=\"700\" border=\"0\" style=\"display:block; zoom:1;\" alt=\"\" /> </a><p style=\"text-align:right;line-height:20px;font-size:12px;color:#717172;padding:11px 0 10px 0;margin:0; width: 650px\">不希望再接受此类邮件？ <a href=\"http://stat.nm.netease.com/c?D=21737639N53634&V=619056266&Redirect=http://baoxian.163.com/car/unsubscribeView.html\" style=\"color:#1e50a2;\">立即退订</a> </p></td></tr></tbody></table>&nbsp;&nbsp;</div>&nbsp;<img src=\"http://stat.nm.netease.com/r?D=21737639N53634\" width=\"1\" height=\"1\"/></div>&nbsp;', 'EI20170801000009', '2017-08-01 19:27:07', '100', '<21737639N53634>', '2017-03-04 06:50:40', '0', '21277', '0', null, null, null);
+INSERT INTO `oa_emailinbox_h` VALUES ('213550', '213550', null, '0', '0', '人人中彩票<info@corp.rrzcp8.com>', 'oa_test_info@163.com<oa_test_info@163.com>', '', '【彩票】恭喜，您获得88元彩票红包，请立即查收>>', '20', '20', 'oa_test_info@163.com', 'Data\\OA_EmailInbox\\213550\\Content.htm', '20', '<div style=\"display: none;\">手机也能买彩票，不要让500万擦身而过！</div><div style=\"text-align:center;\"> <div style=\"width:600px; margin:0 auto; text-align:left; background:#fff;\"> <div style=\"width:600px; height:40px; line-height:40px; margin: 0 auto; text-align:right; font-size:12px; color:#666;\">如果邮件无法正常显示，请点击<a href=\"http://srv.rrzcp8.com/mail/c?D=21953074N16786&V=2300220129&Redirect=http://m3.rrzcp8.com/activity/adapt/index.html?activityId=tgnmail1\" target=\"_blank\" style=\"text-decoration:none; color:#3E79B0;\">这里</a> </div> <div style=\"width:600px; height:40px; line-height:40px; margin: 0 auto; text-align:right; font-size:12px; color:#666;\"> <a href=\"http://srv.rrzcp8.com/mail/c?D=21953074N16786&V=2300220129&Redirect=http://m3.rrzcp8.com/activity/adapt/index.html?activityId=mail20170314\" target=\"_blank\" style=\"text-decoration:none; color:#3E79B0;\">我要投诉</a> </div> <table width=\"600\" height=\"700\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" align=\"center\" style=\"font-size:0; line-height:0;\"> <tbody><tr> <td align=\"center\" valign=\"top\" width=\"0\" height=\"0\" style=\"font-size:0; line-height:0; padding:0; \">&nbsp;</td> <td align=\"center\" valign=\"top\" width=\"600\" height=\"0\" style=\"font-size:0; line-height:0; padding:0; \">&nbsp;</td> </tr> <tr> <td align=\"center\" valign=\"top\" width=\"0\" height=\"700\" style=\"font-size:0; line-height:0; padding:0; \">&nbsp;</td> <td align=\"center\" valign=\"top\" width=\"600\" height=\"700\" style=\"font-size:0; line-height:0; padding:0; \"><a href=\"http://srv.rrzcp8.com/mail/c?D=21953074N16786&V=2300220129&Redirect=http://m3.rrzcp8.com/activity/adapt/index.html?activityId=tgnmail1\" target=\"_blank\" style=\"font-size:0; line-height:0; padding:0;\"> <img src=\"http://pimg1.126.net/nfop/mail-maker/201703/jhvgq52hor3k57b9.jpeg\" width=\"600\" height=\"700\" border=\"0\" style=\"display:block; zoom:1;\" alt=\"\" /> </a></td> </tr> </tbody></table> </div> <img src=\"http://srv.rrzcp8.com/mail/r?D=21953074N16786\" width=\"1\" height=\"1\"/></div> ', 'EI20170801000010', '2017-08-01 19:27:07', '100', '<21953074N16786>', '2017-03-16 08:51:07', '0', '21277', '0', null, null, null);
+INSERT INTO `oa_emailinbox_h` VALUES ('213552', '213552', null, '0', '0', '网易<fa163@service.netease.com>', 'oa_test_info@163.com<oa_test_info@163.com>', '', '您的账户到账3000.00元交易金，请立即提取！', '20', '20', 'oa_test_info@163.com', 'Data\\OA_EmailInbox\\213552\\Content.htm', '20', '<div style=\"display: none;\">网易官方平台，免费领取，最高白赚300元。已有1629831人成功领取，快来感受10%的日最高收益率！</div> <div style=\"text-align:center;\"> <div style=\"width:800px; margin:0 auto; text-align:left; background:#fff;\"> <table width=\"800\" height=\"900\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" align=\"center\" style=\"font-size:0; line-height:0;\"> <tbody><tr> <td align=\"center\" valign=\"top\" width=\"0\" height=\"0\" style=\"font-size:0; line-height:0; padding:0; \">&nbsp;</td> <td align=\"center\" valign=\"top\" width=\"800\" height=\"0\" style=\"font-size:0; line-height:0; padding:0; \">&nbsp;</td> </tr> <tr> <td align=\"center\" valign=\"top\" width=\"0\" height=\"900\" style=\"font-size:0; line-height:0; padding:0; \">&nbsp;</td> <td align=\"center\" valign=\"top\" width=\"800\" height=\"900\" style=\"font-size:0; line-height:0; padding:0; \"><a href=\"http://stat.nm.netease.com/c?D=22245147N46960&V=2998987321&Redirect=http://fa.163.com/activity/pmecsimulate/sign.do?from=tgnmailnew01gg\" target=\"_blank\" style=\"font-size:0; line-height:0; padding:0;\"> <img src=\"http://pimg1.126.net/nfop/mail-maker/201703/ejfhyz182d7mygb9.png\" width=\"800\" height=\"900\" border=\"0\" style=\"display:block; zoom:1;\" alt=\"\" /> </a></td> </tr> </tbody></table><div style=\"text-align: right;\"></div> </div> <img src=\"http://stat.nm.netease.com/r?D=22245147N46960\" width=\"1\" height=\"1\"/></div> <div style=\" text-align:center; display: block; margin:0 auto; padding:5px 0; background:#ffffff; font-size:12px; line-height:22px; color:#666666;\" >如果希望退订此邮件，<a href=\"http://stat.nm.netease.com/t?p=fa&c=2017032920&s=2017033004&n=7&t=22245147&m=46960&v=2448012052&u=oa_test_info@163.com\" target=\"_blank\" style=\"color:#1a66b3; font-size:12px; text-decoration:underline;\">请点击此处</a></div>', 'EI20170801000011', '2017-08-01 19:27:07', '100', '<22245147N46960>', '2017-03-30 05:28:38', '0', '21277', '0', null, null, null);
+INSERT INTO `oa_emailinbox_h` VALUES ('213554', '213554', null, '0', '0', '欢乐炸金花<crazy3@service.netease.com>', 'oa_test_info@163.com<oa_test_info@163.com>', '', '恭喜 oa_test_info，送您的20000.0金币红包已到账，速领可提现！', '20', '20', 'oa_test_info@163.com', 'Data\\OA_EmailInbox\\213554\\Content.htm', '20', '<div style=\"display: none;\">点击领取金币红包，速领可提现哦！</div> <div style=\"text-align:center;\"> <div style=\"width: 406px; margin: 0px auto; text-align: left; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial;\"> <table width=\"406\" height=\"545\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" align=\"center\" style=\"background-color: rgb(255, 255, 255); font-size: 0px; line-height: 0;\"> <tbody><tr> <td align=\"center\" valign=\"top\" width=\"0\" height=\"0\" style=\"font-size:0; line-height:0; padding:0; \">&nbsp;</td> <td align=\"center\" valign=\"top\" width=\"406\" height=\"0\" style=\"font-size:0; line-height:0; padding:0; \">&nbsp;</td> </tr> <tr> <td align=\"center\" valign=\"top\" width=\"0\" height=\"545\" style=\"font-size:0; line-height:0; padding:0; \">&nbsp;</td> <td align=\"center\" valign=\"top\" width=\"406\" height=\"545\" style=\"font-size:0; line-height:0; padding:0; \"><a href=\"http://stat.nm.netease.com/c?D=22386136N41906&A=0MLA1cbU1cDKz8fQoZKXlI%2FE0M4%3D&V=1282949568&Redirect=http://game.cp.163.com/zjh_download.html?from=tgnzjhzy\" target=\"_blank\" style=\"font-size:0; line-height:0; padding:0;\"> <img src=\"https://pimg1.126.net/silver/product/fams/banner/72418e35-2a5e-48d1-b21b-1e9993162b9e.png\" width=\"406\" height=\"545\" border=\"0\" style=\"display:block; zoom:1;\" alt=\"\" /></a></td></tr></tbody></table> </div> <img src=\"http://stat.nm.netease.com/r?D=22386136N41906&A=0MLA1cbU1cDKz8fQoZKXlI%2FE0M4%3D\" width=\"1\" height=\"1\"/></div> <div style=\" text-align:center; display: block; margin:0 auto; padding:5px 0; background:#ffffff; font-size:12px; line-height:22px; color:#666666;\" >如果希望退订此邮件，<a href=\"http://stat.nm.netease.com/t?p=crazy3&c=2017040511&s=2017040511&n=7&t=22386136&m=41906&v=753374425&u=oa_test_info@163.com\" target=\"_blank\" style=\"color:#1a66b3; font-size:12px; text-decoration:underline;\">请点击此处</a></div>', 'EI20170801000012', '2017-08-01 19:27:08', '100', '<22386136N41906>', '2017-04-05 12:41:20', '0', '21277', '0', null, null, null);
+INSERT INTO `oa_emailinbox_h` VALUES ('213556', '213556', null, '0', '0', '网易考拉海购<kaola@service.netease.com>', 'oa_test_info@163.com<oa_test_info@163.com>', '', '恭喜您已获得海外进口UNO男士黑炭控油洗面奶9.9元/支，包邮领取>>', '20', '20', 'oa_test_info@163.com', 'Data\\OA_EmailInbox\\213556\\Content.htm', '20', '﻿<html xmlns=\"http://www.w3.org/1999/xhtml\"><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" /><title>uno</title><base target=\"_blank\" /></head><body><div style=\"margin:0;padding:0;text-align:center;\">  <table cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"margin:0 auto;\">    <tbody>        <tr>          <td style=\"position:relative;\">              <a style=\"display:block;\" href=\"http://count.mail.163.com/statistics/w8wsdq.do?product=edm_60543519&domain=email&uid=oa_test_info@163.com&area=1\"  target=\"_blank\"><img src=\"http://haitao.nos.netease.com/j1qdrrdh9_700_1155.jpg\" style=\"display:block;border:none;\"/></a>          </td>        </tr>    </tbody>  </table></div><IMG SRC=\"http://count.mail.163.com/beacon/edm.gif?no=60543519&domain=email&date=20170425&uid=oa_test_info@163.com\" style=\"display:none\"></body></html><div class=\"dm-unsub-div\"><div style=\"text-align:center;padding-top:15px;font-size:10px;color:#777\">如果你不想再收到该产品的推荐邮件，请点击 <a style=\"font-size:10px\" href=\"http://dm.mail.163.com/anonymous/adsubscribe/unsubscribe?depId=3&proId=103001&mitId=60543519&sec=iYmkba34LX3X5XCxNKVWTjaqctEFaW4E\" hidefocus=\"true\">这里退订</a></div></div>', 'EI20170801000013', '2017-08-01 19:27:08', '100', '<1767175587.1735076981493115764880.JavaMail.coremail@dm-m199-130.hd163.internal>', '2017-04-25 18:22:44', '0', '21277', '0', null, null, null);
+INSERT INTO `oa_emailinbox_h` VALUES ('213558', '213558', null, '0', '0', '网易保险<baoxian@service.netease.com>', 'oa_test_info@163.com<oa_test_info@163.com>', '', 'oa_test_info，2017年综合意外险已到账，点击查收！', '20', '20', 'oa_test_info@163.com', 'Data\\OA_EmailInbox\\213558\\Content.htm', '20', '<div style=\"text-align:center;\">&nbsp;&nbsp;<div style=\"width:650px; margin:0 auto; text-align:left; background:#fff;\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<table width=\"650\" height=\"700\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" align=\"center\" style=\"font-size:0; line-height:0;\"><tbody><tr><td align=\"center\" valign=\"top\" width=\"0\" height=\"0\" style=\"font-size:0; line-height:0; padding:0; \">&nbsp;</td><td align=\"center\" valign=\"top\" width=\"650\" height=\"0\" style=\"font-size:0; line-height:0; padding:0; \">&nbsp;</td></tr><tr><td align=\"center\" valign=\"top\" width=\"0\" height=\"700\" style=\"font-size:0; line-height:0; padding:0; \">&nbsp;</td><td align=\"center\" valign=\"top\" width=\"650\" height=\"700\" style=\"font-size:0; line-height:0; padding:0; \"><a href=\"http://stat.nm.netease.com/c?D=22813318N41466&A=0MLA1cbU1cDKz8fQoZKXlI%2FE0M4%3D&V=3993405878&Redirect=http://baoxian.163.com/zengxian/only/index.html?actiId=2017020917act223457909&amp;remark=zxcs2&amp;email=oa_test_info@163.com\" target=\"_blank\" style=\"font-size:0; line-height:0; padding:0;\"> <img src=\"http://pimg1.126.net/baoxian/images/upload/mail/201703/20170315181556_mail-50W-0315.gif\" width=\"650\" height=\"700\" border=\"0\" style=\"display:block; zoom:1;\" alt=\"\"> </a><p style=\"text-align:right;line-height:20px;font-size:12px;color:#717172;padding:11px 0 10px 0;margin:0; width: 650px\"></p></td></tr></tbody></table>&nbsp;&nbsp;</div>&nbsp;<img src=\"http://stat.nm.netease.com/r?D=22813318N41466&A=0MLA1cbU1cDKz8fQoZKXlI%2FE0M4%3D\" width=\"1\" height=\"1\"/></div>&nbsp;<div style=\" text-align:center; display: block; margin:0 auto; padding:5px 0; background:#ffffff; font-size:12px; line-height:22px; color:#666666;\" >如果希望退订此邮件，<a href=\"http://stat.nm.netease.com/t?p=baoxian&c=2017042620&s=2017042707&n=7&t=22813318&m=41466&v=2922727837&u=oa_test_info@163.com\" target=\"_blank\" style=\"color:#1a66b3; font-size:12px; text-decoration:underline;\">请点击此处</a></div>', 'EI20170801000014', '2017-08-01 19:27:08', '100', '<22813318N41466>', '2017-04-27 08:36:31', '0', '21277', '0', null, null, null);
 
 -- ----------------------------
 -- Table structure for oa_emailset_h
@@ -13811,7 +14780,7 @@ CREATE TABLE `oa_emailset_h` (
 -- ----------------------------
 -- Records of oa_emailset_h
 -- ----------------------------
-INSERT INTO `oa_emailset_h` VALUES ('42516', '42516', null, '2', '0', 'ES20160920000001', '2016-09-20 12:00:03', '100', 'pop3.163.com', 'smtp.163.com', '110', '25', 'oa_test_info@163.com', '123123qaz', 'oa_test_info@163.com', '21277', '1', null, '21277', '2016-09-20 12:00:03', '21277', '2016-11-24 16:15:54', 'OA_EmailSet', '-1', null, '0', '1', '10');
+INSERT INTO `oa_emailset_h` VALUES ('42516', '42516', null, '2', '0', 'ES20160920000001', '2016-09-20 12:00:03', '100', 'pop3.163.com', 'smtp.163.com', '110', '25', 'oa_test_info@163.com', '123123qaz', 'oa_test_info@163.com', '21277', '1', null, '21277', '2016-09-20 12:00:03', '21277', '2016-11-24 16:15:54', 'OA_EmailSet', '-1', null, '0', '1', '1');
 
 -- ----------------------------
 -- Table structure for oa_employeesource_d
@@ -14013,6 +14982,45 @@ CREATE TABLE `oa_employee_h` (
   `E_Signature` varchar(255) default NULL,
   `SMobile` varchar(255) default NULL,
   `Email` varchar(255) default NULL,
+  `User_HRID` varchar(255) default NULL,
+  `User_Name` varchar(255) default NULL,
+  `User_Group_ID` varchar(255) default NULL,
+  `Group_Name` varchar(255) default NULL,
+  `Lastupddttm` datetime default NULL,
+  `Effdt` datetime default NULL,
+  `Job_Effdt` datetime default NULL,
+  `Job_LastUpdate` datetime default NULL,
+  `EstabID` varchar(255) default NULL,
+  `Estab_Name` varchar(255) default NULL,
+  `GradeID` varchar(255) default NULL,
+  `Position_Descr` varchar(255) default NULL,
+  `Position_Descr_Eng` varchar(255) default NULL,
+  `Country` varchar(255) default NULL,
+  `Ghxx` varchar(255) default NULL,
+  `XlatlongName` varchar(255) default NULL,
+  `Position_Desc` varchar(255) default NULL,
+  `Position_Desc_Eng` varchar(255) default NULL,
+  `Location` varchar(255) default NULL,
+  `Location_Descr` varchar(255) default NULL,
+  `Bank_Name` varchar(255) default NULL,
+  `Account_Name` varchar(255) default NULL,
+  `Termination_dt` datetime default NULL,
+  `User_Sort` varchar(255) default NULL,
+  `HIRE_DT` datetime default NULL,
+  `User_AccessionState` varchar(255) default NULL,
+  `Grade` varchar(255) default NULL,
+  `Job_Indicator` varchar(255) default NULL,
+  `User_shiyong_Flag` varchar(255) default NULL,
+  `Company` varchar(255) default NULL,
+  `Company_Descr` varchar(255) default NULL,
+  `Account_EC_ID` varchar(255) default NULL,
+  `CC_Name_Approve` varchar(255) default NULL,
+  `CC_Code_Approve` varchar(255) default NULL,
+  `BU` varchar(255) default NULL,
+  `Operation_Name` varchar(255) default NULL,
+  `Operation_ID` varchar(255) default NULL,
+  `ADAccount` varchar(255) default NULL,
+  `DisplayName` varchar(255) default NULL,
   PRIMARY KEY  (`OID`),
   KEY `I_OA_Employee_H_SOID` (`SOID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -14020,33 +15028,33 @@ CREATE TABLE `oa_employee_h` (
 -- ----------------------------
 -- Records of oa_employee_h
 -- ----------------------------
-INSERT INTO `oa_employee_h` VALUES ('15150', '15150', null, '21', '0', '1', '1', '0', '0', '1', '2', '001', '张展旭', '21', '2016-08-09 13:16:11', '21277', '2016-11-11 13:55:09', null, 'OA_Employee', '-1', null, null, '111111111111111111', '1', null, null, null, null, null, null, null, null, '', null, null, null, '0', '14884', 'OA_Employee\\15150\\Photo.png', '0', '1', 'OA_Employee\\15150\\E_Signature.png', null, 'minjian_1@qq.com');
-INSERT INTO `oa_employee_h` VALUES ('16945', '16945', null, '14', '0', '1', '1', '0', '0', '3', '4', '002', '张建烁', '15154', '2016-08-29 14:07:24', '21277', '2016-10-10 10:22:44', null, 'OA_Employee', '-1', null, null, null, '1', null, '', null, null, null, '', null, null, null, null, '', null, '0', '14884', 'OA_Employee\\16945\\Photo.png', '0', '1', 'OA_Employee\\16945\\E_Signature.png', null, null);
-INSERT INTO `oa_employee_h` VALUES ('17686', '17686', null, '13', '0', '1', '1', '0', '0', '5', '6', '003', '张诗晴', '15154', '2016-08-29 14:48:36', '21277', '2016-10-10 10:22:58', null, 'OA_Employee', '-1', null, null, null, '2', null, null, null, null, null, null, null, null, null, null, null, null, '0', '14884', 'OA_Employee\\17686\\Photo.png', '0', '1', null, null, null);
-INSERT INTO `oa_employee_h` VALUES ('21269', '21269', null, '11', '0', '1', '1', '0', '0', '7', '8', 'test', '测试', '21', '2016-09-09 13:42:31', '21277', '2016-11-02 12:37:02', null, 'OA_Employee', '-1', null, null, null, '1', null, null, null, null, null, null, null, null, 'oa_test_info@163.com', null, null, null, '0', '14886', 'OA_Employee\\21269\\Photo.png', '0', '1', 'OA_Employee\\21269\\E_Signature.png', null, 'oa_test_info@163.com');
-INSERT INTO `oa_employee_h` VALUES ('21274', '21274', null, '10', '0', '1', '1', '0', '0', '9', '10', 'dev', '开发', '21', '2016-09-09 13:43:27', '21277', '2016-11-02 12:36:17', null, 'OA_Employee', '-1', null, null, null, '1', null, null, '13564900113', null, null, null, null, null, 'minjian_1@qq.com', null, null, null, '0', '14886', 'OA_Employee\\21274\\Photo.png', '0', '1', 'OA_Employee\\21274\\E_Signature.png', null, 'minjian_1@qq.com');
-INSERT INTO `oa_employee_h` VALUES ('23831', '23831', null, '6', '0', '1', '1', '0', '0', '11', '12', '004', '李彦龙', '21277', '2016-09-11 19:11:57', '21277', '2016-09-23 11:52:50', null, 'OA_Employee', '-1', null, null, null, '1', null, null, null, null, null, null, null, null, null, null, null, null, '0', '14885', null, '0', '1', null, null, null);
-INSERT INTO `oa_employee_h` VALUES ('39187', '39187', null, '7', '0', '1', '1', '0', '0', '13', '14', '005', '李铁刚', '21', '2016-09-19 17:12:02', '21277', '2016-09-23 12:06:28', null, 'OA_Employee', '-1', null, null, null, '1', null, null, null, null, null, null, null, null, null, null, null, null, '0', '14885', null, '0', '1', null, null, null);
-INSERT INTO `oa_employee_h` VALUES ('64275', '64275', null, '6', '0', '1', '1', '0', '0', '15', '16', '006', '李国艳', '21277', '2016-09-23 11:35:09', '21277', '2016-09-23 12:06:34', null, 'OA_Employee', '-1', null, null, null, '2', null, null, null, null, null, null, null, null, null, null, null, null, '0', '14885', null, '0', '1', null, null, null);
-INSERT INTO `oa_employee_h` VALUES ('64277', '64277', null, '7', '0', '1', '1', '0', '0', '17', '18', '007', '王天佑', '21277', '2016-09-23 11:35:45', '21277', '2016-12-02 09:40:22', null, 'OA_Employee', '-1', null, null, '31011419811111221x', '1', null, null, null, null, null, null, null, null, null, null, null, null, '0', '14886', 'OA_Employee/64277/男性头像20161202093830.jpg', '0', '1', 'OA_Employee/64277/kfqm20161202093842.PNG', null, null);
-INSERT INTO `oa_employee_h` VALUES ('64531', '64531', null, '4', '0', '1', '1', '0', '0', '19', '20', '008', '王君', '21277', '2016-09-23 11:51:01', '21277', '2016-12-02 09:40:46', null, 'OA_Employee', '-1', null, null, '31011419811111221x', '1', null, null, null, null, null, null, null, null, null, null, null, null, '0', '14886', 'OA_Employee/64531/男性头像320161202094035.jpg', '0', '1', 'OA_Employee/64531/kfqm20161202094040.PNG', null, null);
-INSERT INTO `oa_employee_h` VALUES ('64533', '64533', null, '3', '0', '1', '1', '0', '0', '21', '22', '009', '王思思', '21277', '2016-09-23 11:51:47', '21277', '2016-12-02 09:41:08', null, 'OA_Employee', '-1', null, null, '31011419811111221x', '2', null, null, null, null, null, null, null, null, null, null, null, null, '0', '14886', 'OA_Employee/64533/女性头像20161202094057.jpg', '0', '1', 'OA_Employee/64533/csqm20161202094106.PNG', null, null);
-INSERT INTO `oa_employee_h` VALUES ('64536', '64536', null, '1', '0', '1', '1', '0', '0', '23', '24', '010', '刘毅', '21277', '2016-09-23 11:54:02', '21277', '2016-09-23 12:07:01', null, 'OA_Employee', '-1', null, null, null, '1', null, null, null, null, null, null, null, null, null, null, null, null, '0', '14887', null, '0', '1', null, null, null);
-INSERT INTO `oa_employee_h` VALUES ('64538', '64538', null, '1', '0', '1', '1', '0', '0', '25', '26', '011', '刘永胜', '21277', '2016-09-23 11:54:34', '21277', '2016-09-23 12:07:08', null, 'OA_Employee', '-1', null, null, null, '1', null, null, null, null, null, null, null, null, null, null, null, null, '0', '14887', null, '0', '1', null, null, null);
-INSERT INTO `oa_employee_h` VALUES ('64540', '64540', null, '1', '0', '1', '1', '0', '0', '27', '28', '012', '刘金霞', '21277', '2016-09-23 11:55:08', '21277', '2016-09-23 12:07:15', null, 'OA_Employee', '-1', null, null, null, '2', null, null, null, null, null, null, null, null, null, null, null, null, '0', '14887', null, '0', '1', null, null, null);
-INSERT INTO `oa_employee_h` VALUES ('64542', '64542', null, '1', '0', '1', '1', '0', '0', '29', '30', '013', '陈岩', '21277', '2016-09-23 11:55:48', '21277', '2016-09-23 12:07:20', null, 'OA_Employee', '-1', null, null, null, '1', null, null, null, null, null, null, null, null, null, null, null, null, '0', '14888', null, '0', '1', null, null, null);
-INSERT INTO `oa_employee_h` VALUES ('64544', '64544', null, '1', '0', '1', '1', '0', '0', '31', '32', '014', '陈宪', '21277', '2016-09-23 11:56:25', '21277', '2016-09-23 12:07:26', null, 'OA_Employee', '-1', null, null, null, '1', null, null, null, null, null, null, null, null, null, null, null, null, '0', '14888', null, '0', '1', null, null, null);
-INSERT INTO `oa_employee_h` VALUES ('64546', '64546', null, '1', '0', '1', '1', '0', '0', '33', '34', '015', '陈艳', '21277', '2016-09-23 11:59:00', '21277', '2016-09-23 12:07:32', null, 'OA_Employee', '-1', null, null, null, '2', null, null, null, null, null, null, null, null, null, null, null, null, '0', '14888', null, '0', '1', null, null, null);
-INSERT INTO `oa_employee_h` VALUES ('64548', '64548', null, '1', '0', '1', '1', '0', '0', '35', '36', '016', '杨亚兰', '21277', '2016-09-23 12:00:17', '21277', '2016-09-23 12:07:41', null, 'OA_Employee', '-1', null, null, null, '2', null, null, null, null, null, null, null, null, null, null, null, null, '0', '14889', null, '0', '1', null, null, null);
-INSERT INTO `oa_employee_h` VALUES ('64550', '64550', null, '1', '0', '1', '1', '0', '0', '37', '38', '017', '杨子文', '21277', '2016-09-23 12:00:50', '21277', '2016-09-23 12:07:47', null, 'OA_Employee', '-1', null, null, null, '1', null, null, null, null, null, null, null, null, null, null, null, null, '0', '14889', null, '0', '1', null, null, null);
-INSERT INTO `oa_employee_h` VALUES ('64552', '64552', null, '1', '0', '1', '1', '0', '0', '39', '40', '018', '杨宝深', '21277', '2016-09-23 12:01:47', '21277', '2016-09-23 12:07:55', null, 'OA_Employee', '-1', null, null, null, '1', null, null, null, null, null, null, null, null, null, null, null, null, '0', '14889', null, '0', '1', null, null, null);
-INSERT INTO `oa_employee_h` VALUES ('64554', '64554', null, '1', '0', '1', '1', '0', '0', '41', '42', '019', '赵天名', '21277', '2016-09-23 12:02:31', '21277', '2016-09-23 12:08:00', null, 'OA_Employee', '-1', null, null, null, '1', null, null, null, null, null, null, null, null, null, null, null, null, '0', '14890', null, '0', '1', null, null, null);
-INSERT INTO `oa_employee_h` VALUES ('64556', '64556', null, '1', '0', '1', '1', '0', '0', '43', '44', '020', '赵洋', '21277', '2016-09-23 12:03:08', '21277', '2016-09-23 12:08:05', null, 'OA_Employee', '-1', null, null, null, '1', null, null, null, null, null, null, null, null, null, null, null, null, '0', '14890', null, '0', '1', null, null, null);
-INSERT INTO `oa_employee_h` VALUES ('64558', '64558', null, '2', '0', '1', '1', '0', '0', '45', '46', '021', '赵艺佳', '21277', '2016-09-23 12:03:39', '21277', '2016-09-23 12:08:32', null, 'OA_Employee', '-1', null, null, null, '2', null, null, null, null, null, null, null, null, null, null, null, null, '0', '14890', null, '0', '1', null, null, null);
-INSERT INTO `oa_employee_h` VALUES ('64560', '64560', null, '1', '0', '1', '1', '0', '0', '47', '48', '022', '周立婷', '21277', '2016-09-23 12:04:26', '21277', '2016-09-23 12:08:26', null, 'OA_Employee', '-1', null, null, null, '2', null, null, null, null, null, null, null, null, null, null, null, null, '0', '14891', null, '0', '1', null, null, null);
-INSERT INTO `oa_employee_h` VALUES ('64562', '64562', null, '1', '0', '1', '1', '0', '0', '49', '50', '023', '周卫凡', '21277', '2016-09-23 12:04:59', '21277', '2016-09-23 12:08:43', null, 'OA_Employee', '-1', null, null, null, '1', null, null, null, null, null, null, null, null, null, null, null, null, '0', '14891', null, '0', '1', null, null, null);
-INSERT INTO `oa_employee_h` VALUES ('64564', '64564', null, '1', '0', '1', '1', '0', '0', '51', '52', '024', '周世文', '21277', '2016-09-23 12:06:05', '21277', '2016-09-23 12:08:49', null, 'OA_Employee', '-1', null, null, null, '1', null, null, null, null, null, null, null, null, null, null, null, null, '0', '14891', null, '0', '1', null, null, null);
-INSERT INTO `oa_employee_h` VALUES ('94493', '94493', null, '3', '0', '1', '1', '0', '0', '53', '54', 'admin', '管理员', '21277', '2016-10-27 09:43:09', '21277', '2016-12-02 09:42:04', null, 'OA_Employee', '-1', null, null, '31011419811111221x', '0', null, null, null, null, null, null, null, null, null, null, null, null, '0', '14886', 'OA_Employee/94493/男性头像420161202094152.jpg', '0', '1', 'OA_Employee/94493/csqm20161202094157.PNG', null, 'oa_test_info@163.com');
+INSERT INTO `oa_employee_h` VALUES ('15150', '15150', null, '21', '0', '1', '1', '0', '0', '1', '2', '001', '张展旭', '21', '2016-08-09 13:16:11', '21277', '2016-11-11 13:55:09', null, 'OA_Employee', '-1', null, null, '111111111111111111', '1', null, null, null, null, null, null, null, null, '', null, null, null, '0', '14884', 'OA_Employee\\15150\\Photo.png', '0', '1', 'OA_Employee\\15150\\E_Signature.png', null, 'minjian_1@qq.com', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_employee_h` VALUES ('16945', '16945', null, '14', '0', '1', '1', '0', '0', '3', '4', '002', '张建烁', '15154', '2016-08-29 14:07:24', '21277', '2016-10-10 10:22:44', null, 'OA_Employee', '-1', null, null, null, '1', null, '', null, null, null, '', null, null, null, null, '', null, '0', '14884', 'OA_Employee\\16945\\Photo.png', '0', '1', 'OA_Employee\\16945\\E_Signature.png', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_employee_h` VALUES ('17686', '17686', null, '13', '0', '1', '1', '0', '0', '5', '6', '003', '张诗晴', '15154', '2016-08-29 14:48:36', '21277', '2016-10-10 10:22:58', null, 'OA_Employee', '-1', null, null, null, '2', null, null, null, null, null, null, null, null, null, null, null, null, '0', '14884', 'OA_Employee\\17686\\Photo.png', '0', '1', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_employee_h` VALUES ('21269', '21269', null, '11', '0', '1', '1', '0', '0', '7', '8', 'test', '测试', '21', '2016-09-09 13:42:31', '21277', '2016-11-02 12:37:02', null, 'OA_Employee', '-1', null, null, null, '1', null, null, null, null, null, null, null, null, 'oa_test_info@163.com', null, null, null, '0', '14886', 'OA_Employee\\21269\\Photo.png', '0', '1', 'OA_Employee\\21269\\E_Signature.png', null, 'oa_test_info@163.com', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_employee_h` VALUES ('21274', '21274', null, '10', '0', '1', '1', '0', '0', '9', '10', 'dev', '开发', '21', '2016-09-09 13:43:27', '21277', '2016-11-02 12:36:17', null, 'OA_Employee', '-1', null, null, null, '1', null, null, '13564900113', null, null, null, null, null, 'minjian_1@qq.com', null, null, null, '0', '14886', 'OA_Employee\\21274\\Photo.png', '0', '1', 'OA_Employee\\21274\\E_Signature.png', null, 'minjian_1@qq.com', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_employee_h` VALUES ('23831', '23831', null, '6', '0', '1', '1', '0', '0', '11', '12', '004', '李彦龙', '21277', '2016-09-11 19:11:57', '21277', '2016-09-23 11:52:50', null, 'OA_Employee', '-1', null, null, null, '1', null, null, null, null, null, null, null, null, null, null, null, null, '0', '14885', null, '0', '1', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_employee_h` VALUES ('39187', '39187', null, '7', '0', '1', '1', '0', '0', '13', '14', '005', '李铁刚', '21', '2016-09-19 17:12:02', '21277', '2016-09-23 12:06:28', null, 'OA_Employee', '-1', null, null, null, '1', null, null, null, null, null, null, null, null, null, null, null, null, '0', '14885', null, '0', '1', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_employee_h` VALUES ('64275', '64275', null, '6', '0', '1', '1', '0', '0', '15', '16', '006', '李国艳', '21277', '2016-09-23 11:35:09', '21277', '2016-09-23 12:06:34', null, 'OA_Employee', '-1', null, null, null, '2', null, null, null, null, null, null, null, null, null, null, null, null, '0', '14885', null, '0', '1', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_employee_h` VALUES ('64277', '64277', null, '7', '0', '1', '1', '0', '0', '17', '18', '007', '王天佑', '21277', '2016-09-23 11:35:45', '21277', '2016-12-02 09:40:22', null, 'OA_Employee', '-1', null, null, '31011419811111221x', '1', null, null, null, null, null, null, null, null, null, null, null, null, '0', '14886', 'OA_Employee/64277/男性头像20161202093830.jpg', '0', '1', 'OA_Employee/64277/kfqm20161202093842.PNG', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_employee_h` VALUES ('64531', '64531', null, '4', '0', '1', '1', '0', '0', '19', '20', '008', '王君', '21277', '2016-09-23 11:51:01', '21277', '2016-12-02 09:40:46', null, 'OA_Employee', '-1', null, null, '31011419811111221x', '1', null, null, null, null, null, null, null, null, null, null, null, null, '0', '14886', 'OA_Employee/64531/男性头像320161202094035.jpg', '0', '1', 'OA_Employee/64531/kfqm20161202094040.PNG', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_employee_h` VALUES ('64533', '64533', null, '3', '0', '1', '1', '0', '0', '21', '22', '009', '王思思', '21277', '2016-09-23 11:51:47', '21277', '2016-12-02 09:41:08', null, 'OA_Employee', '-1', null, null, '31011419811111221x', '2', null, null, null, null, null, null, null, null, null, null, null, null, '0', '14886', 'OA_Employee/64533/女性头像20161202094057.jpg', '0', '1', 'OA_Employee/64533/csqm20161202094106.PNG', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_employee_h` VALUES ('64536', '64536', null, '1', '0', '1', '1', '0', '0', '23', '24', '010', '刘毅', '21277', '2016-09-23 11:54:02', '21277', '2016-09-23 12:07:01', null, 'OA_Employee', '-1', null, null, null, '1', null, null, null, null, null, null, null, null, null, null, null, null, '0', '14887', null, '0', '1', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_employee_h` VALUES ('64538', '64538', null, '1', '0', '1', '1', '0', '0', '25', '26', '011', '刘永胜', '21277', '2016-09-23 11:54:34', '21277', '2016-09-23 12:07:08', null, 'OA_Employee', '-1', null, null, null, '1', null, null, null, null, null, null, null, null, null, null, null, null, '0', '14887', null, '0', '1', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_employee_h` VALUES ('64540', '64540', null, '1', '0', '1', '1', '0', '0', '27', '28', '012', '刘金霞', '21277', '2016-09-23 11:55:08', '21277', '2016-09-23 12:07:15', null, 'OA_Employee', '-1', null, null, null, '2', null, null, null, null, null, null, null, null, null, null, null, null, '0', '14887', null, '0', '1', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_employee_h` VALUES ('64542', '64542', null, '1', '0', '1', '1', '0', '0', '29', '30', '013', '陈岩', '21277', '2016-09-23 11:55:48', '21277', '2016-09-23 12:07:20', null, 'OA_Employee', '-1', null, null, null, '1', null, null, null, null, null, null, null, null, null, null, null, null, '0', '14888', null, '0', '1', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_employee_h` VALUES ('64544', '64544', null, '1', '0', '1', '1', '0', '0', '31', '32', '014', '陈宪', '21277', '2016-09-23 11:56:25', '21277', '2016-09-23 12:07:26', null, 'OA_Employee', '-1', null, null, null, '1', null, null, null, null, null, null, null, null, null, null, null, null, '0', '14888', null, '0', '1', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_employee_h` VALUES ('64546', '64546', null, '1', '0', '1', '1', '0', '0', '33', '34', '015', '陈艳', '21277', '2016-09-23 11:59:00', '21277', '2016-09-23 12:07:32', null, 'OA_Employee', '-1', null, null, null, '2', null, null, null, null, null, null, null, null, null, null, null, null, '0', '14888', null, '0', '1', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_employee_h` VALUES ('64548', '64548', null, '1', '0', '1', '1', '0', '0', '35', '36', '016', '杨亚兰', '21277', '2016-09-23 12:00:17', '21277', '2016-09-23 12:07:41', null, 'OA_Employee', '-1', null, null, null, '2', null, null, null, null, null, null, null, null, null, null, null, null, '0', '14889', null, '0', '1', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_employee_h` VALUES ('64550', '64550', null, '1', '0', '1', '1', '0', '0', '37', '38', '017', '杨子文', '21277', '2016-09-23 12:00:50', '21277', '2016-09-23 12:07:47', null, 'OA_Employee', '-1', null, null, null, '1', null, null, null, null, null, null, null, null, null, null, null, null, '0', '14889', null, '0', '1', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_employee_h` VALUES ('64552', '64552', null, '1', '0', '1', '1', '0', '0', '39', '40', '018', '杨宝深', '21277', '2016-09-23 12:01:47', '21277', '2016-09-23 12:07:55', null, 'OA_Employee', '-1', null, null, null, '1', null, null, null, null, null, null, null, null, null, null, null, null, '0', '14889', null, '0', '1', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_employee_h` VALUES ('64554', '64554', null, '1', '0', '1', '1', '0', '0', '41', '42', '019', '赵天名', '21277', '2016-09-23 12:02:31', '21277', '2016-09-23 12:08:00', null, 'OA_Employee', '-1', null, null, null, '1', null, null, null, null, null, null, null, null, null, null, null, null, '0', '14890', null, '0', '1', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_employee_h` VALUES ('64556', '64556', null, '1', '0', '1', '1', '0', '0', '43', '44', '020', '赵洋', '21277', '2016-09-23 12:03:08', '21277', '2016-09-23 12:08:05', null, 'OA_Employee', '-1', null, null, null, '1', null, null, null, null, null, null, null, null, null, null, null, null, '0', '14890', null, '0', '1', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_employee_h` VALUES ('64558', '64558', null, '2', '0', '1', '1', '0', '0', '45', '46', '021', '赵艺佳', '21277', '2016-09-23 12:03:39', '21277', '2016-09-23 12:08:32', null, 'OA_Employee', '-1', null, null, null, '2', null, null, null, null, null, null, null, null, null, null, null, null, '0', '14890', null, '0', '1', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_employee_h` VALUES ('64560', '64560', null, '1', '0', '1', '1', '0', '0', '47', '48', '022', '周立婷', '21277', '2016-09-23 12:04:26', '21277', '2016-09-23 12:08:26', null, 'OA_Employee', '-1', null, null, null, '2', null, null, null, null, null, null, null, null, null, null, null, null, '0', '14891', null, '0', '1', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_employee_h` VALUES ('64562', '64562', null, '1', '0', '1', '1', '0', '0', '49', '50', '023', '周卫凡', '21277', '2016-09-23 12:04:59', '21277', '2016-09-23 12:08:43', null, 'OA_Employee', '-1', null, null, null, '1', null, null, null, null, null, null, null, null, null, null, null, null, '0', '14891', null, '0', '1', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_employee_h` VALUES ('64564', '64564', null, '1', '0', '1', '1', '0', '0', '51', '52', '024', '周世文', '21277', '2016-09-23 12:06:05', '21277', '2016-09-23 12:08:49', null, 'OA_Employee', '-1', null, null, null, '1', null, null, null, null, null, null, null, null, null, null, null, null, '0', '14891', null, '0', '1', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_employee_h` VALUES ('94493', '94493', null, '3', '0', '1', '1', '0', '0', '53', '54', 'admin', '管理员', '21277', '2016-10-27 09:43:09', '21277', '2016-12-02 09:42:04', null, 'OA_Employee', '-1', null, null, '31011419811111221x', '0', null, null, null, null, null, null, null, null, null, null, null, null, '0', '14886', 'OA_Employee/94493/男性头像420161202094152.jpg', '0', '1', 'OA_Employee/94493/csqm20161202094157.PNG', null, 'oa_test_info@163.com', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
 
 -- ----------------------------
 -- Table structure for oa_employee_h_or
@@ -14242,6 +15250,7 @@ CREATE TABLE `oa_feedback` (
   `Slock` int(11) default NULL,
   `FeedbackType` int(11) default NULL,
   `BeFeedback` bigint(20) default NULL,
+  `WorkitemID` bigint(20) default NULL,
   PRIMARY KEY  (`OID`),
   UNIQUE KEY `I_OA_Feedback_SOID` (`SOID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -14437,6 +15446,25 @@ INSERT INTO `oa_foreignlan_h` VALUES ('202259', '202259', null, '5', '0', 'FL201
 INSERT INTO `oa_foreignlan_h` VALUES ('206610', '206610', null, '2', '0', 'FL20170608000002', '2017-06-08 14:10:41', '1000', '新流程测试5', '14886', '21274', '0', '新流程测试5', '0', '0', '10', '18196', '10', null, '21277', '2017-06-08 14:11:04', '21277', '2017-06-08 14:19:25', 'OA_ForeignLan', '-1', '0', '1', '0', null, null, null, '21764', null, null, null, null, null, null, null, null, 'OA_ForeignLan\\206610\\206610.doc', '206610.doc');
 INSERT INTO `oa_foreignlan_h` VALUES ('206611', '206611', null, '3', '0', 'FL20170608000003', '2017-06-08 14:21:03', '1100', '流程测试6', '14886', '21274', '0', '流程测试6', '0', '0', '10', '18196', '20', null, '21277', '2017-06-08 14:21:17', '21277', '2017-06-08 16:23:02', 'OA_ForeignLan', '-1', '0', '1', '0', null, null, null, '22273', null, null, null, null, null, null, null, null, 'OA_ForeignLan\\206611\\206611.doc', '206611.doc');
 INSERT INTO `oa_foreignlan_h` VALUES ('208658', '208658', null, '4', '0', 'FL20170608000004', '2017-06-08 16:35:26', '1200', '新流程测试7', '14886', '21274', '0', '新流程测试7', '0', '0', '10', '18196', '10', null, '21277', '2017-06-08 16:35:41', '21277', '2017-06-08 16:38:20', 'OA_ForeignLan', '-1', '0', '1', '0', null, null, null, '22529', null, null, null, null, null, null, null, null, 'OA_ForeignLan\\208658\\208658.doc', '208658.doc');
+INSERT INTO `oa_foreignlan_h` VALUES ('211733', '211733', null, '3', '0', 'FL20170728000001', '2017-07-28 12:53:59', '1100', '公文测试1', '14886', '21274', '0', '测试单位', '0', '0', '10', '18196', '10', null, '21277', '2017-07-28 12:54:19', '21277', '2017-07-28 12:57:19', 'OA_ForeignLan', '-1', '0', '1', '0', null, null, null, '22785', null, null, null, null, null, null, null, null, 'OA_ForeignLan\\211733\\211733.doc', '211733.doc');
+
+-- ----------------------------
+-- Table structure for oa_foreignlan_h_fr
+-- ----------------------------
+DROP TABLE IF EXISTS `oa_foreignlan_h_fr`;
+CREATE TABLE `oa_foreignlan_h_fr` (
+  `OID` bigint(20) NOT NULL default '0',
+  `SOID` bigint(20) default NULL,
+  `OperatorID` bigint(20) default NULL,
+  `OptRights` varchar(1024) default NULL,
+  `Enables` varchar(1024) default NULL,
+  `unVisible` varchar(1024) default NULL,
+  PRIMARY KEY  (`OID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of oa_foreignlan_h_fr
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for oa_group
@@ -14966,6 +15994,24 @@ INSERT INTO `oa_meetinginside_h` VALUES ('170261', '170261', null, '5', '0', '�
 INSERT INTO `oa_meetinginside_h` VALUES ('170268', '170268', null, '17', '0', '会议即时通讯设置', '17426', '21274', '14886', '13564900113', '55065', '2017-04-24 10:03:05', '2017-04-24 12:03:05', '21274', '0', '21269,15150,16945', '17686,23831', null, '2017-04-24 10:04:31', '0', null, null, 'MT20170424000003', '1200', '21277', '2017-04-24 10:04:31', '21277', '2017-04-24 10:17:43', 'OA_MeetingInSide', '-1', '19203', null, null, '0', '1', '0', '10', '170259', null, null);
 
 -- ----------------------------
+-- Table structure for oa_meetinginside_h_fr
+-- ----------------------------
+DROP TABLE IF EXISTS `oa_meetinginside_h_fr`;
+CREATE TABLE `oa_meetinginside_h_fr` (
+  `OID` bigint(20) NOT NULL default '0',
+  `SOID` bigint(20) default NULL,
+  `OperatorID` bigint(20) default NULL,
+  `OptRights` varchar(1024) default NULL,
+  `Enables` varchar(1024) default NULL,
+  `unVisible` varchar(1024) default NULL,
+  PRIMARY KEY  (`OID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of oa_meetinginside_h_fr
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for oa_meetingoutside_att
 -- ----------------------------
 DROP TABLE IF EXISTS `oa_meetingoutside_att`;
@@ -15303,6 +16349,7 @@ CREATE TABLE `oa_messageset_d` (
   `IsSucceed` int(11) default NULL,
   `MapCount` int(11) default NULL,
   `Slock` int(11) default NULL,
+  `Sequence` int(11) default NULL,
   PRIMARY KEY  (`OID`),
   KEY `I_OA_MessageSet_D_SOID` (`SOID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -15310,10 +16357,10 @@ CREATE TABLE `oa_messageset_d` (
 -- ----------------------------
 -- Records of oa_messageset_d
 -- ----------------------------
-INSERT INTO `oa_messageset_d` VALUES ('116755', '116754', null, '0', '0', 'SysMessage', '0', null, null);
-INSERT INTO `oa_messageset_d` VALUES ('116757', '116756', null, '0', '0', 'Email', '0', null, null);
-INSERT INTO `oa_messageset_d` VALUES ('170260', '170259', null, '0', '0', 'IM', '0', '0', null);
-INSERT INTO `oa_messageset_d` VALUES ('181280', '181279', null, '0', '0', 'SMS', '0', '0', null);
+INSERT INTO `oa_messageset_d` VALUES ('116755', '116754', null, '0', '0', 'SysMessage', '0', null, null, null);
+INSERT INTO `oa_messageset_d` VALUES ('116757', '116756', null, '0', '0', 'Email', '0', null, null, null);
+INSERT INTO `oa_messageset_d` VALUES ('170260', '170259', null, '0', '0', 'IM', '0', '0', null, null);
+INSERT INTO `oa_messageset_d` VALUES ('181280', '181279', null, '0', '0', 'SMS', '0', '0', null, null);
 
 -- ----------------------------
 -- Table structure for oa_messageset_h
@@ -15351,8 +16398,8 @@ CREATE TABLE `oa_messageset_h` (
 -- ----------------------------
 -- Records of oa_messageset_h
 -- ----------------------------
-INSERT INTO `oa_messageset_h` VALUES ('116754', '116754', null, '1', '0', '1', '1', '0', '0', '1', '2', '01', '系统信息', '21277', '2016-11-24 12:21:39', '21277', '2017-03-09 15:38:16', null, 'OA_MessageSet', '-1', '0', '0', '1', '1');
-INSERT INTO `oa_messageset_h` VALUES ('116756', '116756', null, '0', '0', '1', '1', '0', '0', '3', '4', '02', '邮件', '21277', '2016-11-24 12:21:53', '21277', '2016-11-24 12:21:53', null, 'OA_MessageSet', '-1', '0', '0', null, '0');
+INSERT INTO `oa_messageset_h` VALUES ('116754', '116754', null, '1', '0', '1', '1', '0', '0', '1', '2', '01', '系统信息', '21277', '2016-11-24 12:21:39', '21277', '2017-03-09 15:38:16', null, 'OA_MessageSet', '-1', '0', '0', '1', '0');
+INSERT INTO `oa_messageset_h` VALUES ('116756', '116756', null, '1', '0', '1', '1', '0', '0', '3', '4', '02', '邮件', '21277', '2016-11-24 12:21:53', '21277', '2017-08-01 19:04:51', null, 'OA_MessageSet', '-1', '0', '0', '1', '1');
 INSERT INTO `oa_messageset_h` VALUES ('170259', '170259', null, '0', '0', '1', '1', '0', '0', '5', '6', '03', '即时通信', '21277', '2017-04-24 09:50:38', '21277', '2017-04-24 09:50:38', null, 'OA_MessageSet', '-1', '0', '0', null, '0');
 INSERT INTO `oa_messageset_h` VALUES ('181279', '181279', null, '0', '0', '1', '1', '0', '0', '7', '8', '04', '短信', '21277', '2017-05-12 16:00:27', '21277', '2017-05-12 16:00:27', null, 'OA_MessageSet', '-1', '0', '0', null, '0');
 
@@ -15430,6 +16477,25 @@ INSERT INTO `oa_myschedule_h` VALUES ('55058', '55058', null, '1', '0', 'MS20160
 INSERT INTO `oa_myschedule_h` VALUES ('69400', '69400', null, '0', '0', 'MS20160923000001', '21274', '14886', '55060', '2016-09-23 00:00:00', '2016-09-23 00:00:00', '测试OA', '0', '21277', '2016-09-23 16:38:00', '21277', '2016-09-23 16:38:00', 'OA_MySchedule', '-1', '2016-09-23 16:38:00', '100', '测试OA', '0', null, '0');
 INSERT INTO `oa_myschedule_h` VALUES ('88852', '88852', null, '0', '0', 'MS20161011000001', '21274', '14886', '55060', '2016-10-11 00:00:00', '2016-10-12 00:00:00', '南京中兴园区项目出差', '0', '21277', '2016-10-11 13:37:54', '21277', '2016-10-11 13:37:54', 'OA_MySchedule', '-1', '2016-10-11 13:37:54', '100', '南京中兴园区项目出差', '0', null, '0');
 INSERT INTO `oa_myschedule_h` VALUES ('104979', '104979', null, '0', '0', 'MS20161103000001', '21274', '14886', '55060', '2016-11-03 00:00:00', '2016-11-05 00:00:00', '开发测试', '0', '21277', '2016-11-03 14:51:15', '21277', '2016-11-03 14:51:15', 'OA_MySchedule', '-1', '2016-11-03 14:51:15', '100', '开发测试', '0', null, '0');
+INSERT INTO `oa_myschedule_h` VALUES ('211731', '211731', null, '0', '0', 'MS20170728000001', '21274', '14886', '19235', '2017-07-28 00:00:00', '2017-07-31 00:00:00', '出差4天', '0', '21277', '2017-07-28 12:36:17', '21277', '2017-07-28 12:36:17', 'OA_MySchedule', '-1', '2017-07-28 12:36:17', '100', '出差4天', '0', null, null);
+
+-- ----------------------------
+-- Table structure for oa_myschedule_h_fr
+-- ----------------------------
+DROP TABLE IF EXISTS `oa_myschedule_h_fr`;
+CREATE TABLE `oa_myschedule_h_fr` (
+  `OID` bigint(20) NOT NULL default '0',
+  `SOID` bigint(20) default NULL,
+  `OperatorID` bigint(20) default NULL,
+  `OptRights` varchar(1024) default NULL,
+  `Enables` varchar(1024) default NULL,
+  `unVisible` varchar(1024) default NULL,
+  PRIMARY KEY  (`OID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of oa_myschedule_h_fr
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for oa_myworkflow
@@ -15632,6 +16698,25 @@ INSERT INTO `oa_newsdraft_h` VALUES ('106005', '106005', null, '3', '0', 'ND2016
 INSERT INTO `oa_newsdraft_h` VALUES ('106007', '106007', null, '3', '0', 'ND20161104000003', '2016-11-04 10:37:36', '10', '1200', '欧洲综合能源科技项目落户紫金（江宁）', '14886', '21274', '19237', '0', null, null, '1', '1', '0', '欧洲综合能源科技项目落户紫金（江宁）', '<p><br></p>', '21277', '2016-11-04 10:38:38', '21277', '2016-11-04 10:38:51', 'OA_NewsDraft', '-1', '16387', '0', '1', '0', null);
 INSERT INTO `oa_newsdraft_h` VALUES ('118804', '118804', null, '2', '0', 'ND20161124000001', '2016-11-24 17:34:37', '10', '100', '电子签章测试', '14886', '21274', '19237', '0', null, null, '1', '1', '0', null, null, '21277', '2016-11-24 17:35:28', '21277', '2016-11-28 11:02:09', 'OA_NewsDraft', '-1', null, '0', '1', '0', null);
 INSERT INTO `oa_newsdraft_h` VALUES ('122201', '122201', null, '6', '0', 'ND20161129000001', '2016-11-29 09:13:09', '30', '1200', '测试正文URL图片', '14886', '21274', '38930', '0', null, null, '1', '1', '0', null, '<img src=\"/yigo/a/cms2-yigo2-adapter/cms/view-yigo-file/OA_NewsDraft\\106007\\欧洲综合能源科技项目落户紫金（江宁）.jpg\" wangeditor_img_max_width_mark=\"1\" style=\"max-width: 100%;\"><p>aaaaaa</p><p><br></p><p><br></p>', '21277', '2016-11-29 09:19:57', '21277', '2016-11-29 09:54:37', 'OA_NewsDraft', '-1', '17153', '0', '1', '0', null);
+INSERT INTO `oa_newsdraft_h` VALUES ('213522', '213522', null, '7', '0', 'ND20170801000001', '2017-08-01 19:12:33', '10', '1200', '庆祝建军90周年大会举行 习近平出席并发表讲话', '14886', '21274', '19238', '0', null, null, '0', '1', '0', null, '<p>央视网消息：中共中央、国务院、中央军委今天上午在北京人民大会堂隆重举行庆祝中国人民解放军建军90周年大会。中共中央总书记、国家主席、中央军委主席习近平发表重要讲话。中共中央政治局常委、国务院总理李克强主持大会。中共中央政治局常委张德江、俞正声、刘云山、王岐山、张高丽出席大会。<br></p>', '21277', '2017-08-01 19:14:30', '21277', '2017-08-02 15:09:22', 'OA_NewsDraft', '-1', '23041', '0', '1', '0', null);
+
+-- ----------------------------
+-- Table structure for oa_newsdraft_h_fr
+-- ----------------------------
+DROP TABLE IF EXISTS `oa_newsdraft_h_fr`;
+CREATE TABLE `oa_newsdraft_h_fr` (
+  `OID` bigint(20) NOT NULL default '0',
+  `SOID` bigint(20) default NULL,
+  `OperatorID` bigint(20) default NULL,
+  `OptRights` varchar(1024) default NULL,
+  `Enables` varchar(1024) default NULL,
+  `unVisible` varchar(1024) default NULL,
+  PRIMARY KEY  (`OID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of oa_newsdraft_h_fr
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for oa_newsdraft_pho
@@ -15837,6 +16922,50 @@ INSERT INTO `oa_nextparticipator` VALUES ('208403', '208403', null, '0', '0', 'O
 INSERT INTO `oa_nextparticipator` VALUES ('208659', '208659', null, '0', '0', 'OA_ForeignLan', '208658', 'WF_OA_ForeignLan', '8', '19969', '21277', '21277', null, null);
 
 -- ----------------------------
+-- Table structure for oa_nodeproperty_create
+-- ----------------------------
+DROP TABLE IF EXISTS `oa_nodeproperty_create`;
+CREATE TABLE `oa_nodeproperty_create` (
+  `OID` bigint(20) NOT NULL default '0',
+  `SOID` bigint(20) default NULL,
+  `POID` bigint(20) default NULL,
+  `VERID` int(11) default NULL,
+  `DVERID` int(11) default NULL,
+  `Sequence` int(11) default NULL,
+  `Formula` varchar(500) default NULL,
+  `MapCount` int(11) default NULL,
+  `Slock` int(11) default NULL,
+  PRIMARY KEY  (`OID`),
+  KEY `I_Property_Create_SOID` (`SOID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of oa_nodeproperty_create
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for oa_nodeproperty_finish
+-- ----------------------------
+DROP TABLE IF EXISTS `oa_nodeproperty_finish`;
+CREATE TABLE `oa_nodeproperty_finish` (
+  `OID` bigint(20) NOT NULL default '0',
+  `SOID` bigint(20) default NULL,
+  `POID` bigint(20) default NULL,
+  `VERID` int(11) default NULL,
+  `DVERID` int(11) default NULL,
+  `Sequence` int(11) default NULL,
+  `Formula` varchar(500) default NULL,
+  `MapCount` int(11) default NULL,
+  `Slock` int(11) default NULL,
+  PRIMARY KEY  (`OID`),
+  KEY `I_Property_Finish_SOID` (`SOID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of oa_nodeproperty_finish
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for oa_nodeproperty_h
 -- ----------------------------
 DROP TABLE IF EXISTS `oa_nodeproperty_h`;
@@ -15914,6 +17043,14 @@ CREATE TABLE `oa_nodeproperty_h` (
   `SelNodeEnable` int(11) default NULL,
   `InformPerDepict` varchar(4000) default NULL,
   `InformPerOID` bigint(20) default NULL,
+  `AutoDealFun` varchar(255) default NULL,
+  `FormulaCreate` varchar(4000) default NULL,
+  `FormulaFinish` varchar(4000) default NULL,
+  `CommonOpinion` int(11) default NULL,
+  `SendTypeID` bigint(20) default NULL,
+  `IsSaveData` int(11) default NULL,
+  `AuditAfterClose` int(11) default NULL,
+  `AuditAfterNextPre` int(11) default NULL,
   PRIMARY KEY  (`OID`),
   UNIQUE KEY `I_oreNodeProperty_SOID` (`SOID`),
   UNIQUE KEY `I__NodeProperty_H_SOID` (`SOID`)
@@ -15922,8 +17059,9 @@ CREATE TABLE `oa_nodeproperty_h` (
 -- ----------------------------
 -- Records of oa_nodeproperty_h
 -- ----------------------------
-INSERT INTO `oa_nodeproperty_h` VALUES ('183839', '183839', null, '1', '0', '0', '0', '0', null, '0', '0', '0', '0', '0', '0', '0', '0', '100', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', null, null, null, null, null, null, null, null, '0', '0', '0', 'OA_MORENODEPROPERTY20170516000001', '2017-05-16', '21277', '2017-05-16 16:29:48', '21277', '2017-05-16 16:30:08', 'OA_NodeProperty', '-1', 'OA_WorkflowDesigne', '183827', 'WF_SW_WorkPlan', '5', 'SendOptDepict', null, null, '0', '0', '0', '1', null, null, null, null, null, null, null);
-INSERT INTO `oa_nodeproperty_h` VALUES ('187412', '187412', null, '1', '0', '0', '0', '0', null, '0', '0', '0', '0', '0', '0', '1', '0', '100', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', null, null, null, null, null, null, null, null, '0', '0', '0', 'OA_MORENODEPROPERTY20170518000001', '2017-05-18', '21277', '2017-05-18 16:09:35', '21277', '2017-06-05 12:42:25', 'OA_NodeProperty', '-1', 'OA_WorkflowDesigne', '90137', 'WF_OA_ForeignLan', '8', null, null, null, '0', '0', '0', '1', '1', '1', '1', null, null, null, null);
+INSERT INTO `oa_nodeproperty_h` VALUES ('183839', '183839', null, '1', '0', '0', '0', '0', null, '0', '0', '0', '0', '0', '0', '0', '0', '100', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', null, null, null, null, null, null, null, null, '0', '0', '0', 'OA_MORENODEPROPERTY20170516000001', '2017-05-16', '21277', '2017-05-16 16:29:48', '21277', '2017-05-16 16:30:08', 'OA_NodeProperty', '-1', 'OA_WorkflowDesigne', '183827', 'WF_SW_WorkPlan', '5', 'SendOptDepict', null, null, '0', '0', '0', '1', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_nodeproperty_h` VALUES ('187412', '187412', null, '2', '0', '0', '0', '0', null, '0', '0', '0', '0', '0', '0', '0', '0', '100', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', null, null, null, null, null, null, null, null, '0', '0', '0', 'OA_MORENODEPROPERTY20170518000001', '2017-05-18', '21277', '2017-05-18 16:09:35', '21277', '2017-07-28 12:57:03', 'OA_NodeProperty', '-1', 'OA_WorkflowDesigne', '90137', 'WF_OA_ForeignLan', '8', null, null, null, '0', '0', '0', '1', '0', '0', '0', null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_nodeproperty_h` VALUES ('211734', '211734', null, '0', '0', '0', '0', '0', null, '0', '0', '0', '0', '0', '0', '0', '0', '100', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', null, null, null, null, null, null, null, null, '0', '0', '0', 'OA_NODEPROPERTY20170728000001', '2017-07-28', '21277', '2017-07-28 12:57:08', '21277', '2017-07-28 12:57:08', 'OA_NodeProperty', '-1', 'OA_WorkflowDesigne', '90137', 'WF_OA_ForeignLan', '10', null, null, null, null, '0', '0', null, '0', '0', '0', null, null, null, '0', null, null, null, '0', '0', '0', '0', '0');
 
 -- ----------------------------
 -- Table structure for oa_operationsel_d
@@ -15945,6 +17083,7 @@ CREATE TABLE `oa_operationsel_d` (
   `MessageSetID` bigint(20) default NULL,
   `CCOptSelOID` bigint(20) default NULL,
   `Sequence` int(11) default NULL,
+  `EmailTemp` varchar(255) default NULL,
   PRIMARY KEY  (`OID`),
   KEY `I__OperationSel_D_SOID` (`SOID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -15952,29 +17091,35 @@ CREATE TABLE `oa_operationsel_d` (
 -- ----------------------------
 -- Records of oa_operationsel_d
 -- ----------------------------
-INSERT INTO `oa_operationsel_d` VALUES ('82968', '82967', null, '0', '0', '审批', '19998', null, null, null, null, null, null, null, null);
-INSERT INTO `oa_operationsel_d` VALUES ('82975', '82974', null, '0', '0', '审批', '19998', null, null, null, null, null, null, null, null);
-INSERT INTO `oa_operationsel_d` VALUES ('82980', '82979', null, '0', '0', '审批', '19998', null, null, null, null, null, null, null, null);
-INSERT INTO `oa_operationsel_d` VALUES ('82995', '82994', null, '0', '0', '审批', '19998', null, null, null, null, null, null, null, null);
-INSERT INTO `oa_operationsel_d` VALUES ('83002', '83000', null, '1', '0', '接受任务', '19998', null, null, null, null, null, null, null, null);
-INSERT INTO `oa_operationsel_d` VALUES ('83007', '83006', null, '0', '0', '审批', '19998', null, null, null, null, null, null, null, null);
-INSERT INTO `oa_operationsel_d` VALUES ('83012', '83011', null, '0', '0', '审批', '19998', null, null, null, null, null, null, null, null);
-INSERT INTO `oa_operationsel_d` VALUES ('83018', '83016', null, '0', '0', '审批', '19998', null, null, null, null, null, null, null, null);
-INSERT INTO `oa_operationsel_d` VALUES ('90143', '90141', null, '1', '0', '办公室主任审批', '19998', null, null, null, null, null, null, null, null);
-INSERT INTO `oa_operationsel_d` VALUES ('90148', '90147', null, '1', '0', '总经理审批', '19998', null, null, null, null, null, null, null, null);
-INSERT INTO `oa_operationsel_d` VALUES ('90154', '90153', null, '0', '0', '审批', '19998', null, null, null, null, null, null, null, null);
-INSERT INTO `oa_operationsel_d` VALUES ('90160', '90159', null, '0', '0', '审批', '19998', null, null, null, null, null, null, null, null);
-INSERT INTO `oa_operationsel_d` VALUES ('93721', '93720', null, '1', '0', '分管领导', '19998', null, null, null, null, null, null, null, null);
-INSERT INTO `oa_operationsel_d` VALUES ('93723', '93722', null, '1', '0', '部门处理结果反馈', '19998', null, null, null, null, null, null, null, null);
-INSERT INTO `oa_operationsel_d` VALUES ('93741', '93740', null, '0', '0', '审批', '19998', null, null, null, null, null, null, null, null);
-INSERT INTO `oa_operationsel_d` VALUES ('93743', '93742', null, '0', '0', '审批', '19998', null, null, null, null, null, null, null, null);
-INSERT INTO `oa_operationsel_d` VALUES ('93745', '93744', null, '0', '0', '审批', '19998', null, null, null, null, null, null, null, null);
-INSERT INTO `oa_operationsel_d` VALUES ('93747', '93746', null, '0', '0', '审批', '19998', null, null, null, null, null, null, null, null);
-INSERT INTO `oa_operationsel_d` VALUES ('93749', '93748', null, '0', '0', '审批', '19998', null, null, null, null, null, null, null, null);
-INSERT INTO `oa_operationsel_d` VALUES ('165140', '165139', null, '0', '0', '提交审批', '165138', null, null, null, null, null, null, null, null);
-INSERT INTO `oa_operationsel_d` VALUES ('165145', '165144', null, '0', '0', '提交审批', '165138', null, null, null, null, null, null, null, null);
-INSERT INTO `oa_operationsel_d` VALUES ('170002', '82987', null, '0', '0', '会议审批', '111640', null, null, null, null, null, null, null, null);
-INSERT INTO `oa_operationsel_d` VALUES ('181791', '181790', null, '1', '0', '审批', '19998', null, null, null, null, null, null, null, null);
+INSERT INTO `oa_operationsel_d` VALUES ('82968', '82967', null, '0', '0', '审批', '19998', null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_operationsel_d` VALUES ('82995', '82994', null, '0', '0', '审批', '19998', null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_operationsel_d` VALUES ('83002', '83000', null, '1', '0', '接受任务', '19998', null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_operationsel_d` VALUES ('83007', '83006', null, '0', '0', '审批', '19998', null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_operationsel_d` VALUES ('83012', '83011', null, '0', '0', '审批', '19998', null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_operationsel_d` VALUES ('83018', '83016', null, '0', '0', '审批', '19998', null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_operationsel_d` VALUES ('90143', '90141', null, '1', '0', '办公室主任审批', '19998', null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_operationsel_d` VALUES ('90148', '90147', null, '1', '0', '总经理审批', '19998', null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_operationsel_d` VALUES ('90154', '90153', null, '0', '0', '审批', '19998', null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_operationsel_d` VALUES ('90160', '90159', null, '0', '0', '审批', '19998', null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_operationsel_d` VALUES ('93721', '93720', null, '1', '0', '分管领导', '19998', null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_operationsel_d` VALUES ('93723', '93722', null, '1', '0', '部门处理结果反馈', '19998', null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_operationsel_d` VALUES ('93741', '93740', null, '0', '0', '审批', '19998', null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_operationsel_d` VALUES ('93743', '93742', null, '0', '0', '审批', '19998', null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_operationsel_d` VALUES ('93745', '93744', null, '0', '0', '审批', '19998', null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_operationsel_d` VALUES ('93747', '93746', null, '0', '0', '审批', '19998', null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_operationsel_d` VALUES ('93749', '93748', null, '0', '0', '审批', '19998', null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_operationsel_d` VALUES ('165140', '165139', null, '0', '0', '提交审批', '165138', null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_operationsel_d` VALUES ('165145', '165144', null, '0', '0', '提交审批', '165138', null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_operationsel_d` VALUES ('170002', '82987', null, '0', '0', '会议审批', '111640', null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_operationsel_d` VALUES ('181791', '181790', null, '1', '0', '审批', '19998', null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_operationsel_d` VALUES ('209955', '209954', null, '0', '0', '审批', '19998', null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_operationsel_d` VALUES ('209957', '209956', null, '0', '0', '审批', '19998', null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_operationsel_d` VALUES ('209959', '209958', null, '0', '0', '审批', '19998', null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_operationsel_d` VALUES ('209961', '209960', null, '0', '0', '审批', '19998', null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_operationsel_d` VALUES ('213807', '82974', null, '0', '0', '通过', '213561', '0', null, '0', '0', '', '0', '0', '1', '');
+INSERT INTO `oa_operationsel_d` VALUES ('213808', '82974', null, '0', '0', '撤回', '213790', '0', null, '0', '0', '', '0', '0', '2', '');
+INSERT INTO `oa_operationsel_d` VALUES ('213809', '82979', null, '0', '0', '通过', '213561', '0', null, '0', '0', '', '0', '0', '1', '');
+INSERT INTO `oa_operationsel_d` VALUES ('213810', '82979', null, '0', '0', '撤回', '213790', '0', null, '0', '0', '', '0', '0', '2', '');
 
 -- ----------------------------
 -- Table structure for oa_operationsel_h
@@ -16004,6 +17149,7 @@ CREATE TABLE `oa_operationsel_h` (
   `OptDesc` varchar(1000) default NULL,
   `MapCount` int(11) default NULL,
   `Slock` int(11) default NULL,
+  `StartFormKey` varchar(255) default NULL,
   PRIMARY KEY  (`OID`),
   UNIQUE KEY `I__OperationSel_H_SOID` (`SOID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -16011,29 +17157,33 @@ CREATE TABLE `oa_operationsel_h` (
 -- ----------------------------
 -- Records of oa_operationsel_h
 -- ----------------------------
-INSERT INTO `oa_operationsel_h` VALUES ('82967', '82967', null, '1', '0', 'OA_OPERATIONSEL20161009000001', '2016-10-09', '100', '21277', '2016-10-09 11:23:07', '21277', '2016-10-09 11:23:13', 'OA_OperationSel', '-1', 'OA_WorkflowDesigne', '82962', 'WF_StandardWorkFlow', '5', null, null, '审批', '0', '1');
-INSERT INTO `oa_operationsel_h` VALUES ('82974', '82974', null, '1', '0', 'OA_OPERATIONSEL20161009000002', '2016-10-09', '100', '21277', '2016-10-09 11:24:01', '21277', '2016-10-09 11:24:06', 'OA_OperationSel', '-1', 'OA_WorkflowDesigne', '82970', 'WF_OA_NewsDraftView', '3', null, null, '审批', '0', '1');
-INSERT INTO `oa_operationsel_h` VALUES ('82979', '82979', null, '1', '0', 'OA_OPERATIONSEL20161009000003', '2016-10-09', '100', '21277', '2016-10-09 11:24:29', '21277', '2016-10-09 11:24:34', 'OA_OperationSel', '-1', 'OA_WorkflowDesigne', '82970', 'WF_OA_NewsDraftView', '7', null, null, '审批', '0', '1');
-INSERT INTO `oa_operationsel_h` VALUES ('82987', '82987', null, '2', '0', 'OA_OPERATIONSEL20161009000004', '2016-10-09', '100', '21277', '2016-10-09 11:25:25', '21277', '2017-04-24 09:47:16', 'OA_OperationSel', '-1', 'OA_WorkflowDesigne', '82983', 'WF_OA_MeetingInSideWorkFlow', '19', null, null, '会议审批', '0', '1');
-INSERT INTO `oa_operationsel_h` VALUES ('82994', '82994', null, '1', '0', 'OA_OPERATIONSEL20161009000005', '2016-10-09', '100', '21277', '2016-10-09 11:26:07', '21277', '2016-10-09 11:26:12', 'OA_OperationSel', '-1', 'OA_WorkflowDesigne', '82990', 'WF_OA_MeetingOutSideWorkFlow', '5', null, null, '审批', '0', '1');
-INSERT INTO `oa_operationsel_h` VALUES ('83000', '83000', null, '2', '0', 'OA_OPERATIONSEL20161009000006', '2016-10-09', '100', '21277', '2016-10-09 11:27:08', '21277', '2017-05-17 16:22:40', 'OA_OperationSel', '-1', 'OA_WorkflowDesigne', '82997', 'WF_OA_TASK', '6', '', '', '接受任务', '0', '1');
-INSERT INTO `oa_operationsel_h` VALUES ('83006', '83006', null, '1', '0', 'OA_OPERATIONSEL20161009000007', '2016-10-09', '100', '21277', '2016-10-09 11:27:38', '21277', '2016-10-09 11:27:43', 'OA_OperationSel', '-1', 'OA_WorkflowDesigne', '82997', 'WF_OA_TASK', '22', null, null, '审批', '0', '1');
-INSERT INTO `oa_operationsel_h` VALUES ('83011', '83011', null, '1', '0', 'OA_OPERATIONSEL20161009000008', '2016-10-09', '100', '21277', '2016-10-09 11:28:27', '21277', '2016-10-09 11:28:31', 'OA_OperationSel', '-1', 'OA_WorkflowDesigne', '82997', 'WF_OA_TASK', '45', null, null, '审批', '0', '1');
-INSERT INTO `oa_operationsel_h` VALUES ('83016', '83016', null, '1', '0', 'OA_OPERATIONSEL20161009000009', '2016-10-09', '100', '21277', '2016-10-09 11:28:52', '21277', '2016-10-09 11:29:00', 'OA_OperationSel', '-1', 'OA_WorkflowDesigne', '82997', 'WF_OA_TASK', '39', '', '', '审批', '0', '1');
-INSERT INTO `oa_operationsel_h` VALUES ('90141', '90141', null, '3', '0', 'OA_OPERATIONSEL20161012000001', '2016-10-12', '100', '21277', '2016-10-12 13:12:44', '21277', '2017-06-05 10:40:29', 'OA_OperationSel', '-1', 'OA_WorkflowDesigne', '90137', 'WF_OA_ForeignLan', '8', null, null, '办公室主任审批', '0', '1');
-INSERT INTO `oa_operationsel_h` VALUES ('90147', '90147', null, '3', '0', 'OA_OPERATIONSEL20161012000002', '2016-10-12', '100', '21277', '2016-10-12 13:13:05', '21277', '2017-06-05 10:40:37', 'OA_OperationSel', '-1', 'OA_WorkflowDesigne', '90137', 'WF_OA_ForeignLan', '10', null, null, '总经理审批', '0', '1');
-INSERT INTO `oa_operationsel_h` VALUES ('90153', '90153', null, '1', '0', 'OA_OPERATIONSEL20161012000003', '2016-10-12', '100', '21277', '2016-10-12 13:13:29', '21277', '2016-10-12 13:13:33', 'OA_OperationSel', '-1', 'OA_WorkflowDesigne', '90137', 'WF_OA_ForeignLan', '27', null, null, '审批', '0', '1');
-INSERT INTO `oa_operationsel_h` VALUES ('90159', '90159', null, '1', '0', 'OA_OPERATIONSEL20161012000004', '2016-10-12', '100', '21277', '2016-10-12 13:14:00', '21277', '2016-10-12 13:14:03', 'OA_OperationSel', '-1', 'OA_WorkflowDesigne', '90137', 'WF_OA_ForeignLan', '29', null, null, '审批', '0', '1');
-INSERT INTO `oa_operationsel_h` VALUES ('93720', '93720', null, '2', '0', 'OA_OPERATIONSEL20161026000001', '2016-10-26', '100', '21277', '2016-10-26 17:48:37', '21277', '2017-06-05 10:40:42', 'OA_OperationSel', '-1', 'OA_WorkflowDesigne', '90137', 'WF_OA_ForeignLan', '43', '', '', '分管领导', '0', '1');
-INSERT INTO `oa_operationsel_h` VALUES ('93722', '93722', null, '2', '0', 'OA_OPERATIONSEL20161026000002', '2016-10-26', '100', '21277', '2016-10-26 17:48:45', '21277', '2017-06-05 10:40:48', 'OA_OperationSel', '-1', 'OA_WorkflowDesigne', '90137', 'WF_OA_ForeignLan', '46', '', '', '部门处理结果反馈', '0', '1');
-INSERT INTO `oa_operationsel_h` VALUES ('93740', '93740', null, '0', '0', 'OA_OPERATIONSEL20161026000003', '2016-10-26', '100', '21277', '2016-10-26 17:51:31', '21277', '2016-10-26 17:51:31', 'OA_OperationSel', '-1', 'OA_WorkflowDesigne', '93724', 'WF_OA_Dispatch', '22', '', '', '审批', '0', null);
-INSERT INTO `oa_operationsel_h` VALUES ('93742', '93742', null, '0', '0', 'OA_OPERATIONSEL20161026000004', '2016-10-26', '100', '21277', '2016-10-26 17:51:37', '21277', '2016-10-26 17:51:37', 'OA_OperationSel', '-1', 'OA_WorkflowDesigne', '93724', 'WF_OA_Dispatch', '4', '', '', '审批', '0', null);
-INSERT INTO `oa_operationsel_h` VALUES ('93744', '93744', null, '0', '0', 'OA_OPERATIONSEL20161026000005', '2016-10-26', '100', '21277', '2016-10-26 17:51:41', '21277', '2016-10-26 17:51:41', 'OA_OperationSel', '-1', 'OA_WorkflowDesigne', '93724', 'WF_OA_Dispatch', '6', '', '', '审批', '0', null);
-INSERT INTO `oa_operationsel_h` VALUES ('93746', '93746', null, '0', '0', 'OA_OPERATIONSEL20161026000006', '2016-10-26', '100', '21277', '2016-10-26 17:51:48', '21277', '2016-10-26 17:51:48', 'OA_OperationSel', '-1', 'OA_WorkflowDesigne', '93724', 'WF_OA_Dispatch', '7', '', '', '审批', '0', null);
-INSERT INTO `oa_operationsel_h` VALUES ('93748', '93748', null, '0', '0', 'OA_OPERATIONSEL20161026000007', '2016-10-26', '100', '21277', '2016-10-26 17:51:55', '21277', '2016-10-26 17:51:54', 'OA_OperationSel', '-1', 'OA_WorkflowDesigne', '93724', 'WF_OA_Dispatch', '8', '', '', '审批', '0', null);
-INSERT INTO `oa_operationsel_h` VALUES ('165139', '165139', null, '1', '0', 'OA_OPERATIONSEL20170309000001', '2017-03-09', '100', '21277', '2017-03-09 16:57:58', '21277', '2017-06-05 10:40:53', 'OA_OperationSel', '-1', 'OA_WorkflowDesigne', '90137', 'WF_OA_ForeignLan', '49', null, null, '提交审批', '0', '1');
-INSERT INTO `oa_operationsel_h` VALUES ('165144', '165144', null, '0', '0', 'OA_OPERATIONSEL20170309000002', '2017-03-09', '100', '21277', '2017-03-09 17:02:10', '21277', '2017-03-09 17:02:10', 'OA_OperationSel', '-1', 'OA_WorkflowDesigne', '93724', 'WF_OA_Dispatch', '29', null, null, '提交审批', '0', null);
-INSERT INTO `oa_operationsel_h` VALUES ('181790', '181790', null, '1', '0', 'OA_OPERATIONSEL20170515000001', '2017-05-15', '100', '21277', '2017-05-15 14:14:54', '21277', '2017-05-15 14:15:17', 'OA_OperationSel', '-1', 'OA_WorkflowDesigne', '181786', 'WF_OA_WeeklyReport', '2', null, null, '审批', '0', '1');
+INSERT INTO `oa_operationsel_h` VALUES ('82967', '82967', null, '1', '0', 'OA_OPERATIONSEL20161009000001', '2016-10-09', '100', '21277', '2016-10-09 11:23:07', '21277', '2016-10-09 11:23:13', 'OA_OperationSel', '-1', 'OA_WorkflowDesigne', '82962', 'WF_StandardWorkFlow', '5', null, null, '审批', '0', '1', 'OA_WorkflowSet');
+INSERT INTO `oa_operationsel_h` VALUES ('82974', '82974', null, '4', '0', 'OA_OPERATIONSEL20161009000002', '2016-10-09', '100', '21277', '2016-10-09 11:24:01', '21277', '2017-08-02 15:07:53', 'OA_OperationSel', '-1', 'OA_WorkflowDesigne', '82970', 'WF_OA_NewsDraftView', '3', null, null, '通过，撤回', '0', '1', 'OA_WorkflowSet');
+INSERT INTO `oa_operationsel_h` VALUES ('82979', '82979', null, '3', '0', 'OA_OPERATIONSEL20161009000003', '2016-10-09', '100', '21277', '2016-10-09 11:24:29', '21277', '2017-08-02 15:08:21', 'OA_OperationSel', '-1', 'OA_WorkflowDesigne', '82970', 'WF_OA_NewsDraftView', '7', null, null, '通过，撤回', '0', '1', 'OA_WorkflowSet');
+INSERT INTO `oa_operationsel_h` VALUES ('82987', '82987', null, '2', '0', 'OA_OPERATIONSEL20161009000004', '2016-10-09', '100', '21277', '2016-10-09 11:25:25', '21277', '2017-04-24 09:47:16', 'OA_OperationSel', '-1', 'OA_WorkflowDesigne', '82983', 'WF_OA_MeetingInSideWorkFlow', '19', null, null, '会议审批', '0', '1', 'OA_WorkflowSet');
+INSERT INTO `oa_operationsel_h` VALUES ('82994', '82994', null, '1', '0', 'OA_OPERATIONSEL20161009000005', '2016-10-09', '100', '21277', '2016-10-09 11:26:07', '21277', '2016-10-09 11:26:12', 'OA_OperationSel', '-1', 'OA_WorkflowDesigne', '82990', 'WF_OA_MeetingOutSideWorkFlow', '5', null, null, '审批', '0', '1', 'OA_WorkflowSet');
+INSERT INTO `oa_operationsel_h` VALUES ('83000', '83000', null, '2', '0', 'OA_OPERATIONSEL20161009000006', '2016-10-09', '100', '21277', '2016-10-09 11:27:08', '21277', '2017-05-17 16:22:40', 'OA_OperationSel', '-1', 'OA_WorkflowDesigne', '82997', 'WF_OA_TASK', '6', '', '', '接受任务', '0', '1', 'OA_WorkflowSet');
+INSERT INTO `oa_operationsel_h` VALUES ('83006', '83006', null, '1', '0', 'OA_OPERATIONSEL20161009000007', '2016-10-09', '100', '21277', '2016-10-09 11:27:38', '21277', '2016-10-09 11:27:43', 'OA_OperationSel', '-1', 'OA_WorkflowDesigne', '82997', 'WF_OA_TASK', '22', null, null, '审批', '0', '1', 'OA_WorkflowSet');
+INSERT INTO `oa_operationsel_h` VALUES ('83011', '83011', null, '1', '0', 'OA_OPERATIONSEL20161009000008', '2016-10-09', '100', '21277', '2016-10-09 11:28:27', '21277', '2016-10-09 11:28:31', 'OA_OperationSel', '-1', 'OA_WorkflowDesigne', '82997', 'WF_OA_TASK', '45', null, null, '审批', '0', '1', 'OA_WorkflowSet');
+INSERT INTO `oa_operationsel_h` VALUES ('83016', '83016', null, '1', '0', 'OA_OPERATIONSEL20161009000009', '2016-10-09', '100', '21277', '2016-10-09 11:28:52', '21277', '2016-10-09 11:29:00', 'OA_OperationSel', '-1', 'OA_WorkflowDesigne', '82997', 'WF_OA_TASK', '39', '', '', '审批', '0', '1', 'OA_WorkflowSet');
+INSERT INTO `oa_operationsel_h` VALUES ('90141', '90141', null, '3', '0', 'OA_OPERATIONSEL20161012000001', '2016-10-12', '100', '21277', '2016-10-12 13:12:44', '21277', '2017-06-05 10:40:29', 'OA_OperationSel', '-1', 'OA_WorkflowDesigne', '90137', 'WF_OA_ForeignLan', '8', null, null, '办公室主任审批', '0', '1', 'OA_WorkflowSet');
+INSERT INTO `oa_operationsel_h` VALUES ('90147', '90147', null, '3', '0', 'OA_OPERATIONSEL20161012000002', '2016-10-12', '100', '21277', '2016-10-12 13:13:05', '21277', '2017-06-05 10:40:37', 'OA_OperationSel', '-1', 'OA_WorkflowDesigne', '90137', 'WF_OA_ForeignLan', '10', null, null, '总经理审批', '0', '1', 'OA_WorkflowSet');
+INSERT INTO `oa_operationsel_h` VALUES ('90153', '90153', null, '1', '0', 'OA_OPERATIONSEL20161012000003', '2016-10-12', '100', '21277', '2016-10-12 13:13:29', '21277', '2016-10-12 13:13:33', 'OA_OperationSel', '-1', 'OA_WorkflowDesigne', '90137', 'WF_OA_ForeignLan', '27', null, null, '审批', '0', '1', 'OA_WorkflowSet');
+INSERT INTO `oa_operationsel_h` VALUES ('90159', '90159', null, '1', '0', 'OA_OPERATIONSEL20161012000004', '2016-10-12', '100', '21277', '2016-10-12 13:14:00', '21277', '2016-10-12 13:14:03', 'OA_OperationSel', '-1', 'OA_WorkflowDesigne', '90137', 'WF_OA_ForeignLan', '29', null, null, '审批', '0', '1', 'OA_WorkflowSet');
+INSERT INTO `oa_operationsel_h` VALUES ('93720', '93720', null, '2', '0', 'OA_OPERATIONSEL20161026000001', '2016-10-26', '100', '21277', '2016-10-26 17:48:37', '21277', '2017-06-05 10:40:42', 'OA_OperationSel', '-1', 'OA_WorkflowDesigne', '90137', 'WF_OA_ForeignLan', '43', '', '', '分管领导', '0', '1', 'OA_WorkflowSet');
+INSERT INTO `oa_operationsel_h` VALUES ('93722', '93722', null, '2', '0', 'OA_OPERATIONSEL20161026000002', '2016-10-26', '100', '21277', '2016-10-26 17:48:45', '21277', '2017-06-05 10:40:48', 'OA_OperationSel', '-1', 'OA_WorkflowDesigne', '90137', 'WF_OA_ForeignLan', '46', '', '', '部门处理结果反馈', '0', '1', 'OA_WorkflowSet');
+INSERT INTO `oa_operationsel_h` VALUES ('93740', '93740', null, '0', '0', 'OA_OPERATIONSEL20161026000003', '2016-10-26', '100', '21277', '2016-10-26 17:51:31', '21277', '2016-10-26 17:51:31', 'OA_OperationSel', '-1', 'OA_WorkflowDesigne', '93724', 'WF_OA_Dispatch', '22', '', '', '审批', '0', null, 'OA_WorkflowSet');
+INSERT INTO `oa_operationsel_h` VALUES ('93742', '93742', null, '0', '0', 'OA_OPERATIONSEL20161026000004', '2016-10-26', '100', '21277', '2016-10-26 17:51:37', '21277', '2016-10-26 17:51:37', 'OA_OperationSel', '-1', 'OA_WorkflowDesigne', '93724', 'WF_OA_Dispatch', '4', '', '', '审批', '0', null, 'OA_WorkflowSet');
+INSERT INTO `oa_operationsel_h` VALUES ('93744', '93744', null, '0', '0', 'OA_OPERATIONSEL20161026000005', '2016-10-26', '100', '21277', '2016-10-26 17:51:41', '21277', '2016-10-26 17:51:41', 'OA_OperationSel', '-1', 'OA_WorkflowDesigne', '93724', 'WF_OA_Dispatch', '6', '', '', '审批', '0', null, 'OA_WorkflowSet');
+INSERT INTO `oa_operationsel_h` VALUES ('93746', '93746', null, '0', '0', 'OA_OPERATIONSEL20161026000006', '2016-10-26', '100', '21277', '2016-10-26 17:51:48', '21277', '2016-10-26 17:51:48', 'OA_OperationSel', '-1', 'OA_WorkflowDesigne', '93724', 'WF_OA_Dispatch', '7', '', '', '审批', '0', null, 'OA_WorkflowSet');
+INSERT INTO `oa_operationsel_h` VALUES ('93748', '93748', null, '0', '0', 'OA_OPERATIONSEL20161026000007', '2016-10-26', '100', '21277', '2016-10-26 17:51:55', '21277', '2016-10-26 17:51:54', 'OA_OperationSel', '-1', 'OA_WorkflowDesigne', '93724', 'WF_OA_Dispatch', '8', '', '', '审批', '0', null, 'OA_WorkflowSet');
+INSERT INTO `oa_operationsel_h` VALUES ('165139', '165139', null, '1', '0', 'OA_OPERATIONSEL20170309000001', '2017-03-09', '100', '21277', '2017-03-09 16:57:58', '21277', '2017-06-05 10:40:53', 'OA_OperationSel', '-1', 'OA_WorkflowDesigne', '90137', 'WF_OA_ForeignLan', '49', null, null, '提交审批', '0', '1', 'OA_WorkflowSet');
+INSERT INTO `oa_operationsel_h` VALUES ('165144', '165144', null, '0', '0', 'OA_OPERATIONSEL20170309000002', '2017-03-09', '100', '21277', '2017-03-09 17:02:10', '21277', '2017-03-09 17:02:10', 'OA_OperationSel', '-1', 'OA_WorkflowDesigne', '93724', 'WF_OA_Dispatch', '29', null, null, '提交审批', '0', null, 'OA_WorkflowSet');
+INSERT INTO `oa_operationsel_h` VALUES ('181790', '181790', null, '1', '0', 'OA_OPERATIONSEL20170515000001', '2017-05-15', '100', '21277', '2017-05-15 14:14:54', '21277', '2017-05-15 14:15:17', 'OA_OperationSel', '-1', 'OA_WorkflowDesigne', '181786', 'WF_OA_WeeklyReport', '2', null, null, '审批', '0', '1', 'OA_WorkflowSet');
+INSERT INTO `oa_operationsel_h` VALUES ('209954', '209954', null, '0', '0', 'OA_OPERATIONSEL20170612000001', '2017-06-12', '100', '21', '2017-06-12 10:52:13', '21', '2017-06-12 10:52:13', 'OA_OperationSel', '-1', 'OA_WorkflowDesigne', '209943', 'WF_OA_ForeignLanTest', '8', 'AuditPerDepict', null, '审批', '0', null, 'OA_WorkflowSet');
+INSERT INTO `oa_operationsel_h` VALUES ('209956', '209956', null, '0', '0', 'OA_OPERATIONSEL20170612000002', '2017-06-12', '100', '21', '2017-06-12 10:52:17', '21', '2017-06-12 10:52:17', 'OA_OperationSel', '-1', 'OA_WorkflowDesigne', '209943', 'WF_OA_ForeignLanTest', '10', 'AuditPerDepict', null, '审批', '0', null, 'OA_WorkflowSet');
+INSERT INTO `oa_operationsel_h` VALUES ('209958', '209958', null, '0', '0', 'OA_OPERATIONSEL20170612000003', '2017-06-12', '100', '21', '2017-06-12 10:52:23', '21', '2017-06-12 10:52:23', 'OA_OperationSel', '-1', 'OA_WorkflowDesigne', '209943', 'WF_OA_ForeignLanTest', '43', 'AuditPerDepict', null, '审批', '0', null, 'OA_WorkflowSet');
+INSERT INTO `oa_operationsel_h` VALUES ('209960', '209960', null, '0', '0', 'OA_OPERATIONSEL20170612000004', '2017-06-12', '100', '21', '2017-06-12 10:52:27', '21', '2017-06-12 10:52:27', 'OA_OperationSel', '-1', 'OA_WorkflowDesigne', '209943', 'WF_OA_ForeignLanTest', '46', 'AuditPerDepict', null, '审批', '0', null, 'OA_WorkflowSet');
 
 -- ----------------------------
 -- Table structure for oa_operatorsel_d
@@ -16053,6 +17203,8 @@ CREATE TABLE `oa_operatorsel_d` (
   `SelField` int(11) default NULL,
   `MapCount` int(11) default NULL,
   `Slock` int(11) default NULL,
+  `RightSelOID` bigint(20) default NULL,
+  `RightSelDepict` varchar(4000) default NULL,
   PRIMARY KEY  (`OID`),
   KEY `I_A_OperatorSel_D_SOID` (`SOID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -16060,73 +17212,84 @@ CREATE TABLE `oa_operatorsel_d` (
 -- ----------------------------
 -- Records of oa_operatorsel_d
 -- ----------------------------
-INSERT INTO `oa_operatorsel_d` VALUES ('82964', '82963', null, '0', '0', '1', '21271', '3', null, '测试', null, null, null);
-INSERT INTO `oa_operatorsel_d` VALUES ('82965', '82963', null, '0', '0', '2', '21277', '3', null, '开发', null, null, null);
-INSERT INTO `oa_operatorsel_d` VALUES ('82972', '82971', null, '0', '0', '1', '21271', '3', null, '测试', null, null, null);
-INSERT INTO `oa_operatorsel_d` VALUES ('82973', '82971', null, '0', '0', '2', '21277', '3', null, '开发', null, null, null);
-INSERT INTO `oa_operatorsel_d` VALUES ('82977', '82976', null, '0', '0', '1', '21271', '3', null, '测试', null, null, null);
-INSERT INTO `oa_operatorsel_d` VALUES ('82978', '82976', null, '0', '0', '2', '21277', '3', null, '开发', null, null, null);
-INSERT INTO `oa_operatorsel_d` VALUES ('82985', '82984', null, '0', '0', '1', '21271', '3', null, '测试', null, null, null);
-INSERT INTO `oa_operatorsel_d` VALUES ('82986', '82984', null, '0', '0', '2', '21277', '3', null, '开发', null, null, null);
-INSERT INTO `oa_operatorsel_d` VALUES ('82992', '82991', null, '0', '0', '1', '21271', '3', null, '测试', null, null, null);
-INSERT INTO `oa_operatorsel_d` VALUES ('82993', '82991', null, '0', '0', '2', '21277', '3', null, '开发', null, null, null);
-INSERT INTO `oa_operatorsel_d` VALUES ('82999', '82998', null, '0', '0', '1', '57621', '4', null, '任务派发接受人员', null, null, null);
-INSERT INTO `oa_operatorsel_d` VALUES ('83004', '83003', null, '0', '0', '1', '21271', '3', null, '测试', null, null, null);
-INSERT INTO `oa_operatorsel_d` VALUES ('83005', '83003', null, '0', '0', '2', '21277', '3', null, '开发', null, null, null);
-INSERT INTO `oa_operatorsel_d` VALUES ('83009', '83008', null, '0', '0', '1', '21271', '3', null, '测试', null, null, null);
-INSERT INTO `oa_operatorsel_d` VALUES ('83010', '83008', null, '0', '0', '2', '21277', '3', null, '开发', null, null, null);
-INSERT INTO `oa_operatorsel_d` VALUES ('83014', '83013', null, '0', '0', '1', '21271', '3', null, '测试', null, null, null);
-INSERT INTO `oa_operatorsel_d` VALUES ('83015', '83013', null, '0', '0', '2', '21277', '3', null, '开发', null, null, null);
-INSERT INTO `oa_operatorsel_d` VALUES ('90139', '90138', null, '1', '0', '1', '21271', '3', null, '测试', null, null, null);
-INSERT INTO `oa_operatorsel_d` VALUES ('90140', '90138', null, '1', '0', '2', '21277', '3', null, '开发', null, null, null);
-INSERT INTO `oa_operatorsel_d` VALUES ('90145', '90144', null, '0', '0', null, '21271', '3', null, '测试', null, null, null);
-INSERT INTO `oa_operatorsel_d` VALUES ('90146', '90144', null, '0', '0', null, '21277', '3', null, '开发', null, null, null);
-INSERT INTO `oa_operatorsel_d` VALUES ('90150', '90149', null, '0', '0', null, '21271', '3', null, '测试', null, null, null);
-INSERT INTO `oa_operatorsel_d` VALUES ('90151', '90149', null, '0', '0', null, '21277', '3', null, '开发', null, null, null);
-INSERT INTO `oa_operatorsel_d` VALUES ('90156', '90155', null, '0', '0', null, '21271', '3', null, '测试', null, null, null);
-INSERT INTO `oa_operatorsel_d` VALUES ('90157', '90155', null, '0', '0', null, '21277', '3', null, '开发', null, null, null);
-INSERT INTO `oa_operatorsel_d` VALUES ('93715', '93714', null, '0', '0', '1', '21271', '3', null, '测试', null, null, null);
-INSERT INTO `oa_operatorsel_d` VALUES ('93716', '93714', null, '0', '0', '2', '21277', '3', null, '开发', null, null, null);
-INSERT INTO `oa_operatorsel_d` VALUES ('93718', '93717', null, '0', '0', '1', '21271', '3', null, '测试', null, null, null);
-INSERT INTO `oa_operatorsel_d` VALUES ('93719', '93717', null, '0', '0', '2', '21277', '3', null, '开发', null, null, null);
-INSERT INTO `oa_operatorsel_d` VALUES ('93726', '93725', null, '0', '0', '1', '21271', '3', null, '测试', null, null, null);
-INSERT INTO `oa_operatorsel_d` VALUES ('93727', '93725', null, '0', '0', '2', '21277', '3', null, '开发', null, null, null);
-INSERT INTO `oa_operatorsel_d` VALUES ('93729', '93728', null, '0', '0', '1', '21271', '3', null, '测试', null, null, null);
-INSERT INTO `oa_operatorsel_d` VALUES ('93730', '93728', null, '0', '0', '2', '21277', '3', null, '开发', null, null, null);
-INSERT INTO `oa_operatorsel_d` VALUES ('93732', '93731', null, '0', '0', '1', '21271', '3', null, '测试', null, null, null);
-INSERT INTO `oa_operatorsel_d` VALUES ('93733', '93731', null, '0', '0', '2', '21277', '3', null, '开发', null, null, null);
-INSERT INTO `oa_operatorsel_d` VALUES ('93735', '93734', null, '0', '0', '1', '21271', '3', null, '测试', null, null, null);
-INSERT INTO `oa_operatorsel_d` VALUES ('93736', '93734', null, '0', '0', '2', '21277', '3', null, '开发', null, null, null);
-INSERT INTO `oa_operatorsel_d` VALUES ('93738', '93737', null, '0', '0', '1', '21271', '3', null, '测试', null, null, null);
-INSERT INTO `oa_operatorsel_d` VALUES ('93739', '93737', null, '0', '0', '2', '21277', '3', null, '开发', null, null, null);
-INSERT INTO `oa_operatorsel_d` VALUES ('111894', '111893', null, '0', '0', '1', '14886', '2', null, '网络部', null, null, null);
-INSERT INTO `oa_operatorsel_d` VALUES ('113947', '113946', null, '0', '0', '1', '21271', '3', null, '测试', null, null, null);
-INSERT INTO `oa_operatorsel_d` VALUES ('113948', '113946', null, '0', '0', '2', '21277', '3', null, '开发', null, null, null);
-INSERT INTO `oa_operatorsel_d` VALUES ('139284', '139283', null, '0', '0', '1', '21271', '3', null, '测试', null, null, null);
-INSERT INTO `oa_operatorsel_d` VALUES ('139285', '139283', null, '0', '0', '2', '21277', '3', null, '开发', null, null, null);
-INSERT INTO `oa_operatorsel_d` VALUES ('158997', '158996', null, '0', '0', '1', '21271', '3', null, '测试', null, null, null);
-INSERT INTO `oa_operatorsel_d` VALUES ('158998', '158996', null, '0', '0', '2', '21277', '3', null, '开发', null, null, null);
-INSERT INTO `oa_operatorsel_d` VALUES ('158999', '158996', null, '0', '0', '3', '64591', '3', null, '王君', null, null, null);
-INSERT INTO `oa_operatorsel_d` VALUES ('165142', '165141', null, '0', '0', '1', '21271', '3', null, '测试', null, null, null);
-INSERT INTO `oa_operatorsel_d` VALUES ('165143', '165141', null, '0', '0', '2', '21277', '3', null, '开发', null, null, null);
-INSERT INTO `oa_operatorsel_d` VALUES ('181788', '181787', null, '0', '0', null, '21271', '3', null, '测试', null, null, null);
-INSERT INTO `oa_operatorsel_d` VALUES ('181789', '181787', null, '0', '0', null, '21277', '3', null, '开发', null, null, null);
-INSERT INTO `oa_operatorsel_d` VALUES ('185367', '185366', null, '0', '0', null, '15154', '3', null, '张展旭', null, null, null);
-INSERT INTO `oa_operatorsel_d` VALUES ('185368', '185366', null, '0', '0', null, '16948', '3', null, '张建烁', null, null, null);
-INSERT INTO `oa_operatorsel_d` VALUES ('185375', '185374', null, '0', '0', null, '15154', '3', null, '张展旭', null, null, null);
-INSERT INTO `oa_operatorsel_d` VALUES ('185376', '185374', null, '0', '0', null, '16948', '3', null, '张建烁', null, null, null);
-INSERT INTO `oa_operatorsel_d` VALUES ('185621', '185620', null, '0', '0', null, '15154', '3', null, '张展旭', null, null, null);
-INSERT INTO `oa_operatorsel_d` VALUES ('185622', '185620', null, '0', '0', null, '16948', '3', null, '张建烁', null, null, null);
-INSERT INTO `oa_operatorsel_d` VALUES ('185880', '185879', null, '0', '0', null, '15154', '3', null, '张展旭', null, null, null);
-INSERT INTO `oa_operatorsel_d` VALUES ('185881', '185879', null, '0', '0', null, '16948', '3', null, '张建烁', null, null, null);
-INSERT INTO `oa_operatorsel_d` VALUES ('201746', '201241', null, '0', '0', null, '200723', '6', null, '收文直接人员', null, null, null);
-INSERT INTO `oa_operatorsel_d` VALUES ('201747', '201241', null, '0', '0', null, '200981', '6', null, '收文匹配人员', null, null, null);
-INSERT INTO `oa_operatorsel_d` VALUES ('205849', '205848', null, '0', '0', null, '200723', '6', null, '收文直接人员', null, null, null);
-INSERT INTO `oa_operatorsel_d` VALUES ('205850', '205848', null, '0', '0', null, '200981', '6', null, '收文匹配人员', null, null, null);
-INSERT INTO `oa_operatorsel_d` VALUES ('208916', '205587', null, '0', '0', null, '21271', '3', null, '测试', null, null, null);
-INSERT INTO `oa_operatorsel_d` VALUES ('208917', '205587', null, '0', '0', null, '21277', '3', null, '开发', null, null, null);
-INSERT INTO `oa_operatorsel_d` VALUES ('208918', '205842', null, '0', '0', null, '20009', '4', null, '创建人', null, null, null);
-INSERT INTO `oa_operatorsel_d` VALUES ('208919', '205845', null, '0', '0', null, '20005', '5', null, '特别', null, null, null);
+INSERT INTO `oa_operatorsel_d` VALUES ('82964', '82963', null, '0', '0', '1', '21271', '3', null, '测试', null, null, null, null, null);
+INSERT INTO `oa_operatorsel_d` VALUES ('82965', '82963', null, '0', '0', '2', '21277', '3', null, '开发', null, null, null, null, null);
+INSERT INTO `oa_operatorsel_d` VALUES ('82972', '82971', null, '0', '0', '1', '21271', '3', null, '测试', null, null, null, null, null);
+INSERT INTO `oa_operatorsel_d` VALUES ('82973', '82971', null, '0', '0', '2', '21277', '3', null, '开发', null, null, null, null, null);
+INSERT INTO `oa_operatorsel_d` VALUES ('82977', '82976', null, '0', '0', '1', '21271', '3', null, '测试', null, null, null, null, null);
+INSERT INTO `oa_operatorsel_d` VALUES ('82978', '82976', null, '0', '0', '2', '21277', '3', null, '开发', null, null, null, null, null);
+INSERT INTO `oa_operatorsel_d` VALUES ('82985', '82984', null, '0', '0', '1', '21271', '3', null, '测试', null, null, null, null, null);
+INSERT INTO `oa_operatorsel_d` VALUES ('82986', '82984', null, '0', '0', '2', '21277', '3', null, '开发', null, null, null, null, null);
+INSERT INTO `oa_operatorsel_d` VALUES ('82992', '82991', null, '0', '0', '1', '21271', '3', null, '测试', null, null, null, null, null);
+INSERT INTO `oa_operatorsel_d` VALUES ('82993', '82991', null, '0', '0', '2', '21277', '3', null, '开发', null, null, null, null, null);
+INSERT INTO `oa_operatorsel_d` VALUES ('82999', '82998', null, '0', '0', '1', '57621', '4', null, '任务派发接受人员', null, null, null, null, null);
+INSERT INTO `oa_operatorsel_d` VALUES ('83004', '83003', null, '0', '0', '1', '21271', '3', null, '测试', null, null, null, null, null);
+INSERT INTO `oa_operatorsel_d` VALUES ('83005', '83003', null, '0', '0', '2', '21277', '3', null, '开发', null, null, null, null, null);
+INSERT INTO `oa_operatorsel_d` VALUES ('83009', '83008', null, '0', '0', '1', '21271', '3', null, '测试', null, null, null, null, null);
+INSERT INTO `oa_operatorsel_d` VALUES ('83010', '83008', null, '0', '0', '2', '21277', '3', null, '开发', null, null, null, null, null);
+INSERT INTO `oa_operatorsel_d` VALUES ('83014', '83013', null, '0', '0', '1', '21271', '3', null, '测试', null, null, null, null, null);
+INSERT INTO `oa_operatorsel_d` VALUES ('83015', '83013', null, '0', '0', '2', '21277', '3', null, '开发', null, null, null, null, null);
+INSERT INTO `oa_operatorsel_d` VALUES ('90139', '90138', null, '1', '0', '1', '21271', '3', null, '测试', null, null, null, null, null);
+INSERT INTO `oa_operatorsel_d` VALUES ('90140', '90138', null, '1', '0', '2', '21277', '3', null, '开发', null, null, null, null, null);
+INSERT INTO `oa_operatorsel_d` VALUES ('90145', '90144', null, '0', '0', null, '21271', '3', null, '测试', null, null, null, null, null);
+INSERT INTO `oa_operatorsel_d` VALUES ('90146', '90144', null, '0', '0', null, '21277', '3', null, '开发', null, null, null, null, null);
+INSERT INTO `oa_operatorsel_d` VALUES ('90150', '90149', null, '0', '0', null, '21271', '3', null, '测试', null, null, null, null, null);
+INSERT INTO `oa_operatorsel_d` VALUES ('90151', '90149', null, '0', '0', null, '21277', '3', null, '开发', null, null, null, null, null);
+INSERT INTO `oa_operatorsel_d` VALUES ('90156', '90155', null, '0', '0', null, '21271', '3', null, '测试', null, null, null, null, null);
+INSERT INTO `oa_operatorsel_d` VALUES ('90157', '90155', null, '0', '0', null, '21277', '3', null, '开发', null, null, null, null, null);
+INSERT INTO `oa_operatorsel_d` VALUES ('93715', '93714', null, '0', '0', '1', '21271', '3', null, '测试', null, null, null, null, null);
+INSERT INTO `oa_operatorsel_d` VALUES ('93716', '93714', null, '0', '0', '2', '21277', '3', null, '开发', null, null, null, null, null);
+INSERT INTO `oa_operatorsel_d` VALUES ('93718', '93717', null, '0', '0', '1', '21271', '3', null, '测试', null, null, null, null, null);
+INSERT INTO `oa_operatorsel_d` VALUES ('93719', '93717', null, '0', '0', '2', '21277', '3', null, '开发', null, null, null, null, null);
+INSERT INTO `oa_operatorsel_d` VALUES ('93726', '93725', null, '0', '0', '1', '21271', '3', null, '测试', null, null, null, null, null);
+INSERT INTO `oa_operatorsel_d` VALUES ('93727', '93725', null, '0', '0', '2', '21277', '3', null, '开发', null, null, null, null, null);
+INSERT INTO `oa_operatorsel_d` VALUES ('93729', '93728', null, '0', '0', '1', '21271', '3', null, '测试', null, null, null, null, null);
+INSERT INTO `oa_operatorsel_d` VALUES ('93730', '93728', null, '0', '0', '2', '21277', '3', null, '开发', null, null, null, null, null);
+INSERT INTO `oa_operatorsel_d` VALUES ('93732', '93731', null, '0', '0', '1', '21271', '3', null, '测试', null, null, null, null, null);
+INSERT INTO `oa_operatorsel_d` VALUES ('93733', '93731', null, '0', '0', '2', '21277', '3', null, '开发', null, null, null, null, null);
+INSERT INTO `oa_operatorsel_d` VALUES ('93735', '93734', null, '0', '0', '1', '21271', '3', null, '测试', null, null, null, null, null);
+INSERT INTO `oa_operatorsel_d` VALUES ('93736', '93734', null, '0', '0', '2', '21277', '3', null, '开发', null, null, null, null, null);
+INSERT INTO `oa_operatorsel_d` VALUES ('93738', '93737', null, '0', '0', '1', '21271', '3', null, '测试', null, null, null, null, null);
+INSERT INTO `oa_operatorsel_d` VALUES ('93739', '93737', null, '0', '0', '2', '21277', '3', null, '开发', null, null, null, null, null);
+INSERT INTO `oa_operatorsel_d` VALUES ('111894', '111893', null, '0', '0', '1', '14886', '2', null, '网络部', null, null, null, null, null);
+INSERT INTO `oa_operatorsel_d` VALUES ('113947', '113946', null, '0', '0', '1', '21271', '3', null, '测试', null, null, null, null, null);
+INSERT INTO `oa_operatorsel_d` VALUES ('113948', '113946', null, '0', '0', '2', '21277', '3', null, '开发', null, null, null, null, null);
+INSERT INTO `oa_operatorsel_d` VALUES ('139284', '139283', null, '0', '0', '1', '21271', '3', null, '测试', null, null, null, null, null);
+INSERT INTO `oa_operatorsel_d` VALUES ('139285', '139283', null, '0', '0', '2', '21277', '3', null, '开发', null, null, null, null, null);
+INSERT INTO `oa_operatorsel_d` VALUES ('158997', '158996', null, '0', '0', '1', '21271', '3', null, '测试', null, null, null, null, null);
+INSERT INTO `oa_operatorsel_d` VALUES ('158998', '158996', null, '0', '0', '2', '21277', '3', null, '开发', null, null, null, null, null);
+INSERT INTO `oa_operatorsel_d` VALUES ('158999', '158996', null, '0', '0', '3', '64591', '3', null, '王君', null, null, null, null, null);
+INSERT INTO `oa_operatorsel_d` VALUES ('165142', '165141', null, '0', '0', '1', '21271', '3', null, '测试', null, null, null, null, null);
+INSERT INTO `oa_operatorsel_d` VALUES ('165143', '165141', null, '0', '0', '2', '21277', '3', null, '开发', null, null, null, null, null);
+INSERT INTO `oa_operatorsel_d` VALUES ('181788', '181787', null, '0', '0', null, '21271', '3', null, '测试', null, null, null, null, null);
+INSERT INTO `oa_operatorsel_d` VALUES ('181789', '181787', null, '0', '0', null, '21277', '3', null, '开发', null, null, null, null, null);
+INSERT INTO `oa_operatorsel_d` VALUES ('185367', '185366', null, '0', '0', null, '15154', '3', null, '张展旭', null, null, null, null, null);
+INSERT INTO `oa_operatorsel_d` VALUES ('185368', '185366', null, '0', '0', null, '16948', '3', null, '张建烁', null, null, null, null, null);
+INSERT INTO `oa_operatorsel_d` VALUES ('185375', '185374', null, '0', '0', null, '15154', '3', null, '张展旭', null, null, null, null, null);
+INSERT INTO `oa_operatorsel_d` VALUES ('185376', '185374', null, '0', '0', null, '16948', '3', null, '张建烁', null, null, null, null, null);
+INSERT INTO `oa_operatorsel_d` VALUES ('185621', '185620', null, '0', '0', null, '15154', '3', null, '张展旭', null, null, null, null, null);
+INSERT INTO `oa_operatorsel_d` VALUES ('185622', '185620', null, '0', '0', null, '16948', '3', null, '张建烁', null, null, null, null, null);
+INSERT INTO `oa_operatorsel_d` VALUES ('185880', '185879', null, '0', '0', null, '15154', '3', null, '张展旭', null, null, null, null, null);
+INSERT INTO `oa_operatorsel_d` VALUES ('185881', '185879', null, '0', '0', null, '16948', '3', null, '张建烁', null, null, null, null, null);
+INSERT INTO `oa_operatorsel_d` VALUES ('201746', '201241', null, '0', '0', null, '200723', '6', null, '收文直接人员', null, null, null, null, null);
+INSERT INTO `oa_operatorsel_d` VALUES ('201747', '201241', null, '0', '0', null, '200981', '6', null, '收文匹配人员', null, null, null, null, null);
+INSERT INTO `oa_operatorsel_d` VALUES ('205849', '205848', null, '0', '0', null, '200723', '6', null, '收文直接人员', null, null, null, null, null);
+INSERT INTO `oa_operatorsel_d` VALUES ('205850', '205848', null, '0', '0', null, '200981', '6', null, '收文匹配人员', null, null, null, null, null);
+INSERT INTO `oa_operatorsel_d` VALUES ('208916', '205587', null, '0', '0', null, '21271', '3', null, '测试', null, null, null, null, null);
+INSERT INTO `oa_operatorsel_d` VALUES ('208917', '205587', null, '0', '0', null, '21277', '3', null, '开发', null, null, null, null, null);
+INSERT INTO `oa_operatorsel_d` VALUES ('208918', '205842', null, '0', '0', null, '20009', '4', null, '创建人', null, null, null, null, null);
+INSERT INTO `oa_operatorsel_d` VALUES ('208919', '205845', null, '0', '0', null, '20005', '5', null, '特别', null, null, null, null, null);
+INSERT INTO `oa_operatorsel_d` VALUES ('209945', '209944', null, '0', '0', null, '21271', '3', null, '测试', null, null, null, null, null);
+INSERT INTO `oa_operatorsel_d` VALUES ('209946', '209944', null, '0', '0', null, '21277', '3', null, '开发', null, null, null, null, null);
+INSERT INTO `oa_operatorsel_d` VALUES ('209948', '209947', null, '0', '0', null, '20009', '4', null, '创建人', null, null, null, null, null);
+INSERT INTO `oa_operatorsel_d` VALUES ('209950', '209949', null, '0', '0', null, '20005', '5', null, '特别', null, null, null, null, null);
+INSERT INTO `oa_operatorsel_d` VALUES ('209952', '209951', null, '0', '0', null, '200723', '6', null, '收文直接人员', null, null, null, null, null);
+INSERT INTO `oa_operatorsel_d` VALUES ('209953', '209951', null, '0', '0', null, '200981', '6', null, '收文匹配人员', null, null, null, null, null);
+INSERT INTO `oa_operatorsel_d` VALUES ('213276', '213275', null, '0', '0', '1', '21271', '3', null, '测试', '0', '0', null, '0', '');
+INSERT INTO `oa_operatorsel_d` VALUES ('213277', '213275', null, '0', '0', '2', '21277', '3', null, '开发', '0', '0', null, '0', '');
+INSERT INTO `oa_operatorsel_d` VALUES ('213279', '213278', null, '0', '0', '1', '21277', '3', null, '开发', '0', '0', null, '0', '');
+INSERT INTO `oa_operatorsel_d` VALUES ('213280', '213278', null, '0', '0', '2', '64589', '3', null, '王天佑', '0', '0', null, '0', '');
+INSERT INTO `oa_operatorsel_d` VALUES ('213281', '213278', null, '0', '0', '3', '21271', '3', null, '测试', '0', '0', null, '0', '');
 
 -- ----------------------------
 -- Table structure for oa_operatorsel_h
@@ -16159,6 +17322,8 @@ CREATE TABLE `oa_operatorsel_h` (
   `MapCount` int(11) default NULL,
   `Slock` int(11) default NULL,
   `OptIDs` varchar(4000) default NULL,
+  `StartFormKey` varchar(255) default NULL,
+  `WorkflowFormKey` varchar(255) default NULL,
   PRIMARY KEY  (`OID`),
   UNIQUE KEY `I_A_OperatorSel_H_SOID` (`SOID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -16166,41 +17331,47 @@ CREATE TABLE `oa_operatorsel_h` (
 -- ----------------------------
 -- Records of oa_operatorsel_h
 -- ----------------------------
-INSERT INTO `oa_operatorsel_h` VALUES ('82963', '82963', null, '0', '0', 'OA_OPERATORSEL20161009000001', '2016-10-09', '100', '21277', '2016-10-09 11:22:41', '21277', '2016-10-09 11:22:41', 'OA_OperatorSel', '-1', '82962', 'OA_WorkflowDesigne', 'WF_StandardWorkFlow', '5', '', '', '测试，开发', null, '0', '0', null, null);
-INSERT INTO `oa_operatorsel_h` VALUES ('82971', '82971', null, '0', '0', 'OA_OPERATORSEL20161009000002', '2016-10-09', '100', '21277', '2016-10-09 11:23:54', '21277', '2016-10-09 11:23:54', 'OA_OperatorSel', '-1', '82970', 'OA_WorkflowDesigne', 'WF_OA_NewsDraftView', '3', '', '', '测试，开发', null, '0', '0', null, null);
-INSERT INTO `oa_operatorsel_h` VALUES ('82976', '82976', null, '0', '0', 'OA_OPERATORSEL20161009000003', '2016-10-09', '100', '21277', '2016-10-09 11:24:21', '21277', '2016-10-09 11:24:21', 'OA_OperatorSel', '-1', '82970', 'OA_WorkflowDesigne', 'WF_OA_NewsDraftView', '7', '', '', '测试，开发', null, '0', '0', null, null);
-INSERT INTO `oa_operatorsel_h` VALUES ('82984', '82984', null, '0', '0', 'OA_OPERATORSEL20161009000004', '2016-10-09', '100', '21277', '2016-10-09 11:25:21', '21277', '2016-10-09 11:25:21', 'OA_OperatorSel', '-1', '82983', 'OA_WorkflowDesigne', 'WF_OA_MeetingInSideWorkFlow', '19', '', '', '测试，开发', null, '0', '0', null, null);
-INSERT INTO `oa_operatorsel_h` VALUES ('82991', '82991', null, '0', '0', 'OA_OPERATORSEL20161009000005', '2016-10-09', '100', '21277', '2016-10-09 11:26:04', '21277', '2016-10-09 11:26:04', 'OA_OperatorSel', '-1', '82990', 'OA_WorkflowDesigne', 'WF_OA_MeetingOutSideWorkFlow', '5', '', '', '测试，开发', null, '0', '0', null, null);
-INSERT INTO `oa_operatorsel_h` VALUES ('82998', '82998', null, '1', '0', 'OA_OPERATORSEL20161009000006', '2016-10-09', '100', '21277', '2016-10-09 11:26:39', '21277', '2016-10-09 11:26:49', 'OA_OperatorSel', '-1', '82997', 'OA_WorkflowDesigne', 'WF_OA_TASK', '6', null, null, '任务派发接受人员', null, '0', '0', '1', null);
-INSERT INTO `oa_operatorsel_h` VALUES ('83003', '83003', null, '0', '0', 'OA_OPERATORSEL20161009000007', '2016-10-09', '100', '21277', '2016-10-09 11:27:34', '21277', '2016-10-09 11:27:34', 'OA_OperatorSel', '-1', '82997', 'OA_WorkflowDesigne', 'WF_OA_TASK', '22', '', '', '测试，开发', null, '0', '0', null, null);
-INSERT INTO `oa_operatorsel_h` VALUES ('83008', '83008', null, '0', '0', 'OA_OPERATORSEL20161009000008', '2016-10-09', '100', '21277', '2016-10-09 11:28:24', '21277', '2016-10-09 11:28:24', 'OA_OperatorSel', '-1', '82997', 'OA_WorkflowDesigne', 'WF_OA_TASK', '45', '', '', '测试，开发', null, '0', '0', null, null);
-INSERT INTO `oa_operatorsel_h` VALUES ('83013', '83013', null, '0', '0', 'OA_OPERATORSEL20161009000009', '2016-10-09', '100', '21277', '2016-10-09 11:28:45', '21277', '2016-10-09 11:28:45', 'OA_OperatorSel', '-1', '82997', 'OA_WorkflowDesigne', 'WF_OA_TASK', '39', '', '', '测试，开发', null, '0', '0', null, null);
-INSERT INTO `oa_operatorsel_h` VALUES ('90138', '90138', null, '4', '0', 'OA_OPERATORSEL20161012000001', '2016-10-12', '100', '21277', '2016-10-12 13:12:38', '21277', '2017-06-05 10:40:24', 'OA_OperatorSel', '-1', '90137', 'OA_WorkflowDesigne', 'WF_OA_ForeignLan', '8', null, null, '测试，开发', null, '0', '0', '1', '21271,21277');
-INSERT INTO `oa_operatorsel_h` VALUES ('90144', '90144', null, '1', '0', 'OA_OPERATORSEL20161012000002', '2016-10-12', '100', '21277', '2016-10-12 13:13:02', '21277', '2017-06-05 10:40:34', 'OA_OperatorSel', '-1', '90137', 'OA_WorkflowDesigne', 'WF_OA_ForeignLan', '10', null, null, '测试，开发', null, '0', '0', '1', null);
-INSERT INTO `oa_operatorsel_h` VALUES ('90149', '90149', null, '0', '0', 'OA_OPERATORSEL20161012000003', '2016-10-12', '100', '21277', '2016-10-12 13:13:20', '21277', '2016-10-12 13:13:20', 'OA_OperatorSel', '-1', '90137', 'OA_WorkflowDesigne', 'WF_OA_ForeignLan', '27', null, null, '测试，开发', null, '0', '0', null, null);
-INSERT INTO `oa_operatorsel_h` VALUES ('90155', '90155', null, '0', '0', 'OA_OPERATORSEL20161012000004', '2016-10-12', '100', '21277', '2016-10-12 13:13:43', '21277', '2016-10-12 13:13:43', 'OA_OperatorSel', '-1', '90137', 'OA_WorkflowDesigne', 'WF_OA_ForeignLan', '29', null, null, '测试，开发', null, '0', '0', null, null);
-INSERT INTO `oa_operatorsel_h` VALUES ('93714', '93714', null, '1', '0', 'OS20161026000001', '2016-10-26', '100', '21277', '2016-10-26 17:48:09', '21277', '2017-06-05 10:40:40', 'OA_OperatorSel', '-1', '90137', 'OA_WorkflowDesigne', 'WF_OA_ForeignLan', '43', '', '', '测试，开发', null, '0', '0', '1', '21271,21277');
-INSERT INTO `oa_operatorsel_h` VALUES ('93717', '93717', null, '1', '0', 'OS20161026000002', '2016-10-26', '100', '21277', '2016-10-26 17:48:22', '21277', '2017-06-05 10:40:45', 'OA_OperatorSel', '-1', '90137', 'OA_WorkflowDesigne', 'WF_OA_ForeignLan', '46', '', '', '测试，开发', null, '0', '0', '1', '21271,21277');
-INSERT INTO `oa_operatorsel_h` VALUES ('93725', '93725', null, '0', '0', 'OS20161026000003', '2016-10-26', '100', '21277', '2016-10-26 17:50:28', '21277', '2016-10-26 17:50:28', 'OA_OperatorSel', '-1', '93724', 'OA_WorkflowDesigne', 'WF_OA_Dispatch', '4', '', '', '测试，开发', null, '0', '0', null, '21271,21277');
-INSERT INTO `oa_operatorsel_h` VALUES ('93728', '93728', null, '0', '0', 'OS20161026000004', '2016-10-26', '100', '21277', '2016-10-26 17:50:42', '21277', '2016-10-26 17:50:42', 'OA_OperatorSel', '-1', '93724', 'OA_WorkflowDesigne', 'WF_OA_Dispatch', '6', '', '', '测试，开发', null, '0', '0', null, '21271,21277');
-INSERT INTO `oa_operatorsel_h` VALUES ('93731', '93731', null, '0', '0', 'OS20161026000005', '2016-10-26', '100', '21277', '2016-10-26 17:50:56', '21277', '2016-10-26 17:50:56', 'OA_OperatorSel', '-1', '93724', 'OA_WorkflowDesigne', 'WF_OA_Dispatch', '7', '', '', '测试，开发', null, '0', '0', null, '21271,21277');
-INSERT INTO `oa_operatorsel_h` VALUES ('93734', '93734', null, '0', '0', 'OS20161026000006', '2016-10-26', '100', '21277', '2016-10-26 17:51:06', '21277', '2016-10-26 17:51:06', 'OA_OperatorSel', '-1', '93724', 'OA_WorkflowDesigne', 'WF_OA_Dispatch', '8', '', '', '测试，开发', null, '0', '0', null, '21271,21277');
-INSERT INTO `oa_operatorsel_h` VALUES ('93737', '93737', null, '0', '0', 'OS20161026000007', '2016-10-26', '100', '21277', '2016-10-26 17:51:20', '21277', '2016-10-26 17:51:20', 'OA_OperatorSel', '-1', '93724', 'OA_WorkflowDesigne', 'WF_OA_Dispatch', '22', '', '', '测试，开发', null, '0', '0', null, '21271,21277');
-INSERT INTO `oa_operatorsel_h` VALUES ('111893', '111893', null, '0', '0', 'OS20161111000001', '2016-11-11', '100', '21277', '2016-11-11 17:28:38', '21277', '2016-11-11 17:28:38', 'OA_OperatorSel', '-1', '111892', 'OA_Doc', 'ViewAcl', '', '', '', '网络部', null, '0', '0', null, '14886');
-INSERT INTO `oa_operatorsel_h` VALUES ('113946', '113946', null, '1', '0', 'OS20161117000001', '2016-11-17', '100', '21271', '2016-11-17 09:17:20', '21277', '2017-06-05 10:40:51', 'OA_OperatorSel', '-1', '90137', 'OA_WorkflowDesigne', 'WF_OA_ForeignLan', '49', '', '', '测试，开发', null, '0', '0', '1', '21271,21277');
-INSERT INTO `oa_operatorsel_h` VALUES ('139283', '139283', null, '0', '0', 'OS20161214000001', '2016-12-14', '100', '21277', '2016-12-14 13:58:09', '21277', '2016-12-14 13:58:09', 'OA_OperatorSel', '-1', '139282', 'OA_ForeignLan', 'ViewAcl', null, null, null, '测试，开发', null, '0', '0', null, '21271,21277');
-INSERT INTO `oa_operatorsel_h` VALUES ('158996', '158996', null, '0', '0', 'OS20170110000001', '2017-01-10', '100', '21277', '2017-01-10 16:28:07', '21277', '2017-01-10 16:28:06', 'OA_OperatorSel', '-1', '158995', 'OA_ForeignLan', 'ViewAcl', null, null, null, '测试，开发，王君', null, '0', '0', null, '21271,21277,64591');
-INSERT INTO `oa_operatorsel_h` VALUES ('165141', '165141', null, '0', '0', 'OS20170309000001', '2017-03-09', '100', '21277', '2017-03-09 17:02:02', '21277', '2017-03-09 17:02:02', 'OA_OperatorSel', '-1', '93724', 'OA_WorkflowDesigne', 'WF_OA_Dispatch', '29', null, null, '测试，开发', null, null, '0', null, '21271,21277');
-INSERT INTO `oa_operatorsel_h` VALUES ('181787', '181787', null, '0', '0', 'OS20170515000001', '2017-05-15', '100', '21277', '2017-05-15 14:14:48', '21277', '2017-05-15 14:14:48', 'OA_OperatorSel', '-1', '181786', 'OA_WorkflowDesigne', 'WF_OA_WeeklyReport', '2', null, null, '测试，开发', null, null, '0', null, '21271,21277');
-INSERT INTO `oa_operatorsel_h` VALUES ('185366', '185366', null, '0', '0', 'OS20170517000001', '2017-05-17', '100', '21277', '2017-05-17 16:05:42', '21277', '2017-05-17 16:05:42', 'OA_OperatorSel', '-1', '185365', 'OA_Taskdistribution', 'ShareEmpID', null, null, null, '张展旭，张建烁', null, null, '0', null, '15154,16948');
-INSERT INTO `oa_operatorsel_h` VALUES ('185374', '185374', null, '0', '0', 'OS20170517000002', '2017-05-17', '100', '21277', '2017-05-17 16:07:30', '21277', '2017-05-17 16:07:30', 'OA_OperatorSel', '-1', '185373', 'OA_Taskdistribution', 'ShareEmpID', null, null, null, '张展旭，张建烁', null, null, '0', null, '15154,16948');
-INSERT INTO `oa_operatorsel_h` VALUES ('185620', '185620', null, '0', '0', 'OS20170517000003', '2017-05-17', '100', '21277', '2017-05-17 16:12:27', '21277', '2017-05-17 16:12:27', 'OA_OperatorSel', '-1', '185619', 'OA_Taskdistribution', 'ShareEmpID', null, null, null, '张展旭，张建烁', null, null, '0', null, '15154,16948');
-INSERT INTO `oa_operatorsel_h` VALUES ('185879', '185879', null, '0', '0', 'OS20170517000004', '2017-05-17', '100', '21271', '2017-05-17 16:25:07', '21271', '2017-05-17 16:25:07', 'OA_OperatorSel', '-1', '185878', 'OA_Taskdistribution', 'ShareEmpID', null, null, null, '张展旭，张建烁', null, null, '0', null, '15154,16948');
-INSERT INTO `oa_operatorsel_h` VALUES ('201241', '201241', null, '4', '0', 'OS20170607000001', '2017-06-07', '100', '21277', '2017-06-07 15:34:41', '21', '2017-06-08 11:09:37', 'OA_OperatorSel', '-1', '90137', 'OA_WorkflowDesigne', 'WF_OA_ForeignLan', '8', 'AuditPerDepict', null, '收文直接人员，收文匹配人员', null, null, '0', '1', '200723,200981');
-INSERT INTO `oa_operatorsel_h` VALUES ('205587', '205587', null, '4', '0', 'OS20170608000001', '2017-06-08', '100', '21277', '2017-06-08 12:52:20', '21277', '2017-06-08 16:34:06', 'OA_OperatorSel', '-1', '90137', 'OA_WorkflowDesigne', 'WF_OA_ForeignLan', '10', 'AuditPerDepict', null, '测试，开发', null, null, '0', '1', '21271,21277');
-INSERT INTO `oa_operatorsel_h` VALUES ('205842', '205842', null, '2', '0', 'OS20170608000002', '2017-06-08', '100', '21277', '2017-06-08 13:02:20', '21277', '2017-06-08 16:34:16', 'OA_OperatorSel', '-1', '90137', 'OA_WorkflowDesigne', 'WF_OA_ForeignLan', '43', 'AuditPerDepict', null, '创建人', null, null, '0', '1', '20009');
-INSERT INTO `oa_operatorsel_h` VALUES ('205845', '205845', null, '2', '0', 'OS20170608000003', '2017-06-08', '100', '21277', '2017-06-08 13:02:26', '21277', '2017-06-08 16:34:27', 'OA_OperatorSel', '-1', '90137', 'OA_WorkflowDesigne', 'WF_OA_ForeignLan', '46', 'AuditPerDepict', null, '特别', null, null, '0', '1', '20005');
-INSERT INTO `oa_operatorsel_h` VALUES ('205848', '205848', null, '1', '0', 'OS20170608000004', '2017-06-08', '100', '21277', '2017-06-08 13:02:34', '21277', '2017-06-08 16:34:33', 'OA_OperatorSel', '-1', '90137', 'OA_WorkflowDesigne', 'WF_OA_ForeignLan', '49', 'AuditPerDepict', null, '收文直接人员，收文匹配人员', null, null, '0', '1', '200723,200981');
+INSERT INTO `oa_operatorsel_h` VALUES ('82963', '82963', null, '0', '0', 'OA_OPERATORSEL20161009000001', '2016-10-09', '100', '21277', '2016-10-09 11:22:41', '21277', '2016-10-09 11:22:41', 'OA_OperatorSel', '-1', '82962', 'OA_WorkflowDesigne', 'WF_StandardWorkFlow', '5', '', '', '测试，开发', null, '0', '0', null, null, 'OA_WorkflowSet', null);
+INSERT INTO `oa_operatorsel_h` VALUES ('82971', '82971', null, '0', '0', 'OA_OPERATORSEL20161009000002', '2016-10-09', '100', '21277', '2016-10-09 11:23:54', '21277', '2016-10-09 11:23:54', 'OA_OperatorSel', '-1', '82970', 'OA_WorkflowDesigne', 'WF_OA_NewsDraftView', '3', '', '', '测试，开发', null, '0', '0', null, null, 'OA_WorkflowSet', null);
+INSERT INTO `oa_operatorsel_h` VALUES ('82976', '82976', null, '0', '0', 'OA_OPERATORSEL20161009000003', '2016-10-09', '100', '21277', '2016-10-09 11:24:21', '21277', '2016-10-09 11:24:21', 'OA_OperatorSel', '-1', '82970', 'OA_WorkflowDesigne', 'WF_OA_NewsDraftView', '7', '', '', '测试，开发', null, '0', '0', null, null, 'OA_WorkflowSet', null);
+INSERT INTO `oa_operatorsel_h` VALUES ('82984', '82984', null, '0', '0', 'OA_OPERATORSEL20161009000004', '2016-10-09', '100', '21277', '2016-10-09 11:25:21', '21277', '2016-10-09 11:25:21', 'OA_OperatorSel', '-1', '82983', 'OA_WorkflowDesigne', 'WF_OA_MeetingInSideWorkFlow', '19', '', '', '测试，开发', null, '0', '0', null, null, 'OA_WorkflowSet', null);
+INSERT INTO `oa_operatorsel_h` VALUES ('82991', '82991', null, '0', '0', 'OA_OPERATORSEL20161009000005', '2016-10-09', '100', '21277', '2016-10-09 11:26:04', '21277', '2016-10-09 11:26:04', 'OA_OperatorSel', '-1', '82990', 'OA_WorkflowDesigne', 'WF_OA_MeetingOutSideWorkFlow', '5', '', '', '测试，开发', null, '0', '0', null, null, 'OA_WorkflowSet', null);
+INSERT INTO `oa_operatorsel_h` VALUES ('82998', '82998', null, '1', '0', 'OA_OPERATORSEL20161009000006', '2016-10-09', '100', '21277', '2016-10-09 11:26:39', '21277', '2016-10-09 11:26:49', 'OA_OperatorSel', '-1', '82997', 'OA_WorkflowDesigne', 'WF_OA_TASK', '6', null, null, '任务派发接受人员', null, '0', '0', '1', null, 'OA_WorkflowSet', null);
+INSERT INTO `oa_operatorsel_h` VALUES ('83003', '83003', null, '0', '0', 'OA_OPERATORSEL20161009000007', '2016-10-09', '100', '21277', '2016-10-09 11:27:34', '21277', '2016-10-09 11:27:34', 'OA_OperatorSel', '-1', '82997', 'OA_WorkflowDesigne', 'WF_OA_TASK', '22', '', '', '测试，开发', null, '0', '0', null, null, 'OA_WorkflowSet', null);
+INSERT INTO `oa_operatorsel_h` VALUES ('83008', '83008', null, '0', '0', 'OA_OPERATORSEL20161009000008', '2016-10-09', '100', '21277', '2016-10-09 11:28:24', '21277', '2016-10-09 11:28:24', 'OA_OperatorSel', '-1', '82997', 'OA_WorkflowDesigne', 'WF_OA_TASK', '45', '', '', '测试，开发', null, '0', '0', null, null, 'OA_WorkflowSet', null);
+INSERT INTO `oa_operatorsel_h` VALUES ('83013', '83013', null, '0', '0', 'OA_OPERATORSEL20161009000009', '2016-10-09', '100', '21277', '2016-10-09 11:28:45', '21277', '2016-10-09 11:28:45', 'OA_OperatorSel', '-1', '82997', 'OA_WorkflowDesigne', 'WF_OA_TASK', '39', '', '', '测试，开发', null, '0', '0', null, null, 'OA_WorkflowSet', null);
+INSERT INTO `oa_operatorsel_h` VALUES ('90138', '90138', null, '4', '0', 'OA_OPERATORSEL20161012000001', '2016-10-12', '100', '21277', '2016-10-12 13:12:38', '21277', '2017-06-05 10:40:24', 'OA_OperatorSel', '-1', '90137', 'OA_WorkflowDesigne', 'WF_OA_ForeignLan', '8', null, null, '测试，开发', null, '0', '0', '1', '21271,21277', 'OA_WorkflowSet', null);
+INSERT INTO `oa_operatorsel_h` VALUES ('90144', '90144', null, '1', '0', 'OA_OPERATORSEL20161012000002', '2016-10-12', '100', '21277', '2016-10-12 13:13:02', '21277', '2017-06-05 10:40:34', 'OA_OperatorSel', '-1', '90137', 'OA_WorkflowDesigne', 'WF_OA_ForeignLan', '10', null, null, '测试，开发', null, '0', '0', '1', null, 'OA_WorkflowSet', null);
+INSERT INTO `oa_operatorsel_h` VALUES ('90149', '90149', null, '0', '0', 'OA_OPERATORSEL20161012000003', '2016-10-12', '100', '21277', '2016-10-12 13:13:20', '21277', '2016-10-12 13:13:20', 'OA_OperatorSel', '-1', '90137', 'OA_WorkflowDesigne', 'WF_OA_ForeignLan', '27', null, null, '测试，开发', null, '0', '0', null, null, 'OA_WorkflowSet', null);
+INSERT INTO `oa_operatorsel_h` VALUES ('90155', '90155', null, '0', '0', 'OA_OPERATORSEL20161012000004', '2016-10-12', '100', '21277', '2016-10-12 13:13:43', '21277', '2016-10-12 13:13:43', 'OA_OperatorSel', '-1', '90137', 'OA_WorkflowDesigne', 'WF_OA_ForeignLan', '29', null, null, '测试，开发', null, '0', '0', null, null, 'OA_WorkflowSet', null);
+INSERT INTO `oa_operatorsel_h` VALUES ('93714', '93714', null, '1', '0', 'OS20161026000001', '2016-10-26', '100', '21277', '2016-10-26 17:48:09', '21277', '2017-06-05 10:40:40', 'OA_OperatorSel', '-1', '90137', 'OA_WorkflowDesigne', 'WF_OA_ForeignLan', '43', '', '', '测试，开发', null, '0', '0', '1', '21271,21277', 'OA_WorkflowSet', null);
+INSERT INTO `oa_operatorsel_h` VALUES ('93717', '93717', null, '1', '0', 'OS20161026000002', '2016-10-26', '100', '21277', '2016-10-26 17:48:22', '21277', '2017-06-05 10:40:45', 'OA_OperatorSel', '-1', '90137', 'OA_WorkflowDesigne', 'WF_OA_ForeignLan', '46', '', '', '测试，开发', null, '0', '0', '1', '21271,21277', 'OA_WorkflowSet', null);
+INSERT INTO `oa_operatorsel_h` VALUES ('93725', '93725', null, '0', '0', 'OS20161026000003', '2016-10-26', '100', '21277', '2016-10-26 17:50:28', '21277', '2016-10-26 17:50:28', 'OA_OperatorSel', '-1', '93724', 'OA_WorkflowDesigne', 'WF_OA_Dispatch', '4', '', '', '测试，开发', null, '0', '0', null, '21271,21277', 'OA_WorkflowSet', null);
+INSERT INTO `oa_operatorsel_h` VALUES ('93728', '93728', null, '0', '0', 'OS20161026000004', '2016-10-26', '100', '21277', '2016-10-26 17:50:42', '21277', '2016-10-26 17:50:42', 'OA_OperatorSel', '-1', '93724', 'OA_WorkflowDesigne', 'WF_OA_Dispatch', '6', '', '', '测试，开发', null, '0', '0', null, '21271,21277', 'OA_WorkflowSet', null);
+INSERT INTO `oa_operatorsel_h` VALUES ('93731', '93731', null, '0', '0', 'OS20161026000005', '2016-10-26', '100', '21277', '2016-10-26 17:50:56', '21277', '2016-10-26 17:50:56', 'OA_OperatorSel', '-1', '93724', 'OA_WorkflowDesigne', 'WF_OA_Dispatch', '7', '', '', '测试，开发', null, '0', '0', null, '21271,21277', 'OA_WorkflowSet', null);
+INSERT INTO `oa_operatorsel_h` VALUES ('93734', '93734', null, '0', '0', 'OS20161026000006', '2016-10-26', '100', '21277', '2016-10-26 17:51:06', '21277', '2016-10-26 17:51:06', 'OA_OperatorSel', '-1', '93724', 'OA_WorkflowDesigne', 'WF_OA_Dispatch', '8', '', '', '测试，开发', null, '0', '0', null, '21271,21277', 'OA_WorkflowSet', null);
+INSERT INTO `oa_operatorsel_h` VALUES ('93737', '93737', null, '0', '0', 'OS20161026000007', '2016-10-26', '100', '21277', '2016-10-26 17:51:20', '21277', '2016-10-26 17:51:20', 'OA_OperatorSel', '-1', '93724', 'OA_WorkflowDesigne', 'WF_OA_Dispatch', '22', '', '', '测试，开发', null, '0', '0', null, '21271,21277', 'OA_WorkflowSet', null);
+INSERT INTO `oa_operatorsel_h` VALUES ('111893', '111893', null, '0', '0', 'OS20161111000001', '2016-11-11', '100', '21277', '2016-11-11 17:28:38', '21277', '2016-11-11 17:28:38', 'OA_OperatorSel', '-1', '111892', 'OA_Doc', 'ViewAcl', '', '', '', '网络部', null, '0', '0', null, '14886', null, null);
+INSERT INTO `oa_operatorsel_h` VALUES ('113946', '113946', null, '1', '0', 'OS20161117000001', '2016-11-17', '100', '21271', '2016-11-17 09:17:20', '21277', '2017-06-05 10:40:51', 'OA_OperatorSel', '-1', '90137', 'OA_WorkflowDesigne', 'WF_OA_ForeignLan', '49', '', '', '测试，开发', null, '0', '0', '1', '21271,21277', 'OA_WorkflowSet', null);
+INSERT INTO `oa_operatorsel_h` VALUES ('139283', '139283', null, '0', '0', 'OS20161214000001', '2016-12-14', '100', '21277', '2016-12-14 13:58:09', '21277', '2016-12-14 13:58:09', 'OA_OperatorSel', '-1', '139282', 'OA_ForeignLan', 'ViewAcl', null, null, null, '测试，开发', null, '0', '0', null, '21271,21277', null, null);
+INSERT INTO `oa_operatorsel_h` VALUES ('158996', '158996', null, '0', '0', 'OS20170110000001', '2017-01-10', '100', '21277', '2017-01-10 16:28:07', '21277', '2017-01-10 16:28:06', 'OA_OperatorSel', '-1', '158995', 'OA_ForeignLan', 'ViewAcl', null, null, null, '测试，开发，王君', null, '0', '0', null, '21271,21277,64591', null, null);
+INSERT INTO `oa_operatorsel_h` VALUES ('165141', '165141', null, '0', '0', 'OS20170309000001', '2017-03-09', '100', '21277', '2017-03-09 17:02:02', '21277', '2017-03-09 17:02:02', 'OA_OperatorSel', '-1', '93724', 'OA_WorkflowDesigne', 'WF_OA_Dispatch', '29', null, null, '测试，开发', null, null, '0', null, '21271,21277', 'OA_WorkflowSet', null);
+INSERT INTO `oa_operatorsel_h` VALUES ('181787', '181787', null, '0', '0', 'OS20170515000001', '2017-05-15', '100', '21277', '2017-05-15 14:14:48', '21277', '2017-05-15 14:14:48', 'OA_OperatorSel', '-1', '181786', 'OA_WorkflowDesigne', 'WF_OA_WeeklyReport', '2', null, null, '测试，开发', null, null, '0', null, '21271,21277', 'OA_WorkflowSet', null);
+INSERT INTO `oa_operatorsel_h` VALUES ('185366', '185366', null, '0', '0', 'OS20170517000001', '2017-05-17', '100', '21277', '2017-05-17 16:05:42', '21277', '2017-05-17 16:05:42', 'OA_OperatorSel', '-1', '185365', 'OA_Taskdistribution', 'ShareEmpID', null, null, null, '张展旭，张建烁', null, null, '0', null, '15154,16948', null, null);
+INSERT INTO `oa_operatorsel_h` VALUES ('185374', '185374', null, '0', '0', 'OS20170517000002', '2017-05-17', '100', '21277', '2017-05-17 16:07:30', '21277', '2017-05-17 16:07:30', 'OA_OperatorSel', '-1', '185373', 'OA_Taskdistribution', 'ShareEmpID', null, null, null, '张展旭，张建烁', null, null, '0', null, '15154,16948', null, null);
+INSERT INTO `oa_operatorsel_h` VALUES ('185620', '185620', null, '0', '0', 'OS20170517000003', '2017-05-17', '100', '21277', '2017-05-17 16:12:27', '21277', '2017-05-17 16:12:27', 'OA_OperatorSel', '-1', '185619', 'OA_Taskdistribution', 'ShareEmpID', null, null, null, '张展旭，张建烁', null, null, '0', null, '15154,16948', null, null);
+INSERT INTO `oa_operatorsel_h` VALUES ('185879', '185879', null, '0', '0', 'OS20170517000004', '2017-05-17', '100', '21271', '2017-05-17 16:25:07', '21271', '2017-05-17 16:25:07', 'OA_OperatorSel', '-1', '185878', 'OA_Taskdistribution', 'ShareEmpID', null, null, null, '张展旭，张建烁', null, null, '0', null, '15154,16948', null, null);
+INSERT INTO `oa_operatorsel_h` VALUES ('201241', '201241', null, '4', '0', 'OS20170607000001', '2017-06-07', '100', '21277', '2017-06-07 15:34:41', '21', '2017-06-08 11:09:37', 'OA_OperatorSel', '-1', '90137', 'OA_WorkflowDesigne', 'WF_OA_ForeignLan', '8', 'AuditPerDepict', null, '收文直接人员，收文匹配人员', null, null, '0', '1', '200723,200981', 'OA_WorkflowSet', null);
+INSERT INTO `oa_operatorsel_h` VALUES ('205587', '205587', null, '4', '0', 'OS20170608000001', '2017-06-08', '100', '21277', '2017-06-08 12:52:20', '21277', '2017-06-08 16:34:06', 'OA_OperatorSel', '-1', '90137', 'OA_WorkflowDesigne', 'WF_OA_ForeignLan', '10', 'AuditPerDepict', null, '测试，开发', null, null, '0', '1', '21271,21277', 'OA_WorkflowSet', null);
+INSERT INTO `oa_operatorsel_h` VALUES ('205842', '205842', null, '2', '0', 'OS20170608000002', '2017-06-08', '100', '21277', '2017-06-08 13:02:20', '21277', '2017-06-08 16:34:16', 'OA_OperatorSel', '-1', '90137', 'OA_WorkflowDesigne', 'WF_OA_ForeignLan', '43', 'AuditPerDepict', null, '创建人', null, null, '0', '1', '20009', 'OA_WorkflowSet', null);
+INSERT INTO `oa_operatorsel_h` VALUES ('205845', '205845', null, '2', '0', 'OS20170608000003', '2017-06-08', '100', '21277', '2017-06-08 13:02:26', '21277', '2017-06-08 16:34:27', 'OA_OperatorSel', '-1', '90137', 'OA_WorkflowDesigne', 'WF_OA_ForeignLan', '46', 'AuditPerDepict', null, '特别', null, null, '0', '1', '20005', 'OA_WorkflowSet', null);
+INSERT INTO `oa_operatorsel_h` VALUES ('205848', '205848', null, '1', '0', 'OS20170608000004', '2017-06-08', '100', '21277', '2017-06-08 13:02:34', '21277', '2017-06-08 16:34:33', 'OA_OperatorSel', '-1', '90137', 'OA_WorkflowDesigne', 'WF_OA_ForeignLan', '49', 'AuditPerDepict', null, '收文直接人员，收文匹配人员', null, null, '0', '1', '200723,200981', 'OA_WorkflowSet', null);
+INSERT INTO `oa_operatorsel_h` VALUES ('209944', '209944', null, '0', '0', 'OS20170612000001', '2017-06-12', '100', '21', '2017-06-12 10:50:56', '21', '2017-06-12 10:50:56', 'OA_OperatorSel', '-1', '209943', 'OA_WorkflowDesigne', 'WF_OA_ForeignLanTest', '8', 'AuditPerDepict', null, '测试，开发', null, null, '0', null, '21271,21277', 'OA_WorkflowSet', null);
+INSERT INTO `oa_operatorsel_h` VALUES ('209947', '209947', null, '0', '0', 'OS20170612000002', '2017-06-12', '100', '21', '2017-06-12 10:51:33', '21', '2017-06-12 10:51:33', 'OA_OperatorSel', '-1', '209943', 'OA_WorkflowDesigne', 'WF_OA_ForeignLanTest', '10', 'AuditPerDepict', null, '创建人', null, null, '0', null, '20009', 'OA_WorkflowSet', null);
+INSERT INTO `oa_operatorsel_h` VALUES ('209949', '209949', null, '0', '0', 'OS20170612000003', '2017-06-12', '100', '21', '2017-06-12 10:51:59', '21', '2017-06-12 10:51:59', 'OA_OperatorSel', '-1', '209943', 'OA_WorkflowDesigne', 'WF_OA_ForeignLanTest', '43', 'AuditPerDepict', null, '特别', null, null, '0', null, '20005', 'OA_WorkflowSet', null);
+INSERT INTO `oa_operatorsel_h` VALUES ('209951', '209951', null, '0', '0', 'OS20170612000004', '2017-06-12', '100', '21', '2017-06-12 10:52:07', '21', '2017-06-12 10:52:07', 'OA_OperatorSel', '-1', '209943', 'OA_WorkflowDesigne', 'WF_OA_ForeignLanTest', '46', 'AuditPerDepict', null, '收文直接人员，收文匹配人员', null, null, '0', null, '200723,200981', 'OA_WorkflowSet', null);
+INSERT INTO `oa_operatorsel_h` VALUES ('213275', '213275', null, '0', '0', 'OS20170801000001', '2017-08-01', '100', '21277', '2017-08-01 19:02:21', '21277', '2017-08-01 19:02:21', 'OA_OperatorSel', '-1', '82970', 'OA_WorkflowDesigne', 'WF_OA_NewsDraftView', '3', 'AuditPerDepict', null, '测试，开发', null, null, '0', null, '21271,21277', 'OA_WorkflowSet', null);
+INSERT INTO `oa_operatorsel_h` VALUES ('213278', '213278', null, '0', '0', 'OS20170801000002', '2017-08-01', '100', '21277', '2017-08-01 19:02:39', '21277', '2017-08-01 19:02:39', 'OA_OperatorSel', '-1', '82970', 'OA_WorkflowDesigne', 'WF_OA_NewsDraftView', '7', 'AuditPerDepict', null, '开发，王天佑，测试', null, null, '0', null, '21277,64589,21271', 'OA_WorkflowSet', null);
 
 -- ----------------------------
 -- Table structure for oa_optmodule_h
@@ -16245,6 +17416,9 @@ CREATE TABLE `oa_optmodule_h` (
   `UserOptEnable` varchar(1000) default NULL,
   `UserOptVisible` varchar(1000) default NULL,
   `SendType` bigint(20) default NULL,
+  `ISDefaultAdd` int(11) default NULL,
+  `OrderNum` int(11) default NULL,
+  `EmailTemp` varchar(255) default NULL,
   PRIMARY KEY  (`OID`),
   KEY `I_OA_OptModule_H_SOID` (`SOID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -16252,14 +17426,25 @@ CREATE TABLE `oa_optmodule_h` (
 -- ----------------------------
 -- Records of oa_optmodule_h
 -- ----------------------------
-INSERT INTO `oa_optmodule_h` VALUES ('19998', '19998', null, '11', '0', '1', '1', '0', '0', '1', '2', 'OPTAudit', '审批', '21', '2016-09-05 16:24:29', '21277', '2017-04-14 15:06:19', null, 'OA_OptModule', '-1', 'Audit', null, null, 'if(!ToBool(Para(\"IsMobile\"))){\n    if(ContainsKey(\"WorkflowTypeDtlID\")){\n        ShowModal(\"OA_AuditDialog\",\"OptKey:{\'\'},pWorkitemID:{GetActiveWorkitemID()},workflowOID:{GetOID()},workflowBillKey:{GetFormKey()},WorkflowTypeDtlID:{WorkflowTypeDtlID}\")\n    }else{\n        ShowModal(\"OA_AuditDialog\",\"OptKey:{\'\'},pWorkitemID:{GetActiveWorkitemID()},workflowOID:{GetOID()},workflowBillKey:{GetFormKey()}\")}\n}else{\n        Show(\"MOA_AuditDialog\",\"newtab\",\"pWorkitemID:{GetActiveWorkitemID()},workflowOID:{GetOID()},workflowBillKey:{GetFormKey()},WorkflowTypeDtlID:{WorkflowTypeDtlID}\");\n}', '0', '1', '', '', '', null, 'OPTAudit', null, null, null, null, null, null, null);
-INSERT INTO `oa_optmodule_h` VALUES ('19999', '19999', null, '6', '0', '1', '1', '0', '0', '3', '4', 'OPTCirculation', '传阅', '21', '2016-09-05 16:24:42', '21277', '2016-11-11 16:33:05', null, 'OA_OptModule', '-1', 'VoteTask', null, null, 'ShowModal(\"OA_AuditDialog\")', '0', '1', null, 'ReadOnly()', null, null, 'OPTCirculation', null, null, null, null, null, null, null);
-INSERT INTO `oa_optmodule_h` VALUES ('20000', '20000', null, '6', '0', '1', '1', '0', '0', '5', '6', 'OPTEndorse', '加签', '21', '2016-09-05 16:24:57', '21277', '2016-11-11 16:33:11', null, 'OA_OptModule', '-1', 'Audit', null, null, 'ShowModal(\"OA_AuditDialog\")', '0', '1', null, 'ReadOnly()', null, null, 'OPTEndorse', null, null, null, null, null, null, null);
-INSERT INTO `oa_optmodule_h` VALUES ('111636', '111636', null, '1', '0', '1', '1', '0', '0', '7', '8', 'OPTRestartInstance', '流程重置', '21277', '2016-11-11 14:06:31', '21277', '2016-11-11 16:33:23', null, 'OA_OptModule', '-1', null, null, null, null, '0', '1', null, null, null, null, 'OPTRestartInstance', '0', null, null, null, null, null, null);
-INSERT INTO `oa_optmodule_h` VALUES ('111637', '111637', null, '1', '0', '1', '1', '0', '0', '9', '10', 'OPTKillInstance', '流程作废', '21277', '2016-11-11 14:06:37', '21277', '2016-11-11 16:33:29', null, 'OA_OptModule', '-1', null, null, null, null, '0', '1', null, null, null, null, 'OPTKillInstance', '0', null, null, null, null, null, null);
-INSERT INTO `oa_optmodule_h` VALUES ('111638', '111638', null, '1', '0', '1', '1', '0', '0', '11', '12', 'OPTEndInstance', '结束流程', '21277', '2016-11-11 14:06:44', '21277', '2016-11-11 16:33:36', null, 'OA_OptModule', '-1', null, null, null, null, '0', '1', null, null, null, null, 'OPTEndInstance', '0', null, null, null, null, null, null);
-INSERT INTO `oa_optmodule_h` VALUES ('111640', '111640', null, '1', '0', '1', '1', '0', '0', '13', '14', 'OPTMeeting', '会议审批', '21277', '2016-11-11 14:07:00', '21277', '2017-04-24 09:58:20', null, 'OA_OptModule', '-1', null, null, null, 'CommitWorkitem(-1,1,\"通过\");\nvar OptID1=InvokeService(\"OA_GetOperatorIDsByEmp\", true, false, Participants,\",\");\nvar OptID2=InvokeService(\"OA_GetOperatorIDsByEmp\", true, false, Partake,\",\");\nvar OptIDs=OptID1+\",\"+OptID2;\nvar messages=InvokeService(\"OA_SendMessage\", true, false,true, \"OA\",ServerDate(),GetOperator(),Topic,NO,OptIDs,MessageSet,BillKey,NO,OID);\nif(messages){Confirm(\"发送成功\")}\nelse{\"发送失败\"}\n', '0', '1', '', '', '', null, 'OPTMeeting', '0', null, null, null, null, null, null);
-INSERT INTO `oa_optmodule_h` VALUES ('165138', '165138', null, '0', '0', '1', '1', '0', '0', '15', '16', 'CommitAudit', '提交审批', '21277', '2017-03-09 16:57:45', '21277', '2017-03-09 16:57:45', null, 'OA_OptModule', '-1', null, null, null, 'CommitWorkitem(-1, 1, \"\")', '0', null, '', '', '', null, 'CommitAudit', '0', null, null, null, null, null, '0');
+INSERT INTO `oa_optmodule_h` VALUES ('19998', '19998', null, '14', '0', '1', '1', '0', '0', '1', '2', 'OPTAudit', '审批', '21', '2016-09-05 16:24:29', '21277', '2017-08-02 15:02:25', null, 'OA_OptModule', '-1', 'Audit', null, null, 'if(!ToBool(Para(\"IsMobile\"))){\n    if(ContainsKey(\"WorkflowTypeDtlID\")){\n        ShowModal(\"OA_AuditDialog\",\"OptKey:{\'OPTAudit\'},pWorkitemID:{GetActiveWorkitemID()},workflowOID:{GetOID()},workflowBillKey:{GetFormKey()},WorkflowTypeDtlID:{WorkflowTypeDtlID}\");\n    }else{\n        ShowModal(\"OA_AuditDialog\",\"OptKey:{\'OPTAudit\'},pWorkitemID:{GetActiveWorkitemID()},workflowOID:{GetOID()},workflowBillKey:{GetFormKey()}\");\n    }\n}else{\n    Show(\"MOA_AuditDialog\",\"newtab\",\"pWorkitemID:{GetActiveWorkitemID()},workflowOID:{GetOID()},workflowBillKey:{GetFormKey()},WorkflowTypeDtlID:{WorkflowTypeDtlID}\");\n}', '0', '1', '', '', '', null, 'OPTAudit', null, null, null, null, null, null, '0', null, null, '');
+INSERT INTO `oa_optmodule_h` VALUES ('19999', '19999', null, '7', '0', '1', '1', '0', '0', '3', '4', 'OPTCirculation', '传阅', '21', '2016-09-05 16:24:42', '21277', '2017-08-02 15:05:00', null, 'OA_OptModule', '-1', 'VoteTask', null, null, 'if(ContainsKey(\"WorkflowTypeDtlID\")){\n    ShowModal(\"OA_CirculationDialog\",\"OptKey:{\'OPTCirculation\'},pWorkitemID:{GetActiveWorkitemID()},workflowOID:{GetOID()},workflowBillKey:{GetFormKey()},WorkflowTypeDtlID:{WorkflowTypeDtlID}\");\n}else{\n    ShowModal(\"OA_CirculationDialog\",\"OptKey:{\'OPTCirculation\'},pWorkitemID:{GetActiveWorkitemID()},workflowOID:{GetOID()},workflowBillKey:{GetFormKey()}\");\n}', '0', '1', null, '', null, null, 'OPTCirculation', null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_optmodule_h` VALUES ('20000', '20000', null, '7', '0', '1', '1', '0', '0', '5', '6', 'OPTEndorse', '加签', '21', '2016-09-05 16:24:57', '21277', '2017-08-02 15:03:08', null, 'OA_OptModule', '-1', 'Audit', null, null, 'ShowModal(\"OA_EndorseDialog\",\"pWorkitemID:{GetActiveWorkitemID()}\");', '0', '1', null, '', null, null, 'OPTEndorse', null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_optmodule_h` VALUES ('111636', '111636', null, '2', '0', '1', '1', '0', '0', '7', '8', 'OPTRestartInstance', '重置', '21277', '2016-11-11 14:06:31', '21277', '2017-08-02 15:03:54', null, 'OA_OptModule', '-1', null, null, null, 'SetValue(\"Status\", 1100);\nSaveData();\nRestartInstance(-1);\nConfirm(\"流程已重置\");', '0', '1', null, null, null, null, 'OPTRestartInstance', '0', null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_optmodule_h` VALUES ('111637', '111637', null, '2', '0', '1', '1', '0', '0', '9', '10', 'OPTKillInstance', '终止', '21277', '2016-11-11 14:06:37', '21277', '2017-08-02 15:03:32', null, 'OA_OptModule', '-1', null, null, null, 'SetValue(\"Status\", 2000);\nSaveData();\nKillInstance(-1);\nConfirm(\"流程终止\");', '0', '1', null, null, null, null, 'OPTKillInstance', '0', null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_optmodule_h` VALUES ('111638', '111638', null, '2', '0', '1', '1', '0', '0', '11', '12', 'OPTEndInstance', '结束', '21277', '2016-11-11 14:06:44', '21277', '2017-08-02 15:03:00', null, 'OA_OptModule', '-1', null, null, null, 'ShowModal(\"OA_EndInstanceDialog\");', '0', '1', null, null, null, null, 'OPTEndInstance', '0', null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_optmodule_h` VALUES ('111640', '111640', null, '2', '0', '1', '1', '0', '0', '13', '14', 'OPTMeeting', '会议审批', '21277', '2016-11-11 14:07:00', '21277', '2017-08-02 15:03:42', null, 'OA_OptModule', '-1', null, null, null, 'CommitWorkitem(-1,1,\"通过\");\nvar OptID1=InvokeService(\"OA_GetOperatorIDsByEmp\", true, false, Participants,\",\");\nvar OptID2=InvokeService(\"OA_GetOperatorIDsByEmp\", true, false, Partake,\",\");\nvar OptIDs=OptID1+\",\"+OptID2;\nvar messages=InvokeService(\"OA_SendMessage\", true, false,true, \"OA\",ServerDate(),GetOperator(),Topic,NO,OptIDs,MessageSet,BillKey,NO,OID);\nif(messages){Confirm(\"发送成功\")}\nelse{\"发送失败\"}', '0', '1', '', '', '', null, 'OPTMeeting', '0', null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_optmodule_h` VALUES ('165138', '165138', null, '1', '0', '1', '1', '0', '0', '15', '16', 'OPTCommitAudit', '提交', '21277', '2017-03-09 16:57:45', '21277', '2017-08-02 15:01:55', null, 'OA_OptModule', '-1', null, null, null, 'CommitWorkitem(-1, 1, \"\");\nConfirm(\"提交成功\");', '0', '1', '', '', '', null, 'OPTCommitAudit', '0', null, null, null, null, null, '0', null, null, null);
+INSERT INTO `oa_optmodule_h` VALUES ('213561', '213561', null, '3', '0', '1', '1', '0', '0', '17', '18', 'OPTApprove', '通过', '21277', '2017-08-01 19:30:28', '21277', '2017-08-02 15:06:03', null, 'OA_OptModule', '-1', null, null, null, 'if(ContainsKey(\"WorkflowTypeDtlID\")){\n    ShowModal(\"OA_Approve\",\"OptKey:{\'OPTApprove\'},pWorkitemID:{GetActiveWorkitemID()},workflowOID:{GetOID()},workflowBillKey:{GetFormKey()},WorkflowTypeDtlID:{WorkflowTypeDtlID}\");\n}else{\n    ShowModal(\"OA_Approve\",\"OptKey:{\'OPTApprove\'},pWorkitemID:{GetActiveWorkitemID()},workflowOID:{GetOID()},workflowBillKey:{GetFormKey()}\");\n}', '0', '1', null, null, null, null, 'OPTApprove', '0', null, null, null, null, null, '0', '1', '0', '');
+INSERT INTO `oa_optmodule_h` VALUES ('213784', '213784', null, '0', '0', '1', '1', '0', '0', '19', '20', 'OPTPauseInstance', '暂停', '21277', '2017-08-02 15:04:10', '21277', '2017-08-02 15:04:10', null, 'OA_OptModule', '-1', null, null, null, 'PauseInstance(-1);\nConfirm(\"暂停成功\");', '0', null, null, null, null, null, 'OPTPauseInstance', '0', null, null, null, null, null, '0', '0', '0', null);
+INSERT INTO `oa_optmodule_h` VALUES ('213786', '213786', null, '0', '0', '1', '1', '0', '0', '21', '22', 'OPTRollBackToWorkitem', '撤销', '21277', '2017-08-02 15:04:17', '21277', '2017-08-02 15:04:17', null, 'OA_OptModule', '-1', null, null, null, 'RollbackToWorkitem(-1);\nConfirm(\"撤销成功\");', '0', null, null, null, null, null, 'OPTRollBackToWorkitem', '0', null, null, null, null, null, '0', '0', '0', null);
+INSERT INTO `oa_optmodule_h` VALUES ('213788', '213788', null, '0', '0', '1', '1', '0', '0', '23', '24', 'OPTTransferTask', '指派', '21277', '2017-08-02 15:04:22', '21277', '2017-08-02 15:04:22', null, 'OA_OptModule', '-1', null, null, null, 'ShowModal(\"OA_TransferTask\",\"pWorkitemID:{GetActiveWorkitemID()}\");', '0', null, null, null, null, null, 'OPTTransferTask', '0', null, null, null, null, null, '0', '0', '0', null);
+INSERT INTO `oa_optmodule_h` VALUES ('213790', '213790', null, '1', '0', '1', '1', '0', '0', '25', '26', 'OPTReject', '撤回', '21277', '2017-08-02 15:04:31', '21277', '2017-08-02 15:06:13', null, 'OA_OptModule', '-1', null, null, null, 'if(ContainsKey(\"WorkflowTypeDtlID\")){\n    ShowModal(\"OA_Reject\",\"OptKey:{\'OPTReject\'},pWorkitemID:{GetActiveWorkitemID()},workflowOID:{GetOID()},workflowBillKey:{GetFormKey()},WorkflowTypeDtlID:{WorkflowTypeDtlID}\");\n}else{\n    ShowModal(\"OA_Reject\",\"OptKey:{\'OPTReject\'},pWorkitemID:{GetActiveWorkitemID()},workflowOID:{GetOID()},workflowBillKey:{GetFormKey()}\");\n}', '0', '1', null, null, null, null, 'OPTReject', '0', null, null, null, null, null, '0', '1', '0', null);
+INSERT INTO `oa_optmodule_h` VALUES ('213792', '213792', null, '0', '0', '1', '1', '0', '0', '27', '28', 'OPTTransit', '直送', '21277', '2017-08-02 15:04:37', '21277', '2017-08-02 15:04:37', null, 'OA_OptModule', '-1', null, null, null, 'CommitWorkitem(-1, 1,\"\",{pattern:{Transit}});\nConfirm(\"直送成功\");', '0', null, null, null, null, null, 'OPTTransit', '0', null, null, null, null, null, '0', '0', '0', null);
+INSERT INTO `oa_optmodule_h` VALUES ('213797', '213797', null, '0', '0', '1', '1', '0', '0', '29', '30', 'OPTRefuse', '拒绝', '21277', '2017-08-02 15:05:13', '21277', '2017-08-02 15:05:13', null, 'OA_OptModule', '-1', null, null, null, 'if(ContainsKey(\"WorkflowTypeDtlID\")){\n    ShowModal(\"OA_Refuse\",\"OptKey:{\'OPTRefuse\'},pWorkitemID:{GetActiveWorkitemID()},workflowOID:{GetOID()},workflowBillKey:{GetFormKey()},WorkflowTypeDtlID:{WorkflowTypeDtlID}\");\n}else{\n    ShowModal(\"OA_Refuse\",\"OptKey:{\'OPTRefuse\'},pWorkitemID:{GetActiveWorkitemID()},workflowOID:{GetOID()},workflowBillKey:{GetFormKey()}\");\n}', '0', null, null, null, null, null, 'OPTRefuse', '0', null, null, null, null, null, '0', '0', '0', null);
+INSERT INTO `oa_optmodule_h` VALUES ('213799', '213799', null, '0', '0', '1', '1', '0', '0', '31', '32', 'OPTRejectT', '直接撤回', '21277', '2017-08-02 15:05:20', '21277', '2017-08-02 15:05:20', null, 'OA_OptModule', '-1', null, null, null, 'CommitWorkitem(-1,0,GetValue(\"AuditOpinion\"));\nConfirm(\"撤回成功\");', '0', null, null, null, null, null, 'OPTRejectT', '0', null, null, null, null, null, '0', '0', '0', null);
+INSERT INTO `oa_optmodule_h` VALUES ('213801', '213801', null, '0', '0', '1', '1', '0', '0', '33', '34', 'OPTApproveT', '直接通过', '21277', '2017-08-02 15:05:24', '21277', '2017-08-02 15:05:24', null, 'OA_OptModule', '-1', null, null, null, 'OA_AuditBefore(false,-1,GetFormKey(),GetValue(\"WorkflowTypeDtlID\"),GetOID());\nCommitWorkitem(-1,1,GetValue(\"AuditOpinion\"));\nOA_AuditAfter(false,-1,GetFormKey(),GetValue(\"WorkflowTypeDtlID\"),GetOID());', '0', null, null, null, null, null, 'OPTApproveT', '0', null, null, null, null, null, '0', '0', '0', null);
+INSERT INTO `oa_optmodule_h` VALUES ('213803', '213803', null, '0', '0', '1', '1', '0', '0', '35', '36', 'OPTCancelPause', '取消暂停', '21277', '2017-08-02 15:05:30', '21277', '2017-08-02 15:05:30', null, 'OA_OptModule', '-1', null, null, null, 'CanclePause(-1);\nConfirm(\"取消暂停成功\");', '0', null, null, null, null, null, 'OPTCancelPause', '0', null, null, null, null, null, '0', '0', '0', null);
+INSERT INTO `oa_optmodule_h` VALUES ('213805', '213805', null, '0', '0', '1', '1', '0', '0', '37', '38', 'OPTRefuseT', '直接拒绝', '21277', '2017-08-02 15:05:35', '21277', '2017-08-02 15:05:35', null, 'OA_OptModule', '-1', null, null, null, 'var nodeid = InvokeService(\"OA_GetNodeIDByNodeKey\",false,false,GetFormKey(),\"Refuse\");\nCommitWorkitem(-1,0,GetValue(\"AuditOpinion\"),{pattern:{Return},backSite:{nodeid}});\nConfirm(\"拒绝成功\");', '0', null, null, null, null, null, 'OPTRefuseT', '0', null, null, null, null, null, '0', '0', '0', null);
 
 -- ----------------------------
 -- Table structure for oa_optmodule_h_or
@@ -16808,6 +17993,94 @@ CREATE TABLE `oa_receivemessages_h` (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for oa_rightsel_f
+-- ----------------------------
+DROP TABLE IF EXISTS `oa_rightsel_f`;
+CREATE TABLE `oa_rightsel_f` (
+  `OID` bigint(20) NOT NULL default '0',
+  `SOID` bigint(20) default NULL,
+  `POID` bigint(20) default NULL,
+  `VERID` int(11) default NULL,
+  `DVERID` int(11) default NULL,
+  `Sequence` int(11) default NULL,
+  `FieldKey` varchar(255) default NULL,
+  `FieldName` varchar(255) default NULL,
+  `FieldVisible` int(11) default NULL,
+  `FieldEnable` int(11) default NULL,
+  `MapCount` int(11) default NULL,
+  `Slock` int(11) default NULL,
+  PRIMARY KEY  (`OID`),
+  KEY `I_OA_RightSel_F_SOID` (`SOID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of oa_rightsel_f
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for oa_rightsel_h
+-- ----------------------------
+DROP TABLE IF EXISTS `oa_rightsel_h`;
+CREATE TABLE `oa_rightsel_h` (
+  `OID` bigint(20) NOT NULL default '0',
+  `SOID` bigint(20) default NULL,
+  `POID` bigint(20) default NULL,
+  `VERID` int(11) default NULL,
+  `DVERID` int(11) default NULL,
+  `No` varchar(255) default NULL,
+  `BillDate` date default NULL,
+  `Status` int(11) default NULL,
+  `Creator` bigint(20) default NULL,
+  `CreateTime` datetime default NULL,
+  `Modifier` bigint(20) default NULL,
+  `ModifyTime` datetime default NULL,
+  `BillKey` varchar(255) default NULL,
+  `ClusterID` bigint(20) default NULL,
+  `SourceKey` varchar(255) default NULL,
+  `SourceID` bigint(20) default NULL,
+  `Tag1` varchar(255) default NULL,
+  `Tag2` varchar(255) default NULL,
+  `Tag3` varchar(255) default NULL,
+  `Tag4` varchar(255) default NULL,
+  `OptDesc` varchar(1000) default NULL,
+  `StartFormKey` varchar(255) default NULL,
+  `WorkflowFormKey` varchar(255) default NULL,
+  `MapCount` int(11) default NULL,
+  `Slock` int(11) default NULL,
+  PRIMARY KEY  (`OID`),
+  UNIQUE KEY `I_OA_RightSel_H_SOID` (`SOID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of oa_rightsel_h
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for oa_rightsel_o
+-- ----------------------------
+DROP TABLE IF EXISTS `oa_rightsel_o`;
+CREATE TABLE `oa_rightsel_o` (
+  `OID` bigint(20) NOT NULL default '0',
+  `SOID` bigint(20) default NULL,
+  `POID` bigint(20) default NULL,
+  `VERID` int(11) default NULL,
+  `DVERID` int(11) default NULL,
+  `Sequence` int(11) default NULL,
+  `OperationKey` varchar(255) default NULL,
+  `OperationName` varchar(255) default NULL,
+  `OperationVisible` int(11) default NULL,
+  `OperationEnable` int(11) default NULL,
+  `MapCount` int(11) default NULL,
+  `Slock` int(11) default NULL,
+  PRIMARY KEY  (`OID`),
+  KEY `I_OA_RightSel_O_SOID` (`SOID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of oa_rightsel_o
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for oa_rootspofile_att
 -- ----------------------------
 DROP TABLE IF EXISTS `oa_rootspofile_att`;
@@ -17172,6 +18445,8 @@ CREATE TABLE `oa_selrule_h` (
   `ClusterID` bigint(20) default NULL,
   `MapCount` int(11) default NULL,
   `Slock` int(11) default NULL,
+  `DefinitionSQL` varchar(4000) default NULL,
+  `DefinitionFormula` varchar(4000) default NULL,
   PRIMARY KEY  (`OID`),
   KEY `I_OA_SelRule_H_SOID` (`SOID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -17179,8 +18454,8 @@ CREATE TABLE `oa_selrule_h` (
 -- ----------------------------
 -- Records of oa_selrule_h
 -- ----------------------------
-INSERT INTO `oa_selrule_h` VALUES ('200723', '200723', null, '12', '0', '01', '收文直接人员', '0', '1', '0', '0', '1', '2', '199443', '10', '0', '21277', '2017-06-07 14:52:12', '21277', '2017-06-08 16:35:00', null, 'OA_SelRule', '-1', '0', '1');
-INSERT INTO `oa_selrule_h` VALUES ('200981', '200981', null, '7', '0', '02', '收文匹配人员', '0', '1', '0', '0', '3', '4', '199443', '20', '200467', '21277', '2017-06-07 15:16:59', '21277', '2017-06-08 14:24:55', null, 'OA_SelRule', '-1', '0', '1');
+INSERT INTO `oa_selrule_h` VALUES ('200723', '200723', null, '12', '0', '01', '收文直接人员', '0', '1', '0', '0', '1', '2', '199443', '10', '0', '21277', '2017-06-07 14:52:12', '21277', '2017-06-08 16:35:00', null, 'OA_SelRule', '-1', '0', '1', null, null);
+INSERT INTO `oa_selrule_h` VALUES ('200981', '200981', null, '7', '0', '02', '收文匹配人员', '0', '1', '0', '0', '3', '4', '199443', '20', '200467', '21277', '2017-06-07 15:16:59', '21277', '2017-06-08 14:24:55', null, 'OA_SelRule', '-1', '0', '1', null, null);
 
 -- ----------------------------
 -- Table structure for oa_selrule_h_or
@@ -17774,6 +19049,27 @@ CREATE TABLE `oa_timezone_h_rr` (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for oa_tmptest
+-- ----------------------------
+DROP TABLE IF EXISTS `oa_tmptest`;
+CREATE TABLE `oa_tmptest` (
+  `OID` bigint(20) NOT NULL default '0',
+  `SOID` bigint(20) default NULL,
+  `POID` bigint(20) default NULL,
+  `VERID` int(11) default NULL,
+  `DVERID` int(11) default NULL,
+  `AuditOpinion` varchar(255) default NULL,
+  `MapCount` int(11) default NULL,
+  `Slock` int(11) default NULL,
+  PRIMARY KEY  (`OID`),
+  UNIQUE KEY `I_OA_TmpTest_SOID` (`SOID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of oa_tmptest
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for oa_twmember
 -- ----------------------------
 DROP TABLE IF EXISTS `oa_twmember`;
@@ -18066,6 +19362,103 @@ CREATE TABLE `oa_wordsize_rr` (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for oa_workflowarea_d
+-- ----------------------------
+DROP TABLE IF EXISTS `oa_workflowarea_d`;
+CREATE TABLE `oa_workflowarea_d` (
+  `OID` bigint(20) NOT NULL default '0',
+  `SOID` bigint(20) default NULL,
+  `POID` bigint(20) default NULL,
+  `VERID` int(11) default NULL,
+  `DVERID` int(11) default NULL,
+  `Sequence` int(11) default NULL,
+  `WorkflowTypeID` bigint(20) default NULL,
+  `OrderNum` int(11) default NULL,
+  `MapCount` int(11) default NULL,
+  `Slock` int(11) default NULL,
+  PRIMARY KEY  (`OID`),
+  KEY `I__WorkflowArea_D_SOID` (`SOID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of oa_workflowarea_d
+-- ----------------------------
+INSERT INTO `oa_workflowarea_d` VALUES ('212501', '212500', null, '0', '0', '1', '23836', '0', '0', null);
+INSERT INTO `oa_workflowarea_d` VALUES ('212502', '212500', null, '0', '0', '2', '37399', '0', '0', null);
+INSERT INTO `oa_workflowarea_d` VALUES ('212505', '212504', null, '0', '0', '1', '68372', '0', '0', null);
+INSERT INTO `oa_workflowarea_d` VALUES ('212506', '212504', null, '0', '0', '2', '69395', '0', '0', null);
+
+-- ----------------------------
+-- Table structure for oa_workflowarea_h
+-- ----------------------------
+DROP TABLE IF EXISTS `oa_workflowarea_h`;
+CREATE TABLE `oa_workflowarea_h` (
+  `OID` bigint(20) NOT NULL default '0',
+  `SOID` bigint(20) default NULL,
+  `POID` bigint(20) default NULL,
+  `VERID` int(11) default NULL,
+  `DVERID` int(11) default NULL,
+  `Status` int(11) default NULL,
+  `Enable` int(11) default NULL,
+  `NodeType` int(11) default NULL,
+  `ParentID` bigint(20) default NULL,
+  `TLeft` int(11) default NULL,
+  `TRight` int(11) default NULL,
+  `Code` varchar(50) default NULL,
+  `Name` varchar(50) default NULL,
+  `Creator` bigint(20) default NULL,
+  `CreateTime` datetime default NULL,
+  `Modifier` bigint(20) default NULL,
+  `ModifyTime` datetime default NULL,
+  `Notes` varchar(255) default NULL,
+  `BillKey` varchar(255) default NULL,
+  `ClusterID` bigint(20) default NULL,
+  `OrderNum` int(11) default NULL,
+  `MapCount` int(11) default NULL,
+  `Slock` int(11) default NULL,
+  PRIMARY KEY  (`OID`),
+  KEY `I__WorkflowArea_H_SOID` (`SOID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of oa_workflowarea_h
+-- ----------------------------
+INSERT INTO `oa_workflowarea_h` VALUES ('212500', '212500', null, '0', '0', '1', '1', '0', '0', '1', '2', '01', '信息中心', '21277', '2017-07-31 14:17:25', '21277', '2017-07-31 14:17:25', null, 'OA_WorkflowArea', '-1', '0', '0', null);
+INSERT INTO `oa_workflowarea_h` VALUES ('212504', '212504', null, '1', '0', '1', '1', '0', '0', '3', '4', '02', '文档中心', '21277', '2017-07-31 14:17:41', '21277', '2017-07-31 14:17:57', null, 'OA_WorkflowArea', '-1', '0', '0', '1');
+
+-- ----------------------------
+-- Table structure for oa_workflowarea_h_or
+-- ----------------------------
+DROP TABLE IF EXISTS `oa_workflowarea_h_or`;
+CREATE TABLE `oa_workflowarea_h_or` (
+  `OperatorID` bigint(20) NOT NULL default '0',
+  `FormKey` varchar(128) default NULL,
+  `DictID` bigint(20) NOT NULL default '0',
+  `HasRights` int(11) default NULL,
+  PRIMARY KEY  (`OperatorID`,`DictID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of oa_workflowarea_h_or
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for oa_workflowarea_h_rr
+-- ----------------------------
+DROP TABLE IF EXISTS `oa_workflowarea_h_rr`;
+CREATE TABLE `oa_workflowarea_h_rr` (
+  `RoleID` bigint(20) NOT NULL default '0',
+  `FormKey` varchar(128) default NULL,
+  `DictID` bigint(20) NOT NULL default '0',
+  `HasRights` int(11) default NULL,
+  PRIMARY KEY  (`RoleID`,`DictID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of oa_workflowarea_h_rr
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for oa_workflowdesigne_d
 -- ----------------------------
 DROP TABLE IF EXISTS `oa_workflowdesigne_d`;
@@ -18095,6 +19488,9 @@ CREATE TABLE `oa_workflowdesigne_d` (
   `CarbonCopyOptOID` bigint(20) default NULL,
   `MessageSetID` bigint(20) default NULL,
   `NodePropertyOID` bigint(20) default NULL,
+  `RightSelOID` bigint(20) default NULL,
+  `RightSelDepict` varchar(4000) default NULL,
+  `EmailTemp` varchar(255) default NULL,
   PRIMARY KEY  (`OID`),
   KEY `I_rkflowDesigne_D_SOID` (`SOID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -18102,28 +19498,32 @@ CREATE TABLE `oa_workflowdesigne_d` (
 -- ----------------------------
 -- Records of oa_workflowdesigne_d
 -- ----------------------------
-INSERT INTO `oa_workflowdesigne_d` VALUES ('82969', '82962', null, '0', '0', '1', '5', '测试，开发', null, '审批', '0', '0', null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `oa_workflowdesigne_d` VALUES ('82981', '82970', null, '0', '0', '1', '3', '测试，开发', null, '审批', '0', '0', null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `oa_workflowdesigne_d` VALUES ('82982', '82970', null, '0', '0', '2', '7', '测试，开发', null, '审批', '0', '0', null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `oa_workflowdesigne_d` VALUES ('82989', '82983', null, '1', '0', '1', '19', '测试，开发', null, '会议审批', '0', '0', null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `oa_workflowdesigne_d` VALUES ('82996', '82990', null, '0', '0', '1', '5', '测试，开发', null, '审批', '0', '0', null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `oa_workflowdesigne_d` VALUES ('83019', '82997', null, '0', '0', '1', '6', '任务派发接受人员', null, '审批', '0', '0', null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `oa_workflowdesigne_d` VALUES ('83020', '82997', null, '0', '0', '2', '22', '测试，开发', null, '审批', '0', '0', null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `oa_workflowdesigne_d` VALUES ('83021', '82997', null, '0', '0', '3', '45', '测试，开发', null, '审批', '0', '0', null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `oa_workflowdesigne_d` VALUES ('83022', '82997', null, '0', '0', '4', '39', '测试，开发', null, '审批', '0', '0', null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `oa_workflowdesigne_d` VALUES ('90161', '90137', null, '8', '0', '1', '8', '收文直接人员，收文匹配人员', null, '办公室主任审批', '1', '0', '0', null, null, null, null, null, '201241', '90141', null, null, null, null, '187412');
-INSERT INTO `oa_workflowdesigne_d` VALUES ('90162', '90137', null, '4', '0', '2', '10', '测试，开发', null, '总经理审批', '1', '0', '0', null, null, null, null, null, '205587', '90147', null, null, null, null, null);
-INSERT INTO `oa_workflowdesigne_d` VALUES ('90163', '90137', null, '4', '0', '3', '43', '创建人', null, '分管领导', '1', '0', '0', null, null, null, null, null, '205842', '93720', null, null, null, null, null);
-INSERT INTO `oa_workflowdesigne_d` VALUES ('90164', '90137', null, '4', '0', '4', '46', '特别', null, '部门处理结果反馈', '0', '0', '0', null, null, null, null, null, '205845', '93722', null, null, null, null, null);
-INSERT INTO `oa_workflowdesigne_d` VALUES ('93750', '93724', null, '0', '0', '6', '4', '测试，开发', null, '审批', '0', '0', null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `oa_workflowdesigne_d` VALUES ('93751', '93724', null, '0', '0', '7', '6', '测试，开发', null, '审批', '0', '0', null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `oa_workflowdesigne_d` VALUES ('93752', '93724', null, '0', '0', '8', '7', '测试，开发', null, '审批', '0', '0', null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `oa_workflowdesigne_d` VALUES ('93753', '93724', null, '0', '0', '9', '8', '测试，开发', null, '审批', '0', '0', null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `oa_workflowdesigne_d` VALUES ('93754', '93724', null, '1', '0', '5', '22', '测试，开发', null, '审批', '1', '0', null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `oa_workflowdesigne_d` VALUES ('113951', '90137', null, '3', '0', '5', '49', '收文直接人员，收文匹配人员', null, '提交审批', '0', '0', null, null, null, null, null, null, '205848', '165139', null, null, null, null, null);
-INSERT INTO `oa_workflowdesigne_d` VALUES ('165146', '93724', null, '0', '0', '10', '29', '测试，开发', null, '提交审批', '0', '0', '0', null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `oa_workflowdesigne_d` VALUES ('181792', '181786', null, '0', '0', '1', '2', '测试，开发', null, '审批', '0', '0', '0', null, '', null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `oa_workflowdesigne_d` VALUES ('189971', '189970', null, '0', '0', '1', '5', '测试，开发', null, '审批', '0', '0', null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_workflowdesigne_d` VALUES ('82969', '82962', null, '0', '0', '1', '5', '测试，开发', null, '审批', '0', '0', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_workflowdesigne_d` VALUES ('82981', '82970', null, '3', '0', '1', '3', '测试，开发', null, '通过，撤回', '0', '0', null, null, null, null, null, null, '213275', '82974', null, null, null, null, null, null, null, null);
+INSERT INTO `oa_workflowdesigne_d` VALUES ('82982', '82970', null, '3', '0', '2', '7', '开发，王天佑，测试', null, '通过，撤回', '0', '0', null, null, null, null, null, null, '213278', '82979', null, null, null, null, null, null, null, null);
+INSERT INTO `oa_workflowdesigne_d` VALUES ('82989', '82983', null, '1', '0', '1', '19', '测试，开发', null, '会议审批', '0', '0', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_workflowdesigne_d` VALUES ('82996', '82990', null, '0', '0', '1', '5', '测试，开发', null, '审批', '0', '0', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_workflowdesigne_d` VALUES ('83019', '82997', null, '0', '0', '1', '6', '任务派发接受人员', null, '审批', '0', '0', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_workflowdesigne_d` VALUES ('83020', '82997', null, '0', '0', '2', '22', '测试，开发', null, '审批', '0', '0', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_workflowdesigne_d` VALUES ('83021', '82997', null, '0', '0', '3', '45', '测试，开发', null, '审批', '0', '0', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_workflowdesigne_d` VALUES ('83022', '82997', null, '0', '0', '4', '39', '测试，开发', null, '审批', '0', '0', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_workflowdesigne_d` VALUES ('90161', '90137', null, '8', '0', '1', '8', '收文直接人员，收文匹配人员', null, '办公室主任审批', '1', '0', '0', null, null, null, null, null, '201241', '90141', null, null, null, null, '187412', null, null, null);
+INSERT INTO `oa_workflowdesigne_d` VALUES ('90162', '90137', null, '5', '0', '2', '10', '测试，开发', null, '总经理审批', '1', '0', '0', null, null, null, null, null, '205587', '90147', null, null, null, null, '211734', null, null, null);
+INSERT INTO `oa_workflowdesigne_d` VALUES ('90163', '90137', null, '4', '0', '3', '43', '创建人', null, '分管领导', '1', '0', '0', null, null, null, null, null, '205842', '93720', null, null, null, null, null, null, null, null);
+INSERT INTO `oa_workflowdesigne_d` VALUES ('90164', '90137', null, '4', '0', '4', '46', '特别', null, '部门处理结果反馈', '0', '0', '0', null, null, null, null, null, '205845', '93722', null, null, null, null, null, null, null, null);
+INSERT INTO `oa_workflowdesigne_d` VALUES ('93750', '93724', null, '0', '0', '6', '4', '测试，开发', null, '审批', '0', '0', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_workflowdesigne_d` VALUES ('93751', '93724', null, '0', '0', '7', '6', '测试，开发', null, '审批', '0', '0', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_workflowdesigne_d` VALUES ('93752', '93724', null, '0', '0', '8', '7', '测试，开发', null, '审批', '0', '0', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_workflowdesigne_d` VALUES ('93753', '93724', null, '0', '0', '9', '8', '测试，开发', null, '审批', '0', '0', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_workflowdesigne_d` VALUES ('93754', '93724', null, '1', '0', '5', '22', '测试，开发', null, '审批', '1', '0', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_workflowdesigne_d` VALUES ('113951', '90137', null, '3', '0', '5', '49', '收文直接人员，收文匹配人员', null, '提交审批', '0', '0', null, null, null, null, null, null, '205848', '165139', null, null, null, null, null, null, null, null);
+INSERT INTO `oa_workflowdesigne_d` VALUES ('165146', '93724', null, '0', '0', '10', '29', '测试，开发', null, '提交审批', '0', '0', '0', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_workflowdesigne_d` VALUES ('181792', '181786', null, '0', '0', '1', '2', '测试，开发', null, '审批', '0', '0', '0', null, '', null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_workflowdesigne_d` VALUES ('189971', '189970', null, '0', '0', '1', '5', '测试，开发', null, '审批', '0', '0', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `oa_workflowdesigne_d` VALUES ('209962', '209943', null, '0', '0', '1', '8', '测试，开发', null, '审批', null, null, '0', null, '', '', '', null, '209944', '209954', '0', '0', '0', '0', '0', null, null, null);
+INSERT INTO `oa_workflowdesigne_d` VALUES ('209963', '209943', null, '0', '0', '2', '10', '创建人', null, '审批', null, null, '0', null, '', '', '', null, '209947', '209956', '0', '0', '0', '0', '0', null, null, null);
+INSERT INTO `oa_workflowdesigne_d` VALUES ('209964', '209943', null, '0', '0', '3', '43', '特别', null, '审批', null, null, '0', null, '', '', '', null, '209949', '209958', '0', '0', '0', '0', '0', null, null, null);
+INSERT INTO `oa_workflowdesigne_d` VALUES ('209965', '209943', null, '0', '0', '4', '46', '收文直接人员，收文匹配人员', null, '审批', null, null, '0', null, '', '', '', null, '209951', '209960', '0', '0', '0', '0', '0', null, null, null);
 
 -- ----------------------------
 -- Table structure for oa_workflowdesigne_h
@@ -18152,6 +19552,7 @@ CREATE TABLE `oa_workflowdesigne_h` (
   `Tag4` varchar(255) default NULL,
   `MapCount` int(11) default NULL,
   `Slock` int(11) default NULL,
+  `WorkflowFormKey` varchar(255) default NULL,
   PRIMARY KEY  (`OID`),
   UNIQUE KEY `I_rkflowDesigne_H_SOID` (`SOID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -18159,15 +19560,44 @@ CREATE TABLE `oa_workflowdesigne_h` (
 -- ----------------------------
 -- Records of oa_workflowdesigne_h
 -- ----------------------------
-INSERT INTO `oa_workflowdesigne_h` VALUES ('82962', '82962', null, '1', '0', 'OA_WORKFLOWDESIGNE20161009000001', '2016-10-09', '100', '21277', '2016-10-09 11:23:17', '21277', '2016-10-09 11:23:25', 'OA_WorkflowDesigne', '-1', 'WF_StandardWorkFlow', '1', 'OA_WorkflowSet', null, null, null, '0', '1');
-INSERT INTO `oa_workflowdesigne_h` VALUES ('82970', '82970', null, '1', '0', 'OA_WORKFLOWDESIGNE20161009000002', '2016-10-09', '100', '21277', '2016-10-09 11:24:37', '21277', '2016-10-09 11:24:52', 'OA_WorkflowDesigne', '-1', 'WF_OA_NewsDraftView', '1', 'OA_WorkflowSet', null, null, null, '0', '1');
-INSERT INTO `oa_workflowdesigne_h` VALUES ('82983', '82983', null, '2', '0', 'OA_WORKFLOWDESIGNE20161009000003', '2016-10-09', '100', '21277', '2016-10-09 11:25:32', '21277', '2017-04-24 09:47:50', 'OA_WorkflowDesigne', '-1', 'WF_OA_MeetingInSideWorkFlow', '1', 'OA_WorkflowSet', null, null, null, '0', '1');
-INSERT INTO `oa_workflowdesigne_h` VALUES ('82990', '82990', null, '0', '0', 'OA_WORKFLOWDESIGNE20161009000004', '2016-10-09', '100', '21277', '2016-10-09 11:26:14', '21277', '2016-10-09 11:26:14', 'OA_WorkflowDesigne', '-1', 'WF_OA_MeetingOutSideWorkFlow', '1', 'OA_WorkflowSet', null, null, null, '0', null);
-INSERT INTO `oa_workflowdesigne_h` VALUES ('82997', '82997', null, '0', '0', 'OA_WORKFLOWDESIGNE20161009000005', '2016-10-09', '100', '21277', '2016-10-09 11:29:04', '21277', '2016-10-09 11:29:04', 'OA_WorkflowDesigne', '-1', 'WF_OA_TASK', '1', 'OA_WorkflowSet', null, null, null, '0', null);
-INSERT INTO `oa_workflowdesigne_h` VALUES ('90137', '90137', null, '15', '0', 'OA_WORKFLOWDESIGNE20161012000001', '2016-10-12', '100', '21277', '2016-10-12 13:14:05', '21277', '2017-06-08 16:34:37', 'OA_WorkflowDesigne', '-1', 'WF_OA_ForeignLan', '1', 'OA_WorkflowSet', null, null, null, '0', '1');
-INSERT INTO `oa_workflowdesigne_h` VALUES ('93724', '93724', null, '2', '0', 'OA_WORKFLOWDESIGNE20161026000001', '2016-10-26', '100', '21277', '2016-10-26 17:51:59', '21277', '2017-03-09 17:02:16', 'OA_WorkflowDesigne', '-1', 'WF_OA_Dispatch', '1', 'OA_WorkflowSet', null, null, null, '0', '1');
-INSERT INTO `oa_workflowdesigne_h` VALUES ('181786', '181786', null, '0', '0', 'OA_WORKFLOWDESIGNE20170515000001', '2017-05-15', '100', '21277', '2017-05-15 14:15:20', '21277', '2017-05-15 14:15:20', 'OA_WorkflowDesigne', '-1', 'WF_OA_WeeklyReport', '1', 'OA_WorkflowSet', null, null, null, '0', null);
-INSERT INTO `oa_workflowdesigne_h` VALUES ('189970', '189970', null, '0', '0', 'OA_WORKFLOWDESIGNE_EX20170529000001', '2017-05-29', '100', '21277', '2017-05-29 19:45:39', '21277', '2017-05-29 19:45:39', 'OA_WorkflowDesigne_Ex', '-1', 'WF_StandardWorkFlow', '1', 'OA_Workflow', '19993', null, null, '0', null);
+INSERT INTO `oa_workflowdesigne_h` VALUES ('82962', '82962', null, '1', '0', 'OA_WORKFLOWDESIGNE20161009000001', '2016-10-09', '100', '21277', '2016-10-09 11:23:17', '21277', '2016-10-09 11:23:25', 'OA_WorkflowDesigne', '-1', 'WF_StandardWorkFlow', '1', 'OA_WorkflowSet', null, null, null, '0', '1', null);
+INSERT INTO `oa_workflowdesigne_h` VALUES ('82970', '82970', null, '6', '0', 'OA_WORKFLOWDESIGNE20161009000002', '2016-10-09', '100', '21277', '2016-10-09 11:24:37', '21277', '2017-08-02 15:08:41', 'OA_WorkflowDesigne', '-1', 'WF_OA_NewsDraftView', '1', 'OA_WorkflowSet', null, null, null, '0', '1', null);
+INSERT INTO `oa_workflowdesigne_h` VALUES ('82983', '82983', null, '2', '0', 'OA_WORKFLOWDESIGNE20161009000003', '2016-10-09', '100', '21277', '2016-10-09 11:25:32', '21277', '2017-04-24 09:47:50', 'OA_WorkflowDesigne', '-1', 'WF_OA_MeetingInSideWorkFlow', '1', 'OA_WorkflowSet', null, null, null, '0', '1', null);
+INSERT INTO `oa_workflowdesigne_h` VALUES ('82990', '82990', null, '0', '0', 'OA_WORKFLOWDESIGNE20161009000004', '2016-10-09', '100', '21277', '2016-10-09 11:26:14', '21277', '2016-10-09 11:26:14', 'OA_WorkflowDesigne', '-1', 'WF_OA_MeetingOutSideWorkFlow', '1', 'OA_WorkflowSet', null, null, null, '0', null, null);
+INSERT INTO `oa_workflowdesigne_h` VALUES ('82997', '82997', null, '0', '0', 'OA_WORKFLOWDESIGNE20161009000005', '2016-10-09', '100', '21277', '2016-10-09 11:29:04', '21277', '2016-10-09 11:29:04', 'OA_WorkflowDesigne', '-1', 'WF_OA_TASK', '1', 'OA_WorkflowSet', null, null, null, '0', null, null);
+INSERT INTO `oa_workflowdesigne_h` VALUES ('90137', '90137', null, '16', '0', 'OA_WORKFLOWDESIGNE20161012000001', '2016-10-12', '100', '21277', '2016-10-12 13:14:05', '21277', '2017-07-28 12:57:13', 'OA_WorkflowDesigne', '-1', 'WF_OA_ForeignLan', '1', 'OA_WorkflowSet', null, null, null, '0', '1', null);
+INSERT INTO `oa_workflowdesigne_h` VALUES ('93724', '93724', null, '2', '0', 'OA_WORKFLOWDESIGNE20161026000001', '2016-10-26', '100', '21277', '2016-10-26 17:51:59', '21277', '2017-03-09 17:02:16', 'OA_WorkflowDesigne', '-1', 'WF_OA_Dispatch', '1', 'OA_WorkflowSet', null, null, null, '0', '1', null);
+INSERT INTO `oa_workflowdesigne_h` VALUES ('181786', '181786', null, '0', '0', 'OA_WORKFLOWDESIGNE20170515000001', '2017-05-15', '100', '21277', '2017-05-15 14:15:20', '21277', '2017-05-15 14:15:20', 'OA_WorkflowDesigne', '-1', 'WF_OA_WeeklyReport', '1', 'OA_WorkflowSet', null, null, null, '0', null, null);
+INSERT INTO `oa_workflowdesigne_h` VALUES ('189970', '189970', null, '0', '0', 'OA_WORKFLOWDESIGNE_EX20170529000001', '2017-05-29', '100', '21277', '2017-05-29 19:45:39', '21277', '2017-05-29 19:45:39', 'OA_WorkflowDesigne_Ex', '-1', 'WF_StandardWorkFlow', '1', 'OA_Workflow', '19993', null, null, '0', null, null);
+INSERT INTO `oa_workflowdesigne_h` VALUES ('209943', '209943', null, '0', '0', 'OA_WORKFLOWDESIGNE20170612000001', '2017-06-12', '100', '21', '2017-06-12 10:52:39', '21', '2017-06-12 10:52:39', 'OA_WorkflowDesigne', '-1', 'WF_OA_ForeignLanTest', '1', 'OA_WorkflowSet', null, null, null, '0', null, null);
+
+-- ----------------------------
+-- Table structure for oa_workflowmonitor
+-- ----------------------------
+DROP TABLE IF EXISTS `oa_workflowmonitor`;
+CREATE TABLE `oa_workflowmonitor` (
+  `OID` bigint(20) NOT NULL default '0',
+  `SOID` bigint(20) default NULL,
+  `POID` bigint(20) default NULL,
+  `VERID` int(11) default NULL,
+  `DVERID` int(11) default NULL,
+  `FormKey` varchar(255) default NULL,
+  `ProcessKey` varchar(255) default NULL,
+  `NodeKey` varchar(255) default NULL,
+  `Operator` bigint(20) default NULL,
+  `Version` int(11) default NULL,
+  `WorkitemID` bigint(20) default NULL,
+  `BillOID` bigint(20) default NULL,
+  `InstanceID` bigint(20) default NULL,
+  `MapCount` int(11) default NULL,
+  `Slock` int(11) default NULL,
+  PRIMARY KEY  (`OID`),
+  KEY `I_WorkflowMonitor_SOID` (`SOID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of oa_workflowmonitor
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for oa_workflowtype_d
@@ -18203,6 +19633,9 @@ CREATE TABLE `oa_workflowtype_d` (
   `IsCommon` int(11) default NULL,
   `StartCaption` varchar(255) default NULL,
   `StartAction` varchar(255) default NULL,
+  `RightSelOID` bigint(20) default NULL,
+  `RightSelDepict` varchar(500) default NULL,
+  `WorkflowDesigneID` bigint(20) default NULL,
   PRIMARY KEY  (`OID`),
   KEY `I__WorkflowType_D_SOID` (`SOID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -18210,15 +19643,15 @@ CREATE TABLE `oa_workflowtype_d` (
 -- ----------------------------
 -- Records of oa_workflowtype_d
 -- ----------------------------
-INSERT INTO `oa_workflowtype_d` VALUES ('23837', '23836', null, '6', '0', '1', '0', '24342', 'WF_OA_NewsDraftView', null, 'OA_NewsDraft', null, null, '0', null, null, '0', '', null, null, null, '', '0', '0', null, '新闻发布', null, null, null);
-INSERT INTO `oa_workflowtype_d` VALUES ('37400', '37399', null, '1', '0', '1', '0', '37396', 'WF_OA_MeetingInSideWorkFlow', null, 'OA_MeetingInSide', null, null, '0', null, null, '0', '', null, null, null, '', '0', '0', null, '内部会议表单', '1', null, null);
-INSERT INTO `oa_workflowtype_d` VALUES ('37401', '37399', null, '1', '0', '2', '0', '37397', 'WF_OA_MeetingOutSideWorkFlow', null, 'OA_MeetingOutSide', null, null, '0', null, null, '0', '', null, null, null, '', '0', '0', null, '外部会议表单', '1', null, null);
-INSERT INTO `oa_workflowtype_d` VALUES ('37403', '37402', null, '1', '0', '1', '0', '19992', 'WF_OA_TASK', null, 'OA_Taskdistribution', null, null, '0', null, null, '0', '', null, null, null, '', '0', '0', null, '任务派发', '1', null, null);
-INSERT INTO `oa_workflowtype_d` VALUES ('68373', '68372', null, '1', '0', '1', null, '19993', 'WF_StandardWorkFlow', null, 'OA_Doc', null, null, null, null, null, '0', '', null, null, null, '', null, null, null, '文档管理', '1', null, null);
-INSERT INTO `oa_workflowtype_d` VALUES ('69396', '69395', null, '2', '0', '1', null, '90165', 'WF_OA_ForeignLan', null, 'OA_ForeignLan', null, null, null, null, null, '0', '', null, null, null, '', null, null, null, '收文', null, null, null);
-INSERT INTO `oa_workflowtype_d` VALUES ('69397', '69395', null, '2', '0', '2', null, '162582', 'WF_OA_Dispatch', null, 'OA_SpoFile', null, null, null, null, null, '0', '', null, null, null, '', null, null, null, '发文', null, null, null);
-INSERT INTO `oa_workflowtype_d` VALUES ('181782', '181781', null, '0', '0', '1', '0', '19993', 'WF_StandardWorkFlow', null, 'OA_MySchedule', null, null, '0', null, null, '0', '', null, null, null, '', '0', '0', null, '我发起的日程', '0', null, null);
-INSERT INTO `oa_workflowtype_d` VALUES ('181794', '181783', null, '0', '0', '1', '0', '181793', 'WF_OA_WeeklyReport', null, 'OA_weeklyreport', null, null, '0', null, null, '0', '', null, null, null, '', '0', '0', null, '工作计划', '0', null, null);
+INSERT INTO `oa_workflowtype_d` VALUES ('23837', '23836', null, '6', '0', '1', '0', '24342', 'WF_OA_NewsDraftView', null, 'OA_NewsDraft', null, null, '0', null, null, '0', '', null, null, null, '', '0', '0', null, '新闻发布', null, null, null, null, null, null);
+INSERT INTO `oa_workflowtype_d` VALUES ('37400', '37399', null, '1', '0', '1', '0', '37396', 'WF_OA_MeetingInSideWorkFlow', null, 'OA_MeetingInSide', null, null, '0', null, null, '0', '', null, null, null, '', '0', '0', null, '内部会议表单', '1', null, null, null, null, null);
+INSERT INTO `oa_workflowtype_d` VALUES ('37401', '37399', null, '1', '0', '2', '0', '37397', 'WF_OA_MeetingOutSideWorkFlow', null, 'OA_MeetingOutSide', null, null, '0', null, null, '0', '', null, null, null, '', '0', '0', null, '外部会议表单', '1', null, null, null, null, null);
+INSERT INTO `oa_workflowtype_d` VALUES ('37403', '37402', null, '1', '0', '1', '0', '19992', 'WF_OA_TASK', null, 'OA_Taskdistribution', null, null, '0', null, null, '0', '', null, null, null, '', '0', '0', null, '任务派发', '1', null, null, null, null, null);
+INSERT INTO `oa_workflowtype_d` VALUES ('68373', '68372', null, '1', '0', '1', null, '19993', 'WF_StandardWorkFlow', null, 'OA_Doc', null, null, null, null, null, '0', '', null, null, null, '', null, null, null, '文档管理', '1', null, null, null, null, null);
+INSERT INTO `oa_workflowtype_d` VALUES ('69396', '69395', null, '2', '0', '1', null, '90165', 'WF_OA_ForeignLan', null, 'OA_ForeignLan', null, null, null, null, null, '0', '', null, null, null, '', null, null, null, '收文', null, null, null, null, null, null);
+INSERT INTO `oa_workflowtype_d` VALUES ('69397', '69395', null, '2', '0', '2', null, '162582', 'WF_OA_Dispatch', null, 'OA_SpoFile', null, null, null, null, null, '0', '', null, null, null, '', null, null, null, '发文', null, null, null, null, null, null);
+INSERT INTO `oa_workflowtype_d` VALUES ('181782', '181781', null, '0', '0', '1', '0', '19993', 'WF_StandardWorkFlow', null, 'OA_MySchedule', null, null, '0', null, null, '0', '', null, null, null, '', '0', '0', null, '我发起的日程', '0', null, null, null, null, null);
+INSERT INTO `oa_workflowtype_d` VALUES ('181794', '181783', null, '0', '0', '1', '0', '181793', 'WF_OA_WeeklyReport', null, 'OA_weeklyreport', null, null, '0', null, null, '0', '', null, null, null, '', '0', '0', null, '工作计划', '0', null, null, null, null, null);
 
 -- ----------------------------
 -- Table structure for oa_workflowtype_h
@@ -18249,6 +19682,7 @@ CREATE TABLE `oa_workflowtype_h` (
   `MapCount` int(11) default NULL,
   `Slock` int(11) default NULL,
   `IsCommon` int(11) default NULL,
+  `PartitionType` varchar(255) default NULL,
   PRIMARY KEY  (`OID`),
   KEY `I__WorkflowType_H_SOID` (`SOID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -18256,13 +19690,13 @@ CREATE TABLE `oa_workflowtype_h` (
 -- ----------------------------
 -- Records of oa_workflowtype_h
 -- ----------------------------
-INSERT INTO `oa_workflowtype_h` VALUES ('23836', '23836', null, '14', '0', '1', '1', '0', '0', '1', '2', '01', '新闻', '21277', '2016-09-11 19:13:04', '21277', '2017-05-15 14:38:44', null, 'OA_WorkflowType', '-1', '0', '0', '1', '0');
-INSERT INTO `oa_workflowtype_h` VALUES ('37399', '37399', null, '3', '0', '1', '1', '0', '0', '3', '4', '02', '会议', '21277', '2016-09-19 12:34:33', '21277', '2017-05-15 14:38:38', null, 'OA_WorkflowType', '-1', '0', '0', '1', null);
-INSERT INTO `oa_workflowtype_h` VALUES ('37402', '37402', null, '1', '0', '1', '1', '0', '0', '5', '6', '03', '任务', '21277', '2016-09-19 12:35:06', '21277', '2016-10-09 11:43:54', null, 'OA_WorkflowType', '-1', '0', '0', '1', null);
-INSERT INTO `oa_workflowtype_h` VALUES ('68372', '68372', null, '1', '0', '1', '1', '0', '0', '7', '8', '04', '文档', '21277', '2016-09-23 15:45:19', '21277', '2016-10-09 11:44:05', null, 'OA_WorkflowType', '-1', '0', '0', '1', null);
-INSERT INTO `oa_workflowtype_h` VALUES ('69395', '69395', null, '3', '0', '1', '1', '0', '0', '9', '10', '05', '公文', '21277', '2016-09-23 16:34:54', '21277', '2017-01-13 11:08:20', null, 'OA_WorkflowType', '-1', '0', '0', '1', null);
-INSERT INTO `oa_workflowtype_h` VALUES ('181781', '181781', null, '0', '0', '1', '1', '0', '0', '11', '12', '06', '日程', '21277', '2017-05-15 14:12:09', '21277', '2017-05-15 14:12:09', null, 'OA_WorkflowType', '-1', '0', '0', null, null);
-INSERT INTO `oa_workflowtype_h` VALUES ('181783', '181783', null, '0', '0', '1', '1', '0', '0', '13', '14', '07', '工作计划', '21277', '2017-05-15 14:15:55', '21277', '2017-05-15 14:15:55', null, 'OA_WorkflowType', '-1', '0', '0', null, null);
+INSERT INTO `oa_workflowtype_h` VALUES ('23836', '23836', null, '15', '0', '1', '1', '0', '0', '1', '2', '01', '新闻', '21277', '2016-09-11 19:13:04', '21277', '2017-07-31 14:06:26', null, 'OA_WorkflowType', '-1', '0', '0', '1', '0', 'common');
+INSERT INTO `oa_workflowtype_h` VALUES ('37399', '37399', null, '4', '0', '1', '1', '0', '0', '3', '4', '02', '会议', '21277', '2016-09-19 12:34:33', '21277', '2017-07-31 14:06:31', null, 'OA_WorkflowType', '-1', '0', '0', '1', null, 'common');
+INSERT INTO `oa_workflowtype_h` VALUES ('37402', '37402', null, '3', '0', '1', '1', '0', '0', '5', '6', '03', '任务', '21277', '2016-09-19 12:35:06', '21277', '2017-07-31 14:15:56', null, 'OA_WorkflowType', '-1', '0', '0', '1', null, 'area');
+INSERT INTO `oa_workflowtype_h` VALUES ('68372', '68372', null, '2', '0', '1', '1', '0', '0', '7', '8', '04', '文档', '21277', '2016-09-23 15:45:19', '21277', '2017-07-31 14:06:41', null, 'OA_WorkflowType', '-1', '0', '0', '1', null, 'common');
+INSERT INTO `oa_workflowtype_h` VALUES ('69395', '69395', null, '4', '0', '1', '1', '0', '0', '9', '10', '05', '公文', '21277', '2016-09-23 16:34:54', '21277', '2017-07-31 14:06:46', null, 'OA_WorkflowType', '-1', '0', '0', '1', null, 'common');
+INSERT INTO `oa_workflowtype_h` VALUES ('181781', '181781', null, '2', '0', '1', '1', '0', '0', '11', '12', '06', '日程', '21277', '2017-05-15 14:12:09', '21277', '2017-07-31 14:16:29', null, 'OA_WorkflowType', '-1', '0', '0', '1', null, 'area');
+INSERT INTO `oa_workflowtype_h` VALUES ('181783', '181783', null, '2', '0', '1', '1', '0', '0', '13', '14', '07', '工作计划', '21277', '2017-05-15 14:15:55', '21277', '2017-07-31 14:16:39', null, 'OA_WorkflowType', '-1', '0', '0', '1', null, 'area');
 
 -- ----------------------------
 -- Table structure for oa_workflowtype_h_or
@@ -18372,6 +19806,7 @@ INSERT INTO `oa_workflow_h` VALUES ('37397', '37397', null, '1', '0', '1', '1', 
 INSERT INTO `oa_workflow_h` VALUES ('90165', '90165', null, '1', '0', '1', '1', '0', '0', '13', '14', 'WF_OA_ForeignLan_V1', '收文流程_版本(1)', '21277', '2016-10-12 13:14:23', '21', '2017-06-05 08:50:54', null, 'OA_Workflow', '-1', 'WF_OA_ForeignLan_V1', 'WF_OA_ForeignLan', '收文流程', '1', '0', '1', null, null, '90137', null);
 INSERT INTO `oa_workflow_h` VALUES ('162582', '162582', null, '1', '0', '1', '1', '0', '0', '15', '16', 'WF_OA_Dispatch_V1', '发文_版本(1)', '21277', '2017-01-13 11:07:50', '21', '2017-06-05 08:50:40', null, 'OA_Workflow', '-1', 'WF_OA_Dispatch_V1', 'WF_OA_Dispatch', '发文', '1', '0', '1', null, null, '93724', null);
 INSERT INTO `oa_workflow_h` VALUES ('181793', '181793', null, '1', '0', '1', '1', '0', '0', '17', '18', 'WF_OA_WeeklyReport_V1', '周报审批流_版本(1)', '21277', '2017-05-15 14:15:41', '21', '2017-06-05 08:51:53', null, 'OA_Workflow', '-1', 'WF_OA_WeeklyReport_V1', 'WF_OA_WeeklyReport', '周报审批流', '1', '0', '1', null, null, '181786', null);
+INSERT INTO `oa_workflow_h` VALUES ('210451', '210451', null, '0', '0', '1', '1', '0', '0', '0', '0', 'WF_OA_ForeignLanTest_V1', '收文流程测试专用_版本(1)', '21', '2017-06-12 11:06:23', '21', '2017-06-12 11:06:23', null, 'OA_Workflow', '-1', 'WF_OA_ForeignLanTest_V1', 'WF_OA_ForeignLanTest', '收文流程测试专用', '1', '0', null, '0', null, '209943', '0');
 
 -- ----------------------------
 -- Table structure for oa_workflow_h_or
@@ -18403,6 +19838,154 @@ CREATE TABLE `oa_workflow_h_rr` (
 
 -- ----------------------------
 -- Records of oa_workflow_h_rr
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for oa_workingcalendar_d
+-- ----------------------------
+DROP TABLE IF EXISTS `oa_workingcalendar_d`;
+CREATE TABLE `oa_workingcalendar_d` (
+  `OID` bigint(20) NOT NULL default '0',
+  `SOID` bigint(20) default NULL,
+  `POID` bigint(20) default NULL,
+  `VERID` int(11) default NULL,
+  `DVERID` int(11) default NULL,
+  `Sequence` int(11) default NULL,
+  `DateOfYear` datetime default NULL,
+  `OffDay` int(11) default NULL,
+  `MapCount` int(11) default NULL,
+  `Slock` int(11) default NULL,
+  PRIMARY KEY  (`OID`),
+  KEY `OA_WorkingCalendar_D_SOID` (`SOID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of oa_workingcalendar_d
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for oa_workingcalendar_h
+-- ----------------------------
+DROP TABLE IF EXISTS `oa_workingcalendar_h`;
+CREATE TABLE `oa_workingcalendar_h` (
+  `OID` bigint(20) NOT NULL default '0',
+  `SOID` bigint(20) default NULL,
+  `POID` bigint(20) default NULL,
+  `VERID` int(11) default NULL,
+  `DVERID` int(11) default NULL,
+  `Code` varchar(50) default NULL,
+  `Name` varchar(100) default NULL,
+  `Status` int(11) default NULL,
+  `Enable` int(11) default NULL,
+  `ParentID` bigint(20) default NULL,
+  `NodeType` int(11) default NULL,
+  `TLeft` int(11) default NULL,
+  `TRight` int(11) default NULL,
+  `StartDate` datetime default NULL,
+  `EndDate` datetime default NULL,
+  `WorkingTimeID` bigint(20) default NULL,
+  `MapCount` int(11) default NULL,
+  `Slock` int(11) default NULL,
+  PRIMARY KEY  (`OID`),
+  KEY `OA_WorkingCalendar_H_SOID` (`SOID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of oa_workingcalendar_h
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for oa_workingcalendar_h_or
+-- ----------------------------
+DROP TABLE IF EXISTS `oa_workingcalendar_h_or`;
+CREATE TABLE `oa_workingcalendar_h_or` (
+  `OperatorID` bigint(20) NOT NULL default '0',
+  `FormKey` varchar(128) default NULL,
+  `DictID` bigint(20) NOT NULL default '0',
+  `HasRights` int(11) default NULL,
+  PRIMARY KEY  (`OperatorID`,`DictID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of oa_workingcalendar_h_or
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for oa_workingcalendar_h_rr
+-- ----------------------------
+DROP TABLE IF EXISTS `oa_workingcalendar_h_rr`;
+CREATE TABLE `oa_workingcalendar_h_rr` (
+  `RoleID` bigint(20) NOT NULL default '0',
+  `FormKey` varchar(128) default NULL,
+  `DictID` bigint(20) NOT NULL default '0',
+  `HasRights` int(11) default NULL,
+  PRIMARY KEY  (`RoleID`,`DictID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of oa_workingcalendar_h_rr
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for oa_workingtime_h
+-- ----------------------------
+DROP TABLE IF EXISTS `oa_workingtime_h`;
+CREATE TABLE `oa_workingtime_h` (
+  `OID` bigint(20) NOT NULL default '0',
+  `SOID` bigint(20) default NULL,
+  `POID` bigint(20) default NULL,
+  `VERID` int(11) default NULL,
+  `DVERID` int(11) default NULL,
+  `Code` varchar(50) default NULL,
+  `Name` varchar(100) default NULL,
+  `Status` int(11) default NULL,
+  `Enable` int(11) default NULL,
+  `ParentID` bigint(20) default NULL,
+  `NodeType` int(11) default NULL,
+  `TLeft` int(11) default NULL,
+  `TRight` int(11) default NULL,
+  `Weekend` varchar(255) default NULL,
+  `OfficeHour` varchar(255) default NULL,
+  `MapCount` int(11) default NULL,
+  `Slock` int(11) default NULL,
+  PRIMARY KEY  (`OID`),
+  KEY `OA_WorkingTime_H_SOID` (`SOID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of oa_workingtime_h
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for oa_workingtime_h_or
+-- ----------------------------
+DROP TABLE IF EXISTS `oa_workingtime_h_or`;
+CREATE TABLE `oa_workingtime_h_or` (
+  `OperatorID` bigint(20) NOT NULL default '0',
+  `FormKey` varchar(128) default NULL,
+  `DictID` bigint(20) NOT NULL default '0',
+  `HasRights` int(11) default NULL,
+  PRIMARY KEY  (`OperatorID`,`DictID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of oa_workingtime_h_or
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for oa_workingtime_h_rr
+-- ----------------------------
+DROP TABLE IF EXISTS `oa_workingtime_h_rr`;
+CREATE TABLE `oa_workingtime_h_rr` (
+  `RoleID` bigint(20) NOT NULL default '0',
+  `FormKey` varchar(128) default NULL,
+  `DictID` bigint(20) NOT NULL default '0',
+  `HasRights` int(11) default NULL,
+  PRIMARY KEY  (`RoleID`,`DictID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of oa_workingtime_h_rr
 -- ----------------------------
 
 -- ----------------------------
@@ -18559,6 +20142,117 @@ CREATE TABLE `oa_worktype_rr` (
 
 -- ----------------------------
 -- Records of oa_worktype_rr
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for organizationchoice
+-- ----------------------------
+DROP TABLE IF EXISTS `organizationchoice`;
+CREATE TABLE `organizationchoice` (
+  `OID` bigint(20) NOT NULL default '0',
+  `SOID` bigint(20) default NULL,
+  `POID` bigint(20) default NULL,
+  `VERID` int(11) default NULL,
+  `DVERID` int(11) default NULL,
+  `SequenceNumber` varchar(255) default NULL,
+  `Organization` int(11) default NULL,
+  `MapCount` int(11) default NULL,
+  `Slock` int(11) default NULL,
+  PRIMARY KEY  (`OID`),
+  KEY `I_anizationChoice_SOID` (`SOID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of organizationchoice
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for others
+-- ----------------------------
+DROP TABLE IF EXISTS `others`;
+CREATE TABLE `others` (
+  `OID` bigint(20) NOT NULL default '0',
+  `SOID` bigint(20) default NULL,
+  `POID` bigint(20) default NULL,
+  `VERID` int(11) default NULL,
+  `DVERID` int(11) default NULL,
+  `Description` varchar(255) default NULL,
+  `Amount` decimal(16,6) default NULL,
+  `AmountUSD` decimal(16,6) default NULL,
+  `AmountRMB` decimal(16,6) default NULL,
+  `MapCount` int(11) default NULL,
+  `Slock` int(11) default NULL,
+  PRIMARY KEY  (`OID`),
+  KEY `I_Others_SOID` (`SOID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of others
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for ou
+-- ----------------------------
+DROP TABLE IF EXISTS `ou`;
+CREATE TABLE `ou` (
+  `OID` bigint(20) NOT NULL default '0',
+  `SOID` bigint(20) default NULL,
+  `POID` bigint(20) default NULL,
+  `VERID` int(11) default NULL,
+  `DVERID` int(11) default NULL,
+  `Code` varchar(255) default NULL,
+  `Name` varchar(255) default NULL,
+  `NodeType` int(11) default NULL,
+  `ParentID` bigint(20) default NULL,
+  `Status` int(11) default NULL,
+  `Enable` int(11) default NULL,
+  `TLeft` int(11) default NULL,
+  `TRight` int(11) default NULL,
+  `PS_Company_ID` varchar(255) default NULL,
+  `PS_Company_Name` varchar(255) default NULL,
+  `Operation_ID` varchar(255) default NULL,
+  `Operation_Name` varchar(255) default NULL,
+  `BU` varchar(255) default NULL,
+  `MapCount` int(11) default NULL,
+  `Slock` int(11) default NULL,
+  PRIMARY KEY  (`OID`),
+  KEY `I_OU_SOID` (`SOID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of ou
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for ou_or
+-- ----------------------------
+DROP TABLE IF EXISTS `ou_or`;
+CREATE TABLE `ou_or` (
+  `OperatorID` bigint(20) NOT NULL default '0',
+  `FormKey` varchar(128) default NULL,
+  `DictID` bigint(20) NOT NULL default '0',
+  `HasRights` int(11) default NULL,
+  PRIMARY KEY  (`OperatorID`,`DictID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of ou_or
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for ou_rr
+-- ----------------------------
+DROP TABLE IF EXISTS `ou_rr`;
+CREATE TABLE `ou_rr` (
+  `RoleID` bigint(20) NOT NULL default '0',
+  `FormKey` varchar(128) default NULL,
+  `DictID` bigint(20) NOT NULL default '0',
+  `HasRights` int(11) default NULL,
+  PRIMARY KEY  (`RoleID`,`DictID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of ou_rr
 -- ----------------------------
 
 -- ----------------------------
@@ -18784,6 +20478,30 @@ CREATE TABLE `qrtz_triggers` (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for spareparts
+-- ----------------------------
+DROP TABLE IF EXISTS `spareparts`;
+CREATE TABLE `spareparts` (
+  `OID` bigint(20) NOT NULL default '0',
+  `SOID` bigint(20) default NULL,
+  `POID` bigint(20) default NULL,
+  `VERID` int(11) default NULL,
+  `DVERID` int(11) default NULL,
+  `Description` varchar(255) default NULL,
+  `Amount` decimal(16,6) default NULL,
+  `AmountUSD` decimal(16,6) default NULL,
+  `AmountRMB` decimal(16,6) default NULL,
+  `MapCount` int(11) default NULL,
+  `Slock` int(11) default NULL,
+  PRIMARY KEY  (`OID`),
+  KEY `I_SpareParts_SOID` (`SOID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of spareparts
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for sys_datacluster
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_datacluster`;
@@ -18820,9 +20538,9 @@ CREATE TABLE `sys_idseed` (
 -- ----------------------------
 -- Records of sys_idseed
 -- ----------------------------
-INSERT INTO `sys_idseed` VALUES ('0', '209424', 'OID', '2016-07-07', '1');
-INSERT INTO `sys_idseed` VALUES ('1', '20224', 'WORKITEMID', '2016-08-08', '1');
-INSERT INTO `sys_idseed` VALUES ('2', '22784', 'INSTANCEID', '2016-08-08', '1');
+INSERT INTO `sys_idseed` VALUES ('0', '214032', 'OID', '2016-07-07', '1');
+INSERT INTO `sys_idseed` VALUES ('1', '20992', 'WORKITEMID', '2016-08-08', '1');
+INSERT INTO `sys_idseed` VALUES ('2', '23296', 'INSTANCEID', '2016-08-08', '1');
 INSERT INTO `sys_idseed` VALUES ('3', '256', 'DELEGATEID', '2016-09-05', null);
 
 -- ----------------------------
@@ -19276,6 +20994,9 @@ CREATE TABLE `sys_sequence` (
 -- ----------------------------
 INSERT INTO `sys_sequence` VALUES ('-1', '#ATTACH#', null);
 INSERT INTO `sys_sequence` VALUES ('-1', '#BILLTEMP#', null);
+INSERT INTO `sys_sequence` VALUES ('-1', '#BILL_LEAVEAPPLICATION#', null);
+INSERT INTO `sys_sequence` VALUES ('-1', '#BILL_ORACLEAACA#', null);
+INSERT INTO `sys_sequence` VALUES ('-1', '#BILL_SALESCONTRACT2#', null);
 INSERT INTO `sys_sequence` VALUES ('-1', '#BPM#', null);
 INSERT INTO `sys_sequence` VALUES ('-1', '#BPM_LOG#', null);
 INSERT INTO `sys_sequence` VALUES ('-1', '#BPM_MIGRATION#', null);
@@ -19294,6 +21015,8 @@ INSERT INTO `sys_sequence` VALUES ('-1', '#MOA_TASKDISTRIBUTION#', null);
 INSERT INTO `sys_sequence` VALUES ('-1', '#MOBILEVACATIONREQUEST#', null);
 INSERT INTO `sys_sequence` VALUES ('-1', '#MOBILE_FOREIGNLAN#', null);
 INSERT INTO `sys_sequence` VALUES ('-1', '#MOBILE_SPOFILE#', null);
+INSERT INTO `sys_sequence` VALUES ('-1', '#MT_DB_COGS#', null);
+INSERT INTO `sys_sequence` VALUES ('-1', '#MT_DB_LOGISTICSEXPENSE#', null);
 INSERT INTO `sys_sequence` VALUES ('-1', '#NJ_ASSETBORROW#', null);
 INSERT INTO `sys_sequence` VALUES ('-1', '#NJ_ASSETCOLLAR#', null);
 INSERT INTO `sys_sequence` VALUES ('-1', '#NJ_ASSETLEASING#', null);
@@ -19344,6 +21067,7 @@ INSERT INTO `sys_sequence` VALUES ('-1', '#OAM_SPOFILE#', null);
 INSERT INTO `sys_sequence` VALUES ('-1', '#OA_ADDDELEGATE#', null);
 INSERT INTO `sys_sequence` VALUES ('-1', '#OA_ADDVIEWS#', null);
 INSERT INTO `sys_sequence` VALUES ('-1', '#OA_ARCHIVE#', null);
+INSERT INTO `sys_sequence` VALUES ('-1', '#OA_ATTACHMENT_ALERT#', null);
 INSERT INTO `sys_sequence` VALUES ('-1', '#OA_BUSENTERTAIN#', null);
 INSERT INTO `sys_sequence` VALUES ('-1', '#OA_BUSINESSTRIP#', null);
 INSERT INTO `sys_sequence` VALUES ('-1', '#OA_BUSTRIPAPPLICATION#', null);
@@ -19373,7 +21097,7 @@ INSERT INTO `sys_sequence` VALUES ('-1', '#OA_MYSCHEDULE#', '1');
 INSERT INTO `sys_sequence` VALUES ('-1', '#OA_MYWORKFLOW#', null);
 INSERT INTO `sys_sequence` VALUES ('-1', '#OA_NEWSDRAFT#', '1');
 INSERT INTO `sys_sequence` VALUES ('-1', '#OA_NEXTPARTICIPATOR#', null);
-INSERT INTO `sys_sequence` VALUES ('-1', '#OA_NODEPROPERTY#', null);
+INSERT INTO `sys_sequence` VALUES ('-1', '#OA_NODEPROPERTY#', '1');
 INSERT INTO `sys_sequence` VALUES ('-1', '#OA_OPERATIONSEL#', '1');
 INSERT INTO `sys_sequence` VALUES ('-1', '#OA_OPERATORSEL#', '1');
 INSERT INTO `sys_sequence` VALUES ('-1', '#OA_OVERTIMEREGISTRATION#', null);
@@ -19383,16 +21107,19 @@ INSERT INTO `sys_sequence` VALUES ('-1', '#OA_PLANITEMS#', null);
 INSERT INTO `sys_sequence` VALUES ('-1', '#OA_READ#', null);
 INSERT INTO `sys_sequence` VALUES ('-1', '#OA_READRECORD#', null);
 INSERT INTO `sys_sequence` VALUES ('-1', '#OA_RECEIVEMESSAGES#', null);
+INSERT INTO `sys_sequence` VALUES ('-1', '#OA_RIGHTSEL#', null);
 INSERT INTO `sys_sequence` VALUES ('-1', '#OA_ROOTSPOFILE#', null);
 INSERT INTO `sys_sequence` VALUES ('-1', '#OA_SENDMESSAGES#', null);
 INSERT INTO `sys_sequence` VALUES ('-1', '#OA_SENDRESULT#', null);
 INSERT INTO `sys_sequence` VALUES ('-1', '#OA_SPOFILE#', '1');
 INSERT INTO `sys_sequence` VALUES ('-1', '#OA_TASKDISTRIBUTION#', '1');
 INSERT INTO `sys_sequence` VALUES ('-1', '#OA_TEST#', '1');
+INSERT INTO `sys_sequence` VALUES ('-1', '#OA_TMPTEST#', null);
 INSERT INTO `sys_sequence` VALUES ('-1', '#OA_VACATION#', null);
 INSERT INTO `sys_sequence` VALUES ('-1', '#OA_WEEKLYREPORT#', null);
 INSERT INTO `sys_sequence` VALUES ('-1', '#OA_WORKFLOWDESIGNE#', '1');
 INSERT INTO `sys_sequence` VALUES ('-1', '#OA_WORKFLOWDESIGNE_EX#', '1');
+INSERT INTO `sys_sequence` VALUES ('-1', '#OA_WORKFLOWMONITOR#', null);
 INSERT INTO `sys_sequence` VALUES ('-1', '#OA_WORKPLAN#', null);
 INSERT INTO `sys_sequence` VALUES ('-1', '#PARATABLE#', null);
 INSERT INTO `sys_sequence` VALUES ('-1', '#QUARTZTABLE#', null);
@@ -19429,6 +21156,7 @@ INSERT INTO `sys_sequence` VALUES ('2', 'EI20161229', '1');
 INSERT INTO `sys_sequence` VALUES ('2', 'EI20170106', '1');
 INSERT INTO `sys_sequence` VALUES ('2', 'EI20170109', '1');
 INSERT INTO `sys_sequence` VALUES ('1', 'EI20170113', null);
+INSERT INTO `sys_sequence` VALUES ('14', 'EI20170801', '1');
 INSERT INTO `sys_sequence` VALUES ('1', 'ES20160920', null);
 INSERT INTO `sys_sequence` VALUES ('2', 'EW20160921', '1');
 INSERT INTO `sys_sequence` VALUES ('1', 'EW20160922', null);
@@ -19454,12 +21182,14 @@ INSERT INTO `sys_sequence` VALUES ('1', 'FL20170112', null);
 INSERT INTO `sys_sequence` VALUES ('3', 'FL20170606', '1');
 INSERT INTO `sys_sequence` VALUES ('1', 'FL20170607', null);
 INSERT INTO `sys_sequence` VALUES ('4', 'FL20170608', '1');
+INSERT INTO `sys_sequence` VALUES ('1', 'FL20170728', null);
 INSERT INTO `sys_sequence` VALUES ('1', 'KFSQ20170427', null);
 INSERT INTO `sys_sequence` VALUES ('1', 'MS20160905', null);
 INSERT INTO `sys_sequence` VALUES ('1', 'MS20160922', null);
 INSERT INTO `sys_sequence` VALUES ('1', 'MS20160923', null);
 INSERT INTO `sys_sequence` VALUES ('1', 'MS20161011', null);
 INSERT INTO `sys_sequence` VALUES ('1', 'MS20161103', null);
+INSERT INTO `sys_sequence` VALUES ('1', 'MS20170728', null);
 INSERT INTO `sys_sequence` VALUES ('2', 'MT20160829', '1');
 INSERT INTO `sys_sequence` VALUES ('3', 'MT20160905', '1');
 INSERT INTO `sys_sequence` VALUES ('1', 'MT20160919', null);
@@ -19492,8 +21222,10 @@ INSERT INTO `sys_sequence` VALUES ('3', 'ND20161104', '1');
 INSERT INTO `sys_sequence` VALUES ('1', 'ND20161124', null);
 INSERT INTO `sys_sequence` VALUES ('1', 'ND20161129', null);
 INSERT INTO `sys_sequence` VALUES ('6', 'ND20170517', '1');
+INSERT INTO `sys_sequence` VALUES ('1', 'ND20170801', null);
 INSERT INTO `sys_sequence` VALUES ('1', 'OA_MORENODEPROPERTY20170516', null);
 INSERT INTO `sys_sequence` VALUES ('1', 'OA_MORENODEPROPERTY20170518', null);
+INSERT INTO `sys_sequence` VALUES ('1', 'OA_NODEPROPERTY20170728', null);
 INSERT INTO `sys_sequence` VALUES ('2', 'OA_OPERATIONSEL20160913', '1');
 INSERT INTO `sys_sequence` VALUES ('8', 'OA_OPERATIONSEL20160919', '1');
 INSERT INTO `sys_sequence` VALUES ('9', 'OA_OPERATIONSEL20161009', '1');
@@ -19501,6 +21233,7 @@ INSERT INTO `sys_sequence` VALUES ('4', 'OA_OPERATIONSEL20161012', '1');
 INSERT INTO `sys_sequence` VALUES ('7', 'OA_OPERATIONSEL20161026', '1');
 INSERT INTO `sys_sequence` VALUES ('2', 'OA_OPERATIONSEL20170309', '1');
 INSERT INTO `sys_sequence` VALUES ('1', 'OA_OPERATIONSEL20170515', null);
+INSERT INTO `sys_sequence` VALUES ('4', 'OA_OPERATIONSEL20170612', '1');
 INSERT INTO `sys_sequence` VALUES ('1', 'OA_OPERATORSEL20160911', null);
 INSERT INTO `sys_sequence` VALUES ('1', 'OA_OPERATORSEL20160913', null);
 INSERT INTO `sys_sequence` VALUES ('2', 'OA_OPERATORSEL20160914', '1');
@@ -19515,6 +21248,7 @@ INSERT INTO `sys_sequence` VALUES ('5', 'OA_WORKFLOWDESIGNE20161009', '1');
 INSERT INTO `sys_sequence` VALUES ('1', 'OA_WORKFLOWDESIGNE20161012', null);
 INSERT INTO `sys_sequence` VALUES ('1', 'OA_WORKFLOWDESIGNE20161026', null);
 INSERT INTO `sys_sequence` VALUES ('1', 'OA_WORKFLOWDESIGNE20170515', null);
+INSERT INTO `sys_sequence` VALUES ('1', 'OA_WORKFLOWDESIGNE20170612', null);
 INSERT INTO `sys_sequence` VALUES ('1', 'OA_WORKFLOWDESIGNE_EX20170529', null);
 INSERT INTO `sys_sequence` VALUES ('7', 'OS20161026', '1');
 INSERT INTO `sys_sequence` VALUES ('1', 'OS20161111', null);
@@ -19526,6 +21260,8 @@ INSERT INTO `sys_sequence` VALUES ('1', 'OS20170515', null);
 INSERT INTO `sys_sequence` VALUES ('4', 'OS20170517', '1');
 INSERT INTO `sys_sequence` VALUES ('1', 'OS20170607', null);
 INSERT INTO `sys_sequence` VALUES ('4', 'OS20170608', '1');
+INSERT INTO `sys_sequence` VALUES ('4', 'OS20170612', '1');
+INSERT INTO `sys_sequence` VALUES ('2', 'OS20170801', '1');
 INSERT INTO `sys_sequence` VALUES ('1', 'SF20160829', null);
 INSERT INTO `sys_sequence` VALUES ('1', 'SF20160923', null);
 INSERT INTO `sys_sequence` VALUES ('1', 'SF20161012', null);
@@ -21061,6 +22797,41 @@ INSERT INTO `sys_sessionlog` VALUES ('208662', 'f1a1fb96-6f00-4bce-8825-6cb0d89d
 INSERT INTO `sys_sessionlog` VALUES ('208663', 'f1a1fb96-6f00-4bce-8825-6cb0d89d04c7', '21277', '2017-06-08 16:38:00', '0', '', '1', 'localhost', '8089', null, null);
 INSERT INTO `sys_sessionlog` VALUES ('208913', 'f13c1066-1bda-4d8d-b539-52b555fc52f8', '21277', '2017-06-08 16:32:04', '0', '', '1', null, null, null, null);
 INSERT INTO `sys_sessionlog` VALUES ('209169', 'f1a1fb96-6f00-4bce-8825-6cb0d89d04c7', '21277', '2017-06-08 17:11:47', '0', '', '1', 'localhost', '8089', null, null);
+INSERT INTO `sys_sessionlog` VALUES ('209425', 'df8ab273-fb2b-42ef-959d-8d0a2102ffce', '21', '2017-06-09 16:29:41', '0', '', '1', 'localhost', '8089', null, null);
+INSERT INTO `sys_sessionlog` VALUES ('209681', '4b04a7d2-b689-420f-8c4e-cd07f1506d0c', '21', '2017-06-12 10:34:09', '0', '', '1', 'localhost', '8089', null, null);
+INSERT INTO `sys_sessionlog` VALUES ('209937', '9468533f-7104-4fd1-bcff-27f2137ea126', '21', '2017-06-12 10:35:07', '0', '', '1', null, null, null, null);
+INSERT INTO `sys_sessionlog` VALUES ('209940', '53cb43f4-560f-4e47-abf2-48931c1b5aa4', '21', '2017-06-12 10:46:16', '0', '', '1', null, null, null, null);
+INSERT INTO `sys_sessionlog` VALUES ('209942', '01b0089b-ae78-47cb-9f41-399b33c9e1cc', '21', '2017-06-12 10:49:27', '0', '', '1', null, null, null, null);
+INSERT INTO `sys_sessionlog` VALUES ('209969', '9e028642-0513-4c11-87b8-aabe3a8e9e6a', '21', '2017-06-12 10:58:11', '0', '', '1', null, null, null, null);
+INSERT INTO `sys_sessionlog` VALUES ('210193', 'aafd9bc3-6b31-404e-a012-40ca4bf05af7', '21', '2017-06-12 11:03:39', '0', '', '1', null, null, null, null);
+INSERT INTO `sys_sessionlog` VALUES ('210449', '2a508c7f-fd57-4eda-8a0b-2f9fa9237446', '21', '2017-06-12 11:05:15', '0', '', '1', null, null, null, null);
+INSERT INTO `sys_sessionlog` VALUES ('210705', '0c71eb42-ae0b-4e84-93c2-8fa23bce42f0', '-1', '2017-07-28 10:03:54', '1', '', null, 'localhost', '8089', '', null);
+INSERT INTO `sys_sessionlog` VALUES ('210706', '0c71eb42-ae0b-4e84-93c2-8fa23bce42f0', '21277', '2017-07-28 10:04:01', '0', '', '1', 'localhost', '8089', null, null);
+INSERT INTO `sys_sessionlog` VALUES ('210961', '0c71eb42-ae0b-4e84-93c2-8fa23bce42f0', '21277', '2017-07-28 10:08:20', '0', '', '1', 'localhost', '8089', null, null);
+INSERT INTO `sys_sessionlog` VALUES ('211217', '0c71eb42-ae0b-4e84-93c2-8fa23bce42f0', '21277', '2017-07-28 10:23:56', '0', '', '1', 'localhost', '8089', null, null);
+INSERT INTO `sys_sessionlog` VALUES ('211473', '0c71eb42-ae0b-4e84-93c2-8fa23bce42f0', '-1', '2017-07-28 10:36:33', '1', '', null, 'localhost', '8089', '', null);
+INSERT INTO `sys_sessionlog` VALUES ('211474', '0c71eb42-ae0b-4e84-93c2-8fa23bce42f0', '21277', '2017-07-28 10:36:37', '0', '', '1', 'localhost', '8089', null, null);
+INSERT INTO `sys_sessionlog` VALUES ('211729', '0c71eb42-ae0b-4e84-93c2-8fa23bce42f0', '-1', '2017-07-28 12:15:02', '1', '', null, 'localhost', '8089', '', null);
+INSERT INTO `sys_sessionlog` VALUES ('211730', '0c71eb42-ae0b-4e84-93c2-8fa23bce42f0', '21277', '2017-07-28 12:15:06', '0', '', '1', 'localhost', '8089', null, null);
+INSERT INTO `sys_sessionlog` VALUES ('211985', 'c6d9b543-8dca-4ff9-a3f1-685b03c2cc71', '21277', '2017-07-31 09:14:58', '0', '', '1', 'localhost', '8089', null, null);
+INSERT INTO `sys_sessionlog` VALUES ('211986', 'c6d9b543-8dca-4ff9-a3f1-685b03c2cc71', '-1', '2017-07-31 11:12:28', '-1', '', null, 'localhost', '8089', null, null);
+INSERT INTO `sys_sessionlog` VALUES ('211987', 'c6d9b543-8dca-4ff9-a3f1-685b03c2cc71', '-1', '2017-07-31 11:12:32', '1', '', null, 'localhost', '8089', '', null);
+INSERT INTO `sys_sessionlog` VALUES ('211988', 'c6d9b543-8dca-4ff9-a3f1-685b03c2cc71', '21277', '2017-07-31 11:12:42', '0', '', '1', 'localhost', '8089', null, null);
+INSERT INTO `sys_sessionlog` VALUES ('211989', 'c6d9b543-8dca-4ff9-a3f1-685b03c2cc71', '21277', '2017-07-31 11:16:25', '-1', '', null, 'localhost', '8089', null, null);
+INSERT INTO `sys_sessionlog` VALUES ('211990', 'c6d9b543-8dca-4ff9-a3f1-685b03c2cc71', '21277', '2017-07-31 11:16:42', '0', '', '1', 'localhost', '8089', null, null);
+INSERT INTO `sys_sessionlog` VALUES ('211991', '48ea7682-7555-4d22-a4d0-b0d1295d3273', '-1', '2017-07-31 13:59:31', '1', '', null, 'localhost', '8089', '', null);
+INSERT INTO `sys_sessionlog` VALUES ('211992', '48ea7682-7555-4d22-a4d0-b0d1295d3273', '21277', '2017-07-31 13:59:36', '0', '', '1', 'localhost', '8089', null, null);
+INSERT INTO `sys_sessionlog` VALUES ('212241', '7b25c05f-9ca8-4b3f-ad38-a0a85005253f', '-1', '2017-07-31 14:03:31', '1', '', null, 'localhost', '8089', '', null);
+INSERT INTO `sys_sessionlog` VALUES ('212242', '7b25c05f-9ca8-4b3f-ad38-a0a85005253f', '21277', '2017-07-31 14:03:37', '0', '', '1', 'localhost', '8089', null, null);
+INSERT INTO `sys_sessionlog` VALUES ('212497', '7b25c05f-9ca8-4b3f-ad38-a0a85005253f', '21277', '2017-07-31 14:05:25', '0', '', '1', 'localhost', '8089', null, null);
+INSERT INTO `sys_sessionlog` VALUES ('212508', '7b25c05f-9ca8-4b3f-ad38-a0a85005253f', '21277', '2017-07-31 14:20:04', '-1', '', null, 'localhost', '8089', null, null);
+INSERT INTO `sys_sessionlog` VALUES ('212753', '86f26bd3-c270-4e1b-9cfb-d478fdd44fab', '21277', '2017-08-01 09:57:00', '0', '', '1', 'localhost', '8089', null, null);
+INSERT INTO `sys_sessionlog` VALUES ('213009', 'f28deef4-2662-4ec7-a252-0a7d29effb42', '21277', '2017-08-01 18:07:06', '0', '', '1', 'localhost', '8089', null, null);
+INSERT INTO `sys_sessionlog` VALUES ('213265', '0c82cdc8-1dcd-46a5-9ab9-ff9815aaf0c0', '21277', '2017-08-01 18:56:27', '0', '0:0:0:0:0:0:0:1', '1', 'localhost', '8089', null, null);
+INSERT INTO `sys_sessionlog` VALUES ('213267', '3c75e815-dc4c-4dee-9dd2-c8b1931136af', '21277', '2017-08-01 18:59:38', '0', '0:0:0:0:0:0:0:1', '1', 'localhost', '8089', null, null);
+INSERT INTO `sys_sessionlog` VALUES ('213521', '3c75e815-dc4c-4dee-9dd2-c8b1931136af', '21277', '2017-08-01 19:12:16', '0', '0:0:0:0:0:0:0:1', '1', 'localhost', '8089', null, null);
+INSERT INTO `sys_sessionlog` VALUES ('213777', '3e4758ee-0bc1-49f4-bc6c-96fb92092b16', '-1', '2017-08-02 14:59:04', '1', '', null, 'localhost', '8089', '', null);
+INSERT INTO `sys_sessionlog` VALUES ('213778', '3e4758ee-0bc1-49f4-bc6c-96fb92092b16', '21277', '2017-08-02 14:59:09', '0', '0:0:0:0:0:0:0:1', '1', 'localhost', '8089', null, null);
 
 -- ----------------------------
 -- Table structure for sys_workingcalendar
@@ -21637,6 +23408,8 @@ INSERT INTO `wf_participator` VALUES ('19716', '21271', '-1', '-1', '3', '3', nu
 INSERT INTO `wf_participator` VALUES ('19717', '21277', '-1', '-1', '3', '3', null, null, '1');
 INSERT INTO `wf_participator` VALUES ('19718', '64589', '-1', '-1', '3', '3', null, null, '1');
 INSERT INTO `wf_participator` VALUES ('19719', '64591', '-1', '-1', '3', '3', null, null, '1');
+INSERT INTO `wf_participator` VALUES ('20226', '21271', '-1', '-1', '2', '2', null, null, '1');
+INSERT INTO `wf_participator` VALUES ('20226', '21277', '-1', '-1', '2', '2', null, null, '1');
 
 -- ----------------------------
 -- Table structure for wf_participatorrb
@@ -22502,6 +24275,22 @@ INSERT INTO `wf_participatorrb` VALUES ('19972', '21277', '-1', '-1', '3', '3', 
 INSERT INTO `wf_participatorrb` VALUES ('19972', '21277', '-1', '-1', '4', '3', null, null, '1');
 INSERT INTO `wf_participatorrb` VALUES ('19973', '21277', '-1', '-1', '5', '5', null, null, '1');
 INSERT INTO `wf_participatorrb` VALUES ('19973', '21277', '-1', '-1', '6', '5', null, null, '1');
+INSERT INTO `wf_participatorrb` VALUES ('20225', '21271', '-1', '-1', '1', '1', null, null, '1');
+INSERT INTO `wf_participatorrb` VALUES ('20225', '21271', '-1', '-1', '2', '1', null, null, '1');
+INSERT INTO `wf_participatorrb` VALUES ('20225', '21277', '-1', '-1', '1', '1', null, null, '1');
+INSERT INTO `wf_participatorrb` VALUES ('20225', '21277', '-1', '-1', '2', '1', null, null, '1');
+INSERT INTO `wf_participatorrb` VALUES ('20226', '21271', '-1', '-1', '2', '2', null, null, '1');
+INSERT INTO `wf_participatorrb` VALUES ('20226', '21277', '-1', '-1', '2', '2', null, null, '1');
+INSERT INTO `wf_participatorrb` VALUES ('20481', '21271', '-1', '-1', '1', '1', null, null, '1');
+INSERT INTO `wf_participatorrb` VALUES ('20481', '21271', '-1', '-1', '7', '1', null, null, '1');
+INSERT INTO `wf_participatorrb` VALUES ('20481', '21277', '-1', '-1', '1', '1', null, null, '1');
+INSERT INTO `wf_participatorrb` VALUES ('20481', '21277', '-1', '-1', '7', '1', null, null, '1');
+INSERT INTO `wf_participatorrb` VALUES ('20738', '21271', '-1', '-1', '7', '7', null, null, '1');
+INSERT INTO `wf_participatorrb` VALUES ('20738', '21271', '-1', '-1', '8', '7', null, null, '1');
+INSERT INTO `wf_participatorrb` VALUES ('20738', '21277', '-1', '-1', '7', '7', null, null, '1');
+INSERT INTO `wf_participatorrb` VALUES ('20738', '21277', '-1', '-1', '8', '7', null, null, '1');
+INSERT INTO `wf_participatorrb` VALUES ('20738', '64589', '-1', '-1', '7', '7', null, null, '1');
+INSERT INTO `wf_participatorrb` VALUES ('20738', '64589', '-1', '-1', '8', '7', null, null, '1');
 
 -- ----------------------------
 -- Table structure for wf_planitems
@@ -22554,215 +24343,221 @@ CREATE TABLE `wf_workitem` (
   `MapCount` int(11) default NULL,
   `Slock` int(11) default NULL,
   `TransitTo` int(11) default NULL,
+  `NodeKey` varchar(255) default NULL,
+  `TransferType` int(11) default NULL,
   PRIMARY KEY  (`WorkitemID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of wf_workitem
 -- ----------------------------
-INSERT INTO `wf_workitem` VALUES ('1', '一审', '2', '2016-08-08 10:15:00', '2016-08-08 10:15:25', '21', '-1', '0', '', null, '-1', '3', '3', null, '1', '2', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('257', '提交', '2', '2016-08-29 13:07:21', '2016-08-29 13:19:01', '21', '-1', '1', '提交', null, '-1', '5', '2', null, '1', '3', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('258', '审批', '1', '2016-08-29 13:12:53', null, '-1', '-1', '-1', null, null, '-1', '6', '3', null, '2', '2', null, null, null);
-INSERT INTO `wf_workitem` VALUES ('260', '审批', '1', '2016-08-29 13:19:01', null, '-1', '-1', '-1', null, null, '-1', '6', '3', null, '3', '3', null, null, null);
-INSERT INTO `wf_workitem` VALUES ('261', '审批', '2', '2016-08-29 13:19:01', '2016-08-29 13:19:29', '21', '-1', '1', '接受任务', null, '-1', '6', '3', null, '3', '4', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('262', '审批任务', '2', '2016-08-29 13:19:29', '2016-08-29 13:22:17', '21', '-1', '1', '已解决', null, '-1', '22', '3', null, '4', '5', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('264', '审批任务', '2', '2016-08-29 13:22:17', '2016-08-29 13:23:44', '21', '-1', '1', '通过', null, '-1', '39', '3', null, '5', '6', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('265', '审批任务', '1', '2016-08-29 13:22:17', null, '-1', '-1', '-1', null, null, '-1', '45', '3', null, '5', '5', null, null, null);
-INSERT INTO `wf_workitem` VALUES ('266', '审批任务', '1', '2016-08-29 13:23:44', null, '-1', '-1', '-1', null, null, '-1', '22', '3', null, '6', '6', null, null, null);
-INSERT INTO `wf_workitem` VALUES ('513', '部门主管审批', '1', '2016-08-29 14:44:54', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitem` VALUES ('769', '审批', '2', '2016-09-05 13:19:48', '2016-09-05 13:41:32', '21', '-1', '1', '接受任务', null, '-1', '6', '3', null, '1', '2', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('770', '审批', '2', '2016-09-05 13:34:09', '2016-09-05 13:35:36', '21', '-1', '1', '接受任务', null, '-1', '6', '3', null, '1', '2', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('771', '审批任务', '2', '2016-09-05 13:35:36', '2016-09-05 13:35:57', '21', '-1', '1', '已解决', null, '-1', '22', '3', null, '2', '3', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('772', '测试审批', '2', '2016-09-05 13:35:57', '2016-09-05 13:37:19', '21', '-1', '1', '通过', null, '-1', '39', '3', null, '3', '4', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('773', '完成', '2', '2016-09-05 13:37:19', '2016-09-05 13:38:58', '21', '-1', '1', '已完成', null, '-1', '58', '3', null, '4', '5', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('774', '审批任务', '2', '2016-09-05 13:41:32', '2016-09-05 13:41:41', '21', '-1', '1', '已解决', null, '-1', '22', '3', null, '2', '3', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('775', '测试审批', '2', '2016-09-05 13:41:41', '2016-09-05 13:49:19', '21', '-1', '1', '通过', null, '-1', '39', '3', null, '3', '4', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('776', '完成', '1', '2016-09-05 13:49:19', null, '-1', '-1', '-1', null, null, '-1', '58', '3', null, '4', '4', null, null, null);
-INSERT INTO `wf_workitem` VALUES ('777', '一审', '1', '2016-09-05 14:00:02', null, '-1', '-1', '-1', null, null, '-1', '3', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitem` VALUES ('1025', '部门主管审批', '2', '2016-09-05 14:38:56', '2016-09-05 14:48:14', '21', '-1', '1', '', null, '-1', '5', '3', null, '1', '2', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('1026', '部门主管审批', '1', '2016-09-05 14:49:26', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitem` VALUES ('1027', '部门主管审批', '1', '2016-09-05 15:07:09', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitem` VALUES ('1281', '一审', '1', '2016-09-12 09:05:13', null, '-1', '-1', '-1', null, null, '-1', '3', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitem` VALUES ('1537', '部门主管审批', '2', '2016-09-13 20:14:16', '2016-09-22 09:18:15', '21277', '-1', '1', '同意', null, '-1', '5', '3', null, '1', '2', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('1538', '审批', '2', '2016-09-13 21:08:07', '2016-09-22 10:55:04', '15154', '-1', '1', '', null, '-1', '5', '3', null, '1', '2', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('1793', '审批', '2', '2016-09-13 21:11:12', '2016-09-22 11:23:52', '15154', '-1', '1', '', null, '-1', '5', '3', null, '1', '2', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('2049', '审批', '2', '2016-09-13 21:14:56', '2016-09-22 10:53:27', '21277', '-1', '1', '', null, '-1', '5', '3', null, '1', '2', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('2305', '审批', '2', '2016-09-14 09:35:41', '2016-09-22 11:24:00', '15154', '-1', '1', '', null, '-1', '5', '3', null, '1', '2', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('2306', '审批', '2', '2016-09-14 09:49:44', '2016-09-22 11:24:08', '15154', '-1', '1', '', null, '-1', '5', '3', null, '1', '2', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('2561', '审批', '2', '2016-09-14 09:57:18', '2016-09-22 11:24:20', '15154', '-1', '1', '', null, '-1', '5', '3', null, '1', '2', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('2562', '审批', '2', '2016-09-14 09:58:38', '2016-09-22 11:24:47', '15154', '-1', '1', '', null, '-1', '5', '3', null, '1', '2', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('2817', '审批', '2', '2016-09-14 11:37:11', '2016-09-22 11:24:52', '15154', '-1', '1', '', null, '-1', '5', '3', null, '1', '4', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('2818', '审批', '2', '2016-09-14 11:56:46', '2016-09-22 11:25:00', '15154', '-1', '1', '', null, '-1', '5', '3', null, '1', '2', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('2819', '审批', '2', '2016-09-14 11:58:06', '2016-09-22 11:25:14', '15154', '-1', '1', '', null, '-1', '5', '3', null, '1', '2', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('2820', '审批', '2', '2016-09-14 12:08:44', '2016-09-22 11:25:19', '15154', '-1', '1', '', null, '-1', '5', '3', null, '1', '2', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('2821', '审批', '2', '2016-09-14 12:22:38', '2016-09-22 11:25:26', '15154', '-1', '1', '', null, '-1', '5', '3', null, '1', '2', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('3073', '审批', '2', '2016-09-14 12:28:26', '2016-09-22 11:25:38', '15154', '-1', '1', '', null, '-1', '5', '3', null, '1', '2', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('3329', '审批', '2', '2016-09-14 12:36:17', '2016-09-22 11:25:58', '15154', '-1', '1', '', null, '-1', '5', '3', null, '1', '2', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('3330', '审批', '2', '2016-09-14 12:39:31', '2016-09-22 11:26:05', '15154', '-1', '1', '', null, '-1', '5', '3', null, '1', '2', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('3585', '审批', '2', '2016-09-18 09:06:04', '2016-09-22 11:26:15', '15154', '-1', '1', '', null, '-1', '5', '3', null, '1', '2', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('3586', '审批', '2', '2016-09-18 09:06:46', '2016-09-22 15:38:52', '21277', '-1', '1', '', null, '-1', '5', '3', null, '1', '2', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('3587', '审批', '2', '2016-09-18 09:16:06', '2016-09-22 15:39:03', '21277', '-1', '1', '', null, '-1', '5', '3', null, '1', '2', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('3588', '审批', '2', '2016-09-18 09:20:47', '2016-09-22 15:39:09', '21277', '-1', '1', '', null, '-1', '5', '3', null, '1', '2', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('3841', '审批', '2', '2016-09-19 09:22:38', '2016-09-22 15:39:15', '21277', '-1', '1', '', null, '-1', '5', '3', null, '1', '2', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('3842', '审批', '2', '2016-09-19 09:23:09', '2016-09-22 15:39:20', '21277', '-1', '1', '', null, '-1', '5', '3', null, '1', '2', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('4097', '审批', '2', '2016-09-19 12:29:31', '2016-09-22 15:39:26', '21277', '-1', '1', '', null, '-1', '5', '3', null, '1', '2', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('4353', '审批', '2', '2016-09-19 14:34:06', '2016-09-19 14:35:40', '21277', '-1', '1', '同意', null, '-1', '5', '3', null, '1', '2', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('4354', '一审', '2', '2016-09-19 14:36:52', '2016-09-19 14:39:58', '15154', '-1', '1', '', null, '-1', '3', '3', null, '1', '2', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('4355', '二审', '2', '2016-09-19 14:39:58', '2016-09-19 14:40:28', '21277', '-1', '1', '', null, '-1', '7', '3', null, '2', '3', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('4609', '审批', '2', '2016-09-19 16:56:54', '2016-09-19 16:57:03', '21277', '-1', '1', '', null, '-1', '5', '3', null, '1', '2', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('4610', '审批', '2', '2016-09-19 17:23:14', '2016-09-23 12:40:15', '21277', '-1', '1', '', null, '-1', '5', '3', null, '1', '3', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('4865', '审批任务', '2', '2016-09-19 17:05:24', '2016-09-22 09:14:49', '15154', '-1', '1', '通过', null, '-1', '19', '3', null, '1', '2', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('4866', '审批', '1', '2016-09-19 17:13:40', null, '-1', '-1', '-1', null, null, '-1', '6', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitem` VALUES ('5121', '一审', '2', '2016-09-20 14:48:48', '2016-10-26 18:15:33', '21277', '-1', '1', '请某某领导阅处', null, '-1', '3', '3', null, '1', '2', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('5377', '审批任务', '2', '2016-09-22 09:14:24', '2016-09-22 09:14:50', '15154', '-1', '1', '通过', null, '-1', '19', '3', null, '1', '2', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('5633', '审批', '2', '2016-09-22 16:48:38', '2016-10-26 18:16:11', '21277', '-1', '1', '', null, '-1', '6', '3', null, '1', '2', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('5889', '一审', '2', '2016-09-22 16:56:22', '2016-10-26 18:15:45', '21277', '-1', '1', '请某某领导阅处', null, '-1', '3', '3', null, '1', '2', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('6145', '一审', '2', '2016-09-22 17:30:11', '2016-10-26 18:16:28', '21277', '-1', '1', '同意', null, '-1', '3', '3', null, '1', '2', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('6146', '一审', '2', '2016-09-22 17:52:14', '2016-10-26 18:15:55', '21277', '-1', '1', '同意', null, '-1', '3', '3', null, '1', '3', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('6401', '审批', '2', '2016-09-23 14:09:10', '2016-09-23 14:09:37', '21277', '-1', '1', '', null, '-1', '5', '3', null, '1', '2', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('6402', '审批', '2', '2016-09-23 14:10:53', '2016-09-23 14:11:09', '21277', '-1', '1', '同意', null, '-1', '5', '3', null, '1', '2', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('6657', '审批', '2', '2016-09-23 14:47:15', '2016-09-23 15:20:51', '21277', '-1', '1', '同意', null, '-1', '5', '3', null, '1', '2', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('7169', '审批', '2', '2016-09-23 15:48:18', '2016-09-23 15:48:24', '21277', '-1', '1', '同意', null, '-1', '5', '3', null, '1', '2', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('7425', '审批', '2', '2016-09-23 15:53:26', '2016-09-23 15:53:39', '21277', '-1', '1', '同意', null, '-1', '6', '3', null, '1', '2', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('7426', '审批任务', '2', '2016-09-23 15:53:39', '2017-01-13 11:15:21', '21277', '-1', '1', '同意', null, '-1', '22', '3', null, '2', '3', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('7427', '审批任务', '2', '2016-09-23 15:56:02', '2016-09-23 15:59:03', '15154', '-1', '1', '', null, '-1', '19', '3', null, '1', '2', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('7681', '部门主管审批', '2', '2016-09-23 16:11:18', '2016-09-23 16:11:26', '21277', '-1', '1', '同意', null, '-1', '5', '3', null, '1', '2', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('7682', '审批', '2', '2016-09-23 16:15:27', '2016-09-23 16:18:40', '21271', '-1', '1', '同意', null, '-1', '5', '3', null, '1', '3', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('7937', '审批', '2', '2016-09-23 16:36:52', '2016-09-23 16:36:58', '21277', '-1', '1', '同意', null, '-1', '5', '3', null, '1', '2', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('8193', '一审', '2', '2016-09-23 16:48:37', '2016-10-26 18:15:17', '21277', '-1', '1', '同意', null, '-1', '3', '3', null, '1', '2', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('8449', '一审', '2', '2016-09-26 10:19:28', '2017-01-13 11:16:36', '21277', '-1', '1', '同意', null, '-1', '3', '3', null, '1', '2', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('8450', '审批', '2', '2016-09-26 10:29:48', '2017-01-13 11:16:05', '21277', '-1', '1', '同意', null, '-1', '6', '3', null, '1', '2', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('8705', '审批任务', '2', '2016-10-12 10:57:13', '2016-10-12 10:57:19', '21277', '-1', '1', '', null, '-1', '19', '3', null, '1', '2', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('8706', '审批', '2', '2016-10-12 11:02:57', '2016-10-12 11:44:53', '21277', '-1', '1', '请某某领导阅处', null, '-1', '5', '3', null, '1', '2', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('8961', '办公室主任审批', '2', '2016-10-12 13:23:06', '2016-10-12 13:23:44', '21277', '-1', '1', '请某某领导阅处', null, '-1', '8', '3', null, '1', '2', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('8962', '总经理审批', '2', '2016-10-12 13:23:44', '2016-10-12 13:23:49', '21277', '-1', '1', '请某某领导阅处', null, '-1', '10', '3', null, '2', '3', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('8963', '分管领导', '2', '2016-10-12 13:23:49', '2016-10-12 13:24:00', '21277', '-1', '1', '同意', null, '-1', '27', '3', null, '3', '4', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('8964', '部门处理', '2', '2016-10-12 13:24:00', '2016-10-12 13:24:24', '21277', '-1', '1', '已处理完成', null, '-1', '29', '3', null, '4', '5', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('9217', '审批', '2', '2016-10-12 14:27:16', '2017-01-13 11:03:49', '21277', '-1', '1', '同意', null, '-1', '5', '3', null, '1', '5', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('9473', '办公室主任审批', '2', '2016-10-12 15:24:31', '2016-10-12 15:26:57', '21271', '-1', '1', '请朱主任阅处', null, '-1', '8', '3', null, '1', '2', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('9474', '总经理审批', '2', '2016-10-12 15:26:57', '2016-10-12 15:32:32', '21271', '-1', '1', '同意', null, '-1', '10', '3', null, '2', '3', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('9475', '分管领导', '2', '2016-10-12 15:32:32', '2016-10-12 15:32:42', '21271', '-1', '1', '', null, '-1', '27', '3', null, '3', '4', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('9476', '部门处理', '2', '2016-10-12 15:32:42', '2016-10-12 15:32:53', '21271', '-1', '1', '', null, '-1', '29', '3', null, '4', '5', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('9729', '一审', '2', '2016-10-26 18:03:32', '2016-10-26 18:14:12', '21277', '-1', '1', '同意', null, '-1', '3', '3', null, '1', '2', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('9985', '一审', '2', '2016-10-26 18:09:07', '2016-10-26 18:15:02', '21277', '-1', '1', '', null, '-1', '3', '3', null, '1', '2', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('9986', '二审', '2', '2016-10-26 18:14:12', '2016-10-26 18:14:18', '21277', '-1', '1', '', null, '-1', '7', '3', null, '2', '3', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('9987', '二审', '2', '2016-10-26 18:15:02', '2016-10-26 18:15:06', '21277', '-1', '1', '', null, '-1', '7', '3', null, '2', '3', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('9988', '一审', '2', '2016-10-26 18:16:11', '2016-10-26 18:16:14', '21277', '-1', '1', '', null, '-1', '22', '3', null, '2', '3', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('9989', '测试审批', '2', '2016-10-26 18:16:14', '2016-10-26 18:16:17', '21277', '-1', '1', '', null, '-1', '39', '3', null, '3', '4', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('10241', '一审', '2', '2016-10-27 08:54:18', '2016-10-27 08:54:26', '21277', '-1', '1', '同意', null, '-1', '3', '3', null, '1', '2', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('10242', '二审', '2', '2016-10-27 08:54:26', '2016-10-27 08:54:35', '21277', '-1', '1', '同意', null, '-1', '7', '3', null, '2', '3', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('10243', '一审', '2', '2016-10-27 08:54:43', '2016-10-27 08:54:49', '21277', '-1', '1', '同意', null, '-1', '3', '3', null, '1', '2', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('10244', '二审', '2', '2016-10-27 08:54:49', '2016-10-27 08:55:04', '21277', '-1', '1', '同意', null, '-1', '7', '3', null, '2', '3', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('10245', '一审', '1', '2016-10-27 08:55:41', null, '-1', '-1', '-1', null, null, '-1', '3', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitem` VALUES ('10246', '审批任务', '2', '2016-10-27 09:39:23', '2016-10-27 09:39:30', '21277', '-1', '1', '同意', null, '-1', '19', '3', null, '1', '2', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('10497', '审批任务', '2', '2016-10-28 12:09:17', '2016-10-28 12:09:32', '21277', '-1', '1', '同意', null, '-1', '19', '3', null, '1', '2', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('10753', '办公室主任审批', '2', '2016-10-28 16:27:33', '2017-01-13 11:11:14', '21277', '-1', '1', '请某某领导阅处', null, '-1', '8', '3', null, '1', '2', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('10754', '办公室主任审批', '2', '2016-10-28 16:31:25', '2016-10-28 16:31:55', '21277', '-1', '1', '请某某领导阅处', null, '-1', '8', '3', null, '1', '2', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('10755', '总经理审批', '2', '2016-10-28 16:31:55', '2016-10-28 16:32:05', '21277', '-1', '1', '', null, '-1', '10', '3', null, '2', '3', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('10756', '分管领导', '2', '2016-10-28 16:32:05', '2016-10-28 16:33:24', '21271', '-1', '1', '', null, '-1', '43', '4', null, '3', '5', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('10757', '分管领导', '2', '2016-10-28 16:32:05', '2016-10-28 16:32:17', '21277', '-1', '1', '', null, '-1', '43', '4', null, '3', '4', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('10758', '部门处理结果反馈', '2', '2016-10-28 16:33:24', '2016-10-28 16:33:35', '21271', '-1', '1', '同意', null, '-1', '46', '4', null, '5', '6', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('10759', '部门处理结果反馈', '2', '2016-10-28 16:33:24', '2016-10-28 16:34:21', '21277', '-1', '1', '已处理完成', null, '-1', '46', '4', null, '5', '7', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('10760', '办公室主任审批', '2', '2016-10-28 17:27:27', '2017-01-13 11:09:02', '21277', '-1', '1', '请某某领导阅处', null, '-1', '8', '3', null, '1', '2', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('10761', '办公室主任审批', '2', '2016-10-28 17:46:16', '2016-10-28 17:50:54', '21277', '-1', '1', '已处理完成', null, '-1', '8', '3', null, '1', '2', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('10762', '总经理审批', '2', '2016-10-28 17:50:54', '2016-11-10 14:22:01', '21277', '-1', '1', '同意', null, '-1', '10', '3', null, '2', '4', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('11009', '审批', '2', '2016-10-31 15:36:48', '2016-10-31 15:36:56', '21277', '-1', '1', '', null, '-1', '5', '3', null, '1', '2', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('11265', '审批', '2', '2016-11-02 13:30:19', '2016-11-02 13:31:23', '21277', '-1', '1', '同意', null, '-1', '6', '3', null, '1', '2', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('11266', '一审', '2', '2016-11-02 13:31:23', '2016-11-02 13:32:00', '21277', '-1', '1', '同意', null, '-1', '22', '3', null, '2', '3', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('11267', '测试审批', '2', '2016-11-02 13:32:00', '2016-11-02 13:32:14', '21277', '-1', '1', '同意', null, '-1', '39', '3', null, '3', '4', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('11521', '审批', '2', '2016-11-02 13:38:10', '2016-11-24 15:45:32', '21277', '-1', '1', '同意', null, '-1', '6', '3', null, '1', '3', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('11777', '一审', '2', '2016-11-03 10:04:07', '2016-11-03 10:04:32', '21277', '-1', '1', '同意', null, '-1', '3', '3', null, '1', '2', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('11778', '二审', '2', '2016-11-03 10:04:32', '2016-11-03 10:04:45', '21277', '-1', '1', '同意', null, '-1', '7', '3', null, '2', '3', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('11779', '一审', '2', '2016-11-03 10:05:40', '2016-11-03 10:05:48', '21277', '-1', '1', '同意', null, '-1', '3', '3', null, '1', '2', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('12033', '一审', '2', '2016-11-04 10:26:37', '2016-11-04 10:26:53', '21277', '-1', '1', '同意', null, '-1', '3', '3', null, '1', '2', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('12034', '二审', '2', '2016-11-04 10:26:53', '2016-11-04 10:27:09', '21277', '-1', '1', '同意', null, '-1', '7', '3', null, '2', '4', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('12035', '一审', '2', '2016-11-04 10:35:58', '2016-11-04 10:36:03', '21277', '-1', '1', '同意', null, '-1', '3', '3', null, '1', '2', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('12036', '二审', '2', '2016-11-04 10:36:03', '2016-11-04 10:36:10', '21277', '-1', '1', '同意', null, '-1', '7', '3', null, '2', '3', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('12037', '一审', '2', '2016-11-04 10:38:39', '2016-11-04 10:38:45', '21277', '-1', '1', '同意', null, '-1', '3', '3', null, '1', '2', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('12038', '二审', '2', '2016-11-04 10:38:45', '2016-11-04 10:38:51', '21277', '-1', '1', '同意', null, '-1', '7', '3', null, '2', '3', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('12289', '办公室主任审批', '2', '2016-11-04 11:38:58', '2016-11-04 11:39:09', '21277', '-1', '1', '请某某领导阅处', null, '-1', '8', '3', null, '1', '2', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('12290', '总经理审批', '2', '2016-11-04 11:39:09', '2016-11-04 12:03:04', '21277', '-1', '1', '同意', null, '-1', '10', '3', null, '2', '3', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('12291', '分管领导', '2', '2016-11-04 12:03:04', '2016-11-17 09:10:02', '21277', '-1', '1', '同意', null, '-1', '43', '4', null, '3', '6', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('12546', '分管领导', '2', '2016-11-10 14:22:01', '2016-11-10 14:22:10', '21277', '-1', '1', '同意', null, '-1', '43', '4', null, '4', '5', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('12547', '部门处理结果反馈', '2', '2016-11-10 14:22:10', '2017-01-13 11:17:19', '21277', '-1', '1', '已处理完成', null, '-1', '46', '4', null, '5', '7', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('12801', '部门处理结果反馈', '2', '2016-11-17 09:10:02', '2016-11-17 09:18:08', '21271', '-1', '1', '同意', null, '-1', '46', '4', null, '6', '8', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('12802', '部门处理结果反馈', '2', '2016-11-17 09:10:02', '2016-11-17 09:10:40', '21277', '-1', '0', '不同意', null, '-1', '46', '4', null, '6', '7', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('12803', '提交审批', '2', '2016-11-17 09:18:08', '2016-11-17 09:19:08', '21271', '-1', '1', '', null, '-1', '49', '3', null, '8', '9', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('12804', '办公室主任审批', '2', '2016-11-17 09:19:08', '2016-11-17 09:19:27', '21271', '-1', '1', '请朱主任阅处', null, '-1', '8', '3', null, '9', '10', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('12805', '总经理审批', '2', '2016-11-17 09:19:27', '2016-11-24 15:41:38', '21277', '-1', '1', '同意', null, '-1', '10', '3', null, '10', '11', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('13057', '办公室主任审批', '2', '2016-11-24 15:32:55', '2017-01-13 11:12:32', '21277', '-1', '1', '请某某领导阅处', null, '-1', '8', '3', null, '1', '2', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('13058', '分管领导', '1', '2016-11-24 15:41:38', null, '21271', '-1', '-1', null, null, '-1', '43', '4', null, '11', '11', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('13059', '分管领导', '2', '2016-11-24 15:41:38', '2016-12-29 14:29:13', '21277', '-1', '1', '', null, '-1', '43', '4', null, '11', '12', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('13061', '一审', '1', '2016-11-24 15:45:32', null, '-1', '-1', '-1', null, null, '-1', '22', '3', null, '3', '3', null, null, null);
-INSERT INTO `wf_workitem` VALUES ('13062', '办公室主任审批', '2', '2016-11-24 15:47:24', '2016-11-24 15:47:56', '21277', '-1', '1', '请某某领导阅处', null, '-1', '8', '3', null, '1', '3', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('13064', '总经理审批', '2', '2016-11-24 15:47:56', '2016-11-24 15:48:18', '21277', '-1', '1', '同意', null, '-1', '10', '3', null, '3', '5', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('13067', '分管领导', '2', '2016-11-24 15:48:18', '2016-11-24 15:49:47', '21271', '-1', '1', '同意', null, '-1', '43', '4', null, '5', '8', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('13068', '分管领导', '2', '2016-11-24 15:48:18', '2016-11-24 15:48:30', '21277', '-1', '1', '同意', null, '-1', '43', '4', null, '5', '6', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('13070', '部门处理结果反馈', '2', '2016-11-24 15:49:47', '2016-12-19 15:54:01', '21277', '-1', '1', '已处理完成', null, '-1', '46', '4', null, '8', '11', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('13313', '一审', '2', '2016-11-29 09:42:47', '2016-11-29 09:54:37', '21277', '-1', '1', '同意', null, '-1', '3', '3', null, '1', '2', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('13569', '办公室主任审批', '2', '2016-12-14 13:58:20', '2016-12-14 13:58:33', '21277', '-1', '1', '请某某领导阅处', null, '-1', '8', '3', null, '1', '2', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('13570', '总经理审批', '2', '2016-12-14 13:58:33', '2016-12-14 13:58:51', '21277', '-1', '1', '同意', null, '-1', '10', '3', null, '2', '3', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('13571', '分管领导', '1', '2016-12-14 13:58:51', null, '21271', '-1', '-1', null, null, '-1', '43', '4', null, '3', '3', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('13572', '分管领导', '2', '2016-12-14 13:58:51', '2016-12-29 14:09:28', '21277', '-1', '1', '同意', null, '-1', '43', '4', null, '3', '9', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('13825', '办公室主任审批', '2', '2016-12-22 12:00:14', '2016-12-22 12:00:55', '21277', '-1', '1', '请某某领导阅处', null, '-1', '8', '3', null, '1', '2', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('13826', '总经理审批', '2', '2016-12-22 12:00:55', '2016-12-22 12:01:19', '21277', '-1', '1', '', null, '-1', '10', '3', null, '2', '3', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('13827', '分管领导', '2', '2016-12-22 12:01:19', '2016-12-22 12:05:52', '21271', '-1', '1', '', null, '-1', '43', '4', null, '3', '5', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('13828', '分管领导', '2', '2016-12-22 12:01:19', '2016-12-22 12:01:47', '21277', '-1', '1', '同意', null, '-1', '43', '4', null, '3', '4', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('13831', '部门处理结果反馈', '2', '2016-12-22 12:05:52', '2016-12-22 12:06:07', '21271', '-1', '1', '同意', null, '-1', '46', '4', null, '5', '6', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('13832', '部门处理结果反馈', '2', '2016-12-22 12:05:52', '2016-12-29 15:55:47', '21277', '-1', '1', '', null, '-1', '46', '4', null, '5', '34', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('14081', '办公室主任审批', '2', '2017-01-04 11:41:49', '2017-01-09 10:39:04', '21277', '-1', '1', '请某某领导阅处', null, '-1', '8', '3', null, '1', '4', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('14593', '办公室主任审批', '2', '2017-01-06 09:42:03', '2017-01-09 10:33:11', '21277', '-1', '1', '请某某领导阅处', null, '-1', '8', '3', null, '1', '2', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('14849', '总经理审批', '1', '2017-01-09 10:33:11', null, '-1', '-1', '-1', null, null, '-1', '10', '3', null, '2', '2', null, null, null);
-INSERT INTO `wf_workitem` VALUES ('15105', '办公室主任审批', '2', '2017-01-09 10:37:10', '2017-01-09 10:37:49', '21277', '-1', '1', '请某某领导阅处', null, '-1', '8', '3', null, '1', '3', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('15107', '总经理审批', '2', '2017-01-09 10:37:49', '2017-01-09 10:38:02', '21277', '-1', '1', '同意', null, '-1', '10', '3', null, '3', '4', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('15108', '分管领导', '2', '2017-01-09 10:38:02', '2017-01-09 10:38:15', '21277', '-1', '1', '同意', null, '-1', '43', '4', null, '4', '5', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('15109', '部门处理结果反馈', '2', '2017-01-09 10:38:15', '2017-01-09 10:38:23', '21277', '-1', '1', '已处理完成', null, '-1', '46', '4', null, '5', '6', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('15110', '总经理审批', '2', '2017-01-09 10:39:04', '2017-01-13 11:27:16', '21277', '-1', '1', '同意', null, '-1', '10', '3', null, '4', '5', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('15111', '办公室主任审批', '2', '2017-01-09 14:07:00', '2017-01-09 14:07:09', '21277', '-1', '1', '请某某领导阅处', null, '-1', '8', '3', null, '1', '2', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('15112', '总经理审批', '2', '2017-01-09 14:07:09', '2017-01-09 14:08:36', '21277', '-1', '1', '同意', null, '-1', '10', '3', null, '2', '3', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('15113', '分管领导', '1', '2017-01-09 14:08:36', null, '21271', '-1', '-1', null, null, '-1', '43', '4', null, '3', '3', null, null, null);
-INSERT INTO `wf_workitem` VALUES ('15114', '分管领导', '1', '2017-01-09 14:08:36', null, '21277', '-1', '-1', null, null, '-1', '43', '4', null, '3', '3', null, null, null);
-INSERT INTO `wf_workitem` VALUES ('15361', '办公室主任审批', '2', '2017-01-10 16:07:37', '2017-01-10 16:08:58', '21277', '-1', '1', '已处理完成', null, '-1', '8', '3', null, '1', '2', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('15362', '总经理审批', '2', '2017-01-10 16:08:58', '2017-01-13 09:38:28', '21277', '-1', '1', '同意', null, '-1', '10', '3', null, '2', '3', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('15617', '分管领导', '1', '2017-01-13 09:41:13', null, '21277', '-1', '-1', null, null, '-1', '43', '4', null, '3', '3', null, null, null);
-INSERT INTO `wf_workitem` VALUES ('15873', '总经理审批', '2', '2017-01-13 11:09:02', '2017-01-13 11:09:15', '21277', '-1', '1', '同意', null, '-1', '10', '3', null, '2', '3', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('15874', '分管领导', '2', '2017-01-13 11:09:15', '2017-01-13 11:09:25', '21277', '-1', '1', '同意', null, '-1', '43', '4', null, '3', '4', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('15875', '部门处理结果反馈', '2', '2017-01-13 11:09:25', '2017-01-13 11:09:34', '21277', '-1', '1', '已处理完成', null, '-1', '46', '4', null, '4', '5', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('15876', '总经理审批', '2', '2017-01-13 11:11:14', '2017-01-13 11:11:25', '21277', '-1', '1', '同意', null, '-1', '10', '3', null, '2', '3', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('15877', '分管领导', '2', '2017-01-13 11:11:25', '2017-01-13 11:11:37', '21277', '-1', '1', '同意', null, '-1', '43', '4', null, '3', '4', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('15878', '部门处理结果反馈', '2', '2017-01-13 11:11:37', '2017-01-13 11:11:43', '21277', '-1', '1', '已处理完成', null, '-1', '46', '4', null, '4', '5', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('15879', '总经理审批', '2', '2017-01-13 11:12:32', '2017-01-13 11:12:44', '21277', '-1', '1', '同意', null, '-1', '10', '3', null, '2', '3', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('15880', '分管领导', '2', '2017-01-13 11:12:44', '2017-01-13 11:14:49', '21277', '-1', '1', '同意', null, '-1', '43', '4', null, '3', '4', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('15881', '部门处理结果反馈', '2', '2017-01-13 11:14:49', '2017-01-13 11:14:58', '21277', '-1', '1', '已处理完成', null, '-1', '46', '4', null, '4', '5', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('15882', '测试审批', '2', '2017-01-13 11:15:21', '2017-01-13 11:15:26', '21277', '-1', '1', '同意', null, '-1', '39', '3', null, '3', '4', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('15883', '一审', '2', '2017-01-13 11:16:05', '2017-01-13 11:16:11', '21277', '-1', '1', '同意', null, '-1', '22', '3', null, '2', '3', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('15884', '测试审批', '2', '2017-01-13 11:16:11', '2017-01-13 11:16:15', '21277', '-1', '1', '同意', null, '-1', '39', '3', null, '3', '4', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('15885', '分管领导', '2', '2017-01-13 11:27:16', '2017-01-13 11:27:23', '21277', '-1', '1', '同意', null, '-1', '43', '4', null, '5', '6', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('15886', '部门处理结果反馈', '2', '2017-01-13 11:27:23', '2017-01-13 11:27:37', '21277', '-1', '1', '已处理完成', null, '-1', '46', '4', null, '6', '7', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('16129', '办公室主任审批', '1', '2017-04-20 10:23:33', null, '-1', '-1', '-1', null, null, '-1', '8', '3', null, '1', '1', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('16385', '审批任务', '2', '2017-04-24 09:52:05', '2017-04-24 09:59:22', '21277', '-1', '1', '通过', null, '-1', '19', '3', null, '1', '2', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('16386', '审批任务', '2', '2017-04-24 09:56:41', '2017-04-24 13:47:11', '21277', '-1', '1', '通过', null, '-1', '19', '3', null, '1', '3', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('16387', '审批任务', '2', '2017-04-24 10:04:33', '2017-04-24 10:17:43', '21277', '-1', '1', '通过', null, '-1', '19', '3', null, '1', '9', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('16641', '审批', '2', '2017-05-17 16:12:46', '2017-05-19 09:57:27', '21271', '-1', '1', '', null, '-1', '6', '3', null, '1', '2', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('16897', '处理任务', '1', '2017-05-19 09:57:27', null, '-1', '-1', '-1', null, null, '-1', '22', '3', null, '2', '2', null, null, null);
-INSERT INTO `wf_workitem` VALUES ('17409', '办公室主任审批', '1', '2017-06-06 13:14:46', null, '-1', '-1', '-1', null, null, '-1', '8', '3', null, '1', '1', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('18433', '办公室主任审批', '1', '2017-06-06 16:10:18', null, '-1', '-1', '-1', null, null, '-1', '8', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitem` VALUES ('18434', '办公室主任审批', '1', '2017-06-06 16:11:52', null, '-1', '-1', '-1', null, null, '-1', '8', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitem` VALUES ('18689', '办公室主任审批', '1', '2017-06-07 17:41:51', null, '-1', '-1', '-1', null, null, '-1', '8', '3', null, '1', '1', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('19201', '办公室主任审批', '1', '2017-06-08 14:19:53', null, '-1', '-1', '-1', null, null, '-1', '8', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitem` VALUES ('19457', '办公室主任审批', '2', '2017-06-08 15:17:13', '2017-06-08 16:23:02', '21277', '-1', '1', '同意', null, '-1', '8', '3', null, '1', '2', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('19713', '总经理审批', '2', '2017-06-08 16:23:03', '2017-06-08 16:23:12', '21277', '-1', '1', '同意', null, '-1', '10', '3', null, '2', '3', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('19714', '分管领导', '1', '2017-06-08 16:23:12', null, '64593', '-1', '-1', null, null, '-1', '43', '4', null, '3', '3', null, null, null);
-INSERT INTO `wf_workitem` VALUES ('19715', '分管领导', '1', '2017-06-08 16:23:12', null, '21', '-1', '-1', null, null, '-1', '43', '4', null, '3', '3', null, null, null);
-INSERT INTO `wf_workitem` VALUES ('19716', '分管领导', '1', '2017-06-08 16:23:12', null, '21271', '-1', '-1', null, null, '-1', '43', '4', null, '3', '3', null, null, null);
-INSERT INTO `wf_workitem` VALUES ('19717', '分管领导', '1', '2017-06-08 16:23:12', null, '21277', '-1', '-1', null, null, '-1', '43', '4', null, '3', '3', null, null, null);
-INSERT INTO `wf_workitem` VALUES ('19718', '分管领导', '1', '2017-06-08 16:23:12', null, '64589', '-1', '-1', null, null, '-1', '43', '4', null, '3', '3', null, null, null);
-INSERT INTO `wf_workitem` VALUES ('19719', '分管领导', '1', '2017-06-08 16:23:12', null, '64591', '-1', '-1', null, null, '-1', '43', '4', null, '3', '3', null, null, null);
-INSERT INTO `wf_workitem` VALUES ('19969', '办公室主任审批', '2', '2017-06-08 16:35:44', '2017-06-08 16:36:05', '21277', '-1', '1', '同意', null, '-1', '8', '3', null, '1', '2', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('19970', '总经理审批', '2', '2017-06-08 16:36:06', '2017-06-08 16:36:12', '21277', '-1', '1', '同意', null, '-1', '10', '3', null, '2', '3', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('19971', '分管领导', '2', '2017-06-08 16:36:12', '2017-06-08 16:37:28', '21271', '-1', '1', '同意', null, '-1', '43', '4', null, '3', '5', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('19972', '分管领导', '2', '2017-06-08 16:36:12', '2017-06-08 16:36:18', '21277', '-1', '1', '同意', null, '-1', '43', '4', null, '3', '4', null, '1', null);
-INSERT INTO `wf_workitem` VALUES ('19973', '部门处理结果反馈', '2', '2017-06-08 16:37:29', '2017-06-08 16:38:20', '21277', '-1', '1', '已处理完成', null, '-1', '46', '4', null, '5', '6', null, '1', null);
+INSERT INTO `wf_workitem` VALUES ('1', '一审', '2', '2016-08-08 10:15:00', '2016-08-08 10:15:25', '21', '-1', '0', '', null, '-1', '3', '3', null, '1', '2', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('257', '提交', '2', '2016-08-29 13:07:21', '2016-08-29 13:19:01', '21', '-1', '1', '提交', null, '-1', '5', '2', null, '1', '3', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('258', '审批', '1', '2016-08-29 13:12:53', null, '-1', '-1', '-1', null, null, '-1', '6', '3', null, '2', '2', null, null, null, null, null);
+INSERT INTO `wf_workitem` VALUES ('260', '审批', '1', '2016-08-29 13:19:01', null, '-1', '-1', '-1', null, null, '-1', '6', '3', null, '3', '3', null, null, null, null, null);
+INSERT INTO `wf_workitem` VALUES ('261', '审批', '2', '2016-08-29 13:19:01', '2016-08-29 13:19:29', '21', '-1', '1', '接受任务', null, '-1', '6', '3', null, '3', '4', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('262', '审批任务', '2', '2016-08-29 13:19:29', '2016-08-29 13:22:17', '21', '-1', '1', '已解决', null, '-1', '22', '3', null, '4', '5', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('264', '审批任务', '2', '2016-08-29 13:22:17', '2016-08-29 13:23:44', '21', '-1', '1', '通过', null, '-1', '39', '3', null, '5', '6', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('265', '审批任务', '1', '2016-08-29 13:22:17', null, '-1', '-1', '-1', null, null, '-1', '45', '3', null, '5', '5', null, null, null, null, null);
+INSERT INTO `wf_workitem` VALUES ('266', '审批任务', '1', '2016-08-29 13:23:44', null, '-1', '-1', '-1', null, null, '-1', '22', '3', null, '6', '6', null, null, null, null, null);
+INSERT INTO `wf_workitem` VALUES ('513', '部门主管审批', '1', '2016-08-29 14:44:54', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null, null, null);
+INSERT INTO `wf_workitem` VALUES ('769', '审批', '2', '2016-09-05 13:19:48', '2016-09-05 13:41:32', '21', '-1', '1', '接受任务', null, '-1', '6', '3', null, '1', '2', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('770', '审批', '2', '2016-09-05 13:34:09', '2016-09-05 13:35:36', '21', '-1', '1', '接受任务', null, '-1', '6', '3', null, '1', '2', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('771', '审批任务', '2', '2016-09-05 13:35:36', '2016-09-05 13:35:57', '21', '-1', '1', '已解决', null, '-1', '22', '3', null, '2', '3', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('772', '测试审批', '2', '2016-09-05 13:35:57', '2016-09-05 13:37:19', '21', '-1', '1', '通过', null, '-1', '39', '3', null, '3', '4', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('773', '完成', '2', '2016-09-05 13:37:19', '2016-09-05 13:38:58', '21', '-1', '1', '已完成', null, '-1', '58', '3', null, '4', '5', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('774', '审批任务', '2', '2016-09-05 13:41:32', '2016-09-05 13:41:41', '21', '-1', '1', '已解决', null, '-1', '22', '3', null, '2', '3', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('775', '测试审批', '2', '2016-09-05 13:41:41', '2016-09-05 13:49:19', '21', '-1', '1', '通过', null, '-1', '39', '3', null, '3', '4', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('776', '完成', '1', '2016-09-05 13:49:19', null, '-1', '-1', '-1', null, null, '-1', '58', '3', null, '4', '4', null, null, null, null, null);
+INSERT INTO `wf_workitem` VALUES ('777', '一审', '1', '2016-09-05 14:00:02', null, '-1', '-1', '-1', null, null, '-1', '3', '3', null, '1', '1', null, null, null, null, null);
+INSERT INTO `wf_workitem` VALUES ('1025', '部门主管审批', '2', '2016-09-05 14:38:56', '2016-09-05 14:48:14', '21', '-1', '1', '', null, '-1', '5', '3', null, '1', '2', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('1026', '部门主管审批', '1', '2016-09-05 14:49:26', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null, null, null);
+INSERT INTO `wf_workitem` VALUES ('1027', '部门主管审批', '1', '2016-09-05 15:07:09', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null, null, null);
+INSERT INTO `wf_workitem` VALUES ('1281', '一审', '1', '2016-09-12 09:05:13', null, '-1', '-1', '-1', null, null, '-1', '3', '3', null, '1', '1', null, null, null, null, null);
+INSERT INTO `wf_workitem` VALUES ('1537', '部门主管审批', '2', '2016-09-13 20:14:16', '2016-09-22 09:18:15', '21277', '-1', '1', '同意', null, '-1', '5', '3', null, '1', '2', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('1538', '审批', '2', '2016-09-13 21:08:07', '2016-09-22 10:55:04', '15154', '-1', '1', '', null, '-1', '5', '3', null, '1', '2', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('1793', '审批', '2', '2016-09-13 21:11:12', '2016-09-22 11:23:52', '15154', '-1', '1', '', null, '-1', '5', '3', null, '1', '2', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('2049', '审批', '2', '2016-09-13 21:14:56', '2016-09-22 10:53:27', '21277', '-1', '1', '', null, '-1', '5', '3', null, '1', '2', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('2305', '审批', '2', '2016-09-14 09:35:41', '2016-09-22 11:24:00', '15154', '-1', '1', '', null, '-1', '5', '3', null, '1', '2', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('2306', '审批', '2', '2016-09-14 09:49:44', '2016-09-22 11:24:08', '15154', '-1', '1', '', null, '-1', '5', '3', null, '1', '2', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('2561', '审批', '2', '2016-09-14 09:57:18', '2016-09-22 11:24:20', '15154', '-1', '1', '', null, '-1', '5', '3', null, '1', '2', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('2562', '审批', '2', '2016-09-14 09:58:38', '2016-09-22 11:24:47', '15154', '-1', '1', '', null, '-1', '5', '3', null, '1', '2', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('2817', '审批', '2', '2016-09-14 11:37:11', '2016-09-22 11:24:52', '15154', '-1', '1', '', null, '-1', '5', '3', null, '1', '4', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('2818', '审批', '2', '2016-09-14 11:56:46', '2016-09-22 11:25:00', '15154', '-1', '1', '', null, '-1', '5', '3', null, '1', '2', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('2819', '审批', '2', '2016-09-14 11:58:06', '2016-09-22 11:25:14', '15154', '-1', '1', '', null, '-1', '5', '3', null, '1', '2', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('2820', '审批', '2', '2016-09-14 12:08:44', '2016-09-22 11:25:19', '15154', '-1', '1', '', null, '-1', '5', '3', null, '1', '2', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('2821', '审批', '2', '2016-09-14 12:22:38', '2016-09-22 11:25:26', '15154', '-1', '1', '', null, '-1', '5', '3', null, '1', '2', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('3073', '审批', '2', '2016-09-14 12:28:26', '2016-09-22 11:25:38', '15154', '-1', '1', '', null, '-1', '5', '3', null, '1', '2', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('3329', '审批', '2', '2016-09-14 12:36:17', '2016-09-22 11:25:58', '15154', '-1', '1', '', null, '-1', '5', '3', null, '1', '2', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('3330', '审批', '2', '2016-09-14 12:39:31', '2016-09-22 11:26:05', '15154', '-1', '1', '', null, '-1', '5', '3', null, '1', '2', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('3585', '审批', '2', '2016-09-18 09:06:04', '2016-09-22 11:26:15', '15154', '-1', '1', '', null, '-1', '5', '3', null, '1', '2', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('3586', '审批', '2', '2016-09-18 09:06:46', '2016-09-22 15:38:52', '21277', '-1', '1', '', null, '-1', '5', '3', null, '1', '2', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('3587', '审批', '2', '2016-09-18 09:16:06', '2016-09-22 15:39:03', '21277', '-1', '1', '', null, '-1', '5', '3', null, '1', '2', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('3588', '审批', '2', '2016-09-18 09:20:47', '2016-09-22 15:39:09', '21277', '-1', '1', '', null, '-1', '5', '3', null, '1', '2', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('3841', '审批', '2', '2016-09-19 09:22:38', '2016-09-22 15:39:15', '21277', '-1', '1', '', null, '-1', '5', '3', null, '1', '2', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('3842', '审批', '2', '2016-09-19 09:23:09', '2016-09-22 15:39:20', '21277', '-1', '1', '', null, '-1', '5', '3', null, '1', '2', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('4097', '审批', '2', '2016-09-19 12:29:31', '2016-09-22 15:39:26', '21277', '-1', '1', '', null, '-1', '5', '3', null, '1', '2', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('4353', '审批', '2', '2016-09-19 14:34:06', '2016-09-19 14:35:40', '21277', '-1', '1', '同意', null, '-1', '5', '3', null, '1', '2', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('4354', '一审', '2', '2016-09-19 14:36:52', '2016-09-19 14:39:58', '15154', '-1', '1', '', null, '-1', '3', '3', null, '1', '2', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('4355', '二审', '2', '2016-09-19 14:39:58', '2016-09-19 14:40:28', '21277', '-1', '1', '', null, '-1', '7', '3', null, '2', '3', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('4609', '审批', '2', '2016-09-19 16:56:54', '2016-09-19 16:57:03', '21277', '-1', '1', '', null, '-1', '5', '3', null, '1', '2', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('4610', '审批', '2', '2016-09-19 17:23:14', '2016-09-23 12:40:15', '21277', '-1', '1', '', null, '-1', '5', '3', null, '1', '3', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('4865', '审批任务', '2', '2016-09-19 17:05:24', '2016-09-22 09:14:49', '15154', '-1', '1', '通过', null, '-1', '19', '3', null, '1', '2', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('4866', '审批', '1', '2016-09-19 17:13:40', null, '-1', '-1', '-1', null, null, '-1', '6', '3', null, '1', '1', null, null, null, null, null);
+INSERT INTO `wf_workitem` VALUES ('5121', '一审', '2', '2016-09-20 14:48:48', '2016-10-26 18:15:33', '21277', '-1', '1', '请某某领导阅处', null, '-1', '3', '3', null, '1', '2', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('5377', '审批任务', '2', '2016-09-22 09:14:24', '2016-09-22 09:14:50', '15154', '-1', '1', '通过', null, '-1', '19', '3', null, '1', '2', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('5633', '审批', '2', '2016-09-22 16:48:38', '2016-10-26 18:16:11', '21277', '-1', '1', '', null, '-1', '6', '3', null, '1', '2', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('5889', '一审', '2', '2016-09-22 16:56:22', '2016-10-26 18:15:45', '21277', '-1', '1', '请某某领导阅处', null, '-1', '3', '3', null, '1', '2', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('6145', '一审', '2', '2016-09-22 17:30:11', '2016-10-26 18:16:28', '21277', '-1', '1', '同意', null, '-1', '3', '3', null, '1', '2', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('6146', '一审', '2', '2016-09-22 17:52:14', '2016-10-26 18:15:55', '21277', '-1', '1', '同意', null, '-1', '3', '3', null, '1', '3', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('6401', '审批', '2', '2016-09-23 14:09:10', '2016-09-23 14:09:37', '21277', '-1', '1', '', null, '-1', '5', '3', null, '1', '2', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('6402', '审批', '2', '2016-09-23 14:10:53', '2016-09-23 14:11:09', '21277', '-1', '1', '同意', null, '-1', '5', '3', null, '1', '2', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('6657', '审批', '2', '2016-09-23 14:47:15', '2016-09-23 15:20:51', '21277', '-1', '1', '同意', null, '-1', '5', '3', null, '1', '2', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('7169', '审批', '2', '2016-09-23 15:48:18', '2016-09-23 15:48:24', '21277', '-1', '1', '同意', null, '-1', '5', '3', null, '1', '2', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('7425', '审批', '2', '2016-09-23 15:53:26', '2016-09-23 15:53:39', '21277', '-1', '1', '同意', null, '-1', '6', '3', null, '1', '2', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('7426', '审批任务', '2', '2016-09-23 15:53:39', '2017-01-13 11:15:21', '21277', '-1', '1', '同意', null, '-1', '22', '3', null, '2', '3', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('7427', '审批任务', '2', '2016-09-23 15:56:02', '2016-09-23 15:59:03', '15154', '-1', '1', '', null, '-1', '19', '3', null, '1', '2', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('7681', '部门主管审批', '2', '2016-09-23 16:11:18', '2016-09-23 16:11:26', '21277', '-1', '1', '同意', null, '-1', '5', '3', null, '1', '2', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('7682', '审批', '2', '2016-09-23 16:15:27', '2016-09-23 16:18:40', '21271', '-1', '1', '同意', null, '-1', '5', '3', null, '1', '3', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('7937', '审批', '2', '2016-09-23 16:36:52', '2016-09-23 16:36:58', '21277', '-1', '1', '同意', null, '-1', '5', '3', null, '1', '2', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('8193', '一审', '2', '2016-09-23 16:48:37', '2016-10-26 18:15:17', '21277', '-1', '1', '同意', null, '-1', '3', '3', null, '1', '2', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('8449', '一审', '2', '2016-09-26 10:19:28', '2017-01-13 11:16:36', '21277', '-1', '1', '同意', null, '-1', '3', '3', null, '1', '2', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('8450', '审批', '2', '2016-09-26 10:29:48', '2017-01-13 11:16:05', '21277', '-1', '1', '同意', null, '-1', '6', '3', null, '1', '2', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('8705', '审批任务', '2', '2016-10-12 10:57:13', '2016-10-12 10:57:19', '21277', '-1', '1', '', null, '-1', '19', '3', null, '1', '2', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('8706', '审批', '2', '2016-10-12 11:02:57', '2016-10-12 11:44:53', '21277', '-1', '1', '请某某领导阅处', null, '-1', '5', '3', null, '1', '2', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('8961', '办公室主任审批', '2', '2016-10-12 13:23:06', '2016-10-12 13:23:44', '21277', '-1', '1', '请某某领导阅处', null, '-1', '8', '3', null, '1', '2', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('8962', '总经理审批', '2', '2016-10-12 13:23:44', '2016-10-12 13:23:49', '21277', '-1', '1', '请某某领导阅处', null, '-1', '10', '3', null, '2', '3', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('8963', '分管领导', '2', '2016-10-12 13:23:49', '2016-10-12 13:24:00', '21277', '-1', '1', '同意', null, '-1', '27', '3', null, '3', '4', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('8964', '部门处理', '2', '2016-10-12 13:24:00', '2016-10-12 13:24:24', '21277', '-1', '1', '已处理完成', null, '-1', '29', '3', null, '4', '5', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('9217', '审批', '2', '2016-10-12 14:27:16', '2017-01-13 11:03:49', '21277', '-1', '1', '同意', null, '-1', '5', '3', null, '1', '5', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('9473', '办公室主任审批', '2', '2016-10-12 15:24:31', '2016-10-12 15:26:57', '21271', '-1', '1', '请朱主任阅处', null, '-1', '8', '3', null, '1', '2', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('9474', '总经理审批', '2', '2016-10-12 15:26:57', '2016-10-12 15:32:32', '21271', '-1', '1', '同意', null, '-1', '10', '3', null, '2', '3', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('9475', '分管领导', '2', '2016-10-12 15:32:32', '2016-10-12 15:32:42', '21271', '-1', '1', '', null, '-1', '27', '3', null, '3', '4', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('9476', '部门处理', '2', '2016-10-12 15:32:42', '2016-10-12 15:32:53', '21271', '-1', '1', '', null, '-1', '29', '3', null, '4', '5', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('9729', '一审', '2', '2016-10-26 18:03:32', '2016-10-26 18:14:12', '21277', '-1', '1', '同意', null, '-1', '3', '3', null, '1', '2', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('9985', '一审', '2', '2016-10-26 18:09:07', '2016-10-26 18:15:02', '21277', '-1', '1', '', null, '-1', '3', '3', null, '1', '2', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('9986', '二审', '2', '2016-10-26 18:14:12', '2016-10-26 18:14:18', '21277', '-1', '1', '', null, '-1', '7', '3', null, '2', '3', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('9987', '二审', '2', '2016-10-26 18:15:02', '2016-10-26 18:15:06', '21277', '-1', '1', '', null, '-1', '7', '3', null, '2', '3', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('9988', '一审', '2', '2016-10-26 18:16:11', '2016-10-26 18:16:14', '21277', '-1', '1', '', null, '-1', '22', '3', null, '2', '3', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('9989', '测试审批', '2', '2016-10-26 18:16:14', '2016-10-26 18:16:17', '21277', '-1', '1', '', null, '-1', '39', '3', null, '3', '4', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('10241', '一审', '2', '2016-10-27 08:54:18', '2016-10-27 08:54:26', '21277', '-1', '1', '同意', null, '-1', '3', '3', null, '1', '2', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('10242', '二审', '2', '2016-10-27 08:54:26', '2016-10-27 08:54:35', '21277', '-1', '1', '同意', null, '-1', '7', '3', null, '2', '3', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('10243', '一审', '2', '2016-10-27 08:54:43', '2016-10-27 08:54:49', '21277', '-1', '1', '同意', null, '-1', '3', '3', null, '1', '2', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('10244', '二审', '2', '2016-10-27 08:54:49', '2016-10-27 08:55:04', '21277', '-1', '1', '同意', null, '-1', '7', '3', null, '2', '3', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('10245', '一审', '1', '2016-10-27 08:55:41', null, '-1', '-1', '-1', null, null, '-1', '3', '3', null, '1', '1', null, null, null, null, null);
+INSERT INTO `wf_workitem` VALUES ('10246', '审批任务', '2', '2016-10-27 09:39:23', '2016-10-27 09:39:30', '21277', '-1', '1', '同意', null, '-1', '19', '3', null, '1', '2', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('10497', '审批任务', '2', '2016-10-28 12:09:17', '2016-10-28 12:09:32', '21277', '-1', '1', '同意', null, '-1', '19', '3', null, '1', '2', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('10753', '办公室主任审批', '2', '2016-10-28 16:27:33', '2017-01-13 11:11:14', '21277', '-1', '1', '请某某领导阅处', null, '-1', '8', '3', null, '1', '2', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('10754', '办公室主任审批', '2', '2016-10-28 16:31:25', '2016-10-28 16:31:55', '21277', '-1', '1', '请某某领导阅处', null, '-1', '8', '3', null, '1', '2', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('10755', '总经理审批', '2', '2016-10-28 16:31:55', '2016-10-28 16:32:05', '21277', '-1', '1', '', null, '-1', '10', '3', null, '2', '3', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('10756', '分管领导', '2', '2016-10-28 16:32:05', '2016-10-28 16:33:24', '21271', '-1', '1', '', null, '-1', '43', '4', null, '3', '5', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('10757', '分管领导', '2', '2016-10-28 16:32:05', '2016-10-28 16:32:17', '21277', '-1', '1', '', null, '-1', '43', '4', null, '3', '4', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('10758', '部门处理结果反馈', '2', '2016-10-28 16:33:24', '2016-10-28 16:33:35', '21271', '-1', '1', '同意', null, '-1', '46', '4', null, '5', '6', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('10759', '部门处理结果反馈', '2', '2016-10-28 16:33:24', '2016-10-28 16:34:21', '21277', '-1', '1', '已处理完成', null, '-1', '46', '4', null, '5', '7', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('10760', '办公室主任审批', '2', '2016-10-28 17:27:27', '2017-01-13 11:09:02', '21277', '-1', '1', '请某某领导阅处', null, '-1', '8', '3', null, '1', '2', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('10761', '办公室主任审批', '2', '2016-10-28 17:46:16', '2016-10-28 17:50:54', '21277', '-1', '1', '已处理完成', null, '-1', '8', '3', null, '1', '2', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('10762', '总经理审批', '2', '2016-10-28 17:50:54', '2016-11-10 14:22:01', '21277', '-1', '1', '同意', null, '-1', '10', '3', null, '2', '4', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('11009', '审批', '2', '2016-10-31 15:36:48', '2016-10-31 15:36:56', '21277', '-1', '1', '', null, '-1', '5', '3', null, '1', '2', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('11265', '审批', '2', '2016-11-02 13:30:19', '2016-11-02 13:31:23', '21277', '-1', '1', '同意', null, '-1', '6', '3', null, '1', '2', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('11266', '一审', '2', '2016-11-02 13:31:23', '2016-11-02 13:32:00', '21277', '-1', '1', '同意', null, '-1', '22', '3', null, '2', '3', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('11267', '测试审批', '2', '2016-11-02 13:32:00', '2016-11-02 13:32:14', '21277', '-1', '1', '同意', null, '-1', '39', '3', null, '3', '4', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('11521', '审批', '2', '2016-11-02 13:38:10', '2016-11-24 15:45:32', '21277', '-1', '1', '同意', null, '-1', '6', '3', null, '1', '3', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('11777', '一审', '2', '2016-11-03 10:04:07', '2016-11-03 10:04:32', '21277', '-1', '1', '同意', null, '-1', '3', '3', null, '1', '2', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('11778', '二审', '2', '2016-11-03 10:04:32', '2016-11-03 10:04:45', '21277', '-1', '1', '同意', null, '-1', '7', '3', null, '2', '3', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('11779', '一审', '2', '2016-11-03 10:05:40', '2016-11-03 10:05:48', '21277', '-1', '1', '同意', null, '-1', '3', '3', null, '1', '2', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('12033', '一审', '2', '2016-11-04 10:26:37', '2016-11-04 10:26:53', '21277', '-1', '1', '同意', null, '-1', '3', '3', null, '1', '2', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('12034', '二审', '2', '2016-11-04 10:26:53', '2016-11-04 10:27:09', '21277', '-1', '1', '同意', null, '-1', '7', '3', null, '2', '4', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('12035', '一审', '2', '2016-11-04 10:35:58', '2016-11-04 10:36:03', '21277', '-1', '1', '同意', null, '-1', '3', '3', null, '1', '2', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('12036', '二审', '2', '2016-11-04 10:36:03', '2016-11-04 10:36:10', '21277', '-1', '1', '同意', null, '-1', '7', '3', null, '2', '3', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('12037', '一审', '2', '2016-11-04 10:38:39', '2016-11-04 10:38:45', '21277', '-1', '1', '同意', null, '-1', '3', '3', null, '1', '2', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('12038', '二审', '2', '2016-11-04 10:38:45', '2016-11-04 10:38:51', '21277', '-1', '1', '同意', null, '-1', '7', '3', null, '2', '3', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('12289', '办公室主任审批', '2', '2016-11-04 11:38:58', '2016-11-04 11:39:09', '21277', '-1', '1', '请某某领导阅处', null, '-1', '8', '3', null, '1', '2', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('12290', '总经理审批', '2', '2016-11-04 11:39:09', '2016-11-04 12:03:04', '21277', '-1', '1', '同意', null, '-1', '10', '3', null, '2', '3', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('12291', '分管领导', '2', '2016-11-04 12:03:04', '2016-11-17 09:10:02', '21277', '-1', '1', '同意', null, '-1', '43', '4', null, '3', '6', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('12546', '分管领导', '2', '2016-11-10 14:22:01', '2016-11-10 14:22:10', '21277', '-1', '1', '同意', null, '-1', '43', '4', null, '4', '5', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('12547', '部门处理结果反馈', '2', '2016-11-10 14:22:10', '2017-01-13 11:17:19', '21277', '-1', '1', '已处理完成', null, '-1', '46', '4', null, '5', '7', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('12801', '部门处理结果反馈', '2', '2016-11-17 09:10:02', '2016-11-17 09:18:08', '21271', '-1', '1', '同意', null, '-1', '46', '4', null, '6', '8', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('12802', '部门处理结果反馈', '2', '2016-11-17 09:10:02', '2016-11-17 09:10:40', '21277', '-1', '0', '不同意', null, '-1', '46', '4', null, '6', '7', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('12803', '提交审批', '2', '2016-11-17 09:18:08', '2016-11-17 09:19:08', '21271', '-1', '1', '', null, '-1', '49', '3', null, '8', '9', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('12804', '办公室主任审批', '2', '2016-11-17 09:19:08', '2016-11-17 09:19:27', '21271', '-1', '1', '请朱主任阅处', null, '-1', '8', '3', null, '9', '10', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('12805', '总经理审批', '2', '2016-11-17 09:19:27', '2016-11-24 15:41:38', '21277', '-1', '1', '同意', null, '-1', '10', '3', null, '10', '11', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('13057', '办公室主任审批', '2', '2016-11-24 15:32:55', '2017-01-13 11:12:32', '21277', '-1', '1', '请某某领导阅处', null, '-1', '8', '3', null, '1', '2', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('13058', '分管领导', '1', '2016-11-24 15:41:38', null, '21271', '-1', '-1', null, null, '-1', '43', '4', null, '11', '11', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('13059', '分管领导', '2', '2016-11-24 15:41:38', '2016-12-29 14:29:13', '21277', '-1', '1', '', null, '-1', '43', '4', null, '11', '12', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('13061', '一审', '1', '2016-11-24 15:45:32', null, '-1', '-1', '-1', null, null, '-1', '22', '3', null, '3', '3', null, null, null, null, null);
+INSERT INTO `wf_workitem` VALUES ('13062', '办公室主任审批', '2', '2016-11-24 15:47:24', '2016-11-24 15:47:56', '21277', '-1', '1', '请某某领导阅处', null, '-1', '8', '3', null, '1', '3', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('13064', '总经理审批', '2', '2016-11-24 15:47:56', '2016-11-24 15:48:18', '21277', '-1', '1', '同意', null, '-1', '10', '3', null, '3', '5', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('13067', '分管领导', '2', '2016-11-24 15:48:18', '2016-11-24 15:49:47', '21271', '-1', '1', '同意', null, '-1', '43', '4', null, '5', '8', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('13068', '分管领导', '2', '2016-11-24 15:48:18', '2016-11-24 15:48:30', '21277', '-1', '1', '同意', null, '-1', '43', '4', null, '5', '6', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('13070', '部门处理结果反馈', '2', '2016-11-24 15:49:47', '2016-12-19 15:54:01', '21277', '-1', '1', '已处理完成', null, '-1', '46', '4', null, '8', '11', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('13313', '一审', '2', '2016-11-29 09:42:47', '2016-11-29 09:54:37', '21277', '-1', '1', '同意', null, '-1', '3', '3', null, '1', '2', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('13569', '办公室主任审批', '2', '2016-12-14 13:58:20', '2016-12-14 13:58:33', '21277', '-1', '1', '请某某领导阅处', null, '-1', '8', '3', null, '1', '2', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('13570', '总经理审批', '2', '2016-12-14 13:58:33', '2016-12-14 13:58:51', '21277', '-1', '1', '同意', null, '-1', '10', '3', null, '2', '3', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('13571', '分管领导', '1', '2016-12-14 13:58:51', null, '21271', '-1', '-1', null, null, '-1', '43', '4', null, '3', '3', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('13572', '分管领导', '2', '2016-12-14 13:58:51', '2016-12-29 14:09:28', '21277', '-1', '1', '同意', null, '-1', '43', '4', null, '3', '9', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('13825', '办公室主任审批', '2', '2016-12-22 12:00:14', '2016-12-22 12:00:55', '21277', '-1', '1', '请某某领导阅处', null, '-1', '8', '3', null, '1', '2', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('13826', '总经理审批', '2', '2016-12-22 12:00:55', '2016-12-22 12:01:19', '21277', '-1', '1', '', null, '-1', '10', '3', null, '2', '3', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('13827', '分管领导', '2', '2016-12-22 12:01:19', '2016-12-22 12:05:52', '21271', '-1', '1', '', null, '-1', '43', '4', null, '3', '5', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('13828', '分管领导', '2', '2016-12-22 12:01:19', '2016-12-22 12:01:47', '21277', '-1', '1', '同意', null, '-1', '43', '4', null, '3', '4', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('13831', '部门处理结果反馈', '2', '2016-12-22 12:05:52', '2016-12-22 12:06:07', '21271', '-1', '1', '同意', null, '-1', '46', '4', null, '5', '6', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('13832', '部门处理结果反馈', '2', '2016-12-22 12:05:52', '2016-12-29 15:55:47', '21277', '-1', '1', '', null, '-1', '46', '4', null, '5', '34', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('14081', '办公室主任审批', '2', '2017-01-04 11:41:49', '2017-01-09 10:39:04', '21277', '-1', '1', '请某某领导阅处', null, '-1', '8', '3', null, '1', '4', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('14593', '办公室主任审批', '2', '2017-01-06 09:42:03', '2017-01-09 10:33:11', '21277', '-1', '1', '请某某领导阅处', null, '-1', '8', '3', null, '1', '2', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('14849', '总经理审批', '1', '2017-01-09 10:33:11', null, '-1', '-1', '-1', null, null, '-1', '10', '3', null, '2', '2', null, null, null, null, null);
+INSERT INTO `wf_workitem` VALUES ('15105', '办公室主任审批', '2', '2017-01-09 10:37:10', '2017-01-09 10:37:49', '21277', '-1', '1', '请某某领导阅处', null, '-1', '8', '3', null, '1', '3', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('15107', '总经理审批', '2', '2017-01-09 10:37:49', '2017-01-09 10:38:02', '21277', '-1', '1', '同意', null, '-1', '10', '3', null, '3', '4', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('15108', '分管领导', '2', '2017-01-09 10:38:02', '2017-01-09 10:38:15', '21277', '-1', '1', '同意', null, '-1', '43', '4', null, '4', '5', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('15109', '部门处理结果反馈', '2', '2017-01-09 10:38:15', '2017-01-09 10:38:23', '21277', '-1', '1', '已处理完成', null, '-1', '46', '4', null, '5', '6', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('15110', '总经理审批', '2', '2017-01-09 10:39:04', '2017-01-13 11:27:16', '21277', '-1', '1', '同意', null, '-1', '10', '3', null, '4', '5', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('15111', '办公室主任审批', '2', '2017-01-09 14:07:00', '2017-01-09 14:07:09', '21277', '-1', '1', '请某某领导阅处', null, '-1', '8', '3', null, '1', '2', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('15112', '总经理审批', '2', '2017-01-09 14:07:09', '2017-01-09 14:08:36', '21277', '-1', '1', '同意', null, '-1', '10', '3', null, '2', '3', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('15113', '分管领导', '1', '2017-01-09 14:08:36', null, '21271', '-1', '-1', null, null, '-1', '43', '4', null, '3', '3', null, null, null, null, null);
+INSERT INTO `wf_workitem` VALUES ('15114', '分管领导', '1', '2017-01-09 14:08:36', null, '21277', '-1', '-1', null, null, '-1', '43', '4', null, '3', '3', null, null, null, null, null);
+INSERT INTO `wf_workitem` VALUES ('15361', '办公室主任审批', '2', '2017-01-10 16:07:37', '2017-01-10 16:08:58', '21277', '-1', '1', '已处理完成', null, '-1', '8', '3', null, '1', '2', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('15362', '总经理审批', '2', '2017-01-10 16:08:58', '2017-01-13 09:38:28', '21277', '-1', '1', '同意', null, '-1', '10', '3', null, '2', '3', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('15617', '分管领导', '1', '2017-01-13 09:41:13', null, '21277', '-1', '-1', null, null, '-1', '43', '4', null, '3', '3', null, null, null, null, null);
+INSERT INTO `wf_workitem` VALUES ('15873', '总经理审批', '2', '2017-01-13 11:09:02', '2017-01-13 11:09:15', '21277', '-1', '1', '同意', null, '-1', '10', '3', null, '2', '3', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('15874', '分管领导', '2', '2017-01-13 11:09:15', '2017-01-13 11:09:25', '21277', '-1', '1', '同意', null, '-1', '43', '4', null, '3', '4', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('15875', '部门处理结果反馈', '2', '2017-01-13 11:09:25', '2017-01-13 11:09:34', '21277', '-1', '1', '已处理完成', null, '-1', '46', '4', null, '4', '5', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('15876', '总经理审批', '2', '2017-01-13 11:11:14', '2017-01-13 11:11:25', '21277', '-1', '1', '同意', null, '-1', '10', '3', null, '2', '3', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('15877', '分管领导', '2', '2017-01-13 11:11:25', '2017-01-13 11:11:37', '21277', '-1', '1', '同意', null, '-1', '43', '4', null, '3', '4', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('15878', '部门处理结果反馈', '2', '2017-01-13 11:11:37', '2017-01-13 11:11:43', '21277', '-1', '1', '已处理完成', null, '-1', '46', '4', null, '4', '5', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('15879', '总经理审批', '2', '2017-01-13 11:12:32', '2017-01-13 11:12:44', '21277', '-1', '1', '同意', null, '-1', '10', '3', null, '2', '3', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('15880', '分管领导', '2', '2017-01-13 11:12:44', '2017-01-13 11:14:49', '21277', '-1', '1', '同意', null, '-1', '43', '4', null, '3', '4', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('15881', '部门处理结果反馈', '2', '2017-01-13 11:14:49', '2017-01-13 11:14:58', '21277', '-1', '1', '已处理完成', null, '-1', '46', '4', null, '4', '5', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('15882', '测试审批', '2', '2017-01-13 11:15:21', '2017-01-13 11:15:26', '21277', '-1', '1', '同意', null, '-1', '39', '3', null, '3', '4', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('15883', '一审', '2', '2017-01-13 11:16:05', '2017-01-13 11:16:11', '21277', '-1', '1', '同意', null, '-1', '22', '3', null, '2', '3', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('15884', '测试审批', '2', '2017-01-13 11:16:11', '2017-01-13 11:16:15', '21277', '-1', '1', '同意', null, '-1', '39', '3', null, '3', '4', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('15885', '分管领导', '2', '2017-01-13 11:27:16', '2017-01-13 11:27:23', '21277', '-1', '1', '同意', null, '-1', '43', '4', null, '5', '6', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('15886', '部门处理结果反馈', '2', '2017-01-13 11:27:23', '2017-01-13 11:27:37', '21277', '-1', '1', '已处理完成', null, '-1', '46', '4', null, '6', '7', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('16129', '办公室主任审批', '1', '2017-04-20 10:23:33', null, '-1', '-1', '-1', null, null, '-1', '8', '3', null, '1', '1', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('16385', '审批任务', '2', '2017-04-24 09:52:05', '2017-04-24 09:59:22', '21277', '-1', '1', '通过', null, '-1', '19', '3', null, '1', '2', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('16386', '审批任务', '2', '2017-04-24 09:56:41', '2017-04-24 13:47:11', '21277', '-1', '1', '通过', null, '-1', '19', '3', null, '1', '3', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('16387', '审批任务', '2', '2017-04-24 10:04:33', '2017-04-24 10:17:43', '21277', '-1', '1', '通过', null, '-1', '19', '3', null, '1', '9', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('16641', '审批', '2', '2017-05-17 16:12:46', '2017-05-19 09:57:27', '21271', '-1', '1', '', null, '-1', '6', '3', null, '1', '2', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('16897', '处理任务', '1', '2017-05-19 09:57:27', null, '-1', '-1', '-1', null, null, '-1', '22', '3', null, '2', '2', null, null, null, null, null);
+INSERT INTO `wf_workitem` VALUES ('17409', '办公室主任审批', '1', '2017-06-06 13:14:46', null, '-1', '-1', '-1', null, null, '-1', '8', '3', null, '1', '1', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('18433', '办公室主任审批', '1', '2017-06-06 16:10:18', null, '-1', '-1', '-1', null, null, '-1', '8', '3', null, '1', '1', null, null, null, null, null);
+INSERT INTO `wf_workitem` VALUES ('18434', '办公室主任审批', '1', '2017-06-06 16:11:52', null, '-1', '-1', '-1', null, null, '-1', '8', '3', null, '1', '1', null, null, null, null, null);
+INSERT INTO `wf_workitem` VALUES ('18689', '办公室主任审批', '1', '2017-06-07 17:41:51', null, '-1', '-1', '-1', null, null, '-1', '8', '3', null, '1', '1', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('19201', '办公室主任审批', '1', '2017-06-08 14:19:53', null, '-1', '-1', '-1', null, null, '-1', '8', '3', null, '1', '1', null, null, null, null, null);
+INSERT INTO `wf_workitem` VALUES ('19457', '办公室主任审批', '2', '2017-06-08 15:17:13', '2017-06-08 16:23:02', '21277', '-1', '1', '同意', null, '-1', '8', '3', null, '1', '2', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('19713', '总经理审批', '2', '2017-06-08 16:23:03', '2017-06-08 16:23:12', '21277', '-1', '1', '同意', null, '-1', '10', '3', null, '2', '3', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('19714', '分管领导', '1', '2017-06-08 16:23:12', null, '64593', '-1', '-1', null, null, '-1', '43', '4', null, '3', '3', null, null, null, null, null);
+INSERT INTO `wf_workitem` VALUES ('19715', '分管领导', '1', '2017-06-08 16:23:12', null, '21', '-1', '-1', null, null, '-1', '43', '4', null, '3', '3', null, null, null, null, null);
+INSERT INTO `wf_workitem` VALUES ('19716', '分管领导', '1', '2017-06-08 16:23:12', null, '21271', '-1', '-1', null, null, '-1', '43', '4', null, '3', '3', null, null, null, null, null);
+INSERT INTO `wf_workitem` VALUES ('19717', '分管领导', '1', '2017-06-08 16:23:12', null, '21277', '-1', '-1', null, null, '-1', '43', '4', null, '3', '3', null, null, null, null, null);
+INSERT INTO `wf_workitem` VALUES ('19718', '分管领导', '1', '2017-06-08 16:23:12', null, '64589', '-1', '-1', null, null, '-1', '43', '4', null, '3', '3', null, null, null, null, null);
+INSERT INTO `wf_workitem` VALUES ('19719', '分管领导', '1', '2017-06-08 16:23:12', null, '64591', '-1', '-1', null, null, '-1', '43', '4', null, '3', '3', null, null, null, null, null);
+INSERT INTO `wf_workitem` VALUES ('19969', '办公室主任审批', '2', '2017-06-08 16:35:44', '2017-06-08 16:36:05', '21277', '-1', '1', '同意', null, '-1', '8', '3', null, '1', '2', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('19970', '总经理审批', '2', '2017-06-08 16:36:06', '2017-06-08 16:36:12', '21277', '-1', '1', '同意', null, '-1', '10', '3', null, '2', '3', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('19971', '分管领导', '2', '2017-06-08 16:36:12', '2017-06-08 16:37:28', '21271', '-1', '1', '同意', null, '-1', '43', '4', null, '3', '5', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('19972', '分管领导', '2', '2017-06-08 16:36:12', '2017-06-08 16:36:18', '21277', '-1', '1', '同意', null, '-1', '43', '4', null, '3', '4', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('19973', '部门处理结果反馈', '2', '2017-06-08 16:37:29', '2017-06-08 16:38:20', '21277', '-1', '1', '已处理完成', null, '-1', '46', '4', null, '5', '6', null, '1', null, null, null);
+INSERT INTO `wf_workitem` VALUES ('20225', '办公室主任审批', '2', '2017-07-28 12:54:21', '2017-07-28 12:57:19', '21277', '-1', '1', '', null, '-1', '8', '3', null, '1', '2', null, '1', '-1', null, '-1');
+INSERT INTO `wf_workitem` VALUES ('20226', '总经理审批', '1', '2017-07-28 12:57:19', null, '-1', '-1', '-1', null, null, '-1', '10', '3', null, '2', '2', null, null, '-1', null, '-1');
+INSERT INTO `wf_workitem` VALUES ('20481', '一审', '2', '2017-08-01 19:14:38', '2017-08-02 15:09:10', '21277', '-1', '1', '', null, '-1', '3', '3', null, '1', '7', null, '1', '-1', null, '-1');
+INSERT INTO `wf_workitem` VALUES ('20738', '二审', '2', '2017-08-02 15:09:10', '2017-08-02 15:09:22', '21277', '-1', '1', '', null, '-1', '7', '3', null, '7', '8', null, '1', '-1', null, '-1');
 
 -- ----------------------------
 -- Table structure for wf_workitemrb
@@ -22788,6 +24583,7 @@ CREATE TABLE `wf_workitemrb` (
   `MapCount` int(11) default NULL,
   `Slock` int(11) default NULL,
   `TransitTo` int(11) default NULL,
+  `TransferType` int(11) default NULL,
   PRIMARY KEY  (`WorkitemID`,`TransactionID`),
   KEY `I_WF_WorkitemRBWorkitemID` (`WorkitemID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -22795,377 +24591,384 @@ CREATE TABLE `wf_workitemrb` (
 -- ----------------------------
 -- Records of wf_workitemrb
 -- ----------------------------
-INSERT INTO `wf_workitemrb` VALUES ('1', '一审', '1', '2016-08-08 10:15:00', null, '-1', '-1', '-1', null, null, '-1', '3', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('1', '一审', '2', '2016-08-08 10:15:00', '2016-08-08 10:15:25', '21', '-1', '0', '', null, '-1', '3', '3', null, '2', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('257', '提交', '1', '2016-08-29 13:07:21', null, '-1', '-1', '-1', null, null, '-1', '5', '2', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('257', '提交', '2', '2016-08-29 13:07:21', '2016-08-29 13:19:01', '21', '-1', '1', '提交', null, '-1', '5', '2', null, '3', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('258', '审批', '1', '2016-08-29 13:12:53', null, '-1', '-1', '-1', null, null, '-1', '6', '3', null, '2', '2', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('260', '审批', '1', '2016-08-29 13:19:01', null, '-1', '-1', '-1', null, null, '-1', '6', '3', null, '3', '3', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('261', '审批', '1', '2016-08-29 13:19:01', null, '-1', '-1', '-1', null, null, '-1', '6', '3', null, '3', '3', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('261', '审批', '2', '2016-08-29 13:19:01', '2016-08-29 13:19:29', '21', '-1', '1', '接受任务', null, '-1', '6', '3', null, '4', '3', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('262', '审批任务', '1', '2016-08-29 13:19:29', null, '-1', '-1', '-1', null, null, '-1', '22', '3', null, '4', '4', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('262', '审批任务', '2', '2016-08-29 13:19:29', '2016-08-29 13:22:17', '21', '-1', '1', '已解决', null, '-1', '22', '3', null, '5', '4', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('264', '审批任务', '1', '2016-08-29 13:22:17', null, '-1', '-1', '-1', null, null, '-1', '39', '3', null, '5', '5', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('264', '审批任务', '2', '2016-08-29 13:22:17', '2016-08-29 13:23:44', '21', '-1', '1', '通过', null, '-1', '39', '3', null, '6', '5', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('265', '审批任务', '1', '2016-08-29 13:22:17', null, '-1', '-1', '-1', null, null, '-1', '45', '3', null, '5', '5', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('266', '审批任务', '1', '2016-08-29 13:23:44', null, '-1', '-1', '-1', null, null, '-1', '22', '3', null, '6', '6', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('513', '部门主管审批', '1', '2016-08-29 14:44:54', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('769', '审批', '1', '2016-09-05 13:19:48', null, '-1', '-1', '-1', null, null, '-1', '6', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('769', '审批', '2', '2016-09-05 13:19:48', '2016-09-05 13:41:32', '21', '-1', '1', '接受任务', null, '-1', '6', '3', null, '2', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('770', '审批', '1', '2016-09-05 13:34:09', null, '-1', '-1', '-1', null, null, '-1', '6', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('770', '审批', '2', '2016-09-05 13:34:09', '2016-09-05 13:35:36', '21', '-1', '1', '接受任务', null, '-1', '6', '3', null, '2', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('771', '审批任务', '1', '2016-09-05 13:35:36', null, '-1', '-1', '-1', null, null, '-1', '22', '3', null, '2', '2', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('771', '审批任务', '2', '2016-09-05 13:35:36', '2016-09-05 13:35:57', '21', '-1', '1', '已解决', null, '-1', '22', '3', null, '3', '2', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('772', '测试审批', '1', '2016-09-05 13:35:57', null, '-1', '-1', '-1', null, null, '-1', '39', '3', null, '3', '3', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('772', '测试审批', '2', '2016-09-05 13:35:57', '2016-09-05 13:37:19', '21', '-1', '1', '通过', null, '-1', '39', '3', null, '4', '3', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('773', '完成', '1', '2016-09-05 13:37:19', null, '-1', '-1', '-1', null, null, '-1', '58', '3', null, '4', '4', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('773', '完成', '2', '2016-09-05 13:37:19', '2016-09-05 13:38:58', '21', '-1', '1', '已完成', null, '-1', '58', '3', null, '5', '4', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('774', '审批任务', '1', '2016-09-05 13:41:32', null, '-1', '-1', '-1', null, null, '-1', '22', '3', null, '2', '2', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('774', '审批任务', '2', '2016-09-05 13:41:32', '2016-09-05 13:41:41', '21', '-1', '1', '已解决', null, '-1', '22', '3', null, '3', '2', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('775', '测试审批', '1', '2016-09-05 13:41:41', null, '-1', '-1', '-1', null, null, '-1', '39', '3', null, '3', '3', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('775', '测试审批', '2', '2016-09-05 13:41:41', '2016-09-05 13:49:19', '21', '-1', '1', '通过', null, '-1', '39', '3', null, '4', '3', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('776', '完成', '1', '2016-09-05 13:49:19', null, '-1', '-1', '-1', null, null, '-1', '58', '3', null, '4', '4', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('777', '一审', '1', '2016-09-05 14:00:02', null, '-1', '-1', '-1', null, null, '-1', '3', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('1025', '部门主管审批', '1', '2016-09-05 14:38:56', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('1025', '部门主管审批', '2', '2016-09-05 14:38:56', '2016-09-05 14:48:14', '21', '-1', '1', '', null, '-1', '5', '3', null, '2', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('1026', '部门主管审批', '1', '2016-09-05 14:49:26', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('1027', '部门主管审批', '1', '2016-09-05 15:07:09', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('1281', '一审', '1', '2016-09-12 09:05:13', null, '-1', '-1', '-1', null, null, '-1', '3', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('1537', '部门主管审批', '1', '2016-09-13 20:14:16', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('1537', '部门主管审批', '2', '2016-09-13 20:14:16', '2016-09-22 09:18:15', '21277', '-1', '1', '同意', null, '-1', '5', '3', null, '2', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('1538', '审批', '1', '2016-09-13 21:08:07', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('1538', '审批', '2', '2016-09-13 21:08:07', '2016-09-22 10:55:04', '15154', '-1', '1', '', null, '-1', '5', '3', null, '2', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('1793', '审批', '1', '2016-09-13 21:11:12', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('1793', '审批', '2', '2016-09-13 21:11:12', '2016-09-22 11:23:52', '15154', '-1', '1', '', null, '-1', '5', '3', null, '2', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('2049', '审批', '1', '2016-09-13 21:14:56', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('2049', '审批', '2', '2016-09-13 21:14:56', '2016-09-22 10:53:27', '21277', '-1', '1', '', null, '-1', '5', '3', null, '2', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('2305', '审批', '1', '2016-09-14 09:35:41', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('2305', '审批', '2', '2016-09-14 09:35:41', '2016-09-22 11:24:00', '15154', '-1', '1', '', null, '-1', '5', '3', null, '2', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('2306', '审批', '1', '2016-09-14 09:49:44', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('2306', '审批', '2', '2016-09-14 09:49:44', '2016-09-22 11:24:08', '15154', '-1', '1', '', null, '-1', '5', '3', null, '2', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('2561', '审批', '1', '2016-09-14 09:57:18', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('2561', '审批', '2', '2016-09-14 09:57:18', '2016-09-22 11:24:20', '15154', '-1', '1', '', null, '-1', '5', '3', null, '2', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('2562', '审批', '1', '2016-09-14 09:58:38', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('2562', '审批', '2', '2016-09-14 09:58:38', '2016-09-22 11:24:47', '15154', '-1', '1', '', null, '-1', '5', '3', null, '2', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('2817', '审批', '1', '2016-09-14 11:37:11', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('2817', '审批', '2', '2016-09-14 11:37:11', '2016-09-22 11:24:52', '15154', '-1', '1', '', null, '-1', '5', '3', null, '4', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('2818', '审批', '1', '2016-09-14 11:56:46', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('2818', '审批', '2', '2016-09-14 11:56:46', '2016-09-22 11:25:00', '15154', '-1', '1', '', null, '-1', '5', '3', null, '2', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('2819', '审批', '1', '2016-09-14 11:58:06', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('2819', '审批', '2', '2016-09-14 11:58:06', '2016-09-22 11:25:14', '15154', '-1', '1', '', null, '-1', '5', '3', null, '2', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('2820', '审批', '1', '2016-09-14 12:08:44', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('2820', '审批', '2', '2016-09-14 12:08:44', '2016-09-22 11:25:19', '15154', '-1', '1', '', null, '-1', '5', '3', null, '2', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('2821', '审批', '1', '2016-09-14 12:22:38', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('2821', '审批', '2', '2016-09-14 12:22:38', '2016-09-22 11:25:26', '15154', '-1', '1', '', null, '-1', '5', '3', null, '2', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('3073', '审批', '1', '2016-09-14 12:28:26', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('3073', '审批', '2', '2016-09-14 12:28:26', '2016-09-22 11:25:38', '15154', '-1', '1', '', null, '-1', '5', '3', null, '2', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('3329', '审批', '1', '2016-09-14 12:36:17', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('3329', '审批', '2', '2016-09-14 12:36:17', '2016-09-22 11:25:58', '15154', '-1', '1', '', null, '-1', '5', '3', null, '2', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('3330', '审批', '1', '2016-09-14 12:39:31', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('3330', '审批', '2', '2016-09-14 12:39:31', '2016-09-22 11:26:05', '15154', '-1', '1', '', null, '-1', '5', '3', null, '2', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('3585', '审批', '1', '2016-09-18 09:06:04', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('3585', '审批', '2', '2016-09-18 09:06:04', '2016-09-22 11:26:15', '15154', '-1', '1', '', null, '-1', '5', '3', null, '2', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('3586', '审批', '1', '2016-09-18 09:06:46', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('3586', '审批', '2', '2016-09-18 09:06:46', '2016-09-22 15:38:52', '21277', '-1', '1', '', null, '-1', '5', '3', null, '2', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('3587', '审批', '1', '2016-09-18 09:16:06', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('3587', '审批', '2', '2016-09-18 09:16:06', '2016-09-22 15:39:03', '21277', '-1', '1', '', null, '-1', '5', '3', null, '2', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('3588', '审批', '1', '2016-09-18 09:20:47', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('3588', '审批', '2', '2016-09-18 09:20:47', '2016-09-22 15:39:09', '21277', '-1', '1', '', null, '-1', '5', '3', null, '2', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('3841', '审批', '1', '2016-09-19 09:22:38', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('3841', '审批', '2', '2016-09-19 09:22:38', '2016-09-22 15:39:15', '21277', '-1', '1', '', null, '-1', '5', '3', null, '2', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('3842', '审批', '1', '2016-09-19 09:23:09', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('3842', '审批', '2', '2016-09-19 09:23:09', '2016-09-22 15:39:20', '21277', '-1', '1', '', null, '-1', '5', '3', null, '2', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('4097', '审批', '1', '2016-09-19 12:29:31', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('4097', '审批', '2', '2016-09-19 12:29:31', '2016-09-22 15:39:26', '21277', '-1', '1', '', null, '-1', '5', '3', null, '2', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('4353', '审批', '1', '2016-09-19 14:34:06', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('4353', '审批', '2', '2016-09-19 14:34:06', '2016-09-19 14:35:40', '21277', '-1', '1', '同意', null, '-1', '5', '3', null, '2', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('4354', '一审', '1', '2016-09-19 14:36:52', null, '-1', '-1', '-1', null, null, '-1', '3', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('4354', '一审', '2', '2016-09-19 14:36:52', '2016-09-19 14:39:58', '15154', '-1', '1', '', null, '-1', '3', '3', null, '2', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('4355', '二审', '1', '2016-09-19 14:39:58', null, '-1', '-1', '-1', null, null, '-1', '7', '3', null, '2', '2', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('4355', '二审', '2', '2016-09-19 14:39:58', '2016-09-19 14:40:28', '21277', '-1', '1', '', null, '-1', '7', '3', null, '3', '2', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('4609', '审批', '1', '2016-09-19 16:56:54', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('4609', '审批', '2', '2016-09-19 16:56:54', '2016-09-19 16:57:03', '21277', '-1', '1', '', null, '-1', '5', '3', null, '2', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('4610', '审批', '1', '2016-09-19 17:23:14', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('4610', '审批', '2', '2016-09-19 17:23:14', '2016-09-23 12:40:15', '21277', '-1', '1', '', null, '-1', '5', '3', null, '3', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('4865', '审批任务', '1', '2016-09-19 17:05:24', null, '-1', '-1', '-1', null, null, '-1', '19', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('4865', '审批任务', '2', '2016-09-19 17:05:24', '2016-09-22 09:14:49', '15154', '-1', '1', '通过', null, '-1', '19', '3', null, '2', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('4866', '审批', '1', '2016-09-19 17:13:40', null, '-1', '-1', '-1', null, null, '-1', '6', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('5121', '一审', '1', '2016-09-20 14:48:48', null, '-1', '-1', '-1', null, null, '-1', '3', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('5121', '一审', '2', '2016-09-20 14:48:48', '2016-10-26 18:15:33', '21277', '-1', '1', '请某某领导阅处', null, '-1', '3', '3', null, '2', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('5377', '审批任务', '1', '2016-09-22 09:14:24', null, '-1', '-1', '-1', null, null, '-1', '19', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('5377', '审批任务', '2', '2016-09-22 09:14:24', '2016-09-22 09:14:50', '15154', '-1', '1', '通过', null, '-1', '19', '3', null, '2', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('5633', '审批', '1', '2016-09-22 16:48:38', null, '-1', '-1', '-1', null, null, '-1', '6', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('5633', '审批', '2', '2016-09-22 16:48:38', '2016-10-26 18:16:11', '21277', '-1', '1', '', null, '-1', '6', '3', null, '2', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('5889', '一审', '1', '2016-09-22 16:56:22', null, '-1', '-1', '-1', null, null, '-1', '3', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('5889', '一审', '2', '2016-09-22 16:56:22', '2016-10-26 18:15:45', '21277', '-1', '1', '请某某领导阅处', null, '-1', '3', '3', null, '2', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('6145', '一审', '1', '2016-09-22 17:30:11', null, '-1', '-1', '-1', null, null, '-1', '3', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('6145', '一审', '2', '2016-09-22 17:30:11', '2016-10-26 18:16:28', '21277', '-1', '1', '同意', null, '-1', '3', '3', null, '2', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('6146', '一审', '1', '2016-09-22 17:52:14', null, '-1', '-1', '-1', null, null, '-1', '3', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('6146', '一审', '2', '2016-09-22 17:52:14', '2016-10-26 18:15:55', '21277', '-1', '1', '同意', null, '-1', '3', '3', null, '3', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('6401', '审批', '1', '2016-09-23 14:09:10', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('6401', '审批', '2', '2016-09-23 14:09:10', '2016-09-23 14:09:37', '21277', '-1', '1', '', null, '-1', '5', '3', null, '2', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('6402', '审批', '1', '2016-09-23 14:10:53', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('6402', '审批', '2', '2016-09-23 14:10:53', '2016-09-23 14:11:09', '21277', '-1', '1', '同意', null, '-1', '5', '3', null, '2', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('6657', '审批', '1', '2016-09-23 14:47:15', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('6657', '审批', '2', '2016-09-23 14:47:15', '2016-09-23 15:20:51', '21277', '-1', '1', '同意', null, '-1', '5', '3', null, '2', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('7169', '审批', '1', '2016-09-23 15:48:18', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('7169', '审批', '2', '2016-09-23 15:48:18', '2016-09-23 15:48:24', '21277', '-1', '1', '同意', null, '-1', '5', '3', null, '2', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('7425', '审批', '1', '2016-09-23 15:53:26', null, '-1', '-1', '-1', null, null, '-1', '6', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('7425', '审批', '2', '2016-09-23 15:53:26', '2016-09-23 15:53:39', '21277', '-1', '1', '同意', null, '-1', '6', '3', null, '2', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('7426', '审批任务', '1', '2016-09-23 15:53:39', null, '-1', '-1', '-1', null, null, '-1', '22', '3', null, '2', '2', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('7426', '审批任务', '2', '2016-09-23 15:53:39', '2017-01-13 11:15:21', '21277', '-1', '1', '同意', null, '-1', '22', '3', null, '3', '2', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('7427', '审批任务', '1', '2016-09-23 15:56:02', null, '-1', '-1', '-1', null, null, '-1', '19', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('7427', '审批任务', '2', '2016-09-23 15:56:02', '2016-09-23 15:59:03', '15154', '-1', '1', '', null, '-1', '19', '3', null, '2', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('7681', '部门主管审批', '1', '2016-09-23 16:11:18', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('7681', '部门主管审批', '2', '2016-09-23 16:11:18', '2016-09-23 16:11:26', '21277', '-1', '1', '同意', null, '-1', '5', '3', null, '2', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('7682', '审批', '1', '2016-09-23 16:15:27', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('7682', '审批', '2', '2016-09-23 16:15:27', '2016-09-23 16:18:40', '21271', '-1', '1', '同意', null, '-1', '5', '3', null, '3', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('7937', '审批', '1', '2016-09-23 16:36:52', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('7937', '审批', '2', '2016-09-23 16:36:52', '2016-09-23 16:36:58', '21277', '-1', '1', '同意', null, '-1', '5', '3', null, '2', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('8193', '一审', '1', '2016-09-23 16:48:37', null, '-1', '-1', '-1', null, null, '-1', '3', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('8193', '一审', '2', '2016-09-23 16:48:37', '2016-10-26 18:15:17', '21277', '-1', '1', '同意', null, '-1', '3', '3', null, '2', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('8449', '一审', '1', '2016-09-26 10:19:28', null, '-1', '-1', '-1', null, null, '-1', '3', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('8449', '一审', '2', '2016-09-26 10:19:28', '2017-01-13 11:16:36', '21277', '-1', '1', '同意', null, '-1', '3', '3', null, '2', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('8450', '审批', '1', '2016-09-26 10:29:48', null, '-1', '-1', '-1', null, null, '-1', '6', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('8450', '审批', '2', '2016-09-26 10:29:48', '2017-01-13 11:16:05', '21277', '-1', '1', '同意', null, '-1', '6', '3', null, '2', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('8705', '审批任务', '1', '2016-10-12 10:57:13', null, '-1', '-1', '-1', null, null, '-1', '19', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('8705', '审批任务', '2', '2016-10-12 10:57:13', '2016-10-12 10:57:19', '21277', '-1', '1', '', null, '-1', '19', '3', null, '2', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('8706', '审批', '1', '2016-10-12 11:02:57', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('8706', '审批', '2', '2016-10-12 11:02:57', '2016-10-12 11:44:53', '21277', '-1', '1', '请某某领导阅处', null, '-1', '5', '3', null, '2', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('8961', '办公室主任审批', '1', '2016-10-12 13:23:06', null, '-1', '-1', '-1', null, null, '-1', '8', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('8961', '办公室主任审批', '2', '2016-10-12 13:23:06', '2016-10-12 13:23:44', '21277', '-1', '1', '请某某领导阅处', null, '-1', '8', '3', null, '2', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('8962', '总经理审批', '1', '2016-10-12 13:23:44', null, '-1', '-1', '-1', null, null, '-1', '10', '3', null, '2', '2', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('8962', '总经理审批', '2', '2016-10-12 13:23:44', '2016-10-12 13:23:49', '21277', '-1', '1', '请某某领导阅处', null, '-1', '10', '3', null, '3', '2', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('8963', '分管领导', '1', '2016-10-12 13:23:49', null, '-1', '-1', '-1', null, null, '-1', '27', '3', null, '3', '3', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('8963', '分管领导', '2', '2016-10-12 13:23:49', '2016-10-12 13:24:00', '21277', '-1', '1', '同意', null, '-1', '27', '3', null, '4', '3', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('8964', '部门处理', '1', '2016-10-12 13:24:00', null, '-1', '-1', '-1', null, null, '-1', '29', '3', null, '4', '4', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('8964', '部门处理', '2', '2016-10-12 13:24:00', '2016-10-12 13:24:24', '21277', '-1', '1', '已处理完成', null, '-1', '29', '3', null, '5', '4', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('9217', '审批', '1', '2016-10-12 14:27:16', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('9217', '审批', '2', '2016-10-12 14:27:16', '2017-01-13 11:03:49', '21277', '-1', '1', '同意', null, '-1', '5', '3', null, '5', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('9473', '办公室主任审批', '1', '2016-10-12 15:24:31', null, '-1', '-1', '-1', null, null, '-1', '8', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('9473', '办公室主任审批', '2', '2016-10-12 15:24:31', '2016-10-12 15:26:57', '21271', '-1', '1', '请朱主任阅处', null, '-1', '8', '3', null, '2', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('9474', '总经理审批', '1', '2016-10-12 15:26:57', null, '-1', '-1', '-1', null, null, '-1', '10', '3', null, '2', '2', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('9474', '总经理审批', '2', '2016-10-12 15:26:57', '2016-10-12 15:32:32', '21271', '-1', '1', '同意', null, '-1', '10', '3', null, '3', '2', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('9475', '分管领导', '1', '2016-10-12 15:32:32', null, '-1', '-1', '-1', null, null, '-1', '27', '3', null, '3', '3', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('9475', '分管领导', '2', '2016-10-12 15:32:32', '2016-10-12 15:32:42', '21271', '-1', '1', '', null, '-1', '27', '3', null, '4', '3', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('9476', '部门处理', '1', '2016-10-12 15:32:42', null, '-1', '-1', '-1', null, null, '-1', '29', '3', null, '4', '4', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('9476', '部门处理', '2', '2016-10-12 15:32:42', '2016-10-12 15:32:53', '21271', '-1', '1', '', null, '-1', '29', '3', null, '5', '4', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('9729', '一审', '1', '2016-10-26 18:03:32', null, '-1', '-1', '-1', null, null, '-1', '3', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('9729', '一审', '2', '2016-10-26 18:03:32', '2016-10-26 18:14:12', '21277', '-1', '1', '同意', null, '-1', '3', '3', null, '2', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('9985', '一审', '1', '2016-10-26 18:09:07', null, '-1', '-1', '-1', null, null, '-1', '3', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('9985', '一审', '2', '2016-10-26 18:09:07', '2016-10-26 18:15:02', '21277', '-1', '1', '', null, '-1', '3', '3', null, '2', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('9986', '二审', '1', '2016-10-26 18:14:12', null, '-1', '-1', '-1', null, null, '-1', '7', '3', null, '2', '2', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('9986', '二审', '2', '2016-10-26 18:14:12', '2016-10-26 18:14:18', '21277', '-1', '1', '', null, '-1', '7', '3', null, '3', '2', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('9987', '二审', '1', '2016-10-26 18:15:02', null, '-1', '-1', '-1', null, null, '-1', '7', '3', null, '2', '2', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('9987', '二审', '2', '2016-10-26 18:15:02', '2016-10-26 18:15:06', '21277', '-1', '1', '', null, '-1', '7', '3', null, '3', '2', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('9988', '一审', '1', '2016-10-26 18:16:11', null, '-1', '-1', '-1', null, null, '-1', '22', '3', null, '2', '2', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('9988', '一审', '2', '2016-10-26 18:16:11', '2016-10-26 18:16:14', '21277', '-1', '1', '', null, '-1', '22', '3', null, '3', '2', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('9989', '测试审批', '1', '2016-10-26 18:16:14', null, '-1', '-1', '-1', null, null, '-1', '39', '3', null, '3', '3', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('9989', '测试审批', '2', '2016-10-26 18:16:14', '2016-10-26 18:16:17', '21277', '-1', '1', '', null, '-1', '39', '3', null, '4', '3', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('10241', '一审', '1', '2016-10-27 08:54:18', null, '-1', '-1', '-1', null, null, '-1', '3', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('10241', '一审', '2', '2016-10-27 08:54:18', '2016-10-27 08:54:26', '21277', '-1', '1', '同意', null, '-1', '3', '3', null, '2', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('10242', '二审', '1', '2016-10-27 08:54:26', null, '-1', '-1', '-1', null, null, '-1', '7', '3', null, '2', '2', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('10242', '二审', '2', '2016-10-27 08:54:26', '2016-10-27 08:54:35', '21277', '-1', '1', '同意', null, '-1', '7', '3', null, '3', '2', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('10243', '一审', '1', '2016-10-27 08:54:43', null, '-1', '-1', '-1', null, null, '-1', '3', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('10243', '一审', '2', '2016-10-27 08:54:43', '2016-10-27 08:54:49', '21277', '-1', '1', '同意', null, '-1', '3', '3', null, '2', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('10244', '二审', '1', '2016-10-27 08:54:49', null, '-1', '-1', '-1', null, null, '-1', '7', '3', null, '2', '2', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('10244', '二审', '2', '2016-10-27 08:54:49', '2016-10-27 08:55:04', '21277', '-1', '1', '同意', null, '-1', '7', '3', null, '3', '2', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('10245', '一审', '1', '2016-10-27 08:55:41', null, '-1', '-1', '-1', null, null, '-1', '3', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('10246', '审批任务', '1', '2016-10-27 09:39:23', null, '-1', '-1', '-1', null, null, '-1', '19', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('10246', '审批任务', '2', '2016-10-27 09:39:23', '2016-10-27 09:39:30', '21277', '-1', '1', '同意', null, '-1', '19', '3', null, '2', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('10497', '审批任务', '1', '2016-10-28 12:09:17', null, '-1', '-1', '-1', null, null, '-1', '19', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('10497', '审批任务', '2', '2016-10-28 12:09:17', '2016-10-28 12:09:32', '21277', '-1', '1', '同意', null, '-1', '19', '3', null, '2', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('10753', '办公室主任审批', '1', '2016-10-28 16:27:33', null, '-1', '-1', '-1', null, null, '-1', '8', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('10753', '办公室主任审批', '2', '2016-10-28 16:27:33', '2017-01-13 11:11:14', '21277', '-1', '1', '请某某领导阅处', null, '-1', '8', '3', null, '2', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('10754', '办公室主任审批', '1', '2016-10-28 16:31:25', null, '-1', '-1', '-1', null, null, '-1', '8', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('10754', '办公室主任审批', '2', '2016-10-28 16:31:25', '2016-10-28 16:31:55', '21277', '-1', '1', '请某某领导阅处', null, '-1', '8', '3', null, '2', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('10755', '总经理审批', '1', '2016-10-28 16:31:55', null, '-1', '-1', '-1', null, null, '-1', '10', '3', null, '2', '2', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('10755', '总经理审批', '2', '2016-10-28 16:31:55', '2016-10-28 16:32:05', '21277', '-1', '1', '', null, '-1', '10', '3', null, '3', '2', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('10756', '分管领导', '1', '2016-10-28 16:32:05', null, '21271', '-1', '-1', null, null, '-1', '43', '4', null, '3', '3', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('10756', '分管领导', '2', '2016-10-28 16:32:05', '2016-10-28 16:33:24', '21271', '-1', '1', '', null, '-1', '43', '4', null, '5', '3', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('10757', '分管领导', '1', '2016-10-28 16:32:05', null, '21277', '-1', '-1', null, null, '-1', '43', '4', null, '3', '3', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('10757', '分管领导', '2', '2016-10-28 16:32:05', '2016-10-28 16:32:17', '21277', '-1', '1', '', null, '-1', '43', '4', null, '4', '3', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('10758', '部门处理结果反馈', '1', '2016-10-28 16:33:24', null, '21271', '-1', '-1', null, null, '-1', '46', '4', null, '5', '5', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('10758', '部门处理结果反馈', '2', '2016-10-28 16:33:24', '2016-10-28 16:33:35', '21271', '-1', '1', '同意', null, '-1', '46', '4', null, '6', '5', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('10759', '部门处理结果反馈', '1', '2016-10-28 16:33:24', null, '21277', '-1', '-1', null, null, '-1', '46', '4', null, '5', '5', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('10759', '部门处理结果反馈', '2', '2016-10-28 16:33:24', '2016-10-28 16:34:21', '21277', '-1', '1', '已处理完成', null, '-1', '46', '4', null, '7', '5', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('10760', '办公室主任审批', '1', '2016-10-28 17:27:27', null, '-1', '-1', '-1', null, null, '-1', '8', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('10760', '办公室主任审批', '2', '2016-10-28 17:27:27', '2017-01-13 11:09:02', '21277', '-1', '1', '请某某领导阅处', null, '-1', '8', '3', null, '2', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('10761', '办公室主任审批', '1', '2016-10-28 17:46:16', null, '-1', '-1', '-1', null, null, '-1', '8', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('10761', '办公室主任审批', '2', '2016-10-28 17:46:16', '2016-10-28 17:50:54', '21277', '-1', '1', '已处理完成', null, '-1', '8', '3', null, '2', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('10762', '总经理审批', '1', '2016-10-28 17:50:54', null, '-1', '-1', '-1', null, null, '-1', '10', '3', null, '2', '2', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('10762', '总经理审批', '2', '2016-10-28 17:50:54', '2016-11-10 14:22:01', '21277', '-1', '1', '同意', null, '-1', '10', '3', null, '4', '2', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('11009', '审批', '1', '2016-10-31 15:36:48', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('11009', '审批', '2', '2016-10-31 15:36:48', '2016-10-31 15:36:56', '21277', '-1', '1', '', null, '-1', '5', '3', null, '2', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('11265', '审批', '1', '2016-11-02 13:30:19', null, '-1', '-1', '-1', null, null, '-1', '6', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('11265', '审批', '2', '2016-11-02 13:30:19', '2016-11-02 13:31:23', '21277', '-1', '1', '同意', null, '-1', '6', '3', null, '2', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('11266', '一审', '1', '2016-11-02 13:31:23', null, '-1', '-1', '-1', null, null, '-1', '22', '3', null, '2', '2', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('11266', '一审', '2', '2016-11-02 13:31:23', '2016-11-02 13:32:00', '21277', '-1', '1', '同意', null, '-1', '22', '3', null, '3', '2', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('11267', '测试审批', '1', '2016-11-02 13:32:00', null, '-1', '-1', '-1', null, null, '-1', '39', '3', null, '3', '3', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('11267', '测试审批', '2', '2016-11-02 13:32:00', '2016-11-02 13:32:14', '21277', '-1', '1', '同意', null, '-1', '39', '3', null, '4', '3', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('11521', '审批', '1', '2016-11-02 13:38:10', null, '-1', '-1', '-1', null, null, '-1', '6', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('11521', '审批', '2', '2016-11-02 13:38:10', '2016-11-24 15:45:32', '21277', '-1', '1', '同意', null, '-1', '6', '3', null, '3', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('11777', '一审', '1', '2016-11-03 10:04:07', null, '-1', '-1', '-1', null, null, '-1', '3', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('11777', '一审', '2', '2016-11-03 10:04:07', '2016-11-03 10:04:32', '21277', '-1', '1', '同意', null, '-1', '3', '3', null, '2', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('11778', '二审', '1', '2016-11-03 10:04:32', null, '-1', '-1', '-1', null, null, '-1', '7', '3', null, '2', '2', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('11778', '二审', '2', '2016-11-03 10:04:32', '2016-11-03 10:04:45', '21277', '-1', '1', '同意', null, '-1', '7', '3', null, '3', '2', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('11779', '一审', '1', '2016-11-03 10:05:40', null, '-1', '-1', '-1', null, null, '-1', '3', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('11779', '一审', '2', '2016-11-03 10:05:40', '2016-11-03 10:05:48', '21277', '-1', '1', '同意', null, '-1', '3', '3', null, '2', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('12033', '一审', '1', '2016-11-04 10:26:37', null, '-1', '-1', '-1', null, null, '-1', '3', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('12033', '一审', '2', '2016-11-04 10:26:37', '2016-11-04 10:26:53', '21277', '-1', '1', '同意', null, '-1', '3', '3', null, '2', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('12034', '二审', '1', '2016-11-04 10:26:53', null, '-1', '-1', '-1', null, null, '-1', '7', '3', null, '2', '2', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('12034', '二审', '2', '2016-11-04 10:26:53', '2016-11-04 10:27:09', '21277', '-1', '1', '同意', null, '-1', '7', '3', null, '4', '2', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('12035', '一审', '1', '2016-11-04 10:35:58', null, '-1', '-1', '-1', null, null, '-1', '3', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('12035', '一审', '2', '2016-11-04 10:35:58', '2016-11-04 10:36:03', '21277', '-1', '1', '同意', null, '-1', '3', '3', null, '2', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('12036', '二审', '1', '2016-11-04 10:36:03', null, '-1', '-1', '-1', null, null, '-1', '7', '3', null, '2', '2', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('12036', '二审', '2', '2016-11-04 10:36:03', '2016-11-04 10:36:10', '21277', '-1', '1', '同意', null, '-1', '7', '3', null, '3', '2', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('12037', '一审', '1', '2016-11-04 10:38:39', null, '-1', '-1', '-1', null, null, '-1', '3', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('12037', '一审', '2', '2016-11-04 10:38:39', '2016-11-04 10:38:45', '21277', '-1', '1', '同意', null, '-1', '3', '3', null, '2', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('12038', '二审', '1', '2016-11-04 10:38:45', null, '-1', '-1', '-1', null, null, '-1', '7', '3', null, '2', '2', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('12038', '二审', '2', '2016-11-04 10:38:45', '2016-11-04 10:38:51', '21277', '-1', '1', '同意', null, '-1', '7', '3', null, '3', '2', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('12289', '办公室主任审批', '1', '2016-11-04 11:38:58', null, '-1', '-1', '-1', null, null, '-1', '8', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('12289', '办公室主任审批', '2', '2016-11-04 11:38:58', '2016-11-04 11:39:09', '21277', '-1', '1', '请某某领导阅处', null, '-1', '8', '3', null, '2', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('12290', '总经理审批', '1', '2016-11-04 11:39:09', null, '-1', '-1', '-1', null, null, '-1', '10', '3', null, '2', '2', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('12290', '总经理审批', '2', '2016-11-04 11:39:09', '2016-11-04 12:03:04', '21277', '-1', '1', '同意', null, '-1', '10', '3', null, '3', '2', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('12291', '分管领导', '1', '2016-11-04 12:03:04', null, '21277', '-1', '-1', null, null, '-1', '43', '4', null, '3', '3', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('12291', '分管领导', '2', '2016-11-04 12:03:04', '2016-11-17 09:10:02', '21277', '-1', '1', '同意', null, '-1', '43', '4', null, '6', '3', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('12546', '分管领导', '1', '2016-11-10 14:22:01', null, '21277', '-1', '-1', null, null, '-1', '43', '4', null, '4', '4', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('12546', '分管领导', '2', '2016-11-10 14:22:01', '2016-11-10 14:22:10', '21277', '-1', '1', '同意', null, '-1', '43', '4', null, '5', '4', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('12547', '部门处理结果反馈', '1', '2016-11-10 14:22:10', null, '21277', '-1', '-1', null, null, '-1', '46', '4', null, '5', '5', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('12547', '部门处理结果反馈', '2', '2016-11-10 14:22:10', '2017-01-13 11:17:19', '21277', '-1', '1', '已处理完成', null, '-1', '46', '4', null, '7', '5', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('12801', '部门处理结果反馈', '1', '2016-11-17 09:10:02', null, '21271', '-1', '-1', null, null, '-1', '46', '4', null, '6', '6', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('12801', '部门处理结果反馈', '2', '2016-11-17 09:10:02', '2016-11-17 09:18:08', '21271', '-1', '1', '同意', null, '-1', '46', '4', null, '8', '6', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('12802', '部门处理结果反馈', '1', '2016-11-17 09:10:02', null, '21277', '-1', '-1', null, null, '-1', '46', '4', null, '6', '6', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('12802', '部门处理结果反馈', '2', '2016-11-17 09:10:02', '2016-11-17 09:10:40', '21277', '-1', '0', '不同意', null, '-1', '46', '4', null, '7', '6', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('12803', '提交审批', '1', '2016-11-17 09:18:08', null, '-1', '-1', '-1', null, null, '-1', '49', '3', null, '8', '8', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('12803', '提交审批', '2', '2016-11-17 09:18:08', '2016-11-17 09:19:08', '21271', '-1', '1', '', null, '-1', '49', '3', null, '9', '8', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('12804', '办公室主任审批', '1', '2016-11-17 09:19:08', null, '-1', '-1', '-1', null, null, '-1', '8', '3', null, '9', '9', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('12804', '办公室主任审批', '2', '2016-11-17 09:19:08', '2016-11-17 09:19:27', '21271', '-1', '1', '请朱主任阅处', null, '-1', '8', '3', null, '10', '9', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('12805', '总经理审批', '1', '2016-11-17 09:19:27', null, '-1', '-1', '-1', null, null, '-1', '10', '3', null, '10', '10', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('12805', '总经理审批', '2', '2016-11-17 09:19:27', '2016-11-24 15:41:38', '21277', '-1', '1', '同意', null, '-1', '10', '3', null, '11', '10', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('13057', '办公室主任审批', '1', '2016-11-24 15:32:55', null, '-1', '-1', '-1', null, null, '-1', '8', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('13057', '办公室主任审批', '2', '2016-11-24 15:32:55', '2017-01-13 11:12:32', '21277', '-1', '1', '请某某领导阅处', null, '-1', '8', '3', null, '2', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('13058', '分管领导', '1', '2016-11-24 15:41:38', null, '21271', '-1', '-1', null, null, '-1', '43', '4', null, '11', '11', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('13059', '分管领导', '1', '2016-11-24 15:41:38', null, '21277', '-1', '-1', null, null, '-1', '43', '4', null, '11', '11', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('13059', '分管领导', '2', '2016-11-24 15:41:38', '2016-12-29 14:29:13', '21277', '-1', '1', '', null, '-1', '43', '4', null, '12', '11', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('13061', '一审', '1', '2016-11-24 15:45:32', null, '-1', '-1', '-1', null, null, '-1', '22', '3', null, '3', '3', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('13062', '办公室主任审批', '1', '2016-11-24 15:47:24', null, '-1', '-1', '-1', null, null, '-1', '8', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('13062', '办公室主任审批', '2', '2016-11-24 15:47:24', '2016-11-24 15:47:56', '21277', '-1', '1', '请某某领导阅处', null, '-1', '8', '3', null, '3', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('13064', '总经理审批', '1', '2016-11-24 15:47:56', null, '-1', '-1', '-1', null, null, '-1', '10', '3', null, '3', '3', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('13064', '总经理审批', '2', '2016-11-24 15:47:56', '2016-11-24 15:48:18', '21277', '-1', '1', '同意', null, '-1', '10', '3', null, '5', '3', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('13067', '分管领导', '1', '2016-11-24 15:48:18', null, '21271', '-1', '-1', null, null, '-1', '43', '4', null, '5', '5', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('13067', '分管领导', '2', '2016-11-24 15:48:18', '2016-11-24 15:49:47', '21271', '-1', '1', '同意', null, '-1', '43', '4', null, '8', '5', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('13068', '分管领导', '1', '2016-11-24 15:48:18', null, '21277', '-1', '-1', null, null, '-1', '43', '4', null, '5', '5', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('13068', '分管领导', '2', '2016-11-24 15:48:18', '2016-11-24 15:48:30', '21277', '-1', '1', '同意', null, '-1', '43', '4', null, '6', '5', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('13070', '部门处理结果反馈', '1', '2016-11-24 15:49:47', null, '21277', '-1', '-1', null, null, '-1', '46', '4', null, '8', '8', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('13070', '部门处理结果反馈', '2', '2016-11-24 15:49:47', '2016-12-19 15:54:01', '21277', '-1', '1', '已处理完成', null, '-1', '46', '4', null, '11', '8', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('13313', '一审', '1', '2016-11-29 09:42:47', null, '-1', '-1', '-1', null, null, '-1', '3', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('13313', '一审', '2', '2016-11-29 09:42:47', '2016-11-29 09:54:37', '21277', '-1', '1', '同意', null, '-1', '3', '3', null, '2', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('13569', '办公室主任审批', '1', '2016-12-14 13:58:20', null, '-1', '-1', '-1', null, null, '-1', '8', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('13569', '办公室主任审批', '2', '2016-12-14 13:58:20', '2016-12-14 13:58:33', '21277', '-1', '1', '请某某领导阅处', null, '-1', '8', '3', null, '2', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('13570', '总经理审批', '1', '2016-12-14 13:58:33', null, '-1', '-1', '-1', null, null, '-1', '10', '3', null, '2', '2', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('13570', '总经理审批', '2', '2016-12-14 13:58:33', '2016-12-14 13:58:51', '21277', '-1', '1', '同意', null, '-1', '10', '3', null, '3', '2', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('13571', '分管领导', '1', '2016-12-14 13:58:51', null, '21271', '-1', '-1', null, null, '-1', '43', '4', null, '3', '3', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('13572', '分管领导', '1', '2016-12-14 13:58:51', null, '21277', '-1', '-1', null, null, '-1', '43', '4', null, '3', '3', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('13572', '分管领导', '2', '2016-12-14 13:58:51', '2016-12-29 14:09:28', '21277', '-1', '1', '同意', null, '-1', '43', '4', null, '9', '3', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('13825', '办公室主任审批', '1', '2016-12-22 12:00:14', null, '-1', '-1', '-1', null, null, '-1', '8', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('13825', '办公室主任审批', '2', '2016-12-22 12:00:14', '2016-12-22 12:00:55', '21277', '-1', '1', '请某某领导阅处', null, '-1', '8', '3', null, '2', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('13826', '总经理审批', '1', '2016-12-22 12:00:55', null, '-1', '-1', '-1', null, null, '-1', '10', '3', null, '2', '2', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('13826', '总经理审批', '2', '2016-12-22 12:00:55', '2016-12-22 12:01:19', '21277', '-1', '1', '', null, '-1', '10', '3', null, '3', '2', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('13827', '分管领导', '1', '2016-12-22 12:01:19', null, '21271', '-1', '-1', null, null, '-1', '43', '4', null, '3', '3', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('13827', '分管领导', '2', '2016-12-22 12:01:19', '2016-12-22 12:05:52', '21271', '-1', '1', '', null, '-1', '43', '4', null, '5', '3', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('13828', '分管领导', '1', '2016-12-22 12:01:19', null, '21277', '-1', '-1', null, null, '-1', '43', '4', null, '3', '3', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('13828', '分管领导', '2', '2016-12-22 12:01:19', '2016-12-22 12:01:47', '21277', '-1', '1', '同意', null, '-1', '43', '4', null, '4', '3', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('13831', '部门处理结果反馈', '1', '2016-12-22 12:05:52', null, '21271', '-1', '-1', null, null, '-1', '46', '4', null, '5', '5', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('13831', '部门处理结果反馈', '2', '2016-12-22 12:05:52', '2016-12-22 12:06:07', '21271', '-1', '1', '同意', null, '-1', '46', '4', null, '6', '5', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('13832', '部门处理结果反馈', '1', '2016-12-22 12:05:52', null, '21277', '-1', '-1', null, null, '-1', '46', '4', null, '5', '5', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('13832', '部门处理结果反馈', '2', '2016-12-22 12:05:52', '2016-12-29 15:55:47', '21277', '-1', '1', '', null, '-1', '46', '4', null, '34', '5', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('14081', '办公室主任审批', '1', '2017-01-04 11:41:49', null, '-1', '-1', '-1', null, null, '-1', '8', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('14081', '办公室主任审批', '2', '2017-01-04 11:41:49', '2017-01-09 10:39:04', '21277', '-1', '1', '请某某领导阅处', null, '-1', '8', '3', null, '4', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('14593', '办公室主任审批', '1', '2017-01-06 09:42:03', null, '-1', '-1', '-1', null, null, '-1', '8', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('14593', '办公室主任审批', '2', '2017-01-06 09:42:03', '2017-01-09 10:33:11', '21277', '-1', '1', '请某某领导阅处', null, '-1', '8', '3', null, '2', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('14849', '总经理审批', '1', '2017-01-09 10:33:11', null, '-1', '-1', '-1', null, null, '-1', '10', '3', null, '2', '2', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('15105', '办公室主任审批', '1', '2017-01-09 10:37:10', null, '-1', '-1', '-1', null, null, '-1', '8', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('15105', '办公室主任审批', '2', '2017-01-09 10:37:10', '2017-01-09 10:37:49', '21277', '-1', '1', '请某某领导阅处', null, '-1', '8', '3', null, '3', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('15107', '总经理审批', '1', '2017-01-09 10:37:49', null, '-1', '-1', '-1', null, null, '-1', '10', '3', null, '3', '3', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('15107', '总经理审批', '2', '2017-01-09 10:37:49', '2017-01-09 10:38:02', '21277', '-1', '1', '同意', null, '-1', '10', '3', null, '4', '3', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('15108', '分管领导', '1', '2017-01-09 10:38:02', null, '21277', '-1', '-1', null, null, '-1', '43', '4', null, '4', '4', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('15108', '分管领导', '2', '2017-01-09 10:38:02', '2017-01-09 10:38:15', '21277', '-1', '1', '同意', null, '-1', '43', '4', null, '5', '4', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('15109', '部门处理结果反馈', '1', '2017-01-09 10:38:15', null, '21277', '-1', '-1', null, null, '-1', '46', '4', null, '5', '5', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('15109', '部门处理结果反馈', '2', '2017-01-09 10:38:15', '2017-01-09 10:38:23', '21277', '-1', '1', '已处理完成', null, '-1', '46', '4', null, '6', '5', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('15110', '总经理审批', '1', '2017-01-09 10:39:04', null, '-1', '-1', '-1', null, null, '-1', '10', '3', null, '4', '4', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('15110', '总经理审批', '2', '2017-01-09 10:39:04', '2017-01-13 11:27:16', '21277', '-1', '1', '同意', null, '-1', '10', '3', null, '5', '4', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('15111', '办公室主任审批', '1', '2017-01-09 14:07:00', null, '-1', '-1', '-1', null, null, '-1', '8', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('15111', '办公室主任审批', '2', '2017-01-09 14:07:00', '2017-01-09 14:07:09', '21277', '-1', '1', '请某某领导阅处', null, '-1', '8', '3', null, '2', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('15112', '总经理审批', '1', '2017-01-09 14:07:09', null, '-1', '-1', '-1', null, null, '-1', '10', '3', null, '2', '2', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('15112', '总经理审批', '2', '2017-01-09 14:07:09', '2017-01-09 14:08:36', '21277', '-1', '1', '同意', null, '-1', '10', '3', null, '3', '2', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('15113', '分管领导', '1', '2017-01-09 14:08:36', null, '21271', '-1', '-1', null, null, '-1', '43', '4', null, '3', '3', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('15114', '分管领导', '1', '2017-01-09 14:08:36', null, '21277', '-1', '-1', null, null, '-1', '43', '4', null, '3', '3', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('15361', '办公室主任审批', '1', '2017-01-10 16:07:37', null, '-1', '-1', '-1', null, null, '-1', '8', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('15361', '办公室主任审批', '2', '2017-01-10 16:07:37', '2017-01-10 16:08:58', '21277', '-1', '1', '已处理完成', null, '-1', '8', '3', null, '2', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('15362', '总经理审批', '1', '2017-01-10 16:08:58', null, '-1', '-1', '-1', null, null, '-1', '10', '3', null, '2', '2', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('15362', '总经理审批', '2', '2017-01-10 16:08:58', '2017-01-13 09:38:28', '21277', '-1', '1', '同意', null, '-1', '10', '3', null, '3', '2', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('15617', '分管领导', '1', '2017-01-13 09:41:13', null, '21277', '-1', '-1', null, null, '-1', '43', '4', null, '3', '3', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('15873', '总经理审批', '1', '2017-01-13 11:09:02', null, '-1', '-1', '-1', null, null, '-1', '10', '3', null, '2', '2', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('15873', '总经理审批', '2', '2017-01-13 11:09:02', '2017-01-13 11:09:15', '21277', '-1', '1', '同意', null, '-1', '10', '3', null, '3', '2', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('15874', '分管领导', '1', '2017-01-13 11:09:15', null, '21277', '-1', '-1', null, null, '-1', '43', '4', null, '3', '3', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('15874', '分管领导', '2', '2017-01-13 11:09:15', '2017-01-13 11:09:25', '21277', '-1', '1', '同意', null, '-1', '43', '4', null, '4', '3', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('15875', '部门处理结果反馈', '1', '2017-01-13 11:09:25', null, '21277', '-1', '-1', null, null, '-1', '46', '4', null, '4', '4', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('15875', '部门处理结果反馈', '2', '2017-01-13 11:09:25', '2017-01-13 11:09:34', '21277', '-1', '1', '已处理完成', null, '-1', '46', '4', null, '5', '4', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('15876', '总经理审批', '1', '2017-01-13 11:11:14', null, '-1', '-1', '-1', null, null, '-1', '10', '3', null, '2', '2', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('15876', '总经理审批', '2', '2017-01-13 11:11:14', '2017-01-13 11:11:25', '21277', '-1', '1', '同意', null, '-1', '10', '3', null, '3', '2', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('15877', '分管领导', '1', '2017-01-13 11:11:25', null, '21277', '-1', '-1', null, null, '-1', '43', '4', null, '3', '3', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('15877', '分管领导', '2', '2017-01-13 11:11:25', '2017-01-13 11:11:37', '21277', '-1', '1', '同意', null, '-1', '43', '4', null, '4', '3', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('15878', '部门处理结果反馈', '1', '2017-01-13 11:11:37', null, '21277', '-1', '-1', null, null, '-1', '46', '4', null, '4', '4', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('15878', '部门处理结果反馈', '2', '2017-01-13 11:11:37', '2017-01-13 11:11:43', '21277', '-1', '1', '已处理完成', null, '-1', '46', '4', null, '5', '4', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('15879', '总经理审批', '1', '2017-01-13 11:12:32', null, '-1', '-1', '-1', null, null, '-1', '10', '3', null, '2', '2', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('15879', '总经理审批', '2', '2017-01-13 11:12:32', '2017-01-13 11:12:44', '21277', '-1', '1', '同意', null, '-1', '10', '3', null, '3', '2', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('15880', '分管领导', '1', '2017-01-13 11:12:44', null, '21277', '-1', '-1', null, null, '-1', '43', '4', null, '3', '3', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('15880', '分管领导', '2', '2017-01-13 11:12:44', '2017-01-13 11:14:49', '21277', '-1', '1', '同意', null, '-1', '43', '4', null, '4', '3', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('15881', '部门处理结果反馈', '1', '2017-01-13 11:14:49', null, '21277', '-1', '-1', null, null, '-1', '46', '4', null, '4', '4', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('15881', '部门处理结果反馈', '2', '2017-01-13 11:14:49', '2017-01-13 11:14:58', '21277', '-1', '1', '已处理完成', null, '-1', '46', '4', null, '5', '4', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('15882', '测试审批', '1', '2017-01-13 11:15:21', null, '-1', '-1', '-1', null, null, '-1', '39', '3', null, '3', '3', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('15882', '测试审批', '2', '2017-01-13 11:15:21', '2017-01-13 11:15:26', '21277', '-1', '1', '同意', null, '-1', '39', '3', null, '4', '3', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('15883', '一审', '1', '2017-01-13 11:16:05', null, '-1', '-1', '-1', null, null, '-1', '22', '3', null, '2', '2', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('15883', '一审', '2', '2017-01-13 11:16:05', '2017-01-13 11:16:11', '21277', '-1', '1', '同意', null, '-1', '22', '3', null, '3', '2', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('15884', '测试审批', '1', '2017-01-13 11:16:11', null, '-1', '-1', '-1', null, null, '-1', '39', '3', null, '3', '3', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('15884', '测试审批', '2', '2017-01-13 11:16:11', '2017-01-13 11:16:15', '21277', '-1', '1', '同意', null, '-1', '39', '3', null, '4', '3', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('15885', '分管领导', '1', '2017-01-13 11:27:16', null, '21277', '-1', '-1', null, null, '-1', '43', '4', null, '5', '5', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('15885', '分管领导', '2', '2017-01-13 11:27:16', '2017-01-13 11:27:23', '21277', '-1', '1', '同意', null, '-1', '43', '4', null, '6', '5', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('15886', '部门处理结果反馈', '1', '2017-01-13 11:27:23', null, '21277', '-1', '-1', null, null, '-1', '46', '4', null, '6', '6', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('15886', '部门处理结果反馈', '2', '2017-01-13 11:27:23', '2017-01-13 11:27:37', '21277', '-1', '1', '已处理完成', null, '-1', '46', '4', null, '7', '6', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('16129', '办公室主任审批', '1', '2017-04-20 10:23:33', null, '-1', '-1', '-1', null, null, '-1', '8', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('16385', '审批任务', '1', '2017-04-24 09:52:05', null, '-1', '-1', '-1', null, null, '-1', '19', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('16385', '审批任务', '2', '2017-04-24 09:52:05', '2017-04-24 09:59:22', '21277', '-1', '1', '通过', null, '-1', '19', '3', null, '2', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('16386', '审批任务', '1', '2017-04-24 09:56:41', null, '-1', '-1', '-1', null, null, '-1', '19', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('16386', '审批任务', '2', '2017-04-24 09:56:41', '2017-04-24 13:47:11', '21277', '-1', '1', '通过', null, '-1', '19', '3', null, '3', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('16387', '审批任务', '1', '2017-04-24 10:04:33', null, '-1', '-1', '-1', null, null, '-1', '19', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('16387', '审批任务', '2', '2017-04-24 10:04:33', '2017-04-24 10:17:43', '21277', '-1', '1', '通过', null, '-1', '19', '3', null, '9', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('16641', '审批', '1', '2017-05-17 16:12:46', null, '-1', '-1', '-1', null, null, '-1', '6', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('16641', '审批', '2', '2017-05-17 16:12:46', '2017-05-19 09:57:27', '21271', '-1', '1', '', null, '-1', '6', '3', null, '2', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('16897', '处理任务', '1', '2017-05-19 09:57:27', null, '-1', '-1', '-1', null, null, '-1', '22', '3', null, '2', '2', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('17409', '办公室主任审批', '1', '2017-06-06 13:14:46', null, '-1', '-1', '-1', null, null, '-1', '8', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('18433', '办公室主任审批', '1', '2017-06-06 16:10:18', null, '-1', '-1', '-1', null, null, '-1', '8', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('18434', '办公室主任审批', '1', '2017-06-06 16:11:52', null, '-1', '-1', '-1', null, null, '-1', '8', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('18689', '办公室主任审批', '1', '2017-06-07 17:41:51', null, '-1', '-1', '-1', null, null, '-1', '8', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('19201', '办公室主任审批', '1', '2017-06-08 14:19:53', null, '-1', '-1', '-1', null, null, '-1', '8', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('19457', '办公室主任审批', '1', '2017-06-08 15:17:13', null, '-1', '-1', '-1', null, null, '-1', '8', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('19457', '办公室主任审批', '2', '2017-06-08 15:17:13', '2017-06-08 16:23:02', '21277', '-1', '1', '同意', null, '-1', '8', '3', null, '2', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('19713', '总经理审批', '1', '2017-06-08 16:23:03', null, '-1', '-1', '-1', null, null, '-1', '10', '3', null, '2', '2', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('19713', '总经理审批', '2', '2017-06-08 16:23:03', '2017-06-08 16:23:12', '21277', '-1', '1', '同意', null, '-1', '10', '3', null, '3', '2', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('19714', '分管领导', '1', '2017-06-08 16:23:12', null, '64593', '-1', '-1', null, null, '-1', '43', '4', null, '3', '3', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('19715', '分管领导', '1', '2017-06-08 16:23:12', null, '21', '-1', '-1', null, null, '-1', '43', '4', null, '3', '3', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('19716', '分管领导', '1', '2017-06-08 16:23:12', null, '21271', '-1', '-1', null, null, '-1', '43', '4', null, '3', '3', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('19717', '分管领导', '1', '2017-06-08 16:23:12', null, '21277', '-1', '-1', null, null, '-1', '43', '4', null, '3', '3', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('19718', '分管领导', '1', '2017-06-08 16:23:12', null, '64589', '-1', '-1', null, null, '-1', '43', '4', null, '3', '3', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('19719', '分管领导', '1', '2017-06-08 16:23:12', null, '64591', '-1', '-1', null, null, '-1', '43', '4', null, '3', '3', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('19969', '办公室主任审批', '1', '2017-06-08 16:35:44', null, '-1', '-1', '-1', null, null, '-1', '8', '3', null, '1', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('19969', '办公室主任审批', '2', '2017-06-08 16:35:44', '2017-06-08 16:36:05', '21277', '-1', '1', '同意', null, '-1', '8', '3', null, '2', '1', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('19970', '总经理审批', '1', '2017-06-08 16:36:06', null, '-1', '-1', '-1', null, null, '-1', '10', '3', null, '2', '2', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('19970', '总经理审批', '2', '2017-06-08 16:36:06', '2017-06-08 16:36:12', '21277', '-1', '1', '同意', null, '-1', '10', '3', null, '3', '2', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('19971', '分管领导', '1', '2017-06-08 16:36:12', null, '21271', '-1', '-1', null, null, '-1', '43', '4', null, '3', '3', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('19971', '分管领导', '2', '2017-06-08 16:36:12', '2017-06-08 16:37:28', '21271', '-1', '1', '同意', null, '-1', '43', '4', null, '5', '3', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('19972', '分管领导', '1', '2017-06-08 16:36:12', null, '21277', '-1', '-1', null, null, '-1', '43', '4', null, '3', '3', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('19972', '分管领导', '2', '2017-06-08 16:36:12', '2017-06-08 16:36:18', '21277', '-1', '1', '同意', null, '-1', '43', '4', null, '4', '3', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('19973', '部门处理结果反馈', '1', '2017-06-08 16:37:29', null, '21277', '-1', '-1', null, null, '-1', '46', '4', null, '5', '5', null, null, null);
-INSERT INTO `wf_workitemrb` VALUES ('19973', '部门处理结果反馈', '2', '2017-06-08 16:37:29', '2017-06-08 16:38:20', '21277', '-1', '1', '已处理完成', null, '-1', '46', '4', null, '6', '5', null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('1', '一审', '1', '2016-08-08 10:15:00', null, '-1', '-1', '-1', null, null, '-1', '3', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('1', '一审', '2', '2016-08-08 10:15:00', '2016-08-08 10:15:25', '21', '-1', '0', '', null, '-1', '3', '3', null, '2', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('257', '提交', '1', '2016-08-29 13:07:21', null, '-1', '-1', '-1', null, null, '-1', '5', '2', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('257', '提交', '2', '2016-08-29 13:07:21', '2016-08-29 13:19:01', '21', '-1', '1', '提交', null, '-1', '5', '2', null, '3', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('258', '审批', '1', '2016-08-29 13:12:53', null, '-1', '-1', '-1', null, null, '-1', '6', '3', null, '2', '2', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('260', '审批', '1', '2016-08-29 13:19:01', null, '-1', '-1', '-1', null, null, '-1', '6', '3', null, '3', '3', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('261', '审批', '1', '2016-08-29 13:19:01', null, '-1', '-1', '-1', null, null, '-1', '6', '3', null, '3', '3', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('261', '审批', '2', '2016-08-29 13:19:01', '2016-08-29 13:19:29', '21', '-1', '1', '接受任务', null, '-1', '6', '3', null, '4', '3', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('262', '审批任务', '1', '2016-08-29 13:19:29', null, '-1', '-1', '-1', null, null, '-1', '22', '3', null, '4', '4', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('262', '审批任务', '2', '2016-08-29 13:19:29', '2016-08-29 13:22:17', '21', '-1', '1', '已解决', null, '-1', '22', '3', null, '5', '4', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('264', '审批任务', '1', '2016-08-29 13:22:17', null, '-1', '-1', '-1', null, null, '-1', '39', '3', null, '5', '5', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('264', '审批任务', '2', '2016-08-29 13:22:17', '2016-08-29 13:23:44', '21', '-1', '1', '通过', null, '-1', '39', '3', null, '6', '5', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('265', '审批任务', '1', '2016-08-29 13:22:17', null, '-1', '-1', '-1', null, null, '-1', '45', '3', null, '5', '5', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('266', '审批任务', '1', '2016-08-29 13:23:44', null, '-1', '-1', '-1', null, null, '-1', '22', '3', null, '6', '6', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('513', '部门主管审批', '1', '2016-08-29 14:44:54', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('769', '审批', '1', '2016-09-05 13:19:48', null, '-1', '-1', '-1', null, null, '-1', '6', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('769', '审批', '2', '2016-09-05 13:19:48', '2016-09-05 13:41:32', '21', '-1', '1', '接受任务', null, '-1', '6', '3', null, '2', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('770', '审批', '1', '2016-09-05 13:34:09', null, '-1', '-1', '-1', null, null, '-1', '6', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('770', '审批', '2', '2016-09-05 13:34:09', '2016-09-05 13:35:36', '21', '-1', '1', '接受任务', null, '-1', '6', '3', null, '2', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('771', '审批任务', '1', '2016-09-05 13:35:36', null, '-1', '-1', '-1', null, null, '-1', '22', '3', null, '2', '2', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('771', '审批任务', '2', '2016-09-05 13:35:36', '2016-09-05 13:35:57', '21', '-1', '1', '已解决', null, '-1', '22', '3', null, '3', '2', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('772', '测试审批', '1', '2016-09-05 13:35:57', null, '-1', '-1', '-1', null, null, '-1', '39', '3', null, '3', '3', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('772', '测试审批', '2', '2016-09-05 13:35:57', '2016-09-05 13:37:19', '21', '-1', '1', '通过', null, '-1', '39', '3', null, '4', '3', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('773', '完成', '1', '2016-09-05 13:37:19', null, '-1', '-1', '-1', null, null, '-1', '58', '3', null, '4', '4', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('773', '完成', '2', '2016-09-05 13:37:19', '2016-09-05 13:38:58', '21', '-1', '1', '已完成', null, '-1', '58', '3', null, '5', '4', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('774', '审批任务', '1', '2016-09-05 13:41:32', null, '-1', '-1', '-1', null, null, '-1', '22', '3', null, '2', '2', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('774', '审批任务', '2', '2016-09-05 13:41:32', '2016-09-05 13:41:41', '21', '-1', '1', '已解决', null, '-1', '22', '3', null, '3', '2', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('775', '测试审批', '1', '2016-09-05 13:41:41', null, '-1', '-1', '-1', null, null, '-1', '39', '3', null, '3', '3', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('775', '测试审批', '2', '2016-09-05 13:41:41', '2016-09-05 13:49:19', '21', '-1', '1', '通过', null, '-1', '39', '3', null, '4', '3', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('776', '完成', '1', '2016-09-05 13:49:19', null, '-1', '-1', '-1', null, null, '-1', '58', '3', null, '4', '4', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('777', '一审', '1', '2016-09-05 14:00:02', null, '-1', '-1', '-1', null, null, '-1', '3', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('1025', '部门主管审批', '1', '2016-09-05 14:38:56', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('1025', '部门主管审批', '2', '2016-09-05 14:38:56', '2016-09-05 14:48:14', '21', '-1', '1', '', null, '-1', '5', '3', null, '2', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('1026', '部门主管审批', '1', '2016-09-05 14:49:26', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('1027', '部门主管审批', '1', '2016-09-05 15:07:09', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('1281', '一审', '1', '2016-09-12 09:05:13', null, '-1', '-1', '-1', null, null, '-1', '3', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('1537', '部门主管审批', '1', '2016-09-13 20:14:16', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('1537', '部门主管审批', '2', '2016-09-13 20:14:16', '2016-09-22 09:18:15', '21277', '-1', '1', '同意', null, '-1', '5', '3', null, '2', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('1538', '审批', '1', '2016-09-13 21:08:07', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('1538', '审批', '2', '2016-09-13 21:08:07', '2016-09-22 10:55:04', '15154', '-1', '1', '', null, '-1', '5', '3', null, '2', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('1793', '审批', '1', '2016-09-13 21:11:12', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('1793', '审批', '2', '2016-09-13 21:11:12', '2016-09-22 11:23:52', '15154', '-1', '1', '', null, '-1', '5', '3', null, '2', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('2049', '审批', '1', '2016-09-13 21:14:56', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('2049', '审批', '2', '2016-09-13 21:14:56', '2016-09-22 10:53:27', '21277', '-1', '1', '', null, '-1', '5', '3', null, '2', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('2305', '审批', '1', '2016-09-14 09:35:41', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('2305', '审批', '2', '2016-09-14 09:35:41', '2016-09-22 11:24:00', '15154', '-1', '1', '', null, '-1', '5', '3', null, '2', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('2306', '审批', '1', '2016-09-14 09:49:44', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('2306', '审批', '2', '2016-09-14 09:49:44', '2016-09-22 11:24:08', '15154', '-1', '1', '', null, '-1', '5', '3', null, '2', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('2561', '审批', '1', '2016-09-14 09:57:18', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('2561', '审批', '2', '2016-09-14 09:57:18', '2016-09-22 11:24:20', '15154', '-1', '1', '', null, '-1', '5', '3', null, '2', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('2562', '审批', '1', '2016-09-14 09:58:38', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('2562', '审批', '2', '2016-09-14 09:58:38', '2016-09-22 11:24:47', '15154', '-1', '1', '', null, '-1', '5', '3', null, '2', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('2817', '审批', '1', '2016-09-14 11:37:11', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('2817', '审批', '2', '2016-09-14 11:37:11', '2016-09-22 11:24:52', '15154', '-1', '1', '', null, '-1', '5', '3', null, '4', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('2818', '审批', '1', '2016-09-14 11:56:46', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('2818', '审批', '2', '2016-09-14 11:56:46', '2016-09-22 11:25:00', '15154', '-1', '1', '', null, '-1', '5', '3', null, '2', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('2819', '审批', '1', '2016-09-14 11:58:06', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('2819', '审批', '2', '2016-09-14 11:58:06', '2016-09-22 11:25:14', '15154', '-1', '1', '', null, '-1', '5', '3', null, '2', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('2820', '审批', '1', '2016-09-14 12:08:44', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('2820', '审批', '2', '2016-09-14 12:08:44', '2016-09-22 11:25:19', '15154', '-1', '1', '', null, '-1', '5', '3', null, '2', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('2821', '审批', '1', '2016-09-14 12:22:38', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('2821', '审批', '2', '2016-09-14 12:22:38', '2016-09-22 11:25:26', '15154', '-1', '1', '', null, '-1', '5', '3', null, '2', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('3073', '审批', '1', '2016-09-14 12:28:26', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('3073', '审批', '2', '2016-09-14 12:28:26', '2016-09-22 11:25:38', '15154', '-1', '1', '', null, '-1', '5', '3', null, '2', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('3329', '审批', '1', '2016-09-14 12:36:17', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('3329', '审批', '2', '2016-09-14 12:36:17', '2016-09-22 11:25:58', '15154', '-1', '1', '', null, '-1', '5', '3', null, '2', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('3330', '审批', '1', '2016-09-14 12:39:31', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('3330', '审批', '2', '2016-09-14 12:39:31', '2016-09-22 11:26:05', '15154', '-1', '1', '', null, '-1', '5', '3', null, '2', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('3585', '审批', '1', '2016-09-18 09:06:04', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('3585', '审批', '2', '2016-09-18 09:06:04', '2016-09-22 11:26:15', '15154', '-1', '1', '', null, '-1', '5', '3', null, '2', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('3586', '审批', '1', '2016-09-18 09:06:46', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('3586', '审批', '2', '2016-09-18 09:06:46', '2016-09-22 15:38:52', '21277', '-1', '1', '', null, '-1', '5', '3', null, '2', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('3587', '审批', '1', '2016-09-18 09:16:06', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('3587', '审批', '2', '2016-09-18 09:16:06', '2016-09-22 15:39:03', '21277', '-1', '1', '', null, '-1', '5', '3', null, '2', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('3588', '审批', '1', '2016-09-18 09:20:47', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('3588', '审批', '2', '2016-09-18 09:20:47', '2016-09-22 15:39:09', '21277', '-1', '1', '', null, '-1', '5', '3', null, '2', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('3841', '审批', '1', '2016-09-19 09:22:38', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('3841', '审批', '2', '2016-09-19 09:22:38', '2016-09-22 15:39:15', '21277', '-1', '1', '', null, '-1', '5', '3', null, '2', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('3842', '审批', '1', '2016-09-19 09:23:09', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('3842', '审批', '2', '2016-09-19 09:23:09', '2016-09-22 15:39:20', '21277', '-1', '1', '', null, '-1', '5', '3', null, '2', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('4097', '审批', '1', '2016-09-19 12:29:31', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('4097', '审批', '2', '2016-09-19 12:29:31', '2016-09-22 15:39:26', '21277', '-1', '1', '', null, '-1', '5', '3', null, '2', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('4353', '审批', '1', '2016-09-19 14:34:06', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('4353', '审批', '2', '2016-09-19 14:34:06', '2016-09-19 14:35:40', '21277', '-1', '1', '同意', null, '-1', '5', '3', null, '2', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('4354', '一审', '1', '2016-09-19 14:36:52', null, '-1', '-1', '-1', null, null, '-1', '3', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('4354', '一审', '2', '2016-09-19 14:36:52', '2016-09-19 14:39:58', '15154', '-1', '1', '', null, '-1', '3', '3', null, '2', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('4355', '二审', '1', '2016-09-19 14:39:58', null, '-1', '-1', '-1', null, null, '-1', '7', '3', null, '2', '2', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('4355', '二审', '2', '2016-09-19 14:39:58', '2016-09-19 14:40:28', '21277', '-1', '1', '', null, '-1', '7', '3', null, '3', '2', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('4609', '审批', '1', '2016-09-19 16:56:54', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('4609', '审批', '2', '2016-09-19 16:56:54', '2016-09-19 16:57:03', '21277', '-1', '1', '', null, '-1', '5', '3', null, '2', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('4610', '审批', '1', '2016-09-19 17:23:14', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('4610', '审批', '2', '2016-09-19 17:23:14', '2016-09-23 12:40:15', '21277', '-1', '1', '', null, '-1', '5', '3', null, '3', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('4865', '审批任务', '1', '2016-09-19 17:05:24', null, '-1', '-1', '-1', null, null, '-1', '19', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('4865', '审批任务', '2', '2016-09-19 17:05:24', '2016-09-22 09:14:49', '15154', '-1', '1', '通过', null, '-1', '19', '3', null, '2', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('4866', '审批', '1', '2016-09-19 17:13:40', null, '-1', '-1', '-1', null, null, '-1', '6', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('5121', '一审', '1', '2016-09-20 14:48:48', null, '-1', '-1', '-1', null, null, '-1', '3', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('5121', '一审', '2', '2016-09-20 14:48:48', '2016-10-26 18:15:33', '21277', '-1', '1', '请某某领导阅处', null, '-1', '3', '3', null, '2', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('5377', '审批任务', '1', '2016-09-22 09:14:24', null, '-1', '-1', '-1', null, null, '-1', '19', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('5377', '审批任务', '2', '2016-09-22 09:14:24', '2016-09-22 09:14:50', '15154', '-1', '1', '通过', null, '-1', '19', '3', null, '2', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('5633', '审批', '1', '2016-09-22 16:48:38', null, '-1', '-1', '-1', null, null, '-1', '6', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('5633', '审批', '2', '2016-09-22 16:48:38', '2016-10-26 18:16:11', '21277', '-1', '1', '', null, '-1', '6', '3', null, '2', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('5889', '一审', '1', '2016-09-22 16:56:22', null, '-1', '-1', '-1', null, null, '-1', '3', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('5889', '一审', '2', '2016-09-22 16:56:22', '2016-10-26 18:15:45', '21277', '-1', '1', '请某某领导阅处', null, '-1', '3', '3', null, '2', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('6145', '一审', '1', '2016-09-22 17:30:11', null, '-1', '-1', '-1', null, null, '-1', '3', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('6145', '一审', '2', '2016-09-22 17:30:11', '2016-10-26 18:16:28', '21277', '-1', '1', '同意', null, '-1', '3', '3', null, '2', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('6146', '一审', '1', '2016-09-22 17:52:14', null, '-1', '-1', '-1', null, null, '-1', '3', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('6146', '一审', '2', '2016-09-22 17:52:14', '2016-10-26 18:15:55', '21277', '-1', '1', '同意', null, '-1', '3', '3', null, '3', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('6401', '审批', '1', '2016-09-23 14:09:10', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('6401', '审批', '2', '2016-09-23 14:09:10', '2016-09-23 14:09:37', '21277', '-1', '1', '', null, '-1', '5', '3', null, '2', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('6402', '审批', '1', '2016-09-23 14:10:53', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('6402', '审批', '2', '2016-09-23 14:10:53', '2016-09-23 14:11:09', '21277', '-1', '1', '同意', null, '-1', '5', '3', null, '2', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('6657', '审批', '1', '2016-09-23 14:47:15', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('6657', '审批', '2', '2016-09-23 14:47:15', '2016-09-23 15:20:51', '21277', '-1', '1', '同意', null, '-1', '5', '3', null, '2', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('7169', '审批', '1', '2016-09-23 15:48:18', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('7169', '审批', '2', '2016-09-23 15:48:18', '2016-09-23 15:48:24', '21277', '-1', '1', '同意', null, '-1', '5', '3', null, '2', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('7425', '审批', '1', '2016-09-23 15:53:26', null, '-1', '-1', '-1', null, null, '-1', '6', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('7425', '审批', '2', '2016-09-23 15:53:26', '2016-09-23 15:53:39', '21277', '-1', '1', '同意', null, '-1', '6', '3', null, '2', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('7426', '审批任务', '1', '2016-09-23 15:53:39', null, '-1', '-1', '-1', null, null, '-1', '22', '3', null, '2', '2', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('7426', '审批任务', '2', '2016-09-23 15:53:39', '2017-01-13 11:15:21', '21277', '-1', '1', '同意', null, '-1', '22', '3', null, '3', '2', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('7427', '审批任务', '1', '2016-09-23 15:56:02', null, '-1', '-1', '-1', null, null, '-1', '19', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('7427', '审批任务', '2', '2016-09-23 15:56:02', '2016-09-23 15:59:03', '15154', '-1', '1', '', null, '-1', '19', '3', null, '2', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('7681', '部门主管审批', '1', '2016-09-23 16:11:18', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('7681', '部门主管审批', '2', '2016-09-23 16:11:18', '2016-09-23 16:11:26', '21277', '-1', '1', '同意', null, '-1', '5', '3', null, '2', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('7682', '审批', '1', '2016-09-23 16:15:27', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('7682', '审批', '2', '2016-09-23 16:15:27', '2016-09-23 16:18:40', '21271', '-1', '1', '同意', null, '-1', '5', '3', null, '3', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('7937', '审批', '1', '2016-09-23 16:36:52', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('7937', '审批', '2', '2016-09-23 16:36:52', '2016-09-23 16:36:58', '21277', '-1', '1', '同意', null, '-1', '5', '3', null, '2', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('8193', '一审', '1', '2016-09-23 16:48:37', null, '-1', '-1', '-1', null, null, '-1', '3', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('8193', '一审', '2', '2016-09-23 16:48:37', '2016-10-26 18:15:17', '21277', '-1', '1', '同意', null, '-1', '3', '3', null, '2', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('8449', '一审', '1', '2016-09-26 10:19:28', null, '-1', '-1', '-1', null, null, '-1', '3', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('8449', '一审', '2', '2016-09-26 10:19:28', '2017-01-13 11:16:36', '21277', '-1', '1', '同意', null, '-1', '3', '3', null, '2', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('8450', '审批', '1', '2016-09-26 10:29:48', null, '-1', '-1', '-1', null, null, '-1', '6', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('8450', '审批', '2', '2016-09-26 10:29:48', '2017-01-13 11:16:05', '21277', '-1', '1', '同意', null, '-1', '6', '3', null, '2', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('8705', '审批任务', '1', '2016-10-12 10:57:13', null, '-1', '-1', '-1', null, null, '-1', '19', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('8705', '审批任务', '2', '2016-10-12 10:57:13', '2016-10-12 10:57:19', '21277', '-1', '1', '', null, '-1', '19', '3', null, '2', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('8706', '审批', '1', '2016-10-12 11:02:57', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('8706', '审批', '2', '2016-10-12 11:02:57', '2016-10-12 11:44:53', '21277', '-1', '1', '请某某领导阅处', null, '-1', '5', '3', null, '2', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('8961', '办公室主任审批', '1', '2016-10-12 13:23:06', null, '-1', '-1', '-1', null, null, '-1', '8', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('8961', '办公室主任审批', '2', '2016-10-12 13:23:06', '2016-10-12 13:23:44', '21277', '-1', '1', '请某某领导阅处', null, '-1', '8', '3', null, '2', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('8962', '总经理审批', '1', '2016-10-12 13:23:44', null, '-1', '-1', '-1', null, null, '-1', '10', '3', null, '2', '2', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('8962', '总经理审批', '2', '2016-10-12 13:23:44', '2016-10-12 13:23:49', '21277', '-1', '1', '请某某领导阅处', null, '-1', '10', '3', null, '3', '2', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('8963', '分管领导', '1', '2016-10-12 13:23:49', null, '-1', '-1', '-1', null, null, '-1', '27', '3', null, '3', '3', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('8963', '分管领导', '2', '2016-10-12 13:23:49', '2016-10-12 13:24:00', '21277', '-1', '1', '同意', null, '-1', '27', '3', null, '4', '3', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('8964', '部门处理', '1', '2016-10-12 13:24:00', null, '-1', '-1', '-1', null, null, '-1', '29', '3', null, '4', '4', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('8964', '部门处理', '2', '2016-10-12 13:24:00', '2016-10-12 13:24:24', '21277', '-1', '1', '已处理完成', null, '-1', '29', '3', null, '5', '4', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('9217', '审批', '1', '2016-10-12 14:27:16', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('9217', '审批', '2', '2016-10-12 14:27:16', '2017-01-13 11:03:49', '21277', '-1', '1', '同意', null, '-1', '5', '3', null, '5', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('9473', '办公室主任审批', '1', '2016-10-12 15:24:31', null, '-1', '-1', '-1', null, null, '-1', '8', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('9473', '办公室主任审批', '2', '2016-10-12 15:24:31', '2016-10-12 15:26:57', '21271', '-1', '1', '请朱主任阅处', null, '-1', '8', '3', null, '2', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('9474', '总经理审批', '1', '2016-10-12 15:26:57', null, '-1', '-1', '-1', null, null, '-1', '10', '3', null, '2', '2', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('9474', '总经理审批', '2', '2016-10-12 15:26:57', '2016-10-12 15:32:32', '21271', '-1', '1', '同意', null, '-1', '10', '3', null, '3', '2', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('9475', '分管领导', '1', '2016-10-12 15:32:32', null, '-1', '-1', '-1', null, null, '-1', '27', '3', null, '3', '3', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('9475', '分管领导', '2', '2016-10-12 15:32:32', '2016-10-12 15:32:42', '21271', '-1', '1', '', null, '-1', '27', '3', null, '4', '3', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('9476', '部门处理', '1', '2016-10-12 15:32:42', null, '-1', '-1', '-1', null, null, '-1', '29', '3', null, '4', '4', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('9476', '部门处理', '2', '2016-10-12 15:32:42', '2016-10-12 15:32:53', '21271', '-1', '1', '', null, '-1', '29', '3', null, '5', '4', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('9729', '一审', '1', '2016-10-26 18:03:32', null, '-1', '-1', '-1', null, null, '-1', '3', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('9729', '一审', '2', '2016-10-26 18:03:32', '2016-10-26 18:14:12', '21277', '-1', '1', '同意', null, '-1', '3', '3', null, '2', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('9985', '一审', '1', '2016-10-26 18:09:07', null, '-1', '-1', '-1', null, null, '-1', '3', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('9985', '一审', '2', '2016-10-26 18:09:07', '2016-10-26 18:15:02', '21277', '-1', '1', '', null, '-1', '3', '3', null, '2', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('9986', '二审', '1', '2016-10-26 18:14:12', null, '-1', '-1', '-1', null, null, '-1', '7', '3', null, '2', '2', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('9986', '二审', '2', '2016-10-26 18:14:12', '2016-10-26 18:14:18', '21277', '-1', '1', '', null, '-1', '7', '3', null, '3', '2', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('9987', '二审', '1', '2016-10-26 18:15:02', null, '-1', '-1', '-1', null, null, '-1', '7', '3', null, '2', '2', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('9987', '二审', '2', '2016-10-26 18:15:02', '2016-10-26 18:15:06', '21277', '-1', '1', '', null, '-1', '7', '3', null, '3', '2', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('9988', '一审', '1', '2016-10-26 18:16:11', null, '-1', '-1', '-1', null, null, '-1', '22', '3', null, '2', '2', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('9988', '一审', '2', '2016-10-26 18:16:11', '2016-10-26 18:16:14', '21277', '-1', '1', '', null, '-1', '22', '3', null, '3', '2', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('9989', '测试审批', '1', '2016-10-26 18:16:14', null, '-1', '-1', '-1', null, null, '-1', '39', '3', null, '3', '3', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('9989', '测试审批', '2', '2016-10-26 18:16:14', '2016-10-26 18:16:17', '21277', '-1', '1', '', null, '-1', '39', '3', null, '4', '3', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('10241', '一审', '1', '2016-10-27 08:54:18', null, '-1', '-1', '-1', null, null, '-1', '3', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('10241', '一审', '2', '2016-10-27 08:54:18', '2016-10-27 08:54:26', '21277', '-1', '1', '同意', null, '-1', '3', '3', null, '2', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('10242', '二审', '1', '2016-10-27 08:54:26', null, '-1', '-1', '-1', null, null, '-1', '7', '3', null, '2', '2', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('10242', '二审', '2', '2016-10-27 08:54:26', '2016-10-27 08:54:35', '21277', '-1', '1', '同意', null, '-1', '7', '3', null, '3', '2', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('10243', '一审', '1', '2016-10-27 08:54:43', null, '-1', '-1', '-1', null, null, '-1', '3', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('10243', '一审', '2', '2016-10-27 08:54:43', '2016-10-27 08:54:49', '21277', '-1', '1', '同意', null, '-1', '3', '3', null, '2', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('10244', '二审', '1', '2016-10-27 08:54:49', null, '-1', '-1', '-1', null, null, '-1', '7', '3', null, '2', '2', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('10244', '二审', '2', '2016-10-27 08:54:49', '2016-10-27 08:55:04', '21277', '-1', '1', '同意', null, '-1', '7', '3', null, '3', '2', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('10245', '一审', '1', '2016-10-27 08:55:41', null, '-1', '-1', '-1', null, null, '-1', '3', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('10246', '审批任务', '1', '2016-10-27 09:39:23', null, '-1', '-1', '-1', null, null, '-1', '19', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('10246', '审批任务', '2', '2016-10-27 09:39:23', '2016-10-27 09:39:30', '21277', '-1', '1', '同意', null, '-1', '19', '3', null, '2', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('10497', '审批任务', '1', '2016-10-28 12:09:17', null, '-1', '-1', '-1', null, null, '-1', '19', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('10497', '审批任务', '2', '2016-10-28 12:09:17', '2016-10-28 12:09:32', '21277', '-1', '1', '同意', null, '-1', '19', '3', null, '2', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('10753', '办公室主任审批', '1', '2016-10-28 16:27:33', null, '-1', '-1', '-1', null, null, '-1', '8', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('10753', '办公室主任审批', '2', '2016-10-28 16:27:33', '2017-01-13 11:11:14', '21277', '-1', '1', '请某某领导阅处', null, '-1', '8', '3', null, '2', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('10754', '办公室主任审批', '1', '2016-10-28 16:31:25', null, '-1', '-1', '-1', null, null, '-1', '8', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('10754', '办公室主任审批', '2', '2016-10-28 16:31:25', '2016-10-28 16:31:55', '21277', '-1', '1', '请某某领导阅处', null, '-1', '8', '3', null, '2', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('10755', '总经理审批', '1', '2016-10-28 16:31:55', null, '-1', '-1', '-1', null, null, '-1', '10', '3', null, '2', '2', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('10755', '总经理审批', '2', '2016-10-28 16:31:55', '2016-10-28 16:32:05', '21277', '-1', '1', '', null, '-1', '10', '3', null, '3', '2', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('10756', '分管领导', '1', '2016-10-28 16:32:05', null, '21271', '-1', '-1', null, null, '-1', '43', '4', null, '3', '3', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('10756', '分管领导', '2', '2016-10-28 16:32:05', '2016-10-28 16:33:24', '21271', '-1', '1', '', null, '-1', '43', '4', null, '5', '3', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('10757', '分管领导', '1', '2016-10-28 16:32:05', null, '21277', '-1', '-1', null, null, '-1', '43', '4', null, '3', '3', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('10757', '分管领导', '2', '2016-10-28 16:32:05', '2016-10-28 16:32:17', '21277', '-1', '1', '', null, '-1', '43', '4', null, '4', '3', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('10758', '部门处理结果反馈', '1', '2016-10-28 16:33:24', null, '21271', '-1', '-1', null, null, '-1', '46', '4', null, '5', '5', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('10758', '部门处理结果反馈', '2', '2016-10-28 16:33:24', '2016-10-28 16:33:35', '21271', '-1', '1', '同意', null, '-1', '46', '4', null, '6', '5', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('10759', '部门处理结果反馈', '1', '2016-10-28 16:33:24', null, '21277', '-1', '-1', null, null, '-1', '46', '4', null, '5', '5', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('10759', '部门处理结果反馈', '2', '2016-10-28 16:33:24', '2016-10-28 16:34:21', '21277', '-1', '1', '已处理完成', null, '-1', '46', '4', null, '7', '5', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('10760', '办公室主任审批', '1', '2016-10-28 17:27:27', null, '-1', '-1', '-1', null, null, '-1', '8', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('10760', '办公室主任审批', '2', '2016-10-28 17:27:27', '2017-01-13 11:09:02', '21277', '-1', '1', '请某某领导阅处', null, '-1', '8', '3', null, '2', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('10761', '办公室主任审批', '1', '2016-10-28 17:46:16', null, '-1', '-1', '-1', null, null, '-1', '8', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('10761', '办公室主任审批', '2', '2016-10-28 17:46:16', '2016-10-28 17:50:54', '21277', '-1', '1', '已处理完成', null, '-1', '8', '3', null, '2', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('10762', '总经理审批', '1', '2016-10-28 17:50:54', null, '-1', '-1', '-1', null, null, '-1', '10', '3', null, '2', '2', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('10762', '总经理审批', '2', '2016-10-28 17:50:54', '2016-11-10 14:22:01', '21277', '-1', '1', '同意', null, '-1', '10', '3', null, '4', '2', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('11009', '审批', '1', '2016-10-31 15:36:48', null, '-1', '-1', '-1', null, null, '-1', '5', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('11009', '审批', '2', '2016-10-31 15:36:48', '2016-10-31 15:36:56', '21277', '-1', '1', '', null, '-1', '5', '3', null, '2', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('11265', '审批', '1', '2016-11-02 13:30:19', null, '-1', '-1', '-1', null, null, '-1', '6', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('11265', '审批', '2', '2016-11-02 13:30:19', '2016-11-02 13:31:23', '21277', '-1', '1', '同意', null, '-1', '6', '3', null, '2', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('11266', '一审', '1', '2016-11-02 13:31:23', null, '-1', '-1', '-1', null, null, '-1', '22', '3', null, '2', '2', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('11266', '一审', '2', '2016-11-02 13:31:23', '2016-11-02 13:32:00', '21277', '-1', '1', '同意', null, '-1', '22', '3', null, '3', '2', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('11267', '测试审批', '1', '2016-11-02 13:32:00', null, '-1', '-1', '-1', null, null, '-1', '39', '3', null, '3', '3', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('11267', '测试审批', '2', '2016-11-02 13:32:00', '2016-11-02 13:32:14', '21277', '-1', '1', '同意', null, '-1', '39', '3', null, '4', '3', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('11521', '审批', '1', '2016-11-02 13:38:10', null, '-1', '-1', '-1', null, null, '-1', '6', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('11521', '审批', '2', '2016-11-02 13:38:10', '2016-11-24 15:45:32', '21277', '-1', '1', '同意', null, '-1', '6', '3', null, '3', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('11777', '一审', '1', '2016-11-03 10:04:07', null, '-1', '-1', '-1', null, null, '-1', '3', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('11777', '一审', '2', '2016-11-03 10:04:07', '2016-11-03 10:04:32', '21277', '-1', '1', '同意', null, '-1', '3', '3', null, '2', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('11778', '二审', '1', '2016-11-03 10:04:32', null, '-1', '-1', '-1', null, null, '-1', '7', '3', null, '2', '2', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('11778', '二审', '2', '2016-11-03 10:04:32', '2016-11-03 10:04:45', '21277', '-1', '1', '同意', null, '-1', '7', '3', null, '3', '2', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('11779', '一审', '1', '2016-11-03 10:05:40', null, '-1', '-1', '-1', null, null, '-1', '3', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('11779', '一审', '2', '2016-11-03 10:05:40', '2016-11-03 10:05:48', '21277', '-1', '1', '同意', null, '-1', '3', '3', null, '2', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('12033', '一审', '1', '2016-11-04 10:26:37', null, '-1', '-1', '-1', null, null, '-1', '3', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('12033', '一审', '2', '2016-11-04 10:26:37', '2016-11-04 10:26:53', '21277', '-1', '1', '同意', null, '-1', '3', '3', null, '2', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('12034', '二审', '1', '2016-11-04 10:26:53', null, '-1', '-1', '-1', null, null, '-1', '7', '3', null, '2', '2', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('12034', '二审', '2', '2016-11-04 10:26:53', '2016-11-04 10:27:09', '21277', '-1', '1', '同意', null, '-1', '7', '3', null, '4', '2', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('12035', '一审', '1', '2016-11-04 10:35:58', null, '-1', '-1', '-1', null, null, '-1', '3', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('12035', '一审', '2', '2016-11-04 10:35:58', '2016-11-04 10:36:03', '21277', '-1', '1', '同意', null, '-1', '3', '3', null, '2', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('12036', '二审', '1', '2016-11-04 10:36:03', null, '-1', '-1', '-1', null, null, '-1', '7', '3', null, '2', '2', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('12036', '二审', '2', '2016-11-04 10:36:03', '2016-11-04 10:36:10', '21277', '-1', '1', '同意', null, '-1', '7', '3', null, '3', '2', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('12037', '一审', '1', '2016-11-04 10:38:39', null, '-1', '-1', '-1', null, null, '-1', '3', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('12037', '一审', '2', '2016-11-04 10:38:39', '2016-11-04 10:38:45', '21277', '-1', '1', '同意', null, '-1', '3', '3', null, '2', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('12038', '二审', '1', '2016-11-04 10:38:45', null, '-1', '-1', '-1', null, null, '-1', '7', '3', null, '2', '2', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('12038', '二审', '2', '2016-11-04 10:38:45', '2016-11-04 10:38:51', '21277', '-1', '1', '同意', null, '-1', '7', '3', null, '3', '2', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('12289', '办公室主任审批', '1', '2016-11-04 11:38:58', null, '-1', '-1', '-1', null, null, '-1', '8', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('12289', '办公室主任审批', '2', '2016-11-04 11:38:58', '2016-11-04 11:39:09', '21277', '-1', '1', '请某某领导阅处', null, '-1', '8', '3', null, '2', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('12290', '总经理审批', '1', '2016-11-04 11:39:09', null, '-1', '-1', '-1', null, null, '-1', '10', '3', null, '2', '2', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('12290', '总经理审批', '2', '2016-11-04 11:39:09', '2016-11-04 12:03:04', '21277', '-1', '1', '同意', null, '-1', '10', '3', null, '3', '2', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('12291', '分管领导', '1', '2016-11-04 12:03:04', null, '21277', '-1', '-1', null, null, '-1', '43', '4', null, '3', '3', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('12291', '分管领导', '2', '2016-11-04 12:03:04', '2016-11-17 09:10:02', '21277', '-1', '1', '同意', null, '-1', '43', '4', null, '6', '3', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('12546', '分管领导', '1', '2016-11-10 14:22:01', null, '21277', '-1', '-1', null, null, '-1', '43', '4', null, '4', '4', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('12546', '分管领导', '2', '2016-11-10 14:22:01', '2016-11-10 14:22:10', '21277', '-1', '1', '同意', null, '-1', '43', '4', null, '5', '4', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('12547', '部门处理结果反馈', '1', '2016-11-10 14:22:10', null, '21277', '-1', '-1', null, null, '-1', '46', '4', null, '5', '5', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('12547', '部门处理结果反馈', '2', '2016-11-10 14:22:10', '2017-01-13 11:17:19', '21277', '-1', '1', '已处理完成', null, '-1', '46', '4', null, '7', '5', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('12801', '部门处理结果反馈', '1', '2016-11-17 09:10:02', null, '21271', '-1', '-1', null, null, '-1', '46', '4', null, '6', '6', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('12801', '部门处理结果反馈', '2', '2016-11-17 09:10:02', '2016-11-17 09:18:08', '21271', '-1', '1', '同意', null, '-1', '46', '4', null, '8', '6', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('12802', '部门处理结果反馈', '1', '2016-11-17 09:10:02', null, '21277', '-1', '-1', null, null, '-1', '46', '4', null, '6', '6', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('12802', '部门处理结果反馈', '2', '2016-11-17 09:10:02', '2016-11-17 09:10:40', '21277', '-1', '0', '不同意', null, '-1', '46', '4', null, '7', '6', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('12803', '提交审批', '1', '2016-11-17 09:18:08', null, '-1', '-1', '-1', null, null, '-1', '49', '3', null, '8', '8', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('12803', '提交审批', '2', '2016-11-17 09:18:08', '2016-11-17 09:19:08', '21271', '-1', '1', '', null, '-1', '49', '3', null, '9', '8', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('12804', '办公室主任审批', '1', '2016-11-17 09:19:08', null, '-1', '-1', '-1', null, null, '-1', '8', '3', null, '9', '9', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('12804', '办公室主任审批', '2', '2016-11-17 09:19:08', '2016-11-17 09:19:27', '21271', '-1', '1', '请朱主任阅处', null, '-1', '8', '3', null, '10', '9', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('12805', '总经理审批', '1', '2016-11-17 09:19:27', null, '-1', '-1', '-1', null, null, '-1', '10', '3', null, '10', '10', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('12805', '总经理审批', '2', '2016-11-17 09:19:27', '2016-11-24 15:41:38', '21277', '-1', '1', '同意', null, '-1', '10', '3', null, '11', '10', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('13057', '办公室主任审批', '1', '2016-11-24 15:32:55', null, '-1', '-1', '-1', null, null, '-1', '8', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('13057', '办公室主任审批', '2', '2016-11-24 15:32:55', '2017-01-13 11:12:32', '21277', '-1', '1', '请某某领导阅处', null, '-1', '8', '3', null, '2', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('13058', '分管领导', '1', '2016-11-24 15:41:38', null, '21271', '-1', '-1', null, null, '-1', '43', '4', null, '11', '11', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('13059', '分管领导', '1', '2016-11-24 15:41:38', null, '21277', '-1', '-1', null, null, '-1', '43', '4', null, '11', '11', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('13059', '分管领导', '2', '2016-11-24 15:41:38', '2016-12-29 14:29:13', '21277', '-1', '1', '', null, '-1', '43', '4', null, '12', '11', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('13061', '一审', '1', '2016-11-24 15:45:32', null, '-1', '-1', '-1', null, null, '-1', '22', '3', null, '3', '3', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('13062', '办公室主任审批', '1', '2016-11-24 15:47:24', null, '-1', '-1', '-1', null, null, '-1', '8', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('13062', '办公室主任审批', '2', '2016-11-24 15:47:24', '2016-11-24 15:47:56', '21277', '-1', '1', '请某某领导阅处', null, '-1', '8', '3', null, '3', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('13064', '总经理审批', '1', '2016-11-24 15:47:56', null, '-1', '-1', '-1', null, null, '-1', '10', '3', null, '3', '3', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('13064', '总经理审批', '2', '2016-11-24 15:47:56', '2016-11-24 15:48:18', '21277', '-1', '1', '同意', null, '-1', '10', '3', null, '5', '3', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('13067', '分管领导', '1', '2016-11-24 15:48:18', null, '21271', '-1', '-1', null, null, '-1', '43', '4', null, '5', '5', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('13067', '分管领导', '2', '2016-11-24 15:48:18', '2016-11-24 15:49:47', '21271', '-1', '1', '同意', null, '-1', '43', '4', null, '8', '5', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('13068', '分管领导', '1', '2016-11-24 15:48:18', null, '21277', '-1', '-1', null, null, '-1', '43', '4', null, '5', '5', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('13068', '分管领导', '2', '2016-11-24 15:48:18', '2016-11-24 15:48:30', '21277', '-1', '1', '同意', null, '-1', '43', '4', null, '6', '5', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('13070', '部门处理结果反馈', '1', '2016-11-24 15:49:47', null, '21277', '-1', '-1', null, null, '-1', '46', '4', null, '8', '8', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('13070', '部门处理结果反馈', '2', '2016-11-24 15:49:47', '2016-12-19 15:54:01', '21277', '-1', '1', '已处理完成', null, '-1', '46', '4', null, '11', '8', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('13313', '一审', '1', '2016-11-29 09:42:47', null, '-1', '-1', '-1', null, null, '-1', '3', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('13313', '一审', '2', '2016-11-29 09:42:47', '2016-11-29 09:54:37', '21277', '-1', '1', '同意', null, '-1', '3', '3', null, '2', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('13569', '办公室主任审批', '1', '2016-12-14 13:58:20', null, '-1', '-1', '-1', null, null, '-1', '8', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('13569', '办公室主任审批', '2', '2016-12-14 13:58:20', '2016-12-14 13:58:33', '21277', '-1', '1', '请某某领导阅处', null, '-1', '8', '3', null, '2', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('13570', '总经理审批', '1', '2016-12-14 13:58:33', null, '-1', '-1', '-1', null, null, '-1', '10', '3', null, '2', '2', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('13570', '总经理审批', '2', '2016-12-14 13:58:33', '2016-12-14 13:58:51', '21277', '-1', '1', '同意', null, '-1', '10', '3', null, '3', '2', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('13571', '分管领导', '1', '2016-12-14 13:58:51', null, '21271', '-1', '-1', null, null, '-1', '43', '4', null, '3', '3', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('13572', '分管领导', '1', '2016-12-14 13:58:51', null, '21277', '-1', '-1', null, null, '-1', '43', '4', null, '3', '3', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('13572', '分管领导', '2', '2016-12-14 13:58:51', '2016-12-29 14:09:28', '21277', '-1', '1', '同意', null, '-1', '43', '4', null, '9', '3', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('13825', '办公室主任审批', '1', '2016-12-22 12:00:14', null, '-1', '-1', '-1', null, null, '-1', '8', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('13825', '办公室主任审批', '2', '2016-12-22 12:00:14', '2016-12-22 12:00:55', '21277', '-1', '1', '请某某领导阅处', null, '-1', '8', '3', null, '2', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('13826', '总经理审批', '1', '2016-12-22 12:00:55', null, '-1', '-1', '-1', null, null, '-1', '10', '3', null, '2', '2', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('13826', '总经理审批', '2', '2016-12-22 12:00:55', '2016-12-22 12:01:19', '21277', '-1', '1', '', null, '-1', '10', '3', null, '3', '2', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('13827', '分管领导', '1', '2016-12-22 12:01:19', null, '21271', '-1', '-1', null, null, '-1', '43', '4', null, '3', '3', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('13827', '分管领导', '2', '2016-12-22 12:01:19', '2016-12-22 12:05:52', '21271', '-1', '1', '', null, '-1', '43', '4', null, '5', '3', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('13828', '分管领导', '1', '2016-12-22 12:01:19', null, '21277', '-1', '-1', null, null, '-1', '43', '4', null, '3', '3', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('13828', '分管领导', '2', '2016-12-22 12:01:19', '2016-12-22 12:01:47', '21277', '-1', '1', '同意', null, '-1', '43', '4', null, '4', '3', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('13831', '部门处理结果反馈', '1', '2016-12-22 12:05:52', null, '21271', '-1', '-1', null, null, '-1', '46', '4', null, '5', '5', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('13831', '部门处理结果反馈', '2', '2016-12-22 12:05:52', '2016-12-22 12:06:07', '21271', '-1', '1', '同意', null, '-1', '46', '4', null, '6', '5', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('13832', '部门处理结果反馈', '1', '2016-12-22 12:05:52', null, '21277', '-1', '-1', null, null, '-1', '46', '4', null, '5', '5', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('13832', '部门处理结果反馈', '2', '2016-12-22 12:05:52', '2016-12-29 15:55:47', '21277', '-1', '1', '', null, '-1', '46', '4', null, '34', '5', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('14081', '办公室主任审批', '1', '2017-01-04 11:41:49', null, '-1', '-1', '-1', null, null, '-1', '8', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('14081', '办公室主任审批', '2', '2017-01-04 11:41:49', '2017-01-09 10:39:04', '21277', '-1', '1', '请某某领导阅处', null, '-1', '8', '3', null, '4', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('14593', '办公室主任审批', '1', '2017-01-06 09:42:03', null, '-1', '-1', '-1', null, null, '-1', '8', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('14593', '办公室主任审批', '2', '2017-01-06 09:42:03', '2017-01-09 10:33:11', '21277', '-1', '1', '请某某领导阅处', null, '-1', '8', '3', null, '2', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('14849', '总经理审批', '1', '2017-01-09 10:33:11', null, '-1', '-1', '-1', null, null, '-1', '10', '3', null, '2', '2', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('15105', '办公室主任审批', '1', '2017-01-09 10:37:10', null, '-1', '-1', '-1', null, null, '-1', '8', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('15105', '办公室主任审批', '2', '2017-01-09 10:37:10', '2017-01-09 10:37:49', '21277', '-1', '1', '请某某领导阅处', null, '-1', '8', '3', null, '3', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('15107', '总经理审批', '1', '2017-01-09 10:37:49', null, '-1', '-1', '-1', null, null, '-1', '10', '3', null, '3', '3', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('15107', '总经理审批', '2', '2017-01-09 10:37:49', '2017-01-09 10:38:02', '21277', '-1', '1', '同意', null, '-1', '10', '3', null, '4', '3', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('15108', '分管领导', '1', '2017-01-09 10:38:02', null, '21277', '-1', '-1', null, null, '-1', '43', '4', null, '4', '4', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('15108', '分管领导', '2', '2017-01-09 10:38:02', '2017-01-09 10:38:15', '21277', '-1', '1', '同意', null, '-1', '43', '4', null, '5', '4', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('15109', '部门处理结果反馈', '1', '2017-01-09 10:38:15', null, '21277', '-1', '-1', null, null, '-1', '46', '4', null, '5', '5', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('15109', '部门处理结果反馈', '2', '2017-01-09 10:38:15', '2017-01-09 10:38:23', '21277', '-1', '1', '已处理完成', null, '-1', '46', '4', null, '6', '5', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('15110', '总经理审批', '1', '2017-01-09 10:39:04', null, '-1', '-1', '-1', null, null, '-1', '10', '3', null, '4', '4', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('15110', '总经理审批', '2', '2017-01-09 10:39:04', '2017-01-13 11:27:16', '21277', '-1', '1', '同意', null, '-1', '10', '3', null, '5', '4', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('15111', '办公室主任审批', '1', '2017-01-09 14:07:00', null, '-1', '-1', '-1', null, null, '-1', '8', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('15111', '办公室主任审批', '2', '2017-01-09 14:07:00', '2017-01-09 14:07:09', '21277', '-1', '1', '请某某领导阅处', null, '-1', '8', '3', null, '2', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('15112', '总经理审批', '1', '2017-01-09 14:07:09', null, '-1', '-1', '-1', null, null, '-1', '10', '3', null, '2', '2', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('15112', '总经理审批', '2', '2017-01-09 14:07:09', '2017-01-09 14:08:36', '21277', '-1', '1', '同意', null, '-1', '10', '3', null, '3', '2', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('15113', '分管领导', '1', '2017-01-09 14:08:36', null, '21271', '-1', '-1', null, null, '-1', '43', '4', null, '3', '3', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('15114', '分管领导', '1', '2017-01-09 14:08:36', null, '21277', '-1', '-1', null, null, '-1', '43', '4', null, '3', '3', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('15361', '办公室主任审批', '1', '2017-01-10 16:07:37', null, '-1', '-1', '-1', null, null, '-1', '8', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('15361', '办公室主任审批', '2', '2017-01-10 16:07:37', '2017-01-10 16:08:58', '21277', '-1', '1', '已处理完成', null, '-1', '8', '3', null, '2', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('15362', '总经理审批', '1', '2017-01-10 16:08:58', null, '-1', '-1', '-1', null, null, '-1', '10', '3', null, '2', '2', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('15362', '总经理审批', '2', '2017-01-10 16:08:58', '2017-01-13 09:38:28', '21277', '-1', '1', '同意', null, '-1', '10', '3', null, '3', '2', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('15617', '分管领导', '1', '2017-01-13 09:41:13', null, '21277', '-1', '-1', null, null, '-1', '43', '4', null, '3', '3', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('15873', '总经理审批', '1', '2017-01-13 11:09:02', null, '-1', '-1', '-1', null, null, '-1', '10', '3', null, '2', '2', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('15873', '总经理审批', '2', '2017-01-13 11:09:02', '2017-01-13 11:09:15', '21277', '-1', '1', '同意', null, '-1', '10', '3', null, '3', '2', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('15874', '分管领导', '1', '2017-01-13 11:09:15', null, '21277', '-1', '-1', null, null, '-1', '43', '4', null, '3', '3', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('15874', '分管领导', '2', '2017-01-13 11:09:15', '2017-01-13 11:09:25', '21277', '-1', '1', '同意', null, '-1', '43', '4', null, '4', '3', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('15875', '部门处理结果反馈', '1', '2017-01-13 11:09:25', null, '21277', '-1', '-1', null, null, '-1', '46', '4', null, '4', '4', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('15875', '部门处理结果反馈', '2', '2017-01-13 11:09:25', '2017-01-13 11:09:34', '21277', '-1', '1', '已处理完成', null, '-1', '46', '4', null, '5', '4', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('15876', '总经理审批', '1', '2017-01-13 11:11:14', null, '-1', '-1', '-1', null, null, '-1', '10', '3', null, '2', '2', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('15876', '总经理审批', '2', '2017-01-13 11:11:14', '2017-01-13 11:11:25', '21277', '-1', '1', '同意', null, '-1', '10', '3', null, '3', '2', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('15877', '分管领导', '1', '2017-01-13 11:11:25', null, '21277', '-1', '-1', null, null, '-1', '43', '4', null, '3', '3', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('15877', '分管领导', '2', '2017-01-13 11:11:25', '2017-01-13 11:11:37', '21277', '-1', '1', '同意', null, '-1', '43', '4', null, '4', '3', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('15878', '部门处理结果反馈', '1', '2017-01-13 11:11:37', null, '21277', '-1', '-1', null, null, '-1', '46', '4', null, '4', '4', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('15878', '部门处理结果反馈', '2', '2017-01-13 11:11:37', '2017-01-13 11:11:43', '21277', '-1', '1', '已处理完成', null, '-1', '46', '4', null, '5', '4', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('15879', '总经理审批', '1', '2017-01-13 11:12:32', null, '-1', '-1', '-1', null, null, '-1', '10', '3', null, '2', '2', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('15879', '总经理审批', '2', '2017-01-13 11:12:32', '2017-01-13 11:12:44', '21277', '-1', '1', '同意', null, '-1', '10', '3', null, '3', '2', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('15880', '分管领导', '1', '2017-01-13 11:12:44', null, '21277', '-1', '-1', null, null, '-1', '43', '4', null, '3', '3', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('15880', '分管领导', '2', '2017-01-13 11:12:44', '2017-01-13 11:14:49', '21277', '-1', '1', '同意', null, '-1', '43', '4', null, '4', '3', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('15881', '部门处理结果反馈', '1', '2017-01-13 11:14:49', null, '21277', '-1', '-1', null, null, '-1', '46', '4', null, '4', '4', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('15881', '部门处理结果反馈', '2', '2017-01-13 11:14:49', '2017-01-13 11:14:58', '21277', '-1', '1', '已处理完成', null, '-1', '46', '4', null, '5', '4', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('15882', '测试审批', '1', '2017-01-13 11:15:21', null, '-1', '-1', '-1', null, null, '-1', '39', '3', null, '3', '3', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('15882', '测试审批', '2', '2017-01-13 11:15:21', '2017-01-13 11:15:26', '21277', '-1', '1', '同意', null, '-1', '39', '3', null, '4', '3', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('15883', '一审', '1', '2017-01-13 11:16:05', null, '-1', '-1', '-1', null, null, '-1', '22', '3', null, '2', '2', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('15883', '一审', '2', '2017-01-13 11:16:05', '2017-01-13 11:16:11', '21277', '-1', '1', '同意', null, '-1', '22', '3', null, '3', '2', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('15884', '测试审批', '1', '2017-01-13 11:16:11', null, '-1', '-1', '-1', null, null, '-1', '39', '3', null, '3', '3', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('15884', '测试审批', '2', '2017-01-13 11:16:11', '2017-01-13 11:16:15', '21277', '-1', '1', '同意', null, '-1', '39', '3', null, '4', '3', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('15885', '分管领导', '1', '2017-01-13 11:27:16', null, '21277', '-1', '-1', null, null, '-1', '43', '4', null, '5', '5', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('15885', '分管领导', '2', '2017-01-13 11:27:16', '2017-01-13 11:27:23', '21277', '-1', '1', '同意', null, '-1', '43', '4', null, '6', '5', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('15886', '部门处理结果反馈', '1', '2017-01-13 11:27:23', null, '21277', '-1', '-1', null, null, '-1', '46', '4', null, '6', '6', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('15886', '部门处理结果反馈', '2', '2017-01-13 11:27:23', '2017-01-13 11:27:37', '21277', '-1', '1', '已处理完成', null, '-1', '46', '4', null, '7', '6', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('16129', '办公室主任审批', '1', '2017-04-20 10:23:33', null, '-1', '-1', '-1', null, null, '-1', '8', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('16385', '审批任务', '1', '2017-04-24 09:52:05', null, '-1', '-1', '-1', null, null, '-1', '19', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('16385', '审批任务', '2', '2017-04-24 09:52:05', '2017-04-24 09:59:22', '21277', '-1', '1', '通过', null, '-1', '19', '3', null, '2', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('16386', '审批任务', '1', '2017-04-24 09:56:41', null, '-1', '-1', '-1', null, null, '-1', '19', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('16386', '审批任务', '2', '2017-04-24 09:56:41', '2017-04-24 13:47:11', '21277', '-1', '1', '通过', null, '-1', '19', '3', null, '3', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('16387', '审批任务', '1', '2017-04-24 10:04:33', null, '-1', '-1', '-1', null, null, '-1', '19', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('16387', '审批任务', '2', '2017-04-24 10:04:33', '2017-04-24 10:17:43', '21277', '-1', '1', '通过', null, '-1', '19', '3', null, '9', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('16641', '审批', '1', '2017-05-17 16:12:46', null, '-1', '-1', '-1', null, null, '-1', '6', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('16641', '审批', '2', '2017-05-17 16:12:46', '2017-05-19 09:57:27', '21271', '-1', '1', '', null, '-1', '6', '3', null, '2', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('16897', '处理任务', '1', '2017-05-19 09:57:27', null, '-1', '-1', '-1', null, null, '-1', '22', '3', null, '2', '2', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('17409', '办公室主任审批', '1', '2017-06-06 13:14:46', null, '-1', '-1', '-1', null, null, '-1', '8', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('18433', '办公室主任审批', '1', '2017-06-06 16:10:18', null, '-1', '-1', '-1', null, null, '-1', '8', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('18434', '办公室主任审批', '1', '2017-06-06 16:11:52', null, '-1', '-1', '-1', null, null, '-1', '8', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('18689', '办公室主任审批', '1', '2017-06-07 17:41:51', null, '-1', '-1', '-1', null, null, '-1', '8', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('19201', '办公室主任审批', '1', '2017-06-08 14:19:53', null, '-1', '-1', '-1', null, null, '-1', '8', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('19457', '办公室主任审批', '1', '2017-06-08 15:17:13', null, '-1', '-1', '-1', null, null, '-1', '8', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('19457', '办公室主任审批', '2', '2017-06-08 15:17:13', '2017-06-08 16:23:02', '21277', '-1', '1', '同意', null, '-1', '8', '3', null, '2', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('19713', '总经理审批', '1', '2017-06-08 16:23:03', null, '-1', '-1', '-1', null, null, '-1', '10', '3', null, '2', '2', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('19713', '总经理审批', '2', '2017-06-08 16:23:03', '2017-06-08 16:23:12', '21277', '-1', '1', '同意', null, '-1', '10', '3', null, '3', '2', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('19714', '分管领导', '1', '2017-06-08 16:23:12', null, '64593', '-1', '-1', null, null, '-1', '43', '4', null, '3', '3', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('19715', '分管领导', '1', '2017-06-08 16:23:12', null, '21', '-1', '-1', null, null, '-1', '43', '4', null, '3', '3', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('19716', '分管领导', '1', '2017-06-08 16:23:12', null, '21271', '-1', '-1', null, null, '-1', '43', '4', null, '3', '3', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('19717', '分管领导', '1', '2017-06-08 16:23:12', null, '21277', '-1', '-1', null, null, '-1', '43', '4', null, '3', '3', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('19718', '分管领导', '1', '2017-06-08 16:23:12', null, '64589', '-1', '-1', null, null, '-1', '43', '4', null, '3', '3', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('19719', '分管领导', '1', '2017-06-08 16:23:12', null, '64591', '-1', '-1', null, null, '-1', '43', '4', null, '3', '3', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('19969', '办公室主任审批', '1', '2017-06-08 16:35:44', null, '-1', '-1', '-1', null, null, '-1', '8', '3', null, '1', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('19969', '办公室主任审批', '2', '2017-06-08 16:35:44', '2017-06-08 16:36:05', '21277', '-1', '1', '同意', null, '-1', '8', '3', null, '2', '1', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('19970', '总经理审批', '1', '2017-06-08 16:36:06', null, '-1', '-1', '-1', null, null, '-1', '10', '3', null, '2', '2', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('19970', '总经理审批', '2', '2017-06-08 16:36:06', '2017-06-08 16:36:12', '21277', '-1', '1', '同意', null, '-1', '10', '3', null, '3', '2', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('19971', '分管领导', '1', '2017-06-08 16:36:12', null, '21271', '-1', '-1', null, null, '-1', '43', '4', null, '3', '3', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('19971', '分管领导', '2', '2017-06-08 16:36:12', '2017-06-08 16:37:28', '21271', '-1', '1', '同意', null, '-1', '43', '4', null, '5', '3', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('19972', '分管领导', '1', '2017-06-08 16:36:12', null, '21277', '-1', '-1', null, null, '-1', '43', '4', null, '3', '3', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('19972', '分管领导', '2', '2017-06-08 16:36:12', '2017-06-08 16:36:18', '21277', '-1', '1', '同意', null, '-1', '43', '4', null, '4', '3', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('19973', '部门处理结果反馈', '1', '2017-06-08 16:37:29', null, '21277', '-1', '-1', null, null, '-1', '46', '4', null, '5', '5', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('19973', '部门处理结果反馈', '2', '2017-06-08 16:37:29', '2017-06-08 16:38:20', '21277', '-1', '1', '已处理完成', null, '-1', '46', '4', null, '6', '5', null, null, null, null);
+INSERT INTO `wf_workitemrb` VALUES ('20225', '办公室主任审批', '1', '2017-07-28 12:54:21', null, '-1', '-1', '-1', null, null, '-1', '8', '3', null, '1', '1', null, null, null, '-1');
+INSERT INTO `wf_workitemrb` VALUES ('20225', '办公室主任审批', '2', '2017-07-28 12:54:21', '2017-07-28 12:57:19', '21277', '-1', '1', '', null, '-1', '8', '3', null, '2', '1', null, null, null, '-1');
+INSERT INTO `wf_workitemrb` VALUES ('20226', '总经理审批', '1', '2017-07-28 12:57:19', null, '-1', '-1', '-1', null, null, '-1', '10', '3', null, '2', '2', null, null, null, '-1');
+INSERT INTO `wf_workitemrb` VALUES ('20481', '一审', '1', '2017-08-01 19:14:38', null, '-1', '-1', '-1', null, null, '-1', '3', '3', null, '1', '1', null, null, null, '-1');
+INSERT INTO `wf_workitemrb` VALUES ('20481', '一审', '2', '2017-08-01 19:14:38', '2017-08-02 15:09:10', '21277', '-1', '1', '', null, '-1', '3', '3', null, '7', '1', null, null, null, '-1');
+INSERT INTO `wf_workitemrb` VALUES ('20738', '二审', '1', '2017-08-02 15:09:10', null, '-1', '-1', '-1', null, null, '-1', '7', '3', null, '7', '7', null, null, null, '-1');
+INSERT INTO `wf_workitemrb` VALUES ('20738', '二审', '2', '2017-08-02 15:09:10', '2017-08-02 15:09:22', '21277', '-1', '1', '', null, '-1', '7', '3', null, '8', '7', null, null, null, '-1');

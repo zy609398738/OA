@@ -30,10 +30,10 @@ public class EntryActivity extends AppCompatActivity {
     private static final String PREF_NAME_IM_SERVER = "imServer";
     private static final String PREF_NAME_HOST_SERVER = "hostServer";
     private static final String PREF_NAME_CLIENT_ID = "clientId";
-//    private static final String DEF_VAL_IM_SERVER = "192.168.1.117:7778/boke-messager";
-        private static final String DEF_VAL_IM_SERVER = "dev.bokesoft.com:7778/boke-messager";
-    private static final String DEF_VAL_HOST_SERVER = "dev.bokesoft.com:20242/yigo/im-service/buddies.action";
-//    private static final String DEF_VAL_HOST_SERVER = "192.168.1.117:8080/im-service/${service}.json";
+    private static final String DEF_VAL_IM_SERVER = "192.168.191.1:7778/boke-messager";
+//        private static final String DEF_VAL_IM_SERVER = "dev.bokesoft.com:7778/boke-messager";
+//    private static final String DEF_VAL_HOST_SERVER = "dev.bokesoft.com:20242/yigo/im-service/buddies.action";
+    private static final String DEF_VAL_HOST_SERVER = "192.168.191.1:8080/im-service/${service}.json";
     private static final String DEF_VAL_CLIENT_ID = "boke-test-001";
 
     protected EditText imSvrAddrView;

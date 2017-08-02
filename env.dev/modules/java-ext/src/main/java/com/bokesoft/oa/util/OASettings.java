@@ -1,7 +1,10 @@
 package com.bokesoft.oa.util;
 
+import java.io.File;
+
 import com.bokesoft.oa.config.Configuration;
 import com.bokesoft.oa.config.Settings;
+import com.bokesoft.yes.mid.base.CoreSetting;
 
 /**
  * OA的设置对象
@@ -28,7 +31,7 @@ public class OASettings {
 	public static Settings getSystemMessageSettings() throws Throwable {
 		return Configuration.getConfiguration(OA_MODULE_KEY).getMap(SYSTEM_MESSAGE_KEY);
 	}
-	
+
 	/**
 	 * 获得系统消息的消息类型
 	 * 
@@ -37,5 +40,19 @@ public class OASettings {
 	 */
 	public static Settings getSystemMessageType() throws Throwable {
 		return getSystemMessageSettings().getMap("MessageType");
+	}
+
+	/**
+	 * 获得模板路径
+	 * 
+	 * @return 模板路径
+	 * @throws Throwable
+	 */
+	public static String getTemplatePath() throws Throwable {
+		String solutionPath = CoreSetting.getInstance().getSolutionPath();
+		Settings settings = getSystemMessageType();
+		String templatePath = settings.getMap("Email").getProperty("TemplatePath");
+		templatePath = solutionPath + File.separator + templatePath;
+		return templatePath;
 	}
 }

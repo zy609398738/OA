@@ -33,7 +33,7 @@ public class GetMainTableName implements IExtService {
 			throws Throwable {
 		String formKey=srcFromKey;
 		MetaDataObject metaDataObject = context.getVE().getMetaFactory().getDataObject(formKey);
-		String tableName=metaDataObject.getMainTable().getDBTableName();
+		String tableName=metaDataObject.getMainTable().getBindingDBTableName();
 		return tableName;
 	}
 }

@@ -675,7 +675,7 @@ var refreshBuddies = function(){
 	    		foundGroups.push(group);
 	    	}
 	    }
-		//根据返回数据，查询对应状态
+/*		//根据返回数据，查询对应状态
 		queryUserStates(userCodes, function(userData){
 			var userStates=[];
 			for(var key in userData){
@@ -698,7 +698,7 @@ var refreshBuddies = function(){
 			$container.find('.chat_head').click(showChatGroup);
 			
 			patchGrayscale();
-		});	
+		});*/	
     });
 }
 

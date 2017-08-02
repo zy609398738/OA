@@ -12,7 +12,7 @@
       #if($title.CODE == ${toptype})
        	#foreach( $topLine in $topData )
 			<li>
-              <a onclick="newForm('OA_ShowWeb','','URL:{\'$href$topLine.ID\'},FormCaption:{\'$topLine.COL2\'}')" style="margin-left:55px;" class="f333">
+              <a onclick="newForm('OA_ShowWeb','','URL:{\'$href$line.ID\'},FormCaption:{\'$line.COL2\'}')" style="margin-left:55px;" class="f333">
               	<span style="left:0px;" class="f333">【置顶】</span>
                 $esc.html($topLine.COL2)
               </a>

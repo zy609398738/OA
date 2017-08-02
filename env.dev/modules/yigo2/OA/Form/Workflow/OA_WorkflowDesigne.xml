@@ -118,8 +118,8 @@ if(ToString(Para("GridKey"))==""){
                                     <GridColumn Key="CarbonCopyOptDepict" Caption="抄送人员描述" Width="150px"/>
                                     <GridColumn Key="MessageSetID" Caption="发送方式" Width="80px"/>
                                     <GridColumn Key="EmailTemp" Caption="邮件模板" Width="80px"/>
-                                    <GridColumn Key="RightSelDepict" Caption="权限设置描述" Width="80px" Visible="WorkflowFormKey!=&quot;&quot;;"/>
                                     <GridColumn Key="RightSel" Caption="节点权限设置" Width="80px" Visible="WorkflowFormKey!=&quot;&quot;;"/>
+                                    <GridColumn Key="RightSelDepict" Caption="权限设置描述" Width="80px" Visible="WorkflowFormKey!=&quot;&quot;;"/>
                                     <GridColumn Key="RightSelOID" Caption="权限设置标识" Width="80px" Visible="false"/>
                                     <GridColumn Key="MoreSet" Caption="更多" Width="80px"/>
                                     <GridColumn Key="NodePropertyOID" Caption="节点属性ID" Width="80px" Enable="false"/>
@@ -199,17 +199,17 @@ if(ToString(Para("GridKey"))==""){
                                         <GridCell Key="EmailTemp" Caption="邮件模板" CellType="ComboBox" SourceType="Formula">
                                             <DataBinding ColumnKey="EmailTemp"/>
                                             <FormulaItems>
-                                                <![CDATA[InvokeService("OA_GetFileNameStr", false, true, "../../modules/cms/site/static/email/")]]>
+                                                <![CDATA[InvokeService("OA_GetFileNameStr", false, true, "../cms/site/static/email")]]>
                                             </FormulaItems>
-                                        </GridCell>
-                                        <GridCell Key="RightSelDepict" Caption="权限设置描述">
-                                            <DataBinding ColumnKey="RightSelDepict"/>
                                         </GridCell>
                                         <GridCell Key="RightSel" Caption="节点权限设置" CellType="HyperLink" CellSortType="None">
                                             <DataBinding DefaultValue="权限设置"/>
                                             <OnClick>
                                                 <![CDATA[OA_ShowRightSel();]]>
                                             </OnClick>
+                                        </GridCell>
+                                        <GridCell Key="RightSelDepict" Caption="权限设置描述">
+                                            <DataBinding ColumnKey="RightSelDepict"/>
                                         </GridCell>
                                         <GridCell Key="RightSelOID" Caption="权限设置标识" CellType="NumberEditor" IntegerValue="true" CellSortType="None">
                                             <DataBinding ColumnKey="RightSelOID"/>
@@ -417,7 +417,7 @@ IIF(ToLong(GetPara("OperatorSelID"))>0,
 SetPara("OperatorSelID", OA_GetCCOptSelID());
 IIF(ToLong(GetPara("OperatorSelID"))>0,
     Open("OA_OperatorSel",ToLong(GetPara("OperatorSelID")), "modal","SourceKey:{BillKey},SourceID:{GetOID()},Tag1:{WorkflowKey},Tag2:{AuditNode},Tag3:{'CarbonCopyOptDepict'},GridKey:{'Dtl'},FieldKey1:{'CarbonCopyOptDepict'},FieldKey2:{'CarbonCopyOptOID'},StartFormKey:{Para('Tag1')}"),
-    New("OA_OperatorSel","modal","SourceKey:{BillKey},SourceID:{GetOID()},Tag1:{WorkflowKey},Tag2:{AuditNode},Tag3:{'SendOptDepict'},GridKey:{'Dtl'},FieldKey1:{'CarbonCopyOptDepict'},FieldKey2:{'CarbonCopyOptOID'},StartFormKey:{Para('Tag1')},QueryFormKey:{Para('QueryFormKey')}")
+    New("OA_OperatorSel","modal","SourceKey:{BillKey},SourceID:{GetOID()},Tag1:{WorkflowKey},Tag2:{AuditNode},Tag3:{'CarbonCopyOptDepict'},GridKey:{'Dtl'},FieldKey1:{'CarbonCopyOptDepict'},FieldKey2:{'CarbonCopyOptOID'},StartFormKey:{Para('Tag1')},QueryFormKey:{Para('QueryFormKey')}")
 );]]>
         </Macro>
         <Macro Key="OA_GetCCOptSelID">
