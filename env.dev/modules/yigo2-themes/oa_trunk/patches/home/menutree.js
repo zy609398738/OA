@@ -63,6 +63,19 @@
 				YIUI.MetaService.getEntry(entryPath).then(function(result){
 					var entry = result.entry;
 					mainTree.reload(entry);
+						//滚动条
+					$('#listBox').scrollbar({
+						events : [{
+							obj : $('.tm a'),
+							ev : 'click'
+						},{
+							obj : $(window),
+							ev : 'resize'
+						},{
+							obj : $('.mainMiddle'),
+							ev : 'drag'
+						}]
+					});
 				});
 			};
 
