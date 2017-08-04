@@ -23,7 +23,7 @@
                         <![CDATA[select 
 l.workItemID,l.workItemName,l.creatTime,l.finishTime,
 case when l.operatorID=-1 then p.operatorid else l.operatorID end operatorID,l.auditResult,
-l.userInfo ,case when l.auditResult=-1 then '' else E_Signature end E_Signature,case when w.srcoperatorid=-1 then p.srcoperatorid else w.srcoperatorid end  srcoperatorid from BPM_Log l left join wf_participator p on l.workitemid = p.workitemid join wf_workitem w on w.workitemid = l.workitemid where w.transfertype in (-1,1)]]>
+l.userInfo ,case when l.auditResult=-1 then '' else E_Signature end E_Signature,case when w.srcoperatorid=-1 then p.srcoperatorid else w.srcoperatorid end  srcoperatorid from BPM_Log l left join wf_participator p on l.workitemid = p.workitemid join wf_workitem w on w.workitemid = l.workitemid where w.transfertype in (-1,1,2,3)]]>
                     </Statement>
                 </Table>
             </TableCollection>

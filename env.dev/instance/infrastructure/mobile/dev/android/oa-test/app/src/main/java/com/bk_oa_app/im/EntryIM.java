@@ -1,7 +1,6 @@
 package com.bk_oa_app.im;
 
 import android.content.Intent;
-import android.util.Log;
 
 import com.bokesoft.yeslibrary.parser.BaseFunImplCluster;
 import com.bokesoft.yeslibrary.parser.base.IExecutor;
@@ -30,14 +29,14 @@ public class EntryIM extends BaseFunImplCluster {
     private class StartIM extends BaseViewFunctionImpl {
         @Override
         public Object evalImpl(String name, ViewEvalContext context, Object[] args, final IExecutor executor) throws Exception {
-//            启动Activity
-            Intent intent = new Intent(context.getForm().getAndroidProxy().getActivity(), com.bk_oa_app.im.IMStartActivity.class);
+
+            //启动Activity
+            Intent intent = new Intent(context.getForm().getAndroidProxy().getActivity(), com.bk_oa_app.im.StartActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
             //传clientID
-            intent.putExtra("ClientID", context.getAppData().getClientID());
+            intent.putExtra("token", context.getAppData().getClientID());
+            intent.putExtra("Code", context.getAppData().getUserCode());
             context.getAppContext().startActivity(intent);
-            Log.d("ClientID==", context.getAppData().getClientID());
-            String code = context.getAppData().getCode();
             return true;
         }
     }

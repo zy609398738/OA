@@ -19,7 +19,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.bk_oa_app.im.IMStartActivity" />
+        <activity
+            android:name=".im.StartActivity"
+            android:launchMode="singleInstance" />
     </application>
 
 </manifest>

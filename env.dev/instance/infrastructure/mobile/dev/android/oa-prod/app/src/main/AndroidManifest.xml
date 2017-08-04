@@ -20,7 +20,8 @@
             </intent-filter>
         </activity>
         <!--启动Im的Activity-->
-        <activity android:name=".im.IMStartActivity" />
+        <activity
+            android:name=".im.IMStartActivity"/>
 
     </application>
 

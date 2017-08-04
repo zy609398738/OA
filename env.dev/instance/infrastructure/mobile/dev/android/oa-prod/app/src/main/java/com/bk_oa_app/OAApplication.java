@@ -28,6 +28,6 @@ public class OAApplication extends DefaultApplication {
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
-        MultiDex.install(this);
+        MultiDex.install(OAApplication.this);
     }
 }

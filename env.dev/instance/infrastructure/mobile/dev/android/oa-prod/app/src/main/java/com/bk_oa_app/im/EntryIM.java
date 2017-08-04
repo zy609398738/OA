@@ -27,8 +27,13 @@ public class EntryIM extends BaseFunImplCluster{
 
         @Override
         public Object evalImpl(String name, ViewEvalContext context, Object[] args, final IExecutor executor) throws Exception {
-           //启动Activity
-            context.getAppContext().startActivity(new Intent(context.getForm().getAndroidProxy().getActivity(), IMStartActivity.class));
+            //启动Activity
+            Intent intent = new Intent(context.getForm().getAndroidProxy().getActivity(), com.bk_oa_app.im.IMStartActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+            //传clientID
+            intent.putExtra("token", context.getAppData().getClientID());
+            intent.putExtra("Code", context.getAppData().getUserCode());
+            context.getAppContext().startActivity(intent);
             return true;
         }
     }

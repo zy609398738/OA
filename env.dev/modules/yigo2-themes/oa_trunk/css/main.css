@@ -1,11 +1,15 @@
 ﻿.login-main {
-    background: url(../../../images/main/theme-login.jpg) no-repeat center;
+    background: url(../images/login/background.jpg) no-repeat center;
     background-size: cover;
+	height: 100%;
+	line-height: inherit;
 }
 
 .login-mobile {
+    position: fixed;
+    top: 5px;
+    right: 5px;
     overflow: hidden;
-    float: right;
     width: 100px;
     margin: 0px;
     background: None;
@@ -19,20 +23,34 @@
     color: #fff;
 }
 
+.warpper{
+    display: flex; /*弹性布局（flex）*/
+    justify-content: center; /*定义body的里的元素水平居中*/
+	width: 100%;
+	min-width: auto;
+}
+
 .login-a{
 	background: rgb(49, 166, 107); 
 	opacity: 0.87; 
 	color: rgb(255, 255, 255);
 	display: block;
 }
-
-.login-logo-box {
-    position: absolute;
-    z-index: 100;
+.login-logo-box{
+	width: 300px;
+}
+.logo-pic{
+	float: left;
+    margin-top: 20%;
+}
+.login-loginbox {
+    color: #fff;
     width: 300px;
-    line-height: 150px;
-    text-align: center;
-    height: 150px;
+	font-size:100%;
+    z-index: 100;
+	background: None;
+    margin: 20% 0px 0px 0px;
+    padding: 0;
 }
 
 .form-tr {
@@ -57,7 +75,7 @@
 	outline: 0px;
     padding-left: 4px;
     float: left;
-    width: 248px;
+    width: 262px;
     height: 37px;
     border: 2px solid transparent;
 	position: relative;
@@ -69,15 +87,6 @@
     background: transparent;
     border: 0px;
     height: 33px;
-}
-
-.login-loginbox {
-	position: absolute;
-    color: #fff;
-    width: 300px;
-	font-size:100%;
-    z-index: 100;
-	background: None;
 }
 
 :root .login-password-btn{
@@ -140,102 +149,102 @@
 }
 
 .search{
-	background: url(../../../images/main/searchbtn.png) no-repeat center;
+	background: url(../images/main/searchbtn.png) no-repeat center;
 }
 /*OA菜单
 #OA_Index0{
-	background: url(../../../images/main/cdl.png) 0px 4px no-repeat;	
+	background: url(../images/main/cdl.png) 0px 4px no-repeat;	
 }
 #OA_Index0:hover {
     background-color: #4f8bf9;
 }
 
 #OA_PersonalUse1{
-	background: url(../../../images/main/cdl.png) 0px -38px no-repeat;
+	background: url(../images/main/cdl.png) 0px -38px no-repeat;
 }
 #OA_PersonalUse1:hover {
     background-color: #4f8bf9;
 }
 
 #OA_Organize2{
-	background: url(../../../images/main/cdl.png) 0px -83px no-repeat;
+	background: url(../images/main/cdl.png) 0px -83px no-repeat;
 }
 #OA_Organize2:hover {
     background-color: #4f8bf9;
 }
 
 #OA_Information3{
-	background: url(../../../images/main/cdl.png) 0px -128px no-repeat;
+	background: url(../images/main/cdl.png) 0px -128px no-repeat;
 }
 #OA_Information3:hover {
     background-color: #4f8bf9;
 }
 
 #OA_DocManagement4{
-	background: url(../../../images/main/cdl.png) 0px -171px no-repeat;
+	background: url(../images/main/cdl.png) 0px -171px no-repeat;
 }
 #OA_DocManagement4:hover {
     background-color: #4f8bf9;
 }
 
 #OA_Meeting5{
-	background: url(../../../images/main/cdl.png) 0px -216px no-repeat;
+	background: url(../images/main/cdl.png) 0px -216px no-repeat;
 }
 #OA_Meeting5:hover {
     background-color: #4f8bf9;
 }
 
 #ArchiveManagement6{
-	background: url(../../../images/main/cdl.png) 0px -437px no-repeat;
+	background: url(../images/main/cdl.png) 0px -437px no-repeat;
 }
 #ArchiveManagement6:hover {
     background-color: #4f8bf9;
 }
 
 #OA_SystemMessages7{
-	background: url(../../../images/main/cdl.png) 0px -396px no-repeat;
+	background: url(../images/main/cdl.png) 0px -396px no-repeat;
 }
 #OA_SystemMessages7:hover {
     background-color: #4f8bf9;
 }
 
 #OA_AddressBook8{
-	background: url(../../../images/main/cdl.png) 0px -264px no-repeat;
+	background: url(../images/main/cdl.png) 0px -264px no-repeat;
 }
 #OA_AddressBook8:hover {
     background-color: #4f8bf9;
 }
 
 #OA_Approval9{
-	background: url(../../../images/main/cdl.png) 0px -312px no-repeat;
+	background: url(../images/main/cdl.png) 0px -312px no-repeat;
 }
 #OA_Approval9:hover {
     background-color: #4f8bf9;
 }
 
 #OA_OfficeManagement10{
-	background: url(../../../images/main/cdl.png) 0px -354px no-repeat;
+	background: url(../images/main/cdl.png) 0px -354px no-repeat;
 }
 #OA_OfficeManagement10:hover {
     background-color: #4f8bf9;
 }
 
 #OA_Report11{
-	background: url(../../../images/main/cdl.png) 0px -480px no-repeat;
+	background: url(../images/main/cdl.png) 0px -480px no-repeat;
 }
 #OA_Report11:hover {
     background-color: #4f8bf9;
 }
-*/
+
 /*系统管理菜单
 #Rigths0{
-	background: url(../../../images/main/xtgl.png) 0px 4px no-repeat;
+	background: url(../images/main/xtgl.png) 0px 4px no-repeat;
 }
 #Rigths0:hover {
     background-color: #4f8bf9;
 }
 #SystemFunction1{
-	background: url(../../../images/main/xtgl.png) 0px -41px no-repeat;
+	background: url(../images/main/xtgl.png) 0px -41px no-repeat;
 }
 #SystemFunction1:hover {
     background-color: #4f8bf9;
@@ -243,9 +252,6 @@
 */
 .tm li a:hover {
     background-color: #4f8bf9;
-}
-.tm li {
-    padding-left: 10px;
 }
     
 .tm li a span {
@@ -273,11 +279,11 @@
 }
 
 li.isparent a.close, .tree li.isparent.top-level > a.close {
-    background-image: url(../../../images/main/cdjtz.png);
+    background-image: url(../images/main/cdjtz.png);
 }
 
 li.isparent a.open, .tree li.isparent.top-level > a.open {
-    background-image: url(../../../images/main/cdjtx.png);
+    background-image: url(../images/main/cdjtx.png);
 }
 
 .nav { 
@@ -288,7 +294,7 @@ li.isparent a.open, .tree li.isparent.top-level > a.open {
 
 .app-box-btn {
     position: relative;
-    background: url(../../../images/main/boke-logo.png) 0 0 no-repeat;
+    background: url(../images/main/boke-logo.png) 0 0 no-repeat;
 }
 
 
@@ -317,7 +323,7 @@ span.login_username, .navRight .org_lbl {
 }
 
 .nav-field-btn{
-    background: url(../../../images/main/xxjt.png) no-repeat;
+    background: url(../images/main/xxjt.png) no-repeat;
     width: 20px;
     margin-top: 25px;
 }
@@ -332,12 +338,12 @@ span.login_username, .navRight .org_lbl {
 
 .nav-field-list .logout{
 	display: block;
-	background:url(../../../images/main/logout.png) no-repeat;
+	background:url(../images/main/logout.png) no-repeat;
 	background-position: 10px;
 }
 .nav-field-list .modifyPwd{
 	display: block;
-	background:url(../../../images/main/modifyPwd.png) no-repeat;
+	background:url(../images/main/modifyPwd.png) no-repeat;
 	background-position: 10px;
 }
 
@@ -367,7 +373,7 @@ span.login_username, .navRight .org_lbl {
 
 .navRight .notice{
 	float:left;
-	background: url(../../../images/main/oa-icons.png) 0 -243px no-repeat;
+	background: url(../images/main/oa-icons.png) 0 -243px no-repeat;
 }
 
 .navRight .mail{
@@ -376,10 +382,32 @@ span.login_username, .navRight .org_lbl {
 	cursor: pointer;
 }
 
-.close-btn.right-icon.ui-tabs.dropdownBtn{
-	padding-top: 10px;
+.close-btn{
+    float: right;
+    height: 40px;
+    width: 30px;
     cursor: pointer;
-	right: 20px
+    background: #fff;
+    border-bottom: 1px solid #dadada;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    display: flex; /*弹性布局（flex）*/
+    align-items: center; /*定义body的元素垂直居中*/
+    justify-content: center; /*定义body的里的元素水平居中*/
+}
+
+.ui-tabs.dropdownBtn{
+    background: #fff;
+    float: right;
+    margin-right: 50px;
+}
+
+.ui-tabcnt .ui-tabs.dropdownBtn.show{
+    background-color: #fff;
+}
+
+.ui-tabcnt.empty .ui-tabs.dropdownBtn {
+    display: block;
 }
 
 .navRight img{	
@@ -399,7 +427,7 @@ span.login_username, .navRight .org_lbl {
 
 /*\instance\plugins\bokesoft.com\yigo2\webapps\yigo\yesui\ui\res\css\blue\core.css*/
 .ui-required input, .ui-required textarea, .ui-required .wangEditor-textarea, .ui-chk.ui-required, .ui-rdo.ui-required, .ui-steped {
-    background: url(../../../images/main/validatesign.png) no-repeat 0 50%;
+    background: url(../images/main/validatesign.png) no-repeat 0 50%;
 }
 
 .ui-tabs-nav li a label {
@@ -409,16 +437,11 @@ span.login_username, .navRight .org_lbl {
 .ui-tabcnt > .ui-tabs-header > .ui-tabs-nav {
     background: #fff;
 	font-weight: bold;
-	width: inherit!important;
 }
 
-.ui-tabs.dropdownBtn {
-    background-color: #fff;
-	right: 50px;
-}
-
-.ui-tabcnt .ui-tabs.dropdownBtn.show {
-    background-color: #fff;
+.ui-tabcnt > .ui-tabs-header > .ui-tabs-nav:empty {
+    background: #fff;
+	border-bottom: 1px solid #dadada;
 }
 
 .ui-tabcnt .ui-tabs-nav li.ui-tabcontainer.aria-selected:after{
@@ -461,7 +484,7 @@ span.login_username, .navRight .org_lbl {
 }
 /*日期控件*/
 .ui-dp .arrow {
-    background-image: url(../../../images/main/rqkjtb.png);
+    background-image: url(../images/main/rqkjtb.png);
 	width: 18px;
     height: 17px;
 }
@@ -521,46 +544,46 @@ span.login_username, .navRight .org_lbl {
 
 /**zn*
 #NJ_LEWReport0{
-	    background: url(../../../images/main/wygl.png) 0px 1px no-repeat;
+	    background: url(../images/main/wygl.png) 0px 1px no-repeat;
 }
 #zlgl1{
-	   background: url(../../../images/main/wygl.png) 0px -44px no-repeat;
+	   background: url(../images/main/wygl.png) 0px -44px no-repeat;
 }
 #jfgl2{
-	  background: url(../../../images/main/wygl.png) 0px -88px no-repeat;
+	  background: url(../images/main/wygl.png) 0px -88px no-repeat;
 }
 #kfgl3{
-	background: url(../../../images/main/wygl.png) 0px -137px no-repeat;
+	background: url(../images/main/wygl.png) 0px -137px no-repeat;
 }
 #NJ_LEWReport0{
-	background: url(../../../images/main/zcgl.png) 0px 1px no-repeat;
+	background: url(../images/main/zcgl.png) 0px 1px no-repeat;
 }
 #htgl1{
-	background: url(../../../images/main/zcgl.png) 0px -42px no-repeat;
+	background: url(../images/main/zcgl.png) 0px -42px no-repeat;
 }
 #zcdj2{
-	background: url(../../../images/main/zcgl.png) 0px -87px no-repeat;
+	background: url(../images/main/zcgl.png) 0px -87px no-repeat;
 }
 #zcgl3{
-	background: url(../../../images/main/zcgl.png) 0px -132px no-repeat;
+	background: url(../images/main/zcgl.png) 0px -132px no-repeat;
 }
 #zcpd4{
-	background: url(../../../images/main/zcgl.png) 0px -177px no-repeat;
+	background: url(../images/main/zcgl.png) 0px -177px no-repeat;
 }
 #tjcx5{
-	background: url(../../../images/main/zcgl.png) 0px -223px no-repeat;
+	background: url(../images/main/zcgl.png) 0px -223px no-repeat;
 }
 #yxgl1{
-	background: url(../../../images/main/zsgl.png) 0px -42px no-repeat;
+	background: url(../images/main/zsgl.png) 0px -42px no-repeat;
 }
 #jcpz3{
-	background: url(../../../images/main/zsgl.png) 0px -92px no-repeat
+	background: url(../images/main/zsgl.png) 0px -92px no-repeat
 }
 #ToDoList_ZS0{
-	background: url(../../../images/main/zsgl.png) 0px 3px no-repeat;
+	background: url(../images/main/zsgl.png) 0px 3px no-repeat;
 }
 #NJ_PaymentReport0{
-	background: url(../../../images/main/wygl.png) 0px 3px no-repeat;
+	background: url(../images/main/wygl.png) 0px 3px no-repeat;
 }
 */
 .dialog.error .dialog-content-inner{
@@ -591,7 +614,7 @@ span.login_username, .navRight .org_lbl {
 	height:45px;
 }
 .ui-required1 label{
-    background: url(../../../images/main/validatesign.png) no-repeat 0 50%;
+    background: url(../images/main/validatesign.png) no-repeat 0 50%;
 	padding-left: 10px;
 }
 .ui-glp .layout tr td label{

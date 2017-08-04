@@ -36,6 +36,10 @@
 					    '<div class="logo"></div>' + 
 					    "<span class='logo-text'>Yigo应用</span-->" +
 						'<img class="logo-main" src="/yigo/_$/images/main/logo.png"/>'+
+						'<div class="logo-text-nav">'+
+							'<iframe src="/yigo/navigation.page" style="width:600px;height:60px;" frameborder="no">'+
+							'</iframe>'+
+						'</div>'+
 					    '<div class="navRight">' + 
 					    	'<div class="nav-field-box user">' + 
 								'<div class="nav-field-btn"></div>' +

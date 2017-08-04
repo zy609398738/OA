@@ -14,8 +14,6 @@ import org.json.JSONObject;
 import com.bokesoft.cms2.basetools.data.PagingSearchResult;
 import com.bokesoft.cms2.core.ctx.CmsActionContext;
 import com.bokesoft.cms2.core.ctx.CmsRequestContext;
-import com.bokesoft.oa.config.Configuration;
-import com.bokesoft.oa.config.Settings;
 import com.bokesoft.oa.mid.message.SendMessage;
 import com.bokesoft.r2.cms2.adapter.yigo2.support.Yigo2MidExp;
 import com.bokesoft.yes.common.util.StringUtil;
@@ -232,18 +230,20 @@ public class TodoMidExp {
 		IRightsProvider iRghProvider = iRghProFac.newRightsProvider(midVe);
 		EntryRights entryRights = iRghProvider.getEntryRights();
 		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
-		Settings settings = Configuration.getConfiguration(moduleKey).getMap("Navigation");
-		for (Settings nav : settings.getMapValues()) {
-			String entry = nav.getProperty("Entry");
+		String sql = "Select * from OA_Navigation_H where oid>0 and enable=1 order by OrderNum,Code";
+		DataTable dt = context.getDBManager().execPrepareQuery(sql);
+		dt.beforeFirst();
+		while (dt.next()) {
+			String entry = dt.getString("Entry");
 			if (entryRights.hasEntryRights(entry)) {
 				LinkedHashMap<String, Object> map = new LinkedHashMap<String, Object>();
 				list.add(map);
-				map.put("CODE", nav.getName());
-				map.put("NAME", nav.getProperty("Name"));
-				map.put("ICON", nav.getPropertyOrEmpty("Icon"));
-				map.put("SELICON", nav.getPropertyOrEmpty("SelIcon"));
+				map.put("CODE", dt.getString("Code"));
+				map.put("NAME", dt.getString("Name"));
+				map.put("ICON", dt.getString("Icon"));
+				map.put("SELICON", dt.getString("SelIcon"));
 				map.put("ENTRY", entry);
-				map.put("OPENENTRY", nav.getPropertyOrEmpty("OpenEntry"));
+				map.put("DEFOPENENTRY", dt.getString("DefOpenEntry"));
 			}
 		}
 		return list;

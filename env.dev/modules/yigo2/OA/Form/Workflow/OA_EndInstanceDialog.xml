@@ -7,8 +7,7 @@
                     <TextArea Caption="处理意见" Enable="True" HAlign="Left" Key="Opinion" X="1" XSpan="4" Y="1" YSpan="2"/>
                     <Button Key="EndInstance" Caption="结束流程" X="3" Y="3" Enable="True" ShowText="false">
                         <OnClick>
-                            <![CDATA[        parent.SetValue("Status", 1200);
-        parent.SaveData();
+                            <![CDATA[
         EndInstance(GetActiveInstanceID(true));
         Close();
         parent.Confirm("已结束流程");

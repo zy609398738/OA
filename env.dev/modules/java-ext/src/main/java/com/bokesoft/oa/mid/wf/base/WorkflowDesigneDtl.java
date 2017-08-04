@@ -284,7 +284,11 @@ public class WorkflowDesigneDtl extends BillDtlBase<WorkflowDesigne> {
 		if (workflowTypeDtl == null) {
 			return null;
 		}
-		return workflowTypeDtl.getWorkflow().getWorkflowDesigne().getWorkflowDesigneDtlMap().get(node);
+		WorkflowDesigne workflowDesigne = workflowTypeDtl.getWorkflow().getWorkflowDesigne();
+		if (workflowDesigne == null) {
+			return null;
+		}
+		return workflowDesigne.getWorkflowDesigneDtlMap().get(node);
 	}
 
 	/**

@@ -39,4 +39,9 @@
        <from>/yesui/v2/yesui/svr/uiutils.js</from>
        <to type="forward">/yigo2-theme/patches/yesui/v2/yesui/svr/uiutils.js</to>
     </rule>
+	
+    <rule match-type="wildcard">
+       <from>/yesui/v2/yesui/ui/maincontainer.js</from>
+       <to type="forward">/yigo2-theme/patches/yesui/v2/yesui/ui/maincontainer.js</to>
+    </rule>
 </urlrewrite>

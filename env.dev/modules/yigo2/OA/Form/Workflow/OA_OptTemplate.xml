@@ -34,9 +34,7 @@
         </Operation>
         <Operation Key="OPTKillInstance" Caption="终止">
             <Action>
-                <![CDATA[SetValue("Status", 2000);
-SaveData();
-KillInstance(-1);
+                <![CDATA[KillInstance(-1);
 Confirm("流程终止");]]>
             </Action>
         </Operation>
@@ -53,15 +51,13 @@ Confirm("暂停成功");]]>
         </Operation>
         <Operation Key="OPTRestartInstance" Caption="重置">
             <Action>
-                <![CDATA[SetValue("Status", 1100);
-SaveData();
-RestartInstance(-1);
+                <![CDATA[RestartInstance(-1);
 Confirm("流程已重置");]]>
             </Action>
         </Operation>
         <Operation Key="OPTRollBackToWorkitem" Caption="撤销">
             <Action>
-                <![CDATA[RollbackToWorkitem(-1);
+                <![CDATA[RollbackToWorkitem(GetActiveWorkitemID());
 Confirm("撤销成功");]]>
             </Action>
         </Operation>
@@ -123,16 +119,19 @@ Confirm("提交成功");]]>
         </Operation>
         <Operation Key="OPTRejectT" Caption="直接撤回">
             <Action>
-                <![CDATA[CommitWorkitem(-1,0,GetValue("AuditOpinion"));
+                <![CDATA[if(ContainsKey("AuditOpinion")){
+CommitWorkitem(-1,1,GetValue("AuditOpinion"));}
+else{CommitWorkitem(-1,1,"");}
 Confirm("撤回成功");]]>
             </Action>
         </Operation>
         <Operation Key="OPTApproveT" Caption="直接通过">
             <Action>
                 <![CDATA[OA_AuditBefore(false,-1,GetFormKey(),GetValue("WorkflowTypeDtlID"),GetOID());
-CommitWorkitem(-1,1,GetValue("AuditOpinion"));
-OA_AuditAfter(false,-1,GetFormKey(),GetValue("WorkflowTypeDtlID"),GetOID());
-]]>
+if(ContainsKey("AuditOpinion")){
+CommitWorkitem(-1,1,GetValue("AuditOpinion"));}
+else{CommitWorkitem(-1,1,"");}
+OA_AuditAfter(false,-1,GetFormKey(),GetValue("WorkflowTypeDtlID"),GetOID());]]>
             </Action>
         </Operation>
         <Operation Key="OPTMeeting" Caption="会议审批">
@@ -156,7 +155,9 @@ Confirm("取消暂停成功");]]>
         <Operation Key="OPTRefuseT" Caption="直接拒绝">
             <Action>
                 <![CDATA[var nodeid = InvokeService("OA_GetNodeIDByNodeKey",false,false,GetFormKey(),"Refuse");
-CommitWorkitem(-1,0,GetValue("AuditOpinion"),{pattern:{Return},backSite:{nodeid}});
+if(ContainsKey("AuditOpinion")){
+CommitWorkitem(-1,0,GetValue("AuditOpinion"),{pattern:{Return},backSite:{nodeid}});}
+else{CommitWorkitem(-1,1,"",{pattern:{Return},backSite:{nodeid}});}
 Confirm("拒绝成功");]]>
             </Action>
         </Operation>

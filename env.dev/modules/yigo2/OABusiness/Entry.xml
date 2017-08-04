@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <Entry Caption="根" Key="root">
     <Entry Caption="协同办公" Key="OA" Visible="true">
-        <EntryItem Caption="办公门户" FormKey="OA_Index" Key="OA_Index" Parameters="URL=index.page" Type="Form"/>
-        <EntryItem Caption="新建流程" FormKey="OA_ShowWeb" Key="OA_CearteWorkflow" Parameters="URL=tslworkflow.page;FormCaption=新建流程" Type="Form"/>
+        <EntryItem Caption="首页" FormKey="OA_Index" Key="OA_Index" Parameters="URL=index.page" Type="Form"/>
+        <EntryItem Caption="填写表单" FormKey="OA_ShowWeb" Key="OA_CearteWorkflow" Parameters="URL=tslworkflow.page;FormCaption=填写表单" Type="Form"/>
         <Entry Caption="个人事务" Key="OA_PersonalUse">
             <Entry Caption="邮箱" Key="EmailManagement">
                 <EntryItem Caption="写邮件" FormKey="OA_EmailWrite" Key="OA_EmailWrite" Type="Form"/>
@@ -111,7 +111,7 @@
             </Entry>
             <Entry Caption="审批设置" Key="OA_AuditSet">
                 <EntryItem Caption="邮件设置" FormKey="OA_EmailSetView" Key="OA_EmailSetView" Type="Form"/>
-		<EntryItem Caption="发送方式" FormKey="DictEdit" Key="OA_MessageSet" Parameters="FormKey=OA_MessageSet" Type="Form"/>
+                <EntryItem Caption="发送方式" FormKey="DictEdit" Key="OA_MessageSet" Parameters="FormKey=OA_MessageSet" Type="Form"/>
                 <EntryItem Caption="审批操作" FormKey="DictEdit" Key="OA_OptModule" Parameters="FormKey=OA_OptModule" Type="Form"/>
                 <EntryItem Caption="常用意见" FormKey="OA_CommonViews" Key="OA_CommonViews" Type="Form"/>
                 <EntryItem Caption="我的代理授权" FormKey="OA_Delegate" Key="OA_Delegate" Type="Form"/>
@@ -134,6 +134,7 @@
             <EntryItem Caption="事项提醒" FormKey="OA_OptDictEdit" Key="OA_ItemSet" Parameters="FormKey=OA_InherentRemind" Type="Form"/>
             <EntryItem Caption="工作日历" FormKey="DictEdit" Key="OA_WorkingCalendar" Parameters="FormKey=OA_WorkingCalendar" Type="Form"/>
             <EntryItem Caption="工时区间" FormKey="DictEdit" Key="OA_WorkingTime" Parameters="FormKey=OA_WorkingTime" Type="Form"/>
+            <EntryItem Caption="导航设置" FormKey="DictEdit" Key="OA_Navigation" Parameters="FormKey=OA_Navigation" Type="Form"/>
         </Entry>
         <Entry Caption="办公报表" Key="OA_Report">
             <Entry Caption="公文报表" Key="OA_OfficialReport">

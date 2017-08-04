@@ -66,9 +66,18 @@
     height: 61px;
     border:none;
     background-color: transparent;
+    float: right;
+    margin-right: 30px;
 }
 .ui-tabcnt .ui-tabs.dropdownBtn.show {
     background-color: transparent;
+    float: right;
+    margin-right: 30px;
+}
+.close-btn{
+    float: right;
+    margin-top: 17px;
+    cursor: pointer;
 }
 .ui-tabcnt > .ui-tabs-header > .ui-tabs-nav {
     background:transparent;
@@ -200,7 +209,6 @@ li.isparent  a:hover.close,
 	height: 50px;
 }
 .ui-tabcnt .ui-tabs-header{
-	padding-left: 30px;
 	box-shadow: 3px 3px 3px rgba(0,0,0,.1);
 }
 /* .ui-tabcnt .ui-tabs-header:before{

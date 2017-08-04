@@ -21,7 +21,7 @@
                     <Button Key="TransferTask" Caption="指派" X="1" Y="0" Enable="True">
                         <OnClick>
                             <![CDATA[var x = Para("pWorkitemID");
-parent.TransferTask(x,TransferOpt,false,Opinion);
+parent.TransferTask(x,TransferOpt,true,Opinion);
 Close();
 parent.Confirm("指派成功");]]>
                         </OnClick>

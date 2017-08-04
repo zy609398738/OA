@@ -1,5 +1,6 @@
 <%@page contentType="text/html;charset=UTF-8" language="java" %>
 <!doctype html>
+
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
@@ -10,7 +11,7 @@
 	   	</script>
 		<script type="text/javascript" src="yesui/v2/yesui/ui/loginfile.js"></script>
 		<link href="/yigo/_$/images/main/fav.ico" rel="shortcut icon" type="image/x-icon" />
-		<link rel="stylesheet" href="_$/resources/@buildin/css/oa.css">
+		<link rel="stylesheet" href="yigo2-theme/css/main.css">
 		<script>
 			window.onerror = function(msg) {
 				msg = msg.replace("Uncaught Error: ", "");
@@ -149,48 +150,56 @@
 			
         </script>
 	</head>
+	<style>
+		html{
+			height:100%;
+		}
+		body{
+			height:100%;
+			min-width: auto;
+		}
+	</style>
 	<body>
     	<div class="login-main">
 			<div class="login-mobile">
 					<a href="/yigo/_$/mobile/yes-mobile.apk" class="login-a">移动端</a>
 			</div>
 			<div class="warpper">
-				<div class="login-logo-box" style="left: 42.0833%; top: 2.94118%; overflow: hidden;">
+				<div class="login-logo-box">
 					<img src="/yigo/_$/images/main/logo-login.png" class="logo-pic">
-				</div>
-				<div class="login-loginbox" style="right: 41.632%; bottom: 17.7654%; overflow: hidden;">
-					<div class="form-tr username">
+					<div class="login-loginbox">
+						<div class="form-tr username">
+							<div class="login-icon" style="background: rgb(49, 166, 107); border-color: rgb(49, 166, 107); opacity: 0.77; color: rgb(255, 255, 255);">
+								<i class="fa fa-user fa-2x name-icon"></i>
+								<img src="/yigo/_$/images/main/username.png" style="width: 100%;height: 100%;">
+							</div>
+							<div class="inputborder" style="background: rgb(255, 255, 255); border-color: rgb(255, 255, 255); opacity: 0.87; color: rgb(49, 166, 107);">
+								<input type="text" id="username" name="username" value="" placeholder="用户名" style="color: rgb(49, 166, 107);" class="login-username">
+							</div>
+								</div>
+					<div class="form-tr user-password">
 						<div class="login-icon" style="background: rgb(49, 166, 107); border-color: rgb(49, 166, 107); opacity: 0.77; color: rgb(255, 255, 255);">
-							<i class="fa fa-user fa-2x name-icon"></i>
-							<img src="/yigo/_$/images/main/username.png" style="width: 100%;height: 100%;">
+							<i class="fa fa-unlock-alt fa-2x password-icon"></i>
+							<img src="/yigo/_$/images/main/password.png" style="width: 100%;height: 100%;">
 						</div>
 						<div class="inputborder" style="background: rgb(255, 255, 255); border-color: rgb(255, 255, 255); opacity: 0.87; color: rgb(49, 166, 107);">
-							<input type="text" id="username" name="username" value="" placeholder="用户名" style="color: rgb(49, 166, 107);" class="login-username">
+							<input type="password" id="password" name="password" value="" placeholder="密码" style="color: rgb(49, 166, 107);" class="login-password">
+							<em class="login-password-btn login-password-btn-close"></em>
 						</div>
-	                    	</div>
-				<div class="form-tr user-password">
-					<div class="login-icon" style="background: rgb(49, 166, 107); border-color: rgb(49, 166, 107); opacity: 0.77; color: rgb(255, 255, 255);">
-						<i class="fa fa-unlock-alt fa-2x password-icon"></i>
-						<img src="/yigo/_$/images/main/password.png" style="width: 100%;height: 100%;">
-					</div>
-					<div class="inputborder" style="background: rgb(255, 255, 255); border-color: rgb(255, 255, 255); opacity: 0.87; color: rgb(49, 166, 107);">
-						<input type="password" id="password" name="password" value="" placeholder="密码" style="color: rgb(49, 166, 107);" class="login-password">
-						<em class="login-password-btn login-password-btn-close"></em>
-					</div>
-	                    	</div>
-				<div class="login_org login-combox" >
-					<span class="login-combox-name">组织机构</span>
-					<div class="login_paras login-combox-content">
-						<p>
-							<span class="login-combox-value">请选择</span>
-							<span class="dropDown-button"></span>
-						</p>
-					</div>
-			        </div>
+								</div>
+					<div class="login_org login-combox" >
+						<span class="login-combox-name">组织机构</span>
+						<div class="login_paras login-combox-content">
+							<p>
+								<span class="login-combox-value">请选择</span>
+								<span class="dropDown-button"></span>
+							</p>
+						</div>
+						</div>
 
-				<div class="login-button" type="button" value="登录" style="background: rgb(49, 166, 107); opacity: 0.87; color: rgb(255, 255, 255);">登&emsp;录</div>
+					<div class="login-button" type="button" value="登录" style="background: rgb(49, 166, 107); opacity: 0.87; color: rgb(255, 255, 255);">登&emsp;录</div>
+					</div>
 				</div>
-
 			</div>
     	</div>
 		
