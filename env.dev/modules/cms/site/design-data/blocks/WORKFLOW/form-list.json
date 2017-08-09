@@ -8,7 +8,13 @@
 		"tmplText":"",
 		"type":"TMPL"
 	},
-	"code":" form-list",
+	"code":"form-list",
 	"name":"所有流程",
-	"params":[]
+	"params":[
+		{
+			"caption":"类型",
+			"key":"partitiontype",
+			"type":"common"
+		}
+	]
 }

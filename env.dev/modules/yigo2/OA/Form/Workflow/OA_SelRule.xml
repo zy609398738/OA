@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<Form Key="OA_SelRule" Caption="选择规则" FormType="Dict">
+<Form Key="OA_SelRule" Caption="选择规则" FormType="ChainDict">
     <DataSource>
-        <DataObject Key="OA_SelRule" Caption="选择规则" PrimaryTableKey="OA_SelRule_H" SecondaryType="Dict" PrimaryType="Entity">
+        <DataObject Key="OA_SelRule" Caption="选择规则" PrimaryTableKey="OA_SelRule_H" SecondaryType="ChainDict" PrimaryType="Entity">
             <TableCollection>
                 <Table Key="OA_SelRule_H" Caption="选择规则头表" DBTableName="OA_SelRule_H">
                     <Column Key="OID" Caption="对象标识" DataType="Long"/>

@@ -8,7 +8,7 @@
 		"tmplText":"",
 		"type":"TMPL"
 	},
-	"code":"common-workflow",
-	"name":"常用流程",
+	"code":"general-workflow",
+	"name":"通用流程",
 	"params":[]
 }

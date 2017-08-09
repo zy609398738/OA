@@ -9,7 +9,7 @@
 		"type":"TMPL"
 	},
 	"code":"area",
-	"name":"依区域",
+	"name":"依类型",
 	"params":[
 		{
 			"caption":"类型",

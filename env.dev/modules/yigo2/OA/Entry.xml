@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <Entry Caption="根" Key="root">
     <EntryItem Caption="首页" FormKey="OA_Index" Key="OA_Index" Parameters="URL=index.page" Type="Form" Visible="false"/>
-    <EntryItem Caption="填写表单" FormKey="OA_ShowWeb" Key="OA_CearteWorkflow" Parameters="URL=tslworkflow.page;FormCaption=填写表单" Type="Form" Visible="false"/>
+    <EntryItem Caption="填写表单" FormKey="OA_ShowWeb" Key="OA_CearteWorkflow" Parameters="URL=createworkflow.page;FormCaption=填写表单" Type="Form" Visible="false"/>
     <Entry Caption="协同功能" Key="OA" Visible="false">
         <Entry Caption="流程" Key="Workflow">
             <EntryItem Caption="待办流程" FormKey="OA_ToDoList" Key="OA_ToDoList" Type="Form"/>
@@ -37,13 +37,13 @@
         <Entry Caption="通讯录管理" Key="OA_AddressBook">
             <EntryItem Caption="通讯录" FormKey="OA_AddressBook" Key="OA_AddressBook" Type="Form"/>
         </Entry>
-        <Entry Caption="电子审批" Key="OA_Approval">
+        <Entry Caption="流程维护" Key="OA_Approval">
             <Entry Caption="流程管理" Key="OA_BPM">
                 <EntryItem Caption="流程设置" FormKey="OA_WorkflowSet" Key="OA_WorkflowSet" Type="Form"/>
                 <EntryItem Caption="流程定义" FormKey="OA_WorkflowView" Key="OA_WorkflowView" Type="Form"/>
                 <EntryItem Caption="流程类别" FormKey="DictEdit" Key="OA_WorkflowType" Parameters="FormKey=OA_WorkflowType" Type="Form"/>
                 <EntryItem Caption="流程域" FormKey="DictEdit" Key="OA_WorkflowArea" Parameters="FormKey=OA_WorkflowArea" Type="Form"/>
-                <EntryItem Caption="常用流程" FormKey="OA_CommonWorkflow" Key="OA_CommonWorkflow" Type="Form"/>
+                <EntryItem Caption="通用流程" FormKey="OA_CommonWorkflow" Key="OA_CommonWorkflow" Type="Form"/>
             </Entry>
             <Entry Caption="审批权限" Key="OA_OfficeRights">
                 <EntryItem Caption="人员群组" FormKey="DictEdit" Key="OA_OptPublic" Parameters="FormKey=OA_OptPublic" Type="Form"/>

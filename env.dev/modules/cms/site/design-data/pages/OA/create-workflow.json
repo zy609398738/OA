@@ -1,7 +1,7 @@
 {
 	"@type":"com.bokesoft.cms2.impl.buildin.modelio.vo.PageVO",
 	"attributes":{"@type":"java.util.LinkedHashMap"},
-	"code":"new-workflow",
+	"code":"create-workflow",
 	"deliveryVOs":[
 		{
 			"@type":"com.bokesoft.cms2.impl.buildin.modelio.vo.PageVO$DeliveryVO",
@@ -48,7 +48,7 @@
 			"areaCode":"content",
 			"blockCode":"WORKFLOW.AREA",
 			"groupName":"tsl_all_workflow",
-			"name":"所有",
+			"name":"一般",
 			"options":[
 				"WithHeader"
 			],
@@ -56,6 +56,32 @@
 				"partitiontype":"common"
 			},
 			"sequence":"4"
+		},
+		{
+			"@type":"com.bokesoft.cms2.impl.buildin.modelio.vo.PageVO$DeliveryVO",
+			"areaCode":"content",
+			"blockCode":"WORKFLOW.FORM-LIST",
+			"groupName":"tsl_all_workflow",
+			"name":"所有",
+			"options":[
+				"Raw"
+			],
+			"parameters":{"@type":"java.util.HashMap",
+				"partitiontype":"all"
+			},
+			"sequence":"5"
+		},
+		{
+			"@type":"com.bokesoft.cms2.impl.buildin.modelio.vo.PageVO$DeliveryVO",
+			"areaCode":"content",
+			"blockCode":"WORKFLOW.GENERAL-WORKFLOW",
+			"groupName":"tsl_all_workflow",
+			"name":"通用",
+			"options":[
+				"Raw"
+			],
+			"parameters":{"@type":"java.util.HashMap"},
+			"sequence":"6"
 		}
 	],
 	"enabled":true,
@@ -65,13 +91,10 @@
 		},
 		{
 			"groupName":"tsl_all_workflow"
-		},
-		{
-			"groupName":"tsl_all_workflow"
 		}
 	],
 	"name":"填写表单",
 	"title":"填写表单",
 	"tmplCode":"PUBLIC.PUBLIC",
-	"url":"/tslworkflow.page"
+	"url":"/createworkflow.page"
 }
