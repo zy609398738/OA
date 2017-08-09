@@ -44,8 +44,8 @@ YIUI.CUSTOMVIEW = {};
 	var dropdownbutton = "<div class='btn-group'> " +
 							"<button data-toggle='dropdown' class='btn btn-default dropdown-toggle' onclick='dropdown()'>"+YIUI.I18N.userinfopane.admin+"<span class='caret'></span></button>" +
 							"<ul class='dropdown-menu'>" +
-								"<li><a class='logout' onclick='logout()'>"+YIUI.I18N.userinfopane.logout+"</a></li>" +
-								"<li><a class='exit' onclick='exit()'>"+YIUI.I18N.userinfopane.quit+"</a></li>" +
+								"<li><a class='logout' onclick='logout()'>"+YIUI.I18N.userinfopane.appLogout+"</a></li>" +
+								"<li><a class='exit' onclick='exit()'>"+YIUI.I18N.userinfopane.appExit+"</a></li>" +
 							"</ul>" +
 						"</div>"
 	

@@ -10,6 +10,7 @@
 		<script type="text/javascript" src="home/menutree.js" defer="defer"></script>
 		<script type="text/javascript" src="home/navigation.js" defer="defer"></script>
 		<script type="text/javascript" src="home/main.js" defer="defer"></script>
+		<script type="text/javascript" src="yigo2-theme/js/oa.js"></script>
 		<link rel="stylesheet" type="text/css" href="yigo2-theme/css/main.css">
 
 		<!-- IM引入 -->
@@ -99,6 +100,7 @@
 						});
 					}
 				});
+				parseURL();
 			});
 		</script>
 	</body>

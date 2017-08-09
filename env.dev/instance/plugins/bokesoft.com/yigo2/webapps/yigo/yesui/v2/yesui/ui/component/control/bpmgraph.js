@@ -18,6 +18,10 @@ YIUI.Control.BPMGraph = YIUI.extend(YIUI.Control, {
     init: function (option) {
         this.base(option);
     },
+
+    isDataBinding: function() {
+        return false;
+	},
     isTransPathLine: function (transition) {
         if (this.transPath) {
             var step, srcNode = this.nodeElements[transition.source], tgtNode = this.nodeElements[transition.target];

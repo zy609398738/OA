@@ -7,6 +7,10 @@ YIUI.Control.ButtonGroup = YIUI.extend(YIUI.Control,{
     items : [],
 	/** 组合按钮的类型（单选radio、复选checkbox） */
 	buttonType : 'radio',
+
+    isDataBinding: function() {
+        return false;
+	},
 	
 	onRender : function(ct){
         this.base(ct);

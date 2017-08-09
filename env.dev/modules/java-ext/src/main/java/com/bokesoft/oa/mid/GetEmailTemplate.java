@@ -59,7 +59,7 @@ public class GetEmailTemplate implements IExtService {
 			return "";
 		}
 		// 初始化并取得Velocity引擎
-		VelocityEngine ve = new VelocityEngine(); 
+		VelocityEngine ve = new VelocityEngine();
 		String templatePath = OASettings.getTemplatePath();
 		ve.setProperty(VelocityEngine.FILE_RESOURCE_LOADER_PATH, templatePath);
 		ve.setProperty(VelocityEngine.ENCODING_DEFAULT, "UTF-8");
@@ -71,28 +71,43 @@ public class GetEmailTemplate implements IExtService {
 		Template t = ve.getTemplate(fileName);
 		// 取得velocity的上下文context
 		VelocityContext vc = new VelocityContext();
+		String webUrl = OASettings.getWebUrl();
+		// 这里为了特别向模板提供网络访问路径
+		vc.put("OA_Web_URL", webUrl);
 		// 这里为了特别向模板提供当前单据名称
 		vc.put("OA_Curr_Form_Caption", context.getVE().getMetaFactory().getMetaForm(formKey).getCaption());
 		MetaDataObject metaDataObject = doc.getMetaDataObject();
 		for (MetaTable metaTable : metaDataObject.getTableCollection()) {
 			List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 			String tableKey = metaTable.getKey();
-			Boolean isHead = metaTable.isHead();
 			DataTable dt = doc.get(tableKey);
 			DataTableMetaData metaData = dt.getMetaData();
-			dt.beforeFirst();
-			while (dt.next()) {
+			Boolean isHead = metaTable.isHead();
+			if (isHead) {
 				Map<String, Object> map = new LinkedHashMap<String, Object>();
 				list.add(map);
 				for (int i = 0; i < metaData.getColumnCount(); i++) {
 					String columnKey = metaData.getColumnInfo(i).getColumnKey();
 					Object value = dt.getObject(i);
-					if (isHead) {
-						vc.put(columnKey, value);
-					}
+					vc.put(columnKey, value);
 					map.put(columnKey, value);
 				}
+			} else {
+				dt.beforeFirst();
+				while (dt.next()) {
+					Map<String, Object> map = new LinkedHashMap<String, Object>();
+					list.add(map);
+					for (int i = 0; i < metaData.getColumnCount(); i++) {
+						String columnKey = metaData.getColumnInfo(i).getColumnKey();
+						Object value = dt.getObject(i);
+						if (isHead) {
+							vc.put(columnKey, value);
+						}
+						map.put(columnKey, value);
+					}
+				}
 			}
+
 			vc.put(metaTable.getBindingDBTableName(), list);
 		}
 		// 输出流

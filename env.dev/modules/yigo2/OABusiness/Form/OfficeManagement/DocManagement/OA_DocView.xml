@@ -105,7 +105,7 @@ WHERE not exists (select oid FROM OA_ParticipatorIDs_D c where c.OptType=10 and 
                         </RowClick>
                     </Grid>
                     <FlexFlowLayoutPanel Key="FlexFlowLayoutPanel1" Caption="FlexFlowLayoutPanel1" Height="pref">
-                        <GridLayoutPanel Key="first_head" Height="80px" Caption="基本信息" Visible="first_headVisible==1" LeftPadding="5px">
+                        <GridLayoutPanel Key="first_head" Height="80px" Caption="基本信息" LeftPadding="5px">
                             <DatePicker Key="From" Caption="申请日期 从" BuddyKey="Lab_From" X="1" Y="0">
                                 <Condition ColumnKey="BillDate" TableKey="OA_Doc_H" CondSign="between" Group="a" GroupHead="true"/>
                             </DatePicker>

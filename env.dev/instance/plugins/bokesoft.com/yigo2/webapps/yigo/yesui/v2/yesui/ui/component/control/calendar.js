@@ -197,7 +197,7 @@ YIUI.Control.Calendar = YIUI.extend(YIUI.Control, {
         if (oper == "add") {       //新建的時候隐藏 修改 按钮
             $(buttonSet.childNodes[1]).hide();
         } else {         //修改的時候隐藏 新增 按钮
-            var delButton = $("<button>"+YIUI.I18N.attachment.ldelete+"</button>").button().click(function () {  //添加刪除按鈕，並且实现点击事件
+            var delButton = $("<button>"+YIUI.I18N.attachment.attachmentDelete+"</button>").button().click(function () {  //添加刪除按鈕，並且实现点击事件
             	var determine = YIUI.I18N.dict.determine;
                 var delConfirm = $("<div></div>").dialog({
                     title: calendar.confirmDel,

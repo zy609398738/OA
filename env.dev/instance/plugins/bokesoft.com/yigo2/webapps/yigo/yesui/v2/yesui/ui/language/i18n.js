@@ -1,20 +1,20 @@
 var YIUI = YIUI || {};
 YIUI.I18N = {
 	control : {
-		require : "-必须填写-"
+		required : "-必须填写-"
 	},
 
 	attachment : {
-		name : "附件名称",
-		time : "上传时间",
-		people : "上传人",
-		url : "附件路径",
+		attachmentName : "附件名称",
+		attachmentUploadTime : "上传时间",
+		attachmentUploadOperatorID : "上传人",
+		attachmentPath : "附件路径",
 		exercise : "操",
 		ldo : "作",
-		operation : "操作",
-		upload : "上传",
-		download : "下载",
-		ldelete : "删除",
+		attachmentOperate : "操作",
+		attachmentUpload : "上传",
+		attachmentDownload : "下载",
+		attachmentDelete : "删除",
 		preview : "预览",
 		noContent : "表中无内容",
 		unable : "新增状态无法进行上传操作！"
@@ -22,7 +22,7 @@ YIUI.I18N = {
 
 	listview : {
 		order : "序",
-		number : "序号"
+		seq : "序号"
 	},
 
 	dict : {
@@ -72,22 +72,22 @@ YIUI.I18N = {
 
 	userinfopane : {
 		admin : "系统管理员",
-		logout : "注销",
-		quit : "退出"
+		appLogout : "注销",
+		appExit : "退出"
 	},
 
 
 	rightsset : {
-		setUp : "字典权限设置",
+		dictRights : "字典权限设置",
 		modify : "修改",
 		save : "保存",
-		select : "全选",
-		sign : "标志",
-		coding : "编码",
-		jurisdiction : "是否有权限",
+		selectAll : "全选",
+		key : "标志",
+		code : "编码",
+		hasRights : "是否有权限",
 		search : "搜索",
-		formSet : "表单权限设置",
-		inletSet : "入口权限设置"
+		formRights : "表单权限设置",
+		entryRights : "入口权限设置"
 	},
 
 	
@@ -193,35 +193,35 @@ YIUI.I18N = {
 	},
 
 	docserviceproxy : {
-		notNull : "form 不能为空"
+		noFormDefined : "form 不能为空"
 	},
 	
 	toolbar : {
-		approval : "撤销已提交审批",
-		submit : "提交工作项",
+		revocateCommited : "撤销已提交审批",
+		commitWorkItem : "提交工作项",
 		via : "通过",
-		startUp : "启动流程"
+		startInstance : "启动流程"
 	},
 
 	jQueryExt : {
-		beyong : "超出指定大小!",
-		nonType : "非指定文件类型!"
+		attachmentExceedMaxSize : "超出指定大小!",
+		attachmentTypeError : "非指定文件类型!"
 	},
 
 	navigation : {
 		application : "Yigo应用",
 		userName : "朱文文",
-		modfiyPwd : "修改密码",
-		version : "版本：",
-		create : "创建号：",
-		companyName : "上海博科资讯股份有限公司",
+		appChangePWD : "修改密码",
+		appVer : "版本：",
+		appBuildID : "创建号：",
+		appCopyRights : "上海博科资讯股份有限公司",
 		authorize : "授权于：博科资讯 ",
 		overdueTime : "过期时间：",
-		about : "关于Yigo"
+		appAbout : "关于Yigo"
 	},
 
 	menutree : {
-		keyword : "请输入关键词..."
+		inputKeyWords : "请输入关键词..."
 	}
 
 };

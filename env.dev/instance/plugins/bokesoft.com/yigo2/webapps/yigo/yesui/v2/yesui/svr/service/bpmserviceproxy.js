@@ -257,7 +257,7 @@ YIUI.BPMService = (function () {
 	    		onUse: onUse
 	        };
 
-            return Svr.Request.getData(params);
+            return Svr.Request.getSyncData(Svr.SvrMgr.ServletURL, params);
 	    },
 	    /**
 		 * 注册附件

@@ -18,6 +18,7 @@ import com.bokesoft.ecomm.im.android.model.GroupInfo;
 import com.bokesoft.ecomm.im.android.ui.widget.IphoneTreeView;
 import com.squareup.picasso.Picasso;
 
+
 import java.util.HashMap;
 import java.util.List;
 
@@ -111,11 +112,13 @@ public class ContactAdapter extends BaseExpandableListAdapter implements IphoneT
             holder.nameView = (TextView) convertView.findViewById(R.id.contact_list_item_name);//昵称
             holder.headiconView = (ImageView) convertView.findViewById(R.id.icon);//头像
             holder.mRelativeLayout = (RelativeLayout) convertView.findViewById(R.id.child_item_layout);
+            holder.states = (TextView) convertView.findViewById(R.id.cpntact_list_item_state);//状态
             convertView.setTag(holder);
         } else {
             holder = (ChildHolder) convertView.getTag();
         }
         final GroupInfo.User user = mListChild.get(groupPosition).get(childPosition);
+        holder.states.setText("[" + IMServiceFacade.UserStates.getStateText(ClientInstanceData.getUserState(user.getCode())) + "]");
         holder.nameView.setText(user.getName());//昵称
         String iconUrl = user.getIcon();
         if (iconUrl != null && iconUrl.trim().length() > 0) {
@@ -204,7 +207,8 @@ public class ContactAdapter extends BaseExpandableListAdapter implements IphoneT
         TextView nameView;//昵称
         ImageView headiconView;//用户头像
         RelativeLayout mRelativeLayout;
-//        TextView states;//状态
+        TextView states;//状态
     }
+
 
 }

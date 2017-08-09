@@ -670,7 +670,7 @@ YIUI.Control.ListView = YIUI.extend(YIUI.Control, {
         if(this.columnInfo && this.columnInfo.length > 0 ){
             var $tr = $('<tr></tr>');
             var $tr_b = $('<tr class="first"></tr>');
-            var $th = $('<th><label>'+YIUI.I18N.listview.number+'</label></th>').addClass("seq");
+            var $th = $('<th><label>'+YIUI.I18N.listview.seq+'</label></th>').addClass("seq");
             $tr.append($th);
 
             var $td = $('<td></td>').addClass("seq");
@@ -858,7 +858,7 @@ YIUI.Control.ListView = YIUI.extend(YIUI.Control, {
                             var $btn = $('<button></button>');
                             $btn.addClass("btn")
                             var $imginfo=$("<span class='imginfo' style='display: inline-block;height: 16px;width: 16px;vertical-align: middle;'></span>");
-                            var $fontinfo=$("<span style='width:165px;font-weight: normal;overflow: hidden;max-width: 100%;text-overflow: ellipsis;vertical-align: middle;'>"+caption+"</span>");
+                            var $fontinfo=$("<span class='txt' style='width:165px;font-weight: normal;overflow: hidden;max-width: 100%;text-overflow: ellipsis;vertical-align: middle;'>"+caption+"</span>");
                             $imginfo.css("background","url('Resource/"+this.icon+"')")
                             $btn.attr("enable", column.enable);
                             $btn.data("key", column.key);
@@ -1313,7 +1313,8 @@ YIUI.Control.ListView = YIUI.extend(YIUI.Control, {
                     }
                     break;
                 case YIUI.CONTROLTYPE.BUTTON:
-                    $td.children("button").html(value);
+//                    $td.children("button").html(value);
+                    $("button span.txt", $td).html(value);
                     break;
                 case YIUI.CONTROLTYPE.HYPERLINK:
                     $td.children("a").html(value);

@@ -5,7 +5,7 @@
 		var rt = {
 				el: $("<div class='rts-dict'/>"),
 				id: "id_dict_set",
-				caption: RTS.I18N.rightsset.setUp,
+				caption: RTS.I18N.rightsset.dictRights,
 				render: function(ct) {
 					this.el.appendTo(ct);
 					var d_left = new RTS.Dict_Left();

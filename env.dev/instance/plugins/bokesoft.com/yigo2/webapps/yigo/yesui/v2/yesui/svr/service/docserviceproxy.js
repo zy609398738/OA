@@ -41,7 +41,7 @@ YIUI.DocService = (function () {
 	    // see remoteService.loadbyform
 	    loadFormData: function(form, oid, filterMap, condParas) {
 	    	if(!form){
-	    		throw new Error(YIUI.I18N.docserviceproxy.notNull);
+	    		throw new Error(YIUI.I18N.docserviceproxy.noFormDefined);
 	    	}
 
 	    	form.refreshParas();

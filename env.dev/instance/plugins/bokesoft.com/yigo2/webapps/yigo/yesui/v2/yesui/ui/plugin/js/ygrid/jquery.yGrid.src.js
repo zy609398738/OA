@@ -1972,7 +1972,7 @@
                 /**
                  * 表格焦点策略
                  */
-                knv.focus().keydown(function (event, outEvent) {
+                knv.keydown(function (event, outEvent) {
                     if (outEvent != null && outEvent.isPropagationStopped()) return;
                     var th = $(".ui-ygrid-btable", event.target.nextSibling)[0], colModel = th.p.colModel;
                     var keyCode = event.charCode || event.keyCode || 0;

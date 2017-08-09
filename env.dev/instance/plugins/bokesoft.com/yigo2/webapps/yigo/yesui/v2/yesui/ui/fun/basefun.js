@@ -393,7 +393,7 @@ UI.BaseFuns = (function () {
         YIUI.DocService.loadFormData(form, form.getFilterMap().OID, form.getFilterMap(), form.getCondParas())
             .then(function(doc){
                 form.setDocument(doc);
-                form.setSysExpVals(YIUI.BPMConstants.WORKITEM_INFO,doc.getExpData(YIUI.BPMKeys.WORKITEM_INFO))
+                form.setSysExpVals(YIUI.BPMConstants.WORKITEM_INFO,doc.getExpData(YIUI.BPMKeys.WORKITEM_INFO));
                 form.showDocument();
             });
     };
@@ -1160,14 +1160,15 @@ UI.BaseFuns = (function () {
         var count = new Decimal(0), form = cxt.form, cellKey = args[0], ri = cxt.rowIndex,
             cLoc = form.getCellLocation(cellKey), grid = form.getComponent(cLoc.key);
         if (grid == undefined) return count;
-        var gr = grid.getRowDataAt(ri), cellV;
+        var gr = grid.getRowDataAt(ri), value;
         if (gr) {
             for (var i = 0, len = gr.cellKeys.length; i < len; i++) {
                 if (gr.cellKeys[i] == cellKey) {
-                    cellV = grid.getValueAt(ri, i);
-                    if (cellV != null) {
-                        count = count.plus(cellV);
-                    }
+                    value = grid.getValueAt(ri, i);
+                 //   if (value != null) {
+                  //      count = count.plus(value);
+                  //  }
+                    count = count.plus(YIUI.TypeConvertor.toDecimal(value));
                 }
             }
         }
@@ -1196,11 +1197,12 @@ UI.BaseFuns = (function () {
                     if (isMatch) {
                         for (var i = 0, rlen = grid.getRowCount(); i < rlen; i++) {
                             rowData = grid.getRowDataAt(i);
-                            if (rowData.isDetail && rowData.bookmark != null) {
+                            if ( !YIUI.GridUtil.isEmptyRow(rowData) ) {
                                 value = rowData.data[colIndex][0];
-                                if (value !== null) {
-                                    count = count.plus(value);
-                                }
+                              //  if (value !== null) {
+                             //       count = count.plus(value);
+                            //    }
+                                count = count.plus(YIUI.TypeConvertor.toDecimal(value));
                             }
                         }
                     } else {
@@ -1208,30 +1210,33 @@ UI.BaseFuns = (function () {
                     }
                     break;
                 case "Group":
+                    var nextRD,preRD;
                     if (rowData.isGroupHead) {
                         for (var nextRi = rowIndex + 1; nextRi < len; nextRi++) {
-                            var nextRD = grid.getRowDataAt(nextRi);
+                            nextRD = grid.getRowDataAt(nextRi);
                             if (nextRD.rowGroupLevel == rowData.rowGroupLevel) {
                                 break;
                             }
-                            if (nextRD.isDetail && nextRD.bookmark != null) {
+                            if (!YIUI.GridUtil.isEmptyRow(nextRD)) {
                                 value = nextRD.data[colIndex][0];
-                                if (value !== null) {
-                                    count = count.plus(value);
-                                }
+                             //   if (value !== null) {
+                             //       count = count.plus(value);
+                              //  }
+                                count = count.plus(YIUI.TypeConvertor.toDecimal(value));
                             }
                         }
                     } else if (rowData.isGroupTail) {
                         for (var preRi = rowIndex - 1; preRi >= 0; preRi--) {
-                            var preRD = grid.getRowDataAt(preRi);
+                            preRD = grid.getRowDataAt(preRi);
                             if (preRD.rowGroupLevel == rowData.rowGroupLevel) {
                                 break;
                             }
-                            if (preRD.isDetail && preRD.bookmark != null) {
+                            if (!YIUI.GridUtil.isEmptyRow(preRD)) {
                                 value = preRD.data[colIndex][0];
-                                if (value !== null) {
-                                    count = count.plus(value);
-                                }
+                               // if (value !== null) {
+                               //     count = count.plus(value);
+                               // }
+                                count = count.plus(YIUI.TypeConvertor.toDecimal(value));
                             }
                         }
                     }
@@ -1243,15 +1248,16 @@ UI.BaseFuns = (function () {
             var rowData, colInfoes, colIndex, count = new Decimal(0), value;
             for (var i = 0, len = grid.getRowCount(); i < len; i++) {
                 rowData = grid.getRowDataAt(i);
-                if (rowData.isDetail && rowData.bookmark != null) {
+                if (!YIUI.GridUtil.isEmptyRow(rowData)) {
                     colInfoes = grid.getColInfoByKey(cellKey);
                     if (colInfoes == null) continue;
                     for (var j = 0, jlen = colInfoes.length; j < jlen; j++) {
                         colIndex = colInfoes[j].colIndex;
                         value = rowData.data[colIndex][0];
-                        if (value !== null) {
-                            count = count.plus(value);
-                        }
+                      //  if (value !== null) {
+                      //      count = count.plus(value);
+                     //   }
+                        count = count.plus(YIUI.TypeConvertor.toDecimal(value));
                     }
                 }
             }
@@ -1518,7 +1524,7 @@ UI.BaseFuns = (function () {
                 row = grid.getFocusRowIndex();
             }
             if (row != -1) {
-                return grid.isCellNull(row, key);
+                return grid.isNullValue(grid.getValueByKey(row,key));
             }
         }
         return true;
@@ -2740,6 +2746,12 @@ UI.BaseFuns = (function () {
 
     };
 
+    funs.Eval = function (name, cxt, args) {
+        var form = cxt.form,
+            script = YIUI.TypeConvertor.toString(args[0]);
+        return form.eval(script,new View.Context(form));
+    };
+
     funs.InvokeService = function (name, cxt, args) {
         var form = cxt.form;
         var serviceName = YIUI.TypeConvertor.toString(args[0]);
@@ -3626,7 +3638,7 @@ UI.BaseFuns = (function () {
             		pattern = tsParas["pattern"];
             	}
             	if(tsParas["backSite"]){
-            		backSite = tsParas["backSite"];
+            		backSite = YIUI.TypeConvertor.toInt(form.eval(tsParas["backSite"], cxt));
             	}
             	if(tsParas["saveDoc"]){
             		saveDoc = YIUI.TypeConvertor.toBoolean(tsParas["saveDoc"]);

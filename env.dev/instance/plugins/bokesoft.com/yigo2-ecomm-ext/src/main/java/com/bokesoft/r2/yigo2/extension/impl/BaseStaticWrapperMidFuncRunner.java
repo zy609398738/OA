@@ -1,5 +1,6 @@
 package com.bokesoft.r2.yigo2.extension.impl;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.reflect.MethodUtils;
 
 import com.bokesoft.r2.yigo2.extension.cms2.util.Misc;
@@ -45,7 +46,13 @@ public class BaseStaticWrapperMidFuncRunner extends BaseMidFunctionImpl {
 	}
 	
 	protected static String getNarrowFormulaName(String prefix, Class<?> formulaClass, String methodName) {
-		return prefix + formulaClass.getSimpleName() + "" + methodName;
+		String f = getFormulaName(prefix, formulaClass, methodName);
+		//把 "." 后面的字母强制变成大写
+		String[] tmp = f.split("\\.");
+		for (int i = 0; i < tmp.length; i++) {
+			tmp[i] = StringUtils.capitalize(tmp[i]);
+		}
+		return StringUtils.join(tmp);
 	}
 
 	protected static String getFormulaName(String prefix, Class<?> formulaClass, String methodName) {

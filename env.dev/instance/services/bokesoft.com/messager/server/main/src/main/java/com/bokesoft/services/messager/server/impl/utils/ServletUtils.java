@@ -35,9 +35,12 @@ public class ServletUtils {
 	 */
 	public static JSONObject getParamDataAsJson(HttpServletRequest req){
 		String data = req.getParameter("data");
-		JSONObject dataJson = JSON.parseObject(data);
-		
-		return dataJson;
+		if (null!=data){
+			JSONObject dataJson = JSON.parseObject(data);
+			return dataJson;
+		}else{
+			return null;
+		}
 	}
 
 	/**

@@ -48,11 +48,11 @@ input[type="text"]::-ms-clear {
     background-size:cover;
 }
 .item1{  
-    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="./yesui/ui/res/images/login_bg_001.jpg", sizingMethod="scale")\9;
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="./yesui/v2/yesui/ui/res/css/flat/images/login_bg_001.jpg", sizingMethod="scale")\9;
     background-image:url(images/login_bg_001.jpg);
 }
 .item2{
-    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="./yesui/ui/res/images/login_bg_002.jpg", sizingMethod="scale")\9;
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="./yesui/v2/yesui/ui/res/css/flat/images/login_bg_002.jpg", sizingMethod="scale")\9;
     background-image: url('images/login_bg_002.jpg');
     display:none;
 }

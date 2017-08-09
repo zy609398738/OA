@@ -71,7 +71,7 @@ FROM  OA_Archive_H a join OA_ArchiveType_H d on a.ArchiveTypeID=d.OID  where "+i
                         </RowClick>
                     </Grid>
                     <FlexFlowLayoutPanel Key="FlexFlowLayoutPanel1" Caption="FlexFlowLayoutPanel1" Height="pref">
-                        <GridLayoutPanel Key="GridLayoutPanel1" Height="120px" Caption="GridLayoutPanel1" Visible="first_headVisible==1">
+                        <GridLayoutPanel Key="GridLayoutPanel1" Height="120px" Caption="GridLayoutPanel1">
                             <TextEditor Key="NO_Q" Caption="归档编号" BuddyKey="Lab_NO_Q" X="1" Y="0">
                                 <Condition ColumnKey="NO" TableKey="OA_Archive_H" CondSign="like"/>
                             </TextEditor>

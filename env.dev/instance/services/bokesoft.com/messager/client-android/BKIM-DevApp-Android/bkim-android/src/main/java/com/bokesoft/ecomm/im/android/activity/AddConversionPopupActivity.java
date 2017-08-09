@@ -70,10 +70,6 @@ public class AddConversionPopupActivity extends Activity {
         lblErrorMsg.setVisibility(View.VISIBLE);
     }
 
-    /**
-     * 快速查找聊天联系人
-     * @param peerId
-     */
     private void startSession(final String peerId) {
         HostServiceFacade.prepareUserInfo(this, new String[]{peerId}, new HostServiceFacade.PrepareUserInfoCallback() {
             @Override

@@ -101,8 +101,10 @@ GetValidNodes(nodeid,processKey);]]>
                 <GridLayoutPanel Key="GridLayoutPanel3" Height="pref" Padding="5px" Caption="GridLayoutPanel3">
                     <Button Key="OPPOSE" Caption="撤回" X="1" Y="0" Enable="True">
                         <OnClick>
-                            <![CDATA[if(!IsNull(GetValue("RejectNode"))){
-    parent.CommitWorkitem(-1,0,GetValue("Opinion"),{pattern:{Return},backSite:{RejectNode}});
+                            <![CDATA[if(!IsNull(ToString(GetValue("RejectNode")))){
+
+parent.CommitWorkitem(-1,0,GetValue("Opinion"),{pattern:{Return},backSite:{RejectNode}});
+    
 }else{
      parent.CommitWorkitem(-1,0,GetValue("Opinion"));
     }

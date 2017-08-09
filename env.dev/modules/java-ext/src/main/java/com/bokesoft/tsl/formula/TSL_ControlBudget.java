@@ -19,45 +19,47 @@ public class TSL_ControlBudget extends BaseMidFunctionImpl {
 
 	@Override
 	public Object evalImpl(String name, DefaultContext context, Object[] args, IExecutor iExecutor) throws Throwable {
+		String dataObjectKey = TypeConvertor.toString(args[0]);
+		CostInfo info = TSLInfoFactory.CreateInfo(context, dataObjectKey);
 		Document document = context.getDocument();
-		DataTable headTable = document.get("B_CostApply");
-		DataTable detailTable = document.get("B_CostApplyDtl");
+		DataTable headTable = document.get(info.getHeadTable());
+		DataTable detailTable = document.get(info.getDetailTable());
 		// 流程状态
-		String WorkflowState = TypeConvertor.toString(args[0]);
-		String rownum = TypeConvertor.toString(args[1]);
+		String WorkflowState = TypeConvertor.toString(args[1]);
+		String rownum = TypeConvertor.toString(args[2]);
 		int rowCount = detailTable.size();
 		for (int index = 0; index < rowCount; index++) {
 			// 预算币种
-			String BudgetCurrency = detailTable.getString(index,"CurrencyDetail1");
+			String BudgetCurrency = detailTable.getString(index,info.getBudgetCurrencyD1Field());
 			// 预算年
-			String BudgetYear = detailTable.getString(index,"CAD_BudgetYear");
+			String BudgetYear = detailTable.getString(index,info.getBudgetYearDField());
 			// 预算月
-			String BudgetMonth = detailTable.getString(index,"CAD_BudgetMonth");
+			String BudgetMonth = detailTable.getString(index,info.getBudgetMonthDField());
 			// 预算数量
-			String BudgetQty = "1";
+			String BudgetQty = TypeConvertor.toString(args[3]);
 			//预算金额
-			String BudgetOffsetMoney = detailTable.getNumeric(index,"Amount").toString();
+			String BudgetOffsetMoney = detailTable.getNumeric(index,info.getBudgetAmountDField()).toString();
 			//释放预算金额
-			BigDecimal BudgetOffsetAmount =  detailTable.getNumeric(index,"Amount");
+			BigDecimal BudgetOffsetAmount =  detailTable.getNumeric(index,info.getBudgetAmountDField());
 			BudgetOffsetAmount = BudgetOffsetAmount.negate();
 			// 预算号
-			String BudgetNo = detailTable.getString(index,"CAD_BudgetNo");
+			String BudgetNo = detailTable.getString(index,info.getBudgetNoDField());
 			// 预算承担组织编号
-			String BudgetOuCode = headTable.getString("OU_Code");
+			String BudgetOuCode = headTable.getString(info.getOUCodeField());
 			// 唯一标识（自动生成）
 			String GUID = System.currentTimeMillis()+"";
 			// 源任务ID
-			String SourceTaskId = headTable.getObject("OID").toString();
+			String SourceTaskId = headTable.getObject(info.getOIDField()).toString();
 			// 源任务明细ID
-			String SourceTaskLineId = detailTable.getObject(index,"OID").toString();
+			String SourceTaskLineId = detailTable.getObject(index,info.getOIDField()).toString();
 			// 源表名称
-			String TableName = "EFLOW";
+			String TableName = TypeConvertor.toString(args[4]);
 			//预算冻结或释放时默认为0
-			String TaskId = "0";
+			String TaskId = TypeConvertor.toString(args[5]);
 			//预算冻结或释放时默认为0
-			String TaskLineId = "0";
+			String TaskLineId = TypeConvertor.toString(args[6]);
 			//类型预算冻结或释放时默认为APPLY
-			String CostType = "APPLY";
+			String CostType = TypeConvertor.toString(args[7]);
 			//执行插入本地日志
 			if (WorkflowState.equalsIgnoreCase("S")){
 				context.getDBManager().execPrepareUpdate(SQL,SourceTaskId,rownum,BudgetNo,BudgetYear,BudgetMonth,BudgetCurrency,BudgetOffsetMoney,1);

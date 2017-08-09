@@ -4,7 +4,7 @@
 		var rt = {
 				el: $("<div class='rts-entry'></div>"),
 				id: "id_entry_set",
-				caption: RTS.I18N.rightsset.inletSet,
+				caption: RTS.I18N.rightsset.entryRights,
 				checkItems: function(value) {
 					this._entry.checkItems(value);
 				},

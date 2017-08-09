@@ -1,6 +1,7 @@
 <div class="message_history">
   <% _.forEach(messages, function(msg) { %>
-      <div class="history_item" data-timestamp="${msg.timestamp}" data-sender="${msg.sender}" data-receiver="${msg.receiver}">
+      <div class="history_item"
+           data-timestamp="${msg.timestamp}" data-sender="${msg.sender}" data-receiver="${msg.receiver}">
           <div class="time" title="${(new Date(msg.timestamp)).toLocaleString()}">${moment(msg.timestamp).fromNow()}</div>
           <%if(self==msg.sender){%>
 			<div class="session">对

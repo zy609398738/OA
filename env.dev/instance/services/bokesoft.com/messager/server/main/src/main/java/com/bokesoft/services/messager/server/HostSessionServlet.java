@@ -11,6 +11,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.bokesoft.services.messager.server.impl.HostSessionManager;
 import com.bokesoft.services.messager.server.impl.utils.ServletUtils;
 import com.bokesoft.services.messager.server.model.RpcReturnCode;
+import com.bokesoft.services.messager.zz.Misc;
 
 public class HostSessionServlet extends HttpServlet {
 
@@ -34,6 +35,8 @@ public class HostSessionServlet extends HttpServlet {
 		ServletUtils.serverAccessControlCheck(req);
 		
 		JSONObject dataJson = ServletUtils.getParamDataAsJson(req);
+		Misc.$assert(null==dataJson, "请求中没有 JSON 数据");
+
 		String token = dataJson.get("token").toString();
 		String option = dataJson.get("option").toString();
 		

@@ -33,9 +33,7 @@ var YIUI = YIUI || {};
                 result = this.form.eval(exp.content,context);
                 if( typeof result === 'string' ) {
                     if( result ) {
-                        if( !this.form.isError() ) {
-                            this.form.setError(true,result,formKey);
-                        }
+                        this.form.setError(true,result,formKey);
                         break;
                     } else {
                        if( this.form.isError() && this.form.errorInfo.errorSource === formKey) {
@@ -48,9 +46,7 @@ var YIUI = YIUI || {};
                             this.form.setError(false,null,null);
                         }
                     } else {
-                        if( !this.form.isError() ) {
-                            this.form.setError(true,exp.errorMsg,formKey);
-                        }
+                        this.form.setError(true,exp.errorMsg,formKey);
                         break;
                     }
                 }
@@ -106,7 +102,7 @@ var YIUI = YIUI || {};
                     return;
                 }
                 if( editOpt.isRequired ) {
-                    com.setCellRequired(loc.row, index, this.isNullValue(cellData[0]));
+                    com.setCellRequired(loc.row, index, com.isNullValue(cellData[0]));
                 }
                 if( item.content ) {
                     var result = this.calcCheckRule(item,this.newContext(this.form,-1,-1));
@@ -148,7 +144,7 @@ var YIUI = YIUI || {};
                 if( !com.isVisible() ) {
                     if( !this.form.isError() || this.form.formKey != this.form.errorInfo.errorSource ) {
                         if( com.isError() ) this.form.setError(true,com.getErrorMsg(),com.key);
-                        if( com.isRequired() ) this.form.setError(true,com.caption + "is Required",com.key);
+                        if( com.isRequired() ) this.form.setError(true,com.caption + " is Required",com.key);
                     }
                 } else {
                     if( this.form.isError() && this.form.errorInfo.errorSource === com.key ){
@@ -184,7 +180,7 @@ var YIUI = YIUI || {};
                     return;
                 }
                 if( editOpt.isRequired ) {
-                    grid.setCellRequired(rowIndex, idx, _this.isNullValue(cellData[0]));
+                    grid.setCellRequired(rowIndex, idx, grid.isNullValue(cellData[0]));
                 }
                 if( item.content ) {
                     var result = _this.calcCheckRule(item,cxt);
@@ -357,7 +353,7 @@ var YIUI = YIUI || {};
                 editOpt = grid.getCellEditOpt(cellKey),
                 cellData = grid.getCellDataAt(rowIndex, colIndex);
             if (editOpt.isRequired) {
-                grid.setCellRequired(rowIndex, colIndex, this.isNullValue(cellData[0]));
+                grid.setCellRequired(rowIndex, colIndex, grid.isNullValue(cellData[0]));
             }
             var affectItems = this.checkRuleTree.affectItems,items;
             for (var i = 0, size = affectItems.length; i < size; i++) {

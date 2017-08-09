@@ -12,6 +12,10 @@ YIUI.Component.TreeMenuBar = YIUI.extend(YIUI.Component, {
 	 * 可选值：Orange、Blue、Gray、Green、Red
 	 */
 	theme : 'Orange',
+
+    isDataBinding: function() {
+        return false;
+	},
 	
 	onRender : function(ct) {
 		this.base(ct);

@@ -46,6 +46,7 @@
 		 <Service Name="OA_GetDropStrBySql" Description="根据列名获得查询内容的下拉字符串" Impl="com.bokesoft.oa.mid.GetDropStrBySql"/>
 		 <Service Name="OA_GetDropItemByWorkItem" Description="根据流程项目获得流程的参与者下拉字符串" Impl="com.bokesoft.oa.mid.wf.GetDropItemByWorkItem"/>
 		 <Service Name="OA_GetValueByFieldKey" Description="根据字段标识获得流程设计中的对应人员" Impl="com.bokesoft.oa.mid.wf.GetValueByFieldKey"/>
+		 <Service Name="OA_GetSendOptList" Description="获取当前节点传阅人员列表" Impl="com.bokesoft.oa.mid.wf.GetSendOptList"/>
 		 <Service Name="OA_GetParticipatorIDs" Description="获取操作员ID字符串" Impl="com.bokesoft.oa.mid.wf.GetParticipatorIDs"/>
 		 <Service Name="OA_PreviewAttchment" Description="获取附件路径" Impl="com.bokesoft.oa.mid.PreviewAttchment"/>
 		 <Service Name="OA_ElectronicSeal" Description="获取路径" Impl="com.bokesoft.oa.mid.ElectronicSeal"/>
@@ -78,6 +79,7 @@
 		 <Service Name="OA_CheckWorkCalendarSection" Description="检查工作日历工作区间是否重复" Impl="com.bokesoft.oa.mid.CheckWorkCalendarSection"/>
 		 <Service Name="OA_GetNextOptAndPar" Description="根据SQL获得下一步的参与者和操作名称" Impl="com.bokesoft.oa.mid.GetNextOptAndPar"/>
 		 <Service Name="OA_GetFileType" Description="根据附件名称获取文件类型" Impl="com.bokesoft.oa.mid.GetFileType"/>
+		 <Service Name="OA_GetRelationRightByOpt" Description="根据操作员获取相关审批权限" Impl="com.bokesoft.oa.mid.wf.GetRelationRightByOpt"/>
 		 <Service Name="TSL_GetRegionData" Description="获取区域数据" Impl="com.bokesoft.tsl.service.TSL_GetRegionData"/>
 		 <Service Name="TSL_GetSubRegionData" Description="获取子区域数据" Impl="com.bokesoft.tsl.service.TSL_GetSubRegionData"/>
 		 <Service Name="TSL_GetRate" Description="获取汇率" Impl="com.bokesoft.tsl.service.TSL_GetRate"/>

@@ -15,6 +15,10 @@ YIUI.Control.SplitButton = YIUI.extend(YIUI.Control, {
     /** ["xxx","xxx","xxx"...] */
     dropdownItems: [],
 
+    isDataBinding: function() {
+        return false;
+	},
+
     init: function (options) {
         this.base(options);
         var meta = this.getMetaObj();

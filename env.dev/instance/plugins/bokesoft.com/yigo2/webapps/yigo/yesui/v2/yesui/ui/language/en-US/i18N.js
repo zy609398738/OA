@@ -1,19 +1,19 @@
 var other = {
 	control : {
-		require : "-Must full in-"
+		required : "-Must full in-"
 	},
 
 	attachment : {
-		name : "Attachment name",
-		time : "Upload time",
-		people : "Upload people",
-		url : "Attachment path",
+		attachmentName : "Attachment name",
+		attachmentUploadTime : "Upload time",
+		attachmentUploadOperatorID : "Upload people",
+		attachmentPath : "Attachment path",
 		exercise : "exercise",
 		ldo : "do",
-		operation : "Operation",
-		upload : "upload",
-		download : "download",
-		ldelete : "delete",
+		attachmentOperate : "Operation",
+		attachmentUpload : "upload",
+		attachmentDownload : "download",
+		attachmentDelete : "delete",
 		preview : "preview",
 		noContent : "No content in the table",
 		unable : "Newly add state cannot upload operation!"
@@ -21,7 +21,7 @@ var other = {
 
 	listview : {
 		order : "order",
-		number : "Serial number"
+		seq : "Serial number"
 	},
 
 	dict : {
@@ -71,22 +71,22 @@ var other = {
 
 	userinfopane : {
 		admin : "System administrator",
-		logout : "cancellation",
-		quit : "quit"
+		appLogout : "cancellation",
+		appExit : "quit"
 	},
 
 
 	rightsset : {
-		setUp : "Dictionary permissions settings",
+		dictRights : "Dictionary permissions settings",
 		modify : "modify",
 		save : "save",
-		select : "Select all",
-		sign : "sign",
-		coding : "coding",
-		jurisdiction : "Whether have permissions",
+		selectAll : "Select all",
+		key : "sign",
+		code : "coding",
+		hasRights : "Whether have permissions",
 		search : "search",
-		formSet : "Form permission settings",
-		inletSet : "Entry permission settings"
+		formRights : "Form permission settings",
+		entryRights : "Entry permission settings"
 	},
 
 	
@@ -192,35 +192,35 @@ var other = {
 	},
 
 	docserviceproxy : {
-		notNull : "form cannot be empty"
+		noFormDefined : "form cannot be empty"
 	},
 	
 	toolbar : {
-		approval : "Revocation has been submitted for examination and approval",
-		submit : "Submit a work item",
+		revocateCommited : "Revocation has been submitted for examination and approval",
+		commitWorkItem : "Submit a work item",
 		via : "via",
-		startUp : "Startup process"
+		startInstance : "Startup process"
 	},
 
 	jQueryExt : {
-		beyong : "Exceeds specified size!",
-		nonType : "Non specified the  type!"
+		attachmentExceedMaxSize : "Exceeds specified size!",
+		attachmentTypeError : "Non specified the  type!"
 	},
 
 	navigation : {
 		application : "Yigo application",
 		userName : "wen-wen zhu",
-		modfiyPwd : "Modify password",
-		version : "versions: ",
-		create : "Create number:",
-		companyName : "Shanghai boke information limited company",
+		appChangePWD : "Modify password",
+		appVer : "versions: ",
+		appBuildID : "Create number:",
+		appCopyRights : "Shanghai boke information limited company",
 		authorize : "Authorization:boke information",
 		overdueTime : "Expiration date:",
-		about : "about Yigo"
+		appAbout : "about Yigo"
 	},
 
 	menutree : {
-		keyword : "Please input keywords..."
+		inputKeyWords : "Please input keywords..."
 	}
 
 };

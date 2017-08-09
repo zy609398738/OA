@@ -89,8 +89,10 @@ SetValue("first_headVisible",0);
         <Operation Key="Archive" Caption="归档" Visible="Status==1200"/>
         <Operation Key="Commit" Caption="提交" Visible="!ReadOnly()">
             <Action>
-                <![CDATA[SaveData();UpdateView();
-OA_StartInstance(GetFormKey(),GetValue("WorkflowTypeDtlID"),GetOID());]]>
+                <![CDATA[var pWorkitemID = GetActiveWorkitemID();
+SaveData();UpdateView();
+OA_StartInstance(GetFormKey(),GetValue("WorkflowTypeDtlID"),GetOID());
+InvokeService("OA_OptSendMessage", true, false,GetFormKey(),"Commit",pWorkitemID,GetOID(),ServerDate(),WorkflowTypeDtlID);]]>
             </Action>
         </Operation>
     </OperationCollection>

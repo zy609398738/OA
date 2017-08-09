@@ -5,15 +5,15 @@
         defaults: {
             record: "{0} - {1}",
             totalrecord: YIUI.I18N.grid.total,
-            seqColText: YIUI.I18N.listview.number,  //序号字段名称
+            seqColText: YIUI.I18N.listview.seq,  //序号字段名称
             emptyrecords: YIUI.I18N.grid.noData,
             recordtext: "{0} - {1}\u3000" + YIUI.I18N.grid.recordtext, // 共字前是全角空格
             pgtext: YIUI.I18N.grid.jumpTo
         },
         del: {
-        	 caption: YIUI.I18N.attachment.ldelete,
+        	 caption: YIUI.I18N.attachment.attachmentDelete,
              msg: YIUI.I18N.grid.deleteRecord,
-             bSubmit: YIUI.I18N.attachment.ldelete,
+             bSubmit: YIUI.I18N.attachment.attachmentDelete,
              bCancel: YIUI.I18N.dict.cancel
         },
         nav: {

@@ -138,7 +138,7 @@ YIUI.Control.Button = YIUI.extend(YIUI.Control, {
                 window.up_target = $(e.target);
             }
             self.focus();
-            self.handler.doOnClick(self.ofFormID, self.clickContent);
+            self.handler.doOnClick(self.ofFormID, self.clickContent, self.key);
         };
 
         self.el.click($.debounce(100, function (e) {

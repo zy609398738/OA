@@ -38,7 +38,7 @@
                 }
             },
             getTextButton: function () {
-                return $("button", this.el);
+                return $("span.txt", this.el);
             },
             setWidth: function (width) {
                 this.el.css("width", width);

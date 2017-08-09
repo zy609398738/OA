@@ -68,7 +68,7 @@
                         this.form.setError(true, com.errorInfo.msg, com.key);
                     }
                     if ( com.isRequired() ) {
-                        this.form.setError(true, com.caption + "is Required", com.key);
+                        this.form.setError(true, com.caption + " is Required", com.key);
                     }
                 }
             } else {

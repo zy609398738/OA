@@ -21,7 +21,6 @@ public class ClientInstanceData {
     }
 
     public static String getUserState(String userCode) {
-        //Log.d("userCode==", userCode);
         if (userStateTable.containsKey(userCode)) {
             return userStateTable.get(userCode);
         } else {

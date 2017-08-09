@@ -59,6 +59,13 @@
 		    	});
 
 
+	        YIUI.MenuTree = {};
+	        YIUI.MenuTree.reload = function(entryPath) {
+	            YIUI.MetaService.getEntry(entryPath).then(function(result){
+	                var entry = result.entry;
+	                mainTree.reload(entry);
+	            });
+	        };
 
 			var install = function() {
             	var index = -1;

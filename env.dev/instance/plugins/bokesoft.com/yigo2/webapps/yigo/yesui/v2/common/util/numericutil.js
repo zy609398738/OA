@@ -1,7 +1,7 @@
 YIUI.NumericUtil = (function () {
     var fraction = ['角', '分'],
         digit = ["零", "壹", "贰", "叁", "肆", "伍", "陆", "柒", "捌", "玖"],
-        unit = [['元', '万', '亿'],['', '拾', '佰', '仟']];
+        unit = [['圆', '萬', '亿'],['', '拾', '佰', '仟']];
 
     var Return = {
         getAmountInWords:function(n) {
@@ -21,9 +21,9 @@ YIUI.NumericUtil = (function () {
                 }
                 s = p.replace(/(零.)*零$/, '').replace(/^$/, '零') + unit[0][i] + s;
             }
-            return head + s.replace(/(零.)*零元/, '元')
+            return head + s.replace(/(零.)*零圆/, '圆')
                     .replace(/(零.)+/g, '零')
-                    .replace(/^整$/, '零元整');
+                    .replace(/^整$/, '零圆整');
         }
     };
 

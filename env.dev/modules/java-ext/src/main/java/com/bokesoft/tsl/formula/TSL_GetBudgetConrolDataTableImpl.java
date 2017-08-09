@@ -32,7 +32,7 @@ public class TSL_GetBudgetConrolDataTableImpl extends BaseMidFunctionImpl {
 		String CostCenter = TypeConvertor.toString(context.getPara("CostCenter"));
 		long Organization_id = TypeConvertor.toLong(context.getPara("Organization_id"));
 		int Budget_Year = TypeConvertor.toInteger(context.getPara("Budget_Year"));
-		int BudgetMonth = TypeConvertor.toInteger(context.getPara("Budget_Year"));
+		int BudgetMonth = TypeConvertor.toInteger(context.getPara("Budget_Month"));
 		IMetaFactory metaFactory = context.getVE().getMetaFactory();
 		MetaForm metaForm = metaFactory.getMetaForm(formKey);
 		MetaDataObject metaDataObject = metaForm.getDataSource().getDataObject();

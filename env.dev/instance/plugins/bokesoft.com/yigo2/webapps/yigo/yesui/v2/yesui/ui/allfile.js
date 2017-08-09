@@ -202,7 +202,7 @@
 				"<script type='text/javascript' src='"+root+"yesui/ui/builder/yiuibuilder.js' defer='defer'></script>" + 
 
 				//工具类 供他人直接渲染单据
-				//"<script type='text/javascript' src='"+root+"yesui/svr/formutils.js' defer='defer'></script>" + 
+				"<script type='text/javascript' src='"+root+"yesui/svr/formutils.js' defer='defer'></script>" + 
 				//"<script type='text/javascript' src='"+root+"yesui/ui/formRender.js' defer='defer'></script>" + 
 
 				//组件

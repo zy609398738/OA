@@ -256,20 +256,23 @@ var renderMessageHistory = function(self, otherSide){
 }
 var _renderTextMsg = function(self, msg){
 	var text=msg.data;
-	var tmp = new Array();
-	ActionData.parseActionData(tmp,text);
-	var divClass = "action-data";
-	var $div = $("<div class= '"+divClass+"'/>");
-	for(var i=0;i<tmp.length;i++){
-		if(tmp[i].type == "text"){
-			var $b = $("<span/>").text(tmp[i].data).appendTo($div);
+	var snippets = ActionData.parse(text);
+
+	var $div = $("<div/>");
+	for(var i=0; i<snippets.length; i++){
+		var snippet = snippets[i];
+		if(snippet.type == "text"){
+			var html = self.lightEditor.renderHtml(snippet.data);
+			var $b = $("<span/>").html(html).appendTo($div);
 		}
-		if(tmp[i].type == "action"){
-			var tmpObj = JSON.parse(tmp[i].data);
-			var $a = $("<a/>").attr("data-bkim-action", tmpObj.actionData).attr("href", "javascript:void(0)").text(tmpObj.title).appendTo($div);
+		if(snippet.type == "action"){
+			var action = snippet.data;
+			var html = self.lightEditor.renderHtml(action.title);
+			var $a = $("<a/>").attr("data-bkim-action", action.actionData)
+			                  .attr("href", "javascript:void(0)").html(html).appendTo($div);
 		}			
 	}				
-	return $("<div/>").append($div).html();			
+	return $div.html();			
 
 }
 var _doRenderUploading = function(msg, uploadingId){

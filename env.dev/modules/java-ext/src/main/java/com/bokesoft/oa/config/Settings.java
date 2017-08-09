@@ -208,16 +208,22 @@ public class Settings {
 	 * @throws Throwable
 	 */
 	public void loadConfiguration(String dirPath) throws Throwable {
-		// 首先载入默认参数配置
-		String configPath = dirPath + File.separator + CONFIG_PATH;
-		File configFile = new File(configPath);
-		if (configFile.exists()) {
-			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder builder = factory.newDocumentBuilder();
-			Document document = builder.parse(configFile);
-			NodeList nodeList = document.getElementsByTagName("settings").item(0).getChildNodes();
-			loadSettings(nodeList);
-		}
+		List<File> arrayFile = new ArrayList<File>();
+		arrayFile = getPathList(dirPath, arrayFile);
+		loadAllConfig(arrayFile);
+	}
+
+	/**
+	 * 获得参数配置文件路径列表
+	 * 
+	 * @param dirPath
+	 *            参数配置文件所在目录
+	 * @param arrayFile
+	 *            参数配置文件路径列表
+	 * @return 参数配置文件路径列表
+	 * @throws Throwable
+	 */
+	public List<File> getPathList(String dirPath, List<File> arrayFile) throws Throwable {
 		// 如果参数配置列表文件存在，载入参数配置列表文件里指定的参数配置文件
 		String listPath = dirPath + File.separator + CONFIG_LIST_PATH;
 		File listFile = new File(listPath);
@@ -228,13 +234,12 @@ public class Settings {
 			NodeList isDebugNodeList = document.getElementsByTagName("IsDebug");
 			if (isDebugNodeList != null) {
 				Node isDebugNode = isDebugNodeList.item(0);
-				if (isDebugNode.getNodeType() == Node.ELEMENT_NODE) {
+				if (isDebugNode != null && isDebugNode.getNodeType() == Node.ELEMENT_NODE) {
 					String nodeValue = getNodeValue(isDebugNode);
 					setIsDebug(nodeValue.equalsIgnoreCase("true"));
 				}
 			}
 			NodeList nodeList = document.getElementsByTagName("configlist").item(0).getChildNodes();
-			ArrayList<File> arrayFile = new ArrayList<File>();
 			for (int i = 0; i < nodeList.getLength(); i++) {
 				Node node = nodeList.item(i);
 				if (node.getNodeType() != Node.ELEMENT_NODE) {
@@ -247,32 +252,42 @@ public class Settings {
 					File file = new File(filePath);
 					if (file.exists()) {
 						arrayFile.add(file);
-					} else {
-						// System.out.println("不存在文件:" + file.getName() + "。");
 					}
 				}
 			}
-			loadAllConfig(arrayFile.toArray(new File[0]));
+
+			Node configExt = document.getElementsByTagName("configExt").item(0);
+			if (configExt != null && configExt.getNodeType() == Node.ELEMENT_NODE) {
+				String nodeValue = getNodeValue(configExt);
+				String filePath = CoreSetting.getInstance().getSolutionPath() + File.separator + nodeValue;
+				File file = new File(filePath);
+				if (file.exists()) {
+					arrayFile = getPathList(filePath, arrayFile);
+				}
+			}
 		} else {
 			// 否则，载入文件夹下的所有参数配置文件
 			File dir = new File(dirPath);
 			File[] files = dir.listFiles(new ConfigFileFilter());
-			loadAllConfig(files);
+			for (File file : files) {
+				arrayFile.add(file);
+			}
 		}
+		return arrayFile;
 	}
 
 	/**
 	 * 载入所有的参数配置
 	 * 
 	 * @param files
-	 *            参数配置文件数组
+	 *            参数配置文件列表
 	 * @throws Throwable
 	 */
-	private void loadAllConfig(File[] files) throws Throwable {
+	private void loadAllConfig(List<File> files) throws Throwable {
 		// 载入每一份参数配置文件
 		for (File file : files) {
 			// 默认的参数配置文件config.xml已经载入过，不重新载入了
-			if (file.exists() && !CONFIG_PATH.equalsIgnoreCase(file.getName())) {
+			if (file.exists()) {
 				DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 				DocumentBuilder builder = factory.newDocumentBuilder();
 				Document document = builder.parse(file);
@@ -483,10 +498,9 @@ public class Settings {
 	 * @return 如果属性不存在，直接返回空字符串，否则返回属性值
 	 */
 	public String getPropertyOrEmpty(String name) {
-		return getProperty(name,"");
+		return getProperty(name, "");
 	}
 
-	
 	/**
 	 * 是否存在映射对象
 	 * 

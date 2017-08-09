@@ -154,7 +154,8 @@ public class WorkflowDesigneDtlMap extends DtlBaseMap<Long, WorkflowDesigneDtl, 
 		OAContext context = getContext();
 		MetaProcess metaProcess = context.getMetaProcess();
 		MetaNode metaNode = context.getMetaNode();
-		if (metaProcess != null && metaNode != null) {
+		int nodeType=metaNode.getNodeType();
+		if (metaProcess != null && metaNode != null && (3==nodeType || 4==nodeType) ) {
 			if (dtlDt.size() <= 0) {
 				throw new Error("流程“" + metaProcess.getCaption() + "”的流程节点“" + metaNode.getCaption()
 						+ "”，没有在流程设计中找到对应的节点设置，请修正。");

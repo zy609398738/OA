@@ -13,6 +13,10 @@ YIUI.Control.Dialog = YIUI.extend(YIUI.Control, {
     msgType: YIUI.Dialog_MsgType.YES_NO_OPTION,
     
     eventList: {},
+
+    isDataBinding: function() {
+        return false;
+	},
     
     /**
      * 完成button的渲染。

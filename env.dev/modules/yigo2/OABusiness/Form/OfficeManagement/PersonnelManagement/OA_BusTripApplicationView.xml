@@ -36,7 +36,7 @@
                 <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
                     <ToolBarItemCollection/>
                 </ToolBar>
-                <GridLayoutPanel Key="first_head" Padding="5px" Height="pref" Caption="基本信息" Visible="first_headVisible==1">
+                <GridLayoutPanel Key="first_head" Padding="5px" Height="pref" Caption="基本信息">
                     <DatePicker Key="DatePicker1" Caption="出差开始时间" BuddyKey="Lab_DatePicker1" X="1" Y="0">
                         <Condition Group="A" ColumnKey="StartTime" TableKey="OA_BusTripApplicationView" CondSign="between" GroupHead="true"/>
                     </DatePicker>

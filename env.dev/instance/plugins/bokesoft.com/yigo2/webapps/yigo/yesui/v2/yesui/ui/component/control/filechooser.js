@@ -24,6 +24,10 @@ YIUI.Control.FileChooser = YIUI.extend(YIUI.Control, {
     extFilter: null,
 
     handler: YIUI.FileChooserHandler,
+
+    isDataBinding: function() {
+        return false;
+	},
     
     onSetWidth: function(width) {
     	this.base(width);

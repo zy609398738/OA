@@ -11,20 +11,21 @@ YIUI.EventHandler = (function () {
 			var enable = node.attr("enable");
 			if( enable !== undefined && !YIUI.TypeConvertor.toBoolean(enable) )
 				return;
+			var single = false;
         	if (node.length > 0) {
-        		var single = YIUI.TypeConvertor.toBoolean(node.attr("single"));
-        		if(single) {
-                    var formKey = node.attr("formKey");
+        		single = YIUI.TypeConvertor.toBoolean(node.attr("single"));
+//        		if(single) {
+//                    var formKey = node.attr("formKey");
                     paras = node.attr("paras");
-                	var li = $("[formKey='"+formKey+"']", container.el);
-                    if(!paras.isEmpty()) {
-                    	li = $("[formKey='"+formKey+"'][paras='"+paras+"']", container.el);
-                    }
-                	if(li.length > 0) {
-                		li.click();
-                		return;
-                	}
-        		}
+//                	var li = $("[formKey='"+formKey+"']", container.el);
+//                    if(!paras.isEmpty()) {
+//                    	li = $("[formKey='"+formKey+"'][paras='"+paras+"']", container.el);
+//                    }
+//                	if(li.length > 0) {
+//                		li.click();
+//                		return;
+//                	}
+//        		}
         	}
         	
             var formKey = node.attr("formKey");
@@ -35,8 +36,21 @@ YIUI.EventHandler = (function () {
 
             YIUI.MetaService.getMetaFormByEntry(path)
                 .then(function(meta){
+
+                    if(single) {
+                    	var li = $("[formKey='"+formKey+"']", container.el);
+                        if(paras && !paras.isEmpty()) {
+                        	li = $("[formKey='"+formKey+"'][paras='"+paras+"']", container.el);
+                        }
+                    	if(li.length > 0) {
+                    		li.click();
+                    		return;
+                    	}
+                    }
+                	
                     var metaForm = new YIUI.MetaForm(meta);
                     var emptyForm = new YIUI.Form(metaForm);
+                    emptyForm.single = single;
                     emptyForm.entryPath = path;
                     emptyForm.entryParas = paras;
                     if((emptyForm.type == YIUI.Form_Type.Entity ||emptyForm.type == YIUI.Form_Type.Dict)

@@ -37,14 +37,6 @@ var YIUI = YIUI || {};
             return cxt;
         },
 
-        isNullValue:function (v) {
-            if( v == null || v == '' )
-                return true;
-            if( v instanceof Decimal )
-                return parseFloat(v) == 0;
-            return false;
-        },
-
         initTree:function (item) {
             if( !item.items )
                 return;

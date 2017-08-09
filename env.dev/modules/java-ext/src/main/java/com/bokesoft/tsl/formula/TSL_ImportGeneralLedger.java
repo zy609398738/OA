@@ -14,29 +14,26 @@ import com.bokesoft.yigo.struct.document.Document;
 public class TSL_ImportGeneralLedger extends BaseMidFunctionImpl {
 
 	private static String ACTION = "ERP_GL_Import_TO_BPM";
-	private String SQL = "select distinct CEDetail_PaymentType from Bill_CostExpenseDetail WHERE SOID = ?";
 
 	@Override
 	public Object evalImpl(String name, DefaultContext context, Object[] args, IExecutor iExecutor) throws Throwable {
+		String dataObjectKey = TypeConvertor.toString(args[0]);
+		CostInfo info = TSLInfoFactory.CreateInfo(context, dataObjectKey);
+		//paymenttype
+		String paymenttype = info.getPaymentTypeField(TypeConvertor.toLong(args[1]));
 		Document document = context.getDocument();
-		DataTable headTable = document.get("B_CostApply");
-		DataTable dt = context.getDBManager().execPrepareQuery(SQL, document.getOID());
-		String paymenttype = null;
-		if (dt.size() > 0) {
-			// 获取SQL查询值赋给变量
-			paymenttype = dt.getString(0, 0);
-		}
+		DataTable headTable = document.get(info.getHeadTable());
 		// TaskID
 		String TaskId = null;
 		if (paymenttype == null) {
-			TaskId = headTable.getObject("OID").toString();
+			TaskId = headTable.getObject(info.getOIDField()).toString();
 		} else if (paymenttype.equalsIgnoreCase("PersonalPayment")) {
-			TaskId = headTable.getObject("OID") + "_P";
+			TaskId = headTable.getObject(info.getOIDField()) + "_P";
 		} else if (paymenttype.equalsIgnoreCase("CompanyPayment")) {
-			TaskId = headTable.getObject("OID") + "_C";
+			TaskId = headTable.getObject(info.getOIDField()) + "_C";
 		}
 		// 预算承担组织编号
-		String BudgetOuId = headTable.getString("OU_Code");
+		String BudgetOuId = headTable.getString(info.getOUCodeField());
 
 		TSL_BokeDeeFactory factory = new TSL_BokeDeeFactory();
 		HashMap<String, String> paramenter = factory.getParameter();

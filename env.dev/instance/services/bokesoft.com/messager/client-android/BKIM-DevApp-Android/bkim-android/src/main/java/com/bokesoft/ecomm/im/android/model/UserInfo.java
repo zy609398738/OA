@@ -7,12 +7,14 @@ public final class UserInfo {
     private String userCode;
     private String userIcon;  //The url of userIcon
     private String userName;
+//    private String userState;//用户是否在线状态
 
 
     public UserInfo(String userCode, String userName, String userIcon) {
         this.userCode = userCode;
         this.userIcon = userIcon;
         this.userName = userName;
+//        this.userState = userState;
 
     }
 
@@ -28,4 +30,7 @@ public final class UserInfo {
         return userName;
     }
 
+//    public String getUserState() {
+//        return userState;
+//    }
 }

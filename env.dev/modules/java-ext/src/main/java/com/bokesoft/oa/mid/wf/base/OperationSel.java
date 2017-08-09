@@ -2,6 +2,7 @@ package com.bokesoft.oa.mid.wf.base;
 
 import com.bokesoft.oa.base.BillBase;
 import com.bokesoft.oa.base.OAContext;
+import com.bokesoft.oa.mid.message.MessageSet;
 import com.bokesoft.yes.common.util.StringUtil;
 import com.bokesoft.yigo.struct.datatable.DataTable;
 
@@ -12,6 +13,91 @@ import com.bokesoft.yigo.struct.datatable.DataTable;
  *
  */
 public class OperationSel extends BillBase {
+
+	/**
+	 * 消息设置ID
+	 */
+	private Long messageSetID;
+
+	/**
+	 * 消息设置ID
+	 */
+	public Long getMessageSetID() {
+		return messageSetID;
+	}
+
+	/**
+	 * 消息设置ID
+	 * 
+	 * @param messageSetID
+	 */
+	public void setMessageSetID(Long messageSetID) {
+		this.messageSetID = messageSetID;
+	}
+
+	/**
+	 * 消息设置
+	 */
+	private MessageSet messageSet;
+
+	/**
+	 * 消息设置
+	 * 
+	 * @return 消息设置
+	 * @throws Throwable
+	 */
+	public MessageSet getMessageSet() throws Throwable {
+		if (messageSet == null) {
+			if (messageSetID > 0) {
+				messageSet = getContext().getMessageSetMap().get(messageSetID);
+			}
+			if (messageSet == null) {
+				messageSet = getWorkflowDesigneDtl().getMessageSet();
+			}
+		}
+		return messageSet;
+	}
+
+	/**
+	 * 消息设置
+	 * 
+	 * @param messageSet
+	 *            消息设置
+	 */
+	public void setMessageSet(MessageSet messageSet) {
+		this.messageSet = messageSet;
+		setMessageSetID(messageSet.getOID());
+	}
+
+	/**
+	 * 邮件模板
+	 */
+	private String emailTemp;
+
+	/**
+	 * 邮件模板
+	 * 
+	 * @return 邮件模板
+	 * @throws Throwable
+	 */
+	public String getEmailTemp() throws Throwable {
+		// 如果为空，取所在节点的邮件模板
+		if (emailTemp == null) {
+			emailTemp = getWorkflowDesigneDtl().getEmailTemp();
+		}
+		return emailTemp;
+	}
+
+	/**
+	 * 邮件模板
+	 * 
+	 * @param emailTemp
+	 *            邮件模板
+	 */
+	public void setEmailTemp(String emailTemp) {
+		this.emailTemp = emailTemp;
+	}
+
 	/**
 	 * 源表单Key
 	 */
@@ -218,6 +304,25 @@ public class OperationSel extends BillBase {
 		super(context);
 	}
 
+	/**
+	 * 载入数据
+	 * 
+	 * @param dt
+	 *            主表数据集
+	 * @throws Throwable
+	 */
+	public void loadData(DataTable dt) throws Throwable {
+		super.loadData(dt);
+		setSourceKey(dt.getString("SourceKey"));
+		setSourceID(dt.getInt("SourceID"));
+		setTag1(dt.getString("Tag1"));
+		setTag2(dt.getString("Tag2"));
+		setTag3(dt.getString("Tag3"));
+		setTag4(dt.getString("Tag4"));
+		setMessageSetID(dt.getLong("MessageSetID_H"));
+		setEmailTemp(dt.getString("EmailTemp_H"));
+	}
+	
 	/**
 	 * 载入数据
 	 * 

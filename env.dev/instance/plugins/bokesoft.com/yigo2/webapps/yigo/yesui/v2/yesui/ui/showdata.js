@@ -209,7 +209,7 @@
 						this.loadAttachment(cmp);
 						break;
 					default:
-						if (cmp.hasDataBinding()) {
+						if (cmp.isDataBinding()) {
 							if( cmp.needClean() ){
 								cmp.setValue(null);
 							}

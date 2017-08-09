@@ -27,14 +27,14 @@
 						rows: dictData,
 						cols: [{
 								key: "code",
-								caption: RTS.I18N.rightsset.coding
+								caption: RTS.I18N.rightsset.code
 							}, {
 								key: "name",
 								caption: RTS.I18N.dict.name
 							}, {
 								key: "hasRights",
 								type: "checkbox",
-								caption: RTS.I18N.rightsset.jurisdiction
+								caption: RTS.I18N.rightsset.hasRights
 							}],
 						hasAllRights: newData.hasAllRights
 					}
@@ -87,14 +87,14 @@
 					rows: chainData.data,
 					cols: [{
 							key: "code",
-							caption: RTS.I18N.rightsset.coding
+							caption: RTS.I18N.rightsset.code
 						}, {
 							key: "name",
 							caption: RTS.I18N.dict.name
 						}, {
 							key: "hasRights",
 							type: "checkbox",
-							caption: RTS.I18N.rightsset.jurisdiction
+							caption: RTS.I18N.rightsset.hasRights
 						}],
 					hasAllRights: chainData.hasAllRights,
 					totalRowCount: chainData.totalRowCount

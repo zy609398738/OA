@@ -58,10 +58,12 @@ YIUI.Control = YIUI.extend(YIUI.Component, {
             this.handler && this.handler.doValueChanged(this, newValue, true, true);
         }
     },
-    
-    /** 判断组件的值是否为空值 */
+
+    /**
+     * 判断组件的值是否为空值. null,'',undefined,"0",0都是空值
+     */
     isNull: function() {
-    	return (this.value == null || this.value == undefined || this.value === "") ? true : false;
+    	return ( !this.value || parseFloat(this.value) == 0 ) ? true : false;
     },
 
 	commitValue: function() {
@@ -166,7 +168,7 @@ YIUI.Control = YIUI.extend(YIUI.Component, {
     setRequired: function (required) {
         this.base(required);
         if (this.getEl() && required) {
-            this.getEl().placeholder(YIUI.I18N.control.require);
+            this.getEl().placeholder(YIUI.I18N.control.required);
             var _this = this;
             this.bind(null, 'keyup', function () {
             	if (_this.isNull()) {

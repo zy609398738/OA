@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <Entry Caption="根" Key="root">
     <EntryItem Caption="首页" FormKey="OA_Index" Key="OA_Index" Parameters="URL=index.page" Type="Form" Visible="false"/>
-    <EntryItem Caption="填写表单" FormKey="OA_ShowWeb" Key="OA_CearteWorkflow" Parameters="URL=tslworkflow.page;FormCaption=填写表单" Type="Form"/>
+    <EntryItem Caption="填写表单" FormKey="OA_ShowWeb" Key="OA_CearteWorkflow" Parameters="URL=tslworkflow.page;FormCaption=填写表单" Type="Form" Visible="false"/>
     <Entry Caption="协同功能" Key="OA" Visible="false">
         <Entry Caption="流程" Key="Workflow">
             <EntryItem Caption="待办流程" FormKey="OA_ToDoList" Key="OA_ToDoList" Type="Form"/>

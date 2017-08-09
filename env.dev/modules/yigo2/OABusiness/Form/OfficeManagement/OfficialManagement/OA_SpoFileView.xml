@@ -49,7 +49,7 @@ from OA_SpoFile_H a JOIN OA_ParticipatorIDs_D b ON a.OID=b.SOID AND b.OptType=10
                 <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
                     <ToolBarItemCollection/>
                 </ToolBar>
-                <GridLayoutPanel Key="first_head" Height="40px" Caption="基本信息" Visible="first_headVisible==1">
+                <GridLayoutPanel Key="first_head" Height="40px" Caption="基本信息">
                     <DatePicker Key="From" Caption="发文日期 从" BuddyKey="Lab_From" X="1" Y="0">
                         <Condition ColumnKey="BillDate" TableKey="OA_SpoFile_H" CondSign="between" Group="aa" GroupHead="true"/>
                     </DatePicker>

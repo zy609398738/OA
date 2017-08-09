@@ -102,7 +102,7 @@ YIUI.Control.RadioButton = YIUI.extend(YIUI.Control, {
     },
     
     getFormatEl: function() {
-    	return $("span", this.el);
+    	return $("label", this.el);
     },
     
     onSetHeight: function (height) {

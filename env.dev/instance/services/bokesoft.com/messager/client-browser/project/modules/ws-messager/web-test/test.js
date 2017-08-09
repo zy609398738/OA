@@ -10,8 +10,7 @@ im.setupGlobal({
 	servicePostfix: ".json",
 	pageBuddiesManager: "./",//管理好友的页面地址, 仅供测试
 	hostCallback: function(type, data, globalOptions){
-		alert(type);
-		alert(data);
+		alert("执行操作: type='"+type+"', data='"+data+"'");
 	}
 });
 
@@ -93,7 +92,8 @@ window.testUpdateBlacklist = function(index){
 				if(data.success){
 					alert("黑名单更新成功");
 				}
-			}, {errorStyle: "notify"});
+			}, {errorStyle: "notify"}
+		);
 	}
 };
 window.testOverwriteBlacklist = function(){
@@ -124,36 +124,94 @@ window.testOverwriteBlacklist = function(){
 	);
 };
 
-window.testMessagePost = function(){
+var _post = function(msg, successCallback){
 	var type = "TEXT";
-	var sender = $("#boke-test-00X").find("option:selected").val();
-	var receiver = $("#boke-test-XXX").find("option:selected").val();
+	var sender = $("#boke-test-sender").find("option:selected").val();
 	if(sender==null||sender ==undefined||sender==""){
-		alert("请初始化用户");
+		alert("请选择发送方");
 		return;
 	}
+	var receiver = $("#boke-test-receiver").find("option:selected").val();
 	if(receiver==null||receiver ==undefined||receiver==""){
-		alert("请选择推送用户");
+		alert("请选择接收方");
 		return;
 	}
 	var timestamp =  Date.parse(new Date());
 	var senderName = "";
 	var receiverName = "";
-var data = "这是" + (new Date()) + "推送的信息请点击 " + "[[Action:V01:{\"title\":\"XXX]]\", \"actionData\":\"YYY\", \"_id\":\"ZZZ\"}:ZZZ]](data是YYY),这是第二个[[Action:V01:{\"title\":\"XXX\", \"actionData\":\"[[Action:V01:YYY\", \"_id\":\"ZZZ\"}:ZZZ]](data是[[Action:V01:YYY)";	
+    var data = msg;	
 	ajax.post(
-		IM_SERVER_ADDRESS+"messagePost/open",
-		{data:JSON.stringify({type:type,timestamp:timestamp,sender:sender,receiver:receiver,senderName:"",receiverName:"",data:data})}, 
+		IM_SERVER_ADDRESS+"messagePost/open", {
+			data:JSON.stringify({
+				type: type,
+				timestamp: timestamp,
+				sender: sender,
+				receiver: receiver,
+				senderName: "No-Sender-Name",
+				receiverName: "No-Receiver-Name",
+				data:data
+			})
+		},
 		function(data){
 			if(data.success){
-				alert("测试成功");
+				successCallback(data);
 			}
-		}, 
-		{errorStyle: "notify"}
-	);
-
-
+		}
+	);	
+}
+window.testMessagePost = function(){
+	var now = new Date();
+    var msg = '这是 ' + now + ' 推送的信息; 推送者 😊[[bokesoft.com]]😊.';
+    _post(msg, function(data){
+    	alert("消息推送完成");
+    });
+}
+window.testMessagePostWithAction = function(){
+	var now = new Date();
+    var msg = '这是 😊[[Action:V01:{"title": "😄' + now + '😄", "actionData": "'+now.getTime()+'", "_id":"001"}:001]] 推送的信息; '
+             + '推送者 [[Action:V01:{"title": "😥[[bokesoft.com]]😥", "actionData": "http://www.bokesoft.com", "_id":"BOKESOFT"}:BOKESOFT]].';
+    _post(msg, function(data){
+    	alert("消息推送完成");
+    });
+}
+window.testMessagePost300 = function(){
+	var now = new Date();
+	var messages = [
+	    "分布式 NewSQL 数据库 TiDB",
+	    "开源数据库 AliSQL",
+	    "轻型的关系数据库管理系统 SQLite",
+	    "MySQL 分支 MariaDB",
+	    "数据库服务器 PostgreSQL",
+	    "MySQL衍生版 Percona Server",
+	    "淘宝分布式数据库 OceanBase",
+	    "商业数据库 Informix",
+	    "数据库服务器 MySQL",
+	    "内存数据库系统 FastDB",
+	    "移动数据库 Realm",
+	    "基于内存的数据库系统 VoltDB",
+	    "Google MySQL",
+	    "嵌入式数据库 HSQLDB",
+	    "数据库 EnterpriseDB",
+	    "集群数据库系统 Postgres-XL",
+	    "基于 PostgreSQL 的集群数据库 CitusDB",
+	    "JavaScript数据库 Taffy DB",
+	    "MySQL衍生数据库 MepSQL",
+	    "关系型数据库 PipelineDB"
+	];
 	
+	var count = 0;
+	var _send = function(){
+	    count ++;
+		var index = parseInt(Math.random()*messages.length);
+	    var msg = count + ": ["+now+"] " + messages[index];
+	    _post(msg, function(data){
+	    	if (count < 300){
+	    		setTimeout(_send, 100);	    		
+	    	}else{
+	    		alert(count + "条消息推送完成");
+	    	}
+	    });
+	}
 	
-	
-	
+	_send();
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <Process Caption="多级流程" IDSeed="34" Key="WF_MultilevelWorkFlow" FormKey="OA_NewsDraft" TemplateKey="OA_TmpTest">
-    <Begin Caption="开始节点" ID="1" Key="Begin1" pattern="Normal">
+    <Begin Caption="开始节点" ID="1" Key="Begin1" pattern="Normal" BPMState="0">
         <TransitionCollection>
             <SequenceFlow Caption="顺序流" ID="26" Key="SequenceFlow14" TargetNodeKey="State4"/>
         </TransitionCollection>

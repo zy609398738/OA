@@ -32,14 +32,23 @@ public class IMStartActivity extends AppCompatActivity {
             facada.init(ServerUrl.DEF_VAL_IM_SERVER, ServerUrl.DEF_VAL_HOST_SERVER, Code, token);
             if (facada.isReady()) {
                 facada.startMainActivity();
+                this.finish();
             } else {
                 Toast.makeText(this, "当前用户没有登录", Toast.LENGTH_LONG).show();
+                this.finish();
             }
         } else {
             Toast.makeText(this, "当前用户Code为空", Toast.LENGTH_LONG).show();
             this.finish();
         }
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        this.finish();
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();

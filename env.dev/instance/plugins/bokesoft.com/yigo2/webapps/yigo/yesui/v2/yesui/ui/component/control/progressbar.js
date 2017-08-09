@@ -28,6 +28,10 @@ YIUI.Control.Progressbar = YIUI.extend(YIUI.Control, {
 	 * 初始值。
 	 */
 	initValue :  0,
+
+    isDataBinding: function() {
+        return false;
+	},
 	
 	setValue : function(value, commit, fireEvent){
 		var changed = this.base(value, commit, fireEvent);

@@ -438,15 +438,17 @@ YIUI.Form = YIUI.extend({
 
         // 每次更新权限数据
         var info = this.getSysExpVals(YIUI.BPMKeys.WORKITEM_INFO);
-        var workitemID;
-        if(info) {
+        var workitemID = -1;
+        if( info ) {
         	workitemID = info.WorkitemID;
+            if( info.IgnoreFormState )
+                _this.setOperationState(YIUI.Form_OperationState.Edit);
         }
+
         YIUI.RightsService.loadFormRights(this.metaForm.formKey,this.getOID(),workitemID).then(function (rights) {
              _this.setFormRights(rights);
              _show();
         });
-
     },
     setWillShow: function(show) {
         this.show = show;
@@ -606,7 +608,7 @@ YIUI.Form = YIUI.extend({
     },
     render: function() {
         var ct = this.getContainer();
-        if(ct) {
+        if(ct && ct.el) {
             ct.renderDom(this);
             if(this.defCtKey) {
                 var ct = this.getComponent(this.defCtKey);

@@ -1,12 +1,17 @@
 package com.bokesoft.oa.mid.wf;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Set;
 
 import com.bokesoft.oa.base.OAContext;
+import com.bokesoft.oa.mid.message.Message;
+import com.bokesoft.oa.mid.message.MessageSet;
+import com.bokesoft.oa.mid.message.SendMessage;
 import com.bokesoft.oa.mid.wf.base.OperatorSel;
 import com.bokesoft.oa.mid.wf.base.WorkflowDesigneDtl;
 import com.bokesoft.yes.bpm.engine.common.BPMContext;
+import com.bokesoft.yes.common.util.StringUtil;
 import com.bokesoft.yigo.bpm.dev.Spoon;
 import com.bokesoft.yigo.meta.bpm.process.MetaProcess;
 import com.bokesoft.yigo.meta.bpm.process.node.MetaNode;
@@ -60,9 +65,10 @@ public class WorkflowMonitor implements IExtService {
 		spoon.setMarked(true);
 		String processKey = process.getFormKey();
 		Integer version = process.getVersion();
-		Long instanceID = ((BPMContext)context).getActiveBPMInstance().getInstanceID();
+		Long instanceID = ((BPMContext) context).getActiveBPMInstance().getInstanceID();
 		String nodeKey = node.getKey();
-		Long oid = context.getDocument().getOID();
+		Document srcDoc = context.getDocument();
+		Long oid = srcDoc.getOID();
 		MetaDataObject metaDataObject = context.getVE().getMetaFactory().getDataObject("OA_WorkflowMonitor");
 		Document doc = DocumentUtil.newDocument(metaDataObject);
 		DataTable dt = doc.get("OA_WorkflowMonitor");
@@ -70,29 +76,56 @@ public class WorkflowMonitor implements IExtService {
 		Set<Long> operators = operatorSel.getParticipatorSet(oid);
 		if (operators.size() <= 0) {
 			return false;
-		} else {
-			doc.setNew();
-			if (dt.size() > 0) {
-				dt.clear();
-			}
-			for (Long operator : operators) {
-				dt.append();
-				Long srcOID = context.applyNewOID();
-				dt.setString("FormKey", formKey);
-				dt.setString("ProcessKey", processKey);
-				dt.setString("NodeKey", nodeKey);
-				dt.setLong("Operator", operator);
-				dt.setInt("Version", version);
-				dt.setLong("WorkitemID", workitemID);
-				dt.setLong("BillOID", oid);
-				dt.setLong("OID", srcOID);
-				dt.setLong("SOID", srcOID);
-				dt.setLong("InstanceID", instanceID);
-			}
-			DefaultContext newContext = new DefaultContext(context);
-			SaveData saveData = new SaveData(metaDataObject, null, doc);
-			saveData.save(newContext);
-			return true;
 		}
+		doc.setNew();
+		if (dt.size() > 0) {
+			dt.clear();
+		}
+		String ids = "";
+		for (Long operator : operators) {
+			dt.append();
+			Long srcOID = context.applyNewOID();
+			dt.setString("FormKey", formKey);
+			dt.setString("ProcessKey", processKey);
+			dt.setString("NodeKey", nodeKey);
+			dt.setLong("Operator", operator);
+			dt.setInt("Version", version);
+			dt.setLong("WorkitemID", workitemID);
+			dt.setLong("BillOID", oid);
+			dt.setLong("OID", srcOID);
+			dt.setLong("SOID", srcOID);
+			dt.setLong("InstanceID", instanceID);
+			ids = ids + "," + operator;
+		}
+		if (ids.length() > 0) {
+			ids = ids.substring(1);
+		}
+
+		boolean sendMessage = false;
+		DefaultContext newContext = new DefaultContext(context);
+		SaveData saveData = new SaveData(metaDataObject, null, doc);
+		saveData.save(newContext);
+		MetaDataObject mdo = srcDoc.getMetaDataObject();
+		String mainTableKey = mdo.getMainTableKey();
+		DataTable srcDt = srcDoc.get(mainTableKey);
+		if (!StringUtil.isBlankOrNull(ids)) {
+			String topic = "";
+			if (srcDt != null && srcDt.getMetaData().constains("Topic")) {
+				topic = srcDt.getString("Topic");
+			} else {
+				topic = srcDt.getString("NO");
+			}
+			String billNO = srcDt.getString("NO");
+			String content = "监控工作项：" + node.getCaption();
+			MessageSet messageSet = operatorSel.getMessageSet();
+			if (messageSet == null) {
+				return sendMessage;
+			}
+			Message message = new Message(oaContext, false, false, "", new Date(), context.getUserID(), topic, content,
+					ids, messageSet, formKey, billNO, oid);
+			message.setEmailTemp(operatorSel.getEmailTemp());
+			sendMessage = SendMessage.sendMessage(oaContext, message);
+		}
+		return sendMessage;
 	}
 }

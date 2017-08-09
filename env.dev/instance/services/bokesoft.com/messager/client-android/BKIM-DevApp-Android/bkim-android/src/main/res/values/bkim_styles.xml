@@ -3,9 +3,9 @@
     <!-- Base application theme. -->
     <style name="BKIMKitTheme" parent="Theme.AppCompat.Light">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/blue</item>
-        <item name="colorPrimaryDark">@color/blue</item>
-        <item name="colorAccent">@color/blue</item>
+        <item name="colorPrimary">@color/bkim_common_blue</item>
+        <item name="colorPrimaryDark">@color/bkim_common_blue</item>
+        <item name="colorAccent">@color/bkim_common_blue</item>
         <item name="actionBarTheme">@style/BKIMActionBarTheme</item>
     </style>
 
@@ -13,12 +13,9 @@
     <style name="BKIMActivity" parent="BKIMKitTheme" />
 
     <style name="BKIMActivity.NoActionBar">
-        <!--<item name="colorPrimary">@color/bkim_common_blue</item>-->
-        <!--<item name="colorPrimaryDark">@color/bkim_common_blue</item>-->
-        <!--<item name="colorAccent">@color/bkim_common_blue</item>  -->
-        <item name="colorPrimary">@color/blue</item>
-        <item name="colorPrimaryDark">@color/blue</item>
-        <item name="colorAccent">@color/blue</item>
+        <item name="colorPrimary">@color/bkim_common_blue</item>
+        <item name="colorPrimaryDark">@color/bkim_common_blue</item>
+        <item name="colorAccent">@color/bkim_common_blue</item>
         <item name="android:textColorPrimary">@android:color/white</item>
         <item name="android:editTextStyle">@style/BKIMEditText</item>
         <item name="windowActionBar">false</item>
@@ -136,7 +133,6 @@
         <item name="android:maxLines">4</item>
         <item name="android:background">@drawable/bkim_textview_bg</item>
         <item name="android:textSize">@dimen/bkim_textsize_normal</item>
-        <item name="android:textColor">@color/defaultTextColor</item>
     </style>
 
     <style name="bkim_input_bar_record_button_style">

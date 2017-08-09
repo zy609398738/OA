@@ -89,7 +89,7 @@ border: 0; */
 	cursor:pointer;
 }
 span.login_username, .navRight .org_lbl { 
-	float: right;
+	/* float: right; */
 	margin-right:5px;
 	font-size: 14px; 
 	line-height: 50px;

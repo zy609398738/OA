@@ -52,7 +52,7 @@ LoadData();]]>
                 <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
                     <ToolBarItemCollection/>
                 </ToolBar>
-                <GridLayoutPanel Key="first_head" Height="80px" Caption="基本信息" Visible="first_headVisible==1">
+                <GridLayoutPanel Key="first_head" Height="80px" Caption="基本信息">
                     <DatePicker Key="From" Caption="接收时间 从" BuddyKey="Lab_From" X="1" Y="0">
                         <Condition ColumnKey="ReceiveTime" TableKey="OA_ReceiveMessages_H" CondSign="between" Group="aa" GroupHead="true"/>
                     </DatePicker>

@@ -162,7 +162,7 @@ YIUI.Component = YIUI.extend({
         	this.buddyKey = $.isUndefined(meta.buddyKey) ? "" : meta.buddyKey;
         	this.type = $.isUndefined(meta.type) ? this.type : meta.type;
         	this.caption = $.isUndefined(meta.caption) ? "" : meta.caption;
-        	this.required = $.isUndefined(meta.required) ? this.required : meta.required;
+        	// this.required = $.isUndefined(meta.required) ? this.required : meta.required;
         	// this.enable = $.isUndefined(meta.enable) ? this.enable : meta.enable;
         	// this.visible = $.isUndefined(meta.visible) ? this.visible : meta.visible;
         	this.validation = $.isUndefined(meta.validation) ? "" : meta.validation;
@@ -225,9 +225,15 @@ YIUI.Component = YIUI.extend({
     	return $.isUndefined(this.onActive) ? false : this.onActive;
     },
 
-	hasDataBinding: function() {
-        return this.tableKey && this.columnKey;
+    // 是否支持数据绑定
+    isDataBinding: function() {
+        return true;
 	},
+
+    // 是否有数据绑定
+    hasDataBinding: function() {
+        return this.tableKey && this.columnKey;
+    },
 	
     /**
      * 设置组件宽度。
@@ -804,7 +810,7 @@ YIUI.Component = YIUI.extend({
      * 控件渲染后所做操作，默认为设置el大小位置，并注册监听事件；对于Panel，还需进行layout。
      */
     afterRender: function () {
-		this.required &&this.setRequired(this.isNull());
+		this.required && this.setRequired(this.isNull());
         (this.enable != undefined) && this.setEnable(this.enable);
         (this.editable != undefined) && this.setEditable(this.editable);
         (this.visible != undefined) && this.setVisible(this.visible);

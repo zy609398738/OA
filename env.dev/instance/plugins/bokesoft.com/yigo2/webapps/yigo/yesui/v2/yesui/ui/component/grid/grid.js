@@ -569,8 +569,12 @@ YIUI.Control.Grid = YIUI.extend(YIUI.Control, {
 
         var totalRowCount;
 
-        if (this.getMetaObj().pageLoadType == YIUI.PageLoadType.DB) {
-            totalRowCount = YIUI.TotalRowCountUtil.getRowCount(form.getDocument(), this.tableKey);
+        if( this.getMetaObj().pageLoadType != -1 ) {
+            if (this.getMetaObj().pageLoadType == YIUI.PageLoadType.DB) {
+                totalRowCount = YIUI.TotalRowCountUtil.getRowCount(form.getDocument(), this.tableKey);
+            } else {
+                totalRowCount = form.getDocument().getByKey(this.tableKey).size();
+            }
         } else {
             totalRowCount = this.dataModel.data.length;
         }
@@ -824,9 +828,9 @@ YIUI.Control.Grid = YIUI.extend(YIUI.Control.Grid, {   //纯web使用的一些�
     setEnable: function (enable) {
         this.colInfoMap = {};
         this.base(enable);
-        if (this.el == null)
-            return;
-        this.el.setGridParam({enable: enable});
+     //   if (this.el == null) // el没有,往模型中插行
+    //        return;
+        this.el && (this.el[0].p.enable = enable);
         if( this.getMetaObj().treeType == -1 && !this.hasRowExpand ) {
             this.removeAutoRowAndGroup();
             if ( enable && this.getDetailMetaRow() && this.newEmptyRow ) {
@@ -1039,8 +1043,9 @@ YIUI.Control.Grid = YIUI.extend(YIUI.Control.Grid, {   //纯web使用的一些�
     appendAutoRowAndGroup:function () {
         this.removeAutoRowAndGroup();
         // 添加空白行
+        var rowData;
         for( var i = this.getRowCount() - 1; i >= 0; --i) {
-            var rowData = this.getRowDataAt(i);
+            rowData = this.getRowDataAt(i);
             if( rowData.rowType === 'Detail' ) {
                 this.appendEmptyRow(i);
             }
@@ -1120,11 +1125,10 @@ YIUI.Control.Grid = YIUI.extend(YIUI.Control.Grid, {   //纯web使用的一些�
     // 去除所有空白行以及空白分组
     removeAutoRowAndGroup: function () {
         var data = this.dataModel.data, row;
-        for (var i = data.length - 1; i >= 0; i--) {
-            row = data[i];
+        for (var i = data.length - 1; row = data[i]; i--) {
             if ( row.inAutoGroup || YIUI.GridUtil.isEmptyRow(row) ) {
                 data.splice(i, 1);
-                this.el[0].deleteGridRow(i);
+                this.el && this.el[0].deleteGridRow(i);
             }
         }
     },
@@ -1132,11 +1136,10 @@ YIUI.Control.Grid = YIUI.extend(YIUI.Control.Grid, {   //纯web使用的一些�
     // 编辑时隐藏分组行
     removeGroupRow4Editing:function () {
         var data = this.dataModel.data,row;
-        for( var i = data.length - 1; i >= 0; --i ) {
-            row = data[i];
+        for( var i = data.length - 1; row = data[i]; i-- ) {
             if( row.rowType == 'Group' || YIUI.GridUtil.isEmptyRow(row) ) {
                 data.splice(i,1);
-                this.el[0].deleteGridRow(i);
+                this.el && this.el[0].deleteGridRow(i);
             }
         }
     },
@@ -1614,26 +1617,34 @@ YIUI.Control.Grid = YIUI.extend(YIUI.Control.Grid, {   //纯web使用的一些�
         }
         return list;
     },
-    isCellNull: function (rowIndex, cellKey) {
-        var editOpt = this.getCellEditOpt(cellKey),
-            coIndex = this.getCellIndexByKey(cellKey),
-            value = this.getValueAt(rowIndex, coIndex);
-        switch (editOpt.editOptions.cellType) {
-            case YIUI.CONTROLTYPE.NUMBEREDITOR:
-                return value == 0 || value == null;
-            case YIUI.CONTROLTYPE.TEXTEDITOR:
-                return value == null || value.length == 0;
-            case YIUI.CONTROLTYPE.DATEPICKER:
-            case YIUI.CONTROLTYPE.UTCDATEPICKER:
-            case YIUI.CONTROLTYPE.DICT:
-            case YIUI.CONTROLTYPE.DYNAMICDICT:
-            case YIUI.CONTROLTYPE.COMBOBOX:
-                return  value == null || value == undefined;
-            case YIUI.CONTROLTYPE.CHECKBOX:
-                return !value;
-        }
-        return false;
+
+    /**
+     * 判断值是否为空值. null,'',undefined,"0",0都是空值
+     */
+    isNullValue:function (v) {
+        return ( !v || parseFloat(v) == 0 ) ? true : false;
     },
+
+    // isCellNull: function (rowIndex, cellKey) {
+    //     var editOpt = this.getCellEditOpt(cellKey),
+    //         coIndex = this.getCellIndexByKey(cellKey),
+    //         value = this.getValueAt(rowIndex, coIndex);
+    //     switch (editOpt.editOptions.cellType) {
+    //         case YIUI.CONTROLTYPE.NUMBEREDITOR:
+    //             return value == 0 || value == null;
+    //         case YIUI.CONTROLTYPE.TEXTEDITOR:
+    //             return value == null || value.length == 0;
+    //         case YIUI.CONTROLTYPE.DATEPICKER:
+    //         case YIUI.CONTROLTYPE.UTCDATEPICKER:
+    //         case YIUI.CONTROLTYPE.DICT:
+    //         case YIUI.CONTROLTYPE.DYNAMICDICT:
+    //         case YIUI.CONTROLTYPE.COMBOBOX:
+    //             return  value == null || value == undefined;
+    //         case YIUI.CONTROLTYPE.CHECKBOX:
+    //             return !value;
+    //     }
+    //     return false;
+    // },
     setColumnCaption: function (colKey, caption) {
         var column;
         for (var i = 0, len = this.dataModel.colModel.columns.length; i < len; i++) {

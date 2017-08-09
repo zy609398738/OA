@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import com.bokesoft.oa.base.OAContext;
 import com.bokesoft.oa.mid.wf.base.BPMInstance;
 import com.bokesoft.oa.mid.wf.base.OperatorSel;
-import com.bokesoft.oa.mid.wf.base.WorkitemInf;
 import com.bokesoft.oa.mid.wf.base.WorkflowDesigneDtl;
 import com.bokesoft.oa.mid.wf.base.WorkflowTypeDtl;
+import com.bokesoft.oa.mid.wf.base.WorkitemInf;
 import com.bokesoft.yes.common.util.StringUtil;
 import com.bokesoft.yigo.common.util.TypeConvertor;
 import com.bokesoft.yigo.mid.base.DefaultContext;
@@ -68,7 +68,7 @@ public class GetValueByFieldKey implements IExtService {
 		if (StringUtil.isBlankOrNull(operatorSelKey)) {
 			operatorSelKey = "SendOptOID";
 		}
-		OperatorSel sendOptSel = curNode.getOperatorSelMap().get(operatorSelKey);
+		OperatorSel sendOptSel = curNode.getSendPerSel();
 		if (sendOptSel == null) {
 			return ids;
 		}
@@ -88,4 +88,53 @@ public class GetValueByFieldKey implements IExtService {
 		return ids;
 	}
 
+	/**
+	 * 根据当前审批节点获得下一个审批节点的参与者
+	 * 
+	 * @param context
+	 *            上下文对象
+	 * @param workItemID
+	 *            流程工作项
+	 * @param formKey
+	 *            流程单据Key
+	 * @param workflowTypeDtlID
+	 *            流程类别明细ID
+	 * @param operatorSelKey
+	 *            人员选择字段的Key
+	 * @param billOid
+	 *            当前单据明细ID
+	 * @return 下一个审批节点的参与者
+	 * @throws Throwable
+	 */
+	public static DataTable getCurNodeSendOpt(DefaultContext context, Long workItemID, String formKey,
+			Long workflowTypeDtlID, String operatorSelKey, Long billOid) throws Throwable {
+		OAContext oaContext = new OAContext(context);
+		WorkitemInf workitemInf = oaContext.getWorkitemInfMap().get(workItemID);
+		if (workitemInf == null) {
+			return null;
+		}
+		BPMInstance bPMInstance = workitemInf.getHeadBase();
+		DataTable dt = null;
+		Integer nodeID = workitemInf.getNodeID();
+		String pkKey = bPMInstance.getProcesskey();
+		WorkflowTypeDtl workflowTypeDt = oaContext.getWorkflowTypeDtlMap().get(context.getFormKey(), pkKey,
+				workflowTypeDtlID);
+		WorkflowDesigneDtl workflowDesigneDtl = workflowTypeDt.getWorkflowDesigneDtl(nodeID.toString());
+		if (workflowDesigneDtl == null) {
+			return null;
+		}
+		if (StringUtil.isBlankOrNull(operatorSelKey)) {
+			operatorSelKey = "SendOptOID";
+		}
+		OperatorSel sendOptSel = workflowDesigneDtl.getSendPerSel();
+		if (sendOptSel == null) {
+			return null;
+		}
+		String participatorIDs = sendOptSel.getParticipatorIDs(billOid, ",");
+		String participatorSql = "Select OID,Name From sys_operator o where OID in(" + participatorIDs
+				+ ") order by Code";
+		dt = context.getDBManager().execQuery(participatorSql);
+
+		return dt;
+	}
 }

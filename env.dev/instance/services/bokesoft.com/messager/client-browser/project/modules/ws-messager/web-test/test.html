@@ -131,16 +131,38 @@
 		</div>
 		<hr/>
 		<div>
-			<h2>消息推送</h2>
-			<input type="button" onclick="testMessagePost()" value="测试消息推送" />	
-			<select id="boke-test-XXX">
-				<option value="">推送用户选择</option>
-				<option value="boke-test-002">测试用户2</option>
-				<option value="boke-test-003">测试用户3</option>
-				<option value="boke-test-005">测试用户5-上海博科资讯股份有限公司</option>
-				<option value="boke-test-006">测试用户6</option>
-				<option value="boke-test-007">测试用户7</option>
-			</select>
+			<h2>消息推送测试</h2>
+			<table border="1">
+			<tr>
+			  <td>From</td>
+			  <td>
+				<select id="boke-test-sender">
+					<option value="">(不指定)</option>
+					<option value="boke-test-002">测试用户2</option>
+					<option value="boke-test-003">测试用户3</option>
+					<option value="boke-test-005">测试用户5-上海博科资讯股份有限公司</option>
+					<option value="boke-test-006">测试用户6</option>
+					<option value="boke-test-007">测试用户7</option>
+				</select>
+			  </td>
+			  <td>To</td>
+			  <td>
+				<select id="boke-test-receiver">
+					<option value="">(不指定)</option>
+					<option value="boke-test-002">测试用户2</option>
+					<option value="boke-test-003">测试用户3</option>
+					<option value="boke-test-005">测试用户5-上海博科资讯股份有限公司</option>
+					<option value="boke-test-006">测试用户6</option>
+					<option value="boke-test-007">测试用户7</option>
+				</select>
+			  </td>
+			  <td>
+			      <a href="javascript:testMessagePost()">[消息推送(普通)]</a>
+			      | <a href="javascript:testMessagePostWithAction()">[消息推送(操作)]</a>
+			      | <a href="javascript:testMessagePost300()">[批量消息推送(300条随机消息)]</a>
+			  </td>
+			</tr>
+			</table>
 		</div>
 		
 	</div>

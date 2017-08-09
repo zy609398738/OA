@@ -33,7 +33,7 @@ from OA_MeetingInSide_h a JOIN OA_ParticipatorIDs_D b ON a.OID=b.SOID WHERE b.Op
     <Body>
         <Block>
             <FlexFlowLayoutPanel Key="root" Caption="根面板">
-                <GridLayoutPanel Key="GridLayoutPanel1" Height="40px" Caption="GridLayoutPanel1" Visible="first_headVisible==1">
+                <GridLayoutPanel Key="GridLayoutPanel1" Height="40px" Caption="GridLayoutPanel1">
                     <Dict Key="QueryMeetingType" Caption="会议类型" BuddyKey="Lab_QueryMeetingType" X="1" Y="0" ItemKey="OA_MeetingType" AllowMultiSelection="true">
                         <Condition ColumnKey="MeetingType" TableKey="OA_ParticipantMList_D" CondSign="in"/>
                     </Dict>

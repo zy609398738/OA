@@ -12,68 +12,59 @@
 
         calcAll:function (commitValue) {
             this.calcAlling = true;
-            var items = this.calcTree.items;
-            switch (this.form.operationState){
-            case YIUI.Form_OperationState.New:
-                this.calcAllItems(true,items,commitValue);
-                break;
-            case YIUI.Form_OperationState.Edit:
-            case YIUI.Form_OperationState.Default:
-                this.calcAllItems(false,items,commitValue);
-                break;
-            default:
-                break;
-            }
+
+            this.calcAllItems(this.calcTree.items,this.form.operationState == YIUI.Form_OperationState.New,commitValue);
+
             this.calcAlling = false;
-            var gm = this.form.getGridInfoMap(),grid;
+            var gm = this.form.getGridInfoMap();
             for( var i = 0,size = gm.length;i < size;i++ ) {
-                grid = this.form.getComponent(gm[i].key);
-                YIUI.GridSumUtil.evalSum(this.form,grid);
+                YIUI.GridSumUtil.evalSum(this.form,this.form.getComponent(gm[i].key));
             }
             this.form.removeSysExpVals("IgnoreKeys");
         },
 
-        calcAllItems:function (calcAll,items,commitValue) {
+        calcAllItems:function (items,calcAll,commitValue) {
             var ctx = this.newContext(this.form,-1,-1);
             for( var i = 0,exp,component;exp = items[i];i++ ) {
                 component = this.form.getComponent(exp.source);
                 if( !component || component.isSubDetail )
                     continue;
-                switch (exp.objectType) {
-                case YIUI.ExprItem_Type.Item:
-                    this.calcHeadItem(component,exp,ctx,calcAll);
+
+                this.calcExprItemObject(component,exp,ctx,calcAll,commitValue);
+            }
+        },
+
+        calcExprItemObject: function (component,exp,ctx,calcAll,commitValue) {
+            switch (exp.objectType) {
+            case YIUI.ExprItem_Type.Item:
+                this.calcHeadItem(component,exp,ctx,calcAll);
+                break;
+            case YIUI.ExprItem_Type.Set:
+                switch (component.type){
+                case YIUI.CONTROLTYPE.GRID:
+                    this.calcGrid(component,ctx,this.initTree(exp),calcAll,commitValue);
                     break;
-                case YIUI.ExprItem_Type.Set:
-                    switch (component.type){
-                    case YIUI.CONTROLTYPE.GRID:
-                        this.calcGrid(component,ctx,this.initTree(exp),calcAll,commitValue);
-                        break;
-                    case YIUI.CONTROLTYPE.LISTVIEW:
-                        this.calcListView(component,ctx,this.initTree(exp),calcAll);
-                        break;
-                    }
+                case YIUI.CONTROLTYPE.LISTVIEW:
+                    this.calcListView(component,ctx,this.initTree(exp),calcAll);
+                    break;
                 }
             }
         },
 
-        calcHeadItem:function (component,item,context,calcAll) {
+        calcHeadItem:function (com,item,context,calcAll) {
             if( (!item.defaultValue && !item.formulaValue) || !item.target )
                 return;
-            if( component.type == YIUI.CONTROLTYPE.GRID ){
+            if( com.type == YIUI.CONTROLTYPE.GRID ){
                 var loc = this.form.getCellLocation(item.target),
-                    metaCell = component.getMetaCellByKey(item.target);
-                if( !this.needCalc_Cell(metaCell,calcAll) )
+                    metaCell = com.getMetaCellByKey(item.target);
+                if( !this.needCalc_Cell(com,loc.row,item.pos.index,metaCell,calcAll) )
                     return;
-                var result = this.calcFormulaValue(item,context);
-                component.setValueAt(loc.row,item.pos.index,result,true,false);
+                com.setValueAt(loc.row,item.pos.index,this.calcFormulaValue(item,context),true,false);
             } else {
-                if( !this.needCalc_Com(component,calcAll) )
+                if( !this.needCalc_Com(com,calcAll) )
                     return;
-                if(component.needClean() || !component.isInitValue()){
-                    var result = this.calcFormulaValue(item,context);
-                    if( result != null ) {
-                        component.setValue(result,true,false);
-                    }
+                if( com.needClean() || !com.isInitValue() ) {
+                    com.setValue(this.calcFormulaValue(item,context),true,false);
                 }
             }
         },
@@ -123,15 +114,15 @@
                 metaCell = grid.getMetaCellByKey(exp.target);
                 commitValue = (YIUI.GridUtil.isEmptyRow(rowData) ? false : commitValue);
                 if( pos.columnExpand ) {
-                    if( !this.needCalc_Cell(metaCell,calcAll) )
-                        continue;
                     for( var c = 0,length = pos.indexes.length;c < length;c++ ) {
+                        if( !this.needCalc_Cell(grid,rowIndex,pos.indexes[c],metaCell,calcAll) )
+                            continue;
                         context.colIndex = pos.indexes[c];
                         result = this.calcFormulaValue(exp,context);
                         grid.setValueAt(rowIndex,pos.indexes[c],result,commitValue,false);
                     }
                 } else {
-                    if( !this.needCalc_Cell(metaCell,calcAll) )
+                    if( !this.needCalc_Cell(grid,rowIndex,pos.index,metaCell,calcAll) )
                         continue;
                     result = this.calcFormulaValue(exp,context);
                     grid.setValueAt(rowIndex,pos.index,result,commitValue,false);
@@ -153,30 +144,29 @@
             }
         },
 
-        needCalc_Cell:function(metaCell,calcAll){
+        needCalc_Cell:function(grid,ri,ci,metaCell,calcAll){
+            if( grid.getValueAt(ri,ci) )
+                return false;
+            if( !metaCell.columnKey )
+                return true;
             var ignoreKeys = this.form.getSysExpVals("IgnoreKeys");
-            if( ignoreKeys ) {
-                return !metaCell.columnKey || $.inArray(metaCell.key,ignoreKeys) == -1;
-            }
-            return calcAll ? true : !metaCell.columnKey;
+            return ignoreKeys ? $.inArray(metaCell.key,ignoreKeys) == -1 : calcAll;
         },
 
-        needCalc_Com:function (component,calcAll) {
+        needCalc_Com:function (com,calcAll) {
+            if( !com.isNull() )
+                return false;
+            if( !(com.isSubDetail ? (com.isDataBinding() ||!com.bindingCellKey ) : com.isDataBinding()) )
+                return true;
             var ignoreKeys = this.form.getSysExpVals("IgnoreKeys");
-            var hasDataBinding = component.isSubDetail ? (component.hasDataBinding() ||
-                !component.bindingCellKey ) : component.hasDataBinding();
-            if( ignoreKeys ) {
-                return !hasDataBinding || $.inArray(component.key,ignoreKeys) == -1;
-            }
-            return calcAll ? true : !hasDataBinding;
+            return ignoreKeys ? $.inArray(com.key,ignoreKeys) == -1 : calcAll;
         },
 
         needCalc_listView:function (columnInfo,calcAll) {
+            if( !columnInfo.columnKey )
+                return true;
             var ignoreKeys = this.form.getSysExpVals("IgnoreKeys");
-            if( ignoreKeys ) {
-                return !columnInfo.columnKey || $.inArray(columnInfo.key,ignoreKeys) == -1;
-            }
-            return calcAll ? true : !columnInfo.columnKey;
+            return ignoreKeys ? $.inArray(columnInfo.key,ignoreKeys) == -1 : calcAll;
         },
 
         doAfterInsertRow:function (component,rowIndex,emptyRow) {
@@ -212,41 +202,46 @@
                 com = this.form.getComponent(exp.source);
                 if( !com )
                     continue;
-                switch (exp.objectType) {
-                case YIUI.ExprItem_Type.Item:
-                    this.calcHeadItem(com,exp,context,true);
-                    break;
-                case YIUI.ExprItem_Type.Set:
-                    switch (com.type){
-                    case YIUI.CONTROLTYPE.GRID:
-                        this.calcGrid(com,context,this.initTree(exp),true,true);
-                        break;
-                    case YIUI.CONTROLTYPE.LISTVIEW:
-                        this.calcListView(com,context,this.initTree(exp),true);
-                        break;
-                    }
-                }
+
+                this.calcExprItemObject(com,exp,context,true,true);
             }
         },
 
         reCalcComponent:function (component) {
-            var items = this.calcTree.items,
-                context = this.newContext(this.form,-1,-1);
-            for( var i = 0,exp;exp = items[i];i++ ) {
-                if( exp.objectType != YIUI.ExprItem_Type.Set || exp.source !== component.key )
-                    continue;
-                switch (component.type) {
-                case YIUI.CONTROLTYPE.GRID:
-                    this.calcGrid(component,context,this.initTree(exp),false,false);
-                    break;
-                case YIUI.CONTROLTYPE.LISTVIEW:
-                    this.calcListView(component,context,this.initTree(exp),false);
-                    break;
-                }
+            if( component.type === YIUI.CONTROLTYPE.GRID ) {
+                this.calcAllItems(this.getGridItem(component),false,false);
+            } else {
+                this.calcAllItems(this.getListViewItems(component),false,false);
             }
             if( component.type === YIUI.CONTROLTYPE.GRID ) {
                 YIUI.GridSumUtil.evalSum(this.form,component);
             }
+        },
+
+        getGridItem:function (grid) {
+            var metaRow = grid.getDetailMetaRow(),metaCell,
+                items = this.calcTree.affectItems,affectItems = [];
+            for( var i = 0;metaCell = metaRow.cells[i];i++ ) {
+                for( var j = 0,length = items.length;j < length;j++ ) {
+                    if( items[j].key === metaCell.key ) {
+                        affectItems = affectItems.concat(items[j].expItems);
+                    }
+                }
+            }
+            affectItems.sort(function (item1, item2) {
+                return parseInt(item1.order) - parseInt(item2.order);
+            });
+            return affectItems;
+        },
+
+        getListViewItems:function (listView) {
+            var items = this.calcTree.items,affectItems = [];
+            for( var i = 0,exp;exp = items[i];i++ ) {
+                if( exp.objectType != YIUI.ExprItem_Type.Set || exp.source !== listView.key )
+                    continue;
+                affectItems.push(exp);
+            }
+            return affectItems;
         },
 
         cellValueChanged:function (grid,rowIndex,colIndex) {
@@ -288,20 +283,8 @@
         },
 
         doAfterDeleteRow:function (grid) {
-            var metaRow = grid.getDetailMetaRow(),
-                affectItems = this.calcTree.affectItems,items = [],metaCell;
-            for( var i = 0;metaCell = metaRow.cells[i];i++ ) {
-                for( var j = 0,length = affectItems.length;j < length;j++ ) {
-                    if( affectItems[j].key === metaCell.key ) {
-                        items.push(affectItems[j].expItems);
-                    }
-                }
-            }
-            if( items.length === 0 )
-                return;
-            items.sort(function (item1, item2) {
-                return parseInt(item1.order) - parseInt(item2.order);
-            });
+            var items = this.getGridItem(grid);
+
             var context = this.newContext(this.form,-1,-1);
             for( var i = 0,exp,com;exp = items[i];i++ ) {
                 com = this.form.getComponent(exp.source);
@@ -321,28 +304,15 @@
             }
         },
 
-        calcSubDetail:function (gridKey,calcAll) {
+        calcSubDetail:function (gridKey) {
             var items = this.calcTree.items,
                 context = this.newContext(this.form,-1,-1);
             for( var i = 0,exp,com;exp = items[i];i++ ) {
                 com = this.form.getComponent(exp.source);
                 if( !com || !YIUI.SubDetailUtil.isSubDetail(this.form,com,gridKey) )
                     continue;
-                switch (exp.objectType){
-                case YIUI.ExprItem_Type.Item:
-                    this.calcHeadItem(com,exp,context,calcAll);
-                    break;
-                case YIUI.ExprItem_Type.Set:
-                    switch (com.type){
-                    case YIUI.CONTROLTYPE.GRID:
-                        this.calcGrid(com,context,this.initTree(exp),calcAll,false);
-                        break;
-                    case YIUI.CONTROLTYPE.LISTVIEW:
-                        this.calcListView(com,context,this.initTree(exp),calcAll);
-                        break;
-                    }
-                    break;
-                }
+
+                this.calcExprItemObject(com,exp,context,this.form.operationState == YIUI.Form_OperationState.New,false);
             }
         }
     });

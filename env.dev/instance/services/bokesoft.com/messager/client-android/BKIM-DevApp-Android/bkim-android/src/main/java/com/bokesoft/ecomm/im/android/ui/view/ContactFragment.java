@@ -11,13 +11,17 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bokesoft.ecomm.im.android.R;
-import com.bokesoft.ecomm.im.android.backend.HostServiceFacade;
+import com.bokesoft.ecomm.im.android.backend.IMServiceFacade;
+import com.bokesoft.ecomm.im.android.instance.ClientInstanceData;
 import com.bokesoft.ecomm.im.android.model.GroupInfo;
+import com.bokesoft.ecomm.im.android.backend.HostServiceFacade;
 import com.bokesoft.ecomm.im.android.ui.adapter.ContactAdapter;
 import com.bokesoft.ecomm.im.android.ui.widget.IphoneTreeView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * 联系人页面
@@ -35,8 +39,10 @@ public class ContactFragment extends Fragment implements SwipeRefreshLayout.OnRe
             switch (msg.what) {
                 case 1:
                     groupList = (List<GroupInfo>) msg.obj;
+
                     //关联适配器
                     updataData();
+
                     break;
             }
         }
@@ -44,31 +50,24 @@ public class ContactFragment extends Fragment implements SwipeRefreshLayout.OnRe
 
     };
 
-//    private void getUserCode(final List<String> userCodes) {
-//        String[] strArr = new String[userCodes.size()];
-////        for (int i = 0; i < userCodes.size(); i++) {
-////            strArr[i] = userCodes.get(i);
-////        }
-//        strArr = userCodes.toArray(strArr);
-//        //从接口获取状态
-//        IMServiceFacade.getUserStates(getContext(), strArr, new IMServiceFacade.QueryUserStatesCallback() {
-//            @Override
-//            public void perform(IMServiceFacade.UserStates userStates) {
-//                Map<String, String> states = userStates.getStates();
-//                Set<Map.Entry<String, String>> entries = states.entrySet();
-//                for (Map.Entry<String, String> entry : entries) {
-//                    ClientInstanceData.addUserState(entry.getKey(), entry.getValue());
-//                }
-////                if (!contactAdapter.isEmpty()) {
-////                    contactAdapter.notifyDataSetChanged();
-////                } else {
-////                    Toast.makeText(getContext(), "适配器为空!", Toast.LENGTH_LONG).show();
-////                }
-//            }
-//        });
-//
-//
-//    }
+    private void getUserCode(final List<String> userCodes) {
+        final String[] strArr = new String[userCodes.size()];
+        for (int i = 0; i < userCodes.size(); i++) {
+            strArr[i] = userCodes.get(i);
+        }
+        IMServiceFacade.getUserStates(getContext(), strArr, new IMServiceFacade.QueryUserStatesCallback() {
+            @Override
+            public void perform(IMServiceFacade.UserStates userStates) {
+                Map<String, String> states = userStates.getStates();
+                Set<Map.Entry<String, String>> entries = states.entrySet();
+                for (Map.Entry<String, String> entry : entries) {
+                    ClientInstanceData.addUserState(entry.getKey(), entry.getValue());
+                }
+            }
+        });
+
+
+    }
 
 
     @Override
@@ -128,14 +127,13 @@ public class ContactFragment extends Fragment implements SwipeRefreshLayout.OnRe
         contactAdapter = new ContactAdapter(getActivity(), groupList, groupUsersList, treeView);
         treeView.setAdapter(contactAdapter);
         List<String> userCodes = new ArrayList<>();
-
         for (GroupInfo g : groupList) {
             groupUsersList.add(g.getUsers());
             for (GroupInfo.User user : g.getUsers()) {
                 userCodes.add(user.getCode());
             }
         }
-//        getUserCode(userCodes);
+        getUserCode(userCodes);
         contactAdapter.notifyDataSetChanged();
     }
 

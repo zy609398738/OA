@@ -40,7 +40,7 @@
                 <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
                     <ToolBarItemCollection/>
                 </ToolBar>
-                <GridLayoutPanel Key="first_head" Height="120px" Caption="基本信息" Visible="first_headVisible==1">
+                <GridLayoutPanel Key="first_head" Height="120px" Caption="基本信息">
                     <Dict Key="QueryScheduleType" Caption="日程类型" BuddyKey="Lab_QueryScheduleType" X="1" Y="2" AllowMultiSelection="true" ItemKey="OA_ScheduleType">
                         <Condition ColumnKey="ScheduleType" TableKey="OA_MySchedule_H" CondSign="in"/>
                     </Dict>

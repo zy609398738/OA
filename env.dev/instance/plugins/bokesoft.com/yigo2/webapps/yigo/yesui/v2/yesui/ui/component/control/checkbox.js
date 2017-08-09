@@ -47,7 +47,7 @@ YIUI.Control.CheckBox = YIUI.extend(YIUI.Control, {
     },
 
     getFormatEl: function() {
-    	return this.checkbox.getCheckBox();
+    	return $("label", this.el);
     },
 
     setFormatStyle: function (cssStyle) {

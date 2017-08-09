@@ -42,7 +42,7 @@
 							rows: entryRts,
 							cols: [{
 								key: "caption",
-								caption: RTS.I18N.rightsset.select,
+								caption: RTS.I18N.rightsset.selectAll,
 								type: "checkbox",
 								showText: true,
 								isEntry: true
@@ -71,7 +71,7 @@
 								caption: RTS.I18N.dict.name
 							}, {
 								key: "key",
-								caption: RTS.I18N.rightsset.sign
+								caption: RTS.I18N.rightsset.key
 							}]
 						};
 						form.addRows(fData);

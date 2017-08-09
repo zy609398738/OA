@@ -6,6 +6,7 @@ import java.util.Set;
 import com.bokesoft.oa.base.BillBase;
 import com.bokesoft.oa.base.OAContext;
 import com.bokesoft.oa.mid.GetIdExistsSql;
+import com.bokesoft.oa.mid.message.MessageSet;
 import com.bokesoft.oa.util.Corporation;
 import com.bokesoft.yes.common.util.StringUtil;
 import com.bokesoft.yigo.common.util.TypeConvertor;
@@ -159,6 +160,30 @@ public class OperatorSel extends BillBase {
 	}
 
 	/**
+	 * 选择结果描述
+	 */
+	private String optDesc;
+
+	/**
+	 *  选择结果描述
+	 * 
+	 * @return  选择结果描述
+	 */
+	public String getOptDesc() {
+		return optDesc;
+	}
+
+	/**
+	 *  选择结果描述
+	 * 
+	 * @param optDesc
+	 *             选择结果描述
+	 */
+	public void setOptDesc(String optDesc) {
+		this.optDesc = optDesc;
+	}
+	
+	/**
 	 * 操作员ids
 	 */
 	private String optIDs;
@@ -244,6 +269,90 @@ public class OperatorSel extends BillBase {
 	}
 
 	/**
+	 * 消息设置ID
+	 */
+	private Long messageSetID;
+
+	/**
+	 * 消息设置ID
+	 */
+	public Long getMessageSetID() {
+		return messageSetID;
+	}
+
+	/**
+	 * 消息设置ID
+	 * 
+	 * @param messageSetID
+	 */
+	public void setMessageSetID(Long messageSetID) {
+		this.messageSetID = messageSetID;
+	}
+
+	/**
+	 * 消息设置
+	 */
+	private MessageSet messageSet;
+
+	/**
+	 * 消息设置
+	 * 
+	 * @return 消息设置
+	 * @throws Throwable
+	 */
+	public MessageSet getMessageSet() throws Throwable {
+		if (messageSet == null) {
+			if (messageSetID > 0) {
+				messageSet = getContext().getMessageSetMap().get(messageSetID);
+			}
+			if (messageSet == null) {
+				messageSet = getWorkflowDesigneDtl().getMessageSet();
+			}
+		}
+		return messageSet;
+	}
+
+	/**
+	 * 消息设置
+	 * 
+	 * @param messageSet
+	 *            消息设置
+	 */
+	public void setMessageSet(MessageSet messageSet) {
+		this.messageSet = messageSet;
+		setMessageSetID(messageSet.getOID());
+	}
+
+	/**
+	 * 邮件模板
+	 */
+	private String emailTemp;
+
+	/**
+	 * 邮件模板
+	 * 
+	 * @return 邮件模板
+	 * @throws Throwable
+	 */
+	public String getEmailTemp() throws Throwable {
+		// 如果为空，取所在节点的邮件模板
+		if (emailTemp == null) {
+			emailTemp = getWorkflowDesigneDtl().getEmailTemp();
+		}
+		return emailTemp;
+	}
+
+	/**
+	 * 邮件模板
+	 * 
+	 * @param emailTemp
+	 *            邮件模板
+	 */
+	public void setEmailTemp(String emailTemp) {
+		this.emailTemp = emailTemp;
+	}
+
+	/**
 	 * 构造人员选择对象
 	 * 
 	 * @param context
@@ -268,6 +377,8 @@ public class OperatorSel extends BillBase {
 		setTag2(dt.getString("Tag2"));
 		setTag3(dt.getString("Tag3"));
 		setTag4(dt.getString("Tag4"));
+		setMessageSetID(dt.getLong("MessageSetID_H"));
+		setEmailTemp(dt.getString("EmailTemp_H"));
 	}
 
 	/**

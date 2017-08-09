@@ -212,72 +212,57 @@ define(function () {
     	return id;
     }
 	
-	/** check DB connection is ready 
+	/**
+	 * Check Database ready or not;
+	 * NOTE:
+	 *   - If "checkSql" is null(or empty string), Check database connection only;
+	 *   - The result of "checkSql" MUST contain 1 line and 1 column at least, and it's value(1st column of 1st line) MUST
+	 *     be an integer, which value > 0 means database is ready.
 	 */
-	var checkForDBReady = function(jdbcUrl,dbUser,password,checkSql){
+	var checkForDBReady = function(jdbcUrl, dbUser, password, checkSql){
+		log.info ("Begin to check database connection: "+dbUser+"@"+jdbcUrl+", SQL='"+checkSql+"' ...");
 		var checkResult = false;
-		checkResult = checkForDBReadyCore(jdbcUrl,dbUser,password,checkSql);
+		checkResult = _doCheckForDBReady(jdbcUrl, dbUser, password, checkSql);
 		while(!checkResult){
-			java.lang.Thread.sleep(60000);				
-			checkResult = checkForDBReadyCore(jdbcUrl,dbUser,password,checkSql);			
-		}		
+			java.lang.Thread.sleep(6000);
+			checkResult = _doCheckForDBReady(jdbcUrl, dbUser, password, checkSql);
+		}
 	}
-	
-	/** core function check DB connection is ready 
-	 * if checkSql is null just check DB can be connected
-     * otherwise ensure checksql has result
-	 */
-	var checkForDBReadyCore = function(jdbcUrl,dbUser,password,checkSql){
+	var _doCheckForDBReady = function(jdbcUrl,dbUser,password,checkSql){
+		var ResultSet = java.sql.ResultSet;
+		var jdbcDriver = detectJdbcDriver(jdbcUrl);
+		var dbClass = java.lang.Class.forName(jdbcDriver);
+
+		var conn = null;
 		try{
-			var ResultSet = java.sql.ResultSet;
-			var jdbcDriver = detectJdbcDriver(jdbcUrl);
-			var dbClass = java.lang.Class.forName(jdbcDriver);
-			var conn = java.sql.DriverManager.getConnection(jdbcUrl,dbUser,password);
-			if(null != checkSql && checkSql.trim().length>0){
+			conn = java.sql.DriverManager.getConnection(jdbcUrl, dbUser, password);
+			if(null!=checkSql && checkSql.trim().length>0){
 				var ps = conn.prepareStatement(checkSql,ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
-				var resultSet = ps.executeQuery();
-				if(resultSet.getRow()>0){
-					resultSet.first();
-					if(resultSet.getInt(1)>0){
-						log.info("数据库初始化成功!");
-						resultSet.close();
-						ps.close();
-						conn.close();
-						return true;
+				var rs = ps.executeQuery();
+				var ready = false;
+				if(rs.first()){
+					var targetResult = rs.getInt(1);
+					if(targetResult > 0){
+						log.info("[Database READY] "+dbUser+"@"+jdbcUrl+", SQL='"+checkSql+"'");
+						ready = true;
 					}else{
-						log.info("数据库初始化失败,指定数据没有初始化完成!");
-						resultSet.close();
-						ps.close();
-						conn.close();
-						return false;
-					}					
+						log.info("[Database NOT READY - target result="+targetResult+"] "+dbUser+"@"+jdbcUrl+", SQL='"+checkSql+"'");
+					}
 				}else{
-					log.info("数据库初始化失败,没有数据!");
-					resultSet.close();
-					ps.close();
-					conn.close();
-					return false;
+					log.info("[Database NOT READY - no result] "+dbUser+"@"+jdbcUrl+", SQL='"+checkSql+"'");
 				}
+				rs.close(); ps.close();
+				return ready;
 			}else{
-				log.info("数据库连接成功!");
-				resultSet.close();
-				ps.close();
-				conn.close();
+				log.info("[Database READY - connect only] "+dbUser+"@"+jdbcUrl);
 				return true;
 			}
 		}catch(err){
-			log.info("数据库连接失败:"+err);
-			if(null != conn){
-				conn.close();
-			}
-			if(null != ps){
-				ps.close();
-			}
-			if(null != resultSet){
-				resultSet.close();
-			}
+			log.warn("[Database check FAIL] "+dbUser+"@"+jdbcUrl+": "+err);
 			return false;
-		}		
+		}finally{
+			if(null != conn){ conn.close(); }
+		}
 	}
     
     return {
@@ -291,6 +276,6 @@ define(function () {
         joinPath: joinPath,
         detectJdbcDriver: detectJdbcDriver,
         getJdbcUrlIdentity: getJdbcUrlIdentity,
-		checkForDBReady:checkForDBReady
+		checkForDBReady: checkForDBReady
     }
 });

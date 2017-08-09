@@ -29,6 +29,9 @@
                     <Column Key="OptIDs" Caption="操作员ids" DataType="Varchar" Length="4000"/>
                     <Column Key="StartFormKey" Caption="开始表单标识" DataType="Varchar"/>
                     <Column Key="WorkflowFormKey" Caption="WorkflowFormKey" DataType="Varchar"/>
+                    <Column Key="EmailTemp_H" Caption="邮件模板" DataType="Varchar"/>
+                    <Column Key="MessageSetID_H" Caption="发送方式" DataType="Long"/>
+                    <Column Key="FieldKey" Caption="字段标识" DataType="Varchar"/>
                 </Table>
                 <Table Caption="人员选择明细" DBTableName="OA_OperatorSel_D" Key="OA_OperatorSel_D" TableMode="Detail">
                     <Column Caption="对象标识" DataType="Long" Key="OID"/>
@@ -534,6 +537,29 @@ Close();]]>
                                 </GridRow>
                             </GridRowCollection>
                         </Grid>
+                        <GridLayoutPanel Key="BaseTab" Caption="基本设置">
+                            <ComboBox Key="EmailTemp_H" Caption="邮件模板" BuddyKey="Lab_EmailTemp_H" X="3" Y="0" Enable="true" SourceType="Formula">
+                                <DataBinding ColumnKey="EmailTemp_H" TableKey="OA_OperatorSel_H" DefaultFormulaValue="var fieldKey = Para(&quot;FieldKey1&quot;); DBQueryValue(&quot;SELECT EmailTemp from OA_OperatorSel_H h where h.oid = ? and FieldKey = ?&quot;, GetOID(),fieldKey);"/>
+                                <FormulaItems>
+                                    <![CDATA[InvokeService("OA_GetFileNameStr", false, true, "../cms/site/static/email")]]>
+                                </FormulaItems>
+                            </ComboBox>
+                            <Label Key="Lab_EmailTemp_H" Caption="邮件模板" X="2" Y="0"/>
+                            <Dict Key="MessageSetID_H" Caption="发送方式" BuddyKey="Lab_MessageSetID_H" X="1" Y="0" Enable="true" ItemKey="OA_MessageSet">
+                                <DataBinding ColumnKey="MessageSetID_H" TableKey="OA_OperatorSel_H" DefaultFormulaValue="var fieldKey = Para(&quot;FieldKey1&quot;); DBQueryValue(&quot;SELECT messageSetID from OA_OperatorSel_H h where h.oid = ? and FieldKey = ?&quot;, GetOID(),fieldKey)"/>
+                            </Dict>
+                            <Label Key="Lab_MessageSetID_H" Caption="发送方式" X="0" Y="0"/>
+                            <RowDefCollection RowGap="5">
+                                <RowDef Height="30px"/>
+                                <RowDef Height="30px"/>
+                            </RowDefCollection>
+                            <ColumnDefCollection ColumnGap="5">
+                                <ColumnDef Width="100px"/>
+                                <ColumnDef Width="50%"/>
+                                <ColumnDef Width="100px"/>
+                                <ColumnDef Width="50%"/>
+                            </ColumnDefCollection>
+                        </GridLayoutPanel>
                         <GridLayoutPanel Caption="系统信息" Key="SysTab">
                             <Dict BuddyKey="Lab_Creator" Caption="创建人" Enable="false" ItemKey="Operator" Key="Creator" X="1" Y="0">
                                 <DataBinding ColumnKey="Creator" TableKey="OA_OperatorSel_H" DefaultFormulaValue="GetOperator()"/>
@@ -612,6 +638,10 @@ Close();]]>
                                 <DataBinding ColumnKey="WorkflowFormKey" TableKey="OA_OperatorSel_H" DefaultFormulaValue="Para(&quot;WorkflowFormKey&quot;);"/>
                             </TextEditor>
                             <Label Key="Lab_WorkflowFormKey" Caption="流程表单标识" X="2" Y="7"/>
+                            <TextEditor Key="FieldKey" Caption="字段标识" BuddyKey="Lab_FieldKey" X="5" Y="7">
+                                <DataBinding ColumnKey="FieldKey" TableKey="OA_OperatorSel_H" DefaultFormulaValue="Para(&quot;FieldKey1&quot;);"/>
+                            </TextEditor>
+                            <Label Key="Lab_FieldKey" Caption="字段标识" X="4" Y="7"/>
                             <RowDefCollection RowGap="4">
                                 <RowDef Height="30px"/>
                                 <RowDef Height="30px"/>

@@ -64,7 +64,7 @@
             install: function () {
                 var self = this;
                 function dealChk(e, $dom){
-               	 	if ($dom.attr("readonly") == "readonly") return;
+               	 	if (self.el.hasClass("ui-readonly")) return;
                     if ($dom.attr('isChecked') == 'true') {
                         self.setChecked(false);
                         $dom.attr('isChecked') == 'false'

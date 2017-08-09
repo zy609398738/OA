@@ -68,7 +68,7 @@ FillGridData("Grid1",DBQuery(queryNewsTypeID,NewsType),true)]]>
                         </RowClick>
                     </Grid>
                     <FlexFlowLayoutPanel Key="FlexFlowLayoutPanel1" Caption="FlexFlowLayoutPanel1" Height="100%">
-                        <GridLayoutPanel Key="first_head" Height="120px" Padding="5px" Caption="基本信息" Visible="first_headVisible==1">
+                        <GridLayoutPanel Key="first_head" Height="120px" Padding="5px" Caption="基本信息">
                             <DatePicker Key="DatePicker1" Caption="发布日期" BuddyKey="Lab_DatePicker1" X="1" Y="1">
                                 <Condition ColumnKey="BillDate" TableKey="OA_NewsDraft_H" CondSign="between" Group="A" GroupHead="true"/>
                             </DatePicker>

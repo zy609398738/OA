@@ -2,7 +2,10 @@
 <configlist>
 	<!-- 是否调试状态 -->
 	<IsDebug>true</IsDebug>
+	<value>system_Set.xml</value>
 	<value>system_message.xml</value>
 	<value>report.xml</value>
 	<value>navigation.xml</value>
+	<!-- 扩展配置，这里指向天合光能的参数配置文件夹 -->
+	<configExt>TSL\Configuration</configExt>
 </configlist>

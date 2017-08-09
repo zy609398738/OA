@@ -4,7 +4,7 @@
 		var rt = {
 				el: $("<div class='form'/>"),
 				id: "id_form_set",
-				caption: RTS.I18N.rightsset.formSet,
+				caption: RTS.I18N.rightsset.formRights,
 				empty: function() {
 					this._right.empty();
 				},

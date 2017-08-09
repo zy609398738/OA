@@ -23,17 +23,19 @@ public class TSL_WriteoffBudget extends BaseMidFunctionImpl {
 	private String SQL = "insert into Trina_BudgetRecordsFreeze_App(TaskID,RowNo,BudgetNo,BudgetYear,BudgetMonth,BudgetCurrency,Amount,Status) values (?,?,?,?,?,?,?,?)";
 	@Override
 	public Object evalImpl(String name, DefaultContext context, Object[] args, IExecutor iExecutor) throws Throwable {
+		String dataObjectKey = TypeConvertor.toString(args[0]);
+		CostInfo info = TSLInfoFactory.CreateInfo(context, dataObjectKey);
 		Document document = context.getDocument();
-		DataTable headTable = document.get("B_CostApply");
-		DataTable detailTable = document.get("B_CostApplyCE");
+		DataTable headTable = document.get(info.getHeadTable());
+		DataTable detailTable = document.get(info.getDetailTable());
 		
-		String rownum = TypeConvertor.toString(args[0]);
+		String rownum = TypeConvertor.toString(args[1]);
 		HashMap<MultiKey, ArrayList<Integer>> map = new HashMap<MultiKey, ArrayList<Integer>>();
 		int rowCount = detailTable.size();
 		for (int rowIndex = 0; rowIndex < rowCount; rowIndex++) {
 			MultiKey key = new MultiKey();
 			//key.addValue(new MultiKeyNode(DataType.STRING, detailTable.getString("CEDetail_ID")));
-			key.addValue(new MultiKeyNode(DataType.STRING, detailTable.getString("CEDetail_BudgetNo")));
+			key.addValue(new MultiKeyNode(DataType.STRING, detailTable.getString(info.getBudgetNoLField())));
 			ArrayList<Integer> list = map.get(key);
 			if (list == null) {
 				list = new ArrayList<Integer>();
@@ -45,7 +47,7 @@ public class TSL_WriteoffBudget extends BaseMidFunctionImpl {
 		Iterator<ArrayList<Integer>> it = map.values().iterator();
 		while (it.hasNext()) {
 			//预算金额
-			BigDecimal BudgetOffsetMoney =  detailTable.getNumeric("CEDetail_BudCurrencyAmt");
+			BigDecimal BudgetOffsetMoney =  detailTable.getNumeric(info.getBudgetCurrencyAmtLField());
 			BudgetOffsetMoney = BudgetOffsetMoney.negate();			
 			//冲销金额
 			BigDecimal budgetwriteoffmoney = BigDecimal.ZERO;
@@ -56,7 +58,7 @@ public class TSL_WriteoffBudget extends BaseMidFunctionImpl {
 			// 预算月
 			String BudgetMonth = "";
 			// 预算数量
-			String BudgetQty =  "1";
+			String BudgetQty =  TypeConvertor.toString(args[2]);
 			// 预算号
 			String BudgetNo = "";
 			// 预算承担组织编号
@@ -68,32 +70,32 @@ public class TSL_WriteoffBudget extends BaseMidFunctionImpl {
 			// 源任务明细ID
 			String SourceTaskLineId = "";
 			// 源表名称
-			String TableName = "EFLOW";			
+			String TableName = TypeConvertor.toString(args[3]);			
 			//任务ID
 			String TaskId =  "";
 			//任务明细ID
 			String TaskLineId =  "";
 			// 预算冲销默认S
-			String WorkflowState ="S";
+			String WorkflowState =TypeConvertor.toString(args[4]);
 			//预算冲销默认为EXPENSE
-			String CostType = "EXPENSE";
+			String CostType = TypeConvertor.toString(args[5]);
 			boolean bFirst = true;
 			ArrayList<Integer> list = it.next();
 			for (int rowIndex : list) {
 				if (bFirst) {
-			    BudgetCurrency = detailTable.getString(rowIndex,"CEDetail_BudCurrency");
-			    BudgetYear = detailTable.getString(rowIndex,"CEDetail_BudgetYear");
-			    BudgetMonth = detailTable.getString(rowIndex,"CEDetail_BudgetMonth");
-			    BudgetNo = detailTable.getString(rowIndex,"CEDetail_BudgetNo");
-			    BudgetOuCode = headTable.getString("OU_Code");
+			    BudgetCurrency = detailTable.getString(rowIndex,info.getBudgetCurrencyLField());
+			    BudgetYear = detailTable.getString(rowIndex,info.getBudgetYearLField());
+			    BudgetMonth = detailTable.getString(rowIndex,info.getBudgetMonthLField());
+			    BudgetNo = detailTable.getString(rowIndex,info.getBudgetNoLField());
+			    BudgetOuCode = headTable.getString(info.getOUCodeField());
 			    GUID = System.currentTimeMillis()+"";
-			    SourceTaskId = headTable.getObject("OID").toString();
-			    SourceTaskLineId = detailTable.getObject(rowIndex,"CEDetail_ID").toString();
-			    TaskId =  headTable.getObject("OID").toString();
-			    TaskLineId = detailTable.getObject(rowIndex,"CEDetail_ID").toString();
+			    SourceTaskId = headTable.getObject(info.getOIDField()).toString();
+			    SourceTaskLineId = detailTable.getObject(rowIndex,info.getIDLField()).toString();
+			    TaskId =  headTable.getObject(info.getOIDField()).toString();
+			    TaskLineId = detailTable.getObject(rowIndex,info.getIDLField()).toString();
 			}
 				// 汇总 CEDetail_BudgetCurrency转换预算币种金额（根据CEDetail_ID，CEDetail_BudgetNo分组求和）
-				budgetwriteoffmoney = budgetwriteoffmoney.add(detailTable.getNumeric(rowIndex, "CEDetail_BudgetCurrency"));
+				budgetwriteoffmoney = budgetwriteoffmoney.add(detailTable.getNumeric(rowIndex, info.getBudgetCurrencyRateLField()));
 				bFirst = false;
 		}
 		//

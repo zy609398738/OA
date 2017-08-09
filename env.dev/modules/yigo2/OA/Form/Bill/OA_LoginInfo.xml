@@ -45,7 +45,7 @@
                 <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
                     <ToolBarItemCollection/>
                 </ToolBar>
-                <GridLayoutPanel Key="GridLayoutPanel1" Height="40px" Caption="GridLayoutPanel1" Visible="first_headVisible==1">
+                <GridLayoutPanel Key="GridLayoutPanel1" Height="40px" Caption="GridLayoutPanel1">
                     <DatePicker Key="From" Caption="登录时间 从" BuddyKey="Lab_From" X="1" Y="0">
                         <DataBinding>
                             <ValueChanged>

@@ -17,8 +17,8 @@
     <StartItemCollection>
         <StartItem Platform="Android|IOS" StartForm="MRoot" LoginForm="MobileLogin" AppKey="OA"/>
     </StartItemCollection>
-    <!-- 预打开表单-->
+    <!-- 预打开表单
     <PreLoadItemCollection>
-        <PreLoadItem Key="Item1" EntryPath="OABusiness/OA/OA_Index"/>
-    </PreLoadItemCollection>
+        <PreLoadItem Key="Item1" EntryPath="TSL/Base/TSL_Index"/>
+    </PreLoadItemCollection> -->
 </Solution>

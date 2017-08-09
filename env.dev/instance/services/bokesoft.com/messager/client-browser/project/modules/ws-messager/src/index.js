@@ -675,19 +675,26 @@ var refreshBuddies = function(){
 	    		foundGroups.push(group);
 	    	}
 	    }
-/*		//根据返回数据，查询对应状态
+		//根据返回数据，查询对应状态
 		queryUserStates(userCodes, function(userData){
-			var userStates=[];
+			var userStates = {};	//使用 user code 为 key 保存对应的 state
 			for(var key in userData){
-				var userState={userCode: key, userState: userData[key]};
-				userStates.push(userState);
+				userStates[key] = userData[key];
 			}
 			var html = compiled({
+				curUserCode: localVars.ws_Sender||"",	//当前 websocket 连接的用户
 				userStates: userStates,
 				groups: foundGroups,
 				defUserIcon: defUserIcon,
 				idle: stateLaveIcon,
-				busy: stateBusyIcon
+				busy: stateBusyIcon,
+				getState: function(stateTable, userCode){
+    				var state = stateTable[userCode];
+    				if (! state){
+    					state = "offline";	//默认 state 为 offline
+    				}
+    				return state;
+    			}
 		    });
 			var $root = $($rootElm);
 			var $container = $root.find(".item-buddies");
@@ -698,7 +705,7 @@ var refreshBuddies = function(){
 			$container.find('.chat_head').click(showChatGroup);
 			
 			patchGrayscale();
-		});*/	
+		});	
     });
 }
 
@@ -738,6 +745,7 @@ var searchMessages = function(curUserCode){
 			}
 			
 			queryData.from = (new Date()).getTime();
+			queryData.focus = null;
 			queryData.keywords = toSearch;
 			queryData.other = talkingUserCode;
 			
@@ -758,6 +766,7 @@ var searchMessages = function(curUserCode){
 			}
 
 			queryData.from = (new Date()).getTime();
+			queryData.focus = null;
 			queryData.keywords = toSearch;
 			queryData.other = null;
 
@@ -800,6 +809,20 @@ var queryHistory = function(queryData, $panel, $result, $pager){
     		}
     	});
     	$result.html(html);
+    	//定位到 focus 的那条记录
+    	var focusTs = queryData.focus;
+    	if (focusTs){
+    		var focusOffset = -1;
+    		$result.find(".history_item").each(function(){
+    			if (focusTs == $(this).data("timestamp")){
+    				$(this).addClass("focused_history_item");
+    				focusOffset = $(this).position().top-$(this).height();
+    			}
+    		});
+    		if (focusOffset && focusOffset>0){
+    			$result.find(".message_history").scrollTop(focusOffset - $result.find(".message_history").height()/2);
+    		}
+    	}
     	
     	//点击历史中的某一项, 实现以该项开始的历史查询
     	$result.find(".history_item").click(function(event){
@@ -811,7 +834,7 @@ var queryHistory = function(queryData, $panel, $result, $pager){
     		var sender = $(this).data("sender");
     		var receiver = $(this).data("receiver");
     		
-			queryData.from = timestamp;
+			queryData.focus = timestamp;
 			queryData.keywords = null;
 			queryData.other = (sender==queryData.self)?receiver:sender;
 
@@ -839,6 +862,7 @@ var queryHistory = function(queryData, $panel, $result, $pager){
     		$prev.click(function(){
     			//向前(更晚的数据)查询
     			queryData.from = prevPageTimestamp;
+    			queryData.focus = null;
     			queryHistory(queryData, $panel, $result, $pager);
     		});
     	}
@@ -849,6 +873,7 @@ var queryHistory = function(queryData, $panel, $result, $pager){
     		$next.click(function(){
         		//向后(更早的数据)查询
     			queryData.from = endTime;
+    			queryData.focus = null;
     			queryHistory(queryData, $panel, $result, $pager);
     		});
     	}
@@ -985,12 +1010,9 @@ var queryUserStates = function(userCodes, callback){
 	if (userCodes.length<=0){
 		return 
 	}
-	var userCodeParams = "u="+userCodes.join("&u=");
-	
+	var url = globalOptions.userStateUrl+"?t="+clientToken;
 	var ajax = require("boke-cms-ajax");
-	var url = globalOptions.userStateUrl+"?"+userCodeParams+"&t="+clientToken;
-	url = url + "&" + (new Date()).getTime();  //GET 方法容易有缓存
-    ajax.get(url, {}, function(data){
+    ajax.post(url, {u:userCodes}, function(data){
     	callback(data);
     }, {errorStyle: "notify"});
 }

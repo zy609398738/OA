@@ -409,6 +409,11 @@
 	font-size: 9pt;
 	color: darkgray;
 }
+.bokesoft-messager .pop-box.search-sessions-result .message_history .focused_history_item{
+	border: 2px solid #ccc;
+	border-radius: 3px;
+	padding: 6px;
+}
 .bokesoft-messager .pop-box.search-sessions-result .message_history .session .speak{
 	color: SteelBlue;
 }

@@ -6,12 +6,38 @@ YIUI.Panel.StackContainer = YIUI.extend(YIUI.Panel, {
 	
 	/** 容器中存在的Form，以栈为表现形式 */
 	/** forms : [], */
+	defaultFormKey: "",
 	
 	init : function(options) {
 		this.base(options);
 		this.formID = null;
+		var formKey = this.defaultFormKey;
+		if(formKey) {
+	        var container = this;
+	        var builder = new YIUI.YIUIBuilder(formKey);
+	        builder.setContainer(container);
+	        builder.setOperationState(YIUI.Form_OperationState.Default);
+
+	        builder.newEmpty().then(function(emptyForm){
+	        	container.form = emptyForm;
+	        	container.formID = emptyForm.formID;
+	        	
+//	            YIUI.FormParasUtil.processCallParas(form, emptyForm);
+	            emptyForm.setOptQueue(new YIUI.OptQueue(new YIUI.LoadOpt(emptyForm)));
+
+	            builder.builder(emptyForm);
+	        });
+
+		}
 	},
     
+	onRender: function(ct) {
+		this.base(ct);
+		var form = this.form;
+		if(form && !form.rendered) {
+			form.render();
+		}
+	},
 	
 	onSetHeight: function(height) {
 		this.base(height);
@@ -36,7 +62,10 @@ YIUI.Panel.StackContainer = YIUI.extend(YIUI.Panel, {
 	/** 删除当前form，并取出之前缓存的form，并显示 */
 	remove : function(comp, autoDestroy) {
 		this.base(comp, autoDestroy);
-
+		this.formID && YIUI.FormStack.removeForm(this.formID);
+	},
+	
+	beforeDestroy: function() {
 		this.formID && YIUI.FormStack.removeForm(this.formID);
 	},
 	
@@ -50,10 +79,14 @@ YIUI.Panel.StackContainer = YIUI.extend(YIUI.Panel, {
 //		this.doRenderChildren();
 //		this.doLayout(this.el[0].clientWidth, this.el[0].clientHeight);
     	form.setContainer(this);
+    	this.form = form;
 	},
 	
 	renderDom: function(ct) {
-		this.doRenderChildren();
+		if(this.form) {
+			this.form.pFormID = this.ofFormID;
+		}
+		this.onRenderChildren();
 		this.doLayout(this.el[0].clientWidth, this.el[0].clientHeight);
 	},
 	

@@ -42,8 +42,13 @@
 		</style>		
 	</head>
 	<body> 
-		<!-- 头表字段取法:$+字段数据列标识，注意大小写，例：$NO。 -->
-		<div>发文编号：<span>$NO</span></div>
+		<div>发文编号：
+			<!-- 取网络访问路径:$OA_Web_URL，注意大小写，默认此名称。例如以下内容实际得到的结果为http://dev.bokesoft.com:20231/yigo/?formkey=OA_NewsDraft&oid=172989 -->
+			<a href="http://$OA_Web_URL/?formkey=$BillKey&oid=$OID">
+				<!-- 头表字段取法:$+字段数据列标识，注意大小写，例：$NO。 -->
+				<span>$NO</span>
+			</a>
+		</div>
 		<div>主    题：<span>$Topic</span></div>
 		<div class="email-dtl">
 		<table>

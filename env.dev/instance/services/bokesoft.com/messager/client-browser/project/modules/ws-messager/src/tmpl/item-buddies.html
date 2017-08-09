@@ -1,35 +1,33 @@
   <% _.forEach(groups, function(group) { %>
       <div class="chat_group">
           <div class="chat_head">${group.groupName}<i></i></div>
-          <% _.forEach(group.users, function(user) { %>
-		      <div class="chat_item ${group.groupType=='blacklist'?'disabled':''}"
-		           data-boke-messager-user="${user.code}" data-boke-messager-group-type="${group.groupType}"
-		           title="${user.name}">
-		         <span class="userIcon">
-					 <% _.forEach(userStates, function(userState) { %>
-						<%if(user.code==userState.userCode){%>
-							<%if(userState.userState=='online'){%>
-								<img src="${user.icon || defUserIcon}" data-state="online"/>
-							<%}%>
-							<%if(userState.userState=='offline'){%>
-								<img src="${user.icon || defUserIcon}" class="userhead_gray_mask" data-state="offline"/>
-							<%}%>
-							<%if(userState.userState=='lurk'){%>
-								<img src="${user.icon || defUserIcon}" class="userhead_gray_mask" data-state="lurk"/>
-							<%}%>
-							<%if(userState.userState=='idle'){%>
-								<img src="${user.icon || defUserIcon}" data-state="idle"/>
-								<i class="status"><img src="${idle}" alt="离开"/></i>
-							<%}%>
-							<%if(userState.userState=='busy'){%>
-								<img src="${user.icon || defUserIcon}" data-state="busy"/>
-								<i class="status"><img src="${busy}" alt="忙碌"/></i>
-							<%}%>
+	      <% _.forEach(group.users, function(user) { %>
+              <%if (curUserCode!=user.code){%>
+			      <div class="chat_item ${group.groupType=='blacklist'?'disabled':''}"
+			           data-boke-messager-user="${user.code}" data-boke-messager-group-type="${group.groupType}"
+			           title="${user.name}">
+			         <span class="userIcon">
+						<%if(getState(userStates, user.code)=='online'){%>
+							<img src="${user.icon || defUserIcon}" data-state="online"/>
 						<%}%>
-					 <% }); %>
-                 </span>
-		          <span class="nickname_text"><b class="user_name">${user.name}</b></span>
-		      </div>
-          <% }); %>
+						<%if(getState(userStates, user.code)=='offline'){%>
+							<img src="${user.icon || defUserIcon}" class="userhead_gray_mask" data-state="offline"/>
+						<%}%>
+						<%if(getState(userStates, user.code)=='lurk'){%>
+							<img src="${user.icon || defUserIcon}" class="userhead_gray_mask" data-state="lurk"/>
+						<%}%>
+						<%if(getState(userStates, user.code)=='idle'){%>
+							<img src="${user.icon || defUserIcon}" data-state="idle"/>
+							<i class="status"><img src="${idle}" alt="离开"/></i>
+						<%}%>
+						<%if(getState(userStates, user.code)=='busy'){%>
+							<img src="${user.icon || defUserIcon}" data-state="busy"/>
+							<i class="status"><img src="${busy}" alt="忙碌"/></i>
+						<%}%>
+	                 </span>
+			         <span class="nickname_text"><b class="user_name">${user.name}</b></span>
+			      </div>
+              <%}%>
+	      <% }); %>
       </div>
   <% }); %>

@@ -16,10 +16,12 @@ import com.bokesoft.oa.mid.wf.base.WorkflowTypeDtl;
 import com.bokesoft.oa.mid.wf.base.WorkitemInf;
 import com.bokesoft.yes.common.util.StringUtil;
 import com.bokesoft.yigo.common.util.TypeConvertor;
+import com.bokesoft.yigo.meta.dataobject.MetaDataObject;
 import com.bokesoft.yigo.mid.base.DefaultContext;
 import com.bokesoft.yigo.mid.connection.IDBManager;
 import com.bokesoft.yigo.mid.service.IExtService;
 import com.bokesoft.yigo.struct.datatable.DataTable;
+import com.bokesoft.yigo.struct.document.Document;
 
 /*
  * 审批操作通过之后发送消息
@@ -54,6 +56,7 @@ public class OptSendMessage implements IExtService {
 	public static Object optSendMessage(DefaultContext context, String formKey, String optKey, Long workItemID,
 			Long oid, Date time, Long workflowTypeDtlID) throws Throwable, Error {
 		boolean sendMessage = false;
+		Document srcDoc = context.getDocument();
 		if (optKey == null || oid == null || oid <= 0) {
 			return sendMessage;
 		}
@@ -79,7 +82,7 @@ public class OptSendMessage implements IExtService {
 			return sendMessage;
 		}
 		String operationName = workitemInf.getWFWorkitem().getWorkitemName();
-		String content = "工作项：" + operationName;
+		String content = "审批工作项：" + operationName;
 		MessageSet messageSet = operationSelDtl.getMessageSet();
 		if (messageSet == null) {
 			return sendMessage;
@@ -96,9 +99,16 @@ public class OptSendMessage implements IExtService {
 		if (ids.length() > 0) {
 			ids = ids.substring(1);
 		}
-
-		String topic = oaContext.getwFMigrationMap().get(oid).getTopic();
-		String billNO = oaContext.getwFMigrationMap().get(oid).getBillNO();
+		MetaDataObject mdo = srcDoc.getMetaDataObject();
+		String mainTableKey = mdo.getMainTableKey();
+		DataTable srcDt = srcDoc.get(mainTableKey);
+		String topic = "";
+		if (srcDt != null && srcDt.getMetaData().constains("Topic")) {
+			topic = srcDt.getString("Topic");
+		} else {
+			topic = srcDt.getString("NO");
+		}
+		String billNO = srcDt.getString("NO");
 		Long userID = context.getVE().getEnv().getUserID();
 		if (!StringUtil.isBlankOrNull(ids)) {
 			Message message = new Message(oaContext, false, false, "", time, userID, topic, content, ids, messageSet,
@@ -113,6 +123,7 @@ public class OptSendMessage implements IExtService {
 			if (!StringUtil.isBlankOrNull(ids)) {
 				Message message = new Message(oaContext, false, false, "", time, userID, topic, content, ids,
 						messageSet, formKey, billNO, oid);
+				message.setEmailTemp(operationSelDtl.getEmailTemp());
 				sendMessage = SendMessage.sendMessage(oaContext, message);
 			}
 		}

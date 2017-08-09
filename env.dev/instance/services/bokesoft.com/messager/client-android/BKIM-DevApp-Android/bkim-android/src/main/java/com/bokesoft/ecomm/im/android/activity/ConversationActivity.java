@@ -5,16 +5,15 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bokesoft.ecomm.im.android.R;
+import com.bokesoft.ecomm.im.android.utils.BKIMConstants;
 import com.bokesoft.ecomm.im.android.backend.HostServiceFacade;
 import com.bokesoft.ecomm.im.android.model.UserInfo;
 import com.bokesoft.ecomm.im.android.ui.view.ConversationFragment;
-import com.bokesoft.ecomm.im.android.utils.BKIMConstants;
 
 /**
  * 会话详情页
@@ -28,7 +27,6 @@ public class ConversationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);//隐藏Tile
         setContentView(R.layout.bkim_conversation_activity);
         conversationFragment = (ConversationFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_chat);
         initView();
@@ -99,7 +97,6 @@ public class ConversationActivity extends AppCompatActivity {
      */
     private void showToast(String content) {
         Toast.makeText(ConversationActivity.this, content, Toast.LENGTH_SHORT).show();
-
 
     }
 

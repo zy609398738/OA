@@ -36,7 +36,7 @@
                 <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
                     <ToolBarItemCollection/>
                 </ToolBar>
-                <GridLayoutPanel Key="first_head" Padding="5px" Height="pref" Caption="基本信息" Visible="first_headVisible==1">
+                <GridLayoutPanel Key="first_head" Padding="5px" Height="pref" Caption="基本信息">
                     <DatePicker Key="StartDate" Caption="起始时间" BuddyKey="Lab_StartDate" X="1" Y="0">
                         <Condition ColumnKey="ReadTime" TableKey="OA_BillReadRecord" CondSign="between" Group="A" GroupHead="true"/>
                     </DatePicker>

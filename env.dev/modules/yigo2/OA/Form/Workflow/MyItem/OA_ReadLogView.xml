@@ -29,7 +29,7 @@
     <Body>
         <Block>
             <FlexFlowLayoutPanel Key="main">
-                <GridLayoutPanel Key="GridLayoutPanel1" Height="80px" Padding="5px" Caption="GridLayoutPanel1" Visible="first_headVisible==1">
+                <GridLayoutPanel Key="GridLayoutPanel1" Height="80px" Padding="5px" Caption="GridLayoutPanel1">
                     <DatePicker Key="DatePicker1" Caption="申请日期" BuddyKey="Lab_DatePicker1" X="1" Y="0">
                         <Condition ColumnKey="BillCreatTime" TableKey="OA_ReadLogView" CondSign="between" Group="A" GroupHead="true"/>
                     </DatePicker>

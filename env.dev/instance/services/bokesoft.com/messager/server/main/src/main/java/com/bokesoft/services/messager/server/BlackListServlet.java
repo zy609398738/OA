@@ -16,6 +16,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.bokesoft.services.messager.server.impl.BlackListManager;
 import com.bokesoft.services.messager.server.impl.utils.ServletUtils;
 import com.bokesoft.services.messager.server.model.RpcReturnCode;
+import com.bokesoft.services.messager.zz.Misc;
 
 public class BlackListServlet extends HttpServlet {
 
@@ -45,6 +46,8 @@ public class BlackListServlet extends HttpServlet {
 		ServletUtils.serverAccessControlCheck(req);
 		
 		JSONObject dataJson = ServletUtils.getParamDataAsJson(req);
+		Misc.$assert(null==dataJson, "请求中没有 JSON 数据");
+
 		Boolean overwrite = (Boolean) dataJson.get("overwrite");
 		
 		Map<String, Set<String>> _blacklist = new HashMap<String, Set<String>>();

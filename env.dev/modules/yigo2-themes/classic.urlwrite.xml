@@ -16,6 +16,11 @@
     </rule>
 
     <rule match-type="wildcard">
+       <from>/home/menutree.js</from>
+       <to type="forward">/yigo2-theme/patches/home/menutree.js</to>
+    </rule>
+	
+    <rule match-type="wildcard">
        <from>/home/navigation.js</from>
        <to type="forward">/yigo2-theme/patches/home/navigation.js</to>
     </rule>

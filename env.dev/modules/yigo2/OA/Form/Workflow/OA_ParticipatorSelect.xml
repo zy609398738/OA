@@ -50,7 +50,10 @@
                     <Button Key="OK" Caption="确定" X="1" Y="0">
                         <OnClick>
                             <![CDATA[var ids=InvokeService("OA_GetSelectRowColumn",true,false,"OA_ParticipatorSelect","SelField","OID",",");
-parent.SetValue("NextOpt", ids);
+if(Para("NextOpt")=="NextOpt"){
+parent.SetValue("NextOpt", ids);}
+else{
+parent.SetValue("ReadUser", ids);}
 Close();]]>
                         </OnClick>
                     </Button>

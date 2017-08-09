@@ -238,7 +238,7 @@
                             form.setInitOperationState(YIUI.Form_OperationState.New);
                             form.setOperationState(YIUI.Form_OperationState.New);
                             form.showDocument();
-                            form.resetUIStatus(YIUI.FormUIStatusMask.ENABLE | YIUI.FormUIStatusMask.VISIBLE | YIUI.FormUIStatusMask.OPERATION);
+                          //  form.resetUIStatus(YIUI.FormUIStatusMask.ENABLE | YIUI.FormUIStatusMask.VISIBLE | YIUI.FormUIStatusMask.OPERATION);
                         }).promise();
             }
         };

@@ -268,7 +268,7 @@ var def = $.Deferred();
 	    		onUse: onUse
 	        };
 
-            return Svr.Request.getData(params);
+            return Svr.Request.getSyncData(Svr.SvrMgr.ServletURL, params);
 	    },
 	    /**
 		 * 注册附件

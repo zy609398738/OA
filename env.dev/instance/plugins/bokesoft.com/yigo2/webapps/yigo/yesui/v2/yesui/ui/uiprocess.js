@@ -199,7 +199,7 @@
             this.enableProcess.doAfterRowChanged(component);
         };
         this.calcItems = function (items) {
-            this.calcProcess.calcAllItems(true,items,false);
+            this.calcProcess.calcAllItems(items,true,false);
         };
     };
 

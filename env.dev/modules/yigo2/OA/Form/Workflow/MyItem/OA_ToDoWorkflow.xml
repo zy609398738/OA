@@ -90,7 +90,7 @@ FROM
     <Body>
         <Block>
             <FlexFlowLayoutPanel Key="main" Height="100%" Width="100%">
-                <GridLayoutPanel Key="GridLayoutPanel1" Height="80px" Padding="5px" Caption="GridLayoutPanel1" Visible="first_headVisible==1">
+                <GridLayoutPanel Key="GridLayoutPanel1" Height="80px" Padding="5px" Caption="GridLayoutPanel1">
                     <DatePicker Key="From" Caption="申请日期" BuddyKey="Lab_From" X="1" Y="0">
                         <Condition ColumnKey="BillCreatTime" TableKey="OA_ToDoWorkflow" CondSign="between" Group="A" GroupHead="true"/>
                     </DatePicker>

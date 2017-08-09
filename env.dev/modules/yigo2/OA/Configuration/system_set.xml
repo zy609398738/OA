@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<settings>
+		<!-- 系统设置 -->
+		<map name="SystemSet">
+			<!-- 网络访问路径 -->
+			<property name="WebUrl">dev.bokesoft.com:20231/yigo</property>
+		</map>
+	</settings>
+</config>

@@ -47,7 +47,7 @@ BillCreatTime order by UrgencyDeg desc,BillCreatTime desc ) h]]>
     <Body>
         <Block>
             <FlexFlowLayoutPanel Key="main" Height="100%" Width="100%">
-                <GridLayoutPanel Key="GridLayoutPanel1" Height="80px" Padding="5px" Caption="GridLayoutPanel1" Visible="first_headVisible==1">
+                <GridLayoutPanel Key="GridLayoutPanel1" Height="80px" Padding="5px" Caption="GridLayoutPanel1">
                     <DatePicker Key="From" Caption="申请日期" BuddyKey="Lab_From" X="1" Y="0">
                         <Condition ColumnKey="BillCreatTime" TableKey="OA_MonitoringWF" CondSign="between" Group="A" GroupHead="true"/>
                     </DatePicker>
@@ -136,11 +136,6 @@ ShowData();]]>
                         <ListViewColumn Caption="工作项标识" DataColumnKey="WorkitemID" Key="WorkitemID" Width="30px" Visible="false" ColumnType="TextEditor"/>
                         <ListViewColumn Key="OID" Caption="OID" DataColumnKey="OID" Visible="FALSE"/>
                         <ListViewColumn Key="Instanceid" Caption="流程标识" DataColumnKey="Instanceid" Visible="false"/>
-                        <ListViewColumn Key="Pause" Caption="暂停" ColumnType="HyperLink" DefaultValue="暂停">
-                            <OnClick>
-                                <![CDATA[PauseInstance(GetCellValue("list",-1,"WorkitemID"));]]>
-                            </OnClick>
-                        </ListViewColumn>
                         <ListViewColumn Key="CancelPause" Caption="取消暂停" ColumnType="HyperLink" Width="100px" DefaultValue="取消暂停">
                             <OnClick>
                                 <![CDATA[CanclePause(GetCellValue("list",-1,"WorkitemID"));]]>

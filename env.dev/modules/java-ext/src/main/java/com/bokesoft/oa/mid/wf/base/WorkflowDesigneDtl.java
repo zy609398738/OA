@@ -403,7 +403,7 @@ public class WorkflowDesigneDtl extends BillDtlBase<WorkflowDesigne> {
 					setMonitoringPerSel(workflowDesigneDtl.getMonitoringPerSel());
 				}
 			}
-			if (monitoringPerSel == null) {
+			if (monitoringPerSel != null) {
 				monitoringPerSel.setWorkflowDesigneDtl(this);
 			}
 		}

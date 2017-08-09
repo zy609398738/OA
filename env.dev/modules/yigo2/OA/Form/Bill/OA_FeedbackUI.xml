@@ -37,7 +37,7 @@ Close();]]>
             </Action>
         </Operation>
     </OperationCollection>
-    <Body PopHeight="60%" PopWidth="70%">
+    <Body PopHeight="210px" PopWidth="600px">
         <Block>
             <FlexFlowLayoutPanel Key="root" Caption="根面板">
                 <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">

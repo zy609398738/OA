@@ -29,6 +29,7 @@
                 var _this = this;
 
                 var loadComp = function (array, parentCom) {
+                	if(parentCom.ofFormID > 0) return;
                     parentCom.ofFormID = _this.formID;
                     parentCom.id = parentCom.ofFormID + "_" + parentCom.key;
                     if (parentCom.type == YIUI.CONTROLTYPE.LISTVIEW) {

@@ -10,7 +10,7 @@
 		<script type="text/javascript" src="home/menutree.js" defer="defer"></script>
 		<script type="text/javascript" src="home/navigation.js" defer="defer"></script>
 		<script type="text/javascript" src="home/main.js" defer="defer"></script>
-		<script type="text/javascript" src="/yigo/_$/resources/@buildin/js/oa.js"></script>
+		<script type="text/javascript" src="yigo2-theme/js/oa.js"></script>
 		<link href="/yigo/_$/images/main/fav.ico" rel="shortcut icon" type="image/x-icon" />
 		<link rel="stylesheet" href="yigo2-theme/css/main.css">
 	</head>
@@ -90,6 +90,7 @@
 						});
 					}
 				});
+				parseURL();
 			});
 		</script>
 		<!-- IM引入 -->

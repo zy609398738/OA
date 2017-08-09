@@ -34,8 +34,11 @@
         </Operation>
         <Operation Key="OPTKillInstance" Caption="终止">
             <Action>
-                <![CDATA[KillInstance(-1);
-Confirm("流程终止");]]>
+                <![CDATA[var nodeid = InvokeService("OA_GetNodeIDByNodeKey",false,false,GetFormKey(),"Disannul");
+if(ContainsKey("AuditOpinion")){
+CommitWorkitem(-1,0,GetValue("AuditOpinion"),{pattern:{Return},backSite:{nodeid}});}
+else{CommitWorkitem(-1,1,"",{pattern:{Return},backSite:{nodeid}});}
+Confirm("拒绝成功");]]>
             </Action>
         </Operation>
         <Operation Key="OPTEndInstance" Caption="结束">
@@ -57,7 +60,8 @@ Confirm("流程已重置");]]>
         </Operation>
         <Operation Key="OPTRollBackToWorkitem" Caption="撤销">
             <Action>
-                <![CDATA[RollbackToWorkitem(GetActiveWorkitemID());
+                <![CDATA[var pworkitemid = DBQueryValue("select parentworkitemid from bpm_workiteminfo where workitemid = ? ", GetActiveWorkitemID());
+RollbackToWorkitem(pworkitemid,false);
 Confirm("撤销成功");]]>
             </Action>
         </Operation>

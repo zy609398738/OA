@@ -56,7 +56,7 @@ where l.WorkitemState=2 and l.OperatorID=?)h]]>
                 <ToolBar Key="main_toolbar" Height="pref">
                     <ToolBarItemCollection/>
                 </ToolBar>
-                <GridLayoutPanel Key="GridLayoutPanel1" Height="80px" Padding="5px" Caption="GridLayoutPanel1" Visible="first_headVisible==1">
+                <GridLayoutPanel Key="GridLayoutPanel1" Height="80px" Padding="5px" Caption="GridLayoutPanel1">
                     <DatePicker Key="From" Caption="申请日期" BuddyKey="Lab_From" X="1" Y="0">
                         <Condition ColumnKey="BillCreatTime" TableKey="OA_QueryWorkflow" CondSign="between" Group="A" GroupHead="true"/>
                     </DatePicker>

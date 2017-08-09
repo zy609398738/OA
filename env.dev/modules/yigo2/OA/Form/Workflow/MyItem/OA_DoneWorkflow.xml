@@ -41,7 +41,7 @@ GROUP BY ll.InstanceID) and i.instancestate!=3 ORDER BY CreatTime desc) h]]>
     <Body>
         <Block>
             <FlexFlowLayoutPanel Key="main">
-                <GridLayoutPanel Key="GridLayoutPanel1" Height="80px" Padding="5px" Caption="GridLayoutPanel1" Visible="first_headVisible==1">
+                <GridLayoutPanel Key="GridLayoutPanel1" Height="80px" Padding="5px" Caption="GridLayoutPanel1">
                     <DatePicker Key="From" Caption="申请日期" BuddyKey="Lab_From" X="1" Y="0">
                         <Condition ColumnKey="creatTime" TableKey="OA_DoneWorkflow" CondSign="between" Group="A" GroupHead="true"/>
                     </DatePicker>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="OA_OptRelationWF" Caption="操作员关联流程列表" FormType="View">
+    <DataSource>
+        <DataObject Key="OA_OptRelationWF" Caption="操作员关联流程列表">
+            <TableCollection>
+                <Table Key="OA_OptRelationWF" Caption="操作员关联流程列表" TableMode="Detail" SourceType="Query" Persist="false">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="WorkflowTypeID" Caption="流程类别" DataType="Long"/>
+                    <Column Key="WorkflowTypeDtlID" Caption="流程类别明细ID" DataType="Long"/>
+                    <Column Key="BillKey" Caption="关联单据" DataType="Varchar"/>
+                    <Column Key="WorkflowID" Caption="流程定义" DataType="Long"/>
+                    <Column Key="WorkflowDesigneID" Caption="流程设计" DataType="Long"/>
+                    <Column Key="WorkflowDesigneDtlID" Caption="流程设计明细" DataType="Long"/>
+                    <Column Key="OperatorSelID" Caption="人员选择" DataType="Long"/>
+                    <Column Key="OperatorID" Caption="操作员" DataType="Long"/>
+                    <Column Key="WorkflowDesigneNodeID" Caption="流程设计明细节点ID" DataType="Varchar"/>
+                    <Column Key="OptDesc" Caption="人员描述" DataType="Varchar" Length="4000"/>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板">
+                <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <SplitPanel Key="SplitPanel1" Orientation="Vertical" Height="100%" Caption="SplitPanel1">
+                    <GridLayoutPanel Key="first_head" Padding="5px" Caption="基本信息">
+                        <Button Key="Query" Caption="查询" X="2" Y="0">
+                            <OnClick>
+                                <![CDATA[DealCondition();
+FillGridData("Grid1",InvokeService("OA_GetRelationRightByOpt",true,false,Q_Participator), true);]]>
+                            </OnClick>
+                        </Button>
+                        <Dict Key="Q_Participator" Caption="参与者" BuddyKey="Lab_Q_Participator" X="1" Y="0" ItemKey="Operator"/>
+                        <Label Key="Lab_Q_Participator" Caption="参与者" X="0" Y="0"/>
+                        <RowDefCollection RowGap="8">
+                            <RowDef Height="30px"/>
+                        </RowDefCollection>
+                        <ColumnDefCollection ColumnGap="8">
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="33%"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="33%"/>
+                            <ColumnDef Width="80px"/>
+                            <ColumnDef Width="34%"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <Grid Key="Grid1" Caption="Grid1" NewEmptyRow="false" PageLoadType="DB">
+                        <GridColumnCollection>
+                            <GridColumn Key="WorkflowTypeID" Caption="流程类别" Width="180px"/>
+                            <GridColumn Key="BillKey" Caption="关联单据" Width="180px"/>
+                            <GridColumn Key="WorkflowID" Caption="流程定义" Width="180px"/>
+                            <GridColumn Key="WorkflowDesigneNodeID" Caption="流程设计明细" Width="180px"/>
+                            <GridColumn Key="WorkflowDesigneDtlID" Caption="流程设计明细" Width="180px"/>
+                            <GridColumn Key="OperatorSelID" Caption="人员选择" Width="180px"/>
+                            <GridColumn Key="OptDesc" Caption="人员描述" Width="180px"/>
+                        </GridColumnCollection>
+                        <GridRowCollection>
+                            <GridRow Key="row1" RowHeight="35" TableKey="OA_OptRelationWF">
+                                <GridCell Key="WorkflowTypeID" Caption="流程类别">
+                                    <DataBinding ColumnKey="WorkflowTypeID"/>
+                                </GridCell>
+                                <GridCell Key="BillKey" Caption="关联单据" CellType="ComboBox" SourceType="Formula">
+                                    <DataBinding ColumnKey="BillKey"/>
+                                    <FormulaItems>
+                                        <![CDATA[GetFormByType("Entity")]]>
+                                    </FormulaItems>
+                                </GridCell>
+                                <GridCell Key="WorkflowID" Caption="流程定义">
+                                    <DataBinding ColumnKey="WorkflowID"/>
+                                </GridCell>
+                                <GridCell Key="WorkflowDesigneNodeID" Caption="流程设计明细" CellType="ComboBox" SourceType="Formula">
+                                    <DataBinding ColumnKey="WorkflowDesigneNodeID"/>
+                                    <FormulaItems>
+                                        <![CDATA[InvokeService("OA_GetAuditNodeByBPM",true,false,Para("WorkflowKey"),Para("WorkflowVersion"));]]>
+                                    </FormulaItems>
+                                </GridCell>
+                                <GridCell Key="WorkflowDesigneDtlID" Caption="流程设计明细">
+                                    <DataBinding ColumnKey="WorkflowDesigneDtlID"/>
+                                </GridCell>
+                                <GridCell Key="OperatorSelID" Caption="人员选择">
+                                    <DataBinding ColumnKey="OperatorSelID"/>
+                                </GridCell>
+                                <GridCell Key="OptDesc" Caption="人员描述" CellSortType="None">
+                                    <DataBinding ColumnKey="OptDesc"/>
+                                </GridCell>
+                            </GridRow>
+                        </GridRowCollection>
+                    </Grid>
+                    <SplitSize Size="40px"/>
+                    <SplitSize Size="100%"/>
+                </SplitPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

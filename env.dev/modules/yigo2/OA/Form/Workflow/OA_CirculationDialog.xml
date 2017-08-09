@@ -38,7 +38,7 @@ Close()]]>
     <Body PopHeight="210px" PopWidth="600px">
         <Block>
             <FlexFlowLayoutPanel Key="root" Caption="根面板" Padding="0px">
-                <GridLayoutPanel Key="GridLayoutPanel2" Height="pref" Caption="GridLayoutPanel2">
+                <GridLayoutPanel Key="GridLayoutPanel2" Height="40px" Padding="5px" Caption="GridLayoutPanel2">
                     <CheckListBox BuddyKey="Lab_ReadUser" Caption="选择阅读人员" Key="ReadUser" X="1" Y="0" SourceType="Formula">
                         <FormulaItems>
                             <![CDATA[InvokeService("OA_GetValueByFieldKey",false,false,Para("pWorkitemID"),Para("workflowBillKey"),Para("WorkflowTypeDtlID"),"SendOptOID",Para("workflowOID"));]]>
@@ -47,18 +47,11 @@ Close()]]>
                     <Label Key="Lab_ReadUser" Caption="选择阅读人员" X="0" Y="0"/>
                     <HyperLink Caption="选择人员" Key="SelOpts" X="2" Y="0">
                         <OnClick>
-                            <![CDATA[OA_ShowReadUser()]]>
+                            <![CDATA[var ids=parent.InvokeService("OA_GetSendOptList",true,false,Para("pWorkitemID"),Para("workflowBillKey"),Para("WorkflowTypeDtlID"),"AuditPerOID",Para("workflowOID"));
+SetPara("ParticipatorIDs", ids);
+ShowModal("OA_ParticipatorSelect","ParticipatorIDs:{Para('ParticipatorIDs')},NextOpt:{ReadUser}");]]>
                         </OnClick>
                     </HyperLink>
-                    <TextEditor Key="BillKey" Caption="单据Key" X="1" Y="0" Visible="false">
-                        <DataBinding DefaultFormulaValue="Para(&quot;workflowBillKey&quot;)"/>
-                    </TextEditor>
-                    <DatePicker Key="SendTime" Caption="创建时间" X="1" Y="0" Visible="false">
-                        <DataBinding DefaultFormulaValue="ServerDate()"/>
-                    </DatePicker>
-                    <TextEditor Key="BillOID" Caption="OID" X="1" Y="0" Visible="false">
-                        <DataBinding DefaultFormulaValue="Para(&quot;workflowOID&quot;)"/>
-                    </TextEditor>
                     <RowDefCollection RowGap="5">
                         <RowDef Height="30px"/>
                     </RowDefCollection>
@@ -113,12 +106,11 @@ Close()]]>
                         <ColumnDef Width="100%"/>
                     </ColumnDefCollection>
                 </GridLayoutPanel>
-                <GridLayoutPanel Key="GridLayoutPanel1" Height="pref" Caption="GridLayoutPanel1">
+                <GridLayoutPanel Key="GridLayoutPanel1" Height="50px" Padding="5px" Caption="GridLayoutPanel1">
                     <Button Key="APPROVE" Caption="确定" X="1" Y="0" Enable="True">
                         <OnClick>
-                            <![CDATA[InvokeService("OA_Notification",true,false,GetValue("ReadUser"),GetValue("SendTime"),GetValue("BillOID"),GetValue("Opinion"),GetValue("BillKey"),Para("pWorkitemID"));
-Close();
-parent.Confirm("传阅成功");]]>
+                            <![CDATA[InvokeService("OA_Notification",true,false,GetValue("ReadUser"),ServerDate(),Para("workflowOID"),GetValue("Opinion"),Para("workflowBillKey"),Para("pWorkitemID"));
+Close();]]>
                         </OnClick>
                     </Button>
                     <Button Key="cancel" Caption="取消" X="2" Y="0" Enable="True">

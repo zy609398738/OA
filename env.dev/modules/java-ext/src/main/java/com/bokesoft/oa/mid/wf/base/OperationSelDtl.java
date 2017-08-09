@@ -179,7 +179,7 @@ public class OperationSelDtl extends BillDtlBase<OperationSel> {
 				messageSet = getContext().getMessageSetMap().get(messageSetID);
 			}
 			if (messageSet == null) {
-				messageSet = getHeadBase().getWorkflowDesigneDtl().getMessageSet();
+				messageSet = getHeadBase().getMessageSet();
 				if (messageSet == null) {
 					Operation operation = getOperation();
 					if (operation != null) {

@@ -44,6 +44,7 @@ YIUI.YIUIBuilder = (function(){
     };
 
     _builder.prototype.builder= function(form){
+        
         var _target = this._target;
 
         if (_target != YIUI.FormTarget.MODAL) {
@@ -89,6 +90,7 @@ YIUI.YIUIBuilder = (function(){
             dialogDiv.modalDialog(null, settings);
 
             var ct = dialogDiv.dialogContent();
+            ct.el = dialogDiv.dialogContent();
             ct.renderDom = function(form) {
         		dialogDiv.dialogContent().empty();
             	form.getRoot().render(dialogDiv.dialogContent());

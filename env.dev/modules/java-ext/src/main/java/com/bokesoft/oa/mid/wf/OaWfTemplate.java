@@ -145,6 +145,9 @@ public class OaWfTemplate implements Template {
 		WorkflowTypeDtl workflowTypeDtl = oaContext.getWorkflowTypeDtlMap().getWorkflowTypeDtl(context.getFormKey(),
 				pdKey);
 		WorkflowDesigneDtl workflowDesigneDtl = workflowTypeDtl.getWorkflowDesigneDtl(nodeID.toString());
+		if(workflowDesigneDtl == null){
+			return null;
+		}
 		OperationSel operationSel = workflowDesigneDtl.getAuditOptSel();
 		// 如果选择操作为空，直接退出
 		if (operationSel == null) {

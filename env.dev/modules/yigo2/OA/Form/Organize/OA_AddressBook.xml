@@ -92,7 +92,7 @@ if(ids==""){
                         </RowClick>
                     </Grid>
                     <FlexFlowLayoutPanel Key="FlexFlowLayoutPanel1" Caption="FlexFlowLayoutPanel1" Height="100%">
-                        <GridLayoutPanel Key="first_head" Height="40px" Caption="基本信息" Visible="first_headVisible==1" LeftPadding="5px">
+                        <GridLayoutPanel Key="first_head" Height="40px" Caption="基本信息" LeftPadding="5px">
                             <Dict Key="QueryDepartment" Caption="部门" BuddyKey="Lab_QueryDepartment" X="1" Y="0" ItemKey="OA_Department" AllowMultiSelection="true">
                                 <Condition ColumnKey="DepartmentID" TableKey="OA_Employee_H" CondSign="in"/>
                             </Dict>

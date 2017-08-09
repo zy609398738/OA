@@ -26,7 +26,8 @@ a, button, div, input, label, li, p, pre, span, td, th, textarea, ul,
 .ui-btn, .ui-dropbtn .btn,
 .ui-splbtn .btn, .ui-img .fileBtn, .ui-lv .btn,
 .ui-txtbtn .btn, .ui-srch .btn {
-    font-size: 14px;   
+    /* font-size: 14px; */   
+    font-size: 12px;
 }
 
 a, button, div, input, label, li, p, pre, span, td, th, textarea, ul {
@@ -423,7 +424,8 @@ span.ui-txted span.embed {
     color: #b4b4b4;
     position: absolute;
     white-space: nowrap;
-    font-size: 14px;
+    /* font-size: 14px; */
+    font-size: 12px;
     padding-left: 10px;
     padding-right: 10px;
     line-height: 26px;
@@ -547,7 +549,7 @@ span.ui-numed input {
 .dpbtn-vw, .sp-vw, .dp-vw {
     margin: 0;
     padding: 0;
-    border: 1px solid #dadada;
+    border: 1px solid #40a8e8;
     max-height: 200px;
     overflow: auto;
     background-color: #fff;
@@ -785,7 +787,8 @@ span.ui-numed input {
 .treemenu li a span {
     color: #74787a;
     font-family: "微软雅黑";
-    font-size: 14px;
+    /* font-size: 14px; */
+    font-size: 12px;
 }
 .treemenu-accordionmenu > li.isParent > a.clicked span.treenode-name, 
 .treemenu-accordionmenu > li.isParent > a:hover span.treenode-name,
@@ -1229,7 +1232,8 @@ span.ui-numed input {
 /*tab页中字体色*/
 .ui-tabs-nav.ui-tabs-ex li a label {
     color: #949494;
-    font-size: 14px;
+    /* font-size: 14px; */
+    font-size: 12px;
     margin: 0;
     padding-left: 10px;
 }
@@ -1295,7 +1299,8 @@ span.ui-numed input {
 
 .ui-tabcnt li.ui-tabcontainer a label {
     color:#999;
-	font-size: 14px;
+	/* font-size: 14px; */
+    font-size: 12px;
 }
 .ui-tabcnt.empty .ui-tabs.dropdownBtn {
 	display: none;
@@ -1764,6 +1769,7 @@ tr.first span{
     overflow: auto;
     padding: 2px 0;
     z-index: 9999;
+    box-shadow:2px 2px 2px rgba(0,0,0,.15);
 }
 
 .cmb-vw.toplst {
@@ -2012,9 +2018,12 @@ tr.first span{
 .ui-lv .lv-div {
 	height: 100%;
 }
-.ui-lv .paginationjs-content {
-    border: 1px solid #dadada;
+.ui-lv.paginationjs{
+    box-sizing:border-box;
 }
+/* .ui-lv .paginationjs-content {
+    border: 1px solid #dadada;
+} */
 /** listview样式 --结束*/
 
 /** TreeView样式 --开始*/
@@ -2203,7 +2212,7 @@ tr.first span{
     background-image: url(images/checkbox0.PNG);
     background-image: none\9;
     background-size: cover;
-    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='yesui/ui/res/css/blue/images/checkbox0.PNG', sizingMethod='scale');
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./yesui/v2/yesui/ui/res/css/flat/images/checkbox0.PNG', sizingMethod='scale');
 }
 .ui-chk .chk {
 	margin-top: 1.5px;
@@ -2213,7 +2222,7 @@ tr.first span{
     background-image: none\9;
     background-repeat: no-repeat;
     background-size: cover;
-    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='yesui/ui/res/css/blue/images/checkbox1.PNG', sizingMethod='scale');
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./yesui/v2/yesui/ui/res/css/flat/images/checkbox1.PNG', sizingMethod='scale');
 }
 
 .ui-chk {
@@ -2277,8 +2286,8 @@ tr.first span{
     border: 1px solid #40a8e8;
     background-color: #fff;
     border-radius:0;
-    -webkit-box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, .1);
-            box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, .1);
+    -webkit-box-shadow:2px 2px 2px rgba(0,0,0,.15);;
+            box-shadow:2px 2px 2px rgba(0,0,0,.15);;
 }
 
 .dp-vw .btn {
@@ -2410,7 +2419,7 @@ tr.first span{
 }
 
 .tbr-ul .tbr-item .arrow {
-    color: #217bc0;
+    color: #ccc;
     right: 9px;
     top: 10px;
     position: absolute;
@@ -2418,7 +2427,9 @@ tr.first span{
     border-right: 4px solid transparent;
     border-left: 4px solid transparent;
 }
-
+.tbr-ul .tbr-item.show .arrow{
+    color:#40a8e8;
+}
 .tbr-ul .sp-btn.tbr-item .btn-left {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
@@ -2444,7 +2455,12 @@ tr.first span{
 .tbr-ul .sp-btn:hover .tbr-btn {
    border-color:#40a8e8;
 } 
-
+.tbr-ul .tbr-btn:hover .icon{
+    background-image:url("images/button_icon_blue.png");
+}
+.tbr-ul .tbr-btn:hover .arrow{
+    color:#40a8e8;
+}
 .tbr-ul .ui-readonly .sp-btn:hover .tbr-btn {
    border-color:#ccc;
 }
@@ -2464,9 +2480,15 @@ tr.first span{
 }
 
 .tbr-ul a {
-    height: 26px;
+    height: 28px;
     border:1px solid #ccc;
     display: inline-block;
+}
+.sp-btn.tbr-item.show .tbr-btn{
+    border-color:#40a8e8;
+}
+.sp-btn.tbr-item.show .arrow{
+    color:#40a8e8;
 }
 .tbr-ul .ui-readonly .tbr-btn{
     border:1px solid #e6e6e6;
@@ -2475,19 +2497,22 @@ tr.first span{
 
 .tbr-ul .tbr-vw {
     position: fixed;
-    min-width: 50px;
+    margin-top: 1px;
+    min-width: 180px;
     z-index: 9999;
     font-weight: normal;
     display: none;
     overflow: hidden;
-    border: 1px solid #dadada;
+    border: 1px solid #ccc;
     background-color: #ffffff;
+    box-shadow:2px 2px 2px rgba(0,0,0,.15);
 }
 
 .tbr-ul .tbr-vw .dp-item a {
-    height: 22px;
-    line-height: 22px;
+    height: 28px;
+    line-height: 28px;
     display: block;
+    border:none;
 }
 
 .tbr-ul .tbr-vw .dp-item {
@@ -2496,10 +2521,11 @@ tr.first span{
 
 .tbr-ul .tbr-vw .dp-item a:hover {
     cursor: pointer;
-    background-color: #eaeaea;
-    border-color: #b7b7b7;
+    background-color: #40a8e8;
 }
-
+.tbr-ul .tbr-vw .dp-item a:hover .txt{
+    color:#fff;
+}
 .ui-tbr .dp-btn {
     display: none;
     width: 30px;
@@ -2516,10 +2542,11 @@ tr.first span{
 
 .tbr-ul .icon {
     position: absolute;
-    top: 3px;
+    top: 4px;
     left: 5px;
     height: 16px;
     width: 16px;
+    background:url("images/button_icon.png")
 }
 
 .tbr-ul .tbr-btn.pri-icon {
@@ -2527,8 +2554,8 @@ tr.first span{
 }
 
 .tbr-ul a .txt {
-    height: 24px;
-    line-height: 24px;
+    height: 28px;
+    line-height: 26px;
     padding: 0 12px;
     font-size:12px;
     cursor: pointer;
@@ -3138,6 +3165,7 @@ tr.first span{
 	cursor: move;
 }
 .dialog.error .dialog-title {
+    text-indent:5px;
     line-height:25px;
 }
 .ui-dlg .dialog-content-inner .ui-lbl, .ui-dlg .dialog-content-inner .ui-lbl label {
@@ -3464,7 +3492,7 @@ tr.first span{
     color:#fff;
     vertical-align:middle;
 }
-.footdiv .next{s
+.footdiv .next{
 	margin-left: 5px;
 }
 .footdiv .prev{
@@ -3484,13 +3512,42 @@ tr.first span{
 	margin-top: 5px
 
 }
-.liwrap{
-	height: 300px;
+/* .liwrap{
+    height: 300px;
 }
-/* .findspan:hover{
+
+ *//* .findspan:hover{
     background: #d7dadb;
     color: white;
 } */
+.liwrap .footdiv{
+    margin-bottom:5px;
+}
+.liwrap .chainmean{
+    overflow:hidden;
+}
+.liwrap .chainmean .reset,
+.liwrap .chainmean .sure,
+.liwrap .chainmean .removeall{
+    float:right;
+    width:82px;
+    height:24px;
+    line-height:22px;
+    border-radius:1px;
+    border:1px solid #ccc;
+    background-color:#fff;
+    outline:none;
+    cursor:pointer;
+    color:#333;
+    text-align:center;
+    margin-right: 5px;
+}
+.liwrap .chainmean .reset:hover,
+.liwrap .chainmean .sure:hover,
+.liwrap .chainmean .removeall:hover{
+    border-color:#40a8e8;
+    color:#40a8e8;
+}
 .pageinfo span{
 	width: 28px;
 	height: 23px;
@@ -3780,11 +3837,17 @@ table.treetable tr.expanded span.indenter a{
     height:100%;
     background:url(images/close.png) no-repeat center;
 }
+.dialog-close:hover{
+    background-image:url(images/close_hover.png)
+}
+.dialog-close:active{
+    background-image:url(images/close_active.png)
+}
 .dialog-header{
     border:0;
 }
 .dialog.error .dialog-header{
-    padding-top:0;
+    padding:0;
 }
 .dialog{
     border:1px solid #40a8e8;
@@ -3792,13 +3855,14 @@ table.treetable tr.expanded span.indenter a{
 .dialog *{
     box-sizing:border-box;
 }
-.dialog-button:active{
-    color:#40a8e8;  
-}
 .dialog-button:hover{
-    border-color:#40a8e8;
+    background:#40a8e8;
+    color:#fff;  
 }
-
+.dialog-button:active{
+    background:#3c9cd8;
+    color:#fff;
+}
 .dialog.error .dialog-header,
 .dialog-header,
 .dp-vw tbody.datepickerDays td.datepickerSelected a,
@@ -3858,7 +3922,39 @@ table.treetable tr.expanded span.indenter a{
 .loading.image{
     position:absolute;
 }
-button.ok{
+.search.fuzzy input{
+    padding-left:5px;
+    width:100%;
+    height:26px;
+    line-height:26px;
+    border:1px solid #ccc;
+    outline:none;
+ }
+.search.fuzzy input:focus{
+    border-color:#40a8e8;
+}
+.btn.search{
+    width:64px;
+    height:26px;
+    margin-left:5px;
+    border:none;
+    background:#40a8e8;
+    color:#fff;
+    line-height:26px;
+    text-align:center;
+    cursor:pointer;
+}
+.btn.ok{
+    width:82px;
+    height:26px;
+    line-height:26px;
+    background-color:#40a8e8;
+    outline:none;
+    cursor:pointer;
+    color:#fff;
+    border:none;
+}
+.btn.cancel{
     width:82px;
     height:26px;
     line-height:24px;
@@ -3869,9 +3965,9 @@ button.ok{
     cursor:pointer;
     color:#333;
 }
-button.ok:hover{
+.btn.cancel:hover{
     border-color:#40a8e8;
 }
-button.ok:active{
-    color:#40a8e8;
+.btn.ok:hover{
+    background:#3c9cd8;
 }

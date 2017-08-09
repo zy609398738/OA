@@ -12,6 +12,10 @@ YIUI.Control.Toolbar = YIUI.extend(YIUI.Control, {
 
         this.items = [];
     },
+
+    isDataBinding: function() {
+        return false;
+	},
     renderMenu: function () {
         var ul = this.ul;
         if (typeof  ul != "undefined") {

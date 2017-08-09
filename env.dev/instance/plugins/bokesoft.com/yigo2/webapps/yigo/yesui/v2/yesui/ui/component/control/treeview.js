@@ -55,6 +55,10 @@ YIUI.Control.TreeView = YIUI.extend(YIUI.Control, {
 	 * 表格选中模式  0单元格选 1行选
 	 */
 	selectionModel : 1,
+
+    isDataBinding: function() {
+        return false;
+	},
 	
 	init : function(options) {
 		this.base(options);

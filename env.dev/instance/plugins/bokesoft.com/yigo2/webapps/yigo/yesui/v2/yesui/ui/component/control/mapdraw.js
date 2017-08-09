@@ -19,6 +19,10 @@ YIUI.Control.MapDraw = YIUI.extend(YIUI.Control, {
     height: 500,
 
     width: 500,
+
+    isDataBinding: function() {
+        return false;
+	},
     
     setValue: function (value, commit, fireEvent) {
         var changed = this.base(value, commit, fireEvent);

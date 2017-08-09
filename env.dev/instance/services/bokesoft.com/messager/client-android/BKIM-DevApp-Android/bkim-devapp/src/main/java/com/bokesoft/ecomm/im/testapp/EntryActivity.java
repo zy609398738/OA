@@ -30,10 +30,8 @@ public class EntryActivity extends AppCompatActivity {
     private static final String PREF_NAME_IM_SERVER = "imServer";
     private static final String PREF_NAME_HOST_SERVER = "hostServer";
     private static final String PREF_NAME_CLIENT_ID = "clientId";
-    private static final String DEF_VAL_IM_SERVER = "192.168.191.1:7778/boke-messager";
-//        private static final String DEF_VAL_IM_SERVER = "dev.bokesoft.com:7778/boke-messager";
-//    private static final String DEF_VAL_HOST_SERVER = "dev.bokesoft.com:20242/yigo/im-service/buddies.action";
-    private static final String DEF_VAL_HOST_SERVER = "192.168.191.1:8080/im-service/${service}.json";
+    private static final String DEF_VAL_IM_SERVER = "10.0.2.2:7778/boke-messager";
+    private static final String DEF_VAL_HOST_SERVER = "10.0.2.2:8080/im-service/${service}.json";
     private static final String DEF_VAL_CLIENT_ID = "boke-test-001";
 
     protected EditText imSvrAddrView;
@@ -258,7 +256,6 @@ public class EntryActivity extends AppCompatActivity {
         if (withEmpty) {
             items.add(empty);
         }
-
         for (int i = 1; i <= 9; i++) {
             String uid = "boke-test-00" + i;
             if (!uid.equals(exclude)) {

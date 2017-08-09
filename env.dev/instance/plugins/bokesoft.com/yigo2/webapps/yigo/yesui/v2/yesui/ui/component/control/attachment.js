@@ -33,6 +33,10 @@ YIUI.Control.Attachment = YIUI.extend(YIUI.Control, {
         this.types = meta.types || '';
     },
 
+    isDataBinding: function() {
+        return false;
+	},
+
     onRender: function (ct) {
         this.base(ct);
         this._operatorID = $.cookie("userID");
@@ -107,24 +111,24 @@ YIUI.Control.Attachment = YIUI.extend(YIUI.Control, {
     	var $thead = $(".tbl-head", this.el).children("thead");
 		var $tr = $('<tr></tr>'),$th;
 		var attachment = YIUI.I18N.attachment;
-	    $('<td class="name"><label>'+attachment.name+'</label><span class="att-handler"></span></td>').appendTo($tr);
-	    $('<td class="time"><label>'+attachment.time+'</label><span class="att-handler"></span></td>').appendTo($tr);
-	    $('<td class="operator"><label>'+attachment.people+'</label><span class="att-handler"></span></td>').appendTo($tr);
-	    $('<td class="path"><label>'+attachment.url+'</label><span class="att-handler"></span></td>').appendTo($tr);
+	    $('<td class="name"><label>'+attachment.attachmentName+'</label><span class="att-handler"></span></td>').appendTo($tr);
+	    $('<td class="time"><label>'+attachment.attachmentUploadTime+'</label><span class="att-handler"></span></td>').appendTo($tr);
+	    $('<td class="operator"><label>'+attachment.attachmentUploadOperatorID+'</label><span class="att-handler"></span></td>').appendTo($tr);
+	    $('<td class="path"><label>'+attachment.attachmentPath+'</label><span class="att-handler"></span></td>').appendTo($tr);
 	    $('<td class="option_u"><label></label></td>').appendTo($tr);
 	    if(this.preview) {
 	    	$tr.addClass("hasView");
 	    	$('<td class="opt_left"><label>'+attachment.exercise+'</label></td>').appendTo($tr);
 	    	$('<td class="opt_right"><label>'+attachment.ldo+'</label></td>').appendTo($tr);
 	    } else {
-	    	$('<td class="option_d"><label>'+attachment.operation+'</label></td>').appendTo($tr);
+	    	$('<td class="option_d"><label>'+attachment.attachmentOperate+'</label></td>').appendTo($tr);
 	    }
 	    $('<td class="option_del"><label></label></td>').appendTo($tr);
 	    $('<td class="empty"><span/></td>').appendTo($tr);
 		$thead.append($tr);
 
 		var $tfoot = $('.tbl-foot', this.el);
-		var btn = $("<input class='btn fileBtn' type='button' value='"+attachment.upload+"'>");
+		var btn = $("<input class='btn fileBtn' type='button' value='"+attachment.attachmentUpload+"'>");
 		var fileBtn = this.fileBtn = $("<input type='file' name='file' data-url='upload' class='fup'>").data("fileID", -1);
 		$('<td colspan="7"></td>').append(btn).append(fileBtn).appendTo($('<tr></tr>')).appendTo($tfoot);
 		
@@ -182,9 +186,9 @@ YIUI.Control.Attachment = YIUI.extend(YIUI.Control, {
                 $('<td></td>').appendTo($tr).append($("<input class='btn upd' type='button' value='上传'>"))
                     .append($("<input type='file' name='file' data-url='upload' class='btn upd fup'>").data("fileID", oid));
 				// 下载
-				$('<td></td>').appendTo($tr).append($("<input class='btn download' type='button' value='"+attachment.download+"'>").data("fileID", oid));
+				$('<td></td>').appendTo($tr).append($("<input class='btn download' type='button' value='"+attachment.attachmentDownload+"'>").data("fileID", oid));
 				// 删除
-				$('<td></td>').appendTo($tr).append($("<input class='btn del' type='button' value='"+attachment.ldelete+"'>").data("fileID", oid));
+				$('<td></td>').appendTo($tr).append($("<input class='btn del' type='button' value='"+attachment.attachmentDelete+"'>").data("fileID", oid));
 				if(this.preview) {
 					$tr.addClass("hasView");
 					$('<td></td>').appendTo($tr).append($("<input class='btn view' type='button' value='"+attachment.preview+"'>").data("fileID", oid));

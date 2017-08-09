@@ -22,18 +22,22 @@ public class StateServlet extends HttpServlet {
 	private static final long serialVersionUID = 2016091201L;
 
 	/**
-	 * 设置用户状态
-	 * 请求参数格式：
-	 * {userCode1: state1, userCode2: state2, ...}
-	 * 返回数据格式：
-	 * {success: 1}, 其他格式均认为错误.
+	 * 设置用户状态:<br/>
+	 *  - 请求参数格式：<code>{userCode1: state1, userCode2: state2, ...}</code> ;<br/>
+	 *  - 返回数据格式：<code>{success: 1}</code>, 其他格式均认为错误; <br/>
+	 * 另外也支持按照 {@link #doGet(HttpServletRequest, HttpServletResponse)} 的数据格式查询用户状态。
 	 */
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
 		ServletUtils.checkAccessToken(req);
-		
+
 		JSONObject dataJson = ServletUtils.getParamDataAsJson(req);
+		if (null==dataJson){
+			//如果传递的不是 json 格式的 "data" 参数，那么当作 "获取用户状态" 处理
+			processGetStatus(req, resp);
+			return;
+		}
+		
 		for (String userCode : dataJson.keySet()){
 			UserStateManager.setState(userCode, dataJson.get(userCode).toString());
 			//计算当前用户连接会“影响其他哪些用户的 MyActiveConnectData 状态”
@@ -44,19 +48,22 @@ public class StateServlet extends HttpServlet {
 	}	
 	
 	/**
-	 * 获取用户状态
-	 * 请求参数格式：
-	 * /state?u=u001&u=u002&u=u003...
-	 * 返回数据格式：
-	 * {userCode1: state1, userCode2: state2, ...}
+	 * 获取用户状态: <br/>
+	 *  - 请求参数格式：<code>/state?u=u001&u=u002&u=u003...</code>, 支持 jQuery ajax 使用数组数据的 <code>u[]</code> 参数名;<br/>
+	 *  - 返回数据格式：<code>{userCode1: state1, userCode2: state2, ...}</code>
 	 */
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {	
-		
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {	
 		ServletUtils.checkAccessToken(req);
-		
-		String[] userCodes = req.getParameterValues("u");	
+		processGetStatus(req, resp);
+	}
+
+	private void processGetStatus(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		String[] userCodes = req.getParameterValues("u");
+		if (null==userCodes){
+			userCodes = req.getParameterValues("u[]");	//这里适合通过 jQuery ajax 传递过来的数组数据
+		}
+
 		Map<String, Object> result = new HashMap<String, Object>();
 		if(userCodes!=null){
 			for(int i=0;i<userCodes.length;i++){

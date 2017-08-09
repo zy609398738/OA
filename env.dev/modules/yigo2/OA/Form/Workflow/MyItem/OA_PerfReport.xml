@@ -50,7 +50,7 @@ join BPM_Migration m on  i.OID=m.BillOID order by i.instanceid ) h ]]>
         <Block>
             <FlexFlowLayoutPanel Key="root" Caption="根面板" Height="pref" Width="pref">
                 <SplitPanel Key="SplitPanel1" Orientation="Vertical" Height="100%" Caption="SplitPanel1">
-                    <GridLayoutPanel Key="GridLayoutPanel1" Height="110px" Padding="5px" Caption="GridLayoutPanel1" Visible="first_headVisible==1">
+                    <GridLayoutPanel Key="GridLayoutPanel1" Height="110px" Padding="5px" Caption="GridLayoutPanel1">
                         <DatePicker Key="From" Caption="申请日期" BuddyKey="Lab_From" X="1" Y="0">
                             <Condition ColumnKey="BillCreatTime" TableKey="OA_PerfReport" CondSign="between" Group="A" GroupHead="true"/>
                         </DatePicker>
@@ -189,7 +189,7 @@ ShowData();]]>
                                 <GridCell/>
                                 <GridCell/>
                                 <GridCell Key="AVGTimeConsuming" Caption="平均耗时">
-                                    <DataBinding DefaultFormulaValue="Sum(&quot;TotalTime&quot;)/(GetRowCount(&quot;Grid1&quot;)-1)"/>
+                                    <DataBinding DefaultFormulaValue="if(GetRowCount(&quot;Grid1&quot;)&gt;2){     Format(Sum(&quot;TotalTime&quot;)/(GetRowCount(&quot;Grid1&quot;)-1),&quot;0.0000&quot;)}else{ 0}"/>
                                 </GridCell>
                             </GridRow>
                         </GridRowCollection>

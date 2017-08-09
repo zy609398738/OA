@@ -38,7 +38,11 @@ var YIUI = YIUI || {};
         calcExprItemObject: function (com,item,fireEvent) {
             switch (item.objectType){
             case YIUI.ExprItem_Type.Item:
-                this.calcHeadItem(com,item,fireEvent);
+                if( item.type == this.EnableItemType.Operation ) {
+                    this.form.setOperationEnable(item.target,this.form.eval(item.content,this.newContext(this.form,-1,-1),null));
+                } else {
+                    this.calcHeadItem(com,item,fireEvent);
+                }
                 break;
             case YIUI.ExprItem_Type.Set:
                 switch (com.type){

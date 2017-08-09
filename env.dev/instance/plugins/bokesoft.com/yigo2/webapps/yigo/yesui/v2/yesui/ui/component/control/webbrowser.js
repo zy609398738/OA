@@ -3,6 +3,10 @@
  */
 YIUI.Control.WebBrowser = YIUI.extend(YIUI.Control, {
 
+    isDataBinding: function() {
+        return false;
+	},
+
 	onRender: function(ct) {
 		this.base(ct);
 		this.el.addClass("ui-web-bs");

@@ -14,7 +14,7 @@ YIUI.LoadWorkitemInplaceToolBar = (function() {
 				if (c != null) {
 					op.caption = c.toString();
 				} else {
-	                op.caption = YIUI.I18N.toolbar.approval;
+	                op.caption = YIUI.I18N.toolbar.revocateCommited;
 				}
 				op.action = formula;
 				op.key = "InverseState";
@@ -30,7 +30,7 @@ YIUI.LoadWorkitemInplaceToolBar = (function() {
 					var op = {};
 					var caption = item.caption;
 					if (caption == null || caption.length == 0) {
-	                    caption = YIUI.I18N.toolbar.submit;
+	                    caption = YIUI.I18N.toolbar.commitWorkItem;
 	                }
 					op.caption = caption;
 					op.action = item.action;
@@ -63,7 +63,7 @@ YIUI.LoadWorkitemInplaceToolBar = (function() {
 					var op = {};
 					var caption = item.caption;
 					if (caption == null || caption.length == 0) {
-	                    caption = YIUI.I18N.toolbar.submit;
+	                    caption = YIUI.I18N.toolbar.commitWorkItem;
 					}
 					op.caption = item.caption;
 					op.action = item.action;

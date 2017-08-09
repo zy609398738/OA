@@ -26,6 +26,16 @@ public class TSLMidFunction extends BaseFunImplCluster {
 				{ "TSL_InsertUserRespInf", new TSL_InsertUserRespInf() },
 				{ "TSL_ImportUserResp", new TSL_ImportUserResp() },
 				{ "TSL_GetUserResp", new TSL_GetUserResp() },				
-				{ "TSL_GetPI", new TSL_GetPI() } };
+				{ "TSL_GetPI", new TSL_GetPI() } ,
+				{ "TSL_DeleteBudget", new TSL_DeleteBudget() },				
+				{ "TSL_DeleteAP", new TSL_DeleteAP() } ,
+				{ "TSL_GetSupplierDataTable", new TSL_GetSupplierDataTableImpl() },
+				{ "TSL_GetInvoiceNumberDataTable", new TSL_GetInvoiceNumberDataTableImpl() },
+				{ "TSL_Get1688DataTable", new TSL_Get1688DataTableImpl() },
+				{ "TSL_GetCashFlowStatementDataTable", new TSL_GetCashFlowStatementDataTableImpl() },
+				{ "TSL_GetSupplierBankDataTable", new TSL_GetSupplierBankDataTableImpl() },
+				{ "TSL_GetPaymentBankDataTable", new TSL_GetPaymentBankDataTableImpl() },
+				{ "TSL_GetProjectNumDataTable", new TSL_GetProjectNumDataTableImpl() }
+				};
 	}
 }

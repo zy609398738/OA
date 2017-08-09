@@ -20,16 +20,55 @@ public class OASettings {
 	/**
 	 * 系统消息功能的标识
 	 */
+	public static final String SYSTEM_SET_KEY = "SystemSet";
+	/**
+	 * 系统消息功能的标识
+	 */
 	public static final String SYSTEM_MESSAGE_KEY = "SystemMessage";
 
 	/**
-	 * 获得系统消息的设置对象
+	 * 获得参数配置
 	 * 
-	 * @return 系统消息的设置对象
+	 * @return 参数配置
 	 * @throws Throwable
 	 */
-	public static Settings getSystemMessageSettings() throws Throwable {
-		return Configuration.getConfiguration(OA_MODULE_KEY).getMap(SYSTEM_MESSAGE_KEY);
+	public static Configuration getConfiguration() throws Throwable {
+		return Configuration.getConfiguration(OA_MODULE_KEY);
+	}
+
+	/**
+	 * 获得系统消息的参数设置对象
+	 * 
+	 * @return 系统消息的参数设置对象
+	 * @throws Throwable
+	 */
+	public static Settings getSystemSet() throws Throwable {
+		return getConfiguration().getMap(SYSTEM_SET_KEY);
+	}
+
+	/**
+	 * 获得模板路径
+	 * 
+	 * @return 模板路径
+	 * @throws Throwable
+	 */
+	public static String getWebUrl() throws Throwable {
+		String webUrl = "";
+		Settings settings = getSystemSet();
+		if (settings.containsProperty("WebUrl")) {
+			webUrl = settings.getProperty("WebUrl");
+		}
+		return webUrl;
+	}
+
+	/**
+	 * 获得系统设置的参数设置对象
+	 * 
+	 * @return 系统消息的参数设置对象
+	 * @throws Throwable
+	 */
+	public static Settings getSystemMessage() throws Throwable {
+		return getConfiguration().getMap(SYSTEM_MESSAGE_KEY);
 	}
 
 	/**
@@ -39,7 +78,7 @@ public class OASettings {
 	 * @throws Throwable
 	 */
 	public static Settings getSystemMessageType() throws Throwable {
-		return getSystemMessageSettings().getMap("MessageType");
+		return getSystemMessage().getMap("MessageType");
 	}
 
 	/**

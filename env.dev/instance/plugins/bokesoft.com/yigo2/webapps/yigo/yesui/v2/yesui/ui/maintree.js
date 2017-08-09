@@ -290,12 +290,12 @@
     	    			return;
     	    		}
     	    	});
-    	    	self.el.delegate("a","dblclick", function(e) {
+    	    	self.el.delegate("a","dblclick", $.debounce(500, function(e) {
     	    		if($(this).hasClass("noExpand")) {
     	    			self.clickEvent.selectNode($(this), self);
     	    			return;
     	    		}
-    	    	});
+    	    	}));
     	    },
     		init: function() {
     			this.initDataSource(this.rootEntry);

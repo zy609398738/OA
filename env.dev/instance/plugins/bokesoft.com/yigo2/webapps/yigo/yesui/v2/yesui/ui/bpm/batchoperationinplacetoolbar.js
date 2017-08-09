@@ -11,7 +11,7 @@ YIUI.BatchOperationInplaceToolBar = (function() {
 	        if(list) {
 	        	var nodes = list.nodes;
 	        	if(nodes && nodes.length > 0) {
-	        		var defaultContent = "BatchStateAction(1,"+YIUI.I18N.toolbar.via+")"; //与BPMSetting中DefaultBatchStateAction取值一致
+	        		var defaultContent = "BatchStateAction(1,'"+YIUI.I18N.toolbar.via+"')"; //与BPMSetting中DefaultBatchStateAction取值一致
 	        		for (var i = 0, len = nodes.length; i < len; i++) {
 	        			var node = nodes[i];
 	        			if(node["tag-name"] == "StateAction") {
@@ -26,7 +26,7 @@ YIUI.BatchOperationInplaceToolBar = (function() {
 	        				
 	        				var caption = item.caption;
 	        				if (caption == null || caption.length == 0) {
-	        					caption = YIUI.I18N.toolbar.submit;
+	        					caption = YIUI.I18N.toolbar.commitWorkItem;
 	        				}
 	        				
 	        				op.caption = caption;

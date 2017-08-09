@@ -23,7 +23,7 @@ YIUI.BPMInplaceToolBar = (function() {
 	
 					var op = {};
 					if( caption==null || caption.isEmpty() ) {
-	                    caption = YIUI.I18N.toolbar.startUp;
+	                    caption = YIUI.I18N.toolbar.startInstance;
 					}
 					op.caption = caption;
 					op.action = action;

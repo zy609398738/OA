@@ -34,7 +34,7 @@ from OA_MeetingInSide_h a where a.Status>100 and  a.EmpID=? order by billdate de
     <Body>
         <Block>
             <FlexFlowLayoutPanel Key="root" Caption="根面板">
-                <GridLayoutPanel Key="GridLayoutPanel1" Height="40px" Caption="GridLayoutPanel1" Visible="first_headVisible==1">
+                <GridLayoutPanel Key="GridLayoutPanel1" Height="40px" Caption="GridLayoutPanel1">
                     <Button Key="Query" Caption="查询" X="4" Y="0">
                         <OnClick>
                             <![CDATA[DealCondition();
