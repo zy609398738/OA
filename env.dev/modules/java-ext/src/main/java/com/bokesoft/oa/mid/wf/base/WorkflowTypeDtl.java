@@ -11,6 +11,24 @@ import com.bokesoft.yigo.struct.datatable.DataTable;
  *
  */
 public class WorkflowTypeDtl extends DtlBase<WorkflowType> {
+
+	/**
+	 * 头表
+	 * 
+	 * @return 头表
+	 * @throws Throwable
+	 */
+	public WorkflowType getHeadBase() throws Throwable {
+		WorkflowType workflowType = super.getHeadBase();
+		if (workflowType == null) {
+			Long soid = getSoid();
+			if (soid != null && soid > 0) {
+				setHeadBase(workflowType = getContext().getWorkflowTypeMap().get(soid));
+			}
+		}
+		return super.getHeadBase();
+	}
+
 	/**
 	 * 关联表单标识
 	 */

@@ -24,6 +24,7 @@ import com.bokesoft.oa.mid.wf.base.WFWorkitemMap;
 import com.bokesoft.oa.mid.wf.base.WorkflowDesigneMap;
 import com.bokesoft.oa.mid.wf.base.WorkflowMap;
 import com.bokesoft.oa.mid.wf.base.WorkflowTypeDtlMap;
+import com.bokesoft.oa.mid.wf.base.WorkflowTypeMap;
 import com.bokesoft.oa.mid.wf.base.WorkingCalendarMap;
 import com.bokesoft.oa.mid.wf.base.WorkingTimeMap;
 import com.bokesoft.oa.mid.wf.base.WorkitemInf;
@@ -346,6 +347,33 @@ public class OAContext {
 	 */
 	public void setWorkflowMap(WorkflowMap workflowMap) {
 		this.workflowMap = workflowMap;
+	}
+
+	/**
+	 * 流程类别集合
+	 */
+	private WorkflowTypeMap workflowTypeMap;
+
+	/**
+	 * 流程类别集合
+	 * 
+	 * @return 流程类别集合
+	 */
+	public WorkflowTypeMap getWorkflowTypeMap() {
+		if (workflowTypeMap == null) {
+			workflowTypeMap = new WorkflowTypeMap(this);
+		}
+		return workflowTypeMap;
+	}
+
+	/**
+	 * 流程类别集合
+	 * 
+	 * @param workflowTypeMap
+	 *            流程类别集合
+	 */
+	public void setWorkflowTypeMap(WorkflowTypeMap workflowTypeMap) {
+		this.workflowTypeMap = workflowTypeMap;
 	}
 
 	/**

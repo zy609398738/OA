@@ -10,6 +10,30 @@ import com.bokesoft.yigo.struct.datatable.DataTable;
  */
 public class DtlBase<H> extends Base {
 	/**
+	 * 父对象标识
+	 */
+	private Long soid;
+
+	/**
+	 * 父对象标识
+	 * 
+	 * @return 父对象标识
+	 */
+	public Long getSoid() {
+		return soid;
+	}
+
+	/**
+	 * 父对象标识
+	 * 
+	 * @param soid
+	 *            父对象标识
+	 */
+	public void setSoid(Long soid) {
+		this.soid = soid;
+	}
+
+	/**
 	 * 父对象
 	 */
 	private H headBase;
@@ -18,7 +42,7 @@ public class DtlBase<H> extends Base {
 	 * 父对象
 	 * 
 	 * @return 父对象
-	 * @throws Throwable 
+	 * @throws Throwable
 	 */
 	public H getHeadBase() throws Throwable {
 		return headBase;
@@ -54,5 +78,8 @@ public class DtlBase<H> extends Base {
 	 */
 	public void loadData(DataTable dt) throws Throwable {
 		setOID(dt.getLong("OID"));
+		if (dt.getMetaData().constains("SOID")) {
+			setSoid(dt.getLong("SOID"));
+		}
 	}
 }

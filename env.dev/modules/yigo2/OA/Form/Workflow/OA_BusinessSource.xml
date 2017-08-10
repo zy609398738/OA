@@ -89,7 +89,7 @@
                             </GridColumnCollection>
                             <GridRowCollection>
                                 <GridRow Key="row1" RowHeight="35" TableKey="OA_BusinessSource_D">
-                                    <GridCell Key="FieldKey" Caption="字段标识" CellType="ComboBox" CellSortType="None" SourceType="Formula" Editable="true" ItemsDependency="SourceSql">
+                                    <GridCell Key="FieldKey" Caption="字段标识" CellType="ComboBox" CellSortType="None" SourceType="Formula" Editable="true">
                                         <DataBinding ColumnKey="FieldKey" Required="true">
                                             <ValueChanged>
                                                 <![CDATA[FieldCaption=GetCellCaption("Grid1",-1,"FieldKey");]]>

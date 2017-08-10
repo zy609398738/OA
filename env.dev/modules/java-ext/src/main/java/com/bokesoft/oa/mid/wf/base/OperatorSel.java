@@ -377,6 +377,7 @@ public class OperatorSel extends BillBase {
 		setTag2(dt.getString("Tag2"));
 		setTag3(dt.getString("Tag3"));
 		setTag4(dt.getString("Tag4"));
+		setOptDesc(dt.getString("OptDesc"));
 		setMessageSetID(dt.getLong("MessageSetID_H"));
 		setEmailTemp(dt.getString("EmailTemp_H"));
 	}

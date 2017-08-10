@@ -459,12 +459,17 @@ OptDesc=OA_GetOptDesc();
                         </Button>
                         <Button Key="Save" Caption="确定" X="0" Y="4" Enable="true">
                             <OnClick>
-                                <![CDATA[if(IsNull(Para("GridKey")) || Para("GridKey")==""){
-    parent.SetValue(Para("FieldKey1"), OptDesc);
-    parent.SetValue(Para("FieldKey2"), GetOID());
+                                <![CDATA[if(Para("SourceKey")!="OA_OptRelationWF"){
+    if(IsNull(Para("GridKey")) || Para("GridKey")==""){
+        parent.SetValue(Para("FieldKey1"), OptDesc);
+        parent.SetValue(Para("FieldKey2"), GetOID());
+    }else{
+        parent.SetCellValue(Para("GridKey"), -1, Para("FieldKey1"), OptDesc);
+        parent.SetCellValue(Para("GridKey"), -1, Para("FieldKey2"), GetOID());
+    }
 }else{
-    parent.SetCellValue(Para("GridKey"), -1, Para("FieldKey1"), OptDesc);
-    parent.SetCellValue(Para("GridKey"), -1, Para("FieldKey2"), GetOID());
+    DBUpdate("update oa_workflowdesigne_d set "+Tag3+" =? where oid =?",OptDesc,Para("WfDesigneDtlID"));
+    parent.SetCellValue(Para("GridKey"), -1, "OptDesc", OptDesc);
 }
 SaveData();
 Close();]]>
@@ -539,14 +544,14 @@ Close();]]>
                         </Grid>
                         <GridLayoutPanel Key="BaseTab" Caption="基本设置">
                             <ComboBox Key="EmailTemp_H" Caption="邮件模板" BuddyKey="Lab_EmailTemp_H" X="3" Y="0" Enable="true" SourceType="Formula">
-                                <DataBinding ColumnKey="EmailTemp_H" TableKey="OA_OperatorSel_H" DefaultFormulaValue="var fieldKey = Para(&quot;FieldKey1&quot;); DBQueryValue(&quot;SELECT EmailTemp from OA_OperatorSel_H h where h.oid = ? and FieldKey = ?&quot;, GetOID(),fieldKey);"/>
+                                <DataBinding ColumnKey="EmailTemp_H" TableKey="OA_OperatorSel_H"/>
                                 <FormulaItems>
                                     <![CDATA[InvokeService("OA_GetFileNameStr", false, true, "../cms/site/static/email")]]>
                                 </FormulaItems>
                             </ComboBox>
                             <Label Key="Lab_EmailTemp_H" Caption="邮件模板" X="2" Y="0"/>
                             <Dict Key="MessageSetID_H" Caption="发送方式" BuddyKey="Lab_MessageSetID_H" X="1" Y="0" Enable="true" ItemKey="OA_MessageSet">
-                                <DataBinding ColumnKey="MessageSetID_H" TableKey="OA_OperatorSel_H" DefaultFormulaValue="var fieldKey = Para(&quot;FieldKey1&quot;); DBQueryValue(&quot;SELECT messageSetID from OA_OperatorSel_H h where h.oid = ? and FieldKey = ?&quot;, GetOID(),fieldKey)"/>
+                                <DataBinding ColumnKey="MessageSetID_H" TableKey="OA_OperatorSel_H"/>
                             </Dict>
                             <Label Key="Lab_MessageSetID_H" Caption="发送方式" X="0" Y="0"/>
                             <RowDefCollection RowGap="5">
@@ -626,7 +631,7 @@ Close();]]>
                             <TextArea BuddyKey="Lab_OptDesc" Caption="选择结果描述" Key="OptDesc" X="1" XSpan="5" Y="5">
                                 <DataBinding ColumnKey="OptDesc" TableKey="OA_OperatorSel_H"/>
                             </TextArea>
-                            <TextArea Key="OptIDs" Caption="操作员ids" BuddyKey="Lab_OptIDs" X="1" Y="6" XSpan="5">
+                            <TextArea Key="OptIDs" Caption="操作员ids" BuddyKey="Lab_OptIDs" X="1" Y="6" Visible="false" XSpan="5">
                                 <DataBinding ColumnKey="OptIDs" TableKey="OA_OperatorSel_H"/>
                             </TextArea>
                             <Label Key="Lab_OptIDs" Caption="操作员ids" X="0" Y="6"/>

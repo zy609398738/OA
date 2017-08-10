@@ -74,6 +74,7 @@ public class WorkflowTypeDtlMap extends DtlBaseMap<Long, WorkflowTypeDtl, Workfl
 			Long oid = dt.getLong("OID");
 			WorkflowTypeDtl dtl = getContext().getWorkflowTypeDtlMap().get(oid);
 			if (dtl == null) {
+				
 				dtl = new WorkflowTypeDtl(getContext(), getHeadBase());
 				dtl.loadData(dt);
 			}

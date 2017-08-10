@@ -223,11 +223,11 @@ Close();]]>
                         </Grid>
                         <GridLayoutPanel Key="BaseTab" Caption="基本设置">
                             <Dict Key="MessageSetID_H" Caption="发送方式" BuddyKey="Lab_MessageSetID_H" X="1" Y="0" Enable="true" ItemKey="OA_MessageSet">
-                                <DataBinding ColumnKey="MessageSetID_H" TableKey="OA_OperationSel_H" DefaultFormulaValue="var fieldKey = Para(&quot;FieldKey1&quot;); DBQueryValue(&quot;SELECT messageSetID_H from OA_OperatorSel_H h where h.oid = ? and FieldKey = ?&quot;, GetOID(),fieldKey)"/>
+                                <DataBinding ColumnKey="MessageSetID_H" TableKey="OA_OperationSel_H"/>
                             </Dict>
                             <Label Key="Lab_MessageSetID_H" Caption="发送方式" X="0" Y="0"/>
                             <ComboBox Key="EmailTemp_H" Caption="邮件模板" BuddyKey="Lab_EmailTemp_H" X="3" Y="0" SourceType="Formula" Enable="true">
-                                <DataBinding ColumnKey="EmailTemp_H" TableKey="OA_OperationSel_H" DefaultFormulaValue="var fieldKey = Para(&quot;FieldKey1&quot;); DBQueryValue(&quot;SELECT EmailTemp_H from OA_OperatorSel_H h where h.oid = ? and FieldKey = ?&quot;, GetOID(),fieldKey)"/>
+                                <DataBinding ColumnKey="EmailTemp_H" TableKey="OA_OperationSel_H"/>
                                 <FormulaItems>
                                     <![CDATA[InvokeService("OA_GetFileNameStr", false, true, "../cms/site/static/email")]]>
                                 </FormulaItems>

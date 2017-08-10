@@ -80,6 +80,7 @@
                     <Column Key="IsSaveData" Caption="是否保存数据" DataType="Integer"/>
                     <Column Key="AuditAfterClose" Caption="审批后不关闭界面" DataType="Integer"/>
                     <Column Key="AuditAfterNextPre" Caption="审批后不提示下一步处理者" DataType="Integer"/>
+                    <Column Key="EmailTemp" Caption="邮件模板" DataType="Varchar"/>
                 </Table>
                 <Table Key="OA_NodeProperty_Create" Caption="节点创建" DBTableName="OA_NodeProperty_Create" TableMode="Detail">
                     <Column Key="OID" Caption="对象标识" DataType="Long"/>
@@ -232,10 +233,17 @@
                                 <DataBinding ColumnKey="InformPerOID" TableKey="OA_NodeProperty_H"/>
                             </NumberEditor>
                             <Label Key="Lab_InformPerOID" Caption="通知人员选择ID" X="0" Y="6"/>
-                            <Dict Key="SendTypeID" Caption="发送方式" BuddyKey="Lab_SendTypeID" X="5" Y="4" ItemKey="OA_MessageSet">
+                            <Dict Key="SendTypeID" Caption="发送方式" BuddyKey="Lab_SendTypeID" X="2" Y="4" ItemKey="OA_MessageSet">
                                 <DataBinding ColumnKey="SendTypeID" TableKey="OA_NodeProperty_H"/>
                             </Dict>
-                            <Label Key="Lab_SendTypeID" Caption="发送方式" X="4" Y="4"/>
+                            <Label Key="Lab_SendTypeID" Caption="发送方式" X="1" Y="4"/>
+                            <ComboBox Key="EmailTemp" Caption="邮件模板" BuddyKey="Lab_EmailTemp" X="5" Y="4" SourceType="Formula">
+                                <DataBinding ColumnKey="EmailTemp" TableKey="OA_NodeProperty_H"/>
+                                <FormulaItems>
+                                    <![CDATA[InvokeService("OA_GetFileNameStr", false, true, "../cms/site/static/email")]]>
+                                </FormulaItems>
+                            </ComboBox>
+                            <Label Key="Lab_EmailTemp" Caption="邮件模板" X="3" Y="4" XSpan="2"/>
                             <RowDefCollection RowGap="5">
                                 <RowDef Height="30px"/>
                                 <RowDef Height="30px"/>

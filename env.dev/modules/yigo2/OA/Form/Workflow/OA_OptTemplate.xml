@@ -92,7 +92,9 @@ Confirm("撤销成功");]]>
         </Operation>
         <Operation Key="OPTTransit" Caption="直送">
             <Action>
-                <![CDATA[CommitWorkitem(-1, 1,"",{pattern:{Transit}});
+                <![CDATA[if(ContainsKey("AuditOpinion")){
+CommitWorkitem(-1,1,GetValue("AuditOpinion"),{pattern:{Transit}});}
+else{CommitWorkitem(-1,1,"",{pattern:{Transit}});}
 Confirm("直送成功");]]>
             </Action>
         </Operation>

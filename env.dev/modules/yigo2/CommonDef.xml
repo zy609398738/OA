@@ -480,7 +480,7 @@ if(DBNamedQueryValue("querySourceOID",OID,workitemid)<=0){
             <ParaItem Caption="流程监控" Key="com.bokesoft.oa.mid.wf.WorkflowMonitor" Value="com.bokesoft.oa.mid.wf.WorkflowMonitor"/>
         </ParaGroup>
         <ParaGroup Caption="划分类型" Key="PartitionType">
-            <ParaItem Caption="通用" Key="common" Value="common"/>
+            <ParaItem Caption="一般" Key="common" Value="common"/>
             <ParaItem Caption="区域" Key="area" Value="area"/>
         </ParaGroup>
         <ParaGroup Caption="反馈类型" Key="FeedbackType">
