@@ -1,0 +1,4602 @@
+[
+  {
+    "chinese_desc": "性别",
+    "description": "SEX",
+    "name": "1",
+    "tabletype": "2",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "女性",
+        "description": "Female",
+        "value": "F"
+      },
+      {
+        "position": "2",
+        "chinese_desc": "男性",
+        "description": "Male",
+        "value": "M"
+      },
+      {
+        "position": "3",
+        "chinese_desc": "其他",
+        "description": "Other",
+        "value": "O"
+      },
+      {
+        "position": "4",
+        "chinese_desc": "未知",
+        "description": "Unknown",
+        "value": "U"
+      }
+    ]
+  },
+  {
+    "chinese_desc": "婚姻状况",
+    "description": "MARITAL STATUS",
+    "name": "2",
+    "tabletype": "2",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "分离",
+        "description": "Separated",
+        "value": "A"
+      },
+      {
+        "position": "2",
+        "chinese_desc": "离婚",
+        "description": "Divorced",
+        "value": "D"
+      },
+      {
+        "position": "3",
+        "chinese_desc": "结婚",
+        "description": "Married",
+        "value": "M"
+      },
+      {
+        "position": "4",
+        "chinese_desc": "单",
+        "description": "Single",
+        "value": "S"
+      },
+      {
+        "position": "5",
+        "chinese_desc": "丧偶",
+        "description": "Widowed",
+        "value": "W"
+      }
+    ]
+  },
+  {
+    "chinese_desc": "事件类型代码",
+    "description": "EVENT TYPE CODE",
+    "name": "3",
+    "tabletype": "2",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "挂起的传输",
+        "description": "Pending transfer",
+        "value": "A15"
+      },
+      {
+        "position": "2",
+        "chinese_desc": "接纳病人",
+        "description": "Admit a patient",
+        "value": "A01"
+      },
+      {
+        "position": "3",
+        "chinese_desc": "转移病人",
+        "description": "Transfer a Patient",
+        "value": "A02"
+      },
+      {
+        "position": "4",
+        "chinese_desc": "出院病人",
+        "description": "Discharge a Patient",
+        "value": "A03"
+      },
+      {
+        "position": "5",
+        "chinese_desc": "登记病人",
+        "description": "Register a Patient",
+        "value": "A04"
+      },
+      {
+        "position": "6",
+        "chinese_desc": "预承认有耐心",
+        "description": "Pre-admit a Patient",
+        "value": "A05"
+      },
+      {
+        "position": "7",
+        "chinese_desc": "年门诊to inpatient转移",
+        "description": "Transfer an outpatient to inpatient",
+        "value": "A06"
+      },
+      {
+        "position": "8",
+        "chinese_desc": "转移住院病人到门诊",
+        "description": "Transfer an Inpatient to Outpatient",
+        "value": "A07"
+      },
+      {
+        "position": "9",
+        "chinese_desc": "更新患者信息",
+        "description": "Update patient information",
+        "value": "A08"
+      },
+      {
+        "position": "10",
+        "chinese_desc": "病人离开",
+        "description": "Patient departing",
+        "value": "A09"
+      },
+      {
+        "position": "11",
+        "chinese_desc": "病人到达",
+        "description": "Patient arriving",
+        "value": "A10"
+      },
+      {
+        "position": "12",
+        "chinese_desc": "取消录取",
+        "description": "Cancel admit",
+        "value": "A11"
+      },
+      {
+        "position": "13",
+        "chinese_desc": "取消转让",
+        "description": "Cancel transfer",
+        "value": "A12"
+      },
+      {
+        "position": "14",
+        "chinese_desc": "取消放电",
+        "description": "Cancel discharge",
+        "value": "A13"
+      },
+      {
+        "position": "15",
+        "chinese_desc": "待定",
+        "description": "Pending admit",
+        "value": "A14"
+      },
+      {
+        "position": "16",
+        "chinese_desc": "挂起的放电",
+        "description": "Pending discharge",
+        "value": "A16"
+      },
+      {
+        "position": "17",
+        "chinese_desc": "交换病人",
+        "description": "Swap Patients",
+        "value": "A17"
+      },
+      {
+        "position": "18",
+        "chinese_desc": "合并的病人信息",
+        "description": "Merge patient information",
+        "value": "A18"
+      },
+      {
+        "position": "19",
+        "chinese_desc": "床状态更新",
+        "description": "Bed status updates",
+        "value": "A20"
+      },
+      {
+        "position": "20",
+        "chinese_desc": "离开-离开（离开）",
+        "description": "Leave of Absence - Out (leaving)",
+        "value": "A21"
+      },
+      {
+        "position": "21",
+        "chinese_desc": "离开-（返回）",
+        "description": "Leave of Absence - In (returning)",
+        "value": "A22"
+      },
+      {
+        "position": "22",
+        "chinese_desc": "删除病人记录",
+        "description": "Delete a Patient Record",
+        "value": "A23"
+      },
+      {
+        "position": "23",
+        "chinese_desc": "连接病人记录",
+        "description": "Link Patient Records",
+        "value": "A24"
+      },
+      {
+        "position": "24",
+        "chinese_desc": "订单响应",
+        "description": "Order response",
+        "value": "O02"
+      },
+      {
+        "position": "25",
+        "chinese_desc": "添加和更新病人帐户",
+        "description": "Add and update patient account",
+        "value": "P01"
+      },
+      {
+        "position": "26",
+        "chinese_desc": "后金融交易",
+        "description": "Post detail financial transaction",
+        "value": "P03"
+      },
+      {
+        "position": "27",
+        "chinese_desc": "生成帐单和报表",
+        "description": "Generate bills and A/R statements",
+        "value": "P04"
+      },
+      {
+        "position": "28",
+        "chinese_desc": "延迟访问",
+        "description": "Deferred Access",
+        "value": "Q02"
+      },
+      {
+        "position": "29",
+        "chinese_desc": "观察主动传输请求。",
+        "description": "Unsolicited transmission of requested Observ.",
+        "value": "R01"
+      },
+      {
+        "position": "30",
+        "chinese_desc": "面向显示的结果，查询/ unsol。更新",
+        "description": "Display oriented results, query/unsol. update",
+        "value": "R03"
+      }
+    ]
+  },
+  {
+    "chinese_desc": "病人类",
+    "description": "PATIENT CLASS",
+    "name": "4",
+    "tabletype": "3",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "急救",
+        "description": "Emergency",
+        "value": "E"
+      },
+      {
+        "position": "2",
+        "chinese_desc": "住院",
+        "description": "Inpatient",
+        "value": "I"
+      },
+      {
+        "position": "3",
+        "chinese_desc": "门诊",
+        "description": "Outpatient",
+        "value": "O"
+      },
+      {
+        "position": "4",
+        "chinese_desc": "preadmit",
+        "description": "Preadmit",
+        "value": "P"
+      }
+    ]
+  },
+  {
+    "chinese_desc": "族群",
+    "description": "ETHNIC GROUP",
+    "name": "5",
+    "tabletype": "1",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "黑色",
+        "description": "Black",
+        "value": "B"
+      },
+      {
+        "position": "2",
+        "chinese_desc": "东方",
+        "description": "Oriental",
+        "value": "R"
+      },
+      {
+        "position": "3",
+        "chinese_desc": "西班牙",
+        "description": "Hispanic",
+        "value": "H"
+      },
+      {
+        "position": "4",
+        "chinese_desc": "白种人",
+        "description": "Caucasian",
+        "value": "C"
+      }
+    ]
+  },
+  {
+    "chinese_desc": "宗教",
+    "description": "RELIGION",
+    "name": "6",
+    "tabletype": "2",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "新教",
+        "description": "Protestant",
+        "value": "P"
+      },
+      {
+        "position": "2",
+        "chinese_desc": "无神论者",
+        "description": "Atheist",
+        "value": "A"
+      },
+      {
+        "position": "3",
+        "chinese_desc": "浸信会",
+        "description": "Baptist",
+        "value": "B"
+      },
+      {
+        "position": "4",
+        "chinese_desc": "天主教的",
+        "description": "Catholic",
+        "value": "C"
+      },
+      {
+        "position": "5",
+        "chinese_desc": "圣公会",
+        "description": "Episcopalian",
+        "value": "E"
+      },
+      {
+        "position": "6",
+        "chinese_desc": "犹太教",
+        "description": "Judaism",
+        "value": "J"
+      },
+      {
+        "position": "7",
+        "chinese_desc": "信义",
+        "description": "Lutheran",
+        "value": "L"
+      },
+      {
+        "position": "8",
+        "chinese_desc": "后期圣徒教会（摩门教）",
+        "description": "Church of Latter Day Saints (Mormon)",
+        "value": "M"
+      },
+      {
+        "position": "9",
+        "chinese_desc": "印度",
+        "description": "Hindu",
+        "value": "N"
+      }
+    ]
+  },
+  {
+    "chinese_desc": "录取类型",
+    "description": "ADMISSION TYPE",
+    "name": "7",
+    "tabletype": "3",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "事故",
+        "description": "Accident",
+        "value": "A"
+      },
+      {
+        "position": "2",
+        "chinese_desc": "急救",
+        "description": "Emergency",
+        "value": "E"
+      },
+      {
+        "position": "3",
+        "chinese_desc": "劳动和交付",
+        "description": "Labor and Delivery",
+        "value": "L"
+      },
+      {
+        "position": "4",
+        "chinese_desc": "常规",
+        "description": "Routine",
+        "value": "R"
+      }
+    ]
+  },
+  {
+    "chinese_desc": "确认码",
+    "description": "ACKNOWLEDGMENT CODE",
+    "name": "8",
+    "tabletype": "2",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "应用接受",
+        "description": "Application Accept",
+        "value": "AA"
+      },
+      {
+        "position": "2",
+        "chinese_desc": "应用拒收",
+        "description": "Application Reject",
+        "value": "AR"
+      }
+    ]
+  },
+  {
+    "chinese_desc": "动态状态",
+    "description": "AMBULATORY STATUS",
+    "name": "9",
+    "tabletype": "1",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "无功能限制",
+        "description": "No functional limitations",
+        "value": "A0"
+      },
+      {
+        "position": "2",
+        "chinese_desc": "结合轮椅或担架",
+        "description": "Wheelchair/stretcher bound",
+        "value": "A2"
+      },
+      {
+        "position": "3",
+        "chinese_desc": "昏迷；无响应",
+        "description": "Comatose; non-responsive",
+        "value": "A3"
+      },
+      {
+        "position": "4",
+        "chinese_desc": "迷失了方向",
+        "description": "Disoriented",
+        "value": "A4"
+      },
+      {
+        "position": "5",
+        "chinese_desc": "视力障碍",
+        "description": "Vision impaired",
+        "value": "A5"
+      },
+      {
+        "position": "6",
+        "chinese_desc": "言语障碍",
+        "description": "Speech impaired",
+        "value": "A7"
+      },
+      {
+        "position": "7",
+        "chinese_desc": "非英语演讲",
+        "description": "Non-English Speaking",
+        "value": "A8"
+      },
+      {
+        "position": "8",
+        "chinese_desc": "功能级未知",
+        "description": "Functional level unknown",
+        "value": "A9"
+      },
+      {
+        "position": "9",
+        "chinese_desc": "特殊设备（曲调，四，导管）",
+        "description": "Special Equipment (tunes, IV\u0027s, Catheters)",
+        "value": "B2"
+      },
+      {
+        "position": "10",
+        "chinese_desc": "截肢",
+        "description": "Amputee",
+        "value": "B3"
+      },
+      {
+        "position": "11",
+        "chinese_desc": "乳腺癌根治术",
+        "description": "Mastectomy",
+        "value": "B4"
+      },
+      {
+        "position": "12",
+        "chinese_desc": "截瘫",
+        "description": "Paraplegic",
+        "value": "B5"
+      },
+      {
+        "position": "13",
+        "chinese_desc": "怀孕",
+        "description": "Pregnant",
+        "value": "B6"
+      }
+    ]
+  },
+  {
+    "chinese_desc": "！复制从2.5.1 -医师身份",
+    "description": "!Copied from 2.5.1 - Physician ID",
+    "name": "10",
+    "tabletype": "1",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "没有建议值定义",
+        "description": "No suggested values defined",
+        "value": "..."
+      }
+    ]
+  },
+  {
+    "chinese_desc": "充电系统",
+    "description": "CHARGING SYSTEM",
+    "name": "11",
+    "tabletype": "1",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "接收和处理该命令的系统",
+        "description": "System that received and processed the order",
+        "value": "R"
+      },
+      {
+        "position": "2",
+        "chinese_desc": "发出命令的系统",
+        "description": "System that sent the order",
+        "value": "S"
+      }
+    ]
+  },
+  {
+    "chinese_desc": "库存位置",
+    "description": "STOCK LOCATION",
+    "name": "12",
+    "tabletype": "1",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "填充地板股票",
+        "description": "Filled from floor stock",
+        "value": "FL"
+      }
+    ]
+  },
+  {
+    "chinese_desc": "充电或non-chargeable",
+    "description": "CHARGEABLE OR NON-CHARGEABLE",
+    "name": "13",
+    "tabletype": "2",
+    "Enumerate": [
+      
+    ]
+  },
+  {
+    "chinese_desc": "测量高度单位",
+    "description": "HEIGHT UNIT OF MEASURE",
+    "name": "14",
+    "tabletype": "2",
+    "Enumerate": [
+      
+    ]
+  },
+  {
+    "chinese_desc": "测量重量单位",
+    "description": "WEIGHT UNIT OF MEASURE",
+    "name": "15",
+    "tabletype": "2",
+    "Enumerate": [
+      
+    ]
+  },
+  {
+    "chinese_desc": "隔离",
+    "description": "ISOLATION",
+    "name": "16",
+    "tabletype": "1",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "抗生素预防措施",
+        "description": "Antibiotic Resistance Precautions",
+        "value": "0"
+      },
+      {
+        "position": "2",
+        "chinese_desc": "血和针预防措施",
+        "description": "Blood and Needle Precautions",
+        "value": "1"
+      },
+      {
+        "position": "3",
+        "chinese_desc": "中性粒细胞减少的预防措施",
+        "description": "Neutropenic Precautions",
+        "value": "3"
+      },
+      {
+        "position": "4",
+        "chinese_desc": "呼吸隔离",
+        "description": "Respiratory Isolation",
+        "value": "5"
+      },
+      {
+        "position": "5",
+        "chinese_desc": "分泌/排泄预防措施",
+        "description": "Secretion/Excretion Precautions",
+        "value": "6"
+      },
+      {
+        "position": "6",
+        "chinese_desc": "伤口及皮肤预防措施",
+        "description": "Wound and skin Precautions",
+        "value": "8"
+      },
+      {
+        "position": "7",
+        "chinese_desc": "注意事项",
+        "description": "Precautions",
+        "value": "9"
+      }
+    ]
+  },
+  {
+    "chinese_desc": "交易类型",
+    "description": "TRANSACTION TYPE",
+    "name": "17",
+    "tabletype": "2",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "zwischenrechnung",
+        "description": "Zwischenrechnung",
+        "value": "1"
+      },
+      {
+        "position": "2",
+        "chinese_desc": "关闭帐户",
+        "description": "Schlußrechnung",
+        "value": "2"
+      },
+      {
+        "position": "3",
+        "chinese_desc": "nachtragsrechnung",
+        "description": "Nachtragsrechnung",
+        "value": "3"
+      },
+      {
+        "position": "4",
+        "chinese_desc": "gutschrift",
+        "description": "Gutschrift",
+        "value": "4"
+      },
+      {
+        "position": "5",
+        "chinese_desc": "stornierung",
+        "description": "Stornierung",
+        "value": "5"
+      },
+      {
+        "position": "6",
+        "chinese_desc": "zahlungserinnerung",
+        "description": "Zahlungserinnerung",
+        "value": "6"
+      },
+      {
+        "position": "7",
+        "chinese_desc": "1。mahnung",
+        "description": "1. Mahnung",
+        "value": "7"
+      },
+      {
+        "position": "8",
+        "chinese_desc": "2。mahnung",
+        "description": "2. Mahnung",
+        "value": "8"
+      }
+    ]
+  },
+  {
+    "chinese_desc": "！copied from 2.2病人类型",
+    "description": "!Copied from 2.2 - PATIENT TYPE",
+    "name": "18",
+    "tabletype": "1",
+    "Enumerate": [
+      {
+        "position": "1",
+        "value": "E"
+      },
+      {
+        "position": "2",
+        "value": "F"
+      },
+      {
+        "position": "3",
+        "value": "N"
+      },
+      {
+        "position": "4",
+        "value": "S"
+      },
+      {
+        "position": "5",
+        "value": "K"
+      },
+      {
+        "position": "6",
+        "value": "J"
+      },
+      {
+        "position": "7",
+        "value": "G"
+      },
+      {
+        "position": "8",
+        "value": "B"
+      },
+      {
+        "position": "9",
+        "value": "P"
+      }
+    ]
+  },
+  {
+    "chinese_desc": "！复制代码从2.5.1麻醉",
+    "description": "!Copied from 2.5.1 - Anesthesia Code",
+    "name": "19",
+    "tabletype": "1",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "没有建议值定义",
+        "description": "No suggested values defined",
+        "value": "..."
+      }
+    ]
+  },
+  {
+    "chinese_desc": "未使用的表",
+    "description": "UNUSED TABLE",
+    "name": "20",
+    "tabletype": "0",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "适度表现",
+        "description": "Moderate Manifestation",
+        "value": "2"
+      },
+      {
+        "position": "2",
+        "chinese_desc": "主要表现",
+        "description": "Major Manifestation",
+        "value": "3"
+      }
+    ]
+  },
+  {
+    "chinese_desc": "！从2.5.1 -坏账机构代码复制",
+    "description": "!Copied from 2.5.1 - Bad Debt Agency Code",
+    "name": "21",
+    "tabletype": "1",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "没有建议值定义",
+        "description": "No suggested values defined",
+        "value": "..."
+      }
+    ]
+  },
+  {
+    "chinese_desc": "！复制从2.5.1计费状态",
+    "description": "!Copied from 2.5.1 - Billing Status",
+    "name": "22",
+    "tabletype": "1",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "没有建议值定义",
+        "description": "No suggested values defined",
+        "value": "..."
+      }
+    ]
+  },
+  {
+    "chinese_desc": "！copied from 2.3.1 -承认源",
+    "description": "!Copied from 2.3.1 - Admit source",
+    "name": "23",
+    "tabletype": "1",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "医师转诊",
+        "description": "Physician referral",
+        "value": "1"
+      },
+      {
+        "position": "2",
+        "chinese_desc": "临床转诊",
+        "description": "Clinic referral",
+        "value": "2"
+      },
+      {
+        "position": "3",
+        "chinese_desc": "HMO转诊",
+        "description": "HMO referral",
+        "value": "3"
+      },
+      {
+        "position": "4",
+        "chinese_desc": "从医院转移",
+        "description": "Transfer from a hospital",
+        "value": "4"
+      },
+      {
+        "position": "5",
+        "chinese_desc": "从熟练的护理设施转移",
+        "description": "Transfer from a skilled nursing facility",
+        "value": "5"
+      },
+      {
+        "position": "6",
+        "chinese_desc": "从另一个医疗设施转移",
+        "description": "Transfer from another health care facility",
+        "value": "6"
+      },
+      {
+        "position": "7",
+        "chinese_desc": "急诊室",
+        "description": "Emergency room",
+        "value": "7"
+      },
+      {
+        "position": "8",
+        "chinese_desc": "短/ Law Enforcement",
+        "description": "Court/law enforcement",
+        "value": "8"
+      },
+      {
+        "position": "9",
+        "chinese_desc": "信息不可用",
+        "description": "Information not available",
+        "value": "9"
+      }
+    ]
+  },
+  {
+    "chinese_desc": "！复制2.2 -收费表",
+    "description": "!Copied from 2.2 - FEE SCHEDULE",
+    "name": "24",
+    "tabletype": "6",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "goÄ",
+        "description": "GOÄ",
+        "value": "G"
+      },
+      {
+        "position": "2",
+        "chinese_desc": "循证医学",
+        "description": "EBM",
+        "value": "E"
+      },
+      {
+        "position": "3",
+        "chinese_desc": "hauskatalog",
+        "description": "Hauskatalog",
+        "value": "H"
+      },
+      {
+        "position": "4",
+        "chinese_desc": "sonderentgelte",
+        "description": "Sonderentgelte",
+        "value": "S"
+      },
+      {
+        "position": "5",
+        "chinese_desc": "fallpauschale",
+        "description": "Fallpauschale",
+        "value": "F"
+      },
+      {
+        "position": "6",
+        "chinese_desc": "dkg-nt",
+        "description": "DKG-NT",
+        "value": "D"
+      },
+      {
+        "position": "7",
+        "chinese_desc": "…",
+        "description": "...",
+        "value": "..."
+      }
+    ]
+  },
+  {
+    "chinese_desc": "确认码",
+    "description": "CONFIRMATION CODE",
+    "name": "25",
+    "tabletype": "2",
+    "Enumerate": [
+      
+    ]
+  },
+  {
+    "chinese_desc": "订单事件类型",
+    "description": "ORDER EVENT TYPE",
+    "name": "26",
+    "tabletype": "2",
+    "Enumerate": [
+      
+    ]
+  },
+  {
+    "chinese_desc": "优先（组件6数量/时间[ 735 ]）",
+    "description": "PRIORITY (COMPONENT 6 QTY/TIMING[735])",
+    "name": "27",
+    "tabletype": "3",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "定时采集",
+        "description": "Timed collection",
+        "value": "T"
+      },
+      {
+        "position": "2",
+        "chinese_desc": "尽快填写后统计订单。",
+        "description": "ASAP. Fill after STAT orders.",
+        "value": "A"
+      },
+      {
+        "position": "3",
+        "chinese_desc": "统计要求立即。",
+        "description": "Stat. Required immediately.",
+        "value": "S"
+      }
+    ]
+  },
+  {
+    "chinese_desc": "未使用的表",
+    "description": "UNUSED TABLE",
+    "name": "28",
+    "tabletype": "0",
+    "Enumerate": [
+      
+    ]
+  },
+  {
+    "chinese_desc": "计量单位",
+    "description": "UNIT OF MEASURE",
+    "name": "29",
+    "tabletype": "2",
+    "Enumerate": [
+      
+    ]
+  },
+  {
+    "chinese_desc": "频率码",
+    "description": "FREQUENCY CODE",
+    "name": "30",
+    "tabletype": "3",
+    "Enumerate": [
+      
+    ]
+  },
+  {
+    "chinese_desc": "血行-元件类型",
+    "description": "BLOOD BANK - COMPONENT TYPE",
+    "name": "31",
+    "tabletype": "2",
+    "Enumerate": [
+      
+    ]
+  },
+  {
+    "chinese_desc": "！copied from 2.2充电/价格指标",
+    "description": "!Copied from 2.2 - CHARGE/PRICE INDICATOR",
+    "name": "32",
+    "tabletype": "1",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "卡丝",
+        "description": "Kasse",
+        "value": "K"
+      },
+      {
+        "position": "2",
+        "chinese_desc": "selbstzahler",
+        "description": "Selbstzahler",
+        "value": "S"
+      }
+    ]
+  },
+  {
+    "chinese_desc": "路线",
+    "description": "ROUTE",
+    "name": "33",
+    "tabletype": "2",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "直肠给药",
+        "description": "Rectally",
+        "value": "RC"
+      },
+      {
+        "position": "2",
+        "chinese_desc": "nathogasic",
+        "description": "Nathogasic",
+        "value": "NG"
+      },
+      {
+        "position": "3",
+        "chinese_desc": "肛门周围",
+        "description": "Peri-anally",
+        "value": "PA"
+      },
+      {
+        "position": "4",
+        "chinese_desc": "洗",
+        "description": "Wash",
+        "value": "WA"
+      },
+      {
+        "position": "5",
+        "chinese_desc": "油漆",
+        "description": "Paint",
+        "value": "PT"
+      },
+      {
+        "position": "6",
+        "chinese_desc": "四推",
+        "description": "IV push",
+        "value": "PU"
+      },
+      {
+        "position": "7",
+        "chinese_desc": "雾化吸入",
+        "description": "Nebulized",
+        "value": "NB"
+      },
+      {
+        "position": "8",
+        "chinese_desc": "洗发水",
+        "description": "Shampoo",
+        "value": "SH"
+      },
+      {
+        "position": "9",
+        "chinese_desc": "舌下含服",
+        "description": "Sublingual",
+        "value": "SL"
+      },
+      {
+        "position": "10",
+        "chinese_desc": "浸泡",
+        "description": "Soak",
+        "value": "SO"
+      },
+      {
+        "position": "11",
+        "chinese_desc": "局部",
+        "description": "Topically",
+        "value": "TP"
+      },
+      {
+        "position": "12",
+        "chinese_desc": "插入",
+        "description": "Inserted",
+        "value": "IS"
+      },
+      {
+        "position": "13",
+        "chinese_desc": "擦",
+        "description": "Wipe",
+        "value": "WI"
+      },
+      {
+        "position": "14",
+        "chinese_desc": "四soluset",
+        "description": "IV soluset",
+        "value": "SS"
+      },
+      {
+        "position": "15",
+        "chinese_desc": "眼",
+        "description": "Eye",
+        "value": "EY"
+      },
+      {
+        "position": "16",
+        "chinese_desc": "应用外部",
+        "description": "Apply externally",
+        "value": "AP"
+      },
+      {
+        "position": "17",
+        "chinese_desc": "咀嚼",
+        "description": "Chew",
+        "value": "CH"
+      },
+      {
+        "position": "18",
+        "chinese_desc": "静脉注射",
+        "description": "Intravenous",
+        "value": "IV"
+      },
+      {
+        "position": "19",
+        "chinese_desc": "耳",
+        "description": "Ear",
+        "value": "EA"
+      },
+      {
+        "position": "20",
+        "chinese_desc": "鞘内注射",
+        "description": "Intrathecal",
+        "value": "IT"
+      },
+      {
+        "position": "21",
+        "chinese_desc": "肠系膜动脉",
+        "description": "Intro-arterial",
+        "value": "IA"
+      },
+      {
+        "position": "22",
+        "chinese_desc": "真皮内",
+        "description": "Intra-dermal",
+        "value": "ID"
+      },
+      {
+        "position": "23",
+        "chinese_desc": "渗透",
+        "description": "Infiltrate",
+        "value": "IF"
+      },
+      {
+        "position": "24",
+        "chinese_desc": "吸入",
+        "description": "Inhalation",
+        "value": "IH"
+      },
+      {
+        "position": "25",
+        "chinese_desc": "肌内",
+        "description": "Intra-muscular",
+        "value": "IM"
+      },
+      {
+        "position": "26",
+        "chinese_desc": "鼻内",
+        "description": "Intra-nasal",
+        "value": "IN"
+      },
+      {
+        "position": "27",
+        "chinese_desc": "灌溉",
+        "description": "Irrigate",
+        "value": "IR"
+      },
+      {
+        "position": "28",
+        "chinese_desc": "灰尘",
+        "description": "Dust",
+        "value": "DU"
+      }
+    ]
+  },
+  {
+    "chinese_desc": "现场管理",
+    "description": "SITE ADMINISTERED",
+    "name": "34",
+    "tabletype": "2",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "臀部",
+        "description": "Buttock",
+        "value": "B"
+      },
+      {
+        "position": "2",
+        "chinese_desc": "左手臂",
+        "description": "Left arm",
+        "value": "L"
+      }
+    ]
+  },
+  {
+    "chinese_desc": "解决方案的单位",
+    "description": "UNIT OF MEASURE FOR THE SOLUTION RATE",
+    "name": "35",
+    "tabletype": "2",
+    "Enumerate": [
+      
+    ]
+  },
+  {
+    "chinese_desc": "iso5281977测量单位",
+    "description": "UNITS OF MEASURE - ISO528,1977",
+    "name": "36",
+    "tabletype": "2",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "毫克当量",
+        "description": "Milliequivalent",
+        "value": "MEQ"
+      },
+      {
+        "position": "2",
+        "chinese_desc": "平板电脑",
+        "description": "Tablet",
+        "value": "TB"
+      },
+      {
+        "position": "3",
+        "chinese_desc": "平方厘米",
+        "description": "Square centimeters",
+        "value": "SC"
+      },
+      {
+        "position": "4",
+        "chinese_desc": "小瓶",
+        "description": "Vial",
+        "value": "VL"
+      },
+      {
+        "position": "5",
+        "chinese_desc": "毫克",
+        "description": "Milligrams",
+        "value": "MG"
+      },
+      {
+        "position": "6",
+        "chinese_desc": "克",
+        "description": "Grams",
+        "value": "GM"
+      },
+      {
+        "position": "7",
+        "chinese_desc": "每个",
+        "description": "Each",
+        "value": "EA"
+      },
+      {
+        "position": "8",
+        "chinese_desc": "瓶",
+        "description": "Bottle",
+        "value": "BT"
+      },
+      {
+        "position": "9",
+        "chinese_desc": "盎司",
+        "description": "Ounces",
+        "value": "OZ"
+      },
+      {
+        "position": "10",
+        "chinese_desc": "公斤",
+        "description": "Kilograms",
+        "value": "KG"
+      }
+    ]
+  },
+  {
+    "chinese_desc": "药物剂量单位",
+    "description": "DRUG DOSE UNIT OF MEASURE",
+    "name": "37",
+    "tabletype": "2",
+    "Enumerate": [
+      
+    ]
+  },
+  {
+    "chinese_desc": "订单状态",
+    "description": "ORDER STATUS",
+    "name": "38",
+    "tabletype": "2",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "秩序被中断",
+        "description": "Order was discontinued",
+        "value": "DC"
+      },
+      {
+        "position": "2",
+        "chinese_desc": "在过程中，预定",
+        "description": "In process, scheduled",
+        "value": "SC"
+      },
+      {
+        "position": "3",
+        "chinese_desc": "在过程中，未指定",
+        "description": "In process, unspecified",
+        "value": "IP"
+      },
+      {
+        "position": "4",
+        "chinese_desc": "错误，未找到订单",
+        "description": "Error, order not found",
+        "value": "ER"
+      },
+      {
+        "position": "5",
+        "chinese_desc": "订单完成",
+        "description": "Order is completed",
+        "value": "CM"
+      },
+      {
+        "position": "6",
+        "chinese_desc": "订单被取消",
+        "description": "Order was canceled",
+        "value": "CA"
+      },
+      {
+        "position": "7",
+        "chinese_desc": "订单是在举行",
+        "description": "Order is on hold",
+        "value": "HD"
+      }
+    ]
+  },
+  {
+    "chinese_desc": "未使用的表",
+    "description": "UNUSED TABLE",
+    "name": "39",
+    "tabletype": "0",
+    "Enumerate": [
+      
+    ]
+  },
+  {
+    "chinese_desc": "未使用的表",
+    "description": "UNUSED TABLE",
+    "name": "40",
+    "tabletype": "0",
+    "Enumerate": [
+      
+    ]
+  },
+  {
+    "chinese_desc": "单位体积的措施",
+    "description": "VOLUME UNIT OF MEASURE",
+    "name": "41",
+    "tabletype": "2",
+    "Enumerate": [
+      
+    ]
+  },
+  {
+    "chinese_desc": "！从2.5.1插件复制。公司计划代码",
+    "description": "!Copied from 2.5.1 - Ins. Company Plan Code",
+    "name": "42",
+    "tabletype": "1",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "没有建议值定义",
+        "description": "No suggested values defined",
+        "value": "..."
+      }
+    ]
+  },
+  {
+    "chinese_desc": "！2.3.1条件代码复制",
+    "description": "!Copied from 2.3.1 - Condition Code",
+    "name": "43",
+    "tabletype": "1",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "军事服务相关",
+        "description": "Military service related",
+        "value": "01"
+      },
+      {
+        "position": "2",
+        "chinese_desc": "条件是就业相关的",
+        "description": "Condition is employment related",
+        "value": "02"
+      },
+      {
+        "position": "3",
+        "chinese_desc": "病人所涵盖的保险并没有反映在这里",
+        "description": "Patient covered by insurance not reflected here",
+        "value": "03"
+      },
+      {
+        "position": "4",
+        "chinese_desc": "HMO参保",
+        "description": "HMO enrollee",
+        "value": "04"
+      },
+      {
+        "position": "5",
+        "chinese_desc": "已提交留置权",
+        "description": "Lien has been filed",
+        "value": "05"
+      },
+      {
+        "position": "6",
+        "chinese_desc": "终末期肾病患者在头18个月的津贴由雇主团体健康保险",
+        "description": "ESRD patient in first 18 months of entitlement covered by employer group health insurance",
+        "value": "06"
+      },
+      {
+        "position": "7",
+        "chinese_desc": "安宁疗护患非终末状态的治疗",
+        "description": "Treatment of non-terminal condition for hospice patient",
+        "value": "07"
+      },
+      {
+        "position": "8",
+        "chinese_desc": "受益人不提供有关其他保险的资料",
+        "description": "Beneficiary would not provide information concerning other insurance coverage",
+        "value": "08"
+      },
+      {
+        "position": "9",
+        "chinese_desc": "无论是病人还是配偶都没有采用",
+        "description": "Neither patient nor spouse is employed",
+        "value": "09"
+      },
+      {
+        "position": "10",
+        "chinese_desc": "病人和/或配偶就业但没有eghp存在",
+        "description": "Patient and/or spouse is employed but no EGHP exists",
+        "value": "10"
+      },
+      {
+        "position": "11",
+        "chinese_desc": "但没有lghp残疾受益人",
+        "description": "Disabled beneficiary but no LGHP",
+        "value": "11"
+      },
+      {
+        "position": "12",
+        "chinese_desc": "付款人代码。",
+        "description": "Payer codes.",
+        "value": "12 ... 16"
+      },
+      {
+        "position": "13",
+        "chinese_desc": "保留姓名",
+        "description": "Maiden name retained",
+        "value": "18"
+      },
+      {
+        "position": "14",
+        "chinese_desc": "孩子保留母亲的名字",
+        "description": "Child retains mother\u0027s name",
+        "value": "19"
+      },
+      {
+        "position": "15",
+        "chinese_desc": "受益人要求的帐单",
+        "description": "Beneficiary requested billing",
+        "value": "20"
+      },
+      {
+        "position": "16",
+        "chinese_desc": "拒绝通知帐单",
+        "description": "Billing for Denial Notice",
+        "value": "21"
+      },
+      {
+        "position": "17",
+        "chinese_desc": "符合条件的患者选择接受服务的医疗保险认证的设施",
+        "description": "VA eligible patient chooses to receive services in a medicare certified facility",
+        "value": "26"
+      },
+      {
+        "position": "18",
+        "chinese_desc": "病人被称为诊断实验室试验的唯一社区医院",
+        "description": "Patient referred to a sole community hospital for a diagnostic laboratory test",
+        "value": "27"
+      },
+      {
+        "position": "19",
+        "chinese_desc": "病人和/或配偶的eghp是次要的医疗保险",
+        "description": "Patient and/or spouse\u0027s EGHP is secondary to Medicare",
+        "value": "28"
+      },
+      {
+        "position": "20",
+        "chinese_desc": "残疾受益人和/或家庭成员的lghp是次要的医疗保险",
+        "description": "Disabled beneficiary and/or family member\u0027s LGHP is secondary to Medicare",
+        "value": "29"
+      },
+      {
+        "position": "21",
+        "chinese_desc": "患者为学生（全日制日）",
+        "description": "Patient is student (full time-day)",
+        "value": "31"
+      },
+      {
+        "position": "22",
+        "chinese_desc": "病人是学生（合作/工作学习计划）",
+        "description": "Patient is student (cooperative/work study program)",
+        "value": "32"
+      },
+      {
+        "position": "23",
+        "chinese_desc": "病人是学生（全日制夜间）",
+        "description": "Patient is student (full time-night)",
+        "value": "33"
+      },
+      {
+        "position": "24",
+        "chinese_desc": "病人是学生（兼职）",
+        "description": "Patient is student (Part time)",
+        "value": "34"
+      },
+      {
+        "position": "25",
+        "chinese_desc": "一般在特殊的英国病人",
+        "description": "General care patient in a special unit",
+        "value": "36"
+      },
+      {
+        "position": "26",
+        "chinese_desc": "病房的病人要求",
+        "description": "Ward accommodation as patient request",
+        "value": "37"
+      },
+      {
+        "position": "27",
+        "chinese_desc": "半私人房间不可用",
+        "description": "Semi-private room not available",
+        "value": "38"
+      },
+      {
+        "position": "28",
+        "chinese_desc": "私人房间医学上的必要",
+        "description": "Private room medically necessary",
+        "value": "39"
+      },
+      {
+        "position": "29",
+        "chinese_desc": "同一天转移",
+        "description": "Same day transfer",
+        "value": "40"
+      },
+      {
+        "position": "30",
+        "chinese_desc": "部分住院",
+        "description": "Partial hospitalization",
+        "value": "41"
+      },
+      {
+        "position": "31",
+        "chinese_desc": "文件的非可用性语句",
+        "description": "Non-availability statement on file",
+        "value": "46"
+      },
+      {
+        "position": "32",
+        "chinese_desc": "儿童和青少年精神病治疗中心",
+        "description": "Psychiatric residential treatment centers for children and adolescents",
+        "value": "48"
+      },
+      {
+        "position": "33",
+        "chinese_desc": "SNF床不可用",
+        "description": "SNF bed not available",
+        "value": "55"
+      },
+      {
+        "position": "34",
+        "chinese_desc": "医学适宜性",
+        "description": "Medical appropriateness",
+        "value": "56"
+      },
+      {
+        "position": "35",
+        "chinese_desc": "SNF入院",
+        "description": "SNF readmission",
+        "value": "57"
+      },
+      {
+        "position": "36",
+        "chinese_desc": "日异常值",
+        "description": "Day outlier",
+        "value": "60"
+      },
+      {
+        "position": "37",
+        "chinese_desc": "成本异常值",
+        "description": "Cost outlier",
+        "value": "61"
+      },
+      {
+        "position": "38",
+        "chinese_desc": "付款人代码",
+        "description": "Payer code",
+        "value": "62"
+      },
+      {
+        "position": "39",
+        "chinese_desc": "供应商不希望成本的异常支付",
+        "description": "Provider does not wish cost outlier payment",
+        "value": "66"
+      },
+      {
+        "position": "40",
+        "chinese_desc": "受益人选择不使用寿命储备（LTR）天",
+        "description": "Beneficiary elects not to use life time reserve (LTR) days",
+        "value": "67"
+      },
+      {
+        "position": "41",
+        "chinese_desc": "受益人选择使用寿命储备（LTR）天",
+        "description": "Beneficiary elects to use life time reserve (LTR) days",
+        "value": "68"
+      },
+      {
+        "position": "42",
+        "chinese_desc": "自我给予EPO",
+        "description": "Self-administered EPO",
+        "value": "70"
+      },
+      {
+        "position": "43",
+        "chinese_desc": "单位全面照顾",
+        "description": "Full care in unit",
+        "value": "71"
+      },
+      {
+        "position": "44",
+        "chinese_desc": "自我护理单位",
+        "description": "Self-care in unit",
+        "value": "72"
+      },
+      {
+        "position": "45",
+        "chinese_desc": "自我护理训练",
+        "description": "Self-care training",
+        "value": "73"
+      },
+      {
+        "position": "46",
+        "chinese_desc": "回家",
+        "description": "Home",
+        "value": "74"
+      },
+      {
+        "position": "47",
+        "chinese_desc": "家庭100%偿还",
+        "description": "Home - 100% reimbursement",
+        "value": "75"
+      },
+      {
+        "position": "48",
+        "chinese_desc": "设施透析后",
+        "description": "Back-up in facility dialysis",
+        "value": "76"
+      },
+      {
+        "position": "49",
+        "chinese_desc": "供应商接受或有义务/要求，由于合同安排或法律接受付款的主要支付人作为付款",
+        "description": "Provider accepts or is obligated/required due to a contractual arrangement or law to accept payment by a primary payer as payment in full",
+        "value": "77"
+      },
+      {
+        "position": "50",
+        "chinese_desc": "新的覆盖不由HMO",
+        "description": "New coverage not implemented by HMO",
+        "value": "78"
+      },
+      {
+        "position": "51",
+        "chinese_desc": "一些网站所提供的服务的养鱼",
+        "description": "Corf services provided off-site",
+        "value": "79"
+      },
+      {
+        "position": "52",
+        "chinese_desc": "怀孕",
+        "description": "Pregnant",
+        "value": "80"
+      }
+    ]
+  },
+  {
+    "chinese_desc": "！复制2.2合同代码",
+    "description": "!Copied from 2.2 - CONTRACT CODE",
+    "name": "44",
+    "tabletype": "1",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "求高手解答",
+        "description": "Chefarzt",
+        "value": "C"
+      },
+      {
+        "position": "2",
+        "chinese_desc": "卡丝",
+        "description": "Kasse",
+        "value": "K"
+      },
+      {
+        "position": "3",
+        "chinese_desc": "selbstzahler",
+        "description": "Selbstzahler",
+        "value": "S"
+      },
+      {
+        "position": "4",
+        "chinese_desc": "privatliquidation",
+        "description": "Privatliquidation",
+        "value": "P"
+      }
+    ]
+  },
+  {
+    "chinese_desc": "！复制从2.5.1 -礼貌规范",
+    "description": "!Copied from 2.5.1 - Courtesy Code",
+    "name": "45",
+    "tabletype": "1",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "没有建议值定义",
+        "description": "No suggested values defined",
+        "value": "..."
+      }
+    ]
+  },
+  {
+    "chinese_desc": "！复制从2.5.1 -信用评级",
+    "description": "!Copied from 2.5.1 - Credit Rating",
+    "name": "46",
+    "tabletype": "1",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "没有建议值定义",
+        "description": "No suggested values defined",
+        "value": "..."
+      }
+    ]
+  },
+  {
+    "chinese_desc": "危险代码",
+    "description": "DANGER CODE",
+    "name": "47",
+    "tabletype": "1",
+    "Enumerate": [
+      
+    ]
+  },
+  {
+    "chinese_desc": "什么主题过滤器",
+    "description": "WHAT SUBJECT FILTER",
+    "name": "48",
+    "tabletype": "2",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "outpatient most recent",
+        "description": "Most recent outpatient",
+        "value": "MRO"
+      },
+      {
+        "position": "2",
+        "chinese_desc": "结果",
+        "description": "Result",
+        "value": "RES"
+      },
+      {
+        "position": "3",
+        "chinese_desc": "现状",
+        "description": "Status",
+        "value": "STA"
+      },
+      {
+        "position": "4",
+        "chinese_desc": "程序",
+        "description": "Procedure",
+        "value": "PRO"
+      },
+      {
+        "position": "5",
+        "chinese_desc": "其他",
+        "description": "Other",
+        "value": "OTH"
+      },
+      {
+        "position": "6",
+        "chinese_desc": "人口统计",
+        "description": "Demographics",
+        "value": "DEM"
+      },
+      {
+        "position": "7",
+        "chinese_desc": "取消。用于取消查询",
+        "description": "Cancel. Used to cancel a query",
+        "value": "CAN"
+      },
+      {
+        "position": "8",
+        "chinese_desc": "病人姓名查找",
+        "description": "Patient name look up",
+        "value": "APN"
+      },
+      {
+        "position": "9",
+        "chinese_desc": "护理单位查找",
+        "description": "Nursing Unit Look up",
+        "value": "ANU"
+      },
+      {
+        "position": "10",
+        "chinese_desc": "建议/诊断",
+        "description": "Advice/Diagnosis",
+        "value": "ADV"
+      },
+      {
+        "position": "11",
+        "chinese_desc": "最新inpatient",
+        "description": "Most recent inpatient",
+        "value": "MRI"
+      }
+    ]
+  },
+  {
+    "chinese_desc": "！复制从2.5.1部门代码",
+    "description": "!Copied from 2.5.1 - Department Code",
+    "name": "49",
+    "tabletype": "1",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "没有建议值定义",
+        "description": "No suggested values defined",
+        "value": "..."
+      }
+    ]
+  },
+  {
+    "chinese_desc": "！复制从2.5.1事故代码",
+    "description": "!Copied from 2.5.1 - Accident Code",
+    "name": "50",
+    "tabletype": "1",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "没有建议值定义",
+        "description": "No suggested values defined",
+        "value": "..."
+      }
+    ]
+  },
+  {
+    "chinese_desc": "！复制从2.5.1诊断代码",
+    "description": "!Copied from 2.5.1 - Diagnosis Code",
+    "name": "51",
+    "tabletype": "1",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "没有建议值定义",
+        "description": "No suggested values defined",
+        "value": "..."
+      }
+    ]
+  },
+  {
+    "chinese_desc": "诊断类型",
+    "description": "DIAGNOSIS TYPE",
+    "name": "52",
+    "tabletype": "2",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "nebenaufnahmediagnose",
+        "description": "Nebenaufnahmediagnose",
+        "value": "N2"
+      },
+      {
+        "position": "2",
+        "chinese_desc": "nebenleiden",
+        "description": "Nebenleiden",
+        "value": "N6"
+      },
+      {
+        "position": "3",
+        "chinese_desc": "nebenarbeitsunfähigkeitsdiagnose",
+        "description": "Nebenarbeitsunfähigkeitsdiagnose",
+        "value": "N5"
+      },
+      {
+        "position": "4",
+        "chinese_desc": "einweisungsdiagnose",
+        "description": "Einweisungsdiagnose",
+        "value": "H1"
+      },
+      {
+        "position": "5",
+        "chinese_desc": "nebenverlegungsdiagnose",
+        "description": "Nebenverlegungsdiagnose",
+        "value": "N3"
+      },
+      {
+        "position": "6",
+        "chinese_desc": "nebeneinweisungsdiagnose",
+        "description": "Nebeneinweisungsdiagnose",
+        "value": "N1"
+      },
+      {
+        "position": "7",
+        "chinese_desc": "arbeitsunfähigkeitsdiagnose",
+        "description": "Arbeitsunfähigkeitsdiagnose",
+        "value": "H5"
+      },
+      {
+        "position": "8",
+        "chinese_desc": "entlassungsdiagnose",
+        "description": "Entlassungsdiagnose",
+        "value": "H4"
+      },
+      {
+        "position": "9",
+        "chinese_desc": "verlegungsdiagnose",
+        "description": "Verlegungsdiagnose",
+        "value": "H3"
+      },
+      {
+        "position": "10",
+        "chinese_desc": "aufnahmediagnose",
+        "description": "Aufnahmediagnose",
+        "value": "H2"
+      },
+      {
+        "position": "11",
+        "chinese_desc": "nebenentlassungsdiagnose",
+        "description": "Nebenentlassungsdiagnose",
+        "value": "N4"
+      },
+      {
+        "position": "12",
+        "chinese_desc": "莱顿",
+        "description": "Leiden",
+        "value": "H6"
+      }
+    ]
+  },
+  {
+    "chinese_desc": "诊断编码方法",
+    "description": "DIAGNOSIS CODING METHOD",
+    "name": "53",
+    "tabletype": "3",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "ICD9",
+        "description": "ICD9",
+        "value": "I9"
+      }
+    ]
+  },
+  {
+    "chinese_desc": "！从2.5.1诊断相关组代码复制",
+    "description": "!Copied from 2.5.1 - Diagnostic Related Group Code",
+    "name": "55",
+    "tabletype": "1",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "没有建议值定义",
+        "description": "No suggested values defined",
+        "value": "..."
+      }
+    ]
+  },
+  {
+    "chinese_desc": "！复制从2.5.1 - DRG石斑检查代码",
+    "description": "!Copied from 2.5.1 - DRG Grouper Review Code",
+    "name": "56",
+    "tabletype": "1",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "没有建议值定义",
+        "description": "No suggested values defined",
+        "value": "..."
+      }
+    ]
+  },
+  {
+    "chinese_desc": "药物代码",
+    "description": "DRUG CODE",
+    "name": "57",
+    "tabletype": "1",
+    "Enumerate": [
+      
+    ]
+  },
+  {
+    "chinese_desc": "未使用的表",
+    "description": "UNUSED TABLE",
+    "name": "58",
+    "tabletype": "0",
+    "Enumerate": [
+      
+    ]
+  },
+  {
+    "chinese_desc": "！copied from 2.5.1规范的代码",
+    "description": "!Copied from 2.5.1 - Consent Code",
+    "name": "59",
+    "tabletype": "1",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "没有建议值定义",
+        "description": "No suggested values defined",
+        "value": "..."
+      }
+    ]
+  },
+  {
+    "chinese_desc": "错误代码",
+    "description": "ERROR CODE",
+    "name": "60",
+    "tabletype": "1",
+    "Enumerate": [
+      
+    ]
+  },
+  {
+    "chinese_desc": "校验数字格式",
+    "description": "CHECK DIGIT SCHEME",
+    "name": "61",
+    "tabletype": "2",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "digit mod 11检查方案",
+        "description": "Mod 11 check digit scheme",
+        "value": "M11"
+      }
+    ]
+  },
+  {
+    "chinese_desc": "事件原因",
+    "description": "EVENT REASON",
+    "name": "62",
+    "tabletype": "1",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "患者请求",
+        "description": "Patient Request",
+        "value": "01"
+      },
+      {
+        "position": "2",
+        "chinese_desc": "医嘱",
+        "description": "Physician Order",
+        "value": "02"
+      }
+    ]
+  },
+  {
+    "chinese_desc": "！复制2.4关系",
+    "description": "!Copied from 2.4 - Relationship",
+    "name": "63",
+    "tabletype": "1",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "自",
+        "description": "Self",
+        "value": "SEL"
+      },
+      {
+        "position": "2",
+        "chinese_desc": "配偶",
+        "description": "Spouse",
+        "value": "SPO"
+      },
+      {
+        "position": "3",
+        "chinese_desc": "生活伙伴",
+        "description": "Life partner",
+        "value": "DOM"
+      },
+      {
+        "position": "4",
+        "chinese_desc": "孩子",
+        "description": "Child",
+        "value": "CHD"
+      },
+      {
+        "position": "5",
+        "chinese_desc": "孙子",
+        "description": "Grandchild",
+        "value": "GCH"
+      },
+      {
+        "position": "6",
+        "chinese_desc": "自然孩子",
+        "description": "Natural child",
+        "value": "NCH"
+      },
+      {
+        "position": "7",
+        "chinese_desc": "继",
+        "description": "Stepchild",
+        "value": "SCH"
+      },
+      {
+        "position": "8",
+        "chinese_desc": "寄养儿童",
+        "description": "Foster child",
+        "value": "FCH"
+      },
+      {
+        "position": "9",
+        "chinese_desc": "依赖性残疾",
+        "description": "Handicapped dependent",
+        "value": "DEP"
+      },
+      {
+        "position": "10",
+        "chinese_desc": "法院病房",
+        "description": "Ward of court",
+        "value": "WRD"
+      },
+      {
+        "position": "11",
+        "chinese_desc": "母",
+        "description": "Parent",
+        "value": "PAR"
+      },
+      {
+        "position": "12",
+        "chinese_desc": "母亲",
+        "description": "Mother",
+        "value": "MTH"
+      },
+      {
+        "position": "13",
+        "chinese_desc": "父亲",
+        "description": "Father",
+        "value": "FTH"
+      },
+      {
+        "position": "14",
+        "chinese_desc": "照顾者",
+        "description": "Care giver",
+        "value": "CGV"
+      },
+      {
+        "position": "15",
+        "chinese_desc": "守护者",
+        "description": "Guardian",
+        "value": "GRD"
+      },
+      {
+        "position": "16",
+        "chinese_desc": "祖父母",
+        "description": "Grandparent",
+        "value": "GRP"
+      },
+      {
+        "position": "17",
+        "chinese_desc": "扩展家庭",
+        "description": "Extended family",
+        "value": "EXF"
+      },
+      {
+        "position": "18",
+        "chinese_desc": "兄弟姐妹",
+        "description": "Sibling",
+        "value": "SIB"
+      },
+      {
+        "position": "19",
+        "chinese_desc": "哥哥",
+        "description": "Brother",
+        "value": "BRO"
+      },
+      {
+        "position": "20",
+        "chinese_desc": "妹妹",
+        "description": "Sister",
+        "value": "SIS"
+      },
+      {
+        "position": "21",
+        "chinese_desc": "朋友",
+        "description": "Friend",
+        "value": "FND"
+      },
+      {
+        "position": "22",
+        "chinese_desc": "其他成人",
+        "description": "Other adult",
+        "value": "OAD"
+      },
+      {
+        "position": "23",
+        "chinese_desc": "员工",
+        "description": "Employee",
+        "value": "EME"
+      },
+      {
+        "position": "24",
+        "chinese_desc": "雇主",
+        "description": "Employer",
+        "value": "EMR"
+      },
+      {
+        "position": "25",
+        "chinese_desc": "副",
+        "description": "Associate",
+        "value": "ASC"
+      },
+      {
+        "position": "26",
+        "chinese_desc": "紧急联络",
+        "description": "Emergency contact",
+        "value": "EMC"
+      },
+      {
+        "position": "27",
+        "chinese_desc": "业主",
+        "description": "Owner",
+        "value": "OWN"
+      },
+      {
+        "position": "28",
+        "chinese_desc": "教练",
+        "description": "Trainer",
+        "value": "TRA"
+      },
+      {
+        "position": "29",
+        "chinese_desc": "经理",
+        "description": "Manager",
+        "value": "MGR"
+      },
+      {
+        "position": "30",
+        "chinese_desc": "没有",
+        "description": "None",
+        "value": "NON"
+      },
+      {
+        "position": "31",
+        "chinese_desc": "未知",
+        "description": "Unknown",
+        "value": "UNK"
+      },
+      {
+        "position": "32",
+        "chinese_desc": "其他",
+        "description": "Other",
+        "value": "OTH"
+      }
+    ]
+  },
+  {
+    "chinese_desc": "！抄袭2.2金融类",
+    "description": "!Copied from 2.2 - FINANCIAL CLASS",
+    "name": "64",
+    "tabletype": "1",
+    "Enumerate": [
+      {
+        "position": "1",
+        "value": "01"
+      },
+      {
+        "position": "2",
+        "value": "02"
+      },
+      {
+        "position": "3",
+        "value": "03"
+      },
+      {
+        "position": "4",
+        "value": "10"
+      },
+      {
+        "position": "5",
+        "value": "11"
+      },
+      {
+        "position": "6",
+        "value": "12"
+      },
+      {
+        "position": "7",
+        "value": "13"
+      },
+      {
+        "position": "8",
+        "value": "14"
+      },
+      {
+        "position": "9",
+        "value": "15"
+      },
+      {
+        "position": "10",
+        "value": "16"
+      },
+      {
+        "position": "11",
+        "value": "17"
+      },
+      {
+        "position": "12",
+        "value": "18"
+      },
+      {
+        "position": "13",
+        "value": "20"
+      },
+      {
+        "position": "14",
+        "value": "21"
+      },
+      {
+        "position": "15",
+        "value": "22"
+      },
+      {
+        "position": "16",
+        "value": "23"
+      },
+      {
+        "position": "17",
+        "value": "24"
+      },
+      {
+        "position": "18",
+        "value": "25"
+      },
+      {
+        "position": "19",
+        "value": "26"
+      },
+      {
+        "position": "20",
+        "value": "27"
+      },
+      {
+        "position": "21",
+        "value": "28"
+      },
+      {
+        "position": "22",
+        "value": "29"
+      },
+      {
+        "position": "23",
+        "value": "40"
+      },
+      {
+        "position": "24",
+        "value": "41"
+      },
+      {
+        "position": "25",
+        "value": "42"
+      },
+      {
+        "position": "26",
+        "value": "43"
+      },
+      {
+        "position": "27",
+        "value": "44"
+      },
+      {
+        "position": "28",
+        "value": "45"
+      },
+      {
+        "position": "29",
+        "value": "46"
+      },
+      {
+        "position": "30",
+        "value": "50"
+      }
+    ]
+  },
+  {
+    "chinese_desc": "操作码",
+    "description": "ACTION CODE",
+    "name": "65",
+    "tabletype": "2",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "在交货前等待样品订单",
+        "description": "Pending specimen-Order sent prior to delivery",
+        "value": "P"
+      },
+      {
+        "position": "2",
+        "chinese_desc": "将有序的测试添加到现有的样本",
+        "description": "Add ordered tests to the existing specimen",
+        "value": "A"
+      },
+      {
+        "position": "3",
+        "chinese_desc": "取消电池或试验的顺序",
+        "description": "Cancel order for battery or tests named",
+        "value": "C"
+      },
+      {
+        "position": "4",
+        "chinese_desc": "生成顺序",
+        "description": "Generated order",
+        "value": "G"
+      },
+      {
+        "position": "5",
+        "chinese_desc": "实验室获得患者标本。",
+        "description": "Lab to obtain specimen from patient.",
+        "value": "L"
+      },
+      {
+        "position": "6",
+        "chinese_desc": "安排下面的测试",
+        "description": "Schedule the tests specified below",
+        "value": "S"
+      },
+      {
+        "position": "7",
+        "chinese_desc": "由服务以外的实验室获得的样本",
+        "description": "Specimen obtained by service other than Lab",
+        "value": "O"
+      }
+    ]
+  },
+  {
+    "chinese_desc": "！复制2.4 -就业状况",
+    "description": "!Copied from 2.4 - Employment Status",
+    "name": "66",
+    "tabletype": "1",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "全职雇用",
+        "description": "Full time employed",
+        "value": "1"
+      },
+      {
+        "position": "2",
+        "chinese_desc": "全职",
+        "description": "Full Time",
+        "value": "F"
+      },
+      {
+        "position": "3",
+        "chinese_desc": "零件时间",
+        "description": "Part Time",
+        "value": "P"
+      },
+      {
+        "position": "4",
+        "chinese_desc": "兼职使用",
+        "description": "Part time employed",
+        "value": "2"
+      },
+      {
+        "position": "5",
+        "chinese_desc": "每日",
+        "description": "Per Diem",
+        "value": "D"
+      },
+      {
+        "position": "6",
+        "chinese_desc": "自雇，",
+        "description": "Self-employed,",
+        "value": "4"
+      },
+      {
+        "position": "7",
+        "chinese_desc": "合同，每日",
+        "description": "Contract, per diem",
+        "value": "C"
+      },
+      {
+        "position": "8",
+        "chinese_desc": "休假（如产假，休假，等）",
+        "description": "Leave of absence (e.g. Family leave, sabbatical, etc.)",
+        "value": "L"
+      },
+      {
+        "position": "9",
+        "chinese_desc": "暂时失业",
+        "description": "Temporarily unemployed",
+        "value": "T"
+      },
+      {
+        "position": "10",
+        "chinese_desc": "失业",
+        "description": "Unemployed",
+        "value": "3"
+      },
+      {
+        "position": "11",
+        "chinese_desc": "退休了",
+        "description": "Retired",
+        "value": "5"
+      },
+      {
+        "position": "12",
+        "chinese_desc": "现役军人",
+        "description": "On active military duty",
+        "value": "6"
+      },
+      {
+        "position": "13",
+        "chinese_desc": "其他",
+        "description": "Other",
+        "value": "O"
+      },
+      {
+        "position": "14",
+        "chinese_desc": "未知",
+        "description": "Unknown",
+        "value": "9"
+      }
+    ]
+  },
+  {
+    "chinese_desc": "未使用的表",
+    "description": "UNUSED TABLE",
+    "name": "67",
+    "tabletype": "0",
+    "Enumerate": [
+      
+    ]
+  },
+  {
+    "chinese_desc": "！复制的2.2 -担保人类型",
+    "description": "!Copied from 2.2 - GUARANTOR TYPE",
+    "name": "68",
+    "tabletype": "1",
+    "Enumerate": [
+      {
+        "position": "1",
+        "value": "B"
+      },
+      {
+        "position": "2",
+        "value": "S"
+      },
+      {
+        "position": "3",
+        "value": "J"
+      },
+      {
+        "position": "4",
+        "value": "P"
+      },
+      {
+        "position": "5",
+        "value": "I"
+      }
+    ]
+  },
+  {
+    "chinese_desc": "！复印2.4医院服务",
+    "description": "!Copied from 2.4 - Hospital Service",
+    "name": "69",
+    "tabletype": "1",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "医疗服务",
+        "description": "Medical Service",
+        "value": "MED"
+      },
+      {
+        "position": "2",
+        "chinese_desc": "手术服务",
+        "description": "Surgical Service",
+        "value": "SUR"
+      },
+      {
+        "position": "3",
+        "chinese_desc": "泌尿系统服务",
+        "description": "Urology Service",
+        "value": "URO"
+      },
+      {
+        "position": "4",
+        "chinese_desc": "肺服务",
+        "description": "Pulmonary Service",
+        "value": "PUL"
+      },
+      {
+        "position": "5",
+        "chinese_desc": "心脏服务",
+        "description": "Cardiac Service",
+        "value": "CAR"
+      }
+    ]
+  },
+  {
+    "chinese_desc": "标本来源",
+    "description": "SOURCE OF SPECIMEN",
+    "name": "70",
+    "tabletype": "1",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "滑膜液",
+        "description": "Synovial Fluid",
+        "value": "SNV"
+      },
+      {
+        "position": "2",
+        "chinese_desc": "伤口",
+        "description": "Wound",
+        "value": "WND"
+      },
+      {
+        "position": "3",
+        "chinese_desc": "白细胞",
+        "description": "Leukocytes",
+        "value": "WBC"
+      },
+      {
+        "position": "4",
+        "chinese_desc": "尿道",
+        "description": "Urethra",
+        "value": "URTH"
+      },
+      {
+        "position": "5",
+        "chinese_desc": "尿",
+        "description": "Urine",
+        "value": "UR"
+      },
+      {
+        "position": "6",
+        "chinese_desc": "脐血",
+        "description": "Umbilical Blood",
+        "value": "UMB"
+      },
+      {
+        "position": "7",
+        "chinese_desc": "组织",
+        "description": "Tissue",
+        "value": "TIS"
+      },
+      {
+        "position": "8",
+        "chinese_desc": "喉咙",
+        "description": "Throat",
+        "value": "THRT"
+      },
+      {
+        "position": "9",
+        "chinese_desc": "大便",
+        "description": "Stool",
+        "value": "STL"
+      },
+      {
+        "position": "10",
+        "chinese_desc": "皮肤",
+        "description": "Skin",
+        "value": "SKN"
+      },
+      {
+        "position": "11",
+        "chinese_desc": "血清",
+        "description": "Serum",
+        "value": "SER"
+      },
+      {
+        "position": "12",
+        "chinese_desc": "精液",
+        "description": "Seminal Fluid",
+        "value": "SEM"
+      },
+      {
+        "position": "13",
+        "chinese_desc": "唾液",
+        "description": "Saliva",
+        "value": "SAL"
+      },
+      {
+        "position": "14",
+        "chinese_desc": "红细胞",
+        "description": "Erythrocytes",
+        "value": "RBC"
+      },
+      {
+        "position": "15",
+        "chinese_desc": "烧伤",
+        "description": "Burn",
+        "value": "BRN"
+      },
+      {
+        "position": "16",
+        "chinese_desc": "汗水",
+        "description": "Sweat",
+        "value": "SWT"
+      },
+      {
+        "position": "17",
+        "chinese_desc": "骨",
+        "description": "Bone",
+        "value": "BON"
+      },
+      {
+        "position": "18",
+        "chinese_desc": "腹腔液",
+        "description": "Peritoneal Fluid",
+        "value": "PRT"
+      },
+      {
+        "position": "19",
+        "chinese_desc": "结膜",
+        "description": "Conjunctiva",
+        "value": "CNJT"
+      },
+      {
+        "position": "20",
+        "chinese_desc": "脑脊髓液",
+        "description": "Cerebral-Spinal Fluid",
+        "value": "CSF"
+      },
+      {
+        "position": "21",
+        "chinese_desc": "宫颈",
+        "description": "Cervix",
+        "value": "CVX"
+      },
+      {
+        "position": "22",
+        "chinese_desc": "耳",
+        "description": "Ear",
+        "value": "EAR"
+      },
+      {
+        "position": "23",
+        "chinese_desc": "头发",
+        "description": "Hair",
+        "value": "HAR"
+      },
+      {
+        "position": "24",
+        "chinese_desc": "羊水",
+        "description": "Amniotic Fluid",
+        "value": "MN"
+      },
+      {
+        "position": "25",
+        "chinese_desc": "鼻子",
+        "description": "Nose",
+        "value": "NOS"
+      },
+      {
+        "position": "26",
+        "chinese_desc": "其他",
+        "description": "Other",
+        "value": "OTH"
+      },
+      {
+        "position": "27",
+        "chinese_desc": "等离子体",
+        "description": "Plasma",
+        "value": "PLAS"
+      },
+      {
+        "position": "28",
+        "chinese_desc": "fibroblood",
+        "description": "Fibroblood",
+        "value": "FIB"
+      },
+      {
+        "position": "29",
+        "chinese_desc": "血",
+        "description": "Blood",
+        "value": "BLD"
+      }
+    ]
+  },
+  {
+    "chinese_desc": "未使用的表",
+    "description": "UNUSED TABLE",
+    "name": "71",
+    "tabletype": "0",
+    "Enumerate": [
+      
+    ]
+  },
+  {
+    "chinese_desc": "！复制从2.5.1保险计划ID",
+    "description": "!Copied from 2.5.1 - Insurance Plan ID",
+    "name": "72",
+    "tabletype": "1",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "没有建议值定义",
+        "description": "No suggested values defined",
+        "value": "..."
+      }
+    ]
+  },
+  {
+    "chinese_desc": "！复制从2.5.1利率代码",
+    "description": "!Copied from 2.5.1 - Interest Rate Code",
+    "name": "73",
+    "tabletype": "1",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "没有建议值定义",
+        "description": "No suggested values defined",
+        "value": "..."
+      }
+    ]
+  },
+  {
+    "chinese_desc": "诊断服务区标识",
+    "description": "DIAGNOSTIC SERVICE SECTION ID",
+    "name": "74",
+    "tabletype": "1",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "血管超声",
+        "description": "Vascular Ultrasound",
+        "value": "VUS"
+      },
+      {
+        "position": "2",
+        "chinese_desc": "超声",
+        "description": "OB Ultrasound",
+        "value": "OUS"
+      },
+      {
+        "position": "3",
+        "chinese_desc": "药店",
+        "description": "Pharmacy",
+        "value": "PHR"
+      },
+      {
+        "position": "4",
+        "chinese_desc": "物理治疗",
+        "description": "Physical Therapy",
+        "value": "PT"
+      },
+      {
+        "position": "5",
+        "chinese_desc": "呼吸照护",
+        "description": "Respiratory Care",
+        "value": "RC"
+      },
+      {
+        "position": "6",
+        "chinese_desc": "放射治疗",
+        "description": "Radiation Therapy",
+        "value": "RT"
+      },
+      {
+        "position": "7",
+        "chinese_desc": "放射超声",
+        "description": "Radiology ultrasound",
+        "value": "RUS"
+      },
+      {
+        "position": "8",
+        "chinese_desc": "手术病理",
+        "description": "Surgical Pathology",
+        "value": "SP"
+      },
+      {
+        "position": "9",
+        "chinese_desc": "毒理",
+        "description": "Toxicology",
+        "value": "TX"
+      },
+      {
+        "position": "10",
+        "chinese_desc": "照片",
+        "description": "Cineradiography",
+        "value": "XRC"
+      },
+      {
+        "position": "11",
+        "chinese_desc": "护理服务措施",
+        "description": "Nursing service measures",
+        "value": "NRS"
+      },
+      {
+        "position": "12",
+        "chinese_desc": "职业治疗",
+        "description": "Occupational Therapy",
+        "value": "OT"
+      },
+      {
+        "position": "13",
+        "chinese_desc": "血清学",
+        "description": "Serology",
+        "value": "SR"
+      },
+      {
+        "position": "14",
+        "chinese_desc": "血液学",
+        "description": "Hematology",
+        "value": "HM"
+      },
+      {
+        "position": "15",
+        "chinese_desc": "其他",
+        "description": "Other",
+        "value": "OTH"
+      },
+      {
+        "position": "16",
+        "chinese_desc": "化学",
+        "description": "Chemistry",
+        "value": "CH"
+      },
+      {
+        "position": "17",
+        "chinese_desc": "细胞病理学",
+        "description": "Cytopathology",
+        "value": "CP"
+      },
+      {
+        "position": "18",
+        "chinese_desc": "猫扫描",
+        "description": "CAT scan",
+        "value": "CT"
+      },
+      {
+        "position": "19",
+        "chinese_desc": "(抑压的eec electrocardiac红龙的holter )",
+        "description": "Electrocardiac (e.g., EKG, EEC, Holter)",
+        "value": "EC"
+      },
+      {
+        "position": "20",
+        "chinese_desc": "免疫学",
+        "description": "Immunology",
+        "value": "IMM"
+      },
+      {
+        "position": "21",
+        "chinese_desc": "微生物学",
+        "description": "Microbiology",
+        "value": "MB"
+      },
+      {
+        "position": "22",
+        "chinese_desc": "分枝杆菌",
+        "description": "Mycobacteriology",
+        "value": "MCB"
+      },
+      {
+        "position": "23",
+        "chinese_desc": "真菌学",
+        "description": "Mycology",
+        "value": "MYC"
+      },
+      {
+        "position": "24",
+        "chinese_desc": "核磁共振",
+        "description": "Nuclear magnetic resonance",
+        "value": "NMR"
+      },
+      {
+        "position": "25",
+        "chinese_desc": "血液气体",
+        "description": "Blood Gases",
+        "value": "BG"
+      },
+      {
+        "position": "26",
+        "chinese_desc": "核医学扫描",
+        "description": "Nuclear medicine scan",
+        "value": "NMS"
+      },
+      {
+        "position": "27",
+        "chinese_desc": "心脏超声",
+        "description": "Cardiac Ultrasound",
+        "value": "CUS"
+      }
+    ]
+  },
+  {
+    "chinese_desc": "报告类型",
+    "description": "REPORT TYPES",
+    "name": "75",
+    "tabletype": "2",
+    "Enumerate": [
+      
+    ]
+  },
+  {
+    "chinese_desc": "消息类型",
+    "description": "MESSAGE TYPE",
+    "name": "76",
+    "tabletype": "2",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "为了响应消息或IV",
+        "description": "Order response message       ORD       IV",
+        "value": "ORR"
+      },
+      {
+        "position": "2",
+        "chinese_desc": "观察。结果/记录的质量。NRA来",
+        "description": "Observ. Result/record resp.  ANR       VII",
+        "value": "ORF"
+      },
+      {
+        "position": "3",
+        "chinese_desc": "主动显示QRY V",
+        "description": "Unsolicited display          QRY       V",
+        "value": "UDM"
+      },
+      {
+        "position": "4",
+        "chinese_desc": "观察。结果/ unsolicited ANR七",
+        "description": "Observ. result/unsolicited   ANR       VII",
+        "value": "ORU"
+      },
+      {
+        "position": "5",
+        "chinese_desc": "四阶",
+        "description": "Order                        ORD       IV",
+        "value": "ORM"
+      },
+      {
+        "position": "6",
+        "chinese_desc": "显示回应QRY V",
+        "description": "Display response             QRY       V",
+        "value": "DSR"
+      },
+      {
+        "position": "7",
+        "chinese_desc": "添加/更改计费BLN VI",
+        "description": "Add/change billing account   BLN       VI",
+        "value": "BAR"
+      },
+      {
+        "position": "8",
+        "chinese_desc": "辅助报表（显示）ANR七",
+        "description": "Ancillary RPT (display)      ANR       VII",
+        "value": "ARD"
+      },
+      {
+        "position": "9",
+        "chinese_desc": "一般确认",
+        "description": "General Acknowledgment       CNT       II",
+        "value": "ACK"
+      },
+      {
+        "position": "10",
+        "chinese_desc": "订单状态查询或IV",
+        "description": "Order status query           ORD       IV",
+        "value": "OSQ"
+      },
+      {
+        "position": "11",
+        "chinese_desc": "延迟确认",
+        "description": "Delayed acknowledgment       CNT       II",
+        "value": "MCF"
+      }
+    ]
+  },
+  {
+    "chinese_desc": "未使用的表",
+    "description": "UNUSED TABLE",
+    "name": "77",
+    "tabletype": "0",
+    "Enumerate": [
+      
+    ]
+  },
+  {
+    "chinese_desc": "异常标志",
+    "description": "ABNORMAL FLAGS",
+    "name": "78",
+    "tabletype": "2",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "区间",
+        "description": "Interval",
+        "value": "I"
+      },
+      {
+        "position": "2",
+        "chinese_desc": "非常敏感",
+        "description": "Very sensitive",
+        "value": "VS"
+      },
+      {
+        "position": "3",
+        "chinese_desc": "重大变化",
+        "description": "Significant change up",
+        "value": "U"
+      },
+      {
+        "position": "4",
+        "chinese_desc": "敏感",
+        "description": "Sensitive",
+        "value": "S"
+      },
+      {
+        "position": "5",
+        "chinese_desc": "抗拒",
+        "description": "Resists",
+        "value": "R"
+      },
+      {
+        "position": "6",
+        "chinese_desc": "没有定义范围，或正常范围不适用",
+        "description": "No range defined,or normal ranges don\u0027t apply",
+        "value": "null"
+      },
+      {
+        "position": "7",
+        "chinese_desc": "低于较低的恐慌",
+        "description": "Below lower panic limits",
+        "value": "LL"
+      },
+      {
+        "position": "8",
+        "chinese_desc": "上述上限",
+        "description": "Above upper panic limits",
+        "value": "HH"
+      },
+      {
+        "position": "9",
+        "chinese_desc": "高于正常水平",
+        "description": "Above high normal",
+        "value": "H"
+      },
+      {
+        "position": "10",
+        "chinese_desc": "显著变化",
+        "description": "Significant change down",
+        "value": "D"
+      },
+      {
+        "position": "11",
+        "chinese_desc": "异常",
+        "description": "Very abnormal",
+        "value": "AA"
+      },
+      {
+        "position": "12",
+        "chinese_desc": "异常（适用于非数值结果）",
+        "description": "Abnormal (applies to non-numeric results)",
+        "value": "A"
+      },
+      {
+        "position": "13",
+        "chinese_desc": "低于绝对的低关仪表规模",
+        "description": "Below absolute low-off instrument scale",
+        "value": "\u003c"
+      },
+      {
+        "position": "14",
+        "chinese_desc": "适度敏感",
+        "description": "Moderately sensitive",
+        "value": "MS"
+      }
+    ]
+  },
+  {
+    "chinese_desc": "位置",
+    "description": "LOCATION",
+    "name": "79",
+    "tabletype": "1",
+    "Enumerate": [
+      
+    ]
+  },
+  {
+    "chinese_desc": "异常检测的性质",
+    "description": "NATURE OF ABNORMAL TESTING",
+    "name": "80",
+    "tabletype": "2",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "一个老年人口",
+        "description": "An aged based population",
+        "value": "A"
+      },
+      {
+        "position": "2",
+        "chinese_desc": "非泛型正常范围",
+        "description": "None - generic normal range",
+        "value": "N"
+      },
+      {
+        "position": "3",
+        "chinese_desc": "基于种族的人口",
+        "description": "A race based population",
+        "value": "R"
+      },
+      {
+        "position": "4",
+        "chinese_desc": "一种基于人口性别",
+        "description": "A sexed based population",
+        "value": "S"
+      }
+    ]
+  },
+  {
+    "chinese_desc": "录取通知书",
+    "description": "NOTICE OF ADMISSION",
+    "name": "81",
+    "tabletype": "1",
+    "Enumerate": [
+      
+    ]
+  },
+  {
+    "chinese_desc": "未使用的表",
+    "description": "UNUSED TABLE",
+    "name": "82",
+    "tabletype": "0",
+    "Enumerate": [
+      
+    ]
+  },
+  {
+    "chinese_desc": "！2.3.1复制异常型",
+    "description": "!Copied from 2.3.1 - Outlier Type",
+    "name": "83",
+    "tabletype": "1",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "离群天",
+        "description": "Outlier days",
+        "value": "D"
+      },
+      {
+        "position": "2",
+        "chinese_desc": "离群成本",
+        "description": "Outlier cost",
+        "value": "C"
+      }
+    ]
+  },
+  {
+    "chinese_desc": "！复制从2.5.1 -进行编码",
+    "description": "!Copied from 2.5.1 - Performed By Code",
+    "name": "84",
+    "tabletype": "1",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "没有建议值定义",
+        "description": "No suggested values defined",
+        "value": "..."
+      }
+    ]
+  },
+  {
+    "chinese_desc": "观察结果状态",
+    "description": "OBSERVATION RESULT STATUS",
+    "name": "85",
+    "tabletype": "2",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "实验室中的样本-结果等待",
+        "description": "Specimen in lab--results pending",
+        "value": "I"
+      },
+      {
+        "position": "2",
+        "chinese_desc": "输入的结果-未经验证",
+        "description": "Results entered - not verified",
+        "value": "R"
+      },
+      {
+        "position": "3",
+        "chinese_desc": "完成/最终结果（输入和验证）",
+        "description": "Complete/final results (entered and verified)",
+        "value": "F"
+      },
+      {
+        "position": "4",
+        "chinese_desc": "删除先前发送的观察",
+        "description": "Delete previously transmitted observation",
+        "value": "D"
+      },
+      {
+        "position": "5",
+        "chinese_desc": "部分结果",
+        "description": "Partial results",
+        "value": "S"
+      }
+    ]
+  },
+  {
+    "chinese_desc": "！复制从2.5.1计划型",
+    "description": "!Copied from 2.5.1 - Plan Type",
+    "name": "86",
+    "tabletype": "1",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "没有建议值定义",
+        "description": "No suggested values defined",
+        "value": "..."
+      }
+    ]
+  },
+  {
+    "chinese_desc": "！从copied 2.5.1公关eadmit测试指示灯",
+    "description": "!Copied from 2.5.1 - Pr-eadmit Test Indicator",
+    "name": "87",
+    "tabletype": "1",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "没有建议值定义",
+        "description": "No suggested values defined",
+        "value": "..."
+      }
+    ]
+  },
+  {
+    "chinese_desc": "！复制从2.5.1程序代码",
+    "description": "!Copied from 2.5.1 - Procedure Code",
+    "name": "88",
+    "tabletype": "1",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "没有建议值定义",
+        "description": "No suggested values defined",
+        "value": "..."
+      }
+    ]
+  },
+  {
+    "chinese_desc": "！复制的2.2程序编码方法",
+    "description": "!Copied from 2.2 - PROCEDURE CODING METHOD",
+    "name": "89",
+    "tabletype": "6",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "ICPM",
+        "description": "ICPM",
+        "value": "ICPM"
+      },
+      {
+        "position": "2",
+        "chinese_desc": "ikpm",
+        "description": "IKPM",
+        "value": "IKPM"
+      },
+      {
+        "position": "3",
+        "chinese_desc": "veska分类",
+        "description": "VESKA classification",
+        "value": "VESKA"
+      }
+    ]
+  },
+  {
+    "chinese_desc": "程序类型",
+    "description": "PROCEDURE TYPE",
+    "name": "90",
+    "tabletype": "3",
+    "Enumerate": [
+      
+    ]
+  },
+  {
+    "chinese_desc": "查询优先级",
+    "description": "QUERY PRIORITY",
+    "name": "91",
+    "tabletype": "2",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "递延",
+        "description": "Deferred",
+        "value": "D"
+      },
+      {
+        "position": "2",
+        "chinese_desc": "立即",
+        "description": "Immediate",
+        "value": "I"
+      }
+    ]
+  },
+  {
+    "chinese_desc": "！复制从2.2 re-admission指示器",
+    "description": "!Copied from 2.2 - RE-ADMISSION INDICATOR",
+    "name": "92",
+    "tabletype": "1",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "再入院",
+        "description": "Readmission",
+        "value": "R"
+      }
+    ]
+  },
+  {
+    "chinese_desc": "！复制从2.2 -发布信息",
+    "description": "!Copied from 2.2 - RELEASE OF INFORMATION",
+    "name": "93",
+    "tabletype": "1",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "是的",
+        "description": "Yes",
+        "value": "Y"
+      },
+      {
+        "position": "2",
+        "chinese_desc": "没有",
+        "description": "No",
+        "value": "N"
+      }
+    ]
+  },
+  {
+    "chinese_desc": "合格报告",
+    "description": "REPORT OF ELIGIBILITY",
+    "name": "94",
+    "tabletype": "1",
+    "Enumerate": [
+      
+    ]
+  },
+  {
+    "chinese_desc": "未使用的表",
+    "description": "UNUSED TABLE",
+    "name": "95",
+    "tabletype": "0",
+    "Enumerate": [
+      
+    ]
+  },
+  {
+    "chinese_desc": "金融交易代码",
+    "description": "FINANCIAL TRANSACTION CODE",
+    "name": "96",
+    "tabletype": "1",
+    "Enumerate": [
+      
+    ]
+  },
+  {
+    "chinese_desc": "未使用的表",
+    "description": "UNUSED TABLE",
+    "name": "97",
+    "tabletype": "0",
+    "Enumerate": [
+      
+    ]
+  },
+  {
+    "chinese_desc": "！复制的2.3种协议代码",
+    "description": "!Copied from 2.3 - Type of Agreement Code",
+    "name": "98",
+    "tabletype": "1",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "生育",
+        "description": "Maternity",
+        "value": "M"
+      },
+      {
+        "position": "2",
+        "chinese_desc": "标准",
+        "description": "Standard",
+        "value": "S"
+      },
+      {
+        "position": "3",
+        "chinese_desc": "统一",
+        "description": "unified",
+        "value": "U"
+      }
+    ]
+  },
+  {
+    "chinese_desc": "！VIP指标2.5.1 copied from",
+    "description": "!Copied from 2.5.1 - VIP Indicator",
+    "name": "99",
+    "tabletype": "1",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "没有建议值定义",
+        "description": "No suggested values defined",
+        "value": "..."
+      }
+    ]
+  },
+  {
+    "chinese_desc": "什么时候收",
+    "description": "WHEN TO CHARGE",
+    "name": "100",
+    "tabletype": "2",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "放电",
+        "description": "On discharge",
+        "value": "D"
+      },
+      {
+        "position": "2",
+        "chinese_desc": "收到订单",
+        "description": "On receipt of order",
+        "value": "O"
+      },
+      {
+        "position": "3",
+        "chinese_desc": "在服务完成时",
+        "description": "At time service is completed",
+        "value": "R"
+      },
+      {
+        "position": "4",
+        "chinese_desc": "在时间服务开始",
+        "description": "At time service is started",
+        "value": "S"
+      }
+    ]
+  },
+  {
+    "chinese_desc": "显示电平",
+    "description": "DISPLAY LEVEL",
+    "name": "101",
+    "tabletype": "3",
+    "Enumerate": [
+      
+    ]
+  },
+  {
+    "chinese_desc": "延迟确认类型",
+    "description": "DELAYED ACKNOWLEDGMENT TYPE",
+    "name": "102",
+    "tabletype": "2",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "接收的消息，存储为稍后处理",
+        "description": "Message Received, stored for later processing",
+        "value": "D"
+      }
+    ]
+  },
+  {
+    "chinese_desc": "处理标识",
+    "description": "PROCESSING ID",
+    "name": "103",
+    "tabletype": "2",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "训练",
+        "description": "Training",
+        "value": "T"
+      },
+      {
+        "position": "2",
+        "chinese_desc": "调试",
+        "description": "Debugging",
+        "value": "D"
+      },
+      {
+        "position": "3",
+        "chinese_desc": "生产",
+        "description": "Production",
+        "value": "P"
+      }
+    ]
+  },
+  {
+    "chinese_desc": "版本控制表",
+    "description": "VERSION CONTROL TABLE",
+    "name": "104",
+    "tabletype": "2",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "释放1988九月2",
+        "description": "Release 2.0  September 1988",
+        "value": "2.0"
+      },
+      {
+        "position": "2",
+        "chinese_desc": "1988年2月的演示",
+        "description": "Demo    2.0  October 1988",
+        "value": "2.0D"
+      },
+      {
+        "position": "3",
+        "chinese_desc": "2.1日发布1990",
+        "description": "Release 2.1  March 1990",
+        "value": "2.1"
+      }
+    ]
+  },
+  {
+    "chinese_desc": "评论来源",
+    "description": "SOURCE OF COMMENT",
+    "name": "105",
+    "tabletype": "2",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "辅助源百货is of Comment",
+        "description": "Ancillary department is source of comment",
+        "value": "L"
+      },
+      {
+        "position": "2",
+        "chinese_desc": "订购方源的评论",
+        "description": "Orderer is source of comment",
+        "value": "P"
+      }
+    ]
+  },
+  {
+    "chinese_desc": "查询格式代码",
+    "description": "QUERY FORMAT CODE",
+    "name": "106",
+    "tabletype": "2",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "面向记录的格式的响应",
+        "description": "Response in Record-oriented format",
+        "value": "R"
+      }
+    ]
+  },
+  {
+    "chinese_desc": "递延反应类型",
+    "description": "DEFERRED RESPONSE TYPE",
+    "name": "107",
+    "tabletype": "2",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "迟于指定日期/时间",
+        "description": "Later than the DATE/TIME specified",
+        "value": "L"
+      }
+    ]
+  },
+  {
+    "chinese_desc": "查询结果",
+    "description": "QUERY RESULTS LEVEL",
+    "name": "108",
+    "tabletype": "2",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "全部结果",
+        "description": "Full Results",
+        "value": "T"
+      },
+      {
+        "position": "2",
+        "chinese_desc": "订单加订单状态",
+        "description": "Order plus order status",
+        "value": "O"
+      },
+      {
+        "position": "3",
+        "chinese_desc": "状态",
+        "description": "Status only",
+        "value": "S"
+      }
+    ]
+  },
+  {
+    "chinese_desc": "报告优先级",
+    "description": "REPORT PRIORITY",
+    "name": "109",
+    "tabletype": "2",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "常规",
+        "description": "Routine",
+        "value": "R"
+      },
+      {
+        "position": "2",
+        "chinese_desc": "统计",
+        "description": "Stat",
+        "value": "S"
+      }
+    ]
+  },
+  {
+    "chinese_desc": "！复制从2.5.1转移坏账的代码",
+    "description": "!Copied from 2.5.1 - Transfer to Bad Debt Code",
+    "name": "110",
+    "tabletype": "1",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "没有建议值定义",
+        "description": "No suggested values defined",
+        "value": "..."
+      }
+    ]
+  },
+  {
+    "chinese_desc": "！复制从2.5.1删除账户密码",
+    "description": "!Copied from 2.5.1 - Delete Account Code",
+    "name": "111",
+    "tabletype": "1",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "没有建议值定义",
+        "description": "No suggested values defined",
+        "value": "..."
+      }
+    ]
+  },
+  {
+    "chinese_desc": "！copied from 2.3.1布局；",
+    "description": "!Copied from 2.3.1 - Discharge Disposition",
+    "name": "112",
+    "tabletype": "1",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "出院回家或自理（常规出院）",
+        "description": "Discharged to home or self care (routine discharge)",
+        "value": "01"
+      },
+      {
+        "position": "2",
+        "chinese_desc": "出院/转入另一个短期综合医院住院治疗",
+        "description": "Discharged/transferred to another short term general hospital for inpatient care",
+        "value": "02"
+      },
+      {
+        "position": "3",
+        "chinese_desc": "排放/转移到专业护理设施（SNF）",
+        "description": "Discharged/transferred to skilled nursing facility (SNF)",
+        "value": "03"
+      },
+      {
+        "position": "4",
+        "chinese_desc": "排放/转移到中级护理设施（ICF）",
+        "description": "Discharged/transferred to an intermediate care facility (ICF)",
+        "value": "04"
+      },
+      {
+        "position": "5",
+        "chinese_desc": "出院转为另一种住院服务机构或门诊服务转为另一机构",
+        "description": "Discharged/transferred to another type of institution for inpatient care or referred for outpatient services to another institution",
+        "value": "05"
+      },
+      {
+        "position": "6",
+        "chinese_desc": "在有组织的家庭卫生服务机构的照顾下，将/转移到家中",
+        "description": "Discharged/transferred to home under care of organized home health service organization",
+        "value": "06"
+      },
+      {
+        "position": "7",
+        "chinese_desc": "离开反对医疗忠告或中止照顾",
+        "description": "Left against medical advice or discontinued care",
+        "value": "07"
+      },
+      {
+        "position": "8",
+        "chinese_desc": "出院/转入家中照顾的家四供应商",
+        "description": "Discharged/transferred to home under care of Home IV provider",
+        "value": "08"
+      },
+      {
+        "position": "9",
+        "chinese_desc": "作为住院病人入院",
+        "description": "Admitted as an inpatient to this hospital",
+        "value": "09"
+      },
+      {
+        "position": "10",
+        "chinese_desc": "如果需要的话，可以在状态一级定义放电",
+        "description": "Discharge to be defined at state level, if necessary",
+        "value": "10"
+      },
+      {
+        "position": "11",
+        "chinese_desc": "如果需要的话，可以在状态一级定义放电",
+        "description": "Discharge to be defined at state level, if necessary",
+        "value": "11"
+      },
+      {
+        "position": "12",
+        "chinese_desc": "如果需要的话，可以在状态一级定义放电",
+        "description": "Discharge to be defined at state level, if necessary",
+        "value": "12"
+      },
+      {
+        "position": "13",
+        "chinese_desc": "如果需要的话，可以在状态一级定义放电",
+        "description": "Discharge to be defined at state level, if necessary",
+        "value": "13"
+      },
+      {
+        "position": "14",
+        "chinese_desc": "如果需要的话，可以在状态一级定义放电",
+        "description": "Discharge to be defined at state level, if necessary",
+        "value": "14"
+      },
+      {
+        "position": "15",
+        "chinese_desc": "如果需要的话，可以在状态一级定义放电",
+        "description": "Discharge to be defined at state level, if necessary",
+        "value": "15"
+      },
+      {
+        "position": "16",
+        "chinese_desc": "如果需要的话，可以在状态一级定义放电",
+        "description": "Discharge to be defined at state level, if necessary",
+        "value": "16"
+      },
+      {
+        "position": "17",
+        "chinese_desc": "如果需要的话，可以在状态一级定义放电",
+        "description": "Discharge to be defined at state level, if necessary",
+        "value": "17"
+      },
+      {
+        "position": "18",
+        "chinese_desc": "如果需要的话，可以在状态一级定义放电",
+        "description": "Discharge to be defined at state level, if necessary",
+        "value": "18"
+      },
+      {
+        "position": "19",
+        "chinese_desc": "如果需要的话，可以在状态一级定义放电",
+        "description": "Discharge to be defined at state level, if necessary",
+        "value": "19"
+      },
+      {
+        "position": "20",
+        "chinese_desc": "过期",
+        "description": "Expired",
+        "value": "20"
+      },
+      {
+        "position": "21",
+        "chinese_desc": "如果需要的话，可以在状态一级定义",
+        "description": "Expired to be defined at state level, if necessary",
+        "value": "21"
+      },
+      {
+        "position": "22",
+        "chinese_desc": "如果需要的话，可以在状态一级定义",
+        "description": "Expired to be defined at state level, if necessary",
+        "value": "22"
+      },
+      {
+        "position": "23",
+        "chinese_desc": "如果需要的话，可以在状态一级定义",
+        "description": "Expired to be defined at state level, if necessary",
+        "value": "23"
+      },
+      {
+        "position": "24",
+        "chinese_desc": "如果需要的话，可以在状态一级定义",
+        "description": "Expired to be defined at state level, if necessary",
+        "value": "24"
+      },
+      {
+        "position": "25",
+        "chinese_desc": "如果需要的话，可以在状态一级定义",
+        "description": "Expired to be defined at state level, if necessary",
+        "value": "25"
+      },
+      {
+        "position": "26",
+        "chinese_desc": "如果需要的话，可以在状态一级定义",
+        "description": "Expired to be defined at state level, if necessary",
+        "value": "26"
+      },
+      {
+        "position": "27",
+        "chinese_desc": "如果需要的话，可以在状态一级定义",
+        "description": "Expired to be defined at state level, if necessary",
+        "value": "27"
+      },
+      {
+        "position": "28",
+        "chinese_desc": "如果需要的话，可以在状态一级定义",
+        "description": "Expired to be defined at state level, if necessary",
+        "value": "28"
+      },
+      {
+        "position": "29",
+        "chinese_desc": "如果需要的话，可以在状态一级定义",
+        "description": "Expired to be defined at state level, if necessary",
+        "value": "29"
+      },
+      {
+        "position": "30",
+        "chinese_desc": "仍有患者或预期返回门诊服务",
+        "description": "Still patient or expected to return for outpatient services",
+        "value": "30"
+      },
+      {
+        "position": "31",
+        "chinese_desc": "如果需要的话，仍然要在状态水平上定义病人",
+        "description": "Still patient to be defined at state level, if necessary",
+        "value": "31"
+      },
+      {
+        "position": "32",
+        "chinese_desc": "如果需要的话，仍然要在状态水平上定义病人",
+        "description": "Still patient to be defined at state level, if necessary",
+        "value": "32"
+      },
+      {
+        "position": "33",
+        "chinese_desc": "如果需要的话，仍然要在状态水平上定义病人",
+        "description": "Still patient to be defined at state level, if necessary",
+        "value": "33"
+      },
+      {
+        "position": "34",
+        "chinese_desc": "如果需要的话，仍然要在状态水平上定义病人",
+        "description": "Still patient to be defined at state level, if necessary",
+        "value": "34"
+      },
+      {
+        "position": "35",
+        "chinese_desc": "如果需要的话，仍然要在状态水平上定义病人",
+        "description": "Still patient to be defined at state level, if necessary",
+        "value": "35"
+      },
+      {
+        "position": "36",
+        "chinese_desc": "如果需要的话，仍然要在状态水平上定义病人",
+        "description": "Still patient to be defined at state level, if necessary",
+        "value": "36"
+      },
+      {
+        "position": "37",
+        "chinese_desc": "如果需要的话，仍然要在状态水平上定义病人",
+        "description": "Still patient to be defined at state level, if necessary",
+        "value": "37"
+      },
+      {
+        "position": "38",
+        "chinese_desc": "如果需要的话，仍然要在状态水平上定义病人",
+        "description": "Still patient to be defined at state level, if necessary",
+        "value": "38"
+      },
+      {
+        "position": "39",
+        "chinese_desc": "如果需要的话，仍然要在状态水平上定义病人",
+        "description": "Still patient to be defined at state level, if necessary",
+        "value": "39"
+      },
+      {
+        "position": "40",
+        "chinese_desc": "过期在家里",
+        "description": "Expired at home",
+        "value": "40"
+      },
+      {
+        "position": "41",
+        "chinese_desc": "在医疗设施过期；如医院，SNF，ICF，或独立的临终关怀",
+        "description": "Expired in a medical facility; e.g., hospital, SNF, ICF, or free standing hospice",
+        "value": "41"
+      },
+      {
+        "position": "42",
+        "chinese_desc": "过期地点不明",
+        "description": "Expired - place unknown",
+        "value": "42"
+      }
+    ]
+  },
+  {
+    "chinese_desc": "！复制从2.5.1排位置",
+    "description": "!Copied from 2.5.1 - Discharged to Location",
+    "name": "113",
+    "tabletype": "1",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "没有建议值定义",
+        "description": "No suggested values defined",
+        "value": "..."
+      }
+    ]
+  },
+  {
+    "chinese_desc": "！复制从2.5.1饮食类型",
+    "description": "!Copied from 2.5.1 - Diet Type",
+    "name": "114",
+    "tabletype": "1",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "没有建议值定义",
+        "description": "No suggested values defined",
+        "value": "..."
+      }
+    ]
+  },
+  {
+    "chinese_desc": "！复制从2.5.1 -服务设施",
+    "description": "!Copied from 2.5.1 - Servicing Facility",
+    "name": "115",
+    "tabletype": "1",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "没有建议值定义",
+        "description": "No suggested values defined",
+        "value": "..."
+      }
+    ]
+  },
+  {
+    "chinese_desc": "床层状态",
+    "description": "BED STATUS",
+    "name": "116",
+    "tabletype": "1",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "关闭",
+        "description": "Closed",
+        "value": "C"
+      },
+      {
+        "position": "2",
+        "chinese_desc": "客房部",
+        "description": "Housekeeping",
+        "value": "H"
+      },
+      {
+        "position": "3",
+        "chinese_desc": "占领",
+        "description": "Occupied",
+        "value": "O"
+      }
+    ]
+  },
+  {
+    "chinese_desc": "！复制从2.5.1账户状况",
+    "description": "!Copied from 2.5.1 - Account Status",
+    "name": "117",
+    "tabletype": "1",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "没有建议值定义",
+        "description": "No suggested values defined",
+        "value": "..."
+      }
+    ]
+  },
+  {
+    "chinese_desc": "！从2.5.1 -主要诊断分类复制",
+    "description": "!Copied from 2.5.1 - Major Diagnostic Category",
+    "name": "118",
+    "tabletype": "1",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "没有建议值定义",
+        "description": "No suggested values defined",
+        "value": "..."
+      }
+    ]
+  },
+  {
+    "chinese_desc": "订单控制",
+    "description": "ORDER CONTROL",
+    "name": "119",
+    "tabletype": "2",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "无法改变",
+        "description": "Unable to change              F",
+        "value": "UX"
+      },
+      {
+        "position": "2",
+        "chinese_desc": "观察的结果，如",
+        "description": "Observations to follow     T  F         D,E",
+        "value": "RE"
+      },
+      {
+        "position": "3",
+        "chinese_desc": "置换顺序",
+        "description": "Replacement order          T  F",
+        "value": "RO"
+      },
+      {
+        "position": "4",
+        "chinese_desc": "请求收到吨",
+        "description": "Request received           T  F         G",
+        "value": "RR"
+      },
+      {
+        "position": "5",
+        "chinese_desc": "订单更换要求",
+        "description": "Order replace request      T            C",
+        "value": "RP"
+      },
+      {
+        "position": "6",
+        "chinese_desc": "发送填充号",
+        "description": "Send filler number            F         I",
+        "value": "SN"
+      },
+      {
+        "position": "7",
+        "chinese_desc": "发送订单状态",
+        "description": "Send order status          T",
+        "value": "SS"
+      },
+      {
+        "position": "8",
+        "chinese_desc": "无法停止",
+        "description": "Unable to Discontinue         F",
+        "value": "UD"
+      },
+      {
+        "position": "9",
+        "chinese_desc": "无法释放",
+        "description": "Unable to release             F",
+        "value": "UR"
+      },
+      {
+        "position": "10",
+        "chinese_desc": "相对阶F",
+        "description": "Parent order                  F         F",
+        "value": "PA"
+      },
+      {
+        "position": "11",
+        "chinese_desc": "按要求更改",
+        "description": "Changed as requested          F",
+        "value": "XR"
+      },
+      {
+        "position": "12",
+        "chinese_desc": "为了改变，unsol。F",
+        "description": "Order changed, unsol.         F",
+        "value": "XX"
+      },
+      {
+        "position": "13",
+        "chinese_desc": "不能穿上",
+        "description": "Unable to put on hold         F",
+        "value": "UH"
+      },
+      {
+        "position": "14",
+        "chinese_desc": "T F日期错误",
+        "description": "Data errors                T  F",
+        "value": "DE"
+      },
+      {
+        "position": "15",
+        "chinese_desc": "按要求释放",
+        "description": "Released as requested         F         E",
+        "value": "OR"
+      },
+      {
+        "position": "16",
+        "chinese_desc": "取消订单请求",
+        "description": "Cancel order request       T            A",
+        "value": "CA"
+      },
+      {
+        "position": "17",
+        "chinese_desc": "儿童令，女",
+        "description": "Child order                   F         E,F",
+        "value": "CH"
+      },
+      {
+        "position": "18",
+        "chinese_desc": "停止订单请求",
+        "description": "Discontinue order request  T            A",
+        "value": "DC"
+      },
+      {
+        "position": "19",
+        "chinese_desc": "按要求终止",
+        "description": "Discontinued as request       F",
+        "value": "DR"
+      },
+      {
+        "position": "20",
+        "chinese_desc": "保持订单请求",
+        "description": "Hold order request         T",
+        "value": "HD"
+      },
+      {
+        "position": "21",
+        "chinese_desc": "按要求举行",
+        "description": "On hold as requested          F         E",
+        "value": "HR"
+      },
+      {
+        "position": "22",
+        "chinese_desc": "分配数",
+        "description": "Number assigned            T",
+        "value": "NA"
+      },
+      {
+        "position": "23",
+        "chinese_desc": "新订单",
+        "description": "New order                  T",
+        "value": "NW"
+      },
+      {
+        "position": "24",
+        "chinese_desc": "更换unsolicited F C",
+        "description": "Replacement unsolicited       F         C",
+        "value": "RU"
+      },
+      {
+        "position": "25",
+        "chinese_desc": "订单终止",
+        "description": "Order discontinued            F",
+        "value": "OD"
+      },
+      {
+        "position": "26",
+        "chinese_desc": "订单接受和确定",
+        "description": "Order accepted \u0026 OK           F",
+        "value": "OK"
+      },
+      {
+        "position": "27",
+        "chinese_desc": "综合结果",
+        "description": "Combined result               F         J",
+        "value": "CN"
+      }
+    ]
+  },
+  {
+    "chinese_desc": "应用程序标识",
+    "description": "APPLICATION ID",
+    "name": "120",
+    "tabletype": "1",
+    "Enumerate": [
+      
+    ]
+  },
+  {
+    "chinese_desc": "反应标志",
+    "description": "RESPONSE FLAG",
+    "name": "121",
+    "tabletype": "2",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "报告例外。",
+        "description": "Report exceptions only.",
+        "value": "E"
+      },
+      {
+        "position": "2",
+        "chinese_desc": "same as d，更明确的确认。",
+        "description": "Same as D, plus confirmations explicitly.",
+        "value": "F"
+      },
+      {
+        "position": "3",
+        "chinese_desc": "only the MSA段is returned。",
+        "description": "Only the MSA segment is returned.",
+        "value": "N"
+      }
+    ]
+  },
+  {
+    "chinese_desc": "充电类型",
+    "description": "CHARGE TYPE",
+    "name": "122",
+    "tabletype": "2",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "专业",
+        "description": "Professional",
+        "value": "PC"
+      },
+      {
+        "position": "2",
+        "chinese_desc": "格兰特",
+        "description": "Grant",
+        "value": "GR"
+      },
+      {
+        "position": "3",
+        "chinese_desc": "研究",
+        "description": "Research",
+        "value": "RS"
+      },
+      {
+        "position": "4",
+        "chinese_desc": "不收费",
+        "description": "No Charge",
+        "value": "NC"
+      },
+      {
+        "position": "5",
+        "chinese_desc": "信用卡",
+        "description": "Credit",
+        "value": "CR"
+      },
+      {
+        "position": "6",
+        "chinese_desc": "合同",
+        "description": "Contract",
+        "value": "CO"
+      },
+      {
+        "position": "7",
+        "chinese_desc": "电荷",
+        "description": "Charge",
+        "value": "CH"
+      },
+      {
+        "position": "8",
+        "chinese_desc": "部",
+        "description": "Department",
+        "value": "DP"
+      }
+    ]
+  },
+  {
+    "chinese_desc": "结果状态预测",
+    "description": "RESULT STATUS - OBR",
+    "name": "123",
+    "tabletype": "2",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "先前发送结果的修正",
+        "description": "Correction of previously transmitted results",
+        "value": "C"
+      },
+      {
+        "position": "2",
+        "chinese_desc": "最终结果-存储和验证的结果",
+        "description": "Final results - results stored \u0026 verified",
+        "value": "F"
+      },
+      {
+        "position": "3",
+        "chinese_desc": "实验室中的标本，尚未处理。",
+        "description": "Specimen in lab, not yet processed.",
+        "value": "I"
+      },
+      {
+        "position": "4",
+        "chinese_desc": "初步结果",
+        "description": "Preliminary results",
+        "value": "P"
+      },
+      {
+        "position": "5",
+        "chinese_desc": "结果存储-尚未验证",
+        "description": "Results stored - not yet verified",
+        "value": "R"
+      },
+      {
+        "position": "6",
+        "chinese_desc": "程序安排，不做",
+        "description": "Procedure scheduled, not done",
+        "value": "S"
+      },
+      {
+        "position": "7",
+        "chinese_desc": "本试验记录无顺序",
+        "description": "No order on record for this test",
+        "value": "Y"
+      },
+      {
+        "position": "8",
+        "chinese_desc": "无创记录",
+        "description": "No record of this patient",
+        "value": "Z"
+      }
+    ]
+  },
+  {
+    "chinese_desc": "运输方式",
+    "description": "TRANSPORTATION MODE",
+    "name": "124",
+    "tabletype": "2",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "病人走到诊断服务",
+        "description": "Patient walks to diagnostic service",
+        "value": "WALK"
+      },
+      {
+        "position": "2",
+        "chinese_desc": "轮椅",
+        "description": "Wheelchair",
+        "value": "WHLC"
+      },
+      {
+        "position": "3",
+        "chinese_desc": "检查设备进入病人的LOC。",
+        "description": "The examining device goes to Patient\u0027s Loc.",
+        "value": "PORT"
+      }
+    ]
+  },
+  {
+    "chinese_desc": "价值类型",
+    "description": "VALUE TYPE",
+    "name": "125",
+    "tabletype": "0",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "校验位的复合标识",
+        "description": "Composite ID with check digit",
+        "value": "CK"
+      },
+      {
+        "position": "2",
+        "chinese_desc": "格式化文本",
+        "description": "Formatted Text",
+        "value": "FT"
+      },
+      {
+        "position": "3",
+        "chinese_desc": "人名",
+        "description": "Person name",
+        "value": "PN"
+      },
+      {
+        "position": "4",
+        "chinese_desc": "字符串数据。用于传输的数字。",
+        "description": "String data. Used to transmit numerics.",
+        "value": "ST"
+      },
+      {
+        "position": "5",
+        "chinese_desc": "时间",
+        "description": "Time",
+        "value": "TM"
+      },
+      {
+        "position": "6",
+        "chinese_desc": "时间戳",
+        "description": "Time stamp",
+        "value": "TS"
+      },
+      {
+        "position": "7",
+        "chinese_desc": "文本",
+        "description": "Text",
+        "value": "TX"
+      },
+      {
+        "position": "8",
+        "chinese_desc": "地址",
+        "description": "Address",
+        "value": "AD"
+      }
+    ]
+  },
+  {
+    "chinese_desc": "数量有限的要求",
+    "description": "QUANTITY LIMITED REQUEST",
+    "name": "126",
+    "tabletype": "3",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "字符",
+        "description": "Characters",
+        "value": "CH"
+      },
+      {
+        "position": "2",
+        "chinese_desc": "线",
+        "description": "Lines",
+        "value": "LI"
+      },
+      {
+        "position": "3",
+        "chinese_desc": "页",
+        "description": "Pages",
+        "value": "PG"
+      },
+      {
+        "position": "4",
+        "chinese_desc": "局部定义",
+        "description": "Locally defined",
+        "value": "ZO"
+      }
+    ]
+  },
+  {
+    "chinese_desc": "Y／N指示灯",
+    "description": "Y/N Indicator",
+    "name": "136",
+    "tabletype": "0",
+    "Enumerate": [
+      
+    ]
+  },
+  {
+    "chinese_desc": "房间类型",
+    "description": "Room Type",
+    "name": "145",
+    "tabletype": "0",
+    "Enumerate": [
+      
+    ]
+  },
+  {
+    "chinese_desc": "国家代码",
+    "description": "Country Code",
+    "name": "171",
+    "tabletype": "0",
+    "Enumerate": [
+      {
+        "position": "1",
+        "chinese_desc": "德国",
+        "description": "Deutschland",
+        "value": "D"
+      }
+    ]
+  }
+]

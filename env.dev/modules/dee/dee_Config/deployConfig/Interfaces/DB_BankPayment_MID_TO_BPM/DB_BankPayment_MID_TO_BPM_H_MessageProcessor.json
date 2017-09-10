@@ -1,0 +1,110 @@
+{
+  "normal": [
+    {
+      "xaTransaction": "",
+      "transaction": "",
+      "parentId": "8aaae0c55d102b6f015d104b72350007",
+      "smallType": "VM",
+      "description": "设置VM服务",
+      "id": "8aaae0c55d102b6f015d104d34180011",
+      "pollingFrequency": 600000,
+      "simpleMpLog": "false",
+      "bigType": "inbound",
+      "isRef": "false",
+      "enable": "true",
+      "text": "设置VM服务",
+      "queryKey": "8aaae0c55d102b6f015d106c516b0016",
+      "exchange_pattern": "request-response",
+      "address": "vm://DB_BankPayment_MID_TO_BPM_H",
+      "encoding": "UTF-8",
+      "connector_ref": "8aaae0c55d102b6f015d106a9e430015",
+      "className": ""
+    },
+    {
+      "ignoreSQLError": "false",
+      "text": "查询数据",
+      "description": "",
+      "scriptContent": "Map logmap = message.getInboundProperty(\"logmap\");\nObject[] o = new Object[10];\no[0] = logmap.get(\"DELIVERY_ID\");\nList < Map > data = dbop.select(\"select hou.name,t.delivery_id,t.order_type,t.cust_name,t.sales_no,t.tran_name,t.org_id,t.currency,t.packing_instructions,t.om_employee_num,t.attribute3,t.attribute17,t.tp_attribute1,t.tp_attribute2 from CUX.EFLOW_INTERFACE_DELIVERY_MAIN t, HR_OPERATING_UNITS HOU WHERE T.ORG_ID = HOU.organization_id  and DELIVERY_ID = ?\", message);\nreturn data;",
+      "smallType": "ExecuteSQLSimpleTransformer",
+      "className": "com.bokesoft.dee.transport.jdbc.transformer.ExecuteSQLSimpleTransformer",
+      "enable": "true",
+      "parentId": "8aaae0c55d102b6f015d104b72350007",
+      "queries": "[{\"value\":\"select a.HEADER_ID,\\n       a.ITEM_TYPE,\\n       a.DETAIL_TYPE,\\n       a.ORG_ID,\\n       a.VENDOR_NAME,\\n       a.VENDOR_NUM,\\n       a.AP_DATE,\\n       a.INVOICE_NUM,\\n       a.INVOICE_ID,\\n       a.LINE_NUM,\\n       a.TERM_NAME,\\n       a.DUE_DATE,\\n       a.PAYMENT_METHOD_NAME,\\n       a.CURRENCY_CODE,\\n       a.INVOICE_AMOUNT,\\n       a.AMOUNT,\\n       a.EMPLOYEE_NUMBER,\\n       a.EMPLOYEE_NAME,\\n       a.FLAG,\\n       a.NAME,\\n       a.Original_Currency\\n  from BANK_EFLOW_AP_DETAIL a\\n  left join (select t.invoice_id,\\n                    nvl(sum(c.invoice_amount), 0) as c_invoice_amount,\\n                    nvl(sum(d.invoice_amount), 0) as d_invoice_amount\\n               from BANK_EFLOW_AP_DETAIL t\\n               left join BANK_RESULT_MID c\\n                 on t.invoice_id = c.invoice_id\\n               left join BANK_REMAIN_MID d\\n                 on t.invoice_id = d.invoice_id\\n              group by t.invoice_id) b\\n    on a.invoice_id = b.invoice_id\\n where a.INVOICE_AMOUNT + a.b_invoice_amount + b.c_invoice_amount +\\n       b.d_invoice_amount > 0\"}]",
+      "bigType": "transformer_au",
+      "simpleMpLog": "false",
+      "ds": "2c9081d05be7e572015be80fcb64000f",
+      "isRef": "false",
+      "id": "8aaae0c55d102b6f015d1212229e0034",
+      "resultIndexOf": 1
+    },
+    {
+      "dispatchInterface": "8aaae0da5dcf21d3015dcf3eccb30028",
+      "description": "循环分发单条数据",
+      "useList": "true",
+      "text": "循环分发单条数据",
+      "className": "com.bokesoft.dee.mule.dispatch.transformer.DispatchVMTransformer",
+      "smallType": "DispatchVMTransformer",
+      "enable": "true",
+      "parentId": "8aaae0c55d102b6f015d104b72350007",
+      "bigType": "transformer_au",
+      "simpleMpLog": "false",
+      "dispatchService": "8aaae0da5dcf21d3015dcf3ecd47002a",
+      "isRef": "false",
+      "id": "8aaae0c55d102b6f015d10df93370022"
+    }
+  ],
+  "exception": [
+    {
+      "text": "把异常对象转换为文本",
+      "description": "把异常对象转换为文本",
+      "smallType": "ExceptionMessageTransformer",
+      "className": "com.bokesoft.exchange.transformer.ExceptionMessageTransformer",
+      "enable": "true",
+      "parentId": "8aaae0c55d102b6f015d104b72350007",
+      "bigType": "GGPZTransformer",
+      "isRef": "true",
+      "id": "8aaae0c55d102b6f015d104b72530008"
+    },
+    {
+      "path": "${bokedee.logpath.runtimeLog}/ERP_TO_BPM_Delivery_Release",
+      "text": "记录错误日志到文件_ERP_TO_BPM_Delivery_Release_H",
+      "description": "",
+      "smallType": "File",
+      "className": "",
+      "enable": "true",
+      "outputPattern": "#[function:datestamp:yyyyMMddHHmmss]-#[message:id].xml",
+      "parentId": "8aaae0c55d102b6f015d104b72350007",
+      "bigType": "outbound",
+      "file_subdir": "#[context:serviceName]/#[function:datestamp:yyyyMMdd]",
+      "isRef": "false",
+      "id": "8aaae0c55d102b6f015d104b72950009"
+    },
+    {
+      "text": "把异常信息替换换行符_ERP_TO_BPM_Delivery_Release_H",
+      "description": "把异常信息替换换行符",
+      "scriptContent": "String exceptionContent = message.getPayload();String exception = exceptionContent.replace(\"\\n\", \"<br/>\");message.setPayload(exception);return message;",
+      "className": "org.mule.module.scripting.transformer.ScriptTransformer",
+      "smallType": "GroovyScriptTransformer",
+      "enable": "false",
+      "parentId": "8aaae0c55d102b6f015d104b72350007",
+      "bigType": "transformer_au",
+      "simpleMpLog": "false",
+      "isRef": "false",
+      "id": "8aaae0c55d102b6f015d104b72d6000a"
+    },
+    {
+      "text": "把异常信息通过邮件发送_ERP_TO_BPM_Delivery_Release_H",
+      "description": "把异常信息通过邮件发送",
+      "connector_ref": "bokedee_default_smtp_connector",
+      "subject": "ERP_TO_BPM_Delivery_Release",
+      "className": "",
+      "smallType": "SMTP",
+      "enable": "false",
+      "parentId": "8aaae0c55d102b6f015d104b72350007",
+      "bigType": "outbound",
+      "encoding": "UTF-8",
+      "isRef": "false",
+      "id": "8aaae0c55d102b6f015d104b7320000b"
+    }
+  ]
+}

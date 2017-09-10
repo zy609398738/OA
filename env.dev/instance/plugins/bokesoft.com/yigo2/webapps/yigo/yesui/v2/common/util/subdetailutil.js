@@ -33,122 +33,116 @@ YIUI.SubDetailUtil = (function () {
                 return false;
             return form.getDocument().getByParentKey(grid.tableKey).length > 0;
         },
+        showSubDetailGridData:function (grid) {
+            var form = YIUI.FormStack.getForm(grid.ofFormID);
+
+            var parentGrid = this.getBindingGrid(form,grid);
+            var rowIndex = parentGrid.getFocusRowIndex();
+            if( rowIndex == -1 || !grid.tableKey )
+                return;
+
+            var row = parentGrid.getRowDataAt(rowIndex);
+
+            var dataTable = form.getDocument().getByKey(parentGrid.tableKey);
+            dataTable.setByBkmk(row.bookmark);
+            var OID = dataTable.getByKey(YIUI.SystemField.OID_SYS_KEY);
+
+            var metaRow = parentGrid.getDetailMetaRow();
+
+            grid.clearGridData();
+
+            var table = form.getDocument().getByKey(grid.tableKey);
+            table.beforeFirst();
+
+            while ( table.next() ) {
+                if (table.rows[table.pos].state == DataDef.R_Deleted)
+                    continue;
+                var inGrid = false;
+                if (metaRow.linkType === YIUI.SubDetailLinkType.PARENT) {
+                    if ((row.bookmark != null && table.getParentBkmk() === row.bookmark)
+                        || (table.getByKey(YIUI.SystemField.POID_SYS_KEY) === OID && OID > 0)) {
+                        inGrid = true;
+                    }
+                } else if (metaRow.linkType == YIUI.SubDetailLinkType.FOREIGN) {
+                    inGrid = true;
+                    var sourceFields = metaRow.sourceFields, targetFields = metaRow.targetFields, srcField, tgtField;
+                    for (var k = 0, slen = sourceFields.length; k < slen; k++) {
+                        srcField = sourceFields[k];
+                        tgtField = targetFields[k];
+                        var dataType = dataTable.cols[dataTable.indexByKey(srcField)].type;
+                        var dV = YIUI.Handler.convertValue(dataTable.getByKey(srcField), dataType),
+                            compDV = YIUI.Handler.convertValue(table.getByKey(tgtField), dataType);
+                        if (dV instanceof Decimal && compDV instanceof Decimal) {
+                            if (!dV.equals(compDV)) {
+                                inGrid = false;
+                                break;
+                            }
+                        } else if (dV !== compDV) {
+                            inGrid = false;
+                            break;
+                        }
+                    }
+                }
+                if ( inGrid ) {
+                    var bkmkRow = new YIUI.DetailRowBkmk();
+                    bkmkRow.setBookmark(table.getBkmk());
+                    YIUI.GridUtil.insertRow(grid, -1, grid.getDetailMetaRow(), bkmkRow, 0);
+                }
+            }
+
+            for(var idx = 0,length = grid.getRowCount(); idx < length; idx++){
+                grid.getHandler().showDetailRowData(form, grid, idx);
+            }
+
+            grid.refreshGrid();
+        },
         showSubDetailData: function (grid, rowIndex) {
-            // var begin = new Date().getTime();
-            var rowData = grid.getRowDataAt(rowIndex);
+
+            if(grid.hasColExpand || !grid.tableKey)
+                return;
+
             var form = YIUI.FormStack.getForm(grid.ofFormID);
 
             var compList = form.subDetailInfo[grid.key];
 
-            if(!$.isDefined(compList) || compList.length == 0)
+            if(!compList || compList.length == 0)
                 return;
-
-            if( grid.hasColExpand )
-                return;
-
-            if(!$.isDefined(grid.tableKey) || grid.tableKey.isEmpty())
-                return;
-
-            this.clearSubDetailData(form, grid);
 
             if(grid.getFocusRowIndex() == -1)
                 return;
 
-            if (rowData == null || (rowData.isDetail && rowData.bookmark == null)) 
+            var rowData = grid.getRowDataAt(rowIndex);
+
+            if (!rowData.isDetail || YIUI.GridUtil.isEmptyRow(rowData))
                 return;
 
-            // console.log("show....subdetail......data................");
+            this.clearSubDetailData(form, grid);
 
-            var dataTable = form.getDocument().getByKey(grid.tableKey);
-            var row = grid.dataModel.data[rowIndex], value, OID = -1, comp, ubookmark, compTable;
+            var value, com, table;
 
-            var metaRow = grid.getDetailMetaRow();
+            for (var i = 0, len = compList.length; i < len; i++) {
+                com = form.getComponent(compList[i]);
 
-            if (row.isDetail && !grid.hasColExpand) {
-                if (row.bookmark != null) {
-                    dataTable.setByBkmk(row.bookmark);
-                    OID = dataTable.getByKey("oid");
+                if (com.type == YIUI.CONTROLTYPE.GRID) {
+
+                    this.showSubDetailGridData(com);
+
                 } else {
-                    dataTable.beforeFirst();
-                }
-
-                for (var i = 0, len = compList.length; i < len; i++) {
-                    comp = form.getComponent(compList[i]);
-                    if (comp instanceof  YIUI.Control.Grid) {
-                        compTable = form.getDocument().getByKey(comp.tableKey);
-                        comp.dataModel.data = [];
-                        var info = form.subDetailInfo[grid.key].info;
-
-                        compTable.beforeFirst();
-
-                        while (compTable.next()) {
-                            if (compTable.rows[compTable.pos].state == DataDef.R_Deleted)
-                                continue;
-                            var inGrid = false;
-                            if (metaRow.linkType === YIUI.SubDetailLinkType.PARENT) {
-                                if ((row.bookmark != null && compTable.getParentBkmk() === row.bookmark)
-                                    || (compTable.getByKey("POID") === OID && OID > 0)) {
-                                    inGrid = true;
-                                }
-                            } else if (metaRow.linkType == YIUI.SubDetailLinkType.FOREIGN) {
-                                inGrid = true;
-                                var sourceFields = metaRow.sourceFields, targetFields = metaRow.targetFields, srcField, tgtField;
-                                for (var k = 0, slen = sourceFields.length; k < slen; k++) {
-                                    srcField = sourceFields[k];
-                                    tgtField = targetFields[k];
-                                    var dataType = dataTable.cols[dataTable.indexByKey(srcField)].type;
-                                    var dV = YIUI.Handler.convertValue(dataTable.getByKey(srcField), dataType),
-                                        compDV = YIUI.Handler.convertValue(compTable.getByKey(tgtField), dataType);
-                                    if (dV instanceof Decimal && compDV instanceof Decimal) {
-                                        if (!dV.equals(compDV)) {
-                                            inGrid = false;
-                                            break;
-                                        }
-                                    } else if (dV !== compDV) {
-                                        inGrid = false;
-                                        break;
-                                    }
-                                }
-                            }
-                            if ( inGrid ) {
-                                var bkmkRow = new YIUI.DetailRowBkmk();
-                                bkmkRow.setBookmark(compTable.getBkmk());
-                                var newRowIndex = YIUI.GridUtil.insertRow(comp, -1, comp.getDetailMetaRow(), bkmkRow, 0);
-                                inGrid = false;
-                            }
+                    var meta = com.getMetaObj();
+                    if(meta.bindingCellKey){
+                        var colInfoes = grid.getColInfoByKey(com.metaObj.bindingCellKey);
+                        if (colInfoes !== null) {
+                            value = grid.getValueAt(rowIndex,colInfoes[0].colIndex);
+                            com.setValue(value, false, false);
                         }
-
-                        for(var idx = 0,length = comp.getRowCount(); idx < length; idx++){
-                            comp.getHandler().showDetailRowData(form, comp, idx);
-                        }
-
-                        comp.refreshGrid();
-
-                    } else {
-                        var meta = comp.getMetaObj();
-
-                        if(meta.bindingCellKey && meta.bindingCellKey.length > 0){
-                            var colInfoes = grid.getColInfoByKey(comp.metaObj.bindingCellKey);
-                            if (colInfoes !== null) {
-                                for (var ci = 0, clen = colInfoes.length; ci < clen; ci++) {
-                                    value = row.data[colInfoes[ci].colIndex][0];
-                                    if (comp.type == YIUI.CONTROLTYPE.DICT && value != null && typeof value == 'string') {
-                                        value = JSON.parse(value);
-                                    }
-                                    comp.setValue(value, false, false);
-                                }
-                            }
-                        }else if(meta.tableKey && meta.tableKey.length > 0){
-                                compTable = form.getDocument().getByKey(meta.tableKey);
-                                value = compTable.getByKey(meta.columnKey);
-                                comp.setValue(value, false, false);
-                        }
+                    } else if (meta.tableKey && meta.columnKey){
+                        table = form.getDocument().getByKey(meta.tableKey);
+                        value = table.getByKey(meta.columnKey);
+                        com.setValue(value, false, false);
                     }
                 }
-                form.getUIProcess().calcSubDetail(grid.key);
             }
-      //      var end = new Date().getTime();
-     //       console.log("showSubDetail Cost: " + (end - begin) + " ms");
+            form.getUIProcess().calcSubDetail(grid.key);
         },
         clearSubDetailData: function (form, parentGrid) {
             var compList = form.subDetailInfo[parentGrid.key];

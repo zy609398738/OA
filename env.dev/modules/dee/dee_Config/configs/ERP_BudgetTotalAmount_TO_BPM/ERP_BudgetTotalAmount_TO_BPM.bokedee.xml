@@ -1,0 +1,189 @@
+<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:spring="http://www.springframework.org/schema/beans" xmlns:vm="http://www.mulesoft.org/schema/mule/vm"
+	xmlns:ftp="http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.ftp/1.2"
+	xmlns:script="http://www.mulesoft.org/schema/mule/scripting"
+	xmlns:file="http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.file/1.2"
+	xmlns:http="http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.http/1.2"
+	xmlns:https="http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.https/1.2"
+	xmlns:tcp="http://www.mulesoft.org/schema/mule/tcp"
+	xmlns:stdio="http://www.mulesoft.org/schema/mule/stdio" xmlns:cxf="http://www.mulesoft.org/schema/mule/cxf"
+	xmlns:axis="http://www.mulesoft.org/schema/mule/axis" xmlns:jbossts="http://www.mulesoft.org/schema/mule/jbossts"
+	xmlns:jdbc="http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.jdbc/1.2"
+	xmlns:pattern="http://www.mulesoft.org/schema/mule/pattern" xmlns:sftp="http://www.mulesoft.org/schema/mule/sftp"
+	xmlns:smooks="http://www.muleforge.org/smooks/schema/mule-module-smooks"
+  xmlns:jms="http://www.mulesoft.org/schema/mule/jms"
+  xmlns:smtp="http://www.mulesoft.org/schema/mule/smtp"
+  xmlns:imap="http://www.mulesoft.org/schema/mule/imap"
+ xmlns:pop3="http://www.mulesoft.org/schema/mule/pop3"
+  xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/3.1/mule.xsd
+http://www.mulesoft.org/schema/mule/jbossts http://www.mulesoft.org/schema/mule/jbossts/3.1/mule-jbossts.xsd
+http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.jdbc/1.2 http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.jdbc/1.2/mule-com.bokesoft.dee.patch.jdbc.xsd
+http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.file/1.2 http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.file/1.2/mule-com.bokesoft.dee.patch.file.xsd
+http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.http/1.2 http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.http/1.2/mule-com.bokesoft.dee.patch.http.xsd
+http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.https/1.2 http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.https/1.2/mule-com.bokesoft.dee.patch.https.xsd
+http://www.mulesoft.org/schema/mule/tcp http://www.mulesoft.org/schema/mule/tcp/3.1/mule-tcp.xsd
+http://www.muleforge.org/smooks/schema/mule-module-smooks http://dist.muleforge.org/smooks/schema/mule-module-smooks/1.1/mule-module-smooks.xsd
+http://www.mulesoft.org/schema/mule/stdio http://www.mulesoft.org/schema/mule/stdio/3.1/mule-stdio.xsd
+http://www.mulesoft.org/schema/mule/cxf http://www.mulesoft.org/schema/mule/cxf/3.1/mule-cxf.xsd
+http://www.mulesoft.org/schema/mule/axis http://www.mulesoft.org/schema/mule/axis/3.1/mule-axis.xsd
+http://www.mulesoft.org/schema/mule/scripting http://www.mulesoft.org/schema/mule/scripting/3.1/mule-scripting.xsd
+http://www.mulesoft.org/schema/mule/pattern http://www.mulesoft.org/schema/mule/pattern/3.1/mule-pattern.xsd
+        http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.ftp/1.2 http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.ftp/1.2/mule-com.bokesoft.dee.patch.ftp.xsd
+http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/3.1/mule-vm.xsd 
+     http://www.mulesoft.org/schema/mule/sftp http://www.mulesoft.org/schema/mule/sftp/3.1/mule-sftp.xsd 
+    http://www.mulesoft.org/schema/mule/jms http://www.mulesoft.org/schema/mule/jms/3.1/mule-jms.xsd 
+  http://www.mulesoft.org/schema/mule/smtp http://www.mulesoft.org/schema/mule/smtp/3.1/mule-smtp.xsd 
+	http://www.mulesoft.org/schema/mule/imap http://www.mulesoft.org/schema/mule/imap/3.1/mule-imap.xsd 
+ http://www.mulesoft.org/schema/mule/pop3 http://www.mulesoft.org/schema/mule/pop3/3.1/mule-pop3.xsd ">
+
+		<custom-transformer class="com.bokesoft.exchange.transformer.ScriptWithDSTransformer" name="响应反馈">
+		<spring:property name="ds" ref="2c9081d05be7e572015be80fcb64000f_YIGO2_DB"></spring:property>
+		<spring:property name="script">
+			<spring:value>
+			<![CDATA[
+				String expMsg = "";
+Map rsmap = new HashMap();
+if (message.getExceptionPayload() != null)
+{
+    message.setOutboundProperty("http.status", 200);
+    expMsg = message.getExceptionPayload().getRootException().getMessage();
+    if (expMsg.length() > 3500)
+    {
+        expMsg = expMsg.substring(0, 3000);
+    }
+    message.setExceptionPayload(null);
+    rsmap.put("code", "e");
+    rsmap.put("msg", "查询失败！");
+}
+else
+{
+    rsmap.put("code", "s");
+    rsmap.put("msg", "查询成功！");
+    rsmap.put("data", payload);
+}
+Map logmap = message.getInboundProperty("logmap");
+String request_data = logmap.get("request_data") == null ? "": logmap.get("request_data");
+String response_data = logmap.get("response_data") == null ? "": logmap.get("response_data");
+Object[] o = new Object[10];
+o[0] = logmap.get("flow");
+o[1] = logmap.get("node");
+o[2] = logmap.get("billkey");
+o[3] = logmap.get("oid");
+o[4] = logmap.get("begintime");
+o[5] = new java.text.SimpleDateFormat("yyyyMMdd HH:mm:ss.SSS").format(new java.sql.Timestamp(java.lang.System.currentTimeMillis()));
+o[6] = request_data.length() > 3500 ? request_data.substring(0, 500) : request_data;
+o[7] = response_data.length() > 3500 ? response_data.substring(0, 500) : response_data;
+o[8] = expMsg;
+o[9] = "interface_2";
+dbop.saveOrUpdate("insert into TRINA_SL_INTERFACE_LOG(id,flow,node,billkey,oid,starttime,endtime,request_data,response_data,EXCEPTION,interface_type)values(Trina_SL_Interface_Log_ID_SEQ.Nextval,?,?,?,?,?,?,?,?,?,?)", o, false);
+return com.bokesoft.dee.mule.util.json.JSONUtil.toJson(rsmap);
+			]]>
+			</spring:value>
+		</spring:property>
+	</custom-transformer>
+<flow name="ERP_BudgetTotalAmount_TO_BPM">
+		<vm:inbound-endpoint  name="接收查询总金额的传入条件"
+		encoding="UTF-8"
+		address="vm://ERP_BudgetTotalAmount_TO_BPM" 
+		exchange-pattern ="request-response" 
+		responseTransformer-refs ="响应反馈"
+		>
+	</vm:inbound-endpoint>
+
+		<script:transformer name="将json格式的查询条件进行转换">
+		<script:script engine="groovy">
+			<script:text><![CDATA[
+				String begintime = new java.text.SimpleDateFormat("yyyyMMdd HH:mm:ss.SSS").format(new java.sql.Timestamp(java.lang.System.currentTimeMillis()));
+Map logmap = new HashMap();
+logmap.put("begintime", begintime);
+logmap.put("flow", payload.get("flow"));
+logmap.put("node", payload.get("node"));
+logmap.put("oid", payload.get("oid"));
+logmap.put("billkey", payload.get("billkey"));
+logmap.put("request_data", payload.get("json"));
+message.setInboundProperty("logmap", logmap);
+return com.bokesoft.dee.mule.util.json.JSONUtil.fromJson(payload.get("json"), java.util.List.class);
+
+				]]></script:text>
+		</script:script>
+	</script:transformer>	
+		<!--查询ERP系统费用申请单总金额信息-->
+	<custom-transformer class="com.bokesoft.exchange.transformer.ScriptWithDSTransformer" name="查询ERP系统费用申请单总金额信息">
+		<spring:property name="ds" ref="8aaae09b5bf03e9f015bf17bc58e061f_ERP_TO_BPM"></spring:property>
+		<spring:property name="script">
+			<spring:value>
+			<![CDATA[
+				int size = payload.size();
+String[] oj = null;
+for (int j = 0; j < size; j++)
+{
+    Map mj = payload.get(j);
+    String valuej = mj.get("value");
+    String conditionj = mj.get("condition");
+    if (conditionj.equalsIgnoreCase("in"))
+    {
+        oj = valuej.split(",");
+    }
+}
+String s = "";
+List ol = new ArrayList();
+for (int i = 0; i < size; i++)
+{
+    Map m = payload.get(i);
+    String key = m.get("key");
+    String value = m.get("value");
+    String condition = m.get("condition");
+
+    if (condition.equalsIgnoreCase("in"))
+    {
+        s = s + " and " + key + " " + condition + "(";
+        for (int k = 0; k < oj.length; k++)
+        {
+            if (oj.length == 1)
+            {
+                s = s + "?";
+                ol.add(oj[k]);
+            }
+            else if (k == oj.length - 1)
+            {
+                s = s + "?";
+                ol.add(oj[k]);
+            }
+            else
+            {
+                s = s + "?,";
+                ol.add(oj[k]);
+            }
+        }
+        s = s + ")";
+    }
+    else
+    {
+        s = s + " and " + key + condition + "?";
+        ol.add(value);
+    }
+
+}
+Object[] o = ol.toArray();
+String sql = "select sum(to_char(nvl(b.budget_qty,1)*b.budget_unit_price *b.rate)) as totalamount from  TSL_BUDGET_CONTROL_H a inner join apps.TSL_BUDGET_L_RATE_V b  on a.BUDGET_ID=b.BUDGET_ID where 1=1 " + s;
+List < Map > rs = dbop.select(sql, o);
+String json = com.bokesoft.dee.mule.util.json.JSONUtil.toJson(rs);
+message.getInboundProperty("logmap").put("response_data", json);
+return rs;
+			]]>
+			</spring:value>
+		</spring:property>
+	</custom-transformer>
+<default-exception-strategy><processor-chain>
+
+	<transformer ref="ggpz_把异常对象转换为文本"/>
+
+		<file:outbound-endpoint path="${bokedee.logpath.runtimeLog}/ERP_BudgetTotalAmount_TO_BPM"  name="记录错误日志到文件"
+		
+		outputPattern="#[function:datestamp:yyyyMMddHHmmss]-#[message:id].xml">
+		<property key="file_subdir" value="#[context:serviceName]/#[function:datestamp:yyyyMMdd]" />
+	</file:outbound-endpoint>
+
+</processor-chain></default-exception-strategy></flow></mule>

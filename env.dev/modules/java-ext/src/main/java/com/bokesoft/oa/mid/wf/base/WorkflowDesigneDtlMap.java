@@ -79,6 +79,20 @@ public class WorkflowDesigneDtlMap extends DtlBaseMap<Long, WorkflowDesigneDtl, 
 	}
 
 	/**
+	 * 载入数据
+	 * 
+	 * @param dt
+	 *            明细数据集
+	 * @throws Throwable
+	 */
+	public void uploadData(DataTable dt) throws Throwable {
+		for (WorkflowDesigneDtl dtl : values()) {
+			dt.append();
+			dtl.uploadData(dt);
+		}
+	}
+
+	/**
 	 * 获得流程设计对象
 	 * 
 	 * @param oid
@@ -140,6 +154,7 @@ public class WorkflowDesigneDtlMap extends DtlBaseMap<Long, WorkflowDesigneDtl, 
 				workflowDesigneDtlMap.put(auditNode, obj);
 			}
 		}
+
 		return obj;
 	}
 
@@ -154,7 +169,7 @@ public class WorkflowDesigneDtlMap extends DtlBaseMap<Long, WorkflowDesigneDtl, 
 		OAContext context = getContext();
 		MetaProcess metaProcess = context.getMetaProcess();
 		MetaNode metaNode = context.getMetaNode();
-		if (metaProcess != null && metaNode != null  && (3==metaNode.getNodeType() || 4==metaNode.getNodeType())) {
+		if (metaProcess != null && metaNode != null && (3 == metaNode.getNodeType() || 4 == metaNode.getNodeType())) {
 			if (dtlDt.size() <= 0) {
 				throw new Error("流程“" + metaProcess.getCaption() + "”的流程节点“" + metaNode.getCaption()
 						+ "”，没有在流程设计中找到对应的节点设置，请修正。");
@@ -179,8 +194,9 @@ public class WorkflowDesigneDtlMap extends DtlBaseMap<Long, WorkflowDesigneDtl, 
 			return null;
 		}
 		WorkitemInf parentworkitemInf = workitemInf.getParentWorkitem();
+		// 如果前一个为空，取当前节点
 		if (parentworkitemInf == null) {
-			return null;
+			parentworkitemInf = workitemInf;
 		}
 		Integer nodeID = parentworkitemInf.getNodeID();
 		if (nodeID == null) {

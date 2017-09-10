@@ -74,11 +74,12 @@ YIUI.BPMService = (function () {
 	    /**
 		 * 结束一个流程实例
 		 */
-	    endInstance: function(instanceID) {
+	    endInstance: function(instanceID, userinfo) {
 	        var params = {
 	    		service: "BPM",
 	    		cmd: "EndInstance",
-	    		instanceID: instanceID
+	    		instanceID: instanceID,
+	    		userInfo: userinfo
 	        };
 
             return Svr.Request.getData(params);
@@ -100,10 +101,10 @@ YIUI.BPMService = (function () {
 	    /**
 		 * 取消暂停一个流程实例
 		 */
-	    canclePause: function(wid) {
+	    resume: function(wid) {
 	        var params = {
 	    		service: "BPM",
-	    		cmd: "CanclePause",
+	    		cmd: "Resume",
 	    		workitemID: wid
 	        };
 
@@ -307,13 +308,14 @@ YIUI.BPMService = (function () {
 	    /**
 		 * 在指定的工作项上发起加签动作，会产生一个新的加签工作项，只有这个加签工作项被提交了，当前工作项才可以被提交
 		 */
-	    endorseTask: function(wid, operatorID, launchInfo) {
+	    endorseTask: function(wid, operatorID, launchInfo, hide) {
 	        var params = {
 	    		service: "BPMExtend",
 	    		cmd: "EndorseTask",
 	    		WorkitemID: wid,
 	    		OperatorID: operatorID,
-	    		LaunchInfo: launchInfo
+	    		LaunchInfo: launchInfo,
+	    		HideActiveWorkitem: hide
 	        };
 			//return Svr.Request.getSyncData(Svr.SvrMgr.ServletURL, params);
             return Svr.Request.getData(params);
@@ -321,14 +323,15 @@ YIUI.BPMService = (function () {
 	    /**
 		 * 移交工作项
 		 */
-	    transferTask: function(wid, operatorID, createRecord, userinfo) {
+	    transferTask: function(wid, operatorID, createRecord, userinfo, auditResult) {
 	        var params = {
 	    		service: "BPMExtend",
 	    		cmd: "TransferTask",
 	    		WorkitemID: wid,
 	    		OperatorID: operatorID,
 	    		CreateRecord: createRecord,
-	    		UserInfo: userinfo
+	    		UserInfo: userinfo,
+	    		AuditResult: auditResult
 	        };
 			//return Svr.Request.getSyncData(Svr.SvrMgr.ServletURL, params);
             return Svr.Request.getData(params);
@@ -349,12 +352,12 @@ YIUI.BPMService = (function () {
 	    /**
 	     * 直送工作项
 	     */
-	    transferToNode: function(workitemID, formDoc) {
+	    transferToNode: function(workiteminfo, formDoc) {
 	    	var doc = YIUI.DataUtil.toJSONDoc(formDoc);
 	    	var params = {
 		    		service:"BPM",
 		    		cmd:"TransferToNode",
-		    		workitemID: workitemID,
+		    		workiteminfo: $.toJSON(workiteminfo),
 		    		document: $.toJSON(doc)
 		    };
 	    	return Svr.Request.getData(params);
@@ -362,15 +365,30 @@ YIUI.BPMService = (function () {
 	    /**
 	     * 直送启动
 	     */
-	    dirStratInstance: function(instanceID, formDoc){
+	    dirStratInstance: function(instanceID, auditResult, formDoc){
 	    	var doc = YIUI.DataUtil.toJSONDoc(formDoc);
 	    	var params = {
 		    		service:"BPM",
 		    		cmd:"DirStartInstance",
 		    		InstanceID: instanceID,
-		    		document: $.toJSON(doc)
+		    		document: $.toJSON(doc),
+		    		auditResult: auditResult
 		    };
-		    return Svr.Request.getSyncData(params);
+		    return Svr.Request.getData(params);
+	    },
+	    
+	    /**
+		 * 从结束状态复活一个流程实例
+		 */
+	    reviveInstance: function(instanceID, userinfo) {
+	        var params = {
+	    		service: "BPM",
+	    		cmd: "ReviveInstance",
+	    		InstanceID: instanceID,
+	    		userInfo: userinfo
+	        };
+
+            return Svr.Request.getData(params);
 	    }
 
 	}

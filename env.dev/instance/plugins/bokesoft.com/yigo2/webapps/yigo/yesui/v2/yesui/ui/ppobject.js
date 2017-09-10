@@ -28,7 +28,10 @@
 				} else if (this.type == this.ARRAY) {
 					var ja = [];
 					for (var i = 0, len = this.operatorList.length; i < len; i++) {
-						ja.push(this.operatorList[i]);
+						if(this.operatorList[i] instanceof YIUI.ItemData)
+							ja.push(this.operatorList[i].oid);
+						else
+							ja.push(this.operatorList[i]);
 					}
 					jsonObj.OperatorList = ja;
 				} else if (this.type == this.DATATABLE) {

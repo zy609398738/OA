@@ -25,7 +25,13 @@
 	}]
 }, {
 	'text' : 'Ftp',
-	'type' : 'Ftp'
+	'type' : 'Ftp',
+	'attr' : [ {
+		'xtype' : 'Boolean',
+		'name' : 'streaming',
+		'fieldLabel' : 'streaming',
+		'value' : 'false'
+	} ]
 }, {
 	'text' : 'SFtp',
 	'type' : 'SFtp'

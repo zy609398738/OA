@@ -28,7 +28,17 @@ YIUI.Control.Grid = YIUI.extend(YIUI.Control, {
             totalRowCount: 0,
             pageLoadType: this.metaObj.pageLoadType,
             pageRowCount: this.metaObj.pageRowCount,
-            pageCount: 1
+            pageIndicatorCount: this.metaObj.pageIndicatorCount,
+            pageCount: 1,
+            reset:function () {
+                this.curPageIndex = 0;
+                this.totalRowCount = 0;
+                this.pageCount = 1;
+            },
+            calcPage:function () {
+                var pageCount = Math.ceil(this.totalRowCount / this.pageRowCount);
+                this.pageCount = pageCount == 0 ? 1 : pageCount;
+            }
         };
     },
 
@@ -558,41 +568,24 @@ YIUI.Control.Grid = YIUI.extend(YIUI.Control, {
         }
     },
 
-    //处理分页事件
     gotoPage: function (page) {
         return this.gridHandler.doGoToPage(this, page - 1 );
     },
 
-    //设置分页按钮及输入框的可用性及事件处理
     initPageOpts: function (needCalc) {
-        var form = YIUI.FormStack.getForm(this.ofFormID);
-
-        var totalRowCount;
-
-        if( this.getMetaObj().pageLoadType != -1 ) {
+        if( this.getMetaObj().pageLoadType != YIUI.PageLoadType.NONE ) {
+            var form = YIUI.FormStack.getForm(this.ofFormID),count;
             if (this.getMetaObj().pageLoadType == YIUI.PageLoadType.DB) {
-                totalRowCount = YIUI.TotalRowCountUtil.getRowCount(form.getDocument(), this.tableKey);
+                count = YIUI.TotalRowCountUtil.getRowCount(form.getDocument(), this.tableKey);
             } else {
-                totalRowCount = form.getDocument().getByKey(this.tableKey).size();
+                count = form.getDocument().getByKey(this.tableKey).size();
             }
+            this.pageInfo.totalRowCount = count;
         } else {
-            totalRowCount = this.dataModel.data.length;
+            return this.pageInfo.totalRowCount = this.dataModel.data.length;
         }
 
-        this.pageInfo.totalRowCount = totalRowCount;
-
-        if (this.getMetaObj().pageLoadType == YIUI.PageLoadType.NONE)
-            return;
-
-        //每页行数
-        var pageRowCount = this.getMetaObj().pageRowCount;
-
-        //总页数
-        var pageCount = Math.ceil(totalRowCount / pageRowCount);
-        pageCount = pageCount == 0 ? 1 : pageCount;
-
-        this.pageInfo.pageRowCount = pageRowCount;
-        this.pageInfo.pageCount = pageCount;
+        this.pageInfo.calcPage();
     },
     rowOptFunc: function (cmd) {
         var self = this;
@@ -808,6 +801,7 @@ YIUI.Control.Grid = YIUI.extend(YIUI.Control, {
         };
         this.el.yGrid(this.options);
         this.buildGroupHeaders();
+        this.refreshSelectAll();
         this.options = null;
         this.refreshGrid();
     },
@@ -830,7 +824,12 @@ YIUI.Control.Grid = YIUI.extend(YIUI.Control.Grid, {   //纯web使用的一些�
         this.base(enable);
      //   if (this.el == null) // el没有,往模型中插行
     //        return;
-        this.el && (this.el[0].p.enable = enable);
+        var el = this.el;
+        if(el) {
+        	this.el[0].p.enable = enable;
+        	el.prop("disabled",false);
+        }
+        
         if( this.getMetaObj().treeType == -1 && !this.hasRowExpand ) {
             this.removeAutoRowAndGroup();
             if ( enable && this.getDetailMetaRow() && this.newEmptyRow ) {
@@ -986,32 +985,93 @@ YIUI.Control.Grid = YIUI.extend(YIUI.Control.Grid, {   //纯web使用的一些�
     },
 
     /**
-     * 方便插入一行空白明细行的方法
+     *  提供给函数等外部使用使用的插行方法,插入空白行以及树形行
      * @param rowIndex 插行的位置
      */
     insertRow:function (rowIndex) {
-        var detailRow = this.getDetailMetaRow();
-        if( !detailRow )
-            return null;
-        var level = 0;
-        if( rowIndex != -1 && rowIndex < this.getRowCount() ) {
-            level = this.getRowDataAt(rowIndex).rowGroupLevel;
+        if( !this.impl_insertRow ) {
+            if( this.treeIndex == -1 ) {
+                this.impl_insertRow = function (rowIndex) {
+                    var detailRow = this.getDetailMetaRow();
+                    if( !detailRow )
+                        return -1;
+                    var level = 0;
+                    if( rowIndex != -1 && rowIndex < this.getRowCount() ) {
+                        level = this.getRowDataAt(rowIndex).rowGroupLevel;
+                    }
+
+                    // 清空选择模型(需要在insert之前)
+                    var ci = this.getFocusColIndex();
+                    if( this.el ) {
+                        this.el[0].cleanSelection();
+                    }
+
+                    var ri = this.addGridRow(rowIndex,detailRow,null,level,true);
+
+                    if( !this.el ) return ri;
+
+                    // 设置焦点
+                    this.el.setCellFocus(ri,ci == -1 ? 0 : ci);
+
+                    return ri;
+                }
+            } else {
+                this.impl_insertRow = function (rowIndex) {
+                    var detailRow = this.getDetailMetaRow();
+                    if( !detailRow )
+                        return -1;
+                    var row,
+                        parent,
+                        index,
+                        treeLevel;
+                    if( rowIndex != -1 && rowIndex < this.getRowCount() ) {
+                        row = this.getRowDataAt(rowIndex);
+                        treeLevel = row.treeLevel;
+                        if( row.childRows ) {
+                            parent = row;
+                            index = rowIndex + row.childRows.length + 1;
+                            treeLevel++;
+                        } else if ( !row.parentRow ) {
+                            parent = row;
+                            index = rowIndex + 1;
+                            treeLevel++;
+                        } else {
+                            parent = row.parentRow;
+                            index = rowIndex;
+                        }
+                    }
+
+                    // 清空选择模型(需要在insert之前)
+                    var ci = this.getFocusColIndex();
+                    if( this.el ) {
+                        this.el[0].cleanSelection();
+                    }
+
+                    var ri = this.addGridRow(index,detailRow,null,0,true,function (rowData) {
+                        rowData.treeLevel = treeLevel;
+                        rowData.isLeaf = true;
+                        rowData.parentRow = parent;
+                    });
+
+                    var newRow = this.getRowDataAt(ri);
+                    if( parent != null ) {
+                        if( !parent.childRows ) {
+                            parent.childRows = [];
+                        }
+                        parent.childRows.push(newRow.rowID);
+                        parent.isLeaf = false;
+                    }
+
+                    if( !this.el ) return ri;
+
+                    // 设置焦点
+                    this.el.setCellFocus(ri,ci == -1 ? 0 : ci);
+
+                    return ri;
+                }
+            }
         }
-
-        // 清空选择模型(需要在insert之前)
-        var ci = this.getFocusColIndex();
-        if( this.el ) {
-            this.el[0].cleanSelection();
-        }
-
-        var ri = this.addGridRow(rowIndex,detailRow,null,level,true);
-
-        if( !this.el ) return ri;
-
-        // 设置焦点
-        this.el.setCellFocus(ri,ci == -1 ? 0 : ci);
-
-        return ri;
+        return this.impl_insertRow(rowIndex);
     },
 
     /**
@@ -1020,24 +1080,27 @@ YIUI.Control.Grid = YIUI.extend(YIUI.Control.Grid, {   //纯web使用的一些�
      * @param metaRow 行数据对象
      * @param groupLevel 分组的层级
      * @param fireEvent 是否触发事件
+     * @param fn 回调,用于给新增的数据行设置相关属性
      */
-    addGridRow: function (rowIndex, metaRow, bookmarkRow, groupLevel, fireEvent) {
+    addGridRow: function (rowIndex, metaRow, bookmarkRow, groupLevel, fireEvent, fn) {
         rowIndex = parseInt(rowIndex, 10);
         if ( isNaN(rowIndex) || rowIndex < 0 ) {
             rowIndex = -1;
         }
 
-        var newRowIndex = YIUI.GridUtil.insertRow(this, rowIndex, metaRow, bookmarkRow, groupLevel);
+        var index = YIUI.GridUtil.insertRow(this, rowIndex, metaRow, bookmarkRow, groupLevel);
 
-        if( !this.el ) return newRowIndex;
+        if( !this.el ) return index;
 
-        var rowData = this.dataModel.data[newRowIndex];
+        var rowData = this.dataModel.data[index];
 
-        this.el[0].insertGridRow(newRowIndex, rowData);
+        $.isFunction(fn) && fn.call(this,rowData);
 
-        this.gridHandler.rowInsert(this,newRowIndex,!fireEvent ? true : fireEvent);
+        this.el[0].insertGridRow(index, rowData);
 
-        return newRowIndex;
+        this.gridHandler.rowInsert(this,index,!fireEvent ? true : fireEvent);
+
+        return index;
     },
 
     appendAutoRowAndGroup:function () {
@@ -1153,11 +1216,21 @@ YIUI.Control.Grid = YIUI.extend(YIUI.Control.Grid, {   //纯web使用的一些�
 
         var lastRow = rowIndex == this.dataModel.data.length - 1;
 
+        var rowData = this.dataModel.data[rowIndex],
+            parent = rowData.parentRow;
+
         // 删除模型行
         this.dataModel.data.splice(rowIndex, 1);
 
-        if( !this.el ) return;
+        // 从父行中移除
+        if( parent ) {
+            parent.childRows.splice(parent.childRows.indexOf(rowData.rowID),1);
+        }
 
+        if( !this.el ){
+            return;
+        } 
+        
         // 删除界面行
         this.el[0].deleteGridRow(rowIndex);
 
@@ -1205,19 +1278,28 @@ YIUI.Control.Grid = YIUI.extend(YIUI.Control.Grid, {   //纯web使用的一些�
             }
             return true;
         };
+
         // 删除行数据
         var deleteDir = function (form,grid,rowIndex) {
+
             // 取出数据
-            var bookmark = grid.dataModel.data[rowIndex].bookmark;
+            var bkmkRow = grid.dataModel.data[rowIndex].bkmkRow,bookmark;
+            if( bkmkRow ) {
+                if( bkmkRow.getRowType() === YIUI.IRowBkmk.Detail ) {
+                    bookmark = bkmkRow.getBookmark();
+                } else {
+                    bookmark = bkmkRow.getRowArray();
+                }
+            }
 
             // 删除影子表数据
-            deleteShadowRow(form,grid,bookmark);
+            grid.tableKey && deleteShadowRow(form,grid,bookmark);
 
             // 删除子明细数据
-            deleteSubDetailData(form,grid,bookmark);
+            !grid.hasColExpand && deleteSubDetailData(form,grid,bookmark);
 
             // 删除数据行
-            deleteData(form,grid,bookmark);
+            grid.tableKey && deleteData(form,grid,bookmark);
 
             // 删除界面行并转移焦点
             ts.deleteRowAt(rowIndex);
@@ -1227,7 +1309,7 @@ YIUI.Control.Grid = YIUI.extend(YIUI.Control.Grid, {   //纯web使用的一些�
         };
 
         var deleteData = function (form,grid,bookmark) {
-            if ( !grid.tableKey || bookmark == undefined )
+            if ( bookmark == undefined )
                 return true;
             var dataTable = form.getDocument().getByKey(grid.tableKey);
             if ( $.isArray(bookmark) ) {
@@ -1242,8 +1324,8 @@ YIUI.Control.Grid = YIUI.extend(YIUI.Control.Grid, {   //纯web使用的一些�
         }
 
         var deleteSubDetailData = function (form,grid,bookmark) {
-            if ( bookmark == undefined || $.isArray(bookmark) )
-                return true;
+            if ( bookmark == undefined )
+                return;
             var delTblData = function (tbl) {
                 var subTables = form.getDocument().getByParentKey(tbl.key),subTable;
                 var OID = tbl.getByKey('OID'),POID;
@@ -1267,7 +1349,8 @@ YIUI.Control.Grid = YIUI.extend(YIUI.Control.Grid, {   //纯web使用的一些�
         var deleteShadowRow = function (form,grid,bookmark) {
             var doc = form.getDocument(), dataTable = doc.getByKey(grid.tableKey);
             var shadowTbl = doc.getShadow(grid.tableKey);
-            if( !shadowTbl ) return;
+            if( !shadowTbl )
+                return;
             if( $.isArray(bookmark) ) {
                 for( var i = 0,size = bookmark.length;i < size;i++ ) {
                     dataTable.setByBkmk(bookmark[i]);
@@ -1289,26 +1372,51 @@ YIUI.Control.Grid = YIUI.extend(YIUI.Control.Grid, {   //纯web使用的一些�
             }
         }
 
+        // 递归删除子行及自己
+        var deleteTreeRow = function (form,grid,rowData) {
+            var childRows = rowData.childRows,_child;
+            if( childRows ) {
+                for( var i = childRows.length - 1;i >=0;i-- ) {
+                    _child = grid.getRowDataByID(childRows[i]);
+                    if( !_child.isLeaf && _child.childRows ) {
+                        deleteTreeRow(form,grid,_child);
+                    } else {
+                        deleteDir(form,grid,grid.getRowIndexByID(childRows[i]));
+                    }
+                }
+            }
+            deleteDir(form,grid,grid.getRowIndexByID(rowData.rowID));
+        }
+
         if (!isNeedDelete(form,this,rowIndex)) {
             return false;
         }
 
         var ts = this;
         var rowData = this.dataModel.data[rowIndex];
-        if (!YIUI.GridUtil.isEmptyRow(rowData) && YIUI.SubDetailUtil.hasSubDetailData(form,this,rowIndex)) {
-            var dialog = new YIUI.Yes_Dialog({msg: YIUI.I18N.grid.whetherEmpty, YesEvent: deleteDir});
-            dialog.show();
-            var btns = $(".dlg-btn", dialog.el);
-            for (var i = 0; i < btns.length; i++) {
-                var btn = $(btns[i]);
-                if (btn.attr("key") == YIUI.Dialog_Btn.STR_YES) {
-                    btn.click(function () {
-                        deleteDir(form,ts,rowIndex);
-                    });
-                }
-                btn.click(function () {
-                    dialog.close();
+        if (!YIUI.GridUtil.isEmptyRow(rowData) ) {
+            if( YIUI.SubDetailUtil.hasSubDetailData(form,this,rowIndex) ) {
+                var options = {
+                    msg: YIUI.I18N.grid.whetherEmpty,
+                    msgType: YIUI.Dialog_MsgType.YES_NO
+                };
+                var dialog = new YIUI.Control.Dialog(options);
+                dialog.render();
+                dialog.regEvent(YIUI.Dialog_Btn.STR_YES, function () {
+                    deleteDir(form,ts,rowIndex);
                 });
+            } else if ( ts.treeIndex != -1 && rowData.childRows ) {
+                var options = {
+                    msg: YIUI.I18N.grid.whetherEmpty,
+                    msgType: YIUI.Dialog_MsgType.YES_NO
+                };
+                var dialog = new YIUI.Control.Dialog(options);
+                dialog.render();
+                dialog.regEvent(YIUI.Dialog_Btn.STR_YES, function () {
+                    deleteTreeRow(form,ts,rowData);
+                });
+            } else {
+                deleteDir(form,ts,rowIndex);
             }
         } else {
             deleteDir(form,ts,rowIndex);
@@ -1443,16 +1551,6 @@ YIUI.Control.Grid = YIUI.extend(YIUI.Control.Grid, {   //纯web使用的一些�
         }
     },
 
-    getLastDetailRowIndex: function () {
-        var data = this.dataModel.data;
-        for( var i = 0,size = data.length - 1; i >= 0;--i ) {
-            if( data[i].rowType === 'Detail' ) {
-                return i;
-            }
-        }
-        return -1;
-    },
-
     colInfoMap: {},
 
     // 设置单元格可用
@@ -1466,11 +1564,6 @@ YIUI.Control.Grid = YIUI.extend(YIUI.Control.Grid, {   //纯web使用的一些�
 
         if( !this.el )
             return;
-
-        // 选择字典的可用性改变,刷新全选按钮
-        if( colIndex == this.selectFieldIndex ){
-            this.refreshSelectEnable();
-        }
 
         this.el.setCellEnable(rowIndex, colIndex, enable);
     },
@@ -1514,21 +1607,19 @@ YIUI.Control.Grid = YIUI.extend(YIUI.Control.Grid, {   //纯web使用的一些�
         this.el.trigger("reloadGrid");
     },
 
-    load: function (construct,calc) {
+    // show的时候不调用这个方法,会render两次
+    load: function (construct) {
         var form = YIUI.FormStack.getForm(this.ofFormID);
         var show = new YIUI.ShowGridData(form, this);
         show.load(construct);
 
-        // 有el,再进行重新render,避免render两次
+        form.getUIProcess().resetComponentStatus(this);
+
         if( this.el ) {
             this.getOuterEl().remove();
             this.container && this.onRender(this.container);
-            this.el.setGridWidth(this.lastSize.width);
-            this.el.setGridHeight(this.lastSize.height);
-        }
-
-        if( calc ) {
-            form.getUIProcess().resetComponentStatus(this);
+            this.lastSize.width > 0 && this.el.setGridWidth(this.lastSize.width);
+            this.lastSize.height > 0 && this.el.setGridHeight(this.lastSize.height);
         }
     },
 
@@ -1625,26 +1716,6 @@ YIUI.Control.Grid = YIUI.extend(YIUI.Control.Grid, {   //纯web使用的一些�
         return ( !v || parseFloat(v) == 0 ) ? true : false;
     },
 
-    // isCellNull: function (rowIndex, cellKey) {
-    //     var editOpt = this.getCellEditOpt(cellKey),
-    //         coIndex = this.getCellIndexByKey(cellKey),
-    //         value = this.getValueAt(rowIndex, coIndex);
-    //     switch (editOpt.editOptions.cellType) {
-    //         case YIUI.CONTROLTYPE.NUMBEREDITOR:
-    //             return value == 0 || value == null;
-    //         case YIUI.CONTROLTYPE.TEXTEDITOR:
-    //             return value == null || value.length == 0;
-    //         case YIUI.CONTROLTYPE.DATEPICKER:
-    //         case YIUI.CONTROLTYPE.UTCDATEPICKER:
-    //         case YIUI.CONTROLTYPE.DICT:
-    //         case YIUI.CONTROLTYPE.DYNAMICDICT:
-    //         case YIUI.CONTROLTYPE.COMBOBOX:
-    //             return  value == null || value == undefined;
-    //         case YIUI.CONTROLTYPE.CHECKBOX:
-    //             return !value;
-    //     }
-    //     return false;
-    // },
     setColumnCaption: function (colKey, caption) {
         var column;
         for (var i = 0, len = this.dataModel.colModel.columns.length; i < len; i++) {
@@ -1732,7 +1803,7 @@ YIUI.Control.Grid = YIUI.extend(YIUI.Control.Grid, {   //纯web使用的一些�
             if (rowData.rowType !== 'Detail' || YIUI.GridUtil.isEmptyRow(rowData))
                 continue;
             hasDataRow = true;
-            if ( !YIUI.TypeConvertor.toInt(rowData.data[this.selectFieldIndex][0]) ) {
+            if ( !YIUI.TypeConvertor.toBoolean(rowData.data[this.selectFieldIndex][0]) ) {
                 selectAll = false;
                 break;
             }
@@ -1741,23 +1812,6 @@ YIUI.Control.Grid = YIUI.extend(YIUI.Control.Grid, {   //纯web使用的一些�
         if( hasDataRow ? selectAll : false ) {
             $check.addClass('checked');
         }
-    },
-
-    refreshSelectEnable:function () {
-        if( this.selectFieldIndex == -1 )
-            return;
-        var $check = $(".chk", $('.ui-ygrid-htable',this.getOuterEl()));
-        if( $check.length == 0 )
-            return;
-        var enable = false,rowData;
-        for (var i = 0, len = this.getRowCount(); i < len; i++) {
-            rowData = this.getRowDataAt(i);
-            if (rowData.rowType !== 'Detail' || YIUI.GridUtil.isEmptyRow(rowData))
-                continue;
-            enable = rowData.data[this.selectFieldIndex][2];
-            if( enable ) break;
-        }
-        $check.attr('enable',enable);
     },
 
     checkSelectAll: function () {

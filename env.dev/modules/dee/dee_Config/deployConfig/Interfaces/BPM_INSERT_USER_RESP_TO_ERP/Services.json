@@ -1,0 +1,11 @@
+[
+  {
+    "parentId": "402881e95d5a8b56015d5a8df9b60007",
+    "text": "BPM_INSERT_USER_RESP_TO_ERP",
+    "recordMpLog": "false",
+    "id": "402881e95d5a8b56015d5a8dfa8e0008",
+    "description": "写入BPM用户至ERP系统中间表",
+    "fileImport": "false",
+    "enable": "true"
+  }
+]

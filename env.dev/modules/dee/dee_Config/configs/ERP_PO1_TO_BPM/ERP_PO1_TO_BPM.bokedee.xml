@@ -1,0 +1,418 @@
+<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:spring="http://www.springframework.org/schema/beans" xmlns:vm="http://www.mulesoft.org/schema/mule/vm"
+	xmlns:ftp="http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.ftp/1.2"
+	xmlns:script="http://www.mulesoft.org/schema/mule/scripting"
+	xmlns:file="http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.file/1.2"
+	xmlns:http="http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.http/1.2"
+	xmlns:https="http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.https/1.2"
+	xmlns:tcp="http://www.mulesoft.org/schema/mule/tcp"
+	xmlns:stdio="http://www.mulesoft.org/schema/mule/stdio" xmlns:cxf="http://www.mulesoft.org/schema/mule/cxf"
+	xmlns:axis="http://www.mulesoft.org/schema/mule/axis" xmlns:jbossts="http://www.mulesoft.org/schema/mule/jbossts"
+	xmlns:jdbc="http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.jdbc/1.2"
+	xmlns:pattern="http://www.mulesoft.org/schema/mule/pattern" xmlns:sftp="http://www.mulesoft.org/schema/mule/sftp"
+	xmlns:smooks="http://www.muleforge.org/smooks/schema/mule-module-smooks"
+  xmlns:jms="http://www.mulesoft.org/schema/mule/jms"
+  xmlns:smtp="http://www.mulesoft.org/schema/mule/smtp"
+  xmlns:imap="http://www.mulesoft.org/schema/mule/imap"
+ xmlns:pop3="http://www.mulesoft.org/schema/mule/pop3"
+  xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/3.1/mule.xsd
+http://www.mulesoft.org/schema/mule/jbossts http://www.mulesoft.org/schema/mule/jbossts/3.1/mule-jbossts.xsd
+http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.jdbc/1.2 http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.jdbc/1.2/mule-com.bokesoft.dee.patch.jdbc.xsd
+http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.file/1.2 http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.file/1.2/mule-com.bokesoft.dee.patch.file.xsd
+http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.http/1.2 http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.http/1.2/mule-com.bokesoft.dee.patch.http.xsd
+http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.https/1.2 http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.https/1.2/mule-com.bokesoft.dee.patch.https.xsd
+http://www.mulesoft.org/schema/mule/tcp http://www.mulesoft.org/schema/mule/tcp/3.1/mule-tcp.xsd
+http://www.muleforge.org/smooks/schema/mule-module-smooks http://dist.muleforge.org/smooks/schema/mule-module-smooks/1.1/mule-module-smooks.xsd
+http://www.mulesoft.org/schema/mule/stdio http://www.mulesoft.org/schema/mule/stdio/3.1/mule-stdio.xsd
+http://www.mulesoft.org/schema/mule/cxf http://www.mulesoft.org/schema/mule/cxf/3.1/mule-cxf.xsd
+http://www.mulesoft.org/schema/mule/axis http://www.mulesoft.org/schema/mule/axis/3.1/mule-axis.xsd
+http://www.mulesoft.org/schema/mule/scripting http://www.mulesoft.org/schema/mule/scripting/3.1/mule-scripting.xsd
+http://www.mulesoft.org/schema/mule/pattern http://www.mulesoft.org/schema/mule/pattern/3.1/mule-pattern.xsd
+        http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.ftp/1.2 http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.ftp/1.2/mule-com.bokesoft.dee.patch.ftp.xsd
+http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/3.1/mule-vm.xsd 
+     http://www.mulesoft.org/schema/mule/sftp http://www.mulesoft.org/schema/mule/sftp/3.1/mule-sftp.xsd 
+    http://www.mulesoft.org/schema/mule/jms http://www.mulesoft.org/schema/mule/jms/3.1/mule-jms.xsd 
+  http://www.mulesoft.org/schema/mule/smtp http://www.mulesoft.org/schema/mule/smtp/3.1/mule-smtp.xsd 
+	http://www.mulesoft.org/schema/mule/imap http://www.mulesoft.org/schema/mule/imap/3.1/mule-imap.xsd 
+ http://www.mulesoft.org/schema/mule/pop3 http://www.mulesoft.org/schema/mule/pop3/3.1/mule-pop3.xsd ">
+
+		<custom-transformer class="com.bokesoft.exchange.transformer.ScriptWithDSTransformer" name="更新日志表">
+		<spring:property name="ds" ref="2c9081d05be7e572015be80fcb64000f_YIGO2_DB"></spring:property>
+		<spring:property name="script">
+			<spring:value>
+			<![CDATA[
+				String expMsg = "";
+Map logmap = message.getInboundProperty("logmap");
+Map rsmap = new HashMap();
+if (message.getExceptionPayload() != null)
+{
+    message.setOutboundProperty("http.status", 200);
+    expMsg = message.getExceptionPayload().getRootException().getMessage();
+    if (expMsg.length() > 3500)
+    {
+        expMsg = expMsg.substring(0, 3000);
+    }
+    message.setExceptionPayload(null);
+    rsmap.put("Taskid", "");
+    rsmap.put("INF_ID", logmap.get("INF_ID"));
+    rsmap.put("Result", "0");
+    rsmap.put("Message", expMsg);
+}
+else
+{
+    rsmap.put("Taskid", payload.get(0).get("OID"));
+    rsmap.put("INF_ID", logmap.get("INF_ID"));
+    rsmap.put("Result", "1");
+    rsmap.put("Message", "");
+}
+Object[] o = new Object[10];
+o[0] = "";
+o[1] = "";
+o[2] = "";
+o[3] = "";
+o[4] = "";
+o[5] = new java.text.SimpleDateFormat("yyyyMMdd HH:mm:ss.SSS").format(new java.sql.Timestamp(java.lang.System.currentTimeMillis()));
+o[6] = "";
+o[7] = "";
+o[8] = expMsg;
+o[9] = "interface_5";
+dbop.saveOrUpdate("insert into TRINA_SL_INTERFACE_LOG(id,flow,node,billkey,oid,starttime,endtime,request_data,response_data,EXCEPTION,interface_type)values(Trina_SL_Interface_Log_ID_SEQ.Nextval,?,?,?,?,?,?,?,?,?,?)", o, false);
+return rsmap;
+			]]>
+			</spring:value>
+		</spring:property>
+	</custom-transformer>
+
+		<script:transformer name="转换输出数据格式">
+		<script:script engine="groovy">
+			<script:text><![CDATA[
+				Map rsmap = payload;
+String Taskid = rsmap.get("Taskid");
+String INF_ID = rsmap.get("INF_ID");
+String Result = rsmap.get("Result");
+String Message = rsmap.get("Message");
+String returnxml = "<Response><Taskid>" + Taskid + "</Taskid><INF_ID>" + INF_ID + "</INF_ID><Result>" + Result + "</Result><Message>" + Message+ "</Message></Response>";
+return returnxml;
+				]]></script:text>
+		</script:script>
+	</script:transformer>	<flow name="ERP_PO1_TO_BPM">
+		<!--接收导入YIGO系统数据-->
+	<vm:inbound-endpoint  name="接收导入YIGO系统数据"
+		encoding="UTF-8"
+		address="vm://ERP_PO1_TO_BPM" 
+		exchange-pattern ="request-response" 
+		responseTransformer-refs ="更新日志表 转换输出数据格式"
+		>
+	</vm:inbound-endpoint>
+
+		<!--解析XML数据格式-->
+	<custom-transformer class="org.milyn.smooks.mule.Transformer" name="解析XML数据格式">
+		<spring:property name="configData">
+			<spring:value>
+			<![CDATA[ 
+				<smooks-resource-list xmlns="http://www.milyn.org/xsd/smooks-1.1.xsd" xmlns:jb="http://www.milyn.org/xsd/smooks/javabean-1.1.xsd">
+	<jb:bindings beanId="PO" class="com.bokesoft.dee.mule.util.CaseInsensitiveHashMap" createOnElement="PO"> 
+		     <jb:wiring property="BarCodeLists" beanIdRef="BarCodeLists"/>
+		     <jb:wiring property="POLists" beanIdRef="POLists"/>
+			 <jb:value property="TaskID" data="PO/TaskID"/>
+			 <jb:value property="PO_INF_ID" data="PO/PO_INF_ID"/>
+			 <jb:value property="SN" data="PO/SN"/>
+			 <jb:value property="Applier" data="PO/Applier"/>
+			 <jb:value property="ApplierHrId" data="PO/ApplierHrId"/>
+			 <jb:value property="ApplierDept" data="PO/ApplierDept"/>
+			 <jb:value property="FillerName" data="PO/FillerName"/>
+			 <jb:value property="Currency" data="PO/Currency"/>
+			 <jb:value property="TotalAmount" data="PO/TotalAmount"/>
+			 <jb:value property="OUID" data="PO/OUID"/>
+			 <jb:value property="OUName" data="PO/OUName"/>
+			 <jb:value property="Supplier" data="PO/Supplier"/>
+			 <jb:value property="SupplierAdd" data="PO/SupplierAdd"/>
+			 <jb:value property="Description" data="PO/Description"/>
+			 <jb:value property="PurchaseFlag" data="PO/PurchaseFlag"/>
+			 <jb:value property="CellInterFlag" data="PO/CellInterFlag"/>
+	</jb:bindings>
+	<jb:bindings beanId="BarCodeList" class="com.bokesoft.dee.mule.util.CaseInsensitiveHashMap" createOnElement="PO/BarCodeList/BarCodeList"> 
+			 <jb:value property="BarCode" data="PO/BarCodeList/BarCodeList/BarCode"/>
+	</jb:bindings>
+	<jb:bindings beanId="POList" class="com.bokesoft.dee.mule.util.CaseInsensitiveHashMap" createOnElement="PO/POList/POList"> 
+			 <jb:value property="ID" data="PO/POList/POList/ID"/>
+			 <jb:value property="Category" data="PO/POList/POList/Category"/>
+			 <jb:value property="Code" data="PO/POList/POList/Code"/>
+			 <jb:value property="Version" data="PO/POList/POList/Version"/>
+			 <jb:value property="Descriptions" data="PO/POList/POList/Description"/>
+			 <jb:value property="Unit" data="PO/POList/POList/Unit"/>
+			 <jb:value property="Qty" data="PO/POList/POList/Qty"/>
+			 <jb:value property="Price" data="PO/POList/POList/Price"/>
+			 <jb:value property="PriceContract" data="PO/POList/POList/PriceContract"/>
+			 <jb:value property="PriceLine" data="PO/POList/POList/PriceLine"/>
+			 <jb:value property="ContractBarcode" data="PO/POList/POList/ContractBarcode"/>
+			 <jb:value property="PaymentTerm" data="PO/POList/POList/PaymentTerm"/>
+			 <jb:value property="RequestDate" data="PO/POList/POList/RequestDate"/>
+			 <jb:value property="CostCenterN" data="PO/POList/POList/CostCenterN"/>
+			 <jb:value property="CostCenterDescN" data="PO/POList/POList/CostCenterDescN"/>
+			 <jb:value property="BudgetNumber" data="PO/POList/POList/BudgetNumber"/>
+			 <jb:value property="BudgetDesc" data="PO/POList/POList/BudgetDesc"/>
+			 <jb:value property="Account" data="PO/POList/POList/Account"/>
+			 <jb:value property="AccoountDesc" data="PO/POList/POList/AccoountDesc"/>
+			 <jb:value property="TaxCode" data="PO/POList/POList/TaxCode"/>
+			 <jb:value property="TaxAmount" data="PO/POList/POList/TaxAmount"/>
+			 <jb:value property="InvoiceMatching" data="PO/POList/POList/InvoiceMatching"/>
+			 <jb:value property="MatchOption" data="PO/POList/POList/MatchOption"/>
+			 <jb:value property="DistinationType" data="PO/POList/POList/DistinationType"/>
+			 <jb:value property="DistributionNum" data="PO/POList/POList/DistributionNum"/>
+			 <jb:value property="DistQuantity" data="PO/POList/POList/DistQuantity"/>
+			 <jb:value property="budget_act_amout" data="PO/POList/POList/budget_act_amout"/>
+			 <jb:value property="budget_amount" data="PO/POList/POList/budget_amount"/>
+			 <jb:value property="BUDGET_CURRENCY" data="PO/POList/POList/BUDGET_CURRENCY"/>
+			 <jb:value property="coa_project" data="PO/POList/POList/coa_project"/>
+	</jb:bindings>
+	<jb:bindings beanId="BarCodeLists" class="java.util.ArrayList" createOnElement="PO/BarCodeList"> 
+		    <jb:wiring beanIdRef="BarCodeList"/>
+	</jb:bindings>
+	<jb:bindings beanId="POLists" class="java.util.ArrayList" createOnElement="PO/POList"> 
+		    <jb:wiring beanIdRef="POList"/>
+	</jb:bindings>
+</smooks-resource-list>
+
+
+			]]>
+			</spring:value>
+		</spring:property>
+		<spring:property name="resultType" value="JAVA"></spring:property>
+		<spring:property name="javaResultBeanId" value="PO"></spring:property>
+	</custom-transformer>
+
+		<!--解析base64加密数据-->
+	<script:transformer name="解析base64加密数据">
+		<script:script engine="groovy">
+			<script:text><![CDATA[
+				String sn = payload.get("sn") == null ? "": payload.get("sn");
+payload.put("sn", com.bokesoft.Base64Decode.decode(sn));
+String applier = payload.get("applier") == null ? "": payload.get("applier");
+payload.put("applier", com.bokesoft.Base64Decode.decode(applier));
+String applierhrid = payload.get("applierhrid") == null ? "": payload.get("applierhrid");
+payload.put("applierhrid", com.bokesoft.Base64Decode.decode(applierhrid));
+String applierdept = payload.get("applierdept") == null ? "": payload.get("applierdept");
+payload.put("applierdept", com.bokesoft.Base64Decode.decode(applierdept));
+String fillername = payload.get("fillername") == null ? "": payload.get("fillername");
+payload.put("fillername", com.bokesoft.Base64Decode.decode(fillername));
+String currency = payload.get("currency") == null ? "": payload.get("currency");
+payload.put("currency", com.bokesoft.Base64Decode.decode(currency));
+String ouname = payload.get("ouname") == null ? "": payload.get("ouname");
+payload.put("ouname", com.bokesoft.Base64Decode.decode(ouname));
+String supplier = payload.get("supplier") == null ? "": payload.get("supplier");
+payload.put("supplier", com.bokesoft.Base64Decode.decode(supplier));
+String supplieradd = payload.get("supplieradd") == null ? "": payload.get("supplieradd");
+payload.put("supplieradd", com.bokesoft.Base64Decode.decode(supplieradd));
+String description = payload.get("description") == null ? "": payload.get("description");
+payload.put("description", com.bokesoft.Base64Decode.decode(description));
+List barcodelist = payload.get("barcodelists") == null ? "": payload.get("barcodelists");
+List barcodelists = new ArrayList();
+for (int i = 0; i < barcodelist.size(); i++)
+{
+    Map t = barcodelist.get(i);
+    String barcode = t.get("barcode") == null ? "": t.get("barcode");
+    t.put("barcode", com.bokesoft.Base64Decode.decode(barcode));
+    barcodelists.add(t);
+}
+payload.put("barcodelists", barcodelists);
+List polist = payload.get("polists");
+List polists = new ArrayList();
+for (int i = 0; i < polist.size(); i++)
+{
+    Map m = polist.get(i);
+    String category = m.get("category") == null ? "": m.get("category");
+    m.put("category", com.bokesoft.Base64Decode.decode(category));
+    String code = m.get("code") == null ? "": m.get("code");
+    m.put("code", com.bokesoft.Base64Decode.decode(code));
+    String version = m.get("version") == null ? "": m.get("version");
+    m.put("version", com.bokesoft.Base64Decode.decode(version));
+    String descriptions = m.get("descriptions") == null ? "": m.get("descriptions");
+    m.put("descriptions", com.bokesoft.Base64Decode.decode(descriptions));
+    String unit = m.get("unit") == null ? "": m.get("unit");
+    m.put("unit", com.bokesoft.Base64Decode.decode(unit));
+    String contractbarcode = m.get("contractbarcode") == null ? "": m.get("contractbarcode");
+    m.put("contractbarcode", com.bokesoft.Base64Decode.decode(contractbarcode));
+    String paymentterm = m.get("paymentterm") == null ? "": m.get("paymentterm");
+    m.put("paymentterm", com.bokesoft.Base64Decode.decode(paymentterm));
+    String costcentern = m.get("costcentern") == null ? "": m.get("costcentern");
+    m.put("costcentern", com.bokesoft.Base64Decode.decode(costcentern));
+    String costcenterdescn = m.get("costcenterdescn") == null ? "": m.get("costcenterdescn");
+    m.put("costcenterdescn", com.bokesoft.Base64Decode.decode(costcenterdescn));
+    String budgetnumber = m.get("budgetnumber") == null ? "": m.get("budgetnumber");
+    m.put("budgetnumber", com.bokesoft.Base64Decode.decode(budgetnumber));
+    String budgetdesc = m.get("budgetdesc") == null ? "": m.get("budgetdesc");
+    m.put("budgetdesc", com.bokesoft.Base64Decode.decode(budgetdesc));
+    String account = m.get("account") == null ? "": m.get("account");
+    m.put("account", com.bokesoft.Base64Decode.decode(account));
+    String accoountdesc = m.get("accoountdesc") == null ? "": m.get("accoountdesc");
+    m.put("accoountdesc", com.bokesoft.Base64Decode.decode(accoountdesc));
+    String taxcode = m.get("taxcode") == null ? "": m.get("taxcode");
+    m.put("taxcode", com.bokesoft.Base64Decode.decode(taxcode));
+    String invoicematching = m.get("invoicematching") == null ? "": m.get("invoicematching");
+    m.put("invoicematching", com.bokesoft.Base64Decode.decode(invoicematching));
+    String matchoption = m.get("matchoption") == null ? "": m.get("matchoption");
+    m.put("matchoption", com.bokesoft.Base64Decode.decode(matchoption));
+    String distinationtype = m.get("distinationtype") == null ? "": m.get("distinationtype");
+    m.put("distinationtype", com.bokesoft.Base64Decode.decode(distinationtype));
+    polists.add(m);
+}
+payload.put("polists", polists);
+return payload;
+				]]></script:text>
+		</script:script>
+	</script:transformer>	
+		<!--记录数据开始时间-->
+	<script:transformer name="记录数据开始时间">
+		<script:script engine="groovy">
+			<script:text><![CDATA[
+				String begintime = new java.text.SimpleDateFormat("yyyyMMdd HH:mm:ss.SSS").format(new java.sql.Timestamp(java.lang.System.currentTimeMillis()));
+Map logmap = new HashMap();
+logmap.put("begintime", begintime);
+logmap.put("Taskid", payload.get("taskid"));
+logmap.put("INF_ID", payload.get("po_inf_id"));
+message.setInboundProperty("logmap", logmap);
+return payload;
+				]]></script:text>
+		</script:script>
+	</script:transformer>	
+	<!--设置表头固定值-->
+<custom-transformer class="com.bokesoft.dee.mule.dataimport.FixFieldsAddTransformer" name="设置表头固定值">
+		<spring:property name="tablePath" value="B_PO"></spring:property>
+		<spring:property name="fixFields">
+			<spring:map>
+					<spring:entry key="mule.adapter.thing-name" value="B_PO"></spring:entry>
+					<spring:entry key="mule.adapter.formKey" value="B_PO"></spring:entry>
+					<spring:entry key="mule.adapter.op-plan" value="insert"></spring:entry>
+					<spring:entry key="mule.adapter.auto-delete-unknown-detail" value="B_PODtl,B_PODtl2"></spring:entry>
+					<spring:entry key="mule.adapter.start-workflow" value="0"></spring:entry>
+					<spring:entry key="mule.adapter.return-fields" value="OID"></spring:entry>
+			</spring:map>
+		</spring:property>
+		<spring:property name="rowNumColumn" value="norowno"></spring:property>
+		
+</custom-transformer>
+
+	<!--设置明细表字段固定值-->
+<custom-transformer class="com.bokesoft.dee.mule.dataimport.FixFieldsAddTransformer" name="设置明细表字段固定值">
+		<spring:property name="tablePath" value="B_PO/B_PODtl"></spring:property>
+		<spring:property name="fixFields">
+			<spring:map>
+					<spring:entry key="mule.adapter.thing-name" value="B_PO"></spring:entry>
+					<spring:entry key="mule.adapter.op-plan" value="insert"></spring:entry>
+			</spring:map>
+		</spring:property>
+		<spring:property name="rowNumColumn" value="norowno"></spring:property>
+		
+</custom-transformer>
+
+	<!--设置明细表2字段固定值-->
+<custom-transformer class="com.bokesoft.dee.mule.dataimport.FixFieldsAddTransformer" name="设置明细表2字段固定值">
+		<spring:property name="tablePath" value="B_PO/B_PODtl2"></spring:property>
+		<spring:property name="fixFields">
+			<spring:map>
+					<spring:entry key="mule.adapter.thing-name" value="B_PO"></spring:entry>
+					<spring:entry key="mule.adapter.op-plan" value="insert"></spring:entry>
+			</spring:map>
+		</spring:property>
+		<spring:property name="rowNumColumn" value="norowno"></spring:property>
+		
+</custom-transformer>
+
+		<!--查询主表字典数据-->
+	<custom-transformer class="com.bokesoft.dee.mule.dataimport.MutiFieldValueLookUpWithDsTransformer" name="查询主表字典数据">
+		<spring:property name="tablePath" value="B_PO"></spring:property>
+		<spring:property name="queries">
+			<spring:list>
+				<spring:value> <![CDATA[select  group_name as creatordeptname from oa_employee_h where code=#[map-payload:ApplierHrId] and (status=0 or status=1)]]></spring:value>
+				<spring:value> <![CDATA[select oid as applicantid,code as applicantcode,name as applicantname, deptid as applicantdeptname,position_descr,adaccount,CC_Name_Approve as CostCenterName,CC_Code_Approve as CostCenterCode from oa_employee_h where code=#[map-payload:ApplierHrId] and (status=0 or status=1)]]></spring:value>
+				<spring:value> <![CDATA[select oid as currency from dict_currency where code=#[map-payload:Currency] and (status=0 or status=1)]]></spring:value>
+				<spring:value> <![CDATA[ select oid as creator, code as creatorcode from sys_operator where code=#[map-payload:ApplierHrId] and (status=0 or status=1)]]></spring:value>
+			</spring:list>
+		</spring:property>
+		<spring:property name="ds" ref="2c9081d05be7e572015be80fcb64000f_YIGO2_DB"></spring:property>
+		<spring:property name="firstRecode" value="true"></spring:property>
+	</custom-transformer>
+
+		<!--设置字段映射关系-->
+	<custom-transformer class="com.bokesoft.dee.mule.yigo2.transformer.MapKeyMapping" name="设置字段映射关系">
+		<spring:property name="source" value="current"></spring:property>
+		<spring:property name="target" value="current"></spring:property>
+		<spring:property name="fieldExpression">
+			<spring:list>
+						<spring:value><![CDATA[SN]]>:<![CDATA[sn]]>~</spring:value>
+						<spring:value><![CDATA[Creator]]>:<![CDATA[creator]]>~</spring:value>
+						<spring:value><![CDATA[CreatorCode]]>:<![CDATA[creatorcode]]>~</spring:value>
+						<spring:value><![CDATA[CreatorDeptName]]>:<![CDATA[creatordeptname]]>~</spring:value>
+						<spring:value><![CDATA[ApplicantID]]>:<![CDATA[applicantid]]>~</spring:value>
+						<spring:value><![CDATA[ApplicantName]]>:<![CDATA[applicantname]]>~</spring:value>
+						<spring:value><![CDATA[ApplicantCode]]>:<![CDATA[applicantcode]]>~</spring:value>
+						<spring:value><![CDATA[ApplicantDeptName]]>:<![CDATA[applicantdeptname]]>~</spring:value>
+						<spring:value><![CDATA[ADAccount]]>:<![CDATA[adaccount]]>~</spring:value>
+						<spring:value><![CDATA[Position_Descr]]>:<![CDATA[position_descr]]>~</spring:value>
+						<spring:value><![CDATA[OU_NAME]]>:<![CDATA[ouname]]>~</spring:value>
+						<spring:value><![CDATA[OU_CODE]]>:<![CDATA[ouid]]>~</spring:value>
+						<spring:value><![CDATA[CostCenterCode]]>:<![CDATA[costcentercode]]>~</spring:value>
+						<spring:value><![CDATA[CostCenterName]]>:<![CDATA[costcentername]]>~</spring:value>
+						<spring:value><![CDATA[TotalAmount]]>:<![CDATA[totalamount]]>~</spring:value>
+						<spring:value><![CDATA[Currency]]>:<![CDATA[currency]]>~</spring:value>
+						<spring:value><![CDATA[Supplier]]>:<![CDATA[supplier]]>~</spring:value>
+						<spring:value><![CDATA[SupplierAdd]]>:<![CDATA[supplieradd]]>~</spring:value>
+						<spring:value><![CDATA[Explain]]>:<![CDATA[description]]>~</spring:value>
+						<spring:value><![CDATA[PO_INF_ID]]>:<![CDATA[po_inf_id]]>~</spring:value>
+						<spring:value><![CDATA[ISPurchase]]>:<![CDATA[ispurchase]]>~</spring:value>
+						<spring:value><![CDATA[B_PODtl]]>:<![CDATA[polists]]>~</spring:value>
+						<spring:value><![CDATA[B_PODtl.ID]]>~d2d:<![CDATA[id]]>~</spring:value>
+						<spring:value><![CDATA[B_PODtl.CodeType]]>~d2d:<![CDATA[codetype]]>~</spring:value>
+						<spring:value><![CDATA[B_PODtl.Code]]>~d2d:<![CDATA[code]]>~</spring:value>
+						<spring:value><![CDATA[B_PODtl.Version]]>~d2d:<![CDATA[version]]>~</spring:value>
+						<spring:value><![CDATA[B_PODtl.Description]]>~d2d:<![CDATA[descriptions]]>~</spring:value>
+						<spring:value><![CDATA[B_PODtl.Unit]]>~d2d:<![CDATA[unit]]>~</spring:value>
+						<spring:value><![CDATA[B_PODtl.QTY]]>~d2d:<![CDATA[qty]]>~</spring:value>
+						<spring:value><![CDATA[B_PODtl.Price]]>~d2d:<![CDATA[price]]>~</spring:value>
+						<spring:value><![CDATA[B_PODtl.HTPrice]]>~d2d:<![CDATA[htprice]]>~</spring:value>
+						<spring:value><![CDATA[B_PODtl.TotalPrice]]>~d2d:<![CDATA[totalprice]]>~</spring:value>
+						<spring:value><![CDATA[B_PODtl.TaxCode]]>~d2d:<![CDATA[taxcode]]>~</spring:value>
+						<spring:value><![CDATA[B_PODtl.TaxAmount]]>~d2d:<![CDATA[taxamount]]>~</spring:value>
+						<spring:value><![CDATA[B_PODtl.ContractNO]]>~d2d:<![CDATA[contractno]]>~</spring:value>
+						<spring:value><![CDATA[B_PODtl.PaymentTerm]]>~d2d:<![CDATA[paymentterm]]>~</spring:value>
+						<spring:value><![CDATA[B_PODtl.RequestDate]]>~d2d:<![CDATA[requestdate]]>~</spring:value>
+						<spring:value><![CDATA[B_PODtl.CostCenter]]>~d2d:<![CDATA[costcentern]]>~</spring:value>
+						<spring:value><![CDATA[B_PODtl.CostCenterDesc]]>~d2d:<![CDATA[costcenterdescn]]>~</spring:value>
+						<spring:value><![CDATA[B_PODtl.Budget]]>~d2d:<![CDATA[budgetnumber]]>~</spring:value>
+						<spring:value><![CDATA[B_PODtl.BudgetDesc]]>~d2d:<![CDATA[budgetdesc]]>~</spring:value>
+						<spring:value><![CDATA[B_PODtl.Account]]>~d2d:<![CDATA[account]]>~</spring:value>
+						<spring:value><![CDATA[B_PODtl.AccountDesc]]>~d2d:<![CDATA[accoountdesc]]>~</spring:value>
+						<spring:value><![CDATA[B_PODtl.DistributionNum]]>~d2d:<![CDATA[distributionnum]]>~</spring:value>
+						<spring:value><![CDATA[B_PODtl.DistQuantity]]>~d2d:<![CDATA[distquantity]]>~</spring:value>
+						<spring:value><![CDATA[B_PODtl.InvoiceMatching]]>~d2d:<![CDATA[invoicematching]]>~</spring:value>
+						<spring:value><![CDATA[B_PODtl.MatchOption]]>~d2d:<![CDATA[matchoption]]>~</spring:value>
+						<spring:value><![CDATA[B_PODtl.DistinationType]]>~d2d:<![CDATA[distinationtype]]>~</spring:value>
+						<spring:value><![CDATA[B_PODtl2]]>:<![CDATA[barcodelists]]>~</spring:value>
+						<spring:value><![CDATA[B_PODtl2.BarCode]]>~d2d:<![CDATA[barcode]]>~</spring:value>
+			</spring:list>		
+		</spring:property>
+	</custom-transformer>
+		
+		<!--导入数据到YIGO系统-->
+	<custom-transformer class="com.bokesoft.dee.transport.http.transformers.HttpSendRequestToYigoTransformer" name="导入数据到YIGO系统">
+		<spring:property name="yigoUrl" value="BD{YIGO2_URL}"></spring:property>
+		<spring:property name="connectTimeout" value="6000"></spring:property>
+		<spring:property name="readTimeout" value="60000"></spring:property>
+		<spring:property name="isThrowException" value="true"></spring:property>
+		<spring:property name="isInTransaction" value="true"></spring:property>
+	</custom-transformer>
+
+<default-exception-strategy><processor-chain>
+
+	<transformer ref="ggpz_把异常对象转换为文本"/>
+
+		<file:outbound-endpoint path="${bokedee.logpath.runtimeLog}/ERP_TO_BPM_PO"  name="记录错误日志到文件_ERP_TO_BPM_PO"
+		
+		outputPattern="#[function:datestamp:yyyyMMddHHmmss]-#[message:id].xml">
+		<property key="file_subdir" value="#[context:serviceName]/#[function:datestamp:yyyyMMdd]" />
+	</file:outbound-endpoint>
+
+</processor-chain></default-exception-strategy></flow></mule>

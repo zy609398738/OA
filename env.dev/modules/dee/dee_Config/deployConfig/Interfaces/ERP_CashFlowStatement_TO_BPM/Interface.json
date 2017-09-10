@@ -1,0 +1,10 @@
+{
+  "id": "8a9f5a005dba1a3d015dbb8cfc900012",
+  "startIndex": "",
+  "text": "ERP_CashFlowStatement_TO_BPM",
+  "autoRun": "true",
+  "description": "实时查询ERP系统现金流量表信息",
+  "responseTime": "600000",
+  "changePort": "",
+  "oldPort": ""
+}

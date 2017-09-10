@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <Form Caption="审批对话框" Key="OA_AuditDialog">
-    <Body PopHeight="180px" PopWidth="600px">
+    <Body PopHeight="60%" PopWidth="600px">
         <Block>
             <FlexFlowLayoutPanel Key="root" Caption="根面板">
                 <GridLayoutPanel Key="GridNextOpt" Height="pref" Padding="5px" Caption="GridNextOpt" Visible="InvokeService(&quot;OA_GetWorkflowDesigneValue&quot;, false, false,Para(&quot;pWorkitemID&quot;),Para(&quot;workflowBillKey&quot;),Para(&quot;WorkflowTypeDtlID&quot;),&quot;SetNextPer&quot;)==1">
@@ -104,20 +104,17 @@ ShowModal("OA_ParticipatorSelect","ParticipatorIDs:{Para('ParticipatorIDs')},Nex
                 <GridLayoutPanel Key="GridLayoutPanel3" Height="pref" Padding="5px" Caption="GridLayoutPanel3">
                     <Button Caption="通过" Enable="True" Key="APPROVE" ShowText="false" X="1" Y="0">
                         <OnClick>
-                            <![CDATA[OA_WorkflowPass();]]>
+                            <![CDATA[UICheck();
+OA_WorkflowPass();]]>
                         </OnClick>
                     </Button>
                     <Button Caption="撤回" Enable="True" Key="OPPOSE" ShowText="false" X="2" Y="0">
                         <OnClick>
-                            <![CDATA[var sql = "select i.ProcessKey,w.NodeID from bpm_workiteminfo w join bpm_instance i on  w.InstanceID = i.InstanceID where w.WorkitemID=?";
-var hsql = DBQuery(sql,Para("pWorkitemID"));
-var nodeid = hsql.NodeID;
-var processKey = hsql.ProcessKey;
-if(InvokeService("OA_GetWorkflowDesigneValue", false, false,Para("pWorkitemID"),Para("workflowBillKey"),Para("WorkflowTypeDtlID"),"SelNodeEnable")==1){
-    ShowModal("OA_SelRejectNode", {nodeid:{nodeid},processKey:{processKey},opinion:{GetValue("Opinion")}} );
-}else{
-    parent.CommitWorkitem(-1,0,GetValue("Opinion"),"Return",nodeid)}
-Close();]]>
+                            <![CDATA[UICheck();
+parent.CommitWorkitem(-1,0,Opinion);
+parent.InvokeService("OA_OptSendMessageReject", true, false, parent.GetFormKey(),Para("OptKey"),OA_GetMaxWorkItemIDAfterCommit(Para("workflowOID")),Para("workflowOID"),ServerDate(),Para("WorkflowTypeDtlID"));
+Close();
+parent.Confirm("撤回成功","OK","OK:{OA_AuditAfterClose("+Para("pWorkitemID")+",'"+Para("workflowBillKey")+"',"+Para("WorkflowTypeDtlID")+")}");]]>
                         </OnClick>
                     </Button>
                     <Button Caption="取消" Enable="True" Key="cancel" X="3" Y="0">

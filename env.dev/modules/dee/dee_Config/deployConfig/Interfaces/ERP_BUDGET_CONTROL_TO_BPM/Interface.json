@@ -1,0 +1,10 @@
+{
+  "id": "8aaae09b5bfa4119015bfb6bf163001e",
+  "startIndex": "",
+  "text": "ERP_BUDGET_CONTROL_TO_BPM",
+  "autoRun": "true",
+  "description": "实时查询ERP系统预算控制信息",
+  "responseTime": "600000",
+  "changePort": "",
+  "oldPort": ""
+}

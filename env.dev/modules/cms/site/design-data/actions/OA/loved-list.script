@@ -1,7 +1,7 @@
 cms.ReqExp.Var("operatorID", cms.Yigo2MidExp.GetLoginOperator());
 cms.ActionExp.Data( cms.DataExp.PagingQuery("
         	SELECT i.oid,i.FormKey,l.WorkitemID,l.workItemName,m.Topic,m.empid,m.deptid,m.BillStatus,i.ProcessKey,l.creatTime,j.name operatorname
-    ,floor(SYSDATE - l.CreatTime) daytime,
+    ,i.instanceid,floor(SYSDATE - l.CreatTime) daytime,
      CEIL(((SYSDATE-l.CreatTime)-floor(SYSDATE-l.CreatTime)) * 24) hourtime
     FROM bpm_instance i 
 join BPM_migration m on i.oid = m.billoid 

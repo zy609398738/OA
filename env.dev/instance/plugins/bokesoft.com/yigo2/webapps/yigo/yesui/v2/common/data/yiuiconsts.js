@@ -425,7 +425,8 @@ YIUI.BPMConstants = {
     ELEMENT_STATE: "State",
     BPM_PROCESS_KEY: "ProcessKey",
     BPM_STARTCAPTION: "StartCaption",
-    BPM_STARTACTION: "StartAction"
+    BPM_STARTACTION: "StartAction",
+    BPM_TRANSIT_TO: "TransitTo"
 };
 YIUI.BPMKeys = {
     SaveBPMMap_KEY: "SaveBPMMap",
@@ -464,26 +465,48 @@ YIUI.FormEvent = {
     Close: "Close",
     ShowDocument: "ShowDocument"
 };
-YIUI.SystemField = {
-    // 系统字段
-    /** 对象的ID */
-    OID_SYS_KEY: "OID",
-    /** 主数据对象的ID */
-    SOID_SYS_KEY: "SOID",
-    /** 父对象的ID */
-    POID_SYS_KEY: "POID",
-    /** 对象的版本 */
-    VERID_SYS_KEY: "VERID",
-    /** 对象的明细控制版本 */
-    DVERID_SYS_KEY: "DVERID",
-    /** 已映射的数量 */
-    MAPCOUNT_SYS_KEY: "MapCount",
-    /** 选择字段 */
-    SELECT_FIELD_KEY : "SelectField",
-    /** 序号字段*/
-    SEQUENCE_FIELD_KEY :"Sequence"
+YIUI.SystemField = (function () {
 
-};
+    var _systemField = {
+        // 系统字段
+        /** 对象的ID */
+        OID_SYS_KEY: "OID",
+        /** 主数据对象的ID */
+        SOID_SYS_KEY: "SOID",
+        /** 父对象的ID */
+        POID_SYS_KEY: "POID",
+        /** 对象的版本 */
+        VERID_SYS_KEY: "VERID",
+        /** 对象的明细控制版本 */
+        DVERID_SYS_KEY: "DVERID",
+        /** 已映射的数量 */
+        MAPCOUNT_SYS_KEY: "MapCount",
+        /** 选择字段 */
+        SELECT_FIELD_KEY : "SelectField",
+        /** 序号字段*/
+        SEQUENCE_FIELD_KEY :"Sequence",
+
+        /** 附件路径*/
+        PATH: "Path",
+        /** 附件名称*/
+        NAME: "Name",
+        /** 附件上传时间*/
+        UPLOAD_TIME: "UploadTime",
+        /** 附件上传者*/
+        UPLOAD_OPERATOR: "UploadOperator"
+    }
+
+    return $.extend({},_systemField,{
+        isSystemField: function (field) {
+            for( var o in _systemField ) {
+                if( field && _systemField[o] === field )
+                    return true;
+            }
+            return false;
+        }
+    });
+})();
+
 YIUI.BatchBPM = {
     BPM_PROCESS_KEY: "BPM_PROCESS_KEY",
     BPM_ACTION_NODE_KEY: "BPM_ACTION_NODE_KEY"
@@ -532,13 +555,26 @@ YIUI.ExprItem_Type = {
     Item: 0,
     Set: 1
 };
-YIUI.Attachment_Data = {
-    PATH: "Path",
-    NAME: "Name",
-    OID: "OID",
-    UPLOAD_TIME: "UploadTime",
-    UPLOAD_OPERATOR: "UploadOperator"    // long 自定义附件组件使用
-};
+YIUI.Attachment_Data = (function () {
+
+    var _attachment = {
+        PATH: "Path",
+        NAME: "Name",
+        UPLOAD_TIME: "UploadTime",
+        UPLOAD_OPERATOR: "UploadOperator"
+    }
+
+    return $.extend({},_attachment,{
+       isAttachmentField:function (field) {
+           for( var o in _attachment ) {
+               if( field && _attachment[o] === field )
+                   return true;
+           }
+           return false;
+       }
+    });
+})();
+
 YIUI.ExpandSourceType = {
     DATA: 0,
     CUSTOM: 1,

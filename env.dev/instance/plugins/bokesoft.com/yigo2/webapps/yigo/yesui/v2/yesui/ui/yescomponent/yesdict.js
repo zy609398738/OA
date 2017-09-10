@@ -442,7 +442,7 @@
 		    creatMeanDiv: function(dom) {
 		    	
 		    	$("<span class = 'reset'>"+YIUI.I18N.dict.cancel+"</span>").appendTo(dom);
-                $("<span class = 'sure'>"+YIUI.I18N.dict.determine+"</span>").appendTo(dom);
+                $("<span class = 'sure'>"+YIUI.I18N.dict.ok+"</span>").appendTo(dom);
                 $("<span class = 'removeall'>"+YIUI.I18N.dict.empty+"</span>").appendTo(dom);
                
 		    },
@@ -515,7 +515,7 @@
 						this.creatMeanDiv(_div);
 						_div.appendTo(this._footdiv);
 						this.el.after(this._footdiv);
-						this.el.height(260);	
+//						this.el.height(260);	
 					}
 					if(!jQuery.isEmptyObject(this.checkedNodes) && !this.independent){
 			       		this.rootNode.children('.dt-chk').attr('chkstate',2).addClass("chkstate"+2);
@@ -1295,28 +1295,20 @@
 				   	self._needShow = false;
 
 				    self.checkDict().then(function(change){
-//					    self.setDropViewTop();
-//					    self.setDropViewLeft();
-                        YIUI.PositionUtil.setViewPos(self._textBtn, self._dropView, true);
         		        $(".pageinfo").css("border", "0px");
 						return self.showing();
 				    }, function(error){
 						self._hasShow = false;
 				    }).then(function(data){
-					    if (self.secondaryType != YIUI.SECONDARYTYPE.CHAINDICT &&　self.multiSelect) {
+					    if (self.secondaryType != YIUI.SECONDARYTYPE.CHAINDICT && self.multiSelect) {
 					    	self.dictTree._footdiv.find(".footmean").hide();
 					    	self.dictTree._searchdiv.hide();
-					    	self.dictTree.el.height(279);
 					    } else {
 					    	self.dictTree._footdiv.find(".footmean").show();
 					    	self.dictTree._searchdiv.show();
-					    	self.dictTree.el.height(220);
 					    }
 					    
 				    	if (!self.multiSelect){
-				    		if (self.secondaryType == YIUI.SECONDARYTYPE.CHAINDICT){
-				    			self.dictTree.el.height(245);
-				    		}
 				    		if (self.getSelValue()){
 					    		var itemKey = self.getSelValue().itemKey;
 					    		var oid = self.getSelValue().oid;
@@ -1328,6 +1320,7 @@
 				    	}
 				    	self.dictTree.el.children("li").find("li").addClass("notclick");
 				    	self._dropView.find("input").attr("readonly", true);
+                        YIUI.PositionUtil.setViewPos(self._textBtn, self._dropView, true);
 		    	    	self._dropView.slideDown(300, function(){
 		    	    		self._dropBtn.removeClass("arrowgif");
 			    			self._dropBtn.addClass("arrow");
@@ -1381,8 +1374,8 @@
 		    		if(keyCode == 13) {
 		    			if(self.selLi) {
 		    				$(".b-txt", self.selLi).click();
-		    			} else {
-		    				$(this).blur();
+		    		//	} else {
+		    		//		$(this).blur(); //由焦点策略触发,不需要主动触发
 		    			}
 		    			return;
 		    		}

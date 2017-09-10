@@ -1,0 +1,10 @@
+{
+  "id": "8aaae09b5bfa4119015bfb69b4c3001c",
+  "startIndex": "",
+  "text": "ERP_CUSTOMER_TO_BPM",
+  "autoRun": "true",
+  "description": "实时查询ERP系统客户信息",
+  "responseTime": "600000",
+  "changePort": "",
+  "oldPort": ""
+}

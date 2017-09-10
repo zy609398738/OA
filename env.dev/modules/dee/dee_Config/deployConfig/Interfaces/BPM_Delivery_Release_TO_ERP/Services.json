@@ -1,0 +1,11 @@
+[
+  {
+    "parentId": "8aaae0cc5d34c6e5015d34ca067c0007",
+    "text": "BPM_Delivery_Release_TO_ERP",
+    "recordMpLog": "false",
+    "id": "8aaae0cc5d34c6e5015d34ca06ca0008",
+    "description": "更新ERP发货通知信息",
+    "fileImport": "false",
+    "enable": "true"
+  }
+]

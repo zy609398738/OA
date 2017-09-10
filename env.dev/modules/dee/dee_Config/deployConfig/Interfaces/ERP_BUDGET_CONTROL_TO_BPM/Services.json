@@ -1,0 +1,11 @@
+[
+  {
+    "recordMpLog": "false",
+    "text": "ERP_BUDGET_CONTROL_TO_BPM",
+    "parentId": "8aaae09b5bfa4119015bfb6bf163001e",
+    "id": "8aaae09b5bfa4119015bfb6bf186001f",
+    "description": "实时查询ERP系统预算控制信息",
+    "fileImport": "false",
+    "enable": "true"
+  }
+]

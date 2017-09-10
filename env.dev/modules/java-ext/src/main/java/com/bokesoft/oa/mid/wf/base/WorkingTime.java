@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.bokesoft.oa.base.DicBase;
 import com.bokesoft.oa.base.OAContext;
-import com.bokesoft.oa.util.StrUtil;
+import com.bokesoft.oa.util.OAStrUtil;
 import com.bokesoft.yigo.struct.datatable.DataTable;
 
 /**
@@ -44,7 +44,7 @@ public class WorkingTime extends DicBase {
 	 * @return 每周固定休息日
 	 */
 	public List<Integer> getWeekendList() {
-		List<Integer> weekendList = StrUtil.getIntegerListByStr(weekend);
+		List<Integer> weekendList = OAStrUtil.getIntegerListByStr(weekend);
 		return weekendList;
 	}
 

@@ -112,7 +112,7 @@
 
 /* 主体样式 */
 body,html {
-	background:url(../images/main/background_1.png) no-repeat center top;
+	background:url(../images/main/background_1.png) no-repeat center top #fff;
 	background-size: cover;
 }
 .nav { 
@@ -127,6 +127,14 @@ body,html {
 	background-color: transparent;
 	border: none;
 }
+.select-language {
+    background-color: transparent;
+	border: solid 0px;
+	color: #676484;
+    font-size: 14px;
+	font-family: "Microsoft Yahei", Verdana, Simsun, "Segoe UI Web Light", "Segoe UI Light", "Segoe UI Web Regular", "Segoe UI", "Segoe UI Symbol", "Helvetica Neue", Arial;
+}
+
 span.login_username, .navRight .org_lbl{
 	color: #676484;
 }
@@ -135,15 +143,15 @@ span.login_username, .navRight .org_lbl{
 }
 .mainLeft { 
 	width: 225px;
-	padding: 10px;
+	padding: 0px 10px 10px 10px;
 }
 .mainMiddle { 
   	border:none;
   	display: none;
   	background: transparent;
 }
-.mainRight {
-	background: #f3f3f3;
+.mainRight {    
+	background: linear-gradient(to bottom, #f0fafd, #f6fbf5);
 	position: relative;
 }
 .searchBox {
@@ -157,7 +165,7 @@ span.login_username, .navRight .org_lbl{
 	background:#f0fafd;
 }
 .mainLeft .search {  
-	background:url(../images/main/search-btn.png) no-repeat center;
+	background:url(../images/main/search-btn.png) no-repeat right;
 }
 #listBox {
 	margin-top:10px;
@@ -210,6 +218,7 @@ li.isparent  a:hover.close,
 }
 .ui-tabcnt .ui-tabs-header{
 	box-shadow: 3px 3px 3px rgba(0,0,0,.1);
+	background: linear-gradient(to bottom, #f0fafd, #f6fbf5);
 }
 /* .ui-tabcnt .ui-tabs-header:before{
 	content: '';
@@ -304,7 +313,7 @@ li.isparent  a:hover.close,
 .nav-watchword{
 	color:#fff;
 	float: left;
-	width:500px;
+	width: 740px;
 	margin: 18px 0 0 33px;
     font-size: 26px;
 }

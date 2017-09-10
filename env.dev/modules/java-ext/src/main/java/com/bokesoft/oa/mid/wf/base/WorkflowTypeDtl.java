@@ -2,6 +2,8 @@ package com.bokesoft.oa.mid.wf.base;
 
 import com.bokesoft.oa.base.DtlBase;
 import com.bokesoft.oa.base.OAContext;
+import com.bokesoft.oa.mid.message.MessageSet;
+import com.bokesoft.oa.util.OASettings;
 import com.bokesoft.yigo.struct.datatable.DataTable;
 
 /**
@@ -252,6 +254,128 @@ public class WorkflowTypeDtl extends DtlBase<WorkflowType> {
 	}
 
 	/**
+	 * 消息设置ID
+	 */
+	private Long messageSetID;
+
+	/**
+	 * 消息设置ID
+	 */
+	public Long getMessageSetID() {
+		return messageSetID;
+	}
+
+	/**
+	 * 消息设置ID
+	 * 
+	 * @param messageSetID
+	 */
+	public void setMessageSetID(Long messageSetID) {
+		this.messageSetID = messageSetID;
+	}
+
+	/**
+	 * 消息设置
+	 */
+	private MessageSet messageSet;
+
+	/**
+	 * 消息设置
+	 * 
+	 * @return 消息设置
+	 * @throws Throwable
+	 */
+	public MessageSet getMessageSet() throws Throwable {
+		if (messageSet == null) {
+			if (messageSetID > 0) {
+				messageSet = getContext().getMessageSetMap().get(messageSetID);
+			}
+			if (messageSet == null) {
+				Operation operation = OASettings.getBPMOperation(getContext());
+				if (operation != null) {
+					return operation.getMessageSet();
+				}
+			}
+		}
+		return messageSet;
+	}
+
+	/**
+	 * 消息设置
+	 * 
+	 * @param messageSet
+	 *            消息设置
+	 */
+	public void setMessageSet(MessageSet messageSet) {
+		this.messageSet = messageSet;
+		setMessageSetID(messageSet.getOID());
+	}
+
+	/**
+	 * 邮件模板
+	 */
+	private String emailTemp;
+
+	/**
+	 * 邮件模板
+	 * 
+	 * @return 邮件模板
+	 * @throws Throwable
+	 */
+	public String getEmailTemp() throws Throwable {
+		// 如果为空，取所在操作的邮件模板
+		if (emailTemp == null) {
+			Operation operation = OASettings.getBPMOperation(getContext());
+			if (operation != null) {
+				emailTemp = operation.getEmailTemp();
+			}
+		}
+		return emailTemp;
+	}
+
+	/**
+	 * 邮件模板
+	 * 
+	 * @param emailTemp
+	 *            邮件模板
+	 */
+	public void setEmailTemp(String emailTemp) {
+		this.emailTemp = emailTemp;
+	}
+
+	/**
+	 * 发送条件
+	 */
+	private String sendFormula;
+
+	/**
+	 * 发送条件
+	 * 
+	 * @return 发送条件
+	 * @throws Throwable
+	 */
+	public String getSendFormula() throws Throwable {
+		// 如果为空，取所在操作的发送条件
+		if (sendFormula == null) {
+			Operation operation = OASettings.getBPMOperation(getContext());
+			if (operation != null) {
+				sendFormula = operation.getSendFormula();
+			}
+		}
+		return sendFormula;
+	}
+
+	/**
+	 * 发送条件
+	 * 
+	 * @param sendFormula
+	 *            发送条件
+	 */
+	public void setSendFormula(String sendFormula) {
+		this.sendFormula = sendFormula;
+	}
+
+	/**
 	 * 流程设计ID
 	 */
 	private Long workflowDesigneID;
@@ -337,6 +461,9 @@ public class WorkflowTypeDtl extends DtlBase<WorkflowType> {
 		setStartCaption(dt.getString("StartCaption"));
 		setRightSelID(dt.getLong("RightSelOID"));
 		setWorkflowDesigneID(dt.getLong("WorkflowDesigneID"));
+		setMessageSetID(dt.getLong("MessageSetID"));
+		setEmailTemp(dt.getString("EmailTemp"));
+		setSendFormula(dt.getString("SendFormula"));
 	}
 
 	/**

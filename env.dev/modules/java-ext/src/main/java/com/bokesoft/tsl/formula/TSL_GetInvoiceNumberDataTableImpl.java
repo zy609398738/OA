@@ -48,7 +48,7 @@ public class TSL_GetInvoiceNumberDataTableImpl extends BaseMidFunctionImpl {
 			ja.add(jo);
 		}
 
-		if (!supplier_number.isEmpty()&&!supplier_number.equalsIgnoreCase("null")) {
+		if (!supplier_number.isEmpty() && !supplier_number.equalsIgnoreCase("null")) {
 
 			jo = factory.createCondition("SUPPLIER_NUMBER", " = ", supplier_number);
 			ja.add(jo);

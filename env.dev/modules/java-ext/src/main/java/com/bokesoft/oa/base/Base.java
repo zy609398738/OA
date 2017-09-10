@@ -6,30 +6,7 @@ package com.bokesoft.oa.base;
  * @author chenbiao
  *
  */
-public class Base {
-	/**
-	 * 上下文对象
-	 */
-	private OAContext context;
-
-	/**
-	 * 上下文对象
-	 * 
-	 * @return 上下文对象
-	 */
-	public OAContext getContext() {
-		return context;
-	}
-
-	/**
-	 * 上下文对象
-	 * 
-	 * @param context
-	 *            上下文对象
-	 */
-	public void setContext(OAContext context) {
-		this.context = context;
-	}
+public class Base extends ABase {
 
 	/**
 	 * 唯一标识
@@ -62,7 +39,7 @@ public class Base {
 	 *            上下文对象
 	 */
 	public Base(OAContext context) {
-		setContext(context);
+		super(context);
 	}
 
 	/**

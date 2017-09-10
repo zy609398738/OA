@@ -31,8 +31,7 @@ public class TSL_GetCheckPayment extends BaseMidFunctionImpl {
 			ja.add(jo);
 		}
 		factory.addParameter("json", ja.toString());
-		String task_id = null;
-		String msg="";
+		String msg = "";
 		String stringJson = factory.executeAction(ACTION);
 		JSONObject reJSONObject = JSONObject.parseObject(stringJson);
 		Object data = reJSONObject.get("data");
@@ -40,12 +39,12 @@ public class TSL_GetCheckPayment extends BaseMidFunctionImpl {
 			JSONArray reJSONArray = (JSONArray) data;
 			for (int i = 0; i < reJSONArray.size(); ++i) {
 				JSONObject jsonObject = (JSONObject) reJSONArray.get(i);
-				task_id = jsonObject.get("no").toString();
-			}
-			if (task_id.isEmpty()&&task_id.equalsIgnoreCase("null")) {
-				msg = "";
-			} else {
-				msg ="已存在付款";
+				if (jsonObject.get(i).toString().isEmpty() || jsonObject.get(i).toString().equalsIgnoreCase("null")) {
+					msg = "";
+				} else {
+					msg = "已存在付款";
+				}
+
 			}
 		}
 		return msg;

@@ -129,11 +129,11 @@ public class IMAction {
 		// ") U "+
 		// " WHERE U.CODE IN (" + StringUtils.join(varList, ", ") + ")";
 		String codeStr = StringUtils.join(varList, ", ");
-		String sql = "select o.code,o.name,e.Photo as  ICON from sys_operator o join OA_Employee_H e on e.oid=o.empid where o.oid in("
+		String sql = "select o.code,o.name,e.Photo as  ICON from sys_operator o join OA_Employee_H e on e.oid=o.empid where o.code in("
 				+ codeStr + ")";
 		DataTable dt = dbm.execPrepareQuery(sql, codeList.toArray());
 		if (dt.size() <= 0) {
-			sql = "select o.code,o.name from sys_operator o where o.oid in(" + codeStr + ")";
+			sql = "select o.code,o.name from sys_operator o where o.code in(" + codeStr + ")";
 			dt = dbm.execPrepareQuery(sql, codeList.toArray());
 		}
 		dt.beforeFirst();

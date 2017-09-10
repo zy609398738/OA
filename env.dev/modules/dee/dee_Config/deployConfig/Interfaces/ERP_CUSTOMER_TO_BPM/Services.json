@@ -1,0 +1,11 @@
+[
+  {
+    "parentId": "8aaae09b5bfa4119015bfb69b4c3001c",
+    "text": "ERP_CUSTOMER_TO_BPM",
+    "recordMpLog": "false",
+    "id": "8aaae09b5bfa4119015bfb69b529001d",
+    "description": "实时查询ERP系统客户信息",
+    "fileImport": "false",
+    "enable": "true"
+  }
+]

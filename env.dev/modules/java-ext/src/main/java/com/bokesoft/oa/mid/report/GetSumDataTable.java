@@ -1,8 +1,8 @@
 package com.bokesoft.oa.mid.report;
 
 import com.bokesoft.oa.base.Names;
-import com.bokesoft.oa.config.Configuration;
 import com.bokesoft.oa.config.Settings;
+import com.bokesoft.oa.util.OASettings;
 import com.bokesoft.oa.util.SqlParse;
 import com.bokesoft.yes.struct.condition.ConditionPairTable;
 import com.bokesoft.yes.struct.condition.ConditionTableUtil;
@@ -22,31 +22,6 @@ import com.bokesoft.yigo.struct.datatable.DataTable;
  *
  */
 public class GetSumDataTable implements IMidProcess<IServiceContext> {
-	/**
-	 * 模块的Key
-	 */
-	private String moduleKey = "OA";
-
-	/**
-	 * 模块的Key
-	 * 
-	 * @return 模块的Key
-	 */
-	public String getModuleKey() {
-		return moduleKey;
-	}
-
-	/**
-	 * 模块的Key
-	 * 
-	 * @param moduleKey
-	 *            模块的Key
-	 */
-	public void setModuleKey(String moduleKey) {
-		this.moduleKey = moduleKey;
-	}
-
-	@Override
 	public Object process(IServiceContext context) throws Throwable {
 		DefaultContext contextD = (DefaultContext) context;
 		return getSumDataTable(contextD);
@@ -69,10 +44,8 @@ public class GetSumDataTable implements IMidProcess<IServiceContext> {
 	public DataTable getSumDataTable(DefaultContext context) throws Throwable {
 		ConditionParas conditionParas = context.getConditionParas();
 		String formKey = context.getFormKey();
-		Settings settings = Configuration.getConfiguration(getModuleKey()).getMap("Report").getMap("Sum")
-				.getMap(formKey);
+		Settings settings = OASettings.getConfiguration(context).getMap("Report").getMap("Sum").getMap(formKey);
 		String sql = settings.getProperty("Sql");
-
 		PrepareSQL prepareSQL = new PrepareSQL();
 		if (conditionParas != null && conditionParas.size() > 0) {
 			String conditionFormKey = conditionParas.getConditionFormKey();

@@ -1,0 +1,118 @@
+{
+  "response": [
+    {
+      "text": "响应反馈",
+      "description": "",
+      "scriptContent": "String expMsg = \"\";\nMap rsmap = new HashMap();\nif (message.getExceptionPayload() != null)\n{\n    message.setOutboundProperty(\"http.status\", 200);\n    expMsg = message.getExceptionPayload().getRootException().getMessage();\n    if (expMsg.length() > 3500)\n    {\n        expMsg = expMsg.substring(0, 3000);\n    }\n    message.setExceptionPayload(null);\n    rsmap.put(\"code\", \"e\");\n    rsmap.put(\"msg\", \"查询失败！\");\n}\nelse\n{\n    rsmap.put(\"code\", \"s\");\n    rsmap.put(\"msg\", \"查询成功！\");\n    rsmap.put(\"data\", payload);\n}\nMap logmap = message.getInboundProperty(\"logmap\");\nString request_data = logmap.get(\"request_data\") == null ? \"\": logmap.get(\"request_data\");\nString response_data = logmap.get(\"response_data\") == null ? \"\": logmap.get(\"response_data\");\nObject[] o = new Object[10];\no[0] = logmap.get(\"flow\");\no[1] = logmap.get(\"node\");\no[2] = logmap.get(\"billkey\");\no[3] = logmap.get(\"oid\");\no[4] = logmap.get(\"begintime\");\no[5] = new java.text.SimpleDateFormat(\"yyyyMMdd HH:mm:ss.SSS\").format(new java.sql.Timestamp(java.lang.System.currentTimeMillis()));\no[6] = request_data.length() > 3500 ? request_data.substring(0, 3000) : request_data;\no[7] = response_data.length() > 3500 ? response_data.substring(0, 3000) : response_data;\no[8] = expMsg;\no[9] = \"interface_2\";\ndbop.saveOrUpdate(\"insert into TRINA_SL_INTERFACE_LOG(id,flow,node,billkey,oid,starttime,endtime,request_data,response_data,EXCEPTION,interface_type)values(Trina_SL_Interface_Log_ID_SEQ.Nextval,?,?,?,?,?,?,?,?,?,?)\", o, false);\nreturn com.bokesoft.dee.mule.util.json.JSONUtil.toJson(rsmap);",
+      "className": "com.bokesoft.exchange.transformer.ScriptWithDSTransformer",
+      "smallType": "GroovyScriptWithDS",
+      "enable": "true",
+      "parentId": "8aaae09b5bea88fa015beac70462000a",
+      "bigType": "transformer_au",
+      "simpleMpLog": "false",
+      "ds": "2c9081d05be7e572015be80fcb64000f",
+      "isRef": "false",
+      "id": "8aaae09b5bea88fa015beb335e330014"
+    }
+  ],
+  "normal": [
+    {
+      "text": "接收查询公司编号信息的传入条件",
+      "description": "",
+      "address": "vm://ERP_Company_Number_TO_BPM",
+      "exchange_pattern": "request-response",
+      "className": "",
+      "smallType": "VM",
+      "enable": "true",
+      "parentId": "8aaae09b5bea88fa015beac70462000a",
+      "bigType": "inbound",
+      "simpleMpLog": "false",
+      "encoding": "UTF-8",
+      "isRef": "false",
+      "id": "8aaae09b5bea88fa015beac7d99d000f"
+    },
+    {
+      "text": "将json格式的查询条件进行转换",
+      "description": "",
+      "scriptContent": "String begintime = new java.text.SimpleDateFormat(\"yyyyMMdd HH:mm:ss.SSS\").format(new java.sql.Timestamp(java.lang.System.currentTimeMillis()));\nMap logmap = new HashMap();\nlogmap.put(\"begintime\", begintime);\nlogmap.put(\"flow\", payload.get(\"flow\"));\nlogmap.put(\"node\", payload.get(\"node\"));\nlogmap.put(\"oid\", payload.get(\"oid\"));\nlogmap.put(\"billkey\", payload.get(\"billkey\"));\nlogmap.put(\"request_data\", payload.get(\"json\"));\nmessage.setInboundProperty(\"logmap\", logmap);\nreturn com.bokesoft.dee.mule.util.json.JSONUtil.fromJson(payload.get(\"json\"), java.util.List.class);\n",
+      "className": "org.mule.module.scripting.transformer.ScriptTransformer",
+      "smallType": "GroovyScriptTransformer",
+      "enable": "true",
+      "parentId": "8aaae09b5bea88fa015beac70462000a",
+      "bigType": "transformer_au",
+      "simpleMpLog": "false",
+      "isRef": "false",
+      "id": "8aaae09b5bea88fa015bead59bfa0011"
+    },
+    {
+      "text": "根据条件查询ERP系统公司编号信息视图数据",
+      "description": "",
+      "scriptContent": "int size = payload.size();\nString[] oj = null;\nfor (int j = 0; j < size; j++)\n{\n    Map mj = payload.get(j);\n    String valuej = mj.get(\"value\");\n    String conditionj = mj.get(\"condition\");\n    if (conditionj.equalsIgnoreCase(\"in\"))\n    {\n        oj = valuej.split(\",\");\n    }\n}\nString s = \"\";\nList ol = new ArrayList();\nfor (int i = 0; i < size; i++)\n{\n    Map m = payload.get(i);\n    String key = m.get(\"key\");\n    String value = m.get(\"value\");\n    String condition = m.get(\"condition\");\n\n    if (condition.equalsIgnoreCase(\"in\"))\n    {\n        s = s + \" and \" + key + \" \" + condition + \"(\";\n        for (int k = 0; k < oj.length; k++)\n        {\n            if (oj.length == 1)\n            {\n                s = s + \"?\";\n                ol.add(oj[k]);\n            }\n            else if (k == oj.length - 1)\n            {\n                s = s + \"?\";\n                ol.add(oj[k]);\n            }\n            else\n            {\n                s = s + \"?,\";\n                ol.add(oj[k]);\n            }\n        }\n        s = s + \")\";\n    }\n    else\n    {\n        s = s + \" and \" + key + condition + \"?\";\n        ol.add(value);\n    }\n\n}\nObject[] o = ol.toArray();\nString sql = \"SELECT flex_value FROM apps.cux3_eflow_blanch_v  where language ='ZHS' \" + s;\nList < Map > rs = dbop.select(sql, o);\nString json = com.bokesoft.dee.mule.util.json.JSONUtil.toJson(rs);\nmessage.getInboundProperty(\"logmap\").put(\"response_data\", json);\nreturn rs;",
+      "smallType": "GroovyScriptWithDS",
+      "className": "com.bokesoft.exchange.transformer.ScriptWithDSTransformer",
+      "enable": "true",
+      "parentId": "8aaae09b5bea88fa015beac70462000a",
+      "bigType": "transformer_au",
+      "simpleMpLog": "false",
+      "ds": "8aaae09b5bf03e9f015bf17bc58e061f",
+      "isRef": "false",
+      "id": "8aaae09b5bea88fa015beafe65aa0012"
+    }
+  ],
+  "exception": [
+    {
+      "text": "把异常对象转换为文本",
+      "description": "把异常对象转换为文本",
+      "smallType": "ExceptionMessageTransformer",
+      "className": "com.bokesoft.exchange.transformer.ExceptionMessageTransformer",
+      "enable": "true",
+      "parentId": "8aaae09b5bea88fa015beac70462000a",
+      "bigType": "GGPZTransformer",
+      "isRef": "true",
+      "id": "8aaae09b5bea88fa015beac70467000b"
+    },
+    {
+      "path": "${bokedee.logpath.runtimeLog}/ERP_SalesEntity_TO_BPM",
+      "text": "记录错误日志到文件",
+      "description": "",
+      "smallType": "File",
+      "className": "",
+      "enable": "true",
+      "outputPattern": "#[function:datestamp:yyyyMMddHHmmss]-#[message:id].xml",
+      "parentId": "8aaae09b5bea88fa015beac70462000a",
+      "bigType": "outbound",
+      "file_subdir": "#[context:serviceName]/#[function:datestamp:yyyyMMdd]",
+      "simpleMpLog": "false",
+      "isRef": "false",
+      "id": "8aaae09b5bea88fa015beac70473000c"
+    },
+    {
+      "text": "把异常信息替换换行符",
+      "description": "把异常信息替换换行符",
+      "scriptContent": "String exceptionContent = message.getPayload();String exception = exceptionContent.replace(\"\\n\", \"<br/>\");message.setPayload(exception);return message;",
+      "className": "org.mule.module.scripting.transformer.ScriptTransformer",
+      "smallType": "GroovyScriptTransformer",
+      "enable": "false",
+      "parentId": "8aaae09b5bea88fa015beac70462000a",
+      "bigType": "transformer_au",
+      "simpleMpLog": "false",
+      "isRef": "false",
+      "id": "8aaae09b5bea88fa015beac70481000d"
+    },
+    {
+      "text": "把异常信息通过邮件发送",
+      "description": "把异常信息通过邮件发送",
+      "connector_ref": "bokedee_default_smtp_connector",
+      "subject": "HTTP_DBSELECT",
+      "className": "",
+      "smallType": "SMTP",
+      "enable": "false",
+      "parentId": "8aaae09b5bea88fa015beac70462000a",
+      "bigType": "outbound",
+      "simpleMpLog": "false",
+      "encoding": "UTF-8",
+      "isRef": "false",
+      "id": "8aaae09b5bea88fa015beac70492000e"
+    }
+  ]
+}

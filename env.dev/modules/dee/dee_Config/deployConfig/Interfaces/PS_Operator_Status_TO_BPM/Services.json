@@ -1,0 +1,11 @@
+[
+  {
+    "parentId": "ff8080815c335b60015c34d00748015f",
+    "text": "PS_Operator_Status_TO_BPM",
+    "recordMpLog": "false",
+    "id": "ff8080815c335b60015c34d007500160",
+    "description": "根据中间表人员状态定时更新BPM平台人员字典人员状态",
+    "fileImport": "false",
+    "enable": "true"
+  }
+]

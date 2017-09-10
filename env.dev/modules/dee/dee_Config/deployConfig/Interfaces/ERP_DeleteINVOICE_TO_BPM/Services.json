@@ -1,0 +1,11 @@
+[
+  {
+    "recordMpLog": "false",
+    "text": "ERP_DeleteINVOICE_TO_BPM",
+    "parentId": "8aaae0cc5d9b410b015d9be588030009",
+    "id": "8aaae0cc5d9b410b015d9be58878000a",
+    "description": "删除发票中间表数据接口",
+    "fileImport": "false",
+    "enable": "true"
+  }
+]

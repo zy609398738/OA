@@ -21,7 +21,7 @@ public class TSL_GetRate implements IExtService2 {
 		String currencyFrom = (String) args.get("currencyFrom");
 		String currencyTo = (String) args.get("currencyTo");
 		String RateTypes = (String) args.get("RateTypes");
-		
+
 		if (currencyFrom.equalsIgnoreCase(currencyTo)) {
 			return 1;
 		}
@@ -29,21 +29,21 @@ public class TSL_GetRate implements IExtService2 {
 		Date date = TypeConvertor.toDate(args.get("date"));
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		String strDate = sdf.format(date);
-		
+
 		TSL_BokeDeeFactory factory = new TSL_BokeDeeFactory();
 		JSONArray ja = new JSONArray();
 		JSONObject jo = factory.createCondition("conversion_date", "=", strDate);
 		ja.add(jo);
-		
+
 		jo = factory.createCondition("from_currency", "=", currencyFrom);
 		ja.add(jo);
-		
+
 		jo = factory.createCondition("to_currency", "=", currencyTo);
 		ja.add(jo);
 		jo = factory.createCondition("user_conversion_type", "=", RateTypes);
 		ja.add(jo);
 		factory.addParameter("json", ja.toString());
-		
+
 		BigDecimal rate = BigDecimal.ZERO;
 		String stringJson = factory.executeAction(ACTION);
 		JSONObject reJSONObject = JSONObject.parseObject(stringJson);
@@ -56,7 +56,7 @@ public class TSL_GetRate implements IExtService2 {
 				rate = rate.setScale(6, BigDecimal.ROUND_HALF_UP);
 			}
 		}
-		
+
 		return rate;
 	}
 }

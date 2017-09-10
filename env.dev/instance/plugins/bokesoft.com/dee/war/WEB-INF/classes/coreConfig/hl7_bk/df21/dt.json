@@ -1,0 +1,211 @@
+[
+  {
+    "chinese_desc": "地址",
+    "description": "address",
+    "name": "AD",
+    "DataSubType": [
+      
+    ]
+  },
+  {
+    "chinese_desc": "编码单元",
+    "description": "coded element",
+    "name": "CE",
+    "DataSubType": [
+      {
+        "chinese_desc": "标识符",
+        "description": "identifier",
+        "datatype": "ID",
+        "piece": "1"
+      },
+      {
+        "chinese_desc": "文本",
+        "description": "text",
+        "datatype": "ST",
+        "piece": "2"
+      },
+      {
+        "chinese_desc": "编码系统名称",
+        "description": "name of coding system",
+        "datatype": "ST",
+        "piece": "3"
+      },
+      {
+        "chinese_desc": "Alternate识别",
+        "description": "alternate identifier",
+        "datatype": "ST",
+        "piece": "4"
+      },
+      {
+        "chinese_desc": "替代文本",
+        "description": "alternate text",
+        "datatype": "ST",
+        "piece": "5"
+      },
+      {
+        "chinese_desc": "备用编码系统名称",
+        "description": "name of alternate coding system",
+        "datatype": "ST",
+        "piece": "6"
+      }
+    ]
+  },
+  {
+    "chinese_desc": "校验位的复合标识",
+    "description": "composite ID with check digit",
+    "name": "CK",
+    "DataSubType": [
+      
+    ]
+  },
+  {
+    "name": "CM",
+    "DataSubType": [
+      
+    ]
+  },
+  {
+    "chinese_desc": "复合标识号和名称",
+    "description": "composite ID number and name",
+    "name": "CN",
+    "DataSubType": [
+      
+    ]
+  },
+  {
+    "chinese_desc": "单位组合数量",
+    "description": "composite quantity with units",
+    "name": "CQ",
+    "DataSubType": [
+      
+    ]
+  },
+  {
+    "chinese_desc": "日期",
+    "description": "DATE",
+    "name": "DT",
+    "DataSubType": [
+      {
+        "chinese_desc": "日期",
+        "description": "DATE",
+        "piece": "1"
+      }
+    ]
+  },
+  {
+    "chinese_desc": "格式化文本数据",
+    "description": "formatted text data",
+    "name": "FT",
+    "DataSubType": [
+      {
+        "chinese_desc": "格式化文本数据",
+        "description": "formatted text data",
+        "piece": "1"
+      }
+    ]
+  },
+  {
+    "chinese_desc": "编码值",
+    "description": "CODED VALUE",
+    "name": "ID",
+    "DataSubType": [
+      {
+        "chinese_desc": "编码值",
+        "description": "CODED VALUE",
+        "piece": "1"
+      }
+    ]
+  },
+  {
+    "chinese_desc": "数字",
+    "description": "numeric",
+    "name": "NM",
+    "DataSubType": [
+      {
+        "chinese_desc": "数字",
+        "description": "numeric",
+        "piece": "1"
+      }
+    ]
+  },
+  {
+    "chinese_desc": "人名",
+    "description": "person name",
+    "name": "PN",
+    "DataSubType": [
+      
+    ]
+  },
+  {
+    "chinese_desc": "设置标识",
+    "description": "SET ID",
+    "name": "SI",
+    "DataSubType": [
+      {
+        "chinese_desc": "设置标识",
+        "description": "SET ID",
+        "piece": "1"
+      }
+    ]
+  },
+  {
+    "chinese_desc": "字符串数据",
+    "description": "string data",
+    "name": "ST",
+    "DataSubType": [
+      {
+        "chinese_desc": "字符串数据",
+        "description": "string data",
+        "piece": "1"
+      }
+    ]
+  },
+  {
+    "chinese_desc": "时间",
+    "description": "time",
+    "name": "TM",
+    "DataSubType": [
+      {
+        "chinese_desc": "时间",
+        "description": "time",
+        "piece": "1"
+      }
+    ]
+  },
+  {
+    "chinese_desc": "电话号码",
+    "description": "telephone number",
+    "name": "TN",
+    "DataSubType": [
+      {
+        "chinese_desc": "电话号码",
+        "description": "telephone number",
+        "piece": "1"
+      }
+    ]
+  },
+  {
+    "chinese_desc": "时间戳",
+    "description": "time stamp",
+    "name": "TS",
+    "DataSubType": [
+      {
+        "chinese_desc": "时间戳",
+        "description": "time stamp",
+        "piece": "1"
+      }
+    ]
+  },
+  {
+    "chinese_desc": "文本数据",
+    "description": "text data",
+    "name": "TX",
+    "DataSubType": [
+      {
+        "chinese_desc": "文本数据",
+        "description": "text data",
+        "piece": "1"
+      }
+    ]
+  }
+]

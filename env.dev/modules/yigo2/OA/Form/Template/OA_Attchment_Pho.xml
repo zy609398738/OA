@@ -9,6 +9,7 @@
                     <Column Key="POID" Caption="父对象标识" DataType="Long"/>
                     <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
                     <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="Sequence" Caption="序号" DataType="Integer"/>
                     <Column Key="UploadTime" Caption="上传时间" DataType="DateTime"/>
                     <Column Key="UploadOperator" Caption="上传人" DataType="Long"/>
                     <Column Key="Path" Caption="上传路径" DataType="Varchar"/>
@@ -30,10 +31,10 @@
                         <GridColumn Key="UploadOperator_Pho" Caption="上传人" Width="120px"/>
                         <GridColumn Key="Path_Pho" Caption="上传路径" Width="120px" Visible="false"/>
                         <GridColumn Key="Name_Pho" Caption="上传文件名" Width="200px"/>
-                        <GridColumn Key="Upload_Pho" Caption="上传" Width="80px"/>
-                        <GridColumn Key="Download_Pho" Caption="下载" Width="80px"/>
-                        <GridColumn Key="Delete_Pho" Caption="删除" Width="80px"/>
-                        <GridColumn Key="PreView_Pho" Caption="预览" Width="80px"/>
+                        <GridColumn Key="Upload_Pho" Caption="上传" Width="80px" Visible="OA_AddAttVisible()"/>
+                        <GridColumn Key="Download_Pho" Caption="下载" Width="80px" Visible="OA_DownloadAttVisible()"/>
+                        <GridColumn Key="Delete_Pho" Caption="删除" Width="80px" Visible="OA_DeleteAttVisible()"/>
+                        <GridColumn Key="PreView_Pho" Caption="预览" Width="80px" Visible="OA_DownloadAttVisible()"/>
                     </GridColumnCollection>
                     <GridRowCollection>
                         <GridRow Key="row1" RowHeight="35" TableKey="OA_NewsDraft_Pho">
@@ -52,7 +53,7 @@
                             <GridCell Key="Name_Pho" Caption="上传文件名" CellType="TextEditor" Enable="false">
                                 <DataBinding ColumnKey="Name"/>
                             </GridCell>
-                            <GridCell Key="Upload_Pho" Caption="上传" CellType="Button" Enable="InvokeService(&quot;OA_GetWorkflowDesigneValue&quot;, false, false,Para(&quot;pWorkitemID&quot;),Para(&quot;workflowBillKey&quot;),Para(&quot;WorkflowTypeDtlID&quot;),&quot;AddAtt&quot;)==1" Type="Upload">
+                            <GridCell Key="Upload_Pho" Caption="上传" CellType="Button" Enable="true" Type="Upload">
                                 <OnClick>
                                     <![CDATA[var attachPath=Para("AttachPath");
 if(!IsNull(attachPath) && Length(attachPath)>0){
@@ -67,12 +68,12 @@ if(!IsNull(attachPath) && Length(attachPath)>0){
                                     <![CDATA[DownloadAttachment(FileOID_Pho,"OA_NewsDraft_Pho");]]>
                                 </OnClick>
                             </GridCell>
-                            <GridCell Key="Delete_Pho" Caption="删除" CellType="Button" Enable="InvokeService(&quot;OA_GetWorkflowDesigneValue&quot;, false, false,Para(&quot;pWorkitemID&quot;),Para(&quot;workflowBillKey&quot;),Para(&quot;WorkflowTypeDtlID&quot;),&quot;DeleteAtt&quot;)==1">
+                            <GridCell Key="Delete_Pho" Caption="删除" CellType="Button" Enable="true">
                                 <OnClick>
                                     <![CDATA[DeleteAttachment(FileOID_Pho,"OA_NewsDraft_Pho");]]>
                                 </OnClick>
                             </GridCell>
-                            <GridCell Key="PreView_Pho" Caption="预览" CellType="Button" Enable="InvokeService(&quot;OA_GetWorkflowDesigneValue&quot;, false, false,Para(&quot;pWorkitemID&quot;),Para(&quot;workflowBillKey&quot;),Para(&quot;WorkflowTypeDtlID&quot;),&quot;NOViewAtt&quot;)==0">
+                            <GridCell Key="PreView_Pho" Caption="预览" CellType="Button" Enable="true">
                                 <OnClick>
                                     <![CDATA[Var fileUrl=InvokeService('OA_PreviewAttchment', true, false, Path_Pho, Name_Pho);
 New("OA_ShowWeb", "newtab","URL:{'"&fileUrl&"'}")]]>

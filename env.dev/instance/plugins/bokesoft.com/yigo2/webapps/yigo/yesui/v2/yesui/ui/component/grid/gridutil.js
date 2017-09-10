@@ -291,26 +291,21 @@
                     this.buildTreeRelation(bkmkMap, dictFilter, metaTree.isExpand, itemKey, editOpt.sortColumns, detailRow);
                     break;
                 case YIUI.GridTreeType.COMMON:
-                    var fgn2RowMap = {},fgnValue,rows,key;
+                    var fgn2RowMap = {},fgnValue,rows;
                     while (dataTable.next()) {
-                        id = dataTable.getByKey(metaTree.parent);
-                        if( id != null ){
-                            bkmk = new YIUI.DetailRowBkmk();
-                            bkmk.setBookmark(dataTable.getBkmk());
-                            bkmkMap[id] = bkmk;
-                        }
                         fgnValue = dataTable.getByKey(metaTree.foreign);
-                        key = YIUI.TypeConvertor.toBoolean(fgnValue) ? fgnValue : "_root";
-                        rows = fgn2RowMap[key];
+                        fgnValue = YIUI.TypeConvertor.toBoolean(fgnValue) ? fgnValue : "_root";
+                        rows = fgn2RowMap[fgnValue];
                         if( !rows ) {
                             rows = [];
-                            fgn2RowMap[key] = rows;
+                            fgn2RowMap[fgnValue] = rows;
                         }
-                        rows.push(id);
+                        rows.push(new YIUI.DetailRowBkmk(dataTable.getBkmk()));
                     }
-                    var rootItems = fgn2RowMap["_root"];// 根节点
-                    if( rootItems ) {
-                        this.buildCustomRow(fgn2RowMap,bkmkMap,metaTree.isExpand,rootItems,detailRow);
+                    var bkmks = fgn2RowMap["_root"];// 根节点
+                    if( bkmks ) {
+                        delete fgn2RowMap["_root"];
+                        this.buildCommonTreeRow(dataTable,metaTree.parent,fgn2RowMap,metaTree.isExpand,bkmks,detailRow);
                     }
                     break;
                 case YIUI.GridTreeType.CUSTOM:
@@ -321,27 +316,30 @@
             }
         },
 
-        buildCustomRow:function (fgn2RowMap, bkmkMap, expand, items, metaRow, parentRow) {
-            var bkmkRow,newRowIndex,rowData;
-            for (var i = 0, len = items.length; i < len; i++) {
-                bkmkRow = bkmkMap[items[i]];
-                newRowIndex = YIUI.GridUtil.insertRow(this.grid, -1, metaRow, bkmkRow, 0);
-                rowData = this.grid.dataModel.data[newRowIndex];
-                rowData.treeLevel = parentRow ? parentRow.treeLevel + 1 : 0;
+        buildCommonTreeRow:function (table,parent,fgn2RowMap, expand, bkmks, metaRow, parentRow) {
+            var newRowIndex,
+                rowData,
+                value;
+            for (var i = 0,bkmk;bkmk = bkmks[i];i++) {
+                newRowIndex = YIUI.GridUtil.insertRow(this.grid, -1, metaRow, bkmk, 0);
+                rowData = this.grid.getRowDataAt(newRowIndex);
                 this.grid.getHandler().showDetailRowData(this.form, this.grid, newRowIndex);
                 if (parentRow != null) {
-                    var childRows = parentRow.childRows;
-                    if ( !childRows ) {
-                        childRows = [];
-                        parentRow.childRows = childRows;
+                    if ( !parentRow.childRows ) {
+                        parentRow.childRows = [];
                     }
-                    childRows.push(rowData.rowID);
+                    parentRow.childRows.push(rowData.rowID);
                     rowData.parentRow = parentRow;
-                }
-                var _items = fgn2RowMap[items[i]];
-                if ( _items ) {
+                    rowData.treeLevel = parentRow.treeLevel + 1;
                     rowData.isExpand = expand;
-                    this.buildCustomRow(fgn2RowMap, bkmkMap, expand, _items, metaRow, rowData);
+                } else {
+                    rowData.treeLevel = 0;
+                }
+                table.setByBkmk(bkmk.getBookmark()),value = table.getByKey(parent);
+                var _bkmks = fgn2RowMap[value];
+                if ( _bkmks ) {
+                    delete fgn2RowMap[value];
+                    this.buildCommonTreeRow(table,parent,fgn2RowMap,expand,_bkmks,metaRow,rowData);
                 } else {
                     rowData.isLeaf = true;
                 }
@@ -546,9 +544,7 @@ YIUI.GridUtil = (function () {
                     console.log("error row type");
             }
 
-            var data = grid.dataModel.data, len = data.length,
-            dtrRowIndex = grid.getMetaObj().detailMetaRowIndex;
-
+            var data = grid.dataModel.data;
             var newRowIndex = 0;
             if (rowIndex >= 0) {
                 newRowIndex = rowIndex;
@@ -612,6 +608,7 @@ YIUI.GridUtil = (function () {
             }
         },
 
+        // 先判断类型:rowData.rowType === "Detail" && !YIUI.GridUtil.isEmptyRow(rowData)
         isEmptyRow: function(rowData){
             if( rowData ) {
                 return rowData.rowType == 'Detail' ? (rowData.bookmark == null && rowData.bkmkRow == null) : false;

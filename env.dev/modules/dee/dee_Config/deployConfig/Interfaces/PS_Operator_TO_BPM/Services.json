@@ -1,0 +1,11 @@
+[
+  {
+    "recordMpLog": "false",
+    "text": "PS_Operator_TO_BPM",
+    "parentId": "8aaae09b5bfa4119015bfa441f1b0006",
+    "id": "8aaae09b5bfa4119015bfa441f560007",
+    "description": "定时PS操作员数据到YIGO",
+    "fileImport": "false",
+    "enable": "true"
+  }
+]

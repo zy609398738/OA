@@ -3,10 +3,12 @@ package com.bokesoft.oa.mid.wf;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import com.bokesoft.yes.common.util.StringUtil;
 import com.bokesoft.yigo.common.util.TypeConvertor;
 import com.bokesoft.yigo.meta.base.KeyPairCompositeObject;
 import com.bokesoft.yigo.meta.commondef.MetaOperation;
 import com.bokesoft.yigo.meta.commondef.MetaOperationCollection;
+import com.bokesoft.yigo.meta.form.MetaForm;
 import com.bokesoft.yigo.mid.base.DefaultContext;
 import com.bokesoft.yigo.mid.service.IExtService;
 import com.bokesoft.yigo.struct.datatable.DataTable;
@@ -39,16 +41,35 @@ public class GetOperationDataTable implements IExtService {
 	 * @throws Throwable
 	 */
 	private DataTable getOperationDataTable(DefaultContext context, String formKey, String sql) throws Throwable {
-		MetaOperationCollection moc = context.getVE().getMetaFactory().getMetaForm(formKey).getOperationCollection();
-		Iterator<KeyPairCompositeObject> i = moc.iterator();
 		DataTable dt = context.getDBManager().execPrepareQuery(sql);
-		while (i.hasNext()) {
-			MetaOperation mo = (MetaOperation) i.next();
-			dt.append();
-			dt.setString("Operation_Key", mo.getKey());
-			dt.setString("Operation_Name", mo.getCaption());
+		if (StringUtil.isBlankOrNull(formKey)) {
+			return dt;
 		}
+		MetaForm metaForm = context.getVE().getMetaFactory().getMetaForm(formKey);
+		if (metaForm == null) {
+			return dt;
+		}
+		MetaOperationCollection moc = metaForm.getOperationCollection();
+		dealOperationCollection(moc, dt);
 		return dt;
 	}
 
+	private void dealOperationCollection(MetaOperationCollection moc, DataTable dt) {
+		Iterator<KeyPairCompositeObject> it = moc.iterator();
+		while (it.hasNext()) {
+			KeyPairCompositeObject o = it.next();
+			if (o instanceof MetaOperationCollection) {
+				MetaOperationCollection metaOperationCollection = (MetaOperationCollection)o;
+				dt.append();
+				dt.setString("Operation_Key", metaOperationCollection.getKey());
+				dt.setString("Operation_Name", metaOperationCollection.getCaption());
+				dealOperationCollection(metaOperationCollection, dt);
+			} else if (o instanceof MetaOperation) {
+				MetaOperation metaOperation = (MetaOperation)o;
+				dt.append();
+				dt.setString("Operation_Key", metaOperation.getKey());
+				dt.setString("Operation_Name", metaOperation.getCaption());
+			}
+		}
+	}
 }

@@ -30,6 +30,8 @@ public class TSL_GetBudgetConrolDataTableImpl extends BaseMidFunctionImpl {
 		String tableKey = args[1].toString();
 
 		String CostCenter = TypeConvertor.toString(context.getPara("CostCenter"));
+		String projectcode = TypeConvertor.toString(context.getPara("projectcode"));
+		String budgetclass = TypeConvertor.toString(context.getPara("budgetclass"));
 		long Organization_id = TypeConvertor.toLong(context.getPara("Organization_id"));
 		int Budget_Year = TypeConvertor.toInteger(context.getPara("Budget_Year"));
 		int BudgetMonth = TypeConvertor.toInteger(context.getPara("Budget_Month"));
@@ -48,6 +50,16 @@ public class TSL_GetBudgetConrolDataTableImpl extends BaseMidFunctionImpl {
 
 		if (!CostCenter.isEmpty() && !CostCenter.equalsIgnoreCase("null")) {
 			jo = factory.createCondition("cost_center", " = ", CostCenter);
+			ja.add(jo);
+		}
+
+		if (!projectcode.isEmpty() && !projectcode.equalsIgnoreCase("null")) {
+			jo = factory.createCondition("project_number", " = ", projectcode);
+			ja.add(jo);
+		}
+
+		if (!budgetclass.isEmpty() && !budgetclass.equalsIgnoreCase("null")) {
+			jo = factory.createCondition("budget_class", "in", budgetclass);
 			ja.add(jo);
 		}
 
@@ -104,7 +116,8 @@ public class TSL_GetBudgetConrolDataTableImpl extends BaseMidFunctionImpl {
 				dataTable.append();
 				for (int index = 0; index < count; index++) {
 					columnInfo = metaData.getColumnInfo(index);
-					dataTable.setObject(columnInfo.getColumnKey(), TypeConvertor.toDataType(columnInfo.getDataType(), jsonObject.get(columnInfo.getColumnKey().toLowerCase())));
+					dataTable.setObject(columnInfo.getColumnKey(), TypeConvertor.toDataType(columnInfo.getDataType(),
+							jsonObject.get(columnInfo.getColumnKey().toLowerCase())));
 				}
 
 				DataTable dt = context.getDBManager().execPrepareQuery(SQL,
@@ -116,54 +129,72 @@ public class TSL_GetBudgetConrolDataTableImpl extends BaseMidFunctionImpl {
 				dataTable.setObject("currency_oid", oid);
 
 				String budget_desc = jsonObject.get("budget_desc").toString().toUpperCase().trim();
-				if (budget_desc.indexOf("WELFARE") > -1 || budget_desc.indexOf("SMT WELFARE") > -1 || budget_desc.indexOf("SALES INCENTIVE") > -1 || budget_desc.indexOf("TEAM AWARD") > -1 || budget_desc.indexOf("TEAM BUILDING") > -1) {
+				if (budget_desc.indexOf("WELFARE") > -1 || budget_desc.indexOf("SMT WELFARE") > -1
+						|| budget_desc.indexOf("SALES INCENTIVE") > -1 || budget_desc.indexOf("TEAM AWARD") > -1
+						|| budget_desc.indexOf("TEAM BUILDING") > -1) {
 					dataTable.setObject("budgetsubject", "福利费");
-				} else if (budget_desc.indexOf("STAFF EDUCATION FEE") > -1  || budget_desc.indexOf("TRAINING") > -1) {
+				} else if (budget_desc.indexOf("STAFF EDUCATION FEE") > -1 || budget_desc.indexOf("TRAINING") > -1) {
 					dataTable.setObject("budgetsubject", "培训费");
 				} else {
 					dataTable.setObject("budgetsubject", "其他");
 				}
-				
-				switch(BudgetMonth) {
+
+				switch (BudgetMonth) {
 				case 1:
 					dataTable.setObject("quarterlybudget", TypeConvertor.toBigDecimal(jsonObject.get("entered_amt_1")));
 					break;
-				case 2:	
-					dataTable.setObject("quarterlybudget", TypeConvertor.toBigDecimal(jsonObject.get("entered_amt_1")).add(TypeConvertor.toBigDecimal(jsonObject.get("entered_amt_2"))));
+				case 2:
+					dataTable.setObject("quarterlybudget", TypeConvertor.toBigDecimal(jsonObject.get("entered_amt_1"))
+							.add(TypeConvertor.toBigDecimal(jsonObject.get("entered_amt_2"))));
 					break;
-				case 3:	
-					dataTable.setObject("quarterlybudget", TypeConvertor.toBigDecimal(jsonObject.get("entered_amt_1")).add(TypeConvertor.toBigDecimal(jsonObject.get("entered_amt_2"))).add(TypeConvertor.toBigDecimal(jsonObject.get("entered_amt_3"))));
+				case 3:
+					dataTable.setObject("quarterlybudget",
+							TypeConvertor.toBigDecimal(jsonObject.get("entered_amt_1"))
+									.add(TypeConvertor.toBigDecimal(jsonObject.get("entered_amt_2")))
+									.add(TypeConvertor.toBigDecimal(jsonObject.get("entered_amt_3"))));
 					break;
 				case 4:
 					dataTable.setObject("quarterlybudget", TypeConvertor.toBigDecimal(jsonObject.get("entered_amt_4")));
 					break;
-				case 5:	
-					dataTable.setObject("quarterlybudget", TypeConvertor.toBigDecimal(jsonObject.get("entered_amt_4")).add(TypeConvertor.toBigDecimal(jsonObject.get("entered_amt_5"))));
+				case 5:
+					dataTable.setObject("quarterlybudget", TypeConvertor.toBigDecimal(jsonObject.get("entered_amt_4"))
+							.add(TypeConvertor.toBigDecimal(jsonObject.get("entered_amt_5"))));
 					break;
-				case 6:	
-					dataTable.setObject("quarterlybudget", TypeConvertor.toBigDecimal(jsonObject.get("entered_amt_4")).add(TypeConvertor.toBigDecimal(jsonObject.get("entered_amt_5"))).add(TypeConvertor.toBigDecimal(jsonObject.get("entered_amt_6"))));
+				case 6:
+					dataTable.setObject("quarterlybudget",
+							TypeConvertor.toBigDecimal(jsonObject.get("entered_amt_4"))
+									.add(TypeConvertor.toBigDecimal(jsonObject.get("entered_amt_5")))
+									.add(TypeConvertor.toBigDecimal(jsonObject.get("entered_amt_6"))));
 					break;
 				case 7:
 					dataTable.setObject("quarterlybudget", TypeConvertor.toBigDecimal(jsonObject.get("entered_amt_7")));
 					break;
-				case 8:	
-					dataTable.setObject("quarterlybudget", TypeConvertor.toBigDecimal(jsonObject.get("entered_amt_7")).add(TypeConvertor.toBigDecimal(jsonObject.get("entered_amt_8"))));
+				case 8:
+					dataTable.setObject("quarterlybudget", TypeConvertor.toBigDecimal(jsonObject.get("entered_amt_7"))
+							.add(TypeConvertor.toBigDecimal(jsonObject.get("entered_amt_8"))));
 					break;
-				case 9:	
-					dataTable.setObject("quarterlybudget", TypeConvertor.toBigDecimal(jsonObject.get("entered_amt_7")).add(TypeConvertor.toBigDecimal(jsonObject.get("entered_amt_8"))).add(TypeConvertor.toBigDecimal(jsonObject.get("entered_amt_9"))));
+				case 9:
+					dataTable.setObject("quarterlybudget",
+							TypeConvertor.toBigDecimal(jsonObject.get("entered_amt_7"))
+									.add(TypeConvertor.toBigDecimal(jsonObject.get("entered_amt_8")))
+									.add(TypeConvertor.toBigDecimal(jsonObject.get("entered_amt_9"))));
 					break;
 				case 10:
-					dataTable.setObject("quarterlybudget", TypeConvertor.toBigDecimal(jsonObject.get("entered_amt_10")));
+					dataTable.setObject("quarterlybudget",
+							TypeConvertor.toBigDecimal(jsonObject.get("entered_amt_10")));
 					break;
-				case 11:	
-					dataTable.setObject("quarterlybudget", TypeConvertor.toBigDecimal(jsonObject.get("entered_amt_10")).add(TypeConvertor.toBigDecimal(jsonObject.get("entered_amt_11"))));
+				case 11:
+					dataTable.setObject("quarterlybudget", TypeConvertor.toBigDecimal(jsonObject.get("entered_amt_10"))
+							.add(TypeConvertor.toBigDecimal(jsonObject.get("entered_amt_11"))));
 					break;
-				case 12:	
-					dataTable.setObject("quarterlybudget", TypeConvertor.toBigDecimal(jsonObject.get("entered_amt_10")).add(TypeConvertor.toBigDecimal(jsonObject.get("entered_amt_11"))).add(TypeConvertor.toBigDecimal(jsonObject.get("entered_amt_12"))));
+				case 12:
+					dataTable.setObject("quarterlybudget",
+							TypeConvertor.toBigDecimal(jsonObject.get("entered_amt_10"))
+									.add(TypeConvertor.toBigDecimal(jsonObject.get("entered_amt_11")))
+									.add(TypeConvertor.toBigDecimal(jsonObject.get("entered_amt_12"))));
 					break;
 				}
 
-				
 			}
 		}
 

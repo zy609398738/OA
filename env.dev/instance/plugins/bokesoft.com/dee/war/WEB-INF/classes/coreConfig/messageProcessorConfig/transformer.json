@@ -376,6 +376,18 @@
 						'require' : 'true'
 					}]
 		}, {
+			'text' : 'CheckFieldEmptyForYigo2(Xml2Yigo检查字段是否为空)',
+			'type' : 'CheckFieldEmptyForYigo2Transformer',
+			'isAlwaysUse' : 'false',
+			'className' : 'com.bokesoft.dee.mule.yigo2.transformer.CheckFieldEmptyForYigo2Transformer',
+			'attr' : [ {
+						'name' : 'notAllowblankFiledsXml',
+						'label' : '不能为空字段',
+						'defaultValue' : '点此编辑',
+						'type' : 'bigString',
+						'require' : 'true'
+					}]
+		}, {
 			'text' : 'FieldToStringAndFormatDate(Yigo2Xml日期格式化其他类型转换为String)',
 			'type' : 'FieldToStringAndFormatDateTransformer',
 			'isAlwaysUse' : 'false',
@@ -1053,6 +1065,35 @@
 						'label' : 'SQL语句集',
 						'defaultValue' : '点此编辑',
 						'type' : 'listTextarea',
+						'require' : 'true'
+					}, {
+						'name' : 'resultIndexOf',
+						'label' : '返回SQL执行结果序号',
+						'defaultValue' : 1,
+						'type' : 'number',
+						'require' : 'true'
+					}, {
+						'name' : 'ignoreSQLError',
+						'label' : '忽略SQL执行异常',
+						'defaultValue' : '否',
+						'type' : 'comboxBoolean'
+					}]
+		}, {
+			'text' : 'ExecuteSQLWithEdit(条件执行SQL语句)',
+			'type' : 'ExecuteSQLWithEditTransformer',
+			'isAlwaysUse' : 'true',
+			'className' : 'com.bokesoft.dee.transport.jdbc.transformer.ExecuteSQLWithEditTransformer',
+			'attr' : [{
+						'name' : 'ds',
+						'label' : '数据源',
+						'defaultValue' : '请选择',
+						'type' : 'DataSource',
+						'require' : 'true'
+					}, {
+						'name' : 'queries',
+						'label' : 'SQL语句集',
+						'defaultValue' : '点此编辑',
+						'type' : 'executeSqlWithEdit',
 						'require' : 'true'
 					}, {
 						'name' : 'resultIndexOf',
@@ -1951,6 +1992,63 @@
 						'defaultValue' : '',
 						'type' : 'string'
 					}]
+		},{
+			'text' : 'InvokeMapJson(调用Yigo平台的Json数据格式转换)',
+			'type' : 'InvokeMapJsonTransformer',
+			'isAlwaysUse' : 'true',
+			'className' : 'com.bokesoft.dee.mule.dataimport.InvokeMapJsonTransformer',
+			'attr' : [{
+						'name' : 'methodName',
+						'label' : 'methodName',
+						'defaultValue' : 'saveAdapterJsonObject',
+						'type' : 'string',
+						'require' : 'true'
+					}, {
+						'name' : 'json',
+						'label' : '序列化消息内容',
+						'defaultValue' : '是',
+						'type' : 'comboxBoolean'
+					}, {
+						'name' : 'oneTransaction',
+						'label' : '同一个事务里面处理',
+						'defaultValue' : '是',
+						'type' : 'comboxBoolean'
+					}, {
+						'name' : 'isSystemOut',
+						'label' : '在控制台打印',
+						'defaultValue' : '否',
+						'type' : 'comboxBoolean'
+					}, {
+						'name' : 'careEmpty',
+						'label' : '判断为空',
+						'defaultValue' : '否',
+						'type' : 'comboxBoolean'
+					}, {
+						'name' : 'ignoreException',
+						'label' : 'ignoreException',
+						'defaultValue' : '否',
+						'type' : 'comboxBoolean'
+					}, {
+						'name' : 'sessionId',
+						'label' : 'sessionId',
+						'defaultValue' : '',
+						'type' : 'string'
+					}, {
+						'name' : 'corpCode',
+						'label' : 'corpCode',
+						'defaultValue' : '',
+						'type' : 'string'
+					}, {
+						'name' : 'userCode',
+						'label' : 'userCode',
+						'defaultValue' : '',
+						'type' : 'string'
+					}, {
+						'name' : 'roleCode',
+						'label' : 'roleCode',
+						'defaultValue' : '',
+						'type' : 'string'
+					}]
 		}, {
 			'text' : 'LogProcessor(记录运行过程中的数据日志)',
 			'type' : 'LogProcessorTransformer',
@@ -2031,6 +2129,42 @@
 						'defaultValue' : 'norowno',
 						'type' : 'string',
 						'require' : 'false'
+					}]
+		}, {
+			'text' : 'FixFieldsAddForYigo2(Yigo2.0设置字段的固定值)',
+			'type' : 'FixFieldsAddTransformerForYigo2',
+			'isAlwaysUse' : 'true',
+			'className' : 'com.bokesoft.dee.mule.dataimport.FixFieldsAddTransformerForYigo2',
+			'attr' : [{
+						'name' : 'tablePath',
+						'label' : 'tablePath',
+						'defaultValue' : '',
+						'type' : 'string',
+						'require' : 'true'
+					},{
+						'name' : 'fixFields',
+						'label': 'fixFields',
+						'defaultValue' : '[{\"key\":\"mule.adapter.thing-name\",\"value\":\"example\"},{\"key\":\"mule.adapter.formKey\",\"value\":\"example\"},{\"key\":\"mule.adapter.return-fileds\",\"value\":\"example\"},{\"key\":\"mule.adapter.op-plan\",\"value\":\"insert-or-update\"},{\"key\":\"mule.adapter.id-fields\",\"value\":\"example\"},{\"key\":\"mule.adapter.auto-delete-unknown-detail\",\"value\":\"*\"}]',
+						'type' : 'map_kComboboxString_vString2',
+						'require' : 'true'
+					},{
+						'name' : 'rowNumColumn',
+						'label' : 'rowNum字段',
+						'defaultValue' : 'norowno',
+						'type' : 'string',
+						'require' : 'false'
+					}]
+		},{
+			'text' : 'MapKeyMapping(字段映射)',
+			'type' : 'MapKeyMapping',
+			'isAlwaysUse' : 'true',
+			'className' : 'com.bokesoft.dee.mule.yigo2.transformer.MapKeyMapping',
+			'attr' : [{
+						'name' : 'fieldExpression',
+						'label': '设置映射字段',
+						'defaultValue' : '',
+						'type' : 'map_kComboboxString_vString_mapping',
+						'require' : 'true'
 					}]
 		}, {
 			'text' : 'AxisInvokeMapWebserviceTransformer',

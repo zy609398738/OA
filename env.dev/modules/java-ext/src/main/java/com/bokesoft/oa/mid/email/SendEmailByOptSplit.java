@@ -3,6 +3,7 @@ package com.bokesoft.oa.mid.email;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+import com.bokesoft.oa.base.OAContext;
 import com.bokesoft.yigo.common.util.TypeConvertor;
 import com.bokesoft.yigo.mid.base.DefaultContext;
 import com.bokesoft.yigo.mid.connection.IDBManager;
@@ -36,6 +37,7 @@ public class SendEmailByOptSplit implements IExtService {
 	 * @throws Throwable
 	 */
 	public static String sendEmailByOptSplit(DefaultContext context, Long operatorId, String sep) throws Throwable {
+		OAContext ocContext = new OAContext(context);
 		Document doc = context.getDocument();
 		DataTable dt = doc.get("OA_MeetingInSide_H");
 		String participants = dt.getString("Participants");
@@ -56,8 +58,8 @@ public class SendEmailByOptSplit implements IExtService {
 		} else {
 			return toUser;
 		}
-		EMailMidFunction eMailMidFunction = new EMailMidFunction(context);
-		eMailMidFunction.emailConfig(false, operatorId);
+		EMailMidFunction eMailMidFunction = new EMailMidFunction(ocContext);
+		eMailMidFunction.emailConfig(operatorId);
 		EmailDTO emailDTO = EmailManager.getEmailConfigByOperator(operatorId);
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
 		String date1 = sdf.format(dt.getDateTime("StartTime"));

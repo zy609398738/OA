@@ -16,7 +16,8 @@
     <OperationCollection>
         <Operation Key="OPTAudit" Caption="审批">
             <Action>
-                <![CDATA[if(!ToBool(Para("IsMobile"))){
+                <![CDATA[SetPara("OptKey","OPTAudit");
+if(!ToBool(Para("IsMobile"))){
     if(ContainsKey("WorkflowTypeDtlID")){
         ShowModal("OA_AuditDialog","OptKey:{'OPTAudit'},pWorkitemID:{GetActiveWorkitemID()},workflowOID:{GetOID()},workflowBillKey:{GetFormKey()},WorkflowTypeDtlID:{WorkflowTypeDtlID}");
     }else{
@@ -29,50 +30,81 @@
         </Operation>
         <Operation Key="OPTEndorse" Caption="加签">
             <Action>
-                <![CDATA[ShowModal("OA_EndorseDialog","pWorkitemID:{GetActiveWorkitemID()}");]]>
+                <![CDATA[SetPara("OptKey","OPTEndorse");
+var auditOpinion="";
+var workitemID=OA_GetActiveWorkitemID(GetOID());
+if(ContainsKey("AuditOpinion")){
+    auditOpinion=GetValue("AuditOpinion");
+    if(auditOpinion=="" && InvokeService("OA_GetWorkflowDesigneUserInfoCheck", false, false,workitemID,GetFormKey(),WorkflowTypeDtlID,Para("OptKey"))==1){
+        RaiseErr("审批意见不能为空");
+    }
+}
+ShowModal("OA_EndorseDialog","pWorkitemID:{GetActiveWorkitemID()},workflowBillKey:{GetFormKey()},WorkflowTypeDtlID:{WorkflowTypeDtlID},auditOpinion:{'"+auditOpinion+"'}");]]>
             </Action>
         </Operation>
         <Operation Key="OPTKillInstance" Caption="终止">
             <Action>
-                <![CDATA[var nodeid = InvokeService("OA_GetNodeIDByNodeKey",false,false,GetFormKey(),"Disannul");
-if(ContainsKey("AuditOpinion")){
-CommitWorkitem(-1,0,GetValue("AuditOpinion"),{pattern:{Return},backSite:{nodeid}});}
-else{CommitWorkitem(-1,1,"",{pattern:{Return},backSite:{nodeid}});}
-Confirm("拒绝成功");]]>
+                <![CDATA[SetPara("OptKey","OPTKillInstance");
+KillInstance(-1);
+Confirm("流程终止","OK",{OK:{Close()}});]]>
             </Action>
         </Operation>
         <Operation Key="OPTEndInstance" Caption="结束">
             <Action>
-                <![CDATA[ShowModal("OA_EndInstanceDialog");]]>
+                <![CDATA[SetPara("OptKey","OPTEndInstance");
+var auditOpinion="";
+var workitemID=OA_GetActiveWorkitemID(GetOID());
+if(ContainsKey("AuditOpinion")){
+    auditOpinion=GetValue("AuditOpinion");
+    if(auditOpinion=="" && InvokeService("OA_GetWorkflowDesigneUserInfoCheck", false, false,workitemID,GetFormKey(),WorkflowTypeDtlID,Para("OptKey"))==1){
+        RaiseErr("审批意见不能为空");
+    }
+}
+        EndInstance(GetActiveInstanceID(),false,AuditOpinion);
+        Confirm("流程已结束","OK","OK:{OA_AuditAfterClose("+workitemID+",'"+GetFormKey()+"',"+WorkflowTypeDtlID+")}");]]>
             </Action>
         </Operation>
         <Operation Key="OPTPauseInstance" Caption="暂停">
             <Action>
-                <![CDATA[PauseInstance(-1);
+                <![CDATA[SetPara("OptKey","OPTPauseInstance");
+PauseInstance(-1);
 Confirm("暂停成功");]]>
             </Action>
         </Operation>
         <Operation Key="OPTRestartInstance" Caption="重置">
             <Action>
-                <![CDATA[RestartInstance(-1);
+                <![CDATA[SetPara("OptKey","OPTRestartInstance");
+RestartInstance(-1);
 Confirm("流程已重置");]]>
             </Action>
         </Operation>
         <Operation Key="OPTRollBackToWorkitem" Caption="撤销">
             <Action>
-                <![CDATA[var pworkitemid = DBQueryValue("select parentworkitemid from bpm_workiteminfo where workitemid = ? ", GetActiveWorkitemID());
+                <![CDATA[SetPara("OptKey","OPTRollBackToWorkitem");
+var pworkitemid = DBQueryValue("select parentworkitemid from bpm_workiteminfo where workitemid = ? ", GetActiveWorkitemID());
 RollbackToWorkitem(pworkitemid,false);
 Confirm("撤销成功");]]>
             </Action>
         </Operation>
         <Operation Key="OPTTransferTask" Caption="指派">
             <Action>
-                <![CDATA[ShowModal("OA_TransferTask","pWorkitemID:{GetActiveWorkitemID()}");]]>
+                <![CDATA[SetPara("OptKey","OPTTransferTask");
+var auditOpinion="";
+var workitemID=OA_GetActiveWorkitemID(GetOID());
+if(ContainsKey("AuditOpinion")){
+    auditOpinion=GetValue("AuditOpinion");
+    if(auditOpinion=="" && InvokeService("OA_GetWorkflowDesigneUserInfoCheck", false, false,workitemID,GetFormKey(),WorkflowTypeDtlID,Para("OptKey"))==1){
+        RaiseErr("审批意见不能为空");
+    }
+}
+ShowModal("OA_TransferTask","pWorkitemID:{GetActiveWorkitemID()},workflowBillKey:{GetFormKey()},WorkflowTypeDtlID:{WorkflowTypeDtlID},auditOpinion:{'"+auditOpinion+"'}");
+]]>
             </Action>
         </Operation>
         <Operation Key="OPTApprove" Caption="通过">
             <Action>
-                <![CDATA[if(ContainsKey("WorkflowTypeDtlID")){
+                <![CDATA[SetPara("OptKey","OPTApprove");
+if(ContainsKey("WorkflowTypeDtlID")){
     ShowModal("OA_Approve","OptKey:{'OPTApprove'},pWorkitemID:{GetActiveWorkitemID()},workflowOID:{GetOID()},workflowBillKey:{GetFormKey()},WorkflowTypeDtlID:{WorkflowTypeDtlID}");
 }else{
     ShowModal("OA_Approve","OptKey:{'OPTApprove'},pWorkitemID:{GetActiveWorkitemID()},workflowOID:{GetOID()},workflowBillKey:{GetFormKey()}");
@@ -82,25 +114,38 @@ Confirm("撤销成功");]]>
         </Operation>
         <Operation Key="OPTReject" Caption="撤回">
             <Action>
-                <![CDATA[if(ContainsKey("WorkflowTypeDtlID")){
-    ShowModal("OA_Reject","OptKey:{'OPTReject'},pWorkitemID:{GetActiveWorkitemID()},workflowOID:{GetOID()},workflowBillKey:{GetFormKey()},WorkflowTypeDtlID:{WorkflowTypeDtlID}");
+                <![CDATA[SetPara("OptKey","OPTReject");
+var auditOpinion="";
+var workitemID=OA_GetActiveWorkitemID(GetOID());
+if(ContainsKey("AuditOpinion")){
+    auditOpinion=GetValue("AuditOpinion");
+    if(auditOpinion=="" && InvokeService("OA_GetWorkflowDesigneUserInfoCheck", false, false,workitemID,GetFormKey(),WorkflowTypeDtlID,Para("OptKey"))==1){
+        RaiseErr("审批意见不能为空");
+    }
+}
+if(ContainsKey("WorkflowTypeDtlID")){
+    ShowModal("OA_Reject","OptKey:{'OPTReject'},pWorkitemID:{"+workitemID+"},workflowOID:{GetOID()},workflowBillKey:{GetFormKey()},auditOpinion:{'"+auditOpinion+"'},WorkflowTypeDtlID:{WorkflowTypeDtlID}");
 }else{
-    ShowModal("OA_Reject","OptKey:{'OPTReject'},pWorkitemID:{GetActiveWorkitemID()},workflowOID:{GetOID()},workflowBillKey:{GetFormKey()}");
+    ShowModal("OA_Reject","OptKey:{'OPTReject'},pWorkitemID:{"+workitemID+"},workflowOID:{GetOID()},workflowBillKey:{GetFormKey()},auditOpinion:{'"+auditOpinion+"'}");
 }
 ]]>
             </Action>
         </Operation>
-        <Operation Key="OPTTransit" Caption="直送">
+        <Operation Key="OPTTransit" Caption="直送" Enable="var transitid = DBQueryValue(&quot;select transitto from bpm_workiteminfo where workitemid =?&quot;,GetActiveWorkitemID());IIF(transitid==-1, false, true);">
             <Action>
-                <![CDATA[if(ContainsKey("AuditOpinion")){
+                <![CDATA[SetPara("OptKey","OPTTransit");
+var workitemID=OA_GetActiveWorkitemID(GetOID());
+OA_AuditBefore(false,workitemID,GetFormKey(),GetValue("WorkflowTypeDtlID"),GetOID());
+if(ContainsKey("AuditOpinion")){
 CommitWorkitem(-1,1,GetValue("AuditOpinion"),{pattern:{Transit}});}
 else{CommitWorkitem(-1,1,"",{pattern:{Transit}});}
-Confirm("直送成功");]]>
+Confirm("直送成功","OK","OK:{OA_AuditAfter(true,OA_GetActiveWorkitemID(GetOID()),GetFormKey(),WorkflowTypeDtlID,GetOID());}");]]>
             </Action>
         </Operation>
         <Operation Key="OPTCirculation" Caption="传阅">
             <Action>
-                <![CDATA[if(ContainsKey("WorkflowTypeDtlID")){
+                <![CDATA[SetPara("OptKey","OPTCirculation");
+if(ContainsKey("WorkflowTypeDtlID")){
     ShowModal("OA_CirculationDialog","OptKey:{'OPTCirculation'},pWorkitemID:{GetActiveWorkitemID()},workflowOID:{GetOID()},workflowBillKey:{GetFormKey()},WorkflowTypeDtlID:{WorkflowTypeDtlID}");
 }else{
     ShowModal("OA_CirculationDialog","OptKey:{'OPTCirculation'},pWorkitemID:{GetActiveWorkitemID()},workflowOID:{GetOID()},workflowBillKey:{GetFormKey()}");
@@ -108,41 +153,52 @@ Confirm("直送成功");]]>
 ]]>
             </Action>
         </Operation>
-        <Operation Key="OPTCommitAudit" Caption="提交">
-            <Action>
-                <![CDATA[CommitWorkitem(-1, 1, "");
-Confirm("提交成功");]]>
-            </Action>
-        </Operation>
         <Operation Key="OPTRefuse" Caption="拒绝">
             <Action>
-                <![CDATA[if(ContainsKey("WorkflowTypeDtlID")){
+                <![CDATA[SetPara("OptKey","OPTRefuse");
+if(ContainsKey("WorkflowTypeDtlID")){
     ShowModal("OA_Refuse","OptKey:{'OPTRefuse'},pWorkitemID:{GetActiveWorkitemID()},workflowOID:{GetOID()},workflowBillKey:{GetFormKey()},WorkflowTypeDtlID:{WorkflowTypeDtlID}");
 }else{
     ShowModal("OA_Refuse","OptKey:{'OPTRefuse'},pWorkitemID:{GetActiveWorkitemID()},workflowOID:{GetOID()},workflowBillKey:{GetFormKey()}");
 }]]>
             </Action>
         </Operation>
+        <Operation Key="OPTCommitAudit" Caption="提交">
+            <Action>
+                <![CDATA[SetPara("OptKey","OPTCommitAudit");
+SaveData(); 
+UpdateView();
+OA_StartInstance(GetFormKey(),WorkflowTypeDtlID,GetOID());]]>
+            </Action>
+        </Operation>
         <Operation Key="OPTRejectT" Caption="直接撤回">
             <Action>
-                <![CDATA[if(ContainsKey("AuditOpinion")){
-CommitWorkitem(-1,1,GetValue("AuditOpinion"));}
-else{CommitWorkitem(-1,1,"");}
-Confirm("撤回成功");]]>
+                <![CDATA[SetPara("OptKey","OPTRejectT");
+var workitemID=OA_GetActiveWorkitemID(GetOID());
+OA_AuditBefore(false,workitemID,GetFormKey(),GetValue("WorkflowTypeDtlID"),GetOID());
+if(ContainsKey("AuditOpinion")){
+CommitWorkitem(-1,0,GetValue("AuditOpinion"));}
+else{CommitWorkitem(-1,0,"");}
+InvokeService("OA_OptSendMessageReject", true, false,GetFormKey(),"OPTRejectT",OA_GetMaxWorkItemIDAfterCommit(GetOID()),GetOID(),ServerDate(),GetValue("WorkflowTypeDtlID"));
+Confirm("撤回成功","OK","OK:{OA_AuditAfter(true,OA_GetActiveWorkitemID(GetOID()),GetFormKey(),WorkflowTypeDtlID,GetOID());}");]]>
             </Action>
         </Operation>
         <Operation Key="OPTApproveT" Caption="直接通过">
             <Action>
-                <![CDATA[OA_AuditBefore(false,-1,GetFormKey(),GetValue("WorkflowTypeDtlID"),GetOID());
+                <![CDATA[SetPara("OptKey","OPTApproveT");
+var workitemID=OA_GetActiveWorkitemID(GetOID());
+OA_AuditBefore(false,workitemID,GetFormKey(),GetValue("WorkflowTypeDtlID"),GetOID());
 if(ContainsKey("AuditOpinion")){
 CommitWorkitem(-1,1,GetValue("AuditOpinion"));}
 else{CommitWorkitem(-1,1,"");}
-OA_AuditAfter(false,-1,GetFormKey(),GetValue("WorkflowTypeDtlID"),GetOID());]]>
+InvokeService("OA_OptSendMessage", true, false,GetFormKey(),"OPTApproveT",OA_GetActiveWorkitemID(GetOID()),GetOID(),ServerDate(),GetValue("WorkflowTypeDtlID"));
+OA_AuditAfter(false,workitemID,GetFormKey(),GetValue("WorkflowTypeDtlID"),GetOID());]]>
             </Action>
         </Operation>
         <Operation Key="OPTMeeting" Caption="会议审批">
             <Action>
-                <![CDATA[CommitWorkitem(-1,1,"通过");
+                <![CDATA[SetPara("OptKey","OPTMeeting");
+CommitWorkitem(-1,1,"通过");
 var OptID1=InvokeService("OA_GetOperatorIDsByEmp", true, false, Participants,",");
 var OptID2=InvokeService("OA_GetOperatorIDsByEmp", true, false, Partake,",");
 var OptIDs=OptID1+","+OptID2;
@@ -154,17 +210,43 @@ else{"发送失败"}
         </Operation>
         <Operation Key="OPTCancelPause" Caption="取消暂停">
             <Action>
-                <![CDATA[CanclePause(-1);
+                <![CDATA[SetPara("OptKey","OPTCancelPause");
+CanclePause(-1);
 Confirm("取消暂停成功");]]>
             </Action>
         </Operation>
         <Operation Key="OPTRefuseT" Caption="直接拒绝">
             <Action>
-                <![CDATA[var nodeid = InvokeService("OA_GetNodeIDByNodeKey",false,false,GetFormKey(),"Refuse");
+                <![CDATA[SetPara("OptKey","OPTRefuseT");
+var workitemID=OA_GetActiveWorkitemID(GetOID());
+OA_AuditBefore(false,workitemID,GetFormKey(),GetValue("WorkflowTypeDtlID"),GetOID());
 if(ContainsKey("AuditOpinion")){
-CommitWorkitem(-1,0,GetValue("AuditOpinion"),{pattern:{Return},backSite:{nodeid}});}
-else{CommitWorkitem(-1,1,"",{pattern:{Return},backSite:{nodeid}});}
-Confirm("拒绝成功");]]>
+CommitWorkitem(-1,3,GetValue("AuditOpinion"),{pattern:{Return},backSite:{InvokeService("OA_GetNodeIDByNodeKey",false,false,GetFormKey(),GetProcessKey(),"Refuse")}});}
+else{CommitWorkitem(-1,3,"",{pattern:{Return},backSite:{InvokeService("OA_GetNodeIDByNodeKey",false,false,GetFormKey(),GetProcessKey(),"Refuse")}});}
+InvokeService("OA_OptSendMessageReject", true, false,GetFormKey(),"OPTRefuseT",OA_GetMaxWorkItemIDAfterCommit(GetOID()),GetOID(),ServerDate(),GetValue("WorkflowTypeDtlID"));
+OA_AuditAfter(false,workitemID,GetFormKey(),WorkflowTypeDtlID,GetOID());]]>
+            </Action>
+        </Operation>
+        <Operation Key="OPTReviveInstance" Caption="恢复流程">
+            <Action>
+                <![CDATA[ReviveInstance(GetActiveInstanceID())]]>
+            </Action>
+        </Operation>
+        <Operation Key="OPTUrge" Caption="催办">
+            <Action>
+                <![CDATA[ShowModal("OA_FeedbackUI",{billkey:{GetFormKey()},wid:{GetActiveWorkitemID()},billoid:{GetOID()},no:{NO},FeedbackType:{20} });]]>
+            </Action>
+        </Operation>
+        <Operation Key="Agree" Caption="同意（通知制单人）">
+            <Action>
+                <![CDATA[SetPara("OptKey","OPTApproveT");
+var workitemID=OA_GetActiveWorkitemID(GetOID());
+OA_AuditBefore(false,workitemID,GetFormKey(),GetValue("WorkflowTypeDtlID"),GetOID());
+if(ContainsKey("AuditOpinion")){
+CommitWorkitem(-1,1,GetValue("AuditOpinion"));}
+else{CommitWorkitem(-1,1,"");}
+InvokeService("OA_OptSendMessageEnd", true, false,GetFormKey(),"Agree",OA_GetMaxWorkItemIDAfterCommit(GetOID()),GetOID(),ServerDate(),GetValue("WorkflowTypeDtlID"),Creator);
+OA_AuditAfter(false,workitemID,GetFormKey(),GetValue("WorkflowTypeDtlID"),GetOID());]]>
             </Action>
         </Operation>
     </OperationCollection>

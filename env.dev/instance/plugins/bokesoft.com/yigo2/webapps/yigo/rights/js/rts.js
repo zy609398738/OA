@@ -177,7 +177,7 @@ var setDictRts = function(id, isCheck, $table) {
 	var options = RTS.options;
 	var node = $table.treeNode.tree[id];
 	var hasRts = node.row.attr('hasRts') == undefined ? false : true;
-	if(isCheck != hasRts && !node.changed) {
+	if($(".checkbox", node.row).is(":checked") == isCheck && isCheck != hasRts && !node.changed) {
 		node.changed = true;
 	}
 

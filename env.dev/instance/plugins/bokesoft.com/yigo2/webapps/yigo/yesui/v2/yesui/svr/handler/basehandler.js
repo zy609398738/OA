@@ -77,6 +77,11 @@ YIUI.Handler = (function () {
             var type = control.type;
             var dataType = dataTable.cols[dataTable.indexByKey(columnKey)].type;
             bookmark == -1 ? dataTable.first() : dataTable.setByBkmk(bookmark);
+
+            if(!dataTable.first()){
+                dataTable.addRow(true);
+            }
+
             if (newValue == undefined || newValue == null) {
                 newValue = Return.convertValue(newValue, dataType);
                 dataTable.setByKey(columnKey, newValue);

@@ -33,7 +33,7 @@
 										"</span>" +
 									"</td>" +
 									"<td col='1' colspan='1' rowspan='1'>" +
-										"<button class='btn search'>查询</button>" +
+										"<button class='btn search'>"+YIUI.I18N.dict.query+"</button>" +
 									"</td>" +
 								"</tr>" +
 								"<tr row='1' class='view' style='height: 241px;'>" +
@@ -43,10 +43,10 @@
 								"</tr>" +
 								"<tr row='2' class='tr-last' style='height: 30px;'>" +
 									"<td col='0' colspan='1' rowspan='1'>" +
-										"<button class='btn ok'>确定</button>" +
+										"<button class='btn ok'>"+YIUI.I18N.dict.ok+"</button>" +
 									"</td>" +
 									"<td col='1' colspan='1' rowspan='1'>" +
-										"<button class='btn cancel'>取消</button>" +
+										"<button class='btn cancel'>"+YIUI.I18N.dict.cancel+"</button>" +
 									"</td>" +
 								"</tr>" +
 							"</tbody>" +

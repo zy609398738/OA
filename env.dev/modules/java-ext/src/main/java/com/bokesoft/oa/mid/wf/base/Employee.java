@@ -36,6 +36,30 @@ public class Employee extends DicBase {
 	}
 
 	/**
+	 * 国籍
+	 */
+	private String nativeplace;
+
+	/**
+	 * 国籍
+	 * 
+	 * @return 国籍
+	 */
+	public String getNativeplace() {
+		return nativeplace;
+	}
+
+	/**
+	 * 国籍
+	 * 
+	 * @param nativeplace
+	 *            国籍
+	 */
+	public void setNativeplace(String nativeplace) {
+		this.nativeplace = nativeplace;
+	}
+
+	/**
 	 * 所属部门
 	 */
 	private Department department;
@@ -124,6 +148,30 @@ public class Employee extends DicBase {
 	}
 
 	/**
+	 * 电子邮件
+	 */
+	private String email;
+
+	/**
+	 * 电子邮件
+	 * 
+	 * @return 电子邮件
+	 */
+	public String getEmail() {
+		return email;
+	}
+
+	/**
+	 * 电子邮件
+	 * 
+	 * @param email
+	 *            电子邮件
+	 */
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	/**
 	 * 人员明细集合
 	 */
 	private EmployeeDtlMap employeeDtlMap;
@@ -178,6 +226,8 @@ public class Employee extends DicBase {
 		super.loadData(dt);
 		setLeaderID(dt.getLong("LeaderID"));
 		setDepartmentID(dt.getLong("DeptID"));
+		setNativeplace(dt.getString("Nativeplace"));
+		setEmail(dt.getString("Email"));
 	}
 
 	/**

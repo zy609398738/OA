@@ -57,6 +57,20 @@ public class SelRuleDtlMap extends DtlBaseMap<Long, SelRuleDtl, SelRule> {
 	}
 
 	/**
+	 * 更新数据
+	 * 
+	 * @param dt
+	 *            明细数据集
+	 * @throws Throwable
+	 */
+	public void uploadData(DataTable dt) throws Throwable {
+		for (SelRuleDtl dtl : values()) {
+			dt.append();
+			dtl.uploadData(dt);
+		}
+	}
+
+	/**
 	 * 获得SQl条件
 	 * 
 	 * @throws Throwable
@@ -74,51 +88,56 @@ public class SelRuleDtlMap extends DtlBaseMap<Long, SelRuleDtl, SelRule> {
 			String fieldKey = selRuleDtl.getFieldKey();
 			BusinessSourceDtl businessSourceDtl = fieldMap.get(fieldKey);
 			sb.append(selRuleDtl.getLBracket());
-			String fieldType = businessSourceDtl.getFieldType();
-			switch (fieldType) {
-			case "oid":
-				setLong(sqlWhere, selRuleDtl);
-				break;
-			case "user":
-				setLong(sqlWhere, selRuleDtl);
-				break;
-			case "dic":
-				setDic(sqlWhere, selRuleDtl);
-				break;
-			case "txt":
-				setVarchar(sqlWhere, selRuleDtl);
-				break;
-			case "long":
-				setLong(sqlWhere, selRuleDtl);
-				break;
-			case "int":
-				setInteger(sqlWhere, selRuleDtl);
-				break;
-			case "num":
-				setNumeric(sqlWhere, selRuleDtl);
-				break;
-			case "date":
-				setDate(sqlWhere, selRuleDtl);
-				break;
-			case "time":
-				setDate(sqlWhere, selRuleDtl);
-				break;
-			case "drop":
-				setDrop(sqlWhere, selRuleDtl);
-				break;
-			case "sel":
-				setInteger(sqlWhere, selRuleDtl);
+			String opt = selRuleDtl.getOperation();
+			if (opt.equals(SqlWhere.OperationSqlIn) || opt.equals(SqlWhere.OperationSqlNotIn)) {
+				setSqlIn(sqlWhere, selRuleDtl);
+			} else {
+				String fieldType = businessSourceDtl.getFieldType();
+				switch (fieldType) {
+				case "oid":
+					setLong(sqlWhere, selRuleDtl);
+					break;
+				case "user":
+					setLong(sqlWhere, selRuleDtl);
+					break;
+				case "dic":
+					setDic(sqlWhere, selRuleDtl);
+					break;
+				case "txt":
+					setVarchar(sqlWhere, selRuleDtl);
+					break;
+				case "long":
+					setLong(sqlWhere, selRuleDtl);
+					break;
+				case "int":
+					setInteger(sqlWhere, selRuleDtl);
+					break;
+				case "num":
+					setNumeric(sqlWhere, selRuleDtl);
+					break;
+				case "date":
+					setDate(sqlWhere, selRuleDtl);
+					break;
+				case "time":
+					setDate(sqlWhere, selRuleDtl);
+					break;
+				case "drop":
+					setDrop(sqlWhere, selRuleDtl);
+					break;
+				case "sel":
+					setInteger(sqlWhere, selRuleDtl);
+				}
 			}
 			sb.append(selRuleDtl.getRBracket());
 			// 如果还有下一个，拼上逻辑操作符
 			if (i.hasNext()) {
-				sb.append(SqlWhere.DefaultBlank);
+				sb.append(SqlWhere.Blank);
 				String lg = selRuleDtl.getLogicOperation();
 				if (StringUtil.isBlankOrNull(lg)) {
 					lg = " and ";
 				}
 				sb.append(lg);
-				sb.append(SqlWhere.DefaultBlank);
+				sb.append(SqlWhere.Blank);
 			}
 		}
 		return sqlWhere;
@@ -208,6 +227,7 @@ public class SelRuleDtlMap extends DtlBaseMap<Long, SelRuleDtl, SelRule> {
 		StringBuffer sb = sqlWhere.getSqlWhere();
 		List<Object> list = sqlWhere.getValueList();
 		sb.append(selRuleDtl.getFieldKey());
+		sb.append(SqlWhere.Blank);
 		sb.append(selRuleDtl.getOperation());
 		sb.append(SqlWhere.DefaultRep);
 		list.add(selRuleDtl.getValue());
@@ -220,8 +240,9 @@ public class SelRuleDtlMap extends DtlBaseMap<Long, SelRuleDtl, SelRule> {
 	 *            SQl条件对象
 	 * @param selRuleDtl
 	 *            人员选择规则明细
+	 * @throws Throwable
 	 */
-	public void setDrop(SqlWhere sqlWhere, SelRuleDtl selRuleDtl) {
+	public void setDrop(SqlWhere sqlWhere, SelRuleDtl selRuleDtl) throws Throwable {
 		DataTableMetaData metaData = getHeadBase().getBusinessSource().getSourceDataTable().getMetaData();
 		Integer dataType = metaData.getColumnInfo(selRuleDtl.getFieldKey()).getDataType();
 		if (dataType == 1002) {
@@ -258,5 +279,25 @@ public class SelRuleDtlMap extends DtlBaseMap<Long, SelRuleDtl, SelRule> {
 		sb.append(selRuleDtl.getOperation());
 		sb.append(SqlWhere.DefaultRep);
 		list.add(value);
+	}
+
+	/**
+	 * 设置SQL包含
+	 * 
+	 * @param sqlWhere
+	 *            SQl条件对象
+	 * @param selRuleDtl
+	 *            人员选择规则明细
+	 */
+	public void setSqlIn(SqlWhere sqlWhere, SelRuleDtl selRuleDtl) {
+		StringBuffer sb = sqlWhere.getSqlWhere();
+		sb.append(selRuleDtl.getFieldKey());
+		sb.append(SqlWhere.Blank);
+		sb.append(selRuleDtl.getOperation());
+		sb.append(SqlWhere.Blank);
+		sb.append(SqlWhere.LeftBracket);
+		sb.append(selRuleDtl.getValue());
+		sb.append(SqlWhere.RightBracket);
+		sb.append(SqlWhere.Blank);
 	}
 }

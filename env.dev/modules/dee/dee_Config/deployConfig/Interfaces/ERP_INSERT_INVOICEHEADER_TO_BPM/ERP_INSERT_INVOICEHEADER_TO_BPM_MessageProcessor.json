@@ -1,0 +1,120 @@
+{
+  "response": [
+    {
+      "text": "响应反馈",
+      "description": "",
+      "scriptContent": "String expMsg = \"\";\nMap rsmap = new HashMap();\nif (message.getExceptionPayload() != null)\n{\n    message.setOutboundProperty(\"http.status\", 200);\n    expMsg = message.getExceptionPayload().getRootException().getMessage();\n    if (expMsg.length() > 3500)\n    {\n        expMsg = expMsg.substring(0, 3000);\n    }\n    message.setExceptionPayload(null);\n    rsmap.put(\"code\", \"e\");\n    rsmap.put(\"msg\", \"更新失败！\");\n}\nelse\n{\n    rsmap.put(\"code\", \"s\");\n    rsmap.put(\"msg\", \"更新成功！\");\n    rsmap.put(\"data\", payload);\n}\nMap logmap = message.getInboundProperty(\"logmap\");\nObject[] o = new Object[10];\no[0] = logmap.get(\"flow\");\no[1] = logmap.get(\"node\");\no[2] = logmap.get(\"billkey\");\no[3] = logmap.get(\"oid\");\no[4] = logmap.get(\"begintime\");\no[5] = new java.text.SimpleDateFormat(\"yyyyMMdd HH:mm:ss.SSS\").format(new java.sql.Timestamp(java.lang.System.currentTimeMillis()));\no[6] = \"\";\no[7] = \"\";\no[8] = expMsg;\no[9] = \"interface_3\";\ndbop.saveOrUpdate(\"insert into TRINA_SL_INTERFACE_LOG(id,flow,node,billkey,oid,starttime,endtime,request_data,response_data,EXCEPTION,interface_type)values(Trina_SL_Interface_Log_ID_SEQ.Nextval,?,?,?,?,?,?,?,?,?,?)\", o, false);\nreturn com.bokesoft.dee.mule.util.json.JSONUtil.toJson(rsmap);",
+      "className": "com.bokesoft.exchange.transformer.ScriptWithDSTransformer",
+      "smallType": "GroovyScriptWithDS",
+      "enable": "true",
+      "parentId": "8a9f5aff5ca480d2015ca5d194d10013",
+      "bigType": "transformer_au",
+      "simpleMpLog": "false",
+      "ds": "2c9081d05be7e572015be80fcb64000f",
+      "isRef": "false",
+      "id": "8a9f5a005cbf65f2015cbf7721db000c"
+    }
+  ],
+  "normal": [
+    {
+      "text": "接收传入条件",
+      "description": "",
+      "address": "vm://ERP_INSERT_INVOICEHEADER_TO_BPM",
+      "exchange_pattern": "request-response",
+      "className": "",
+      "smallType": "VM",
+      "enable": "true",
+      "parentId": "8aaae0a95c871527015c871c67b20010",
+      "bigType": "inbound",
+      "simpleMpLog": "false",
+      "encoding": "UTF-8",
+      "isRef": "false",
+      "id": "8aaae0a95c871527015c871d35210015"
+    },
+    {
+      "text": "记录开始时间",
+      "description": "",
+      "scriptContent": "String begintime = new java.text.SimpleDateFormat(\"yyyyMMdd HH:mm:ss.SSS\").format(new java.sql.Timestamp(java.lang.System.currentTimeMillis()));\nMap logmap = new HashMap();\nlogmap.put(\"begintime\", begintime);\nlogmap.put(\"flow\", payload.get(\"flow\"));\nlogmap.put(\"node\", payload.get(\"node\"));\nlogmap.put(\"oid\", payload.get(\"oid\"));\nlogmap.put(\"billkey\", payload.get(\"billkey\"));\nlogmap.put(\"request_data\", payload.get(\"json\"));\nmessage.setInboundProperty(\"logmap\", logmap);\nreturn payload;",
+      "className": "org.mule.module.scripting.transformer.ScriptTransformer",
+      "smallType": "GroovyScriptTransformer",
+      "enable": "true",
+      "parentId": "8a9f5aff5ca480d2015ca5d194d10013",
+      "bigType": "transformer_au",
+      "simpleMpLog": "false",
+      "isRef": "false",
+      "id": "8a9f5a005cbf65f2015cbf75d5fb000b"
+    },
+    {
+      "ignoreSQLError": "false",
+      "text": "执行数据插入",
+      "description": "",
+      "smallType": "ExecuteSQLSimpleTransformer",
+      "className": "com.bokesoft.dee.transport.jdbc.transformer.ExecuteSQLSimpleTransformer",
+      "enable": "true",
+      "queries": "[{\"value\":\"Insert into CUX.CUX3_AP_INVOICES_IFC\\n(invoice_num,org_id,invoice_type_lookup_code,invoice_date,gl_date,invoice_currency_code,invoice_amount,employee_name,employee_num,vendor_site_code,source,description,attribute15, exchange_rate_type,import_status,fin_upload_emp_num,bu,cf) values (#[map-payload:invoice_num?],#[map-payload:org_id?],#[map-payload:invoice_type_lookup_code?],sysdate,sysdate,#[map-payload:invoice_currency_code?],#[map-payload:invoice_amount?],#[map-payload:employee_name?],#[map-payload:employee_num?],#[map-payload:vendor_site_code?],#[map-payload:source?],#[map-payload:description?],#[map-payload:attribute15?],#[map-payload:exchange_rate_type?],#[map-payload:import_status?],#[map-payload:fin_upload_emp_num?],#[map-payload:bu?],#[map-payload:cf?])\"}]",
+      "parentId": "8aaae0a95c871527015c871c67b20010",
+      "bigType": "transformer_au",
+      "resultIndexOf": 1,
+      "simpleMpLog": "false",
+      "isRef": "false",
+      "id": "8aaae0a95c871527015c871f24330017",
+      "ds": "8aaae09b5bf03e9f015bf17bc58e061f"
+    }
+  ],
+  "exception": [
+    {
+      "text": "把异常对象转换为文本",
+      "description": "把异常对象转换为文本",
+      "smallType": "ExceptionMessageTransformer",
+      "className": "com.bokesoft.exchange.transformer.ExceptionMessageTransformer",
+      "enable": "true",
+      "parentId": "8aaae0a95c871527015c871c67b20010",
+      "bigType": "GGPZTransformer",
+      "isRef": "true",
+      "id": "8aaae0a95c871527015c871c67bf0011"
+    },
+    {
+      "path": "${bokedee.logpath.runtimeLog}/ERP_INSERT_INVOICE_TO_BPM",
+      "text": "记录错误日志到文件",
+      "description": "",
+      "smallType": "File",
+      "className": "",
+      "enable": "true",
+      "outputPattern": "#[function:datestamp:yyyyMMddHHmmss]-#[message:id].xml",
+      "parentId": "8aaae0a95c871527015c871c67b20010",
+      "bigType": "outbound",
+      "file_subdir": "#[context:serviceName]/#[function:datestamp:yyyyMMdd]",
+      "simpleMpLog": "false",
+      "isRef": "false",
+      "id": "8aaae0a95c871527015c871c67e20012"
+    },
+    {
+      "text": "把异常信息替换换行符",
+      "description": "把异常信息替换换行符",
+      "scriptContent": "String exceptionContent = message.getPayload();String exception = exceptionContent.replace(\"\\n\", \"<br/>\");message.setPayload(exception);return message;",
+      "className": "org.mule.module.scripting.transformer.ScriptTransformer",
+      "smallType": "GroovyScriptTransformer",
+      "enable": "false",
+      "parentId": "8aaae0a95c871527015c871c67b20010",
+      "bigType": "transformer_au",
+      "simpleMpLog": "false",
+      "isRef": "false",
+      "id": "8aaae0a95c871527015c871c68050013"
+    },
+    {
+      "text": "把异常信息通过邮件发送",
+      "description": "把异常信息通过邮件发送",
+      "connector_ref": "bokedee_default_smtp_connector",
+      "subject": "AS_Day_TO_BPM",
+      "className": "",
+      "smallType": "SMTP",
+      "enable": "false",
+      "parentId": "8aaae0a95c871527015c871c67b20010",
+      "bigType": "outbound",
+      "simpleMpLog": "false",
+      "encoding": "UTF-8",
+      "isRef": "false",
+      "id": "8aaae0a95c871527015c871c68250014"
+    }
+  ]
+}

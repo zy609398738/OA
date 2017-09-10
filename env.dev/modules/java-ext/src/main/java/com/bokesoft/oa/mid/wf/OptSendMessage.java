@@ -8,6 +8,7 @@ import com.bokesoft.oa.mid.message.Message;
 import com.bokesoft.oa.mid.message.MessageSet;
 import com.bokesoft.oa.mid.message.SendMessage;
 import com.bokesoft.oa.mid.wf.base.BPMInstance;
+import com.bokesoft.oa.mid.wf.base.Operation;
 import com.bokesoft.oa.mid.wf.base.OperationSel;
 import com.bokesoft.oa.mid.wf.base.OperationSelDtl;
 import com.bokesoft.oa.mid.wf.base.OperatorSel;
@@ -68,7 +69,7 @@ public class OptSendMessage implements IExtService {
 		BPMInstance bPMInstance = workitemInf.getHeadBase();
 		Integer nodeID = workitemInf.getNodeID();
 		String pkKey = bPMInstance.getProcesskey();
-		WorkflowTypeDtl workflowTypeDt = oaContext.getWorkflowTypeDtlMap().get(formKey, pkKey, workflowTypeDtlID);
+		WorkflowTypeDtl workflowTypeDt = oaContext.getWorkflowTypeDtlMap().get(formKey, pkKey, workflowTypeDtlID, oid);
 		WorkflowDesigneDtl workflowDesigneDtl = workflowTypeDt.getWorkflowDesigneDtl(nodeID.toString());
 		if (workflowDesigneDtl == null) {
 			return sendMessage;
@@ -83,15 +84,29 @@ public class OptSendMessage implements IExtService {
 		}
 		String operationName = workitemInf.getWFWorkitem().getWorkitemName();
 		String content = "审批工作项：" + operationName;
-		MessageSet messageSet = operationSelDtl.getMessageSet();
+		MessageSet messageSet = workflowTypeDt.getMessageSet();
+		Operation operation = null;
+		String sendFormula = workflowTypeDt.getSendFormula();
+		String emailTemp = workflowTypeDt.getEmailTemp();
+		// 如果发送方式为空，找指定操作发送方式
 		if (messageSet == null) {
-			return sendMessage;
+			operation = oaContext.getOperationMap().get(optKey);
+			if (operation != null) {
+				messageSet = operation.getMessageSet();
+				sendFormula = operation.getSendFormula();
+				emailTemp = operation.getEmailTemp();
+				// 如果发送方式还为空，直接返回
+				if (messageSet == null) {
+					return sendMessage;
+				}
+			} else {
+				return sendMessage;
+			}
 		}
-		String sql = "SELECT p.operatorid FROM (SELECT l.workitemid FROM BPM_LOG l WHERE EXISTS(SELECT INSTANCEID FROM BPM_INSTANCE i WHERE OID = "
-				+ oid + " AND i.INSTANCEID = l.INSTANCEID)) wi JOIN WF_PARTICIPATOR p ON wi.workitemid = p.workitemid";
+		String sql = "SELECT p.operatorid FROM (SELECT workitemid FROM BPM_WORKITEMINFO WHERE INSTANCEID=?) wi JOIN WF_PARTICIPATOR p ON wi.workitemid = p.workitemid";
 		String ids = "";
 		IDBManager dbManager = context.getDBManager();
-		DataTable dtQuery = dbManager.execPrepareQuery(sql);
+		DataTable dtQuery = dbManager.execPrepareQuery(sql, bPMInstance.getOID());
 		dtQuery.beforeFirst();
 		while (dtQuery.next()) {
 			ids = ids + "," + dtQuery.getLong("operatorid");
@@ -111,22 +126,19 @@ public class OptSendMessage implements IExtService {
 		String billNO = srcDt.getString("NO");
 		Long userID = context.getVE().getEnv().getUserID();
 		if (!StringUtil.isBlankOrNull(ids)) {
-			Message message = new Message(oaContext, false, false, "", time, userID, topic, content, ids, messageSet,
-					formKey, billNO, oid);
-			message.setEmailTemp(operationSelDtl.getEmailTemp());
+			OperatorSel ccOptSel = operationSelDtl.getCcOptSel();
+			String copyUserIDs = "";
+			if (ccOptSel != null && ccOptSel.getOperatorSelDtlMap().size() > 0) {
+				copyUserIDs = ccOptSel.getParticipatorIDs(oid, ",");
+			}
+			Message message = new Message(oaContext, false, false, time, userID, topic, content, ids, copyUserIDs,
+					messageSet, formKey, billNO, oid);
+			message.setSendFormula(sendFormula);
+			message.setEmailTemp(emailTemp);
+			message.setWorkitemInf(workitemInf);
 			sendMessage = SendMessage.sendMessage(oaContext, message);
 		}
 
-		OperatorSel ccOptSel = operationSelDtl.getCcOptSel();
-		if (ccOptSel != null && ccOptSel.getOperatorSelDtlMap().size() > 0) {
-			ids = ccOptSel.getParticipatorIDs(oid, ",");
-			if (!StringUtil.isBlankOrNull(ids)) {
-				Message message = new Message(oaContext, false, false, "", time, userID, topic, content, ids,
-						messageSet, formKey, billNO, oid);
-				message.setEmailTemp(operationSelDtl.getEmailTemp());
-				sendMessage = SendMessage.sendMessage(oaContext, message);
-			}
-		}
 		return sendMessage;
 	}
 }

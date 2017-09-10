@@ -59,7 +59,6 @@
             setWidth: function (width) {
                 $("label", this.el).css("width", width - $("span", this.el).outerWidth());
             },
-            commitValue: $.noop,
             
             install: function () {
                 var self = this;

@@ -1,0 +1,67 @@
+<table id="group_13" class="group"  border="0" cellspacing="0" cellpadding="0"><tr style="height:100%;">
+<td id="zenLayoutTableCell_14"  >
+<div class="zendiv" id="content" zen="14"  ><div><hr/><table><tr><td><table cellpadding=4 cellspacing=4><tbody align=center><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='1:MSH - Created from: c:/itk/xsd/itkeventssegments-2010-05.xsd' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3AITK%3AMSH&PATH=MSH&MS=MS%3AITK%3AADT_A26'>MSH</a></td></tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='2:EVN - Created from: c:/itk/xsd/itkeventssegments-2010-05.xsd' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3AITK%3AEVN&PATH=EVN&MS=MS%3AITK%3AADT_A26'>EVN</a></td></tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='3:PID - Created from: c:/itk/xsd/itkeventssegments-2010-05.xsd' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3AITK%3APID&PATH=PID&MS=MS%3AITK%3AADT_A26'>PID</a></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='4:PD1 - Created from: c:/itk/xsd/itkeventssegments-2010-05.xsd' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3AITK%3APD1&PATH=PD1&MS=MS%3AITK%3AADT_A26'>PD1</a></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='5:PV1 - Created from: c:/itk/xsd/itkeventssegments-2010-05.xsd' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3AITK%3APV1&PATH=PV1&MS=MS%3AITK%3AADT_A26'>PV1</a></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='6:PV2 - Created from: c:/itk/xsd/itkeventssegments-2010-05.xsd' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3AITK%3APV2&PATH=PV2&MS=MS%3AITK%3AADT_A26'>PV2</a></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='7:OBX() - Created from: c:/itk/xsd/itkeventssegments-2010-05.xsd' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3AITK%3AOBX&PATH=OBX()&MS=MS%3AITK%3AADT_A26'>OBX</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='8:ZU1 - Created from: c:/itk/xsd/itkeventssegments-2010-05.xsd' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3AITK%3AZU1&PATH=ZU1&MS=MS%3AITK%3AADT_A26'>ZU1</a></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='9:ZU3 - Created from: c:/itk/xsd/itkeventssegments-2010-05.xsd' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3AITK%3AZU3&PATH=ZU3&MS=MS%3AITK%3AADT_A26'>ZU3</a></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='10:ZU4 - Created from: c:/itk/xsd/itkeventssegments-2010-05.xsd' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3AITK%3AZU4&PATH=ZU4&MS=MS%3AITK%3AADT_A26'>ZU4</a></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='11:ZU6 - Created from: c:/itk/xsd/itkeventssegments-2010-05.xsd' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3AITK%3AZU6&PATH=ZU6&MS=MS%3AITK%3AADT_A26'>ZU6</a></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='12:ZU7 - Created from: c:/itk/xsd/itkeventssegments-2010-05.xsd' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3AITK%3AZU7&PATH=ZU7&MS=MS%3AITK%3AADT_A26'>ZU7</a></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='13:ZU8 - Created from: c:/itk/xsd/itkeventssegments-2010-05.xsd' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3AITK%3AZU8&PATH=ZU8&MS=MS%3AITK%3AADT_A26'>ZU8</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td>
+<td valign='top'><div style="padding-left:10px;">
+<b>Key</b><table cellpadding=4 cellspacing=4>
+<tr><td style="border: 2px dotted #60a060; border-right: none;" >可选</td></tr>
+<tr><td style="border: 2px solid #703838; border-right: none;" >重复</td></tr>
+</table></div></td>
+</tr></table></div>
+</div>
+</td>
+<td id="zenLayoutTableCell_15"  style="vertical-align:top;">
+<div class="zendiv" id="zen15" zen="15"  >
+<table id="group_15" class="group"  border="0" cellspacing="0" cellpadding="0">
+<tr style="vertical-align:top;">
+<td id="zenLayoutTableCell_16"  >
+<div class="zendiv" id="showRawContent" zen="16"  ><div id="rawDivPointer" style="padding:20px 0px 0px 20px;">
+	<span><img src="images/spacer.gif" width="30" height="2"><img src="images/disclosure-contracted.gif" alt="*" width="8" height="11" border="0">
+	<span onclick="showRaw('rawContent');"><a href="#">显示原始定义文本</a></span></span><br/>
+	</div>
+<div id="rawContent" style="padding:20px 0px 0px 50px;display:none;" >
+	<b>原始定义</b>
+	<table cellspacing="0" cellpadding="2">
+	<tr><td>ITK:MSH~ITK:EVN~ITK:PID~[~ITK:PD1~]~ITK:PV1~[~ITK:PV2~]~[~{~ITK:OBX~}~]~[~ITK:ZU1~]~[~ITK:ZU3~]~[~ITK:ZU4~]~[~ITK:ZU6~]~[~ITK:ZU7~]~[~ITK:ZU8~]</td></tr>
+	</table>
+	</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+</tr></table><script type="text/javascript" src="js/hl7/ms.js"></script>

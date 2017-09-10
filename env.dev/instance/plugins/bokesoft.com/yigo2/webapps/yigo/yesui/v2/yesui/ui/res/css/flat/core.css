@@ -20,18 +20,19 @@ body * {
 iframe{
     border:0
 }
+li {
+    list-style: none;
+}
 
 /*在此更改label和按钮等文字大小*/
 a, button, div, input, label, li, p, pre, span, td, th, textarea, ul,
 .ui-btn, .ui-dropbtn .btn,
 .ui-splbtn .btn, .ui-img .fileBtn, .ui-lv .btn,
 .ui-txtbtn .btn, .ui-srch .btn {
-    /* font-size: 14px; */   
-    font-size: 12px;
+    font-size: 12px;   
 }
 
 a, button, div, input, label, li, p, pre, span, td, th, textarea, ul {
-    /* font-size: 12px; */
     font-family: "Microsoft Yahei", Verdana, Simsun, "Segoe UI Web Light", "Segoe UI Light", "Segoe UI Web Regular", "Segoe UI", "Segoe UI Symbol", "Helvetica Neue", Arial;
 }
 
@@ -52,13 +53,14 @@ img {
     vertical-align: middle; /* http://stackoverflow.com/questions/10844205/html-5-strange-img-always-adds-3px-margin-at-bottom */
     display:block;
 }
-input[type="button"],button{
-    outline:0;
+input[type="button"],
+input[type="text"],
+button{
+    outline:none;
 }
-/* .ui-tabs-nav, .tbr-ul {
-    border: 1px solid #ccc;
-    color: #fff;
-} */
+input[type="text"]:focus{
+    border:1px solid #40a8e8;
+}
 
 /** 自定义样式 */
 .ui-hidden {
@@ -68,168 +70,17 @@ input[type="button"],button{
 .ui-pnl {
     position: relative;
     white-space: nowrap;
-
-    /* border: 1px solid #8db2e3; */
     border: 0;
     background-size: 100% 100%;
 }
-
-/** Button样式--开始 */
-/*基础按钮（默认）、下拉按钮（默认）、分割下拉按钮（默认）*/
-.ui-btn,/* .tbr-ul .tbr-btn, */ .ui-dropbtn .btn,
-.ui-splbtn .btn, .ui-img .fileBtn, .ui-lv .btn,
-.ui-txtbtn .btn, .ui-srch .btn {
-    color: #333;
-    /* font-size: 12px; */
-    border: 1px solid #ccc;
-    background-color: #fff;
-    outline:none;
-}
-
-
-/*基础按钮（不可用）、下拉按钮（不可用）、分割下拉按钮（不可用）*/
-.ui-btn.ui-disabled, .ui-dropbtn.btn-group.ui-disabled .arrow, .ui-splbtn.btn-group.ui-disabled .arrow {
-    border: 1px solid #d9dbde;
-    background: #f5f6f8;
-    color: #b5b5b5;
-}
-.ui-btn {
-	position: relative;
-    min-height: 22px;
-    min-width: 20px;
-}
-.ui-btn button {
-    margin-right: 0;
-    height: 100%;
-    width: 20px;
-    overflow: hidden;
-    display: block;
-    padding: 0 8px;
-    border: 0;
-    outline: 0;
-	background: none;
-    text-overflow: ellipsis;
-    cursor:pointer;
-}
-.ui-btn .upload {
-	top: 0;
-	left: 0;
-	opacity: 0;
-	filter: alpha(opacity=0);
-	position: absolute;
-	height: 28px;
-	min-height: 18px;
-}
-.ui-btn.cellEditor, .ui-btn.cellEditor button, .ui-btn.cellEditor .upload {
-	width: 100%;
-	height: 100%;
-}
-.ui-btn.cellEditor .upload {
-	font-size: 1000px;
-}
-.ui-btn .txt {
-    font-weight: normal;
-    overflow: hidden;
-    max-width: 100%;
-    color:#333;
-    text-overflow: ellipsis;
-    /* vertical-align: top; */
-	display: inline-block;
-}
-
-.ui-btn .icon {
-    display: inline-block;
-    height: 16px;
-    width: 16px;
-    vertical-align: middle;
-}
-/*基础按钮（悬停）*/
-.ui-btn:hover {
-    border-color:#40a8e8;  
-}
-/*基础按钮（聚焦）*/
-.ui-btn:hover {
-    border-color:#40a8e8;  
-}
-.ui-btn:active .txt{
-    color:#40a8e8;  
-}
-.ui-btn:focus
-    border-color:#40a8e8;  
-    outline:1px solid #40a8e8;
-}
-
-/** Button样式--结束 */
-
-/** TextEditor样式--开始 */
-/*输入框（无状态）*/
-.ui-txted {
-    display: block;
-    position: relative;
-    height: 28px;
-}
-
-.ui-txted input, .ui-numed input, .ui-txta textarea, .ui-dp input, .ui-dict input, .ui-fc .txt {
-    border: 1px solid #ccc;
-    height: 28px;
-    line-height:26px;
-    padding-left: 8px;
-    color: #333;
-}
-
-.ui-txted .uppercase {
-    text-transform: uppercase;
-}
-
-.ui-txted .lowercase {
-    text-transform: lowercase;
-}
-
-.ui-txta {
-    display: block;
-    position: relative;
-}
-
-.ui-txta textarea {
-    resize: none;
-    overflow: auto;
-}
-.ui-txta textarea:hover,
-.ui-txta textarea:focus{
-    border-color:#40a8e8;
-}
-
-
-/*输入文本*/
-
-/*占位符*/
-.placeholder {
-    color: #b4b4b4 !important;
-}
-
-::-webkit-input-placeholder {
-    color: #b4b4b4;
-}
-
-:-moz-placeholder, ::-moz-placeholder {
-    color: #b4b4b4;
-    opacity: 1;
-    filter: alpha(opacity=100);
-}
-
-:-ms-input-placeholder {
-    color: #b4b4b4;
-}
 /*jq-ui*/
-.ui-state-default a,.ui-state-default a:link,.ui-state-default a:visited
-{
-    color: #2e6e9e;
-    text-decoration: none
+.ui-state-default a,.ui-state-default a:link,.ui-state-default a:visited{
+    color: #3890c7;
 }
 
 .ui-widget-header {
-    border: 1px solid #4297d7;
-    background: #5c9ccc url(images/ui-bg_gloss-wave_55_5c9ccc_500x100.png)
+    border: 1px solid #3890c7;
+    background: #3d9dd9 url(images/ui-bg_gloss-wave_55_5c9ccc_500x100.png)
         50% 50% repeat-x;
     color: #fff;
     font-weight: bold
@@ -278,7 +129,7 @@ input[type="button"],button{
     z-index: 9999;
     max-width: 300px;
     -webkit-box-shadow: 0 0 5px #aaa;
-    box-shadow: 0 0 5px #aaa
+    box-shadow: 0 0 5px #aaa;
 }
 
 body .ui-tooltip {
@@ -287,11 +138,10 @@ body .ui-tooltip {
 .ui-state-highlight,.ui-widget-content .ui-state-highlight,.ui-widget-header .ui-state-highlight {
     border: 1px solid #fad42e;
     background: #fbec88 url(images/ui-bg_flat_55_fbec00_30x100.png) 50% 50%;
-    color: #363636
+    color: #333;
 }
-.ui-state-highlight a,.ui-widget-content .ui-state-highlight a,.ui-widget-header .ui-state-highlight a
-{
-    color: #363636
+.ui-state-highlight a,.ui-widget-content .ui-state-highlight a,.ui-widget-header .ui-state-highlight a{
+    color: #333;
 }
 .ui-state-highlight .ui-icon {
     background-image: url(images/ui-icons_2e83ff_256x240.png)
@@ -319,9 +169,6 @@ body .ui-tooltip {
 }
 .ui-icon-refresh {
     background-position: -64px -80px
-}
-.ui-icon-asc {
-    background-position: 0 -16px
 }
 .ui-icon-desc {
     background-position: -64px -16px
@@ -353,12 +200,11 @@ body .ui-tooltip {
     background-repeat: no-repeat
 }
 .ui-widget-content {
-    border: 1px solid #dadada;
+    border: 1px solid #e6e6e6;
     background: #fcfdfd url(images/ui-bg_inset-hard_100_fcfdfd_1x100.png)
         50% bottom repeat-x;
 }
-.ui-state-disabled
-{
+.ui-state-disabled{
     opacity: .35;
     filter: Alpha(Opacity = 35);
     background-image: none
@@ -368,33 +214,150 @@ body .ui-tooltip {
     height: 16px
 }
 
-/*输入框（悬停）*/
-/* .ui-txted input:hover {
-	border-color: #b7b7b7;
-	box-shadow: 1.414px 1.414px 1px #6d6d6d inset;
-} */
+/** Button样式--开始 */
+/*基础按钮（默认）、下拉按钮（默认）、分割下拉按钮（默认）*/
+.ui-btn,/* .tbr-ul .tbr-btn, */ .ui-dropbtn .btn,
+.ui-splbtn .btn, .ui-img .fileBtn, .ui-lv .btn,
+.ui-txtbtn .btn, .ui-srch .btn {
+    color: #333;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    outline:0;
+}
+
+
+/*基础按钮（不可用）、下拉按钮（不可用）、分割下拉按钮（不可用）*/
+.ui-btn.ui-disabled, .ui-dropbtn.btn-group.ui-disabled .arrow, .ui-splbtn.btn-group.ui-disabled .arrow {
+    border: 1px solid #ccc;
+    background: #f9f9f9;
+    color: #999;
+}
+.ui-btn {
+    position: relative;
+    min-height: 22px;
+    min-width: 20px;
+}
+.ui-btn button {
+    margin-right: 0;
+    height: 100%;
+    width: 20px;
+    overflow: hidden;
+    display: block;
+    padding: 0 8px;
+    border: 0;
+    outline: 0;
+    background: none;
+    text-overflow: ellipsis;
+    cursor:pointer;
+}
+.ui-btn .upload {
+    top: 0;
+    left: 0;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    position: absolute;
+    height: 28px;
+    min-height: 18px;
+}
+.ui-btn.cellEditor, .ui-btn.cellEditor button, .ui-btn.cellEditor .upload {
+    width: 100%;
+    height: 100%;
+}
+.ui-btn.cellEditor .upload {
+    font-size: 1000px;
+}
+.ui-btn .txt {
+    font-weight: normal;
+    overflow: hidden;
+    max-width: 100%;
+    color:#333;
+    text-overflow: ellipsis;
+    vertical-align: top;
+    display: inline-block;
+}
+
+.ui-btn .icon {
+    display: inline-block;
+    height: 16px;
+    width: 16px;
+    vertical-align: top;
+}
+
+
+/** Button样式--结束 */
+
+/** TextEditor样式--开始 */
+/*输入框（无状态）*/
+.ui-txted {
+    display: block;
+    position: relative;
+    height: 28px;
+}
+
+.ui-txted input, .ui-numed input, .ui-txta textarea, .ui-dp input, .ui-dict input, .ui-fc .txt {
+    border: 1px solid #ccc;
+    height: 28px;
+    line-height:26px;
+    padding-left: 8px;
+    color: #333;
+}
+
+.ui-txted .uppercase {
+    text-transform: uppercase;
+}
+
+.ui-txted .lowercase {
+    text-transform: lowercase;
+}
+
+.ui-txta {
+    display: block;
+    position: relative;
+}
+
+.ui-txta textarea {
+    resize: none;
+    overflow: auto;
+}
+
+/*输入文本*/
+
+/*占位符*/
+.placeholder {
+    color: #ccc !important;
+}
+
+::-webkit-input-placeholder {
+    color: #ccc;
+}
+
+:-moz-placeholder, 
+::-moz-placeholder {
+    color: #ccc;
+    opacity: 1;
+    filter: alpha(opacity=100);
+}
+
+:-ms-input-placeholder {
+    color: #ccc;
+}
+
+
 /*输入框（输入文本）*/
 .ui-txted input:focus, .ui-numed input:focus, .ui-txta textarea:focus, 
 .ui-dict .txt:focus, .ui-cmb .txt:focus, .ui-dp .txt:focus, 
 .ui-splbtn.focus button, .ui-srch input.txt:focus, .ui-img:focus,.ui-steped input:focus,.searchdiv input:focus,
 .chainsearch input:focus{
     outline: 0;
-    border-color: #40a8e8;
     
 }
 /*输入框（禁用）*/
 .ui-txted.ui-disabled input {
-    background-color: #f3f3f3;
-    color: #838383;
+    background-color: #f9f9f9;
+    color: #ccc;
 }
-/* .ui-txted.ui-readonly input:hover{
-    border-color:#e6e6e6;
-} */
 
 /*输入框（错误输入）*/
-/* .ui-txted.ui-error input, .ui-numed.ui-error input, .ui-cmb.ui-error input, .ui-dict.ui-error input, .ui-dp.ui-error input {
-	color: #f13a3a;
-} */
 .ui-txted span.error-icon, .ui-txta.ui-error span.error-icon, .ui-numed.ui-error span.error-icon, .ui-cmb.ui-error span.error-icon, 
 .ui-dict.ui-error span.error-icon, .ui-dp.ui-error span.error-icon, .ui-rich.ui-error span.error-icon {
     display: inherit;
@@ -406,14 +369,14 @@ body .ui-tooltip {
     border-width: 8px 0px 0px 8px;
     border-top-style: solid;
     border-left-style: solid;
-    border-top-color: red;
+    border-top-color: #f60;
     border-left-color: transparent;
 }
 
 /*输入框（必填）*/
 .ui-required input, .ui-required textarea, .ui-required .wangEditor-textarea, .ui-chk.ui-required, .ui-rdo.ui-required,.ui-steped {
     background-color: #fff;
-    color: #979696;
+    color: #333;
 }
 
 /*嵌入图标、嵌入文本样式 */
@@ -421,29 +384,33 @@ span.ui-txted input, .ui-dp input {
     padding-right: 26px;
 }
 span.ui-txted span.embed {
-    color: #b4b4b4;
+    color: #ccc;
     position: absolute;
     white-space: nowrap;
-    /* font-size: 14px; */
-    font-size: 12px;
     padding-left: 10px;
     padding-right: 10px;
     line-height: 26px;
 }
 
 span.ui-txted span.clear {
+    height: 20px;
+    width: 20px;
+    position: absolute;
     display: none;
     cursor: pointer;
     top: 50%;
-    margin-top: -8px;
+    margin-top: -10px;
     right: 10px;
 }
 
 .ui-txted span.clear {
-    background: url(images/clear-input.png) no-repeat;
+    background: url(images/clear-input.png);
+}
+.ui-txted span.clear:hover{
+    background-image:url(images/clear-input_hover.png)
 }
 
-.ui-txted span.clear, .ui-txted span.pre-icon {
+.ui-txted span.pre-icon {
     height: 16px;
     width: 16px;
     position: absolute;
@@ -456,19 +423,8 @@ span.ui-txted span.clear {
 span.ui-txted button{
     color:#ccc;
 }
-.ui-txted:hover input{
-    border-color:#40a8e8;
-}
-span.ui-txted input:focus ~ button{
-    border-color:#40a8e8;
-}
-span.ui-txted:hover button{
-    border-color:#40a8e8;
-    color:#40a8e8;
-    outline:none;
-}
+
 span.ui-txted button:active{
-    background: #40a8e8;
     color:#fff;
 } 
 /** TextEditor样式--结束 */
@@ -480,8 +436,8 @@ span.ui-txted button:active{
 }
 
 span.ui-numed input {
-	width: 100%;
-	height: 100%;
+    width: 100%;
+    height: 100%;
     padding-right: 8px;
 }
 
@@ -511,9 +467,7 @@ span.ui-numed input {
 }
 
 /*Tooltip内容中超链接样式*/
-.tooltip-content a {
-    color: #74ccff;
-}
+
 
 /*Tooltip箭头样式，由CSS生成箭头*/
 .narrow {
@@ -532,20 +486,6 @@ span.ui-numed input {
 
 /** DropDownButton样式--开始 */
 
-.ui-dropbtn.btn-group.focus a.btn {
-	outline: 0;
-    border-color: rgb(82, 168, 236);
-    border-color: rgba(82, 168, 236, 0.8);
-}
-/* .ui-dropbtn.btn-group.focus {
-    -moz-transition: border linear 0.2s, box-shadow linear 0.2s;
-    -webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
-    transition: border linear 0.2s, box-shadow linear 0.2s;
-    -moz-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1), 0 0 8px rgba(82, 168, 236, 0.6);
-    -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1), 0 0 8px rgba(82, 168, 236, 0.6);
-    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1), 0 0 8px rgba(82, 168, 236, 0.6);
-} */
-
 .dpbtn-vw, .sp-vw, .dp-vw {
     margin: 0;
     padding: 0;
@@ -562,21 +502,20 @@ span.ui-numed input {
     list-style: none;
 }
 .dpbtn-vw li.sep, .sp-vw li.sep {
-	border: 1px solid #dadada;
-	border-top-width: 0;
+    border: 1px solid #e6e6e6;
+    border-top-width: 0;
 }
 .dpbtn-vw li>a, .sp-vw li>a {
     padding: 0px 10px;
     line-height: 28px;
     display: block;
-    color: #3e3e3e;
+    color: #333;
     white-space: nowrap;
 }
 
 .dpbtn-vw li>a:hover, .dpbtn-vw li>a:focus, .sp-vw li>a:hover, .sp-vw li>a:focus {
-    text-decoration: none;
     cursor: pointer;
-    background-color: #eaeaea;
+    background-color: #f2f2f2;
 }
 
 .ui-dropbtn .arrow {
@@ -598,7 +537,7 @@ span.ui-numed input {
 }
 
 .ui-dropbtn a label, .ui-splbtn .btn-left label {
-	max-width: 100%;
+    max-width: 100%;
     padding: 0;
     padding-right: 20px;
     overflow: hidden;
@@ -606,7 +545,7 @@ span.ui-numed input {
 }
 
 .ui-dropbtn.btn-group.open .btn {
-    background: #f47625;
+    background: #f0604d;
 }
 
 .ui-dropbtn span.arrow {
@@ -644,7 +583,7 @@ span.ui-numed input {
 }
 
 .ui-splbtn.btn-group.open .btn {
-    background: #fc772b;
+    background: #f0604d;
 }
 
 .ui-splbtn span.arrow {
@@ -656,20 +595,19 @@ span.ui-numed input {
     color: #ccc;
 }
 .ui-splbtn .btn-left {
-	padding: 0;
+    padding: 0;
 }
 .ui-splbtn .btn-left label {
-	padding: 0;
-	float: right;
+    padding: 0;
+    float: right;
 }
 .ui-splbtn .dp-tgl {
-	width: 30px;
+    width: 30px;
 }
 /** SplitButton样式--结束 */
 
 /** BorderLayoutPanel样式 --开始*/
 .ui-blp .item-ct {
-    /*margin: 4px;*/
     overflow: hidden;
 }
 
@@ -695,12 +633,9 @@ span.ui-numed input {
     overflow: hidden;
 }
 
-/*
-.v-item .ui-pnl, .h-item .ui-pnl {
-	overflow: hidden;
-} */
+
 .ui-spl .spl-resizer {
-    background-color: #eaeaea;
+    background-color: #e6e6e6;
     z-index: 9999;
     vertical-align: top;
 }
@@ -726,195 +661,6 @@ span.ui-numed input {
 
 /** SplitPanel样式--结束 */
 
-/** treemenu样式--开始 */
-.treemenu {
-    overflow-y: auto !important;
-    scrollbar-track-color: #dcdcdc;
-    background-color: #ffffff;
-}
-
-.treemenu li {
-    list-style: none;
-}
-
-.treemenu .tree-hide {
-    display: none;
-}
-
-.treemenu li {
-    background: #faf9f9;
-    white-space: nowrap;
-    overflow: hidden;
-}
-
-.treemenu li ul {
-    margin: 0;
-    padding: 0;
-    background-color: #f7f7f7;
-}
-
-.treemenu li a {
-    display: inline-block;
-    text-decoration: none;
-    height: 26px;
-    line-height: 26px;
-    width: 100%;
-    white-space: nowrap;
-    overflow: hidden;
-    vertical-align: middle;
-}
-
-.treemenu li a:hover {
-    background: #eaeaea;
-    border-radius: 2px;
-    cursor: pointer;
-}
-
-.treemenu .tree {
-    display: inline-block;
-    vertical-align: middle;
-    height: 16px;
-    width: 16px;
-}
-
-.treemenu .tree.collapse {
-    background: url("images/tree.png") 83px 119px;
-}
-
-.treemenu .tree.expand {
-    background: url("images/tree.png") 65px 119px;
-}
-.treemenu li a span {
-    color: #74787a;
-    font-family: "微软雅黑";
-    /* font-size: 14px; */
-    font-size: 12px;
-}
-.treemenu-accordionmenu > li.isParent > a.clicked span.treenode-name, 
-.treemenu-accordionmenu > li.isParent > a:hover span.treenode-name,
-.treemenu li a:hover span.treenode-name, 
-.treemenu li a.clicked span.treenode-name{
-    color: #4d4d4d;
-    font-weight: bold;
-}
-
-.treemenu li a.clicked {
-    background: #ddd;
-    border-radius: 2px;
-}
-
-/** treemenu样式--结束 */
-
-/** treemenu grouptree样式--开始 */
-.treemenu-grouptree .tree-node span.treemenu-icon {
-    display: inline-block;
-    vertical-align: middle;
-    height: 16px;
-    width: 16px;
-}
-
-.treemenu .tree-node span.tree-explore {
-    display: inline-block;
-    vertical-align: middle;
-    height: 20px;
-    width: 20px;
-}
-
-.treemenu .tree-node span.tree-explore.default_icon {
-    margin-left: 5px;
-    margin-right: 5px;
-    background: url("images/ui-icons_6da8d5_256x240.png") -30px -16px;
-}
-
-.treemenu .tree-node span.tree-explore.default_icon.b-expand {
-    background: url("images/ui-icons_6da8d5_256x240.png") -60px -16px;
-}
-
-.treemenu-grouptree .tree-node span.treemenu-icon {
-    float: right;
-    margin-right: 20px;
-}
-
-.treemenu-grouptree .tree-node span.treemenu-icon.dt-expand {
-    background-image: url(images/expand.png);
-}
-
-.treemenu-grouptree .tree-node span.treemenu-icon.dt-collapse {
-    background-image: url(images/collapse.png);
-}
-
-.treemenu-grouptree .tree-node span.treemenu-icon, .treemenu-grouptree .tree-node span.tree-explore {
-    vertical-align: top;
-    margin-top: 6px;
-}
-
-.treemenu-grouptree > li.tree-node > a > span.treemenu-icon, .treemenu-grouptree >li.tree-node >a > span.tree-explore {
-    margin-top: 9px;
-}
-
-.treemenu-grouptree .tree-node span.tree-explore {
-    margin-right: 14px;
-    margin-left: 16px;
-}
-
-.treemenu-grouptree > li {
-    background: #ffffff;
-}
-
-.treemenu-grouptree > li.isParent > a.clicked, .treemenu-grouptree > li.isParent > a:hover {
-    background-color: #ffffff;
-}
-
-.treemenu-grouptree li ul {
-    margin: 0;
-    padding: 0;
-    background-color: #f7f7f7;
-}
-
-.treemenu-grouptree li ul {
-    padding-top: 5px;
-    padding-bottom: 5px;
-}
-
-.treemenu-grouptree > li.isParent > a {
-    line-height: 34px;
-    height: 34px;
-    padding-left: 0;
-    /*
-        filter:shadow(color=#d8d8d8,direction=180,strength=2) */
-    box-shadow: 0 1px 4px #d8d8d8;
-    -moz-box-shadow: 0 1px 4px #d8d8d8;
-    -webkit-box-shadow: 0 1px 4px #d8d8d8;
-}
-
-.treemenu-grouptree li a {
-    text-decoration: none;
-    height: 26px;
-    line-height: 26px;
-    display: inline-block;
-    width: 100%;
-}
-
-.treemenu-grouptree li.selected {
-    height: auto;
-}
-
-.treemenu-grouptree > li a.curSelectedNode {
-    border: 0;
-}
-
-.treemenu-grouptree li a span.treenode-name {
-    display: inherit;
-}
-
-/** treemenu-grouptree样式--结束*/
-
-/** treemenubar样式--开始*/
-.treemenubar {
-    width: 216px;
-    border: 1px solid #cfcfcf;
-    border-bottom: none;
-}
 
 .ui-widget {
     font-family: Lucida Grande, Lucida Sans, Arial, sans-serif;
@@ -925,41 +671,34 @@ span.ui-numed input {
 
 /** TabPanel样式--开始 */
 
-.ui-tabs-nav {
-    padding: 0;
-    position: relative;
-    /* overflow: hidden; */
-    background: none;
-}
-
 .ui-tabs-nav, .ui-tabs-nav ul, .ui-tabs-nav ul li {
     border-radius: 0;
-}
-
-.ui-tabs-nav .ui-tabs-panel, .ui-tabs-nav {
-    padding: 0;
 }
 
 /*设置边框线、背景色及高度*/
 .ui-tabs-nav li {
     border: none;
-    height: 40px;
+    height: 30px;
     float: left;
-    display: block;
     border-top-left-radius:0;
     border-top-right-radius:0;
 }
-
-/*选中及悬停时的背景色*/
-/* .ui-tabs-nav li.ui-tabs-active,  */
-/* .ui-tabs-nav li a:hover label {
-    color: #fff;
-} */
-
-/* .ui-tabs-nav li a.ui-tabs-anchor, .ui-tabs .ui-tabs-nav li a {
-	padding: 0 19px;
+.ui-tabpnl .ui-tabs-nav li{
+    position:relative;
+    top:1px;
+    margin-right:6px;
+    background:#f9f9f9;
+    border:1px solid #e6e6e6;
+    border-bottom:0;
 }
- */
+.ui-tabpnl .ui-tabs-nav .aria-selected{
+    background:#fff;
+}
+.ui-tabpnl .ui-tabs-nav .aria-selected label{
+    color:#40a8e8;
+}
+/*选中及悬停时的背景色*/
+
 .ui-tabs-nav li a {
     display: block;
     height: 40px;
@@ -967,103 +706,86 @@ span.ui-numed input {
     color: #333;
     padding-left: 18px;
 }
-
-.ui-tabpnl .ui-tabs-nav li a {
-    position:relative;
-    padding-right: 15px;
-    padding-left:15px;
-    line-height:40px;
-    border-top-left-radius:0;
-    border-top-right-radius:0;
-}
 .ui-tabpnl .ui-tabs-nav li a:hover {
     font-weight:700;
 }
 .ui-tabp ul.ui-tabs-nav {
-    border-bottom: 2px solid #63b6eb;
+    border-bottom: 2px solid #66b6e8;
 }
-.ui-tabpnl .ui-tabs-nav .aria-selected a:after{
-    content:"";
-    position:absolute;
-    left:0;
-    bottom:2px;
-    height:2px;
-    width:100%;
-    background:#29b6f6;
+.ui-tabpnl .ui-tabs-nav li a {
+    position:relative;
+    padding-right: 20px;
+    padding-left:20px;
+    line-height:30px;
+    border-top-left-radius:0;
+    border-top-right-radius:0;
 }
-.ui-tabpnl .ui-tabs-nav .aria-selected a label{
-    font-weight:700;
-}
+
 .ui-tabs-body .ui-tabs-panel {
     height: 100%;
     width: 100%;
     border: 0;
+    backgound:none;
 }
-.ui-tabpnl ul.tab-head {
-    padding-left: 3px;
-    background:#f9f9f9;
-}
+
 .ui-tabpnl div.tab-body {
-	overflow: hidden;
+    overflow: hidden;
+    border:1px solid #e6e6e6;
 }
 .ui-tabpnl ul.tab-head.bottom, .ui-tabpnl ul.tab-head.bottom li a {
-	transform: scale(1, -1);
-	-webkit-transform: scale(1, -1);
-	-moz-transform: scale(1, -1);
-	-ms-transform: scale(1, -1);
-	-o-transform: scale(1, -1);
-	filter: progid:DXImageTransform.Microsoft.Matrix(sizingMethod="auto expand", M11=1, M12=0, M21=0, M22=-1);
+    transform: scale(1, -1);
+    -webkit-transform: scale(1, -1);
+    -moz-transform: scale(1, -1);
+    -ms-transform: scale(1, -1);
+    -o-transform: scale(1, -1);
+    filter: progid:DXImageTransform.Microsoft.Matrix(sizingMethod="auto expand", M11=1, M12=0, M21=0, M22=-1);
 }
 .ui-tabpnl ul.tab-head.bottom li a:hover {
-	border-radius: 5px;
-	border-top-right-radius: 0;
-	border-top-left-radius: 0;
+    border-radius: 5px;
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
 }
 .ui-tabpnl ul.tab-head.left {
     display: inline-block;
     transform-origin: 30px 30px;
     -webkit-transform-origin: 30px 30px;
     -moz-transform-origin: 30px 30px;
-	transform: rotate(90deg) scale(1, -1);
-	-webkit-transform: rotate(90deg) scale(1, -1);
-	-moz-transform: rotate(90deg) scale(1, -1);
-	-ms-transform: rotate(90deg) scale(1, -1);
-	-o-transform: rotate(90deg) scale(1, -1);
-	filter: progid:DXImageTransform.Microsoft.Matrix(sizingMethod="auto expand", M11=-1.8369701987210297e-16, M12=1, M21=1, M22=1.8369701987210297e-16);
-	
+    transform: rotate(90deg) scale(1, -1);
+    -webkit-transform: rotate(90deg) scale(1, -1);
+    -moz-transform: rotate(90deg) scale(1, -1);
+    -ms-transform: rotate(90deg) scale(1, -1);
+    -o-transform: rotate(90deg) scale(1, -1);
+    filter: progid:DXImageTransform.Microsoft.Matrix(sizingMethod="auto expand", M11=-1.8369701987210297e-16, M12=1, M21=1, M22=1.8369701987210297e-16);
+    
 }
 .ui-tabpnl ul.tab-head.right {
     display: inline-block;
     transform-origin: 16px 16px;
     -webkit-transform-origin: 16px 16px;
     -moz-transform-origin: 16px 16px;
-	transform: rotate(90deg);
-	-webkit-transform: rotate(90deg);
-	-moz-transform: rotate(90deg);
-	filter: progid:DXImageTransform.Microsoft.Matrix(sizingMethod="auto expand", M11=-1.8369701987210297e-16, M12=-1, M21=1, M22=-1.8369701987210297e-16);
-	
+    transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    filter: progid:DXImageTransform.Microsoft.Matrix(sizingMethod="auto expand", M11=-1.8369701987210297e-16, M12=-1, M21=1, M22=-1.8369701987210297e-16);
+    
 }
 .ui-tabpnl ul.tab-head.left li a {
-	transform: scale(-1, 1);
-	-webkit-transform: scale(-1, 1);
-	-moz-transform: scale(-1, 1);
-	-ms-transform: scale(-1, 1);
-	-o-transform: scale(-1, 1);
-	filter: progid:DXImageTransform.Microsoft.Matrix(sizingMethod="auto expand", M11=-1, M12=0, M21=0, M22=1);
-	
+    transform: scale(-1, 1);
+    -webkit-transform: scale(-1, 1);
+    -moz-transform: scale(-1, 1);
+    -ms-transform: scale(-1, 1);
+    -o-transform: scale(-1, 1);
+    filter: progid:DXImageTransform.Microsoft.Matrix(sizingMethod="auto expand", M11=-1, M12=0, M21=0, M22=1);
+    
 }
 .ui-tabpnl .tab-body .ui-corner-bottom {
-	display: none;
+    display: none;
 }
 .ui-tabpnl .tab-body .ui-corner-bottom.aria-show {
-	display: block;
+    display: block;
 }
 
 /*设置字体*/
-
-/* .ui-tabs-nav li.aria-selected a label {
-    color: #333;
-} */
 
 .ui-tabs-nav li span.ui-icon-close {
     float: left;
@@ -1077,13 +799,9 @@ span.ui-numed input {
     cursor: pointer;
 }
 
-
 .ui-tabs-nav span.ui-icon-close:hover{
     background-image:url(images/nav_close_hover02.png)
 }
-/* .ui-tabs-nav li.ui-tabs-active span.ui-icon-close {
-    background-image: url(images/ui-icons_f9bd01_256x240.png);
-} */
 
 .ui-tabs-nav .ui-tabs-body {
     overflow: hidden;
@@ -1097,7 +815,7 @@ span.ui-numed input {
 }
 
 /*选中或悬停时字体色*/
-.ui-tabs-nav li.ui-tabs-active a/* , .ui-tabs .ui-tabs-nav li a:hover */     {
+.ui-tabs-nav li.ui-tabs-active a{
     color: #ffffff;
 }
 
@@ -1106,6 +824,7 @@ span.ui-numed input {
 }
 
 .ui-tabs-nav .ui-tabs-panel {
+    padding:0;
     display: block;
     border-width: 0;
     background: none;
@@ -1148,13 +867,16 @@ span.ui-numed input {
 }
 
 .ui-tabs-body .tabcnt-cont .errorinfo span.closeIcon {
-    height: 16px;
-    width: 16px;
+    height: 20px;
+    width: 20px;
     top: 5px;
     position: relative;
     display: inline-block;
     vertical-align: middle;
     background: url(images/clear-input.png) no-repeat;
+}
+.ui-tabs-body .tabcnt-cont .errorinfo span.closeIcon:hover{
+    background-image:url(images/clear-input_hover.png)
 }
 
 .ui-tabs-body .tabcnt-cont .errorinfo label {
@@ -1163,11 +885,11 @@ span.ui-numed input {
 }
 
 .ui-tabs-nav.ui-tabs-ex li.aria-selected a {
-    background-color: #f7f7f7;
+    background-color: #f2f2f2;
 }
 
 .ui-tabs-nav.ui-tabs-ex li.aria-selected a label {
-    color: #fc772b;
+    color: #f0604d;
 }
 
 .ui-tabs-nav.ui-tabs-ex li.aria-selected a span.ui-icon-close {
@@ -1184,25 +906,18 @@ span.ui-numed input {
     display: inline-block;
 }
 
-.ui-tabs-nav.ui-tabs-ex li a label {
-    color: #fc772b;
-}
-
 .ui-tabs .ui-tabs-nav.ui-tabs-ex li a.ui-tabs-anchor {
-    color: #949494;
+    color: #999;
     padding: 0;
     padding-left: 16px;
 }
 
-/* .ui-tabs-ex li span{
-	display: none;
-} */
 .ui-tabs-nav.ui-tabs-ex li.ui-tabs-active, .ui-tabs-nav.ui-tabs-ex li a:hover {
-    background-color: #f7f7f7;
+    background-color: #f2f2f2;
 }
 
 .ui-tabs-nav.ui-tabs-ex .ui-state-active a label, .ui-tabs-nav.ui-tabs-ex li a:hover label {
-    color: #fc772b;
+    color: #f0604d;
     cursor: pointer;
 }
 
@@ -1231,9 +946,7 @@ span.ui-numed input {
 
 /*tab页中字体色*/
 .ui-tabs-nav.ui-tabs-ex li a label {
-    color: #949494;
-    /* font-size: 14px; */
-    font-size: 12px;
+    color: #999;
     margin: 0;
     padding-left: 10px;
 }
@@ -1242,7 +955,7 @@ span.ui-numed input {
 .ui-tabs-nav.ui-tabs-ex li:first-child label {
     font-size: 24px;
     font-weight: normal;
-    color: #1d2939;
+    color: #333;
     margin-right: 21px;
     margin-top: 15px;
     padding-left: 16px;
@@ -1261,37 +974,32 @@ span.ui-numed input {
 
 /** TabContainer样式--开始 */
 .ui-tabs-nav {
-    width:15000px;
-	min-height: 0;
-	margin: 0;
-	padding: 0;
-	border: 0;
-	outline: 0;
-	line-height: 1.3;
-	text-decoration: none;
-	font-size: 100%;
-	list-style: none
+    width:50000px;
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    background: none;
+    border: 0;
+    outline: 0;
+    line-height: 1.3;
 }
 .ui-tabs-nav:before,.ui-tabs-nav:after {
-	content: "";
-	display: table;
-	border-collapse: collapse
+    content: "";
+    display: table;
+    border-collapse: collapse
 }
 
 .ui-tabs-nav:after {
-	clear: both
+    clear: both
 }
-
-/* .ui-tabs-header {
-    overflow: hidden;
-} */
 
 .ui-tabs-header, .ui-tabs-body {
     display: block;
     float: left;
 }
 .ui-tabcnt .ui-tabs-header {
-	overflow: hidden;
+    overflow: hidden;
 }
 .ui-tabcnt .ui-tabs-header, .ui-tabcnt .ui-tabs-body {
     float: left;
@@ -1299,51 +1007,42 @@ span.ui-numed input {
 
 .ui-tabcnt li.ui-tabcontainer a label {
     color:#999;
-	/* font-size: 14px; */
-    font-size: 12px;
 }
 .ui-tabcnt.empty .ui-tabs.dropdownBtn {
-	display: none;
+    display: none;
 }
 .ui-tabs.dropdownBtn {
     float: right;
     width: 30px;
     height: 50px;
     background-color: #fff;
-	border-bottom: 2px solid #999;
+    border-bottom: 2px solid #999;
 }
 
 .ui-tabcnt .ui-tabs.dropdownBtn.show {
     display: inline-block;
     background: url("images/tabs.png") no-repeat 7px;
-    background-color: #deecf9;
     cursor:pointer;
 }
 .ui-tabcnt .ui-tabs-nav li.ui-tabcontainer {
-	margin-right: 2px;
+    margin-right: 2px;
+    margin-top: 7px;
 }
 .ui-tabcnt > .ui-tabs-header > .ui-tabs-nav {
     padding-left:5px !important;
     background:#fff; 
-	height: 50px;
+    height: 50px;
     border-bottom:2px solid #999;
     
 }
-/* :root .ui-tabcnt > .ui-tabs-header > .ui-tabs-nav {
-    box-shadow:inset 0 -2px 0 0 #999;
-    border-bottom:0;
-} */
+
 .ui-tabcnt > .ui-tabs-header > .ui-tabs-nav:empty {
     background:transparent;
     border-bottom:none;
 }
-.ui-tabcnt .ui-tabs-nav li.ui-tabcontainer {
-	margin-top: 7px;
-}
+
 .ui-tabcnt .ui-tabs-nav li.ui-tabcontainer.aria-selected {
     position:relative;
-	/* height: 40px;
-    margin-top: 0; */
 }
 .ui-tabcnt .ui-tabs-nav li.ui-tabcontainer.aria-selected:after{
     content:"";
@@ -1352,17 +1051,11 @@ span.ui-numed input {
     bottom:-2px;
     width:100%;
     height: 3px;
-    background:#40a8e8;
 }
 .ui-tabcnt .ui-tabs-nav li.ui-tabcontainer.aria-selected .ui-anchor-label{
     color:#333;
 }
-/*  .ui-tabcnt .ui-tabs-nav li.ui-tabcontainer.aria-selected a {
-    height: 40px;
-   line-height: 40px;
-   margin-top: 2px; 
-} 
-*/
+
 .ui-tabs.tabs-list {
     position: absolute;
     width:215px;
@@ -1373,10 +1066,6 @@ span.ui-numed input {
     border: 1px solid #ccc;
     display: none;
 
-}
-
-.ui-tabs.tabs-list li:hover {
-    background: #dff1fe;   
 }
 
 .ui-tabs.tabs-list.showList {
@@ -1396,14 +1085,14 @@ span.ui-numed input {
 }
 
 .ui-tabs.tabs-list li.lightColor {
-    color: #c3c1c1;
+    color: #ccc;
 }
 
 .ui-tabs-nav li.ui-tabcontainer {
     height: 41px;
 }
 
-.ui-tabs-nav li.ui-tabcontainer a, .ui-tabs-nav .dropdownBtn {
+.ui-tabs-nav .dropdownBtn {
     height: 50px;
     line-height: 50px;
 }
@@ -1413,17 +1102,6 @@ span.ui-numed input {
     line-height: 41px;
 }
 
-/* .ui-tabs-nav li.ui-tabcontainer a:hover {
-    background-color: #fff;
-} */
-/* 
-.ui-tabs-nav li.ui-tabcontainer.aria-selected a label {
-    color: #333;
-}
-
-.ui-tabs-nav li.ui-tabcontainer a label {
-    color: #aaa;
-} */
 
 /** TabContainer样式--结束 */
 
@@ -1441,12 +1119,11 @@ span.ui-numed input {
     width:100%;
 }
 .ui-glp .oddColumnColor .layout tr td:odd {
-    background-color: #f4f4f4;
+    background-color: #f9f9f9;
 }
 
 .ui-glp .layout tr td label {
     margin-bottom: 0;
-    /* font-size: 12px; */
     font-weight: normal;
 }
 
@@ -1465,8 +1142,8 @@ tr.first span{
 
 /** RichEditor样式--开始 */
 .ui-rich {
-	border: 1px solid #dadada;
-	border-radius: 3px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
 }
 /** RichEditor样式--结束*/
 
@@ -1480,18 +1157,12 @@ tr.first span{
     padding: 1px;
     padding-right: 32px;
     height: 100%;
-    border: 1px solid #dadada;
+    border: 1px solid #ccc;
     white-space:nowrap;
     overflow:hidden;
     text-overflow:ellipsis;
 }
-.ui-dict:hover .arrow,
-.ui-dict .txt:focus + .arrow {
-   background-image: url(images/combobox-btn-blue.png)
-}
-.ui-dict:hover .txt{
-    border-color:#40a8e8;
-}
+
 .ui-dict.ui-readonly .txt:focus + .arrow,
 .ui-dict.ui-readonly:hover .arrow{
      background-image: url(images/combobox-btn.png)
@@ -1504,24 +1175,23 @@ tr.first span{
     height: 16px;
     width: 16px;
 }
-.ui-dict.ui-readonly .arrow{
-    background-image: url(images/combobox-btn.png);
+.ui-dict .arrowgif, .ui-chaindict .arrowgif,.ui-cmb .arrowgif,.dt-vw span.icon.dt-arrowgif{
+    background-image: url(images/icon-spin-s.gif);
+    background-repeat: no-repeat;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    height: 16px;
+    width: 16px;
 }
 .dt-vw {
     border: 1px solid #40a8e8;
     position: absolute;
     background-color: #fff;
-    min-width: 220px;
+    min-width: 270px;
     z-index: 9999;
     -webkit-box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, .1);
             box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, .1);
-}
-
-.dt-vw.toplst {
-    /* border-top: 1px solid #dadada; */
-    /* border-bottom: 0; */
-   /*  border-radius: 0; */
-
 }
 
 .dt-vw .dt-chk {
@@ -1553,63 +1223,46 @@ tr.first span{
     position: relative;
 }
 
-.dt-vw span.icon.dt-expand {
-    background: url(images/dict/expand.png) no-repeat center;
-}
-
 .dt-vw span.icon.dt-collapse {
     background: url(images/dict/collapse.png) no-repeat center;
 }
-/* 
-.dt-vw span.branch.b-expand {
-    background: url(images/tree.png) no-repeat -110px -17px;
-    margin-bottom: 3px;
-}
 
-.dt-vw span.branch.b-collapse {
-    background: url(images/tree.png) no-repeat -110px 2px;
-    margin-bottom: 9px;
-} */
 .dt-vw span.branch {
-	background: url(images/dict/branch.png) right center no-repeat;
+    background: url(images/dict/branch.png) right center no-repeat;
     margin-bottom: 2px;
 }
 
 .dt-vw .root > .dt-anchor .branch {
-	background: url(images/dict/branch.png) right center no-repeat;
+    background: url(images/dict/branch.png) right center no-repeat;
 }
 
 .dt-vw span.branch.b-collapse.enable, .dt-vw span.branch.b-expand.enable {
-	background: url(images/dict/branch.png) right center no-repeat;
+    background: url(images/dict/branch.png) right center no-repeat;
 }
 
 .dt-vw span.branch.b-collapse.disable, .dt-vw span.branch.b-expand.disable {
-	background: url(images/dict/b_disable.png) right center no-repeat;
+    background: url(images/dict/b_disable.png) right center no-repeat;
 }
 
 .dt-vw span.branch.b-collapse.discard, .dt-vw span.branch.b-expand.discard {
-	background: url(images/dict/b_invalid.png) right center no-repeat;
+    background: url(images/dict/b_invalid.png) right center no-repeat;
 }
 
 .dt-vw span.branch.enable {
-	background: url(images/dict/leaf.png) right center no-repeat;
+    background: url(images/dict/leaf.png) right center no-repeat;
 }
 
 .dt-vw span.branch.disable {
-	background: url(images/dict/l_disable.png) right center no-repeat;
+    background: url(images/dict/l_disable.png) right center no-repeat;
 }
 
 .dt-vw span.branch.discard {
-	background: url(images/dict/l_invalid.png) right center no-repeat;
+    background: url(images/dict/l_invalid.png) right center no-repeat;
 }
 
 
 .dt-vw .dt li, .dt-vw .dt li ul {
     background: none;
-}
-
-.dt-vw .dt {
-    height: 300px;
 }
 
 .dt-vw .dt > li {
@@ -1619,14 +1272,18 @@ tr.first span{
 }
 
 .dt-vw .dt {
+    min-height:220px;
+    max-height:300px;
     overflow-y: auto !important;
-    scrollbar-track-color: #dcdcdc;
+    scrollbar-track-color: #e6e6e6;
     background-color: #ffffff;
+}
+.dt-vw .dt:empty{
+    min-height:70px;
 }
 
 .dt-vw .dt li {
     padding-left:10px;
-    list-style: none;
     white-space: nowrap;
 }
 
@@ -1637,20 +1294,12 @@ tr.first span{
 
 .dt-vw .dt li a, .dt-autovw.dt-vw li a {
     display: inline-block;
-    text-decoration: none;
     height: 30px;
     line-height: 30px;
- 	display : inline-block;
-    /*
-        width: 100%; */
- 	padding-left : 13 px;
     white-space: nowrap;
     overflow: hidden;
     vertical-align: middle;
     position: relative;
-}
-
-.dt-vw .dt li a:hover {
     cursor: pointer;
 }
 
@@ -1670,10 +1319,10 @@ tr.first span{
 .dt-vw .dt-wholerow {
     height: 30px;  
     width: 100%;  
-	background: none; 
+    background: none; 
     box-sizing: border-box;  
     cursor: pointer; 
-	position: absolute;  
+    position: absolute;  
     left: 0;  
     user-select: none;
     -webkit-user-select: none;  
@@ -1682,10 +1331,10 @@ tr.first span{
     transition: background-color .15s,box-shadow .15s;  
 }
 .dt-vw .dt-wholerow.sel {
-	background-color: #dddddd;
+    background-color: #dddddd;
 }
 .dt-vw .dt-wholerow.hover {
-	background-color: #f4f4f4;
+    background-color: #f2f2f2;
 }
 
 .dtquery .paginationjs-content {
@@ -1694,21 +1343,25 @@ tr.first span{
 
 .dt-autovw.dt-vw span.branch {
     display: inline-block;
+    margin-left: 10px;
     height: 23px;
     width: 20px;
     vertical-align: middle;
-    background: url(images/leaf.png) no-repeat;
+    background: url(images/dict/leaf.png) no-repeat center;
 }
 
 .dt-autovw.dt-vw span.branch.p_node {
-    background: url(images/expanded.png) no-repeat;
+    background: url(images/dict/branch.png) no-repeat center;
 }
 .dt-autovw .dt-anchor {
-	white-space: nowrap;
+    white-space: nowrap;
 }
 .dt-autovw li {
-	overflow: hidden;
-	text-overflow: ellipsis;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.dialog.dict{
+    min-width:300px;
 }
 /** 字典样式 --结束*/
 
@@ -1738,22 +1391,18 @@ tr.first span{
     position: absolute;
     height: 16px;
     width: 16px;
-	top: 6px;
-	right: 10px;
+    top: 6px;
+    right: 10px;
 }
-
+.ui-cmb .arrowgif {
+    padding: 0 10px 0 0;
+    top: 6px;
+    right: 10px;
+}
 .ui-cmb .unsel {
     user-select: none;
     -moz-user-select: none;
     -webkit-user-select: none;
-}
-.ui-cmb .txt:focus,
-.ui-cmb:hover .txt{
-    border-color:#40a8e8;
-} 
-.ui-cmb .txt:focus + .arrow,
-.ui-cmb:hover .arrow{
-    background-image: url(images/combobox-btn-blue.png);
 }
 
 /*点击后下拉图标改变*/
@@ -1766,18 +1415,20 @@ tr.first span{
     border: 1px solid #40a8e8;
     min-width: 280px;
     max-height: 200px;
+    min-height:220px;
     overflow: auto;
     padding: 2px 0;
     z-index: 9999;
     box-shadow:2px 2px 2px rgba(0,0,0,.15);
 }
-
+.cmb-vw:empty{
+    min-height:70px;
+}
 .cmb-vw.toplst {
     border-radius: 0;
 }
 
 .cmb-vw ul {
-    list-style: none;
     position: relative;
 }
 
@@ -1788,16 +1439,24 @@ tr.first span{
     white-space: nowrap;
     cursor:pointer;
 }
-
+.cmb-vw ul li:hover,
+.cmb-vw ul .sel {
+    background-color: #f2f2f2;
+}
+.dropdown-menu li>a:hover, .dropdown-menu li>a:focus {
+    color:#333;
+    font-weight:700;
+    background-color: #e6e6e6;
+}
 .ui-cmb .txt, .cmb-vw ul li {
     color: #333;
 }
 
 .cmb-vw input {
     vertical-align: top;
-	margin-top: 5px;
-	height: 14px;
-	width: 14px;
+    margin-top: 5px;
+    height: 14px;
+    width: 14px;
 }
 
 .cmb-vw ul span {
@@ -1808,20 +1467,16 @@ tr.first span{
     line-height: 24px;
 }
 .cmb-autovw.cmb-vw, .dt-autovw.dt-vw {
-	display: none;
-	position: absolute;
+    display: none;
+    position: absolute;
 }
 .cmb-vw li.selected {
-	background-color: #eaeaea;
-}
-.cmb-vw ul li:hover,
-.cmb-vw ul .sel {
-    background-color: #f4f4f4;
+    background-color: #e6e6e6;
 }
 
 /*下拉输入框（错误）*/
 .ui-cmb.ui-required .txt {
-    color: #ff6161;
+    color: #f0604d;
 }
 
 .ui-cmb.ui-readonly .arrow, .ui-dict.ui-readonly .arrow, .ui-dp.ui-readonly .arrow {
@@ -1829,10 +1484,6 @@ tr.first span{
     filter: alpha(opacity=20);
 }
 
-/* .ui-cmb .cmb-vw li {padding: 2px 5px;}
-.ui-cmb .cmb-vw li:hover {background: #ccc;color: #000;}
-.ui-cmb .cmb-vw .sel{background: #333;color: #fff;}
-.ui-cmb .cmb-vw span {padding: 0px 5px;}*/
 /** 下拉框combobox样式--结束 */
 
 /** listview样式 --开始*/
@@ -1842,10 +1493,10 @@ tr.first span{
     border:1px solid #ccc;
 }
 .ui-lv th.seq, .ui-lv tr.first td.seq {
-	width: 50px;
+    width: 50px;
 }
 .ui-lv th.seq label, .ui-lv tr td.seq {
-	text-align: center;
+    text-align: center;
 }
 .ui-lv .rc-handle-cntr {
     position: relative;
@@ -1859,24 +1510,23 @@ tr.first span{
 }
 
 .ui-lv .rc-handle.clicked {
-    background-color: #dadada;
+    background-color: #e6e6e6;
 }
 
-/* .ui-lv .lv-tb .tbl-body,  */.ui-lv .lv-tb .tbl-head {
-	border-bottom: 2px solid #e8e8e8;
-    background:#f4f4f4;
+.ui-lv .lv-tb .tbl-head {
+    border-bottom: 2px solid #e6e6e6;
+    background:#f9f9f9;
 }
 .ui-lv .lv-tb .tbl-body td {
-    border-bottom: 1px solid #e8e8e8;
+    border-bottom: 1px solid #e6e6e6;
     padding: 0 5px;
-	overflow: hidden;
-	text-overflow: ellipsis;
-    font-size:12px;
+    overflow: hidden;
+    text-overflow: ellipsis;
     color:#333;
 }
 
 .ui-lv .lv-tb .tbl-body tr.last td {
-	border-bottom: none;
+    border-bottom: none;
 }
 
 .ui-lv .lv-tb thead th {
@@ -1885,6 +1535,7 @@ tr.first span{
 }
 .ui-lv .lv-tb thead th label {
     font-weight: bold;
+    vertical-align:middle;
 }
 
 .ui-lv .lv-tb caption + thead tr:first-child th,
@@ -1899,14 +1550,12 @@ tr.first span{
     border: none;
 }
 .ui-lv .lv-tb tbody + tbody {
-    border-top: 2px solid #dddddd;
+    border-top: 2px solid #e6e6e6;
 }
 
 .ui-lv .lv-tb {
     margin: 0;
-    border-spacing: 0;/* 
-    border-right: 1px solid #dddddd;
-    border-bottom: 1px solid #dddddd; */
+    border-spacing: 0;
     border-collapse: separate;
     *border-collapse: collapse;
     border-left: 0;
@@ -1915,76 +1564,59 @@ tr.first span{
 }
 
 .ui-lv .lv-tb table{
-	table-layout: fixed;
-	border-collapse: collapse;
+    table-layout: fixed;
+    border-collapse: collapse;
 }
 .ui-lv .lv-tb table.tbl-body, .ui-lv .lv-tb table.tbl-head, .ui-lv .lv-tb table th.space, .ui-lv .lv-tb table td.space {
-	width: 100%;
+    width: 100%;
 }
 
 .ui-lv .lv-tb th,
 .ui-lv .lv-tb td {
-	border-left: 1px solid #e6e6e6;
+    border-left: 1px solid #e6e6e6;
     height: 35px;
     line-height: 35px;
     text-align: left;
     overflow: hidden;
 }
 .ui-lv .lv-tb tr.first td {
-	height: 0;
+    height: 0;
 }
 .ui-lv.ui-lv-withlayout .lv-tb td{
-	padding: 0;
+    padding: 0;
 }
 
 .ui-lv.ui-lv-withlayout .lv-tb .ui-pnl td{
-	border-bottom: none; 
+    border-bottom: none; 
 }
 
 .ui-lv.ui-lv-withlayout .lv-tb .tbl-head th:nth-child(2){
-	 border-left: none;
+     border-left: none;
 }
 
 .ui-lv.ui-lv-withlayout .lv-tb .lv-layout .lv-cell-sp {
-	border-top: 1px solid #dddddd;
+    border-top: 1px solid #e6e6e6;
 }
 
 .ui-lv.ui-lv-withlayout .lv-tb .lv-layout tr.first .lv-cell-sp{
-	border-top: none;
+    border-top: none;
 }
 
+ .ui-lv .lv-tb .tbl-body tr.data {
+    height: 31px; 
+ }
  .ui-lv .lv-tb .tbl-body tr:hover{
     background-color:#f9f9f9;
  }
- .ui-lv .lv-tb .tbl-body tr.data.clicked {
-    background:#e9f5fb;
- }
-  .ui-lv .lv-tb .tbl-body tr.data.active {
-    background:#deecf9;
- }
-.ui-lv .lv-tb .tbl-head th, .ui-lv .lv-tb tr.head > td, .ui-lv .lv-tb tr.body > td {
-	border-top: none;
-}
-.ui-lv .lv-tb .tbl-head th:first-child, .ui-lv .lv-tb .tbl-body td:first-child, 
-.ui-lv .lv-tb tr.head > td, .ui-lv .lv-tb tr.body > td {
-	border-left: none;
-}
-/* 
-.ui-lv .lv-tb .tbl-body tr:hover {
-    background: #f0f0f0;
-}
 
-.ui-lv .lv-tb tbody tr.clicked {
-    background: #eaeaea;
+.ui-lv .lv-tb .tbl-head th:first-child, .ui-lv .lv-tb .tbl-body td:first-child, 
+.ui-lv .lv-tb tr.head > td, .ui-lv .lv-tb tr.body > td,.ui-lv .lv-tb .tbl-head th:first-child{
+    border-left: none;
 }
- */
-/* .ui-lv .lv-tb .tbl-body tr.even {
-    background: #f9f9f9;
-} */
 
 .ui-lv .lv-tb button.disabled {
-    background-color: #f6f6f6;
-    color: #dadada;
+    background-color: #f9f9f9;
+    color: #e6e6e6;
 }
 
 .ui-lv .tdactivited {
@@ -1995,35 +1627,33 @@ tr.first span{
     width: 80%;
     height: 24px;
     vertical-align: top;
-	position: relative;
-	top: 3px;
+    position: relative;
+    top: 3px;
 }
 
 .ui-lv .chk {
     vertical-align: middle;
 }
 .ui-lv .paginationjs-content, .ui-lv .lv-head {
-	overflow: hidden;
+    overflow: hidden;
 }
 .ui-lv.paginationjs .paginationjs-pages ul {
-	margin-top: 7px;
+    margin-top: 7px;
 }
 .ui-lv .lv-body {
-	overflow: auto;
-	text-align: center;
+    overflow: auto;
+    text-align: center;
 }
 .ui-lv .lv-body .tbl-body label.empty{
-	position: relative;
+    position: relative;
 }
 .ui-lv .lv-div {
-	height: 100%;
+    height: 100%;
 }
+
 .ui-lv.paginationjs{
     box-sizing:border-box;
 }
-/* .ui-lv .paginationjs-content {
-    border: 1px solid #dadada;
-} */
 /** listview样式 --结束*/
 
 /** TreeView样式 --开始*/
@@ -2032,7 +1662,7 @@ tr.first span{
 }
 
 .ui-dv.ui-readonly {
-    color: #dadada;
+    color: #e6e6e6;
 }
 .ui-dv .fuzzy button {
     background:#fff url("images/fuzzy.png") 5px no-repeat;
@@ -2068,14 +1698,11 @@ tr.first span{
 }
 
 .ui-dv table.treetable tr.selected, .ui-dv.ui-readonly tr:hover {
-	background: none;
+    background: none;
 }
-.ui-dv table.treetable tr.expanded.selected.sel-row,
-.ui-dv table.treetable tr.collapsed.selected.sel-row  {
-    background:#e9f5fb; 
-}
+
 .ui-dv tr.root {
-	display: none !important;
+    display: none !important;
 }
 .resizer {
     position: absolute;
@@ -2088,101 +1715,101 @@ tr.first span{
 }
 
 .ui-dv .resizer.clicked {
-    background-color: #dadada;
+    background-color: #e6e6e6;
 }
 
 .ui-dv table span.indenter {
     float:left;
-	height: 20px;
-	width: 40px;
-	margin-right: 6px;
-	background:url(images/dict/branch.png) right center no-repeat;
+    height: 20px;
+    width: 40px;
+    margin-right: 6px;
+    background:url(images/dict/branch.png) right center no-repeat;
 }
 
 .ui-dv table tr.comp_Level1 span.indenter {
-	background:url(images/dict/branch.png) right center no-repeat;
+    background:url(images/dict/branch.png) right center no-repeat;
 }
 .ui-dv table tr.disabled span.indenter {
-	background:url(images/dict/b_disable.png) right center no-repeat;
+    background:url(images/dict/b_disable.png) right center no-repeat;
 }
 .ui-dv table tr.invalid span.indenter {
-	background:url(images/dict/b_invalid.png) right center no-repeat;
+    background:url(images/dict/b_invalid.png) right center no-repeat;
 }
 
 .ui-dv table tr.comp_Level2 span.indenter {
-	background:url(images/dict/branch2.png) right center no-repeat;
+    background:url(images/dict/branch2.png) right center no-repeat;
 }
 .ui-dv table tr.comp_Level2.disabled span.indenter {
-	background:url(images/dict/b_disable2.png) right center no-repeat;
+    background:url(images/dict/b_disable2.png) right center no-repeat;
 }
 .ui-dv table tr.comp_Level2.invalid span.indenter {
-	background:url(images/dict/b_invalid2.png) right center no-repeat;
+    background:url(images/dict/b_invalid2.png) right center no-repeat;
 }
 
 .ui-dv table tr.comp_Level3 span.indenter {
-	background:url(images/dict/branch3.png) right center no-repeat;
+    background:url(images/dict/branch3.png) right center no-repeat;
 }
 .ui-dv table tr.comp_Level3.disabled span.indenter {
-	background:url(images/dict/b_disable3.png) right center no-repeat;
+    background:url(images/dict/b_disable3.png) right center no-repeat;
 }
 .ui-dv table tr.comp_Level3.invalid span.indenter {
-	background:url(images/dict/b_invalid3.png) right center no-repeat;
+    background:url(images/dict/b_invalid3.png) right center no-repeat;
 }
 
 .ui-dv table tr.comp_Level4 span.indenter {
-	background:url(images/dict/branch4.png) right center no-repeat;
+    background:url(images/dict/branch4.png) right center no-repeat;
 }
 .ui-dv table tr.comp_Level4.disabled span.indenter {
-	background:url(images/dict/b_disable4.png) right center no-repeat;
+    background:url(images/dict/b_disable4.png) right center no-repeat;
 }
 .ui-dv table tr.comp_Level4.invalid span.indenter {
-	background:url(images/dict/b_invalid4.png) right center no-repeat;
+    background:url(images/dict/b_invalid4.png) right center no-repeat;
 }
 
 .ui-dv table.tree_table tr span.indenter.noChild {
-	background:url(images/leaf.png) right center no-repeat;
+    background:url(images/leaf.png) right center no-repeat;
 }
 .ui-dv table.tree_table tr.disabled span.indenter.noChild {
-	background:url(images/l_disable.png) right center no-repeat;
+    background:url(images/l_disable.png) right center no-repeat;
 }
 
 .ui-dv table.tree_table tr.invalid span.indenter.noChild {
-	background:url(images/l_invalid.png) right center no-repeat;
+    background:url(images/l_invalid.png) right center no-repeat;
 }
 
 .ui-dv table span.indenter a {
-	float: left;
-	height: 20px;
+    float: left;
+    height: 20px;
 }
 
 .ui-dv th span.title {
-	width: 100%;
-	height: 30px;
-	line-height: 30px;
-	float: left;
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    float: left;
 }
 
 .ui-dv .ui-resizer {
-	width: 2px;
-	position: absolute;
-	background: none;
+    width: 2px;
+    position: absolute;
+    background: none;
 }
 
 .ui-dv .ui-resizer.clicked {
-	background: #ddd;
+    background: #ddd;
 }
 
 .ui-dv .dv-handler {
-	width: 3px;
-	height: 100%;
-	float: right;
+    width: 3px;
+    height: 100%;
+    float: right;
 }
 .ui-dv .dv-handler:hover {
-	cursor: e-resize;
+    cursor: e-resize;
 }
 
 .ui-dv table.treetable tbody tr td {
-	padding: 5px 7px;
+    padding: 5px 7px;
     line-height:18px;
     color:#666;
 }
@@ -2196,33 +1823,54 @@ tr.first span{
 .ui-rdo input {
     margin-top: 2px;
     height: 1.486em;
-	width: 1.486em;
+    width: 1.486em;
 }
 .ui-chk label, .ui-rdo label{
-	padding-left: 3px;
+    padding-left: 3px;
 }
 
+.ui-rdo span {
+    outline: 0;
+    display: inline-block;
+    margin-top: 2px;
+    height: 1.486em;
+    width: 1.486em;
+    vertical-align: top !important;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    background-image: url("images/radiounchk.png");
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/radiounchk.png', sizingMethod='scale');
+}
+.ui-rdo span.checked {
+    background-image: url("images/radio.png");
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/radio.png', sizingMethod='scale');
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+}
 /** RadioButton样式--结束*/
 
 /** CheckBox样式---开始 */
 .ui-chk .chk, .ui-lv .chk {
     display: inline-block;
     height: 1.486em;
-	width: 1.486em;
+    width: 1.486em;
     background-image: url(images/checkbox0.PNG);
     background-image: none\9;
     background-size: cover;
-    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./yesui/v2/yesui/ui/res/css/flat/images/checkbox0.PNG', sizingMethod='scale');
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./yesui/v2/yesui/ui/res/css/green/images/checkbox0.PNG', sizingMethod='scale');
 }
 .ui-chk .chk {
-	margin-top: 1.5px;
+    vertical-align:top !important;
+    margin-top: 1.5px;
 }
 .ui-chk .chk.checked, .ui-lv .chk.checked {
     background-image: url(images/checkbox1.PNG);
     background-image: none\9;
     background-repeat: no-repeat;
     background-size: cover;
-    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./yesui/v2/yesui/ui/res/css/flat/images/checkbox1.PNG', sizingMethod='scale');
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='./yesui/v2/yesui/ui/res/css/green/images/checkbox1.PNG', sizingMethod='scale');
 }
 
 .ui-chk {
@@ -2255,13 +1903,7 @@ tr.first span{
     position: relative;
     padding: 0;
 }
-.ui-dp:hover .txt{
-    border-color:#40a8e8;
-}
-.ui-dp .txt:focus + .arrow,
-.ui-dp:hover .arrow{
-    background-image: url(images/calendar_blue.png);
-}
+
 .ui-dp .arrow{
     background: url(images/calendar.png) no-repeat center;
     position: absolute;
@@ -2271,7 +1913,7 @@ tr.first span{
     top: 6px;
     vertical-align: top;
 }
-.ui-dp.ui-readonly .arrow{
+body .main .ui-dp.ui-readonly .arrow{
     background-image: url(images/calendar.png);
 }
 
@@ -2280,21 +1922,16 @@ tr.first span{
 }
 
 .dp-vw {
-    display: none;
     overflow: hidden;
-    position: absolute;
-    border: 1px solid #40a8e8;
-    background-color: #fff;
     border-radius:0;
-    -webkit-box-shadow:2px 2px 2px rgba(0,0,0,.15);;
-            box-shadow:2px 2px 2px rgba(0,0,0,.15);;
+    box-shadow:2px 2px 2px rgba(0,0,0,.15);
 }
 
 .dp-vw .btn {
-	height: 30px;
-	width: 100px;
+    height: 30px;
+    width: 100px;
     color: #333;
-    border: 1px solid #dadada;
+    border: 1px solid #e6e6e6;
 }
 
 .dp-vw .time {
@@ -2307,19 +1944,12 @@ tr.first span{
 .dp-vw .time button, .dp-vw .time input {
     display: block;
     margin-top: 6px;
-    background-color: #ffffff;
+    background-color: #fff;
     outline:none;
 }
 .dp-vw .time input {
     float: left;
-    border: 1px solid #dadada;
-}
-.dp-vw .time button:hover,
-.dp-vw .time input:hover{
-    border-color:#40a8e8;
-}
-.dp-vw .time button:active{
-    color:#40a8e8;
+    border: 1px solid #e6e6e6;
 }
 
 .dp-vw .time label {
@@ -2363,7 +1993,6 @@ tr.first span{
     color:#333;
 }
 
-
 .dp-vw .datepickerContainer .datepickerGoPrev span, .dp-vw .datepickerContainer .datepickerGoNext span {
     display:block;
     margin-top:-1px;
@@ -2377,8 +2006,7 @@ tr.first span{
 .smartspinner{
     font-weight:normal;
     color:#333;
-    -webkit-border-radius:0;
-            border-radius:0;
+    border-radius:0;
 }
 /**DatePicker样式--结束*/
 
@@ -2395,12 +2023,11 @@ tr.first span{
 .ui-tbr {
     position: relative;
     height: inherit;
-    background:#fff;
+    background:#f9f9f9;
 }
 
 .ui-tbr .tbr-ul {
     height: 42px;
-    padding-left:8px;
     list-style: none;
     overflow: hidden;
 }
@@ -2451,12 +2078,8 @@ tr.first span{
     position: relative;
 }
 
-.tbr-ul .tbr-btn:hover,
-.tbr-ul .sp-btn:hover .tbr-btn {
-   border-color:#40a8e8;
-} 
 .tbr-ul .tbr-btn:hover .icon{
-    background-image:url("images/button_icon_blue.png");
+    background-image:url("images/button_icon_hover.png");
 }
 .tbr-ul .tbr-btn:hover .arrow{
     color:#40a8e8;
@@ -2465,10 +2088,6 @@ tr.first span{
    border-color:#ccc;
 }
 
-.tbr-ul .tbr-btn:active .txt,
-.tbr-ul .sp-btn:active .tbr-btn .txt{
-   color:#40a8e8;
-}
 .tbr-ul .ui-readonly .tbr-btn:active .txt,
 .tbr-ul .ui-readonly .sp-btn:active .tbr-btn .txt{
    color:#999;
@@ -2483,6 +2102,7 @@ tr.first span{
     height: 28px;
     border:1px solid #ccc;
     display: inline-block;
+    border-radius:2px;
 }
 .sp-btn.tbr-item.show .tbr-btn{
     border-color:#40a8e8;
@@ -2490,21 +2110,21 @@ tr.first span{
 .sp-btn.tbr-item.show .arrow{
     color:#40a8e8;
 }
-.tbr-ul .ui-readonly .tbr-btn{
+ul.tbr-ul .ui-readonly .tbr-btn{
     border:1px solid #e6e6e6;
     background:#f9f9f9;
 }
 
 .tbr-ul .tbr-vw {
     position: fixed;
-    margin-top: 1px;
+    margin-top:1px;
     min-width: 180px;
     z-index: 9999;
     font-weight: normal;
     display: none;
     overflow: hidden;
     border: 1px solid #ccc;
-    background-color: #ffffff;
+    background-color: #fff;
     box-shadow:2px 2px 2px rgba(0,0,0,.15);
 }
 
@@ -2521,21 +2141,28 @@ tr.first span{
 
 .tbr-ul .tbr-vw .dp-item a:hover {
     cursor: pointer;
-    background-color: #40a8e8;
-}
-.tbr-ul .tbr-vw .dp-item a:hover .txt{
-    color:#fff;
-}
-.ui-tbr .dp-btn {
-    display: none;
-    width: 30px;
-    height: 34px;
-    background: url("images/tabs.png") no-repeat 7px;
-    position: absolute;
-    top: 0;
-    right: 0;
+    background-color: #ddeffb;
 }
 
+.ui-tbr .dp-btn {
+    display: none;
+    width: 40px;
+    height: 20px;
+    line-height:20px;
+    background: url("images/tabs_down.png") no-repeat right center;
+    position: absolute;
+    top: 10px;
+    right: 0;
+    cursor:pointer;
+}
+.ui-tbr .dp-btn:before{
+    content:"更多";
+    display:inline-block;
+}
+.ui-tbr .dp-btn:hover{
+    color:#3d9dd9;
+     background-image: url("images/tabs_down_hover.png")
+}
 .ui-tbr .dp-btn.show {
     display: inline-block;
 }
@@ -2567,7 +2194,7 @@ tr.first span{
 }
 
 .tbr-ul .tbr-vw a .txt {
-	color: #000;
+    color: #333;
 }
 
 .tbr-dpvw {
@@ -2589,7 +2216,7 @@ tr.first span{
     height: inherit;
     max-height: 300px;
     border: 1px solid #ccc;
-	background: none;
+    background: none;
 }
 
 .tbr-dpvw .tbr-item {
@@ -2603,7 +2230,7 @@ tr.first span{
 #customView_li .btn-group button {
     height: 74px;
     background: none;
-    border-color: #dadada;
+    border-color: #e6e6e6;
 }
 
 #customView_li .btn-group ul.dp-vw li {
@@ -2619,11 +2246,7 @@ tr.first span{
     min-width: 50px;
     width: 100%;
 }
-.dropdown-menu li>a:hover, .dropdown-menu li>a:focus {
-    color:#4d4d4d;
-    font-weight:700;
-    background-color: #eaeaea;
-}
+
 /** FluidTableLayoutPanel样式---开始 */
 .ui-ftlp .layout {
     table-layout: fixed;
@@ -2664,21 +2287,18 @@ tr.first span{
     display: none;
 }
 
-.ui-numed input, .ui-dict input.txt {
+.ui-dict input.txt {
     padding-left: 8px;
 }
-.ui-numed input:hover,
-.ui-dict input.txt:hover{
-    border-color:#40a8e8;
-}
-.ui-dict.ui-readonly input.txt{
+
+body .ui-dict.ui-readonly input.txt{
     border-color:#e6e6e6;
 }
 
 /** HyperLink样式--开始 */
 .ui-hlk:focus {
     outline: 0;
-    border: 1px solid #dadada;
+    border: 1px solid #e6e6e6;
     border-radius: 3px;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
@@ -2697,12 +2317,11 @@ tr.first span{
 }
 
 .ui-hlk.ui-readonly:hover, .ui-lv .hlk.disabled:hover {
-    color: #3797f0;
     cursor: default;
 }
 
 .ui-hlk, .ui-lv .hlk {
-    color: #3797f0;
+    color: #3890c7;
     display: block;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -2732,7 +2351,7 @@ tr.first span{
 /** 附件管理样式---开始 */
 .ui-att {
     overflow: hidden;
-    border: 1px solid #dadada;
+    border: 1px solid #e6e6e6;
 }
 
 .ui-att .head {
@@ -2768,12 +2387,11 @@ tr.first span{
 }
 
 .ui-att .body .tbl-body {
-    border: 1px solid #dadada;
+    border: 1px solid #e6e6e6;
     border-left: 0;
     border-right: 0;
     border: 0;
     border-collapse: collapse;
-    table-layout: fixed;
 }
 
 .ui-att .body .tbl-body tr.first td {
@@ -2782,14 +2400,14 @@ tr.first span{
     border-bottom: none;
 }
 .ui-att .att-tbl {
-	margin: 0;
-	border-spacing: 0;
-	border-collapse: separate;
-	border-left: 0;
+    margin: 0;
+    border-spacing: 0;
+    border-collapse: separate;
+    border-left: 0;
 }
 .ui-att .att-tbl, .ui-att .body .tbl-body, .ui-att .head .tbl-head, .ui-att .foot .tbl-foot {
-	table-layout: fixed;
-	width: 100%;
+    table-layout: fixed;
+    width: 100%;
 }
 .ui-att .body .tbl-body thead td, .tbl-head td, .tbl-foot td {
     width: 50px;
@@ -2813,21 +2431,21 @@ tr.first span{
 .ui-att .tbl-head thead td:nth-child(3) label,
 .ui-att .body .tbl-body tbody td:nth-child(3) label,
 .ui-att .tbl-head thead td label {
-	width: 100%;
+    width: 100%;
 }
 
 .ui-att .tbl-head td:nth-child(6), .ui-att .body .tbl-body td:nth-child(6),
 .ui-att .tbl-head td:nth-child(7), .ui-att .body .tbl-body td:nth-child(7),
 .ui-att .tbl-head tr.hasView td:nth-child(8), .ui-att .body .tbl-body tr.hasView td:nth-child(8) {
-	border-left: 0;
+    border-left: 0;
 }
 .ui-att .tbl-head td.opt_left {
-	padding: 0;
-	text-align: right;
+    padding: 0;
+    text-align: right;
 }
 .ui-att .tbl-head td.opt_right {
-	padding: 0;
-	text-align: left;
+    padding: 0;
+    text-align: left;
 }
 
 .ui-att .body .tbl-body thead td:nth-child(3),
@@ -2840,7 +2458,7 @@ tr.first span{
     width: 50px;
 }
 .ui-att .tbl-body tbody td .btn {
-	width: 40px;
+    width: 40px;
 }
 
 .ui-att .tbl-head td, .ui-att .tbl-foot, .ui-att .body table, .ui-att .tbl-head {
@@ -2857,24 +2475,24 @@ tr.first span{
 .ui-att td {
     padding-left: 5px;
     padding-right: 3px;
-    border: 1px solid #dadada;
+    border: 1px solid #e6e6e6;
     border-top: 0;
     border-right: 0;
     overflow: hidden;
-	text-overflow: ellipsis;
+    text-overflow: ellipsis;
 }
 .ui-att td.out {
-	padding: 0;
-	border-left: 0;
-	border-bottom: 0;
+    padding: 0;
+    border-left: 0;
+    border-bottom: 0;
 }
 .ui-att td.empty {
     padding: 0;
-    border-bottom: 1px solid #dadada;
+    border-bottom: 1px solid #e6e6e6;
     border-right: 0;
 }
 .ui-att .tbl-head td.empty, .ui-att .body .tbl-body tr.first td.empty {
-	width: 0;
+    width: 0;
 }
 .ui-att .tbl-head td.empty span {
     border: 0;
@@ -2885,24 +2503,25 @@ tr.first span{
     position: relative;
 }
 .ui-att .tbl-head .att-handler {
-	width: 3px;
-	height: 100%;
-	float: right;
-	display: inline-block;
-	position: absolute;
-	cursor: e-resize;
-	top: 0;
+    width: 3px;
+    height: 100%;
+    float: right;
+    display: inline-block;
+    position: absolute;
+    cursor: e-resize;
+    top: 0;
 }
 
 .ui-att .btn {
-    width: 25x;
-    height: 25px;
-    border: 1px solid #dadada;
+    width: 30px;
+    height: 30px;
+    border: 1px solid #e6e6e6;
     margin: 3px 5px 3px 0;
-    background-color: #f6f6f6;
+    background-color: #fff;
 }
+
 .ui-att .body .tbl-body tr td {
-	position: relative;
+    position: relative;
 }
 .ui-att .fup {
     width: 25px;
@@ -2912,20 +2531,16 @@ tr.first span{
     margin: 3px 5px 3px 0;
     opacity: 0;
     filter: alpha(opacity=0);
+    cursor: pointer;
 }
 .btn.fileBtn{
     border:1px solid #ccc;
-    background: url(images/upload_icon.png) center no-repeat;
 }
 .ui-att .btn.upd {
-	position: absolute;
+    position: absolute;
 }
 .ui-att .upd.fup {
     position: relative;
-}
-
-.ui-att .fup:hover {
-    cursor: pointer;
 }
 
 .ui-att .tbl-foot {
@@ -2933,21 +2548,21 @@ tr.first span{
     border: none;
 }
 .ui-att .foot .btn {
-	float: right;
+    float: right;
 }
 .ui-att .tbl-foot td {
     padding: 0;
     border: 0;
-    border-top: 1px solid #dadada;
+    border-top: 1px solid #e6e6e6;
 }
 .ui-att .ui-resizer {
-	position: absolute;
-	width: 3px;
-	background-color: #dadada;
-	display: none;
+    position: absolute;
+    width: 3px;
+    background-color: #e6e6e6;
+    display: none;
 }
 .ui-att .ui-resizer.clicked {
-	display: inline-block;
+    display: inline-block;
 }
 /** 附件管理样式---结束 */
 
@@ -2963,23 +2578,32 @@ tr.first span{
 .ui-img {
     position: relative;
     overflow: hidden;
-    border: 1px solid #dadada;
+    border: 1px solid #e6e6e6;
     height: 40px;
 }
 
 .ui-img .opt {
     width: 20px;
     height: 20px;
-    position: absolute;
+    position:absolute;
+    bottom:3px;
 }
-
+.ui-img .opt.load{
+    background: url(images/image_upload.png) 50% 50% no-repeat;
+    right:40px;
+}
+.ui-img .opt.load:hover{
+    background-image: url(images/image_upload_hover.png);
+}
+.ui-img .opt.load:active{
+    background-image: url(images/image_upload_active.png);
+}
 .ui-img .bar {
     width: 100%;
     height: 25px;
-    background-color: #000000;
-    opacity: 0.3;
-    filter: alpha(opacity=30);
+    background-color: #e6e6e6;
     position: absolute;
+    left:0;bottom:0;
 }
 
 .ui-img-showDiv {
@@ -2988,7 +2612,7 @@ tr.first span{
     width: 100%;
     height: 100%;
     z-index: 9999;
-    background-color: #000000;
+    background-color: #333;
     opacity: 0.5;
     filter: alpha(opacity=50);
 }
@@ -3000,21 +2624,32 @@ tr.first span{
     z-index: 10000
 }
 
-.ui-img .sel {
-    width: 20px;
-    border: 1px solid #ffffff;
-}
-
 .ui-img .upload {
-    background: url(images/image_upload.png) 50% 50% no-repeat;
-}
+    opacity:0;
+    width:100%;
+    height:100%;
+} 
 
 .ui-img .show {
     background: url(images/image_show.png) 50% 50% no-repeat;
+    right:10px;
+}
+.ui-img .show:hover:hover {
+    background-image: url(images/image_show_hover.png);
+}
+.ui-img .show:active {
+    background-image: url(images/image_show_hover.png);
 }
 
 .ui-img .clear {
     background: url(images/image_clear.png) 50% 50% no-repeat;
+    right:70px;
+}
+.ui-img .clear:hover {
+    background-image: url(images/image_clear_hover.png);
+}
+.ui-img .clear:active {
+    background-image: url(images/image_clear_active.png);
 }
 
 /** 图片样式---结束 */
@@ -3024,15 +2659,11 @@ tr.first span{
     top:0;
     left:0;
     display: none;
-    background: #f3f3f3;
+    background: #f9f9f9;
     opacity : 0.35;
     filter: alpha(opacity=35);
 }
 
-.ui-lbl {
-    /* vertical-align: middle;
-    display: table-cell; */
-}
 
 .ui-lbl .icon {
     display: inline-block;
@@ -3056,8 +2687,7 @@ tr.first span{
 .tree_table th {
     text-align: center;
     overflow: hidden;
-    border-color: #e6e6e6;/* 
-    border-bottom-color: #3797F0; */
+    border-color: #e6e6e6;
 }
 
 /** TableLayout样式--开始 */
@@ -3103,25 +2733,83 @@ tr.first span{
     vertical-align:top;
     background: url(images/dict/leaf.png) no-repeat center;
 }
-
+.dtquery .content {
+    padding: 5px 10px;
+}
 .ui-dictquery span.dict_icon.p_node {
     background: url(images/dict/branch.png) no-repeat center;
 }
 .dtquery .ui-lv .lv-tb td {
-	text-align: left;
+    text-align: left;
 }
 .dtquery .ui-btn {
-	margin-left: 0 !important;
+    margin-left: 0 !important;
+}
+.dtquery .search.fuzzy{
+    display:block;
+}
+.dtquery .search.fuzzy input{
+    padding-left:5px;
+    width:100%;
+    height:26px;
+    line-height:26px;
+    border:1px solid #ccc;
+    outline:none;
+ }
+.dtquery .search.fuzzy input:focus{
+    border-color:#40a8e8;
+}
+.dtquery .btn{
+    width:64px;
+    height:26px;
+    margin-left:5px;
+    border:none;
+    background:#40a8e8;
+    color:#fff;
+    line-height:26px;
+    text-align:center;
+    cursor:pointer;
+}
+.btn.ok{
+    height:26px;
+    margin-left: 0;
+    margin-top: 5px;
+    line-height:26px;
+    background-color:#40a8e8;
+    outline:none;
+    cursor:pointer;
+    color:#fff;
+    border:none;
+}
+.dqp-surebtn{
+    float:right;
+}
+.btn.cancel{
+    margin-top: 5px;
+    height:26px;
+    line-height:24px;
+    border-radius:1px;
+    border:1px solid #ccc;
+    background-color:#fff;
+    outline:none;
+    cursor:pointer;
+    color:#333;
+}
+.btn.cancel:hover{
+    border-color:#40a8e8;
+}
+.btn.cancel:active{
+    color:#40a8e8;
 }
 /** DictQueryPane样式---结束  */
 
 /** FileChooser样式---开始 */
 .ui-fc .btn {
-	width: 25px;
+    width: 25px;
     height: 28px;
-	border: 1px solid #dadada;
+    border: 1px solid #e6e6e6;
     color: #000000;
-    background-color: #f6f6f6;
+    background-color: #f9f9f9;
 }
 
 .ui-fc .fup {
@@ -3137,132 +2825,139 @@ tr.first span{
 
 /** Dialog样式---开始 */
 .dialog_btns {
-	width: auto !important;
-	float: right;
-	margin-right: 10px;
-	margin-left: 30px !important;
+    width: auto !important;
+    float: right;
+    margin-right: 10px;
+    margin-left: 30px !important;
 }
 .dialog_btns div, .dialog_btns .ui-btn {
-	width: 60px !important;
+    width: 60px !important;
 }
 .dialog_btns div {
-	display: inline-block;
+    display: inline-block;
 }
 .dialog_btns .ui-btn {
-	position: relative !important;
+    position: relative !important;
 }
 .dialog .dialog-content-inner, .dialog .dialog-content {
-	min-height: 50px;
+    min-height: 64px;
 }
-.dialog .dialog-content{
-    padding:0 8px;
-    border:0;
+
+.lic.dialog .dialog-content{
+    padding:0 8px 10px;
+}
+.lic-mask {
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    position: fixed;
+    top: 0;
 }
 .dialog .dialog-title {
-	letter-spacing: 0;
-	font-weight: 700;
+    letter-spacing: 0;
+    font-weight: 700;
     color:#fff;
-	cursor: move;
-}
-.dialog.error .dialog-title {
-    text-indent:5px;
-    line-height:25px;
+    cursor: move;
 }
 .ui-dlg .dialog-content-inner .ui-lbl, .ui-dlg .dialog-content-inner .ui-lbl label {
-	width: auto !important;
+    width: auto !important;
 }
+
 .ui-dlg.dialog {
-	-webkit-user-select: none;
+    -webkit-user-select: none;
 }
+
+
 /** Dialog样式---结束 */
 
 /** SearchBox样式---开始 */
 .ui-srch input.txt, .ui-srch button.btn {
-	height: 100%;
+    height: 100%;
 }
 .ui-srch input.txt {
-	border: 1px solid #dadada;
-	padding-left: 8px;
-	
+    border: 1px solid #e6e6e6;
+    padding-left: 8px;
+    
 }
 .ui-srch button.btn {
-	width: 30px;
+    width: 30px;
 }
 /** SearchBox样式---结束 */
 
 .roleRights .checkbox {
-	height: 16px;
-	width: 16px;
-	display: inline-block;
-	vertical-align: middle;
-	margin-right: 5px;
-	background: url(images/checkbox0.PNG);
+    height: 16px;
+    width: 16px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 5px;
+    background: url(images/checkbox0.PNG);
 }
 .roleRights .checkbox.state1 {
-	background: url(images/checkbox1.PNG);
+    background: url(images/checkbox1.PNG);
 }
 .roleRights .checkbox.state2 {
-	background: url(images/checkbox2.PNG);
+    background: url(images/checkbox2.PNG);
 }
 .roleRights .entryRts th .checkbox {
-	margin-left: 19px;
-	width: 15px;
-	opacity: 0.5;
+    margin-left: 19px;
+    width: 15px;
+    opacity: 0.5;
     filter: alpha(opacity=50);
 }
 .roleRights label.empty {
-	width: 100%;
-	line-height: 40;
-	text-align: center;
+    width: 100%;
+    line-height: 40;
+    text-align: center;
 }
 .ui-cell-disabled button {
-	background: none;
-	background-color: #f5f5f5;
-	cursor: auto;
-	color: #dadada;
+    background: none;
+    background-color: #f9f9f9;
+    cursor: auto;
+    color: #e6e6e6;
 }
 .ui-cell-disabled button:hover {
-	background: none;
+    background: none;
 }
 
 .ui-web-bs iframe {
-	width: 100%;
-	height: 100%;
-	border: none;
+    width: 100%;
+    height: 100%;
+    border: none;
 }
 
 /** WizardPanel样式--开始 */
 .ui-wizard .btn-right, .ui-wizard .btn-left{
-	width: 60px;
-	height: 60px;
-	z-index: 999999;
-	position:absolute;
+    width: 60px;
+    height: 60px;
+    z-index: 999999;
+    position:absolute;
 }
 .ui-wizard .left {
-	padding-left: 10px;
+    padding-left: 10px;
 }
 .ui-wizard .right {
     right: 0;
-	padding-right: 10px;
+    padding-right: 10px;
 }
 .ui-wizard .left, .ui-wizard .right {
-	z-index: 999999;
+    z-index: 999999;
     position: absolute;
 }
 .ui-wizard .ui-wizard-warp .left .prev, 
 .ui-wizard .ui-wizard-warp .right .next, 
 .ui-wizard .ui-wizard-warp .right .finish {
-	position: relative;
-	top: 70px;
-	display: block;
+    position: relative;
+    top: 70px;
+    display: block;
 }
 .ui-wizard-warp.first .left,
 .ui-wizard .ui-wizard-warp.last .right .next, 
 .ui-wizard .ui-wizard-warp .right .finish {
-	display: none;
+    display: none;
 }
 .ui-wizard .ui-wizard-warp.last .right .finish {
-	display: block;
+    display: block;
 }
 .ui-wizard .btn-right {
      right: 10px;
@@ -3272,185 +2967,155 @@ tr.first span{
      background: url("images/wizard/left.png") no-repeat;
 }
 .ui-wizard {
-	overflow: hidden;
+    overflow: hidden;
 }
 .ui-wizard, .ui-wizard .body {
-	position: relative;
+    position: relative;
 }
 .ui-wizard .ui-pnl {
-	display:inline-block;
+    display:inline-block;
 } 
 .ui-wizard-warp {
-	overflow: hidden;
+    overflow: hidden;
 }
 .ui-wizard .pageinfo {
-	margin: 0px auto;
+    margin: 0px auto;
 }
 .ui-wizard .wizard-item {
-	display: inline-block;
-	margin-top: 0px;
-	overflow: hidden;
+    display: inline-block;
+    margin-top: 0px;
+    overflow: hidden;
 }
 .ui-wizard .next, .ui-wizard .prev, .ui-wizard .finish {
-	display: block;
-	width: 60px;
-	height: 30px;
-	text-align: center;
-	padding: 5px 0;
-	border-radius:3px;
+    display: block;
+    width: 60px;
+    height: 30px;
+    text-align: center;
+    padding: 5px 0;
+    border-radius:3px;
     cursor: pointer;
     overflow: hidden;
-    background: #9ab9d5;
-	border: 0;
-	color: #fff;
+    border: 0;
+    color: #fff;
 }
 .ui-wizard .warpnpbut {
-	width: 100%;
-	height: 25px;
-	margin: 20px auto;
+    width: 100%;
+    height: 25px;
+    margin: 20px auto;
 }
 
 /** WizardPanel样式--结束 */
 
 /*StepEditor样式--开始*/
 .spanup{
-	cursor: pointer;
-	display: block;
-	float: right;
-	height:28px;
-	width: 28px;
-	background-color:#f6f6f6;
-	border: 1px solid #dadada;
-	border-top-right-radius: 3px;
-	border-bottom-right-radius: 3px;
-	border-left: 0px;
-	background-image: url("images/stepeditor/jia1.png");
-	background-repeat:no-repeat;
-	background-position: center;
+    cursor: pointer;
+    display: block;
+    float: right;
+    height:28px;
+    width: 28px;
+    background-color:#f6f6f6;
+    border: 1px solid #e6e6e6;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    border-left: 0px;
+    background-image: url("images/stepeditor/jia1.png");
+    background-repeat:no-repeat;
+    background-position: center;
 }
 .spandown{
-	cursor: pointer;
-	display: block;
-	float: left;
-	height:28px;
-	width: 28px;
-	background-color: #f6f6f6;
-	border: 1px solid #dadada;
-	border-top-left-radius: 3px;
-	border-bottom-left-radius: 3px;
-	border-right: 0px;
-	background-image: url("images/stepeditor/jian1.png");
-	background-repeat:no-repeat;
-	background-position: center;
+    cursor: pointer;
+    display: block;
+    float: left;
+    height:28px;
+    width: 28px;
+    background-color: #f6f6f6;
+    border: 1px solid #e6e6e6;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    border-right: 0px;
+    background-image: url("images/stepeditor/jian1.png");
+    background-repeat:no-repeat;
+    background-position: center;
 }
 .ui-steped input{
-	border: 1px solid #dadada;
+    border: 1px solid #e6e6e6;
     height: 28px;
     text-align:center;
-    color: #000000;
+    color: #333;
     ime-mode:disabled;
     
 }
-.ui-steped.ui-readonly input{
-	background-color: #f3f3f3;
-    color: #b4b4b4;
+body .main .ui-steped.ui-readonly input{
+    background-color: #f9f9f9;
+    color: #ccc;
 }
 .spanup.span1{
-	overflow:hidden;
-	height: 14px;
-	width: 20px;
-	float: right;
-	background-color: #f6f6f6;
-	border: 1px solid #dadada;
-	border-top-right-radius: 3px;
-	border-bottom-left-radius: 0px;
-	border-bottom-right-radius: 0px;
-	background-image: url("images/stepeditor/pull-up.png");
-	background-repeat:no-repeat;
-	background-position: center;
-	border-left: 0px;
-	border-bottom: 0px;
+    overflow:hidden;
+    height: 14px;
+    width: 20px;
+    float: right;
+    background-color: #f9f9f9;
+    border: 1px solid #e6e6e6;
+    border-top-right-radius: 3px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    background-image: url("images/stepeditor/pull-up.png");
+    background-repeat:no-repeat;
+    background-position: center;
+    border-left: 0px;
+    border-bottom: 0px;
 }
 .spandown.span1{
-	overflow:hidden;
-	height: 14px;
-	width: 20px;
-	float: right;
-	background-color: #f6f6f6;
-	border: 1px solid #dadada;
-	border-bottom-left-radius: 0px;
-	border-bottom-right-radius: 3px;
-	border-top-left-radius: 0px;
-	background-image: url("images/stepeditor/pull-down.png");
-	background-repeat:no-repeat;
-	background-position: center;
-	border-left: 0px;
-	border-top: 0px;
-	
+    overflow:hidden;
+    height: 14px;
+    width: 20px;
+    float: right;
+    background-color: #f9f9f9;
+    border: 1px solid #e6e6e6;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 3px;
+    border-top-left-radius: 0px;
+    background-image: url("images/stepeditor/pull-down.png");
+    background-repeat:no-repeat;
+    background-position: center;
+    border-left: 0px;
+    border-top: 0px;
+    
 }
 .spanwarp{
-	width: 22px;
-	height: 28px;
-	float: right;
+    width: 22px;
+    height: 28px;
+    float: right;
 }
 .spanwarp+input{
-	border-top-left-radius: 3px;
-	border-bottom-left-radius: 3px;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
 }
-.appItems{
-	position: absolute;
-    min-width: 150px;
-    max-height: 500px;
-    z-index: 111;
-    background-color: #dadada;
-    border: 1px solid #dadada;
-    display: none;
-    overflow: auto;
-    margin-top: -40px; 
-}
-.appItems ul{
-	padding-left: 20px;
-	
-}
-.appItems ul li{
-	cursor: pointer;
-	margin-top: 10px;
-	margin-bottom: 10px;
-	color: black;
-	text-indent: 18px;
-}
-.appItems ul li a{
-	color: black;
-}
-.appItems ul li a:hover{
-	color: white;
-}
+
 .infoitem{
-	background-image: url("images/infoitem.png");
-	background-repeat: no-repeat;
-	background-size:13px 13px; 
-	background-position: left;
+    background-image: url("images/infoitem.png");
+    background-repeat: no-repeat;
+    background-size:13px 13px; 
+    background-position: left;
 }
 /*StepEditor样式--结束*/
 /*
 链式字典开始
 */
 .footdiv{
-	height: 24px;
-	background-color: white;
-	margin-top: 10px;
-	width:100%;
-	position: relative;
+    background-color: #fff;
+    margin-top: 10px;
+    width:100%;
+    position: relative;
 }
 .liwrap .chainsearch{
-	height: 30px;
-	background-color: white;
-	margin-top: 2px;
+    height: 30px;
+    background-color: white;
+    margin-top: 2px;
 }
 
-
 .chainsearch input{
-	height: 26px;
+    height: 26px;
     width: 81%;
     margin-left: 5px;
     border: 1px solid #ccc;
@@ -3460,13 +3125,12 @@ tr.first span{
     vertical-align:middle;
 }
 .footdiv .prev, .footdiv .next, .pageinfo span, .findspan{
-	font-size:12px;
-	font-family:"微软雅黑";
-	width: 45px;
-	height:20px;
-	display: inline-block;
-	text-align: center;
-	cursor: pointer;	
+    font-size:12px;
+    width: 45px;
+    height:20px;
+    display: inline-block;
+    text-align: center;
+    cursor: pointer;    
 }
 .footdiv .prev, .footdiv .next{
     overflow:hidden;
@@ -3475,15 +3139,9 @@ tr.first span{
     height:23px;
     vertical-align:middle;
 }
-.footdiv .prev{
-    background:url("images/dict/prev.png") no-repeat center;
-}
-.footdiv .next{
-    background:url("images/dict/next.png") no-repeat center;
-}
 .findspan{
     display:inline-block;
-	height: 26px;
+    height: 26px;
     margin-top: 2px;
     margin-left:2px;
     line-height: 26px;
@@ -3493,7 +3151,7 @@ tr.first span{
     vertical-align:middle;
 }
 .footdiv .next{
-	margin-left: 5px;
+    margin-left: 5px;
 }
 .footdiv .prev{
     margin-right: 5px;
@@ -3501,25 +3159,16 @@ tr.first span{
 
 .footdiv .footmean{
     display:table;
-	max-width: 170px;
-	min-width: 125px;
-   /*  float: right;
-    margin-right: 20px; */
+    max-width: 170px;
+    min-width: 125px;
     margin: 0px auto;
+    text-align:center;
 }
 .liwrap .dt{
-	height: 220px;
-	margin-top: 5px
-
-}
-/* .liwrap{
-    height: 300px;
+    height: 220px;
+    margin-top: 5px
 }
 
- *//* .findspan:hover{
-    background: #d7dadb;
-    color: white;
-} */
 .liwrap .footdiv{
     margin-bottom:5px;
 }
@@ -3549,10 +3198,8 @@ tr.first span{
     color:#40a8e8;
 }
 .pageinfo span{
-	width: 28px;
-	height: 23px;
-	display: inline-block;
-	font-size: 12px;
+    width: 28px;
+    height: 23px;
     line-height: 23px;
     margin-left: 1px;
     vertical-align:middle;
@@ -3561,71 +3208,55 @@ tr.first span{
     background:#f9f9f9;
 }
 .pageinfo .pagenum.nowitem{
-	background: #40a8e8; 
-	color: #fff;
+    color: #fff;
 }
 
 .footdiv .disable{
-	color: transparent;
-	cursor: default;
+    color: transparent;
+    cursor: default;
 }
-.footdiv .disable.prev{
-    background:url("images/dict/prev_disable.png") no-repeat center;
-}
-.footdiv .disable.next{
-    background:url("images/dict/next_disable.png") no-repeat center;
-}
+
 .pageinfo{
-	max-width: 75px;
-	min-width: 30px;
+    max-width: 75px;
+    min-width: 30px;    
 } 
 .cmb-wrap ul li{
-	padding: 2px 20px;
+    padding: 2px 20px;
 }
-/* .dt-searchwrap{
-    width: 100%
-} */
+
 .clear:after{
-	content: " ";
-	display: block;
-	clear: both;
-	
+    content: " ";
+    display: block;
+    clear: both;
 }
 .loading.image{
     z-index:101;
 }
-/*不可编辑*/
-.ui-txted.ui-readonly input, .ui-numed.ui-readonly input, .ui-cmb.ui-readonly .txt, .ui-dict.ui-readonly .txt, .ui-dp.ui-readonly .txt,
-input.ui-readonly, .ui-splbtn.ui-readonly button.btn, .ui-dropbtn.ui-readonly a, .ui-btn.ui-readonly button, .ui-txta.ui-readonly textarea,.ui-readonly.ui-txtbtn .btn{
-    background-color: #f9f9f9;
-    color: #999;
-    border-color:#e6e6e6;
-}
+
 .ui-ygrid{
     color:#333;
 }
 .ui-ygrid .ui-ygrid-htable thead th.ui-th-column{
     font-weight:700;
 }
-.ui-state-highlight, .ui-widget-content .ui-state-highlight{
-    background:#abd9f5;
-}
+
 .ui-ygrid tr.ygrow td:hover{
-    border:1px solid #40a8e8;
+    outline:1px solid #40a8e8;
+    outline-offset:-1px;
 }
 .ui-ygrid tr.ygrow td.ygrid-rownum{
-    border-color:#e8e8e8;
+    border-color:#ccc;
 } 
-.ui-ygrid td.ui-cell-multiselect{
-    background-color:#d9eefa;
-}
+
 .ui-ygrid td.ui-state-disabled:hover{
     padding:0;
 }
 .ui-ygrid .ui-pagination ul li{
     border:1px solid red;
 }
-
+.ui-ygrid .ui-ygrid-bdiv{
+    min-height:140px !important;
+}
 /*
 链式字典结束
 */
@@ -3682,14 +3313,14 @@ input.ui-readonly, .ui-splbtn.ui-readonly button.btn, .ui-dropbtn.ui-readonly a,
     border-radius:2px; 
     border:none; 
     outline:none; 
-    background:#7ed3fe;
+    background:#66b6e8;
 }
 #photo_btn2{ 
     float:right;
 }
 #photo_btn1:active,
 #photo_btn2:active{ 
-    background:#71bde4
+    background:#3890c7
 }
 #photo_control{
     height:4px; 
@@ -3722,7 +3353,7 @@ input.ui-readonly, .ui-splbtn.ui-readonly button.btn, .ui-dropbtn.ui-readonly a,
     visibility:hidden;
 }
 #show{ 
-    border:2px solid #f0f0f0; 
+    border:2px solid #f2f2f2; 
     overflow:hidden; 
     position:relative;
 }
@@ -3758,10 +3389,10 @@ input.ui-readonly, .ui-splbtn.ui-readonly button.btn, .ui-dropbtn.ui-readonly a,
     right:0
 }
 #photo_photoMain{ 
-    border:1px solid #aaa; 
+    border:1px solid #ccc; 
     position:absolute;
     z-index:2; 
-    background:#f0f0f0;
+    background:#f2f2f2;
     box-shadow:0px 0px 30px 2px #aaa;
     -moz-box-shadow:0px 0px 30px 2px #aaa;
      overflow:hidden; 
@@ -3780,33 +3411,58 @@ input.ui-readonly, .ui-splbtn.ui-readonly button.btn, .ui-dropbtn.ui-readonly a,
     display:none;
 }
 
-/*要修改默认控件样式，可以在此文件末尾，通过对相应属性覆盖的方法来修改
- *以下为修改禁用输入框及按钮的样式*/
-
 /*插件样式修改*/
-
+.dialog-header{
+    box-sizing:border-box;
+    border:0;
+}
+.dialog-content{
+    border:0;
+}
+.dialog-close{
+    position:absolute;
+    top:0;
+    right:8px;
+    width:10px;
+    height:100%;
+    background:url(images/close.png) no-repeat center;
+}
+.dialog-close:hover{
+    background-image:url(images/close_hover.png)
+}
+.dialog-close:active{
+    background-image:url(images/close_active.png)
+}
 .dialog .dialog-button{
+    box-sizing:border-box;
     width:82px;
     height:26px;
     line-height:22px;
     border-radius:1px;
     border-color:#ccc;
     background-color:#fff;
-    box-sizing:border-box;
 }
-table.treetable tr.collapsed span.indenter a{
-    background-image:url(images/treetable_collapse.png)
+.dialog-button:hover{
+    background:#40a8e8;
+    color:#fff;
 }
-table.treetable tr.expanded span.indenter a{
-    background-image:url(images/treetable_expand.png)
+.dialog-button:active{
+    background:#3890c7;
+    color:#fff;
 }
-.ui-icon-asc{
-    background-position:1px -16px;
+.dialog.error .dialog-header{
+    padding:0;
 }
 .dialog.error .dialog-content-inner{
     background-position:60px center;
 }
-
+.dialog.error .dialog-title{
+    text-indent:5px;
+    line-height:25px;
+}
+.ui-icon-asc{
+    background-position:1px -16px;
+}
 /*左侧滚动条*/
 .scroll-slider-V, 
 .scroll-slider-H{
@@ -3828,73 +3484,186 @@ table.treetable tr.expanded span.indenter a{
 .scroll-right:after{
     border-left-color:#999;
 }
-/**/
-.dialog-close{
-    position:absolute;
-    top:0;
-    right:8px;
-    width:10px;
-    height:100%;
-    background:url(images/close.png) no-repeat center;
+
+/*皮肤样式在这覆盖*/
+tbody.datepickerDays td.datepickerSelected a,
+.dialog-header,
+.dialog.error .dialog-header,
+span.ui-txted button:active,
+.ui-tabpnl .ui-tabs-nav .aria-selected a:after,
+.ui-tabcnt .ui-tabs-nav li.ui-tabcontainer.aria-selected:after,
+.findspan,
+.pageinfo .pagenum.nowitem,
+.ui-ygrid td.ui-cell-multiselect,
+.paginationjs .paginationjs-pages li.active > a,
+.matchItems li a:hover{
+    background-color:#40a8e8;
 }
-.dialog-close:hover{
-    background-image:url(images/close_hover.png)
-}
-.dialog-close:active{
-    background-image:url(images/close_active.png)
-}
-.dialog-header{
-    border:0;
-}
-.dialog.error .dialog-header{
-    padding:0;
+.ui-tabcnt .ui-tabs.dropdownBtn.show{
+    background-color:#ddeffb;
 }
 .dialog{
+   /*  min-width:300px; */
     border:1px solid #40a8e8;
-}
-.dialog *{
     box-sizing:border-box;
+    -webkit-box-shadow:4px 4px 6px rgba(0, 0, 0, 0.15);
+       -moz-box-shadow:4px 4px 6px rgba(0, 0, 0, 0.15);
+         -o-box-shadow:4px 4px 6px rgba(0, 0, 0, 0.15);
+        -ms-box-shadow:4px 4px 6px rgba(0, 0, 0, 0.15);
+            box-shadow:4px 4px 6px rgba(0, 0, 0, 0.15);
 }
-.dialog-button:hover{
-    background:#40a8e8;
-    color:#fff;  
-}
-.dialog-button:active{
-    background:#3c9cd8;
-    color:#fff;
-}
-.dialog.error .dialog-header,
+.dialog,
 .dialog-header,
-.dp-vw tbody.datepickerDays td.datepickerSelected a,
-.paginationjs .paginationjs-pages li.active > a{
-    background-color: #40a8e8;
+.ui-btn:hover,
+.ui-btn:focus,
+.ui-txta textarea:hover,
+.ui-txta textarea:focus,
+.ui-txted input:focus, 
+.ui-numed input:focus, 
+.ui-dict .txt:focus, 
+.ui-cmb .txt:focus, 
+.ui-dp .txt:focus, 
+.ui-splbtn.focus button,
+.ui-splbtn:hover button, 
+.ui-srch input.txt:focus, 
+.ui-img:focus,
+.ui-steped input:focus,
+.searchdiv input:focus,
+.chainsearch input:focus,
+.ui-txted:hover input,
+span.ui-txted input:focus ~ button,
+span.ui-txted:hover button,
+.ui-dict:hover .txt,
+.dt-vw,
+.ui-cmb:hover .txt,
+.cmb-vw,
+.ui-dp:hover .txt,
+.dp-vw,
+.dp-vw .time button:hover,
+.dp-vw .time input:hover,
+.tbr-ul .tbr-btn:hover,
+.tbr-ul .sp-btn:hover .tbr-btn,
+.ui-numed input:hover,
+.ui-dict input.txt:hover,
+.ui-dropbtn .btn:hover{
+    border-color:#40a8e8;
 }
+.ui-btn:active .txt,
+span.ui-txted:hover button,
+.dp-vw .time button:active,
+.tbr-ul .tbr-btn:active .txt,
+.tbr-ul .sp-btn:active .tbr-btn .txt,
+.ui-hlk.ui-readonly:hover, 
+.ui-lv .hlk.disabled:hover,
+.ui-dropbtn .btn:hover .arrow,
+.ui-dropbtn.btn-group.focus .arrow,
+.ui-splbtn.focus .btn .arrow,
+.ui-splbtn:hover .btn .arrow {
+    color:#40a8e8;  
+}
+.ui-btn:focus
+    outline:1px solid #40a8e8;
+}
+.btn.ok:hover{
+    background:#3d9dd9;
+}
+.ui-cmb .txt:focus + .arrow,
+.ui-cmb:hover .arrow{
+    background-image: url(images/combobox-btn-hover.png);
+}
+.ui-dp .txt:focus + .arrow,
+.ui-dp:hover .arrow{
+    background-image: url(images/calendar_hover.png);
+}
+ .dt-vw span.icon.dt-expand {
+    background: url(images/dict/expand.png) no-repeat center;
+} 
+.ui-dict:hover .arrow,
+.ui-dict .txt:focus + .arrow {
+   background-image: url(images/combobox-btn-hover.png)
+}
+table.treetable tr.collapsed span.indenter a{
+    background-image:url(images/treetable_collapse.png)
+}
+table.treetable tr.expanded span.indenter a{
+    background-image:url(images/treetable_expand.png)
+}
+.footdiv .prev{
+    background:url("images/dict/prev.png") no-repeat center;
+}
+.footdiv .next{
+    background:url("images/dict/next.png") no-repeat center;
+}
+.footdiv .disable.prev{
+    background:url("images/dict/prev_disable_gray.png") no-repeat center;
+}
+.footdiv .disable.next{
+    background:url("images/dict/next_disable_gray.png") no-repeat center;
+}
+
+.ui-lv .lv-tb .tbl-body tr.data.clicked {
+    background:#ddeffb;
+}
+.ui-state-highlight{
+    background:#cee8f9;
+}
+.ui-dv table.treetable tr.expanded.selected.sel-row,
+.ui-dv table.treetable tr.collapsed.selected.sel-row {
+    background:#ddeffb; 
+}
+.ui-ygrid td.ui-cell-multiselect{
+    background-color:#cee8f9;
+}
+.ui-tabs.tabs-list li:hover,
+.ui-state-highlight, .ui-widget-content .ui-state-highlight {
+    background: #cee8f9;   
+}
+
 .dp-vw .datepicker a:hover {
     outline:1px solid #40a8e8;
     border-radius:0;
 }
 
-.ui-txted {
-    display: block;
-    position: relative;
-    height: 28px;
-}
 .wangEditor-container .wangEditor-textarea-focus,
 .ui-dropbtn.btn-group.focus a.btn {
+    border: 1px solid #40a8e8;
     -webkit-box-shadow:none;
     -moz-box-shadow:none;
     box-shadow:none;
 }
-/**/
-.ui-dropbtn .btn:hover .arrow,
-.ui-splbtn.focus .btn .arrow,
-.ui-splbtn:hover .btn .arrow,
-.ui-dropbtn.btn-group.focus .arrow{
-    color:#40a8e8;  
+.wangEditor-container.ui-rich:focus{
+    outline:none;
 }
-.ui-dropbtn .btn:hover,
-.ui-splbtn:hover button{
-    border-color:#40a8e8;
+/*Tooltip内容中超链接样式*/
+.tooltip-content a {
+    color: #74db0d;
+}
+
+.ui-tabs-nav.ui-tabs-ex li:first-child label {
+    color: #333;
+}
+
+.ui-wizard .next, .ui-wizard .prev, .ui-wizard .finish {
+    background: #40a8e8;
+}
+
+/*皮肤样式在这覆盖end*/
+
+/*不可编辑*/
+.ui-txted.ui-readonly input, .ui-numed.ui-readonly input, .ui-cmb.ui-readonly .txt, .ui-dict.ui-readonly .txt, .ui-dp.ui-readonly .txt,
+input.ui-readonly, .ui-splbtn.ui-readonly button.btn, .ui-dropbtn.ui-readonly a, .ui-btn.ui-readonly button, .ui-txta.ui-readonly textarea,.ui-readonly.ui-txtbtn .btn{
+    background-color: #f9f9f9;
+    color: #999;
+    border-color:#e6e6e6;
+}
+body .main .ui-dict.ui-readonly .arrow,
+.main .ui-cmb.ui-readonly .arrow{
+    background-image: url(images/combobox-btn.png);
+}
+.ui-txted {
+    display: block;
+    position: relative;
+    height: 28px;
 }
 /*表格按钮*/
 .ui-pg-table.navtable .ui-icon{
@@ -3912,6 +3681,30 @@ table.treetable tr.expanded span.indenter a{
 .ui-widget-content .ui-icon.ui-icon-down{
     background:url(images/icon_down.png) no-repeat center;
 }
+.ui-widget-content .ui-icon.ui-icon-plus:hover{
+    background:url(images/icon_plus_hover.png) no-repeat center;
+}
+.ui-widget-content .ui-icon.ui-icon-trash:hover{
+    background:url(images/icon_trash_hover.png) no-repeat center;
+}
+.ui-widget-content .ui-icon.ui-icon-up:hover{
+    background:url(images/icon_up_hover.png) no-repeat center;
+}
+.ui-widget-content .ui-icon.ui-icon-down:hover{
+    background:url(images/icon_down_hover.png) no-repeat center;
+}
+.ui-widget-content .ui-icon.ui-icon-plus:active{
+    background:url(images/icon_plus_active.png) no-repeat center;
+}
+.ui-widget-content .ui-icon.ui-icon-trash:active{
+    background:url(images/icon_trash_active.png) no-repeat center;
+}
+.ui-widget-content .ui-icon.ui-icon-up:active{
+    background:url(images/icon_up_active.png) no-repeat center;
+}
+.ui-widget-content .ui-icon.ui-icon-down:active{
+    background:url(images/icon_down_active.png) no-repeat center;
+}
 .ui-widget-content .ui-icon{
     cursor:pointer;
 }
@@ -3922,52 +3715,6 @@ table.treetable tr.expanded span.indenter a{
 .loading.image{
     position:absolute;
 }
-.search.fuzzy input{
-    padding-left:5px;
-    width:100%;
-    height:26px;
-    line-height:26px;
-    border:1px solid #ccc;
-    outline:none;
+.ui-lv .lv-tb .tbl-body tr.data.active {
+    background:#ddeffb;
  }
-.search.fuzzy input:focus{
-    border-color:#40a8e8;
-}
-.btn.search{
-    width:64px;
-    height:26px;
-    margin-left:5px;
-    border:none;
-    background:#40a8e8;
-    color:#fff;
-    line-height:26px;
-    text-align:center;
-    cursor:pointer;
-}
-.btn.ok{
-    width:82px;
-    height:26px;
-    line-height:26px;
-    background-color:#40a8e8;
-    outline:none;
-    cursor:pointer;
-    color:#fff;
-    border:none;
-}
-.btn.cancel{
-    width:82px;
-    height:26px;
-    line-height:24px;
-    border-radius:1px;
-    border:1px solid #ccc;
-    background-color:#fff;
-    outline:none;
-    cursor:pointer;
-    color:#333;
-}
-.btn.cancel:hover{
-    border-color:#40a8e8;
-}
-.btn.ok:hover{
-    background:#3c9cd8;
-}

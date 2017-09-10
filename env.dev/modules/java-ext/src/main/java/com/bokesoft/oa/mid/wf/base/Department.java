@@ -71,11 +71,10 @@ public class Department extends DicBase {
 	 * @throws Throwable
 	 */
 	public Department getParent() throws Throwable {
-		if (parentID <= 0) {
-			return parent;
-		}
 		if (parent == null) {
-			parent = getContext().getDepartmentMap().get(parentID);
+			if (parentID > 0) {
+				parent = getContext().getDepartmentMap().get(parentID);
+			}
 		}
 		return parent;
 	}
@@ -127,11 +126,10 @@ public class Department extends DicBase {
 	 * @throws Throwable
 	 */
 	public Employee getDeptHead() throws Throwable {
-		if (deptHeadID <= 0) {
-			return deptHead;
-		}
 		if (deptHead == null) {
-			deptHead = getContext().getEmployeeMap().get(deptHeadID);
+			if (deptHeadID > 0) {
+				deptHead = getContext().getEmployeeMap().get(deptHeadID);
+			}
 		}
 		return deptHead;
 	}

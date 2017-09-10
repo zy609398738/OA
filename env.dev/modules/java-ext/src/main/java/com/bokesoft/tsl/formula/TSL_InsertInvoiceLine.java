@@ -22,21 +22,19 @@ public class TSL_InsertInvoiceLine extends BaseMidFunctionImpl {
 
 	@Override
 	public Object evalImpl(String name, DefaultContext context, Object[] args, IExecutor arg3) throws Throwable {
-		String dataObjectKey = TypeConvertor.toString(args[0]);
-		CostInfo info = TSLInfoFactory.CreateInfo(context, dataObjectKey);
 		Document document = context.getDocument();
-		DataTable headTable = document.get(info.getHeadTable());
-		DataTable detailTable = document.get(info.getDetailTable2());
+		DataTable headTable = document.get("B_CostApply");
+		DataTable detailTable = document.get("B_CostApplyCE");
 
 		HashMap<MultiKey, ArrayList<Integer>> map = new HashMap<MultiKey, ArrayList<Integer>>();
 		int rowCount2 = detailTable.size();
 		for (int rowIndex = 0; rowIndex < rowCount2; rowIndex++) {
 			MultiKey key = new MultiKey();
-			key.addValue(new MultiKeyNode(DataType.STRING, detailTable.getString(info.getPaymentTypeLField())));
-			key.addValue(new MultiKeyNode(DataType.STRING, detailTable.getString(info.getExpenseItemCodeLField())));
-			key.addValue(new MultiKeyNode(DataType.STRING, detailTable.getString(info.getExpenseDeptCodeLField())));
-			key.addValue(new MultiKeyNode(DataType.STRING, detailTable.getString(info.getBudgetNoLField())));
-			key.addValue(new MultiKeyNode(DataType.STRING, detailTable.getString(info.getCapitalizationLField())));
+			key.addValue(new MultiKeyNode(DataType.STRING, detailTable.getString("CEDetail_PaymentType")));
+			key.addValue(new MultiKeyNode(DataType.STRING, detailTable.getString("CEDetail_ExpenseItemCode")));
+			key.addValue(new MultiKeyNode(DataType.STRING, detailTable.getString("CEDetail_ExpenseDeptCode")));
+			key.addValue(new MultiKeyNode(DataType.STRING, detailTable.getString("CEDetail_BudgetNo")));
+			key.addValue(new MultiKeyNode(DataType.STRING, detailTable.getString("CEDetail_Capitalization")));
 			ArrayList<Integer> list = map.get(key);
 			if (list == null) {
 				list = new ArrayList<Integer>();
@@ -65,55 +63,55 @@ public class TSL_InsertInvoiceLine extends BaseMidFunctionImpl {
 			for (int rowIndex : list) {
 				if (bFirst) {
 					// PaymentType个人支付时:任务号+“_P”； PaymentType公司支付时:任务号+“_C”
-					String paymentType = detailTable.getString(rowIndex, info.getPaymentTypeLField());
+					String paymentType = detailTable.getString(rowIndex, "CEDetail_PaymentType");
 					if (paymentType == null) {
-						InvoiceNumber = headTable.getObject(info.getOIDField()).toString();
+						InvoiceNumber = headTable.getObject("InstanceID").toString();
 					} else if (paymentType.equalsIgnoreCase("PersonalPayment")) {
-						InvoiceNumber = headTable.getObject(info.getOIDField()) + "_P";
+						InvoiceNumber = headTable.getObject("InstanceID") + "_P";
 					} else if (paymentType.equalsIgnoreCase("CompanyPayment")) {
-						InvoiceNumber = headTable.getObject(info.getOIDField()) + "_C";
+						InvoiceNumber = headTable.getObject("InstanceID") + "_C";
 					}
 					// OperationUnitCode承担业务实体Code
-					OrgId = headTable.getObject(info.getOUCodeField()).toString();
+					OrgId = headTable.getObject("OU_Code").toString();
 					// 明细行号Index 循序标识从1开始
 					LineNumber = num + "";
 					// 申请人姓名
-					String EmployeeName = headTable.getObject(info.getApplicantNameField()).toString();
+					String EmployeeName = headTable.getObject("ApplicantName").toString();
 					// 申请人工号
-					String EmployeeNumber = headTable.getObject(info.getApplicantCodeField()).toString();
+					String EmployeeNumber = headTable.getObject("ApplicantCode").toString();
 					// ApplicantName+'-'+ApplicantHrid+'-'+ TaskID
 					// 申请人姓名+“_”+申请人工号+“_”+任务号
-					Description = EmployeeName + "-" + EmployeeNumber + "-" + headTable.getObject(info.getOIDField());
+					Description = EmployeeName + "-" + EmployeeNumber + "-" + headTable.getObject("OID");
 					// financeSpecialCode组合
-					String capitalization = detailTable.getString(rowIndex, info.getCapitalizationLField());
-					String ProjectCode = TypeConvertor.toString(headTable.getObject(info.getProjectCodeField()));
+					String capitalization = detailTable.getString(rowIndex, "CEDetail_Capitalization");
+					String ProjectCode = TypeConvertor.toString(headTable.getObject("ProjectCode"));
 					if (capitalization.equalsIgnoreCase("1")) {
 						if (ProjectCode.isEmpty()) {
-							DistCodeConcatenated = headTable.getObject(info.getCompanyCodeField()) + "-0-"
-									+ detailTable.getString(rowIndex, info.getExpenseItemCodeLField()) + "-0-0-0-0-0-0-0";
+							DistCodeConcatenated = headTable.getObject("CompanyCode") + "-0-"
+									+ detailTable.getString(rowIndex, "CEDetail_ExpenseItemCode") + "-0-0-0-0-0-0-0";
 						} else {
-							DistCodeConcatenated = headTable.getObject(info.getCompanyCodeField()) + "-0-"
-									+ detailTable.getString(rowIndex, info.getExpenseItemCodeLField()) + "-0-" + ProjectCode
+							DistCodeConcatenated = headTable.getObject("CompanyCode") + "-0-"
+									+ detailTable.getString(rowIndex, "CEDetail_ExpenseItemCode") + "-0-" + ProjectCode
 									+ "-0-0-0-0-0";
 						}
 					} else if (capitalization.equalsIgnoreCase("2")) {
 						if (ProjectCode.isEmpty()) {
-							DistCodeConcatenated = headTable.getObject(info.getCompanyCodeField()) + "-"
-									+ headTable.getObject(info.getBACCCodeCodeField()) + "-"
-									+ detailTable.getString(rowIndex, info.getExpenseItemCodeLField()) + "-0-0-0-0-0-0-0";
+							DistCodeConcatenated = headTable.getObject("CompanyCode") + "-"
+									+ headTable.getObject("CostCenterCode") + "-"
+									+ detailTable.getString(rowIndex, "CEDetail_ExpenseItemCode") + "-0-0-0-0-0-0-0";
 						} else {
-							DistCodeConcatenated = headTable.getObject(info.getCompanyCodeField()) + "-"
-									+ headTable.getObject(info.getBACCCodeCodeField()) + "-"
-									+ detailTable.getString(rowIndex, info.getExpenseItemCodeLField()) + "-0-" + ProjectCode
+							DistCodeConcatenated = headTable.getObject("CompanyCode") + "-"
+									+ headTable.getObject("CostCenterCode") + "-"
+									+ detailTable.getString(rowIndex, "CEDetail_ExpenseItemCode") + "-0-" + ProjectCode
 									+ "-0-0-0-0-0";
 						}
 					}
 					// BudgetNo预算号
-					BudgetNumber = detailTable.getString(rowIndex, info.getBudgetNoLField());
+					BudgetNumber = detailTable.getString(rowIndex, "CEDetail_BudgetNo");
 				}
 				// 汇总
 				// FinanceAmount财务核准金额（根据PaymentType,ExpenseItemCode等分组求和）
-				amount = amount.add(detailTable.getNumeric(rowIndex, info.getFinanceAmountLField()));
+				amount = amount.add(detailTable.getNumeric(rowIndex, "CEDetail_FinanceAmount"));
 
 				bFirst = false;
 			}

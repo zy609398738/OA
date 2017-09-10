@@ -64,8 +64,8 @@ public class SetNextParticipator implements IExtService {
 			sql = "SELECT OID FROM " + tableName + " WHERE OID in(" + ids + ")";
 		}
 		IDBManager dbm = context.getDBManager();
-		String deleteSql = "delete from OA_NextParticipator where WorkflowBillKey=? and WorkflowOID=? and WorkflowKey=? and NodeId=? and WorkitemID=? and OperatorID=?";
-		dbm.execPrepareUpdate(deleteSql, workflowBillKey, workflowOID, pkKey, nodeID, workItemID, operatorID);
+		String deleteSql = "delete from OA_NextParticipator where WorkitemID=?";
+		dbm.execPrepareUpdate(deleteSql, workItemID);
 		DataTable dt = context.getDBManager().execQuery(sql);
 		dt.beforeFirst();
 		while (dt.next()) {

@@ -1,0 +1,285 @@
+<table id="group_13" class="group"  border="0" cellspacing="0" cellpadding="0"><tr style="height:100%;">
+<td id="zenLayoutTableCell_14"  >
+<div class="zendiv" id="content" zen="14"  ><div><hr/><table><tr><td><table cellpadding=4 cellspacing=4><tbody align=center><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='1:MSH - Message Header' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3AMSH&PATH=MSH&MS=MS%3A2.7.1%3ACCM_I21'>MSH</a></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='2:SFT() - Software Segment' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3ASFT&PATH=SFT()&MS=MS%3A2.7.1%3ACCM_I21'>SFT</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='3:UAC - User Authentication Credential Segment' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3AUAC&PATH=UAC&MS=MS%3A2.7.1%3ACCM_I21'>UAC</a></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='4:PID - Patient Identification' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3APID&PATH=PID&MS=MS%3A2.7.1%3ACCM_I21'>PID</a></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='5:PD1 - Patient Additional Demographic' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3APD1&PATH=PD1&MS=MS%3A2.7.1%3ACCM_I21'>PD1</a></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='6:NK1() - Next of Kin / Associated Parties' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3ANK1&PATH=NK1()&MS=MS%3A2.7.1%3ACCM_I21'>NK1</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='right' valign='top' style='font-style:italic;'>IN1grp</td><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='7:IN1grp().IN1 - Insurance' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3AIN1&PATH=IN1grp().IN1&MS=MS%3A2.7.1%3ACCM_I21'>IN1</a></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='8:IN1grp().IN2 - Insurance Additional Information' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3AIN2&PATH=IN1grp().IN2&MS=MS%3A2.7.1%3ACCM_I21'>IN2</a></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='9:IN1grp().IN3 - Insurance Additional Information, Certification' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3AIN3&PATH=IN1grp().IN3&MS=MS%3A2.7.1%3ACCM_I21'>IN3</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='right' valign='top' style='font-style:italic;'>SCHgrp</td><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='10:SCHgrp().SCH - Scheduling Activity Information' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3ASCH&PATH=SCHgrp().SCH&MS=MS%3A2.7.1%3ACCM_I21'>SCH</a></td></tr>
+<tr><td align='right' valign='top' style='font-style:italic;'>RGSgrp</td><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='11:SCHgrp().RGSgrp().RGS - Resource Group' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3ARGS&PATH=SCHgrp().RGSgrp().RGS&MS=MS%3A2.7.1%3ACCM_I21'>RGS</a></td></tr>
+<tr><td align='right' valign='top' style='font-style:italic;'>AISuniongrp</td><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='right' valign='top' style='font-style:italic;'>AISunion</td><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #ead960;; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='12:SCHgrp().RGSgrp().AISuniongrp().AISunion.AIS - Appointment Information' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3AAIS&PATH=SCHgrp().RGSgrp().AISuniongrp().AISunion.AIS&MS=MS%3A2.7.1%3ACCM_I21'>AIS</a></td></tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='13:SCHgrp().RGSgrp().AISuniongrp().AISunion.AIG - Appointment Information - General Resource' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3AAIG&PATH=SCHgrp().RGSgrp().AISuniongrp().AISunion.AIG&MS=MS%3A2.7.1%3ACCM_I21'>AIG</a></td></tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='14:SCHgrp().RGSgrp().AISuniongrp().AISunion.AIL - Appointment Information - Location Resource' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3AAIL&PATH=SCHgrp().RGSgrp().AISuniongrp().AISunion.AIL&MS=MS%3A2.7.1%3ACCM_I21'>AIL</a></td></tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='15:SCHgrp().RGSgrp().AISuniongrp().AISunion.AIP - Appointment Information - Personnel Resource' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3AAIP&PATH=SCHgrp().RGSgrp().AISuniongrp().AISunion.AIP&MS=MS%3A2.7.1%3ACCM_I21'>AIP</a></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='16:SCHgrp().RGSgrp().AISuniongrp().OBX() - Observation/Result' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3AOBX&PATH=SCHgrp().RGSgrp().AISuniongrp().OBX()&MS=MS%3A2.7.1%3ACCM_I21'>OBX</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='right' valign='top' style='font-style:italic;'>ORCgrp</td><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='17:ORCgrp().ORC - Common Order' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3AORC&PATH=ORCgrp().ORC&MS=MS%3A2.7.1%3ACCM_I21'>ORC</a></td></tr>
+<tr><td align='right' valign='top' style='font-style:italic;'>OBRuniongrp</td><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='right' valign='top' style='font-style:italic;'>OBRunion</td><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #ead960;; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='18:ORCgrp().OBRuniongrp().OBRunion.OBR - Observation Request' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3AOBR&PATH=ORCgrp().OBRuniongrp().OBRunion.OBR&MS=MS%3A2.7.1%3ACCM_I21'>OBR</a></td></tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='19:ORCgrp().OBRuniongrp().OBRunion.ODS - Dietary Orders, Supplements, and Preferences' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3AODS&PATH=ORCgrp().OBRuniongrp().OBRunion.ODS&MS=MS%3A2.7.1%3ACCM_I21'>ODS</a></td></tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='20:ORCgrp().OBRuniongrp().OBRunion.PR1 - Procedures' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3APR1&PATH=ORCgrp().OBRuniongrp().OBRunion.PR1&MS=MS%3A2.7.1%3ACCM_I21'>PR1</a></td></tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='21:ORCgrp().OBRuniongrp().OBRunion.RF1 - Referral Information' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3ARF1&PATH=ORCgrp().OBRuniongrp().OBRunion.RF1&MS=MS%3A2.7.1%3ACCM_I21'>RF1</a></td></tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='22:ORCgrp().OBRuniongrp().OBRunion.AL1 - Patient Allergy Information' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3AAL1&PATH=ORCgrp().OBRuniongrp().OBRunion.AL1&MS=MS%3A2.7.1%3ACCM_I21'>AL1</a></td></tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='23:ORCgrp().OBRuniongrp().OBRunion.IAM - Patient Adverse Reaction Information' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3AIAM&PATH=ORCgrp().OBRuniongrp().OBRunion.IAM&MS=MS%3A2.7.1%3ACCM_I21'>IAM</a></td></tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='24:ORCgrp().OBRuniongrp().OBRunion.ACC - Accident' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3AACC&PATH=ORCgrp().OBRuniongrp().OBRunion.ACC&MS=MS%3A2.7.1%3ACCM_I21'>ACC</a></td></tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='25:ORCgrp().OBRuniongrp().OBRunion.RMI - Risk Management Incident' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3ARMI&PATH=ORCgrp().OBRuniongrp().OBRunion.RMI&MS=MS%3A2.7.1%3ACCM_I21'>RMI</a></td></tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='26:ORCgrp().OBRuniongrp().OBRunion.DB1 - Disability' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3ADB1&PATH=ORCgrp().OBRuniongrp().OBRunion.DB1&MS=MS%3A2.7.1%3ACCM_I21'>DB1</a></td></tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='27:ORCgrp().OBRuniongrp().OBRunion.DG1 - Diagnosis' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3ADG1&PATH=ORCgrp().OBRuniongrp().OBRunion.DG1&MS=MS%3A2.7.1%3ACCM_I21'>DG1</a></td></tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='28:ORCgrp().OBRuniongrp().OBRunion.DRG - Diagnosis Related Group' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3ADRG&PATH=ORCgrp().OBRuniongrp().OBRunion.DRG&MS=MS%3A2.7.1%3ACCM_I21'>DRG</a></td></tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='29:ORCgrp().OBRuniongrp().OBRunion.PDA - Patient Death and Autopsy' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3APDA&PATH=ORCgrp().OBRuniongrp().OBRunion.PDA&MS=MS%3A2.7.1%3ACCM_I21'>PDA</a></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='30:ORCgrp().OBRuniongrp().OBX() - Observation/Result' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3AOBX&PATH=ORCgrp().OBRuniongrp().OBX()&MS=MS%3A2.7.1%3ACCM_I21'>OBX</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='right' valign='top' style='font-style:italic;'>ROLuniongrp</td><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='right' valign='top' style='font-style:italic;'>ROLunion</td><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #ead960;; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='31:ORCgrp().ROLuniongrp().ROLunion.ROL - Role' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3AROL&PATH=ORCgrp().ROLuniongrp().ROLunion.ROL&MS=MS%3A2.7.1%3ACCM_I21'>ROL</a></td></tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='32:ORCgrp().ROLuniongrp().ROLunion.PRD - Provider Data' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3APRD&PATH=ORCgrp().ROLuniongrp().ROLunion.PRD&MS=MS%3A2.7.1%3ACCM_I21'>PRD</a></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='33:ORCgrp().ROLuniongrp().VAR() - Variance' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3AVAR&PATH=ORCgrp().ROLuniongrp().VAR()&MS=MS%3A2.7.1%3ACCM_I21'>VAR</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='34:ORCgrp().CTI() - Clinical Trial Identification' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3ACTI&PATH=ORCgrp().CTI()&MS=MS%3A2.7.1%3ACCM_I21'>CTI</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='right' valign='top' style='font-style:italic;'>PV1grp</td><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='35:PV1grp().PV1 - Patient Visit' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3APV1&PATH=PV1grp().PV1&MS=MS%3A2.7.1%3ACCM_I21'>PV1</a></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='36:PV1grp().PV2 - Patient Visit - Additional Information' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3APV2&PATH=PV1grp().PV2&MS=MS%3A2.7.1%3ACCM_I21'>PV2</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='right' valign='top' style='font-style:italic;'>ORCgrpi2</td><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='37:ORCgrpi2().ORC - Common Order' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3AORC&PATH=ORCgrpi2().ORC&MS=MS%3A2.7.1%3ACCM_I21'>ORC</a></td></tr>
+<tr><td align='right' valign='top' style='font-style:italic;'>RXOgrp</td><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='38:ORCgrpi2().RXOgrp.RXO - Pharmacy/Treatment Order' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3ARXO&PATH=ORCgrpi2().RXOgrp.RXO&MS=MS%3A2.7.1%3ACCM_I21'>RXO</a></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='39:ORCgrpi2().RXOgrp.RXR() - Pharmacy/Treatment Route' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3ARXR&PATH=ORCgrpi2().RXOgrp.RXR()&MS=MS%3A2.7.1%3ACCM_I21'>RXR</a></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='40:ORCgrpi2().RXOgrp.RXC() - Pharmacy/Treatment Component Order' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3ARXC&PATH=ORCgrpi2().RXOgrp.RXC()&MS=MS%3A2.7.1%3ACCM_I21'>RXC</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='41:ORCgrpi2().RXOgrp.OBX() - Observation/Result' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3AOBX&PATH=ORCgrpi2().RXOgrp.OBX()&MS=MS%3A2.7.1%3ACCM_I21'>OBX</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='right' valign='top' style='font-style:italic;'>RXEgrp</td><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='42:ORCgrpi2().RXEgrp.RXE - Pharmacy/Treatment Encoded Order' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3ARXE&PATH=ORCgrpi2().RXEgrp.RXE&MS=MS%3A2.7.1%3ACCM_I21'>RXE</a></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='43:ORCgrpi2().RXEgrp.RXR() - Pharmacy/Treatment Route' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3ARXR&PATH=ORCgrpi2().RXEgrp.RXR()&MS=MS%3A2.7.1%3ACCM_I21'>RXR</a></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='44:ORCgrpi2().RXEgrp.RXC() - Pharmacy/Treatment Component Order' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3ARXC&PATH=ORCgrpi2().RXEgrp.RXC()&MS=MS%3A2.7.1%3ACCM_I21'>RXC</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='45:ORCgrpi2().RXEgrp.OBX() - Observation/Result' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3AOBX&PATH=ORCgrpi2().RXEgrp.OBX()&MS=MS%3A2.7.1%3ACCM_I21'>OBX</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='right' valign='top' style='font-style:italic;'>RXAgrp</td><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='46:ORCgrpi2().RXAgrp().RXA() - Pharmacy/Treatment Administration' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3ARXA&PATH=ORCgrpi2().RXAgrp().RXA()&MS=MS%3A2.7.1%3ACCM_I21'>RXA</a></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='47:ORCgrpi2().RXAgrp().RXR - Pharmacy/Treatment Route' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3ARXR&PATH=ORCgrpi2().RXAgrp().RXR&MS=MS%3A2.7.1%3ACCM_I21'>RXR</a></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='48:ORCgrpi2().RXAgrp().OBX() - Observation/Result' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3AOBX&PATH=ORCgrpi2().RXAgrp().OBX()&MS=MS%3A2.7.1%3ACCM_I21'>OBX</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='49:ORCgrpi2().CTI() - Clinical Trial Identification' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3ACTI&PATH=ORCgrpi2().CTI()&MS=MS%3A2.7.1%3ACCM_I21'>CTI</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='right' valign='top' style='font-style:italic;'>PRBgrp</td><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='50:PRBgrp().PRB - Problem Details' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3APRB&PATH=PRBgrp().PRB&MS=MS%3A2.7.1%3ACCM_I21'>PRB</a></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='51:PRBgrp().VAR() - Variance' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3AVAR&PATH=PRBgrp().VAR()&MS=MS%3A2.7.1%3ACCM_I21'>VAR</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='right' valign='top' style='font-style:italic;'>ROLuniongrp</td><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='right' valign='top' style='font-style:italic;'>ROLunion</td><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #ead960;; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='52:PRBgrp().ROLuniongrp().ROLunion.ROL - Role' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3AROL&PATH=PRBgrp().ROLuniongrp().ROLunion.ROL&MS=MS%3A2.7.1%3ACCM_I21'>ROL</a></td></tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='53:PRBgrp().ROLuniongrp().ROLunion.PRD - Provider Data' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3APRD&PATH=PRBgrp().ROLuniongrp().ROLunion.PRD&MS=MS%3A2.7.1%3ACCM_I21'>PRD</a></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='54:PRBgrp().ROLuniongrp().VAR() - Variance' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3AVAR&PATH=PRBgrp().ROLuniongrp().VAR()&MS=MS%3A2.7.1%3ACCM_I21'>VAR</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='55:PRBgrp().OBX() - Observation/Result' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3AOBX&PATH=PRBgrp().OBX()&MS=MS%3A2.7.1%3ACCM_I21'>OBX</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='right' valign='top' style='font-style:italic;'>GOLgrp</td><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='56:GOLgrp().GOL - Goal Detail' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3AGOL&PATH=GOLgrp().GOL&MS=MS%3A2.7.1%3ACCM_I21'>GOL</a></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='57:GOLgrp().VAR() - Variance' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3AVAR&PATH=GOLgrp().VAR()&MS=MS%3A2.7.1%3ACCM_I21'>VAR</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='right' valign='top' style='font-style:italic;'>ROLuniongrp</td><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='right' valign='top' style='font-style:italic;'>ROLunion</td><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #ead960;; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='58:GOLgrp().ROLuniongrp().ROLunion.ROL - Role' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3AROL&PATH=GOLgrp().ROLuniongrp().ROLunion.ROL&MS=MS%3A2.7.1%3ACCM_I21'>ROL</a></td></tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='59:GOLgrp().ROLuniongrp().ROLunion.PRD - Provider Data' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3APRD&PATH=GOLgrp().ROLuniongrp().ROLunion.PRD&MS=MS%3A2.7.1%3ACCM_I21'>PRD</a></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='60:GOLgrp().ROLuniongrp().VAR() - Variance' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3AVAR&PATH=GOLgrp().ROLuniongrp().VAR()&MS=MS%3A2.7.1%3ACCM_I21'>VAR</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='61:GOLgrp().OBX() - Observation/Result' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3AOBX&PATH=GOLgrp().OBX()&MS=MS%3A2.7.1%3ACCM_I21'>OBX</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='right' valign='top' style='font-style:italic;'>PTHgrp</td><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='62:PTHgrp().PTH - Pathway' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3APTH&PATH=PTHgrp().PTH&MS=MS%3A2.7.1%3ACCM_I21'>PTH</a></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='63:PTHgrp().VAR() - Variance' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3AVAR&PATH=PTHgrp().VAR()&MS=MS%3A2.7.1%3ACCM_I21'>VAR</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='right' valign='top' style='font-style:italic;'>ROLuniongrp</td><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='right' valign='top' style='font-style:italic;'>ROLunion</td><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #ead960;; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='64:PTHgrp().ROLuniongrp().ROLunion.ROL - Role' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3AROL&PATH=PTHgrp().ROLuniongrp().ROLunion.ROL&MS=MS%3A2.7.1%3ACCM_I21'>ROL</a></td></tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='65:PTHgrp().ROLuniongrp().ROLunion.PRD - Provider Data' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3APRD&PATH=PTHgrp().ROLuniongrp().ROLunion.PRD&MS=MS%3A2.7.1%3ACCM_I21'>PRD</a></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='66:PTHgrp().ROLuniongrp().VAR() - Variance' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3AVAR&PATH=PTHgrp().ROLuniongrp().VAR()&MS=MS%3A2.7.1%3ACCM_I21'>VAR</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='67:PTHgrp().OBX() - Observation/Result' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3AOBX&PATH=PTHgrp().OBX()&MS=MS%3A2.7.1%3ACCM_I21'>OBX</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='68:REL() - Clinical Relationship Segment' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3AREL&PATH=REL()&MS=MS%3A2.7.1%3ACCM_I21'>REL</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+</tr></table></td>
+<td valign='top'><div style="padding-left:10px;">
+<b>Key</b><table cellpadding=4 cellspacing=4>
+<tr><td style="border: 2px dotted #60a060; border-right: none;" >可选</td></tr>
+<tr><td style="border: 2px solid #703838; border-right: none;" >重复</td></tr>
+<tr><td style="border: 2px dotted #ead960; border-right: none;" cellpadding=2 cellspacing=2>选择</td></tr>
+</table></div></td>
+</tr></table></div>
+</div>
+</td>
+<td id="zenLayoutTableCell_15"  style="vertical-align:top;">
+<div class="zendiv" id="zen15" zen="15"  >
+<table id="group_15" class="group"  border="0" cellspacing="0" cellpadding="0">
+<tr style="vertical-align:top;">
+<td id="zenLayoutTableCell_16"  >
+<div class="zendiv" id="showRawContent" zen="16"  ><div id="rawDivPointer" style="padding:20px 0px 0px 20px;">
+	<span><img src="images/spacer.gif" width="30" height="2"><img src="images/disclosure-contracted.gif" alt="*" width="8" height="11" border="0">
+	<span onclick="showRaw('rawContent');"><a href="#">显示原始定义文本</a></span></span><br/>
+	</div>
+<div id="rawContent" style="padding:20px 0px 0px 50px;display:none;" >
+	<b>原始定义</b>
+	<table cellspacing="0" cellpadding="2">
+	<tr><td>2.7.1:MSH~[~{~2.7.1:SFT~}~]~[~2.7.1:UAC~]~2.7.1:PID~[~2.7.1:PD1~]~[~{~2.7.1:NK1~}~]~[~{~2.7.1:IN1~[~2.7.1:IN2~]~[~2.7.1:IN3~]~}~]~[~{~2.7.1:SCH~[~{~2.7.1:RGS~[~{~<~2.7.1:AIS~|~2.7.1:AIG~|~2.7.1:AIL~|~2.7.1:AIP~>~[~{~2.7.1:OBX~}~]~}~]~}~]~}~]~[~{~2.7.1:ORC~[~{~<~2.7.1:OBR~|~2.7.1:ODS~|~2.7.1:PR1~|~2.7.1:RF1~|~2.7.1:AL1~|~2.7.1:IAM~|~2.7.1:ACC~|~2.7.1:RMI~|~2.7.1:DB1~|~2.7.1:DG1~|~2.7.1:DRG~|~2.7.1:PDA~>~[~{~2.7.1:OBX~}~]~}~]~[~{~<~2.7.1:ROL~|~2.7.1:PRD~>~[~{~2.7.1:VAR~}~]~}~]~[~{~2.7.1:CTI~}~]~}~]~{~2.7.1:PV1~[~2.7.1:PV2~]~}~[~{~2.7.1:ORC~[~2.7.1:RXO~{~2.7.1:RXR~}~[~{~2.7.1:RXC~}~]~[~{~2.7.1:OBX~}~]~]~[~2.7.1:RXE~{~2.7.1:RXR~}~[~{~2.7.1:RXC~}~]~[~{~2.7.1:OBX~}~]~]~[~{~{~2.7.1:RXA~}~2.7.1:RXR~[~{~2.7.1:OBX~}~]~}~]~[~{~2.7.1:CTI~}~]~}~]~[~{~2.7.1:PRB~[~{~2.7.1:VAR~}~]~[~{~<~2.7.1:ROL~|~2.7.1:PRD~>~[~{~2.7.1:VAR~}~]~}~]~[~{~2.7.1:OBX~}~]~}~]~[~{~2.7.1:GOL~[~{~2.7.1:VAR~}~]~[~{~<~2.7.1:ROL~|~2.7.1:PRD~>~[~{~2.7.1:VAR~}~]~}~]~[~{~2.7.1:OBX~}~]~}~]~[~{~2.7.1:PTH~[~{~2.7.1:VAR~}~]~[~{~<~2.7.1:ROL~|~2.7.1:PRD~>~[~{~2.7.1:VAR~}~]~}~]~[~{~2.7.1:OBX~}~]~}~]~[~{~2.7.1:REL~}~]</td></tr>
+	</table>
+	</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+</tr></table><script type="text/javascript" src="js/hl7/ms.js"></script>

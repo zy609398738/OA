@@ -100,10 +100,11 @@ Svr.Request = (function () {
         getSyncData: function (url, params, sucCallback, errorCallback) {
             params.mode = 1;
             var returnObj = null;
-            var locale = window.navigator.language || window.navigator.browserLanguage;
+        
             var tz = jstz.determine();
             var timezone = tz.name();
-            params.locale = locale;
+            //var locale = window.navigator.language || window.navigator.browserLanguage;
+            //params.locale = locale;
             params.timezone = timezone;
             var timeout = 0;
             if(window.timeout > 0) {
@@ -149,10 +150,10 @@ Svr.Request = (function () {
         getAsyncData: function (url, params, sucCallback, errorCallback) {
             params.mode = 1;
             var returnObj = null;
-            var locale = window.navigator.language || window.navigator.browserLanguage;
             var tz = jstz.determine();
             var timezone = tz.name();
-            params.locale = locale;
+            //var locale = window.navigator.language || window.navigator.browserLanguage;
+            //params.locale = locale;
             params.timezone = timezone;
             var timeout = 0;
             if(window.timeout > 0) {

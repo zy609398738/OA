@@ -293,66 +293,16 @@ YIUI.DataUtil = (function () {
             }
             return matchPos;
         },
-        // posWithShadowRow: function (grid, doc, dataTable) {  //定位影子表的对应的行，如果没有，则新增行
-        //     if (grid.pageInfo.pageLoadType != YIUI.PageLoadType.DB)return;
-        //     var shadowTableKey = grid.tableKey,
-        //         shadowTable = doc.getShadow(shadowTableKey);
-        //     if (shadowTable == null || shadowTable == undefined) {
-        //         shadowTable = YIUI.DataUtil.newShadowDataTable(dataTable);
-        //         doc.addShadow(shadowTableKey, shadowTable);
-        //     }
-        //     var curOID = dataTable.getByKey(YIUI.DataUtil.System_OID_Key), pos, primaryKeys;
-        //     if (curOID != null && curOID != undefined) {
-        //         primaryKeys = [YIUI.DataUtil.System_OID_Key];
-        //     } else {
-        //         primaryKeys = grid.primaryKeys;
-        //     }
-        //     pos = Return.getPosByPrimaryKeys(dataTable, shadowTable, primaryKeys);
-        //     if (pos != -1) {
-        //         shadowTable.setPos(pos);
-        //     } else {
-        //         shadowTable.addRow();
-        //         for (var j = 0, clen = shadowTable.cols.length; j < clen; j++) {
-        //             shadowTable.set(j, dataTable.get(j));
-        //         }
-        //         shadowTable.allRows[shadowTable.pos].state = dataTable.allRows[dataTable.pos].state;
-        //     }
-        //     return shadowTable;
-        // },
-        // modifyDisplayValueByShadow: function (doc, dataTable, grid, data) {
-        //     var shadowTable = doc.getShadow(grid.tableKey), rowData;
-        //     if (shadowTable) {
-        //         var OIDKey = YIUI.SystemField.OID_SYS_KEY;
-        //         for (var i = 0, len = data.length; i < len; i++) {
-        //             rowData = data[i];
-        //             if (rowData.bookmark == undefined || rowData.bookmark == null) continue;
-        //             dataTable.setByBkmk(rowData.bookmark);
-        //             var curOID = dataTable.getByKey(OIDKey), pos, primaryKeys;
-        //             if (curOID != null && curOID != undefined) {
-        //                 primaryKeys = [OIDKey];
-        //             } else {
-        //                 primaryKeys = grid.primaryKeys;
-        //             }
-        //             pos = Return.getPosByPrimaryKeys(dataTable, shadowTable, primaryKeys);
-        //             if (pos != -1) {
-        //                 for (var j = 0, clen = dataTable.cols.length; j < clen; j++) {
-        //                     dataTable.set(j, shadowTable.get(j));
-        //                 }
-        //                 grid.showDetailRow(i, true);
-        //             }
-        //         }
-        //     }
-        // },
         deleteAllRow: function (dataTable) {
             for (var len = dataTable.size(), i = len - 1; i >= 0; i--) {
                 dataTable.delRow(i);
             }
         },
-        append: function (srcTable, tgtTable) {
-            var srcIndexArray = [], tgtIndexArray = [];
+        append: function (srcTable, tgtTable, parentBkmk) {
+            var srcIndexArray = [], tgtIndexArray = [],colInfo,tgtIndex;
             for (var i = 0, len = srcTable.cols.length; i < len; i++) {
-                var colInfo = srcTable.getCol(i);
-                var tgtIndex = tgtTable.indexByKey(colInfo.key);
+                colInfo = srcTable.getCol(i);
+                tgtIndex = tgtTable.indexByKey(colInfo.key);
                 if (tgtIndex != -1) {
                     srcIndexArray.push(i);
                     tgtIndexArray.push(tgtIndex);
@@ -363,6 +313,9 @@ YIUI.DataUtil = (function () {
                 tgtTable.addRow();
                 for (var j = 0, jLen = srcIndexArray.length; j < jLen; j++) {
                     tgtTable.set(tgtIndexArray[j], srcTable.get(srcIndexArray[j]));
+                }
+                if( parentBkmk != undefined && parentBkmk != -1 ) {
+                    tgtTable.setParentBkmk(parentBkmk);
                 }
             }
             srcTable.beforeFirst();

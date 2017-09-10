@@ -1,0 +1,4128 @@
+[
+  {
+    "SegmentSubStructure": [
+      {
+        "max_length": "19",
+        "chinese_desc": "事故日期/时间",
+        "description": "ACCIDENT DATE/TIME",
+        "ifrepeating": "0",
+        "datatype": "TS",
+        "required": "O",
+        "piece": "1"
+      },
+      {
+        "max_length": "2",
+        "chinese_desc": "事故代码",
+        "description": "ACCIDENT CODE",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "2",
+        "codetable": "50"
+      },
+      {
+        "max_length": "25",
+        "chinese_desc": "事故地点",
+        "description": "ACCIDENT LOCATION",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "3"
+      }
+    ],
+    "chinese_desc": "事故",
+    "description": "ACCIDENT",
+    "name": "ACC"
+  },
+  {
+    "SegmentSubStructure": [
+      {
+        "max_length": "60",
+        "chinese_desc": "继续把编",
+        "description": "ADDENDUM CONTINUATION POINTER",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "1"
+      }
+    ],
+    "chinese_desc": "附录",
+    "description": "ADDENDUM",
+    "name": "ADD"
+  },
+  {
+    "SegmentSubStructure": [
+      {
+        "max_length": "1",
+        "symbol": "!",
+        "chinese_desc": "批处理场分离",
+        "description": "BATCH FIELD SEPARATOR",
+        "ifrepeating": "0",
+        "required": "R",
+        "piece": "1"
+      },
+      {
+        "max_length": "3",
+        "symbol": "!",
+        "chinese_desc": "批量编码字符",
+        "description": "BATCH ENCODING CHARACTERS",
+        "ifrepeating": "0",
+        "required": "R",
+        "piece": "2"
+      },
+      {
+        "max_length": "15",
+        "chinese_desc": "批量发送应用程序",
+        "description": "BATCH SENDING APPLICATION",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "3"
+      },
+      {
+        "max_length": "20",
+        "chinese_desc": "批量发送设备",
+        "description": "BATCH SENDING FACILITY",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "4"
+      },
+      {
+        "max_length": "15",
+        "chinese_desc": "批接收应用程序",
+        "description": "BATCH RECEIVING APPLICATION",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "5"
+      },
+      {
+        "max_length": "20",
+        "chinese_desc": "批量接收设备",
+        "description": "BATCH RECEIVING FACILITY",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "6"
+      },
+      {
+        "max_length": "19",
+        "chinese_desc": "批量创建日期/时间",
+        "description": "BATCH CREATION DATE/TIME",
+        "ifrepeating": "0",
+        "datatype": "TS",
+        "required": "O",
+        "piece": "7"
+      },
+      {
+        "max_length": "40",
+        "chinese_desc": "批量安全",
+        "description": "BATCH SECURITY",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "8"
+      },
+      {
+        "max_length": "20",
+        "chinese_desc": "批名称/标识/类型",
+        "description": "BATCH NAME/ID/TYPE",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "9"
+      },
+      {
+        "max_length": "80",
+        "chinese_desc": "批评",
+        "description": "BATCH COMMENT",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "10"
+      },
+      {
+        "max_length": "20",
+        "chinese_desc": "批量控制标识",
+        "description": "BATCH CONTROL ID",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "11"
+      },
+      {
+        "max_length": "20",
+        "chinese_desc": "参考批控制标识",
+        "description": "REFERENCE BATCH CONTROL ID",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "12"
+      }
+    ],
+    "chinese_desc": "批头",
+    "description": "BATCH HEADER",
+    "name": "BHS"
+  },
+  {
+    "SegmentSubStructure": [
+      {
+        "max_length": "10",
+        "chinese_desc": "赛格指数",
+        "description": "Seg Index",
+        "ifrepeating": "0",
+        "altdesc": "Position within the batch shell document where this placeholder segment resides",
+        "required": "R",
+        "piece": "1"
+      },
+      {
+        "max_length": "10",
+        "chinese_desc": "儿童计数",
+        "description": "Child Count",
+        "ifrepeating": "0",
+        "altdesc": "Number of child Message documents embedded within the batch shell document at this placeholder position",
+        "required": "O",
+        "piece": "2"
+      }
+    ],
+    "chinese_desc": "占位符段表示在一个批文件的1个或更多的批次或消息",
+    "description": "placeholder segment representing 1 or more Batches or Messages in a Batch Message File document",
+    "name": "BHSDocsRef"
+  },
+  {
+    "SegmentSubStructure": [
+      {
+        "max_length": "15",
+        "chinese_desc": "什么时候收",
+        "description": "WHEN TO CHARGE",
+        "ifrepeating": "0",
+        "datatype": "CM",
+        "required": "O",
+        "piece": "1",
+        "codetable": "100"
+      },
+      {
+        "max_length": "50",
+        "chinese_desc": "充电类型",
+        "description": "CHARGE TYPE",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "2",
+        "codetable": "122"
+      },
+      {
+        "max_length": "100",
+        "chinese_desc": "帐户标识",
+        "description": "ACCOUNT ID",
+        "ifrepeating": "0",
+        "datatype": "CM",
+        "required": "O",
+        "piece": "3"
+      }
+    ],
+    "chinese_desc": "计费",
+    "description": "BILLING",
+    "name": "BLG"
+  },
+  {
+    "SegmentSubStructure": [
+      {
+        "max_length": "10",
+        "chinese_desc": "批量消息计数",
+        "description": "BATCH MESSAGE COUNT",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "1"
+      },
+      {
+        "max_length": "80",
+        "chinese_desc": "批评",
+        "description": "BATCH COMMENT",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "2"
+      },
+      {
+        "max_length": "100",
+        "chinese_desc": "批量汇总",
+        "description": "BATCH TOTALS",
+        "ifrepeating": "0",
+        "datatype": "CM",
+        "required": "O",
+        "piece": "3"
+      }
+    ],
+    "chinese_desc": "批拖车",
+    "description": "BATCH TRAILER",
+    "name": "BTS"
+  },
+  {
+    "SegmentSubStructure": [
+      {
+        "max_length": "4",
+        "symbol": "!",
+        "chinese_desc": "设置标识-诊断",
+        "description": "SET ID - DIAGNOSIS",
+        "ifrepeating": "0",
+        "required": "R",
+        "piece": "1"
+      },
+      {
+        "max_length": "2",
+        "symbol": "!",
+        "chinese_desc": "诊断编码方法",
+        "description": "DIAGNOSIS CODING METHOD",
+        "ifrepeating": "0",
+        "required": "R",
+        "piece": "2",
+        "codetable": "53"
+      },
+      {
+        "max_length": "8",
+        "chinese_desc": "诊断代码",
+        "description": "DIAGNOSIS CODE",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "3",
+        "codetable": "51"
+      },
+      {
+        "max_length": "40",
+        "chinese_desc": "诊断描述",
+        "description": "DIAGNOSIS DESCRIPTION",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "4"
+      },
+      {
+        "max_length": "19",
+        "chinese_desc": "诊断日期/时间",
+        "description": "DIAGNOSIS DATE/TIME",
+        "ifrepeating": "0",
+        "datatype": "TS",
+        "required": "O",
+        "piece": "5"
+      },
+      {
+        "max_length": "2",
+        "symbol": "!",
+        "chinese_desc": "诊断/ DRG型",
+        "description": "DIAGNOSIS/DRG TYPE",
+        "ifrepeating": "0",
+        "required": "R",
+        "piece": "6",
+        "codetable": "52"
+      },
+      {
+        "max_length": "4",
+        "chinese_desc": "主要诊断类别",
+        "description": "MAJOR DIAGNOSTIC CATEGORY",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "7",
+        "codetable": "118"
+      },
+      {
+        "max_length": "4",
+        "chinese_desc": "诊断相关组",
+        "description": "DIAGNOSTIC RELATED GROUP",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "8",
+        "codetable": "55"
+      },
+      {
+        "max_length": "2",
+        "chinese_desc": "DRG的批准指示灯",
+        "description": "DRG APPROVAL INDICATOR",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "9"
+      },
+      {
+        "max_length": "2",
+        "chinese_desc": "DRG石斑检查代码",
+        "description": "DRG GROUPER REVIEW CODE",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "10",
+        "codetable": "56"
+      },
+      {
+        "max_length": "2",
+        "chinese_desc": "异常类型",
+        "description": "OUTLIER TYPE",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "11",
+        "codetable": "83"
+      },
+      {
+        "max_length": "3",
+        "chinese_desc": "离群天",
+        "description": "OUTLIER DAYS",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "12"
+      },
+      {
+        "max_length": "12",
+        "chinese_desc": "离群成本",
+        "description": "OUTLIER COST",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "13"
+      },
+      {
+        "max_length": "4",
+        "chinese_desc": "石斑鱼的版本和类型",
+        "description": "GROUPER VERSION AND TYPE",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "14"
+      }
+    ],
+    "chinese_desc": "诊断",
+    "description": "DIAGNOSIS",
+    "name": "DG1"
+  },
+  {
+    "SegmentSubStructure": [
+      {
+        "max_length": "60",
+        "chinese_desc": "继续做",
+        "description": "CONTINUATION POINTER",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "1"
+      }
+    ],
+    "chinese_desc": "继续做",
+    "description": "CONTINUATION POINTER",
+    "name": "DSC"
+  },
+  {
+    "SegmentSubStructure": [
+      {
+        "max_length": "4",
+        "chinese_desc": "设置标识-显示数据",
+        "description": "SET ID - DISPLAY DATA",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "1"
+      },
+      {
+        "max_length": "4",
+        "chinese_desc": "显示电平",
+        "description": "DISPLAY LEVEL",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "2"
+      },
+      {
+        "max_length": "300",
+        "symbol": "!",
+        "chinese_desc": "数据线",
+        "description": "DATA LINE",
+        "ifrepeating": "0",
+        "required": "R",
+        "piece": "3"
+      },
+      {
+        "max_length": "2",
+        "chinese_desc": "逻辑断点",
+        "description": "LOGICAL BREAK POINT",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "4"
+      },
+      {
+        "max_length": "20",
+        "chinese_desc": "结果标识",
+        "description": "RESULT ID",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "5"
+      }
+    ],
+    "chinese_desc": "显示数据",
+    "description": "DISPLAY DATA",
+    "name": "DSP"
+  },
+  {
+    "SegmentSubStructure": [
+      {
+        "max_length": "80",
+        "symbol": "+",
+        "chinese_desc": "错误代码和位置",
+        "description": "ERROR CODE AND LOCATION",
+        "ifrepeating": "1",
+        "required": "R",
+        "piece": "1",
+        "codetable": "60"
+      }
+    ],
+    "chinese_desc": "误差",
+    "description": "ERROR",
+    "name": "ERR"
+  },
+  {
+    "SegmentSubStructure": [
+      {
+        "max_length": "3",
+        "symbol": "!",
+        "chinese_desc": "事件类型代码",
+        "description": "EVENT TYPE CODE",
+        "ifrepeating": "0",
+        "required": "R",
+        "piece": "1",
+        "codetable": "3"
+      },
+      {
+        "max_length": "19",
+        "symbol": "!",
+        "chinese_desc": "日期/时间事件",
+        "description": "DATE/TIME OF EVENT",
+        "ifrepeating": "0",
+        "datatype": "TS",
+        "required": "R",
+        "piece": "2"
+      },
+      {
+        "max_length": "19",
+        "chinese_desc": "日期/时间计划事件",
+        "description": "DATE/TIME PLANNED EVENT",
+        "ifrepeating": "0",
+        "datatype": "TS",
+        "required": "O",
+        "piece": "3"
+      },
+      {
+        "max_length": "3",
+        "chinese_desc": "事件原因代码",
+        "description": "EVENT REASON CODE",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "4",
+        "codetable": "62"
+      }
+    ],
+    "chinese_desc": "事件类型",
+    "description": "EVENT TYPE",
+    "name": "EVN"
+  },
+  {
+    "SegmentSubStructure": [
+      {
+        "max_length": "1",
+        "symbol": "!",
+        "chinese_desc": "文件字段分隔符",
+        "description": "FILE FIELD SEPARATOR",
+        "ifrepeating": "0",
+        "required": "R",
+        "piece": "1"
+      },
+      {
+        "max_length": "4",
+        "symbol": "!",
+        "chinese_desc": "文件编码字符",
+        "description": "FILE ENCODING CHARACTERS",
+        "ifrepeating": "0",
+        "required": "R",
+        "piece": "2"
+      },
+      {
+        "max_length": "15",
+        "chinese_desc": "文件发送应用程序",
+        "description": "FILE SENDING APPLICATION",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "3"
+      },
+      {
+        "max_length": "20",
+        "chinese_desc": "文件发送设备",
+        "description": "FILE SENDING FACILITY",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "4"
+      },
+      {
+        "max_length": "15",
+        "chinese_desc": "文件接收应用程序",
+        "description": "FILE RECEIVING APPLICATION",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "5"
+      },
+      {
+        "max_length": "20",
+        "chinese_desc": "文件接收设备",
+        "description": "FILE RECEIVING FACILITY",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "6"
+      },
+      {
+        "max_length": "19",
+        "chinese_desc": "文件创建日期/时间",
+        "description": "DATE/TIME OF FILE CREATION",
+        "ifrepeating": "0",
+        "datatype": "TS",
+        "required": "O",
+        "piece": "7"
+      },
+      {
+        "max_length": "40",
+        "chinese_desc": "文件安全",
+        "description": "FILE SECURITY",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "8"
+      },
+      {
+        "max_length": "20",
+        "chinese_desc": "文件名/身份证",
+        "description": "FILE NAME/ID",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "9"
+      },
+      {
+        "max_length": "80",
+        "chinese_desc": "文件头注释",
+        "description": "FILE HEADER COMMENT",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "10"
+      },
+      {
+        "max_length": "20",
+        "chinese_desc": "文件控制标识",
+        "description": "FILE CONTROL ID",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "11"
+      },
+      {
+        "max_length": "20",
+        "chinese_desc": "参考文件控制标识",
+        "description": "REFERENCE FILE CONTROL ID",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "12"
+      }
+    ],
+    "chinese_desc": "文件头文件",
+    "description": "FILE HEADER",
+    "name": "FHS"
+  },
+  {
+    "SegmentSubStructure": [
+      {
+        "max_length": "4",
+        "chinese_desc": "设置标识-金融交易",
+        "description": "SET ID - FINANCIAL TRANSACTION",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "1"
+      },
+      {
+        "max_length": "12",
+        "chinese_desc": "交易标识",
+        "description": "TRANSACTION ID",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "2"
+      },
+      {
+        "max_length": "5",
+        "chinese_desc": "事务批处理标识",
+        "description": "TRANSACTION BATCH ID",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "3"
+      },
+      {
+        "max_length": "8",
+        "symbol": "!",
+        "chinese_desc": "交易日",
+        "description": "TRANSACTION DATE",
+        "ifrepeating": "0",
+        "required": "R",
+        "piece": "4"
+      },
+      {
+        "max_length": "8",
+        "chinese_desc": "交易发布日期",
+        "description": "TRANSACTION POSTING DATE",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "5"
+      },
+      {
+        "max_length": "8",
+        "symbol": "!",
+        "chinese_desc": "交易类型",
+        "description": "TRANSACTION TYPE",
+        "ifrepeating": "0",
+        "required": "R",
+        "piece": "6",
+        "codetable": "17"
+      },
+      {
+        "max_length": "20",
+        "symbol": "!",
+        "chinese_desc": "交易代码",
+        "description": "TRANSACTION CODE",
+        "ifrepeating": "0",
+        "required": "R",
+        "piece": "7",
+        "codetable": "96"
+      },
+      {
+        "max_length": "40",
+        "chinese_desc": "交易描述",
+        "description": "TRANSACTION DESCRIPTION",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "8"
+      },
+      {
+        "max_length": "40",
+        "chinese_desc": "业务描述-丙氨酸氨基转移酶（ALT）",
+        "description": "TRANSACTION DESCRIPTION - ALT",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "9"
+      },
+      {
+        "max_length": "12",
+        "chinese_desc": "交易量-扩展",
+        "description": "TRANSACTION AMOUNT - EXTENDED",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "10"
+      },
+      {
+        "max_length": "4",
+        "chinese_desc": "交易量",
+        "description": "TRANSACTION QUANTITY",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "11"
+      },
+      {
+        "max_length": "12",
+        "chinese_desc": "交易量单位",
+        "description": "TRANSACTION AMOUNT - UNIT",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "12"
+      },
+      {
+        "max_length": "16",
+        "chinese_desc": "部门代码",
+        "description": "DEPARTMENT CODE",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "13",
+        "codetable": "49"
+      },
+      {
+        "max_length": "8",
+        "chinese_desc": "保险计划编号",
+        "description": "INSURANCE PLAN ID",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "14",
+        "codetable": "72"
+      },
+      {
+        "max_length": "12",
+        "chinese_desc": "保险金额",
+        "description": "INSURANCE AMOUNT",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "15"
+      },
+      {
+        "max_length": "12",
+        "chinese_desc": "患者位置",
+        "description": "PATIENT LOCATION",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "16",
+        "codetable": "79"
+      },
+      {
+        "max_length": "1",
+        "chinese_desc": "费用表",
+        "description": "FEE SCHEDULE",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "17",
+        "codetable": "24"
+      },
+      {
+        "max_length": "2",
+        "chinese_desc": "患者类型",
+        "description": "PATIENT TYPE",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "18",
+        "codetable": "18"
+      },
+      {
+        "max_length": "8",
+        "chinese_desc": "诊断代码",
+        "description": "DIAGNOSIS CODE",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "19",
+        "codetable": "51"
+      },
+      {
+        "max_length": "60",
+        "chinese_desc": "由代码执行",
+        "description": "PERFORMED BY CODE",
+        "ifrepeating": "0",
+        "datatype": "CN",
+        "required": "O",
+        "piece": "20",
+        "codetable": "84"
+      },
+      {
+        "max_length": "60",
+        "chinese_desc": "按码订购",
+        "description": "ORDERED BY CODE",
+        "ifrepeating": "0",
+        "datatype": "CN",
+        "required": "O",
+        "piece": "21"
+      },
+      {
+        "max_length": "12",
+        "chinese_desc": "单位成本",
+        "description": "UNIT COST",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "22"
+      }
+    ],
+    "chinese_desc": "金融交易",
+    "description": "FINANCIAL TRANSACTION",
+    "name": "FT1"
+  },
+  {
+    "SegmentSubStructure": [
+      {
+        "max_length": "10",
+        "chinese_desc": "文件批数",
+        "description": "FILE BATCH COUNT",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "1"
+      },
+      {
+        "max_length": "80",
+        "chinese_desc": "文件预告片",
+        "description": "FILE TRAILER COMMENT",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "2"
+      }
+    ],
+    "chinese_desc": "文件拖车",
+    "description": "FILE TRAILER",
+    "name": "FTS"
+  },
+  {
+    "SegmentSubStructure": [
+      {
+        "max_length": "4",
+        "symbol": "!",
+        "chinese_desc": "设置标识-担保人",
+        "description": "SET ID - GUARANTOR",
+        "ifrepeating": "0",
+        "required": "R",
+        "piece": "1"
+      },
+      {
+        "max_length": "20",
+        "chinese_desc": "担保人编号",
+        "description": "GUARANTOR NUMBER",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "2"
+      },
+      {
+        "max_length": "48",
+        "symbol": "!",
+        "chinese_desc": "担保人姓名",
+        "description": "GUARANTOR NAME",
+        "ifrepeating": "0",
+        "datatype": "PN",
+        "required": "R",
+        "piece": "3"
+      },
+      {
+        "max_length": "48",
+        "chinese_desc": "担保人配偶姓名",
+        "description": "GUARANTOR SPOUSE NAME",
+        "ifrepeating": "0",
+        "datatype": "PN",
+        "required": "O",
+        "piece": "4"
+      },
+      {
+        "max_length": "106",
+        "chinese_desc": "担保人地址",
+        "description": "GUARANTOR ADDRESS",
+        "ifrepeating": "0",
+        "datatype": "AD",
+        "required": "O",
+        "piece": "5"
+      },
+      {
+        "max_length": "40",
+        "chinese_desc": "guarantor pH num. -家。",
+        "description": "GUARANTOR PH. NUM.- HOME",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "6"
+      },
+      {
+        "max_length": "40",
+        "chinese_desc": "担保人num-business博士",
+        "description": "GUARANTOR PH. NUM-BUSINESS",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "7"
+      },
+      {
+        "max_length": "8",
+        "chinese_desc": "担保人出生日期",
+        "description": "GUARANTOR DATE OF BIRTH",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "8"
+      },
+      {
+        "max_length": "1",
+        "chinese_desc": "担保人",
+        "description": "GUARANTOR SEX",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "9",
+        "codetable": "1"
+      },
+      {
+        "max_length": "2",
+        "chinese_desc": "担保人类型",
+        "description": "GUARANTOR TYPE",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "10",
+        "codetable": "68"
+      },
+      {
+        "max_length": "2",
+        "chinese_desc": "担保人关系",
+        "description": "GUARANTOR RELATIONSHIP",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "11",
+        "codetable": "63"
+      },
+      {
+        "max_length": "11",
+        "chinese_desc": "担保人SSN",
+        "description": "GUARANTOR SSN",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "12"
+      },
+      {
+        "max_length": "8",
+        "chinese_desc": "担保日期-开始",
+        "description": "GUARANTOR DATE - BEGIN",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "13"
+      },
+      {
+        "max_length": "8",
+        "chinese_desc": "担保人日",
+        "description": "GUARANTOR DATE - END",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "14"
+      },
+      {
+        "max_length": "2",
+        "chinese_desc": "担保人优先",
+        "description": "GUARANTOR PRIORITY",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "15"
+      },
+      {
+        "max_length": "45",
+        "chinese_desc": "担保人雇主名称",
+        "description": "GUARANTOR EMPLOYER NAME",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "16"
+      },
+      {
+        "max_length": "106",
+        "chinese_desc": "担保人雇主地址",
+        "description": "GUARANTOR EMPLOYER ADDRESS",
+        "ifrepeating": "0",
+        "datatype": "AD",
+        "required": "O",
+        "piece": "17"
+      },
+      {
+        "max_length": "40",
+        "chinese_desc": "担保人使用手机#",
+        "description": "GUARANTOR EMPLOY PHONE #",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "18"
+      },
+      {
+        "max_length": "20",
+        "chinese_desc": "保证员工ID号",
+        "description": "GUARANTOR EMPLOYEE ID NUM",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "19"
+      },
+      {
+        "max_length": "2",
+        "chinese_desc": "担保人就业状况",
+        "description": "GUARANTOR EMPLOYMENT STATUS",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "20",
+        "codetable": "66"
+      }
+    ],
+    "chinese_desc": "担保人",
+    "description": "GUARANTOR",
+    "name": "GT1"
+  },
+  {
+    "SegmentSubStructure": [
+      {
+        "max_length": "4",
+        "symbol": "!",
+        "chinese_desc": "设置身份证",
+        "description": "SET ID - INSURANCE",
+        "ifrepeating": "0",
+        "required": "R",
+        "piece": "1"
+      },
+      {
+        "max_length": "8",
+        "symbol": "!",
+        "chinese_desc": "保险计划编号",
+        "description": "INSURANCE PLAN ID",
+        "ifrepeating": "0",
+        "required": "R",
+        "piece": "2",
+        "codetable": "72"
+      },
+      {
+        "max_length": "6",
+        "symbol": "!",
+        "chinese_desc": "保险公司编号",
+        "description": "INSURANCE COMPANY ID",
+        "ifrepeating": "0",
+        "required": "R",
+        "piece": "3"
+      },
+      {
+        "max_length": "45",
+        "chinese_desc": "保险公司名称",
+        "description": "INSURANCE COMPANY NAME",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "4"
+      },
+      {
+        "max_length": "106",
+        "chinese_desc": "保险公司地址",
+        "description": "INSURANCE COMPANY ADDRESS",
+        "ifrepeating": "0",
+        "datatype": "AD",
+        "required": "O",
+        "piece": "5"
+      },
+      {
+        "max_length": "48",
+        "chinese_desc": "保险公司联络人",
+        "description": "INSURANCE CO. CONTACT PERS",
+        "ifrepeating": "0",
+        "datatype": "PN",
+        "required": "O",
+        "piece": "6"
+      },
+      {
+        "max_length": "40",
+        "chinese_desc": "保险公司电话号码",
+        "description": "INSURANCE CO PHONE NUMBER",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "7"
+      },
+      {
+        "max_length": "12",
+        "chinese_desc": "群数",
+        "description": "GROUP NUMBER",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "8"
+      },
+      {
+        "max_length": "35",
+        "chinese_desc": "组名",
+        "description": "GROUP NAME",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "9"
+      },
+      {
+        "max_length": "12",
+        "chinese_desc": "被保险人的EMP组。身份证件",
+        "description": "INSURED\u0027S GROUP EMP. ID",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "10"
+      },
+      {
+        "max_length": "45",
+        "chinese_desc": "被保险人的EMP组。名称",
+        "description": "INSURED\u0027S GROUP EMP. NAME",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "11"
+      },
+      {
+        "max_length": "8",
+        "chinese_desc": "计划有效期",
+        "description": "PLAN EFFECTIVE DATE",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "12"
+      },
+      {
+        "max_length": "8",
+        "chinese_desc": "计划到期日",
+        "description": "PLAN EXPIRATION DATE",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "13"
+      },
+      {
+        "max_length": "55",
+        "chinese_desc": "授权信息",
+        "description": "AUTHORIZATION INFORMATION",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "14"
+      },
+      {
+        "max_length": "2",
+        "chinese_desc": "计划类型",
+        "description": "PLAN TYPE",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "15",
+        "codetable": "86"
+      },
+      {
+        "max_length": "48",
+        "chinese_desc": "投保人姓名",
+        "description": "NAME OF INSURED",
+        "ifrepeating": "0",
+        "datatype": "PN",
+        "required": "O",
+        "piece": "16"
+      },
+      {
+        "max_length": "2",
+        "chinese_desc": "投保人的关系",
+        "description": "INSURED\u0027S RELATIONSHIP TO PATIENT",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "17",
+        "codetable": "63"
+      },
+      {
+        "max_length": "8",
+        "chinese_desc": "被保险人的出生日期",
+        "description": "INSURED\u0027S DATE OF BIRTH",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "18"
+      },
+      {
+        "max_length": "106",
+        "chinese_desc": "投保人的地址",
+        "description": "INSURED\u0027S ADDRESS",
+        "ifrepeating": "0",
+        "datatype": "AD",
+        "required": "O",
+        "piece": "19"
+      },
+      {
+        "max_length": "2",
+        "chinese_desc": "利益分配",
+        "description": "ASSIGNMENT OF BENEFITS",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "20"
+      },
+      {
+        "max_length": "2",
+        "chinese_desc": "利益协调",
+        "description": "COORDINATION OF BENEFITS",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "21"
+      },
+      {
+        "max_length": "2",
+        "chinese_desc": "协调本。优先",
+        "description": "COORD OF BEN. PRIORITY",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "22"
+      },
+      {
+        "max_length": "2",
+        "chinese_desc": "录取通知书",
+        "description": "NOTICE OF ADMISSION CODE",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "23",
+        "codetable": "81"
+      },
+      {
+        "max_length": "8",
+        "chinese_desc": "录取通知书",
+        "description": "NOTICE OF ADMISSION DATE",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "24"
+      },
+      {
+        "max_length": "2",
+        "chinese_desc": "关联交易资格码",
+        "description": "RPT OF ELIGIBILITY CODE",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "25",
+        "codetable": "94"
+      },
+      {
+        "max_length": "8",
+        "chinese_desc": "关联交易申请日期",
+        "description": "RPT OF ELIGIBILITY DATE",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "26"
+      },
+      {
+        "max_length": "2",
+        "chinese_desc": "发布信息代码",
+        "description": "RELEASE INFORMATION CODE",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "27",
+        "codetable": "93"
+      },
+      {
+        "max_length": "15",
+        "chinese_desc": "pre-admit证书（PAC）",
+        "description": "PRE-ADMIT CERT. (PAC)",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "28"
+      },
+      {
+        "max_length": "8",
+        "chinese_desc": "验证日期",
+        "description": "VERIFICATION DATE",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "29"
+      },
+      {
+        "max_length": "60",
+        "chinese_desc": "验证",
+        "description": "VERIFICATION BY",
+        "ifrepeating": "0",
+        "datatype": "CM",
+        "required": "O",
+        "piece": "30"
+      },
+      {
+        "max_length": "2",
+        "chinese_desc": "协议代码类型",
+        "description": "TYPE OF AGREEMENT CODE",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "31",
+        "codetable": "98"
+      },
+      {
+        "max_length": "2",
+        "chinese_desc": "计费状态",
+        "description": "BILLING STATUS",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "32",
+        "codetable": "22"
+      },
+      {
+        "max_length": "4",
+        "chinese_desc": "终身保护日",
+        "description": "LIFETIME RESERVE DAYS",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "33"
+      },
+      {
+        "max_length": "4",
+        "chinese_desc": "在一天一天的时间",
+        "description": "DELAY BEFORE L. R. DAY",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "34"
+      },
+      {
+        "max_length": "8",
+        "chinese_desc": "公司计划代码",
+        "description": "COMPANY PLAN CODE",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "35",
+        "codetable": "42"
+      },
+      {
+        "max_length": "15",
+        "chinese_desc": "政策号",
+        "description": "POLICY NUMBER",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "36"
+      },
+      {
+        "max_length": "12",
+        "chinese_desc": "政策可扣除",
+        "description": "POLICY DEDUCTIBLE",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "37"
+      },
+      {
+        "max_length": "12",
+        "chinese_desc": "政策限制",
+        "description": "POLICY LIMIT - AMOUNT",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "38"
+      },
+      {
+        "max_length": "4",
+        "chinese_desc": "政策限制-天",
+        "description": "POLICY LIMIT - DAYS",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "39"
+      },
+      {
+        "max_length": "12",
+        "chinese_desc": "房价-私密",
+        "description": "ROOM RATE - SEMI-PRIVATE",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "40"
+      },
+      {
+        "max_length": "12",
+        "chinese_desc": "房率-私人",
+        "description": "ROOM RATE - PRIVATE",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "41"
+      },
+      {
+        "max_length": "1",
+        "chinese_desc": "投保人的就业状况",
+        "description": "INSURED\u0027S EMPLOYMENT STATUS",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "42",
+        "codetable": "66"
+      },
+      {
+        "max_length": "1",
+        "chinese_desc": "被保险人的性别",
+        "description": "INSURED\u0027S SEX",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "43",
+        "codetable": "1"
+      },
+      {
+        "max_length": "106",
+        "chinese_desc": "投保人的雇主地址",
+        "description": "INSURED\u0027S EMPLOYER ADDRESS",
+        "ifrepeating": "0",
+        "datatype": "AD",
+        "required": "O",
+        "piece": "44"
+      }
+    ],
+    "chinese_desc": "保险",
+    "description": "INSURANCE",
+    "name": "IN1"
+  },
+  {
+    "SegmentSubStructure": [
+      {
+        "max_length": "16",
+        "symbol": "!",
+        "chinese_desc": "前患者身份证-内部",
+        "description": "PRIOR PATIENT ID - INTERNAL",
+        "ifrepeating": "0",
+        "datatype": "CK",
+        "required": "R",
+        "piece": "1",
+        "codetable": "61"
+      },
+      {
+        "max_length": "16",
+        "chinese_desc": "病人之前Alternate ID",
+        "description": "PRIOR ALTERNATE PATIENT ID",
+        "ifrepeating": "0",
+        "datatype": "CK",
+        "required": "O",
+        "piece": "2",
+        "codetable": "61"
+      },
+      {
+        "max_length": "20",
+        "chinese_desc": "患者账户号",
+        "description": "PRIOR PATIENT ACCOUNT NUMBER",
+        "ifrepeating": "0",
+        "datatype": "CK",
+        "required": "O",
+        "piece": "3",
+        "codetable": "61"
+      }
+    ],
+    "chinese_desc": "合并的病人信息",
+    "description": "MERGE PATIENT INFORMATION",
+    "name": "MRG"
+  },
+  {
+    "SegmentSubStructure": [
+      {
+        "max_length": "2",
+        "symbol": "!",
+        "chinese_desc": "确认码",
+        "description": "ACKNOWLEDGMENT CODE",
+        "ifrepeating": "0",
+        "required": "R",
+        "piece": "1",
+        "codetable": "8"
+      },
+      {
+        "max_length": "20",
+        "symbol": "!",
+        "chinese_desc": "消息控制标识",
+        "description": "MESSAGE CONTROL ID",
+        "ifrepeating": "0",
+        "required": "R",
+        "piece": "2"
+      },
+      {
+        "max_length": "80",
+        "chinese_desc": "短信",
+        "description": "TEXT MESSAGE",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "3"
+      },
+      {
+        "max_length": "15",
+        "chinese_desc": "预期序列号",
+        "description": "EXPECTED SEQUENCE NUMBER",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "4"
+      },
+      {
+        "max_length": "1",
+        "chinese_desc": "延迟确认类型",
+        "description": "DELAYED ACKNOWLEDGMENT TYPE",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "5",
+        "codetable": "102"
+      }
+    ],
+    "chinese_desc": "信息确认",
+    "description": "MESSAGE ACKNOWLEDGMENT",
+    "name": "MSA"
+  },
+  {
+    "SegmentSubStructure": [
+      {
+        "max_length": "1",
+        "symbol": "!",
+        "chinese_desc": "字段分隔符",
+        "description": "FIELD SEPARATOR",
+        "ifrepeating": "0",
+        "required": "R",
+        "piece": "1"
+      },
+      {
+        "max_length": "4",
+        "symbol": "!",
+        "chinese_desc": "编码字符",
+        "description": "ENCODING CHARACTERS",
+        "ifrepeating": "0",
+        "required": "R",
+        "piece": "2"
+      },
+      {
+        "max_length": "15",
+        "chinese_desc": "发送应用程序",
+        "description": "SENDING APPLICATION",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "3"
+      },
+      {
+        "max_length": "20",
+        "chinese_desc": "发送设备",
+        "description": "SENDING FACILITY",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "4"
+      },
+      {
+        "max_length": "15",
+        "chinese_desc": "接收应用程序",
+        "description": "RECEIVING APPLICATION",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "5"
+      },
+      {
+        "max_length": "30",
+        "chinese_desc": "接收设备",
+        "description": "RECEIVING FACILITY",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "6"
+      },
+      {
+        "max_length": "19",
+        "chinese_desc": "日期/时间信息",
+        "description": "DATE/TIME OF MESSAGE",
+        "ifrepeating": "0",
+        "datatype": "TS",
+        "required": "O",
+        "piece": "7"
+      },
+      {
+        "max_length": "40",
+        "chinese_desc": "安全",
+        "description": "Security",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "8"
+      },
+      {
+        "max_length": "7",
+        "symbol": "!",
+        "chinese_desc": "消息类型",
+        "description": "MESSAGE TYPE",
+        "ifrepeating": "0",
+        "required": "R",
+        "piece": "9",
+        "codetable": "76"
+      },
+      {
+        "max_length": "20",
+        "symbol": "!",
+        "chinese_desc": "消息控制标识",
+        "description": "MESSAGE CONTROL ID",
+        "ifrepeating": "0",
+        "required": "R",
+        "piece": "10"
+      },
+      {
+        "max_length": "1",
+        "symbol": "!",
+        "chinese_desc": "处理标识",
+        "description": "PROCESSING ID",
+        "ifrepeating": "0",
+        "required": "R",
+        "piece": "11",
+        "codetable": "103"
+      },
+      {
+        "max_length": "8",
+        "symbol": "!",
+        "chinese_desc": "版本号",
+        "description": "VERSION ID",
+        "ifrepeating": "0",
+        "required": "R",
+        "piece": "12",
+        "codetable": "104"
+      },
+      {
+        "max_length": "15",
+        "chinese_desc": "序列号",
+        "description": "SEQUENCE NUMBER",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "13"
+      },
+      {
+        "max_length": "180",
+        "chinese_desc": "继续做",
+        "description": "CONTINUATION POINTER",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "14"
+      }
+    ],
+    "chinese_desc": "消息头",
+    "description": "MESSAGE HEADER",
+    "name": "MSH"
+  },
+  {
+    "SegmentSubStructure": [
+      {
+        "max_length": "10",
+        "chinese_desc": "赛格指数",
+        "description": "Seg Index",
+        "ifrepeating": "0",
+        "altdesc": "Position within the batch shell document where this placeholder segment resides",
+        "required": "R",
+        "piece": "1"
+      },
+      {
+        "max_length": "10",
+        "chinese_desc": "儿童计数",
+        "description": "Child Count",
+        "ifrepeating": "0",
+        "altdesc": "Number of child Message documents embedded within the batch shell document at this placeholder position",
+        "required": "O",
+        "piece": "2"
+      }
+    ],
+    "chinese_desc": "占位符段代表1或更多的消息在消息的批处理文件",
+    "description": "placeholder segment representing 1 or more messages in a Message Batch document",
+    "name": "MessageDocsRef"
+  },
+  {
+    "SegmentSubStructure": [
+      {
+        "max_length": "19",
+        "symbol": "!",
+        "chinese_desc": "系统日期/时间",
+        "description": "SYSTEM DATE/TIME",
+        "ifrepeating": "0",
+        "datatype": "TS",
+        "required": "R",
+        "piece": "1"
+      }
+    ],
+    "chinese_desc": "系统时钟",
+    "description": "SYSTEM CLOCK",
+    "name": "NCK"
+  },
+  {
+    "SegmentSubStructure": [
+      {
+        "max_length": "4",
+        "symbol": "!",
+        "chinese_desc": "设置身份-近亲",
+        "description": "SET ID - NEXT OF KIN",
+        "ifrepeating": "0",
+        "required": "R",
+        "piece": "1"
+      },
+      {
+        "max_length": "48",
+        "chinese_desc": "近亲的名字",
+        "description": "NEXT OF KIN NAME",
+        "ifrepeating": "0",
+        "datatype": "PN",
+        "required": "O",
+        "piece": "2"
+      },
+      {
+        "max_length": "15",
+        "chinese_desc": "近亲关系",
+        "description": "NEXT OF KIN RELATIONSHIP",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "3",
+        "codetable": "63"
+      },
+      {
+        "max_length": "106",
+        "chinese_desc": "下一个亲属地址",
+        "description": "NEXT OF KIN - ADDRESS",
+        "ifrepeating": "0",
+        "datatype": "AD",
+        "required": "O",
+        "piece": "4"
+      },
+      {
+        "max_length": "40",
+        "symbol": "*",
+        "chinese_desc": "近亲电话号码",
+        "description": "NEXT OF KIN - PHONE NUMBER",
+        "ifrepeating": "1",
+        "required": "O",
+        "piece": "5"
+      }
+    ],
+    "chinese_desc": "近亲的",
+    "description": "NEXT OF KIN",
+    "name": "NK1"
+  },
+  {
+    "SegmentSubStructure": [
+      {
+        "max_length": "12",
+        "symbol": "!",
+        "chinese_desc": "床位置",
+        "description": "BED LOCATION",
+        "ifrepeating": "0",
+        "required": "R",
+        "piece": "1",
+        "codetable": "79"
+      },
+      {
+        "max_length": "1",
+        "chinese_desc": "床层状态",
+        "description": "BED STATUS",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "2",
+        "codetable": "116"
+      }
+    ],
+    "chinese_desc": "non-patient更新",
+    "description": "NON-PATIENT UPDATE",
+    "name": "NPU"
+  },
+  {
+    "SegmentSubStructure": [
+      {
+        "max_length": "4",
+        "symbol": "!",
+        "chinese_desc": "网络更改类型",
+        "description": "NETWORK CHANGE TYPE",
+        "ifrepeating": "0",
+        "required": "R",
+        "piece": "1"
+      },
+      {
+        "max_length": "30",
+        "chinese_desc": "当前中央处理器",
+        "description": "CURRENT CPU",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "2"
+      },
+      {
+        "max_length": "30",
+        "chinese_desc": "当前文件服务器",
+        "description": "CURRENT FILESERVER",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "3"
+      },
+      {
+        "max_length": "30",
+        "chinese_desc": "电流应用",
+        "description": "CURRENT APPLICATION",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "4"
+      },
+      {
+        "max_length": "30",
+        "chinese_desc": "现有设施",
+        "description": "CURRENT FACILITY",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "5"
+      },
+      {
+        "max_length": "30",
+        "chinese_desc": "新处理器",
+        "description": "NEW CPU",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "6"
+      },
+      {
+        "max_length": "30",
+        "chinese_desc": "新的文件",
+        "description": "NEW FILESERVER",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "7"
+      },
+      {
+        "max_length": "30",
+        "chinese_desc": "新应用",
+        "description": "NEW APPLICATION",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "8"
+      },
+      {
+        "max_length": "30",
+        "chinese_desc": "新工厂",
+        "description": "NEW FACILITY",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "9"
+      }
+    ],
+    "chinese_desc": "状态变化",
+    "description": "STATUS CHANGE",
+    "name": "NSC"
+  },
+  {
+    "SegmentSubStructure": [
+      {
+        "max_length": "1",
+        "symbol": "!",
+        "chinese_desc": "可用统计",
+        "description": "STATISTICS AVAILABLE",
+        "ifrepeating": "0",
+        "required": "R",
+        "piece": "1"
+      },
+      {
+        "max_length": "30",
+        "chinese_desc": "源标识符",
+        "description": "SOURCE IDENTIFIER",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "2"
+      },
+      {
+        "max_length": "3",
+        "chinese_desc": "来源类型",
+        "description": "SOURCE TYPE",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "3"
+      },
+      {
+        "max_length": "19",
+        "chinese_desc": "统计开始",
+        "description": "STATISTICS START",
+        "ifrepeating": "0",
+        "datatype": "TS",
+        "required": "O",
+        "piece": "4"
+      },
+      {
+        "max_length": "19",
+        "chinese_desc": "统计结束",
+        "description": "STATISTICS END",
+        "ifrepeating": "0",
+        "datatype": "TS",
+        "required": "O",
+        "piece": "5"
+      },
+      {
+        "max_length": "10",
+        "chinese_desc": "接收字符计数",
+        "description": "RECEIVE CHARACTER COUNT",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "6"
+      },
+      {
+        "max_length": "10",
+        "chinese_desc": "发送字符计数",
+        "description": "SEND CHARACTER COUNT",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "7"
+      },
+      {
+        "max_length": "10",
+        "chinese_desc": "收到的消息",
+        "description": "MESSAGES RECEIVED",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "8"
+      },
+      {
+        "max_length": "10",
+        "chinese_desc": "发送消息",
+        "description": "MESSAGES SENT",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "9"
+      },
+      {
+        "max_length": "10",
+        "chinese_desc": "校验收到的错误",
+        "description": "CHECKSUM ERRORS RECEIVED",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "10"
+      },
+      {
+        "max_length": "10",
+        "chinese_desc": "接收长度错误",
+        "description": "LENGTH ERRORS RECEIVED",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "11"
+      },
+      {
+        "max_length": "10",
+        "chinese_desc": "收到的其他错误",
+        "description": "OTHER ERRORS RECEIVED",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "12"
+      },
+      {
+        "max_length": "10",
+        "chinese_desc": "连接超时",
+        "description": "CONNECT TIMEOUTS",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "13"
+      },
+      {
+        "max_length": "10",
+        "chinese_desc": "接收超时",
+        "description": "RECEIVE TIMEOUTS",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "14"
+      },
+      {
+        "max_length": "10",
+        "chinese_desc": "网络错误",
+        "description": "NETWORK ERRORS",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "15"
+      }
+    ],
+    "chinese_desc": "统计",
+    "description": "STATISTICS",
+    "name": "NST"
+  },
+  {
+    "SegmentSubStructure": [
+      {
+        "max_length": "4",
+        "chinese_desc": "设置标识-注释和注释",
+        "description": "SET ID - NOTES AND COMMENTS",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "1"
+      },
+      {
+        "max_length": "8",
+        "chinese_desc": "评论来源",
+        "description": "SOURCE OF COMMENT",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "2",
+        "codetable": "105"
+      },
+      {
+        "max_length": "120",
+        "symbol": "+",
+        "chinese_desc": "评论",
+        "description": "COMMENT",
+        "ifrepeating": "1",
+        "required": "R",
+        "piece": "3"
+      }
+    ],
+    "chinese_desc": "注释和注释",
+    "description": "NOTES AND COMMENTS",
+    "name": "NTE"
+  },
+  {
+    "SegmentSubStructure": [
+      {
+        "max_length": "4",
+        "chinese_desc": "设置标识-观察请求",
+        "description": "SET ID - OBSERVATION REQUEST",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "1"
+      },
+      {
+        "max_length": "75",
+        "chinese_desc": "为了#砂矿",
+        "description": "PLACER ORDER #",
+        "ifrepeating": "0",
+        "datatype": "CM",
+        "required": "O",
+        "piece": "2"
+      },
+      {
+        "max_length": "75",
+        "chinese_desc": "为了#填料",
+        "description": "FILLER ORDER #",
+        "ifrepeating": "0",
+        "datatype": "CM",
+        "required": "O",
+        "piece": "3"
+      },
+      {
+        "max_length": "200",
+        "symbol": "!",
+        "chinese_desc": "普遍服务的识别。",
+        "description": "UNIVERSAL SERVICE IDENT.",
+        "ifrepeating": "0",
+        "datatype": "CE",
+        "required": "R",
+        "piece": "4"
+      },
+      {
+        "max_length": "2",
+        "chinese_desc": "优先",
+        "description": "PRIORITY",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "5"
+      },
+      {
+        "max_length": "19",
+        "chinese_desc": "如requested单极",
+        "description": "REQUESTED DATE-TIME",
+        "ifrepeating": "0",
+        "datatype": "TS",
+        "required": "O",
+        "piece": "6"
+      },
+      {
+        "max_length": "19",
+        "symbol": "!",
+        "chinese_desc": "日期/时间的观察",
+        "description": "OBSERVATION DATE/TIME",
+        "ifrepeating": "0",
+        "datatype": "TS",
+        "required": "R",
+        "piece": "7"
+      },
+      {
+        "max_length": "19",
+        "symbol": "!",
+        "chinese_desc": "观察结束日期/时间",
+        "description": "OBSERVATION END DATE/TIME",
+        "ifrepeating": "0",
+        "datatype": "TS",
+        "required": "R",
+        "piece": "8"
+      },
+      {
+        "max_length": "20",
+        "symbol": "!",
+        "chinese_desc": "收藏量",
+        "description": "COLLECTION VOLUME",
+        "ifrepeating": "0",
+        "datatype": "CQ",
+        "required": "R",
+        "piece": "9",
+        "codetable": "36"
+      },
+      {
+        "max_length": "60",
+        "symbol": "*",
+        "chinese_desc": "集电极标识符",
+        "description": "COLLECTOR IDENTIFIER",
+        "ifrepeating": "1",
+        "datatype": "CN",
+        "required": "O",
+        "piece": "10"
+      },
+      {
+        "max_length": "1",
+        "chinese_desc": "试样动作码",
+        "description": "SPECIMEN ACTION CODE",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "11",
+        "codetable": "65"
+      },
+      {
+        "max_length": "60",
+        "chinese_desc": "危险代码",
+        "description": "DANGER CODE",
+        "ifrepeating": "0",
+        "datatype": "CM",
+        "required": "O",
+        "piece": "12",
+        "codetable": "47"
+      },
+      {
+        "max_length": "300",
+        "chinese_desc": "相关临床资料。",
+        "description": "RELEVANT CLINICAL INFO.",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "13"
+      },
+      {
+        "max_length": "19",
+        "symbol": "!",
+        "chinese_desc": "接收日期/时间",
+        "description": "SPECIMEN RECEIVED DATE/TIME",
+        "ifrepeating": "0",
+        "datatype": "TS",
+        "required": "R",
+        "piece": "14"
+      },
+      {
+        "max_length": "300",
+        "chinese_desc": "标本来源",
+        "description": "SPECIMEN SOURCE",
+        "ifrepeating": "0",
+        "datatype": "CM",
+        "required": "O",
+        "piece": "15",
+        "codetable": "70"
+      },
+      {
+        "max_length": "60",
+        "symbol": "*",
+        "chinese_desc": "订货商",
+        "description": "ORDERING PROVIDER",
+        "ifrepeating": "1",
+        "datatype": "CN",
+        "required": "O",
+        "piece": "16",
+        "codetable": "10"
+      },
+      {
+        "max_length": "40",
+        "symbol": "*",
+        "chinese_desc": "为了call-back电话号码",
+        "description": "ORDER CALL-BACK PHONE NUM",
+        "ifrepeating": "1",
+        "required": "O",
+        "repeatcount": "2",
+        "piece": "17"
+      },
+      {
+        "max_length": "60",
+        "chinese_desc": "#砂矿领域1",
+        "description": "PLACERS FIELD #1",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "18"
+      },
+      {
+        "max_length": "60",
+        "chinese_desc": "#砂矿领域2",
+        "description": "PLACERS FIELD #2",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "19"
+      },
+      {
+        "max_length": "60",
+        "chinese_desc": "1场#填料",
+        "description": "FILLERS FIELD #1",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "20"
+      },
+      {
+        "max_length": "60",
+        "chinese_desc": "2场#填料",
+        "description": "FILLERS FIELD #2",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "21"
+      },
+      {
+        "max_length": "19",
+        "symbol": "!",
+        "chinese_desc": "结果报告/状态庄-日期/时间",
+        "description": "RESULTS RPT/STATUS CHNG - DATE/TIME",
+        "ifrepeating": "0",
+        "datatype": "TS",
+        "required": "R",
+        "piece": "22"
+      },
+      {
+        "max_length": "40",
+        "chinese_desc": "实践费用",
+        "description": "CHARGE TO PRACTICE",
+        "ifrepeating": "0",
+        "datatype": "CM",
+        "required": "O",
+        "piece": "23"
+      },
+      {
+        "max_length": "10",
+        "chinese_desc": "诊断服务组ID",
+        "description": "DIAGNOSTIC SERV SECT ID",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "24",
+        "codetable": "74"
+      },
+      {
+        "max_length": "1",
+        "chinese_desc": "结果状态",
+        "description": "RESULT STATUS",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "25",
+        "codetable": "123"
+      },
+      {
+        "max_length": "200",
+        "chinese_desc": "联系结果",
+        "description": "LINKED RESULTS",
+        "ifrepeating": "0",
+        "datatype": "CE",
+        "required": "O",
+        "piece": "26"
+      },
+      {
+        "max_length": "200",
+        "symbol": "*",
+        "chinese_desc": "数量/时间",
+        "description": "QUANTITY/TIMING",
+        "ifrepeating": "1",
+        "datatype": "CM",
+        "required": "O",
+        "piece": "27"
+      },
+      {
+        "max_length": "80",
+        "symbol": "*",
+        "chinese_desc": "结果复制到",
+        "description": "RESULT COPIES TO",
+        "ifrepeating": "1",
+        "datatype": "CN",
+        "required": "O",
+        "repeatcount": "5",
+        "piece": "28"
+      },
+      {
+        "max_length": "150",
+        "chinese_desc": "家长加入#",
+        "description": "PARENT ACCESSION #",
+        "ifrepeating": "0",
+        "datatype": "CM",
+        "required": "O",
+        "piece": "29"
+      },
+      {
+        "max_length": "20",
+        "chinese_desc": "运输方式",
+        "description": "TRANSPORTATION MODE",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "30",
+        "codetable": "124"
+      },
+      {
+        "max_length": "300",
+        "symbol": "*",
+        "chinese_desc": "学习原因",
+        "description": "REASON FOR STUDY",
+        "ifrepeating": "1",
+        "datatype": "CE",
+        "required": "O",
+        "piece": "31"
+      },
+      {
+        "max_length": "60",
+        "chinese_desc": "结果interpreter委托",
+        "description": "PRINCIPAL RESULT INTERPRETER",
+        "ifrepeating": "0",
+        "datatype": "CN",
+        "required": "O",
+        "piece": "32"
+      },
+      {
+        "max_length": "60",
+        "chinese_desc": "辅助结果翻译",
+        "description": "ASSISTANT RESULT INTERPRETER",
+        "ifrepeating": "0",
+        "datatype": "CN",
+        "required": "O",
+        "piece": "33"
+      },
+      {
+        "max_length": "60",
+        "chinese_desc": "技术员",
+        "description": "TECHNICIAN",
+        "ifrepeating": "0",
+        "datatype": "CN",
+        "required": "O",
+        "piece": "34"
+      },
+      {
+        "max_length": "60",
+        "chinese_desc": "记录员",
+        "description": "TRANSCRIPTIONIST",
+        "ifrepeating": "0",
+        "datatype": "CN",
+        "required": "O",
+        "piece": "35"
+      },
+      {
+        "max_length": "19",
+        "chinese_desc": "scheduled -单极/红旗",
+        "description": "SCHEDULED - DATE/TIME",
+        "ifrepeating": "0",
+        "datatype": "TS",
+        "required": "O",
+        "piece": "36"
+      }
+    ],
+    "chinese_desc": "观测要求",
+    "description": "OBSERVATION REQUEST",
+    "name": "OBR"
+  },
+  {
+    "SegmentSubStructure": [
+      {
+        "max_length": "4",
+        "chinese_desc": "设置标识-观察简单",
+        "description": "SET ID - OBSERVATION SIMPLE",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "1"
+      },
+      {
+        "max_length": "2",
+        "chinese_desc": "价值类型",
+        "description": "VALUE TYPE",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "2",
+        "codetable": "125"
+      },
+      {
+        "max_length": "80",
+        "symbol": "!",
+        "chinese_desc": "观察识别",
+        "description": "OBSERVATION IDENTIFIER",
+        "ifrepeating": "0",
+        "datatype": "CE",
+        "required": "R",
+        "piece": "3"
+      },
+      {
+        "max_length": "20",
+        "chinese_desc": "观察sub-id",
+        "description": "OBSERVATION SUB-ID",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "4"
+      },
+      {
+        "max_length": "65",
+        "symbol": "!",
+        "chinese_desc": "观察结果",
+        "description": "OBSERVATION RESULTS",
+        "ifrepeating": "0",
+        "required": "R",
+        "piece": "5"
+      },
+      {
+        "max_length": "20",
+        "chinese_desc": "单位",
+        "description": "UNITS",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "6"
+      },
+      {
+        "max_length": "60",
+        "chinese_desc": "参考范围",
+        "description": "REFERENCES RANGE",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "7"
+      },
+      {
+        "max_length": "10",
+        "symbol": "*",
+        "chinese_desc": "异常标志",
+        "description": "ABNORMAL FLAGS",
+        "ifrepeating": "1",
+        "required": "O",
+        "repeatcount": "5",
+        "piece": "8",
+        "codetable": "78"
+      },
+      {
+        "max_length": "5",
+        "chinese_desc": "概率",
+        "description": "PROBABILITY",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "9"
+      },
+      {
+        "max_length": "5",
+        "chinese_desc": "异常测试的性质",
+        "description": "NATURE OF ABNORMAL TEST",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "10",
+        "codetable": "80"
+      },
+      {
+        "max_length": "2",
+        "chinese_desc": "老年status Dramane",
+        "description": "OBSERV RESULT STATUS",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "11",
+        "codetable": "85"
+      },
+      {
+        "max_length": "19",
+        "chinese_desc": "日期最后OBS正常值",
+        "description": "DATE LAST OBS NORMAL VALUES",
+        "ifrepeating": "0",
+        "datatype": "TS",
+        "required": "O",
+        "piece": "12"
+      }
+    ],
+    "chinese_desc": "结果",
+    "description": "RESULT",
+    "name": "OBX"
+  },
+  {
+    "SegmentSubStructure": [
+      {
+        "max_length": "2",
+        "symbol": "!",
+        "chinese_desc": "订单控制",
+        "description": "ORDER CONTROL",
+        "ifrepeating": "0",
+        "required": "R",
+        "piece": "1",
+        "codetable": "119"
+      },
+      {
+        "max_length": "75",
+        "chinese_desc": "为了#砂矿",
+        "description": "PLACER ORDER #",
+        "ifrepeating": "0",
+        "datatype": "CM",
+        "required": "O",
+        "piece": "2"
+      },
+      {
+        "max_length": "75",
+        "chinese_desc": "为了#填料",
+        "description": "FILLER ORDER #",
+        "ifrepeating": "0",
+        "datatype": "CM",
+        "required": "O",
+        "piece": "3"
+      },
+      {
+        "max_length": "75",
+        "chinese_desc": "#娱乐集团",
+        "description": "PLACER GROUP #",
+        "ifrepeating": "0",
+        "datatype": "CM",
+        "required": "O",
+        "piece": "4"
+      },
+      {
+        "max_length": "2",
+        "chinese_desc": "订单状态",
+        "description": "ORDER STATUS",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "5",
+        "codetable": "38"
+      },
+      {
+        "max_length": "1",
+        "chinese_desc": "反应标志",
+        "description": "RESPONSE FLAG",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "6",
+        "codetable": "121"
+      },
+      {
+        "max_length": "200",
+        "chinese_desc": "时间/数量",
+        "description": "TIMING/QUANTITY",
+        "ifrepeating": "0",
+        "datatype": "CM",
+        "required": "O",
+        "piece": "7"
+      },
+      {
+        "max_length": "200",
+        "chinese_desc": "母",
+        "description": "PARENT",
+        "ifrepeating": "0",
+        "datatype": "CM",
+        "required": "O",
+        "piece": "8"
+      },
+      {
+        "max_length": "19",
+        "chinese_desc": "交易日期/时间",
+        "description": "DATE/TIME OF TRANSACTION",
+        "ifrepeating": "0",
+        "datatype": "TS",
+        "required": "O",
+        "piece": "9"
+      },
+      {
+        "max_length": "80",
+        "chinese_desc": "进入",
+        "description": "ENTERED BY",
+        "ifrepeating": "0",
+        "datatype": "CN",
+        "required": "O",
+        "piece": "10"
+      },
+      {
+        "max_length": "80",
+        "chinese_desc": "经核实",
+        "description": "VERIFIED BY",
+        "ifrepeating": "0",
+        "datatype": "CN",
+        "required": "O",
+        "piece": "11"
+      },
+      {
+        "max_length": "80",
+        "chinese_desc": "订货商",
+        "description": "ORDERING PROVIDER",
+        "ifrepeating": "0",
+        "datatype": "CN",
+        "required": "O",
+        "piece": "12"
+      },
+      {
+        "max_length": "80",
+        "chinese_desc": "进入者的位置",
+        "description": "ENTERER\u0027S LOCATION",
+        "ifrepeating": "0",
+        "datatype": "CM",
+        "required": "O",
+        "piece": "13"
+      },
+      {
+        "max_length": "40",
+        "symbol": "*",
+        "chinese_desc": "打电话回电话号码",
+        "description": "CALL BACK PHONE NUMBER",
+        "ifrepeating": "1",
+        "required": "O",
+        "repeatcount": "2",
+        "piece": "14"
+      }
+    ],
+    "chinese_desc": "公共秩序",
+    "description": "COMMON ORDER",
+    "name": "ORC"
+  },
+  {
+    "SegmentSubStructure": [
+      {
+        "max_length": "200",
+        "chinese_desc": "订单项目编号",
+        "description": "ORDER ITEM ID",
+        "ifrepeating": "0",
+        "datatype": "CE",
+        "required": "O",
+        "piece": "1"
+      },
+      {
+        "max_length": "1",
+        "chinese_desc": "允许替换",
+        "description": "SUBSTITUTE ALLOWED",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "2"
+      },
+      {
+        "max_length": "80",
+        "symbol": "*",
+        "chinese_desc": "结果复制到",
+        "description": "RESULTS COPIES TO",
+        "ifrepeating": "1",
+        "datatype": "CN",
+        "required": "O",
+        "piece": "3"
+      },
+      {
+        "max_length": "2",
+        "chinese_desc": "库存位置",
+        "description": "STOCK LOCATION",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "4",
+        "codetable": "12"
+      }
+    ],
+    "chinese_desc": "订单",
+    "description": "ORDER OTHER",
+    "name": "ORO"
+  },
+  {
+    "SegmentSubStructure": [
+      
+    ],
+    "chinese_desc": "病人的人口统计",
+    "description": "PATIENT DEMOGRAPHICS",
+    "name": "PD1"
+  },
+  {
+    "SegmentSubStructure": [
+      {
+        "max_length": "4",
+        "chinese_desc": "设置身份证",
+        "description": "SET ID - PATIENT ID",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "1"
+      },
+      {
+        "max_length": "16",
+        "chinese_desc": "病人身份（外部标识）",
+        "description": "PATIENT ID EXTERNAL (EXTERNAL ID)",
+        "ifrepeating": "0",
+        "datatype": "CK",
+        "required": "O",
+        "piece": "2",
+        "codetable": "61"
+      },
+      {
+        "max_length": "16",
+        "symbol": "!",
+        "chinese_desc": "病人身份证（内部编号）",
+        "description": "PATIENT ID INTERNAL (INTERNAL ID)",
+        "ifrepeating": "0",
+        "datatype": "CK",
+        "required": "R",
+        "piece": "3",
+        "codetable": "61"
+      },
+      {
+        "max_length": "12",
+        "chinese_desc": "病人Alternate ID",
+        "description": "ALTERNATE PATIENT ID",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "4"
+      },
+      {
+        "max_length": "48",
+        "symbol": "!",
+        "chinese_desc": "病人姓名",
+        "description": "PATIENT NAME",
+        "ifrepeating": "0",
+        "datatype": "PN",
+        "required": "R",
+        "piece": "5"
+      },
+      {
+        "max_length": "30",
+        "chinese_desc": "母亲的娘家姓",
+        "description": "MOTHER\u0027S MAIDEN NAME",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "6"
+      },
+      {
+        "max_length": "8",
+        "chinese_desc": "出生日期",
+        "description": "DATE OF BIRTH",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "7"
+      },
+      {
+        "max_length": "1",
+        "chinese_desc": "性别",
+        "description": "SEX",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "8",
+        "codetable": "1"
+      },
+      {
+        "max_length": "48",
+        "symbol": "*",
+        "chinese_desc": "患者别名",
+        "description": "PATIENT ALIAS",
+        "ifrepeating": "1",
+        "datatype": "PN",
+        "required": "O",
+        "piece": "9"
+      },
+      {
+        "max_length": "1",
+        "chinese_desc": "族群",
+        "description": "ETHNIC GROUP",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "10",
+        "codetable": "5"
+      },
+      {
+        "max_length": "106",
+        "chinese_desc": "患者地址",
+        "description": "PATIENT ADDRESS",
+        "ifrepeating": "0",
+        "datatype": "AD",
+        "required": "O",
+        "piece": "11"
+      },
+      {
+        "max_length": "4",
+        "chinese_desc": "县码",
+        "description": "COUNTY CODE",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "12"
+      },
+      {
+        "max_length": "40",
+        "symbol": "*",
+        "chinese_desc": "电话号码-家",
+        "description": "PHONE NUMBER - HOME",
+        "ifrepeating": "1",
+        "required": "O",
+        "repeatcount": "3",
+        "piece": "13"
+      },
+      {
+        "max_length": "40",
+        "symbol": "*",
+        "chinese_desc": "电话号码-业务",
+        "description": "PHONE NUMBER - BUSINESS",
+        "ifrepeating": "1",
+        "required": "O",
+        "repeatcount": "3",
+        "piece": "14"
+      },
+      {
+        "max_length": "25",
+        "chinese_desc": "语言的病人",
+        "description": "LANGUAGE - PATIENT",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "15"
+      },
+      {
+        "max_length": "1",
+        "chinese_desc": "婚姻状况",
+        "description": "MARITAL STATUS",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "16",
+        "codetable": "2"
+      },
+      {
+        "max_length": "3",
+        "chinese_desc": "宗教",
+        "description": "RELIGION",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "17",
+        "codetable": "6"
+      },
+      {
+        "max_length": "20",
+        "chinese_desc": "病人帐号",
+        "description": "PATIENT ACCOUNT NUMBER",
+        "ifrepeating": "0",
+        "datatype": "CK",
+        "required": "O",
+        "piece": "18",
+        "codetable": "61"
+      },
+      {
+        "max_length": "16",
+        "chinese_desc": "SSN号码病人",
+        "description": "SSN NUMBER - PATIENT",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "19"
+      },
+      {
+        "max_length": "25",
+        "chinese_desc": "驾驶lic民患",
+        "description": "DRIVER\u0027S LIC NUM - PATIENT",
+        "ifrepeating": "0",
+        "datatype": "CM",
+        "required": "O",
+        "piece": "20"
+      }
+    ],
+    "chinese_desc": "病人识别",
+    "description": "PATIENT IDENTIFICATION",
+    "name": "PID"
+  },
+  {
+    "SegmentSubStructure": [
+      {
+        "max_length": "4",
+        "symbol": "+",
+        "chinese_desc": "设置标识程序",
+        "description": "SET ID - PROCEDURE",
+        "ifrepeating": "1",
+        "required": "R",
+        "piece": "1"
+      },
+      {
+        "max_length": "2",
+        "symbol": "!",
+        "chinese_desc": "程序编码方法。",
+        "description": "PROCEDURE CODING METHOD.",
+        "ifrepeating": "0",
+        "required": "R",
+        "piece": "2",
+        "codetable": "89"
+      },
+      {
+        "max_length": "10",
+        "symbol": "!",
+        "chinese_desc": "程序代码",
+        "description": "PROCEDURE CODE",
+        "ifrepeating": "0",
+        "required": "R",
+        "piece": "3",
+        "codetable": "88"
+      },
+      {
+        "max_length": "40",
+        "chinese_desc": "过程描述",
+        "description": "PROCEDURE DESCRIPTION",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "4"
+      },
+      {
+        "max_length": "19",
+        "symbol": "!",
+        "chinese_desc": "程序日期/时间",
+        "description": "PROCEDURE DATE/TIME",
+        "ifrepeating": "0",
+        "datatype": "TS",
+        "required": "R",
+        "piece": "5"
+      },
+      {
+        "max_length": "2",
+        "symbol": "!",
+        "chinese_desc": "程序类型",
+        "description": "PROCEDURE TYPE",
+        "ifrepeating": "0",
+        "required": "R",
+        "piece": "6",
+        "codetable": "90"
+      },
+      {
+        "max_length": "4",
+        "chinese_desc": "程序分钟",
+        "description": "PROCEDURE MINUTES",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "7"
+      },
+      {
+        "max_length": "60",
+        "chinese_desc": "麻醉师",
+        "description": "ANESTHESIOLOGIST",
+        "ifrepeating": "0",
+        "datatype": "CN",
+        "required": "O",
+        "piece": "8",
+        "codetable": "10"
+      },
+      {
+        "max_length": "2",
+        "chinese_desc": "麻醉规范",
+        "description": "ANESTHESIA CODE",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "9",
+        "codetable": "19"
+      },
+      {
+        "max_length": "4",
+        "chinese_desc": "麻醉分钟",
+        "description": "ANESTHESIA MINUTES",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "10"
+      },
+      {
+        "max_length": "60",
+        "chinese_desc": "外科医生",
+        "description": "SURGEON",
+        "ifrepeating": "0",
+        "datatype": "CN",
+        "required": "O",
+        "piece": "11",
+        "codetable": "10"
+      },
+      {
+        "max_length": "60",
+        "chinese_desc": "驻留代码",
+        "description": "RESIDENT CODE",
+        "ifrepeating": "0",
+        "datatype": "CN",
+        "required": "O",
+        "piece": "12",
+        "codetable": "10"
+      },
+      {
+        "max_length": "2",
+        "chinese_desc": "同意码",
+        "description": "CONSENT CODE",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "13",
+        "codetable": "59"
+      }
+    ],
+    "chinese_desc": "程序",
+    "description": "PROCEDURES",
+    "name": "PR1"
+  },
+  {
+    "SegmentSubStructure": [
+      {
+        "max_length": "4",
+        "chinese_desc": "设置身份证",
+        "description": "SET ID - PATIENT VISIT",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "1"
+      },
+      {
+        "max_length": "1",
+        "symbol": "!",
+        "chinese_desc": "病人类",
+        "description": "PATIENT CLASS",
+        "ifrepeating": "0",
+        "required": "R",
+        "piece": "2",
+        "codetable": "4"
+      },
+      {
+        "max_length": "12",
+        "symbol": "!",
+        "chinese_desc": "指定患者位置",
+        "description": "ASSIGNED PATIENT LOCATION",
+        "ifrepeating": "0",
+        "required": "R",
+        "piece": "3",
+        "codetable": "79"
+      },
+      {
+        "max_length": "2",
+        "chinese_desc": "录取类型",
+        "description": "ADMISSION TYPE",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "4",
+        "codetable": "7"
+      },
+      {
+        "max_length": "20",
+        "chinese_desc": "前承认数",
+        "description": "PRE-ADMIT NUMBER",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "5"
+      },
+      {
+        "max_length": "12",
+        "chinese_desc": "患者位置前",
+        "description": "PRIOR PATIENT LOCATION",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "6",
+        "codetable": "79"
+      },
+      {
+        "max_length": "60",
+        "chinese_desc": "主治医生",
+        "description": "ATTENDING DOCTOR",
+        "ifrepeating": "0",
+        "datatype": "CN",
+        "required": "O",
+        "piece": "7",
+        "codetable": "10"
+      },
+      {
+        "max_length": "60",
+        "chinese_desc": "指医生",
+        "description": "REFERRING DOCTOR",
+        "ifrepeating": "0",
+        "datatype": "CN",
+        "required": "O",
+        "piece": "8",
+        "codetable": "10"
+      },
+      {
+        "max_length": "60",
+        "symbol": "*",
+        "chinese_desc": "咨询医生",
+        "description": "CONSULTING DOCTOR",
+        "ifrepeating": "1",
+        "datatype": "CN",
+        "required": "O",
+        "piece": "9",
+        "codetable": "10"
+      },
+      {
+        "max_length": "3",
+        "chinese_desc": "医院服务",
+        "description": "HOSPITAL SERVICE",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "10",
+        "codetable": "69"
+      },
+      {
+        "max_length": "12",
+        "chinese_desc": "临时位置",
+        "description": "TEMPORARY LOCATION",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "11",
+        "codetable": "79"
+      },
+      {
+        "max_length": "2",
+        "chinese_desc": "没有预测试指示灯",
+        "description": "PRE-ADMIT TEST INDICATOR",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "12",
+        "codetable": "87"
+      },
+      {
+        "max_length": "2",
+        "chinese_desc": "re-admission指示器",
+        "description": "RE-ADMISSION INDICATOR",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "13",
+        "codetable": "92"
+      },
+      {
+        "max_length": "3",
+        "chinese_desc": "承认来源",
+        "description": "ADMIT SOURCE",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "14",
+        "codetable": "23"
+      },
+      {
+        "max_length": "2",
+        "chinese_desc": "动态状态",
+        "description": "AMBULATORY STATUS",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "15",
+        "codetable": "9"
+      },
+      {
+        "max_length": "2",
+        "chinese_desc": "贵宾指示",
+        "description": "VIP INDICATOR",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "16",
+        "codetable": "99"
+      },
+      {
+        "max_length": "60",
+        "chinese_desc": "承认医生",
+        "description": "ADMITTING DOCTOR",
+        "ifrepeating": "0",
+        "datatype": "CN",
+        "required": "O",
+        "piece": "17",
+        "codetable": "10"
+      },
+      {
+        "max_length": "2",
+        "chinese_desc": "患者类型",
+        "description": "PATIENT TYPE",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "18",
+        "codetable": "18"
+      },
+      {
+        "max_length": "4",
+        "chinese_desc": "参观人数",
+        "description": "VISIT NUMBER",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "19"
+      },
+      {
+        "max_length": "11",
+        "symbol": "*",
+        "chinese_desc": "金融类",
+        "description": "FINANCIAL CLASS",
+        "ifrepeating": "1",
+        "required": "O",
+        "repeatcount": "4",
+        "piece": "20",
+        "codetable": "64"
+      },
+      {
+        "max_length": "2",
+        "chinese_desc": "收费价格指标",
+        "description": "CHARGE PRICE INDICATOR",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "21",
+        "codetable": "32"
+      },
+      {
+        "max_length": "2",
+        "chinese_desc": "礼貌码",
+        "description": "COURTESY CODE",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "22",
+        "codetable": "45"
+      },
+      {
+        "max_length": "2",
+        "chinese_desc": "信用等级",
+        "description": "CREDIT RATING",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "23",
+        "codetable": "46"
+      },
+      {
+        "max_length": "2",
+        "symbol": "*",
+        "chinese_desc": "合同代码",
+        "description": "CONTRACT CODE",
+        "ifrepeating": "1",
+        "required": "O",
+        "piece": "24",
+        "codetable": "44"
+      },
+      {
+        "max_length": "8",
+        "symbol": "*",
+        "chinese_desc": "合同生效日",
+        "description": "CONTRACT EFFECTIVE DATE",
+        "ifrepeating": "1",
+        "required": "O",
+        "piece": "25"
+      },
+      {
+        "max_length": "12",
+        "symbol": "*",
+        "chinese_desc": "合同金额",
+        "description": "CONTRACT AMOUNT",
+        "ifrepeating": "1",
+        "required": "O",
+        "piece": "26"
+      },
+      {
+        "max_length": "3",
+        "symbol": "*",
+        "chinese_desc": "合同期限",
+        "description": "CONTRACT PERIOD",
+        "ifrepeating": "1",
+        "required": "O",
+        "piece": "27"
+      },
+      {
+        "max_length": "2",
+        "chinese_desc": "兴趣码",
+        "description": "INTEREST CODE",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "28",
+        "codetable": "73"
+      },
+      {
+        "max_length": "1",
+        "chinese_desc": "转移到不好的债务代码",
+        "description": "TRANSFER TO BAD DEBT CODE",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "29",
+        "codetable": "110"
+      },
+      {
+        "max_length": "8",
+        "chinese_desc": "转移到坏账日期",
+        "description": "TRANSFER TO BAD DEBT DATE",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "30"
+      },
+      {
+        "max_length": "10",
+        "chinese_desc": "不良债务代理代码",
+        "description": "BAD DEBT AGENCY CODE",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "31",
+        "codetable": "21"
+      },
+      {
+        "max_length": "12",
+        "chinese_desc": "坏账转移金额",
+        "description": "BAD DEBT TRANSFER AMOUNT",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "32"
+      },
+      {
+        "max_length": "12",
+        "chinese_desc": "坏账回收金额",
+        "description": "BAD DEBT RECOVERY AMOUNT",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "33"
+      },
+      {
+        "max_length": "1",
+        "chinese_desc": "删除帐户指示器",
+        "description": "DELETE ACCOUNT INDICATOR",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "34",
+        "codetable": "111"
+      },
+      {
+        "max_length": "8",
+        "chinese_desc": "删除帐户日期",
+        "description": "DELETE ACCOUNT DATE",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "35"
+      },
+      {
+        "max_length": "2",
+        "chinese_desc": "卸货条款",
+        "description": "DISCHARGE DISPOSITION",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "36",
+        "codetable": "112"
+      },
+      {
+        "max_length": "2",
+        "chinese_desc": "排到位置",
+        "description": "DISCHARGED TO LOCATION",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "37",
+        "codetable": "113"
+      },
+      {
+        "max_length": "2",
+        "chinese_desc": "膳食类型",
+        "description": "DIET TYPE",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "38",
+        "codetable": "114"
+      },
+      {
+        "max_length": "2",
+        "chinese_desc": "维修设施",
+        "description": "SERVICING FACILITY",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "39",
+        "codetable": "115"
+      },
+      {
+        "max_length": "1",
+        "chinese_desc": "床层状态",
+        "description": "BED STATUS",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "40",
+        "codetable": "116"
+      },
+      {
+        "max_length": "2",
+        "chinese_desc": "帐户状态",
+        "description": "ACCOUNT STATUS",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "41",
+        "codetable": "117"
+      },
+      {
+        "max_length": "12",
+        "chinese_desc": "挂起位置",
+        "description": "PENDING LOCATION",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "42",
+        "codetable": "79"
+      },
+      {
+        "max_length": "12",
+        "chinese_desc": "临时位置",
+        "description": "PRIOR TEMPORARY LOCATION",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "43",
+        "codetable": "79"
+      },
+      {
+        "max_length": "19",
+        "chinese_desc": "没有日期/时间",
+        "description": "ADMIT DATE/TIME",
+        "ifrepeating": "0",
+        "datatype": "TS",
+        "required": "O",
+        "piece": "44"
+      },
+      {
+        "max_length": "19",
+        "chinese_desc": "放电的日期/时间",
+        "description": "DISCHARGE DATE/TIME",
+        "ifrepeating": "0",
+        "datatype": "TS",
+        "required": "O",
+        "piece": "45"
+      },
+      {
+        "max_length": "12",
+        "chinese_desc": "当前患者平衡",
+        "description": "CURRENT PATIENT BALANCE",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "46"
+      },
+      {
+        "max_length": "12",
+        "chinese_desc": "总费用",
+        "description": "TOTAL CHARGES",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "47"
+      },
+      {
+        "max_length": "12",
+        "chinese_desc": "总调整",
+        "description": "TOTAL ADJUSTMENTS",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "48"
+      },
+      {
+        "max_length": "12",
+        "chinese_desc": "总付款",
+        "description": "TOTAL PAYMENTS",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "49"
+      }
+    ],
+    "chinese_desc": "病人访问",
+    "description": "PATIENT VISIT",
+    "name": "PV1"
+  },
+  {
+    "SegmentSubStructure": [
+      {
+        "max_length": "19",
+        "symbol": "!",
+        "chinese_desc": "查询日期/时间",
+        "description": "QUERY DATE/TIME",
+        "ifrepeating": "0",
+        "datatype": "TS",
+        "required": "R",
+        "piece": "1"
+      },
+      {
+        "max_length": "1",
+        "symbol": "!",
+        "chinese_desc": "查询格式代码",
+        "description": "QUERY FORMAT CODE",
+        "ifrepeating": "0",
+        "required": "R",
+        "piece": "2",
+        "codetable": "106"
+      },
+      {
+        "max_length": "1",
+        "symbol": "!",
+        "chinese_desc": "查询优先级",
+        "description": "QUERY PRIORITY",
+        "ifrepeating": "0",
+        "required": "R",
+        "piece": "3",
+        "codetable": "91"
+      },
+      {
+        "max_length": "10",
+        "symbol": "!",
+        "chinese_desc": "查询标识",
+        "description": "QUERY ID",
+        "ifrepeating": "0",
+        "required": "R",
+        "piece": "4"
+      },
+      {
+        "max_length": "1",
+        "chinese_desc": "递延反应类型",
+        "description": "DEFERRED RESPONSE TYPE",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "5",
+        "codetable": "107"
+      },
+      {
+        "max_length": "19",
+        "chinese_desc": "递延反应时间/时间",
+        "description": "DEFERRED RESPONSE DATE/TIME",
+        "ifrepeating": "0",
+        "datatype": "TS",
+        "required": "O",
+        "piece": "6"
+      },
+      {
+        "max_length": "5",
+        "symbol": "!",
+        "chinese_desc": "数量有限的要求",
+        "description": "QUANTITY LIMITED REQUEST",
+        "ifrepeating": "0",
+        "datatype": "CQ",
+        "required": "R",
+        "piece": "7",
+        "codetable": "126"
+      },
+      {
+        "max_length": "20",
+        "symbol": "+",
+        "chinese_desc": "谁的主题过滤器",
+        "description": "WHO SUBJECT FILTER",
+        "ifrepeating": "1",
+        "required": "R",
+        "piece": "8"
+      },
+      {
+        "max_length": "3",
+        "symbol": "+",
+        "chinese_desc": "什么主题过滤器",
+        "description": "WHAT SUBJECT FILTER",
+        "ifrepeating": "1",
+        "required": "R",
+        "piece": "9",
+        "codetable": "48"
+      },
+      {
+        "max_length": "20",
+        "symbol": "+",
+        "chinese_desc": "部门数据码",
+        "description": "WHAT DEPARTMENT DATA CODE",
+        "ifrepeating": "1",
+        "required": "R",
+        "piece": "10"
+      },
+      {
+        "max_length": "20",
+        "symbol": "*",
+        "chinese_desc": "什么样的数据编码值的质量。",
+        "description": "WHAT DATA CODE VALUE QUAL.",
+        "ifrepeating": "1",
+        "required": "O",
+        "piece": "11"
+      },
+      {
+        "max_length": "1",
+        "chinese_desc": "查询结果",
+        "description": "QUERY RESULTS LEVEL",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "12",
+        "codetable": "108"
+      }
+    ],
+    "chinese_desc": "查询定义",
+    "description": "QUERY DEFINITION",
+    "name": "QRD"
+  },
+  {
+    "SegmentSubStructure": [
+      {
+        "max_length": "20",
+        "symbol": "+",
+        "chinese_desc": "主过滤器",
+        "description": "WHERE SUBJECT FILTER",
+        "ifrepeating": "1",
+        "required": "R",
+        "piece": "1"
+      },
+      {
+        "max_length": "19",
+        "chinese_desc": "当数据开始日期/时间",
+        "description": "WHEN DATA START DATE/TIME",
+        "ifrepeating": "0",
+        "datatype": "TS",
+        "required": "O",
+        "piece": "2"
+      },
+      {
+        "max_length": "19",
+        "chinese_desc": "当结束日期/时间数据",
+        "description": "WHEN DATA END DATE/TIME",
+        "ifrepeating": "0",
+        "datatype": "TS",
+        "required": "O",
+        "piece": "3"
+      },
+      {
+        "max_length": "20",
+        "symbol": "*",
+        "chinese_desc": "用户限定词",
+        "description": "WHAT USER QUALIFIER",
+        "ifrepeating": "1",
+        "required": "O",
+        "piece": "4"
+      },
+      {
+        "max_length": "20",
+        "symbol": "*",
+        "chinese_desc": "其他QRY主题过滤器",
+        "description": "OTHER QRY SUBJECT FILTER",
+        "ifrepeating": "1",
+        "required": "O",
+        "piece": "5"
+      }
+    ],
+    "chinese_desc": "查询过滤",
+    "description": "QUERY FILTER",
+    "name": "QRF"
+  },
+  {
+    "SegmentSubStructure": [
+      {
+        "max_length": "0",
+        "chinese_desc": "未使用的",
+        "description": "UNUSED",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "1"
+      },
+      {
+        "max_length": "0",
+        "chinese_desc": "未使用的",
+        "description": "UNUSED",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "2"
+      },
+      {
+        "max_length": "8",
+        "chinese_desc": "路线",
+        "description": "ROUTE",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "3",
+        "codetable": "33"
+      },
+      {
+        "max_length": "20",
+        "chinese_desc": "现场管理",
+        "description": "SITE ADMINISTERED",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "4",
+        "codetable": "34"
+      },
+      {
+        "max_length": "10",
+        "chinese_desc": "四溶液速率",
+        "description": "IV SOLUTION RATE",
+        "ifrepeating": "0",
+        "datatype": "CQ",
+        "required": "O",
+        "piece": "5"
+      },
+      {
+        "max_length": "14",
+        "chinese_desc": "药物强度",
+        "description": "DRUG STRENGTH",
+        "ifrepeating": "0",
+        "datatype": "CQ",
+        "required": "O",
+        "piece": "6"
+      },
+      {
+        "max_length": "10",
+        "chinese_desc": "最终浓度",
+        "description": "FINAL CONCENTRATION",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "7"
+      },
+      {
+        "max_length": "10",
+        "chinese_desc": "最终卷在毫升。",
+        "description": "FINAL VOLUME IN ML.",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "8"
+      },
+      {
+        "max_length": "10",
+        "chinese_desc": "药物剂量",
+        "description": "DRUG DOSE",
+        "ifrepeating": "0",
+        "datatype": "CM",
+        "required": "O",
+        "piece": "9"
+      },
+      {
+        "max_length": "1",
+        "chinese_desc": "药物作用",
+        "description": "DRUG ROLE",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "10"
+      },
+      {
+        "max_length": "3",
+        "chinese_desc": "序列#处方",
+        "description": "PRESCRIPTION SEQUENCE #",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "11"
+      },
+      {
+        "max_length": "4",
+        "chinese_desc": "数量分配",
+        "description": "QUANTITY DISPENSED",
+        "ifrepeating": "0",
+        "datatype": "CQ",
+        "required": "O",
+        "piece": "12"
+      },
+      {
+        "max_length": "0",
+        "chinese_desc": "未使用的",
+        "description": "UNUSED",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "13"
+      },
+      {
+        "max_length": "5",
+        "chinese_desc": "药物标识",
+        "description": "DRUG ID",
+        "ifrepeating": "0",
+        "datatype": "CE",
+        "required": "O",
+        "piece": "14",
+        "codetable": "57"
+      },
+      {
+        "max_length": "5",
+        "symbol": "*",
+        "chinese_desc": "组件药物检测",
+        "description": "COMPONENT DRUG IDS",
+        "ifrepeating": "1",
+        "required": "O",
+        "repeatcount": "5",
+        "piece": "15"
+      },
+      {
+        "max_length": "2",
+        "chinese_desc": "处方类型",
+        "description": "PRESCRIPTION TYPE",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "16"
+      },
+      {
+        "max_length": "1",
+        "chinese_desc": "替代状态",
+        "description": "SUBSTITUTION STATUS",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "17"
+      },
+      {
+        "max_length": "2",
+        "chinese_desc": "接收订单状态",
+        "description": "RX ORDER STATUS",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "18",
+        "codetable": "38"
+      },
+      {
+        "max_length": "3",
+        "chinese_desc": "一些笔芯",
+        "description": "NUMBER OF REFILLS",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "19"
+      },
+      {
+        "max_length": "0",
+        "chinese_desc": "未使用的",
+        "description": "UNUSED",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "20"
+      },
+      {
+        "max_length": "3",
+        "chinese_desc": "笔芯剩余",
+        "description": "REFILLS REMAINING",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "21"
+      },
+      {
+        "max_length": "5",
+        "chinese_desc": "DEA类",
+        "description": "DEA CLASS",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "22"
+      },
+      {
+        "max_length": "10",
+        "chinese_desc": "MD的DEA数排序",
+        "description": "ORDERING MD\u0027S DEA NUMBER",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "23"
+      },
+      {
+        "max_length": "0",
+        "chinese_desc": "未使用的",
+        "description": "UNUSED",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "24"
+      },
+      {
+        "max_length": "19",
+        "chinese_desc": "最后补充装日期/时间",
+        "description": "LAST REFILL DATE/TIME",
+        "ifrepeating": "0",
+        "datatype": "TS",
+        "required": "O",
+        "piece": "25"
+      },
+      {
+        "max_length": "20",
+        "chinese_desc": "接收数",
+        "description": "RX NUMBER",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "26"
+      },
+      {
+        "max_length": "5",
+        "chinese_desc": "伪状态",
+        "description": "PRN STATUS",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "27"
+      },
+      {
+        "max_length": "80",
+        "symbol": "*",
+        "chinese_desc": "药学指导",
+        "description": "PHARMACY INSTRUCTIONS",
+        "ifrepeating": "1",
+        "required": "O",
+        "repeatcount": "5",
+        "piece": "28"
+      },
+      {
+        "max_length": "80",
+        "symbol": "*",
+        "chinese_desc": "病人的指令",
+        "description": "PATIENT INSTRUCTIONS",
+        "ifrepeating": "1",
+        "required": "O",
+        "repeatcount": "5",
+        "piece": "29"
+      },
+      {
+        "max_length": "500",
+        "symbol": "*",
+        "chinese_desc": "指令（地理信息系统）",
+        "description": "INSTRUCTIONS (SIG)",
+        "ifrepeating": "1",
+        "required": "O",
+        "piece": "30"
+      }
+    ],
+    "chinese_desc": "药学秩序",
+    "description": "PHARMACY ORDER",
+    "name": "RX1"
+  },
+  {
+    "SegmentSubStructure": [
+      {
+        "max_length": "4",
+        "chinese_desc": "设置身份ub82",
+        "description": "SET ID - UB82",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "1"
+      },
+      {
+        "max_length": "1",
+        "chinese_desc": "血可扣除",
+        "description": "BLOOD DEDUCTIBLE",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "2"
+      },
+      {
+        "max_length": "2",
+        "chinese_desc": "血液供应。-品脱（40）",
+        "description": "BLOOD FURN.-PINTS OF (40)",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "3"
+      },
+      {
+        "max_length": "2",
+        "chinese_desc": "血replaced-pints（41）",
+        "description": "BLOOD REPLACED-PINTS (41)",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "4"
+      },
+      {
+        "max_length": "2",
+        "chinese_desc": "血不rplcd-pints（42）",
+        "description": "BLOOD NOT RPLCD-PINTS(42)",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "5"
+      },
+      {
+        "max_length": "2",
+        "chinese_desc": "co-insurance天（25）",
+        "description": "CO-INSURANCE DAYS (25)",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "6"
+      },
+      {
+        "max_length": "2",
+        "symbol": "*",
+        "chinese_desc": "条件码",
+        "description": "CONDITION CODE",
+        "ifrepeating": "1",
+        "required": "O",
+        "repeatcount": "5",
+        "piece": "7",
+        "codetable": "43"
+      },
+      {
+        "max_length": "3",
+        "chinese_desc": "覆盖天-（23）",
+        "description": "COVERED DAYS - (23)",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "8"
+      },
+      {
+        "max_length": "3",
+        "chinese_desc": "非覆盖天-（24）",
+        "description": "NON COVERED DAYS - (24)",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "9"
+      },
+      {
+        "max_length": "12",
+        "symbol": "*",
+        "chinese_desc": "价值量及代码",
+        "description": "VALUE AMOUNT \u0026 CODE",
+        "ifrepeating": "1",
+        "datatype": "CM",
+        "required": "O",
+        "repeatcount": "8",
+        "piece": "10"
+      },
+      {
+        "max_length": "2",
+        "chinese_desc": "宽限天数（90）",
+        "description": "NUMBER OF GRACE DAYS (90)",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "11"
+      },
+      {
+        "max_length": "2",
+        "chinese_desc": "规格。前卫。指示器（44）",
+        "description": "SPEC. PROG. INDICATOR(44)",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "12"
+      },
+      {
+        "max_length": "1",
+        "chinese_desc": "组织/你批准股份（87）",
+        "description": "PSRO/UR APPROVAL IND. (87)",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "13"
+      },
+      {
+        "max_length": "8",
+        "chinese_desc": "组织/你的aprvd stay-fm（88）",
+        "description": "PSRO/UR APRVD STAY-FM(88)",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "14"
+      },
+      {
+        "max_length": "8",
+        "chinese_desc": "组织/你的aprvd stay-to（89）",
+        "description": "PSRO/UR APRVD STAY-TO(89)",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "15"
+      },
+      {
+        "max_length": "20",
+        "symbol": "*",
+        "chinese_desc": "发生（28-32）",
+        "description": "OCCURRENCE (28-32)",
+        "ifrepeating": "1",
+        "required": "O",
+        "repeatcount": "5",
+        "piece": "16"
+      },
+      {
+        "max_length": "2",
+        "chinese_desc": "span（33）发生",
+        "description": "OCCURRENCE SPAN (33)",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "17"
+      },
+      {
+        "max_length": "8",
+        "chinese_desc": "发生跨度开始日期（33）",
+        "description": "OCCURRENCE SPAN START DATE(33)",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "18"
+      },
+      {
+        "max_length": "8",
+        "chinese_desc": "发生。跨度结束日期（33）",
+        "description": "OCCUR. SPAN END DATE (33)",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "19"
+      },
+      {
+        "max_length": "30",
+        "chinese_desc": "UB的定位器2 82",
+        "description": "UB-82 LOCATOR 2",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "20"
+      },
+      {
+        "max_length": "7",
+        "chinese_desc": "UB定位器9 82",
+        "description": "UB-82 LOCATOR 9",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "21"
+      },
+      {
+        "max_length": "8",
+        "chinese_desc": "UB 82定位器27",
+        "description": "UB-82 LOCATOR 27",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "22"
+      },
+      {
+        "max_length": "17",
+        "chinese_desc": "UB 45 82定位器",
+        "description": "UB-82 LOCATOR 45",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "23"
+      }
+    ],
+    "chinese_desc": "ub82数据",
+    "description": "UB82 DATA",
+    "name": "UB1"
+  },
+  {
+    "SegmentSubStructure": [
+      {
+        "max_length": "19",
+        "chinese_desc": "U R /日期/时间",
+        "description": "R/U DATE/TIME",
+        "ifrepeating": "0",
+        "datatype": "TS",
+        "required": "O",
+        "piece": "1"
+      },
+      {
+        "max_length": "1",
+        "chinese_desc": "报告优先级",
+        "description": "REPORT PRIORITY",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "2",
+        "codetable": "109"
+      },
+      {
+        "max_length": "20",
+        "symbol": "+",
+        "chinese_desc": "谁的主题定义",
+        "description": "R/U WHO SUBJECT DEFINITION",
+        "ifrepeating": "1",
+        "required": "R",
+        "piece": "3"
+      },
+      {
+        "max_length": "3",
+        "symbol": "*",
+        "chinese_desc": "/你有什么主题定义",
+        "description": "R/U WHAT SUBJECT DEFINITION",
+        "ifrepeating": "1",
+        "required": "O",
+        "piece": "4",
+        "codetable": "48"
+      },
+      {
+        "max_length": "20",
+        "symbol": "*",
+        "chinese_desc": "是什么部门代码",
+        "description": "R/U WHAT DEPARTMENT CODE",
+        "ifrepeating": "1",
+        "required": "O",
+        "piece": "5"
+      },
+      {
+        "max_length": "20",
+        "symbol": "*",
+        "chinese_desc": "U R /显示/打印出租",
+        "description": "R/U DISPLAY/PRINT LOCATIONS",
+        "ifrepeating": "1",
+        "required": "O",
+        "piece": "6"
+      },
+      {
+        "max_length": "1",
+        "chinese_desc": "研究结果的水平",
+        "description": "R/U RESULTS LEVEL",
+        "ifrepeating": "0",
+        "required": "O",
+        "piece": "7",
+        "codetable": "108"
+      }
+    ],
+    "chinese_desc": "结果/更新定义",
+    "description": "RESULTS/UPDATE DEFINITION",
+    "name": "URD"
+  },
+  {
+    "SegmentSubStructure": [
+      {
+        "max_length": "20",
+        "symbol": "+",
+        "chinese_desc": "/你的主题定义",
+        "description": "R/U WHERE SUBJECT DEFINITION",
+        "ifrepeating": "1",
+        "required": "R",
+        "piece": "1"
+      },
+      {
+        "max_length": "19",
+        "chinese_desc": "当数据开始日期/时间",
+        "description": "R/U WHEN DATA START DATE/TIME",
+        "ifrepeating": "0",
+        "datatype": "TS",
+        "required": "O",
+        "piece": "2"
+      },
+      {
+        "max_length": "19",
+        "chinese_desc": "当R /数据/时间或结束日期",
+        "description": "R/U WHEN DATA END DATE/TIME",
+        "ifrepeating": "0",
+        "datatype": "TS",
+        "required": "O",
+        "piece": "3"
+      },
+      {
+        "max_length": "20",
+        "symbol": "*",
+        "chinese_desc": "用户限定词",
+        "description": "R/U WHAT USER QUALIFIER",
+        "ifrepeating": "1",
+        "required": "O",
+        "piece": "4"
+      },
+      {
+        "max_length": "20",
+        "symbol": "*",
+        "chinese_desc": "R /其他学科定义的结果",
+        "description": "R/U OTHER RESULTS SUBJECT DEFINI",
+        "ifrepeating": "1",
+        "required": "O",
+        "piece": "5"
+      }
+    ],
+    "chinese_desc": "主动选择",
+    "description": "UNSOLICITED SELECTION",
+    "name": "URS"
+  }
+]

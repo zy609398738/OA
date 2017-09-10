@@ -79,6 +79,18 @@ public abstract class DicBase extends HeadBase {
 	}
 
 	/**
+	 * 更新数据
+	 * 
+	 * @param dt
+	 *            头表数据集
+	 * @throws Throwable
+	 */
+	public void uploadData(DataTable dt) throws Throwable {
+		dt.setString("Code", getCode());
+		dt.setString("Name", getName());
+	}
+
+	/**
 	 * 重载
 	 */
 	public String toString() {

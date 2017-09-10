@@ -1,0 +1,10 @@
+{
+  "id": "ff8080815c2deb06015c3324868600ba",
+  "text": "AD_TO_BPM_USER_MID",
+  "changePort": "",
+  "startIndex": "",
+  "autoRun": "true",
+  "description": "AD系统数据库用户表同步数据至BPM中间表",
+  "oldPort": "",
+  "responseTime": "600000"
+}

@@ -3,6 +3,7 @@ package com.bokesoft.oa.mid.message;
 import java.util.Date;
 import java.util.List;
 
+import com.bokesoft.oa.base.ABase;
 import com.bokesoft.oa.base.OAContext;
 import com.bokesoft.oa.mid.GetValueStrBySql;
 import com.bokesoft.yigo.meta.dataobject.MetaDataObject;
@@ -13,15 +14,49 @@ import com.bokesoft.yigo.struct.document.Document;
 import com.bokesoft.yigo.tools.document.DocumentFactory;
 
 /**
+ * 消息发送类型虚基类
  * 
  * @author chenbiao
  *
  */
-public abstract class MessageTypeBase {
-	public abstract Object sendMessage(OAContext oaContext, Message message) throws Throwable;
+public abstract class MessageTypeBase extends ABase {
+	/**
+	 * 消息发送类型虚基类对象
+	 */
+	public MessageTypeBase() {
+		super(null);
+	}
 
-	public Boolean saveSendMessage(OAContext oaContext, Message message) throws Throwable {
-		DefaultContext context=oaContext.getContext();
+	/**
+	 * 消息发送类型虚基类对象
+	 * 
+	 * @param context
+	 *            上下文对象
+	 */
+	public MessageTypeBase(OAContext context) {
+		super(context);
+	}
+
+	/**
+	 * 发送消息
+	 * 
+	 * @param message
+	 *            消息对象
+	 * @return 发送成功返回true
+	 * @throws Throwable
+	 */
+	public abstract Object sendMessage(Message message) throws Throwable;
+
+	/**
+	 * 保存发送的消息对象
+	 * 
+	 * @param message
+	 *            消息对象
+	 * @return 保存成功返回true
+	 * @throws Throwable
+	 */
+	public Boolean saveSendMessage(Message message) throws Throwable {
+		DefaultContext context = getContext().getContext();
 		DefaultContext newContext = new DefaultContext(context);
 		DocumentFactory df = new DocumentFactory();
 		MetaDataObject metaDataObject = context.getVE().getMetaFactory().getDataObject("OA_SendMessages");
@@ -53,7 +88,16 @@ public abstract class MessageTypeBase {
 		return true;
 	}
 
-	public Boolean receiveMessage(DefaultContext context, Message message) throws Throwable {
+	/**
+	 * 接收消息
+	 * 
+	 * @param message
+	 *            消息对象
+	 * @return 接收成功返回true
+	 * @throws Throwable
+	 */
+	public Boolean receiveMessage(Message message) throws Throwable {
+		DefaultContext context = getContext().getContext();
 		DocumentFactory df = new DocumentFactory();
 		MetaDataObject metaDataObject = context.getVE().getMetaFactory().getDataObject("OA_ReceiveMessages");
 		List<Long> receiveIDList = message.getReceiveIDs().getIdList();

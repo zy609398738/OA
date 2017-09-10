@@ -29,6 +29,7 @@ import com.bokesoft.oa.mid.wf.base.WorkingCalendarMap;
 import com.bokesoft.oa.mid.wf.base.WorkingTimeMap;
 import com.bokesoft.oa.mid.wf.base.WorkitemInf;
 import com.bokesoft.oa.mid.wf.base.WorkitemInfMap;
+import com.bokesoft.oa.util.OASettings;
 import com.bokesoft.yes.common.util.StringUtil;
 import com.bokesoft.yigo.meta.bpm.process.MetaProcess;
 import com.bokesoft.yigo.meta.bpm.process.node.MetaNode;
@@ -849,7 +850,7 @@ public class OAContext {
 	 */
 	public OAContext(DefaultContext context) throws Throwable {
 		setContext(context);
-		Configuration configuration = Configuration.getConfiguration("OA");
+		Configuration configuration = OASettings.getConfiguration(this);
 		settings = configuration.getRootSettings();
 	}
 
@@ -864,7 +865,7 @@ public class OAContext {
 	 */
 	public OAContext(DefaultContext context, String moduleKey) throws Throwable {
 		setContext(context);
-		Configuration configuration = Configuration.getConfiguration(moduleKey);
+		Configuration configuration = Configuration.getConfiguration(this);
 		settings = configuration.getRootSettings();
 	}
 

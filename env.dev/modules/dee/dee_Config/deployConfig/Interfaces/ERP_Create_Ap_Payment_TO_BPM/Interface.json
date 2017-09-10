@@ -1,0 +1,10 @@
+{
+  "id": "8aaae0bb5dcae2ce015dcaf5321d000c",
+  "startIndex": "",
+  "text": "ERP_Create_Ap_Payment_TO_BPM",
+  "autoRun": "true",
+  "description": "ERP系统创建付款单",
+  "responseTime": "600000",
+  "changePort": "",
+  "oldPort": ""
+}

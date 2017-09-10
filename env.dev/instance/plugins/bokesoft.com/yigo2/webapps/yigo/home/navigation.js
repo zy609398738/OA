@@ -33,16 +33,16 @@
 							'<div class="app-box-btn"></div>'+
 					    '</div>' +
 					    '<div class="logo"></div>' + 
-					    "<span class='logo-text'>Yigo应用</span>" +
+					    "<span class='logo-text'>"+YIUI.I18N.navigation.application+"</span>" +
 					    '<div class="navRight">' + 
 					    	'<div class="nav-field-box user">' + 
 								'<div class="nav-field-btn"></div>' +
 								'<div class="nav-field-content">' +
 									'<div class="arrow-top"></div>' +
 									'<ul class="nav-field-list">' +
-										'<li class="nav-field-items"><a class="logout">注销</a>	</li>' + 
-										'<li class="nav-field-items"><a class="exit">退出</a></li>' + 
-										'<li class="nav-field-items"><a class="modifyPwd">修改密码</a></li>' +
+										'<li class="nav-field-items"><a class="logout">'+YIUI.I18N.userinfopane.appLogout+'</a>	</li>' + 
+										'<li class="nav-field-items"><a class="exit">'+YIUI.I18N.userinfopane.appExit+'</a></li>' + 
+										'<li class="nav-field-items"><a class="modifyPwd">'+YIUI.I18N.userinfopane.appChangePWD+'</a></li>' +
 									'</ul>' +
 								'</div>' +
 					    	'</div>' +
@@ -52,13 +52,13 @@
 									'<div class="arrow-top"></div>' +
 									'<ul class="nav-field-list">' +
 										'<li class="nav-field-items">' + 
-											'<a class="about">系统信息</a>' +
+											'<a class="about">'+YIUI.I18N.navigation.aboutSys+'</a>' +
 										'</li>' +
 									'</ul>' +
 								'</div>' +
 					    	'</div>' + 
 					    	"<label class='org_lbl' ></label>" +
-							"<span class='login_username'>朱文文</span>" +
+							"<span class='login_username'>"+YIUI.I18N.navigation.userName+"</span>" +
 					    '</div>';
 
 			nav.innerHTML = html;
@@ -110,7 +110,7 @@
 		    var buildApp = function() {
 			    var url = window.location.href;
 			    
-			    YIUI.MetaService.getServerList().then(function(serverList) {
+			    YIUI.MetaService.getAppList().then(function(serverList) {
 				    var paras;
 //				    var appKey;
 //				    if (url.indexOf("appkey=") != -1) {
@@ -218,15 +218,15 @@
 					 	var html_about = "<div class='sys-about'><table>" +
 											"<tbody>" +
 								 				"<tr row='1'>" +
-									 				"<td col='0' colspan='1' rowspan='1'> 版本：&nbsp; </td>" +
+									 				"<td col='0' colspan='1' rowspan='1'>"+ YIUI.I18N.navigation.appVer+"&nbsp; </td>" +
 									 				"<td col='1' colspan='1' rowspan='1'>" + result.Ver + "</td>" +
 								 				"</tr>" +
 								 				"<tr row='2'>" +
-									 				"<td col='0' colspan='1' rowspan='1'> 创建号：&nbsp; </td>" +
+									 				"<td col='0' colspan='1' rowspan='1'> "+ YIUI.I18N.navigation.appBuildID+"&nbsp; </td>" +
 									 				"<td col='1' colspan='1' rowspan='1'>" + result.BuildID + "</td>" +
 								 				"</tr>" +
 								 				"<tr row='3'>" +
-								 					"<td col='0' colspan='2' rowspan='1'> 上海博科资讯股份有限公司  </td>" +
+								 					"<td col='0' colspan='2' rowspan='1'> "+ YIUI.I18N.navigation.appCopyRights+" </td>" +
 								 				"</tr>" +
 								 				"<tr row='4'>" +
 								 					"<td col='0' colspan='2' rowspan='1'></td>" +
@@ -234,7 +234,7 @@
 								 				"<tr row='5'>" +
 									 				"<td col='0' colspan='1' rowspan='1'> </td>" +
 									 				"<td col='1' colspan='1' rowspan='1'>" +
-									 					"<button class='ok'><span class='txt'>确定</span></button>" +
+									 					"<button class='ok'><span class='txt'>"+ YIUI.I18N.button.ok+"</span></button>" +
 									 				"</td>" +
 								 				"</tr>" +
 							 				"</tbody>" +
@@ -242,7 +242,7 @@
 						          
 //					 	 授权于：博科资讯 &ensp; 过期时间：2017-06-01  
 						var dialogDiv = $("<div class='modifyPwd abtCo' id='modifyPwd'></div>");
-					    dialogDiv.modalDialog(null, {title: "关于Yigo", showClose: false, width: "260px", height: "180px"});
+					    dialogDiv.modalDialog(null, {title: YIUI.I18N.navigation.appAbout, showClose: false, width: "260px", height: "180px"});
 					    dialogDiv.dialogContent().html(html_about);
 					    $(".ok", dialogDiv).click(function() {
 					    	dialogDiv.close();

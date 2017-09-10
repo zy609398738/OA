@@ -20,7 +20,7 @@
 	
 	var local = getCookie("language");
 	if(!local){
-		local = 'zh';
+		local = 'zh-CN';
 	}
 
 	//IE 下兼容console

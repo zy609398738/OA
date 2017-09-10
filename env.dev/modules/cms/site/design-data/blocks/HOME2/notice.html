@@ -26,12 +26,24 @@
 			</div>
 		</div>
 	</div>
-	<div class="item done">
+	<div class="item unfinished">
 		<div class="inner">
 			<div class="cont fff">
-              	<a onclick="showForm('OA_SendList','','')"><span class="title">提交未完成</span></a>
-				<a onclick="showForm('OA_SendList','','')"><span class="num">$!COUNT_SEND[0].COUNTQTY</span></a>
+              	<a onclick="showForm('OA_UnfinishedList','','')"><span class="title">提交未完成</span></a>
+				<a onclick="showForm('OA_UnfinishedList','','')"><span class="num">$!COUNT_SEND[0].COUNTQTY</span></a>
 			</div>
 		</div>
 	</div>	
 </div>
+<script type="text/javascript">
+  $(function () {
+  		//设置本地化字符内容
+      var localeString=function(){
+       $(".item.todo .title").text(getI18N().oa_index.item_todo_title);
+       $(".item.return .title").text(getI18N().oa_index.item_return_title);
+       $(".item.tips .title").text(getI18N().oa_index.item_tips_title);
+       $(".item.unfinished .title").text(getI18N().oa_index.item_unfinished_title);
+    };
+    localeString();
+  });
+</script>

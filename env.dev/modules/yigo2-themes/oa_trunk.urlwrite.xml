@@ -31,11 +31,6 @@
     </rule>
 	
     <rule match-type="wildcard">
-       <from>/yesui/v2/yesui/ui/res/css/blue/images/ui-icons_6da8d5_256x240.png</from>
-       <to type="forward">/yigo2-theme/patches/yesui/v2/yesui/ui/res/css/blue/images/ui-icons_6da8d5_256x240.png</to>
-    </rule>
-	
-    <rule match-type="wildcard">
        <from>/yesui/v2/yesui/svr/service/bpmserviceproxy.js</from>
        <to type="forward">/yigo2-theme/patches/yesui/v2/yesui/svr/service/bpmserviceproxy.js</to>
     </rule>
@@ -48,5 +43,10 @@
     <rule match-type="wildcard">
        <from>/yesui/v2/yesui/ui/maincontainer.js</from>
        <to type="forward">/yigo2-theme/patches/yesui/v2/yesui/ui/maincontainer.js</to>
+    </rule>
+	
+    <rule match-type="wildcard">
+       <from>/yesui/v2/yesui/ui/component/control/bpmgraph.js</from>
+       <to type="forward">/yigo2-theme/patches/yesui/v2/yesui/ui/component/control/bpmgraph.js</to>
     </rule>
 </urlrewrite>

@@ -1,0 +1,11 @@
+[
+  {
+    "recordMpLog": "false",
+    "text": "ERP_INSERT_INVOICEHEADER_TO_BPM",
+    "parentId": "8a9f5aff5ca480d2015ca5d194b90012",
+    "id": "8a9f5aff5ca480d2015ca5d194d10013",
+    "description": "插入AP发票主表中间表接口",
+    "fileImport": "false",
+    "enable": "true"
+  }
+]

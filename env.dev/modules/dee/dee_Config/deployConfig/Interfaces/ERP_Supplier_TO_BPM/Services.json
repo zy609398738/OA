@@ -1,0 +1,11 @@
+[
+  {
+    "parentId": "8a9f5a005dba1a3d015dbb6ddaf0000c",
+    "text": "ERP_Supplier_TO_BPM",
+    "recordMpLog": "false",
+    "id": "8a9f5a005dba1a3d015dbb6ddb12000d",
+    "description": "实时查询ERP系统供应商信息",
+    "fileImport": "false",
+    "enable": "true"
+  }
+]

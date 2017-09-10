@@ -8,6 +8,8 @@ YIUI.Panel.StackContainer = YIUI.extend(YIUI.Panel, {
 	/** forms : [], */
 	defaultFormKey: "",
 	
+	items: [],
+	
 	init : function(options) {
 		this.base(options);
 		this.formID = null;
@@ -21,22 +23,26 @@ YIUI.Panel.StackContainer = YIUI.extend(YIUI.Panel, {
 	        builder.newEmpty().then(function(emptyForm){
 	        	container.form = emptyForm;
 	        	container.formID = emptyForm.formID;
-	        	
-//	            YIUI.FormParasUtil.processCallParas(form, emptyForm);
-	            emptyForm.setOptQueue(new YIUI.OptQueue(new YIUI.LoadOpt(emptyForm)));
-
-	            builder.builder(emptyForm);
 	        });
+	        container.builder = builder;
 
 		}
 	},
     
 	onRender: function(ct) {
 		this.base(ct);
+
 		var form = this.form;
-		if(form && !form.rendered) {
-			form.render();
+		var formKey = this.defaultFormKey;
+		if(form && form.formKey == formKey) {
+			this.builder.builder(form);
+		} else if(form) {
+			var root = form.getRoot();
+			root.render(this.el);
+			
+			this.items.push(root);
 		}
+
 	},
 	
 	onSetHeight: function(height) {
@@ -44,20 +50,20 @@ YIUI.Panel.StackContainer = YIUI.extend(YIUI.Panel, {
 	},
 	
 	/** 删除原有form，并缓存之 */
-	afterAdd : function(comp) {
-		if(this.items.length >= 2) {
-			this.items.shift();
-		}
-		if(this.el) {
-			// 删除原有界面
-			this.el.empty();
-			if(!this.isReplace) {
-				this.formID && YIUI.FormStack.removeForm(this.formID);
-				this.isReplace = false;
-			}
-		}
-		this.formID = comp.ofFormID;
-	},
+//	afterAdd : function(comp) {
+//		if(this.items.length >= 2) {
+//			this.items.shift();
+//		}
+//		if(this.el) {
+//			// 删除原有界面
+//			this.el.empty();
+//			if(!this.isReplace) {
+//				this.formID && YIUI.FormStack.removeForm(this.formID);
+//				this.isReplace = false;
+//			}
+//		}
+//		this.formID = comp.ofFormID;
+//	},
 	
 	/** 删除当前form，并取出之前缓存的form，并显示 */
 	remove : function(comp, autoDestroy) {
@@ -74,20 +80,39 @@ YIUI.Panel.StackContainer = YIUI.extend(YIUI.Panel, {
 	},
 
 	build: function(form) {
-		var rootpanel = form.getRoot();
-		this.add(rootpanel);
-//		this.doRenderChildren();
-//		this.doLayout(this.el[0].clientWidth, this.el[0].clientHeight);
-    	form.setContainer(this);
-    	this.form = form;
+		if(this.items.length > 0) {
+			this.items.shift();
+		}
+		if(this.el) {
+			// 删除原有界面
+			this.el.empty();
+			if(!this.isReplace) {
+				if(this.formID && this.formID != form.formID) {
+					YIUI.FormStack.removeForm(this.formID);
+					this.isReplace = false;
+				}
+			}
+		}
+		this.form = form;
+		this.formID = form.formID;
 	},
-	
+
+    doLayout: function(panelWidth, panelHeight) {
+        this.base(panelWidth, panelHeight);
+        if(this.form) {
+        	var root = this.form.getRoot();
+        	if(root.hasLayout && !$.isString(root.layout)) {
+        		root.doLayout(this.getWidth(), this.getHeight());
+			}
+		}
+    },
+
 	renderDom: function(ct) {
 		if(this.form) {
 			this.form.pFormID = this.ofFormID;
+			var root = this.form.getRoot();
+			root.render(this.el);
 		}
-		this.onRenderChildren();
-		this.doLayout(this.el[0].clientWidth, this.el[0].clientHeight);
 	},
 	
 	removeForm: function(form) {

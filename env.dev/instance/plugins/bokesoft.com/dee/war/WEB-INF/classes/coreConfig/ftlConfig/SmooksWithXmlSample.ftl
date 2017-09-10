@@ -1,6 +1,6 @@
 <smooks-resource-list xmlns="http://www.milyn.org/xsd/smooks-1.1.xsd" xmlns:jb="http://www.milyn.org/xsd/smooks/javabean-1.1.xsd">
 <#list freeMarkerData.target as data>
-	<jb:bindings beanId="${data.beanId}" class="java.util.HashMap" createOnElement="${data.createOnElement}"> 
+	<jb:bindings beanId="${data.beanId}" class="com.bokesoft.dee.mule.util.CaseInsensitiveHashMap" createOnElement="${data.createOnElement}"> 
  <#list data.listDetail as itemKey>
 		    <#if itemKey.class="List"||itemKey.class="Map">
 		     <jb:wiring property="${itemKey.beanId}" beanIdRef="${itemKey.beanId}"/>

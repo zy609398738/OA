@@ -1,0 +1,11 @@
+[
+  {
+    "parentId": "8a9f59ff5c9b8014015c9b9b41a50010",
+    "text": "ERP_TO_BPM_ORG_MID",
+    "recordMpLog": "false",
+    "id": "8a9f59ff5c9b8014015c9b9b41bd0011",
+    "description": "ERP系统数据库组织表同步数据至BPM中间表",
+    "fileImport": "false",
+    "enable": "true"
+  }
+]

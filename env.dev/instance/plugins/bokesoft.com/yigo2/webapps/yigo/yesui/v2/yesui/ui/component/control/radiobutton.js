@@ -58,7 +58,8 @@ YIUI.Control.RadioButton = YIUI.extend(YIUI.Control, {
     },
     
     isNull: function() {
-    	return false;
+    	var v = $(this._group).data(this.groupKey);
+    	return v == null || v === "";
     },
     
     checkEnd: function(value) {

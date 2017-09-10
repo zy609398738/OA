@@ -8,9 +8,10 @@ import com.bokesoft.oa.base.OAContext;
 import com.bokesoft.oa.mid.message.Message;
 import com.bokesoft.oa.mid.message.MessageSet;
 import com.bokesoft.oa.mid.message.SendMessage;
+import com.bokesoft.oa.mid.wf.base.BPMInstance;
 import com.bokesoft.oa.mid.wf.base.OperatorSel;
 import com.bokesoft.oa.mid.wf.base.WorkflowDesigneDtl;
-import com.bokesoft.yes.bpm.engine.common.BPMContext;
+import com.bokesoft.oa.mid.wf.base.WorkitemInf;
 import com.bokesoft.yes.common.util.StringUtil;
 import com.bokesoft.yigo.bpm.dev.Spoon;
 import com.bokesoft.yigo.meta.bpm.process.MetaProcess;
@@ -65,7 +66,13 @@ public class WorkflowMonitor implements IExtService {
 		spoon.setMarked(true);
 		String processKey = process.getFormKey();
 		Integer version = process.getVersion();
-		Long instanceID = ((BPMContext) context).getActiveBPMInstance().getInstanceID();
+
+		WorkitemInf workitemInf = oaContext.getWorkitemInfMap().get(workitemID);
+		if (workitemInf == null) {
+			return false;
+		}
+		BPMInstance bPMInstance = workitemInf.getHeadBase();
+		Long instanceID = bPMInstance.getOID();
 		String nodeKey = node.getKey();
 		Document srcDoc = context.getDocument();
 		Long oid = srcDoc.getOID();
@@ -121,9 +128,11 @@ public class WorkflowMonitor implements IExtService {
 			if (messageSet == null) {
 				return sendMessage;
 			}
-			Message message = new Message(oaContext, false, false, "", new Date(), context.getUserID(), topic, content,
-					ids, messageSet, formKey, billNO, oid);
+			Message message = new Message(oaContext, false, false, new Date(), context.getUserID(), topic, content, ids,
+					"", messageSet, formKey, billNO, oid);
+			message.setSendFormula(operatorSel.getSendFormula());
 			message.setEmailTemp(operatorSel.getEmailTemp());
+			message.setWorkitemInf(workitemInf);
 			sendMessage = SendMessage.sendMessage(oaContext, message);
 		}
 		return sendMessage;

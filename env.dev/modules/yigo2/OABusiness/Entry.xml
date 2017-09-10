@@ -41,6 +41,7 @@
                 <EntryItem Caption="已办事项" FormKey="OA_MyList" Key="OA_MyList" Type="Form"/>
                 <EntryItem Caption="已发事项" FormKey="OA_SendList" Key="OA_SendList" Type="Form"/>
                 <EntryItem Caption="待阅事项" FormKey="OA_ToReadList" Key="OA_ToReadList" Type="Form"/>
+                <EntryItem Caption="已发未完成事项" FormKey="OA_UnfinishedList" Key="OA_UnfinishedList" Media="WEB,PC,IOS,ANDROID," Type="Form"/>
             </Entry>
             <Entry Caption="任务" Key="TaskDistribution">
                 <EntryItem Caption="任务派发" FormKey="OA_TaskdistributionView" Key="OA_TaskdistributionView" Type="Form"/>
@@ -92,7 +93,7 @@
             <EntryItem Caption="消息接收列表" FormKey="OA_ReceiveMessagesView" Key="OA_ReceiveMessagesView" Type="Form"/>
             <EntryItem Caption="发送结果列表" FormKey="OA_SendResultView" Key="OA_SendResultView" Type="Form"/>
         </Entry>
-        <Entry Caption="通讯录管理" Key="OA_AddressBook">
+        <Entry Caption="通讯录管理" Key="OA_AddressBookManage">
             <EntryItem Caption="通讯录" FormKey="OA_AddressBook" Key="OA_AddressBook" Type="Form"/>
         </Entry>
         <Entry Caption="流程维护" Key="OA_Approval">
@@ -193,14 +194,14 @@
             <EntryItem Caption="请假登记单" FormKey="OA_VacationView" Key="OA_VacationView" Type="Form"/>
             <EntryItem Caption="业务招待" FormKey="OA_BusEntertainView" Key="OA_BusEntertainView" Type="Form"/>
         </Entry>
-        <Entry Caption="拓展业务" Key="ExtendBus" Visible="false">
-            <EntryItem Caption="收文" FormKey="OA_ForeignLan" Key="OA_ForeignLan" Type="Form"/>
-            <EntryItem Caption="发文" FormKey="OA_SpoFile" Key="OA_SpoFile" Type="Form"/>
-            <EntryItem Caption="新闻发布" FormKey="OA_NewsDraft" Key="OA_NewsDraft" Type="Form"/>
-            <EntryItem Caption="任务派发" FormKey="OA_Taskdistribution" Key="OA_Taskdistribution" Type="Form"/>
-            <EntryItem Caption="文档管理" FormKey="OA_Doc" Key="OA_Doc" Type="Form"/>
-            <EntryItem Caption="外部会议表单" FormKey="OA_MeetingOutSide" Key="OA_MeetingOutSide" Type="Form"/>
-            <EntryItem Caption="内部会议表单" FormKey="OA_MeetingInSide" Key="OA_MeetingInSide" Type="Form"/>
-        </Entry>
+    </Entry>
+    <Entry Caption="填写表单权限" Key="OA_BillRight" Visible="false">
+        <EntryItem Caption="收文" FormKey="OA_ForeignLan" Key="OA_ForeignLan" Type="Form"/>
+        <EntryItem Caption="发文" FormKey="OA_SpoFile" Key="OA_SpoFile" Type="Form"/>
+        <EntryItem Caption="新闻发布" FormKey="OA_NewsDraft" Key="OA_NewsDraft" Type="Form"/>
+        <EntryItem Caption="任务派发" FormKey="OA_Taskdistribution" Key="OA_Taskdistribution" Type="Form"/>
+        <EntryItem Caption="文档管理" FormKey="OA_Doc" Key="OA_Doc" Type="Form"/>
+        <EntryItem Caption="外部会议表单" FormKey="OA_MeetingOutSide" Key="OA_MeetingOutSide" Type="Form"/>
+        <EntryItem Caption="内部会议表单" FormKey="OA_MeetingInSide" Key="OA_MeetingInSide" Type="Form"/>
     </Entry>
 </Entry>

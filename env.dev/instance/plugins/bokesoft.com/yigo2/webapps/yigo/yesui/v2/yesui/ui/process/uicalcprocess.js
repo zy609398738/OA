@@ -15,12 +15,21 @@
 
             this.calcAllItems(this.calcTree.items,this.form.operationState == YIUI.Form_OperationState.New,commitValue);
 
-            this.calcAlling = false;
-            var gm = this.form.getGridInfoMap();
+            var gm = this.form.getGridInfoMap(),grid;
             for( var i = 0,size = gm.length;i < size;i++ ) {
-                YIUI.GridSumUtil.evalSum(this.form,this.form.getComponent(gm[i].key));
+                grid = this.form.getComponent(gm[i].key);
+                YIUI.GridSumUtil.evalSum(this.form,grid);
             }
+
+            var lvm = this.form.getListViewMap(),listview;
+            for( var i = 0,size = lvm.length;i < size;i++ ) {
+                listview = this.form.getComponent(lvm[i].key);
+
+                listview.refreshSelectAll();
+            }
+
             this.form.removeSysExpVals("IgnoreKeys");
+            this.calcAlling = false;
         },
 
         calcAllItems:function (items,calcAll,commitValue) {
@@ -145,7 +154,9 @@
         },
 
         needCalc_Cell:function(grid,ri,ci,metaCell,calcAll){
-            if( grid.getValueAt(ri,ci) )
+            if(metaCell.cellType == YIUI.CONTROLTYPE.LABEL)
+                return true;
+            if( this.calcAlling && !grid.isNullValue(grid.getValueAt(ri,ci)) )
                 return false;
             if( !metaCell.columnKey )
                 return true;
@@ -154,9 +165,11 @@
         },
 
         needCalc_Com:function (com,calcAll) {
-            if( !com.isNull() )
+            if(com.type == YIUI.CONTROLTYPE.LABEL)
+                return true;
+            if( this.calcAlling && !com.isNull() )
                 return false;
-            if( !(com.isSubDetail ? (com.isDataBinding() ||!com.bindingCellKey ) : com.isDataBinding()) )
+            if( !(com.isSubDetail ? (com.hasDataBinding() ||!com.bindingCellKey ) : com.hasDataBinding()) )
                 return true;
             var ignoreKeys = this.form.getSysExpVals("IgnoreKeys");
             return ignoreKeys ? $.inArray(com.key,ignoreKeys) == -1 : calcAll;
@@ -207,41 +220,24 @@
             }
         },
 
-        reCalcComponent:function (component) {
-            if( component.type === YIUI.CONTROLTYPE.GRID ) {
-                this.calcAllItems(this.getGridItem(component),false,false);
-            } else {
-                this.calcAllItems(this.getListViewItems(component),false,false);
-            }
-            if( component.type === YIUI.CONTROLTYPE.GRID ) {
-                YIUI.GridSumUtil.evalSum(this.form,component);
+        reCalcComponent:function (com) {
+
+            this.calcAllItems(this.getItems(com.key),false,false);
+
+            if( com.type === YIUI.CONTROLTYPE.GRID ) {
+                YIUI.GridSumUtil.evalSum(this.form,com);
             }
         },
 
-        getGridItem:function (grid) {
-            var metaRow = grid.getDetailMetaRow(),metaCell,
-                items = this.calcTree.affectItems,affectItems = [];
-            for( var i = 0;metaCell = metaRow.cells[i];i++ ) {
-                for( var j = 0,length = items.length;j < length;j++ ) {
-                    if( items[j].key === metaCell.key ) {
-                        affectItems = affectItems.concat(items[j].expItems);
-                    }
-                }
-            }
-            affectItems.sort(function (item1, item2) {
-                return parseInt(item1.order) - parseInt(item2.order);
-            });
-            return affectItems;
-        },
-
-        getListViewItems:function (listView) {
-            var items = this.calcTree.items,affectItems = [];
+        getItems:function (key) {
+            var items = this.calcTree.items,_items = [];
             for( var i = 0,exp;exp = items[i];i++ ) {
-                if( exp.objectType != YIUI.ExprItem_Type.Set || exp.source !== listView.key )
+                if( exp.objectType != YIUI.ExprItem_Type.Set ||
+                    exp.source !== key )
                     continue;
-                affectItems.push(exp);
+                _items.push(exp);
             }
-            return affectItems;
+            return _items;
         },
 
         cellValueChanged:function (grid,rowIndex,colIndex) {
@@ -283,7 +279,7 @@
         },
 
         doAfterDeleteRow:function (grid) {
-            var items = this.getGridItem(grid);
+            var items = this.getItems(grid.key);
 
             var context = this.newContext(this.form,-1,-1);
             for( var i = 0,exp,com;exp = items[i];i++ ) {
@@ -302,6 +298,7 @@
                     break;
                 }
             }
+            YIUI.GridSumUtil.evalSum(this.form,grid);
         },
 
         calcSubDetail:function (gridKey) {
@@ -313,6 +310,18 @@
                     continue;
 
                 this.calcExprItemObject(com,exp,context,this.form.operationState == YIUI.Form_OperationState.New,false);
+            }
+
+            var gm = this.form.getGridInfoMap(),grid;
+            for( var i = 0,size = gm.length;i < size;i++ ) {
+                grid = this.form.getComponent(gm[i].key);
+
+                if( !YIUI.SubDetailUtil.isSubDetail(this.form,grid,gridKey))
+                    continue;
+
+                YIUI.GridSumUtil.evalSum(this.form,grid);
+
+                grid.refreshSelectAll();
             }
         }
     });

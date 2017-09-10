@@ -672,7 +672,7 @@ public class SqlParse {
 					groupNames.addName(name);
 					continue;
 				}
-			}else{
+			} else {
 				if (emptyField != null && emptyField.containsProperty(name)) {
 					name = emptyField.getProperty(name);
 					colNames.addName(name);

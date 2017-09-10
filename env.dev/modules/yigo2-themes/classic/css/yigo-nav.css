@@ -3,18 +3,55 @@
  */
 
 /*不同菜单的不同图标。注意：Yigo配置的修改可能影响此节点的 DOM ID*/
-a#Base5 { background-image:url(../images/main/menu/base-collapse.png); }
-a#Base5.open{
+a.open[id*='Base']{
 	position: relative;
 }
-a#Base5.open span:after,a#System11.open span:after,a#CustomBill7.open span:after{
-	position: absolute; 
+
+a.open[id*='Base'] span:after,a.open[id*='System'] span:after,a.open[id*='CustomBill'] span:after,a.open[id*='TSL_Organize'] span:after,a.open[id*='TSL_SystemMaintainTable'] span:after,a.open[id*='TSL_Approval'] span:after{
+	position: absolute;
 	content: '';
 	width: 20px;
-	height: 20px;	
-	background-image:url(../images/main/expand_l.png);
+	height: 20px;
+	background-image:url(../images/main/expand_l.png)!important;
 	background-repeat: no-repeat;
-	background-position: 8px 14px; }
-a#System11 { background-image:url(../images/main/menu/system-collapse.png); }
-a#CustomBill7{ background-image:url(../images/main/menu/report-collapse.png); }
+	background-position: 8px 14px;
+	right: 24px;
+}
+
+a[id*="Base"]{
+	background-image:url(../images/main/menu/manage.png)!important;
+}
+
+a[id*='System']{
+	background-image:url(../images/main/menu/set.png)!important;
+}
+
+a[id*='CustomBill']{
+	background-image:url(../images/main/menu/workbench.png)!important;
+}
+
+a[id*='TSL_Organize']{
+	background-image:url(../images/main/menu/account.png)!important;
+}
+
+a[id*='TSL_SystemMaintainTable']{
+	background-image:url(../images/main/menu/form.png)!important;
+}
+
+a[id*='TSL_Approval']{
+	background-image:url(../images/main/menu/process.png)!important;
+}
+
+/*菜单右边加箭头*/
+a.close[id*='Base'] span:after,a.close[id*='System'] span:after,a.close[id*='CustomBill'] span:after,a.close[id*='TSL_Organize'] span:after,a.close[id*='TSL_SystemMaintainTable'] span:after,a.close[id*='TSL_Approval'] span:after{
+	position: absolute;
+	content: '';
+	width: 20px;
+	height: 20px;
+	background-image:url(../images/main/collapse_l.png)!important;
+	background-repeat: no-repeat;
+	background-position: 8px 10px;
+	right: 20px;
+}
+
 /*TODO: 缺少节点展开情况下的图片*/

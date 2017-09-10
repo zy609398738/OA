@@ -21,22 +21,22 @@ var other = {
 
 	listview : {
 		order : "order",
-		seq : "Serial number"
+		seq : "No."
 	},
 
 	dict : {
 		unknown : 'Unknown type:',
-		query : "query",
-		cancel : "cancel",
-		determine : "determine",
-		empty : "empty",
-		code : "code",
-		name : "name"
+		query : "Query",
+		cancel : "Cancel",
+		ok : "OK",
+		empty : "Empty",
+		code : "Code",
+		name : "Name"
 	},
 	
 	date : {
-		today : "today",
-		confirm : "confirm",
+		today : "Today",
+		confirm : "Confirm",
 		formatError : "The format of the input is wrong",
 		wrongTime:"Wrong time:"
 	},
@@ -63,33 +63,40 @@ var other = {
 		model : "colNames and colModel vary in length!",
 		isSortError : "Sorting is not allowed in line groupings",
 		notAllow : "Multiple choice compound dictionary {0} does not allow data binding fields",
-		prompt : "prompt",
-		open : "open",
-		see : "To view",
-		eliminate : "eliminate"
+		prompt : "Prompt",
+		select : "select",
+		show : "show",
+		clear : "clear"
 	},
 
 	userinfopane : {
 		admin : "System administrator",
-		appLogout : "cancellation",
-		appExit : "quit"
+		appLogout : "Logout",
+		appExit : "Exit",
+		appChangePWD : "Change password"
 	},
 
 
 	rightsset : {
 		dictRights : "Dictionary permissions settings",
-		modify : "modify",
-		save : "save",
+		modify : "Modify",
+		save : "Save",
 		selectAll : "Select all",
-		key : "sign",
-		code : "coding",
+		key : "Sign",
+		code : "Coding",
 		hasRights : "Whether have permissions",
-		search : "search",
+		search : "Search",
 		formRights : "Form permission settings",
 		entryRights : "Entry permission settings"
 	},
 
-	
+	formright : {
+		caption : "Caption",
+		key: "Key",
+		visible: "Visible",
+		enable: "Enable",
+		hasrights: "HasRights"
+	},
 
 	baidumap : {
 		inputPlace : "Please enter the search site...",
@@ -156,11 +163,13 @@ var other = {
 	},
 	
 	dialog : {
-		close : "close",
-		details : "details",
+		close : "Close",
+		details : "Details",
 		wClose : "Whether to shut down",
-		yes : "yes",
-		no : "no"
+		ok : "OK",
+		yes : "Yes",
+		no : "No",
+		message: "Message"
 	},
 	
 
@@ -210,19 +219,26 @@ var other = {
 	navigation : {
 		application : "Yigo application",
 		userName : "wen-wen zhu",
-		appChangePWD : "Modify password",
-		appVer : "versions: ",
+		appVer : "Versions: ",
 		appBuildID : "Create number:",
 		appCopyRights : "Shanghai boke information limited company",
 		authorize : "Authorization:boke information",
 		overdueTime : "Expiration date:",
-		appAbout : "about Yigo"
+		appAbout : "About Yigo",
+		aboutSys : "System Information",
 	},
 
 	menutree : {
 		inputKeyWords : "Please input keywords..."
-	}
+	},
 
+	button : {
+		ok : "OK"
+	},
+	
+	title :{
+		error: "Error"
+	}
 };
 
 if(YIUI.I18N) {

@@ -1,0 +1,10 @@
+{
+  "id": "8a9f5afd5e0240a2015e024a3eee0006",
+  "startIndex": "",
+  "text": "ERP_AMOUNT_TYPE_TO_BPM",
+  "autoRun": "true",
+  "description": "实时查询ERP系统费用申请单预算类型信息",
+  "responseTime": "600000",
+  "changePort": "",
+  "oldPort": ""
+}

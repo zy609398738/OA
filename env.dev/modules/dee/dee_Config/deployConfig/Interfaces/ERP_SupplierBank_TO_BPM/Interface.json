@@ -1,0 +1,10 @@
+{
+  "id": "8a9f5a005dba1a3d015dbb8f72cb0014",
+  "startIndex": "",
+  "text": "ERP_SupplierBank_TO_BPM",
+  "autoRun": "true",
+  "description": "实时查询ERP系统供应商银行信息",
+  "responseTime": "600000",
+  "changePort": "",
+  "oldPort": ""
+}

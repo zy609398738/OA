@@ -1,0 +1,104 @@
+<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:spring="http://www.springframework.org/schema/beans" xmlns:vm="http://www.mulesoft.org/schema/mule/vm"
+	xmlns:ftp="http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.ftp/1.2"
+	xmlns:script="http://www.mulesoft.org/schema/mule/scripting"
+	xmlns:file="http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.file/1.2"
+	xmlns:http="http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.http/1.2"
+	xmlns:https="http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.https/1.2"
+	xmlns:tcp="http://www.mulesoft.org/schema/mule/tcp"
+	xmlns:stdio="http://www.mulesoft.org/schema/mule/stdio" xmlns:cxf="http://www.mulesoft.org/schema/mule/cxf"
+	xmlns:axis="http://www.mulesoft.org/schema/mule/axis" xmlns:jbossts="http://www.mulesoft.org/schema/mule/jbossts"
+	xmlns:jdbc="http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.jdbc/1.2"
+	xmlns:pattern="http://www.mulesoft.org/schema/mule/pattern" xmlns:sftp="http://www.mulesoft.org/schema/mule/sftp"
+	xmlns:smooks="http://www.muleforge.org/smooks/schema/mule-module-smooks"
+  xmlns:jms="http://www.mulesoft.org/schema/mule/jms"
+  xmlns:smtp="http://www.mulesoft.org/schema/mule/smtp"
+  xmlns:imap="http://www.mulesoft.org/schema/mule/imap"
+ xmlns:pop3="http://www.mulesoft.org/schema/mule/pop3"
+  xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/3.1/mule.xsd
+http://www.mulesoft.org/schema/mule/jbossts http://www.mulesoft.org/schema/mule/jbossts/3.1/mule-jbossts.xsd
+http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.jdbc/1.2 http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.jdbc/1.2/mule-com.bokesoft.dee.patch.jdbc.xsd
+http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.file/1.2 http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.file/1.2/mule-com.bokesoft.dee.patch.file.xsd
+http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.http/1.2 http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.http/1.2/mule-com.bokesoft.dee.patch.http.xsd
+http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.https/1.2 http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.https/1.2/mule-com.bokesoft.dee.patch.https.xsd
+http://www.mulesoft.org/schema/mule/tcp http://www.mulesoft.org/schema/mule/tcp/3.1/mule-tcp.xsd
+http://www.muleforge.org/smooks/schema/mule-module-smooks http://dist.muleforge.org/smooks/schema/mule-module-smooks/1.1/mule-module-smooks.xsd
+http://www.mulesoft.org/schema/mule/stdio http://www.mulesoft.org/schema/mule/stdio/3.1/mule-stdio.xsd
+http://www.mulesoft.org/schema/mule/cxf http://www.mulesoft.org/schema/mule/cxf/3.1/mule-cxf.xsd
+http://www.mulesoft.org/schema/mule/axis http://www.mulesoft.org/schema/mule/axis/3.1/mule-axis.xsd
+http://www.mulesoft.org/schema/mule/scripting http://www.mulesoft.org/schema/mule/scripting/3.1/mule-scripting.xsd
+http://www.mulesoft.org/schema/mule/pattern http://www.mulesoft.org/schema/mule/pattern/3.1/mule-pattern.xsd
+        http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.ftp/1.2 http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.ftp/1.2/mule-com.bokesoft.dee.patch.ftp.xsd
+http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/3.1/mule-vm.xsd 
+     http://www.mulesoft.org/schema/mule/sftp http://www.mulesoft.org/schema/mule/sftp/3.1/mule-sftp.xsd 
+    http://www.mulesoft.org/schema/mule/jms http://www.mulesoft.org/schema/mule/jms/3.1/mule-jms.xsd 
+  http://www.mulesoft.org/schema/mule/smtp http://www.mulesoft.org/schema/mule/smtp/3.1/mule-smtp.xsd 
+	http://www.mulesoft.org/schema/mule/imap http://www.mulesoft.org/schema/mule/imap/3.1/mule-imap.xsd 
+ http://www.mulesoft.org/schema/mule/pop3 http://www.mulesoft.org/schema/mule/pop3/3.1/mule-pop3.xsd ">
+<flow name="ERP_Delivery_Release_TO_BPM_H">
+		<!--接收查询发货通知信息参数-->
+	<vm:inbound-endpoint  name="接收查询发货通知信息参数"
+		encoding="UTF-8"
+		address="vm://ERP_Delivery_Release_H_TO_BPM" 
+		exchange-pattern ="request-response" 
+		
+		>
+	</vm:inbound-endpoint>
+
+		<!--查询发货通知表头数据-->
+	<custom-transformer class="com.bokesoft.dee.transport.jdbc.transformer.ExecuteSQLSimpleTransformer" name="查询发货通知表头数据">
+		<spring:property name="queries">
+			<spring:list>
+				<spring:value> <![CDATA[
+					select hou.name,t.delivery_id,t.order_type,t.cust_name,t.sales_no,t.tran_name,t.org_id,t.currency,t.packing_instructions,t.om_employee_num,t.attribute3,t.attribute17,t.tp_attribute1,t.tp_attribute2 from CUX.EFLOW_INTERFACE_DELIVERY_MAIN t, HR_OPERATING_UNITS HOU WHERE T.ORG_ID = HOU.organization_id  and DELIVERY_ID = #[map-payload:delivery_id]
+				]]></spring:value>
+			</spring:list>		
+		</spring:property>
+		<spring:property name="ds" ref="8aaae09b5bf03e9f015bf17bc58e061f_ERP_TO_BPM"></spring:property>
+		<spring:property name="resultIndexOf" value="1"></spring:property>
+		<spring:property name="ignoreSQLError" value="false"></spring:property>
+	</custom-transformer>
+	
+
+		<!--查询ERP系统发货通知明细表数据-->
+	<custom-transformer class="com.bokesoft.dee.mule.dataimport.FieldValueLookUpWithDsTransformer" name="查询发货通知明细表数据">
+		<spring:property name="tablePath" value="B_DeliveryNotice"></spring:property>
+		<spring:property name="query">
+			<spring:value> <![CDATA[select delivery_id,detail_id,seq,prod_name,prod_type,prod_unit,amount,warehouse_no,slot_no,contract_no,memo,attribute1,price from cux.eflow_delivery_details  where delivery_id=#[map-payload:delivery_id] order by detail_id]]></spring:value>
+		</spring:property>
+		<spring:property name="ds" ref="8aaae09b5bf03e9f015bf17bc58e061f_ERP_TO_BPM"></spring:property>
+		<spring:property name="firstRecode" value="true"></spring:property>
+
+		<spring:property name="subField" value="B_DeliveryNoticeDtl"></spring:property>
+	</custom-transformer>
+
+		<!--查询ERP系统发货通知附件表数据-->
+	<custom-transformer class="com.bokesoft.dee.mule.dataimport.FieldValueLookUpWithDsTransformer" name="查询发货通知附件表数据">
+		<spring:property name="tablePath" value="B_DeliveryNotice"></spring:property>
+		<spring:property name="query">
+			<spring:value> <![CDATA[select delivery_id,docs_id,oe_order_number,file_name,url from apps.cux3_eflow_delivery_docs where delivery_id=#[map-payload:delivery_id] and oe_order_number=#[map-payload:sales_no] order by docs_id]]></spring:value>
+		</spring:property>
+		<spring:property name="ds" ref="8aaae09b5bf03e9f015bf17bc58e061f_ERP_TO_BPM"></spring:property>
+		<spring:property name="firstRecode" value="true"></spring:property>
+
+		<spring:property name="subField" value="B_DeliveryNoticeAtt"></spring:property>
+	</custom-transformer>
+	
+	<!--循环分发单条数据-->
+	<custom-transformer class="com.bokesoft.dee.mule.dispatch.transformer.DispatchVMTransformer" name="循环分发单条数据">
+		<spring:property name="vmUrl" value="vm://ERP_Delivery_Release_L_TO_BPM"></spring:property>
+		<spring:property name="interfaceName" value="ERP_Delivery_Release_TO_BPM"></spring:property>
+		<spring:property name="useList" value="true"></spring:property>
+	</custom-transformer><default-exception-strategy><processor-chain>
+
+	<transformer ref="ggpz_把异常对象转换为文本"/>
+
+		<file:outbound-endpoint path="${bokedee.logpath.runtimeLog}/ERP_TO_BPM_Delivery_Release"  name="记录错误日志到文件_ERP_TO_BPM_Delivery_Release_H"
+		
+		outputPattern="#[function:datestamp:yyyyMMddHHmmss]-#[message:id].xml">
+		<property key="file_subdir" value="#[context:serviceName]/#[function:datestamp:yyyyMMdd]" />
+	</file:outbound-endpoint>
+
+</processor-chain></default-exception-strategy></flow></mule>

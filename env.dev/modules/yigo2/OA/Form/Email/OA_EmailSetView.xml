@@ -83,7 +83,8 @@ ShowData();]]>
                         <ListViewColumn Key="SetDefault" Caption="设为默认" ColumnType="HyperLink" Width="100px" Enable="true" DefaultValue="设为默认">
                             <OnClick>
                                 <![CDATA[DBUpdate("Update OA_EmailSet_H set IsDefault=1 where OID=?", OID);
-DBUpdate("Update OA_EmailSet_H set IsDefault=0 where OID!=?", OID);]]>
+DBUpdate("Update OA_EmailSet_H set IsDefault=0 where OID!=?", OID);
+LoadData();]]>
                             </OnClick>
                         </ListViewColumn>
                         <ListViewColumn Key="OID" Caption="OID" DataColumnKey="OID" ColumnType="TextEditor" Visible="false"/>

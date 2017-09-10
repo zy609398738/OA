@@ -437,7 +437,8 @@ YIUI.Panel = YIUI.extend(YIUI.Component, {
     getWidth: function () {
         if (this.rendered) {
 //            return this.getOuterEl()[0].clientWidth;
-            return this.getOuterEl()[0].clientWidth || this.getOuterEl().width();
+//            return this.getOuterEl()[0].clientWidth || this.getOuterEl().width();
+        	return this.getOuterEl().width();
         }
         return this.width;
     },
@@ -447,7 +448,8 @@ YIUI.Panel = YIUI.extend(YIUI.Component, {
      */
     getHeight: function () {
         if (this.rendered) {
-            return this.getOuterEl()[0].clientHeight;
+//            return this.getOuterEl()[0].clientHeight;
+        	return this.getOuterEl().height();
         }
         return this.height;
     },

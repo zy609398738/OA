@@ -82,6 +82,13 @@
 					RTS.setRts(id, state, $table);
 					RTS.checkCtr($table, id, state);
 					RTS.checkPtr($table, $tr.attr("pid"), state);
+					
+					var hasState0 = $("tbody .checkbox", $table).hasClass("state0");
+					if(hasState0) {
+						$(".title .checkbox", $table).prop("checked", false);
+					} else {
+						$(".title .checkbox", $table).prop("checked", true);
+					}
 				} else {
 					//行选择
 					if(!RTS.options.id) return;

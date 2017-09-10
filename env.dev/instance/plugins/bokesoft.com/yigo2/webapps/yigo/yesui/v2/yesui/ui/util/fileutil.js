@@ -10,11 +10,17 @@ YIUI.FileUtil = (function () {
         var prefix,size;
         if ($.browser.isIE) {
             var filePath = $file[0].value;
-            var fileSystem = new ActiveXObject("Scripting.FileSystemObject");
-            var file = fileSystem.GetFile(filePath);
-            size = file.Size / 1024;
-            var fileName = file.Name;
-            prefix = fileName.substring(fileName.lastIndexOf(".") + 1);
+            try {
+                var s = $file[0].value;
+				var arr = s.split('\\');
+				var fileName = arr[arr.length-1];
+
+                prefix = fileName.substring(fileName.lastIndexOf(".") + 1);
+
+				size = 0;
+			} catch (e) {
+				$.error("IE needs to start the ActiveX in the settings!");
+			}
         } else {
             size = $file[0].files[0].size / 1024;
             var path = $file.val().toLowerCase();

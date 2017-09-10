@@ -379,7 +379,7 @@ YIUI.Control.ListView = YIUI.extend(YIUI.Control, {
         this.cols = meta.cols || this.cols;
         this.loadType = meta.loadType || this.loadType;
         this.hasSelectField = meta.hasSelectField || false;
-        this.selectFieldIndex = meta.selectFieldIndex || -1;
+        this.selectFieldIndex = meta.selectFieldIndex != undefined ? meta.selectFieldIndex : -1;
         this.pageRowCount = meta.pageRowCount || 0;
         this.pageLoadType = meta.pageLoadType;
         this.primaryKeys = meta.primaryKeys;
@@ -485,6 +485,8 @@ YIUI.Control.ListView = YIUI.extend(YIUI.Control, {
         var $body = $('<table class="tbl-body"></table>').append(_tbody).appendTo($div_b);
 
         this.createColumnHead();
+
+        this.refreshSelectAll();// 第一次打开使用
 
         //总行数大于data的长度
         if(this.totalRowCount <= this.pageRowCount) {
@@ -931,11 +933,12 @@ YIUI.Control.ListView = YIUI.extend(YIUI.Control, {
         this.clearDataRow();
     },
 
-    reload: function() {
+    load: function() {
         var form = YIUI.FormStack.getForm(this.ofFormID);
         var showLV = YIUI.ShowListView(form, this);
         showLV.load(this);
         form.getUIProcess().resetComponentStatus(this);
+        this.refreshSelectAll();
     },
 
     repaint: function() {
@@ -1164,22 +1167,26 @@ YIUI.Control.ListView = YIUI.extend(YIUI.Control, {
     // 是否需要检查全选状态
     needCheckSelect:true,
 
-    refreshSelectEnable: function () {
+    refreshSelectAll:function () {
         if( !this.needCheckSelect || this.selectFieldIndex == -1 )
             return;
-        var selectAll = true;
-        for (var i = 0, len = this.getRowCount(); i < len; i++) {
-            if( !this.getValue(i,this.selectFieldIndex) ) {
-                selectAll = false;
-                break;
-            }
-        }
         var $chk = $(".lv-head .chk");
-        $chk.attr('isChecked',false);
-        $chk.removeClass('checked');
+        if( $chk.length == 0 )
+            return;
+        var selectAll = true;
+        if( this.getRowCount() > 0 ) {
+            for (var i = 0, len = this.getRowCount(); i < len; i++) {
+                if( !this.getValue(i,this.selectFieldIndex) ) {
+                    selectAll = false;
+                    break;
+                }
+            }
+        } else {
+            selectAll = false;
+        }
+        $chk.attr('isChecked',false).removeClass('checked');
         if( selectAll ) {
-            $chk.addClass('checked');
-            $chk.attr("isChecked",true);
+            $chk.addClass('checked').attr("isChecked",true);
         }
     },
 
@@ -1204,7 +1211,6 @@ YIUI.Control.ListView = YIUI.extend(YIUI.Control, {
             // 选择字段处理
             if( colIndex == this.selectFieldIndex ) {
                 this.handler.selectRow(form,this,rowIndex,colIndex,value);
-                this.refreshSelectEnable();
             }
         }
     },

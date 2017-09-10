@@ -1,0 +1,187 @@
+[
+  {
+    "chinese_desc": "接纳病人",
+    "description": "Admit a Patient",
+    "name": "A01"
+  },
+  {
+    "chinese_desc": "转移病人",
+    "description": "Transfer a Patient",
+    "name": "A02"
+  },
+  {
+    "chinese_desc": "出院病人",
+    "description": "Discharge a Patient",
+    "name": "A03"
+  },
+  {
+    "chinese_desc": "登记病人",
+    "description": "Register a Patient",
+    "name": "A04"
+  },
+  {
+    "chinese_desc": "预承认有耐心",
+    "description": "Pre-admit a Patient",
+    "name": "A05"
+  },
+  {
+    "chinese_desc": "年门诊to inpatient转移",
+    "description": "Transfer an Outpatient to Inpatient",
+    "name": "A06"
+  },
+  {
+    "chinese_desc": "转移住院病人到门诊",
+    "description": "Transfer an Inpatient to Outpatient",
+    "name": "A07"
+  },
+  {
+    "chinese_desc": "更新患者信息",
+    "description": "Update Patient Information",
+    "name": "A08"
+  },
+  {
+    "chinese_desc": "病人离开",
+    "description": "Patient Departing",
+    "name": "A09"
+  },
+  {
+    "chinese_desc": "病人到达",
+    "description": "Patient Arriving",
+    "name": "A10"
+  },
+  {
+    "chinese_desc": "取消录取",
+    "description": "Cancel Admit",
+    "name": "A11"
+  },
+  {
+    "chinese_desc": "取消转让",
+    "description": "Cancel Transfer",
+    "name": "A12"
+  },
+  {
+    "chinese_desc": "取消放电",
+    "description": "Cancel Discharge",
+    "name": "A13"
+  },
+  {
+    "chinese_desc": "待定",
+    "description": "Pending Admit",
+    "name": "A14"
+  },
+  {
+    "chinese_desc": "挂起的传输",
+    "description": "Pending Transfer",
+    "name": "A15"
+  },
+  {
+    "chinese_desc": "挂起的放电",
+    "description": "Pending Discharge",
+    "name": "A16"
+  },
+  {
+    "chinese_desc": "交换病人",
+    "description": "Swap Patients",
+    "name": "A17"
+  },
+  {
+    "chinese_desc": "合并的病人信息",
+    "description": "Merge Patient Information",
+    "name": "A18"
+  },
+  {
+    "chinese_desc": "患者查询",
+    "description": "Patient Query",
+    "name": "A19"
+  },
+  {
+    "chinese_desc": "护理/普查应用更新",
+    "description": "Nursing/Census Application Updates",
+    "name": "A20"
+  },
+  {
+    "chinese_desc": "一个病人去“离开”",
+    "description": "A Patient Goes On A \"Leave Of Absence\"",
+    "name": "A21"
+  },
+  {
+    "chinese_desc": "病人从“离开”离开的情况下返回",
+    "description": "A Patient Returns From A \"Leave Of Absence\"",
+    "name": "A22"
+  },
+  {
+    "chinese_desc": "删除病人记录",
+    "description": "Delete a Patient Record",
+    "name": "A23"
+  },
+  {
+    "chinese_desc": "创建一个病人链接交易",
+    "description": "Create a Patient Link Transaction",
+    "name": "A24"
+  },
+  {
+    "chinese_desc": "订单信息",
+    "description": "Order Message",
+    "name": "O01"
+  },
+  {
+    "chinese_desc": "响应消息",
+    "description": "Respone Message",
+    "name": "O02"
+  },
+  {
+    "chinese_desc": "添加和更新病人帐户",
+    "description": "Add and Update Patient Accounts",
+    "name": "P01"
+  },
+  {
+    "chinese_desc": "清除病人帐户",
+    "description": "Purge Patient Accounts",
+    "name": "P02"
+  },
+  {
+    "chinese_desc": "后详细财务交易",
+    "description": "Post Detail Financial Transactions",
+    "name": "P03"
+  },
+  {
+    "chinese_desc": "生成帐单和报表",
+    "description": "Generate bills and A/R statements",
+    "name": "P04"
+  },
+  {
+    "chinese_desc": "一个查询是立即响应",
+    "description": "A Query is Made for Immediate Response",
+    "name": "Q01"
+  },
+  {
+    "chinese_desc": "查询被发送为延迟响应",
+    "description": "A Query is Sent for Deferred Response",
+    "name": "Q02"
+  },
+  {
+    "chinese_desc": "对查询的延迟响应",
+    "description": "Deferred Response to A Query",
+    "name": "Q03"
+  },
+  {
+    "chinese_desc": "主动更新，ODM的消息，触发事件Q05",
+    "description": "Unsolicited Updates, ODM Message, Trigger Event Q05",
+    "name": "Q05"
+  },
+  {
+    "chinese_desc": "要求观察主动传输",
+    "description": "Unsolicited transmission of requested Obersvation",
+    "name": "R01"
+  },
+  {
+    "chinese_desc": "观察结果查询",
+    "description": "Query for results of observation",
+    "name": "R02"
+  },
+  {
+    "chinese_desc": "面向显示的结果，查询/ unsol。更新",
+    "description": "Display oriented results, queyr/unsol. update",
+    "name": "R03"
+  }
+]

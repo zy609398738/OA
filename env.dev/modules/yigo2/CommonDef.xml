@@ -37,7 +37,7 @@
 				]]>
             </Action>
         </Operation>
-        <Operation Caption="编辑" Key="Edit" Visible="ReadOnly()&amp;&amp;Status==100" Enable="ToInt(Status)&lt;1200">
+        <Operation Caption="编辑" Key="Edit" Visible="ReadOnly()&amp;&amp;Status&lt;1100" Enable="ToInt(Status)&lt;1200">
             <Action RunType="Server">
                 <![CDATA[Edit();]]>
             </Action>
@@ -166,8 +166,17 @@ Confirm(GetOID()+"_"+OID);]]>
 OA_GetNextOptAndPar(sql);]]>
         </Macro>
         <Macro Key="OA_AuditBefore" Args="isDialog,workitemID,formKey,workflowTypeDtlID,billOID">
-            <![CDATA[if(InvokeService("OA_GetWorkflowDesigneValue", false, false,workitemID,formKey,workflowTypeDtlID,"IsSaveData")==1){
-    if(ToBool(isDialog)){
+            <![CDATA[var isD=ToBool(isDialog);
+if(ContainsKey("AuditOpinion")){
+    if(!isD){
+        var auditOpinion=GetValue("AuditOpinion");
+        if(auditOpinion=="" && InvokeService("OA_GetWorkflowDesigneUserInfoCheck", false, false,workitemID,formKey,workflowTypeDtlID,Para("OptKey"))==1){
+            RaiseErr("审批意见不能为空");
+        }
+    }
+}
+if(InvokeService("OA_GetWorkflowDesigneValue", false, false,workitemID,formKey,workflowTypeDtlID,"IsSaveData")==1){
+    if(isD){
         parent.SaveData();
     }else{
         SaveData();
@@ -175,7 +184,7 @@ OA_GetNextOptAndPar(sql);]]>
 }]]>
         </Macro>
         <Macro Key="OA_AuditAfter" Args="isDialog,workitemID,formKey,workflowTypeDtlID,billOID">
-            <![CDATA[if(InvokeService("OA_GetWorkflowDesigneValue", false, false,workitemID,formKey,workflowTypeDtlID,"AuditAfterNextPre")!=1){
+            <![CDATA[if(InvokeService("OA_GetWorkflowDesigneValue", false, false,workitemID,formKey,workflowTypeDtlID,"AuditAfterNextPre")==0){
     var names=OA_GetParticipatorByWorkitem(billOID);
     if(!IsNull(names) && Length(names)>0){
         Confirm("下一步操作和参与者为："+names,"OK","OK:{OA_AuditAfterClose("+workitemID+",'"+formKey+"',"+workflowTypeDtlID+")}");
@@ -184,19 +193,36 @@ OA_GetNextOptAndPar(sql);]]>
     }
 }]]>
         </Macro>
+        <Macro Key="OA_AuditAfter_MSG" Args="isDialog,workitemID,formKey,workflowTypeDtlID,billOID">
+            <![CDATA[if(InvokeService("OA_GetWorkflowDesigneValue", false, false,workitemID,formKey,workflowTypeDtlID,"AuditAfterNextPre")==0){
+    var names=OA_GetParticipatorByWorkitem(billOID);
+    if(!IsNull(names) && Length(names)>0){
+        Confirm("下一步操作和参与者为："+names,"OK","OK:{OA_AuditAfterClose("+workitemID+",'"+formKey+"',"+workflowTypeDtlID+")}");
+    }else{
+        Confirm("审批结束"+MSG,"OK","OK:{OA_AuditAfterClose("+workitemID+",'"+formKey+"',"+workflowTypeDtlID+")}");
+    }
+}]]>
+        </Macro>
         <Macro Key="OA_GetMaxWorkitemid" Args="preworkitemid">
             <![CDATA[select max(workitemid) from bpm_workiteminfo where instanceid =  (select bw.instanceid from bpm_workiteminfo bw where bw.workitemid = preworkitemid)]]>
         </Macro>
         <Macro Key="OA_AuditAfterClose" Args="workitemID,formKey,workflowTypeDtlID">
-            <![CDATA[if(InvokeService("OA_GetWorkflowDesigneValue", false, false,workitemID,formKey,workflowTypeDtlID,"AuditAfterClose")!=1){
-    Close();
-}
-if(parent.ContainsKey("ShowWeb")){
-    var url=parent.GetValue("ShowWeb");
-    if(url=="tslindex.page"){
-        parent.SetValue("ShowWeb", "", true);
-        parent.SetValue("ShowWeb", url, true);
-    }
+            <![CDATA[
+			if (HasParent()) {
+				parent.LoadData();
+			}
+			if(InvokeService("OA_GetWorkflowDesigneValue", false, false,workitemID,formKey,workflowTypeDtlID,"AuditAfterClose")!=1){
+				Close();
+			}
+
+
+			if(parent.ContainsKey("ShowWeb")){
+			var url=parent.GetValue("ShowWeb");
+			if(url=="tslindex.page"){
+				parent.SetValue("ShowWeb", "", true);
+				parent.SetValue("ShowWeb", url, true);
+			}	
+
 }]]>
         </Macro>
         <Macro Key="OA_WorkflowPass">
@@ -217,7 +243,7 @@ if(IsVisible("NextOpt")==false)
     InvokeService("OA_SetNextParticipator",true,false,"SYS_OPERATOR",NextOpt,Para("workflowBillKey"),Para("workflowOID"),pWorkitemID,GetOperator());		
     parent.CommitWorkitem(-1,1,GetValue("Opinion"));
 }
-parent.InvokeService("OA_OptSendMessage", true, false, parent.GetFormKey(),Para("OptKey"),pWorkitemID,Para("workflowOID"),ServerDate(),Para("WorkflowTypeDtlID"));
+parent.InvokeService("OA_OptSendMessage", true, false, parent.GetFormKey(),Para("OptKey"),OA_GetActiveWorkitemID(Para("workflowOID")),Para("workflowOID"),ServerDate(),Para("WorkflowTypeDtlID"));
 Close();
 parent.OA_AuditAfter(true,Para("pWorkitemID"),Para("workflowBillKey"),Para("WorkflowTypeDtlID"),Para("workflowOID"));]]>
         </Macro>
@@ -226,7 +252,8 @@ parent.OA_AuditAfter(true,Para("pWorkitemID"),Para("workflowBillKey"),Para("Work
         </Macro>
         <Macro Key="OA_StartInstance" Args="formKey,workflowTypeDtlID,billOID">
             <![CDATA[StartInstance();
-OA_AuditAfter(false,-1,formKey,workflowTypeDtlID,billOID);]]>
+InvokeService("OA_OptSendMessageBPM", true, false,GetFormKey(),"OPTCommitAudit",OA_GetActiveWorkitemID(GetOID()),GetOID(),ServerDate(),WorkflowTypeDtlID);
+OA_AuditAfter(false,OA_GetActiveWorkitemID(billOID),formKey,workflowTypeDtlID,billOID);]]>
         </Macro>
         <Macro Key="OA_GetProcessKey" Args="formKey">
             <![CDATA[InvokeService("OA_GetProcessKey", true, false, formKey);]]>
@@ -305,6 +332,51 @@ if(DBNamedQueryValue("querySourceOID",OID,workitemid)<=0){
     Confirm("取消成功");
 }]]>
         </Macro>
+        <Macro Key="OA_GetEmailTemplateStr">
+            <![CDATA[InvokeService("OA_GetEmailTemplateStr", true, true)]]>
+        </Macro>
+        <Macro Key="OA_GetActiveWorkitemID" Args="billoid">
+            <![CDATA[DBQueryValue("SELECT DISTINCT wi.workitemid FROM (SELECT workitemid FROM wf_participator WHERE EXISTS (SELECT P.OPERATORID 
+              FROM (SELECT l.workitemid, l.NODEID, l.WORKITEMNAME FROM BPM_LOG l WHERE EXISTS (SELECT INSTANCEID FROM BPM_INSTANCE i
+              WHERE OID = ? AND i.INSTANCEID = l.INSTANCEID)) wi JOIN WF_PARTICIPATOR p ON wi.workitemid = p.workitemid
+              JOIN sys_operator o ON p.operatorid = o.oid)) pa JOIN bpm_workiteminfo wi ON pa.workitemid = wi.workitemid
+              JOIN wf_workitem w ON wi.workitemid = w.workitemid AND wi.instanceid = (SELECT instanceID
+              FROM bpm_instance WHERE OID = ?) AND w.workitemstate != 3",billoid,billoid);]]>
+        </Macro>
+        <Macro Key="OA_GetFormCaption" Args="operatorid1,operatorid2">
+            <![CDATA[DBQuery("select distinct formkey,formname from bpm_instance  where exists 
+        (select distinct instanceid  from bpm_log where operatorid =?) 
+        union 
+        select distinct i.formkey,i.formname from bpm_instance i join bpm_log l on i.instanceid = l.instanceid 
+        join wf_participator p on L.WORKITEMID = p.workitemid where p.operatorid = ?",operatorid1,operatorid2)]]>
+        </Macro>
+        <Macro Key="OA_GetMaxWorkItemIDAfterCommit" Args="billoid">
+            <![CDATA[DBQueryValue("select max(workitemid) from bpm_log where auditresult>=0 and instanceID=(SELECT instanceID FROM bpm_instance WHERE OID = ?)",billoid)]]>
+        </Macro>
+        <Macro Key="OA_AddAttVisible">
+            <![CDATA[var nodeValue=InvokeService("OA_GetWorkflowDesigneValue", false, false,OA_GetActiveWorkitemID(GetOID()),GetFormKey(),GetValue("WorkflowTypeDtlID"),"AddAtt");
+if(IsNull(nodeValue)){
+    return IsNewOrEdit();
+}else{
+    return nodeValue==1;
+}]]>
+        </Macro>
+        <Macro Key="OA_DownloadAttVisible">
+            <![CDATA[var nodeValue=InvokeService("OA_GetWorkflowDesigneValue", false, false,OA_GetActiveWorkitemID(GetOID()),GetFormKey(),GetValue("WorkflowTypeDtlID"),"NOViewAtt");
+if(IsNull(nodeValue)){
+    return true;
+}else{
+    return nodeValue==0;
+}]]>
+        </Macro>
+        <Macro Key="OA_DeleteAttVisible">
+            <![CDATA[var nodeValue=InvokeService("OA_GetWorkflowDesigneValue", false, false,OA_GetActiveWorkitemID(GetOID()),GetFormKey(),GetValue("WorkflowTypeDtlID"),"DeleteAtt");
+if(IsNull(nodeValue)){
+    return true;
+}else{
+    return nodeValue==1;
+}]]>
+        </Macro>
     </MacroCollection>
     <QueryCollection>
         <Query Key="queryLastUserID" Description="查询上一步处理人">
@@ -380,13 +452,22 @@ if(DBNamedQueryValue("querySourceOID",OID,workitemid)<=0){
                 <Parameter DataType="Long"/>
             </ParameterCollection>
         </Query>
+        <Query Key="querytransitto" Description="查询transitto">
+            <Statement>
+                <![CDATA[select transitto from bpm_instance where OID=?]]>
+            </Statement>
+        </Query>
+        <Query Key="query_wf_workitem" Description="查询wf_workitem">
+            <Statement>
+                <![CDATA[select w.nodeid from bpm_instance i join bpm_log l on i.instanceid = l.instanceid join wf_workitem w on l.workitemid = w.workitemid where l.auditresult = -1 and  i.oid = ?]]>
+            </Statement>
+        </Query>
     </QueryCollection>
     <ParaTable>
         <ParaGroup Caption="紧急程度" Key="UrgencyDeg">
-            <ParaItem Caption="一般" Key="10" Value="10"/>
-            <ParaItem Caption="紧急" Key="20" Value="20"/>
-            <ParaItem Caption="特急" Key="30" Value="30"/>
-            <ParaItem Key="0" Value="0"/>
+            <ParaItem Caption="一般" Key="U_1" Value="10"/>
+            <ParaItem Caption="紧急" Key="U_2" Value="20"/>
+            <ParaItem Caption="特急" Key="U_3" Value="30"/>
         </ParaGroup>
         <ParaGroup Caption="字段类型" Key="FieldType">
             <ParaItem Caption="标识" Key="oid" Value="oid"/>
@@ -408,8 +489,10 @@ if(DBNamedQueryValue("querySourceOID",OID,workitemid)<=0){
             <ParaItem Caption="&lt;" Key="&lt;" Value="&lt;"/>
             <ParaItem Caption="&gt;=" Key="&gt;=" Value="&gt;="/>
             <ParaItem Caption="&lt;=" Key="&lt;=" Value="&lt;="/>
-            <ParaItem Caption="包含" Key="like" Value="like"/>
-            <ParaItem Caption="不包含" Key="not like" Value="not like"/>
+            <ParaItem Caption="文本包含" Key="like" Value="like"/>
+            <ParaItem Caption="文本不包含" Key="not like" Value="not like"/>
+            <ParaItem Caption="SQL包含" Key="in" Value="in"/>
+            <ParaItem Caption="SQL不包含" Key="not in" Value="not in"/>
         </ParaGroup>
         <ParaGroup Caption="逻辑操作" Key="LogicOperation">
             <ParaItem Caption="并且" Key="and" Value="and"/>
@@ -440,7 +523,7 @@ if(DBNamedQueryValue("querySourceOID",OID,workitemid)<=0){
         <ParaGroup Caption="启用标记" Key="Enable">
             <ParaItem Caption="停用" Key="0" Value="0"/>
             <ParaItem Caption="在用" Key="1" Value="1"/>
-            <ParaItem Caption="作废" Key="-1" Value="-1"/>
+            <ParaItem Key="-1" Value="-1" Caption="作废"/>
         </ParaGroup>
         <ParaGroup Caption="性别" Key="Sex">
             <ParaItem Caption="男" Key="M" Value="M"/>
@@ -491,9 +574,30 @@ if(DBNamedQueryValue("querySourceOID",OID,workitemid)<=0){
         </ParaGroup>
         <ParaGroup Caption="审批结果" Key="AuditResult">
             <ParaItem Caption="通过" Key="1" Value="1"/>
-            <ParaItem Caption="驳回" Key="0" Value="0"/>
-            <ParaItem Caption="待处理" Key="-1" Value="-1"/>
+            <ParaItem Caption="撤回" Key="0" Value="0"/>
+            <ParaItem Key="-1" Value="-1" Caption="待处理"/>
             <ParaItem Caption="弃权" Key="-2" Value="-2"/>
+            <ParaItem Caption="指派" Key="2" Value="2"/>
+            <ParaItem Caption="拒绝" Key="3" Value="3"/>
+            <ParaItem Caption="结束" Key="4" Value="4"/>
+            <ParaItem Caption="直送" Key="6" Value="6"/>
+        </ParaGroup>
+        <ParaGroup Caption="移交方式" Key="TransferType">
+            <ParaItem Caption="代理授权" Key="1" Value="1"/>
+            <ParaItem Caption="指派" Key="2" Value="2"/>
+            <ParaItem Caption="加签" Key="3" Value="3"/>
+            <ParaItem Key="-1" Value="-1"/>
+        </ParaGroup>
+        <ParaGroup Caption="流程状态" Key="InstanceState">
+            <ParaItem Caption="注册成功" Key="0" Value="0"/>
+            <ParaItem Caption="运行中" Key="1" Value="1"/>
+            <ParaItem Caption="已结束" Key="2" Value="2"/>
+            <ParaItem Caption="强行关闭" Key="3" Value="3"/>
+            <ParaItem Caption="暂停" Key="4" Value="4"/>
+        </ParaGroup>
+        <ParaGroup Caption="是否发送通知" Key="IsSendMessage">
+            <ParaItem Caption="是" Key="10" Value="10"/>
+            <ParaItem Caption="否" Key="20" Value="20"/>
         </ParaGroup>
     </ParaTable>
 </CommonDef>

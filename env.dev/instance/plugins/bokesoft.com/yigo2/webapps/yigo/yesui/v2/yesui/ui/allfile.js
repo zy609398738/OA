@@ -1,6 +1,3 @@
-/**
- * 此文件中仅包含对jQuery的扩展
- */
 (function () {
 
 	var root = "yesui/v2/";
@@ -18,8 +15,7 @@
 	if(!myStyle){
 		myStyle = 'blue';
 	}
-	myStyle = 'blue';
-	var local = getCookie("language");
+	var local = getCookie("locale");
 	if(!local){
 		local = 'zh-CN';
 	}
@@ -166,6 +162,7 @@
 				"<script type='text/javascript' src='"+root+"yesui/ui/fun/basefun.js' defer='defer'></script>" + 
 		        "<script type='text/javascript' src='"+root+"yesui/ui/objectloop.js' defer='defer'></script>" + 
 				"<script type='text/javascript' src='"+root+"yesui/ui/vparser.js' defer='defer'></script>" + 
+				"<script type='text/javascript' src='"+root+"yesui/ui/workiteminfo.js' defer='defer'></script>" + 
 		        "<script type='text/javascript' src='"+root+"yesui/ui/statusproxy.js' defer='defer'></script>" +
 				"<script type='text/javascript' src='"+root+"yesui/ui/abstractuiprocess.js' defer='defer'></script>" +
 
@@ -205,7 +202,7 @@
 				"<script type='text/javascript' src='"+root+"yesui/svr/formutils.js' defer='defer'></script>" + 
 				//"<script type='text/javascript' src='"+root+"yesui/ui/formRender.js' defer='defer'></script>" + 
 
-				//组件
+                //组件
 				"<script type='text/javascript' src='"+root+"yesui/ui/yescomponent/yesbutton.js' defer='defer'></script>" + 
 				"<script type='text/javascript' src='"+root+"yesui/ui/yescomponent/yeshyperlink.js' defer='defer'></script>" + 
 				"<script type='text/javascript' src='"+root+"yesui/ui/yescomponent/yesimage.js' defer='defer'></script>" + 
@@ -317,6 +314,7 @@
 				"<script type='text/javascript' src='"+root+"yesui/ui/maincontainer.js'></script>" + 
 				"<script type='text/javascript' src='"+root+"yesui/ui/maintree.js'></script>" + 
 				
+                "<script type='text/javascript' src='"+root+"yesui/ui/plugin/js/print/jquery.printarea.js' defer='defer'></script>" +
 				"<script type='text/javascript' src='"+root+"yesui/ui/plugin/js/raphael-src.js' defer='defer'></script>" +
 				"<script type='text/javascript' src='"+root+"yesui/ui/plugin/js/jquery.cookie.js' defer='defer'></script>" +
 				"<script type='text/javascript' src='"+root+"yesui/ui/plugin/js/datepicker/datetimemask/dateTimeMask.js' defer='defer'></script>" +

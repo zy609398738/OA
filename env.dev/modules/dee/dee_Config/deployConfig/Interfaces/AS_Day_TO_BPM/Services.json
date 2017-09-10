@@ -1,0 +1,11 @@
+[
+  {
+    "id": "8aaae0a95c871527015c871c67b20010",
+    "text": "AS_Day_TO_BPM",
+    "recordMpLog": "false",
+    "parentId": "8aaae0a95c871527015c871c679b000f",
+    "description": "查询余假信息",
+    "fileImport": "false",
+    "enable": "true"
+  }
+]

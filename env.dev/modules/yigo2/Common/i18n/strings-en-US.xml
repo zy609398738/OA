@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+	<Entry>
+		<Common_System>System</Common_System>
+			<Common_System_Rigths>Privileges Management</Common_System_Rigths>
+				<Common_System_Rigths_Operator>Operator Management</Common_System_Rigths_Operator>
+				<Common_System_Rigths_Role>Role Management</Common_System_Rigths_Role>
+				<Common_System_Rigths_OperatorRightsSet>Operator Privileges</Common_System_Rigths_OperatorRightsSet>
+				<Common_System_Rigths_RoleRightsSet>Role Privileges</Common_System_Rigths_RoleRightsSet>
+				<Common_System_Rigths_PassWordSet>Password</Common_System_Rigths_PassWordSet>
+			<Common_System_SystemFunction>Log</Common_System_SystemFunction>
+				<Common_System_SystemFunction_OA_LoginInfo>Login Log</Common_System_SystemFunction_OA_LoginInfo>
+	</Entry>
+</StringTable>

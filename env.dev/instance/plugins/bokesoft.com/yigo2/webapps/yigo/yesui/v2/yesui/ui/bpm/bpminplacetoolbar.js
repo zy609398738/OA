@@ -14,6 +14,7 @@ YIUI.BPMInplaceToolBar = (function() {
 				var instanceID = table.getByKey(YIUI.BPMConstants.BPM_INSTANCE_ID);
 				var instanceState = table.getByKey(YIUI.BPMConstants.ELEMENT_STATE);
 				var processKey = table.getByKey(YIUI.BPMConstants.BPM_PROCESS_KEY);
+				var transitTo = table.getByKey(YIUI.BPMConstants.BPM_TRANSIT_TO);
 				if ((instanceID >= 0 && instanceState == YIUI.InstanceState.SIGN) || (instanceID < 0 && processKey != null && processKey.length > 0)) {
 					var caption = table.getByKey(YIUI.BPMConstants.BPM_STARTCAPTION);
 					var action = table.getByKey(YIUI.BPMConstants.BPM_STARTACTION);
@@ -34,6 +35,21 @@ YIUI.BPMInplaceToolBar = (function() {
 	
 					ret.push(op);
 				}
+			}
+			
+			if(transitTo != -1 && instanceState == YIUI.InstanceState.SIGN) {
+				var caption = "直送";
+				var action = "StartInstance(\"\",{pattern:{Transit}})";
+				var op = {};
+				
+				op.caption = caption;
+				op.action = action;
+				op.key = operation.key + "sv";
+				op.enable = "ReadOnly()";
+				op.visible = "";
+				op.managed = true;
+
+				ret.push(op);
 			}
 	
 			return ret;

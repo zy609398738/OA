@@ -1,0 +1,11 @@
+[
+  {
+    "parentId": "ff8080815d3973f2015d39e4478b00e5",
+    "text": "ERP_PI_TO_BPM",
+    "recordMpLog": "false",
+    "id": "ff8080815d3973f2015d39e4479900e6",
+    "description": "实时查询ERP系统发货通知PI信息",
+    "fileImport": "false",
+    "enable": "true"
+  }
+]

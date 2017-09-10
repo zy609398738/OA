@@ -1,0 +1,10 @@
+{
+  "id": "402881e95d5a8b56015d5a9403f8000a",
+  "startIndex": "",
+  "text": "ERP_UserResp_TO_BPM",
+  "autoRun": "true",
+  "description": "调用ERP权限变更表用户包",
+  "responseTime": "600000",
+  "changePort": "",
+  "oldPort": ""
+}

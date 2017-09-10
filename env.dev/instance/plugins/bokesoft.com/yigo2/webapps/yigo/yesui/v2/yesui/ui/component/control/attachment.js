@@ -175,7 +175,7 @@ YIUI.Control.Attachment = YIUI.extend(YIUI.Control, {
                 var uploadName = tbl.getByKey("UploadName");
                 var path = tbl.getByKey(YIUI.Attachment_Data.PATH);
                 var name = tbl.getByKey(YIUI.Attachment_Data.NAME);
-                var oid = tbl.getByKey(YIUI.Attachment_Data.OID);
+                var oid = tbl.getByKey(YIUI.SystemField.OID_SYS_KEY);
     			
 				$tr = $('<tr></tr>');
 				$('<td>' + name + '</td>').appendTo($tr);
@@ -183,7 +183,7 @@ YIUI.Control.Attachment = YIUI.extend(YIUI.Control, {
 				$('<td>' + uploadName + '</td>').appendTo($tr);
 				$('<td>' + path + '</td>').appendTo($tr);
 				// 上传
-                $('<td></td>').appendTo($tr).append($("<input class='btn upd' type='button' value='上传'>"))
+                $('<td></td>').appendTo($tr).append($("<input class='btn upd' type='button' value='"+attachment.attachmentUpload+"'>"))
                     .append($("<input type='file' name='file' data-url='upload' class='btn upd fup'>").data("fileID", oid));
 				// 下载
 				$('<td></td>').appendTo($tr).append($("<input class='btn download' type='button' value='"+attachment.attachmentDownload+"'>").data("fileID", oid));

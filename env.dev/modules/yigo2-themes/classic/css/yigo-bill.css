@@ -73,3 +73,8 @@ width: 48px; */
   .ui-tabs-body  .ui-tabs-nav .aria-selected a{
     background: #63b6eb!important;
  }
+ 
+/*表格标题行字体大小最小14px，否则微软雅黑字体下，“申请”两个字会一大一小*/
+.ui-lv .lv-tb thead th label {
+    font-size: 14px;
+}

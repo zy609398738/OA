@@ -15,7 +15,6 @@
 		<init-param>
 			<param-name>loginpage</param-name>
 			<param-value>/login.jsp</param-value>
-			<!-- <param-value>/login_flat.jsp</param-value> -->
 		</init-param>
 		<init-param>
 			<param-name>style</param-name>
@@ -29,62 +28,10 @@
 	<filter-mapping>
 		<filter-name>GZIPFilter</filter-name>
 		<url-pattern>/*</url-pattern>
-	</filter-mapping><!-- 
-	<filter-mapping>
-		<filter-name>loginFilter</filter-name>
-		<url-pattern>*.jsp</url-pattern>
-	</filter-mapping> -->
-	<filter-mapping>
-		<filter-name>loginFilter</filter-name>
-		<url-pattern>/main.jsp</url-pattern>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>loginFilter</filter-name>
-		<url-pattern>/main_pack.jsp</url-pattern>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>loginFilter</filter-name>
-		<url-pattern>/main_packDebug.jsp</url-pattern>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>loginFilter</filter-name>
-		<url-pattern>/main_release.jsp</url-pattern>
 	</filter-mapping>
 	<filter-mapping>
 		<filter-name>loginFilter</filter-name>
 		<url-pattern>/main_pure.jsp</url-pattern>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>loginFilter</filter-name>
-		<url-pattern>/main_pure1.jsp</url-pattern>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>loginFilter</filter-name>
-		<url-pattern>/main_pure2.jsp</url-pattern>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>loginFilter</filter-name>
-		<url-pattern>/main_pure3.jsp</url-pattern>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>loginFilter</filter-name>
-		<url-pattern>/test.jsp</url-pattern>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>loginFilter</filter-name>
-		<url-pattern>/main_lll.jsp</url-pattern>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>loginFilter</filter-name>
-		<url-pattern>/main_test2.jsp</url-pattern>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>loginFilter</filter-name>
-		<url-pattern>/login1.jsp</url-pattern>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>loginFilter</filter-name>
-		<url-pattern>/main_pure2_flat.jsp</url-pattern>
 	</filter-mapping>
 	<mime-mapping>
 		<extension>css</extension>
@@ -138,7 +85,6 @@
 	<welcome-file-list>
 		<!-- 定义首页，开始界面 -->
 		<welcome-file>main_pure.jsp</welcome-file>
-		<welcome-file>main_release.jsp</welcome-file>
 	</welcome-file-list>
 	
 </web-app>

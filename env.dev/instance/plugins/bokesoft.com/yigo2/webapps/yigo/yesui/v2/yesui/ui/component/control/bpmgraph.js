@@ -32,7 +32,8 @@ YIUI.Control.BPMGraph = YIUI.extend(YIUI.Control, {
                 }
             }
         }
-        return false;
+//        return false;
+    	return transition.inpath;
     },
 
     isPastNodeInPath: function (node) {
@@ -60,7 +61,8 @@ YIUI.Control.BPMGraph = YIUI.extend(YIUI.Control, {
                 }
             }
         }
-        return false;
+//        return false;
+    	return node.last;
     },
     //判断是否为IE浏览器
     isIE: function () {
@@ -77,7 +79,7 @@ YIUI.Control.BPMGraph = YIUI.extend(YIUI.Control, {
     onSetHeight: function (height) {
         this.base(height);
 //        if (this.hasWidth && this.paper == null) {
-            this.createGraph();
+//            this.createGraph();
 //        }
         this.hasHeight = true;
     },
@@ -85,14 +87,14 @@ YIUI.Control.BPMGraph = YIUI.extend(YIUI.Control, {
         this.base(width);
         this.el.css("overflow", "auto");
 //        if (this.hasHeight && this.paper == null) {
-            this.createGraph();
+//            this.createGraph();
 //        }
         this.hasWidth = true;
     },
 
     onRender: function (ct) {
         this.base(ct);
-//       this.createGraph();
+        this.createGraph();
     },
 
     refreshGraph: function() {
@@ -123,7 +125,8 @@ YIUI.Control.BPMGraph = YIUI.extend(YIUI.Control, {
                     maxY = node.y + node.height;
                 }
             }
-            this.mX = (maxX - minX) / 2 - this.el.width() / 2 + 50;
+//            this.mX = (maxX - minX) / 2 - this.el.width() / 2 + 50;
+            this.mX = minX - 20;
             this.mY = minY - 20;
             this.paper.setSize(maxX + Math.abs(this.mX) + 40, maxY + 40);
             for (var index in this.nodes) {
@@ -990,7 +993,7 @@ YIUI.Control.BPMGraph = YIUI.extend(YIUI.Control, {
             var imagePath = YIUI.Image.getRealImagePath("bpmgraph/node/" + (node.image_last || node.image));
             out.attr({fill: "url(" + imagePath + ")", stroke: "red"});
         } else if (this.isPastNodeInPath(node)) {
-            var imagePath = YIUI.Image.getRealImagePath("bpmgraph/node/" + (node.image_last || node.image));
+            var imagePath = YIUI.Image.getRealImagePath("bpmgraph/node/" + (node.image_past || node.image));
             out.attr({fill: "url(" + imagePath + ")", stroke: "blue"});
         } else {
             var imagePath = YIUI.Image.getRealImagePath("bpmgraph/node/" + node.image);

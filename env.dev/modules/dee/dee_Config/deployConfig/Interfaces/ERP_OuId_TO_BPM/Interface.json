@@ -1,0 +1,10 @@
+{
+  "id": "8a9f5a005cbf65f2015cbf7d982f000e",
+  "startIndex": "",
+  "text": "ERP_OuId_TO_BPM",
+  "autoRun": "true",
+  "description": "实时查询ERP系统OUID信息",
+  "responseTime": "600000",
+  "changePort": "",
+  "oldPort": ""
+}

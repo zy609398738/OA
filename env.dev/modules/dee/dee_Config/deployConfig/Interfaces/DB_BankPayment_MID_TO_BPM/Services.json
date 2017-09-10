@@ -1,0 +1,20 @@
+[
+  {
+    "parentId": "8aaae0da5dcf21d3015dcf3eccb30028",
+    "text": "DB_BankPayment_MID_TO_BPM_H",
+    "recordMpLog": "true",
+    "id": "8aaae0da5dcf21d3015dcf3ecd1b0029",
+    "description": "查询满足条件的银行付款中间表数据",
+    "fileImport": "false",
+    "enable": "true"
+  },
+  {
+    "recordMpLog": "true",
+    "text": "DB_BankPayment_MID_TO_BPM_L",
+    "parentId": "8aaae0da5dcf21d3015dcf3eccb30028",
+    "id": "8aaae0da5dcf21d3015dcf3ecd47002a",
+    "description": "导入数据至YIGO系统",
+    "fileImport": "false",
+    "enable": "true"
+  }
+]

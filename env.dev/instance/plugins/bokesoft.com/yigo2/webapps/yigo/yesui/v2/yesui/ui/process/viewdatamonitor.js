@@ -22,6 +22,10 @@
 
            YIUI.GridSumUtil.evalAffectSum(form, grid, rowIndex, colIndex);
 
+           if( colIndex == grid.selectFieldIndex ){
+               grid.refreshSelectAll();
+           }
+
            var valueChanged = metaRow.cells[colIndex].valueChanged;
            if (valueChanged !== undefined && valueChanged.length > 0) {
                form.eval($.trim(valueChanged), {form: form, rowIndex: rowIndex}, null);

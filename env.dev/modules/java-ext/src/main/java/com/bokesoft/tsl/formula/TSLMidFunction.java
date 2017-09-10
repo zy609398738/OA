@@ -21,16 +21,14 @@ public class TSLMidFunction extends BaseFunImplCluster {
 				{ "TSL_InsertInvoiceLineStatusChange", new TSL_InsertInvoiceLine() },
 				{ "TSL_ImportAPInvoiceStatusChange", new TSL_ImportAPInvoice() },
 				{ "TSL_ImportGeneralLedgerStatusChange", new TSL_ImportGeneralLedger() },
-				{ "TSL_GetDeptHead", new TSL_GetDeptHead() }, { "TSL_GetDeptHeadParent", new TSL_GetDeptHeadParent() },
 				{ "TSL_UpdateDelivery_main", new TSL_UpdateDelivery_main() },
 				{ "TSL_InsertUserRespInf", new TSL_InsertUserRespInf() },
-				{ "TSL_ImportUserResp", new TSL_ImportUserResp() },
-				{ "TSL_GetUserResp", new TSL_GetUserResp() },				
-				{ "TSL_GetPI", new TSL_GetPI() } ,
-				{ "TSL_DeleteBudget", new TSL_DeleteBudget() },				
-				{ "TSL_DeleteAP", new TSL_DeleteAP() } ,
+				{ "TSL_ImportUserResp", new TSL_ImportUserResp() }, { "TSL_GetUserResp", new TSL_GetUserResp() },
+				{ "TSL_GetPI", new TSL_GetPI() }, { "TSL_DeleteBudget", new TSL_DeleteBudget() },
+				{ "TSL_DeleteAP", new TSL_DeleteAP() },
 				{ "TSL_GetSupplierDataTable", new TSL_GetSupplierDataTableImpl() },
 				{ "TSL_GetInvoiceNumberDataTable", new TSL_GetInvoiceNumberDataTableImpl() },
+				{ "TSL_GetInvoiceNumDataTable", new TSL_GetInvoiceNumDataTableImpl() },
 				{ "TSL_Get1688DataTable", new TSL_Get1688DataTableImpl() },
 				{ "TSL_GetCashFlowStatementDataTable", new TSL_GetCashFlowStatementDataTableImpl() },
 				{ "TSL_GetSupplierBankDataTable", new TSL_GetSupplierBankDataTableImpl() },
@@ -38,8 +36,10 @@ public class TSLMidFunction extends BaseFunImplCluster {
 				{ "TSL_GetProjectNumDataTable", new TSL_GetProjectNumDataTableImpl() },
 				{ "TSL_GetCheckPayment", new TSL_GetCheckPayment() },
 				{ "TSL_InsertApExamine", new TSL_InsertApExamine() },
-				{ "TSL_CreateAPPayment", new TSL_CreateAPPayment() }
-				
-				};
+				{ "TSL_CreateAPPayment", new TSL_CreateAPPayment() },
+				{ "TSL_GetBudgetNoDataTable", new TSL_GetBudgetNoDataTableImpl() },
+				{ "TSL_CalcSignCondition", new TSL_CalcSignConditionImpl() },
+
+		};
 	}
 }

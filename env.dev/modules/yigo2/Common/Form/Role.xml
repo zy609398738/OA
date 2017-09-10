@@ -1,57 +1,78 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <Form Caption="角色" Key="Role" FormType="Dict">
-	<DataSource>
-		<DataObject Key="Role" Caption="角色" PrimaryTableKey="SYS_Role" PrimaryType="Entity" SecondaryType="Dict">
-			<TableCollection>
-				<Table Key="SYS_Role" Caption="基本信息" DBTableName="SYS_Role" TableMode="Head" SourceType="Table" Persist="True">
-					<Column Key="OID" Caption="对象标识" Persist="True" DataType="Long" DBColumnName="OID" />
-					<Column Key="POID" Caption="父对象标识" Persist="True" DataType="Long" DBColumnName="POID"/>
-					<Column Key="SOID" Caption="主对象标识" Persist="True" DataType="Long" DBColumnName="SOID"/>
-					<Column Key="VERID" Caption="对象版本" Persist="True" DataType="Integer" DBColumnName="VERID"/>
-					<Column Key="DVERID" Caption="对象明细版本" Persist="True" DataType="Integer" DBColumnName="DVERID"/>
-					<Column Key="Status" Caption="状态" Persist="True" DataType="Integer" DefaultValue="0"/>
-					<Column Key="Enable" Caption="启用标记" Persist="True" DataType="Integer" DefaultValue="1"/>
-					<Column Key="NodeType" Caption="NodeType" Persist="True" DataType="Integer" DefaultValue="0"/>
-					<Column Key="ParentID" Caption="父节点" Persist="True" DataType="Long" DefaultValue="0"/>
-					<Column Key="TLeft" Caption="TLeft" Persist="True" DataType="Integer"/>
-					<Column Key="TRight" Caption="TRight" Persist="True" DataType="Integer"/>
-					<Column Key="Code" Caption="代码" Persist="True" DataType="Varchar" Length="50"/>
-					<Column Key="Name" Caption="名称" Persist="True" DBColumnName="Name" DataType="Varchar" Length="50"/>
-					<Column Key="IsAdmin" Caption="管理员标记" Persist="True" DBColumnName="IsAdmin" DataType="Integer"/>
-				</Table>
-			</TableCollection>
-		</DataObject>
-	</DataSource>
-	<Body> 
-		<Block>
-			<FlexFlowLayoutPanel Key="main">
-				<GridLayoutPanel Key="basis" Height="100%" Padding="5px">
-					<RowDefCollection RowHeight="25" RowGap="5">
-						<RowDef/>
-						<RowDef/>
-						<RowDef/>
-					</RowDefCollection>
-					<ColumnDefCollection>
-						<ColumnDef Width="30%"/>
-						<ColumnDef Width="70%"/>
-					</ColumnDefCollection>
-					<Label Key="L_Code" Caption="代码" X="0" Y="0"/>
-					<TextEditor Key="Code" Caption="代码" X="1" Y="0">
-						<DataBinding TableKey="SYS_Role" ColumnKey="Code">
-						</DataBinding>
-					</TextEditor>
-					<Label Key="L_Name" Caption="名称" X="0" Y="1"/>
-					<TextEditor Key="Name" Caption="名称" X="1" Y="1">
-						<DataBinding TableKey="SYS_Role" ColumnKey="Name">
-						</DataBinding>
-					</TextEditor>
-					<CheckBox Key="IsAdmin"  Caption="是否是管理员" X="1" Y="2">
-						<DataBinding TableKey="SYS_Role" ColumnKey="IsAdmin">
-						</DataBinding>
-					</CheckBox>
-
-				</GridLayoutPanel>
-			</FlexFlowLayoutPanel>
-		</Block>
-	</Body>
+    <DataSource>
+        <DataObject Key="Role" Caption="角色" PrimaryTableKey="SYS_Role" PrimaryType="Entity" SecondaryType="Dict">
+            <TableCollection>
+                <Table Key="SYS_Role" Caption="基本信息" DBTableName="SYS_Role">
+                    <Column Key="OID" Caption="对象标识" DataType="Long" DBColumnName="OID"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long" DBColumnName="POID"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long" DBColumnName="SOID"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer" DBColumnName="VERID"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer" DBColumnName="DVERID"/>
+                    <Column Key="Status" Caption="状态" DataType="Integer" DefaultValue="0"/>
+                    <Column Key="Enable" Caption="启用标记" DataType="Integer" DefaultValue="1"/>
+                    <Column Key="NodeType" Caption="NodeType" DataType="Integer" DefaultValue="0"/>
+                    <Column Key="ParentID" Caption="父节点" DataType="Long" DefaultValue="0"/>
+                    <Column Key="TLeft" Caption="TLeft" DataType="Integer"/>
+                    <Column Key="TRight" Caption="TRight" DataType="Integer"/>
+                    <Column Key="Code" Caption="代码" DataType="Varchar" Length="50"/>
+                    <Column Key="Name" Caption="名称" DBColumnName="Name" DataType="Varchar" Length="50"/>
+                    <Column Key="IsAdmin" Caption="管理员标记" DBColumnName="IsAdmin" DataType="Integer"/>
+                </Table>
+                <Table Key="SYS_OperatorRole" Caption="基本信息" DBTableName="SYS_OperatorRole" TableMode="Detail">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long" DBColumnName="Role"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="Sequence" Caption="序号" DataType="Integer"/>
+                    <Column Key="Operator" Caption="操作员" DataType="Long" DBColumnName="SOID"/>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="main">
+                <SplitPanel Key="SplitPanel1" Orientation="Vertical" Height="100%" Caption="SplitPanel1">
+                    <GridLayoutPanel Key="basis" Height="100%" Padding="5px">
+                        <Label Key="L_Code" Caption="代码" X="0" Y="0"/>
+                        <TextEditor Key="Code" Caption="代码" X="1" Y="0">
+                            <DataBinding ColumnKey="Code" TableKey="SYS_Role"/>
+                        </TextEditor>
+                        <Label Key="L_Name" Caption="名称" X="0" Y="1"/>
+                        <TextEditor Key="Name" Caption="名称" X="1" Y="1">
+                            <DataBinding ColumnKey="Name" TableKey="SYS_Role"/>
+                        </TextEditor>
+                        <CheckBox Key="IsAdmin" Caption="是否是管理员" X="1" Y="2">
+                            <DataBinding ColumnKey="IsAdmin" TableKey="SYS_Role"/>
+                        </CheckBox>
+                        <RowDefCollection RowHeight="25" RowGap="5">
+                            <RowDef/>
+                            <RowDef/>
+                            <RowDef/>
+                        </RowDefCollection>
+                        <ColumnDefCollection>
+                            <ColumnDef Width="30%"/>
+                            <ColumnDef Width="70%"/>
+                        </ColumnDefCollection>
+                    </GridLayoutPanel>
+                    <Grid Key="Grid1" Caption="Grid1" PageLoadType="DB" PageRowCount="100">
+                        <GridColumnCollection>
+                            <GridColumn Key="Operator" Caption="操作员" Width="80px"/>
+                        </GridColumnCollection>
+                        <GridRowCollection>
+                            <GridRow Key="row1" RowHeight="35" TableKey="SYS_OperatorRole">
+                                <GridCell Key="Operator" Caption="操作员" CellType="Dict" ItemKey="Operator">
+                                    <DataBinding ColumnKey="Operator"/>
+                                </GridCell>
+                            </GridRow>
+                        </GridRowCollection>
+                    </Grid>
+                    <SplitSize Size="100px"/>
+                    <SplitSize Size="100%"/>
+                </SplitPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
 </Form>

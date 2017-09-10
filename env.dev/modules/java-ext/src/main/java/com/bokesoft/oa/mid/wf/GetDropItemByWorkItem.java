@@ -110,7 +110,7 @@ public class GetDropItemByWorkItem implements IExtService {
 			dt = (DataTable) cmd.doCmd(bpmc);
 		} catch (Throwable e) {
 			// TODO 作为临时措施，暂时处理错误，后面等平台改正
-			// e.printStackTrace();
+			e.printStackTrace();
 			try {
 				Integer nodeID = bpmc.getActiveNodeID();
 				String pkKey = bPMInstance.getProcesskey();
@@ -133,7 +133,7 @@ public class GetDropItemByWorkItem implements IExtService {
 				dt = context.getDBManager().execQuery(participatorSql);
 			} catch (Throwable e1) {
 				// TODO 作为临时措施，暂时处理错误，后面等平台改正
-				// e.printStackTrace();
+				e.printStackTrace();
 			}
 
 		}

@@ -1,0 +1,11 @@
+[
+  {
+    "parentId": "8a9f5a005cbf65f2015cbf718c880009",
+    "text": "ERP_WriteoffBudget_TO_BPM",
+    "recordMpLog": "false",
+    "id": "8a9f5a005cbf65f2015cbf718cac000a",
+    "description": "冲销预算接口",
+    "fileImport": "false",
+    "enable": "true"
+  }
+]

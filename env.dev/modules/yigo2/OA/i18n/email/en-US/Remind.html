@@ -1,0 +1,135 @@
+<html>
+<!-- 模板采用了velocity技术，具体velocity语法说明可以上网查阅有关资料。 -->
+	<head>
+		<!-- 取单据名称固定用法:$OA_Curr_Form_Caption，注意大小写，默认此名称。 -->
+		<title>$OA_Curr_Form_Caption</title>
+<style>
+.email-dtl table{
+	text-align:center;
+	width:100%;
+}
+.email-dtl th{
+	color:#999;
+	background: -moz-linear-gradient(top, #ffffff 0%, #f2f2f2 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#f2f2f2));
+    background: -webkit-linear-gradient(top, #ffffff 0%,#f2f2f2 100%);
+    background: -o-linear-gradient(top, #ffffff 0%,#f2f2f2 100%);
+    background: -ms-linear-gradient(top, #ffffff 0%,#f2f2f2 100%);
+	font-size:14px;
+	border-bottom: 2px solid #d2d2d2;
+	padding:12px;
+	text-align:center;
+	font-family: "Microsoft Yahei", "微软雅黑","宋体", Verdana, Arial, Geneva, sans-serif;	
+}
+.email-dtl td{
+	padding:10px;
+	font-size:12px;
+	color:#666;
+}
+.email-dtl td a{
+	color:#353944;
+}
+.email-dtl td a span{
+	display:block;
+}
+.email-dtl tr{
+	background-color:#fff;
+}
+
+.email-dtl tr:hover{
+	background-color:#D3ECFB;
+}
+		</style>		
+	</head>
+	<body> <!-- 流程相关字段Key说明
+				OA_Workitem_OperatorID 当前工作项提交人ID
+				OA_Workitem_OperatorName 当前工作项提交人名称
+				OA_operator_ID 登录人ID
+				OA_operator_Name 登录姓名
+				OA_Workitem_instanceOperatorID 流程提交人ID
+				OA_Workitem_instanceOperatorName 流程提交人名称
+				OA_Workitem_ID 工作项ID
+				OA_Workitem_Name 工作项名称
+				OA_Workitem_UserInfo 审批意见
+				OA_Workitem_ParentInfo 父工作项信息
+				OA_Workitem_ParentID 父工作项ID
+				OA_Workitem_ParentName 父工作项名称
+				OA_Workitem_ParentOperatorID 父工作项提交人ID
+				OA_Workitem_ParentOperatorName 父工作项提交人名称
+				OA_Workitem_InstanceID 流程ID
+				OA_Workitem_Processkey 流程Key
+				OA_Workitem_StartTime 启动流程时间
+				OA_Workitem_SendDate 到达日期 
+				 $OA_Workitem_UrgeContent 催办提醒消息-->
+		<div id="topic" style="display:none;"> Recede Back - $NO （Task ID $InstanceID）</div>
+		<table border="1" cellspacing="0" cellpadding="0">
+			<thead>
+			<tr>
+				<td colspan="2" align="left"> Recede Back - $NO </td>
+			</tr>
+			</thead>
+		<tr>
+		<td>Task ID</td>
+		<td> $InstanceID</td>
+		</tr>
+		<!--<tr>
+		<td>Task Name</td>
+		<td> $OA_Curr_Form_Caption $NO </td>
+		</tr>
+		<tr>
+		<td>Initiator</td>
+		<td> $OA_Workitem_OperatorName </td>
+		</tr>-->
+		<tr>
+		<td>Created Date</td>
+		<td> $OA_Workitem_StartTime </td>
+		</tr>
+		<tr>
+		<td>Priority</td>
+		<td> $UrgencyDeg </td>
+		</tr>
+		<tr>
+		<td>Comments</td>
+		<td> $OA_Workitem_UrgeContent</td>
+		</tr>
+		<!--<tr>
+		<td>Previous Step</td>
+		<td> $OA_Workitem_ParentName </td>
+		</tr>
+		<tr>
+		<td>Comments</td>
+		<td> $OA_Workitem_UrgeContent</td>
+		</tr>
+		<tr>
+		<td>Received Date</td>
+		<td> $OA_Workitem_SendDate</td>
+		</tr>-->
+		<tr>
+		<td colspan="2" align="right"><a href="http://$OA_Web_URL/?formkey=$BillKey&oid=$OID">
+				<!-- 头表字段取法:$+字段数据列标识，注意大小写，例：$NO。 -->
+				<span style="color:#871F78">Click Processing</span>
+			</a></td>
+		</tr>
+		</table>
+		<div class="email-dtl">
+		<table>
+			<thead>
+			<tr>
+				<th>Attachment Name</th>
+				<th>Upload Time</th>
+			</tr>
+			</thead>
+			<tbody>
+			<!-- 	明细表取法:$+数据表名，注意大小写，例：$OA_Attachment。首先遍历明细表，获得当前行:$+行标识，注意大小写，例：$Line -->
+			#foreach($Line in $OA_Attachment)
+			<tr>
+				<!-- 明细字段取法:$+行标识+.+$+字段数据列标识，注意大小写，例：$Line.Name。 -->
+				<td>$Line.Name</td>
+				<td>$Line.UploadTime</td>
+			</tr>	
+			#end
+			</tbody>
+		</table>
+		</div>
+	</body>
+</html>

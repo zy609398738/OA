@@ -765,6 +765,7 @@ function windowSaveOrUpdateDataSource(record, readOnly) {
 						}, {
 							fieldLabel : '密码'+needToFill,
 							name : 'password',
+							inputType: 'password',
 							readOnly : readOnly,
 							allowBlank : false
 						}, {

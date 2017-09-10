@@ -36,12 +36,12 @@ public class EmailDTO {
 	 * 邮件地址
 	 */
 	private String mailAddress;
-	
+
 	/**
 	 * 邮件的信息存入hashMap中
 	 */
 	private HashMap<String, String> emailConfig;
-	
+
 	public HashMap<String, String> getEmailConfig() {
 		return emailConfig;
 	}

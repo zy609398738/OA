@@ -1,0 +1,221 @@
+[
+  {
+    "structure": "ACK",
+    "name": "ACK"
+  },
+  {
+    "structure": "ACK_Q03",
+    "name": "ACK_Q03"
+  },
+  {
+    "structure": "ACK_Q05",
+    "name": "ACK_Q05"
+  },
+  {
+    "structure": "ACK_R01",
+    "name": "ACK_R01"
+  },
+  {
+    "structure": "ACK_R03",
+    "name": "ACK_R03"
+  },
+  {
+    "structure": "ADT_A01",
+    "name": "ADT_A01",
+    "returntype": "ACK_A01"
+  },
+  {
+    "structure": "ADT_A02",
+    "name": "ADT_A02",
+    "returntype": "ACK_A02"
+  },
+  {
+    "structure": "ADT_A03",
+    "name": "ADT_A03",
+    "returntype": "ACK_A03"
+  },
+  {
+    "structure": "ADT_A04",
+    "name": "ADT_A04",
+    "returntype": "ACK_A04"
+  },
+  {
+    "structure": "ADT_A05",
+    "name": "ADT_A05",
+    "returntype": "ACK_A05"
+  },
+  {
+    "structure": "ADT_A06",
+    "name": "ADT_A06",
+    "returntype": "ACK_A06"
+  },
+  {
+    "structure": "ADT_A07",
+    "name": "ADT_A07",
+    "returntype": "ACK_A07"
+  },
+  {
+    "structure": "ADT_A08",
+    "name": "ADT_A08",
+    "returntype": "ACK_A08"
+  },
+  {
+    "structure": "ADT_A09",
+    "name": "ADT_A09",
+    "returntype": "ACK_A09"
+  },
+  {
+    "structure": "ADT_A10",
+    "name": "ADT_A10",
+    "returntype": "ACK_A10"
+  },
+  {
+    "structure": "ADT_A11",
+    "name": "ADT_A11",
+    "returntype": "ACK_A11"
+  },
+  {
+    "structure": "ADT_A12",
+    "name": "ADT_A12",
+    "returntype": "ACK_A12"
+  },
+  {
+    "structure": "ADT_A13",
+    "name": "ADT_A13",
+    "returntype": "ACK_A13"
+  },
+  {
+    "structure": "ADT_A14",
+    "name": "ADT_A14",
+    "returntype": "ACK_A14"
+  },
+  {
+    "structure": "ADT_A15",
+    "name": "ADT_A15",
+    "returntype": "ACK_A15"
+  },
+  {
+    "structure": "ADT_A16",
+    "name": "ADT_A16",
+    "returntype": "ACK_A16"
+  },
+  {
+    "structure": "ADT_A17",
+    "name": "ADT_A17",
+    "returntype": "ACK_A17"
+  },
+  {
+    "structure": "ADT_A18",
+    "name": "ADT_A18",
+    "returntype": "ACK_A18"
+  },
+  {
+    "structure": "ADT_A20",
+    "name": "ADT_A20",
+    "returntype": "ACK_A20"
+  },
+  {
+    "structure": "ADT_A21",
+    "name": "ADT_A21",
+    "returntype": "ACK_A21"
+  },
+  {
+    "structure": "ADT_A22",
+    "name": "ADT_A22",
+    "returntype": "ACK_A22"
+  },
+  {
+    "structure": "ADT_A23",
+    "name": "ADT_A23",
+    "returntype": "ACK_A23"
+  },
+  {
+    "structure": "ADT_A24",
+    "name": "ADT_A24",
+    "returntype": "ACK_A24"
+  },
+  {
+    "structure": "ARD_A19",
+    "name": "ARD_A19"
+  },
+  {
+    "structure": "BAR_P01",
+    "name": "BAR_P01",
+    "returntype": "ACK_P01"
+  },
+  {
+    "structure": "BAR_P02",
+    "name": "BAR_P02",
+    "returntype": "ACK_P02"
+  },
+  {
+    "structure": "BHS",
+    "description": "message batch",
+    "name": "BHS",
+    "returntype": "BHS"
+  },
+  {
+    "structure": "DFT_P03",
+    "name": "DFT_P03",
+    "returntype": "ACK_P03"
+  },
+  {
+    "structure": "DSR_Q01",
+    "name": "DSR_Q01"
+  },
+  {
+    "structure": "DSR_Q03",
+    "name": "DSR_Q03",
+    "returntype": "ACK_Q03"
+  },
+  {
+    "structure": "FHS",
+    "description": "batch message file",
+    "name": "FHS",
+    "returntype": "FHS"
+  },
+  {
+    "structure": "MCF_Q02",
+    "name": "MCF_Q02"
+  },
+  {
+    "structure": "ORM_O01",
+    "name": "ORM_O01",
+    "returntype": "ACK_O01"
+  },
+  {
+    "structure": "ORR_O02",
+    "name": "ORR_O02",
+    "returntype": "ACK_O02"
+  },
+  {
+    "structure": "ORU_R01",
+    "name": "ORU_R01",
+    "returntype": "ACK_R01"
+  },
+  {
+    "structure": "ORU_R03",
+    "name": "ORU_R03",
+    "returntype": "ACK_R03"
+  },
+  {
+    "structure": "QRY_A19",
+    "name": "QRY_A19",
+    "returntype": "ARD_A19"
+  },
+  {
+    "structure": "QRY_Q01",
+    "name": "QRY_Q01",
+    "returntype": "DSR_Q01"
+  },
+  {
+    "structure": "QRY_Q02",
+    "name": "QRY_Q02",
+    "returntype": "MCF_Q02"
+  },
+  {
+    "structure": "UDM_Q05",
+    "name": "UDM_Q05",
+    "returntype": "ACK_Q05"
+  }
+]

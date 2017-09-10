@@ -35,16 +35,16 @@ public class TSL_GetDuplicateApplication implements IExtService2 {
 		JSONObject reJSONObject = JSONObject.parseObject(stringJson);
 
 		// // 新建数据表
-		 DataTable dt = new DataTable();
+		DataTable dt = new DataTable();
 		// // 创建数据表列
-		 dt.addColumn(new ColumnInfo("ts", DataType.STRING));
+		dt.addColumn(new ColumnInfo("ts", DataType.STRING));
 		//
 		// // 插入新行
-		 dt.append();
+		dt.append();
 		//
 		// // 赋值
-		 dt.setObject("ts", reJSONObject.get("ts"));
-		
-		 return dt;
+		dt.setObject("ts", reJSONObject.get("ts"));
+
+		return dt;
 	}
 }

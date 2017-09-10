@@ -49,6 +49,12 @@ Ext.define('Interface', {
 					}, {
 						name : 'startIndex',
 						type : 'string'
+					}, {
+						name : 'oldPort',
+						type : 'string'
+					}, {
+						name : 'changePort',
+						type : 'string'
 					}]
 		});
 
@@ -224,6 +230,29 @@ Ext.define('KeyValue', {
 						type : 'string'
 					}]
 		})
+		
+/**
+ * 定义FiveField
+ */
+Ext.define('FiveField', {
+			extend : 'Ext.data.Model',
+			fields : [{
+						name : 'one',
+						type : 'string'
+					}, {
+						name : 'two',
+						type : 'string'
+					}, {
+						name : 'three',
+						type : 'string'
+					}, {
+						name : 'four',
+						type : 'string'
+					}, {
+						name : 'five',
+						type : 'string'
+					}]
+		})
 /**
  * 定义Value
  */
@@ -231,6 +260,19 @@ Ext.define('Value', {
 			extend : 'Ext.data.Model',
 			fields : [{
 						name : 'value',
+						type : 'string'
+					}]
+		})
+/**
+ * 定义SQLValue
+ */
+Ext.define('SQLValue', {
+			extend : 'Ext.data.Model',
+			fields : [{
+						name : 'key',
+						type : 'string'
+					},{
+						name : 'sql',
 						type : 'string'
 					}]
 		})
@@ -940,6 +982,32 @@ Ext.define('DispatchEditModel', {
 						type : 'string'
 					}, {
 						name : 'servicesName',
+						type : 'string'
+					}]
+		});
+
+/**
+ * SQLModel
+ */
+Ext.define('SQLModel', {
+			extend : 'Ext.data.Model',
+			fields : [{
+						name : 'name',
+						type : 'string'
+					},{
+						name : 'expression',
+						type : 'string'
+					}, {
+						name : 'symbol',
+						type : 'string'
+					}, {
+						name : 'value',
+						type : 'string'
+					}, {
+						name : 'keys',
+						type : 'string'
+					}, {
+						name : 'sqls',
 						type : 'string'
 					}]
 		});

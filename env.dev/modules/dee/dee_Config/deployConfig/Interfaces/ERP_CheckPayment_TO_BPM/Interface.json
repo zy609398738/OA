@@ -1,0 +1,10 @@
+{
+  "id": "8aaae0bb5dcae2ce015dcaf067690009",
+  "startIndex": "",
+  "text": "ERP_CheckPayment_TO_BPM",
+  "autoRun": "true",
+  "description": "实时查询ERP系统是否存在付款信息信息",
+  "responseTime": "600000",
+  "changePort": "",
+  "oldPort": ""
+}

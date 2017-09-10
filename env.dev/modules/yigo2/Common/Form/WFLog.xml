@@ -22,7 +22,7 @@
                         <Parameter Key="OID" Caption="标识" TargetColumn="workItemID" Formula="Para('pOID')"/>
                     </ParameterCollection>
                     <Statement>
-                        <![CDATA[select BPM_Log.workItemID,workItemName,creatTime,finishTime,auditResult,userInfo,WorkitemState,operatorID,InstanceState from BPM_Log 
+                        <![CDATA[select BPM_Log.workItemID,workItemName,creatTime,finishTime,auditResult,userInfo,WorkitemState,BPM_Log.operatorID,InstanceState from BPM_Log 
                                 join BPM_Instance on BPM_Log.InstanceID=BPM_Instance.InstanceID]]>
                     </Statement>
                 </Table>

@@ -1,0 +1,83 @@
+<table id="group_13" class="group"  border="0" cellspacing="0" cellpadding="0"><tr style="height:100%;">
+<td id="zenLayoutTableCell_14"  >
+<div class="zendiv" id="content" zen="14"  ><div><hr/><table><tr><td><table cellpadding=4 cellspacing=4><tbody align=center><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='1:MSH - Message Header' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3AMSH&PATH=MSH&MS=MS%3A2.7.1%3AMFN_M02'>MSH</a></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='2:SFT() - Software Segment' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3ASFT&PATH=SFT()&MS=MS%3A2.7.1%3AMFN_M02'>SFT</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='3:UAC - User Authentication Credential Segment' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3AUAC&PATH=UAC&MS=MS%3A2.7.1%3AMFN_M02'>UAC</a></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='4:MFI - Master File Identification' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3AMFI&PATH=MFI&MS=MS%3A2.7.1%3AMFN_M02'>MFI</a></td></tr>
+<tr><td align='right' valign='top' style='font-style:italic;'>MFEgrp</td><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='5:MFEgrp().MFE - Master File Entry' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3AMFE&PATH=MFEgrp().MFE&MS=MS%3A2.7.1%3AMFN_M02'>MFE</a></td></tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='6:MFEgrp().STF - Staff Identification' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3ASTF&PATH=MFEgrp().STF&MS=MS%3A2.7.1%3AMFN_M02'>STF</a></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='7:MFEgrp().PRA() - Practitioner Detail' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3APRA&PATH=MFEgrp().PRA()&MS=MS%3A2.7.1%3AMFN_M02'>PRA</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='8:MFEgrp().ORG() - Practitioner Organization Unit s' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3AORG&PATH=MFEgrp().ORG()&MS=MS%3A2.7.1%3AMFN_M02'>ORG</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='9:MFEgrp().AFF() - Professional Affiliation' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3AAFF&PATH=MFEgrp().AFF()&MS=MS%3A2.7.1%3AMFN_M02'>AFF</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='10:MFEgrp().LAN() - Language Detail' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3ALAN&PATH=MFEgrp().LAN()&MS=MS%3A2.7.1%3AMFN_M02'>LAN</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='11:MFEgrp().EDU() - Educational Detail' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3AEDU&PATH=MFEgrp().EDU()&MS=MS%3A2.7.1%3AMFN_M02'>EDU</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='12:MFEgrp().CER() - Certificate Detail' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3ACER&PATH=MFEgrp().CER()&MS=MS%3A2.7.1%3AMFN_M02'>CER</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='13:MFEgrp().NTE() - Notes and Comments' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3ANTE&PATH=MFEgrp().NTE()&MS=MS%3A2.7.1%3AMFN_M02'>NTE</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+</tr></table></td>
+<td valign='top'><div style="padding-left:10px;">
+<b>Key</b><table cellpadding=4 cellspacing=4>
+<tr><td style="border: 2px dotted #60a060; border-right: none;" >可选</td></tr>
+<tr><td style="border: 2px solid #703838; border-right: none;" >重复</td></tr>
+</table></div></td>
+</tr></table></div>
+</div>
+</td>
+<td id="zenLayoutTableCell_15"  style="vertical-align:top;">
+<div class="zendiv" id="zen15" zen="15"  >
+<table id="group_15" class="group"  border="0" cellspacing="0" cellpadding="0">
+<tr style="vertical-align:top;">
+<td id="zenLayoutTableCell_16"  >
+<div class="zendiv" id="showRawContent" zen="16"  ><div id="rawDivPointer" style="padding:20px 0px 0px 20px;">
+	<span><img src="images/spacer.gif" width="30" height="2"><img src="images/disclosure-contracted.gif" alt="*" width="8" height="11" border="0">
+	<span onclick="showRaw('rawContent');"><a href="#">显示原始定义文本</a></span></span><br/>
+	</div>
+<div id="rawContent" style="padding:20px 0px 0px 50px;display:none;" >
+	<b>原始定义</b>
+	<table cellspacing="0" cellpadding="2">
+	<tr><td>2.7.1:MSH~[~{~2.7.1:SFT~}~]~[~2.7.1:UAC~]~2.7.1:MFI~{~2.7.1:MFE~2.7.1:STF~[~{~2.7.1:PRA~}~]~[~{~2.7.1:ORG~}~]~[~{~2.7.1:AFF~}~]~[~{~2.7.1:LAN~}~]~[~{~2.7.1:EDU~}~]~[~{~2.7.1:CER~}~]~[~{~2.7.1:NTE~}~]~}</td></tr>
+	</table>
+	</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+</tr></table><script type="text/javascript" src="js/hl7/ms.js"></script>

@@ -36,7 +36,7 @@ html{
 
 }
 .notice .todo .inner{
-	background-color:#ef8336;
+	/*background-color:#ef8336;*/
 	background-position: 15px 15px;
 }
 .notice .return .inner{
@@ -45,12 +45,13 @@ html{
 .notice .tips .inner{
 	background-position: 15px -305px;
 }
-.notice .done .inner{
+.notice .unfinished .inner{
 	color: #99cc99;
 	background-position: 15px -470px;
 }
 .notice .todo .inner a{
-	color:#fff;
+	/*color:#fff;*/
+	color:#ef8336;
 }
 .notice .return .inner a{
 	color: #66ccff;
@@ -58,7 +59,7 @@ html{
 .notice .tips .inner a{
 	color: #cc3333;
 }
-.notice .done .inner a{
+.notice .unfinished .inner a{
 	color: #99cc99;
 }
 .notice .item .cont{
@@ -85,9 +86,9 @@ html{
 	text-decoration:none;
 }
 /* 按钮 */
-a.min-btn,
-input.min-btn,
-button.min-btn{
+a.min_btn,
+input.min_btn,
+button.min_btn{
 	background: #248adf;
 	border:1px solid #eee;
 	display:inline-block;
@@ -101,9 +102,9 @@ button.min-btn{
 	width:auto;
 	margin-right:10px;
 }
-a.min-btn:hover,
-input.min-btn:hover,
-button.min-btn:hover{
+a.min_btn:hover,
+input.min_btn:hover,
+button.min_btn:hover{
 	text-decoration: none;
 	background: #1c7ee3;
 }

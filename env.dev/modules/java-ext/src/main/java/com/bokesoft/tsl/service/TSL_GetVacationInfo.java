@@ -47,21 +47,21 @@ public class TSL_GetVacationInfo implements IExtService2 {
 		JSONObject reJSONObject = JSONObject.parseObject(stringJson);
 
 		// // 新建数据表
-		 DataTable dt = new DataTable();
+		DataTable dt = new DataTable();
 		// // 创建数据表列
-		 dt.addColumn(new ColumnInfo("hour", DataType.NUMERIC));
-		 dt.addColumn(new ColumnInfo("a", DataType.NUMERIC));
-		 dt.addColumn(new ColumnInfo("b", DataType.NUMERIC));
-		 dt.addColumn(new ColumnInfo("c", DataType.NUMERIC));
+		dt.addColumn(new ColumnInfo("hour", DataType.NUMERIC));
+		dt.addColumn(new ColumnInfo("a", DataType.NUMERIC));
+		dt.addColumn(new ColumnInfo("b", DataType.NUMERIC));
+		dt.addColumn(new ColumnInfo("c", DataType.NUMERIC));
 		//
 		// // 插入新行
-		 dt.append();
+		dt.append();
 		//
 		// // 赋值
-		 dt.setObject("hour", reJSONObject.get("hour"));
-		 dt.setObject("a", reJSONObject.get("a"));
-		 dt.setObject("b", reJSONObject.get("b"));
-		 dt.setObject("c", reJSONObject.get("c"));
+		dt.setObject("hour", reJSONObject.get("hour"));
+		dt.setObject("a", reJSONObject.get("a"));
+		dt.setObject("b", reJSONObject.get("b"));
+		dt.setObject("c", reJSONObject.get("c"));
 
 		return dt;
 	}

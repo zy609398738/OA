@@ -5,6 +5,9 @@
 		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 	    <meta http-equiv="Content-Type" content="application/x-javascript;charset=UTF-8">
 	    <title>天合光能 BPM 系统 - 用户登录</title>
+		
+		<link rel="icon" href="http://localhost:8089/yigo/yigo2-theme/images/main/favicon.ico" type="image/x-icon" sizes="16x16">
+		
 	   	<script>
 	   		document.cookie = "myStyle=blue; " + document.cookie;
 	   	</script>

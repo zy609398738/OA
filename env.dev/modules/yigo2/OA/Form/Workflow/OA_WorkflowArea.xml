@@ -17,6 +17,7 @@
                     <Column Key="TRight" Caption="右索引" DataType="Integer"/>
                     <Column Key="Code" Caption="代码" DataType="Varchar" Length="50"/>
                     <Column Key="Name" Caption="名称" DataType="Varchar" Length="50"/>
+                    <Column Key="Name_en_US" Caption="英语名称" DataType="Varchar" Length="50"/>
                     <Column Key="Creator" Caption="创建人员" DataType="Long"/>
                     <Column Key="CreateTime" Caption="创建时间" DataType="DateTime"/>
                     <Column Key="Modifier" Caption="修改人员" DataType="Long"/>
@@ -25,6 +26,7 @@
                     <Column Key="BillKey" Caption="单据Key" DataType="Varchar"/>
                     <Column Key="ClusterID" Caption="集团" DataType="Long"/>
                     <Column Key="OrderNum" Caption="显示顺序" DataType="Integer"/>
+                    <Column Key="Name_en_US" Caption="英语名称" DataType="Varchar" Length="50"/>
                 </Table>
                 <Table Key="OA_WorkflowArea_D" Caption="明细" DBTableName="OA_WorkflowArea_D" TableMode="Detail">
                     <Column Key="OID" Caption="对象标识" DataType="Long"/>
@@ -57,6 +59,10 @@
                                 <DataBinding TableKey="OA_WorkflowArea_H" ColumnKey="OrderNum"/>
                             </NumberEditor>
                             <Label Key="Lab_OrderNum" Caption="显示顺序" X="0" Y="1"/>
+                            <TextEditor Key="Name_en_US" Caption="英语名称" BuddyKey="Lab_Name_en_US" X="4" Y="1">
+                                <DataBinding TableKey="OA_WorkflowArea_H" ColumnKey="Name_en_US"/>
+                            </TextEditor>
+                            <Label Key="Lab_Name_en_US" Caption="英语名称" X="3" Y="1"/>
                             <RowDefCollection RowGap="4">
                                 <RowDef Height="30px"/>
                                 <RowDef Height="30px"/>

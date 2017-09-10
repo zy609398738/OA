@@ -35,15 +35,17 @@
 				attachment.load();
             },
 			loadListView: function (listView) {
-				var showLV = new YIUI.ShowListView(form, listView);
-				showLV.load();
+                var showLV = new YIUI.ShowListView(form, listView);
+                showLV.load();
 			},
 			loadGrid: function (grid) {
 				YIUI.SubDetailUtil.clearSubDetailData(form,grid);
-			//	var showGrid = new YIUI.ShowGridData(form, grid);
-			//	showGrid.load();
-			//	grid.refreshGrid();
-				grid.load(true,false);
+				grid.pageInfo.reset();
+
+				grid.load(true);
+                // var show = new YIUI.ShowGridData(form, grid);
+                // show.load(true);
+                // grid.refreshGrid();
 			},
 			loadChart: function(chart) {
 				var document = form.getDocument();
@@ -131,9 +133,11 @@
 				var processKey = "";
 				var processVer = -1;
 				var path = null;
+				var oID = -1;
 				var keyFormula = meta.processKey;
 				var verFormula = meta.processVer;
 				var pathFormula = meta.processPath;
+				var OID = meta.OID;
 				var cxt = {form: form};
 				if ( keyFormula != null && !keyFormula.isEmpty() ) {
 					processKey = form.eval(keyFormula, cxt);
@@ -144,16 +148,25 @@
 				if ( pathFormula != null && !pathFormula.isEmpty() ) {
 					path = form.eval(pathFormula, cxt);
 				}
+				if ( OID != null && !OID.isEmpty() ) {
+					oID = form.eval(OID, cxt);
+				}
+				
 
 				var data = {
 					cmd: "DownloadProcessGraph",
 					service: "BPMDefService",
 					processKey: processKey,
-					processVer: processVer
+					processVer: processVer,
+					OID: oID
 				};
 				var transGraph = Svr.Request.getSyncData(Svr.SvrMgr.ServletURL, data);
 				if ( transGraph != null ) {
-					graph.transPath = path;
+					if(transGraph.transPath) {
+						graph.transPath = transGraph.transPath;
+					} else {
+						graph.transPath = path;
+					}
 					graph.swims = transGraph.swims;
 					var nodes = transGraph.nodes;
 					var transitions = [];
@@ -165,6 +178,7 @@
 								var n_transition = n_transitions[i];
 								var transition = {
 									"lineStyle": n_transition["line-style"],
+									"inpath": n_transition["inpath"],
 									"source": node["key"],
 									"tagName": n_transition["tag-name"],
 									"target": n_transition["target-node-key"]
@@ -185,18 +199,17 @@
 			 * @returns {boolean}
 			 */
 			show: function (commitValue) {
-				form.setShowing(true);
 				this.prepare();
 				var cmpList = form.getComponentList(), cmp;
 				for (var i in cmpList) {
 					cmp = cmpList[i];
-					if (cmp.isSubDetail) continue;
+					if ( cmp.isSubDetail )
+						continue;
 					switch (cmp.type) {
 					case YIUI.CONTROLTYPE.LISTVIEW:
 						this.loadListView(cmp);
 						break;
 					case YIUI.CONTROLTYPE.GRID:
-						cmp.rootGroupBkmk = null;
 						this.loadGrid(cmp);
 						break;
 					case YIUI.CONTROLTYPE.CHART:
@@ -219,7 +232,6 @@
 					}
 				}
 				this.postShowData(commitValue);
-				form.setShowing(false);
 				return true;
 			},
 			postShowData: function (commitValue) {
@@ -243,9 +255,7 @@
 					row = {};
 					listView.data.push(row);
 					table.setPos(j);
-					var bkmkRow = new YIUI.DetailRowBkmk();
-					bkmkRow.setBookmark(table.getBkmk());
-					row.bkmkRow = bkmkRow;
+					row.bkmkRow = new YIUI.DetailRowBkmk(table.getBkmk());
 					for (var m = 0, size = listView.columnInfo.length; m < size; m++) {
 						var column = listView.columnInfo[m];
 						var columnKey = column.columnKey;
@@ -294,7 +304,6 @@
 					}
 				}
 				listView.repaint();
-				listView.refreshSelectEnable();
 			}
 		};
 		return Return;

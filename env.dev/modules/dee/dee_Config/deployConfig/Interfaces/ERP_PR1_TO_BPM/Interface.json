@@ -1,0 +1,10 @@
+{
+  "id": "8aaae0cb5dea4e0e015dea5873460006",
+  "startIndex": "",
+  "text": "ERP_PR1_TO_BPM",
+  "autoRun": "true",
+  "description": "查询ERP系统PR信息导入YIGO系统",
+  "responseTime": "600000",
+  "changePort": "",
+  "oldPort": ""
+}

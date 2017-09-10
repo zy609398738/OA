@@ -1,0 +1,103 @@
+<table id="group_13" class="group"  border="0" cellspacing="0" cellpadding="0"><tr style="height:100%;">
+<td id="zenLayoutTableCell_14"  >
+<div class="zendiv" id="content" zen="14"  ><div><hr/><table><tr><td><table cellpadding=4 cellspacing=4><tbody align=center><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='1:MSH - MESSAGE HEADER' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.2%3AMSH&PATH=MSH&MS=MS%3A2.2%3AARD_A19'>MSH</a></td></tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='2:MSA - MESSAGE ACKNOWLEDGMENT' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.2%3AMSA&PATH=MSA&MS=MS%3A2.2%3AARD_A19'>MSA</a></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='3:ERR - ERROR' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.2%3AERR&PATH=ERR&MS=MS%3A2.2%3AARD_A19'>ERR</a></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='4:QRD - QUERY DEFINITION' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.2%3AQRD&PATH=QRD&MS=MS%3A2.2%3AARD_A19'>QRD</a></td></tr>
+<tr><td align='right' valign='top' style='font-style:italic;'>EVNgrp</td><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='5:EVNgrp().EVN - EVENT TYPE' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.2%3AEVN&PATH=EVNgrp().EVN&MS=MS%3A2.2%3AARD_A19'>EVN</a></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='6:EVNgrp().PID - PATIENT IDENTIFICATION' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.2%3APID&PATH=EVNgrp().PID&MS=MS%3A2.2%3AARD_A19'>PID</a></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='7:EVNgrp().NK1() - NEXT OF KIN' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.2%3ANK1&PATH=EVNgrp().NK1()&MS=MS%3A2.2%3AARD_A19'>NK1</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='8:EVNgrp().PV1 - PATIENT VISIT' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.2%3APV1&PATH=EVNgrp().PV1&MS=MS%3A2.2%3AARD_A19'>PV1</a></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='9:EVNgrp().PV2 - PATIENT VISIT - additional information' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.2%3APV2&PATH=EVNgrp().PV2&MS=MS%3A2.2%3AARD_A19'>PV2</a></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='10:EVNgrp().OBX() - OBSERVATION RESULT' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.2%3AOBX&PATH=EVNgrp().OBX()&MS=MS%3A2.2%3AARD_A19'>OBX</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='11:EVNgrp().AL1() - PATIENT ALLERGY INFORMATION' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.2%3AAL1&PATH=EVNgrp().AL1()&MS=MS%3A2.2%3AARD_A19'>AL1</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='12:EVNgrp().DG1() - DIAGNOSIS' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.2%3ADG1&PATH=EVNgrp().DG1()&MS=MS%3A2.2%3AARD_A19'>DG1</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='13:EVNgrp().PR1() - PROCEDURES' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.2%3APR1&PATH=EVNgrp().PR1()&MS=MS%3A2.2%3AARD_A19'>PR1</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='14:EVNgrp().GT1() - GUARANTOR' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.2%3AGT1&PATH=EVNgrp().GT1()&MS=MS%3A2.2%3AARD_A19'>GT1</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='right' valign='top' style='font-style:italic;'>IN1grp</td><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='15:EVNgrp().IN1grp().IN1 - INSURANCE' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.2%3AIN1&PATH=EVNgrp().IN1grp().IN1&MS=MS%3A2.2%3AARD_A19'>IN1</a></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='16:EVNgrp().IN1grp().IN2 - INSURANCE ADDITIONAL INFO' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.2%3AIN2&PATH=EVNgrp().IN1grp().IN2&MS=MS%3A2.2%3AARD_A19'>IN2</a></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='17:EVNgrp().IN1grp().IN3 - INSURANCE ADDITIONAL INFO-CERTIFICATION' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.2%3AIN3&PATH=EVNgrp().IN1grp().IN3&MS=MS%3A2.2%3AARD_A19'>IN3</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='18:EVNgrp().ACC - ACCIDENT' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.2%3AACC&PATH=EVNgrp().ACC&MS=MS%3A2.2%3AARD_A19'>ACC</a></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='19:EVNgrp().UB1 - UB82 DATA' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.2%3AUB1&PATH=EVNgrp().UB1&MS=MS%3A2.2%3AARD_A19'>UB1</a></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='20:EVNgrp().UB2 - UB92 DATA' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.2%3AUB2&PATH=EVNgrp().UB2&MS=MS%3A2.2%3AARD_A19'>UB2</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='21:DSC - CONTINUATION POINTER' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.2%3ADSC&PATH=DSC&MS=MS%3A2.2%3AARD_A19'>DSC</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td>
+<td valign='top'><div style="padding-left:10px;">
+<b>Key</b><table cellpadding=4 cellspacing=4>
+<tr><td style="border: 2px dotted #60a060; border-right: none;" >可选</td></tr>
+<tr><td style="border: 2px solid #703838; border-right: none;" >重复</td></tr>
+</table></div></td>
+</tr></table></div>
+</div>
+</td>
+<td id="zenLayoutTableCell_15"  style="vertical-align:top;">
+<div class="zendiv" id="zen15" zen="15"  >
+<table id="group_15" class="group"  border="0" cellspacing="0" cellpadding="0">
+<tr style="vertical-align:top;">
+<td id="zenLayoutTableCell_16"  >
+<div class="zendiv" id="showRawContent" zen="16"  ><div id="rawDivPointer" style="padding:20px 0px 0px 20px;">
+	<span><img src="images/spacer.gif" width="30" height="2"><img src="images/disclosure-contracted.gif" alt="*" width="8" height="11" border="0">
+	<span onclick="showRaw('rawContent');"><a href="#">显示原始定义文本</a></span></span><br/>
+	</div>
+<div id="rawContent" style="padding:20px 0px 0px 50px;display:none;" >
+	<b>原始定义</b>
+	<table cellspacing="0" cellpadding="2">
+	<tr><td>2.2:MSH~2.2:MSA~[~2.2:ERR~]~2.2:QRD~{~[~2.2:EVN~]~2.2:PID~[~{~2.2:NK1~}~]~2.2:PV1~[~2.2:PV2~]~[~{~2.2:OBX~}~]~[~{~2.2:AL1~}~]~[~{~2.2:DG1~}~]~[~{~2.2:PR1~}~]~[~{~2.2:GT1~}~]~[~{~2.2:IN1~[~2.2:IN2~]~[~2.2:IN3~]~}~]~[~2.2:ACC~]~[~2.2:UB1~]~[~2.2:UB2~]~}~[~2.2:DSC~]</td></tr>
+	</table>
+	</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+</tr></table><script type="text/javascript" src="js/hl7/ms.js"></script>

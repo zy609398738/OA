@@ -174,4 +174,19 @@ public class OperatorSelDtl extends BillDtlBase<OperatorSel> {
 		setName(dt.getString("name"));
 		setRightSelID(dt.getLong("RightSelOID"));
 	}
+
+	/**
+	 * 载入数据
+	 * 
+	 * @param dt
+	 *            明细数据集
+	 * @throws Throwable
+	 */
+	public void uploadData(DataTable dt) throws Throwable {
+		super.loadData(dt);
+		setOptType(dt.getInt("OptType"));
+		setOptID(dt.getLong("OptID"));
+		setName(dt.getString("name"));
+		setRightSelID(dt.getLong("RightSelOID"));
+	}
 }

@@ -1,0 +1,133 @@
+{
+  "response": [
+    {
+      "text": "响应反馈",
+      "description": "",
+      "scriptContent": "String expMsg = \"\";\nMap rsmap = new HashMap();\nif (message.getExceptionPayload() != null)\n{\n    message.setOutboundProperty(\"http.status\", 200);\n    expMsg = message.getExceptionPayload().getRootException().getMessage();\n    if (expMsg.length() > 3500)\n    {\n        expMsg = expMsg.substring(0, 3000);\n    }\n    message.setExceptionPayload(null);\n    rsmap.put(\"code\", \"e\");\n    rsmap.put(\"msg\", \"调用失败！\");\n}\nelse\n{\n    rsmap.put(\"code\", \"s\");\n    rsmap.put(\"msg\", \"调用成功！\");\n    rsmap.put(\"data\", payload);\n}\nMap logmap = message.getInboundProperty(\"logmap\");\nObject[] o = new Object[10];\no[0] = logmap.get(\"flow\");\no[1] = logmap.get(\"node\");\no[2] = logmap.get(\"billkey\");\no[3] = logmap.get(\"oid\");\no[4] = logmap.get(\"begintime\");\no[5] = new java.text.SimpleDateFormat(\"yyyyMMdd HH:mm:ss.SSS\").format(new java.sql.Timestamp(java.lang.System.currentTimeMillis()));\no[6] = \"\";\no[7] = \"\";\no[8] = expMsg;\no[9] = \"interface_4\";\ndbop.saveOrUpdate(\"insert into TRINA_SL_INTERFACE_LOG(id,flow,node,billkey,oid,starttime,endtime,request_data,response_data,EXCEPTION,interface_type)values(Trina_SL_Interface_Log_ID_SEQ.Nextval,?,?,?,?,?,?,?,?,?,?)\", o, false);\nreturn payload;",
+      "smallType": "GroovyScriptWithDS",
+      "className": "com.bokesoft.exchange.transformer.ScriptWithDSTransformer",
+      "enable": "true",
+      "parentId": "8a9f5aff5ca06150015ca09cc4b4001c",
+      "bigType": "transformer_au",
+      "simpleMpLog": "false",
+      "ds": "2c9081d05be7e572015be80fcb64000f",
+      "isRef": "false",
+      "id": "ff8080815cbfa774015cc99433a60718"
+    }
+  ],
+  "normal": [
+    {
+      "text": "接收存储过程传入条件",
+      "description": "",
+      "address": "vm://ERP_Create_Ap_Payment_TO_BPM",
+      "exchange_pattern": "request-response",
+      "className": "",
+      "smallType": "VM",
+      "enable": "true",
+      "parentId": "8aaae0a95c871527015c871c67b20010",
+      "bigType": "inbound",
+      "simpleMpLog": "false",
+      "encoding": "UTF-8",
+      "isRef": "false",
+      "id": "8aaae0a95c871527015c871d35210015"
+    },
+    {
+      "text": "记录开始时间",
+      "description": "",
+      "scriptContent": "String begintime = new java.text.SimpleDateFormat(\"yyyyMMdd HH:mm:ss.SSS\").format(new java.sql.Timestamp(java.lang.System.currentTimeMillis()));\nMap logmap = new HashMap();\nlogmap.put(\"begintime\", begintime);\nlogmap.put(\"flow\", payload.get(\"flow\"));\nlogmap.put(\"node\", payload.get(\"node\"));\nlogmap.put(\"oid\", payload.get(\"oid\"));\nlogmap.put(\"billkey\", payload.get(\"billkey\"));\nlogmap.put(\"request_data\", payload.get(\"json\"));\nmessage.setInboundProperty(\"logmap\", logmap);\nreturn payload;",
+      "smallType": "GroovyScriptTransformer",
+      "className": "org.mule.module.scripting.transformer.ScriptTransformer",
+      "enable": "true",
+      "parentId": "8a9f5aff5ca06150015ca09cc4b4001c",
+      "bigType": "transformer_au",
+      "simpleMpLog": "false",
+      "isRef": "false",
+      "id": "ff8080815cbfa774015cc9933cb80717"
+    },
+    {
+      "ignoreSQLError": "false",
+      "text": "执行存储过程",
+      "description": "",
+      "smallType": "ExecuteSQLSimpleTransformer",
+      "className": "com.bokesoft.dee.transport.jdbc.transformer.ExecuteSQLSimpleTransformer",
+      "enable": "true",
+      "queries": "[{\"value\":\"call apps.cux3_ap_invoice_sync_pub.create_ap_payment(#[map-payload:p_api_version?],#[map-payload:p_init_msg_list?],#[map-payload:p_commit?],#[map-payload:p_org_id?],#[map-payload:p_invoice_id?],#[map-payload:p_description?],#[map-payload:p_bank_account_id?],#[map-payload:p_ext_bank_acc_id?],sysdate,#[map-payload:p_payment_amount?],sysdate,#[map-payload:p_payment_type_flag?],#[map-payload:p_payment_document_id?],#[map-payload:p_bu?],#[map-payload:p_attribute_13?],#[map-payload:p_attribute_14?],#[map-payload:p_cash_item?],#[map-payload:p_employee_nam?],#[map-payload:p_employee_num?],#[map-payload:p_task_id?],#[datatype:varchar2],#[datatype:varchar2],#[datatype:varchar2])\"}]",
+      "parentId": "8aaae0a95c871527015c871c67b20010",
+      "bigType": "transformer_au",
+      "resultIndexOf": 1,
+      "simpleMpLog": "false",
+      "isRef": "false",
+      "id": "8aaae0a95c871527015c871f24330017",
+      "ds": "8aaae09b5bf03e9f015bf17bc58e061f"
+    },
+    {
+      "text": "转换数据格式",
+      "description": "",
+      "scriptContent": "Map m = new HashMap();\nm.put(\"x_return_status\", payload.get(0));\nm.put(\"x_msg_count\", payload.get(1));\nm.put(\"x_msg_data\", payload.get(2));\nString s = com.bokesoft.dee.mule.util.json.JSONUtil.toJson(m);\nreturn s;",
+      "className": "org.mule.module.scripting.transformer.ScriptTransformer",
+      "smallType": "GroovyScriptTransformer",
+      "enable": "true",
+      "parentId": "8aaae0bb5dcae2ce015dcaf53245000d",
+      "bigType": "transformer_au",
+      "simpleMpLog": "false",
+      "isRef": "false",
+      "id": "8a9f5afd5de88ed2015de8ae9246007f"
+    }
+  ],
+  "exception": [
+    {
+      "text": "把异常对象转换为文本",
+      "description": "把异常对象转换为文本",
+      "smallType": "ExceptionMessageTransformer",
+      "className": "com.bokesoft.exchange.transformer.ExceptionMessageTransformer",
+      "enable": "true",
+      "parentId": "8aaae0a95c871527015c871c67b20010",
+      "bigType": "GGPZTransformer",
+      "isRef": "true",
+      "id": "8aaae0a95c871527015c871c67bf0011"
+    },
+    {
+      "path": "${bokedee.logpath.runtimeLog}/ERP_Create_Ap_Payment_TO_BPM",
+      "text": "记录错误日志到文件",
+      "description": "",
+      "smallType": "File",
+      "className": "",
+      "enable": "true",
+      "outputPattern": "#[function:datestamp:yyyyMMddHHmmss]-#[message:id].xml",
+      "parentId": "8aaae0a95c871527015c871c67b20010",
+      "bigType": "outbound",
+      "file_subdir": "#[context:serviceName]/#[function:datestamp:yyyyMMdd]",
+      "simpleMpLog": "false",
+      "isRef": "false",
+      "id": "8aaae0a95c871527015c871c67e20012"
+    },
+    {
+      "text": "把异常信息替换换行符",
+      "description": "把异常信息替换换行符",
+      "scriptContent": "String exceptionContent = message.getPayload();String exception = exceptionContent.replace(\"\\n\", \"<br/>\");message.setPayload(exception);return message;",
+      "className": "org.mule.module.scripting.transformer.ScriptTransformer",
+      "smallType": "GroovyScriptTransformer",
+      "enable": "false",
+      "parentId": "8aaae0a95c871527015c871c67b20010",
+      "bigType": "transformer_au",
+      "simpleMpLog": "false",
+      "isRef": "false",
+      "id": "8aaae0a95c871527015c871c68050013"
+    },
+    {
+      "text": "把异常信息通过邮件发送",
+      "description": "把异常信息通过邮件发送",
+      "connector_ref": "bokedee_default_smtp_connector",
+      "subject": "AS_Day_TO_BPM",
+      "className": "",
+      "smallType": "SMTP",
+      "enable": "false",
+      "parentId": "8aaae0a95c871527015c871c67b20010",
+      "bigType": "outbound",
+      "simpleMpLog": "false",
+      "encoding": "UTF-8",
+      "isRef": "false",
+      "id": "8aaae0a95c871527015c871c68250014"
+    }
+  ]
+}

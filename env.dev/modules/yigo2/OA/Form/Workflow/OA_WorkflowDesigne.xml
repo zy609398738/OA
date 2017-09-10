@@ -49,6 +49,7 @@
                     <Column Key="RightSelOID" Caption="权限设置标识" DataType="Long"/>
                     <Column Key="RightSelDepict" Caption="权限设置描述" DataType="Varchar" Length="4000"/>
                     <Column Key="EmailTemp" Caption="邮件模板" DataType="Varchar"/>
+                    <Column Key="SendFormula" Caption="发送条件" DataType="Varchar"/>
                 </Table>
             </TableCollection>
             <OIDFilter/>
@@ -118,6 +119,7 @@ if(ToString(Para("GridKey"))==""){
                                     <GridColumn Key="CarbonCopyOptDepict" Caption="抄送人员描述" Width="150px"/>
                                     <GridColumn Key="MessageSetID" Caption="发送方式" Width="80px"/>
                                     <GridColumn Key="EmailTemp" Caption="邮件模板" Width="80px"/>
+                                    <GridColumn Key="SendFormula" Caption="发送条件" Width="80px"/>
                                     <GridColumn Key="RightSel" Caption="节点权限设置" Width="80px" Visible="WorkflowFormKey!=&quot;&quot;;"/>
                                     <GridColumn Key="RightSelDepict" Caption="权限设置描述" Width="80px" Visible="WorkflowFormKey!=&quot;&quot;;"/>
                                     <GridColumn Key="RightSelOID" Caption="权限设置标识" Width="80px" Visible="false"/>
@@ -199,8 +201,11 @@ if(ToString(Para("GridKey"))==""){
                                         <GridCell Key="EmailTemp" Caption="邮件模板" CellType="ComboBox" SourceType="Formula">
                                             <DataBinding ColumnKey="EmailTemp"/>
                                             <FormulaItems>
-                                                <![CDATA[InvokeService("OA_GetFileNameStr", false, true, "../cms/site/static/email")]]>
+                                                <![CDATA[OA_GetEmailTemplateStr();]]>
                                             </FormulaItems>
+                                        </GridCell>
+                                        <GridCell Key="SendFormula" Caption="发送条件" CellType="TextEditor">
+                                            <DataBinding ColumnKey="SendFormula"/>
                                         </GridCell>
                                         <GridCell Key="RightSel" Caption="节点权限设置" CellType="HyperLink" CellSortType="None">
                                             <DataBinding DefaultValue="权限设置"/>

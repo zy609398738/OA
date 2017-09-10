@@ -5,7 +5,7 @@ import com.bokesoft.oa.base.OAContext;
 import com.bokesoft.yigo.struct.datatable.DataTable;
 
 /**
- * 人员来源
+ * 用户来源
  * 
  * @author zhoukaihe
  *
@@ -62,14 +62,14 @@ public class EmployeeSource extends DicBase {
 	}
 
 	/**
-	 * 人员来源明细表集合
+	 * 用户来源明细表集合
 	 */
 	private EmployeeSourceDtlMap employeeSourceDtlMap;
 
 	/**
-	 * 人员来源明细表集合
+	 * 用户来源明细表集合
 	 * 
-	 * @return 人员来源明细表集合
+	 * @return 用户来源明细表集合
 	 * @throws Throwable
 	 */
 	public EmployeeSourceDtlMap getEmployeeSourceDtlMap() throws Throwable {
@@ -86,10 +86,10 @@ public class EmployeeSource extends DicBase {
 	}
 
 	/**
-	 * 人员来源明细表集合
+	 * 用户来源明细表集合
 	 * 
 	 * @param employeeSourceDtlMap
-	 *            人员来源明细表集合
+	 *            用户来源明细表集合
 	 */
 	public void setEmployeeSourceDtlMap(EmployeeSourceDtlMap employeeSourceDtlMap) {
 		this.employeeSourceDtlMap = employeeSourceDtlMap;
@@ -126,7 +126,7 @@ public class EmployeeSource extends DicBase {
 	}
 
 	/**
-	 * 构造人员来源对象
+	 * 构造用户来源对象
 	 * 
 	 * @param context
 	 *            OA上下文

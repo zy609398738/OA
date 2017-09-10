@@ -1,0 +1,98 @@
+<table id="group_13" class="group"  border="0" cellspacing="0" cellpadding="0"><tr style="height:100%;">
+<td id="zenLayoutTableCell_14"  >
+<div class="zendiv" id="content" zen="14"  ><div><hr/><table><tr><td><table cellpadding=4 cellspacing=4><tbody align=center><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='1:MSH - message header segment' href='${bd_hl7_ss_url}MSH&PATH=MSH&MS=MS%3A2.3.1%3ADFT_P03'>MSH</a></td></tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='2:EVN - event type segment' href='${bd_hl7_ss_url}EVN&PATH=EVN&MS=MS%3A2.3.1%3ADFT_P03'>EVN</a></td></tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='3:PID - patient identification segment' href='${bd_hl7_ss_url}PID&PATH=PID&MS=MS%3A2.3.1%3ADFT_P03'>PID</a></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='4:PD1 - patient additional demographic segment' href='${bd_hl7_ss_url}PD1&PATH=PD1&MS=MS%3A2.3.1%3ADFT_P03'>PD1</a></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='5:PV1 - patient visit segment-' href='${bd_hl7_ss_url}PV1&PATH=PV1&MS=MS%3A2.3.1%3ADFT_P03'>PV1</a></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='6:PV2 - patient visit - additional information segment' href='${bd_hl7_ss_url}PV2&PATH=PV2&MS=MS%3A2.3.1%3ADFT_P03'>PV2</a></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='7:DB1() - Disability segment' href='${bd_hl7_ss_url}DB1&PATH=DB1()&MS=MS%3A2.3.1%3ADFT_P03'>DB1</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='8:OBX() - observation/result segment' href='${bd_hl7_ss_url}OBX&PATH=OBX()&MS=MS%3A2.3.1%3ADFT_P03'>OBX</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='right' valign='top' style='font-style:italic;'>FT1grp</td><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='9:FT1grp().FT1 - financial transaction segment' href='${bd_hl7_ss_url}FT1&PATH=FT1grp().FT1&MS=MS%3A2.3.1%3ADFT_P03'>FT1</a></td></tr>
+<tr><td align='right' valign='top' style='font-style:italic;'>PR1grp</td><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='10:FT1grp().PR1grp().PR1 - procedures segment' href='${bd_hl7_ss_url}PR1&PATH=FT1grp().PR1grp().PR1&MS=MS%3A2.3.1%3ADFT_P03'>PR1</a></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='11:FT1grp().PR1grp().ROL() - Role' href='${bd_hl7_ss_url}ROL&PATH=FT1grp().PR1grp().ROL()&MS=MS%3A2.3.1%3ADFT_P03'>ROL</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='12:DG1() - diagnosis segment' href='${bd_hl7_ss_url}DG1&PATH=DG1()&MS=MS%3A2.3.1%3ADFT_P03'>DG1</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='13:DRG - diagnosis related group segment' href='${bd_hl7_ss_url}DRG&PATH=DRG&MS=MS%3A2.3.1%3ADFT_P03'>DRG</a></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='14:GT1() - guarantor segment' href='${bd_hl7_ss_url}GT1&PATH=GT1()&MS=MS%3A2.3.1%3ADFT_P03'>GT1</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='right' valign='top' style='font-style:italic;'>IN1grp</td><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='15:IN1grp().IN1 - insurance segment' href='${bd_hl7_ss_url}IN1&PATH=IN1grp().IN1&MS=MS%3A2.3.1%3ADFT_P03'>IN1</a></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='16:IN1grp().IN2 - insurance additional information segment' href='${bd_hl7_ss_url}IN2&PATH=IN1grp().IN2&MS=MS%3A2.3.1%3ADFT_P03'>IN2</a></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='17:IN1grp().IN3() - insurance additional information, certification segment' href='${bd_hl7_ss_url}IN3&PATH=IN1grp().IN3()&MS=MS%3A2.3.1%3ADFT_P03'>IN3</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='18:ACC - accident segment' href='${bd_hl7_ss_url}ACC&PATH=ACC&MS=MS%3A2.3.1%3ADFT_P03'>ACC</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td>
+<td valign='top'><div style="padding-left:10px;">
+<b>Key</b><table cellpadding=4 cellspacing=4>
+<tr><td style="border: 2px dotted #60a060; border-right: none;" >可选</td></tr>
+<tr><td style="border: 2px solid #703838; border-right: none;" >重复</td></tr>
+</table></div></td>
+</tr></table></div>
+</div>
+</td>
+<td id="zenLayoutTableCell_15"  style="vertical-align:top;">
+<div class="zendiv" id="zen15" zen="15"  >
+<table id="group_15" class="group"  border="0" cellspacing="0" cellpadding="0">
+<tr style="vertical-align:top;">
+<td id="zenLayoutTableCell_16"  >
+<div class="zendiv" id="showRawContent" zen="16"  ><div id="rawDivPointer" style="padding:20px 0px 0px 20px;">
+	<span><img src="images/spacer.gif" width="30" height="2"><img src="images/disclosure-contracted.gif" alt="*" width="8" height="11" border="0">
+	<span onclick="showRaw('rawContent');"><a href="#">显示原始定义文本</a></span></span><br/>
+	</div>
+<div id="rawContent" style="padding:20px 0px 0px 50px;display:none;" >
+	<b>原始定义</b>
+	<table cellspacing="0" cellpadding="2">
+	<tr><td>2.3.1:MSH~2.3.1:EVN~2.3.1:PID~[~2.3.1:PD1~]~[~2.3.1:PV1~]~[~2.3.1:PV2~]~[~{~2.3.1:DB1~}~]~[~{~2.3.1:OBX~}~]~{~2.3.1:FT1~[~{~2.3.1:PR1~[~{~2.3.1:ROL~}~]~}~]~}~[~{~2.3.1:DG1~}~]~[~2.3.1:DRG~]~[~{~2.3.1:GT1~}~]~[~{~2.3.1:IN1~[~2.3.1:IN2~]~[~{~2.3.1:IN3~}~]~}~]~[~2.3.1:ACC~]</td></tr>
+	</table>
+	</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+</tr></table><script type="text/javascript" src="js/hl7/ms.js"></script>

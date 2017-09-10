@@ -1,0 +1,11 @@
+[
+  {
+    "parentId": "8a9f5a005cbf65f2015cbf7d982f000e",
+    "text": "ERP_OuId_TO_BPM",
+    "recordMpLog": "false",
+    "id": "8a9f5a005cbf65f2015cbf7d9848000f",
+    "description": "实时查询ERP系统OUID信息",
+    "fileImport": "false",
+    "enable": "true"
+  }
+]

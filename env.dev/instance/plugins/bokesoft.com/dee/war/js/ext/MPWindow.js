@@ -215,7 +215,7 @@ function windowSaveOrUpdateInterface(record) {
 							}
 						}],
 				plugins : [win_form_grid_pluginCellEdit],
-				height : 195,
+				height : 163,
 				width : '100%'
 			});
 
@@ -223,6 +223,7 @@ function windowSaveOrUpdateInterface(record) {
 				width : '100%',
 				height : '100%',
 				bodyPadding : 5,
+				autoScroll : true,
 				border : 0,
 				layout : 'anchor',
 				defaults : {
@@ -275,7 +276,86 @@ function windowSaveOrUpdateInterface(record) {
 							xtype : 'textarea',
 							fieldLabel : '描述信息',
 							name : 'description'
-						}, win_form_grid]
+						},{
+							xtype : 'fieldcontainer',
+							layout : 'hbox',
+							items : [{
+										xtype : 'numberfield',
+										fieldLabel : 'http端口号',
+										id:'oldPort',
+										name : 'oldPort'
+									},{
+										xtype : 'numberfield',
+										fieldLabel : '修改为',
+										id:'changePort',
+										margin: '0 0 0 5',
+										name : 'changePort'
+									},{
+										xtype : 'button',
+										margin: '0 0 0 5',
+										text:'修改端口号',
+										handler : function() {
+												var form_text = win_form.getValues().text;
+												var form_autoRun = win_form.getValues().autoRun;
+												var form_id = win_form.getValues().id;
+												var form_description = win_form.getValues().description;
+												var form_responseTime = win_form.getValues().responseTime;
+												var form_startIndex = win_form.getValues().startIndex;
+												var form_changePort=win_form.getValues().changePort;
+												var form_oldPort=win_form.getValues().oldPort;
+												if (form_responseTime == '' || form_text == ''
+														|| win_form_grid_store.getCount() == 0) {
+													Ext.Msg.alert('提示', '至少要有个服务，接口名称和响应时间不能为空');
+													return;
+												}
+												if (!isRigthName(form_text)) {
+													Ext.Msg.alert('提示', '接口名称不能包含空格及中文字符');
+													return;
+												}
+												// 判断启动序号是否重复
+												if (validateStartIndexIsTheSame(form_id, form_startIndex)) {
+													return;
+												}
+												if (validateServiceNameIsTheSameOrIsNull(win_form_grid_store)) {
+													return;
+												}
+												var services = storeToJSON(win_form_grid_store);
+												Ext.Ajax.request({
+															url : 'interfaceInfoSaveController.do',
+															params : {
+																actionType : 'changePort',
+																services : services,
+																text : form_text,
+																id : form_id,
+																autoRun : form_autoRun,
+																responseTime : form_responseTime,
+																description : form_description,
+																startIndex : form_startIndex,
+																changePort:form_changePort,
+																oldPort:form_oldPort
+															},
+															success : function(response) {
+																if(form_changePort==''){
+																	Ext.Msg.alert('提示', '端口号不能为空');
+																}else if(isNaN(form_changePort)){
+																	Ext.Msg.alert('提示', '端口号必须为数字');
+																}else{
+																if ('success' == response.responseText) {
+																	Ext.getCmp('oldPort').setValue(form_changePort);
+																	Ext.getCmp('changePort').setValue('');
+																	changePanel(center_interface());
+																	Ext.Msg.alert('提示', '修改成功');
+																} else {
+																	Ext.Msg.alert('错误提示', response.responseText);
+																}}
+															},
+															failure : function(response) {
+																Ext.Msg.alert('错误提示', response.responseText);
+															}
+												});
+										}
+									}]
+				}, win_form_grid]
 			});
 	var win_buttons = [{
 		text : '确定',
@@ -287,6 +367,8 @@ function windowSaveOrUpdateInterface(record) {
 			var form_description = win_form.getValues().description;
 			var form_responseTime = win_form.getValues().responseTime;
 			var form_startIndex = win_form.getValues().startIndex;
+			var form_changePort=win_form.getValues().changePort;
+			var form_oldPort=win_form.getValues().oldPort;
 			if (form_responseTime == '' || form_text == ''
 					|| win_form_grid_store.getCount() == 0) {
 				Ext.Msg.alert('提示', '至少要有个服务，接口名称和响应时间不能为空');
@@ -322,7 +404,9 @@ function windowSaveOrUpdateInterface(record) {
 							autoRun : form_autoRun,
 							responseTime : form_responseTime,
 							description : form_description,
-							startIndex : form_startIndex
+							startIndex : form_startIndex,
+							changePort:form_changePort,
+							oldPort:form_oldPort
 						},
 						success : function(response) {
 							win_buttons_success(response);
@@ -355,7 +439,9 @@ function windowSaveOrUpdateInterface(record) {
 					description : record.data.description,
 					autoRun : record.data.autoRun,
 					responseTime : record.data.responseTime,
-					startIndex : record.data.startIndex
+					startIndex : record.data.startIndex,
+					changePort:record.data.changePort,
+					oldPort:record.data.oldPort
 				});
 		var combox = getCmp('interfaceAutoRun');
 		for (var i = 0; i < combox.store.getCount(); i++) {

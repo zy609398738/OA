@@ -22,15 +22,19 @@ import com.bokesoft.yigo.tools.document.DataTableUtil;
 public class TSL_GetBudgetNoDataTableImpl extends BaseMidFunctionImpl {
 	private String ACTION = "ERP_BUDGET_CONTROL_TO_BPM";
 
+	private String SQL = "select oid from Dict_Currency where UPPER(code) =?";
+
 	@Override
 	public Object evalImpl(String name, DefaultContext context, Object[] args, IExecutor executor) throws Throwable {
 		String formKey = args[0].toString();
 		String tableKey = args[1].toString();
 		long organization_id = TypeConvertor.toLong(context.getPara("Organization_id"));
 		int budget_year = TypeConvertor.toInteger(context.getPara("Budget_Year"));
+		int BudgetMonth = TypeConvertor.toInteger(context.getPara("Budget_Month"));
 		String costcenter = TypeConvertor.toString(context.getPara("CostCenter"));
 		String projectcode = TypeConvertor.toString(context.getPara("Project_Code"));
 		String application_type = TypeConvertor.toString(context.getPara("application_type"));
+		int issenior = TypeConvertor.toInteger(context.getPara("issenior"));
 		String budgetdesc = null;
 		if (application_type == null) {
 			budgetdesc = null;
@@ -38,7 +42,12 @@ public class TSL_GetBudgetNoDataTableImpl extends BaseMidFunctionImpl {
 				|| application_type.equalsIgnoreCase("国外外派探亲")) {
 			budgetdesc = "Business trip";
 		} else if (application_type.equalsIgnoreCase("高管探亲")) {
-			budgetdesc = "SMT Welfare";
+			if (issenior == 1) {
+				budgetdesc = "SMT Welfare";
+			} else {
+				budgetdesc = "Business trip";
+			}
+
 		} else if (application_type.equalsIgnoreCase("招待")) {
 			budgetdesc = "Meal and entertainment";
 		}
@@ -113,17 +122,95 @@ public class TSL_GetBudgetNoDataTableImpl extends BaseMidFunctionImpl {
 		Object data = reJSONObject.get("data");
 		if (data instanceof JSONArray) {
 			JSONArray reJSONArray = (JSONArray) data;
+			// 获取数据对象的所有列
 			DataTableMetaData metaData = dataTable.getMetaData();
 			int count = metaData.getColumnCount();
 			ColumnInfo columnInfo = null;
+			// 循环接口返回值,添加到原有的数据对象中
 			for (int i = 0; i < reJSONArray.size(); ++i) {
 				JSONObject jsonObject = (JSONObject) reJSONArray.get(i);
 				dataTable.append();
 				for (int index = 0; index < count; index++) {
 					columnInfo = metaData.getColumnInfo(index);
-					dataTable.setObject(columnInfo.getColumnKey(),
-							jsonObject.get(columnInfo.getColumnKey().toLowerCase()));
+					dataTable.setObject(columnInfo.getColumnKey(), TypeConvertor.toDataType(columnInfo.getDataType(),
+							jsonObject.get(columnInfo.getColumnKey().toLowerCase())));
 				}
+
+				DataTable dt = context.getDBManager().execPrepareQuery(SQL,
+						jsonObject.get("currency_code").toString().toUpperCase());
+				long oid = -1L;
+				if (dt.first()) {
+					oid = dt.getLong("oid");
+				}
+				dataTable.setObject("currency_oid", oid);
+
+				String budget_desc = jsonObject.get("budget_desc").toString().toUpperCase().trim();
+				if (budget_desc.indexOf("WELFARE") > -1 || budget_desc.indexOf("SMT WELFARE") > -1
+						|| budget_desc.indexOf("SALES INCENTIVE") > -1 || budget_desc.indexOf("TEAM AWARD") > -1
+						|| budget_desc.indexOf("TEAM BUILDING") > -1) {
+					dataTable.setObject("budgetsubject", "福利费");
+				} else if (budget_desc.indexOf("STAFF EDUCATION FEE") > -1 || budget_desc.indexOf("TRAINING") > -1) {
+					dataTable.setObject("budgetsubject", "培训费");
+				} else {
+					dataTable.setObject("budgetsubject", "其他");
+				}
+
+				switch (BudgetMonth) {
+				case 1:
+					dataTable.setObject("quarterlybudget", TypeConvertor.toBigDecimal(jsonObject.get("entered_amt_1")));
+					break;
+				case 2:
+					dataTable.setObject("quarterlybudget", TypeConvertor.toBigDecimal(jsonObject.get("entered_amt_1"))
+							.add(TypeConvertor.toBigDecimal(jsonObject.get("entered_amt_2"))));
+					break;
+				case 3:
+					dataTable.setObject("quarterlybudget",
+							TypeConvertor.toBigDecimal(jsonObject.get("entered_amt_1"))
+									.add(TypeConvertor.toBigDecimal(jsonObject.get("entered_amt_2")))
+									.add(TypeConvertor.toBigDecimal(jsonObject.get("entered_amt_3"))));
+					break;
+				case 4:
+					dataTable.setObject("quarterlybudget", TypeConvertor.toBigDecimal(jsonObject.get("entered_amt_4")));
+					break;
+				case 5:
+					dataTable.setObject("quarterlybudget", TypeConvertor.toBigDecimal(jsonObject.get("entered_amt_4"))
+							.add(TypeConvertor.toBigDecimal(jsonObject.get("entered_amt_5"))));
+					break;
+				case 6:
+					dataTable.setObject("quarterlybudget",
+							TypeConvertor.toBigDecimal(jsonObject.get("entered_amt_4"))
+									.add(TypeConvertor.toBigDecimal(jsonObject.get("entered_amt_5")))
+									.add(TypeConvertor.toBigDecimal(jsonObject.get("entered_amt_6"))));
+					break;
+				case 7:
+					dataTable.setObject("quarterlybudget", TypeConvertor.toBigDecimal(jsonObject.get("entered_amt_7")));
+					break;
+				case 8:
+					dataTable.setObject("quarterlybudget", TypeConvertor.toBigDecimal(jsonObject.get("entered_amt_7"))
+							.add(TypeConvertor.toBigDecimal(jsonObject.get("entered_amt_8"))));
+					break;
+				case 9:
+					dataTable.setObject("quarterlybudget",
+							TypeConvertor.toBigDecimal(jsonObject.get("entered_amt_7"))
+									.add(TypeConvertor.toBigDecimal(jsonObject.get("entered_amt_8")))
+									.add(TypeConvertor.toBigDecimal(jsonObject.get("entered_amt_9"))));
+					break;
+				case 10:
+					dataTable.setObject("quarterlybudget",
+							TypeConvertor.toBigDecimal(jsonObject.get("entered_amt_10")));
+					break;
+				case 11:
+					dataTable.setObject("quarterlybudget", TypeConvertor.toBigDecimal(jsonObject.get("entered_amt_10"))
+							.add(TypeConvertor.toBigDecimal(jsonObject.get("entered_amt_11"))));
+					break;
+				case 12:
+					dataTable.setObject("quarterlybudget",
+							TypeConvertor.toBigDecimal(jsonObject.get("entered_amt_10"))
+									.add(TypeConvertor.toBigDecimal(jsonObject.get("entered_amt_11")))
+									.add(TypeConvertor.toBigDecimal(jsonObject.get("entered_amt_12"))));
+					break;
+				}
+
 			}
 		}
 		return dataTable;

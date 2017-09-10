@@ -25,7 +25,8 @@
                     <Column Caption="单据Key" DataType="Varchar" Key="BillKey"/>
                     <Column Caption="集团" DataType="Long" Key="ClusterID"/>
                     <Column Caption="显示顺序" DataType="Integer" Key="OrderNum"/>
-                    <Column Key="PartitionType" Caption="类型" DataType="Varchar"/>
+                    <Column Key="PartitionType" Caption="类型" DataType="Varchar" Cache="true"/>
+                    <Column Key="Name_en_US" Caption="英文名称" DataType="Varchar"/>
                 </Table>
                 <Table Caption="明细" DBTableName="OA_WorkflowType_D" Key="OA_WorkflowType_D" ParentKey="OA_WorkflowType_H" TableMode="Detail">
                     <Column Caption="对象标识" DataType="Long" Key="OID"/>
@@ -36,6 +37,7 @@
                     <Column Caption="序号" DataType="Integer" Key="Sequence"/>
                     <Column Caption="关联表单标识" DataType="Varchar" Key="BillKey" Length="100"/>
                     <Column Key="BillName" Caption="表单名称" DataType="Varchar"/>
+                    <Column Key="BillName_en_US" Caption="英文表单名称" DataType="Varchar"/>
                     <Column Caption="流程定义" DataType="Long" Key="WorkflowID"/>
                     <Column Key="StartCaption" Caption="启动操作名称" DataType="Varchar"/>
                     <Column Key="StartAction" Caption="启动操作" DataType="Varchar"/>
@@ -44,6 +46,9 @@
                     <Column Caption="显示顺序" DataType="Integer" Key="OrderNum"/>
                     <Column Key="IsCommon" Caption="是否常用" DataType="Integer"/>
                     <Column Key="WorkflowDesigneID" Caption="流程设计标识" DataType="Long"/>
+                    <Column Key="MessageSetID" Caption="消息发送方式" DataType="Long"/>
+                    <Column Key="EmailTemp" Caption="邮件模板" DataType="Varchar" Length="1000"/>
+                    <Column Key="SendFormula" Caption="发送条件" DataType="Varchar" Length="1000"/>
                 </Table>
             </TableCollection>
         </DataObject>
@@ -67,15 +72,20 @@
                                 <DataBinding ColumnKey="Name" TableKey="OA_WorkflowType_H"/>
                             </TextEditor>
                             <Label Caption="名称" Key="Lab_Name" X="3" Y="0"/>
-                            <NumberEditor BuddyKey="Lab_OrderNum" Caption="显示顺序" Key="OrderNum" Scale="0" X="1" Y="1" IntegerValue="true">
+                            <NumberEditor BuddyKey="Lab_OrderNum" Caption="显示顺序" Key="OrderNum" Scale="0" X="1" Y="2" IntegerValue="true">
                                 <DataBinding ColumnKey="OrderNum" TableKey="OA_WorkflowType_H"/>
                             </NumberEditor>
-                            <Label Caption="显示顺序" Key="Lab_OrderNum" X="0" Y="1"/>
-                            <ComboBox Key="PartitionType" Caption="类型" BuddyKey="Lab_PartitionType" X="4" Y="1" SourceType="ParaGroup" GroupKey="PartitionType">
+                            <Label Caption="显示顺序" Key="Lab_OrderNum" X="0" Y="2"/>
+                            <ComboBox Key="PartitionType" Caption="类型" BuddyKey="Lab_PartitionType" X="1" Y="1" SourceType="ParaGroup" GroupKey="PartitionType">
                                 <DataBinding ColumnKey="PartitionType" TableKey="OA_WorkflowType_H" DefaultValue="common" Required="true"/>
                             </ComboBox>
-                            <Label Key="Lab_PartitionType" Caption="类型" X="3" Y="1"/>
+                            <Label Key="Lab_PartitionType" Caption="类型" X="0" Y="1"/>
+                            <TextEditor Key="Name_en_US" Caption="英文名称" BuddyKey="Lab_Name_en_US" X="4" Y="1">
+                                <DataBinding ColumnKey="Name_en_US" TableKey="OA_WorkflowType_H"/>
+                            </TextEditor>
+                            <Label Key="Lab_Name_en_US" Caption="英文名称" X="3" Y="1"/>
                             <RowDefCollection RowGap="4">
+                                <RowDef Height="30px"/>
                                 <RowDef Height="30px"/>
                                 <RowDef Height="30px"/>
                             </RowDefCollection>
@@ -94,6 +104,7 @@
                                     <GridColumn Key="OID" Caption="明细ID" Width="80px" Visible="false"/>
                                     <GridColumn Key="BillKey_D" Caption="关联表单" Width="150px"/>
                                     <GridColumn Key="BillName" Caption="表单名称" Width="200px"/>
+                                    <GridColumn Key="BillName_en_US" Caption="英文表单名称" Width="200px"/>
                                     <GridColumn Key="WorkflowID" Caption="流程定义" Width="200px"/>
                                     <GridColumn Key="StartCaption" Caption="启动操作名称" Width="80px"/>
                                     <GridColumn Key="StartAction" Caption="启动操作" Width="80px" Visible="false"/>
@@ -104,6 +115,9 @@
                                     <GridColumn Key="WorkflowDesigneID" Caption="流程设计标识" Width="80px" Visible="false"/>
                                     <GridColumn Key="OrderNum_D" Caption="显示顺序" Width="80px"/>
                                     <GridColumn Key="IsCommon" Caption="是否常用" Width="80px"/>
+                                    <GridColumn Key="MessageSetID" Caption="发送方式" Width="80px"/>
+                                    <GridColumn Key="EmailTemp" Caption="邮件模板" Width="80px"/>
+                                    <GridColumn Key="SendFormula_D" Caption="发送条件" Width="80px"/>
                                 </GridColumnCollection>
                                 <GridRowCollection>
                                     <GridRow Key="row-0" TableKey="OA_WorkflowType_D">
@@ -117,7 +131,8 @@
                                         <GridCell Key="BillKey_D" Caption="关联表单" CellType="ComboBox" SourceType="Formula" Editable="true" ItemsDependency="Code">
                                             <DataBinding ColumnKey="BillKey" Required="true">
                                                 <ValueChanged>
-                                                    <![CDATA[BillName=GetCellCaption("Dtl",-1, "BillKey_D")]]>
+                                                    <![CDATA[BillName=GetCellCaption("Dtl",-1, "BillKey_D");
+BillName_en_US=BillKey_D]]>
                                                 </ValueChanged>
                                             </DataBinding>
                                             <FormulaItems>
@@ -126,6 +141,9 @@
                                         </GridCell>
                                         <GridCell Key="BillName" Caption="表单名称" CellType="TextEditor">
                                             <DataBinding ColumnKey="BillName" Required="true"/>
+                                        </GridCell>
+                                        <GridCell Key="BillName_en_US" Caption="英文表单名称" CellType="TextEditor">
+                                            <DataBinding ColumnKey="BillName_en_US"/>
                                         </GridCell>
                                         <GridCell Key="WorkflowID" Caption="流程定义" CellType="Dict" ItemKey="OA_Workflow">
                                             <DataBinding ColumnKey="WorkflowID" Required="true"/>
@@ -160,6 +178,18 @@
                                         </GridCell>
                                         <GridCell Key="IsCommon" Caption="是否常用" CellType="CheckBox" CellSortType="None">
                                             <DataBinding ColumnKey="IsCommon"/>
+                                        </GridCell>
+                                        <GridCell Key="MessageSetID" Caption="发送方式" CellType="Dict" CellSortType="None" ItemKey="OA_MessageSet">
+                                            <DataBinding ColumnKey="MessageSetID"/>
+                                        </GridCell>
+                                        <GridCell Key="EmailTemp" Caption="邮件模板" CellType="ComboBox" SourceType="Formula">
+                                            <DataBinding ColumnKey="EmailTemp"/>
+                                            <FormulaItems>
+                                                <![CDATA[OA_GetEmailTemplateStr();]]>
+                                            </FormulaItems>
+                                        </GridCell>
+                                        <GridCell Key="SendFormula_D" Caption="发送条件" CellType="TextEditor" MaxLength="1000">
+                                            <DataBinding ColumnKey="SendFormula"/>
                                         </GridCell>
                                     </GridRow>
                                 </GridRowCollection>

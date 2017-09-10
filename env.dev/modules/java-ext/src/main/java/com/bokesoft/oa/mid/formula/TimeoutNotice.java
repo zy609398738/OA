@@ -11,6 +11,7 @@ import com.bokesoft.oa.mid.wf.base.OperatorSel;
 import com.bokesoft.oa.mid.wf.base.WorkflowDesigneDtl;
 import com.bokesoft.oa.mid.wf.base.WorkflowTypeDtl;
 import com.bokesoft.oa.mid.wf.base.WorkitemInf;
+import com.bokesoft.yes.common.util.StringUtil;
 import com.bokesoft.yigo.common.util.TypeConvertor;
 import com.bokesoft.yigo.mid.base.DefaultContext;
 import com.bokesoft.yigo.mid.parser.BaseMidFunctionImpl;
@@ -37,17 +38,24 @@ public class TimeoutNotice extends BaseMidFunctionImpl {
 				.getWorkflowDesigneDtlMap().get(workflowDesigneDtlID);
 		NodeProperty nodeProperty = workflowDesigneDtl.getNodeProperty();
 		MessageSet messageSet = nodeProperty.getSendType();
-		OperatorSel informPerSel = nodeProperty.getInformPerSel();
 		Long billOID = TypeConvertor.toLong(args[1]);
-		String participatorIDs = informPerSel.getParticipatorIDs(billOID);
 		String formKey = TypeConvertor.toString(args[0]);
 		String topic = oaContext.getwFMigrationMap().get(billOID).getTopic();
 		String billNO = oaContext.getwFMigrationMap().get(billOID).getBillNO();
 		String operationName = workitemInf.getWFWorkitem().getWorkitemName();
 		String content = operationName + " 任务超时";
-		Message message = new Message(oaContext, false, false, "", new Date(), context.getVE().getEnv().getUserID(),
-				topic, content, participatorIDs, messageSet, formKey, billNO, billOID);
-		SendMessage.sendMessage(oaContext, message);
+		OperatorSel informPerSel = nodeProperty.getInformPerSel();
+		if (informPerSel != null && informPerSel.getOperatorSelDtlMap().size() > 0) {
+			String ids = informPerSel.getParticipatorIDs(billOID, ",");
+			if (!StringUtil.isBlankOrNull(ids)) {
+				Message message = new Message(oaContext, false, false, new Date(), context.getVE().getEnv().getUserID(),
+						topic, content, ids, "", messageSet, formKey, billNO, billOID);
+				message.setSendFormula(nodeProperty.getSendFormula());
+				message.setEmailTemp(nodeProperty.getEmailTemp());
+				message.setWorkitemInf(workitemInf);
+				SendMessage.sendMessage(oaContext, message);
+			}
+		}
 		return true;
 	}
 }

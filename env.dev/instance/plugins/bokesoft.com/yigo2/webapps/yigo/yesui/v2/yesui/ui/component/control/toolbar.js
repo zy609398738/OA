@@ -51,7 +51,7 @@ YIUI.Control.Toolbar = YIUI.extend(YIUI.Control, {
         this.base(width);
         this.ul.width(width - this._dropBtn.width());
         $("li", this.ul).removeClass("hide");
-        var children = this.ul.children("[style='display: block;']"), child;
+        var children = this.ul.children().not(":hidden"), child;
         if (children.length > 0 && children.last().position().top > children.first().position().top) {
             this._dropBtn.addClass("show");
             var _div = this.dropView.empty();
@@ -99,28 +99,33 @@ YIUI.Control.Toolbar = YIUI.extend(YIUI.Control, {
     },
 
     renderItems: function (parent, items) {
-    	var ul = parent.children("ul");
-    	if(ul.length == 0) {
-    		ul = $('<ul></ul>').appendTo(parent);
-    	}
+
         var self = this;
-        if (items && items.length > 0) {
-        	this.el.removeClass("empty");
-            var item, li, an, span;
-            for (var i = 0, len = items.length; i < len; i++) {
-                item = items[i];
+
+    	var _renderItems = function (parent, items) {
+
+            var ul = parent.children("ul");
+            if(ul.length == 0) {
+                ul = $('<ul></ul>').appendTo(parent);
+            }
+
+            var li,
+                a,
+                span;
+
+            for (var i = 0,item;item = items[i];i++) {
                 li = $('<li></li>').appendTo(ul);
                 li.css({display: (item.visible ? "block" : "none")});
                 li.key = item.key;
                 li[0].index = i;
-                an = $('<a></a>').appendTo(li);
+                a = $('<a></a>').appendTo(li);
                 if ( item.icon ) {
-                    an.attr('icon', item.icon);
-                    an.addClass("pri-icon");
+                    a.attr('icon', item.icon);
+                    a.addClass("pri-icon");
                 }
-                span = $("<span class='txt'/>").html(item.caption).appendTo(an);
+                span = $("<span class='txt'/>").html(item.caption).appendTo(a);
                 if( $.browser.isIE && li.key && li.key.toLowerCase().indexOf('upload') != -1 ){
-                    $("<input type='file' class='upload' name='file'/>").appendTo(span);// IE 工具栏附件上传
+                    $("<input type='file' class='upload' name='file'/>").appendTo(span);
                 }
                 if ((!item.enable && !item.selfDisable) || !self.enable) {
                     li.addClass("ui-readonly");
@@ -128,20 +133,25 @@ YIUI.Control.Toolbar = YIUI.extend(YIUI.Control, {
                 if ($.isArray(item.items)) {
                     if (!item.selfDisable) {
                         li.addClass("sp-btn");
-                        an.addClass("btn-left");
+                        a.addClass("btn-left");
                         $("<a><span class='arrow'></span></a>").addClass("btn-right").appendTo(li);
-
                     } else {
                         li.addClass("dpd-btn");
-                        $("<span class='arrow'></span>").appendTo(an);
+                        $("<span class='arrow'></span>").appendTo(a);
                     }
-                    this.renderItems(li, item.items);
+                    _renderItems(li, item.items);
                 }
             }
-        } else {
-        	this.el.addClass("empty");
         }
-        return ul;
+
+        if (items && items.length > 0) {
+            this.el.removeClass("empty");
+            _renderItems(parent,items);
+        } else {
+            this.el.addClass("empty");
+        }
+
+        return self.el.children("ul");
     },
 
     setItemVisible: function (key, visible) {
@@ -244,7 +254,7 @@ YIUI.Control.Toolbar = YIUI.extend(YIUI.Control, {
             var _this = self.dropView;
             _this.css("right", ($(window).width() - self.el.offset().left - self.el.outerWidth()) + "px");
             _this.css("top", (self.el.offset().top + self.el.outerHeight()) + "px");
-            _this.width($(this).outerWidth() + $(this).prev(".btn-left").outerWidth())
+//            _this.width($(this).outerWidth() + $(this).prev(".btn-left").outerWidth())
             _this.toggleClass("show");
             $(document).on("mousedown", function (e) {
                 var target = $(e.target);

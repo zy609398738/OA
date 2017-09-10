@@ -99,6 +99,30 @@ public class OperationSel extends BillBase {
 	}
 
 	/**
+	 * 发送条件
+	 */
+	private String sendFormula;
+
+	/**
+	 * 发送条件
+	 * 
+	 * @return 发送条件
+	 */
+	public String getSendFormula() {
+		return sendFormula;
+	}
+
+	/**
+	 * 发送条件
+	 * 
+	 * @param sendFormula
+	 *            发送条件
+	 */
+	public void setSendFormula(String sendFormula) {
+		this.sendFormula = sendFormula;
+	}
+
+	/**
 	 * 源表单Key
 	 */
 	private String sourceKey;
@@ -321,8 +345,9 @@ public class OperationSel extends BillBase {
 		setTag4(dt.getString("Tag4"));
 		setMessageSetID(dt.getLong("MessageSetID_H"));
 		setEmailTemp(dt.getString("EmailTemp_H"));
+		setSendFormula(dt.getString("SendFormula"));
 	}
-	
+
 	/**
 	 * 载入数据
 	 * 

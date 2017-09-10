@@ -7,7 +7,7 @@
                     <Column Key="WorkitemID" Caption="工作项标识" DataType="Long" DBColumnName="WorkitemID"/>
                     <Column Key="OID" Caption="OID" DataType="Long"/>
                     <Column Key="WorkitemName" Caption="工作项名称" DataType="Varchar" DBColumnName="WorkitemName"/>
-                    <Column Key="creatTime" Caption="单据日期" DataType="DateTime"/>
+                    <Column Key="BillCreatTime" Caption="单据日期" DataType="DateTime"/>
                     <Column Key="BillNo" Caption="单据编号" DataType="Varchar" DBColumnName="BillNo"/>
                     <Column Key="ProcessKey" Caption="流程名称" DataType="Varchar"/>
                     <Column Key="EmpID" Caption="申请人" DataType="Long"/>
@@ -26,43 +26,29 @@
                     </ParameterCollection>
                     <Statement>
                         <![CDATA[select * from (
-select 
-i.ProcessKey,
-i.formkey,
-i.oid,
-topic,
-empid,
-deptid,
-BillStatus,
-w.creatTime,
-w.WorkitemID,
-10 mark, 
-NULL SourceOID 
-from wf_workitem w  
-join bpm_log l on w.WorkitemID=l.WorkitemID 
-join BPM_Instance i on  l.instanceID=i.instanceID  
+select distinct i.instancestate,i.formkey,i.oid,topic,empid,deptid,i.ProcessKey,
+m.BillCreatTime,10 mark, null SourceOID
+from bpm_log l join BPM_Instance i on  l.instanceID=i.instanceID  
 join bpm_migration M on i.OID = m.BillOID   
-where l.WorkitemState=2 and l.OperatorID=? and l.WorkitemID 
-in(select MAX(WorkitemID) from bpm_log ll 
-where ll.operatorID=?  
-GROUP BY ll.InstanceID) and i.instancestate!=3 
+where l.WorkitemState=2 and l.OperatorID=? and i.instancestate!=3 and l.workitemid !=0 
 union 
 select 
-NULL ProcessKey,
+NULL instancestate,
 im.FormKey,
 im.oid,
 im.SourceName AS Topic,
 - 1 EmpID,
 - 1 DeptID,
-0 BillStatus,
+NULL ProcessKey,
 im.CreateDate AS BillCreatTime,
-- 1 workItemID,
 20 mark,
 im.SourceOID
 FROM
 oa_itemremind im JOIN OA_ParticipatorIDs_D p ON im.sourceoid = p.soid
 WHERE (im.OptIDs IS NULL AND 1 = 1) OR  p.OptID=? 
-OR im.Sourcecreator =? ORDER BY CreatTime desc) h]]>
+OR im.Sourcecreator =? 
+union select distinct i.instancestate,i.formkey,i.oid,topic,empid,deptid,i.ProcessKey,
+m.BillCreatTime,10 mark,null SourceOID from bpm_eventlog e join bpm_instance i on e.instanceid = i.instanceid join bpm_migration M on i.OID = m.BillOID where e.soperator = ? and e.actiontype = 4 ORDER BY BillCreatTime desc) h]]>
                     </Statement>
                 </Table>
             </TableCollection>
@@ -73,12 +59,12 @@ OR im.Sourcecreator =? ORDER BY CreatTime desc) h]]>
             <FlexFlowLayoutPanel Key="main">
                 <GridLayoutPanel Key="GridLayoutPanel1" Height="80px" Padding="5px" Caption="GridLayoutPanel1">
                     <DatePicker Key="From" Caption="申请日期" BuddyKey="Lab_From" X="1" Y="0">
-                        <Condition ColumnKey="creatTime" TableKey="OA_MyList" CondSign="between" Group="A" GroupHead="true"/>
+                        <Condition ColumnKey="BillCreatTime" TableKey="OA_MyList" CondSign="between" Group="A" GroupHead="true"/>
                     </DatePicker>
                     <Label Key="Lab_From" Caption="申请日期" X="0" Y="0"/>
                     <Label Key="Label1" Caption="到" X="2" Y="0"/>
                     <DatePicker Key="To" Caption="到" X="3" Y="0">
-                        <Condition ColumnKey="creatTime" TableKey="OA_MyList" CondSign="between" Group="A" GroupTail="true"/>
+                        <Condition ColumnKey="BillCreatTime" TableKey="OA_MyList" CondSign="between" Group="A" GroupTail="true"/>
                     </DatePicker>
                     <TextEditor Key="QueryTheme" Caption="主题" BuddyKey="Lab_QueryTheme" X="9" Y="0">
                         <Condition ColumnKey="Topic" TableKey="OA_MyList" CondSign="like"/>
@@ -91,10 +77,6 @@ LoadData();
 ShowData();]]>
                         </OnClick>
                     </Button>
-                    <Dict Key="QueryBusinessType" Caption="业务类型" BuddyKey="Lab_QueryBusinessType" X="1" Y="1" AllowMultiSelection="true" ItemKey="BusinessArea" XSpan="3">
-                        <Condition ColumnKey="BusinessType" TableKey="OA_MyList" CondSign="="/>
-                    </Dict>
-                    <Label Key="Lab_QueryBusinessType" Caption="业务类型" X="0" Y="1"/>
                     <Dict Key="QueryApplicant" Caption="申请人" BuddyKey="Lab_QueryApplicant" X="6" Y="1" ItemKey="OA_Employee">
                         <Condition ColumnKey="EmpID" TableKey="OA_MyList" CondSign="="/>
                     </Dict>
@@ -108,13 +90,20 @@ ShowData();]]>
                             <![CDATA[ResetCondition();]]>
                         </OnClick>
                     </Button>
-                    <ComboBox Key="QueryStatus" Caption="状态" BuddyKey="Lab_QueryStatus" X="9" Y="1" SourceType="Status">
+                    <ComboBox Key="QueryStatus" Caption="流程状态" BuddyKey="Lab_QueryStatus" X="9" Y="1" SourceType="ParaGroup" GroupKey="InstanceState">
                         <Condition ColumnKey="InstanceState" TableKey="OA_MyList" CondSign="="/>
                     </ComboBox>
-                    <Label Key="Lab_QueryStatus" Caption="状态" X="8" Y="1"/>
+                    <Label Key="Lab_QueryStatus" Caption="流程状态" X="8" Y="1"/>
                     <CheckBox Caption="表头可见" Key="first_headVisible" Visible="false" X="11" Y="1">
                         <DataBinding DefaultValue="1"/>
                     </CheckBox>
+                    <CheckListBox BuddyKey="Lab_CheckListBox1" Caption="业务类型" Key="CheckListBox1" X="1" XSpan="3" Y="1" SourceType="Formula">
+                        <Condition ColumnKey="FormKey" TableKey="OA_MyList" CondSign="in"/>
+                        <FormulaItems>
+                            <![CDATA[OA_GetFormCaption(GetOperator(),GetOperator());]]>
+                        </FormulaItems>
+                    </CheckListBox>
+                    <Label Key="Lab_CheckListBox1" Caption="业务类型" X="0" Y="1"/>
                     <RowDefCollection RowGap="5">
                         <RowDef Height="30px"/>
                         <RowDef Height="30px"/>
@@ -141,21 +130,21 @@ ShowData();]]>
                                 <![CDATA[OA_GetDropItemByBPM()]]>
                             </FormulaItems>
                         </ListViewColumn>
-                        <ListViewColumn Key="FormKey" Caption="业务类型" ColumnType="ComboBox" DataColumnKey="FormKey" Width="150px" SourceType="Formula">
+                        <ListViewColumn Key="FormKey" Caption="业务类型" ColumnType="ComboBox" DataColumnKey="FormKey" Width="200px" SourceType="Formula">
                             <FormulaItems>
-                                <![CDATA[GetFormByType("Entity")]]>
+                                <![CDATA[OA_GetFormCaption(GetOperator(),GetOperator());]]>
                             </FormulaItems>
                         </ListViewColumn>
                         <ListViewColumn Key="Topic" Caption="主题" ColumnType="TextEditor" DataColumnKey="Topic" Width="226px"/>
                         <ListViewColumn Key="EmpID" Caption="申请人" ColumnType="Dict" DataColumnKey="EmpID" ItemKey="OA_Employee"/>
                         <ListViewColumn Key="DeptID" Caption="申请部门" ColumnType="Dict" DataColumnKey="DeptID" Width="150px" ItemKey="OA_Department"/>
-                        <ListViewColumn Key="creatTime" Caption="申请日期" ColumnType="DatePicker" DataColumnKey="creatTime" Width="120px"/>
-                        <ListViewColumn Key="BillStatus" Caption="状态" ColumnType="ComboBox" DataColumnKey="BillStatus" SourceType="Status"/>
+                        <ListViewColumn Key="creatTime" Caption="申请日期" ColumnType="DatePicker" DataColumnKey="BillCreatTime" Width="120px"/>
+                        <ListViewColumn Key="InstanceState" Caption="流程状态" ColumnType="ComboBox" DataColumnKey="InstanceState" GroupKey="InstanceState" SourceType="ParaGroup"/>
                         <ListViewColumn Key="WorkitemID" Caption="工作项标识" DataColumnKey="WorkitemID" Visible="false"/>
                         <ListViewColumn Key="OID" Caption="OID" DataColumnKey="OID" Visible="false"/>
                     </ListViewColumnCollection>
                     <RowDblClick>
-                        <![CDATA[OpenWorkitem(WorkitemID,true)]]>
+                        <![CDATA[Open(FormKey,OID)]]>
                     </RowDblClick>
                 </ListView>
             </FlexFlowLayoutPanel>

@@ -221,7 +221,7 @@ public class RightSel extends BillBase {
 	public void setOperatorSelDtl(OperatorSelDtl operatorSelDtl) {
 		this.operatorSelDtl = operatorSelDtl;
 	}
-	
+
 	/**
 	 * 权限选择明细集合
 	 */

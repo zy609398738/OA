@@ -2,11 +2,16 @@ YIUI.RightsService = (function () {
 	var cache = new YIUI.RightsCache();
     var reqMap = {};
 
+    var _default = {
+        service: "SessionRights",
+        cmd: "LoadFormRights",
+	}
+
 	var Return = {
 		/**
 		 * 表单字段，操作权限
 		 */
-	    loadFormRights: function(formKey,OID,workitemID) {
+	    loadFormRights: function(formKey,params) {
 
 	       	if(!reqMap[formKey]){
                 reqMap[formKey] = cache.get(formKey)
@@ -14,13 +19,8 @@ YIUI.RightsService = (function () {
 	                                        if(rightsData){
 	                                            return rightsData;
 	                                        }else{
-										        var params = {
-										    		service: "SessionRights",
-										    		cmd: "LoadFormRights",
-										    		formKey: formKey,
-                                                    OID: OID,
-                                                    workitemID:workitemID,
-										        };
+
+										        params = $.extend({},_default,params);
 
 	                                            return Svr.Request.getData(params).then(function(rightsData){
 	                                            	if( rightsData.needCache ) {

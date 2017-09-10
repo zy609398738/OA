@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+	<Entry>
+		<Common_System>系统管理</Common_System>
+			<Common_System_Rigths>权限管理</Common_System_Rigths>
+				<Common_System_Rigths_Operator>用户管理</Common_System_Rigths_Operator>
+				<Common_System_Rigths_Role>角色管理</Common_System_Rigths_Role>
+				<Common_System_Rigths_OperatorRightsSet>用户权限设置</Common_System_Rigths_OperatorRightsSet>
+				<Common_System_Rigths_RoleRightsSet>角色权限设置</Common_System_Rigths_RoleRightsSet>
+				<Common_System_Rigths_PassWordSet>密码设置</Common_System_Rigths_PassWordSet>
+			<Common_System_SystemFunction>系统功能</Common_System_SystemFunction>
+				<Common_System_SystemFunction_OA_LoginInfo>登录管理</Common_System_SystemFunction_OA_LoginInfo>
+	</Entry>
+</StringTable>

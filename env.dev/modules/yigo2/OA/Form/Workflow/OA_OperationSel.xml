@@ -29,6 +29,8 @@
                     <Column Key="MessageSetID_H" Caption="MessageSetID" DataType="Long"/>
                     <Column Key="EmailTemp_H" Caption="邮件模板" DataType="Varchar"/>
                     <Column Key="FieldKey" Caption="字段标识" DataType="Varchar"/>
+                    <Column Key="IsSendMessage" Caption="是否发送通知" DataType="Integer"/>
+                    <Column Key="SendFormula" Caption="发送条件" DataType="Varchar"/>
                 </Table>
                 <Table Key="OA_OperationSel_D" Caption="操作选择结果" DBTableName="OA_OperationSel_D" TableMode="Detail">
                     <Column Caption="对象标识" DataType="Long" Key="OID"/>
@@ -42,10 +44,11 @@
                     <Column Key="SelectField" Caption="选择" DataType="Integer"/>
                     <Column Key="ConfirmPW" Caption="确认密码" DataType="Integer"/>
                     <Column Key="Opinion" Caption="处理意见" DataType="Integer"/>
-                    <Column Key="MessageSetID" Caption="消息发送方式" DataType="Long"/>
                     <Column Key="CCOptSelOID" Caption="抄送人员选择ID" DataType="Long"/>
                     <Column Key="CCOptSelDepict" Caption="抄送人员描述" DataType="Varchar"/>
+                    <Column Key="MessageSetID" Caption="消息发送方式" DataType="Long"/>
                     <Column Key="EmailTemp" Caption="邮件模板" DataType="Varchar"/>
+                    <Column Key="SendFormula" Caption="发送条件" DataType="Varchar"/>
                 </Table>
                 <Table Key="OA_OptModule_H" Caption="审批操作" TableMode="Detail" SourceType="Query" Persist="false">
                     <Column Caption="对象标识" DataType="Long" Key="OID"/>
@@ -164,7 +167,7 @@ Close();]]>
                         </ColumnDefCollection>
                     </GridLayoutPanel>
                     <TabPanel Caption="TabPanel2" Key="TabPanel2">
-                        <Grid Key="OA_OperationSel_D" Caption="选择结果" NewEmptyRow="false" Enable="true" PageRowCount="10">
+                        <Grid Key="OA_OperationSel_D" Caption="选择结果" NewEmptyRow="false" Enable="true" PageRowCount="10" Height="pref" Width="100%">
                             <GridColumnCollection>
                                 <GridColumn Key="SelectField" Caption="选择" Width="50px"/>
                                 <GridColumn Key="Set_OptID" Caption="审批操作" Width="173px"/>
@@ -176,6 +179,7 @@ Close();]]>
                                 <GridColumn Key="CCOptSelDepict" Caption="抄送人员描述" Width="200px"/>
                                 <GridColumn Key="MessageSetID" Caption="发送方式" Width="80px"/>
                                 <GridColumn Key="EmailTemp" Caption="邮件模板" Width="80px"/>
+                                <GridColumn Key="SendFormula_D" Caption="发送条件" Width="80px"/>
                             </GridColumnCollection>
                             <GridRowCollection>
                                 <GridRow Key="row1" RowHeight="35" TableKey="OA_OperationSel_D">
@@ -215,8 +219,11 @@ Close();]]>
                                     <GridCell Key="EmailTemp" Caption="邮件模板" CellType="ComboBox" SourceType="Formula">
                                         <DataBinding ColumnKey="EmailTemp"/>
                                         <FormulaItems>
-                                            <![CDATA[InvokeService("OA_GetFileNameStr", false, true, "../cms/site/static/email")]]>
+                                            <![CDATA[OA_GetEmailTemplateStr();]]>
                                         </FormulaItems>
+                                    </GridCell>
+                                    <GridCell Key="SendFormula_D" Caption="发送条件" CellType="TextEditor">
+                                        <DataBinding ColumnKey="SendFormula"/>
                                     </GridCell>
                                 </GridRow>
                             </GridRowCollection>
@@ -229,10 +236,14 @@ Close();]]>
                             <ComboBox Key="EmailTemp_H" Caption="邮件模板" BuddyKey="Lab_EmailTemp_H" X="3" Y="0" SourceType="Formula" Enable="true">
                                 <DataBinding ColumnKey="EmailTemp_H" TableKey="OA_OperationSel_H"/>
                                 <FormulaItems>
-                                    <![CDATA[InvokeService("OA_GetFileNameStr", false, true, "../cms/site/static/email")]]>
+                                    <![CDATA[OA_GetEmailTemplateStr();]]>
                                 </FormulaItems>
                             </ComboBox>
                             <Label Key="Lab_EmailTemp_H" Caption="邮件模板" X="2" Y="0"/>
+                            <TextEditor Key="SendFormula" Caption="发送条件" BuddyKey="Lab_SendFormula" X="1" Y="1">
+                                <DataBinding ColumnKey="SendFormula" TableKey="OA_OperationSel_H"/>
+                            </TextEditor>
+                            <Label Key="Lab_SendFormula" Caption="发送条件" X="0" Y="1"/>
                             <RowDefCollection RowGap="5">
                                 <RowDef Height="30px"/>
                                 <RowDef Height="30px"/>

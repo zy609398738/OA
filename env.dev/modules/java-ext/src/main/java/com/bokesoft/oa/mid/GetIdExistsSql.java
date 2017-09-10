@@ -37,7 +37,7 @@ public class GetIdExistsSql implements IExtService {
 	public static String getIdExistsSql(DefaultContext context, String tableName, Object dicIds, String idName)
 			throws Throwable {
 		String sqlWhere = "";
-		
+
 		String ids = GetValueStrByMutilSel.getValueStrByMutilSel(context, dicIds);
 		if (ids.length() <= 0) {
 			return sqlWhere;

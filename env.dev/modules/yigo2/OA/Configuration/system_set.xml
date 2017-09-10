@@ -5,6 +5,8 @@
 		<map name="SystemSet">
 			<!-- 网络访问路径 -->
 			<property name="WebUrl">dev.bokesoft.com:20231/yigo</property>
+			<!-- 流程启动操作的Key -->
+			<property name="BPMOperationKey">OPTCommitAudit</property>
 		</map>
 	</settings>
 </config>

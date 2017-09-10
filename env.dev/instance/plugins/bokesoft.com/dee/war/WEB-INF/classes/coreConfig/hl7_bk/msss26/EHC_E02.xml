@@ -1,0 +1,75 @@
+<table id="group_13" class="group"  border="0" cellspacing="0" cellpadding="0"><tr style="height:100%;">
+<td id="zenLayoutTableCell_14"  >
+<div class="zendiv" id="content" zen="14"  ><div><hr/><table><tr><td><table cellpadding=4 cellspacing=4><tbody align=center><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='1:MSH - Message Header' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.6%3AMSH&PATH=MSH&MS=MS%3A2.6%3AEHC_E02'>MSH</a></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='2:SFT() - Software Segment' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.6%3ASFT&PATH=SFT()&MS=MS%3A2.6%3AEHC_E02'>SFT</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='3:UAC() - User Authentication Credential Segment' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.6%3AUAC&PATH=UAC()&MS=MS%3A2.6%3AEHC_E02'>UAC</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='right' valign='top' style='font-style:italic;'>IVCunion</td><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #ead960;; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='4:IVCunion.IVC - Invoice Segment' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.6%3AIVC&PATH=IVCunion.IVC&MS=MS%3A2.6%3AEHC_E02'>IVC</a></td></tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='5:IVCunion.PYE - Payee Information' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.6%3APYE&PATH=IVCunion.PYE&MS=MS%3A2.6%3AEHC_E02'>PYE</a></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='6:IVCunion.CTD() - Contact Data' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.6%3ACTD&PATH=IVCunion.CTD()&MS=MS%3A2.6%3AEHC_E02'>CTD</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='7:IVCunion.NTE() - Notes and Comments' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.6%3ANTE&PATH=IVCunion.NTE()&MS=MS%3A2.6%3AEHC_E02'>NTE</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='right' valign='top' style='font-style:italic;'>PSSgrp</td><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='8:IVCunion.PSSgrp().PSS - Product/Service Section' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.6%3APSS&PATH=IVCunion.PSSgrp().PSS&MS=MS%3A2.6%3AEHC_E02'>PSS</a></td></tr>
+<tr><td align='right' valign='top' style='font-style:italic;'>PSGgrp</td><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='9:IVCunion.PSSgrp().PSGgrp().PSG - Product/Service Group' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.6%3APSG&PATH=IVCunion.PSSgrp().PSGgrp().PSG&MS=MS%3A2.6%3AEHC_E02'>PSG</a></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='10:IVCunion.PSSgrp().PSGgrp().PSL() - Product/Service Line Item' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.6%3APSL&PATH=IVCunion.PSSgrp().PSGgrp().PSL()&MS=MS%3A2.6%3AEHC_E02'>PSL</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+</tr></table></td>
+<td valign='top'><div style="padding-left:10px;">
+<b>Key</b><table cellpadding=4 cellspacing=4>
+<tr><td style="border: 2px dotted #60a060; border-right: none;" >可选</td></tr>
+<tr><td style="border: 2px solid #703838; border-right: none;" >重复</td></tr>
+<tr><td style="border: 2px dotted #ead960; border-right: none;" cellpadding=2 cellspacing=2>选择</td></tr>
+</table></div></td>
+</tr></table></div>
+</div>
+</td>
+<td id="zenLayoutTableCell_15"  style="vertical-align:top;">
+<div class="zendiv" id="zen15" zen="15"  >
+<table id="group_15" class="group"  border="0" cellspacing="0" cellpadding="0">
+<tr style="vertical-align:top;">
+<td id="zenLayoutTableCell_16"  >
+<div class="zendiv" id="showRawContent" zen="16"  ><div id="rawDivPointer" style="padding:20px 0px 0px 20px;">
+	<span><img src="images/spacer.gif" width="30" height="2"><img src="images/disclosure-contracted.gif" alt="*" width="8" height="11" border="0">
+	<span onclick="showRaw('rawContent');"><a href="#">显示原始定义文本</a></span></span><br/>
+	</div>
+<div id="rawContent" style="padding:20px 0px 0px 50px;display:none;" >
+	<b>原始定义</b>
+	<table cellspacing="0" cellpadding="2">
+	<tr><td>2.6:MSH~[~{~2.6:SFT~}~]~[~{~2.6:UAC~}~]~<~2.6:IVC~2.6:PYE~[~{~2.6:CTD~}~]~[~{~2.6:NTE~}~]~[~{~2.6:PSS~[~{~2.6:PSG~[~{~2.6:PSL~}~]~}~]~}~]~></td></tr>
+	</table>
+	</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+</tr></table><script type="text/javascript" src="js/hl7/ms.js"></script>

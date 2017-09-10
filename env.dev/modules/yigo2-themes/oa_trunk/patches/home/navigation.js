@@ -34,10 +34,10 @@
 							'<div class="app-box-btn"></div>'+
 					    '</div>' +
 					    '<div class="logo"></div>' + 
-					    "<span class='logo-text'>Yigo应用</span-->" +
+					    "<span class='logo-text'>"+YIUI.I18N.navigation.application+"</span-->" +
 						'<img class="logo-main" src="/yigo/_$/images/main/logo.png"/>'+
 						'<div class="logo-text-nav">'+
-							'<iframe src="/yigo/navigation.page" style="width:600px;height:60px;" frameborder="no">'+
+							'<iframe src="/yigo/navigation.page" style="width:700px;height:60px;" frameborder="no">'+
 							'</iframe>'+
 						'</div>'+
 					    '<div class="navRight">' + 
@@ -53,7 +53,7 @@
 								'</div>' +
 					    	'</div>' +
 					    	"<label class='org_lbl' ></label>" +
-							"<span class='login_username'>用户名</span>" +
+							"<span class='login_username'>"+YIUI.I18N.navigation.userName+"</span>" +
 							'<div class="head-photo">' + 
 								'<iframe src="/yigo/userinfo.page" style="width:120px;height:60px;" frameborder="no">' + 
 								'</iframe>' + 
@@ -63,6 +63,7 @@
 			nav.innerHTML = html;
 
 		    $(".login_username", nav).html($.cookie("userName"));
+
 //			window.setStatus = function(status) {
 //				if(status) {
 //					var org_lbl = $(".navRight label.org_lbl");
@@ -108,7 +109,7 @@
 		    var buildApp = function() {
 			    var url = window.location.href;
 			    
-			    YIUI.MetaService.getServerList().then(function(serverList) {
+			    YIUI.MetaService.getAppList().then(function(serverList) {
 				    var paras;
 //				    var appKey;
 //				    if (url.indexOf("appkey=") != -1) {
@@ -216,15 +217,15 @@
 					 	var html_about = "<div class='sys-about'><table>" +
 											"<tbody>" +
 								 				"<tr row='1'>" +
-									 				"<td col='0' colspan='1' rowspan='1'> 版本：&nbsp; </td>" +
+									 				"<td col='0' colspan='1' rowspan='1'>"+ YIUI.I18N.navigation.appVer+"&nbsp; </td>" +
 									 				"<td col='1' colspan='1' rowspan='1'>" + result.Ver + "</td>" +
 								 				"</tr>" +
 								 				"<tr row='2'>" +
-									 				"<td col='0' colspan='1' rowspan='1'> 创建号：&nbsp; </td>" +
+									 				"<td col='0' colspan='1' rowspan='1'> "+ YIUI.I18N.navigation.appBuildID+"&nbsp; </td>" +
 									 				"<td col='1' colspan='1' rowspan='1'>" + result.BuildID + "</td>" +
 								 				"</tr>" +
 								 				"<tr row='3'>" +
-								 					"<td col='0' colspan='2' rowspan='1'> 上海博科资讯股份有限公司  </td>" +
+								 					"<td col='0' colspan='2' rowspan='1'> "+ YIUI.I18N.navigation.appCopyRights+" </td>" +
 								 				"</tr>" +
 								 				"<tr row='4'>" +
 								 					"<td col='0' colspan='2' rowspan='1'></td>" +
@@ -232,7 +233,7 @@
 								 				"<tr row='5'>" +
 									 				"<td col='0' colspan='1' rowspan='1'> </td>" +
 									 				"<td col='1' colspan='1' rowspan='1'>" +
-									 					"<button class='ok'><span class='txt'>确定</span></button>" +
+									 					"<button class='ok'><span class='txt'>"+ YIUI.I18N.button.ok+"</span></button>" +
 									 				"</td>" +
 								 				"</tr>" +
 							 				"</tbody>" +
@@ -240,7 +241,7 @@
 						          
 //					 	 授权于：博科资讯 &ensp; 过期时间：2017-06-01  
 						var dialogDiv = $("<div class='modifyPwd abtCo' id='modifyPwd'></div>");
-					    dialogDiv.modalDialog(null, {title: "关于Yigo", showClose: false, width: "260px", height: "180px"});
+					    dialogDiv.modalDialog(null, {title: YIUI.I18N.navigation.appAbout, showClose: false, width: "260px", height: "180px"});
 					    dialogDiv.dialogContent().html(html_about);
 					    $(".ok", dialogDiv).click(function() {
 					    	dialogDiv.close();

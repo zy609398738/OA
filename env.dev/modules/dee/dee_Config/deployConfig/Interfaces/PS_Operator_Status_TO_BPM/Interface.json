@@ -1,0 +1,10 @@
+{
+  "id": "ff8080815c335b60015c34d00748015f",
+  "startIndex": "",
+  "text": "PS_Operator_Status_TO_BPM",
+  "autoRun": "true",
+  "description": "根据中间表人员状态定时更新BPM平台人员字典人员状态",
+  "responseTime": "600000",
+  "changePort": "",
+  "oldPort": ""
+}

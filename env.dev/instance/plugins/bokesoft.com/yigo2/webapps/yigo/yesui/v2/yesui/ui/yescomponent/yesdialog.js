@@ -11,7 +11,7 @@
 		var OK_Btn = {
 			metaObj: {
 				key: "OK",
-				caption: YIUI.I18N.dict.determine
+				caption: YIUI.I18N.dialog.ok
 			}
 		};
 		var YES_Btn = {
@@ -120,6 +120,11 @@
 		        var left = ($(window).width() / 2 - dialogDiv.width() / 2) + "px";
 		        var top = ($(window).height() / 2 - dialogDiv.height() / 2) + "px";
 		        dialogDiv.css({left: left, top: top});
+		        $(".ui-lbl label", dialogDiv).css({
+		            "white-space": "pre-wrap",
+		            "word-wrap": "break-word",
+		            "word-break": "break-word"
+		        });    
 			},
 
 			parseOpt: function(key) {

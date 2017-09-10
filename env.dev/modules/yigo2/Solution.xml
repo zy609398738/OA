@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<Solution Caption="协同办公" Key="oa-dev" SecurityLevel="9" StartProject="BK_Basic">
+<Solution Caption="协同办公" Key="oa-dev" SecurityLevel="9" StartProject="BK_Basic" EnableMultiLang="true">
     <ProjectCollection>
         <Project Caption="基本资料" Key="BK_Basic"/>
         <Project Caption="协同功能" Key="OA"/>
@@ -21,4 +21,8 @@
     <PreLoadItemCollection>
         <PreLoadItem Key="Item1" EntryPath="TSL/Base/TSL_Index"/>
     </PreLoadItemCollection> -->
+    <LangConfig>
+        <Lang Key="zh-CN" Description="中文" Suffix="zh_CN"/>
+        <Lang Key="en-US" Description="英文" Suffix="en_US"/>
+    </LangConfig>
 </Solution>

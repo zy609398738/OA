@@ -42,8 +42,7 @@ public class TSL_GetCashFlowStatementDataTableImpl extends BaseMidFunctionImpl {
 		JSONObject jo = factory.getRowNumberCondition();
 		ja.add(jo);
 
-
-		if (!bu.isEmpty() &&!bu.equalsIgnoreCase("null")) {
+		if (!bu.isEmpty() && !bu.equalsIgnoreCase("null")) {
 
 			jo = factory.createCondition("BU", " = ", bu);
 			ja.add(jo);

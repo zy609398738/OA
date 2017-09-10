@@ -182,9 +182,29 @@
 		<property name="deployDataAccess" ref="FileDeployDataAccess"></property>
 		<property name="businessDataProcess" ref="BusinessDataProcess"></property>
 	</bean>
+	<!--数据库表到yigo2.0表配置-->
+	<bean id="InterfaceSimpleConfigTableToYigo20Controller"
+		class="com.bokesoft.dee.web.controller.InterfaceSimpleConfigTableToYigo20Controller">
+		<property name="successView">
+			<value>xmlView</value>
+		</property>
+		<property name="coreDataAccess" ref="FileCoreDataAccess"></property>
+		<property name="deployDataAccess" ref="FileDeployDataAccess"></property>
+		<property name="businessDataProcess" ref="BusinessDataProcess"></property>
+	</bean>
 	<!--yigo表到数据库表配置-->
 	<bean id="InterfaceSimpleConfigYigoToTableController"
 		class="com.bokesoft.dee.web.controller.InterfaceSimpleConfigYigoToTableController">
+		<property name="successView">
+			<value>xmlView</value>
+		</property>
+		<property name="coreDataAccess" ref="FileCoreDataAccess"></property>
+		<property name="deployDataAccess" ref="FileDeployDataAccess"></property>
+		<property name="businessDataProcess" ref="BusinessDataProcess"></property>
+	</bean>
+	<!--yigo2.0表到数据库表配置-->
+	<bean id="InterfaceSimpleConfigYigo2ToTableController"
+		class="com.bokesoft.dee.web.controller.InterfaceSimpleConfigYigo2ToTableController">
 		<property name="successView">
 			<value>xmlView</value>
 		</property>
@@ -202,6 +222,18 @@
 		<property name="deployDataAccess" ref="FileDeployDataAccess"></property>
 		<property name="businessDataProcess" ref="BusinessDataProcess"></property>
 	</bean>
+	
+<!--xml到yigo表配置-->
+	<bean id="InterfaceSimpleConfigXmlToYigo20Controller"
+		class="com.bokesoft.dee.web.controller.InterfaceSimpleConfigXmlToYigo20Controller">
+		<property name="successView">
+			<value>xmlView</value>
+		</property>
+		<property name="coreDataAccess" ref="FileCoreDataAccess"></property>
+		<property name="deployDataAccess" ref="FileDeployDataAccess"></property>
+		<property name="businessDataProcess" ref="BusinessDataProcess"></property>
+	</bean>
+		
 	<!--xml到yigo表配置 自定义xml格式-->
 	<bean id="InterfaceSimpleConfigCustomedXmlToYigoController"
 		class="com.bokesoft.dee.web.controller.InterfaceSimpleConfigCustomedXmlToYigoController">
@@ -212,9 +244,30 @@
 		<property name="deployDataAccess" ref="FileDeployDataAccess"></property>
 		<property name="businessDataProcess" ref="BusinessDataProcess"></property>
 	</bean>
+	
+	<bean id="InterfaceSimpleConfigCustomedXmlToYigo20Controller"
+		class="com.bokesoft.dee.web.controller.InterfaceSimpleConfigCustomedXmlToYigo20Controller">
+		<property name="successView">
+			<value>xmlView</value>
+		</property>
+		<property name="coreDataAccess" ref="FileCoreDataAccess"></property>
+		<property name="deployDataAccess" ref="FileDeployDataAccess"></property>
+		<property name="businessDataProcess" ref="BusinessDataProcess"></property>
+	</bean>
+	
 	<!--Excel到yigo表配置-->
 	<bean id="InterfaceExcelToYigoController"
 		class="com.bokesoft.dee.web.controller.InterfaceExcelToYigoController">
+		<property name="successView">
+			<value>xmlView</value>
+		</property>
+		<property name="coreDataAccess" ref="FileCoreDataAccess"></property>
+		<property name="deployDataAccess" ref="FileDeployDataAccess"></property>
+		<property name="businessDataProcess" ref="BusinessDataProcess"></property>
+	</bean>
+	<!--Excel到yigo2.0表配置-->
+	<bean id="InterfaceExcelToYigo20Controller"
+		class="com.bokesoft.dee.web.controller.InterfaceExcelToYigo20Controller">
 		<property name="successView">
 			<value>xmlView</value>
 		</property>
@@ -232,9 +285,29 @@
 		<property name="deployDataAccess" ref="FileDeployDataAccess"></property>
 		<property name="businessDataProcess" ref="BusinessDataProcess"></property>
 	</bean>
+	<!--yigo2.0  to  xml配置-->
+	<bean id="InterfaceYigo2ToXmlController"
+		class="com.bokesoft.dee.web.controller.InterfaceYigo2ToXmlController">
+		<property name="successView">
+			<value>xmlView</value>
+		</property>
+		<property name="coreDataAccess" ref="FileCoreDataAccess"></property>
+		<property name="deployDataAccess" ref="FileDeployDataAccess"></property>
+		<property name="businessDataProcess" ref="BusinessDataProcess"></property>
+	</bean>
 	<!--yigo  to  excel配置-->
 	<bean id="InterfaceYigoToExcelController"
 		class="com.bokesoft.dee.web.controller.InterfaceYigoToExcelController">
+		<property name="successView">
+			<value>xmlView</value>
+		</property>
+		<property name="coreDataAccess" ref="FileCoreDataAccess"></property>
+		<property name="deployDataAccess" ref="FileDeployDataAccess"></property>
+		<property name="businessDataProcess" ref="BusinessDataProcess"></property>
+	</bean>
+	<!--yigo2.0  to  excel配置-->
+	<bean id="InterfaceYigo2ToExcelController"
+		class="com.bokesoft.dee.web.controller.InterfaceYigo2ToExcelController">
 		<property name="successView">
 			<value>xmlView</value>
 		</property>
@@ -326,6 +399,21 @@
 		<property name="deployDataAccess" ref="FileDeployDataAccess"></property>
 		<property name="deployAuthorizationAccess" ref="DbDeployAuthorizationAccess"></property>
 	</bean>
+	
+	<bean id="InterfaceHl7InfoController"
+		class="com.bokesoft.dee.web.hl7.controller.InterfaceHl7InfoController">
+		<property name="successView">
+			<value>xmlView</value>
+		</property>
+	</bean>	
+
+	<bean id="LicenseController"
+		class="com.bokesoft.dee.web.controller.LicenseController">
+		<property name="successView">
+			<value>xmlView</value>
+		</property>
+		<property name="deployDataAccess" ref="FileDeployDataAccess"></property>
+	</bean>
 
 	<bean id="urlMapping"
 		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
@@ -348,14 +436,20 @@
 				<prop key="/interfaceRunningStatusDetailController.do">InterfaceRunningStatusDetailController</prop>
 				<prop key="/interfaceSimpleConfigController.do">InterfaceSimpleConfigController</prop>
 				<prop key="/interfaceSimpleConfigTableToYigoController.do">InterfaceSimpleConfigTableToYigoController</prop>
+				<prop key="/interfaceSimpleConfigTableToYigo20Controller.do">InterfaceSimpleConfigTableToYigo20Controller</prop>
 				<prop key="/interfaceSimpleConfigXmlToYigoController.do">InterfaceSimpleConfigXmlToYigoController</prop>
+				<prop key="/interfaceSimpleConfigXmlToYigo20Controller.do">InterfaceSimpleConfigXmlToYigo20Controller</prop>
 				<prop key="/interfaceSimpleConfigCustomedXmlToYigoController.do">InterfaceSimpleConfigCustomedXmlToYigoController</prop>
+				<prop key="/interfaceSimpleConfigCustomedXmlToYigo20Controller.do">InterfaceSimpleConfigCustomedXmlToYigo20Controller</prop>
 				<prop key="/interfaceExcelToYigoController.do">InterfaceExcelToYigoController</prop>
+				<prop key="/interfaceExcelToYigo20Controller.do">InterfaceExcelToYigo20Controller</prop>
 				<prop key="/interfaceYigoToExcelController.do">InterfaceYigoToExcelController</prop>
-				<prop key="/interfaceYigoToXmlController.do">InterfaceYigoToXmlController</prop>
+				<prop key="/interfaceYigo2ToExcelController.do">InterfaceYigo2ToExcelController</prop>
+				<prop key="/interfaceYigo2ToXmlController.do">InterfaceYigo2ToXmlController</prop>
 				<prop key="/interfaceSqlToExcelController.do">InterfaceSqlToExcelController</prop>
 				<prop key="/interfaceLog2DatasourceController.do">InterfaceLog2DatasourceController</prop>
 				<prop key="/interfaceSimpleConfigYigoToTableController.do">InterfaceSimpleConfigYigoToTableController</prop>
+				<prop key="/interfaceSimpleConfigYigo2ToTableController.do">InterfaceSimpleConfigYigo2ToTableController</prop>
 				<prop key="/interfaceWsAndHttpTestController.do">InterfaceWsAndHttpTestController</prop>
 				<prop key="/serviceStatusMonitorController.do">ServiceStatusMonitorController</prop>
 				<prop key="/excelImportToTableController.do">ExcelImportToTableController</prop>
@@ -363,6 +457,8 @@
 				<prop key="/authorizationController.do">AuthorizationController</prop>
 				<prop key="/authorizationRegistrationController.do">AuthorizationRegistrationController</prop>
 				<prop key="/authorizationAccesstokenController.do">AuthorizationAccesstokenController</prop>
+				<prop key="/interfaceHl7InfoController.do">InterfaceHl7InfoController</prop>
+				<prop key="/licenseController.do">LicenseController</prop>
 				<!--
 					<prop key="/authorizeController.do">AuthorizeController</prop>
 				-->

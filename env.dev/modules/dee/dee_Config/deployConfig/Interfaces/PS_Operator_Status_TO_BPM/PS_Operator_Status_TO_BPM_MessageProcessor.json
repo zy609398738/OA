@@ -1,0 +1,173 @@
+{
+  "response": [
+    {
+      "text": "响应反馈",
+      "description": "",
+      "scriptContent": "String expMsg = \"\";\nMap rsmap = new HashMap();\nif (message.getExceptionPayload() != null)\n{\n    message.setOutboundProperty(\"http.status\", 200);\n    expMsg = message.getExceptionPayload().getRootException().getMessage();\n    if (expMsg.length() > 3500)\n    {\n        expMsg = expMsg.substring(0, 3000);\n    }\n    message.setExceptionPayload(null);\n    rsmap.put(\"code\", \"e\");\n    rsmap.put(\"msg\", \"更新失败！\");\n}\nelse\n{\n    rsmap.put(\"code\", \"s\");\n    rsmap.put(\"msg\", \"更新成功！\");\n    rsmap.put(\"data\", payload);\n}\nMap logmap = message.getInboundProperty(\"logmap\");\nObject[] o = new Object[10];\no[0] = logmap.get(\"flow\");\no[1] = logmap.get(\"node\");\no[2] = logmap.get(\"billkey\");\no[3] = logmap.get(\"oid\");\no[4] = logmap.get(\"begintime\");\no[5] = new java.text.SimpleDateFormat(\"yyyyMMdd HH:mm:ss.SSS\").format(new java.sql.Timestamp(java.lang.System.currentTimeMillis()));\no[6] = \"\";\no[7] = \"\";\no[8] = expMsg;\no[9] = \"interface_1\";\ndbop.saveOrUpdate(\"insert into TRINA_SL_INTERFACE_LOG(id,flow,node,billkey,oid,starttime,endtime,request_data,response_data,EXCEPTION,interface_type)values(Trina_SL_Interface_Log_ID_SEQ.Nextval,?,?,?,?,?,?,?,?,?,?)\", o, false);\nreturn com.bokesoft.dee.mule.util.json.JSONUtil.toJson(rsmap);",
+      "smallType": "GroovyScriptWithDS",
+      "className": "com.bokesoft.exchange.transformer.ScriptWithDSTransformer",
+      "enable": "true",
+      "parentId": "ff8080815c335b60015c34d007500160",
+      "bigType": "transformer_au",
+      "simpleMpLog": "false",
+      "ds": "2c9081d05be7e572015be80fcb64000f",
+      "isRef": "false",
+      "id": "ff8080815c3cf3aa015c3d94114902bf"
+    }
+  ],
+  "normal": [
+    {
+      "xaTransaction": "",
+      "transaction": "",
+      "parentId": "ff8080815c2deb06015c3324868d00bb",
+      "smallType": "VM",
+      "description": "",
+      "id": "ff8080815c2deb06015c333813a40143",
+      "pollingFrequency": 60000000,
+      "simpleMpLog": "false",
+      "bigType": "inbound",
+      "isRef": "false",
+      "enable": "true",
+      "text": "接收查询用户状态表触发请求",
+      "queryKey": "ff8080815c335b60015c34d7e13f0178",
+      "exchange_pattern": "request-response",
+      "address": "vm://PS_Operator_Status_TO_BPM",
+      "encoding": "UTF-8",
+      "connector_ref": "8aaae09b5c18fbeb015c19339dd30014",
+      "className": ""
+    },
+    {
+      "text": "启动JDBC事务",
+      "description": "启动数据库事务",
+      "smallType": "StartTxTransformer",
+      "className": "com.bokesoft.dee.transport.transaction.StartTxTransformer",
+      "enable": "true",
+      "parentId": "ff8080815c335b60015c34d007500160",
+      "bigType": "GGPZTransformer",
+      "isRef": "true",
+      "id": "4028ab665da580fd015da58ed99f000f"
+    },
+    {
+      "text": "记录开始时间",
+      "description": "",
+      "scriptContent": "String begintime = new java.text.SimpleDateFormat(\"yyyyMMdd HH:mm:ss.SSS\").format(new java.sql.Timestamp(java.lang.System.currentTimeMillis()));\nMap logmap = new HashMap();\nlogmap.put(\"begintime\", begintime);\nmessage.setInboundProperty(\"logmap\", logmap);\ncom.bokesoft.InterfaceOperator.checkTransaction(dbop, \"PS_Operator_Status_TO_BPM\");\nreturn payload;",
+      "className": "com.bokesoft.exchange.transformer.ScriptWithDSTransformer",
+      "smallType": "GroovyScriptWithDS",
+      "enable": "true",
+      "parentId": "ff8080815c335b60015c34d007500160",
+      "bigType": "transformer_au",
+      "simpleMpLog": "false",
+      "ds": "2c9081d05be7e572015be80fcb64000f",
+      "isRef": "false",
+      "id": "ff8080815c3cf3aa015c3d808b930282"
+    },
+    {
+      "text": "查询用户数据",
+      "description": "",
+      "scriptContent": "List < Map > data = dbop.select(\"Select b.USER_HRID as code From ad_to_bpm_user_mid a Join ps_to_bpm_user_mid b On b.USER_HRID = a.EMPLOYEENUMBER And (b.USER_ACCESSIONSTATE = '离职' or a.ENABLED = 0)\", message);\nreturn data;",
+      "className": "com.bokesoft.exchange.transformer.ScriptWithDSTransformer",
+      "smallType": "GroovyScriptWithDS",
+      "enable": "true",
+      "parentId": "ff8080815c335b60015c34d007500160",
+      "bigType": "transformer_au",
+      "simpleMpLog": "false",
+      "ds": "2c9081d05be7e572015be80fcb64000f",
+      "isRef": "false",
+      "id": "ff8080815c3cf3aa015c3d8297fa0283"
+    },
+    {
+      "ignoreSQLError": "false",
+      "text": "更新人员操作员状态",
+      "description": "",
+      "className": "com.bokesoft.dee.transport.jdbc.transformer.ExecuteSQLSimpleTransformer",
+      "smallType": "ExecuteSQLSimpleTransformer",
+      "enable": "true",
+      "parentId": "ff8080815c335b60015c34d007500160",
+      "queries": "[{\"value\":\"update OA_EMPLOYEE_H set enable=-1 where code=#[map-payload:code]\"},{\"value\":\"update sys_operator  set enable=-1 where code=#[map-payload:code]\"}]",
+      "bigType": "transformer_au",
+      "resultIndexOf": 1,
+      "simpleMpLog": "false",
+      "isRef": "false",
+      "id": "ff8080815e2dc1b2015e3135752101ed",
+      "ds": "2c9081d05be7e572015be80fcb64000f"
+    },
+    {
+      "text": "提交或者回滚JDBC事务",
+      "description": "提交或者回滚数据库事务",
+      "className": "com.bokesoft.dee.transport.transaction.FinishTxTransformer",
+      "smallType": "FinishTxTransformer",
+      "enable": "true",
+      "parentId": "ff8080815c335b60015c34d007500160",
+      "bigType": "GGPZTransformer",
+      "isRef": "true",
+      "id": "4028ab665da580fd015da58f05540010"
+    }
+  ],
+  "exception": [
+    {
+      "text": "提交或者回滚JDBC事务",
+      "description": "提交或者回滚数据库事务",
+      "smallType": "FinishTxTransformer",
+      "className": "com.bokesoft.dee.transport.transaction.FinishTxTransformer",
+      "enable": "true",
+      "parentId": "ff8080815c335b60015c34d007500160",
+      "bigType": "GGPZTransformer",
+      "isRef": "true",
+      "id": "4028ab665da580fd015da58f418e0011"
+    },
+    {
+      "text": "把异常对象转换为文本",
+      "description": "把异常对象转换为文本",
+      "smallType": "ExceptionMessageTransformer",
+      "className": "com.bokesoft.exchange.transformer.ExceptionMessageTransformer",
+      "enable": "true",
+      "parentId": "ff8080815c2deb06015c3324868d00bb",
+      "bigType": "GGPZTransformer",
+      "isRef": "true",
+      "id": "ff8080815c2deb06015c3324869200bc"
+    },
+    {
+      "path": "${bokedee.logpath.runtimeLog}/PS_Operator_Status_TO_BPM",
+      "text": "记录错误日志到文件",
+      "description": "",
+      "smallType": "File",
+      "className": "",
+      "enable": "true",
+      "outputPattern": "#[function:datestamp:yyyyMMddHHmmss]-#[message:id].xml",
+      "parentId": "ff8080815c2deb06015c3324868d00bb",
+      "bigType": "outbound",
+      "file_subdir": "#[context:serviceName]/#[function:datestamp:yyyyMMdd]",
+      "simpleMpLog": "false",
+      "isRef": "false",
+      "id": "ff8080815c2deb06015c3324869f00bd"
+    },
+    {
+      "text": "把异常信息替换换行符",
+      "description": "把异常信息替换换行符",
+      "scriptContent": "String exceptionContent = message.getPayload();String exception = exceptionContent.replace(\"\\n\", \"<br/>\");message.setPayload(exception);return message;",
+      "className": "org.mule.module.scripting.transformer.ScriptTransformer",
+      "smallType": "GroovyScriptTransformer",
+      "enable": "false",
+      "parentId": "ff8080815c2deb06015c3324868d00bb",
+      "bigType": "transformer_au",
+      "simpleMpLog": "false",
+      "isRef": "false",
+      "id": "ff8080815c2deb06015c332486ae00be"
+    },
+    {
+      "text": "把异常信息通过邮件发送",
+      "description": "把异常信息通过邮件发送",
+      "connector_ref": "bokedee_default_smtp_connector",
+      "subject": "AD_TO_BPM_USER_MID",
+      "className": "",
+      "smallType": "SMTP",
+      "enable": "false",
+      "parentId": "ff8080815c2deb06015c3324868d00bb",
+      "bigType": "outbound",
+      "simpleMpLog": "false",
+      "encoding": "UTF-8",
+      "isRef": "false",
+      "id": "ff8080815c2deb06015c332486bd00bf"
+    }
+  ]
+}

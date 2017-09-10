@@ -9,6 +9,39 @@
 		'allowBlank':false
 	} ]
 }, {
+	'text' : 'TaskExecutor(线程池)',
+	'type' : 'org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor',
+	'attr' : [ {
+		'xtype' : 'numberfield',
+		'name' : 'corePoolSize',
+		'fieldLabel' : '初始大小',
+		'value' : 20,
+		'allowBlank' : false
+	}, {
+		'xtype' : 'numberfield',
+		'name' : 'maxPoolSize',
+		'fieldLabel' : '最大的线程数',
+		'value' : 100,
+		'allowBlank' : false
+	}, {
+		'xtype' : 'numberfield',
+		'name' : 'queueCapacity',
+		'fieldLabel' : '缓冲池大小',
+		'value' : 50,
+		'allowBlank' : false
+	}, {
+		'xtype' : 'numberfield',
+		'name' : 'keepAliveSeconds',
+		'fieldLabel' : '空闲时间(MS)',
+		'value' : 1000,
+		'allowBlank' : false
+	}, {
+		'name' : 'rejectedExecutionHandler',
+		'fieldLabel' : '超负荷执行策略',
+		'value' : 'java.util.concurrent.ThreadPoolExecutor$AbortPolicy',
+		'allowBlank' : false
+	} ]
+}, {
 	'text' : 'MQQueueConnectionFactory(ibmMQ连接)',
 	'type' : 'com.ibm.mq.jms.MQQueueConnectionFactory',
 	'attr' : [ {

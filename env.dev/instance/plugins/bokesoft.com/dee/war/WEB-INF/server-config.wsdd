@@ -58,10 +58,10 @@
 		<parameter name="className" value="com.bokesoft.dee.mule.webservice.BokeDeeServiceWS" />
 		<parameter name="allowedMethods" value="deeServiceHv,deeService" />
 		<namespace>http://bokesoft.com/dee/service/</namespace>
-		<requestFlow>
+		<!--requestFlow>
 		    <handler name="authen"
 		 type="java:org.apache.axis.handlers.SimpleAuthenticationHandler"/>
-		    </requestFlow>		
+		    </requestFlow-->		
 	</service>
 	
 	<service name="deeSpServiceWrapped" provider="java:RPC" style="WRAPPED" use="literal">
@@ -82,7 +82,22 @@
 		<beanMapping languageSpecificType="java:com.bokesoft.dee.mule.webservice.example.User" qname="ns:User" xmlns:ns="urn:BeanService"/>
 		<namespace>http://bokesoft.com/dee/service/</namespace>	
 	</service>		
-	
+	<service name="TrinasolarService" provider="java:RPC" style="WRAPPED" use="literal">
+		<parameter name="className" value="com.bokesoft.dee.webservies.TrinasolarServiceWS" />
+		<parameter name="allowedMethods" value="CreatePoTask,CreatePrTask" />
+		<!--parameter name="allowedRoles" value="GZW_SAPPI" /-->
+		<beanMapping languageSpecificType="java:com.bokesoft.dee.webservies.PO" qname="ns:PO" xmlns:ns="http://bokesoft.com/dee/service/"/>
+		<beanMapping languageSpecificType="java:com.bokesoft.dee.webservies.PR" qname="ns:PR" xmlns:ns="http://bokesoft.com/dee/service/"/>
+		<beanMapping languageSpecificType="java:com.bokesoft.dee.webservies.POList" qname="ns:POList" xmlns:ns="http://bokesoft.com/dee/service/"/>
+		<beanMapping languageSpecificType="java:com.bokesoft.dee.webservies.PRList" qname="ns:PRList" xmlns:ns="http://bokesoft.com/dee/service/"/>
+		<beanMapping languageSpecificType="java:com.bokesoft.dee.webservies.BarCodeList" qname="ns:BarCodeList" xmlns:ns="http://bokesoft.com/dee/service/"/>		
+		<beanMapping languageSpecificType="java:com.bokesoft.dee.webservies.Response" qname="ns:Response" xmlns:ns="http://bokesoft.com/dee/service/"/>
+		<namespace>http://bokesoft.com/dee/service/</namespace>
+		<!--requestFlow>
+		    <handler type="java:org.apache.axis.handlers.SimpleAuthenticationHandler"/>
+			<handler type="java:org.apache.axis.handlers.SimpleAuthorizationHandler"/>
+		</requestFlow-->		
+	</service>
 	<transport name="local">
 		<responseFlow>
 			<handler type="LocalResponder" />

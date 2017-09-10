@@ -1,0 +1,11 @@
+[
+  {
+    "parentId": "818188ba5e267c37015e26b85ca8000e",
+    "text": "CreatePoTask",
+    "recordMpLog": "true",
+    "id": "818188ba5e267c37015e26b85d2a000f",
+    "description": "导入PO数据至YIGO系统",
+    "fileImport": "false",
+    "enable": "true"
+  }
+]

@@ -3,7 +3,6 @@ package com.bokesoft.tsl.formula;
 import java.util.HashMap;
 
 import com.bokesoft.tsl.common.TSL_BokeDeeFactory;
-import com.bokesoft.yigo.common.util.TypeConvertor;
 import com.bokesoft.yigo.mid.base.DefaultContext;
 import com.bokesoft.yigo.mid.parser.BaseMidFunctionImpl;
 import com.bokesoft.yigo.parser.IExecutor;
@@ -16,22 +15,25 @@ public class TSL_DeleteAP extends BaseMidFunctionImpl {
 
 	@Override
 	public Object evalImpl(String name, DefaultContext context, Object[] args, IExecutor iExecutor) throws Throwable {
-		String dataObjectKey = TypeConvertor.toString(args[0]);
-		CostInfo info = TSLInfoFactory.CreateInfo(context, dataObjectKey);
-		//paymenttype
-		String paymenttype = info.getPaymentTypeField(TypeConvertor.toLong(args[1]));
 		Document document = context.getDocument();
-		DataTable headTable = document.get(info.getHeadTable());
+		DataTable headTable = document.get("B_CostApply");
+		String SQL = "select distinct CEDetail_PaymentType from B_CostApplyCE WHERE SOID = ?";
+		DataTable dt = context.getDBManager().execPrepareQuery(SQL, document.getOID());
+		// paymenttype
+		String paymenttype = null;
+		if (dt.size() > 0) {
+			// 获取SQL查询值赋给变量
+			paymenttype = dt.getString(0, 0);
+		}
 		// TaskID
 		String TaskId = null;
 		if (paymenttype == null) {
-			TaskId = headTable.getObject(info.getOIDField()).toString();
+			TaskId = headTable.getObject("InstanceID").toString();
 		} else if (paymenttype.equalsIgnoreCase("PersonalPayment")) {
-			TaskId = headTable.getObject(info.getOIDField()) + "_P";
+			TaskId = headTable.getObject("InstanceID") + "_P";
 		} else if (paymenttype.equalsIgnoreCase("CompanyPayment")) {
-			TaskId = headTable.getObject(info.getOIDField()) + "_C";
+			TaskId = headTable.getObject("InstanceID") + "_C";
 		}
-
 		TSL_BokeDeeFactory factory = new TSL_BokeDeeFactory();
 		HashMap<String, String> paramenter = factory.getParameter();
 		paramenter.put("p_task_id", TaskId);

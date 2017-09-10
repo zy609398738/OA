@@ -1,0 +1,11 @@
+[
+  {
+    "parentId": "8aaae0d25dbf4722015dbfc4b77d0008",
+    "text": "ERP_PaymentBank_TO_BPM",
+    "recordMpLog": "false",
+    "id": "8aaae0d25dbf4722015dbfc4b7cb0009",
+    "description": "实时查询ERP系统付款银行信息",
+    "fileImport": "false",
+    "enable": "true"
+  }
+]

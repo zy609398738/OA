@@ -3,7 +3,7 @@
     <Session SessionParaProcess="com.bokesoft.oa.mid.im.WebSession"/>
     <Cluster Type=""/>
     <Entry Style="Tree"/>
-    <BPMSetting QueryActiveWorkitem="true" QueryActiveStateWorkitem="false" BPMTemplatePath="com.bokesoft.oa.mid.wf.OaWfTemplate" CreateLog4BeginNode="true" RecordFormRights="true">
+    <BPMSetting QueryActiveWorkitem="true" QueryActiveStateWorkitem="false" BPMTemplatePath="com.bokesoft.oa.mid.wf.OaWfTemplate" CreateLog4BeginNode="true">
         <DefaultBatchStateAction>
             <![CDATA[]]>
         </DefaultBatchStateAction>

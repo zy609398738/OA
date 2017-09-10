@@ -48,7 +48,7 @@ public class GetWorkflowAttribute implements IExtService {
 		// 如果流程版本为0，直接使用流程的Key获得流程对象
 		if (version <= 0) {
 			profile = getProfile(context, profileKey);
-			if(profile==null){
+			if (profile == null) {
 				String sql = "delete from OA_Workflow_H where WorkflowRelevance = ?";
 				context.getDBManager().execPrepareUpdate(sql, profileKey);
 				return "";

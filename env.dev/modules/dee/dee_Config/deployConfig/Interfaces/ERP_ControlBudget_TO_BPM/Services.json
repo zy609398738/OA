@@ -1,0 +1,11 @@
+[
+  {
+    "parentId": "8a9f5aff5c9f2915015ca0153a950057",
+    "text": "ERP_ControlBudget_TO_BPM",
+    "recordMpLog": "false",
+    "id": "8a9f5aff5c9f2915015ca0153ace0058",
+    "description": "冻结预算接口",
+    "fileImport": "false",
+    "enable": "true"
+  }
+]

@@ -1385,8 +1385,7 @@ var Expr = Expr || {};
             
         };
         funs.Length = function (name, cxt, args) {
-            var s = args[0];
-            s = YIUI.TypeConvertor.toString(s);
+            var s = YIUI.TypeConvertor.toString(args[0]);
             return s.length;
         };
         funs.IndexOf = function (name, cxt, args) {

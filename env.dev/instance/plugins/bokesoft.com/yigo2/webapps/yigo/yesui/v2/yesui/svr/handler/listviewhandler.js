@@ -22,7 +22,7 @@ YIUI.ListViewHandler = (function () {
                     document.setByKey(tableKey,doc.getByKey(tableKey));
 
                     control.curPageIndex = pageIndex + 1;
-                    control.reload();
+                    control.load(true);
                 });
         },
 

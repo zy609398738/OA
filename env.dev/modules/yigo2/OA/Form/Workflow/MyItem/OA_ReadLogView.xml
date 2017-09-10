@@ -66,16 +66,16 @@ ShowData();]]>
                             <![CDATA[ResetCondition();]]>
                         </OnClick>
                     </Button>
-                    <ComboBox Key="QueryBillCaption" Caption="业务类型" BuddyKey="Lab_QueryBillCaption" X="1" Y="1" SourceType="Formula" XSpan="3">
-                        <Condition ColumnKey="BillKey" TableKey="OA_ReadLogView" CondSign="="/>
-                        <FormulaItems>
-                            <![CDATA[GetFormByType("Entity")]]>
-                        </FormulaItems>
-                    </ComboBox>
-                    <Label Key="Lab_QueryBillCaption" Caption="业务类型" X="0" Y="1"/>
                     <CheckBox Caption="表头可见" Key="first_headVisible" X="11" Y="1" Visible="false">
                         <DataBinding DefaultValue="1"/>
                     </CheckBox>
+                    <CheckListBox BuddyKey="Lab_CheckListBox1" Caption="业务类型" Key="CheckListBox1" SourceType="Formula" X="1" XSpan="3" Y="1">
+                        <Condition ColumnKey="BillKey" TableKey="OA_ReadLogView" CondSign="in"/>
+                        <FormulaItems>
+                            <![CDATA[OA_GetFormCaption(GetOperator(),GetOperator());]]>
+                        </FormulaItems>
+                    </CheckListBox>
+                    <Label Key="Lab_CheckListBox1" Caption="业务类型" X="0" Y="1"/>
                     <RowDefCollection RowGap="5">
                         <RowDef Height="30px"/>
                         <RowDef Height="30px"/>
@@ -97,9 +97,9 @@ ShowData();]]>
                 </GridLayoutPanel>
                 <ListView Caption="ListView1" Height="100%" Key="ListView1" PageLoadType="DB" TableKey="OA_ReadLogView">
                     <ListViewColumnCollection>
-                        <ListViewColumn Key="BusinessType" Caption="业务类型" ColumnType="ComboBox" DataColumnKey="BillKey" Width="120px" SourceType="Formula">
+                        <ListViewColumn Key="BusinessType" Caption="业务类型" ColumnType="ComboBox" DataColumnKey="BillKey" Width="200px" SourceType="Formula">
                             <FormulaItems>
-                                <![CDATA[GetFormByType("Entity")]]>
+                                <![CDATA[OA_GetFormCaption(GetOperator(),GetOperator());]]>
                             </FormulaItems>
                         </ListViewColumn>
                         <ListViewColumn Key="Topic" Caption="主题" ColumnType="TextEditor" DataColumnKey="Topic" Width="500px"/>

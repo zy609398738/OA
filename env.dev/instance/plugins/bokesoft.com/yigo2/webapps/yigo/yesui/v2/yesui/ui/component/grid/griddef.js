@@ -121,7 +121,8 @@
     });
     YIUI.BaseRowBkmk = YIUI.extend({
         bookmark: -1,
-        init: function () {
+        init: function (bkmk) {
+            this.bookmark = (bkmk != undefined ? bkmk : -1);
         },
         setBookmark: function (bkmk) {
             this.bookmark = bkmk;
@@ -217,6 +218,9 @@
         },
         getAt: function (index) {
             return this.rowArray[index];
+        },
+        getRowArray: function () {
+            return this.rowArray;
         },
         getAtArea: function (areaIndex, key) {
             var map = this.expandRowMapList[areaIndex];

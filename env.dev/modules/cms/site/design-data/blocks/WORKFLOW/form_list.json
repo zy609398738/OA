@@ -1,0 +1,30 @@
+{
+	"@type":"com.bokesoft.cms2.impl.buildin.modelio.vo.BlockVO",
+	"block":{
+		"@type":"com.bokesoft.cms2.model.blocks.TmplBlock",
+		"formulaText":"",
+		"notes":"",
+		"parameters":[],
+		"tmplText":"",
+		"type":"TMPL"
+	},
+	"code":"form_list",
+	"name":"所有流程",
+	"params":[
+		{
+			"caption":"类型",
+			"key":"partitiontype",
+			"type":"common"
+		},
+		{
+			"caption":"默认显示的Tab页",
+			"key":"queryshowtab",
+			"type":"common"
+		},
+		{
+			"caption":"填表权限的路径",
+			"key":"entryPath",
+			"type":"common"
+		}
+	]
+}

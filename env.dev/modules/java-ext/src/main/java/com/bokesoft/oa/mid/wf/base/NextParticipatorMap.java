@@ -96,22 +96,21 @@ public class NextParticipatorMap extends BaseMap<Long, NextParticipator> {
 	 * @return 下一步参与者选择对象
 	 * @throws Throwable
 	 */
-	public NextParticipatorMap get(String workflowBillKey, Long workflowOID, String workflowKey, String nodeId)
-			throws Throwable {
+	public NextParticipatorMap get(String workflowBillKey, Long workflowOID, String workflowKey, Long workitemID) throws Throwable {
 		LinkedHashMap<String, NextParticipatorMap> map = getNextParticipatorMapMap();
-		String key = NextParticipator.getSelectKey(workflowBillKey, workflowOID, workflowKey, nodeId);
+		String key = NextParticipator.getSelectKey(workflowBillKey, workflowOID, workflowKey,workitemID);
 		NextParticipatorMap obj = map.get(key);
 		if (obj == null) {
 			OAContext context = getContext();
 			IDBManager dbm = context.getContext().getDBManager();
-			String sqlWhere = NextParticipator.getSqlWhere(workflowBillKey, workflowOID, workflowKey, nodeId);
+			String sqlWhere = NextParticipator.getSqlWhere(workflowBillKey, workflowOID, workflowKey, workitemID);
 			String headSql = "select * from OA_NextParticipator where";
 			String nextParticipatorSql = headSql + sqlWhere;
 			DataTable headDt = dbm.execPrepareQuery(nextParticipatorSql);
 			String formKey = "";
 			if (headDt.size() <= 0) {
 				formKey = context.getAliasKey(workflowBillKey);
-				sqlWhere = NextParticipator.getSqlWhere(formKey, workflowOID, workflowKey, nodeId);
+				sqlWhere = NextParticipator.getSqlWhere(formKey, workflowOID, workflowKey, workitemID);
 				nextParticipatorSql = headSql + sqlWhere;
 				headDt = dbm.execPrepareQuery(nextParticipatorSql);
 			}
@@ -129,6 +128,9 @@ public class NextParticipatorMap extends BaseMap<Long, NextParticipator> {
 					obj.put(oid, nextParticipator);
 				}
 				map.put(key, obj);
+				// 因为下一节点指定参与者是一份临时记录的数据，获取下一节点指定参与者之后，立即清除下一节点指定参与者记录,防止有多余的数据出现
+				String deleteSql = "delete from OA_NextParticipator where WorkflowBillKey=? and WorkflowOID=? and WorkflowKey=? and WorkitemID=?";
+				dbm.execPrepareUpdate(deleteSql, workflowBillKey, workflowOID, workflowKey, workitemID);
 			}
 		}
 		return obj;
@@ -151,15 +153,15 @@ public class NextParticipatorMap extends BaseMap<Long, NextParticipator> {
 	 * @return 下一步参与者ID字符串
 	 * @throws Throwable
 	 */
-	public String getIDs(String workflowBillKey, Long workflowOID, String workflowKey, String nodeId, String sep)
-			throws Throwable {
+	public String getIDs(String workflowBillKey, Long workflowOID, String workflowKey, Long workitemID,
+			String sep) throws Throwable {
 		StringBuffer sb = new StringBuffer();
-		NextParticipatorMap map = get(workflowBillKey, workflowOID, workflowKey, nodeId);
+		NextParticipatorMap map = get(workflowBillKey, workflowOID, workflowKey, workitemID);
 		if (map == null || map.size() <= 0) {
 			return sb.toString();
 		}
 		for (NextParticipator nextParticipator : map.values()) {
-			Long oid = nextParticipator.getOperator().getOID();
+			Long oid = nextParticipator.getParticipatorID();
 			sb.append(sep);
 			sb.append(oid);
 		}

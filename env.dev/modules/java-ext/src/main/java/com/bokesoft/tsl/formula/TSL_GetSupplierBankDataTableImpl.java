@@ -43,17 +43,18 @@ public class TSL_GetSupplierBankDataTableImpl extends BaseMidFunctionImpl {
 		JSONObject jo = factory.getRowNumberCondition();
 		ja.add(jo);
 
-
-		if (!paycategory.isEmpty()&&!paycategory.equalsIgnoreCase("null")&&paycategory.equalsIgnoreCase("RegularPaymentApplication")) {
+		if (!paycategory.isEmpty() && !paycategory.equalsIgnoreCase("null")
+				&& paycategory.equalsIgnoreCase("RegularPaymentApplication")) {
 
 			jo = factory.createCondition("BANK_NAME", " <> ", "浙江网商银行");
 			ja.add(jo);
-		}else if(!paycategory.isEmpty()&&!paycategory.equalsIgnoreCase("null")&&paycategory.equalsIgnoreCase("1688PaymentApplication")) {
+		} else if (!paycategory.isEmpty() && !paycategory.equalsIgnoreCase("null")
+				&& paycategory.equalsIgnoreCase("1688PaymentApplication")) {
 			jo = factory.createCondition("BANK_NAME", " = ", "浙江网商银行");
 			ja.add(jo);
 		}
-		
-		if (!currency.isEmpty()&&!currency.equalsIgnoreCase("null")) {
+
+		if (!currency.isEmpty() && !currency.equalsIgnoreCase("null")) {
 
 			jo = factory.createCondition("currency_code", " = ", currency);
 			ja.add(jo);

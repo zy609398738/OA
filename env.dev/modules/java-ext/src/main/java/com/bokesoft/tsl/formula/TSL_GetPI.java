@@ -12,16 +12,16 @@ public class TSL_GetPI extends BaseMidFunctionImpl {
 
 	private String ACTION = "ERP_PI_TO_BPM";
 
-	@Override              
+	@Override
 	public Object evalImpl(String name, DefaultContext context, Object[] args, IExecutor arg3) throws Throwable {
 		String delivery_id = TypeConvertor.toString(args[0]);
 		TSL_BokeDeeFactory factory = new TSL_BokeDeeFactory();
 		JSONArray ja = new JSONArray();
 		JSONObject jo = factory.getRowNumberCondition();
-		ja.add(jo);		
-		if (!delivery_id.equalsIgnoreCase("null")) {
-		jo = factory.createCondition("delivery_id", "=", delivery_id);
 		ja.add(jo);
+		if (!delivery_id.equalsIgnoreCase("null")) {
+			jo = factory.createCondition("delivery_id", "=", delivery_id);
+			ja.add(jo);
 		}
 		factory.addParameter("json", ja.toString());
 		String payment_term_des = null;

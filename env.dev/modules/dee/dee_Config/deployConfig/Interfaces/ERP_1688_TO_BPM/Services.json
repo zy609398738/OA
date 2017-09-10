@@ -1,0 +1,11 @@
+[
+  {
+    "parentId": "8a9f5a005dba1a3d015dbb857b4e0010",
+    "text": "ERP_1688_TO_BPM",
+    "recordMpLog": "false",
+    "id": "8a9f5a005dba1a3d015dbb857b6e0011",
+    "description": "实时查询ERP系统1688信息",
+    "fileImport": "false",
+    "enable": "true"
+  }
+]

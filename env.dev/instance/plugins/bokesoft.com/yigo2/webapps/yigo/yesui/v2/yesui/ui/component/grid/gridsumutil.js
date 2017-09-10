@@ -1,6 +1,8 @@
 YIUI.GridSumUtil = (function () {
     var Return = {
         evalAffectSum: function (form, grid, rowIndex, colIndex) {
+            if( !grid.hasGroupRow && !grid.hasTotalRow )
+                return;
             var rd = grid.dataModel.data[rowIndex],
                 curGlevel = rd.rowGroupLevel,
                 len = grid.dataModel.data.length,
@@ -46,12 +48,14 @@ YIUI.GridSumUtil = (function () {
         evalSumFieldValue: function (form, grid, rowIndex, colIndex) {
             var rowData = grid.dataModel.data[rowIndex], metaRow = grid.getMetaObj().rows[rowData.metaRowIndex],
                 metaCell = metaRow.cells[colIndex], defaultFormulaValue = metaCell.defaultFormulaValue;
-            if (defaultFormulaValue !== undefined && defaultFormulaValue.length > 0 && defaultFormulaValue.indexOf("Sum") == 0) {
+            if (defaultFormulaValue !== undefined && defaultFormulaValue.length > 0 && defaultFormulaValue.indexOf("Sum") != -1) {
                 var value = form.eval(defaultFormulaValue, {form: form, target: metaCell.key, rowIndex: rowIndex, colIndex: colIndex}, null);
                 grid.setValueAt(rowIndex, colIndex, value, true, false);
             }
         },
         evalSum: function (form, grid) {
+            if( !grid.hasGroupRow && !grid.hasTotalRow )
+                return;
             var length = grid.dataModel.data.length, cLength = grid.dataModel.colModel.columns.length, row;
             for (var i = 0; i < length; i++) {
                 row = grid.dataModel.data[i];

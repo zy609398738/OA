@@ -74,7 +74,7 @@ public class WorkflowTypeDtlMap extends DtlBaseMap<Long, WorkflowTypeDtl, Workfl
 			Long oid = dt.getLong("OID");
 			WorkflowTypeDtl dtl = getContext().getWorkflowTypeDtlMap().get(oid);
 			if (dtl == null) {
-				
+
 				dtl = new WorkflowTypeDtl(getContext(), getHeadBase());
 				dtl.loadData(dt);
 			}
@@ -191,14 +191,39 @@ public class WorkflowTypeDtlMap extends DtlBaseMap<Long, WorkflowTypeDtl, Workfl
 	 * @throws Throwable
 	 */
 	public WorkflowTypeDtl get(String formKey, String workfowKey, Long workflowTypeDtlID) throws Throwable {
-		WorkflowTypeDtlMap workflowTypeDtlMap = getContext().getWorkflowTypeDtlMap();
 		WorkflowTypeDtl workflowTypeDtl = null;
 		// 如果流程类别明细ID不为空,根据流程类型明细ID获得流程类型的数据集
 		if (workflowTypeDtlID != null && workflowTypeDtlID > 0) {
-			workflowTypeDtl = workflowTypeDtlMap.get(workflowTypeDtlID);
+			workflowTypeDtl = get(workflowTypeDtlID);
 		} else {
 			// 否则，根据单据Key获得流程类型的数据集
-			workflowTypeDtl = workflowTypeDtlMap.get(formKey, workfowKey);
+			workflowTypeDtl = getWorkflowTypeDtl(formKey, workfowKey);
+		}
+		return workflowTypeDtl;
+	}
+
+	/**
+	 * 获得流程类别明细
+	 * 
+	 * @param formKey
+	 *            单据的key
+	 * @param workfowKey
+	 *            流程Key
+	 * @param workflowTypeDtlID
+	 *            流程类别明细ID
+	 * @param oid
+	 *            单据ID
+	 * @return 流程类别明细数据集
+	 * @throws Throwable
+	 */
+	public WorkflowTypeDtl get(String formKey, String workfowKey, Long workflowTypeDtlID, Long oid) throws Throwable {
+		WorkflowTypeDtl workflowTypeDtl = null;
+		// 如果流程类别明细ID不为空,根据流程类型明细ID获得流程类型的数据集
+		if (workflowTypeDtlID != null && workflowTypeDtlID > 0) {
+			workflowTypeDtl = get(workflowTypeDtlID);
+		} else {
+			// 否则，根据单据Key获得流程类型的数据集
+			workflowTypeDtl = getWorkflowTypeDtl(formKey, workfowKey, oid);
 		}
 		return workflowTypeDtl;
 	}
@@ -218,7 +243,12 @@ public class WorkflowTypeDtlMap extends DtlBaseMap<Long, WorkflowTypeDtl, Workfl
 	public NodeProperty getNodeProperty(String formKey, Long workflowTypeDtlID, Long workItemID) throws Throwable {
 		WorkflowDesigneDtl workflowDesigneDtl = getWorkflowDesigneDtl(formKey, workflowTypeDtlID, workItemID);
 		if (workflowDesigneDtl == null) {
-			return null;
+			// 如果workItemID大于0，说明在流程中,可能是开始节点等特殊情况，导致没有流程设计明细对象，新建一个默认节点属性对象
+			if (workItemID > 0) {
+				return new NodeProperty(getContext(), null);
+			} else {
+				return null;
+			}
 		}
 		return workflowDesigneDtl.getNodeProperty();
 	}
@@ -320,7 +350,12 @@ public class WorkflowTypeDtlMap extends DtlBaseMap<Long, WorkflowTypeDtl, Workfl
 		if (dt.size() <= 0) {
 			dtl = get(formKey, workfowKey);
 		} else {
-			dtl = get(dt.getLong(Workflow.WorkflowTypeDtlID));
+			Long workflowDtlID = dt.getLong(Workflow.WorkflowTypeDtlID);
+			if (workflowDtlID > 0) {
+				dtl = get(dt.getLong(Workflow.WorkflowTypeDtlID));
+			} else {
+				dtl = getWorkflowTypeDtl(formKey, workfowKey);
+			}
 		}
 		return dtl;
 	}
@@ -357,13 +392,16 @@ public class WorkflowTypeDtlMap extends DtlBaseMap<Long, WorkflowTypeDtl, Workfl
 							.getDataObject();
 				}
 				String mainTableKey = metaDataObject.getMainTableKey();
-
 				DataTable srcDt = doc.get(mainTableKey);
 				// 否则，如果主表中存在WorkflowTypeDtlID数据字段，根据WorkflowTypeDtlID数据字段的值获得流程类型的数据集
 				if (srcDt != null && srcDt.getMetaData().constains(Workflow.WorkflowTypeDtlID)) {
 					long workflowTypeDtlID = TypeConvertor.toLong(srcDt.getObject(Workflow.WorkflowTypeDtlID));
 					// 如果主表中存在WorkflowTypeDtlID大于0，根据WorkflowTypeDtlID获得流程类型的数据集
-					dtl = get(formKey, workfowKey, workflowTypeDtlID);
+					if (workflowTypeDtlID > 0) {
+						dtl = get(formKey, workfowKey, workflowTypeDtlID);
+					}else{
+						dtl = get(formKey, workfowKey);
+					}
 				} else {
 					// 否则，根据单据Key获得流程类型的数据集
 					dtl = get(formKey, workfowKey);

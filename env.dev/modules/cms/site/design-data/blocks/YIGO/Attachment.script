@@ -1,0 +1,5 @@
+cms.PageExp.Local(
+    'attachmentData',
+    cms.DataExp.QueryList("
+       select Path,Name from oa_attachment where soid=${id} order by Sequence
+"));

@@ -10,7 +10,7 @@ cms.PageExp.Local(
       join bpm_workiteminfo wi on w.WorkitemID=wi.WorkitemID 
       join BPM_Instance i on  l.instanceID=i.instanceID
       join BPM_Migration m on  i.OID=m.BillOID
-      where p.OperatorID=${operatorID})")
+      where p.OperatorID=${operatorID} and w.workitemstate != 3)")
 );
 cms.PageExp.Local(
 	"COUNT_REJECT",cms.DataExp.QueryList("SELECT count(*) as countQty FROM 
@@ -35,7 +35,7 @@ cms.PageExp.Local(
          JOIN bpm_workiteminfo bw ON w.WorkitemID = bw.WorkitemID
          JOIN bpm_instance i ON bw.InstanceID = i.InstanceID
          JOIN BPM_migration m ON i.OID = m.BillOID
-         WHERE  m.BillCreator = ${operatorID} and BillStatus<1200
-         AND bw.WorkitemID IN (  SELECT MAX (WorkitemID) FROM bpm_workiteminfo bpw GROUP BY bpw.InstanceID) ORDER BY creattime DESC 
+         WHERE  i.OPERATORID_S = ${operatorID} and i.instancestate =1
+         AND bw.WorkitemID IN (  SELECT MAX (WorkitemID) FROM bpm_workiteminfo bpw GROUP BY bpw.InstanceID) ORDER BY creattime DESC  
 )j")
 );

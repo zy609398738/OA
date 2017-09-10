@@ -1,0 +1,10 @@
+{
+  "id": "8aaae0d25dbf4722015dbfc4b77d0008",
+  "startIndex": "",
+  "text": "ERP_PaymentBank_TO_BPM",
+  "autoRun": "true",
+  "description": "实时查询ERP系统付款银行信息",
+  "responseTime": "600000",
+  "changePort": "",
+  "oldPort": ""
+}

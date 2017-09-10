@@ -1,0 +1,11 @@
+[
+  {
+    "parentId": "8a9f5afd5e0240a2015e037ca9d0002d",
+    "text": "ERP_BudgetTotalAmount_TO_BPM",
+    "recordMpLog": "false",
+    "id": "8a9f5afd5e0240a2015e037caa25002e",
+    "description": "实时查询ERP系统费用申请单总金额信息",
+    "fileImport": "false",
+    "enable": "true"
+  }
+]

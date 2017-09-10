@@ -128,6 +128,10 @@ YIUI.layout.AutoLayout = YIUI.extend({
 		var ct = this.container;
 		var width = 0;
 		width = parseInt(ct.leftPadding || ct.padding || 0) + parseInt(ct.rightPadding || ct.padding || 0);
+		var el = ct.el;
+		if(el.height() < el[0].scrollHeight && ct.overflowY.equalsIgnoreCase("auto"))  {
+			width += el.width() - el[0].clientWidth;
+		}
 		return width;
 	},
 	
@@ -136,6 +140,10 @@ YIUI.layout.AutoLayout = YIUI.extend({
 		var ct = this.container;
 		var height = 0;
 		height = parseInt(ct.topPadding || ct.padding || 0) + parseInt(ct.bottomPadding || ct.padding || 0);
+		var el = ct.el;
+		if(el.width() < el[0].scrollWidth && ct.overflowX.equalsIgnoreCase("auto"))  {
+			height += el.height() - el[0].clientHeight;
+		}
 		return height;
 	}
 });

@@ -52,12 +52,14 @@ public class TSL_InsertUserRespInf extends BaseMidFunctionImpl {
 			ArrayList<Integer> list = it.next();
 			for (int rowIndex : list) {
 				if (bFirst) {
-					 // task_id为TaskID 任务号
-					 task_id = headTable.getObject("OID").toString();
-					 // responsibility_id
-					 responsibility_id = detailTable.getObject("RESPONSIBILITY_ID").toString();
-					 // user_name
-					 user_name = DictCacheUtil.getDictValue(context.getVE(), "Dict_Employee", headTable.getLong("ApplicantID"), "Email").toString();
+					// task_id为TaskID 任务号
+					task_id = headTable.getObject("InstanceID").toString();
+					// responsibility_id
+					responsibility_id = detailTable.getObject("RESPONSIBILITY_ID").toString();
+					// user_name
+					user_name = DictCacheUtil
+							.getDictValue(context.getVE(), "Dict_Employee", headTable.getLong("ApplicantID"), "Email")
+							.toString();
 				}
 				bFirst = false;
 			}

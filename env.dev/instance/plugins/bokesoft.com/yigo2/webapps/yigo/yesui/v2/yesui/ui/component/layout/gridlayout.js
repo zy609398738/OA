@@ -56,9 +56,6 @@ YIUI.layout.GridLayout = YIUI.extend(YIUI.layout.AutoLayout, {
 		}
 
 		panelHeight -= rowGap * (heights.length - 1) + this.getPlaceholderHeight();
-		panelWidth -= columnGap * (widths.length - 1) + this.getPlaceholderWidth();
-		var realWidths = this.calcRealValues(panelWidth, widths);
-		var realW = -1;
 		var realHeights = this.calcRealValues(panelHeight, heights);
 		
 		for(var i=0; i<realHeights.length; i++) {
@@ -66,6 +63,9 @@ YIUI.layout.GridLayout = YIUI.extend(YIUI.layout.AutoLayout, {
 			tr = $(table[0].rows[i+1]).height(realHeights[i]);
 		}
 		var tr_f = $('tr.first', table);
+		panelWidth -= columnGap * (widths.length - 1) + this.getPlaceholderWidth();
+		var realWidths = this.calcRealValues(panelWidth, widths);
+		var realW = -1;
 		for(var j=0; j<realWidths.length; j++) {
 			td = $(tr_f[0].cells[j]);
 			var x = td.attr("col");

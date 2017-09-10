@@ -8,7 +8,7 @@
 		<#if freeMarkerData.fieldExpression?has_content><spring:property name="fieldExpression">
 			<spring:list>
 					  <#list freeMarkerData.fieldExpression as itemKey>
-						<spring:value> <![CDATA[${itemKey.value}]]></spring:value>
+						<spring:value><![CDATA[${itemKey.value}]]></spring:value>
 					  </#list>
 			</spring:list>		
 		</spring:property></#if>

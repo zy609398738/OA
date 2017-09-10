@@ -67,17 +67,18 @@
 	
 	//保留所有用户参数
 	Map pm = request.getParameterMap();
-	Set<Map.Entry> set = pm.entrySet();
+	Map npm = new HashMap();
+	npm.putAll(pm);
+	npm.remove("action");
+	npm.remove("services");
+	Set<Map.Entry> set = npm.entrySet();
+	
 	int canshusize = set.size();
 	String path = "";
 	int jishu = 1;
 	for (Map.Entry me : set) {
 		if(jishu == 1)
 			path = "&" + path;
-		if("action".equals((String)me.getKey()) || "services".equals((String)me.getKey())){
-			jishu++;	
-			continue;
-		}
 		path = path + me.getKey() + "=" + ((String[])me.getValue())[0];
 		if(jishu < canshusize)
 			path = path + "&";

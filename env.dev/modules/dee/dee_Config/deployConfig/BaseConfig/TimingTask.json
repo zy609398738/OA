@@ -1,0 +1,152 @@
+[
+  {
+    "interfaces": "ff8080815c2deb06015c3324868600ba",
+    "modifytime": "2017-08-30 14:11:14",
+    "taskname": "AD_TO_BPM_USER_MID",
+    "jobtype": "InvokeVmInboundJob",
+    "service": "ff8080815c2deb06015c3324868d00bb",
+    "desc": "定时更新AD_TO_BPM_USER_MID中间表数据",
+    "enable": true,
+    "createtime": "2017-05-25 11:28:49",
+    "tasktype": false,
+    "task": [
+      {
+        "days": "*",
+        "seconds": "0",
+        "hours": "0",
+        "year": "*",
+        "crons": "0 0 0 * * ? *",
+        "minutes": "0",
+        "months": "*",
+        "id": "",
+        "weeks": "?"
+      }
+    ],
+    "id": "ff8080815c3cf3aa015c3da6534002e0"
+  },
+  {
+    "interfaces": "ff8080815c335b60015c34d00748015f",
+    "modifytime": "2017-08-30 14:32:22",
+    "jobtype": "InvokeVmInboundJob",
+    "taskname": "PS_Operator_Status_TO_BPM",
+    "service": "ff8080815c335b60015c34d007500160",
+    "desc": "定时更新人员字典人员状态",
+    "enable": true,
+    "createtime": "2017-05-25 17:39:57",
+    "tasktype": false,
+    "task": [
+      {
+        "days": "*",
+        "seconds": "0",
+        "hours": "1",
+        "year": "*",
+        "crons": "0 40 1 * * ? *",
+        "minutes": "40",
+        "months": "*",
+        "id": "",
+        "weeks": "?"
+      }
+    ],
+    "id": "ff8080815c3cf3aa015c3efa1cb505af"
+  },
+  {
+    "interfaces": "8aaae09b5bf18fd5015bf1adde39000f",
+    "modifytime": "2017-08-30 14:11:52",
+    "jobtype": "InvokeVmInboundJob",
+    "taskname": "PS_DEPARTMENT_TO_BPM",
+    "service": "8aaae09b5bf18fd5015bf1adde680010",
+    "desc": "定时同步部门数据",
+    "enable": true,
+    "createtime": "2017-05-25 17:42:44",
+    "tasktype": false,
+    "task": [
+      {
+        "days": "*",
+        "seconds": "0",
+        "hours": "1",
+        "year": "*",
+        "crons": "0 10 1 * * ? *",
+        "minutes": "10",
+        "months": "*",
+        "id": "",
+        "weeks": "?"
+      }
+    ],
+    "id": "ff8080815c3cf3aa015c3efca62205b0"
+  },
+  {
+    "interfaces": "8aaae09b5bfa4119015bfa441f1b0006",
+    "modifytime": "2017-08-31 09:46:37",
+    "taskname": "PS_Operator_TO_BPM",
+    "jobtype": "InvokeVmInboundJob",
+    "service": "8aaae09b5bfa4119015bfa441f560007",
+    "desc": "定时同步人员字典",
+    "enable": true,
+    "createtime": "2017-05-25 17:47:04",
+    "tasktype": false,
+    "task": [
+      {
+        "days": "*",
+        "seconds": "0",
+        "hours": "1",
+        "year": "*",
+        "crons": "0 30 1 * * ? *",
+        "minutes": "30",
+        "id": "",
+        "months": "*",
+        "weeks": "?"
+      }
+    ],
+    "id": "ff8080815c3cf3aa015c3f009efc05b9"
+  },
+  {
+    "interfaces": "8a9f59ff5c9b8014015c9b9b41a50010",
+    "modifytime": "2017-08-03 14:53:03",
+    "taskname": "ERP_TO_BPM_ORG_MID",
+    "jobtype": "InvokeVmInboundJob",
+    "service": "8a9f59ff5c9b8014015c9b9b41bd0011",
+    "desc": "定时同步ERP组织至BPM中间表",
+    "enable": true,
+    "createtime": "2017-06-13 17:02:40",
+    "tasktype": false,
+    "task": [
+      {
+        "days": "*",
+        "seconds": "0",
+        "hours": "0",
+        "year": "*",
+        "crons": "0 0 0 * * ? *",
+        "minutes": "0",
+        "months": "*",
+        "id": "",
+        "weeks": "?"
+      }
+    ],
+    "id": "8a9f5aff5ca06150015ca0b0cd05002e"
+  },
+  {
+    "interfaces": "ff8080815d1c15ff015d2faa8bbf02f7",
+    "modifytime": "2017-08-30 14:11:33",
+    "taskname": "PS_DEPARTMENT2_TO_BPM",
+    "jobtype": "InvokeVmInboundJob",
+    "service": "ff8080815d1c15ff015d2faa8bcb02f8",
+    "desc": "定时更新部门数据至YIGO",
+    "enable": true,
+    "createtime": "2017-07-11 11:28:55",
+    "tasktype": false,
+    "task": [
+      {
+        "days": "*",
+        "seconds": "0",
+        "hours": "1",
+        "year": "*",
+        "crons": "0 0 1 * * ? *",
+        "minutes": "0",
+        "months": "*",
+        "id": "",
+        "weeks": "?"
+      }
+    ],
+    "id": "ff8080815d1c15ff015d2fb14fd6030a"
+  }
+]

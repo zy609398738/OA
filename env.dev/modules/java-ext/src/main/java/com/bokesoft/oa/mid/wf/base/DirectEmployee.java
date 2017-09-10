@@ -13,16 +13,46 @@ import com.bokesoft.yigo.struct.datatable.DataTable;
 public class DirectEmployee extends DtlBase<SelRule> {
 
 	/**
+	 * 直接人员ID
+	 */
+	private Long operatorID;
+
+	/**
+	 * 直接人员ID
+	 * 
+	 * @return 直接人员ID
+	 */
+	public Long getOperatorID() {
+		return operatorID;
+	}
+
+	/**
+	 * 直接人员ID
+	 * 
+	 * @param operatorID
+	 *            直接人员ID
+	 */
+	public void setOperatorID(Long operatorID) {
+		this.operatorID = operatorID;
+	}
+
+	/**
 	 * 直接人员
 	 */
-	private Long operator;
+	private Operator operator;
 
 	/**
 	 * 直接人员
 	 * 
 	 * @return 直接人员
+	 * @throws Throwable
 	 */
-	public Long getOperator() {
+	public Operator getOperator() throws Throwable {
+		if (operator == null) {
+			if (operatorID > 0) {
+				operator = getContext().getOperatorMap().get(operatorID);
+			}
+		}
 		return operator;
 	}
 
@@ -32,8 +62,9 @@ public class DirectEmployee extends DtlBase<SelRule> {
 	 * @param operator
 	 *            直接人员
 	 */
-	public void setOperator(Long operator) {
+	public void setOperator(Operator operator) {
 		this.operator = operator;
+		setOperatorID(operator.getOID());
 	}
 
 	/**
@@ -57,6 +88,6 @@ public class DirectEmployee extends DtlBase<SelRule> {
 	 */
 	public void loadData(DataTable dt) throws Throwable {
 		super.loadData(dt);
-		setOperator(dt.getLong("DirectEmpID"));
+		setOperatorID(dt.getLong("DirectEmpID"));
 	}
 }

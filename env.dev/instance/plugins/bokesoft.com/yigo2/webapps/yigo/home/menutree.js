@@ -4,7 +4,7 @@
 			var tree = this.get(0);
 			var html = "<div class='searchBox'>" +
 							"<div class='btn'>" +
-								"<input type='text' class='searchtext' placeholder='请输入关键词...' autocomplete='off' />" +
+								"<input type='text' class='searchtext' placeholder='"+YIUI.I18N.menutree.inputKeyWords+"' autocomplete='off' />" +
 								"<button class='search'></button>" +
 							"</div>" +
 						"</div>" +

@@ -80,10 +80,11 @@
                 <GridLayoutPanel Key="GridLayoutPanel3" Height="pref" Padding="5px" Caption="GridLayoutPanel3">
                     <Button Key="Refuse" Caption="拒绝" X="1" Y="0" Enable="True">
                         <OnClick>
-                            <![CDATA[var nodeid = InvokeService("OA_GetNodeIDByNodeKey",false,false,Para("workflowBillKey"),"Refuse");
-parent.CommitWorkitem(-1,0,GetValue("Opinion"),"Return",nodeid);
+                            <![CDATA[var nodeid = InvokeService("OA_GetNodeIDByNodeKey",false,false,parent.GetFormKey(),parent.GetProcessKey(),"Refuse");
+parent.CommitWorkitem(-1,3,"",{pattern:{Return},backSite:{InvokeService("OA_GetNodeIDByNodeKey",false,false,GetFormKey(),GetProcessKey(),"Refuse")}});
+parent.InvokeService("OA_OptSendMessageReject", true, false, parent.GetFormKey(),Para("OptKey"),OA_GetMaxWorkItemIDAfterCommit(Para("workflowOID")),Para("workflowOID"),ServerDate(),Para("WorkflowTypeDtlID"));
 Close();
-parent.Confirm("拒绝成功");]]>
+parent.Confirm("拒绝成功","OK","OK:{OA_AuditAfterClose("+Para("pWorkitemID")+",'"+Para("workflowBillKey")+"',"+Para("WorkflowTypeDtlID")+")}");]]>
                         </OnClick>
                     </Button>
                     <Button Key="cancel" Caption="取消" X="2" Y="0" Enable="True">

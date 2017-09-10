@@ -59,26 +59,7 @@ input::-ms-clear {
 	height: 5px;
 	border-style: solid none;
 }
-/* .app-list{
-	display:none;
-	width:384px;
-	padding:6px 20px 9px;
-	background:#fff;
-	overflow:hidden;
-	box-shadow:2px 2px 2px 2px rgba(0,0,0,.2)
-}
-.app-items{
-	float:left;
-	width:86px;
-	height:89px;
-	transition:background .3;
-}
-.app-items a{
-	display:inline-block;
-	width:100%;
-	height:100%;
-	background:url(images/email_app.png) no-repeat center;
-} */
+
 .logo{
 	width:77px;
 	height:100%;
@@ -87,8 +68,8 @@ input::-ms-clear {
 	background:url(images/logo_white.png) no-repeat center;
 }
 .navRight {
-	height:100%;
-	width:436px;
+	height:100%;/* 
+	width:436px; */
 	float:right; 
 }
 
@@ -161,8 +142,8 @@ input::-ms-clear {
 	padding-bottom:7px;
 }
 .nav-field-items{
-	height:20px;
-	line-height:20px;
+	height:24px;
+	line-height:24px;
 	text-align: center;
 }
 .nav-field-items a:hover{
@@ -173,6 +154,9 @@ input::-ms-clear {
 	display:inline-block;
 	width:100%;
 	height:100%;
+	overflow:hidden;
+	text-overflow:ellipsis;
+	white-space:nowrap;
 	cursor:pointer;
 	color:#999;
 }
@@ -414,10 +398,13 @@ li.isparent.top-level > a.close{
 }
 .navRight .login_username,
 .navRight .org_lbl{
-	float:right;
 	color:#fff;
 	line-height:60px;
-	display:none;
+}
+.navRight .org_lbl p {
+    font-size: 26px;
+    white-space: nowrap;
+    display: inline-block;
 }
 .nav .logo-text{
 	float:left;
@@ -431,3 +418,32 @@ li.isparent.top-level > a.close{
 	display:none;
 }
 
+/*关于弹出框*/
+.sys-about {
+	padding: 8px;
+  	width: 100%;
+    height: 80%;
+}
+.sys-about table {
+  	border: 0;
+  	width: 100%;
+    height: 100%;
+}
+.sys-about table tr {
+  	height: 25px;
+}
+.sys-about table button {
+  	width: 80px;
+  	height: 23px;
+    border: 1px solid #ccc;
+    background:#fff;
+    color: #333;
+    float: right;
+    cursor:pointer;
+}
+.sys-about table button:hover{
+	border-color:#00b16a;
+}
+.sys-about table button:active{
+	color:#00b16a;
+}

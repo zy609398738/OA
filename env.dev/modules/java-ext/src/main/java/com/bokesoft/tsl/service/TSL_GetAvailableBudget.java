@@ -44,15 +44,17 @@ public class TSL_GetAvailableBudget implements IExtService2 {
 		JSONObject reJSONObject = JSONObject.parseObject(stringJson);
 
 		// // 新建数据表
-		 DataTable dt = new DataTable();
+		DataTable dt = new DataTable();
 		// // 创建数据表列
-		 dt.addColumn(new ColumnInfo("p_amount", DataType.NUMERIC));
+		dt.addColumn(new ColumnInfo("p_amount", DataType.NUMERIC));
+		dt.addColumn(new ColumnInfo("p_e_amount", DataType.NUMERIC));
 		//
 		// // 插入新行
-		 dt.append();
+		dt.append();
 		//
 		// // 赋值
-		 dt.setObject("p_amount", reJSONObject.get("p_amount"));
+		dt.setObject("p_amount", reJSONObject.get("p_amount"));
+		dt.setObject("p_e_amount", reJSONObject.get("p_e_amount"));
 
 		return dt;
 	}

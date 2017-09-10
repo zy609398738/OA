@@ -46,63 +46,12 @@ function center_interfaceSimpleConfig() {
 						bodyLoadingMask.hide();
 						var result = Ext.decode(response.responseText);
 						if (result.result) {
-							if (configType == 'xml2yigo') {
-								xmlToYigoWin(
-										SimpleConfiggridPanel.record.data.text,
-										SimpleConfiggridPanel.record.data.description,
-										result.data,
-										SimpleConfiggridPanel.record.data.id,
-										configType);
-							}else if (configType == 'customedxml2yigo') {
-								customedxmlToYigo2Win(
-										SimpleConfiggridPanel.record.data.text,
-										SimpleConfiggridPanel.record.data.description,
-										result.data,
-										SimpleConfiggridPanel.record.data.id,
-										configType);
-							}else if (configType == 'table2yigo') {
-								dstableToYigoWin(
-										SimpleConfiggridPanel.record.data.text,
-										SimpleConfiggridPanel.record.data.description,
-										result.data,
-										SimpleConfiggridPanel.record.data.id,
-										configType);
-							} else if (configType == 'excel2yigo') {
-								excelToYigoWin(
-										SimpleConfiggridPanel.record.data.text,
-										SimpleConfiggridPanel.record.data.description,
-										result.data,
-										SimpleConfiggridPanel.record.data.id,
-										configType);
-							} else if (configType == 'yigo2xml') {
-								yigoToXmlWin(
-										SimpleConfiggridPanel.record.data.text,
-										SimpleConfiggridPanel.record.data.description,
-										result.data,
-										SimpleConfiggridPanel.record.data.id,
-										configType);
-							} else if (configType == 'yigo2excel') {
-								yigoToExcelWin(
-										SimpleConfiggridPanel.record.data.text,
-										SimpleConfiggridPanel.record.data.description,
-										result.data,
-										SimpleConfiggridPanel.record.data.id,
-										configType);
-							} else if (configType == 'sql2excel') {
-								sqlToExcelWin(
-										SimpleConfiggridPanel.record.data.text,
-										SimpleConfiggridPanel.record.data.description,
-										result.data,
-										SimpleConfiggridPanel.record.data.id,
-										configType);
-							}else if (configType == 'yigo2table') {
-								yigo2TableWin(
-										SimpleConfiggridPanel.record.data.text,
-										SimpleConfiggridPanel.record.data.description,
-										result.data,
-										SimpleConfiggridPanel.record.data.id,
-										configType);
-							}
+							typeToOpenWin(
+									SimpleConfiggridPanel.record.data.text,
+									SimpleConfiggridPanel.record.data.description,
+									result.data,
+									SimpleConfiggridPanel.record.data.id,
+									configType);
 						} else {
 							Ext.Msg.alert('失败', result.data);
 						}
@@ -316,6 +265,20 @@ function center_interfaceSimpleConfig() {
 							return 'Sql语句到Excel文件'
 						} else if (value == 'yigo2table') {
 							return 'Yigo系统单据到数据库表'
+						} else if (value == 'xml2yigo2') {
+							return 'Xml格式到Yigo2系统单据'
+						} else if (value == 'customedxml2yigo2') {
+							return 'Xml格式到Yigo2系统单据(自定义格式)'
+						} else if (value == 'table2yigo2') {
+							return '数据库表到Yigo2系统单据'
+						} else if (value == 'excel2yigo2') {
+							return 'Excel文件到Yigo2系统单据'
+						} else if (value == 'yigo2ToXml') {
+							return 'Yigo2系统单据到Xml格式'
+						} else if (value == 'yigo2ToExcel') {
+							return 'Yigo2系统单据到Excel文件'
+						} else if (value == 'yigo2ToTable') {
+							return 'Yigo2系统单据到数据库表'
 						}
 					},
 					menuDisabled : true,
@@ -342,47 +305,12 @@ function center_interfaceSimpleConfig() {
 						bodyLoadingMask.hide();
 						var result = Ext.decode(response.responseText);
 						if (result.result) {
-							if (record.data.type == 'xml2yigo') {
-								xmlToYigoWin(record.data.text,
-										record.data.description, result.data,
-										record.data.id, record.data.type,
-										record.data.text);
-							} else if (record.data.type == 'customedxml2yigo') {
-								customedxmlToYigo2Win(record.data.text,
-										record.data.description, result.data,
-										record.data.id, record.data.type,
-										record.data.text);
-							} else if (record.data.type == 'table2yigo') {
-								dstableToYigoWin(record.data.text,
-										record.data.description, result.data,
-										record.data.id, record.data.type,
-										record.data.text);
-							} else if (record.data.type == 'excel2yigo') {
-								excelToYigoWin(record.data.text,
-										record.data.description, result.data,
-										record.data.id, record.data.type,
-										record.data.text);
-							} else if (record.data.type == 'yigo2xml') {
-								yigoToXmlWin(record.data.text,
-										record.data.description, result.data,
-										record.data.id, record.data.type,
-										record.data.text);
-							} else if (record.data.type == 'yigo2excel') {
-								yigoToExcelWin(record.data.text,
-										record.data.description, result.data,
-										record.data.id, record.data.type,
-										record.data.text);
-							} else if (record.data.type == 'sql2excel') {
-								sqlToExcelWin(record.data.text,
-										record.data.description, result.data,
-										record.data.id, record.data.type,
-										record.data.text);
-							}else if (record.data.type == 'yigo2table') {
-								yigo2TableWin(record.data.text,
-										record.data.description, result.data,
-										record.data.id, record.data.type,
-										record.data.text);
-							}
+							typeToOpenWin(
+								SimpleConfiggridPanel.record.data.text,
+								SimpleConfiggridPanel.record.data.description,
+								result.data,
+								SimpleConfiggridPanel.record.data.id,
+								record.data.type);
 						} else {
 							Ext.Msg.alert('失败', result.data);
 						}
@@ -398,6 +326,42 @@ function center_interfaceSimpleConfig() {
 		}
 	});
 	return SimpleConfiggridPanel;
+}
+
+function typeToOpenWin(text, description, data,id, configType,newtablename,hidden) {
+	if (configType == 'xml2yigo') {
+		xmlToYigoWin(text, description, data,id, configType,newtablename,hidden);
+	}else if (configType == 'customedxml2yigo') {
+		customedxmlToYigo2Win(text, description, data,id, configType,newtablename,hidden);
+	}else if (configType == 'table2yigo') {
+		dstableToYigoWin(text, description, data,id, configType,newtablename,hidden);
+	}else if (configType == 'table2yigo2') {
+		dstableToYigo2Win(text, description, data,id, configType,newtablename,hidden);
+	} else if (configType == 'excel2yigo') {
+		excelToYigoWin(text, description, data,id, configType,newtablename,hidden);
+	} else if (configType == 'excel2yigo2') {
+		excelToYigo2Win(text, description, data,id, configType,newtablename,hidden);
+	}else if (configType == 'yigo2xml') {
+		yigoToXmlWin(text, description, data,id, configType,newtablename,hidden);
+	} else if (configType == 'yigo2excel') {
+		yigoToExcelWin(text, description, data,id, configType,newtablename,hidden);
+	} else if (configType == 'sql2excel') {
+		sqlToExcelWin(text, description, data,id, configType,newtablename,hidden);
+	}else if (configType == 'yigo2table') {
+		yigo2TableWin(text, description, data,id, configType,newtablename,hidden);
+	} else if (configType == 'xml2yigo2') {
+		xmlToYigoWin_2(text, description, data,id, configType,newtablename,hidden);
+	} else if (configType == 'customedxml2yigo2') {
+		customedxmlToYigo2Win_2(text, description, data,id, configType,newtablename,hidden);
+	}else if (configType == 'yigo2ToXml') {
+		yigo2ToXmlWin(text, description, data,id, configType,newtablename,hidden);
+	} else if (configType == 'yigo2ToExcel') {
+		yigo2ToExcelWin(text, description, data,id, configType,newtablename,hidden);
+	}else if (configType == 'yigo2ToTable') {
+		yigo2ToTableWin(text, description, data,id, configType,newtablename,hidden);
+	}
+	
+	
 }
 /**
  * 新增sdinterface 选择type
@@ -432,25 +396,8 @@ function addOrUpdateSdInterface() {
 				return;
 			}
 			win.close();
-			if (type == 'xml2yigo') {
-				xmlToYigoWin(text, description, null, "", type, text, true);
-			}else if (type == 'customedxml2yigo') {
-				customedxmlToYigo2Win(text, description, null, "", type, text, true);
-			}else if (type == 'table2yigo') {
-				dstableToYigoWin(text, description, null, "", type, text, true);
-			} else if (type == 'excel2yigo') {
-				excelToYigoWin(text, description, null, "", type, text, true);
-			}else if (type == 'yigo2xml') {
-				yigoToXmlWin(text, description, null, "", type, text, true);
-			}else if (type == 'yigo2excel') {
-				yigoToExcelWin(text, description, null, "", type, text, true);
-			} else if (type == 'sql2excel') {
-				sqlToExcelWin(text, description, null, "", type, text, true);
-			}else if (type == 'yigo2table') {
-				yigo2TableWin(text, description, null, "", type, text, true);
-			}else{
-				
-			}
+			
+			typeToOpenWin(text, description, null, "", type, text, true);
 		}
 	}, {
 		text : '取消',
@@ -462,6 +409,27 @@ function addOrUpdateSdInterface() {
 				fields : ['displayField', 'value'],
 				storeId : 'SdInterfaceTypeCombox',
 				data : [{
+							'displayField' : 'Xml格式到Yigo2系统单据(Yigo20)',
+							'value' : 'xml2yigo2'
+						},{
+							'displayField' : 'Xml格式到Yigo2系统单据(Yigo20-自定义格式)',
+							'value' : 'customedxml2yigo2'
+						},{
+							'displayField' : '数据库表到Yigo2系统单据(Yigo20)',
+							'value' : 'table2yigo2'
+						}, {
+							'displayField' : 'Excel文件到Yigo2系统单据(Yigo20)',
+							'value' : 'excel2yigo2'
+						}, {
+							'displayField' : 'Yigo2系统单据到Xml格式(Yigo20)',
+							'value' : 'yigo2ToXml'
+						}, {
+							'displayField' : 'Yigo2系统单据到Excel文件(Yigo20)',
+							'value' : 'yigo2ToExcel'
+						},{
+							'displayField' : 'Yigo2系统单据到数据库表(Yigo20)',
+							'value' : 'yigo2ToTable'
+						},{
 							'displayField' : 'Xml格式到Yigo系统单据',
 							'value' : 'xml2yigo'
 						},{
@@ -552,9 +520,13 @@ function createInterafaceService(record, interfaceId) {
 		url = 'interfaceSimpleConfigCustomedXmlToYigoController.do?actionType=createInterfaceJsonFile'
 	} else if (record.data.type == 'table2yigo') {
 		url = 'interfaceSimpleConfigTableToYigoController.do?actionType=createInterfaceJsonFile'
-	} else if (record.data.type == 'excel2yigo') {
+	} else if (record.data.type == 'table2yigo2') {
+		url = 'interfaceSimpleConfigTableToYigo20Controller.do?actionType=createInterfaceJsonFile'
+	}else if (record.data.type == 'excel2yigo') {
 		url = 'interfaceExcelToYigoController.do?actionType=createInterfaceJsonFile'
-	} else if (record.data.type == 'yigo2xml') {
+	} else if (record.data.type == 'excel2yigo2') {
+		url = 'interfaceExcelToYigo20Controller.do?actionType=createInterfaceJsonFile'
+	}else if (record.data.type == 'yigo2xml') {
 		url = 'interfaceYigoToXmlController.do?actionType=createInterfaceJsonFile'
 	} else if (record.data.type == 'yigo2excel') {
 		url = 'interfaceYigoToExcelController.do?actionType=createInterfaceJsonFile'
@@ -562,6 +534,16 @@ function createInterafaceService(record, interfaceId) {
 		url = 'interfaceSqlToExcelController.do?actionType=createInterfaceJsonFile'
 	}else if (record.data.type == 'yigo2table') {
 		url = 'interfaceSimpleConfigYigoToTableController.do?actionType=createInterfaceJsonFile'
+	}else if (record.data.type == 'xml2yigo2') {
+		url = 'interfaceSimpleConfigXmlToYigo20Controller.do?actionType=createInterfaceJsonFile'
+	}else if (record.data.type == 'customedxml2yigo2') {
+		url = 'interfaceSimpleConfigCustomedXmlToYigo20Controller.do?actionType=createInterfaceJsonFile'
+	}else if (record.data.type == 'yigo2ToXml') {
+		url = 'interfaceYigo2ToXmlController.do?actionType=createInterfaceJsonFile'
+	}else if (record.data.type == 'yigo2ToExcel') {
+		url = 'interfaceYigo2ToExcelController.do?actionType=createInterfaceJsonFile'
+	}else if (record.data.type == 'yigo2ToTable') {
+		url = 'interfaceSimpleConfigYigo2ToTableController.do?actionType=createInterfaceJsonFile'
 	}else {
 		bodyLoadingMask.hide();
 		Ext.Msg.alert('提示', record.data.type + '类型还不支持 ！！！');

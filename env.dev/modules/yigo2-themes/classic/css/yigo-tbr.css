@@ -87,19 +87,24 @@
     background-image: url(../images/icon/edit_pre.png);
 }
 .tbr-ul li[key='save'] .tbr-btn,
-.tbr-ul li[key='Save1'] .tbr-btn{
+.tbr-ul li[key='Save'] .tbr-btn,
+.tbr-ul li[key='Save1'] .tbr-btn,
+.tbr-ul li[key='SaveDict'] .tbr-btn{
     background: url(../images/icon/save.png);
     background-position: 9px center;
     background-repeat: no-repeat;
 }
 .tbr-ul li[key='save'] .tbr-btn:hover,
-.tbr-ul li[key='Save1'] .tbr-btn:hover{
+.tbr-ul li[key='Save'] .tbr-btn:hover,
+.tbr-ul li[key='Save1'] .tbr-btn:hover,
+.tbr-ul li[key='SaveDict'] .tbr-btn:hover{
     background-image: url(../images/icon/save_pre.png);
 }
 .tbr-ul li[key='Cancel'] .tbr-btn,
 .tbr-ul li[key='OPTReject'] .tbr-btn,
 .tbr-ul li[key='OPTRejectT'] .tbr-btn,
-.tbr-ul li[key='OPTRollBackToWorkitem'] .tbr-btn
+.tbr-ul li[key='OPTRollBackToWorkitem'] .tbr-btn,
+.tbr-ul li[key='CancelDict'] .tbr-btn
 {
     background: url(../images/icon/return.png);
     background-position: 9px center;
@@ -109,16 +114,155 @@
 .tbr-ul li[key='OPTReject'] .tbr-btn:hover,
 .tbr-ul li[key='OPTRejectT'] .tbr-btn:hover
 .tbr-ul li[key='OPTRollBackToWorkitem'] .tbr-btn:hover
+.tbr-ul li[key='CancelDict'] .tbr-btn:hover
 {
     background-image: url(../images/icon/return_pre.png);
 }
 .tbr-ul li[key='WFLog'] .tbr-btn{
-    background: url(../images/icon/new.png);
+    background: url(../images/icon/Wf_Log.png);
     background-position: 9px center;
     background-repeat: no-repeat;
 }
 .tbr-ul li[key='WFLog'] .tbr-btn:hover{
-    background-image: url(../images/icon/new_pre.png);
+    background-image: url(../images/icon/Wf_Log_pre.png);
+}
+.tbr-ul li[key='OPTApproveT'] .tbr-btn{
+    background: url(../images/icon/OPTApproveT.png);
+    background-position: 9px center;
+    background-repeat: no-repeat;
+}
+.tbr-ul li[key='OPTApproveT'] .tbr-btn:hover{
+    background-image: url(../images/icon/OPTApproveT_pre.png);
+}
+.tbr-ul li[key='OPTRefuseT'] .tbr-btn{
+    background: url(../images/icon/OPTRefuseT.png);
+    background-position: 9px center;
+    background-repeat: no-repeat;
+}
+.tbr-ul li[key='OPTRefuseT'] .tbr-btn:hover{
+    background-image: url(../images/icon/OPTRefuseT_pre.png);
+}
+.tbr-ul li[key='OPTReject'] .tbr-btn{
+    background: url(../images/icon/OPTReject.png);
+    background-position: 9px center;
+    background-repeat: no-repeat;
+}
+.tbr-ul li[key='OPTReject'] .tbr-btn:hover{
+    background-image: url(../images/icon/OPTReject_pre.png);
+}
+.tbr-ul li[key='Import'] .tbr-btn{
+    background: url(../images/icon/Import.png);
+    background-position: 9px center;
+    background-repeat: no-repeat;
+}
+.tbr-ul li[key='Import'] .tbr-btn:hover{
+    background-image: url(../images/icon/Import_pre.png);
+}
+.tbr-ul li[key='Export'] .tbr-btn{
+    background: url(../images/icon/Export.png);
+    background-position: 9px center;
+    background-repeat: no-repeat;
+}
+.tbr-ul li[key='Export'] .tbr-btn:hover{
+    background-image: url(../images/icon/Export_pre.png);
+}
+.tbr-ul li[key='OPTEndInstance'] .tbr-btn{
+    background: url(../images/icon/OPTEndInstance.png);
+    background-position: 9px center;
+    background-repeat: no-repeat;
+}
+.tbr-ul li[key='OPTEndInstance'] .tbr-btn:hover{
+    background-image: url(../images/icon/OPTEndInstance_pre.png);
+}
+.tbr-ul li[key='PrintPreview'] .tbr-btn{
+    background: url(../images/icon/Print.png);
+    background-position: 9px center;
+    background-repeat: no-repeat;
+}
+.tbr-ul li[key='PrintPreview'] .tbr-btn:hover{
+    background-image: url(../images/icon/Print_pre.png);
+}
+.tbr-ul li[key='Print'] .tbr-btn{
+    background: url(../images/icon/Print.png);
+    background-position: 9px center;
+    background-repeat: no-repeat;
+}
+.tbr-ul li[key='Print'] .tbr-btn:hover{
+    background-image: url(../images/icon/Print_pre.png);
+}
+.tbr-ul li[key='EnabledDict'] .tbr-btn{
+    background: url(../images/icon/EnabledDict.png);
+    background-position: 9px center;
+    background-repeat: no-repeat;
+}
+.tbr-ul li[key='EnabledDict'] .tbr-btn:hover{
+    background-image: url(../images/icon/EnabledDict_pre.png);
+}
+.tbr-ul li[key='DisabledDict'] .tbr-btn{
+    background: url(../images/icon/DisabledDict.png);
+    background-position: 9px center;
+    background-repeat: no-repeat;
+}
+.tbr-ul li[key='DisabledDict'] .tbr-btn:hover{
+    background-image: url(../images/icon/DisabledDict_pre.png);
+}
+.tbr-ul li[key='InvalidDict'] .tbr-btn{
+    background: url(../images/icon/InvalidDict.png);
+    background-position: 9px center;
+    background-repeat: no-repeat;
+}
+.tbr-ul li[key='InvalidDict'] .tbr-btn:hover{
+    background-image: url(../images/icon/InvalidDict_pre.png);
+}
+.tbr-ul li[key='OPTEndorse'] .tbr-btn{
+    background: url(../images/icon/OPTEndorse.png);
+    background-position: 9px center;
+    background-repeat: no-repeat;
+}
+.tbr-ul li[key='OPTEndorse'] .tbr-btn:hover{
+    background-image: url(../images/icon/OPTEndorse_pre.png);
+}
+.tbr-ul li[key='OPTTransferTask'] .tbr-btn{
+    background: url(../images/icon/OPTTransferTask.png);
+    background-position: 9px center;
+    background-repeat: no-repeat;
+}
+.tbr-ul li[key='OPTTransferTask'] .tbr-btn:hover{
+    background-image: url(../images/icon/OPTTransferTask_pre.png);
+}
+.tbr-ul li[key='OPTTransit'] .tbr-btn{
+    background: url(../images/icon/OPTTransit.png);
+    background-position: 9px center;
+    background-repeat: no-repeat;
+}
+.tbr-ul li[key='OPTTransit'] .tbr-btn:hover{
+    background-image: url(../images/icon/OPTTransit.png);
+}
+.tbr-ul li[key='OPTRestartInstance'] .tbr-btn{
+    background: url(../images/icon/OPTRestartInstance.png);
+    background-position: 9px center;
+    background-repeat: no-repeat;
+}
+.tbr-ul li[key='OPTRestartInstance'] .tbr-btn:hover{
+    background-image: url(../images/icon/OPTRestartInstance_pre.png);
+}
+.tbr-ul li[key='More'] .tbr-btn{
+    background: url(../images/icon/More.png);
+    background-position: 9px center;
+    background-repeat: no-repeat;
+}
+.tbr-ul li[key='More'] .tbr-btn:hover{
+    background-image: url(../images/icon/More_pre.png);
+}
+.tbr-ul li[key='StartInstance'] .tbr-btn,
+.tbr-ul li[key='BPM'] .tbr-btn{
+    background: url(../images/icon/StartInstance.png);
+    background-position: 9px center;
+    background-repeat: no-repeat;
+}
+.tbr-ul li[key='StartInstance'] .tbr-btn:hover,
+.tbr-ul li[key='BPM'] .tbr-btn:hover{
+    background-image: url(../images/icon/StartInstance_pre.png);
 }
 .tbr-ul li[key='OPTAudit'] .tbr-btn{
     background: url(../images/icon/new.png);
@@ -129,15 +273,16 @@
     background-image: url(../images/icon/new_pre.png);
 }
 .tbr-ul li[key='Setfirst_headVisible'] .tbr-btn,
-.tbr-ul li[key='NewDict'] .tbr-btn
-
+.tbr-ul li[key='NewDict'] .tbr-btn,
+.tbr-ul li[key='New'] .tbr-btn
 {
     background: url(../images/icon/increase.png);
     background-position: 9px center;
     background-repeat: no-repeat;
 }
 .tbr-ul li[key='Setfirst_headVisible'] .tbr-btn:hover,
-.tbr-ul li[key='NewDict'] .tbr-btn:hover{
+.tbr-ul li[key='NewDict'] .tbr-btn:hover,
+.tbr-ul li[key='New'] .tbr-btn:hover{
     background-image: url(../images/icon/increase_pre.png);
 }
 

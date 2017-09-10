@@ -5,8 +5,8 @@ import java.util.Date;
 import com.bokesoft.oa.base.Base;
 import com.bokesoft.oa.base.Ids;
 import com.bokesoft.oa.base.OAContext;
-import com.bokesoft.oa.util.OASettings;
-import com.bokesoft.yes.common.util.StringUtil;
+import com.bokesoft.oa.mid.wf.base.WorkitemInf;
+import com.bokesoft.yigo.struct.document.Document;
 
 /**
  * 消息
@@ -37,33 +37,6 @@ public class Message extends Base {
 	 */
 	public void setIsNewSend(Boolean isNewSend) {
 		this.isNewSend = isNewSend;
-	}
-
-	/**
-	 * 模块标识
-	 */
-	private String moduleKey;
-
-	/**
-	 * 模块标识
-	 * 
-	 * @return 模块标识
-	 */
-	public String getModuleKey() {
-		if (StringUtil.isBlankOrNull(moduleKey)) {
-			moduleKey = OASettings.OA_MODULE_KEY;
-		}
-		return moduleKey;
-	}
-
-	/**
-	 * 模块标识
-	 * 
-	 * @param moduleKey
-	 *            模块标识
-	 */
-	public void setModuleKey(String moduleKey) {
-		this.moduleKey = moduleKey;
 	}
 
 	/**
@@ -160,6 +133,30 @@ public class Message extends Base {
 	 */
 	public void setReceiveIDs(Ids receiveIDs) {
 		this.receiveIDs = receiveIDs;
+	}
+
+	/**
+	 * 抄送人员ID字符串
+	 */
+	private Ids copyUserIDs;
+
+	/**
+	 * 抄送人员ID字符串
+	 * 
+	 * @return 抄送人员ID字符串
+	 */
+	public Ids getCopyUserIDs() {
+		return copyUserIDs;
+	}
+
+	/**
+	 * 抄送人员ID字符串
+	 * 
+	 * @param copyUserIDs
+	 *            抄送人员ID字符串
+	 */
+	public void setCopyUserIDs(Ids copyUserIDs) {
+		this.copyUserIDs = copyUserIDs;
 	}
 
 	/**
@@ -358,6 +355,30 @@ public class Message extends Base {
 	}
 
 	/**
+	 * 发送条件
+	 */
+	private String sendFormula;
+
+	/**
+	 * 发送条件
+	 * 
+	 * @return 发送条件
+	 */
+	public String getSendFormula() {
+		return sendFormula;
+	}
+
+	/**
+	 * 发送条件
+	 * 
+	 * @param sendFormula
+	 *            发送条件
+	 */
+	public void setSendFormula(String sendFormula) {
+		this.sendFormula = sendFormula;
+	}
+
+	/**
 	 * 是否保存发送消息
 	 */
 	private Boolean saveSendMessage;
@@ -382,12 +403,60 @@ public class Message extends Base {
 	}
 
 	/**
+	 * 工作项信息
+	 */
+	private WorkitemInf workitemInf;
+
+	/**
+	 * 工作项信息
+	 * 
+	 * @return 工作项信息
+	 */
+	public WorkitemInf getWorkitemInf() {
+		return workitemInf;
+	}
+
+	/**
+	 * 工作项信息
+	 * 
+	 * @param workitemInf
+	 *            工作项信息
+	 */
+	public void setWorkitemInf(WorkitemInf workitemInf) {
+		this.workitemInf = workitemInf;
+	}
+
+	/**
+	 * 表单对象
+	 */
+	private Document document;
+
+	/**
+	 * 表单对象
+	 * 
+	 * @return 表单对象
+	 */
+	public Document getDocument() {
+		return document;
+	}
+
+	/**
+	 * 表单对象
+	 * 
+	 * @param document
+	 *            表单对象
+	 */
+	public void setDocument(Document document) {
+		this.document = document;
+	}
+
+	/**
 	 * 构造消息对象
 	 */
 	public Message(OAContext context) {
 		super(context);
 	}
-	
+
 	/**
 	 * 构造消息对象
 	 * 
@@ -397,8 +466,6 @@ public class Message extends Base {
 	 *            是否保存发送消息
 	 * @param isNewSend
 	 *            是否新增发送记录
-	 * @param moduleKey
-	 *            模块Key
 	 * @param sendDate
 	 *            发送时间
 	 * @param sendOptID
@@ -409,6 +476,8 @@ public class Message extends Base {
 	 *            消息内容
 	 * @param receiveIDs
 	 *            接受人员
+	 * @param copyUserIDs
+	 *            抄送人员
 	 * @param messageSet
 	 *            发送消息设置
 	 * @param srcBillKey
@@ -419,22 +488,18 @@ public class Message extends Base {
 	 *            源表单OID
 	 * @throws Throwable
 	 */
-	public Message(OAContext oaContext, Boolean saveSendMessage, Boolean isNewSend, String moduleKey,Date sendDate, Long sendOptID,
-			String topic, String content, String receiveIDs, MessageSet messageSet, String srcBillKey, String srcBillNO,
-			Long srcOid) throws Throwable {
+	public Message(OAContext oaContext, Boolean saveSendMessage, Boolean isNewSend, Date sendDate, Long sendOptID,
+			String topic, String content, String receiveIDs, String copyUserIDs, MessageSet messageSet,
+			String srcBillKey, String srcBillNO, Long srcOid) throws Throwable {
 		super(oaContext);
 		setSaveSendMessage(saveSendMessage);
 		setIsNewSend(isNewSend);
-		setModuleKey(moduleKey);
 		setSendOptID(sendOptID);
 		setSendDate(sendDate);
 		setTopic(topic);
 		setContent(content);
-		if (receiveIDs == "") {
-			setReceiveIDs(null);
-		} else {
-			setReceiveIDs(new Ids(receiveIDs));
-		}
+		setReceiveIDs(new Ids(receiveIDs));
+		setCopyUserIDs(new Ids(copyUserIDs));
 		setMessageSet(messageSet);
 		setSrcBillKey(srcBillKey);
 		setSrcBillNO(srcBillNO);

@@ -2952,7 +2952,6 @@ function bigStringSimpleSmooks(fieldName, label) {
 				Ext.Msg.alert('提示', '模版没有数据');
 				return;
 			}
-			alert("确定");
 			var data = {
 				xml : xmlData,
 				grid : gridJson,
@@ -4653,6 +4652,465 @@ function map_kComboboxString_vString(fieldName, label) {
 								'mule.adapter.op-plan',
 								'mule.adapter.id-fields',
 								'mule.adapter.auto-delete-unknown-detail']
+					}
+				}, {
+					header : '值',
+					dataIndex : 'value',
+					sortable : false,
+					menuDisabled : true,
+					flex : 6,
+					field : 'textfield'
+				}],
+				plugins : [win_grid_pluginCellEdit],
+				height : 386
+			});
+
+	var win = Ext.create('Ext.Window', {
+				title : label,
+				width : 800 * bokedee_width,
+				height : 450 * bokedee_height,
+				draggable : false,
+				autoScroll : true,
+				resizable : false,
+				modal : true,
+				buttons : win_buttons,
+				items : [win_grid]
+			});
+
+	win.show();
+}
+
+/**
+ * 复杂属性的String,String,ComboboxString,ComboboxString 用于Mapping(字段做映射)的窗口
+ */
+function map_kComboboxString_vString_mapping(fieldName, label) {
+
+	var win_buttons = [{
+				text : '确定',
+				handler : function() {
+					var flag = false;
+					var rp = getCmp('right_propertyGrid');
+					if (win_grid_store.getCount() != 0) {
+						var size = win_grid_store.getCount();
+						for(var i = 0;i < size;i++){
+							var one = win_grid_store.getAt(i).data.one;
+							var two = win_grid_store.getAt(i).data.two;
+							if((one.indexOf('.') == -1 && two.split('.').length > 2) || (two.split('.').length - one.split('.').length > 1)){
+								flag = true;
+								Ext.Msg.alert('保存失败','源字段['+one+']和目标字段['+two+']不能跨度超过两层!');
+								break;
+							}
+							if(one.indexOf('.') != -1){
+								var osize = one.split('.').length;
+								var tsize = two.split('.').length;
+								if(osize == tsize && one.substring(0,one.lastIndexOf('.')) != two.substring(0,two.lastIndexOf('.'))){
+									flag = true;
+									Ext.Msg.alert('保存失败','源字段['+one+']和目标字段['+two+']同层不同明细间不能相互映射!');
+									break;
+								}	
+								if(osize != tsize && one.substring(0,one.lastIndexOf('.')) != two.substring(0,one.lastIndexOf('.'))){
+									flag = true;
+									Ext.Msg.alert('保存失败','源字段['+one+']和目标字段['+two+']不是上下级关系不能映射!');
+									break;
+								}
+								if(osize != tsize && one == two.substring(0,two.lastIndexOf('.'))){
+									flag = true;
+									Ext.Msg.alert('保存失败','源字段['+one+']和目标字段['+two+']不能循环嵌套映射!');
+									break;
+								}
+							}
+							if((one.indexOf('.') == -1 && two.split('.').length > 2) || one.split('.').length != two.split('.').length)
+								win_grid_store.getAt(i).data.three = '1';
+							else
+								win_grid_store.getAt(i).data.three = '0';
+							if(one.indexOf('.') != -1)
+								win_grid_store.getAt(i).data.five = one.substring(one.lastIndexOf('.')+1);
+							else
+								win_grid_store.getAt(i).data.five = one;
+						}
+						if(!flag){
+							rp.setProperty(fieldName, storeToJSON(win_grid_store));
+							// 点击确定按钮直接保存
+							Ext.getCmp('saveRightProperties').handler();
+						}
+					} else {
+						rp.setProperty(fieldName, '点此编辑');
+					}
+					if(!flag){
+						win.close();
+					}
+				}
+			}, {
+				text : '取消',
+				handler : function() {
+					win.close();
+				}
+			}];
+
+	var win_grid_CheckboxModel = Ext.create('Ext.selection.CheckboxModel', {
+				mode : 'SINGLE',
+				listeners : {
+					select : function(m, record, index) {
+						win_grid._record = record;
+						win_grid._index = index;
+					}
+				}
+			});
+	var vj = [];
+	var v = getCmp('right_propertyGrid').getSource()[fieldName];
+	if (v != null && v != '点此编辑' && '' != v)
+		vj = Ext.decode(v);
+	var win_grid_store = Ext.create('Ext.data.Store', {
+				model : 'FiveField',
+				data : vj,
+				autoLoad : false
+			});
+	var win_grid_item = [{
+				text : '新增',
+				icon : 'images/add.png',
+				scale : 'small',
+				width : 50,
+				handler : function() {
+					var r = Ext.ModelManager.create({
+								one : '',
+								two : '',
+								three : '否',
+								four : '否',
+								five : ''
+							}, 'FiveField');
+					win_grid_store.insert(win_grid_store.getCount(), r);
+					var row = win_grid_store.getCount() - 1;
+					win_grid_pluginCellEdit.startEditByPosition({
+								row : row,
+								column : 0
+							});
+				}
+			}, {
+				text : '删除',
+				scale : 'small',
+				icon : 'images/shanchu.png',
+				width : 50,
+				handler : function() {
+					if (gridIndex != null) {
+						win_grid_item_btnDelHandler();
+					}
+				}
+			}, {
+				text : '上移',
+				scale : 'small',
+				hidden : isHiddenFromPermission('interface_config',
+						'findInterfaceStore', 'upTransformerItem'),
+				icon : 'images/shangyi.png',
+				width : 50,
+				handler : function() {
+					if (gridIndex != null && gridIndex > 0) {
+						var record = win_grid_store.getAt(gridIndex);
+						win_grid_store.removeAt(gridIndex);
+						win_grid_store.insert(gridIndex - 1, record);
+						win_grid.getSelectionModel().select(gridIndex - 1);
+						gridIndex = gridIndex - 1;
+					}
+				}
+			}, {
+				text : '下移',
+				scale : 'small',
+				hidden : isHiddenFromPermission('interface_config',
+						'findInterfaceStore', 'downTransformerItem'),
+				icon : 'images/xiayi.png',
+				width : 50,
+				handler : function() {
+					if (gridIndex != null && gridIndex < (win_grid_store.getCount()-1)) {
+						var record = win_grid_store.getAt(gridIndex);
+						win_grid_store.removeAt(gridIndex);
+						win_grid_store.insert(gridIndex + 1, record);
+						win_grid.getSelectionModel().select(gridIndex + 1);
+						gridIndex = gridIndex + 1;
+					}
+				}
+			}];
+
+	var gridIndex;
+
+	function win_grid_item_btnDelHandler() {
+		Ext.Msg.show({
+					title : '删除',
+					msg : win_grid_store.getAt(gridIndex).data.key,
+					buttons : Ext.Msg.YESNO,
+					fn : function(type) {
+						if ('yes' == type) {
+							win_grid_store.removeAt(gridIndex);
+							gridIndex = undefined;
+						}
+					}
+				})
+	}
+
+	var win_form_jdbcGrid_CheckboxModel = Ext.create(
+			'Ext.selection.CheckboxModel', {
+				mode : 'SINGLE',
+				listeners : {
+					select : function(m, record, index) {
+						win_form_jdbcGrid._record = record;
+						win_form_jdbcGrid._index = index;
+					}
+				}
+			});
+
+	var win_grid_pluginCellEdit = Ext.create('Ext.grid.plugin.CellEditing', {
+				clicksToEdit : 1,
+				listeners : {
+					beforeedit : function(record) {
+						gridIndex = record.rowIdx;
+					}
+				}
+			});
+
+	var win_grid = Ext.create('Ext.grid.Panel', {
+				autoScroll : true,
+				firstCheck : true,
+				selModel : win_grid_CheckboxModel,
+				store : win_grid_store,
+				tbar : {
+					items : win_grid_item
+				},
+				columns : [{
+					header : '源字段名',
+					dataIndex : 'one',
+					flex : 4,
+					sortable : false,
+					menuDisabled : true,
+					field : 'textfield'
+				}, {
+					header : '目标字段名',
+					dataIndex : 'two',
+					sortable : false,
+					menuDisabled : true,
+					flex : 4,
+					field : 'textfield'
+				}, {
+					header : '是否删除源字段',
+					dataIndex : 'four',
+					sortable : false,
+					menuDisabled : true,
+					flex : 2,
+					field : {
+						xtype : 'combobox',
+						name : 'key',
+						store : [['1','是'],
+								['0','否']]
+					},
+					renderer : function(value) {
+						return value == '1' ? '是' : '否';
+					}
+				}],
+				plugins : [win_grid_pluginCellEdit],
+				height : 386,
+				width : 780 * bokedee_width
+			});
+
+	var win = Ext.create('Ext.Window', {
+				title : label,
+				width : 800 * bokedee_width,
+				height : 450 * bokedee_height,
+				draggable : false,
+				autoScroll : true,
+				resizable : false,
+				modal : true,
+				buttons : win_buttons,
+				items : [win_grid]
+			});
+
+	win.show();
+}
+
+/**
+ * 复杂属性的Map<ComboboxString,String> 用于FixFieldsAdd(Yigo2.0设置字段的固定值)的窗口
+ */
+function map_kComboboxString_vString2(fieldName, label) {
+
+	var win_buttons = [{
+				text : '确定',
+				handler : function() {
+					if (validatemssIsTheSameOrIsNull(win_grid_store)) {
+						return false;
+					}
+					var rp = getCmp('right_propertyGrid');
+					if (win_grid_store.getCount() != 0) {
+						rp.setProperty(fieldName, storeToJSON(win_grid_store));
+						// 点击确定按钮直接保存
+						Ext.getCmp('saveRightProperties').handler();
+					} else {
+						rp.setProperty(fieldName, '点此编辑');
+					}
+					win.close();
+				}
+			}, {
+				text : '取消',
+				handler : function() {
+					win.close();
+				}
+			}];
+
+	function win_gridEdit(record, index) {
+		function win_Value_btn() {
+			record.data.value = win_Value_form.getValues().propertyValue;
+			win_grid_store.removeAt(index);
+			win_grid_store.insert(index, record)
+			win_Value.close();
+		}
+		var win_Value_form = Ext.create('Ext.form.Panel', {
+					border : 0,
+					items : [{
+								xtype : 'textarea',
+								name : 'propertyValue',
+								width : 788,
+								height : 382,
+								value : record.data.value
+							}]
+				});
+		var win_Value = Ext.create('Ext.Window', {
+					title : record.data.key,
+					width : 800,
+					height : 450,
+					draggable : false,
+					autoScroll : true,
+					resizable : false,
+					modal : true,
+					buttons : [{
+								text : '确定',
+								handler : function() {
+									win_Value_btn();
+								}
+							}, {
+								text : '取消',
+								handler : function() {
+									win_Value.close();
+								}
+							}],
+					items : [win_Value_form]
+				}).show();
+	}
+
+	var win_grid_CheckboxModel = Ext.create('Ext.selection.CheckboxModel', {
+				mode : 'SINGLE',
+				listeners : {
+					select : function(m, record, index) {
+						win_grid._record = record;
+						win_grid._index = index;
+					}
+				}
+			});
+	var vj = [];
+	var v = getCmp('right_propertyGrid').getSource()[fieldName];
+	if (v != null && v != '点此编辑' && '' != v)
+		vj = Ext.decode(v);
+	var win_grid_store = Ext.create('Ext.data.Store', {
+				model : 'KeyValue',
+				data : vj,
+				autoLoad : false
+			});
+	var win_grid_item = [{
+				text : '新增',
+				icon : 'images/add.png',
+				scale : 'small',
+				width : 50,
+				handler : function() {
+					var r = Ext.ModelManager.create({
+								key : '',
+								value : ''
+							}, 'KeyValue');
+					win_grid_store.insert(win_grid_store.getCount(), r);
+					var row = win_grid_store.getCount() - 1;
+					win_grid_pluginCellEdit.startEditByPosition({
+								row : row,
+								column : 0
+							});
+				}
+			}, {
+				text : '删除',
+				scale : 'small',
+				icon : 'images/shanchu.png',
+				width : 50,
+				handler : function() {
+					if (gridIndex != null) {
+						win_grid_item_btnDelHandler();
+					}
+				}
+			}, {
+				text : '编辑值',
+				scale : 'small',
+				icon : 'images/xiugai.png',
+				width : 80,
+				handler : function() {
+					var record = win_grid._record, index;
+					if (record != null) {
+						index = win_grid._index;
+						win_gridEdit(record, index);
+					}
+				}
+			}];
+
+	var gridIndex;
+
+	function win_grid_item_btnDelHandler() {
+		Ext.Msg.show({
+					title : '删除',
+					msg : win_grid_store.getAt(gridIndex).data.key,
+					buttons : Ext.Msg.YESNO,
+					fn : function(type) {
+						if ('yes' == type) {
+							win_grid_store.removeAt(gridIndex);
+							gridIndex = undefined;
+						}
+					}
+				})
+	}
+
+	var win_form_jdbcGrid_CheckboxModel = Ext.create(
+			'Ext.selection.CheckboxModel', {
+				mode : 'SINGLE',
+				listeners : {
+					select : function(m, record, index) {
+						win_form_jdbcGrid._record = record;
+						win_form_jdbcGrid._index = index;
+					}
+				}
+			});
+
+	var win_grid_pluginCellEdit = Ext.create('Ext.grid.plugin.CellEditing', {
+				clicksToEdit : 1,
+				listeners : {
+					beforeedit : function(record) {
+						gridIndex = record.rowIdx;
+					}
+				}
+			});
+
+	var win_grid = Ext.create('Ext.grid.Panel', {
+				autoScroll : true,
+				firstCheck : true,
+				selModel : win_grid_CheckboxModel,
+				store : win_grid_store,
+				tbar : {
+					items : win_grid_item
+				},
+				columns : [{
+					header : '键',
+					dataIndex : 'key',
+					flex : 4,
+					sortable : false,
+					menuDisabled : true,
+					field : {
+						xtype : 'combobox',
+						name : 'key',
+						store : ['mule.adapter.thing-name',
+								'mule.adapter.formKey',
+								'mule.adapter.return-fields',
+								'mule.adapter.op-plan',
+								'mule.adapter.id-fields',
+								'mule.adapter.auto-delete-unknown-detail',
+								'mule.adapter.start-workflow',
+								'mule.adapter.workflow-key']
 					}
 				}, {
 					header : '值',

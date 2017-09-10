@@ -3,6 +3,7 @@ package com.bokesoft.oa.config;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import com.bokesoft.oa.util.OASettings;
 import com.bokesoft.yigo.common.util.TypeConvertor;
 import com.bokesoft.yigo.mid.base.DefaultContext;
 import com.bokesoft.yigo.mid.service.IExtService;
@@ -36,7 +37,7 @@ public class GetDropItemsBySettings implements IExtService {
 	public static String getDropItemsBySettings(DefaultContext context, String moduleKey, String paths)
 			throws Throwable {
 		String dropItems = "";
-		Settings mapSettings = Configuration.getConfiguration(moduleKey).getSettingsByPaths(paths);
+		Settings mapSettings = OASettings.getConfiguration(context).getSettingsByPaths(paths);
 		Collection<Settings> mapValues = mapSettings.getMapValues();
 		for (Settings map : mapValues) {
 			String name = map.getProperty("Name");

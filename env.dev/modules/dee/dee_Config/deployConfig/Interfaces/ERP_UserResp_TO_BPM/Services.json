@@ -1,0 +1,11 @@
+[
+  {
+    "parentId": "402881e95d5a8b56015d5a9403f8000a",
+    "text": "ERP_UserResp_TO_BPM",
+    "recordMpLog": "false",
+    "id": "402881e95d5a8b56015d5a94042a000b",
+    "description": "调用ERP权限变更表用户包",
+    "fileImport": "false",
+    "enable": "true"
+  }
+]

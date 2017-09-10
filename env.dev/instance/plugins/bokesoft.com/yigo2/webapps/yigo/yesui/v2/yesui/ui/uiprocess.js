@@ -107,12 +107,12 @@
                         addOneMenuOperation(toolbar,item);
                     }
                 }
-                // 处理合并
+                //处理合并 如果界面没有SHOW 在containershow的时候 加到父界面工具栏
                 var mergeOptContainer = form.getMergeOptContainer();
                 if( mergeOptContainer ) {
                     var ctn = form.getComponent(mergeOptContainer);
                     var activePane = ctn.getActivePane();
-                    if( activePane ) {
+                    if( activePane && activePane.rendered) {
                         activePane.getUIProcess().addOperation(toolbar);
                     }
                 }

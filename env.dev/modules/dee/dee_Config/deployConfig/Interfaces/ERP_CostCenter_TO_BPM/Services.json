@@ -1,0 +1,11 @@
+[
+  {
+    "parentId": "8aaae09b5bfa4119015bfb68c088001a",
+    "text": "ERP_CostCenter_TO_BPM",
+    "recordMpLog": "false",
+    "id": "8aaae09b5bfa4119015bfb68c0a8001b",
+    "description": "实时查询ERP系统成本中心信息",
+    "fileImport": "false",
+    "enable": "true"
+  }
+]

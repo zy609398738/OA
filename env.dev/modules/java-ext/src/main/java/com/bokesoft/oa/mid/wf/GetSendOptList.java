@@ -53,8 +53,8 @@ public class GetSendOptList implements IExtService {
 			context.setParas(paras);
 		}
 		paras.put(Workflow.WorkflowTypeDtlID, workflowTypeDtlID);
-		DataTable participatorDt = GetValueByFieldKey.getCurNodeSendOpt(context, workItemID, formKey,
-				workflowTypeDtlID, operatorSelKey, billOid);
+		DataTable participatorDt = GetValueByFieldKey.getCurNodeSendOpt(context, workItemID, formKey, workflowTypeDtlID,
+				operatorSelKey, billOid);
 		if (participatorDt == null || participatorDt.size() <= 0) {
 			return ids;
 		}

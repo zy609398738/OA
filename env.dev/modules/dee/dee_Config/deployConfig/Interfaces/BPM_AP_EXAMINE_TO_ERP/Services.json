@@ -1,0 +1,11 @@
+[
+  {
+    "parentId": "8aaae0bb5dcae2ce015dcae623b00006",
+    "text": "BPM_AP_EXAMINE_TO_ERP",
+    "recordMpLog": "false",
+    "id": "8aaae0bb5dcae2ce015dcae623fb0007",
+    "description": "写入BPM系统付款信息至ERP系统中间表",
+    "fileImport": "false",
+    "enable": "true"
+  }
+]

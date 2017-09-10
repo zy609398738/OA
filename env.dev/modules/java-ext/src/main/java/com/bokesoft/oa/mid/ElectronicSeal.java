@@ -35,7 +35,7 @@ public class ElectronicSeal implements IExtService {
 		int last = name.lastIndexOf('.');
 		String fix = name.substring(last + 1, name.length());
 		String fileUrl = "";
-		if (fix.equalsIgnoreCase("DOC") || fix.equalsIgnoreCase( "DOCX")) {
+		if (fix.equalsIgnoreCase("DOC") || fix.equalsIgnoreCase("DOCX")) {
 			fileUrl = "../../pageoffice/WordTableSetImg/WordTableYigo.jsp?filePath=" + path + "&fileName=" + name;
 		} else if (fix.equalsIgnoreCase("PDf")) {
 			fileUrl = "../../pageoffice/WordTableSetImg/InsertImgToPDF.jsp?filePath=" + path;

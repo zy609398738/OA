@@ -114,7 +114,7 @@ FillGridData("FieldSel", fieldDt, true);]]>
                                     <ColumnDef Width="80px"/>
                                 </ColumnDefCollection>
                             </GridLayoutPanel>
-                            <Grid Key="FieldSel" Caption="字段选择" ShowRowHead="false" PageRowCount="20">
+                            <Grid Key="FieldSel" Caption="字段选择" ShowRowHead="false" NewEmptyRow="false" PageRowCount="20">
                                 <GridColumnCollection>
                                     <GridColumn Key="column1" Caption="选择" Width="50px"/>
                                     <GridColumn Key="Field_Key" Caption="字段标识" Width="150px"/>

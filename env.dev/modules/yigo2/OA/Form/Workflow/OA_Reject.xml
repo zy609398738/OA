@@ -4,7 +4,7 @@
         <Block>
             <FlexFlowLayoutPanel Key="root" Caption="根面板">
                 <GridLayoutPanel Key="GridRejectNode" Height="pref" Padding="5px" Caption="GridRejectNode">
-                    <ComboBox Key="RejectNode" Caption="选择撤回节点" BuddyKey="Lab_RejectNode" X="1" Y="0" SourceType="Formula">
+                    <ComboBox Key="RejectNode" Caption="选择撤回节点" BuddyKey="Lab_RejectNode" X="1" Y="0" SourceType="Formula" XSpan="2">
                         <FormulaItems>
                             <![CDATA[var sql = "select i.ProcessKey,w.NodeID from bpm_workiteminfo w join bpm_instance i on  w.InstanceID = i.InstanceID where w.WorkitemID=?";
 var hsql = DBQuery(sql,Para("pWorkitemID"));
@@ -14,7 +14,7 @@ GetValidNodes(nodeid,processKey);]]>
                         </FormulaItems>
                     </ComboBox>
                     <Label Key="Lab_RejectNode" Caption="选择撤回节点" X="0" Y="0"/>
-                    <CheckBox Caption="撤回后直送" Key="Transit" X="2" Y="0"/>
+                    <CheckBox Caption="撤回后直送" Key="Transit" X="2" Y="0" Enable="RejectNode&gt;0" Visible="false"/>
                     <RowDefCollection RowGap="5">
                         <RowDef Height="30px"/>
                     </RowDefCollection>
@@ -56,9 +56,9 @@ GetValidNodes(nodeid,processKey);]]>
                         <ColumnDef Width="100px"/>
                     </ColumnDefCollection>
                 </GridLayoutPanel>
-                <GridLayoutPanel Key="GridLayoutPanel0" Height="pref" Padding="5px" Caption="GridLayoutPanel0">
+                <GridLayoutPanel Key="GridLayoutPanel0" Height="pref" Padding="5px" Caption="GridLayoutPanel0" Visible="false">
                     <TextArea Key="Opinion" Caption="处理意见" X="1" Y="0" Enable="True" HAlign="Left" MaxLength="4000">
-                        <DataBinding CheckRule="if(Opinion==&quot;&quot; &amp;&amp; InvokeService(&quot;OA_GetWorkflowDesigneUserInfoCheck&quot;, false, false,Para(&quot;pWorkitemID&quot;),Para(&quot;workflowBillKey&quot;),Para(&quot;WorkflowTypeDtlID&quot;),Para(&quot;OptKey&quot;))==1){false;}else{true;};" ErrorInfo="&quot;请填写处理意见&quot;"/>
+                        <DataBinding DefaultFormulaValue="Para(&quot;auditOpinion&quot;);" CheckRule="if(Opinion==&quot;&quot; &amp;&amp; InvokeService(&quot;OA_GetWorkflowDesigneUserInfoCheck&quot;, false, false,Para(&quot;pWorkitemID&quot;),Para(&quot;workflowBillKey&quot;),Para(&quot;WorkflowTypeDtlID&quot;),Para(&quot;OptKey&quot;))==1){false;}else{true;};" ErrorInfo="&quot;请填写处理意见&quot;"/>
                     </TextArea>
                     <Label Key="T_Opinion" Caption="处理意见" X="0" Y="0"/>
                     <RowDefCollection RowGap="4">
@@ -101,22 +101,25 @@ GetValidNodes(nodeid,processKey);]]>
                 <GridLayoutPanel Key="GridLayoutPanel3" Height="pref" Padding="5px" Caption="GridLayoutPanel3">
                     <Button Key="OPPOSE" Caption="撤回" X="1" Y="0" Enable="True">
                         <OnClick>
-                            <![CDATA[if(!IsNull(ToString(GetValue("RejectNode")))){
-
-parent.CommitWorkitem(-1,0,GetValue("Opinion"),{pattern:{Return},backSite:{RejectNode}});
+                            <![CDATA[UICheck();
+if(!IsNull(ToString(GetValue("RejectNode")))){
+parent.SetPara("nodeid",GetValue("RejectNode"));
+parent.CommitWorkitem(-1,0,Para("auditOpinion"),{pattern:{Return},backSite:{Para("nodeid")}});
     
 }else{
-     parent.CommitWorkitem(-1,0,GetValue("Opinion"));
+     parent.CommitWorkitem(-1,0,Para("auditOpinion"));
     }
+parent.InvokeService("OA_OptSendMessageReject", true, false, parent.GetFormKey(),Para("OptKey"),OA_GetMaxWorkItemIDAfterCommit(Para("workflowOID")),Para("workflowOID"),ServerDate(),Para("WorkflowTypeDtlID"));
 Close();
-parent.Confirm("撤回成功");]]>
+parent.Confirm("撤回成功","OK","OK:{OA_AuditAfterClose("+Para("pWorkitemID")+",'"+Para("workflowBillKey")+"',"+Para("WorkflowTypeDtlID")+")}");]]>
                         </OnClick>
                     </Button>
                     <Button Key="cancel" Caption="取消" X="2" Y="0" Enable="True">
                         <OnClick>
-                            <![CDATA[
-			
-			Close();
+                            <![CDATA[if(parent.ContainsKey("AuditOpinion")){
+    parent.SetValue("AuditOpinion", Opinion);
+}
+Close();
 			
 			]]>
                         </OnClick>

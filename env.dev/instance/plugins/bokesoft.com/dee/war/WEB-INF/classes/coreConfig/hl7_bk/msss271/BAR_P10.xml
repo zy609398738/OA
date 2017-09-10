@@ -1,0 +1,60 @@
+<table id="group_13" class="group"  border="0" cellspacing="0" cellpadding="0"><tr style="height:100%;">
+<td id="zenLayoutTableCell_14"  >
+<div class="zendiv" id="content" zen="14"  ><div><hr/><table><tr><td><table cellpadding=4 cellspacing=4><tbody align=center><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='1:MSH - Message Header' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3AMSH&PATH=MSH&MS=MS%3A2.7.1%3ABAR_P10'>MSH</a></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='2:SFT() - Software Segment' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3ASFT&PATH=SFT()&MS=MS%3A2.7.1%3ABAR_P10'>SFT</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='3:UAC - User Authentication Credential Segment' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3AUAC&PATH=UAC&MS=MS%3A2.7.1%3ABAR_P10'>UAC</a></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='4:EVN - Event Type' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3AEVN&PATH=EVN&MS=MS%3A2.7.1%3ABAR_P10'>EVN</a></td></tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='5:PID - Patient Identification' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3APID&PATH=PID&MS=MS%3A2.7.1%3ABAR_P10'>PID</a></td></tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='6:PV1 - Patient Visit' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3APV1&PATH=PV1&MS=MS%3A2.7.1%3ABAR_P10'>PV1</a></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='7:DG1() - Diagnosis' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3ADG1&PATH=DG1()&MS=MS%3A2.7.1%3ABAR_P10'>DG1</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='8:GP1 - Grouping/Reimbursement - Visit' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3AGP1&PATH=GP1&MS=MS%3A2.7.1%3ABAR_P10'>GP1</a></td></tr>
+<tr><td align='right' valign='top' style='font-style:italic;'>PR1grp</td><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='9:PR1grp().PR1 - Procedures' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3APR1&PATH=PR1grp().PR1&MS=MS%3A2.7.1%3ABAR_P10'>PR1</a></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='10:PR1grp().GP2 - Grouping/Reimbursement - Procedure Line Item' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.7.1%3AGP2&PATH=PR1grp().GP2&MS=MS%3A2.7.1%3ABAR_P10'>GP2</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+</tr></table></td>
+<td valign='top'><div style="padding-left:10px;">
+<b>Key</b><table cellpadding=4 cellspacing=4>
+<tr><td style="border: 2px dotted #60a060; border-right: none;" >可选</td></tr>
+<tr><td style="border: 2px solid #703838; border-right: none;" >重复</td></tr>
+</table></div></td>
+</tr></table></div>
+</div>
+</td>
+<td id="zenLayoutTableCell_15"  style="vertical-align:top;">
+<div class="zendiv" id="zen15" zen="15"  >
+<table id="group_15" class="group"  border="0" cellspacing="0" cellpadding="0">
+<tr style="vertical-align:top;">
+<td id="zenLayoutTableCell_16"  >
+<div class="zendiv" id="showRawContent" zen="16"  ><div id="rawDivPointer" style="padding:20px 0px 0px 20px;">
+	<span><img src="images/spacer.gif" width="30" height="2"><img src="images/disclosure-contracted.gif" alt="*" width="8" height="11" border="0">
+	<span onclick="showRaw('rawContent');"><a href="#">显示原始定义文本</a></span></span><br/>
+	</div>
+<div id="rawContent" style="padding:20px 0px 0px 50px;display:none;" >
+	<b>原始定义</b>
+	<table cellspacing="0" cellpadding="2">
+	<tr><td>2.7.1:MSH~[~{~2.7.1:SFT~}~]~[~2.7.1:UAC~]~2.7.1:EVN~2.7.1:PID~2.7.1:PV1~[~{~2.7.1:DG1~}~]~2.7.1:GP1~[~{~2.7.1:PR1~[~2.7.1:GP2~]~}~]</td></tr>
+	</table>
+	</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+</tr></table><script type="text/javascript" src="js/hl7/ms.js"></script>

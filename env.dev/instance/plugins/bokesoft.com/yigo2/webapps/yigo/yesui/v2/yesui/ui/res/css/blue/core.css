@@ -49,7 +49,7 @@ iframe {
     height: 100%;
     width: 100%;
 }
-.ui-tabs-nav, .tbr-ul {
+.ui-tabs-nav {
     border: 1px solid #ccc;
     background: #fff url(images/ui-bg_gloss-wave_55_5c9ccc_500x100.png) 50% 50% repeat-x;
     color: #fff;
@@ -1550,9 +1550,13 @@ url(images/b_invalid.png) right center no-repeat */
 }
 
 .dt-vw .dt {
-    height: 300px;
+    min-height:220px;
+    max-height: 300px;
+    min-height: 100px;
 }
-
+.dt-vw .dt:empty{
+    min-height:70px;
+}
 .dt-vw .dt > li {
     display: inline-table;
     width: 100%;
@@ -1853,6 +1857,9 @@ url(images/b_invalid.png) right center no-repeat */
 input.ui-readonly, .ui-splbtn.ui-readonly button.btn, .ui-dropbtn.ui-readonly a, .ui-btn.ui-readonly button, .ui-txta.ui-readonly textarea {
     background-color: #f3f3f3;
     color: #b4b4b4;
+}
+.ui-rdo.ui-readonly *, .ui-chk.ui-readonly * {
+	color: #b4b4b4;
 }
 .ui-cmb.ui-readonly .arrow, .ui-dict.ui-readonly .arrow, .ui-chaindict.ui-readonly .arrow, .ui-dp.ui-readonly .arrow {
     opacity: 0.2;
@@ -2250,13 +2257,13 @@ input.ui-readonly, .ui-splbtn.ui-readonly button.btn, .ui-dropbtn.ui-readonly a,
     background-repeat: no-repeat;
     background-size: cover;
     position: relative;
-    background-image: url("images/radiounchk.png");
-    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/radiounchk.png', sizingMethod='scale');
+    background-image: url("images/radiounchk.png");/* 
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/radiounchk.png', sizingMethod='scale'); */
 }
 
 .ui-rdo span.checked {
-    background-image: url("images/radio.png");
-    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/radio.png', sizingMethod='scale');
+    background-image: url("images/radio.png");/* 
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/radio.png', sizingMethod='scale'); */
 
     border-radius: 50%;
     -webkit-border-radius: 50%;
@@ -2280,11 +2287,11 @@ input.ui-readonly, .ui-splbtn.ui-readonly button.btn, .ui-dropbtn.ui-readonly a,
 .ui-chk label, .ui-rdo label{
     padding-left: 3px;
     position: relative;
-}
+}/* 
 .ui-rdo.ui-readonly *, .ui-chk.ui-readonly * {
     opacity: 0.6;
     filter: alpha(opacity=60);
-}
+} */
 
 /** RadioButton样式--结束*/
 
@@ -2295,8 +2302,8 @@ input.ui-readonly, .ui-splbtn.ui-readonly button.btn, .ui-dropbtn.ui-readonly a,
     width: 1.486em;
     background-image: url(images/checkbox0.PNG);
     background-repeat: no-repeat;
-    background-size: cover;
-    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/checkbox0.PNG', sizingMethod='scale');
+    background-size: cover;/* 
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/checkbox0.PNG', sizingMethod='scale'); */
 }
 
 .ui-chk .chk {
@@ -2311,8 +2318,8 @@ input.ui-readonly, .ui-splbtn.ui-readonly button.btn, .ui-dropbtn.ui-readonly a,
     border-radius: 3px;
 }
 .ui-chk .chk.checked, .ui-lv .chk.checked {
-    background-image: url(images/checkbox1.PNG);
-    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/checkbox1.PNG', sizingMethod='scale');
+    background-image: url(images/checkbox1.PNG);/* 
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/checkbox1.PNG', sizingMethod='scale'); */
 }
 
 .ui-chk {
@@ -2527,9 +2534,11 @@ input.ui-readonly, .ui-splbtn.ui-readonly button.btn, .ui-dropbtn.ui-readonly a,
 }
 
 .tbr-ul .tbr-btn:hover,
-.tbr-ul .sp-btn:hover .tbr-btn {
+.tbr-ul .sp-btn:hover .tbr-btn,
+.tbr-dpvw li.tbr-item:hover {
     background: #c7e0f4;
 }
+
 .ui-tbr .dpd-btn.tbr-item.show ul, .tbr-ul .sp-btn.tbr-item.show ul {
     display: block;
     position: fixed;
@@ -2624,6 +2633,7 @@ input.ui-readonly, .ui-splbtn.ui-readonly button.btn, .ui-dropbtn.ui-readonly a,
     overflow-y: auto;
     z-index: 100;
     background-color: #fff;
+    border: 1px solid #dadada;
 }
 
 .tbr-dpvw.show {
@@ -2635,7 +2645,6 @@ input.ui-readonly, .ui-splbtn.ui-readonly button.btn, .ui-dropbtn.ui-readonly a,
     width: inherit;
     height: inherit;
     max-height: 300px;
-    border: 1px solid #ccc;
     background: none;
 }
 
@@ -3264,6 +3273,8 @@ img{ display:block;}
 
 .ui-dlg.dialog {
     -webkit-user-select: none;
+    max-width: 98%;
+    max-height: 98%;
 }
 
 .dialog.warn .dialog-content-inner {
@@ -3639,7 +3650,7 @@ img{ display:block;}
 
 }
 .liwrap{
-    height: 315px;
+    height: 260px;
 }
 .liwrap.reload{
     height: 270px;
@@ -3704,13 +3715,14 @@ span.nowitem{
 }
 .chainmean .sure,.chainmean .reset,.chainmean .removeall{
     display:inline-block;
-    width: 10%;
+   /*  width: 10%; */
     height: 25px;
+    padding: 0 5px;
     border: 1px solid #dadada;
     line-height: 25px;
-    /* border-radius: 3px;
+    border-radius: 3px;
     -webkit-border-radius: 3px;
-    -moz-border-radius: 3px; */
+    -moz-border-radius: 3px;
     text-align: center;
     float: right;
     margin-right: 10px;

@@ -24,9 +24,13 @@
 				<map name="Email">
 					<property name="Name">邮件</property>
 					<property name="ClassePath">com.bokesoft.oa.mid.message.extand.Email</property>
-					<!-- 邮件模板路径 -->
-					<property name="TemplatePath">../cms/site/static/email</property>
 					<property name="IsSaveMessage">false</property>
+					<!-- 邮件模板路径 -->
+					<property name="TemplatePath">OA/i18n/email</property>
+					<!-- 邮件模板未找到对应国籍，默认国籍 -->
+					<property name="Nativeplace">zh-CN</property>
+					<!-- 发送邮件时是否根据人员对应的Email作为发送地址 -->
+					<property name="SendByEmployeeEmail">false</property>
 				</map>
 				<map name="SysMessage">
 					<property name="Name">系统信息</property>

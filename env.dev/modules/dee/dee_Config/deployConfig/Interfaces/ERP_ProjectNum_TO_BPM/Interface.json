@@ -1,0 +1,10 @@
+{
+  "id": "8a9f5a005dc01bb7015dc0e1404200b6",
+  "startIndex": "",
+  "text": "ERP_ProjectNum_TO_BPM",
+  "autoRun": "true",
+  "description": "实时查询ERP系统项目信息",
+  "responseTime": "600000",
+  "changePort": "",
+  "oldPort": ""
+}

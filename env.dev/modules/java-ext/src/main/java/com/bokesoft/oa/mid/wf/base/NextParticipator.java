@@ -134,6 +134,30 @@ public class NextParticipator extends HeadBase {
 	}
 
 	/**
+	 * 操作员ID
+	 */
+	private Long operatorID;
+
+	/**
+	 * 操作员ID
+	 * 
+	 * @return 操作员ID
+	 */
+	public Long getOperatorID() {
+		return operatorID;
+	}
+
+	/**
+	 * 操作员ID
+	 * 
+	 * @param operatorID
+	 *            操作员ID
+	 */
+	public void setOperatorID(Long operatorID) {
+		this.operatorID = operatorID;
+	}
+
+	/**
 	 * 操作员
 	 */
 	private Operator operator;
@@ -142,8 +166,14 @@ public class NextParticipator extends HeadBase {
 	 * 操作员
 	 * 
 	 * @return 操作员
+	 * @throws Throwable
 	 */
-	public Operator getOperator() {
+	public Operator getOperator() throws Throwable {
+		if (operator == null) {
+			if (operatorID > 0) {
+				operator = getContext().getOperatorMap().get(operatorID);
+			}
+		}
 		return operator;
 	}
 
@@ -155,6 +185,31 @@ public class NextParticipator extends HeadBase {
 	 */
 	public void setOperator(Operator operator) {
 		this.operator = operator;
+		setOperatorID(operator.getOID());
+	}
+
+	/**
+	 * 参与者ID
+	 */
+	private Long participatorID;
+
+	/**
+	 * 参与者ID
+	 * 
+	 * @return 参与者ID
+	 */
+	public Long getParticipatorID() {
+		return participatorID;
+	}
+
+	/**
+	 * 参与者ID
+	 * 
+	 * @param participatorID
+	 *            参与者ID
+	 */
+	public void setParticipatorID(Long participatorID) {
+		this.participatorID = participatorID;
 	}
 
 	/**
@@ -166,8 +221,14 @@ public class NextParticipator extends HeadBase {
 	 * 参与者
 	 * 
 	 * @return 参与者
+	 * @throws Throwable
 	 */
-	public Operator getParticipator() {
+	public Operator getParticipator() throws Throwable {
+		if (participator == null) {
+			if (participatorID > 0) {
+				participator = getContext().getOperatorMap().get(participatorID);
+			}
+		}
 		return participator;
 	}
 
@@ -200,12 +261,8 @@ public class NextParticipator extends HeadBase {
 	 */
 	public void loadData(DataTable dt) throws Throwable {
 		super.loadData(dt);
-		Long oid = dt.getLong("OperatorID");
-		Operator operator = getContext().getOperatorMap().get(oid);
-		setOperator(operator);
-		oid = dt.getLong("ParticipatorID");
-		operator = getContext().getOperatorMap().get(oid);
-		setParticipator(operator);
+		setOperatorID(dt.getLong("OperatorID"));
+		setParticipatorID(dt.getLong("ParticipatorID"));
 		setWorkflowBillKey(dt.getString("WorkflowBillKey"));
 		setWorkflowOID(dt.getLong("WorkflowOID"));
 		setWorkflowKey(dt.getString("WorkflowKey"));
@@ -218,7 +275,7 @@ public class NextParticipator extends HeadBase {
 	 * @return 下一步参与者选择的Key
 	 */
 	public String getSelectKey() {
-		return getSelectKey(getWorkflowBillKey(), getWorkflowOID(), getWorkflowKey(), getNode());
+		return getSelectKey(getWorkflowBillKey(), getWorkflowOID(), getWorkflowKey(), getWorkitemID());
 	}
 
 	/**
@@ -234,7 +291,7 @@ public class NextParticipator extends HeadBase {
 	 *            流程节点
 	 * @return 操作员选择的Key
 	 */
-	public static String getSelectKey(String workflowBillKey, Long workflowOID, String workflowKey, String nodeId) {
+	public static String getSelectKey(String workflowBillKey, Long workflowOID, String workflowKey, Long workitemID) {
 		StringBuffer sb = new StringBuffer();
 		sb.append(workflowBillKey);
 		sb.append(":");
@@ -242,7 +299,7 @@ public class NextParticipator extends HeadBase {
 		sb.append(":");
 		sb.append(workflowKey);
 		sb.append(":");
-		sb.append(nodeId);
+		sb.append(workitemID);
 		String key = sb.toString();
 		return key;
 	}
@@ -260,7 +317,7 @@ public class NextParticipator extends HeadBase {
 	 *            流程节点
 	 * @return 下一步参与者选择的Sql查询条件
 	 */
-	public static String getSqlWhere(String workflowBillKey, Long workflowOID, String workflowKey, String nodeId) {
+	public static String getSqlWhere(String workflowBillKey, Long workflowOID, String workflowKey, Long workitemID) {
 		StringBuffer sb = new StringBuffer();
 		if (!StringUtil.isBlankOrNull(workflowBillKey)) {
 			sb.append(" and WorkflowBillKey='");
@@ -276,11 +333,9 @@ public class NextParticipator extends HeadBase {
 			sb.append(workflowKey);
 			sb.append("'");
 		}
-
-		if (!StringUtil.isBlankOrNull(nodeId)) {
-			sb.append(" and NodeId='");
-			sb.append(nodeId);
-			sb.append("'");
+		if (workitemID > 0) {
+			sb.append(" and WorkitemID=");
+			sb.append(workitemID);
 		}
 		String key = sb.toString();
 		if (!StringUtil.isBlankOrNull(key)) {
@@ -293,8 +348,13 @@ public class NextParticipator extends HeadBase {
 	 * 重载
 	 */
 	public String toString() {
-		return super.toString() + "，操作员：" + getOperator() + "，操作员：" + getParticipator() + "，流程单据Key："
-				+ getWorkflowBillKey() + "，流程单据ID：" + getWorkflowOID() + "，流程Key：" + getWorkflowKey() + ",流程节点："
-				+ getNode();
+		String str = "";
+		try {
+			str = "，操作员：" + getOperator() + "，参与者：" + getParticipator();
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+		return super.toString() + str + "，流程单据Key：" + getWorkflowBillKey() + "，流程单据ID：" + getWorkflowOID() + "，流程Key："
+				+ getWorkflowKey() + ",流程节点：" + getNode();
 	}
 }

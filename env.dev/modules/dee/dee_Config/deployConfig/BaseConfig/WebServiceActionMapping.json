@@ -1,0 +1,26 @@
+[
+  {
+    "interfaces": "8aaae0cb5de3590f015de4770fc10136",
+    "description": "",
+    "key": "ERP_PO_TO_BPM",
+    "services": "8aaae0cb5de3590f015de4770fe60137"
+  },
+  {
+    "interfaces": "8aaae0cb5dea4e0e015dea5873460006",
+    "description": "",
+    "key": "ERP_PR_TO_BPM",
+    "services": "8aaae0cb5dea4e0e015dea58736d0007"
+  },
+  {
+    "interfaces": "818188ba5e267c37015e26b85ca8000e",
+    "description": "",
+    "key": "CreatePoTask",
+    "services": "818188ba5e267c37015e26b85d2a000f"
+  },
+  {
+    "interfaces": "818188ba5e267c37015e26b99a1e0010",
+    "description": "",
+    "key": "CreatePrTask",
+    "services": "818188ba5e267c37015e26b99a780011"
+  }
+]

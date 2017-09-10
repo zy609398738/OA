@@ -5,7 +5,7 @@
 */
 /*新建流程表单*/
 .tabberlive{
-	background: #f5f5f5;
+	background: linear-gradient(to bottom, #f0fafd, #f6fbf5);
 }
 .group-tsl_all_workflow ul.tabbernav{
 	height: 50px;
@@ -41,8 +41,30 @@
     position: relative;
     border: 1px solid #5f95d9;
 }
-.nav{padding: 5px 30px 0px 110px;color:#999999;font-size: 14px; background: #f5f5f5; position: relative;    margin-right: 15px;}
-.nav .nav_t{ display: inline-block;padding: 5px;line-height: 30px; position: absolute;left:30px;}
+.nav{
+	padding: 5px 30px 0px 110px;
+	color:#999999;
+	font-size: 14px; 
+	background: linear-gradient(to bottom, #f0fafd, #f6fbf5); 
+	position: relative;    
+	margin-right: 15px;
+}
+
+.nav .nav_nmt{
+    position: absolute;
+    left: 35px;
+    top: -35px;
+	width: 70px;
+	word-wrap: break-word;
+}
+
+.nav .nav_t{ 
+	display: inline-block;
+	padding: 5px;
+	line-height: 30px; 
+	position: absolute;
+	left:30px;
+}
 .nav ul{
 	border:1px solid #d2d2d2;
 	width: 100%;
@@ -87,7 +109,8 @@
 .main-content{
 	padding: 10px 30px;
 	position: relative;
-	background: #f5f5f5;
+	background: linear-gradient(to bottom, #f0fafd, #f6fbf5);
+	z-index:999
 }
 .main-content ul{
 	background: #fff;
@@ -189,7 +212,7 @@
 	font-size: 14px;
 }
 
-.haschild{
+.haschild .querybillname{
 	color:#5f95d9!important;
 }
 .haschild .items-txt{
@@ -199,17 +222,23 @@
 .haschild .items-child{
 	font-size: 14px;
 	top:40px;
-	left:-200px;
+	left:-250px;
     border: 1px solid #e0eaff;
     background-color: rgb(239, 244, 255);
     -moz-border-radius:5px;
 	-webkit-border-radius:5px;
 	border-radius:5px;
 	z-index: 999;
-	min-width: 360px;
+	min-width: 400px;
+	max-height:100px;
 	position: absolute;
 	padding: 10px 15px 10px 30px;
 	display: none;
+}
+.haschild .items-child ul{
+	background:transparent;
+	max-height:250px;
+	overflow-y:auto;
 }
 .haschild .items-child .title{
 	text-align: left;
@@ -289,7 +318,7 @@ button.min-btn:hover{
 	display: none;
 }
 .haschild.actived .items-child{
-	display:inline-block;
+	display:table;
 }
 .items-txt .addBtn,
 .items-txt.haschild.actived .addBtn{
@@ -299,10 +328,4 @@ button.min-btn:hover{
 .items-txt.actived .addBtn,
 .items-txt.haschild.actived .actived .addBtn{
 	color:#4f8bf9;
-}
-
-.nav_nmt{
-    position: absolute;
-    left: 35px;
-    top: -35px;
 }

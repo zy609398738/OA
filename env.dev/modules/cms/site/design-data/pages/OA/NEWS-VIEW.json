@@ -29,6 +29,30 @@
 		},
 		{
 			"@type":"com.bokesoft.cms2.impl.buildin.modelio.vo.PageVO$DeliveryVO",
+			"areaCode":"attachment",
+			"blockCode":"YIGO.ATTACHMENT",
+			"groupName":"",
+			"name":"附件",
+			"options":[
+				"Raw"
+			],
+			"parameters":{"@type":"java.util.HashMap"},
+			"sequence":"3"
+		},
+		{
+			"@type":"com.bokesoft.cms2.impl.buildin.modelio.vo.PageVO$DeliveryVO",
+			"areaCode":"NewsPageTurn",
+			"blockCode":"YIGO.NEWSPAGETURN",
+			"groupName":"",
+			"name":"新闻翻页",
+			"options":[
+				"Raw"
+			],
+			"parameters":{"@type":"java.util.HashMap"},
+			"sequence":"4"
+		},
+		{
+			"@type":"com.bokesoft.cms2.impl.buildin.modelio.vo.PageVO$DeliveryVO",
 			"areaCode":"Comment",
 			"blockCode":"YIGO.COMMENT",
 			"groupName":"",
@@ -37,11 +61,17 @@
 				"Raw"
 			],
 			"parameters":{"@type":"java.util.HashMap"},
-			"sequence":"3"
+			"sequence":"5"
 		}
 	],
 	"enabled":true,
 	"groups":[
+		{
+			"groupName":""
+		},
+		{
+			"groupName":""
+		},
 		{
 			"groupName":""
 		},

@@ -1,6 +1,7 @@
 package com.bokesoft.tsl.formula;
 
 import com.bokesoft.yigo.mid.base.DefaultContext;
+import com.bokesoft.yigo.struct.datatable.DataTable;
 
 public interface PaymentInfo {
 
@@ -22,21 +23,21 @@ public interface PaymentInfo {
 
 	public String getActualPayAmountUSDField();
 
-	public String getCurrencyCodeField();
+	public long getCurrencyCodeField(DataTable dataTable);
 
-	public String getBankNameField();
+	public String getBankNameField(DataTable dataTable);
 
 	public String getBANKACCOUNTNAMEField();
 
-	public String getBANKACCOUNTNUMField();
+	public String getBANKACCOUNTNUMField(DataTable dataTable);
 
-	public String getPEXTBANKACCIDField();
+	public String getPEXTBANKACCIDField(DataTable dataTable);
 
-	public String getCODE1688Field();
+	public String getCODE1688Field(DataTable dataTable);
 
-	public String getVendorBranchICOField();
+	public long getBUField(DataTable dataTable);
 
-	public String getBANKACCOUNTIDField();
-	
-	public  String getCashItemCodeField();
+	public String getBANKACCOUNTIDField(DataTable dataTable);
+
+	public String getCashItemCodeField();
 }

@@ -1,0 +1,11 @@
+[
+  {
+    "recordMpLog": "true",
+    "text": "ERP_PO1_TO_BPM",
+    "parentId": "8aaae0cb5de3590f015de4770fc10136",
+    "id": "8aaae0cb5de3590f015de4770fe60137",
+    "description": "导入PO数据至YIGO系统",
+    "fileImport": "false",
+    "enable": "true"
+  }
+]

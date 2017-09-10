@@ -4,16 +4,15 @@
         <Block>
             <FlexFlowLayoutPanel Key="root" Caption="根面板">
                 <GridLayoutPanel Key="GridLayoutPanel1" Height="pref" Caption="GridLayoutPanel1">
-                    <Dict Key="Endorse" Caption="加签人员" BuddyKey="Lab_Endorse" X="1" Y="0" ItemKey="Operator" XSpan="3"/>
+                    <Dict Key="Endorse" Caption="加签人员" BuddyKey="Lab_Endorse" X="1" Y="0" ItemKey="Operator"/>
                     <Label Key="Lab_Endorse" Caption="加签人员" X="0" Y="0"/>
                     <RowDefCollection RowGap="5">
+                        <RowDef Height="30px"/>
                         <RowDef Height="30px"/>
                     </RowDefCollection>
                     <ColumnDefCollection ColumnGap="5">
                         <ColumnDef Width="100px"/>
-                        <ColumnDef Width="50%"/>
-                        <ColumnDef Width="100px"/>
-                        <ColumnDef Width="50%"/>
+                        <ColumnDef Width="100%"/>
                     </ColumnDefCollection>
                 </GridLayoutPanel>
                 <GridLayoutPanel Key="CommonUsePanel" Height="pref" Padding="5px" aption="CommonUsePanel" Visible="InvokeService(&quot;OA_GetWorkflowDesigneValue&quot;, false, false,Para(&quot;pWorkitemID&quot;),Para(&quot;workflowBillKey&quot;),Para(&quot;WorkflowTypeDtlID&quot;),&quot;CommonOpinion&quot;)==1">
@@ -48,27 +47,28 @@
                         <ColumnDef Width="100px"/>
                     </ColumnDefCollection>
                 </GridLayoutPanel>
-                <GridLayoutPanel Caption="GridLayoutPanel0" Key="GridLayoutPanel0" Padding="5px" Height="pref">
-                    <TextArea Caption="处理意见" Enable="True" HAlign="Left" Key="Opinion" X="1" XSpan="4" Y="0" MaxLength="4000"/>
+                <GridLayoutPanel Caption="GridLayoutPanel0" Key="GridLayoutPanel0" Padding="5px" Height="pref" Visible="false">
+                    <TextArea Caption="处理意见" Enable="True" HAlign="Left" Key="Opinion" X="1" Y="0" MaxLength="4000"/>
                     <Label Caption="处理意见" Key="T_Opinion" X="0" Y="0"/>
                     <RowDefCollection RowGap="4">
                         <RowDef Height="90px"/>
                     </RowDefCollection>
                     <ColumnDefCollection ColumnGap="4">
                         <ColumnDef Width="100px"/>
-                        <ColumnDef Width="100px"/>
-                        <ColumnDef Width="100px"/>
-                        <ColumnDef Width="80px"/>
-                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="100%"/>
                     </ColumnDefCollection>
                 </GridLayoutPanel>
                 <GridLayoutPanel Key="GridLayoutPanel2" Height="pref" Caption="GridLayoutPanel2">
                     <Button Caption="加签" Enable="True" Key="APPROVE" ShowText="false" X="1" Y="0">
                         <OnClick>
-                            <![CDATA[var x = Para("pWorkitemID");
-parent.EndorseTask(x,Endorse,GetValue("Opinion"));
-Close();
-parent.Confirm("加签成功");]]>
+                            <![CDATA[UICheck();
+var x = Para("pWorkitemID");
+if(IsNull(Para("auditOpinion"))){
+    parent.EndorseTask(x,Endorse,"");
+}else{
+parent.EndorseTask(x,Endorse,Para("auditOpinion"));
+}Close();
+parent.Confirm("加签成功","OK","OK:{OA_AuditAfterClose("+Para("pWorkitemID")+",'"+Para("workflowBillKey")+"',"+Para("WorkflowTypeDtlID")+")}");]]>
                         </OnClick>
                     </Button>
                     <Button Caption="取消" Enable="True" Key="cancel" X="2" Y="0">

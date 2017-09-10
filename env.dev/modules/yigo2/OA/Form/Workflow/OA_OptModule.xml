@@ -41,6 +41,7 @@
                     <Column Key="ISDefaultAdd" Caption="是否默认添加在操作选择中" DataType="Integer"/>
                     <Column Key="OrderNum" Caption="显示顺序" DataType="Integer"/>
                     <Column Key="EmailTemp" Caption="邮件模板" DataType="Varchar"/>
+                    <Column Key="SendFormula" Caption="发送条件" DataType="Varchar"/>
                 </Table>
             </TableCollection>
         </DataObject>
@@ -90,7 +91,7 @@ SetValue("UserVisible", OptVisible);
                             <DataBinding ColumnKey="SendType" TableKey="OA_OptModule_H"/>
                         </Dict>
                         <Label Key="Lab_SendType" Caption="发送方式" X="0" Y="2"/>
-                        <CheckBox Caption="是否默认添加在操作选择中" Key="ISDefaultAdd" X="4" Y="3">
+                        <CheckBox Caption="是否默认添加在操作选择中" Key="ISDefaultAdd" X="1" Y="4">
                             <DataBinding ColumnKey="ISDefaultAdd" TableKey="OA_OptModule_H"/>
                         </CheckBox>
                         <NumberEditor Key="OrderNum" Caption="显示顺序" BuddyKey="Lab_OrderNum" X="1" Y="3" IntegerValue="true">
@@ -100,11 +101,16 @@ SetValue("UserVisible", OptVisible);
                         <ComboBox Key="EmailTemp" Caption="邮件模板" BuddyKey="Lab_EmailTemp" X="4" Y="2" SourceType="Formula">
                             <DataBinding ColumnKey="EmailTemp" TableKey="OA_OptModule_H"/>
                             <FormulaItems>
-                                <![CDATA[InvokeService("OA_GetFileNameStr", false, true, "../cms/site/static/email")]]>
+                                <![CDATA[OA_GetEmailTemplateStr();]]>
                             </FormulaItems>
                         </ComboBox>
                         <Label Key="Lab_EmailTemp" Caption="邮件模板" X="3" Y="2"/>
+                        <TextEditor Key="SendFormula" Caption="发送条件" BuddyKey="Lab_SendFormula" X="4" Y="3">
+                            <DataBinding ColumnKey="SendFormula" TableKey="OA_OptModule_H"/>
+                        </TextEditor>
+                        <Label Key="Lab_SendFormula" Caption="发送条件" X="3" Y="3"/>
                         <RowDefCollection RowGap="4">
+                            <RowDef Height="30px"/>
                             <RowDef Height="30px"/>
                             <RowDef Height="30px"/>
                             <RowDef Height="30px"/>
@@ -257,13 +263,14 @@ IIF(GetPara("OperatorSelID")>0,
             <![CDATA[DBQueryValue("Select OID From OA_OperatorSel_H Where SourceKey=? and SourceID=? and Tag1=?", BillKey,OID,OID);]]>
         </Macro>
         <Macro Key="OA_SetOperationByKey" Args="codeReplace">
-            <![CDATA[var a = InvokeService("OA_SetOperationByKey",true,false,"OA_OptTemplate",OptTemplateRelevance,codeReplace);
+            <![CDATA[if(OptTemplateRelevance!=""){
+var a = InvokeService("OA_SetOperationByKey",true,false,"OA_OptTemplate",OptTemplateRelevance,codeReplace);
 SetValue("Code",a.Code);
 SetValue("Name",a.Name);
 SetValue("OptIcon",a.OptIcon);
 SetValue("Action",a.Action);
 SetValue("OptVisible",a.OptVisible);
-SetValue("OptEnable",a.OptEnable);]]>
+SetValue("OptEnable",a.OptEnable);}]]>
         </Macro>
     </MacroCollection>
 </Form>

@@ -46,7 +46,7 @@
 			YIUI.LoadingUtil.hide();
             msg = msg.replace("Uncaught Error:", "");
             var dialog = $("<div></div>").attr("id", "error_dialog");
-            dialog.modalDialog(msg, {title: "错误", showClose: true, type: "error", height: 200, width: 400});
+            dialog.modalDialog(msg, {title: YIUI.I18N.title.error, showClose: true, type: "error", height: 200, width: 400});
         };
 
         window.openEntry = function(node) {

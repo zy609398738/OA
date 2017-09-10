@@ -16,37 +16,41 @@ public class TSL_InsertInvoiceHeader extends BaseMidFunctionImpl {
 
 	@Override
 	public Object evalImpl(String name, DefaultContext context, Object[] args, IExecutor arg3) throws Throwable {
-		String dataObjectKey = TypeConvertor.toString(args[0]);
-		CostInfo info = TSLInfoFactory.CreateInfo(context, dataObjectKey);
-		//paymenttype
-		String paymenttype = info.getPaymentTypeField(TypeConvertor.toLong(args[1]));
-		// 会计工号
-		String FinUploadEmpNumber = TypeConvertor.toString(args[2]);
 		Document document = context.getDocument();
-		DataTable headTable = document.get(info.getHeadTable());
+		DataTable headTable = document.get("B_CostApply");
+		String SQL = "select distinct CEDetail_PaymentType from B_CostApplyCE WHERE SOID = ?";
+		DataTable dt = context.getDBManager().execPrepareQuery(SQL, document.getOID());
+		// paymenttype
+		String paymenttype = null;
+		if (dt.size() > 0) {
+			// 获取SQL查询值赋给变量
+			paymenttype = dt.getString(0, 0);
+		}
 		// PaymentType为空则为TaskID 任务号；PaymentType不为空，TaskID+“_”+PaymentType
 		String InvoiceNumber = null;
 		if (paymenttype == null) {
-			InvoiceNumber = headTable.getObject(info.getOIDField()).toString();
+			InvoiceNumber = headTable.getObject("InstanceID").toString();
 		} else if (paymenttype.equalsIgnoreCase("PersonalPayment")) {
-			InvoiceNumber = headTable.getObject(info.getOIDField()) + "_P";
+			InvoiceNumber = headTable.getObject("InstanceID") + "_P";
 		} else if (paymenttype.equalsIgnoreCase("CompanyPayment")) {
-			InvoiceNumber = headTable.getObject(info.getOIDField()) + "_C";
+			InvoiceNumber = headTable.getObject("InstanceID") + "_C";
 		}
+		// 会计工号
+		String FinUploadEmpNumber = TypeConvertor.toString(args[0]);
 		// OperationUnitCode承担业务实体Code
-		String OrgId = headTable.getObject(info.getOUCodeField()).toString();
+		String OrgId = headTable.getObject("OU_Code").toString();
 		// 默认固定值“STANDARD”
-		String InvoiceTypeLookupCode = TypeConvertor.toString(args[3]);
+		String InvoiceTypeLookupCode = TypeConvertor.toString(args[1]);
 		// SettlementCurrency 结算币种
 		String InvoiceCurrencyCode = DictCacheUtil
-				.getDictValue(context.getVE(), "Dict_Currency", headTable.getLong(info.getSettlementCurrencyField()), "Code")
+				.getDictValue(context.getVE(), "Dict_Currency", headTable.getLong("SettlementCurrency"), "Code")
 				.toString();
 		// ApprovedAmount 财务核准金额
-		String InvoiceAmount = headTable.getObject(info.getFOAAmountField()).toString();
+		String InvoiceAmount = headTable.getObject("ReimAmount2").toString();
 		// ApplicantName申请人姓名
-		String EmployeeName = headTable.getObject(info.getApplicantNameField()).toString();
+		String EmployeeName = headTable.getObject("ApplicantName").toString();
 		// ApplicantHrid申请人工号
-		String EmployeeNumber = headTable.getObject(info.getApplicantCodeField()).toString();
+		String EmployeeNumber = headTable.getObject("ApplicantCode").toString();
 		// PaymentType为空或为个人支付时默认为“OFFICE”； PaymentType为公司支付时默认为“HOME”
 		String VendorSiteCode = null;
 		if (paymenttype == null || paymenttype.equalsIgnoreCase("PersonalPayment")) {
@@ -55,19 +59,19 @@ public class TSL_InsertInvoiceHeader extends BaseMidFunctionImpl {
 			VendorSiteCode = "HOME";
 		}
 		// 默认固定值“FYBX”
-		String Source = TypeConvertor.toString(args[4]);
+		String Source = TypeConvertor.toString(args[2]);
 		// ApplicantName+'-'+ApplicantHrid+'-'+ TaskID 申请人姓名+“_”+申请人工号+“_”+任务号
-		String Description = EmployeeName + "-" + EmployeeNumber + "-" + headTable.getObject(info.getOIDField());
+		String Description = EmployeeName + "-" + EmployeeNumber + "-" + headTable.getObject("OID");
 		// 默认固定值“FYBX”
-		String Attribute15 = TypeConvertor.toString(args[5]);
+		String Attribute15 = TypeConvertor.toString(args[3]);
 		// 默认固定值“期初汇率”
-		String ExchangeRateType = TypeConvertor.toString(args[6]);
+		String ExchangeRateType = TypeConvertor.toString(args[4]);
 		// 默认固定值“NEW”
-		String ImportStatus = TypeConvertor.toString(args[7]);
+		String ImportStatus = TypeConvertor.toString(args[5]);
 		// BU字段
-		String BU = TypeConvertor.toString(headTable.getObject(info.getBUField()));
+		String BU = TypeConvertor.toString(headTable.getObject("BU"));
 		// 默认固定值“1291”
-		String CF = TypeConvertor.toString(args[8]);
+		String CF = TypeConvertor.toString(args[6]);
 		// 接口调用
 		TSL_BokeDeeFactory factory = new TSL_BokeDeeFactory();
 		HashMap<String, String> paramenter = factory.getParameter();

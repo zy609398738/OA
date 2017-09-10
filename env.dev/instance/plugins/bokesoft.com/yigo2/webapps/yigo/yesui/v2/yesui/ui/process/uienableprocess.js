@@ -17,7 +17,7 @@ var YIUI = YIUI || {};
             var items = this.enableTree.items;
             for( var i = 0,exp,com;exp = items[i];i++ ) {
                 com = this.form.getComponent(exp.source);
-                if( !com || com.isSubDetail || exp.type == this.EnableItemType.Operation )
+                if( !com || exp.type == this.EnableItemType.Operation )
                     continue;
 
                 this.calcExprItemObject(com,exp,false);
@@ -92,7 +92,6 @@ var YIUI = YIUI || {};
         calcGrid: function (grid,item,calcSubDetails) {
             var context = this.newContext(this.form,-1,-1);
             this.calcGridRows(context,grid,item,calcSubDetails);
-            grid.refreshSelectEnable();
         },
 
         calcGridRows:function (context,grid,item,calcSubDetails) {

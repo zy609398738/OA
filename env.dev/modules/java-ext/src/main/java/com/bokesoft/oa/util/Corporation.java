@@ -18,8 +18,9 @@ public class Corporation {
 	 * @throws Throwable
 	 */
 	public static String getCorpIDFilter(DefaultContext context) throws Throwable {
-		//String _corpIdFilter = " (ClusterID=" + context.getEnv().getClusterid() + " Or ClusterID=-1) ";
-		//Yigo2.0里面暂时还没有账套概念，先不做处理
+		// String _corpIdFilter = " (ClusterID=" +
+		// context.getEnv().getClusterid() + " Or ClusterID=-1) ";
+		// Yigo2.0里面暂时还没有账套概念，先不做处理
 		String _corpIdFilter = "1=1";
 		return _corpIdFilter;
 	}

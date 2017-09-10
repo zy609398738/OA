@@ -1,0 +1,11 @@
+[
+  {
+    "parentId": "8aaae0bb5dcae2ce015dcaf067690009",
+    "text": "ERP_CheckPayment_TO_BPM",
+    "recordMpLog": "false",
+    "id": "8aaae0bb5dcae2ce015dcaf06789000a",
+    "description": "实时查询ERP系统是否存在付款信息信息",
+    "fileImport": "false",
+    "enable": "true"
+  }
+]

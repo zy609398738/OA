@@ -97,9 +97,9 @@ public class BusinessSourceDtlMap extends DtlBaseMap<Long, BusinessSourceDtl, Bu
 			BusinessSourceDtl obj = new BusinessSourceDtl(getContext(), getHeadBase());
 			obj.loadData(dt);
 			put(obj.getOID(), obj);
-			String fieldKey=obj.getFieldKey();
+			String fieldKey = obj.getFieldKey();
 			businessSourceDtlMap.put(fieldKey, obj);
-			if(fieldKey.equalsIgnoreCase("oid")){
+			if (fieldKey.equalsIgnoreCase("oid")) {
 				setOidFieldKey(fieldKey);
 			}
 		}
@@ -126,7 +126,7 @@ public class BusinessSourceDtlMap extends DtlBaseMap<Long, BusinessSourceDtl, Bu
 				obj.loadData(headDt);
 				super.put(obj.getOID(), obj);
 				businessSourceDtlMap.put(fieldKey, obj);
-				if(fieldKey.equalsIgnoreCase("oid")){
+				if (fieldKey.equalsIgnoreCase("oid")) {
 					setOidFieldKey(fieldKey);
 				}
 			}

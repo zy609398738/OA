@@ -207,7 +207,6 @@ public class Operation extends DicBase {
 		setMessageSetID(messageSet.getOID());
 	}
 
-
 	/**
 	 * 邮件模板
 	 */
@@ -231,7 +230,31 @@ public class Operation extends DicBase {
 	public void setEmailTemp(String emailTemp) {
 		this.emailTemp = emailTemp;
 	}
-	
+
+	/**
+	 * 发送条件
+	 */
+	private String sendFormula;
+
+	/**
+	 * 发送条件
+	 * 
+	 * @return 发送条件
+	 */
+	public String getSendFormula() {
+		return sendFormula;
+	}
+
+	/**
+	 * 发送条件
+	 * 
+	 * @param sendFormula
+	 *            发送条件
+	 */
+	public void setSendFormula(String sendFormula) {
+		this.sendFormula = sendFormula;
+	}
+
 	/**
 	 * 载入数据
 	 * 
@@ -249,6 +272,7 @@ public class Operation extends DicBase {
 		setUserTemplateKey(TypeConvertor.toString(dt.getString("UserTemplateKey")));
 		setMessageSetID(dt.getLong("SendType"));
 		setEmailTemp(dt.getString("EmailTemp"));
+		setSendFormula(dt.getString("SendFormula"));
 	}
 
 	/**

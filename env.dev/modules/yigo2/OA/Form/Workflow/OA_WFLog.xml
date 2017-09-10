@@ -13,28 +13,30 @@
                     <Column Caption="审批结果" DBColumnName="auditResult" DataType="Integer" Key="auditResult"/>
                     <Column Key="E_Signature" Caption="电子签名" DataType="Varchar" DBColumnName="E_Signature"/>
                     <Column Key="Srcoperatorid" Caption="代理人" DataType="Long"/>
-                    <TableFilter>
-                        <![CDATA[instanceID=(select instanceID from BPM_Instance where OID=?)]]>
-                    </TableFilter>
+                    <Column Key="Launchinfo" Caption="加签意见" DataType="Varchar" Length="4000"/>
+                    <Column Key="TransferType" Caption="移交方式" DataType="Integer"/>
+                    <Column Key="InstanceState" Caption="流程状态" DataType="Integer"/>
                     <ParameterCollection>
-                        <Parameter Caption="标识" Formula="Para('pOID')" Key="OID" TargetColumn="workItemID"/>
+                        <Parameter Formula="Para('pOID')" Caption="标识" Key="OID" TargetColumn="workItemID"/>
+                        <Parameter Formula="Para('pOID')" DataType="Long"/>
                     </ParameterCollection>
                     <Statement>
                         <![CDATA[select 
-l.workItemID,l.workItemName,l.creatTime,l.finishTime,
+i.instancestate,l.workItemID,w.workItemName,w.creatTime,w.transfertype,l.finishTime,
 case when l.operatorID=-1 then p.operatorid else l.operatorID end operatorID,l.auditResult,
-l.userInfo ,case when l.auditResult=-1 then '' else E_Signature end E_Signature,case when w.srcoperatorid=-1 then p.srcoperatorid else w.srcoperatorid end  srcoperatorid from BPM_Log l left join wf_participator p on l.workitemid = p.workitemid join wf_workitem w on w.workitemid = l.workitemid where w.transfertype in (-1,1,2,3)]]>
+l.userInfo ,l.launchinfo,case when l.auditResult=-1 then '' else E_Signature end E_Signature,case when w.srcoperatorid=-1 then p.srcoperatorid else w.srcoperatorid end  srcoperatorid from BPM_Log l left join wf_participator p on l.workitemid = p.workitemid join wf_workitem w on w.workitemid = l.workitemid join bpm_instance i on l.instanceid = i.instanceid where l.instanceID=(select instanceID from BPM_Instance where oid =? ) union 
+select 3 instancestate,0 workItemID, name as workItemName,eventtime as creatTime, null transfertype,eventtime as finishTime,soperator as operatorID, 4 auditResult,userinfo as  userInfo, null launchinfo, null E_Signature,null srcoperatorid  from bpm_eventlog e  join bpm_instance bi on e.instanceid = bi.instanceid  where bi.oid =?  order by creatTime desc]]>
                     </Statement>
                 </Table>
             </TableCollection>
             <OIDFilter/>
         </DataObject>
     </DataSource>
-    <Body PopHeight="60%" PopWidth="70%">
+    <Body PopHeight="65%" PopWidth="75%">
         <Block>
             <GridLayoutPanel Key="main">
                 <TabPanel Caption="TabPanel1" Key="TabPanel1" X="0" Y="0">
-                    <Grid Caption="审批记录" Enable="False" Key="detail_grid" PageLoadType="UI" PageRowCount="6">
+                    <Grid Caption="审批记录" Enable="False" Key="detail_grid" PageLoadType="UI" PageRowCount="7">
                         <GridColumnCollection>
                             <GridColumn Key="workItemID" Caption="工作项标识" Width="80px" Visible="false"/>
                             <GridColumn Caption="操作名称" Key="workItemName" Width="79px" ColumnType="Detail" ColumnExpand="false"/>
@@ -42,8 +44,11 @@ l.userInfo ,case when l.auditResult=-1 then '' else E_Signature end E_Signature,
                             <GridColumn Caption="提交时间" Key="finishTime" Width="160px" ColumnType="Detail" ColumnExpand="false"/>
                             <GridColumn Caption="处理人员" Key="operatorID" Width="150px" ColumnType="Detail" ColumnExpand="false"/>
                             <GridColumn Key="Srcoperatorid" Caption="源操作员" Width="150px"/>
+                            <GridColumn Key="TransferType" Caption="移交方式" Width="80px"/>
                             <GridColumn Caption="审批结果" Key="auditResult" Width="65px" ColumnType="Detail" ColumnExpand="false"/>
                             <GridColumn Caption="审批意见" Key="userInfo" Width="200px" ColumnType="Detail" ColumnExpand="false"/>
+                            <GridColumn Key="Launchinfo" Caption="加签意见" Width="200px"/>
+                            <GridColumn Key="InstanceState" Caption="流程状态" Width="80px"/>
                             <GridColumn Key="E_Signature" Caption="电子签名" Width="200px"/>
                             <GridColumn Caption="撤销" ColumnExpand="false" ColumnType="Detail" Enable="true" Key="Rollback" Width="79px"/>
                         </GridColumnCollection>
@@ -67,11 +72,20 @@ l.userInfo ,case when l.auditResult=-1 then '' else E_Signature end E_Signature,
                                 <GridCell Key="Srcoperatorid" Caption="源操作员" CellType="Dict" ItemKey="Operator">
                                     <DataBinding ColumnKey="Srcoperatorid"/>
                                 </GridCell>
+                                <GridCell Key="TransferType" Caption="移交方式" CellType="ComboBox" GroupKey="TransferType" SourceType="ParaGroup">
+                                    <DataBinding ColumnKey="TransferType"/>
+                                </GridCell>
                                 <GridCell Caption="审批结果" Key="auditResult" CellType="ComboBox" GroupKey="AuditResult" SourceType="ParaGroup">
                                     <DataBinding ColumnKey="auditResult"/>
                                 </GridCell>
                                 <GridCell Caption="审批意见" Key="userInfo">
                                     <DataBinding ColumnKey="userInfo"/>
+                                </GridCell>
+                                <GridCell Key="Launchinfo" Caption="加签意见">
+                                    <DataBinding ColumnKey="Launchinfo"/>
+                                </GridCell>
+                                <GridCell Key="InstanceState" Caption="流程状态" CellType="ComboBox" GroupKey="InstanceState" SourceType="ParaGroup">
+                                    <DataBinding ColumnKey="InstanceState"/>
                                 </GridCell>
                                 <GridCell Key="E_Signature" Caption="电子签名" CellType="Image">
                                     <DataBinding ColumnKey="E_Signature"/>

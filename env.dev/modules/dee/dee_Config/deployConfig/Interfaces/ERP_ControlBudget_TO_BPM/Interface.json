@@ -1,0 +1,10 @@
+{
+  "id": "8a9f5aff5c9f2915015ca0153a950057",
+  "startIndex": "",
+  "text": "ERP_ControlBudget_TO_BPM",
+  "autoRun": "true",
+  "description": "冻结预算接口",
+  "responseTime": "600000",
+  "changePort": "",
+  "oldPort": ""
+}

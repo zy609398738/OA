@@ -31,7 +31,7 @@ public class GetFileType implements IExtService {
 	public static String getFileType(DefaultContext context, String name) throws Throwable {
 		int last = name.lastIndexOf('.');
 		String fix = name.substring(last + 1, name.length());
-		fix=fix.toUpperCase();
+		fix = fix.toUpperCase();
 		return fix;
 	}
 }

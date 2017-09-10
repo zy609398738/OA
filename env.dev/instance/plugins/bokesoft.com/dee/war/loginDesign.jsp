@@ -51,6 +51,7 @@ if ('reloadLic' == action) {
 	   <!-- div ><a href="manageService.jsp" id="button-w">登录</a></div-->
 	   <input type="hidden" name="forwardurl" value="<%=request.getParameter("forwardurl")%>" />
 	   <div ><a href="#" id="button-w" onclick="javascript:document.getElementById('form').submit();">登录</a></div>
+	   <a href="license.jsp" target="_blank" style="position: absolute; margin-top:295px; margin-left:460px;color:#666565;font-size:9">证书信息</a>
 	</div>
 	
 	</form>

@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="OA_UnfinishedList" Caption="已发未完成事项" FormType="View">
+    <DataSource>
+        <DataObject Key="OA_UnfinishedList" Caption="已发未完成">
+            <TableCollection>
+                <Table Key="OA_UnfinishedList" Caption="已发未完成" TableMode="Detail" SourceType="Query" Persist="false">
+                    <Column Key="WorkitemID" Caption="工作项标识" DataType="Long" DBColumnName="WorkitemID"/>
+                    <Column Key="OID" Caption="OID" DataType="Long"/>
+                    <Column Key="WorkitemName" Caption="工作项名称" DataType="Varchar" DBColumnName="WorkitemName"/>
+                    <Column Key="creatTime" Caption="单据日期" DataType="DateTime"/>
+                    <Column Key="BillNo" Caption="单据编号" DataType="Varchar" DBColumnName="BillNo"/>
+                    <Column Key="ProcessKey" Caption="流程名称" DataType="Varchar"/>
+                    <Column Key="EmpID" Caption="申请人" DataType="Long"/>
+                    <Column Key="DeptID" Caption="申请部门" DataType="Long"/>
+                    <Column Key="Topic" Caption="主题" DataType="Varchar"/>
+                    <Column Key="BusinessType" Caption="业务类型" DataType="Long"/>
+                    <Column Key="ParentWorkitemID" Caption="父工作项标识" DataType="Long"/>
+                    <Column Key="BillStatus" Caption="状态" DataType="Integer"/>
+                    <Column Key="InstanceState" Caption="InstanceState" DataType="Integer"/>
+                    <Column Key="FormKey" Caption="业务类型" DataType="Varchar" Length="0"/>
+                    <ParameterCollection>
+                        <Parameter DataType="Long" Formula="GetOperator()"/>
+                    </ParameterCollection>
+                    <Statement>
+                        <![CDATA[select * from (
+select i.oid,i.FormKey,i.instancestate,w.WorkitemID,Topic,billno,empid,deptid,BillStatus,i.ProcessKey,W.creatTime  
+from wf_workitem w 
+join bpm_workiteminfo bw on w.WorkitemID=bw.WorkitemID 
+join bpm_instance i on bw.InstanceID=i.InstanceID 
+join BPM_migration m on i.OID=m.BillOID 
+where i.OPERATORID_S=?  and i.instancestate=1 and bw.WorkitemID IN 
+(select max(WorkitemID) from bpm_workiteminfo bpw GROUP BY bpw.InstanceID) 
+order by W.creatTime desc) h]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <Body>
+        <Block>
+            <FlexFlowLayoutPanel Key="main">
+                <GridLayoutPanel Key="GridLayoutPanel1" Height="80px" Padding="5px" Caption="GridLayoutPanel1">
+                    <DatePicker Key="From" Caption="申请日期" BuddyKey="Lab_From" X="1" Y="0">
+                        <Condition ColumnKey="creatTime" TableKey="OA_UnfinishedList" CondSign="between" Group="A" GroupHead="true"/>
+                    </DatePicker>
+                    <Label Key="Lab_From" Caption="申请日期" X="0" Y="0"/>
+                    <Label Key="Label1" Caption="到" X="2" Y="0"/>
+                    <DatePicker Key="To" Caption="到" X="3" Y="0">
+                        <Condition ColumnKey="creatTime" TableKey="OA_UnfinishedList" CondSign="between" Group="A" GroupTail="true"/>
+                    </DatePicker>
+                    <TextEditor Key="QueryTheme" Caption="主题" BuddyKey="Lab_QueryTheme" X="9" Y="0">
+                        <Condition ColumnKey="Topic" TableKey="OA_UnfinishedList" CondSign="like"/>
+                    </TextEditor>
+                    <Label Key="Lab_QueryTheme" Caption="主题" X="8" Y="0"/>
+                    <Button Key="Button1" Caption="查询" X="11" Y="0">
+                        <OnClick>
+                            <![CDATA[DealCondition();
+LoadData();
+ShowData();]]>
+                        </OnClick>
+                    </Button>
+                    <Dict Key="QueryApplicant" Caption="申请人" BuddyKey="Lab_QueryApplicant" X="6" Y="1" ItemKey="OA_Employee">
+                        <Condition ColumnKey="EmpID" TableKey="OA_UnfinishedList" CondSign="="/>
+                    </Dict>
+                    <Label Key="Lab_QueryApplicant" Caption="申请人" X="5" Y="1"/>
+                    <Dict Key="QueryDeptID" Caption="申请部门" BuddyKey="Lab_QueryDeptID" X="6" Y="0" AllowMultiSelection="true" ItemKey="OA_Department">
+                        <Condition ColumnKey="DeptID" TableKey="OA_UnfinishedList" CondSign="="/>
+                    </Dict>
+                    <Label Key="Lab_QueryDeptID" Caption="申请部门" X="5" Y="0"/>
+                    <Button Key="Cancel" Caption="取消" X="11" Y="1">
+                        <OnClick>
+                            <![CDATA[ResetCondition();]]>
+                        </OnClick>
+                    </Button>
+                    <ComboBox Key="QueryStatus" Caption="流程状态" BuddyKey="Lab_QueryStatus" X="9" Y="1" SourceType="ParaGroup" GroupKey="InstanceState">
+                        <Condition ColumnKey="InstanceState" TableKey="OA_UnfinishedList" CondSign="="/>
+                    </ComboBox>
+                    <Label Key="Lab_QueryStatus" Caption="流程状态" X="8" Y="1"/>
+                    <CheckBox Caption="表头可见" Key="first_headVisible" Visible="false" X="11" Y="1">
+                        <DataBinding DefaultValue="1"/>
+                    </CheckBox>
+                    <CheckListBox BuddyKey="Lab_Q_FormKey" Caption="业务类型" Key="Q_FormKey" SourceType="Formula" X="1" XSpan="3" Y="1">
+                        <FormulaItems>
+                            <![CDATA[OA_GetFormCaption(GetOperator(),GetOperator());]]>
+                        </FormulaItems>
+                    </CheckListBox>
+                    <Label Key="Lab_Q_FormKey" Caption="业务类型" X="0" Y="1"/>
+                    <RowDefCollection RowGap="5">
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="5">
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="16%"/>
+                        <ColumnDef Width="20px"/>
+                        <ColumnDef Width="17%"/>
+                        <ColumnDef Width="10px"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="33%"/>
+                        <ColumnDef Width="10px"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="34%"/>
+                        <ColumnDef Width="10px"/>
+                        <ColumnDef Width="80px"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+                <ListView Caption="ListView1" Height="100%" Key="ListView1" PageLoadType="DB" TableKey="OA_UnfinishedList">
+                    <ListViewColumnCollection>
+                        <ListViewColumn Key="ProcessKey" Caption="流程名称" ColumnType="ComboBox" DataColumnKey="ProcessKey" Width="150px" SourceType="Formula">
+                            <FormulaItems>
+                                <![CDATA[OA_GetDropItemByBPM()]]>
+                            </FormulaItems>
+                        </ListViewColumn>
+                        <ListViewColumn Key="FormKey" Caption="业务类型" ColumnType="ComboBox" DataColumnKey="FormKey" Width="200px" SourceType="Formula">
+                            <FormulaItems>
+                                <![CDATA[OA_GetFormCaption(GetOperator(),GetOperator());]]>
+                            </FormulaItems>
+                        </ListViewColumn>
+                        <ListViewColumn Key="Topic" Caption="主题" ColumnType="TextEditor" DataColumnKey="Topic" Width="200px"/>
+                        <ListViewColumn Key="BillNo" Caption="单据编号" DataColumnKey="BillNo" Width="200px"/>
+                        <ListViewColumn Key="EmpID" Caption="申请人" ColumnType="Dict" DataColumnKey="EmpID" Width="150px" ItemKey="OA_Employee"/>
+                        <ListViewColumn Key="DeptID" Caption="申请部门" ColumnType="Dict" DataColumnKey="DeptID" Width="150px" ItemKey="OA_Department"/>
+                        <ListViewColumn Key="creatTime" Caption="申请日期" ColumnType="DatePicker" DataColumnKey="creatTime" Width="150px"/>
+                        <ListViewColumn Key="InstanceState" Caption="流程状态" ColumnType="ComboBox" DataColumnKey="InstanceState" GroupKey="InstanceState" SourceType="ParaGroup"/>
+                        <ListViewColumn Key="WorkitemID" Caption="工作项标识" DataColumnKey="WorkitemID" Visible="false"/>
+                        <ListViewColumn Key="OID" Caption="OID" DataColumnKey="OID" Visible="FALSE"/>
+                        <ListViewColumn Key="Urge" Caption="催办" ColumnType="HyperLink" DefaultValue="催办">
+                            <OnClick>
+                                <![CDATA[ShowModal("OA_FeedbackUI",{billkey:{FormKey},wid:{WorkitemID},billoid:{OID},topic:{Topic},no:{BillNo},FeedbackType:{20} });]]>
+                            </OnClick>
+                        </ListViewColumn>
+                    </ListViewColumnCollection>
+                    <RowDblClick>
+                        <![CDATA[Open(FormKey,OID)]]>
+                    </RowDblClick>
+                </ListView>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+    <OnLoad>
+        <![CDATA[LoadData()]]>
+    </OnLoad>
+</Form>

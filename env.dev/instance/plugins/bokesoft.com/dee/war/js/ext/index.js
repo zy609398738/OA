@@ -83,8 +83,8 @@ if (Object.hasOwnProperty.call(window, "ActiveXObject") && !window.ActiveXObject
  */
 Ext.onReady(function() {
 	
-	if(remainingDays<=30){
-		Ext.Msg.alert("提示","<font size=4>您的证书即将过期,请尽快更新新的证书，如有疑问请发送邮件到540393953@qq.com进行咨询!</font>");
+	if(remainingDays<=90){
+		Ext.Msg.alert("提示","<font size=4>您的证书即将过期,请尽快更新新的证书，请联系博科相关人员进行咨询!</font>");
 	}
 	// 所有ajax调用默认 超时时间都为 10分钟
 	Ext.Ajax.timeout = 600000;

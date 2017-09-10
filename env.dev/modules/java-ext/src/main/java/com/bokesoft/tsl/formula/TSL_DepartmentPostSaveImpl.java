@@ -13,6 +13,7 @@ import com.bokesoft.yigo.struct.document.Document;
 
 /**
  * 部门保存后执行事件
+ * 
  * @author chenyf
  *
  */

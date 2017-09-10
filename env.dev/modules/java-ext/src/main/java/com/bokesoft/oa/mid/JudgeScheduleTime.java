@@ -41,8 +41,8 @@ public class JudgeScheduleTime implements IExtService {
 		if (dtQueryModeratorSum.getInt("sum") > 0) {
 			errMesg = "会议主持人已有日程安排";
 		} else {
-			DataTable dtQueryRecorderSum = dbManager.execPrepareQuery(sql1, recorder, startTime, endTime,
-					startTime, endTime, startTime, endTime);
+			DataTable dtQueryRecorderSum = dbManager.execPrepareQuery(sql1, recorder, startTime, endTime, startTime,
+					endTime, startTime, endTime);
 			if (dtQueryRecorderSum.getInt("sum") > 0) {
 				errMesg = "会议纪要人员已有日程安排";
 			} else {
@@ -56,9 +56,9 @@ public class JudgeScheduleTime implements IExtService {
 					DataTable dtQueryOPtIDsSum = dbManager.execPrepareQuery(sql1, OptIDs[i], startTime, endTime,
 							startTime, endTime, startTime, endTime);
 					if (dtQueryOPtIDsSum.getInt("sum") > 0) {
-						DataTable dtQuery =dbManager.execPrepareQuery(sql2, OptIDs[i]);
-						String name =dtQuery.getString("Name") ;
-						errMesg ="参与者："+name  + ", 已有日程安排";
+						DataTable dtQuery = dbManager.execPrepareQuery(sql2, OptIDs[i]);
+						String name = dtQuery.getString("Name");
+						errMesg = "参与者：" + name + ", 已有日程安排";
 						break;
 					}
 					i++;

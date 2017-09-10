@@ -19,6 +19,7 @@
                     <Column Key="UrgencyDeg" Caption="紧急程度" DataType="Integer"/>
                     <Column Key="FormKey" Caption="业务类型" DataType="Varchar"/>
                     <Column Key="OID" Caption="OID" DataType="Long"/>
+                    <Column Key="InstanceState" Caption="流程状态" DataType="Integer"/>
                     <ParameterCollection>
                         <Parameter DataType="Long" Formula="GetOperator()"/>
                     </ParameterCollection>
@@ -26,6 +27,7 @@
                         <![CDATA[select * from (select 
 i.ProcessKey,
 i.formkey,
+i.InstanceState,
 i.oid,wi.NodeID,
 wi.ParentWorkitemID,
 Topic,UrgencyDeg,EmpID,DeptID,BillStatus,BillCreatTime,
@@ -37,7 +39,7 @@ join BPM_Log l on w.WorkitemID=l.WorkitemID
 join bpm_workiteminfo wi on w.WorkitemID=wi.WorkitemID 
 join BPM_Instance i on  l.instanceID=i.instanceID
 join BPM_Migration m on  i.OID=m.BillOID
-where p.OperatorID=? order by UrgencyDeg desc,BillCreatTime desc ) h]]>
+where p.OperatorID=? and w.workitemstate!=3 order by UrgencyDeg desc,BillCreatTime desc ) h]]>
                     </Statement>
                 </Table>
             </TableCollection>
@@ -83,13 +85,13 @@ ShowData();]]>
                     <CheckBox Caption="表头可见" Key="first_headVisible" Visible="false" X="9" Y="1">
                         <DataBinding DefaultValue="1"/>
                     </CheckBox>
-                    <ComboBox Key="ComboBox1" Caption="业务类型" BuddyKey="Lab_ComboBox1" X="1" Y="1" SourceType="Formula" XSpan="3">
+                    <CheckListBox BuddyKey="Lab_CheckListBox1" Caption="业务类型" Key="CheckListBox1" SourceType="Formula" X="1" XSpan="3" Y="1">
                         <Condition ColumnKey="FormKey" TableKey="OA_ToDoList" CondSign="in"/>
                         <FormulaItems>
-                            <![CDATA[GetFormByType("Entity")]]>
+                            <![CDATA[OA_GetFormCaption(GetOperator(),GetOperator());]]>
                         </FormulaItems>
-                    </ComboBox>
-                    <Label Key="Lab_ComboBox1" Caption="业务类型" X="0" Y="1"/>
+                    </CheckListBox>
+                    <Label Key="Lab_CheckListBox1" Caption="业务类型" X="0" Y="1"/>
                     <RowDefCollection RowGap="5">
                         <RowDef Height="30px"/>
                         <RowDef Height="30px"/>
@@ -118,7 +120,7 @@ ShowData();]]>
                         </ListViewColumn>
                         <ListViewColumn Key="FormKey" Caption="业务类型" ColumnType="ComboBox" DataColumnKey="FormKey" Width="200px" SourceType="Formula">
                             <FormulaItems>
-                                <![CDATA[GetFormByType("Entity")]]>
+                                <![CDATA[OA_GetFormCaption(GetOperator(),GetOperator());]]>
                             </FormulaItems>
                         </ListViewColumn>
                         <ListViewColumn Key="Topic" Caption="主题" ColumnType="TextEditor" DataColumnKey="Topic" Width="200px"/>
@@ -132,7 +134,7 @@ ShowData();]]>
                         </ListViewColumn>
                         <ListViewColumn Key="BillCreatTime" Caption="创建时间" ColumnType="DatePicker" DataColumnKey="BillCreatTime" Width="200px"/>
                         <ListViewColumn Key="WorkitemName" Caption="审批操作" ColumnType="TextEditor" DataColumnKey="WorkitemName"/>
-                        <ListViewColumn Key="BillStatus" Caption="状态" ColumnType="ComboBox" DataColumnKey="BillStatus" Width="100px" SourceType="Status"/>
+                        <ListViewColumn Key="InstanceState" Caption="流程状态" ColumnType="ComboBox" DataColumnKey="InstanceState" Width="100px" SourceType="ParaGroup" GroupKey="InstanceState"/>
                         <ListViewColumn Caption="工作项标识" DataColumnKey="WorkitemID" Key="WorkitemID" Width="30px" Visible="false" ColumnType="TextEditor"/>
                         <ListViewColumn Key="OID" Caption="OID" DataColumnKey="OID" Visible="FALSE"/>
                     </ListViewColumnCollection>

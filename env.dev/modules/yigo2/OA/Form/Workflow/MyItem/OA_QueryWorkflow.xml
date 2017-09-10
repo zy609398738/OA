@@ -20,16 +20,17 @@
                     <Column Key="FormKey" Caption="业务类型" DataType="Varchar"/>
                     <Column Key="OID" Caption="OID" DataType="Long"/>
                     <Column Key="Status" Caption="状态" DataType="Integer"/>
+                    <Column Key="InstanceState" Caption="流程状态" DataType="Integer"/>
                     <ParameterCollection>
                         <Parameter DataType="Long" Formula="GetOperator()"/>
                         <Parameter DataType="Long" Formula="GetOperator()"/>
                         <Parameter DataType="Long" Formula="GetOperator()"/>
                     </ParameterCollection>
                     <Statement>
-                        <![CDATA[select * from (select l.workitemname,l.workitemid,i.oid,i.FormKey,Topic,empid,deptid,UrgencyDeg,BillStatus,billcreattime,i.ProcessKey from bpm_instance i join BPM_migration m on i.oid = m.billoid 
+                        <![CDATA[select * from (select l.workitemname,l.workitemid,i.oid,i.FormKey,i.instancestate,Topic,empid,deptid,UrgencyDeg,BillStatus,billcreattime,i.ProcessKey from bpm_instance i join BPM_migration m on i.oid = m.billoid 
 join bpm_log l on i.instanceid = l.instanceid where m.billcreator = ?
 union 
-select l.workitemname,l.workitemid,i.oid,i.formkey,Topic,EmpID,DeptID,UrgencyDeg,BillStatus,BillCreatTime,i.ProcessKey from WF_Workitem w 
+select l.workitemname,l.workitemid,i.oid,i.formkey,i.instancestate,Topic,EmpID,DeptID,UrgencyDeg,BillStatus,BillCreatTime,i.ProcessKey from WF_Workitem w 
 join WF_Participator p on w.WorkitemID=p.WorkitemID 
 join BPM_Log l on w.WorkitemID=l.WorkitemID 
 join bpm_workiteminfo wi on w.WorkitemID=wi.WorkitemID 
@@ -37,7 +38,7 @@ join BPM_Instance i on  l.instanceID=i.instanceID
 join BPM_Migration m on  i.OID=m.BillOID
 where p.OperatorID=? 
 union 
-select l.workitemname,l.workitemid,i.oid,i.formkey,topic,empid,deptid,UrgencyDeg,BillStatus,BillCreatTime,i.ProcessKey from wf_workitem w  
+select l.workitemname,l.workitemid,i.oid,i.formkey,i.instancestate,topic,empid,deptid,UrgencyDeg,BillStatus,BillCreatTime,i.ProcessKey from wf_workitem w  
 join bpm_log l on w.WorkitemID=l.WorkitemID 
 join BPM_Instance i on  l.instanceID=i.instanceID  
 join bpm_migration M on i.OID = m.BillOID   
@@ -92,17 +93,17 @@ ShowData();]]>
                     <CheckBox Caption="表头可见" Key="first_headVisible" Visible="false" X="10" Y="0">
                         <DataBinding DefaultValue="1"/>
                     </CheckBox>
-                    <ComboBox Key="ComboBox1" Caption="业务类型" BuddyKey="Lab_ComboBox1" X="1" Y="1" SourceType="Formula" XSpan="3">
+                    <CheckListBox BuddyKey="Lab_Q_Status" Caption="流程状态" Key="Q_Status" X="9" Y="1" GroupKey="InstanceState" SourceType="ParaGroup">
+                        <Condition ColumnKey="InstanceState" TableKey="OA_QueryWorkflow" CondSign="in"/>
+                    </CheckListBox>
+                    <Label Key="Lab_Q_Status" Caption="流程状态" X="8" Y="1"/>
+                    <CheckListBox BuddyKey="Lab_CheckListBox1" Caption="业务类型" Key="CheckListBox1" SourceType="Formula" X="1" XSpan="3" Y="1">
                         <Condition ColumnKey="FormKey" TableKey="OA_QueryWorkflow" CondSign="in"/>
                         <FormulaItems>
-                            <![CDATA[GetFormByType("Entity")]]>
+                            <![CDATA[OA_GetFormCaption(GetOperator(),GetOperator());]]>
                         </FormulaItems>
-                    </ComboBox>
-                    <Label Key="Lab_ComboBox1" Caption="业务类型" X="0" Y="1"/>
-                    <CheckListBox BuddyKey="Lab_Q_Status" Caption="状态" Key="Q_Status" X="9" Y="1">
-                        <Condition ColumnKey="Status" TableKey="OA_QueryWorkflow" CondSign="in"/>
                     </CheckListBox>
-                    <Label Key="Lab_Q_Status" Caption="状态" X="8" Y="1"/>
+                    <Label Key="Lab_CheckListBox1" Caption="业务类型" X="0" Y="1"/>
                     <RowDefCollection RowGap="5">
                         <RowDef Height="30px"/>
                         <RowDef Height="30px"/>
@@ -131,7 +132,7 @@ ShowData();]]>
                         </ListViewColumn>
                         <ListViewColumn Key="FormKey" Caption="业务类型" ColumnType="ComboBox" DataColumnKey="FormKey" Width="200px" SourceType="Formula">
                             <FormulaItems>
-                                <![CDATA[GetFormByType("Entity")]]>
+                                <![CDATA[OA_GetFormCaption(GetOperator(),GetOperator());]]>
                             </FormulaItems>
                         </ListViewColumn>
                         <ListViewColumn Key="Topic" Caption="主题" ColumnType="TextEditor" DataColumnKey="Topic" Width="200px"/>
@@ -145,7 +146,7 @@ ShowData();]]>
                         </ListViewColumn>
                         <ListViewColumn Key="BillCreatTime" Caption="创建时间" ColumnType="DatePicker" DataColumnKey="BillCreatTime" Width="200px"/>
                         <ListViewColumn Key="WorkitemName" Caption="下一步操作名称" ColumnType="TextEditor" DataColumnKey="WorkitemName" Width="120px"/>
-                        <ListViewColumn Key="BillStatus" Caption="状态" ColumnType="ComboBox" DataColumnKey="BillStatus" Width="100px" SourceType="Status"/>
+                        <ListViewColumn Key="InstanceState" Caption="流程状态" ColumnType="ComboBox" DataColumnKey="InstanceState" Width="100px" GroupKey="InstanceState" SourceType="ParaGroup"/>
                         <ListViewColumn Key="WorkitemID" Caption="工作项标识" ColumnType="TextEditor" DataColumnKey="WorkitemID" Width="44px" Visible="false"/>
                         <ListViewColumn Key="OID" Caption="OID" DataColumnKey="OID" Visible="FALSE"/>
                         <ListViewColumn Key="Attention" Caption="关注" ColumnType="HyperLink" DefaultValue="关注">

@@ -150,6 +150,8 @@
 											delRts.push(root.id);
 										}
 									}
+									root.changed = null;
+									row.attr('hasRts', checked || null);
 								} else {
 									if(root.children && root.children.length > 0) {
 										getDictChanged(root.children, allRts, noAllRts, delRts);

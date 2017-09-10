@@ -1,0 +1,10 @@
+<div class="row news-detail-bottom f333 clearfix">
+  <div class="news-breadcrumb">
+    #foreach( $line in $preid )
+    <a href="../news/newsview.page?id=$line.PREID" class="pre news-icon">上一篇</a>
+    #end
+    #foreach( $line in $nextid )
+    <a href="../news/newsview.page?id=$line.NEXTID" class="next news-icon">下一篇</a>
+    #end
+  </div>
+</div>

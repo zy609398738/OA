@@ -1,0 +1,10 @@
+{
+  "id": "8a9f59ff5c9b8014015c9b9b41a50010",
+  "startIndex": "",
+  "text": "ERP_TO_BPM_ORG_MID",
+  "autoRun": "true",
+  "description": "ERP系统数据库组织表同步数据至BPM中间表",
+  "responseTime": "600000",
+  "changePort": "",
+  "oldPort": ""
+}

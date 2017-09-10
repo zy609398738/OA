@@ -1,0 +1,10 @@
+{
+  "id": "8aaae0a95c871527015c871c679b000f",
+  "text": "AS_Day_TO_BPM",
+  "changePort": "",
+  "startIndex": "",
+  "autoRun": "true",
+  "description": "查询余假信息",
+  "oldPort": "",
+  "responseTime": "600000"
+}

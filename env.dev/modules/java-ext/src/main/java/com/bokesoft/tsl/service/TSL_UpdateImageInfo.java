@@ -8,10 +8,11 @@ import com.bokesoft.yigo.mid.service.IExtService2;
 
 public class TSL_UpdateImageInfo implements IExtService2 {
 	private static String HEAD_SQL = "merge into Seq_Table t1 " + "using  "
-			+ "(select 'YIGO-BPM' as YIGO_BPM,? as DOCUMENT_NUMBER ,"
+			+ "(select 'YIGO-BPM' as DOCUMENT_CATEGORY,? as DOCUMENT_NUMBER ,"
 			+ "? as UNIT_CODE,'GENERATE' as STATUS from dual) t2 " + "on (t1.DOCUMENT_NUMBER=t2.DOCUMENT_NUMBER) "
 			+ "when matched then " + "update set t1.UNIT_CODE=t2.UNIT_CODE " + "when not matched then "
-			+ "insert (t1.YIGO_BPM,t1.DOCUMENT_NUMBER,t1.UNIT_CODE,t1.STATUS) " + "values ('YIGO-BPM',?,?,'GENERATE')";
+			+ "insert (t1.DOCUMENT_CATEGORY,t1.DOCUMENT_NUMBER,t1.UNIT_CODE,t1.STATUS) "
+			+ "values ('YIGO-BPM',?,?,'GENERATE')";
 
 	private static String DETAIL_SQL = "insert into seq_detail (seqid, barcode, userid, deptid, typeid, clientip, serverdt) "
 			+ "values ((select nvl(max(seqid), 0) + 1 from seq_detail where barcode = ?),?,?,?,?,?,?)";
@@ -29,7 +30,8 @@ public class TSL_UpdateImageInfo implements IExtService2 {
 		IDBManager DBManager = context.getDBManager();
 		DBManager.execPrepareUpdate(HEAD_SQL, document_number, unit_code, document_number, unit_code);
 
-		DBManager.execPrepareUpdate(DETAIL_SQL, document_number, document_number, userid, unit_code, typeid, clientip, serverdt);
+		DBManager.execPrepareUpdate(DETAIL_SQL, document_number, document_number, userid, unit_code, typeid, clientip,
+				serverdt);
 
 		return true;
 	}

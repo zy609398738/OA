@@ -1,0 +1,10 @@
+{
+  "id": "8a9f5afd5de92379015de9bc8e9500cd",
+  "startIndex": "",
+  "text": "ERP_PO_TO_BPM",
+  "autoRun": "true",
+  "description": "查询ERP系统PO信息导入YIGO系统",
+  "responseTime": "600000",
+  "changePort": "",
+  "oldPort": ""
+}

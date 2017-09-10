@@ -26,7 +26,8 @@ import com.google.zxing.qrcode.QRCodeWriter;
 public class StringToQRCode implements IExtService {
 	@Override
 	public Object doCmd(DefaultContext paramDefaultContext, ArrayList<Object> paramArrayList) throws Throwable {
-		return stringToQRCode(paramDefaultContext, TypeConvertor.toString(paramArrayList.get(0)), TypeConvertor.toString(paramArrayList.get(1)));
+		return stringToQRCode(paramDefaultContext, TypeConvertor.toString(paramArrayList.get(0)),
+				TypeConvertor.toString(paramArrayList.get(1)));
 	}
 
 	/**
@@ -39,7 +40,7 @@ public class StringToQRCode implements IExtService {
 	 * @return 返回文件路径
 	 * @throws Throwable
 	 */
-	public static Boolean stringToQRCode(DefaultContext context, String stringText,String path) throws Throwable {
+	public static Boolean stringToQRCode(DefaultContext context, String stringText, String path) throws Throwable {
 		Map<EncodeHintType, Object> hints = new HashMap<EncodeHintType, Object>();
 		hints.put(EncodeHintType.MARGIN, 0);
 		BitMatrix bitMatrix = new QRCodeWriter().encode(stringText, BarcodeFormat.QR_CODE, 256, 256, hints);
@@ -51,9 +52,9 @@ public class StringToQRCode implements IExtService {
 				image.setRGB(x, y, bitMatrix.get(x, y) == true ? Color.BLACK.getRGB() : Color.WHITE.getRGB());
 			}
 		}
-		
-		String QRPath=path.substring(0, path.lastIndexOf("/"));
-		ImageIO.write(image, "png", new File("../../modules/yigo2/Data/"+QRPath+"/QRCode.png"));
+
+		String QRPath = path.substring(0, path.lastIndexOf("/"));
+		ImageIO.write(image, "png", new File("../../modules/yigo2/Data/" + QRPath + "/QRCode.png"));
 		return true;
 	}
 }

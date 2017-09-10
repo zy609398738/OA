@@ -1,0 +1,10 @@
+{
+  "id": "ff8080815c37d627015c3927e0bb0152",
+  "startIndex": "",
+  "text": "ERP_Sales_Contract_Details_TO_BPM",
+  "autoRun": "true",
+  "description": "实时查询ERP系统销售合同明细信息",
+  "responseTime": "600000",
+  "changePort": "",
+  "oldPort": ""
+}

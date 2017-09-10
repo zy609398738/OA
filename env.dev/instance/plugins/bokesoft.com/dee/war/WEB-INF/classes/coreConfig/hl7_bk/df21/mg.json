@@ -1,0 +1,77 @@
+[
+  {
+    "chinese_desc": "一般确认信息",
+    "description": "General acknowledgment message",
+    "name": "ACK"
+  },
+  {
+    "chinese_desc": "ADT的消息",
+    "description": "ADT message",
+    "name": "ADT"
+  },
+  {
+    "chinese_desc": "辅助报表（显示）",
+    "description": "ANCILLARY RPT (DISPLAY)",
+    "name": "ARD"
+  },
+  {
+    "chinese_desc": "添加/更改帐单帐户",
+    "description": "Add/change billing account",
+    "name": "BAR"
+  },
+  {
+    "chinese_desc": "详细财务交易",
+    "description": "Detail financial transactions",
+    "name": "DFT"
+  },
+  {
+    "chinese_desc": "显示响应",
+    "description": "Display response",
+    "name": "DSR"
+  },
+  {
+    "chinese_desc": "延迟确认（保留向后兼容）",
+    "description": "Delayed Acknowledgment (Retained for backward compatibility only)",
+    "name": "MCF"
+  },
+  {
+    "chinese_desc": "订单确认",
+    "description": "ORDER CONFIRMATION",
+    "name": "OCF"
+  },
+  {
+    "chinese_desc": "观察结果查询",
+    "description": "Query for results of observation",
+    "name": "ORF"
+  },
+  {
+    "chinese_desc": "药房/治疗订单信息",
+    "description": "Pharmacy/treatment order message",
+    "name": "ORM"
+  },
+  {
+    "chinese_desc": "任何ORM一般命令响应消息的响应",
+    "description": "General order response message response to any ORM",
+    "name": "ORR"
+  },
+  {
+    "chinese_desc": "观察信息的未经请求的传输",
+    "description": "Unsolicited transmission of an observation message",
+    "name": "ORU"
+  },
+  {
+    "chinese_desc": "订单状态查询响应",
+    "description": "Query response for order status",
+    "name": "OSQ"
+  },
+  {
+    "chinese_desc": "查询，原始模式",
+    "description": "Query, original mode",
+    "name": "QRY"
+  },
+  {
+    "chinese_desc": "未经请求的显示更新消息",
+    "description": "Unsolicited display update message",
+    "name": "UDM"
+  }
+]

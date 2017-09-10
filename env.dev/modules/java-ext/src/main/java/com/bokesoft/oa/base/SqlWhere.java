@@ -15,9 +15,25 @@ public class SqlWhere {
 	 */
 	public static final String DefaultRep = "?";
 	/**
-	 * 默认空格符
+	 * 空格符
 	 */
-	public static final String DefaultBlank = " ";
+	public static final String Blank = " ";
+	/**
+	 * 左括号
+	 */
+	public static final String LeftBracket = "(";
+	/**
+	 * 右括号
+	 */
+	public static final String RightBracket = ")";
+	/**
+	 * SQL包含
+	 */
+	public static final String OperationSqlIn = "in";
+	/**
+	 * SQL不包含
+	 */
+	public static final String OperationSqlNotIn = "not in";
 	/**
 	 * Sql的条件
 	 */

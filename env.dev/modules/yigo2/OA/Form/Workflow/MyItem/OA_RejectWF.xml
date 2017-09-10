@@ -16,6 +16,7 @@
                     <Column Key="BusinessType" Caption="业务类型" DataType="Long"/>
                     <Column Key="ProcessKey" Caption="流程名" DataType="Varchar"/>
                     <Column Key="LastUserID" Caption="上一步处理人" DataType="Long"/>
+                    <Column Key="FormKey" Caption="单据标识" DataType="Varchar"/>
                     <ParameterCollection>
                         <Parameter DataType="Long" Formula="GetOperator()"/>
                     </ParameterCollection>
@@ -67,10 +68,6 @@ LoadData();
 ShowData();]]>
                         </OnClick>
                     </Button>
-                    <Dict Key="QueryBusinessType" Caption="业务类型" BuddyKey="Lab_QueryBusinessType" X="1" Y="1" AllowMultiSelection="true" ItemKey="BusinessArea" XSpan="3">
-                        <Condition ColumnKey="BusinessType" TableKey="OA_RejectWF" CondSign="="/>
-                    </Dict>
-                    <Label Key="Lab_QueryBusinessType" Caption="业务类型" X="0" Y="1"/>
                     <Dict Key="QueryApplicant" Caption="申请人" BuddyKey="Lab_QueryApplicant" X="6" Y="1" AllowMultiSelection="true" ItemKey="OA_Employee">
                         <Condition ColumnKey="EmpID" TableKey="OA_RejectWF" CondSign="="/>
                     </Dict>
@@ -87,6 +84,13 @@ ShowData();]]>
                     <CheckBox Caption="表头可见" Key="first_headVisible" Visible="false" X="11" Y="1">
                         <DataBinding DefaultValue="1"/>
                     </CheckBox>
+                    <CheckListBox BuddyKey="Lab_CheckListBox1" Caption="业务类型" Key="CheckListBox1" X="1" XSpan="3" Y="1" SourceType="Formula">
+                        <Condition ColumnKey="FormKey" TableKey="OA_RejectWF" CondSign="in"/>
+                        <FormulaItems>
+                            <![CDATA[OA_GetFormCaption(GetOperator(),GetOperator());]]>
+                        </FormulaItems>
+                    </CheckListBox>
+                    <Label Key="Lab_CheckListBox1" Caption="业务类型" X="0" Y="1"/>
                     <RowDefCollection RowGap="5">
                         <RowDef Height="30px"/>
                         <RowDef Height="30px"/>

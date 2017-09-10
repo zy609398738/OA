@@ -40,7 +40,6 @@
                         <GridColumn Key="UploadOperator" Caption="上传人" Width="120px"/>
                         <GridColumn Key="Path" Caption="上传路径" Width="120px" Visible="false"/>
                         <GridColumn Key="Name" Caption="上传文件名" Width="200px"/>
-                        <GridColumn Key="AttachmentType_D" Caption="附件类型" Width="80px"/>
                         <GridColumn Key="Upload" Caption="上传" Width="80px"/>
                         <GridColumn Key="Download" Caption="下载" Width="80px"/>
                         <GridColumn Key="Delete" Caption="删除" Width="80px"/>
@@ -67,33 +66,13 @@
                             <GridCell Key="Name" Caption="上传文件名" CellType="TextEditor" Enable="false">
                                 <DataBinding ColumnKey="Name"/>
                             </GridCell>
-                            <GridCell Key="AttachmentType_D" Caption="附件类型" CellType="ComboBox" GroupKey="AttachmentType" SourceType="ParaGroup">
-                                <DataBinding ColumnKey="AttachmentType_D"/>
-                            </GridCell>
                             <GridCell Key="Upload" Caption="上传" CellType="Button" Type="Upload">
                                 <OnClick>
                                     <![CDATA[var attachPath=Para("AttachPath");
-var attachmentType=GetPara("AttachmentType");
-if(!IsNull(attachPath) && Length(attachPath)>0){
-    UploadAttachment(FileOID,"OA_Attachment",-1,"",true,attachPath);
-    if(UploadAttachment(FileOID,"OA_Attachment",-1,"",true,attachPath)){
-    if(IsNull(attachmentType)){
-        SetCellValue("OA_Attachment_Alert", -1, "AttachmentType_D", "common")
-    }else{
-        SetCellValue("OA_Attachment_Alert", -1, "AttachmentType_D", attachmentType)
-    }
-        SetCellValue("OA_Attachment_Alert", -1, "SOID", parent.GetOID())
-  }
+if(!IsNull(attachPath)&& Length(attachPath)>0){
+    UploadAttachment(FileOID,"OA_Attachment_Alert",-1,"",true,attachPath);
 }else{
-    var flag2=UploadAttachment(FileOID,"OA_Attachment",-1,"",true);
-    if(flag2){
-    if(IsNull(attachmentType)){
-        SetCellValue("OA_Attachment_Alert", -1, "AttachmentType_D", "common")
-    }else{
-        SetCellValue("OA_Attachment_Alert", -1, "AttachmentType_D", attachmentType)
-    }
-     SetCellValue("OA_Attachment_Alert", -1, "SOID", parent.GetOID())
-  }
+    UploadAttachment(FileOID,"OA_Attachment_Alert",-1,"",true);
 }]]>
                                 </OnClick>
                             </GridCell>

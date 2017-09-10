@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+	<Entry>
+		<OABusiness_OA>Integrated Management</OABusiness_OA>
+			<OABusiness_OA_OA_Index>Index Page</OABusiness_OA_OA_Index>
+			<OABusiness_OA_OA_CearteWorkflow>Cearte Workflow</OABusiness_OA_OA_CearteWorkflow>
+			<OABusiness_OA_OA_PersonalUse>Personal Use</OABusiness_OA_OA_PersonalUse>
+				<OABusiness_OA_OA_PersonalUse_EmailManagement>Mail Box</OABusiness_OA_OA_PersonalUse_EmailManagement>
+					<OABusiness_OA_OA_PersonalUse_EmailManagement_OA_EmailWrite>Email Write</OABusiness_OA_OA_PersonalUse_EmailManagement_OA_EmailWrite>
+					<OABusiness_OA_OA_PersonalUse_EmailManagement_OA_EmailDraftsView>Email Drafts</OABusiness_OA_OA_PersonalUse_EmailManagement_OA_EmailDraftsView>
+					<OABusiness_OA_OA_PersonalUse_EmailManagement_OA_EmailDeletedView>Email Deleted</OABusiness_OA_OA_PersonalUse_EmailManagement_OA_EmailDeletedView>
+					<OABusiness_OA_OA_PersonalUse_EmailManagement_OA_EmailInboxView>Email In Box</OABusiness_OA_OA_PersonalUse_EmailManagement_OA_EmailInboxView>
+					<OABusiness_OA_OA_PersonalUse_EmailManagement_OA_EmailOutboxView>Email Out Box</OABusiness_OA_OA_PersonalUse_EmailManagement_OA_EmailOutboxView>
+					<OABusiness_OA_OA_PersonalUse_EmailManagement_OA_EmailSetView>Email Set</OABusiness_OA_OA_PersonalUse_EmailManagement_OA_EmailSetView>
+				<OABusiness_OA_OA_PersonalUse_OfficialManagement>Official Management</OABusiness_OA_OA_PersonalUse_OfficialManagement>
+					<OABusiness_OA_OA_PersonalUse_OfficialManagement_OA_ForeignLanView>Incoming Dispatches</OABusiness_OA_OA_PersonalUse_OfficialManagement_OA_ForeignLanView>
+					<OABusiness_OA_OA_PersonalUse_OfficialManagement_OA_SpoFileView>Dispatch</OABusiness_OA_OA_PersonalUse_OfficialManagement_OA_SpoFileView>
+				<OABusiness_OA_OA_PersonalUse_Schedule>Schedule</OABusiness_OA_OA_PersonalUse_Schedule>
+					<OABusiness_OA_OA_PersonalUse_Schedule_OA_MyScheduleView>MySchedule</OABusiness_OA_OA_PersonalUse_Schedule_OA_MyScheduleView>
+					<OABusiness_OA_OA_PersonalUse_Schedule_OA_MySchedule>MySchedule Calendar</OABusiness_OA_OA_PersonalUse_Schedule_OA_MySchedule>
+				<OABusiness_OA_OA_PersonalUse_Workflow>Workflow</OABusiness_OA_OA_PersonalUse_Workflow>
+					<OABusiness_OA_OA_PersonalUse_Workflow_OA_ToDoList>ToDo List</OABusiness_OA_OA_PersonalUse_Workflow_OA_ToDoList>
+					<OABusiness_OA_OA_PersonalUse_Workflow_OA_RejectWF>Reject Workflow</OABusiness_OA_OA_PersonalUse_Workflow_OA_RejectWF>
+					<OABusiness_OA_OA_PersonalUse_Workflow_OA_DoneWorkflow>Done Workflow</OABusiness_OA_OA_PersonalUse_Workflow_OA_DoneWorkflow>
+					<OABusiness_OA_OA_PersonalUse_Workflow_OA_EndList>End List</OABusiness_OA_OA_PersonalUse_Workflow_OA_EndList>
+					<OABusiness_OA_OA_PersonalUse_Workflow_OA_QueryWorkflow>Query Workflow</OABusiness_OA_OA_PersonalUse_Workflow_OA_QueryWorkflow>
+					<OABusiness_OA_OA_PersonalUse_Workflow_OA_FocusWorkflow>Focus Workflow</OABusiness_OA_OA_PersonalUse_Workflow_OA_FocusWorkflow>
+					<OABusiness_OA_OA_PersonalUse_Workflow_OA_MonitoringWF>Monitoring Workflow</OABusiness_OA_OA_PersonalUse_Workflow_OA_MonitoringWF>
+					<OABusiness_OA_OA_PersonalUse_Workflow_OA_FeedbackList>Feedback List</OABusiness_OA_OA_PersonalUse_Workflow_OA_FeedbackList>
+					<OABusiness_OA_OA_PersonalUse_Workflow_OA_ReadLogView>Read Log</OABusiness_OA_OA_PersonalUse_Workflow_OA_ReadLogView>
+					<OABusiness_OA_OA_PersonalUse_Workflow_OA_ForRead>ForRead</OABusiness_OA_OA_PersonalUse_Workflow_OA_ForRead>
+					<OABusiness_OA_OA_PersonalUse_Workflow_OA_PerfReport>Perf Report</OABusiness_OA_OA_PersonalUse_Workflow_OA_PerfReport>
+					<OABusiness_OA_OA_PersonalUse_Workflow_OA_AgencyList>Agency List</OABusiness_OA_OA_PersonalUse_Workflow_OA_AgencyList>
+					<OABusiness_OA_OA_PersonalUse_Workflow_OA_OptRelationWF>Operator Relation Workflow</OABusiness_OA_OA_PersonalUse_Workflow_OA_OptRelationWF>
+				<OABusiness_OA_OA_PersonalUse_PaseUse>PaseUse</OABusiness_OA_OA_PersonalUse_PaseUse>
+					<OABusiness_OA_OA_PersonalUse_PaseUse_OA_ToDoWorkflow>ToDo Workflow</OABusiness_OA_OA_PersonalUse_PaseUse_OA_ToDoWorkflow>
+					<OABusiness_OA_OA_PersonalUse_PaseUse_OA_MyList>MyList</OABusiness_OA_OA_PersonalUse_PaseUse_OA_MyList>
+					<OABusiness_OA_OA_PersonalUse_PaseUse_OA_SendList>Send List</OABusiness_OA_OA_PersonalUse_PaseUse_OA_SendList>
+					<OABusiness_OA_OA_PersonalUse_PaseUse_OA_ToReadList>ToRead List</OABusiness_OA_OA_PersonalUse_PaseUse_OA_ToReadList>
+				<OABusiness_OA_OA_PersonalUse_TaskDistribution>Task</OABusiness_OA_OA_PersonalUse_TaskDistribution>
+					<OABusiness_OA_OA_PersonalUse_TaskDistribution_OA_TaskdistributionView>Task Distribution</OABusiness_OA_OA_PersonalUse_TaskDistribution_OA_TaskdistributionView>
+					<OABusiness_OA_OA_PersonalUse_TaskDistribution_OA_TodoTask>Todo Task</OABusiness_OA_OA_PersonalUse_TaskDistribution_OA_TodoTask>
+					<OABusiness_OA_OA_PersonalUse_TaskDistribution_OA_ShareTask>Share Task</OABusiness_OA_OA_PersonalUse_TaskDistribution_OA_ShareTask>
+					<OABusiness_OA_OA_PersonalUse_TaskDistribution_OA_ArrangeTask>Arrange Task</OABusiness_OA_OA_PersonalUse_TaskDistribution_OA_ArrangeTask>
+					<OABusiness_OA_OA_PersonalUse_TaskDistribution_OA_WorkStatistics>Work Statistics</OABusiness_OA_OA_PersonalUse_TaskDistribution_OA_WorkStatistics>
+					<OABusiness_OA_OA_PersonalUse_TaskDistribution_OA_FeedbackList>Feedback List</OABusiness_OA_OA_PersonalUse_TaskDistribution_OA_FeedbackList>
+					<OABusiness_OA_OA_PersonalUse_TaskDistribution_TaskStatus>Task Status</OABusiness_OA_OA_PersonalUse_TaskDistribution_TaskStatus>
+				<OABusiness_OA_OA_PersonalUse_MeetingManagement>Meeting Management</OABusiness_OA_OA_PersonalUse_MeetingManagement>
+					<OABusiness_OA_OA_PersonalUse_MeetingManagement_OA_ParticipantMList>Participant Meeting List</OABusiness_OA_OA_PersonalUse_MeetingManagement_OA_ParticipantMList>
+					<OABusiness_OA_OA_PersonalUse_MeetingManagement_OA_SharedMList>Shared Meeting List</OABusiness_OA_OA_PersonalUse_MeetingManagement_OA_SharedMList>
+					<OABusiness_OA_OA_PersonalUse_MeetingManagement_OA_SponsorMList>Sponsor Meeting List</OABusiness_OA_OA_PersonalUse_MeetingManagement_OA_SponsorMList>
+					<OABusiness_OA_OA_PersonalUse_MeetingManagement_MeetingBrowser>Meeting Calendar</OABusiness_OA_OA_PersonalUse_MeetingManagement_MeetingBrowser>
+				<OABusiness_OA_OA_PersonalUse_WorkPlan>Work Plan</OABusiness_OA_OA_PersonalUse_WorkPlan>
+					<OABusiness_OA_OA_PersonalUse_WorkPlan_OA_WeeklyReportList>Weekly Report</OABusiness_OA_OA_PersonalUse_WorkPlan_OA_WeeklyReportList>
+			<OABusiness_OA_OA_Organize>Organize</OABusiness_OA_OA_Organize>
+				<OABusiness_OA_OA_Organize_OA_Department>Department</OABusiness_OA_OA_Organize_OA_Department>
+				<OABusiness_OA_OA_Organize_OA_Employee>Employee</OABusiness_OA_OA_Organize_OA_Employee>
+				<OABusiness_OA_OA_Organize_OA_Duty>Duty</OABusiness_OA_OA_Organize_OA_Duty>
+			<OABusiness_OA_OA_Information>Information Management</OABusiness_OA_OA_Information>
+				<OABusiness_OA_OA_Information_OA_NewsDraftView>News Draft</OABusiness_OA_OA_Information_OA_NewsDraftView>
+			<OABusiness_OA_OA_DocManagement>Doc Management</OABusiness_OA_OA_DocManagement>
+				<OABusiness_OA_OA_DocManagement_OA_DocView>Doc</OABusiness_OA_OA_DocManagement_OA_DocView>
+				<OABusiness_OA_OA_DocManagement_OA_FavLogView>Fav Log</OABusiness_OA_OA_DocManagement_OA_FavLogView>
+			<OABusiness_OA_OA_Meeting>Meeting Management</OABusiness_OA_OA_Meeting>
+				<OABusiness_OA_OA_Meeting_OA_MeetingType>Meeting Type</OABusiness_OA_OA_Meeting_OA_MeetingType>
+				<OABusiness_OA_OA_Meeting_OA_MeetingRoom>Meeting Room</OABusiness_OA_OA_Meeting_OA_MeetingRoom>
+				<OABusiness_OA_OA_Meeting_OA_MeetingInSideView>Meeting InSide</OABusiness_OA_OA_Meeting_OA_MeetingInSideView>
+				<OABusiness_OA_OA_Meeting_OA_MeetingOutSideView>Meeting OutSide</OABusiness_OA_OA_Meeting_OA_MeetingOutSideView>
+				<OABusiness_OA_OA_Meeting_OA_AuditMListInSide>Audit Meeting List InSide</OABusiness_OA_OA_Meeting_OA_AuditMListInSide>
+				<OABusiness_OA_OA_Meeting_OA_AuditMListOutSide>Audit Meeting List OutSide</OABusiness_OA_OA_Meeting_OA_AuditMListOutSide>
+			<OABusiness_OA_ArchiveManagement>Archive Management</OABusiness_OA_ArchiveManagement>
+				<OABusiness_OA_ArchiveManagement_OA_ArchiveView>Archive List</OABusiness_OA_ArchiveManagement_OA_ArchiveView>
+			<OABusiness_OA_OA_SystemMessages>SystemMessages Management</OABusiness_OA_OA_SystemMessages>
+				<OABusiness_OA_OA_SystemMessages_OA_SendMessagesView>Send Messages List</OABusiness_OA_OA_SystemMessages_OA_SendMessagesView>
+				<OABusiness_OA_OA_SystemMessages_OA_ReceiveMessagesView>Receive Messages List</OABusiness_OA_OA_SystemMessages_OA_ReceiveMessagesView>
+				<OABusiness_OA_OA_SystemMessages_OA_SendResultView>Send Result List</OABusiness_OA_OA_SystemMessages_OA_SendResultView>
+			<OABusiness_OA_OA_AddressBookManage>AddressBook Management</OABusiness_OA_OA_AddressBookManage>
+				<OABusiness_OA_OA_AddressBookManage_OA_AddressBook>AddressBook</OABusiness_OA_OA_AddressBookManage_OA_AddressBook>
+			<OABusiness_OA_OA_Approval>Workflow Approval</OABusiness_OA_OA_Approval>
+				<OABusiness_OA_OA_Approval_OA_BPM>BPM Management</OABusiness_OA_OA_Approval_OA_BPM>
+				<OABusiness_OA_OA_Approval_OA_WorkflowSet>Workflow Set</OABusiness_OA_OA_Approval_OA_WorkflowSet>
+				<OABusiness_OA_OA_Approval_OA_WorkflowView>Workflow Definition</OABusiness_OA_OA_Approval_OA_WorkflowView>
+				<OABusiness_OA_OA_Approval_OA_WorkflowType>Workflow Type</OABusiness_OA_OA_Approval_OA_WorkflowType>
+				<OABusiness_OA_OA_Approval_OA_WorkflowArea>Workflow Area</OABusiness_OA_OA_Approval_OA_WorkflowArea>
+				<OABusiness_OA_OA_Approval_OA_CommonWorkflow>Common Workflow</OABusiness_OA_OA_Approval_OA_CommonWorkflow>
+				<OABusiness_OA_OA_Approval_OA_OfficeRights>Office Rights</OABusiness_OA_OA_Approval_OA_OfficeRights>
+				<OABusiness_OA_OA_Approval_OA_OptPublic>OptPublic</OABusiness_OA_OA_Approval_OA_OptPublic>
+				<OABusiness_OA_OA_Approval_OA_OptRule>OptRule</OABusiness_OA_OA_Approval_OA_OptRule>
+				<OABusiness_OA_OA_Approval_OA_BusinessSource>Business Source</OABusiness_OA_OA_Approval_OA_BusinessSource>
+				<OABusiness_OA_OA_Approval_OA_EmployeeSource>Employee Source</OABusiness_OA_OA_Approval_OA_EmployeeSource>
+				<OABusiness_OA_OA_Approval_OA_SelRule>Sel Rule</OABusiness_OA_OA_Approval_OA_SelRule>
+				<OABusiness_OA_OA_Approval_OA_AuditSet>Audit Set</OABusiness_OA_OA_Approval_OA_AuditSet>
+				<OABusiness_OA_OA_Approval_OA_EmailSetView>Email Set</OABusiness_OA_OA_Approval_OA_EmailSetView>
+				<OABusiness_OA_OA_Approval_OA_MessageSet>Message Set</OABusiness_OA_OA_Approval_OA_MessageSet>
+				<OABusiness_OA_OA_Approval_OA_OptModule>Opt Module</OABusiness_OA_OA_Approval_OA_OptModule>
+				<OABusiness_OA_OA_Approval_OA_CommonViews>Common Opinion</OABusiness_OA_OA_Approval_OA_CommonViews>
+				<OABusiness_OA_OA_Approval_OA_Delegate>Delegate</OABusiness_OA_OA_Approval_OA_Delegate>
+			<OABusiness_OA_OA_OfficeManagement>Office Management</OABusiness_OA_OA_OfficeManagement>
+				<OABusiness_OA_OA_OfficeManagement_OA_FileType>File Type</OABusiness_OA_OA_OfficeManagement_OA_FileType>
+				<OABusiness_OA_OA_OfficeManagement_OA_WordSize>WordSize</OABusiness_OA_OA_OfficeManagement_OA_WordSize>
+				<OABusiness_OA_OA_OfficeManagement_OA_ScheduleType>Schedule Type</OABusiness_OA_OA_OfficeManagement_OA_ScheduleType>
+				<OABusiness_OA_OA_OfficeManagement_OA_DocType>Doc Type</OABusiness_OA_OA_OfficeManagement_OA_DocType>
+				<OABusiness_OA_OA_OfficeManagement_OA_NewsType>News Type</OABusiness_OA_OA_OfficeManagement_OA_NewsType>
+				<OABusiness_OA_OA_OfficeManagement_OA_CommonLinkView>Common Link</OABusiness_OA_OA_OfficeManagement_OA_CommonLinkView>
+				<OABusiness_OA_OA_OfficeManagement_OA_Seal>Seal</OABusiness_OA_OA_OfficeManagement_OA_Seal>
+				<OABusiness_OA_OA_OfficeManagement_OA_Group>Group</OABusiness_OA_OA_OfficeManagement_OA_Group>
+				<OABusiness_OA_OA_OfficeManagement_OA_ProjectPhases>Project Phases</OABusiness_OA_OA_OfficeManagement_OA_ProjectPhases>
+				<OABusiness_OA_OA_OfficeManagement_OA_ProblemType>Problem Type</OABusiness_OA_OA_OfficeManagement_OA_ProblemType>
+				<OABusiness_OA_OA_OfficeManagement_OA_Week>Week</OABusiness_OA_OA_OfficeManagement_OA_Week>
+				<OABusiness_OA_OA_OfficeManagement_OA_WorkType>Work Type</OABusiness_OA_OA_OfficeManagement_OA_WorkType>
+				<OABusiness_OA_OA_OfficeManagement_OA_MessageSet>Message Set</OABusiness_OA_OA_OfficeManagement_OA_MessageSet>
+				<OABusiness_OA_OA_OfficeManagement_OA_ItemSet>Item Set</OABusiness_OA_OA_OfficeManagement_OA_ItemSet>
+				<OABusiness_OA_OA_OfficeManagement_OA_WorkingCalendar>Working Calendar</OABusiness_OA_OA_OfficeManagement_OA_WorkingCalendar>
+				<OABusiness_OA_OA_OfficeManagement_OA_WorkingTime>Working Time</OABusiness_OA_OA_OfficeManagement_OA_WorkingTime>
+				<OABusiness_OA_OA_OfficeManagement_OA_Navigation>Navigation</OABusiness_OA_OA_OfficeManagement_OA_Navigation>
+			<OABusiness_OA_OA_Report>Report</OABusiness_OA_OA_Report>
+				<OABusiness_OA_OA_Report_OA_OfficialReport>Official Report</OABusiness_OA_OA_Report_OA_OfficialReport>
+					<OABusiness_OA_OA_Report_OA_OfficialReport_OA_ForLanDtlReport>Incoming Dispatches DtlReport</OABusiness_OA_OA_Report_OA_OfficialReport_OA_ForLanDtlReport>
+					<OABusiness_OA_OA_Report_OA_OfficialReport_OA_ForLanSubReport>Incoming Dispatches SubReport</OABusiness_OA_OA_Report_OA_OfficialReport_OA_ForLanSubReport>
+					<OABusiness_OA_OA_Report_OA_OfficialReport_OA_SpoFileDtlReport>Dispatch DtlReport</OABusiness_OA_OA_Report_OA_OfficialReport_OA_SpoFileDtlReport>
+					<OABusiness_OA_OA_Report_OA_OfficialReport_OA_SpoFileSubReport>Dispatch SubReport</OABusiness_OA_OA_Report_OA_OfficialReport_OA_SpoFileSubReport>
+				<OABusiness_OA_OA_Report_OA_MeetingReport>Meeting Report</OABusiness_OA_OA_Report_OA_MeetingReport>
+					<OABusiness_OA_OA_Report_OA_MeetingReport_OA_MeetingDtlReport>Meeting DtlReport</OABusiness_OA_OA_Report_OA_MeetingReport_OA_MeetingDtlReport>
+					<OABusiness_OA_OA_Report_OA_MeetingReport_OA_MeetingSubReport>Meeting SubReport</OABusiness_OA_OA_Report_OA_MeetingReport_OA_MeetingSubReport>
+				<OABusiness_OA_OA_Report_OA_ScheduleReport>Schedule Report</OABusiness_OA_OA_Report_OA_ScheduleReport>
+					<OABusiness_OA_OA_Report_OA_ScheduleReport_OA_ScheduleDtlReport>Schedule DtlReport</OABusiness_OA_OA_Report_OA_ScheduleReport_OA_ScheduleDtlReport>
+					<OABusiness_OA_OA_Report_OA_ScheduleReport_OA_ScheduleSubReport>Schedule SubReport</OABusiness_OA_OA_Report_OA_ScheduleReport_OA_ScheduleSubReport>
+				<OABusiness_OA_OA_Report_OA_DocReport>Doc Report</OABusiness_OA_OA_Report_OA_DocReport>
+					<OABusiness_OA_OA_Report_OA_DocReport_OA_DocDtlReport>Doc DtlReport</OABusiness_OA_OA_Report_OA_DocReport_OA_DocDtlReport>
+					<OABusiness_OA_OA_Report_OA_DocReport_OA_DocSubReport>Doc SubReport</OABusiness_OA_OA_Report_OA_DocReport_OA_DocSubReport>
+				<OABusiness_OA_OA_Report_OA_WorkflowReport>Workflow Report</OABusiness_OA_OA_Report_OA_WorkflowReport>
+					<OABusiness_OA_OA_Report_OA_WorkflowReport_OA_WFDelReport>Workflow DelReport</OABusiness_OA_OA_Report_OA_WorkflowReport_OA_WFDelReport>
+					<OABusiness_OA_OA_Report_OA_WorkflowReport_OA_WFTotalReport>Workflow TotalReport</OABusiness_OA_OA_Report_OA_WorkflowReport_OA_WFTotalReport>
+					<OABusiness_OA_OA_Report_OA_WorkflowReport_OA_ReadDelReport>Read DelReport</OABusiness_OA_OA_Report_OA_WorkflowReport_OA_ReadDelReport>
+					<OABusiness_OA_OA_Report_OA_WorkflowReport_OA_ReadTotalReport>Read TotalReport</OABusiness_OA_OA_Report_OA_WorkflowReport_OA_ReadTotalReport>
+					<OABusiness_OA_OA_Report_OA_WorkflowReport_OA_DoneReport>Done Report</OABusiness_OA_OA_Report_OA_WorkflowReport_OA_DoneReport>
+					<OABusiness_OA_OA_Report_OA_WorkflowReport_OA_DoneTolReport>Done TolReport</OABusiness_OA_OA_Report_OA_WorkflowReport_OA_DoneTolReport>
+					<OABusiness_OA_OA_Report_OA_WorkflowReport_OA_EndReport>End Workflow Report</OABusiness_OA_OA_Report_OA_WorkflowReport_OA_EndReport>
+					<OABusiness_OA_OA_Report_OA_WorkflowReport_OA_EndTolReport>End TolReport</OABusiness_OA_OA_Report_OA_WorkflowReport_OA_EndTolReport>
+					<OABusiness_OA_OA_Report_OA_WorkflowReport_OA_RejectWorkFlowReport>Reject WorkFlow Report</OABusiness_OA_OA_Report_OA_WorkflowReport_OA_RejectWorkFlowReport>
+					<OABusiness_OA_OA_Report_OA_WorkflowReport_OA_RejectTolReport>Reject TolReport</OABusiness_OA_OA_Report_OA_WorkflowReport_OA_RejectTolReport>
+					<OABusiness_OA_OA_Report_OA_WorkflowReport_OA_ToDoListReport>ToDoList Report</OABusiness_OA_OA_Report_OA_WorkflowReport_OA_ToDoListReport>
+					<OABusiness_OA_OA_Report_OA_WorkflowReport_OA_ToDoListTolReport>oDoList TolReport</OABusiness_OA_OA_Report_OA_WorkflowReport_OA_ToDoListTolReport>
+				<OABusiness_OA_OA_Report_OA_TaskReport1>Task Report</OABusiness_OA_OA_Report_OA_TaskReport1>
+					<OABusiness_OA_OA_Report_OA_TaskReport1_OA_TaskReport>Task DtlReport</OABusiness_OA_OA_Report_OA_TaskReport1_OA_TaskReport>
+					<OABusiness_OA_OA_Report_OA_TaskReport1_OA_TaskReportCount>Task ReportCount</OABusiness_OA_OA_Report_OA_TaskReport1_OA_TaskReportCount>
+				<OABusiness_OA_OA_Report_OA_InformationReport>Information Report</OABusiness_OA_OA_Report_OA_InformationReport>
+					<OABusiness_OA_OA_Report_OA_InformationReport_OA_InfoDelReport>Info DelReport</OABusiness_OA_OA_Report_OA_InformationReport_OA_InfoDelReport>
+					<OABusiness_OA_OA_Report_OA_InformationReport_OA_InfoTatolReport>Info TatolReport</OABusiness_OA_OA_Report_OA_InformationReport_OA_InfoTatolReport>
+				<OABusiness_OA_OA_Report_OA_WorkPlanReport>WorkPlan Report</OABusiness_OA_OA_Report_OA_WorkPlanReport>
+					<OABusiness_OA_OA_Report_OA_WorkPlanReport_OA_WPDelReport1>WorkPlan DelReport</OABusiness_OA_OA_Report_OA_WorkPlanReport_OA_WPDelReport1>
+					<OABusiness_OA_OA_Report_OA_WorkPlanReport_OA_WorkHoursReport2>WorkPlan HoursReport</OABusiness_OA_OA_Report_OA_WorkPlanReport_OA_WorkHoursReport2>
+					<OABusiness_OA_OA_Report_OA_WorkPlanReport_OA_DetailReport3>WorkPlan Detail Report</OABusiness_OA_OA_Report_OA_WorkPlanReport_OA_DetailReport3>
+					<OABusiness_OA_OA_Report_OA_WorkPlanReport_OA_WPTotalReport4>WorkPlan TotalReport</OABusiness_OA_OA_Report_OA_WorkPlanReport_OA_WPTotalReport4>
+	</Entry>
+</StringTable>

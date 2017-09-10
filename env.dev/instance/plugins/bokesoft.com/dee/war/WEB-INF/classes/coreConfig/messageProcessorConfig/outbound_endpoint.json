@@ -442,4 +442,36 @@
 						'defaultValue' : 'request-response',
 						'type' : 'comboExchangeType'
 					}]
+		}, {
+			'text' : 'YIGO2.0',
+			'type' : 'YIGO2.0',
+			'attr' : [{
+						'name' : 'yigoUrl',
+						'label' : 'Yigo地址',
+						'defaultValue' : 'BD{yigo_url}',
+						'type' : 'string',
+						'require' : 'true'
+					}, {
+						'name' : 'connectTimeout',
+						'label' : 'connectTimeout',
+						'defaultValue' : 3000,
+						'type' : 'number'
+					}, {
+						'name' : 'readTimeout',
+						'label' : 'readTimeout',
+						'defaultValue' : 30000,
+						'type' : 'number'
+					}, {
+						'name' : 'isThrowException',
+						'label' : '是否抛出异常',
+						'defaultValue' : '是',
+						'type' : 'comboxBoolean',
+						'require' : 'true'
+					}, {
+						'name' : 'isInTransaction',
+						'label' : '是否在同一个事务',
+						'defaultValue' : '是',
+						'type' : 'comboxBoolean',
+						'require' : 'true'
+					}]
 		}]

@@ -1,0 +1,10 @@
+{
+  "id": "ff8080815d1c15ff015d2faa8bbf02f7",
+  "startIndex": "",
+  "text": "PS_DEPARTMENT2_TO_BPM",
+  "autoRun": "true",
+  "description": "定时更新部门中间表数据到YIGO2.0",
+  "responseTime": "600000",
+  "changePort": "",
+  "oldPort": ""
+}

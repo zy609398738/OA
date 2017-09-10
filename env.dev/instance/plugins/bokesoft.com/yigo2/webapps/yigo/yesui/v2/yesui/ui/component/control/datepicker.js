@@ -47,7 +47,7 @@ YIUI.Control.DatePicker = YIUI.extend(YIUI.Control, {
      */
     setBackColor: function (backColor) {
         this.backColor = backColor;
-        this.datePicker.getInput().css({
+        this.datePicker && this.datePicker.getInput().css({
             'background-image': 'none',
             'background-color': backColor
         })
@@ -58,12 +58,12 @@ YIUI.Control.DatePicker = YIUI.extend(YIUI.Control, {
      */
     setForeColor: function (foreColor) {
         this.foreColor = foreColor;
-        this.datePicker.getInput().css('color', foreColor);
+        this.datePicker && this.datePicker.getInput().css('color', foreColor);
     },
 
     setFormatStyle: function (cssStyle) {
         this.cssStyle = cssStyle;
-        this.datePicker.getInput().css(cssStyle);
+        this.datePicker && this.datePicker.getInput().css(cssStyle);
     },
 
     setText: function (text) {

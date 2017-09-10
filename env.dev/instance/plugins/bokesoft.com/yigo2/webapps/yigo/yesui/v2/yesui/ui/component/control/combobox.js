@@ -255,7 +255,7 @@ YIUI.Control.ComboBox = YIUI.extend(YIUI.Control, {
     install: function() {
     	var self = this;
     	$("input", this.el).bind("keydown", function(e){
-        	if(!self.enable) {
+        	if( !self.enable || e.stop ) {
         		return false;
         	}
             var keyCode = e.keyCode || e.charCode;
@@ -263,7 +263,6 @@ YIUI.Control.ComboBox = YIUI.extend(YIUI.Control, {
                 self.focusManager.requestNextFocus(self);
                 e.preventDefault();
             }
-        	
     	});
     },
     
@@ -331,31 +330,6 @@ YIUI.Control.ComboBox = YIUI.extend(YIUI.Control, {
         }
         this.promptText && this.setPromptText(this.promptText);
 		this.sourceType && this.setSourceType(this.sourceType);
-		//this.setItems(this.items);
-       
-
-
-        //this._dropView.html(comboboxListHtml);
-//        this.hideComboList();
-//        var value = this.getValue();
-//        this.checkItem(value);
-		//this._textBtn.val(this.getItemCaption(value));
-        
-    	
-    	
-		//if(this.multiSelect && value){
-		//	var arr = this.getValue().split(",");
-		//  	for(var index in  arr){
-		//  		var checkedBoxes = this._dropView.find('input[type="checkbox"]')
-		//		for(var i = 0 ; i <  checkedBoxes.length ; i++){
-		//			if(arr[index] == checkedBoxes[i].value){
-		//				checkedBoxes[i].checked = true;
-		//				break;
-		//			}
-		//		}
-		//  	}
-		//}
-
     }
 });
 YIUI.reg('combobox', YIUI.Control.ComboBox);

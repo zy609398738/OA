@@ -1,0 +1,169 @@
+<table id="group_13" class="group"  border="0" cellspacing="0" cellpadding="0"><tr style="height:100%;">
+<td id="zenLayoutTableCell_14"  >
+<div class="zendiv" id="content" zen="14"  ><div><hr/><table><tr><td><table cellpadding=4 cellspacing=4><tbody align=center><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='1:MSH - Message Header' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.6%3AMSH&PATH=MSH&MS=MS%3A2.6%3AEHC_E01'>MSH</a></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='2:SFT() - Software Segment' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.6%3ASFT&PATH=SFT()&MS=MS%3A2.6%3AEHC_E01'>SFT</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='3:UAC() - User Authentication Credential Segment' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.6%3AUAC&PATH=UAC()&MS=MS%3A2.6%3AEHC_E01'>UAC</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='right' valign='top' style='font-style:italic;'>IVCunion</td><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #ead960;; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='4:IVCunion.IVC - Invoice Segment' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.6%3AIVC&PATH=IVCunion.IVC&MS=MS%3A2.6%3AEHC_E01'>IVC</a></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='5:IVCunion.PYE - Payee Information' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.6%3APYE&PATH=IVCunion.PYE&MS=MS%3A2.6%3AEHC_E01'>PYE</a></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='6:IVCunion.CTD() - Contact Data' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.6%3ACTD&PATH=IVCunion.CTD()&MS=MS%3A2.6%3AEHC_E01'>CTD</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='7:IVCunion.AUT - Authorization Information' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.6%3AAUT&PATH=IVCunion.AUT&MS=MS%3A2.6%3AEHC_E01'>AUT</a></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='8:IVCunion.LOC() - Location Identification' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.6%3ALOC&PATH=IVCunion.LOC()&MS=MS%3A2.6%3AEHC_E01'>LOC</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='9:IVCunion.ROL() - Role' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.6%3AROL&PATH=IVCunion.ROL()&MS=MS%3A2.6%3AEHC_E01'>ROL</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='right' valign='top' style='font-style:italic;'>PSSgrp</td><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='10:IVCunion.PSSgrp().PSS - Product/Service Section' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.6%3APSS&PATH=IVCunion.PSSgrp().PSS&MS=MS%3A2.6%3AEHC_E01'>PSS</a></td></tr>
+<tr><td align='right' valign='top' style='font-style:italic;'>PSGgrp</td><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='11:IVCunion.PSSgrp().PSGgrp().PSG - Product/Service Group' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.6%3APSG&PATH=IVCunion.PSSgrp().PSGgrp().PSG&MS=MS%3A2.6%3AEHC_E01'>PSG</a></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='12:IVCunion.PSSgrp().PSGgrp().LOC() - Location Identification' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.6%3ALOC&PATH=IVCunion.PSSgrp().PSGgrp().LOC()&MS=MS%3A2.6%3AEHC_E01'>LOC</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='13:IVCunion.PSSgrp().PSGgrp().ROL() - Role' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.6%3AROL&PATH=IVCunion.PSSgrp().PSGgrp().ROL()&MS=MS%3A2.6%3AEHC_E01'>ROL</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='right' valign='top' style='font-style:italic;'>PIDgrp</td><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='14:IVCunion.PSSgrp().PSGgrp().PIDgrp().PID - Patient Identification' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.6%3APID&PATH=IVCunion.PSSgrp().PSGgrp().PIDgrp().PID&MS=MS%3A2.6%3AEHC_E01'>PID</a></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='15:IVCunion.PSSgrp().PSGgrp().PIDgrp().PV1 - Patient Visit' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.6%3APV1&PATH=IVCunion.PSSgrp().PSGgrp().PIDgrp().PV1&MS=MS%3A2.6%3AEHC_E01'>PV1</a></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='16:IVCunion.PSSgrp().PSGgrp().PIDgrp().PV2 - Patient Visit - Additional Information' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.6%3APV2&PATH=IVCunion.PSSgrp().PSGgrp().PIDgrp().PV2&MS=MS%3A2.6%3AEHC_E01'>PV2</a></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='17:IVCunion.PSSgrp().PSGgrp().PIDgrp().ACC() - Accident' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.6%3AACC&PATH=IVCunion.PSSgrp().PSGgrp().PIDgrp().ACC()&MS=MS%3A2.6%3AEHC_E01'>ACC</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='right' valign='top' style='font-style:italic;'>IN1grp</td><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='18:IVCunion.PSSgrp().PSGgrp().PIDgrp().IN1grp().IN1 - Insurance' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.6%3AIN1&PATH=IVCunion.PSSgrp().PSGgrp().PIDgrp().IN1grp().IN1&MS=MS%3A2.6%3AEHC_E01'>IN1</a></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='19:IVCunion.PSSgrp().PSGgrp().PIDgrp().IN1grp().IN2 - Insurance Additional Information' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.6%3AIN2&PATH=IVCunion.PSSgrp().PSGgrp().PIDgrp().IN1grp().IN2&MS=MS%3A2.6%3AEHC_E01'>IN2</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='right' valign='top' style='font-style:italic;'>DG1grp</td><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='20:IVCunion.PSSgrp().PSGgrp().PIDgrp().DG1grp().DG1 - Diagnosis' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.6%3ADG1&PATH=IVCunion.PSSgrp().PSGgrp().PIDgrp().DG1grp().DG1&MS=MS%3A2.6%3AEHC_E01'>DG1</a></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='21:IVCunion.PSSgrp().PSGgrp().PIDgrp().DG1grp().NTE() - Notes and Comments' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.6%3ANTE&PATH=IVCunion.PSSgrp().PSGgrp().PIDgrp().DG1grp().NTE()&MS=MS%3A2.6%3AEHC_E01'>NTE</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='22:IVCunion.PSSgrp().PSGgrp().PIDgrp().OBX() - Observation/Result' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.6%3AOBX&PATH=IVCunion.PSSgrp().PSGgrp().PIDgrp().OBX()&MS=MS%3A2.6%3AEHC_E01'>OBX</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='right' valign='top' style='font-style:italic;'>PSLgrp</td><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='23:IVCunion.PSSgrp().PSGgrp().PSLgrp().PSL - Product/Service Line Item' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.6%3APSL&PATH=IVCunion.PSSgrp().PSGgrp().PSLgrp().PSL&MS=MS%3A2.6%3AEHC_E01'>PSL</a></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='24:IVCunion.PSSgrp().PSGgrp().PSLgrp().NTE() - Notes and Comments' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.6%3ANTE&PATH=IVCunion.PSSgrp().PSGgrp().PSLgrp().NTE()&MS=MS%3A2.6%3AEHC_E01'>NTE</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='25:IVCunion.PSSgrp().PSGgrp().PSLgrp().ADJ() - Adjustment' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.6%3AADJ&PATH=IVCunion.PSSgrp().PSGgrp().PSLgrp().ADJ()&MS=MS%3A2.6%3AEHC_E01'>ADJ</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='26:IVCunion.PSSgrp().PSGgrp().PSLgrp().AUT - Authorization Information' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.6%3AAUT&PATH=IVCunion.PSSgrp().PSGgrp().PSLgrp().AUT&MS=MS%3A2.6%3AEHC_E01'>AUT</a></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='27:IVCunion.PSSgrp().PSGgrp().PSLgrp().LOC() - Location Identification' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.6%3ALOC&PATH=IVCunion.PSSgrp().PSGgrp().PSLgrp().LOC()&MS=MS%3A2.6%3AEHC_E01'>LOC</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='28:IVCunion.PSSgrp().PSGgrp().PSLgrp().ROL() - Role' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.6%3AROL&PATH=IVCunion.PSSgrp().PSGgrp().PSLgrp().ROL()&MS=MS%3A2.6%3AEHC_E01'>ROL</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='right' valign='top' style='font-style:italic;'>PR1grp</td><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='29:IVCunion.PSSgrp().PSGgrp().PR1grp().PR1 - Procedures' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.6%3APR1&PATH=IVCunion.PSSgrp().PSGgrp().PR1grp().PR1&MS=MS%3A2.6%3AEHC_E01'>PR1</a></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='30:IVCunion.PSSgrp().PSGgrp().PR1grp().NTE() - Notes and Comments' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.6%3ANTE&PATH=IVCunion.PSSgrp().PSGgrp().PR1grp().NTE()&MS=MS%3A2.6%3AEHC_E01'>NTE</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='31:IVCunion.PSSgrp().PSGgrp().PR1grp().ROL() - Role' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.6%3AROL&PATH=IVCunion.PSSgrp().PSGgrp().PR1grp().ROL()&MS=MS%3A2.6%3AEHC_E01'>ROL</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='32:IVCunion.PSSgrp().PSGgrp().IPR() - Invoice Processing Results' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.6%3AIPR&PATH=IVCunion.PSSgrp().PSGgrp().IPR()&MS=MS%3A2.6%3AEHC_E01'>IPR</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+</tr></table></td>
+<td valign='top'><div style="padding-left:10px;">
+<b>Key</b><table cellpadding=4 cellspacing=4>
+<tr><td style="border: 2px dotted #60a060; border-right: none;" >可选</td></tr>
+<tr><td style="border: 2px solid #703838; border-right: none;" >重复</td></tr>
+<tr><td style="border: 2px dotted #ead960; border-right: none;" cellpadding=2 cellspacing=2>选择</td></tr>
+</table></div></td>
+</tr></table></div>
+</div>
+</td>
+<td id="zenLayoutTableCell_15"  style="vertical-align:top;">
+<div class="zendiv" id="zen15" zen="15"  >
+<table id="group_15" class="group"  border="0" cellspacing="0" cellpadding="0">
+<tr style="vertical-align:top;">
+<td id="zenLayoutTableCell_16"  >
+<div class="zendiv" id="showRawContent" zen="16"  ><div id="rawDivPointer" style="padding:20px 0px 0px 20px;">
+	<span><img src="images/spacer.gif" width="30" height="2"><img src="images/disclosure-contracted.gif" alt="*" width="8" height="11" border="0">
+	<span onclick="showRaw('rawContent');"><a href="#">显示原始定义文本</a></span></span><br/>
+	</div>
+<div id="rawContent" style="padding:20px 0px 0px 50px;display:none;" >
+	<b>原始定义</b>
+	<table cellspacing="0" cellpadding="2">
+	<tr><td>2.6:MSH~[~{~2.6:SFT~}~]~[~{~2.6:UAC~}~]~<~2.6:IVC~[~2.6:PYE~]~[~{~2.6:CTD~}~]~[~2.6:AUT~]~[~{~2.6:LOC~}~]~[~{~2.6:ROL~}~]~{~2.6:PSS~{~2.6:PSG~[~{~2.6:LOC~}~]~[~{~2.6:ROL~}~]~[~{~2.6:PID~[~2.6:PV1~]~[~2.6:PV2~]~[~{~2.6:ACC~}~]~{~2.6:IN1~[~2.6:IN2~]~}~[~{~2.6:DG1~[~{~2.6:NTE~}~]~}~]~[~{~2.6:OBX~}~]~}~]~{~2.6:PSL~[~{~2.6:NTE~}~]~[~{~2.6:ADJ~}~]~[~2.6:AUT~]~[~{~2.6:LOC~}~]~[~{~2.6:ROL~}~]~}~[~{~2.6:PR1~[~{~2.6:NTE~}~]~[~{~2.6:ROL~}~]~}~]~[~{~2.6:IPR~}~]~}~}~></td></tr>
+	</table>
+	</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+</tr></table><script type="text/javascript" src="js/hl7/ms.js"></script>

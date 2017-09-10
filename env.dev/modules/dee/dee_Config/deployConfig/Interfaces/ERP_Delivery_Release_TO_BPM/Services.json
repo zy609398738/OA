@@ -1,0 +1,20 @@
+[
+  {
+    "id": "8aaae0c55d102b6f015d104b72350007",
+    "text": "ERP_Delivery_Release_TO_BPM_H",
+    "recordMpLog": "true",
+    "parentId": "8aaae0c55d102b6f015d104b71d10006",
+    "description": "查询ERP系统发货通知数据",
+    "fileImport": "false",
+    "enable": "true"
+  },
+  {
+    "recordMpLog": "true",
+    "text": "ERP_Delivery_Release_TO_BPM_L",
+    "id": "8aaae0c55d102b6f015d104b7355000c",
+    "parentId": "8aaae0c55d102b6f015d104b71d10006",
+    "description": "导入发货通知单数据至YIGO系统",
+    "fileImport": "false",
+    "enable": "true"
+  }
+]

@@ -1,0 +1,10 @@
+{
+  "id": "8aaae09b5bf18fd5015bf1adde39000f",
+  "startIndex": "",
+  "text": "PS_DEPARTMENT_TO_BPM",
+  "autoRun": "true",
+  "description": "定时同步PS部门视图数据到YIGO2.0",
+  "responseTime": "600000",
+  "changePort": "",
+  "oldPort": ""
+}

@@ -23,6 +23,8 @@ var YIUI = YIUI || {};
                 }
                 return;
             }
+            if( this.form.isError() && this.form.errorInfo.errorSource !== this.form.formKey )
+                return;
             var globalItems = this.checkRuleTree.globalItems;
             if ( !globalItems )
                 return;
@@ -36,7 +38,7 @@ var YIUI = YIUI || {};
                         this.form.setError(true,result,formKey);
                         break;
                     } else {
-                       if( this.form.isError() && this.form.errorInfo.errorSource === formKey) {
+                       if( this.form.isError() && this.form.errorInfo.errorSource === formKey ) {
                            this.form.setError(false,null,null);
                        }
                     }
@@ -141,13 +143,16 @@ var YIUI = YIUI || {};
                         grid.setCellError(grid.getFocusRowIndex(),location.column,com.isError(),com.getErrorMsg());
                     }
                 }
-                if( !com.isVisible() ) {
-                    if( !this.form.isError() || this.form.formKey != this.form.errorInfo.errorSource ) {
-                        if( com.isError() ) this.form.setError(true,com.getErrorMsg(),com.key);
-                        if( com.isRequired() ) this.form.setError(true,com.caption + " is Required",com.key);
+                // 组件的错误优先显示
+                if( !com.isVisible() && (com.isError() || com.isRequired()) ) {
+                    if( com.isError() ) {
+                        this.form.setError(true,com.getErrorMsg(),com.key);
+                    }
+                    if( com.isRequired() ) {
+                        this.form.setError(true,com.caption + " is Required",com.key);
                     }
                 } else {
-                    if( this.form.isError() && this.form.errorInfo.errorSource === com.key ){
+                    if( this.form.isError() && this.form.errorInfo.errorSource == com.key ){
                         this.form.setError(false,null,null);
                     }
                 }
@@ -261,11 +266,13 @@ var YIUI = YIUI || {};
         },
 
         checkGridRowCheckRule:function (grid,context,rowIndex) {
-            var rowCheckRules = grid.getMetaObj().rowCheckRules,
+            var rowCheckRules = this.checkRuleTree.rowCheckRules[grid.key],
                 rowData = grid.getRowDataAt(rowIndex),result;
             if ( !rowCheckRules || rowData.rowType !== 'Detail' )
                 return;
             for (var k = 0,item;item = rowCheckRules[k]; k++) {
+                if( !item.content.trim() )
+                    continue;
                 result = this.calcCheckRule(item,context);
                 if( typeof result === 'string' ) {
                     grid.setRowError(rowIndex,result,result);

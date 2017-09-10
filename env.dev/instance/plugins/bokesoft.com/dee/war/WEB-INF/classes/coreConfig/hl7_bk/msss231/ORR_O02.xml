@@ -1,0 +1,76 @@
+<table id="group_13" class="group"  border="0" cellspacing="0" cellpadding="0"><tr style="height:100%;">
+<td id="zenLayoutTableCell_14"  >
+<div class="zendiv" id="content" zen="14"  ><div><hr/><table><tr><td><table cellpadding=4 cellspacing=4><tbody align=center><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='1:MSH - message header segment' href='${bd_hl7_ss_url}MSH&PATH=MSH&MS=MS%3A2.3.1%3AORR_O02'>MSH</a></td></tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='2:MSA - message acknowledgment segment' href='${bd_hl7_ss_url}MSA&PATH=MSA&MS=MS%3A2.3.1%3AORR_O02'>MSA</a></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='3:ERR - error segment' href='${bd_hl7_ss_url}ERR&PATH=ERR&MS=MS%3A2.3.1%3AORR_O02'>ERR</a></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='4:NTE() - notes and comments segment' href='${bd_hl7_ss_url}NTE&PATH=NTE()&MS=MS%3A2.3.1%3AORR_O02'>NTE</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='right' valign='top' style='font-style:italic;'>PIDgrpgrp</td><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='right' valign='top' style='font-style:italic;'>PIDgrp</td><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='5:PIDgrpgrp.PIDgrp.PID - patient identification segment' href='${bd_hl7_ss_url}PID&PATH=PIDgrpgrp.PIDgrp.PID&MS=MS%3A2.3.1%3AORR_O02'>PID</a></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='6:PIDgrpgrp.PIDgrp.NTE() - notes and comments segment' href='${bd_hl7_ss_url}NTE&PATH=PIDgrpgrp.PIDgrp.NTE()&MS=MS%3A2.3.1%3AORR_O02'>NTE</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='right' valign='top' style='font-style:italic;'>ORCgrp</td><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='7:PIDgrpgrp.ORCgrp().ORC - common order segment' href='${bd_hl7_ss_url}ORC&PATH=PIDgrpgrp.ORCgrp().ORC&MS=MS%3A2.3.1%3AORR_O02'>ORC</a></td></tr>
+<tr><td align='right' valign='top' style='font-style:italic;'>OBRunion</td><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #ead960;; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='8:PIDgrpgrp.ORCgrp().OBRunion.OBR - observation request segment' href='${bd_hl7_ss_url}OBR&PATH=PIDgrpgrp.ORCgrp().OBRunion.OBR&MS=MS%3A2.3.1%3AORR_O02'>OBR</a></td></tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='9:PIDgrpgrp.ORCgrp().OBRunion.RQD - requisition detail segment' href='${bd_hl7_ss_url}RQD&PATH=PIDgrpgrp.ORCgrp().OBRunion.RQD&MS=MS%3A2.3.1%3AORR_O02'>RQD</a></td></tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='10:PIDgrpgrp.ORCgrp().OBRunion.RQ1 - requisition detail-1 segment' href='${bd_hl7_ss_url}RQ1&PATH=PIDgrpgrp.ORCgrp().OBRunion.RQ1&MS=MS%3A2.3.1%3AORR_O02'>RQ1</a></td></tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='11:PIDgrpgrp.ORCgrp().OBRunion.RXO - pharmacy/treatment order segment' href='${bd_hl7_ss_url}RXO&PATH=PIDgrpgrp.ORCgrp().OBRunion.RXO&MS=MS%3A2.3.1%3AORR_O02'>RXO</a></td></tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='12:PIDgrpgrp.ORCgrp().OBRunion.ODS - dietary orders, supplements, and preferences segment' href='${bd_hl7_ss_url}ODS&PATH=PIDgrpgrp.ORCgrp().OBRunion.ODS&MS=MS%3A2.3.1%3AORR_O02'>ODS</a></td></tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='13:PIDgrpgrp.ORCgrp().OBRunion.ODT - diet tray instructions segment' href='${bd_hl7_ss_url}ODT&PATH=PIDgrpgrp.ORCgrp().OBRunion.ODT&MS=MS%3A2.3.1%3AORR_O02'>ODT</a></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='14:PIDgrpgrp.ORCgrp().NTE() - notes and comments segment' href='${bd_hl7_ss_url}NTE&PATH=PIDgrpgrp.ORCgrp().NTE()&MS=MS%3A2.3.1%3AORR_O02'>NTE</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='15:PIDgrpgrp.ORCgrp().CTI() - clinical trial identification segment' href='${bd_hl7_ss_url}CTI&PATH=PIDgrpgrp.ORCgrp().CTI()&MS=MS%3A2.3.1%3AORR_O02'>CTI</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+</tr></table></td>
+<td valign='top'><div style="padding-left:10px;">
+<b>Key</b><table cellpadding=4 cellspacing=4>
+<tr><td style="border: 2px dotted #60a060; border-right: none;" >可选</td></tr>
+<tr><td style="border: 2px solid #703838; border-right: none;" >重复</td></tr>
+<tr><td style="border: 2px dotted #ead960; border-right: none;" cellpadding=2 cellspacing=2>选择</td></tr>
+</table></div></td>
+</tr></table></div>
+</div>
+</td>
+<td id="zenLayoutTableCell_15"  style="vertical-align:top;">
+<div class="zendiv" id="zen15" zen="15"  >
+<table id="group_15" class="group"  border="0" cellspacing="0" cellpadding="0">
+<tr style="vertical-align:top;">
+<td id="zenLayoutTableCell_16"  >
+<div class="zendiv" id="showRawContent" zen="16"  ><div id="rawDivPointer" style="padding:20px 0px 0px 20px;">
+	<span><img src="images/spacer.gif" width="30" height="2"><img src="images/disclosure-contracted.gif" alt="*" width="8" height="11" border="0">
+	<span onclick="showRaw('rawContent');"><a href="#">显示原始定义文本</a></span></span><br/>
+	</div>
+<div id="rawContent" style="padding:20px 0px 0px 50px;display:none;" >
+	<b>原始定义</b>
+	<table cellspacing="0" cellpadding="2">
+	<tr><td>2.3.1:MSH~2.3.1:MSA~[~2.3.1:ERR~]~[~{~2.3.1:NTE~}~]~[~[~2.3.1:PID~[~{~2.3.1:NTE~}~]~]~{~2.3.1:ORC~<~2.3.1:OBR~|~2.3.1:RQD~|~2.3.1:RQ1~|~2.3.1:RXO~|~2.3.1:ODS~|~2.3.1:ODT~>~[~{~2.3.1:NTE~}~]~[~{~2.3.1:CTI~}~]~}~]</td></tr>
+	</table>
+	</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+</tr></table><script type="text/javascript" src="js/hl7/ms.js"></script>

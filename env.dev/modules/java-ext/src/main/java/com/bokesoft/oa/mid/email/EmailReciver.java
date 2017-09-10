@@ -33,7 +33,7 @@ public class EmailReciver {
 	private String namePreSign = EmailUtil.namePreSign;
 	private String nameEndSign = EmailUtil.nameEndSign;
 
-	public  ArrayList<String> emailRepository = new ArrayList<String>();
+	public ArrayList<String> emailRepository = new ArrayList<String>();
 
 	public EmailReciver(MimeMessage mimeMessage) {
 		this.mimeMessage = mimeMessage;
@@ -54,7 +54,7 @@ public class EmailReciver {
 			from = "";
 		String personal = address[0].getPersonal();
 		if (personal == null)
-			//personal = "";
+			// personal = "";
 			personal = from;
 		String fromaddr = personal + namePreSign + from + nameEndSign;
 		return fromaddr;
@@ -67,17 +67,13 @@ public class EmailReciver {
 		String mailaddr = "";
 		String addtype = type.toUpperCase();
 		InternetAddress[] address = null;
-		if (addtype.equals("TO") || addtype.equals("CC")
-				|| addtype.equals("BCC")) {
+		if (addtype.equals("TO") || addtype.equals("CC") || addtype.equals("BCC")) {
 			if (addtype.equals("TO")) {
-				address = (InternetAddress[]) mimeMessage
-						.getRecipients(Message.RecipientType.TO);
+				address = (InternetAddress[]) mimeMessage.getRecipients(Message.RecipientType.TO);
 			} else if (addtype.equals("CC")) {
-				address = (InternetAddress[]) mimeMessage
-						.getRecipients(Message.RecipientType.CC);
+				address = (InternetAddress[]) mimeMessage.getRecipients(Message.RecipientType.CC);
 			} else {
-				address = (InternetAddress[]) mimeMessage
-						.getRecipients(Message.RecipientType.BCC);
+				address = (InternetAddress[]) mimeMessage.getRecipients(Message.RecipientType.BCC);
 			}
 			if (address != null && address.length > 0) {
 				for (int i = 0; i < address.length; i++) {
@@ -89,7 +85,7 @@ public class EmailReciver {
 					}
 					String personal = address[i].getPersonal();
 					if (personal == null)
-						//personal = "";
+						// personal = "";
 						personal = email;
 					else {
 						personal = MimeUtility.decodeText(personal);
@@ -127,7 +123,7 @@ public class EmailReciver {
 		SimpleDateFormat format = new SimpleDateFormat(dateformat);
 		return format.format(sentdate);
 	}
-	
+
 	public Date getSentDate() throws Exception {
 		Date sentdate = mimeMessage.getSentDate();
 		return sentdate;
@@ -178,8 +174,7 @@ public class EmailReciver {
 	 */
 	public boolean getReplySign() throws MessagingException {
 		boolean replysign = false;
-		String needreply[] = mimeMessage
-				.getHeader("Disposition-Notification-To");
+		String needreply[] = mimeMessage.getHeader("Disposition-Notification-To");
 		if (needreply != null) {
 			replysign = true;
 		}
@@ -228,8 +223,7 @@ public class EmailReciver {
 	/**
 	 * 根据messageId得到指定message对象
 	 */
-	public static Message getMessageById(Folder folder, String messageId)
-			throws MessagingException {
+	public static Message getMessageById(Folder folder, String messageId) throws MessagingException {
 		Message[] messageList = folder.getMessages();
 		Message message = null;
 		for (int i = 0; i < messageList.length; i++) {
@@ -252,15 +246,14 @@ public class EmailReciver {
 	 */
 	public boolean isContainAttach(Part part) throws Exception {
 		boolean attachflag = false;
-//		String contentType = part.getContentType();
+		// String contentType = part.getContentType();
 		if (part.isMimeType("multipart/*")) {
 			Multipart mp = (Multipart) part.getContent();
 			for (int i = 0; i < mp.getCount(); i++) {
 				BodyPart mpart = mp.getBodyPart(i);
 				String disposition = mpart.getDisposition();
-				if ((disposition != null)
-						&& ((disposition.equals(Part.ATTACHMENT)))) // 去除Part.INLINE||
-																	// (disposition.equals(Part.INLINE))
+				if ((disposition != null) && ((disposition.equals(Part.ATTACHMENT)))) // 去除Part.INLINE||
+																						// (disposition.equals(Part.INLINE))
 					attachflag = true;
 				else if (mpart.isMimeType("multipart/*")) {
 					attachflag = isContainAttach((Part) mpart);
@@ -289,8 +282,7 @@ public class EmailReciver {
 				BodyPart mpart = mp.getBodyPart(i);
 				String disposition = mpart.getDisposition();
 				if ((disposition != null)
-						&& ((disposition.equals(Part.ATTACHMENT)) || (disposition
-								.equals(Part.INLINE)))) {
+						&& ((disposition.equals(Part.ATTACHMENT)) || (disposition.equals(Part.INLINE)))) {
 					fileName = mpart.getFileName();
 					if (fileName.toLowerCase().indexOf("gb2312") != -1) {
 						fileName = MimeUtility.decodeText(fileName);
@@ -300,8 +292,7 @@ public class EmailReciver {
 					saveAttachMent(mpart);
 				} else {
 					fileName = mpart.getFileName();
-					if ((fileName != null)
-							&& (fileName.toLowerCase().indexOf("gb2312") != -1)) {
+					if ((fileName != null) && (fileName.toLowerCase().indexOf("gb2312") != -1)) {
 						fileName = MimeUtility.decodeText(fileName);
 						saveFile(fileName, mpart.getInputStream());
 					}
@@ -331,15 +322,13 @@ public class EmailReciver {
 				BodyPart mpart = mp.getBodyPart(i);
 				String disposition = mpart.getDisposition();
 				if ((disposition != null)
-						&& ((disposition.equals(Part.ATTACHMENT)) || (disposition
-								.equals(Part.INLINE)))) {
+						&& ((disposition.equals(Part.ATTACHMENT)) || (disposition.equals(Part.INLINE)))) {
 					inputStream = mpart.getInputStream();
 				} else if (mpart.isMimeType("multipart/*")) {
 					getFileInputStream(mpart);
 				} else {
 					fileName = mpart.getFileName();
-					if ((fileName != null)
-							&& (fileName.toLowerCase().indexOf("gb2312") != -1)) {
+					if ((fileName != null) && (fileName.toLowerCase().indexOf("gb2312") != -1)) {
 						inputStream = mpart.getInputStream();
 					}
 				}
@@ -371,13 +360,14 @@ public class EmailReciver {
 				BodyPart mpart = mp.getBodyPart(i);
 				String disposition = mpart.getDisposition();
 				if ((disposition != null)
-						&& ((disposition.equals(Part.ATTACHMENT)) || (disposition
-								.equals(Part.INLINE)))) {
+						&& ((disposition.equals(Part.ATTACHMENT)) || (disposition.equals(Part.INLINE)))) {
 					fileName = mpart.getFileName();
 					if (fileName != null) {
-						if (fileName.toLowerCase().indexOf("gb2312") != -1 || 
-								fileName.toLowerCase().indexOf("gbk") != -1 ||
-								fileName.toLowerCase().indexOf("gb18030") != -1){ // gb2312 gbk gb18030
+						if (fileName.toLowerCase().indexOf("gb2312") != -1
+								|| fileName.toLowerCase().indexOf("gbk") != -1
+								|| fileName.toLowerCase().indexOf("gb18030") != -1) { // gb2312
+																						// gbk
+																						// gb18030
 							fileName = MimeUtility.decodeText(fileName);
 						}
 						fileNames += fileName + ",";
@@ -386,8 +376,7 @@ public class EmailReciver {
 					getFileName(mpart);
 				} else {
 					fileName = mpart.getFileName();
-					if ((fileName != null)
-							&& (fileName.toLowerCase().indexOf("gb2312") != -1)) {
+					if ((fileName != null) && (fileName.toLowerCase().indexOf("gb2312") != -1)) {
 						fileName = MimeUtility.decodeText(fileName);
 					}
 					if (fileName != null) {

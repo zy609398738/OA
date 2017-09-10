@@ -1,0 +1,10 @@
+{
+  "id": "8aaae0bb5dcae2ce015dcae623b00006",
+  "startIndex": "",
+  "text": "BPM_AP_EXAMINE_TO_ERP",
+  "autoRun": "true",
+  "description": "写入BPM系统付款信息至ERP系统中间表",
+  "responseTime": "600000",
+  "changePort": "",
+  "oldPort": ""
+}

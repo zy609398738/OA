@@ -24,7 +24,7 @@ public class TSL_GetRegionData implements IExtService {
 		dt.addColumn(new ColumnInfo("Value", DataType.STRING));
 		dt.addColumn(new ColumnInfo("Name", DataType.STRING));
 		JSONObject reJSONObject = JSONObject.parseObject(stringJson);
-		
+
 		Object data = reJSONObject.get("data");
 		if (data instanceof JSONArray) {
 			JSONArray reJSONArray = (JSONArray) data;

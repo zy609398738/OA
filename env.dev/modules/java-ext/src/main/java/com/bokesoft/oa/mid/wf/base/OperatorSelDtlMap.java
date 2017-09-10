@@ -83,6 +83,20 @@ public class OperatorSelDtlMap extends DtlBaseMap<Long, OperatorSelDtl, Operator
 	}
 
 	/**
+	 * 更新数据
+	 * 
+	 * @param dt
+	 *            明细数据集
+	 * @throws Throwable
+	 */
+	public void uploadData(DataTable dt) throws Throwable {
+		for (OperatorSelDtl dtl : values()) {
+			dt.append();
+			dtl.uploadData(dt);
+		}
+	}
+
+	/**
 	 * 获得数据集字段列的字符串结果
 	 * 
 	 * @param dt

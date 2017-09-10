@@ -1,0 +1,11 @@
+[
+  {
+    "parentId": "8a9f5afd5e0240a2015e024a3eee0006",
+    "text": "ERP_AMOUNT_TYPE_TO_BPM",
+    "recordMpLog": "false",
+    "id": "8a9f5afd5e0240a2015e024a3f910007",
+    "description": "实时查询ERP系统费用申请单预算类型信息",
+    "fileImport": "false",
+    "enable": "true"
+  }
+]

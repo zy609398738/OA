@@ -2,7 +2,6 @@ package com.bokesoft.oa.mid.message.extand;
 
 import java.util.ArrayList;
 
-import com.bokesoft.oa.base.OAContext;
 import com.bokesoft.oa.mid.message.Message;
 import com.bokesoft.oa.mid.message.MessageTypeBase;
 import com.bokesoft.oa.mid.sms.SmsSend;
@@ -13,8 +12,8 @@ import com.bokesoft.yigo.struct.datatable.DataTable;
 public class Sms extends MessageTypeBase {
 
 	@Override
-	public Object sendMessage(OAContext oaContext, Message message) throws Throwable {
-		DefaultContext context = oaContext.getContext();
+	public Object sendMessage(Message message) throws Throwable {
+		DefaultContext context = getContext().getContext();
 		String participants = message.getReceiveIDs().getIds();
 		String toUser = "";
 		String sql = "select a.SMobile from OA_Employee_H a join SYS_Operator b on a.oid = b.EmpID where b.OID in("

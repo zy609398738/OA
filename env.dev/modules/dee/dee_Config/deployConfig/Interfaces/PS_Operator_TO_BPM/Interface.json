@@ -1,0 +1,10 @@
+{
+  "id": "8aaae09b5bfa4119015bfa441f1b0006",
+  "startIndex": "",
+  "text": "PS_Operator_TO_BPM",
+  "autoRun": "true",
+  "description": "定时同步PS操作员视图数据到YIGO2.0",
+  "responseTime": "600000",
+  "changePort": "",
+  "oldPort": ""
+}

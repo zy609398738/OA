@@ -97,7 +97,7 @@ if ("testuse"==licType.toLowerCase() ) {
 	session.setAttribute("endDate",endDate);
 	session.setAttribute("remainingDays", remainingDays);
 	%>;
-	remainingDays = "<%=session.getAttribute("remainingDays")%>";
+	var remainingDays = "<%=session.getAttribute("remainingDays")%>";
 	
 	licType = "证书类型：<font style='color:#FF9900'>试用</font> &nbsp;&nbsp;有效期：<font style='color:#FF9900'>"+"<%=session.getAttribute("endDate")%></font>";
  } else {
@@ -168,20 +168,37 @@ if ("testuse"==licType.toLowerCase() ) {
 </script>
 		<script type="text/javascript" src="js/ext/SimpleConfig_tableToYigoWin.js">
 </script>
+		<script type="text/javascript" src="js/ext/SimpleConfig_tableToYigo2Win.js">
+</script>
 		<script type="text/javascript" src="js/ext/SimpleConfig_xmlToYigoWin.js">
+</script>
+		<script type="text/javascript" src="js/ext/SimpleConfig_xmlToYigoWin_2.js">
 </script>
 		<script type="text/javascript" src="js/ext/SimpleConfig_xmlToYigo2Win.js">
 </script>
+		<script type="text/javascript" src="js/ext/SimpleConfig_xmlToYigo2Win_2.js">
+</script>
 		<script type="text/javascript" src="js/ext/SimpleConfig_excelToYigoWin.js">
 </script>
+		<script type="text/javascript" src="js/ext/SimpleConfig_excelToYigo2Win.js">
+</script>
 		<script type="text/javascript" src="js/ext/SimpleConfig_yigoToExcelWin.js">
+</script>
+		<script type="text/javascript" src="js/ext/SimpleConfig_yigo2ToExcelWin.js">
 </script>
 		<script type="text/javascript" src="js/ext/SimpleConfig_sqlToExcelWin.js">
 </script>
 		<script type="text/javascript" src="js/ext/SimpleConfig_yigoToXmlWin.js">
 </script>
+		<script type="text/javascript" src="js/ext/SimpleConfig_yigo2ToXmlWin.js">
+</script>
 		<script type="text/javascript" src="js/ext/SimpleConfig_yigoToTableWin.js">
 </script>
+		<script type="text/javascript" src="js/ext/SimpleConfig_yigo2ToTableWin.js">
+</script>
+		<script type="text/javascript" src="js/ext/tf_executeSqlWithEditWin.js">
+</script>
+	
 		<style type="text/css">
 .x-panel-header {
 	background-image: url("images/03.jpg") !important

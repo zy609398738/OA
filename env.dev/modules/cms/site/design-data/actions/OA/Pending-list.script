@@ -3,12 +3,13 @@ cms.ActionExp.Data( cms.DataExp.PagingQuery("
         	SELECT i.formkey,
        i.oid,
        m.Topic,
-       l.CreatTime,
+       case when l.CreatTime is null then w.creatTime else l.creatTime end creatTime,
        p.workItemID,
-       l.workItemName,
+       i.instanceid,
+       case when l.workItemName is null then w.workItemName else l.workItemName end workItemName,
        j.name operatorname,
-          floor(SYSDATE - l.CreatTime) daytime,
-          CEIL(((SYSDATE-l.CreatTime)-floor(SYSDATE-l.CreatTime)) * 24) hourtime
+          floor(SYSDATE - (case when l.CreatTime is null then w.creatTime else l.creatTime end)) daytime,
+          CEIL(((SYSDATE- (case when l.CreatTime is null then w.creatTime else l.creatTime end))-floor(SYSDATE - (case when l.CreatTime is null then w.creatTime else l.creatTime end))) * 24) hourtime
   FROM (SELECT *
           FROM WF_Participator
          WHERE OperatorID = ${operatorID}) p
@@ -17,6 +18,10 @@ cms.ActionExp.Data( cms.DataExp.PagingQuery("
        JOIN BPM_Instance i ON l.instanceID = i.instanceID
        JOIN BPM_Migration m ON i.OID = m.BillOID
        LEFT JOIN SYS_Operator j ON j.EmpID = m.EmpID
-    Order by l.CreatTime
+       LEFT JOIN wf_workitem w ON w.workitemid = l.workitemid
+       WHERE w.workitemstate != 3 and not exists (select * from BPM_Log lp
+                  where wi.parentworkitemid = lp.workitemid
+                     AND lp.AuditResult = 0)
+    Order by creatTime desc
 ",5,cms.ReqExp.Var("pageNo")));
 cms.ActionExp.Viewer("json");

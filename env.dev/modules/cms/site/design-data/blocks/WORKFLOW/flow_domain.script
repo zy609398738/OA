@@ -1,0 +1,43 @@
+cms.PageExp.Local("formID",cms.PageExp.UrlVar("formID"));
+var suffix=oa.TodoMidExp.getSuffixByLanguage();
+if(suffix!=""){
+  suffix="_"+suffix;
+}
+var entryPath=cms.PageExp.Local("entryPath");
+var where='';
+cms.PageExp.Local("flowwhere",where);
+if(cms.PageExp.Local("enableQuery")==1){
+  if(cms.PageExp.UrlVar("flowwhere")){
+      where=cms.PageExp.UrlVar("flowwhere");
+      cms.PageExp.Local("flowwhere",where);
+      where=" and billname" + suffix + " like '%"+where+"%' ";
+  }
+}
+
+cms.PageExp.Local("operatorID", cms.Yigo2MidExp.GetLoginOperator());
+if(where==""){
+cms.PageExp.Local(
+    "mydata",oa.TodoMidExp.getWorkflowEntry("select b.oid,b.soid,b.BillKey,b.billname" + suffix + " as billname from OA_MyWorkflow a join OA_WorkflowType_D b on a.SrcDtlOID=b.oid where a.operator ="+cms.PageExp.Local("operatorID")+" order by b.soid,b.OrderNum,b.Sequence",entryPath)
+);
+cms.PageExp.Local(
+    "areadata",cms.DataExp.QueryList("select a.oid,a.Name" + suffix + " as name from OA_WorkflowArea_H a order by a.OrderNum,a.Code")
+);
+cms.PageExp.Local(
+    "parentdata",cms.DataExp.QueryList("select d.soid,t.oid,t.Name" + suffix + " as name from OA_WorkflowArea_D d join OA_WorkflowType_H t on d.WorkflowTypeID=t.oid order by d.soid,d.OrderNum,d.Sequence")
+);
+cms.PageExp.Local(
+    "data",oa.TodoMidExp.getWorkflowEntry("select b.oid,b.soid,b.BillKey,b.billname" + suffix + " as billname  from OA_WorkflowType_D b where 1=1 order by b.soid,b.OrderNum,b.Sequence",entryPath)
+);
+}else{
+cms.PageExp.Local(
+    "mydata",oa.TodoMidExp.getWorkflowEntry("select b.oid,b.soid,b.BillKey,b.billname" + suffix + " as billname from OA_MyWorkflow a join OA_WorkflowType_D b on a.SrcDtlOID=b.oid where a.operator ="+cms.PageExp.Local("operatorID")+where+" order by b.soid,b.OrderNum,b.Sequence",entryPath)
+);
+cms.PageExp.Local(
+    "areadata",cms.DataExp.QueryList("select a.oid,a.Name" + suffix + " as name from OA_WorkflowArea_H a where exists(select d.soid from OA_WorkflowArea_D d where d.soid=a.oid and exists(select t.soid from OA_WorkflowType_D t where d.WorkflowTypeID=t.soid "+where+")) order by a.OrderNum,a.Code")
+);
+cms.PageExp.Local(
+    "parentdata",cms.DataExp.QueryList("select d.soid,t.oid,t.Name" + suffix + " as name from OA_WorkflowArea_D d join OA_WorkflowType_H t on d.WorkflowTypeID=t.oid where exists(select t.oid from OA_WorkflowType_D wt where d.WorkflowTypeID=wt.soid "+where+") order by d.soid,d.OrderNum,d.Sequence")
+);
+cms.PageExp.Local(
+    "data",oa.TodoMidExp.getWorkflowEntry("select b.oid,b.soid,b.BillKey,b.billname" + suffix + " as billname  from OA_WorkflowType_D b where 1=1 "+where+" order by b.soid,b.OrderNum,b.Sequence",entryPath)
+);}

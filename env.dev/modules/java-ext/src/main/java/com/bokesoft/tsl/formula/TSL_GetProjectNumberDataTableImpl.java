@@ -46,7 +46,7 @@ public class TSL_GetProjectNumberDataTableImpl extends BaseMidFunctionImpl {
 			jo = factory.createCondition("organization_id", " = ", Organization_id);
 			ja.add(jo);
 		}
-		
+
 		// 处理条件字段,添加进BokeDee接口参数
 		ConditionItem item = null;
 		ConditionParas paras = context.getConditionParas();
@@ -77,7 +77,7 @@ public class TSL_GetProjectNumberDataTableImpl extends BaseMidFunctionImpl {
 		// json后续处理
 		JSONObject reJSONObject = JSONObject.parseObject(stringJson);
 		Object data = reJSONObject.get("data");
-		
+
 		if (data instanceof JSONArray) {
 			JSONArray reJSONArray = (JSONArray) data;
 			// 获取数据对象的所有列
@@ -90,11 +90,12 @@ public class TSL_GetProjectNumberDataTableImpl extends BaseMidFunctionImpl {
 				dataTable.append();
 				for (int index = 0; index < count; index++) {
 					columnInfo = metaData.getColumnInfo(index);
-					dataTable.setObject(columnInfo.getColumnKey(), jsonObject.get(columnInfo.getColumnKey().toLowerCase()));
+					dataTable.setObject(columnInfo.getColumnKey(),
+							jsonObject.get(columnInfo.getColumnKey().toLowerCase()));
 				}
 			}
 		}
-		
+
 		return dataTable;
 	}
 }

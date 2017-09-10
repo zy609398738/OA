@@ -1,0 +1,10 @@
+{
+  "id": "8a9f5aff5ca06150015ca09e3c02001e",
+  "startIndex": "",
+  "text": "ERP_GL_Import_TO_BPM",
+  "autoRun": "true",
+  "description": "导入GL总账接口",
+  "responseTime": "600000",
+  "changePort": "",
+  "oldPort": ""
+}

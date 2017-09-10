@@ -46,7 +46,8 @@
             },
             setHeight: function (height) {
                 this.el.css("height", height);
-                $("button", this.el).css("height", this.el.height());
+                $("button", this.el).css("height", this.el.height() + "px");
+                $("button", this.el).css("line-height", this.el.height() + "px");
             }
         };
         Return = $.extend(Return, options);

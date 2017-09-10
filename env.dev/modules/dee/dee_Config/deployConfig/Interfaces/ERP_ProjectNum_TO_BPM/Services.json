@@ -1,0 +1,11 @@
+[
+  {
+    "parentId": "8a9f5a005dc01bb7015dc0e1404200b6",
+    "text": "ERP_ProjectNum_TO_BPM",
+    "recordMpLog": "false",
+    "id": "8a9f5a005dc01bb7015dc0e1406e00b7",
+    "description": "实时查询ERP系统项目信息",
+    "fileImport": "false",
+    "enable": "true"
+  }
+]

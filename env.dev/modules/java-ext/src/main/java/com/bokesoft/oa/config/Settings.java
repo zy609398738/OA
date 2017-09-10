@@ -18,6 +18,8 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
 
+import com.bokesoft.oa.base.ABase;
+import com.bokesoft.oa.base.OAContext;
 import com.bokesoft.yes.mid.base.CoreSetting;
 import com.bokesoft.yigo.common.util.TypeConvertor;
 import com.bokesoft.yigo.struct.datatable.DataTable;
@@ -28,7 +30,7 @@ import com.bokesoft.yigo.struct.datatable.DataTable;
  * @author minjian
  * 
  */
-public class Settings {
+public class Settings extends ABase {
 	/**
 	 * 默认参数配置文件
 	 */
@@ -153,9 +155,13 @@ public class Settings {
 	/**
 	 * 构造设置对象
 	 * 
+	 * @param context
+	 *            上下文对象
+	 * 
 	 * @throws Throwable
 	 */
-	public Settings() throws Throwable {
+	public Settings(OAContext context) throws Throwable {
+		super(context);
 		propertyMap = new LinkedHashMap<String, String>();
 		valueListMap = new LinkedHashMap<String, List<String>>();
 		mapMap = new LinkedHashMap<String, Settings>();
@@ -304,7 +310,8 @@ public class Settings {
 	 *            节点列表对象
 	 * @throws Throwable
 	 */
-	public Settings(NodeList nodeList) throws Throwable {
+	public Settings(OAContext context, NodeList nodeList) throws Throwable {
+		super(context);
 		propertyMap = new LinkedHashMap<String, String>();
 		valueListMap = new LinkedHashMap<String, List<String>>();
 		mapMap = new LinkedHashMap<String, Settings>();
@@ -321,6 +328,7 @@ public class Settings {
 	 * @throws Throwable
 	 */
 	protected void loadSettings(NodeList nodeList) throws Throwable {
+		OAContext context = getContext();
 		for (int i = 0; i < nodeList.getLength(); i++) {
 			Node node = nodeList.item(i);
 			if (node.getNodeType() != Node.ELEMENT_NODE) {
@@ -373,14 +381,14 @@ public class Settings {
 					if (mapMap.containsKey(name)) {
 						mapMap.remove(name);
 					}
-					settings = new Settings(element.getChildNodes());
+					settings = new Settings(context, element.getChildNodes());
 					settings.setIsDebug(getIsDebug());
 				} else {
 					if (mapMap.containsKey(name)) {
 						settings = mapMap.get(name);
 						settings.loadSettings(element.getChildNodes());
 					} else {
-						settings = new Settings(element.getChildNodes());
+						settings = new Settings(context, element.getChildNodes());
 						settings.setIsDebug(getIsDebug());
 					}
 				}
@@ -410,7 +418,7 @@ public class Settings {
 				for (int j = 0; j < listNodes.getLength(); j++) {
 					Node listNode = listNodes.item(j);
 					if (listNode.getNodeName().equalsIgnoreCase("map")) {
-						Settings settings = new Settings(listNode.getChildNodes());
+						Settings settings = new Settings(context, listNode.getChildNodes());
 						settings.setIsDebug(getIsDebug());
 						Element elementNode = (Element) listNode;
 						if (elementNode.hasAttribute("name")) {

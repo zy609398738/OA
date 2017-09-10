@@ -84,7 +84,8 @@ YIUI.ViewException = (function () {
     	EXPAND_COLUMNKEY_UNDEFIND: 0x0049,
     	//只支持在表单类型为View的情况下使用
     	VIEW_FORM_ONLY: 0x0050,
-    	
+    	//未配置多语言
+    	NO_LOCALE_STRING_DEFINED: 0x0076,
 
         throwException: function (code, args) {
             var paras = {};

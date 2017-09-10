@@ -232,7 +232,7 @@ public class WorkflowDesigneDtl extends BillDtlBase<WorkflowDesigne> {
 	 */
 	public OperatorSel getAuditPerSel() throws Throwable {
 		if (auditPerSel == null) {
-			if (auditPerSelID > 0) {
+			if (auditPerSelID != null && auditPerSelID > 0) {
 				setAuditPerSel(getContext().getOperatorSelMap().get(auditPerSelID));
 			}
 			if (auditPerSel == null) {
@@ -659,6 +659,30 @@ public class WorkflowDesigneDtl extends BillDtlBase<WorkflowDesigne> {
 	}
 
 	/**
+	 * 发送条件
+	 */
+	private String sendFormula;
+
+	/**
+	 * 发送条件
+	 * 
+	 * @return 发送条件
+	 */
+	public String getSendFormula() {
+		return sendFormula;
+	}
+
+	/**
+	 * 发送条件
+	 * 
+	 * @param sendFormula
+	 *            发送条件
+	 */
+	public void setSendFormula(String sendFormula) {
+		this.sendFormula = sendFormula;
+	}
+
+	/**
 	 * 构造流程设计明细对象
 	 * 
 	 * @param context
@@ -676,6 +700,29 @@ public class WorkflowDesigneDtl extends BillDtlBase<WorkflowDesigne> {
 	 * @throws Throwable
 	 */
 	public void loadData(DataTable dt) throws Throwable {
+		super.loadData(dt);
+		setSequence(dt.getInt("Sequence"));
+		setAuditNode(dt.getString("AuditNode"));
+		setAuditPerSelID(dt.getLong("AuditPerOID"));
+		setAuditOptSelID(dt.getLong("AuditOptOID"));
+		setSendPerSelID(dt.getLong("SendOptOID"));
+		setMonitoringPerSelID(dt.getLong("MonitoringOptOID"));
+		setCarbonCopyPerSelID(dt.getLong("CarbonCopyOptOID"));
+		setMessageSetID(dt.getLong("MessageSetID"));
+		setSendFormula(dt.getString("SendFormula"));
+		setEmailTemp(dt.getString("EmailTemp"));
+		setRightSelID(dt.getLong("RightSelOID"));
+		setNodePropertyID(dt.getLong("NodePropertyOID"));
+	}
+
+	/**
+	 * 更新数据
+	 * 
+	 * @param dt
+	 *            明细数据集
+	 * @throws Throwable
+	 */
+	public void uploadData(DataTable dt) throws Throwable {
 		super.loadData(dt);
 		setSequence(dt.getInt("Sequence"));
 		setAuditNode(dt.getString("AuditNode"));

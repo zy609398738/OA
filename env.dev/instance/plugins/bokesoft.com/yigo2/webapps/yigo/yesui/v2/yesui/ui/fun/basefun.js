@@ -87,7 +87,6 @@ UI.BaseFuns = (function () {
         var oid = args[1];
         var fieldKey = args[2];
         return YIUI.DictService.getDictValue(itemKey, oid, fieldKey);
-
     };
 
     funs.GetDictOID = function (name, cxt, args) {
@@ -444,7 +443,7 @@ UI.BaseFuns = (function () {
         var compList = form.getComponentList();
         for (var i in compList) {
             var cmp = compList[i];
-            if (cmp.value && cmp.condition) {
+            if ( cmp.value && !cmp.isNull() && cmp.condition) {
                 condition = cmp.condition;
                 value = cmp.value;
                 if (cmp.type == YIUI.CONTROLTYPE.DATEPICKER) {
@@ -974,8 +973,9 @@ UI.BaseFuns = (function () {
 
             YIUI.FormParasUtil.processCallParas(pForm, emptyForm);
             for (var o in callBack) {
+                var cxt1 = new View.Context(emptyForm);
                 emptyForm.regEvent(o, function (opt) {
-                    pForm.eval(callBack[opt].trim(), cxt, null);
+                    emptyForm.eval(callBack[opt].trim(), cxt1, null);
                 });
             }
 
@@ -1197,11 +1197,8 @@ UI.BaseFuns = (function () {
                     if (isMatch) {
                         for (var i = 0, rlen = grid.getRowCount(); i < rlen; i++) {
                             rowData = grid.getRowDataAt(i);
-                            if ( !YIUI.GridUtil.isEmptyRow(rowData) ) {
+                            if (rowData.rowType === 'Detail' && !YIUI.GridUtil.isEmptyRow(rowData)) {
                                 value = rowData.data[colIndex][0];
-                              //  if (value !== null) {
-                             //       count = count.plus(value);
-                            //    }
                                 count = count.plus(YIUI.TypeConvertor.toDecimal(value));
                             }
                         }
@@ -1214,28 +1211,20 @@ UI.BaseFuns = (function () {
                     if (rowData.isGroupHead) {
                         for (var nextRi = rowIndex + 1; nextRi < len; nextRi++) {
                             nextRD = grid.getRowDataAt(nextRi);
-                            if (nextRD.rowGroupLevel == rowData.rowGroupLevel) {
+                            if (nextRD.rowGroupLevel == rowData.rowGroupLevel)
                                 break;
-                            }
-                            if (!YIUI.GridUtil.isEmptyRow(nextRD)) {
+                            if (rowData.rowType === 'Detail' && !YIUI.GridUtil.isEmptyRow(nextRD)) {
                                 value = nextRD.data[colIndex][0];
-                             //   if (value !== null) {
-                             //       count = count.plus(value);
-                              //  }
                                 count = count.plus(YIUI.TypeConvertor.toDecimal(value));
                             }
                         }
                     } else if (rowData.isGroupTail) {
                         for (var preRi = rowIndex - 1; preRi >= 0; preRi--) {
                             preRD = grid.getRowDataAt(preRi);
-                            if (preRD.rowGroupLevel == rowData.rowGroupLevel) {
+                            if (preRD.rowGroupLevel == rowData.rowGroupLevel)
                                 break;
-                            }
-                            if (!YIUI.GridUtil.isEmptyRow(preRD)) {
+                            if (rowData.rowType === 'Detail' && !YIUI.GridUtil.isEmptyRow(preRD)) {
                                 value = preRD.data[colIndex][0];
-                               // if (value !== null) {
-                               //     count = count.plus(value);
-                               // }
                                 count = count.plus(YIUI.TypeConvertor.toDecimal(value));
                             }
                         }
@@ -1248,15 +1237,13 @@ UI.BaseFuns = (function () {
             var rowData, colInfoes, colIndex, count = new Decimal(0), value;
             for (var i = 0, len = grid.getRowCount(); i < len; i++) {
                 rowData = grid.getRowDataAt(i);
-                if (!YIUI.GridUtil.isEmptyRow(rowData)) {
+                if (rowData.rowType === 'Detail' && !YIUI.GridUtil.isEmptyRow(rowData)) {
                     colInfoes = grid.getColInfoByKey(cellKey);
-                    if (colInfoes == null) continue;
+                    if (colInfoes == null)
+                        continue;
                     for (var j = 0, jlen = colInfoes.length; j < jlen; j++) {
                         colIndex = colInfoes[j].colIndex;
                         value = rowData.data[colIndex][0];
-                      //  if (value !== null) {
-                      //      count = count.plus(value);
-                     //   }
                         count = count.plus(YIUI.TypeConvertor.toDecimal(value));
                     }
                 }
@@ -1354,7 +1341,7 @@ UI.BaseFuns = (function () {
 
             $.each(columnInfo, function (i, column) {
                 var v = data[column.key];
-                if (v) {
+                if (v != undefined) {
                     listView.setValByKey(row, column.key, v, true, true);
                 }
             });
@@ -1462,9 +1449,10 @@ UI.BaseFuns = (function () {
                 if (includeEmpty) {
                     count = grid.getRowCount();
                 } else {
+                    var rowData;
                     for (var i = 0, len = grid.getRowCount(); i < len; i++) {
-                        var data = grid.getRowDataAt(i);
-                        if (data.isDetail && (data.bookmark !== undefined || data.bkmkRow)) {
+                        rowData = grid.getRowDataAt(i);
+                        if (rowData.rowType === "Detail" && !YIUI.GridUtil.isEmptyRow(rowData)) {
                             count++;
                         }
                     }
@@ -1971,56 +1959,61 @@ UI.BaseFuns = (function () {
             var cellKey = args[0],
                 cl = form.getCellLocation(cellKey),
                 grid = form.getComponent(cl.key);
-            if (grid) {
-                var datas = [], length = grid.getRowCount(), row, cv, values;
-                for (var i = 0; i < length; i++) {
-                    row = grid.getRowDataAt(i);
-                    values = [];
-                    if (row.isDetail && row.bookmark !== undefined) {
-                        for (var j = 0; j < args.length; j++) {
-                            cellKey = args[j];
-                            cl = form.getCellLocation(cellKey);
-                            cv = grid.getValueAt(i, cl.column);
-                            values.push(cv);
+
+            if (!grid) {
+                YIUI.ViewException.throwException(YIUI.ViewException.COMPONENT_NOT_EXISTS,cl.key);
+            }
+
+            var containsValue = function (datas,data) {
+                if( datas.length == 0 )
+                    return false;
+
+                var equals = function (dataA,dataB) {
+                    for( var i = 0,o1,o2,length = dataA.length;i < length;i++ ) {
+                        if( !_equal(dataA[i],dataB[i]) )
+                            return false;
+                    }
+                    return true;
+                }
+                var _equal = function (o1,o2) {
+                    if( o1 == null && o2 == null )
+                        return true;
+                    if( (o1 == null && o2 != null) || (o1 != null && o2 == null) )
+                        return false;
+                    if( typeof o1 == 'object' ) {
+                        if( o1 instanceof YIUI.ItemData ) {
+                            return o1.getOID() == o2.getOID();
+                        } else if ( o1 instanceof Decimal ) {
+                            return parseFloat(o1) == parseFloat(o2);
+                        } else if ( o1 instanceof Date ) {
+                            return o1.getTime() == o2.getTime();
                         }
-                        datas.push(values);
+                    } else {
+                        return o1 == o2;
                     }
                 }
-                var data_A, data_B, data1, data2;
-                for (var m = 0; m < datas.length; m++) {
-                    data_A = datas[m];
-                    for (var n = m + 1; n < datas.length; n++) {
-                        data_B = datas[n];
-                        for (var k = 0; k < data_A.length; k++) {
-                            data1 = data_A[k];
-                            data2 = data_B[k];
-                            var cpType = YIUI.UIUtil.getCompareType(data1, data2), isBreak = false;
-                            switch (cpType) {
-                                case DataType.STRING:
-                                    isBreak = YIUI.TypeConvertor.toString(data1) != YIUI.TypeConvertor.toString(data2);
-                                    break;
-                                case DataType.NUMERIC:
-                                    isBreak = !YIUI.TypeConvertor.toDecimal(data1).equals(YIUI.TypeConvertor.toDecimal(data2))
-                                    break;
-                                case DataType.BOOLEAN:
-                                    isBreak = YIUI.TypeConvertor.toBoolean(data1) != YIUI.TypeConvertor.toBoolean(data2);
-                                    break;
-                                default:
-                                    if ((data1 == null && data2 != null) || (data1 != null && data2 == null)) {
-                                        isBreak = true;
-                                    } else {
-                                        if (typeof data1 == "object" && typeof data2 == "object") {
-                                            isBreak = data1.oid != data2.oid;
-                                        }
-                                    }
-                                    break;
-                            }
-                            if (isBreak) break;
-                            if (k == data_A.length - 1) {
-                                return true;
-                            }
-                        }
+
+                for( var i = 0,length = datas.length;i < length;i++ ) {
+                    if( equals(datas[i],data) )
+                        return true;
+                }
+                return false;
+            }
+
+            var datas = [], values;
+            for (var i = 0,row;row = grid.getRowDataAt(i);i++) {
+
+                values = [];
+
+                if (row.isDetail && !YIUI.GridUtil.isEmptyRow(row)) {
+                    for (var j = 0,key;key = args[j];j++) {
+                        values.push(grid.getValueByKey(i,key));
                     }
+
+                    if( containsValue(datas,values) )
+                        return true;
+
+                    datas.push(values);
                 }
             }
         }
@@ -2373,8 +2366,7 @@ UI.BaseFuns = (function () {
         var type = comp.type;
         switch (type) {
             case YIUI.CONTROLTYPE.GRID:
-                comp.rootGroupBkmk = [];
-                comp.load(true,true);
+                comp.load(true);
                 break;
             case YIUI.CONTROLTYPE.LISTVIEW:
                 comp.repaint();
@@ -2596,7 +2588,7 @@ UI.BaseFuns = (function () {
                 var totalRowCount = YIUI.TotalRowCountUtil.getRowCount(doc, tableKey);
                 YIUI.TotalRowCountUtil.setRowCount(form.getDocument(), tableKey, totalRowCount);
 
-                grid.load(true,true);
+                grid.load(true);
             });
     };
 
@@ -2803,7 +2795,7 @@ UI.BaseFuns = (function () {
         var doc = null;
         if (withDoc) {
             doc = form.getDocument();
-            doc = YIUI.DataUtil.toJSONDoc(doc);
+            doc = YIUI.DataUtil.toJSONDoc(doc,true);
             data.document = $.toJSON(doc);
         }
         //返回值为document
@@ -2867,7 +2859,7 @@ UI.BaseFuns = (function () {
         var doc = null;
         if (withDoc) {
             doc = form.getDocument();
-            doc = YIUI.DataUtil.toJSONDoc(doc);
+            doc = YIUI.DataUtil.toJSONDoc(doc,true);
             data.document = $.toJSON(doc);
         }
         //返回值为document
@@ -3331,9 +3323,55 @@ UI.BaseFuns = (function () {
             formKey: form.formKey,
             url: url
         };
-        var pv = new YIUI.PrintPreview(opts);
-
+        new YIUI.PrintPreview(opts);
     };
+
+    funs.PrintHtml = function (name, cxt, args) {
+        var $el;
+        if (args.length > 0) {
+            var selector = YIUI.TypeConvertor.toString(args[0]);
+            $el = $(selector);
+        } else {
+            var form = cxt.form;
+            $el = form.formAdapt.getRoot().el;
+            form.defaultToolBar && form.defaultToolBar.el.addClass('noneedprint');
+        }
+        // $el.css({'page-break-after': 'always'});
+        $el.printArea({extraHead: '<style media="print" type="text/css"> .noneedprint {display: none} </style>'});
+    };
+
+    funs.BatchPrint = function (name, cxt, args) {
+        var form = cxt.form;
+
+        var formKey = YIUI.TypeConvertor.toString(args[0]);
+        var reportKey = YIUI.TypeConvertor.toString(args[1]);
+
+        var _OIDs = args[2];
+
+        var OIDs = [];
+        if( typeof _OIDs === 'string' && _OIDs ) {
+            var array = _OIDs.split(",");
+            for( var i = 0,oid; oid = array[i];i++ ) {
+                OIDs.push(parseInt(oid));
+            }
+        } else if ( $.isArray(_OIDs) ) {
+            OIDs = OIDs.concat(_OIDs);
+        } else {
+            OIDs = YIUI.BatchUtil.getViewSelectOIDs(form,true);
+        }
+
+        var paras = {
+            service: "WebPrintService",
+            cmd: "BatchPrintPDF",
+            formKey: formKey,
+            reportKey: reportKey,
+            parameters: form.getParas().toJSON(),
+            OIDs: $.toJSON(OIDs)
+        }
+
+        var url = Svr.Request.getSyncData(Svr.SvrMgr.ServletURL, paras);
+        YIUI.Print.print(url, form.formID);
+    }
 
     {  //BPM函数
         funs.GetProcessKey = function (name, cxt, args) {
@@ -3436,7 +3474,6 @@ UI.BaseFuns = (function () {
                 YIUI.BPMService.restartInstanceByOID(form.getOID())
                     .then(function(data){
                         form.setSysExpVals(YIUI.BPMConstants.WORKITEM_INFO, null);
-                        form.hostUIStatusProxy = null;
 
                         var b = form.getDocument().getExpData(YIUI.BPMKeys.WORKITEM_INFO);
                         if (b != null) {
@@ -3466,6 +3503,10 @@ UI.BaseFuns = (function () {
 
         funs.EndInstance = function (name, cxt, args) {
             var instanceID = YIUI.TypeConvertor.toLong(args[0]);
+            var userinfo = "";
+            if(args.length > 2)
+            	userinfo = YIUI.TypeConvertor.toString(args[2]);
+            
             if (instanceID == -1) {
                 var fromParent = false;
                 if (args.length > 1) {
@@ -3481,9 +3522,8 @@ UI.BaseFuns = (function () {
                 var info = form.getSysExpVals(YIUI.BPMConstants.WORKITEM_INFO);
                 instanceID = info.InstanceID;
 
-                YIUI.BPMService.endInstance(instanceID).then(function(data){
+                YIUI.BPMService.endInstance(instanceID, userinfo).then(function(data){
                     form.setSysExpVals(YIUI.BPMConstants.WORKITEM_INFO, null);
-                    form.hostUIStatusProxy = null;
                     var doc = form.getDocument();
                     var b = doc.getExpData(YIUI.BPMKeys.WORKITEM_INFO);
                     if (b != null) {
@@ -3492,7 +3532,42 @@ UI.BaseFuns = (function () {
                     viewReload(form);
                 });
             } else {
-                YIUI.BPMService.endInstance(instanceID);
+                YIUI.BPMService.endInstance(instanceID, userinfo);
+            }
+
+            return true;
+        };
+        
+        funs.ReviveInstance = function (name, cxt, args) {
+            var instanceID = YIUI.TypeConvertor.toLong(args[0]);
+            var userinfo = "";
+            if(args.length > 2)
+            	userinfo = YIUI.TypeConvertor.toString(args[2]);
+            if (instanceID == -1) {
+                var fromParent = false;
+                if (args.length > 1) {
+                    fromParent = YIUI.TypeConvertor.toBoolean(args[1]);
+                }
+
+                var form = cxt.form;
+                if (fromParent) {
+                    var pFormID = form.pFormID;
+                    form = YIUI.FormStack.getForm(pFormID);
+                }
+
+                var info = form.getSysExpVals(YIUI.BPMConstants.WORKITEM_INFO);
+                instanceID = info.InstanceID;
+
+                YIUI.BPMService.reviveInstance(instanceID, userinfo).then(function(data){
+                    form.setSysExpVals(YIUI.BPMConstants.WORKITEM_INFO, null);
+                    var doc = form.getDocument();
+                    var b = doc.getExpData(YIUI.BPMKeys.WORKITEM_INFO);
+                    if (b != null) {
+                        form.getDocument().putExpData(YIUI.BPMKeys.WORKITEM_INFO, null);
+                    }
+                });
+            } else {
+                YIUI.BPMService.reviveInstance(instanceID, userinfo);
             }
 
             return true;
@@ -3509,14 +3584,14 @@ UI.BaseFuns = (function () {
             return true;
         };
 
-        funs.CanclePause = function (name, cxt, args) {
+        funs.Resume = function (name, cxt, args) {
         	var form = cxt.form;
             var wid = args[0];
             if (wid == -1) {
                 var info = form.getSysExpVals(YIUI.BPMConstants.WORKITEM_INFO);
                 wid = info.WorkitemID;
             }
-            YIUI.BPMService.canclePause(wid);
+            YIUI.BPMService.resume(wid);
             return true;
         };
 
@@ -3563,7 +3638,8 @@ UI.BaseFuns = (function () {
                         builder.newEmpty().then(function(emptyForm){
 
                             if (!onlyOpen) {
-                                emptyForm.setSysExpVals(YIUI.BPMConstants.WORKITEM_INFO, info);
+//                                emptyForm.setSysExpVals(YIUI.BPMConstants.WORKITEM_INFO, info);
+                                emptyForm.setTemplateKey(info.TemplateKey)
                             }
                             // 代表新界面由代办页面打开
                             emptyForm.setSysExpVals(YIUI.BPMConstants.WORKITEM_VIEW, YIUI.BPMConstants.WORKITEM_VIEW);
@@ -3588,7 +3664,7 @@ UI.BaseFuns = (function () {
                 builder.newEmpty().then(function(emptyForm){
 
                     if (!onlyOpen) {
-                        emptyForm.setSysExpVals(YIUI.BPMConstants.WORKITEM_INFO, info);
+//                        emptyForm.setSysExpVals(YIUI.BPMConstants.WORKITEM_INFO, info);
                         emptyForm.TemplateKey = info.TemplateKey;
                     }
                     // 代表新界面由代办页面打开
@@ -3616,10 +3692,15 @@ UI.BaseFuns = (function () {
                 info.AuditResult = args[1];
                 info.UserInfo = args[2];
             } else {
-                info = new YIUI.WorkitemInfo({
-                    AuditResult: args[1],
-                    UserInfo: args[2]
-                });
+            	
+            	var options = {
+        			WorkitemID:args[0],
+                	AuditResult:args[1],
+                	UserInfo:args[2],
+            	};
+            	
+            	info = new YIUI.WorkitemInfo(options);
+
             }
             //解析动态驳回和单据保存相关参数
             var tsParas;
@@ -3648,9 +3729,8 @@ UI.BaseFuns = (function () {
             if(pattern) {
             	if(pattern == "Transit") {
             		if(saveDoc) {
-            			YIUI.BPMService.transferToNode(WID, doc).then(function(data){
+            			YIUI.BPMService.transferToNode(info, doc).then(function(data){
             				form.setSysExpVals(YIUI.BPMKeys.WORKITEM_INFO, null);
-            				form.hostUIStatusProxy = null;
             				var b = form.getDocument().getExpData(YIUI.BPMKeys.WORKITEM_INFO);
             				if (b != null) {
             					form.getDocument().rmExpData(YIUI.BPMKeys.WORKITEM_INFO);
@@ -3658,9 +3738,8 @@ UI.BaseFuns = (function () {
             				viewReload(form);
                       });
             		} else {
-            			YIUI.BPMService.transferToNode(WID).then(function(data){
+            			YIUI.BPMService.transferToNode(info).then(function(data){
                             form.setSysExpVals(YIUI.BPMConstants.WORKITEM_INFO, null);
-                            form.hostUIStatusProxy = null;
 
                             var b = form.getDocument().getExpData(YIUI.BPMKeys.WORKITEM_INFO);
                             if (b != null) {
@@ -3676,7 +3755,6 @@ UI.BaseFuns = (function () {
             			if(saveDoc) {
                     		YIUI.BPMService.commitWorkitem(info, doc).then(function(data){
                     			form.setSysExpVals(YIUI.BPMKeys.WORKITEM_INFO, null);
-                    			form.hostUIStatusProxy = null;
                     			var b = form.getDocument().getExpData(YIUI.BPMKeys.WORKITEM_INFO);
                     			if (b != null) {
                     				form.getDocument().rmExpData(YIUI.BPMKeys.WORKITEM_INFO);
@@ -3686,7 +3764,6 @@ UI.BaseFuns = (function () {
                     	} else {
                     		YIUI.BPMService.commitWorkitem(info).then(function(data){
                     			form.setSysExpVals(YIUI.BPMKeys.WORKITEM_INFO, null);
-                    			form.hostUIStatusProxy = null;
                     			var b = form.getDocument().getExpData(YIUI.BPMKeys.WORKITEM_INFO);
                     			if (b != null) {
                     				form.getDocument().rmExpData(YIUI.BPMKeys.WORKITEM_INFO);
@@ -3702,7 +3779,6 @@ UI.BaseFuns = (function () {
             	if(saveDoc) {
             		YIUI.BPMService.commitWorkitem(info, doc).then(function(data){
             			form.setSysExpVals(YIUI.BPMKeys.WORKITEM_INFO, null);
-            			form.hostUIStatusProxy = null;
             			var b = form.getDocument().getExpData(YIUI.BPMKeys.WORKITEM_INFO);
             			if (b != null) {
             				form.getDocument().rmExpData(YIUI.BPMKeys.WORKITEM_INFO);
@@ -3712,7 +3788,6 @@ UI.BaseFuns = (function () {
             	} else {
             		YIUI.BPMService.commitWorkitem(info).then(function(data){
             			form.setSysExpVals(YIUI.BPMKeys.WORKITEM_INFO, null);
-            			form.hostUIStatusProxy = null;
             			var b = form.getDocument().getExpData(YIUI.BPMKeys.WORKITEM_INFO);
             			if (b != null) {
             				form.getDocument().rmExpData(YIUI.BPMKeys.WORKITEM_INFO);
@@ -3739,9 +3814,11 @@ UI.BaseFuns = (function () {
             if (args.length == 3) {
                 OIDList = [];
                 var list = args[0];
-                for (var i = 0, len = list.length; i < len; i++) {
-                    OIDList.push(YIUI.TypeConvertor.toLong(list[i]));
-                }
+//                for (var i = 0, len = list.length; i < len; i++) {
+//                    OIDList.push(YIUI.TypeConvertor.toLong(list[i]));
+//                }
+                OIDList.push(36976546);
+                OIDList.push(36976547);
                 result = YIUI.TypeConvertor.toInt(args[1]);
                 userInfo = YIUI.TypeConvertor.toString(args[2]);
             } else {
@@ -3785,6 +3862,9 @@ UI.BaseFuns = (function () {
             var form = cxt.form;
             var doc = form.getDocument();
             var table = doc.getExpData(YIUI.BPMKeys.LoadBPM_KEY);
+            if(table != null){
+            	table = YIUI.DataUtil.fromJSONDataTable(table);
+            }
             var processKey = args[0];
             var tsParas;
             if(args.length > 1) {
@@ -3796,6 +3876,7 @@ UI.BaseFuns = (function () {
             
             var pattern;
             var saveDoc = false;
+            var auditResult = 1;
             if(tsParas) {
             	if(tsParas["pattern"]){
             		pattern = tsParas["pattern"];
@@ -3803,12 +3884,15 @@ UI.BaseFuns = (function () {
             	if(tsParas["saveDoc"]){
             		saveDoc = YIUI.TypeConvertor.toBoolean(tsParas["saveDoc"]);
             	}
+            	if(tsParas["auditResult"]){
+            		auditResult = YIUI.TypeConvertor.toInt(tsParas["auditResult"]);
+            	}
             }
             
             if(pattern == "Transit") {
-            	var instanceID = table.getLong(YIUI.BPMConstants.BPM_INSTANCE_ID);
+            	var instanceID = table.getByKey(YIUI.BPMConstants.BPM_INSTANCE_ID);
             	if(saveDoc) {
-            		YIUI.BPMService.dirStratInstance(instanceID, doc)
+            		YIUI.BPMService.dirStratInstance(instanceID, auditResult, doc)
             		.then(function(data){
             			form.setSysExpVals(YIUI.BPMKeys.WORKITEM_INFO, null);
             			
@@ -3819,7 +3903,7 @@ UI.BaseFuns = (function () {
         				viewReload(form);
             		});
             	} else {
-            		YIUI.BPMService.dirStratInstance(instanceID)
+            		YIUI.BPMService.dirStratInstance(instanceID, auditResult)
             		.then(function(data){
             			form.setSysExpVals(YIUI.BPMKeys.WORKITEM_INFO, null);
             			
@@ -3855,7 +3939,6 @@ UI.BaseFuns = (function () {
 
                 YIUI.BPMService.restartInstance(instanceID).then(function(data){
                     form.setSysExpVals(YIUI.BPMConstants.WORKITEM_INFO, null);
-                    form.hostUIStatusProxy = null;
 
                     var b = form.getDocument().getExpData(YIUI.BPMKeys.WORKITEM_INFO);
                     if (b != null) {
@@ -3886,7 +3969,6 @@ UI.BaseFuns = (function () {
 
                 YIUI.BPMService.killInstance(instanceID).then(function(data){
                     form.setSysExpVals(YIUI.BPMConstants.WORKITEM_INFO, null);
-                    form.hostUIStatusProxy =null;
 
                     var b = form.getDocument().getExpData(YIUI.BPMKeys.WORKITEM_INFO);
                     if (b != null) {
@@ -3915,6 +3997,12 @@ UI.BaseFuns = (function () {
         	var processKey = YIUI.TypeConvertor.toString(args[1]);
         	return YIUI.BPMService.getValidNodes(nodeID, processKey);
         };
+        
+        funs.GetAliasKey = function(name, cxt, args) {
+        	var platform = YIUI.TypeConvertor.toInt(args[0]),
+        		formkey = YIUI.TypeConvertor.toString(args[1]);
+        	return YIUI.MetaService.getAliasKey(platform, formkey);
+        }
 
         var viewReload = function (form) {
             var container = form.getDefContainer();
@@ -3987,7 +4075,6 @@ UI.BaseFuns = (function () {
                 .then(function(data){
 
                     form.setSysExpVals(YIUI.BPMConstants.WORKITEM_INFO, null);
-                    form.hostUIStatusProxy = null;
 
                     var b = form.getDocument().getExpData(YIUI.BPMKeys.WORKITEM_INFO);
                     if (b != null) {
@@ -4292,7 +4379,8 @@ UI.BaseFuns = (function () {
             var WID = parseFloat(args[0].toString()) ,
                 form = cxt.form, wiInfo = form.getSysExpVals(YIUI.BPMConstants.WORKITEM_INFO),
                 operatorID = parseFloat(args[1].toString()),
-                createRecord = false, userinfo;
+                createRecord = false, userinfo,
+                auditResult = -1;
             if (WID == -1) {
                 WID = wiInfo.WorkitemID;
             }
@@ -4302,23 +4390,30 @@ UI.BaseFuns = (function () {
             if (args.length > 3) {
             	userinfo = args[3];
             }
+            if (args.length > 4) {
+            	auditResult = args[4];
+            }
             
-            YIUI.BPMService.transferTask(WID, operatorID, createRecord, userinfo);
+            YIUI.BPMService.transferTask(WID, operatorID, createRecord, userinfo, auditResult);
         };
 
         funs.EndorseTask = function (name, cxt, args) {
             var WID = parseFloat(args[0].toString()) ,
                 form = cxt.form, wiInfo = form.getSysExpVals(YIUI.BPMConstants.WORKITEM_INFO),
                 operatorID = parseFloat(args[1].toString()),
-                launchInfo = "";
+                launchInfo = "",
+                hide = false;
             if (WID == -1) {
                 WID = wiInfo.WorkitemID;
             }
             if (args.length > 2) {
                 launchInfo = args[2].toString();
             }
+            if (args.length > 3) {
+                hide = YIUI.TypeConvertor.toBoolean(args[3]);
+            }
 
-            YIUI.BPMService.endorseTask(WID, operatorID, launchInfo);
+            YIUI.BPMService.endorseTask(WID, operatorID, launchInfo, hide);
         };
 
         funs.LaunchTask = function (name, cxt, args) {
@@ -4330,7 +4425,7 @@ UI.BaseFuns = (function () {
                 hideActiveWorkitem = args[4];
 
             var pp = new YIUI.PPObject(operatorID);
-            pp.type = 1;
+//            pp.type = 1;
 
             if (WID == -1) {
                 WID = wiInfo.WorkitemID;
@@ -4354,6 +4449,9 @@ UI.BaseFuns = (function () {
             dataTable.beforeFirst();
             while (dataTable.next()) {
                 var index = grid.getLastDetailRowIndex();
+                if( index == -1 ) {
+                    index = grid.insertRow(-1);
+                }
                 for (var j = 0, jLen = fields.length; j < jLen; j++) {
                     var cellKey = fields[j],
                         value = dataTable.get(j);
@@ -4377,11 +4475,18 @@ UI.BaseFuns = (function () {
                 if (clearOldData) {
                     oldTable.delAll();
                 }
-                YIUI.DataUtil.append(dataTable, oldTable);
-                oldTable.beforeFirst();
-                grid.rootGroupBkmk = [];
-                grid.getPageInfo().currentPage = 1;
-                grid.load(true,true);
+                var parentKey = oldTable.parentKey,parentbkmk = -1;
+                if( parentKey ) {
+                    parentbkmk = doc.getByKey(parentKey).getBkmk();
+                }
+
+                YIUI.DataUtil.append(dataTable, oldTable, parentbkmk);
+
+                if( grid.isSubDetail ) {
+                    YIUI.SubDetailUtil.showSubDetailGridData(grid);
+                } else {
+                    grid.load(false);
+                }
             }
         }
     }
@@ -4479,6 +4584,46 @@ UI.BaseFuns = (function () {
                 path = table.getByKey(YIUI.Attachment_Data.PATH);
             }
 
+            var getNeedFillFields = function (grid) {
+
+                var fields = [],
+                    metaCell,
+                    detailRow = grid.getDetailMetaRow();
+
+                for( var i = 0;metaCell = detailRow.cells[i];i++ ) {
+                    if( !metaCell.hasDB || !YIUI.SystemField.isSystemField(metaCell.columnKey) )
+                        continue;
+
+                    fields.push(metaCell.columnKey);
+                }
+
+                return fields;
+            }
+
+            var mergeData = function (src,tgt) {
+
+                var colInfo,
+                    value,
+                    type;
+
+                var needMerge = function (field) {
+                    if( tgt.tableMode == YIUI.TableMode.DETAIL ) {
+                        return YIUI.SystemField.isSystemField(field);
+                    }
+                    return YIUI.Attachment_Data.isAttachmentField(field);
+                }
+
+                for(var i = 0,size = table.cols.length;i < size;i++){
+                    colInfo = table.getCol(i);
+
+                    if( !colInfo.key || !needMerge(colInfo.key) )
+                        continue;
+
+                    value = src.getByKey(colInfo.key);
+                    tgt.setByKey(colInfo.key,value == undefined ? null : value);
+                }
+            }
+
             var success = function (data) {
                 var result = YIUI.DataUtil.fromJSONDataTable(data);
                 if ( !result.first() ) return;
@@ -4491,34 +4636,27 @@ UI.BaseFuns = (function () {
                             row.bkmkRow = viewRow;
                         }
                         table.setByBkmk(row.bkmkRow.getBookmark());
-                        var colInfo,value,type;
-                        for(var i = 0,size = table.cols.length;i < size;i++){
-                            colInfo = table.getCol(i);
-                            value = result.getByKey(colInfo.key);
-                            table.setByKey(colInfo.key,value == undefined ? null : value);
+
+                        mergeData(result,table);
+
+                        if( quickSave )
+                            table.setState(DataDef.R_Normal);
+
+                        if( parentTable )
+                            table.setParentBkmk(parentTable.getBkmk());
+
+                        grid.getHandler().fillRowData(form,grid,table,cxt.rowIndex,getNeedFillFields(grid));
+
+                        if( grid.newEmptyRow ){
+                            grid.appendAutoRowAndGroup();
                         }
-                        if( quickSave ) table.setState(DataDef.R_Normal);
-                        if( parentTable ) table.setParentBkmk(parentTable.getBkmk());
-                        grid.getHandler().showDetailRowData(form,grid,cxt.rowIndex);
-                        grid.appendAutoRowAndGroup();
+
                     }
                 } else {
-                    var name = YIUI.Attachment_Data.NAME;
-                    if( table.getColByKey(name) ) {
-                        table.setByKey(name,result.getByKey(name));
-                    }
-                    var operator = YIUI.Attachment_Data.UPLOAD_OPERATOR;
-                    if( table.getColByKey(operator) ) {
-                        table.setByKey(operator,result.getByKey(operator));
-                    }
-                    var path = YIUI.Attachment_Data.PATH;
-                    if( table.getColByKey(path) ) {
-                        table.setByKey(path,result.getByKey(path));
-                    }
-                    var time = YIUI.Attachment_Data.UPLOAD_TIME;
-                    if( table.getColByKey(time) ) {
-                        table.setByKey(time,result.getByKey(time));
-                    }
+                    table.first();
+
+                    mergeData(result,table);
+
                     if( refresh ) {
                         var com = form.getCompByDataBinding(tableKey,name);
                         if( com ) {
@@ -4526,7 +4664,6 @@ UI.BaseFuns = (function () {
                         }
                     }
                 }
-                // 处理回调
                 if( callback ) {
                     form.eval(callback,new View.Context(form));
                 }
@@ -4558,7 +4695,6 @@ UI.BaseFuns = (function () {
             } else {
                 YIUI.FileUtil.uploadFile(options);
             }
-
             return true;
         };
 
@@ -4566,7 +4702,6 @@ UI.BaseFuns = (function () {
             var form = cxt.form;
 
             var tableKey = YIUI.TypeConvertor.toString(args[1]);
-
 
             var path = "";
             if( args.length > 2 ) {
@@ -4593,6 +4728,9 @@ UI.BaseFuns = (function () {
                 }
                 path = tbl.getByKey(YIUI.Attachment_Data.PATH);
             }
+
+            if( !path )
+                return;
 
             var options = {
                 formKey: form.formKey,
@@ -4682,10 +4820,7 @@ UI.BaseFuns = (function () {
                     oldTable.delAll();
                 }
                 YIUI.DataUtil.append(dataTable, oldTable);
-                oldTable.beforeFirst();
-                grid.rootGroupBkmk = [];
-                grid.getPageInfo().currentPage = 1;
-                grid.load(true,true);
+                grid.load(true);
             }
         };
 
@@ -4778,7 +4913,55 @@ UI.BaseFuns = (function () {
         funs.GetUIAgent = function (name, cxt, args) {
             return "webbrowser";
         };
-
+        
+        funs.LocaleString = function (name, cxt, args) {
+        	var form = cxt.form;
+        	var formKey = form.getFormKey();
+            var group = args[0];
+            var key = args[1];
+            var values = [];
+            var params = {
+                service: "LocaleString",
+                formKey: formKey,
+                group: group,
+                key : key,
+                paras: $.toJSON(values)
+            }
+            var str = Svr.Request.getSyncData(Svr.SvrMgr.ServletURL, params);
+            if (!str) {
+            	YIUI.ViewException.throwException(YIUI.ViewException.NO_LOCALE_STRING_DEFINED);
+            }
+            return str;
+        };
+        
+        funs.LocaleParaFormat = function (name, cxt, args) {
+        	var form = cxt.form;
+        	var formKey = form.getFormKey();
+            var group = args[0];
+            var key = args[1];
+            var values = [];
+            for (var i = 2, len = args.length; i < len; i++) {
+                values.push(args[i]);
+            }
+            var params = {
+                service: "LocaleString",
+                formKey: formKey,
+                group: group,
+                key : key,
+                paras: $.toJSON(values)
+            }
+            var str = Svr.Request.getSyncData(Svr.SvrMgr.ServletURL, params);
+            if (!str) {
+            	YIUI.ViewException.throwException(YIUI.ViewException.NO_LOCALE_STRING_DEFINED);
+            }
+            return str;
+        };
+		
+        funs.HasParent = function (name, cxt, args) {
+            return cxt.form.getParentForm()!=null;
+        };
+		
+        funs.LocaleFormat = funs.LocaleParaFormat;
     }
     return funs;
 })();

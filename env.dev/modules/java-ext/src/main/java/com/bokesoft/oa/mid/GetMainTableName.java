@@ -29,11 +29,10 @@ public class GetMainTableName implements IExtService {
 	 * @return 主表名称
 	 * @throws Throwable
 	 */
-	public String getMainTableName(DefaultContext context, String srcFromKey)
-			throws Throwable {
-		String formKey=srcFromKey;
+	public String getMainTableName(DefaultContext context, String srcFromKey) throws Throwable {
+		String formKey = srcFromKey;
 		MetaDataObject metaDataObject = context.getVE().getMetaFactory().getDataObject(formKey);
-		String tableName=metaDataObject.getMainTable().getBindingDBTableName();
+		String tableName = metaDataObject.getMainTable().getBindingDBTableName();
 		return tableName;
 	}
 }

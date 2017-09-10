@@ -59,26 +59,29 @@ input::-ms-clear {
 	height: 5px;
 	border-style: solid none;
 }
-/* .app-list{
+.appItems{
+	position:absolute;
+	top:0;left:0;
 	display:none;
 	width:384px;
 	padding:6px 20px 9px;
 	background:#fff;
 	overflow:hidden;
-	box-shadow:2px 2px 2px 2px rgba(0,0,0,.2)
+	box-shadow:2px 2px 2px 2px rgba(0,0,0,.2);
+	z-index:99;
 }
-.app-items{
+.appItems li{
 	float:left;
 	width:86px;
 	height:89px;
 	transition:background .3;
 }
-.app-items a{
+.appItems li a{
 	display:inline-block;
 	width:100%;
 	height:100%;
 	background:url(images/email_app.png) no-repeat center;
-} */
+} 
 .logo{
 	width:77px;
 	height:100%;
@@ -88,7 +91,6 @@ input::-ms-clear {
 }
 .navRight {
 	height:100%;
-	width:436px;
 	float:right; 
 }
 
@@ -173,6 +175,9 @@ input::-ms-clear {
 	display:inline-block;
 	width:100%;
 	height:100%;
+	overflow:hidden;
+	text-overflow:ellipsis;
+	white-space:nowrap;
 	cursor:pointer;
 	color:#999;
 }
@@ -186,6 +191,7 @@ input::-ms-clear {
 	background-color: #ffffff;
 }
 .mainLeft { 
+	position:relative;
 	width: 240px;
 	float: left;
 }
@@ -224,6 +230,9 @@ input::-ms-clear {
 	vertical-align: middle;
 	background:transparent;
 }
+.searchBox .searchtext:focus{
+	border:none;
+}
 .mainLeft .tm {
 	 min-width: 100%;
 }
@@ -252,9 +261,6 @@ input::-ms-clear {
 	padding-left: 10px;
 	display: block;
 	color: #74787a;
-	/* 
-	overflow: hidden;
-	text-overflow: ellipsis; */
 }
 .matchItems li a:hover {
 	background-color: #3797f0;
@@ -415,10 +421,12 @@ li.isparent.top-level > a.close{
 }
 .navRight .login_username,
 .navRight .org_lbl{
-	float:right;
 	color:#fff;
 	line-height:60px;
-	display:none;
+}
+.navRight .org_lbl p{
+	font-size:26px;
+	display:inline-block;
 }
 .nav .logo-text{
 	float:left;
@@ -430,4 +438,33 @@ li.isparent.top-level > a.close{
 }
 .searchBox button{
 	display:none;
+}
+/*关于弹出框*/
+.sys-about {
+	padding: 8px;
+  	width: 100%;
+    height: 80%;
+}
+.sys-about table {
+  	border: 0;
+  	width: 100%;
+    height: 100%;
+}
+.sys-about table tr {
+  	height: 25px;
+}
+.sys-about table button {
+  	width: 80px;
+  	height: 23px;
+    border: 1px solid #ccc;
+    background:#fff;
+    color: #333;
+    float: right;
+    cursor:pointer;
+}
+.sys-about table button:hover{
+	border-color:#40a8e8;
+}
+.sys-about table button:active{
+	color:#40a8e8;
 }

@@ -28,7 +28,7 @@ var other = {
 		unknown : '未知的类型：',
 		query : "查询",
 		cancel : "取消",
-		determine : "确定",
+		ok : "确定",
 		empty : "清空",
 		code : "代码",
 		name : "名称"
@@ -46,14 +46,14 @@ var other = {
 	},
 
 	grid : {
-		whetherEmpty : "是否清空所有子明细数据?",
+		whetherEmpty : "是否清空所有子数据?",
 		nonsupport : "表格排序不支持行分组！",
 		lundefined : "扩展源未定义",
 		total : "共 {0} 条",
 		noData : "无数据显示",
 		recordtext : "共 {2} 条",
 		jumpTo : " 跳转至：{0}页",
-		deleteRecord : "删除所选记录？",
+		deleteRecord : "删除所选记录?",
 		addRecord : "添加新记录",
 		delRecord : "删除所选记录",
 		moveUp : "上移数据行",
@@ -64,15 +64,16 @@ var other = {
 		isSortError : "行分组情况下不允许进行排序",
 		notAllow : "多选复合字典{0}不允许有数据绑定字段",
 		prompt : "提示",
-		open : "打开",
-		see : "查看",
-		eliminate : "清除"
+		select : "打开",
+		show : "查看",
+		clear : "清除"
 	},
 
 	userinfopane : {
 		admin : "系统管理员",
 		appLogout : "注销",
-		appExit : "退出"
+		appExit : "退出",
+		appChangePWD : "修改密码"
 	},
 
 
@@ -89,7 +90,13 @@ var other = {
 		entryRights : "入口权限设置"
 	},
 
-	
+	formright : {
+		caption : "名称",
+		key: "标识",
+		visible: "是否可见",
+		enable: "是否可编辑",
+		hasrights: "是否有权限"
+	},
 
 	baidumap : {
 		inputPlace : "请输入搜索地点...",
@@ -141,7 +148,7 @@ var other = {
 		newEvent : "新建事件",
 		editEvent : "编辑事件",
 		lnew : "新建",
-		confirmDel : "确定删除？"
+		confirmDel : "确定删除?"
 	},
 
 	tabpanelex : {
@@ -158,9 +165,11 @@ var other = {
 	dialog : {
 		close : "关闭",
 		details : "详情",
-		wClose : "是否关闭",
+		wClose : "是否关闭?",
+		ok : "确定",
 		yes : "是",
-		no : "否"
+		no : "否",
+		message: "消息"
 	},
 	
 
@@ -171,7 +180,7 @@ var other = {
 	},
 
 	form : {
-		closeInterface : "是否确定要关闭界面？"
+		closeInterface : "是否确定要关闭界面?"
 	},
 
 	request : {
@@ -210,17 +219,25 @@ var other = {
 	navigation : {
 		application : "Yigo应用",
 		userName : "朱文文",
-		appChangePWD : "修改密码",
 		appVer : "版本：",
 		appBuildID : "创建号：",
 		appCopyRights : "上海博科资讯股份有限公司",
 		authorize : "授权于：博科资讯 ",
 		overdueTime : "过期时间：",
-		appAbout : "关于Yigo"
+		appAbout : "关于Yigo",
+		aboutSys : "系统信息",
 	},
 
 	menutree : {
 		inputKeyWords : "请输入关键词..."
+	},
+	
+	button : {
+		ok : "确定"
+	},
+	
+	title :{
+		error: "错误"
 	}
 
 };

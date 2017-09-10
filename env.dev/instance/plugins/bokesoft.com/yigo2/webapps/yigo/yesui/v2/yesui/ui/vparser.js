@@ -9,6 +9,7 @@ var View = View || {};
 	View.EvalEnv = function(form) {
 		this.form = form;
         this.parser = new Expr.Parser(View.FuncMap);
+        this.macros = new HashMap();
 	};
 
 	Lang.impl(View.EvalEnv, {
@@ -78,6 +79,10 @@ var View = View || {};
 			}
 		},
 		checkMacro: function(cxt, name) {
+
+			this.macros
+
+
             var macro, form;
             if(cxt){
 	            form = cxt.form;
@@ -85,6 +90,15 @@ var View = View || {};
 	                macro = (form.macroMap == undefined) ? null : form.macroMap[name];
 	                
 	                if (macro == null) {
+	                	var pk = form.getProjectKey();
+	                	macro = this.macros.get(pk+'_'+name);
+	                }
+
+	                if (macro == null){
+	                	macro = this.macros.get(name);
+	                }
+
+	                if(macro == null){
 	                    var paras = {
 	                        service: "WebMetaService",
 	                        cmd: "GetMacro",
@@ -92,8 +106,12 @@ var View = View || {};
 	                        macroName: name
 	                    };
 	                    macro = Svr.Request.getSyncData(Svr.SvrMgr.ServletURL, paras);
+
+	                    if(macro){
+	                    	var k = (macro.projectKey ? (macro.projectKey+"_") : "") + name;
+	                    	this.macros.put(k,macro);
+	                    }
 	        		}
-	        		
 	            }
             }
             return macro;

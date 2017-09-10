@@ -23,6 +23,7 @@ YIUI.Form = YIUI.extend({
         this.target = metaForm.target;
         this.mainTableKey = metaForm.mainTableKey;
         this.onLoad = metaForm.onLoad;
+        this.onClose = metaForm.onClose;
         var rootObj = metaForm.root;
         this.standalone = metaForm.standalone;
         this.relations = metaForm.relations;
@@ -61,6 +62,7 @@ YIUI.Form = YIUI.extend({
         this.bottomMargin = metaForm.bottomMargin;
         this.leftMargin = metaForm.leftMargin;
         this.rightMargin = metaForm.rightMargin;
+        this.projectKey = metaForm.projectKey;
 
         var options = {
             form: this,
@@ -86,10 +88,12 @@ YIUI.Form = YIUI.extend({
                 var controlType = meta.type;
 
                 var loadType =  YIUI.PageLoadType.NONE;
+                var pageIndicatorCount = 5;
                 if(controlType == YIUI.CONTROLTYPE.LISTVIEW){
                     loadType = comp.loadType;
                 }else if (controlType == YIUI.CONTROLTYPE.GRID){
                     loadType = meta.pageLoadType;
+                    pageIndicatorCount = meta.pageIndicatorCount;
                 }
 
                 if(loadType == YIUI.PageLoadType.DB) {
@@ -98,7 +102,7 @@ YIUI.Form = YIUI.extend({
                     tblDetail.setTableKey(tblKey);
                     tblDetail.setStartRow(0);
                     tblDetail.setMaxRows(meta.pageRowCount);
-                    tblDetail.setPageIndicatorCount(5);
+                    tblDetail.setPageIndicatorCount(pageIndicatorCount);
                     fm.addTblDetail(tblDetail);
                 }
             }
@@ -337,6 +341,9 @@ YIUI.Form = YIUI.extend({
     getGridInfoMap: function () {
         return this.formAdapt.getGridMap();
     },
+    getListViewMap: function () {
+        return this.formAdapt.getListViewMap();
+    },
     getGridInfoByTableKey: function (tableKey) {
         var gridMap = this.getGridInfoMap(), grid;
         for (var i = 0, len = gridMap.length; i < len; i++) {
@@ -441,13 +448,22 @@ YIUI.Form = YIUI.extend({
         var workitemID = -1;
         if( info ) {
         	workitemID = info.WorkitemID;
-            if( info.IgnoreFormState )
+            if( info.IgnoreFormState && _this.getSysExpVals(YIUI.BPMConstants.WORKITEM_VIEW) == YIUI.BPMConstants.WORKITEM_VIEW )
                 _this.setOperationState(YIUI.Form_OperationState.Edit);
         }
 
-        YIUI.RightsService.loadFormRights(this.metaForm.formKey,this.getOID(),workitemID).then(function (rights) {
+        var formKey = _this.metaForm.formKey;
+
+        var params = {
+            formKey:formKey,
+            OID: _this.getOID(),
+            workitemID:workitemID,
+            parameters:_this.getParas().toJSON()
+        };
+
+        YIUI.RightsService.loadFormRights(formKey,params).then(function (rights) {
              _this.setFormRights(rights);
-             _show();
+             !_this.isDestroyed && _show();
         });
     },
     setWillShow: function(show) {
@@ -455,12 +471,6 @@ YIUI.Form = YIUI.extend({
     },
     willShow: function() {
         return this.show;
-    },
-    setShowing: function(showing) {
-        this.showing = showing;
-    },
-    showing: function() {
-        return this.showing();
     },
     setComponentValue: function (key, value, fireEvent) {
         this.formAdapt.setCompValue(key, value, fireEvent);
@@ -740,6 +750,12 @@ YIUI.Form = YIUI.extend({
         });
     },
     close: function () {
+        var onClose = this.onClose;
+        if(onClose) {
+            var cxt = new View.Context(this);
+            this.eval(onClose, cxt);
+        }
+
         var callback = this.getEvent(YIUI.FormEvent.Close);
         if (callback) {
             callback.doTask(this, null);
@@ -835,7 +851,7 @@ YIUI.Form = YIUI.extend({
         orderList.sort(function (comp1, comp2) {
             return comp1.tabOrder - comp2.tabOrder;
         });
-        orderList = orderList.concat(this.formAdapt.getUnOrderList());
+        orderList = orderList.concat(this.formAdapt.getUnOrderList() || []);
         for (var i = 0, len = orderList.length; i < len; i++) {
             orderList[i].setTabIndex(i);
         }
@@ -847,6 +863,9 @@ YIUI.Form = YIUI.extend({
     },
     getFormRights: function (){
         return this.formRights || null;
+    },
+    getProjectKey: function(){
+        return this.metaForm.projectKey
     }
 });
 
@@ -872,6 +891,7 @@ YIUI.MetaForm = YIUI.extend({
         this.target = jsonObj["target"];
         this.mainTableKey = jsonObj["mainTableKey"];
         this.onLoad = jsonObj["onLoad"];
+        this.onClose = jsonObj["onClose"];
         this.scriptCollection = jsonObj["scriptCollection"];
         this.cellTypeGroup = jsonObj["cellTypeGroup"];
 
@@ -920,6 +940,7 @@ YIUI.MetaForm = YIUI.extend({
         this.bottomMargin = jsonObj["bottomMargin"];
         this.leftMargin = jsonObj["leftMargin"];
         this.rightMargin = jsonObj["rightMargin"];
+        this.projectKey = jsonObj["projectKey"];
 
     },
 

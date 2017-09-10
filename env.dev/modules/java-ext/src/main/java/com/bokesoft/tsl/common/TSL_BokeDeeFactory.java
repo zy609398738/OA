@@ -11,6 +11,7 @@ import com.bokesoft.dee.http.HttpRequest;
 
 /**
  * BokeDee工厂类,提供调用方式
+ * 
  * @author chenyf
  *
  */
@@ -39,8 +40,11 @@ public class TSL_BokeDeeFactory {
 
 	/**
 	 * 添加参数
-	 * @param key	参数标志
-	 * @param value 参数值
+	 * 
+	 * @param key
+	 *            参数标志
+	 * @param value
+	 *            参数值
 	 */
 	public void addParameter(String key, String value) {
 		parameter.put(key, value);
@@ -48,9 +52,13 @@ public class TSL_BokeDeeFactory {
 
 	/**
 	 * 生成查询条件
-	 * @param key	查询条件ColumnKey
-	 * @param sign	查询条件符号
-	 * @param value 查询条件值
+	 * 
+	 * @param key
+	 *            查询条件ColumnKey
+	 * @param sign
+	 *            查询条件符号
+	 * @param value
+	 *            查询条件值
 	 * @return
 	 */
 	public JSONObject createCondition(String key, String sign, Object value) {
@@ -64,6 +72,7 @@ public class TSL_BokeDeeFactory {
 
 	/**
 	 * 查询条目数条件
+	 * 
 	 * @return
 	 */
 	public JSONObject getRowNumberCondition() {
@@ -77,6 +86,7 @@ public class TSL_BokeDeeFactory {
 
 	/**
 	 * 获取参数集合
+	 * 
 	 * @return
 	 */
 	public HashMap<String, String> getParameter() {
@@ -85,7 +95,9 @@ public class TSL_BokeDeeFactory {
 
 	/**
 	 * 条用接口
-	 * @param action	要执行的接口名
+	 * 
+	 * @param action
+	 *            要执行的接口名
 	 * @return
 	 */
 	public String executeAction(String action) {

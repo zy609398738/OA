@@ -142,11 +142,28 @@ YIUI.MetaService = (function () {
 	        return Svr.Request.getData(params);
 	    },
 
-	    getServerList: function(){
+//	    getServerList: function(){
+//	    	var params = {
+//	    		service: "GetServerList"
+//	        };
+//	        return Svr.Request.getData(params);
+//	    },
+	    
+	    getAppList: function(){
 	    	var params = {
-	    		service: "GetServerList"
+	    		service: "GetAppList"
 	        };
 	        return Svr.Request.getData(params);
+	    },
+	    
+	    getAliasKey: function(platform, formkey) {
+	    	var params = {
+	    		cmd:"GetAliasKey",
+	    		service:"WebMetaService",
+	    		PlatForm:platform,
+	    		FormKey:formkey
+	    	}
+	    	return Svr.Request.getData(params);
 	    }
 	}
 	return Return;

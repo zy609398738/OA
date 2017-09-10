@@ -44,7 +44,7 @@ public class GetOptIDsDetail implements IExtService {
 		DataTable DT = doc.get(dataTable);
 		long oid = doc.getOID();
 		String string = DT.getString(key);
-		if (string==null || string.length()<=0) {
+		if (string == null || string.length() <= 0) {
 			return true;
 		} else {
 			String[] OptIDs = string.split(",");

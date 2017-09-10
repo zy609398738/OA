@@ -1,27 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <Form Key="OA_CirculationDialog" Caption="传阅对话框" FormType="Entity">
-    <DataSource>
-        <DataObject Key="OA_CirculationDialog" Caption="传阅对话框">
-            <TableCollection>
-                <Table Key="OA_CirculationDialog" Caption="传阅对话框" DBTableName="OA_CirculationDialog" Persist="false" TableMode="Detail">
-                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
-                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
-                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
-                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
-                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
-                    <Column Key="Status" Caption="状态" DataType="Integer" DefaultValue="0"/>
-                    <Column Key="ReadTime" Caption="阅读时间" DataType="Date"/>
-                    <Column Key="SendTime" Caption="传阅时间" DataType="Date"/>
-                    <Column Key="WorkitemID" Caption="工作项标识" DataType="Long"/>
-                    <Column Key="Opinion" Caption="常用意见" DataType="Varchar"/>
-                    <Column Key="BillKey" Caption="单据Key" DataType="Varchar"/>
-                    <Column Key="BillOID" Caption="BillOID" DataType="Long"/>
-                    <Column Key="ReadUser" Caption="选择阅读人员" DataType="Varchar" Length="4000"/>
-                    <Column Key="OptIDs" Caption="被选人ID" DataType="Varchar" Length="4000"/>
-                </Table>
-            </TableCollection>
-        </DataObject>
-    </DataSource>
     <OperationCollection>
         <Operation Key="Save" Caption="保存">
             <Action>
@@ -109,8 +87,10 @@ ShowModal("OA_ParticipatorSelect","ParticipatorIDs:{Para('ParticipatorIDs')},Nex
                 <GridLayoutPanel Key="GridLayoutPanel1" Height="50px" Padding="5px" Caption="GridLayoutPanel1">
                     <Button Key="APPROVE" Caption="确定" X="1" Y="0" Enable="True">
                         <OnClick>
-                            <![CDATA[InvokeService("OA_Notification",true,false,GetValue("ReadUser"),ServerDate(),Para("workflowOID"),GetValue("Opinion"),Para("workflowBillKey"),Para("pWorkitemID"));
-Close();]]>
+                            <![CDATA[UICheck();
+InvokeService("OA_Notification",true,false,GetValue("ReadUser"),ServerDate(),Para("workflowOID"),GetValue("Opinion"),Para("workflowBillKey"),Para("pWorkitemID"));
+Close();
+parent.Confirm("传阅成功","OK","OK:{OA_AuditAfterClose("+Para("pWorkitemID")+",'"+Para("workflowBillKey")+"',"+Para("WorkflowTypeDtlID")+")}");]]>
                         </OnClick>
                     </Button>
                     <Button Key="cancel" Caption="取消" X="2" Y="0" Enable="True">

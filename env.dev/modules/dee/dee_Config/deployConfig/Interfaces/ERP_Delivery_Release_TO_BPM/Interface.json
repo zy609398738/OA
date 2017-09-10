@@ -1,0 +1,10 @@
+{
+  "id": "8aaae0c55d102b6f015d104b71d10006",
+  "text": "ERP_Delivery_Release_TO_BPM",
+  "changePort": "",
+  "startIndex": "",
+  "autoRun": "true",
+  "description": "查询ERP系统发货通知信息导入YIGO系统",
+  "oldPort": "",
+  "responseTime": "600000"
+}

@@ -19,7 +19,7 @@ public class TSL_GetUserResp extends BaseMidFunctionImpl {
 		Document document = context.getDocument();
 		DataTable headTable = document.get("B_ERPAccAuzChgApp");
 		// TaskID
-		String task_id = headTable.getObject("OID").toString();
+		String task_id = headTable.getObject("InstanceID").toString();
 		String email = DictCacheUtil
 				.getDictValue(context.getVE(), "Dict_Employee", headTable.getLong("ApplicantID"), "Email").toString();
 		TSL_BokeDeeFactory factory = new TSL_BokeDeeFactory();
@@ -32,7 +32,7 @@ public class TSL_GetUserResp extends BaseMidFunctionImpl {
 		}
 		factory.addParameter("json", ja.toString());
 		String rowcount = null;
-		String msg="";
+		String msg = "";
 		String stringJson = factory.executeAction(ACTION);
 		JSONObject reJSONObject = JSONObject.parseObject(stringJson);
 		Object data = reJSONObject.get("data");
@@ -45,7 +45,7 @@ public class TSL_GetUserResp extends BaseMidFunctionImpl {
 			if (rowcount.equalsIgnoreCase("0")) {
 				msg = "";
 			} else {
-				msg ="数据导入ERP成功,但需要在oracle数据库中添加" + email + "(新用户)";
+				msg = "数据导入ERP成功,但需要在oracle数据库中添加" + email + "(新用户)";
 			}
 		}
 		return msg;

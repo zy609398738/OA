@@ -184,6 +184,10 @@ function storeToJSON(store) {
 	return Ext.JSON.encode(storeToObj(store));
 }
 
+function storeToJSON2(store1,store2) {
+	return Ext.JSON.encode(storeToObj2(store1,store2));
+}
+
 /**
  * 把Store转成JSON
  * 
@@ -197,6 +201,25 @@ function storeToObj(store) {
 		var row = store.getAt(i);
 		array.push(row.data);
 	}
+	return array;
+}
+
+function storeToObj2(store1,store2) {
+	var array=new Array();
+	var data={};
+	var array1=new Array();
+	var array2=new Array();
+	for ( var i = 0; i < store1.getCount(); i++) {
+		var row = store1.getAt(i);
+		array1.push(row.data);
+	}
+	data.g1=array1;
+	for ( var i = 0; i < store2.getCount(); i++) {
+		var row = store2.getAt(i);
+		array2.push(row.data);
+	}
+	data.g2=array2;
+	array.push(data);
 	return array;
 }
 

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="OA_DelegateDialog" Caption="代理添加对话框" FormType="View">
+    <Body PopHeight="300px" PopWidth="800px">
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板">
+                <GridLayoutPanel Key="first_head" Padding="5px" Height="pref" Caption="基本信息">
+                    <ComboBox Key="delegateType" Caption="代理类型" BuddyKey="Lab_delegateType" X="2" Y="1" Enable="false">
+                        <DataBinding DefaultValue="2"/>
+                        <Item Caption="授权" Key="AUTHORIZE" Value="1"/>
+                        <Item Caption="代理" Key="DELEGATE" Value="2"/>
+                    </ComboBox>
+                    <Label Key="Lab_delegateType" Caption="代理类型" X="1" Y="1"/>
+                    <ComboBox Key="objectType" Caption="代理范围" BuddyKey="Lab_objectType" X="5" Y="1" XSpan="4">
+                        <DataBinding>
+                            <ValueChanged>
+                                <![CDATA[WorkflowType = 0]]>
+                            </ValueChanged>
+                        </DataBinding>
+                        <Item Caption="所有流程" Key="OPERATOR" Value="1"/>
+                        <Item Caption="指定流程" Key="PROCESS" Value="2"/>
+                    </ComboBox>
+                    <Label Key="Lab_objectType" Caption="代理范围" X="4" Y="1"/>
+                    <Dict Key="tgtOperatorID" Caption="代理操作员" BuddyKey="Lab_tgtOperatorID" X="2" Y="3" ItemKey="Operator"/>
+                    <Label Key="Lab_tgtOperatorID" Caption="代理人" X="1" Y="3"/>
+                    <ComboBox Key="nodekey" Caption="流程节点" BuddyKey="Lab_nodekey" X="2" Y="6" SourceType="Formula" Visible="false" ItemsDependency="ProcessKey">
+                        <FormulaItems>
+                            <![CDATA[InvokeService("OA_GetAuditNodeByProcessKey",false,false,ProcessKey);]]>
+                        </FormulaItems>
+                    </ComboBox>
+                    <Label Key="Lab_nodekey" Caption="流程节点" X="1" Y="6"/>
+                    <DatePicker Key="startTime" Caption="开始日期" BuddyKey="Lab_startTime" X="2" Y="4" Enable="alwaysValid == 0" OnlyDate="true">
+                        <DataBinding DefaultFormulaValue="ServerDate()"/>
+                    </DatePicker>
+                    <Label Key="Lab_startTime" Caption="开始日期" X="1" Y="4"/>
+                    <DatePicker Key="endtime" Caption="结束日期" BuddyKey="Lab_endtime" X="5" Y="4" Enable="alwaysValid == 0" XSpan="4" OnlyDate="true">
+                        <DataBinding DefaultFormulaValue="ServerDate()"/>
+                    </DatePicker>
+                    <Label Key="Lab_endtime" Caption="结束日期" X="4" Y="4"/>
+                    <Dict Key="SrcOperatorID" Caption="源操作员" BuddyKey="Lab_SrcOperatorID" X="5" Y="3" Enable="false" ItemKey="Operator" XSpan="4">
+                        <DataBinding DefaultFormulaValue="GetOperator()"/>
+                    </Dict>
+                    <Label Key="Lab_SrcOperatorID" Caption="被代理人" X="4" Y="3"/>
+                    <CheckBox Caption="始终有效" Key="alwaysValid" X="4" Y="5" XSpan="4">
+                        <DataBinding>
+                            <ValueChanged>
+                                <![CDATA[if (alwaysValid == 0) {
+    startTime = ServerDate();
+    endtime = ServerDate();
+} else {
+    startTime = '';
+    endtime = '';
+}]]>
+                            </ValueChanged>
+                        </DataBinding>
+                    </CheckBox>
+                    <Button Key="Button1" Caption="确定" X="6" Y="6">
+                        <OnClick>
+                            <![CDATA[AddDelegateData(delegateType, SrcOperatorID, tgtOperatorID, objectType, WorkFlowKey, "", startTime, alwaysValid, endtime);
+parent.LoadData();Close();]]>
+                        </OnClick>
+                    </Button>
+                    <Button Key="Button2" Caption="取消" X="8" Y="6">
+                        <OnClick>
+                            <![CDATA[Close()]]>
+                        </OnClick>
+                    </Button>
+                    <ComboBox Key="objectKey" Caption="标识" BuddyKey="Lab_objectKey" X="5" Y="2" Enable="objectType==2" SourceType="Formula" ItemsDependency="WorkflowType" XSpan="4">
+                        <FormulaItems>
+                            <![CDATA[DBNamedQuery('WorkFlowQuery', WorkflowType)
+
+
+]]>
+                        </FormulaItems>
+                    </ComboBox>
+                    <Label Key="Lab_objectKey" Caption="流程名称" X="4" Y="2"/>
+                    <Dict Key="WorkflowType" Caption="流程类别" BuddyKey="Lab_WorkflowType" X="2" Y="2" Enable="objectType==2" ItemKey="OA_WorkflowType">
+                        <ItemFilter>
+                            <Filter Type="FieldValue">
+                                <FilterValue DataType="Varchar" FieldKey="PartitionType" RefValue="common" Type="Const"/>
+                            </Filter>
+                        </ItemFilter>
+                    </Dict>
+                    <Label Key="Lab_WorkflowType" Caption="流程类别" X="1" Y="2"/>
+                    <TextEditor Key="WorkFlowKey" Caption="流程标志" BuddyKey="Lab_WorkFlowKey" X="2" Y="5" Visible="false">
+                        <DataBinding DefaultFormulaValue="GetDictValue('OA_Workflow', objectKey, 'WorkflowKey')"/>
+                    </TextEditor>
+                    <Label Key="Lab_WorkFlowKey" Caption="流程标志" X="1" Y="5"/>
+                    <RowDefCollection RowGap="8">
+                        <RowDef Height="20px"/>
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                        <RowDef Height="30px"/>
+                    </RowDefCollection>
+                    <ColumnDefCollection ColumnGap="8">
+                        <ColumnDef Width="20px"/>
+                        <ColumnDef Width="70px"/>
+                        <ColumnDef Width="250px"/>
+                        <ColumnDef Width="13px"/>
+                        <ColumnDef Width="70px"/>
+                        <ColumnDef Width="117px"/>
+                        <ColumnDef Width="70px"/>
+                        <ColumnDef Width="20px"/>
+                        <ColumnDef Width="70px"/>
+                        <ColumnDef Width="20px"/>
+                    </ColumnDefCollection>
+                </GridLayoutPanel>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

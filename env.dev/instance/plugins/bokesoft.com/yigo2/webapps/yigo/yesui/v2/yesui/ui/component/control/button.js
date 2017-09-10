@@ -58,6 +58,7 @@ YIUI.Control.Button = YIUI.extend(YIUI.Control, {
         this.cssStyle = cssStyle;
         this.button && this.button.getTextButton().css(cssStyle);
         this.foreColor && this.button.getTextButton().css("color", this.foreColor);
+        this.backColor && $("button", this.el).css("background-color", this.backColor);
     },
 
     onSetWidth: function (width) {

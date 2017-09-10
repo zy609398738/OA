@@ -35,11 +35,11 @@ public class FillListByBPM implements IExtService {
 		Document doc = context.getDocument();
 		DataTable dt = doc.get(0);
 		dt.clear();
-		//取流程配置对象
+		// 取流程配置对象
 		MetaBPM metaBPM = context.getVE().getMetaFactory().getMetaBPM();
-		//获得已部署流程集合
+		// 获得已部署流程集合
 		MetaProcessDeployInfoCollection deployInfoCol = metaBPM.getMetaBPMDeployInfoCollection();
-		//获得所有流程的集合
+		// 获得所有流程的集合
 		HashMap<String, ProcessDefinitionProfile> profileMap = metaBPM.getProfileMap();
 		for (Iterator<Entry<String, ProcessDefinitionProfile>> iterator = profileMap.entrySet().iterator(); iterator
 				.hasNext();) {

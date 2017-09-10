@@ -15,6 +15,7 @@ import com.bokesoft.yigo.struct.document.Document;
 public class TSL_UpdateDelivery_main extends BaseMidFunctionImpl {
 
 	private static String ACTION = "BPM_Delivery_Release_TO_ERP";
+
 	@Override
 	public Object evalImpl(String name, DefaultContext context, Object[] args, IExecutor arg3) throws Throwable {
 		Document document = context.getDocument();
@@ -22,7 +23,7 @@ public class TSL_UpdateDelivery_main extends BaseMidFunctionImpl {
 		// proc_state（调用传入参数）
 		String proc_state = TypeConvertor.toString(args[0]);
 		// 任务号（获取Oid）
-		String taskid = headTable.getObject("OID").toString();
+		String taskid = headTable.getObject("InstanceID").toString();
 		// 开始日期（获取eta）
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		Date date1 = TypeConvertor.toDate(headTable.getObject("eta"));

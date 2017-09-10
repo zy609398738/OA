@@ -26,13 +26,26 @@
 		},
 		{
 			"code":"newsdetail",
-			"followHtml":" \n       ",
+			"followHtml":"  \n       ",
 			"name":"newsdetail",
+			"tag":"yigo-cms:area"
+		},
+		{
+			"code":"attachment",
+			"followHtml":" \n       ",
+			"name":"attachment",
+			"tag":"yigo-cms:area"
+		},
+		{
+			"code":"NewsPageTurn",
+			"followHtml":"\n       ",
+			"name":"NewsPageTurn",
 			"tag":"yigo-cms:area"
 		},
 		{
 			"code":"Comment",
 			"followHtml":"\n     </div>\n</div>\n <!--主体 end-->\n</body>\n</html>",
+			"name":"Comment",
 			"tag":"yigo-cms:area"
 		}
 	]

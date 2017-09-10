@@ -7,7 +7,11 @@ import com.bokesoft.oa.base.OAContext;
 import com.bokesoft.yes.common.util.StringUtil;
 import com.bokesoft.yigo.meta.bpm.process.ProcessDefinitionProfile;
 import com.bokesoft.yigo.meta.bpm.total.MetaBPM;
+import com.bokesoft.yigo.meta.dataobject.MetaDataObject;
+import com.bokesoft.yigo.meta.factory.MetaFactory;
 import com.bokesoft.yigo.struct.datatable.DataTable;
+import com.bokesoft.yigo.struct.document.Document;
+import com.bokesoft.yigo.tools.document.DocumentUtil;
 
 /**
  * 流程设计
@@ -336,6 +340,65 @@ public class WorkflowDesigne extends BillBase {
 	public void loadData(DataTable headDt, DataTable dtlDt) throws Throwable {
 		loadData(headDt);
 		getWorkflowDesigneDtlMap().loadData(dtlDt);
+	}
+
+	/**
+	 * 更新数据
+	 * 
+	 * @throws Throwable
+	 */
+	public void uploadData() throws Throwable {
+		DataTable dt = document.get("OA_WorkflowDesigne_H");
+		uploadData(dt);
+		dt = document.get("OA_WorkflowDesigne_D");
+		getWorkflowDesigneDtlMap().uploadData(dt);
+	}
+
+	/**
+	 * 更新数据
+	 * 
+	 * @param dt
+	 *            头表数据集
+	 * @throws Throwable
+	 */
+	public void uploadData(DataTable dt) throws Throwable {
+		dt.setString("WorkflowKey", getWorkflowKey());
+		dt.setInt("WorkflowVersion", getWorkflowVersion());
+		dt.setString("Tag1", getTag1());
+		dt.setString("Tag2", getTag2());
+		dt.setString("Tag3", getTag3());
+		dt.setString("Tag4", getTag4());
+	}
+
+	/**
+	 * 数据对象
+	 */
+	private Document document;
+
+	/**
+	 * 数据对象
+	 * 
+	 * @return 数据对象
+	 * @throws Throwable
+	 */
+	public Document getDocument() throws Throwable {
+		if (document == null) {
+			MetaDataObject metaDataObject = MetaFactory.getGlobalInstance().getDataObject("OA_WorkflowDesigne");
+			document = DocumentUtil.newDocument(metaDataObject);
+			uploadData();
+		}
+		setOID(document.getOID());
+		return document;
+	}
+
+	/**
+	 * 数据对象
+	 * 
+	 * @param document
+	 *            数据对象
+	 */
+	public void setDocument(Document document) {
+		this.document = document;
 	}
 
 	/**

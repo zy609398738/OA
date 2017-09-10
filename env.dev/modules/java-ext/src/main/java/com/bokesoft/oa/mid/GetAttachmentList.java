@@ -45,14 +45,14 @@ public class GetAttachmentList implements IExtService {
 		DataTable dtQuery = dbManager.execPrepareQuery(sql, itemID);
 		List<String> list = new ArrayList<String>();
 		list.add(dtQuery.getString("Name"));
-		while(dtQuery.getLong("ParentID") > 0){
+		while (dtQuery.getLong("ParentID") > 0) {
 			dtQuery = dbManager.execPrepareQuery(sql, dtQuery.getLong("ParentID"));
 			list.add(dtQuery.getString("Name"));
 		}
 		Collections.reverse(list);
-		String path="";
-		for(int i = 0;i <list.size();i++){
-			path=path+sep+list.get(i);
+		String path = "";
+		for (int i = 0; i < list.size(); i++) {
+			path = path + sep + list.get(i);
 		}
 		if (path.length() > 0) {
 			path = path.substring(1);

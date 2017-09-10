@@ -1,0 +1,11 @@
+[
+  {
+    "parentId": "ff8080815d1c15ff015d2faa8bbf02f7",
+    "text": "PS_DEPARTMENT2_TO_BPM",
+    "recordMpLog": "false",
+    "id": "ff8080815d1c15ff015d2faa8bcb02f8",
+    "description": "定时更新部门中间表数据到YIGO2.0",
+    "fileImport": "false",
+    "enable": "true"
+  }
+]

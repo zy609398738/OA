@@ -203,7 +203,7 @@ YIUI.ComboBoxHandler = (function () {
                 var item;
                 for (var i = 0, len = items.length, item; i < len; i++) {
                     item = items[i];
-                    if(item.value == v) {
+                    if(YIUI.TypeConvertor.toString(item.value) == YIUI.TypeConvertor.toString(v)) {
                         caption = $.isUndefined(item.caption) ? "" : item.caption;
                         break;
                     }

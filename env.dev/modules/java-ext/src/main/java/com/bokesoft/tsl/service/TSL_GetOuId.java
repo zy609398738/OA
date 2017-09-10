@@ -19,7 +19,7 @@ public class TSL_GetOuId implements IExtService2 {
 		JSONObject jo = factory.createCondition("lookup_code", " = ", org_id);
 		ja.add(jo);
 		factory.addParameter("json", ja.toString());
-		String ouid = null ;
+		String ouid = null;
 		String stringJson = factory.executeAction(ACTION);
 		JSONObject reJSONObject = JSONObject.parseObject(stringJson);
 		Object data = reJSONObject.get("data");
@@ -30,7 +30,7 @@ public class TSL_GetOuId implements IExtService2 {
 				ouid = jsonObject.get("lookup_code").toString();
 			}
 		}
-		
+
 		return ouid;
 	}
 }

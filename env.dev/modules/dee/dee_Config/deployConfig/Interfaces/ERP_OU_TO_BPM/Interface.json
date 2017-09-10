@@ -1,0 +1,10 @@
+{
+  "id": "ff8080815c1ae53d015c1ec09db1016e",
+  "startIndex": "",
+  "text": "ERP_OU_TO_BPM",
+  "autoRun": "true",
+  "description": "实时查询ERP系统OU信息",
+  "responseTime": "600000",
+  "changePort": "",
+  "oldPort": ""
+}

@@ -247,9 +247,8 @@
 			    	var _ul = $("<ul/>");
 			    	for (var i = 0, len = _childs.length; i < len; i++) {
 			    		_child = _childs.eq(i);
-			    		if(_child.offset().left >= _left && _child.offset().left <= _left + $(".ui-tabs-header", this.el).width() ) {
-			    			
-			    		} else {
+			    		var left =  _child.offset().left;
+			    		if(!(left >= _left && left + _child.outerWidth() <= _left + $(".ui-tabs-header", this.el).width() )) {
 			    			var _li = $("<li></li>");
 			    			_child.attr("aria-controls");
 			    			_li.html($("label", _child).html());

@@ -1,3 +1,35 @@
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    -khtml-user-select: none;
+    user-select: none;
+}
+
+body * {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+li {
+    list-style: none;
+}
+
+
+a, button, div, input, label, li, p, span,  ul{
+     font-family: "Microsoft Yahei", Verdana, Simsun, "Segoe UI Web Light", "Segoe UI Light", "Segoe UI Web Regular", "Segoe UI", "Segoe UI Symbol", "Helvetica Neue", Arial;
+    font-size: 12px;   
+}
+
+a {
+    text-decoration: none;
+}
 html body {
     font-size: 32px;
     width: 100%;
@@ -47,12 +79,20 @@ input[type="text"]::-ms-clear {
     background-position:center top;
     background-size:cover;
 }
+.login-mask{
+    position:absolute;
+    top:0;left:0;right:0;bottom:0;
+    background:#202960;
+    opacity:.45;
+    filter: alpha(opacity=45);
+}
+
 .item1{  
-    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="./yesui/ui/res/images/login_bg_001.jpg", sizingMethod="scale")\9;
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="./yesui/v2/yesui/ui/res/css/flat/images/login_bg_001.jpg", sizingMethod="scale")\9;
     background-image:url(images/login_bg_001.jpg);
 }
 .item2{
-    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="./yesui/ui/res/images/login_bg_002.jpg", sizingMethod="scale")\9;
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="./yesui/v2/yesui/ui/res/css/flat/images/login_bg_002.jpg", sizingMethod="scale")\9;
     background-image: url('images/login_bg_002.jpg');
     display:none;
 }

@@ -1,0 +1,28 @@
+<style>
+  .attachment_dtl{
+    width: 860px;
+    margin: 0 auto;
+  }
+  .attachment_head{
+  	font-weight: bold;
+    color: #333;
+  }
+</style>
+#if($attachmentData.size()>0)  	
+  <div class="attachment_dtl f333">
+    <table>
+      <thead>
+        <tr>
+          <th class="attachment_head">附件下载：</th>
+        </tr>
+      </thead>
+      <tbody>
+        #foreach($aLine in $attachmentData)
+        <tr>
+          <td><a class="attachment_file" href="/yigo/a/cms2-yigo2-adapter/cms/view-yigo-file/$aLine.PATH">$aLine.NAME</a></td>
+        </tr>	
+        #end
+      </tbody>
+    </table>
+  </div>
+#end 

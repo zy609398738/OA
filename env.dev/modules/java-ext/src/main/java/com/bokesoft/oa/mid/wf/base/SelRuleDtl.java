@@ -22,7 +22,7 @@ public class SelRuleDtl extends DtlBase<SelRule> {
 	 * @return 右括号
 	 */
 	public String getRBracket() {
-		if(rBracket=="" || rBracket==null){
+		if (rBracket == "" || rBracket == null) {
 			return "";
 		}
 		return rBracket;
@@ -121,7 +121,7 @@ public class SelRuleDtl extends DtlBase<SelRule> {
 	 * @return 左括号
 	 */
 	public String getLBracket() {
-		if(lBracket=="" || lBracket==null){
+		if (lBracket == "" || lBracket == null) {
 			return "";
 		}
 		return lBracket;
@@ -181,6 +181,23 @@ public class SelRuleDtl extends DtlBase<SelRule> {
 	 * @throws Throwable
 	 */
 	public void loadData(DataTable dt) throws Throwable {
+		super.loadData(dt);
+		setRBracket(dt.getString("RBracket"));
+		setFieldKey(dt.getString("FieldKey"));
+		setOperation(dt.getString("Operation"));
+		setValue(dt.getString("SValue"));
+		setLBracket(dt.getString("LBracket"));
+		setLogicOperation(dt.getString("LogicOperation"));
+	}
+
+	/**
+	 * 载入数据
+	 * 
+	 * @param dt
+	 *            明细数据集
+	 * @throws Throwable
+	 */
+	public void uploadData(DataTable dt) throws Throwable {
 		super.loadData(dt);
 		setRBracket(dt.getString("RBracket"));
 		setFieldKey(dt.getString("FieldKey"));

@@ -12,14 +12,14 @@ public class TSL_GetCompanyNumber implements IExtService2 {
 	private static String ACTION = "ERP_Company_Number_TO_BPM";
 
 	@Override
-	public Object doCmd(DefaultContext context, Map<String, Object> args) throws Throwable {		
+	public Object doCmd(DefaultContext context, Map<String, Object> args) throws Throwable {
 		String org_id = (String) args.get("Organization_id");
 		TSL_BokeDeeFactory factory = new TSL_BokeDeeFactory();
 		JSONArray ja = new JSONArray();
 		JSONObject jo = factory.createCondition("organization_id", " = ", org_id);
 		ja.add(jo);
 		factory.addParameter("json", ja.toString());
-		
+
 		String companycode = null;
 		String stringJson = factory.executeAction(ACTION);
 		JSONObject reJSONObject = JSONObject.parseObject(stringJson);
@@ -31,7 +31,7 @@ public class TSL_GetCompanyNumber implements IExtService2 {
 				companycode = jsonObject.get("flex_value").toString();
 			}
 		}
-		
+
 		return companycode;
 	}
 }

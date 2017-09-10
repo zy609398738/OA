@@ -1,4 +1,5 @@
 package com.bokesoft.oa.mid.email;
+
 import java.util.Properties;
 
 import javax.activation.DataHandler;
@@ -36,9 +37,8 @@ public class EmailSend {
 	 *            服务器地址
 	 * @throws MessagingException
 	 */
-	public static boolean sendEmail(String userName, String passwd,
-			String fromUserName, String toUserName, String toCopyUserNames,
-			String mailTitle, String mailContent, String host) {
+	public static boolean sendEmail(String userName, String passwd, String fromUserName, String toUserName,
+			String toCopyUserNames, String mailTitle, String mailContent, String host) {
 		// 会话===========================
 		Properties props = System.getProperties();
 		props.put("mail.smtp.host", host);
@@ -64,19 +64,15 @@ public class EmailSend {
 			mimeMsg.setContent(mp);
 			// 设置内容 ----end
 			mimeMsg.setFrom(new InternetAddress(fromUserName));
-			mimeMsg.setRecipients(Message.RecipientType.TO,
-					InternetAddress.parse(toUserName)); // 收件人
+			mimeMsg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toUserName)); // 收件人
 			mimeMsg.setRecipients(Message.RecipientType.CC, toCopyUserNames);// 抄送
 			mimeMsg.saveChanges();
 			// 传输==================================
 			Transport transport = session.getTransport("smtp");
-			transport.connect((String) props.get("mail.smtp.host"), userName,
-					passwd);
-			transport.sendMessage(mimeMsg,
-					mimeMsg.getRecipients(Message.RecipientType.TO)); // 将邮件内容发送给收件人
+			transport.connect((String) props.get("mail.smtp.host"), userName, passwd);
+			transport.sendMessage(mimeMsg, mimeMsg.getRecipients(Message.RecipientType.TO)); // 将邮件内容发送给收件人
 			if (toCopyUserNames != null && !toCopyUserNames.equals("")) { // 如果邮件有抄送人
-				transport.sendMessage(mimeMsg,
-						mimeMsg.getRecipients(Message.RecipientType.CC)); // 将邮件内容发送给抄送人
+				transport.sendMessage(mimeMsg, mimeMsg.getRecipients(Message.RecipientType.CC)); // 将邮件内容发送给抄送人
 			}
 			transport.close();
 			return true;

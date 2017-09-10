@@ -1,21 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <Form Caption="结束流程" Key="OA_EndInstanceDialog">
-    <Body PopHeight="500px" PopWidth="600px">
+    <Body PopHeight="150px" PopWidth="600px">
         <Block>
             <FlexFlowLayoutPanel Key="root" Caption="根面板">
                 <GridLayoutPanel Caption="GridLayoutPanel0" Key="GridLayoutPanel0" Padding="5px" Height="pref">
-                    <TextArea Caption="处理意见" Enable="True" HAlign="Left" Key="Opinion" X="1" XSpan="4" Y="1" YSpan="2"/>
-                    <Button Key="EndInstance" Caption="结束流程" X="3" Y="3" Enable="True" ShowText="false">
+                    <TextArea Caption="处理意见" Enable="True" HAlign="Left" Key="Opinion" X="1" XSpan="4" Y="1" Visible="false" YSpan="2"/>
+                    <Button Key="EndInstance" Caption="结束流程" X="3" Y="3" Enable="True" Visible="true" ShowText="false">
                         <OnClick>
-                            <![CDATA[
-        EndInstance(GetActiveInstanceID(true));
+                            <![CDATA[EndInstance(GetActiveInstanceID(true));
         Close();
-        parent.Confirm("已结束流程");
-
-]]>
+        parent.Confirm("流程已结束","OK","OK:{OA_AuditAfterClose("+Para("pWorkitemID")+",'"+Para("workflowBillKey")+"',"+Para("WorkflowTypeDtlID")+")}");]]>
                         </OnClick>
                     </Button>
-                    <Button Caption="取消" Enable="True" Key="cancel" X="4" Y="3">
+                    <Button Caption="取消" Enable="True" Key="cancel" X="4" Y="3" Visible="True">
                         <OnClick>
                             <![CDATA[
 			
@@ -24,7 +21,7 @@
 			]]>
                         </OnClick>
                     </Button>
-                    <Label Caption="处理意见" Key="T_Opinion" X="0" Y="2"/>
+                    <Label Caption="处理意见" Key="T_Opinion" X="0" Y="2" Visible="false"/>
                     <Label Caption="常用意见" Key="Lab_CommonUseContent" X="0" Y="0"/>
                     <ComboBox BuddyKey="Lab_CommonUseContent" Caption="常用意见" Key="CommonUseContent" X="1" XSpan="4" Y="0" SourceType="Query">
                         <DataBinding>
@@ -41,7 +38,7 @@
                             </ParameterCollection>
                         </QueryDef>
                     </ComboBox>
-                    <HyperLink Caption="保存常用意见" Key="SaveCommonViews" X="0" Y="1">
+                    <HyperLink Caption="保存常用意见" Key="SaveCommonViews" X="0" Y="1" Visible="false">
                         <OnClick>
                             <![CDATA[IIF(
     DBQueryValue

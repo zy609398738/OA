@@ -1387,6 +1387,30 @@ public class NodeProperty extends DtlBase<WorkflowDesigneDtl> {
 	}
 
 	/**
+	 * 邮件模板
+	 */
+	private String emailTemp = "";
+
+	/**
+	 * 邮件模板
+	 * 
+	 * @return 邮件模板
+	 */
+	public String getEmailTemp() {
+		return emailTemp;
+	}
+
+	/**
+	 * 邮件模板
+	 * 
+	 * @param emailTemp
+	 *            邮件模板
+	 */
+	public void setEmailTemp(String emailTemp) {
+		this.emailTemp = emailTemp;
+	}
+
+	/**
 	 * 发送方式
 	 * 
 	 * @param sendType
@@ -1397,9 +1421,33 @@ public class NodeProperty extends DtlBase<WorkflowDesigneDtl> {
 	}
 
 	/**
+	 * 发送条件
+	 */
+	private String sendFormula = "";
+
+	/**
+	 * 发送条件
+	 * 
+	 * @return 发送条件
+	 */
+	public String getSendFormula() {
+		return sendFormula;
+	}
+
+	/**
+	 * 发送条件
+	 * 
+	 * @param sendFormula
+	 *            发送条件
+	 */
+	public void setSendFormula(String sendFormula) {
+		this.sendFormula = sendFormula;
+	}
+
+	/**
 	 * 工作项创建执行内容
 	 */
-	private String formulaCreate;
+	private String formulaCreate = "";
 
 	/**
 	 * 工作项创建执行内容
@@ -1423,7 +1471,7 @@ public class NodeProperty extends DtlBase<WorkflowDesigneDtl> {
 	/**
 	 * 工作项完成执行内容
 	 */
-	private String formulaFinish;
+	private String formulaFinish = "";
 
 	/**
 	 * 工作项完成执行内容
@@ -1583,6 +1631,7 @@ public class NodeProperty extends DtlBase<WorkflowDesigneDtl> {
 		setWorkType(dt.getInt("WorkType"));
 		setInformPerOID(dt.getLong("InformPerOID"));
 		setSendTypeID(dt.getLong("SendTypeID"));
+		setEmailTemp(dt.getString("EmailTemp"));
 		setSetNextPer(dt.getInt("SetNextPer"));
 		setUserInfoCheck(dt.getInt("UserInfoCheck"));
 		setESignatureEnable(dt.getInt("ESignatureEnable"));
@@ -1619,6 +1668,7 @@ public class NodeProperty extends DtlBase<WorkflowDesigneDtl> {
 		setRetain(dt.getInt("Retain"));
 		setFormulaCreate(dt.getString("FormulaCreate"));
 		setFormulaFinish(dt.getString("FormulaFinish"));
+		setSendFormula(dt.getString("SendFormula"));
 	}
 
 	/**

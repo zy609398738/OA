@@ -14,7 +14,7 @@ public class OAMidFunction extends BaseFunImplCluster {
 	public Object[][] getImplTable() {
 		// 返回一个自动的开发类和公式名的二维数组
 		return new Object[][] { { "OA_NewsDraftPreSave", new NewsDraftPreSave() },
-				{ "OA_NewsDraftPostSave", new NewsDraftPostSave() },
-				{ "OA_Taskdistribution", new Taskdistribution() }, { "OA_WriteoffBudget", new TimeoutNotice() } };
+				{ "OA_NewsDraftPostSave", new NewsDraftPostSave() }, { "OA_Taskdistribution", new Taskdistribution() },
+				{ "OA_TimeoutNotice", new TimeoutNotice() } };
 	}
 }

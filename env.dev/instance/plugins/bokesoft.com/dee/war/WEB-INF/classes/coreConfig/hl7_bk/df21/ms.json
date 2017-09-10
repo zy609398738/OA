@@ -1,0 +1,182 @@
+[
+  {
+    "definition": "MSH~MSA~[~ERR~]",
+    "name": "ACK"
+  },
+  {
+    "definition": "MSH~MSA",
+    "name": "ACK_Q03"
+  },
+  {
+    "definition": "MSH~MSA",
+    "name": "ACK_Q05"
+  },
+  {
+    "definition": "MSH~MSA",
+    "name": "ACK_R01"
+  },
+  {
+    "definition": "MSH~MSA",
+    "name": "ACK_R03"
+  },
+  {
+    "definition": "MSH~EVN~PID~NK1~PV1~[~DG1~]",
+    "name": "ADT_A01"
+  },
+  {
+    "definition": "MSH~EVN~PID~PV1",
+    "name": "ADT_A02"
+  },
+  {
+    "definition": "MSH~EVN~PID~PV1",
+    "name": "ADT_A03"
+  },
+  {
+    "definition": "MSH~EVN~PID~NK1~PV1~[~DG1~]",
+    "name": "ADT_A04"
+  },
+  {
+    "definition": "MSH~EVN~PID~NK1~PV1~[~DG1~]",
+    "name": "ADT_A05"
+  },
+  {
+    "definition": "MSH~EVN~PID~PV1",
+    "name": "ADT_A06"
+  },
+  {
+    "definition": "MSH~EVN~PID~PV1",
+    "name": "ADT_A07"
+  },
+  {
+    "definition": "MSH~EVN~PID~NK1~PV1~[~DG1~]",
+    "name": "ADT_A08"
+  },
+  {
+    "definition": "MSH~EVN~PID~PV1~[~DG1~]",
+    "name": "ADT_A09"
+  },
+  {
+    "definition": "MSH~EVN~PID~PV1~[~DG1~]",
+    "name": "ADT_A10"
+  },
+  {
+    "definition": "MSH~EVN~PID~PV1~[~DG1~]",
+    "name": "ADT_A11"
+  },
+  {
+    "definition": "MSH~EVN~PID~PV1~[~DG1~]",
+    "name": "ADT_A12"
+  },
+  {
+    "definition": "MSH~EVN~PID~PV1~[~DG1~]",
+    "name": "ADT_A13"
+  },
+  {
+    "definition": "MSH~EVN~PID~PD1~NK1~PV1~[~DG1~]",
+    "name": "ADT_A14"
+  },
+  {
+    "definition": "MSH~EVN~PID~PV1~[~DG1~]",
+    "name": "ADT_A15"
+  },
+  {
+    "definition": "MSH~EVN~PID~PV1~[~DG1~]",
+    "name": "ADT_A16"
+  },
+  {
+    "definition": "MSH~EVN~{~PID~PV1~}",
+    "name": "ADT_A17"
+  },
+  {
+    "definition": "MSH~EVN~PID~MRG~[~PV1~]",
+    "name": "ADT_A18"
+  },
+  {
+    "definition": "MSH~EVN~NPU",
+    "name": "ADT_A20"
+  },
+  {
+    "definition": "MSH~EVN~PID~PV1",
+    "name": "ADT_A21"
+  },
+  {
+    "definition": "MSH~EVN~PID~PV1",
+    "name": "ADT_A22"
+  },
+  {
+    "definition": "MSH~EVN~PID~PV1",
+    "name": "ADT_A23"
+  },
+  {
+    "definition": "MSH~EVN~PID~PV1~PID",
+    "name": "ADT_A24"
+  },
+  {
+    "definition": "MSH~MSA~QRD~{~[~EVN~]~PID~PV1~}~[~DSC~]",
+    "name": "ARD_A19"
+  },
+  {
+    "definition": "MSH~EVN~PID~{~[~PV1~]~[~{~DG1~}~]~[~{~PR1~}~]~[~{~GT1~}~]~[~{~NK1~}~]~[~{~IN1~}~]~[~ACC~]~[~UB1~]~}",
+    "name": "BAR_P01"
+  },
+  {
+    "definition": "MSH~EVN~{~PID~[~PV1~]~}",
+    "name": "BAR_P02"
+  },
+  {
+    "definition": "BHS~[~MessageDocsRef~]~BTS",
+    "name": "BHS"
+  },
+  {
+    "definition": "MSH~EVN~PID~[~PV1~]~[~{~FT1~}~]",
+    "name": "DFT_P03"
+  },
+  {
+    "definition": "MSH~MSA~QRD~[~QRF~]~{~DSP~}~DSC",
+    "name": "DSR_Q01"
+  },
+  {
+    "definition": "MSH~QRD~[~QRF~]~{~DSP~}~DSC",
+    "name": "DSR_Q03"
+  },
+  {
+    "definition": "FHS~[~BHSDocsRef~]~[~MessageDocsRef~]~FTS",
+    "name": "FHS"
+  },
+  {
+    "definition": "MSH~MSA",
+    "name": "MCF_Q02"
+  },
+  {
+    "definition": "MSH~[~{~NTE~}~]~[~PID~[~{~NTE~}~]~[~PV1~]~]~{~ORC~[~\u003c~OBR~|~ORO~|~RX1~\u003e~[~{~NTE~}~]~[~{~OBX~}~]~[~{~NTE~}~]~]~[~BLG~]~}",
+    "name": "ORM_O01"
+  },
+  {
+    "definition": "MSH~MSA~[~{~NTE~}~]~[~[~PID~]~[~{~NTE~}~]~{~ORC~[~\u003c~OBR~|~ORO~|~RX1~\u003e~]~[~{~NTE~}~]~}~]",
+    "name": "ORR_O02"
+  },
+  {
+    "definition": "MSH~{~[~PID~[~{~NTE~}~]~[~PV1~]~]~{~[~ORC~]~OBR~[~{~NTE~}~]~{~[~OBX~]~[~{~NTE~}~]~}~}~}~[~DSC~]",
+    "name": "ORU_R01"
+  },
+  {
+    "definition": "MSH~{~[~PID~[~{~NTE~}~]~[~PV1~]~]~{~[~ORC~]~OBR~[~{~NTE~}~]~{~[~OBX~]~[~{~NTE~}~]~}~}~}~[~DSC~]",
+    "name": "ORU_R03"
+  },
+  {
+    "definition": "MSH~QRD",
+    "name": "QRY_A19"
+  },
+  {
+    "definition": "MSH~QRD~[~QRF~]~DSC",
+    "name": "QRY_Q01"
+  },
+  {
+    "definition": "MSH~QRD~[~QRF~]~DSC",
+    "name": "QRY_Q02"
+  },
+  {
+    "definition": "MSH~URD~[~URS~]~{~DSP~}~DSC",
+    "name": "UDM_Q05"
+  }
+]

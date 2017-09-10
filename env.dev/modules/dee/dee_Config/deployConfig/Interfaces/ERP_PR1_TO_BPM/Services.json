@@ -1,0 +1,11 @@
+[
+  {
+    "parentId": "8aaae0cb5dea4e0e015dea5873460006",
+    "text": "ERP_PR1_TO_BPM",
+    "recordMpLog": "true",
+    "id": "8aaae0cb5dea4e0e015dea58736d0007",
+    "description": "导入PR数据至YIGO系统",
+    "fileImport": "false",
+    "enable": "true"
+  }
+]

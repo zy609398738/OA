@@ -2,6 +2,7 @@ package com.bokesoft.oa.mid.wf.base;
 
 import com.bokesoft.oa.base.BaseMap;
 import com.bokesoft.oa.base.OAContext;
+import com.bokesoft.yes.common.util.StringUtil;
 import com.bokesoft.yigo.mid.connection.IDBManager;
 import com.bokesoft.yigo.struct.datatable.DataTable;
 
@@ -49,6 +50,32 @@ public class BusinessSourceMap extends BaseMap<Long, BusinessSource> {
 				obj = new BusinessSource(getContext());
 				obj.loadData(headDt);
 				super.put(oid, obj);
+			}
+		}
+		return obj;
+	}
+
+	/**
+	 * 业务来源
+	 * 
+	 * @param code
+	 * @return
+	 * @throws Throwable
+	 */
+	public BusinessSource get(String code) throws Throwable {
+		if (StringUtil.isBlankOrNull(code)) {
+			return null;
+		}
+		BusinessSource obj = super.get(code);
+		if (obj == null) {
+			String headSql = "select * from OA_BusinessSource_H where OID>0 and code=?";
+			IDBManager dbm = getContext().getContext().getDBManager();
+			DataTable headDt = dbm.execPrepareQuery(headSql, code);
+			headDt.beforeFirst();
+			while (headDt.next()) {
+				obj = new BusinessSource(getContext());
+				obj.loadData(headDt);
+				super.put(obj.getOID(), obj);
 			}
 		}
 		return obj;

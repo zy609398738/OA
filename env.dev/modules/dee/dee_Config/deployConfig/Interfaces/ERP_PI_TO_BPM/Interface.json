@@ -1,0 +1,10 @@
+{
+  "id": "ff8080815d3973f2015d39e4478b00e5",
+  "startIndex": "",
+  "text": "ERP_PI_TO_BPM",
+  "autoRun": "true",
+  "description": "实时查询ERP系统发货通知PI信息",
+  "responseTime": "600000",
+  "changePort": "",
+  "oldPort": ""
+}

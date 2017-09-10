@@ -142,67 +142,6 @@ public class OperationSelDtl extends BillDtlBase<OperationSel> {
 	}
 
 	/**
-	 * 消息设置ID
-	 */
-	private Long messageSetID;
-
-	/**
-	 * 消息设置ID
-	 */
-	public Long getMessageSetID() {
-		return messageSetID;
-	}
-
-	/**
-	 * 消息设置ID
-	 * 
-	 * @param messageSetID
-	 */
-	public void setMessageSetID(Long messageSetID) {
-		this.messageSetID = messageSetID;
-	}
-
-	/**
-	 * 消息设置
-	 */
-	private MessageSet messageSet;
-
-	/**
-	 * 消息设置
-	 * 
-	 * @return 消息设置
-	 * @throws Throwable
-	 */
-	public MessageSet getMessageSet() throws Throwable {
-		if (messageSet == null) {
-			if (messageSetID > 0) {
-				messageSet = getContext().getMessageSetMap().get(messageSetID);
-			}
-			if (messageSet == null) {
-				messageSet = getHeadBase().getMessageSet();
-				if (messageSet == null) {
-					Operation operation = getOperation();
-					if (operation != null) {
-						return operation.getMessageSet();
-					}
-				}
-			}
-		}
-		return messageSet;
-	}
-
-	/**
-	 * 消息设置
-	 * 
-	 * @param messageSet
-	 *            消息设置
-	 */
-	public void setMessageSet(MessageSet messageSet) {
-		this.messageSet = messageSet;
-		setMessageSetID(messageSet.getOID());
-	}
-
-	/**
 	 * 抄送人员选择ID
 	 */
 	private Long ccOptSelID;
@@ -264,6 +203,67 @@ public class OperationSelDtl extends BillDtlBase<OperationSel> {
 	}
 
 	/**
+	 * 消息设置ID
+	 */
+	private Long messageSetID;
+
+	/**
+	 * 消息设置ID
+	 */
+	public Long getMessageSetID() {
+		return messageSetID;
+	}
+
+	/**
+	 * 消息设置ID
+	 * 
+	 * @param messageSetID
+	 */
+	public void setMessageSetID(Long messageSetID) {
+		this.messageSetID = messageSetID;
+	}
+
+	/**
+	 * 消息设置
+	 */
+	private MessageSet messageSet;
+
+	/**
+	 * 消息设置
+	 * 
+	 * @return 消息设置
+	 * @throws Throwable
+	 */
+	public MessageSet getMessageSet() throws Throwable {
+		if (messageSet == null) {
+			if (messageSetID > 0) {
+				messageSet = getContext().getMessageSetMap().get(messageSetID);
+			}
+			if (messageSet == null) {
+				messageSet = getHeadBase().getMessageSet();
+				if (messageSet == null) {
+					Operation operation = getOperation();
+					if (operation != null) {
+						return operation.getMessageSet();
+					}
+				}
+			}
+		}
+		return messageSet;
+	}
+
+	/**
+	 * 消息设置
+	 * 
+	 * @param messageSet
+	 *            消息设置
+	 */
+	public void setMessageSet(MessageSet messageSet) {
+		this.messageSet = messageSet;
+		setMessageSetID(messageSet.getOID());
+	}
+
+	/**
 	 * 邮件模板
 	 */
 	private String emailTemp;
@@ -297,6 +297,39 @@ public class OperationSelDtl extends BillDtlBase<OperationSel> {
 	}
 
 	/**
+	 * 发送条件
+	 */
+	private String sendFormula;
+
+	/**
+	 * 发送条件
+	 * 
+	 * @return 发送条件
+	 * @throws Throwable
+	 */
+	public String getSendFormula() throws Throwable {
+		// 如果为空，取所在节点的发送条件
+		if (sendFormula == null) {
+			sendFormula = getHeadBase().getWorkflowDesigneDtl().getSendFormula();
+			// 如果为空，取所在操作的发送条件
+			if (sendFormula == null) {
+				sendFormula = getOperation().getSendFormula();
+			}
+		}
+		return sendFormula;
+	}
+
+	/**
+	 * 发送条件
+	 * 
+	 * @param sendFormula
+	 *            发送条件
+	 */
+	public void setSendFormula(String sendFormula) {
+		this.sendFormula = sendFormula;
+	}
+
+	/**
 	 * 构造操作选择明细对象
 	 * 
 	 * @param context
@@ -324,5 +357,6 @@ public class OperationSelDtl extends BillDtlBase<OperationSel> {
 		setMessageSetID(dt.getLong("MessageSetID"));
 		setEmailTemp(dt.getString("EmailTemp"));
 		setCcOptSelID(dt.getLong("CCOptSelOID"));
+		setSendFormula(dt.getString("SendFormula"));
 	}
 }

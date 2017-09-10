@@ -247,9 +247,8 @@
 			    	var _ul = $("<ul/>");
 			    	for (var i = 0, len = _childs.length; i < len; i++) {
 			    		_child = _childs.eq(i);
-			    		if(_child.offset().left >= _left && _child.offset().left <= _left + $(".ui-tabs-header", this.el).width() ) {
-			    			
-			    		} else {
+			    		var left =  _child.offset().left;
+			    		if(!(left >= _left && left + _child.outerWidth() <= _left + $(".ui-tabs-header", this.el).width() )) {
 			    			var _li = $("<li></li>");
 			    			_child.attr("aria-controls");
 			    			_li.html($("label", _child).html());
@@ -707,8 +706,8 @@
 						
 				    	body.width(panelWidth);
 						// 设置body高度，使滚动条局限在body里，不影响TAB header
-						body.height(panelHeight - ul.outerHeight(true)-20);
-				    	$(".ui-tabs-header", this.el).width(panelWidth - 60);
+						body.height(panelHeight - ul.outerHeight(true));
+				    	$(".ui-tabs-header", this.el).width(panelWidth - 30);
 						
 						tab = ct.items[ct.activeTab];
 						if(tab && tab.rendered) {
@@ -718,7 +717,7 @@
 							tab.setWidth(body.width());
 							tab.setHeight(body.height());
 							if(tab.hasLayout) {
-								tab.doLayout(tab.getWidth()-40, tab.getHeight()-20);
+								tab.doLayout(tab.getWidth(), tab.getHeight());
 							}
 							
 							var selTab = ct.selectedTab;

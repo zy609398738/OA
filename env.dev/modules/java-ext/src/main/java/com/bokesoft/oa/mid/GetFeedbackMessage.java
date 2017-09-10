@@ -50,7 +50,7 @@ public class GetFeedbackMessage implements IExtService {
 
 	public Boolean getFeedbackMessage(DefaultContext context, Long workItemID, Long sourceOID, String billKey,
 			Date billDate, String content, int feedbackType) throws Throwable {
-		String sql3 = "select distinct(r.SendUser) from oa_read r  where (r.workItemID is null and 1=1) or ( r.workItemID = ?) and r.billoid=?";
+		String sql3 = "select distinct(r.SendUser) SendUser from oa_read r  where (r.workItemID is null and 1=1) or ( r.workItemID = ?) and r.billoid=?";
 		DataTable dt3 = context.getDBManager().execPrepareQuery(sql3, workItemID, sourceOID);
 		String sql2 = "select ProcessKey,FormName from bpm_instance where oid =?";
 		DataTable dt2 = context.getDBManager().execPrepareQuery(sql2, sourceOID);
@@ -63,7 +63,7 @@ public class GetFeedbackMessage implements IExtService {
 		Document doc = DocumentUtil.newDocument(metaDataObject);
 		doc.setNew();
 		DataTable targetTable = doc.get("OA_Feedback");
-		if(targetTable.size()>0){
+		if (targetTable.size() > 0) {
 			targetTable.clear();
 		}
 		if (content.isEmpty()) {
@@ -87,6 +87,7 @@ public class GetFeedbackMessage implements IExtService {
 					targetTable.setString("ProcessKey", dt2.getString("ProcessKey"));
 					targetTable.setString("WorkItemName", dt2.getString("FormName"));
 				} else {
+					targetTable.setLong("WorkitemID", workItemID);
 					targetTable.setString("ProcessKey", dt.getString("ProcessKey"));
 					targetTable.setString("WorkItemName", dt.getString("WorkitemName"));
 				}
@@ -103,6 +104,7 @@ public class GetFeedbackMessage implements IExtService {
 				targetTable.setString("ProcessKey", dt2.getString("ProcessKey"));
 				targetTable.setString("WorkItemName", dt2.getString("FormName"));
 			} else {
+				targetTable.setLong("WorkitemID", workItemID);
 				targetTable.setString("ProcessKey", dt.getString("ProcessKey"));
 				targetTable.setString("WorkItemName", dt.getString("WorkitemName"));
 			}

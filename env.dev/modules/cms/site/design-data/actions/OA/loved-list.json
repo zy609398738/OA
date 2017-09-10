@@ -4,6 +4,6 @@
 	"actionUrl":"/loved-list.action",
 	"attributes":{"@type":"java.util.LinkedHashMap"},
 	"code":"loved-list",
-	"name":"待处理列表",
+	"name":"关注列表",
 	"notes":""
 }

@@ -6,7 +6,7 @@
                 <GridLayoutPanel Key="GridLayoutPanel0" Height="pref" Padding="5px" Caption="GridLayoutPanel0">
                     <Dict Key="TransferOpt" Caption="指派人员" BuddyKey="Lab_TransferOpt" X="1" Y="0" ItemKey="Operator"/>
                     <Label Key="Lab_TransferOpt" Caption="指派人员" X="0" Y="0"/>
-                    <TextEditor Key="Opinion" Caption="指派意见" BuddyKey="Lab_Opinion" X="1" Y="1"/>
+                    <TextEditor Key="Opinion" Caption="指派意见" BuddyKey="Lab_Opinion" X="1" Y="1" Visible="false"/>
                     <Label Key="Lab_Opinion" Caption="指派意见" X="0" Y="1"/>
                     <RowDefCollection RowGap="4">
                         <RowDef Height="30px"/>
@@ -20,10 +20,14 @@
                 <GridLayoutPanel Key="GridLayoutPanel1" Height="pref" Caption="GridLayoutPanel1">
                     <Button Key="TransferTask" Caption="指派" X="1" Y="0" Enable="True">
                         <OnClick>
-                            <![CDATA[var x = Para("pWorkitemID");
-parent.TransferTask(x,TransferOpt,true,Opinion);
-Close();
-parent.Confirm("指派成功");]]>
+                            <![CDATA[UICheck();
+var x = Para("pWorkitemID");
+if(IsNull(Para("auditOpinion"))){
+    parent.TransferTask(x,TransferOpt,true,"",2);
+}else{
+parent.TransferTask(x,TransferOpt,true,Para("auditOpinion"),2);
+}Close();
+parent.Confirm("指派成功","OK","OK:{OA_AuditAfterClose("+Para("pWorkitemID")+",'"+Para("workflowBillKey")+"',"+Para("WorkflowTypeDtlID")+")}");]]>
                         </OnClick>
                     </Button>
                     <Button Key="cancel" Caption="取消" X="2" Y="0" Enable="True">

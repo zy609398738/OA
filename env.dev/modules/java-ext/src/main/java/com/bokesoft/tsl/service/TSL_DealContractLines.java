@@ -18,14 +18,15 @@ public class TSL_DealContractLines implements IExtService2 {
 	private static String ACTION = "ERP_Sales_Contract_Details_TO_BPM";
 
 	private static String COGS_QUERY = "select Price from MT_DB_COGS where year=? and quarter=? and region=? and subregion=? and Isperc=? and ProductCategory=?";
-	
+
 	private static String LOGISTICSEXPENSE_QUERY = "select FactoryStorage,LogisticsInland,LogisticsSea,StorageRegion,LogisticsRegion from MT_DB_LogisticsExpense where year=? and quarter=? and region=? and subregion=? and TradeTerms=? and ProductCategory=?";
+
 	@Override
 	public Object doCmd(DefaultContext context, Map<String, Object> args) throws Throwable {
 		String contractID = TypeConvertor.toString(args.get("contractID"));
 
 		IDBManager dbManager = context.getDBManager();
-		
+
 		Document document = context.getDocument();
 		DataTable headTable = document.get("B_SalContrCN");
 		DataTable detailTable = document.get("B_SalContrCNDtl");
@@ -55,11 +56,11 @@ public class TSL_DealContractLines implements IExtService2 {
 		long contractYear = headTable.getLong("ContractYear");
 		// 季度
 		String quarter = headTable.getString("Quarter");
-		//  政治经济风险
+		// 政治经济风险
 		String isPerc = "N";
 		// 贸易条款
 		long tradeTerms = headTable.getLong("TradeTerms");
-		
+
 		factory.addParameter("json", ja.toString());
 		String stringJson = factory.executeAction(ACTION);
 		JSONObject reJSONObject = JSONObject.parseObject(stringJson);
@@ -77,44 +78,49 @@ public class TSL_DealContractLines implements IExtService2 {
 				detailTable.setObject("Model", jsonObject.get("ordered_item"));
 				String productCategory = TypeConvertor.toString(jsonObject.get("product_category"));
 				detailTable.setObject("ProductCategory", productCategory);
-				detailTable.setObject("ModelDesc", jsonObject.get("power").toString() + "+-+" + jsonObject.get("description"));
+				detailTable.setObject("ModelDesc",
+						jsonObject.get("power").toString() + "+-+" + jsonObject.get("description"));
 				detailTable.setObject("Remark", jsonObject.get("product_category"));
-				
+
 				detailTable.setObject("PINo", jsonObject.get("line_pi"));
 				detailTable.setObject("LineID", jsonObject.get("line_id"));
-				
-				BigDecimal power = TypeConvertor.toBigDecimal(jsonObject.get("w_number")).divide(new BigDecimal(1000000));
+
+				BigDecimal power = TypeConvertor.toBigDecimal(jsonObject.get("w_number"))
+						.divide(new BigDecimal(1000000));
 				sumQuantityMW = sumQuantityMW.add(power);
 				detailTable.setObject("Power", power);
-				
+
 				BigDecimal ASP = TypeConvertor.toBigDecimal(jsonObject.get("w_price"));
 				BigDecimal ASPUSD = ASP.multiply(USDRate);
-				detailTable.setObject("ASP",ASP);
+				detailTable.setObject("ASP", ASP);
 				detailTable.setObject("ASPUSD", ASPUSD);
 				detailTable.setObject("ASPRMB", ASP.multiply(RMBRate));
 				detailTable.setObject("IsPerc", isPerc);
-				
-				DataTable dt = dbManager.execPrepareQuery(COGS_QUERY, contractYear, quarter, deliverRegion, deliverSubRegion, isPerc, productCategory);
+
+				DataTable dt = dbManager.execPrepareQuery(COGS_QUERY, contractYear, quarter, deliverRegion,
+						deliverSubRegion, isPerc, productCategory);
 				BigDecimal COGS = BigDecimal.ZERO;
 				if (dt.size() > 0) {
 					COGS = dt.getNumeric(0, 0);
 					detailTable.setObject("COGS", COGS);
 				}
-				
-				BigDecimal amount = TypeConvertor.toBigDecimal(jsonObject.get("amount")).divide(new BigDecimal(1000000));
+
+				BigDecimal amount = TypeConvertor.toBigDecimal(jsonObject.get("amount"))
+						.divide(new BigDecimal(1000000));
 				sumAmount = sumAmount.add(amount);
 				detailTable.setObject("Amount", amount);
 
 				BigDecimal amountUSD = amount.multiply(USDRate);
 				sumAmountUSD = sumAmountUSD.add(amountUSD);
 				detailTable.setObject("AmountUSD", amountUSD);
-				
+
 				BigDecimal amountRMB = amount.multiply(RMBRate);
 				sumAmountMRMB = sumAmountMRMB.add(amountRMB);
 				detailTable.setObject("AmountRMB", amountRMB);
-				
-				dt = dbManager.execPrepareQuery(LOGISTICSEXPENSE_QUERY, contractYear, quarter, arrivalRegion, arrivalSubRegion, tradeTerms, productCategory);
-				
+
+				dt = dbManager.execPrepareQuery(LOGISTICSEXPENSE_QUERY, contractYear, quarter, arrivalRegion,
+						arrivalSubRegion, tradeTerms, productCategory);
+
 				BigDecimal factoryStorage = BigDecimal.ZERO;
 				BigDecimal logisticsInland = BigDecimal.ZERO;
 				BigDecimal logisticsSea = BigDecimal.ZERO;
@@ -126,17 +132,15 @@ public class TSL_DealContractLines implements IExtService2 {
 					logisticsSea = dt.getNumeric("LogisticsSea");
 					storageRegion = dt.getNumeric("StorageRegion");
 					logisticsRegion = dt.getNumeric("LogisticsRegion");
-					
+
 					detailTable.setObject("FactoryStorage", factoryStorage);
 					detailTable.setObject("LogisticsInland", logisticsInland);
 					detailTable.setObject("LogisticsSea", logisticsSea);
 					detailTable.setObject("StorageRegion", storageRegion);
 					detailTable.setObject("LogisticsRegion", logisticsRegion);
 				}
-				BigDecimal cm = (ASPUSD.subtract(COGS).subtract(factoryStorage).
-						subtract(logisticsInland).subtract(logisticsSea).
-						subtract(storageRegion).subtract(logisticsRegion)).
-						multiply(power);
+				BigDecimal cm = (ASPUSD.subtract(COGS).subtract(factoryStorage).subtract(logisticsInland)
+						.subtract(logisticsSea).subtract(storageRegion).subtract(logisticsRegion)).multiply(power);
 				detailTable.setObject("CM", cm);
 				sumCM = sumCM.add(cm);
 			}
@@ -147,7 +151,7 @@ public class TSL_DealContractLines implements IExtService2 {
 		headTable.setObject("SumAmountMUSD", sumAmountUSD);
 		headTable.setObject("SumAmountMRMB", sumAmountMRMB);
 		headTable.setObject("SumCM", sumCM);
-		
+
 		return document;
 	}
 }

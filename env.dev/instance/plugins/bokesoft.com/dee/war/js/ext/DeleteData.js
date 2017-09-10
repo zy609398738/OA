@@ -184,7 +184,7 @@ function deleteInterfaceRequest(record) {
 						left_accordion_jkpz_tree_store.load();
 						Ext.Msg.alert('删除结果', '删除成功');
 					} else {
-						Ext.Msg.alert('提示', '删除失败');
+						Ext.Msg.alert('提示', response.responseText);
 					}
 				},
 				failure : function() {

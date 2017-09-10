@@ -1,0 +1,113 @@
+<table id="group_13" class="group"  border="0" cellspacing="0" cellpadding="0"><tr style="height:100%;">
+<td id="zenLayoutTableCell_14"  >
+<div class="zendiv" id="content" zen="14"  ><div><hr/><table><tr><td><table cellpadding=4 cellspacing=4><tbody align=center><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='1:MSH - Message Header' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.5.1%3AMSH&PATH=MSH&MS=MS%3A2.5.1%3AOUL_R21'>MSH</a></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='2:SFT() - Software Segment' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.5.1%3ASFT&PATH=SFT()&MS=MS%3A2.5.1%3AOUL_R21'>SFT</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='3:NTE - Notes and Comments' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.5.1%3ANTE&PATH=NTE&MS=MS%3A2.5.1%3AOUL_R21'>NTE</a></td></tr>
+</tr></table></td></tr>
+<tr><td align='right' valign='top' style='font-style:italic;'>PIDgrp</td><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='4:PIDgrp.PID - Patient Identification' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.5.1%3APID&PATH=PIDgrp.PID&MS=MS%3A2.5.1%3AOUL_R21'>PID</a></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='5:PIDgrp.PD1 - Patient Additional Demographic' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.5.1%3APD1&PATH=PIDgrp.PD1&MS=MS%3A2.5.1%3AOUL_R21'>PD1</a></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='6:PIDgrp.NTE() - Notes and Comments' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.5.1%3ANTE&PATH=PIDgrp.NTE()&MS=MS%3A2.5.1%3AOUL_R21'>NTE</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='right' valign='top' style='font-style:italic;'>PV1grp</td><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='7:PV1grp.PV1 - Patient Visit' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.5.1%3APV1&PATH=PV1grp.PV1&MS=MS%3A2.5.1%3AOUL_R21'>PV1</a></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='8:PV1grp.PV2 - Patient Visit - Additional Information' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.5.1%3APV2&PATH=PV1grp.PV2&MS=MS%3A2.5.1%3AOUL_R21'>PV2</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='right' valign='top' style='font-style:italic;'>SACgrpgrp</td><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='right' valign='top' style='font-style:italic;'>SACgrp</td><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='9:SACgrpgrp().SACgrp.SAC - Specimen Container detail' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.5.1%3ASAC&PATH=SACgrpgrp().SACgrp.SAC&MS=MS%3A2.5.1%3AOUL_R21'>SAC</a></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='10:SACgrpgrp().SACgrp.SID - Substance Identifier' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.5.1%3ASID&PATH=SACgrpgrp().SACgrp.SID&MS=MS%3A2.5.1%3AOUL_R21'>SID</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='11:SACgrpgrp().ORC - Common Order' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.5.1%3AORC&PATH=SACgrpgrp().ORC&MS=MS%3A2.5.1%3AOUL_R21'>ORC</a></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='12:SACgrpgrp().OBR - Observation Request' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.5.1%3AOBR&PATH=SACgrpgrp().OBR&MS=MS%3A2.5.1%3AOUL_R21'>OBR</a></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='13:SACgrpgrp().NTE() - Notes and Comments' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.5.1%3ANTE&PATH=SACgrpgrp().NTE()&MS=MS%3A2.5.1%3AOUL_R21'>NTE</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='right' valign='top' style='font-style:italic;'>TQ1grp</td><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='14:SACgrpgrp().TQ1grp().TQ1 - Timing/Quantity' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.5.1%3ATQ1&PATH=SACgrpgrp().TQ1grp().TQ1&MS=MS%3A2.5.1%3AOUL_R21'>TQ1</a></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='15:SACgrpgrp().TQ1grp().TQ2() - Timing/Quantity Relationship' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.5.1%3ATQ2&PATH=SACgrpgrp().TQ1grp().TQ2()&MS=MS%3A2.5.1%3AOUL_R21'>TQ2</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='right' valign='top' style='font-style:italic;'>OBXgrp</td><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='16:SACgrpgrp().OBXgrp().OBX - Observation/Result' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.5.1%3AOBX&PATH=SACgrpgrp().OBXgrp().OBX&MS=MS%3A2.5.1%3AOUL_R21'>OBX</a></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='17:SACgrpgrp().OBXgrp().TCD - Test Code Detail' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.5.1%3ATCD&PATH=SACgrpgrp().OBXgrp().TCD&MS=MS%3A2.5.1%3AOUL_R21'>TCD</a></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='18:SACgrpgrp().OBXgrp().SID() - Substance Identifier' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.5.1%3ASID&PATH=SACgrpgrp().OBXgrp().SID()&MS=MS%3A2.5.1%3AOUL_R21'>SID</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='19:SACgrpgrp().OBXgrp().NTE() - Notes and Comments' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.5.1%3ANTE&PATH=SACgrpgrp().OBXgrp().NTE()&MS=MS%3A2.5.1%3AOUL_R21'>NTE</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='20:SACgrpgrp().CTI() - Clinical Trial Identification' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.5.1%3ACTI&PATH=SACgrpgrp().CTI()&MS=MS%3A2.5.1%3AOUL_R21'>CTI</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='21:DSC - Continuation Pointer' href='EnsPortal.HL7.SchemaSegmentStructure.zen?SS=SS%3A2.5.1%3ADSC&PATH=DSC&MS=MS%3A2.5.1%3AOUL_R21'>DSC</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td>
+<td valign='top'><div style="padding-left:10px;">
+<b>Key</b><table cellpadding=4 cellspacing=4>
+<tr><td style="border: 2px dotted #60a060; border-right: none;" >可选</td></tr>
+<tr><td style="border: 2px solid #703838; border-right: none;" >重复</td></tr>
+</table></div></td>
+</tr></table></div>
+</div>
+</td>
+<td id="zenLayoutTableCell_15"  style="vertical-align:top;">
+<div class="zendiv" id="zen15" zen="15"  >
+<table id="group_15" class="group"  border="0" cellspacing="0" cellpadding="0">
+<tr style="vertical-align:top;">
+<td id="zenLayoutTableCell_16"  >
+<div class="zendiv" id="showRawContent" zen="16"  ><div id="rawDivPointer" style="padding:20px 0px 0px 20px;">
+	<span><img src="images/spacer.gif" width="30" height="2"><img src="images/disclosure-contracted.gif" alt="*" width="8" height="11" border="0">
+	<span onclick="showRaw('rawContent');"><a href="#">显示原始定义文本</a></span></span><br/>
+	</div>
+<div id="rawContent" style="padding:20px 0px 0px 50px;display:none;" >
+	<b>原始定义</b>
+	<table cellspacing="0" cellpadding="2">
+	<tr><td>2.5.1:MSH~[~{~2.5.1:SFT~}~]~[~2.5.1:NTE~]~[~2.5.1:PID~[~2.5.1:PD1~]~[~{~2.5.1:NTE~}~]~]~[~2.5.1:PV1~[~2.5.1:PV2~]~]~{~[~2.5.1:SAC~[~2.5.1:SID~]~]~[~2.5.1:ORC~]~2.5.1:OBR~[~{~2.5.1:NTE~}~]~[~{~2.5.1:TQ1~[~{~2.5.1:TQ2~}~]~}~]~{~[~2.5.1:OBX~]~[~2.5.1:TCD~]~[~{~2.5.1:SID~}~]~[~{~2.5.1:NTE~}~]~}~[~{~2.5.1:CTI~}~]~}~[~2.5.1:DSC~]</td></tr>
+	</table>
+	</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+</tr></table><script type="text/javascript" src="js/hl7/ms.js"></script>

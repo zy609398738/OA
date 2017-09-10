@@ -1,0 +1,10 @@
+{
+  "id": "8aaae0bf5d71f544015d72522a6b002b",
+  "startIndex": "",
+  "text": "ERP_USER_RESP_TO_BPM",
+  "autoRun": "true",
+  "description": "ERP权限变更单查询ERP系统是否含有无效用户",
+  "responseTime": "600000",
+  "changePort": "",
+  "oldPort": ""
+}

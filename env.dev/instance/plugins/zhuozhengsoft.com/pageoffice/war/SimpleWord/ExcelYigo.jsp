@@ -1,17 +1,17 @@
 <%@ page language="java" 
-	import="com.zhuozhengsoft.pageoffice.*,java.util.*,java.io.*,javax.servlet.*,javax.servlet.http.*" 
+	import="com.zhuozhengsoft.pageoffice.*,java.util.*,java.io.*,javax.servlet.*,javax.servlet.http.*,java.net.*" 
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.pageoffice.cn" prefix="po" %>
 <%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+"/";
 
-String realPath = request.getSession().getServletContext().getRealPath("");
-String fixPath="instance/plugins/zhuozhengsoft.com/pageoffice/war";
-realPath=realPath.substring(0,realPath.length()-fixPath.length());
+String fixPath="yigo/a/cms2-yigo2-adapter/cms/view-yigo-file/";
 String filePath =request.getParameter("filePath");
-filePath=realPath+"modules/yigo2/Data/"+filePath;
-filePath = filePath.replaceAll("/", "\\\\");
+File file=new File(filePath);
+String name=file.getName();
+String path=filePath.substring(0, filePath.lastIndexOf(name));
+filePath=basePath+fixPath+path+URLEncoder.encode(name,"UTF-8");
+
 String fileName =request.getParameter("fileName");
 //out.print(filePath);// 查看filePath 的值
 

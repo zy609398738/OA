@@ -2,10 +2,11 @@
 	YIUI.Print = {
 		print: function(url, formID) {
 			var iframe = $("iframe[id='print_" + formID + "']", document.body);
-			if(iframe.length == 0) {
+            iframe.remove();
+		//	if(iframe.length == 0) {
 				var iframe = $("<iframe class='print' src='"+url+"' style='display:none;'></iframe>").attr("id", "print_" + formID);
 	   			iframe.appendTo($(document.body));
-			}
+		//	}
    			var win = iframe[0].contentWindow;
    			
    			win.print();

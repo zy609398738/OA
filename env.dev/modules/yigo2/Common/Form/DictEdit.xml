@@ -59,6 +59,16 @@
 				]]>
             </Action>
         </Operation>
+        <Operation Key="Import" Caption="Excel数据导入">
+            <Action>
+                <![CDATA[ImportExcel();]]>
+            </Action>
+        </Operation>
+        <Operation Key="Export" Caption="Excel数据导出">
+            <Action>
+                <![CDATA[ExportDict(GetPara("FormKey"))]]>
+            </Action>
+        </Operation>
     </OperationCollection>
     <Body>
         <Block>

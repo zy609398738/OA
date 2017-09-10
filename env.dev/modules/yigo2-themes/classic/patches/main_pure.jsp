@@ -3,15 +3,17 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-		<title>工作台</title>
+		<title>天合光能 BPM 系统</title>
+		
+		<link rel="icon" href="http://localhost:8089/yigo/yigo2-theme/images/main/favicon.ico" type="image/x-icon" sizes="16x16">
 		
 		<script type="text/javascript" src="yesui/v2/yesui/ui/allfile.js"></script>
 		
 		<script type="text/javascript" src="home/menutree.js" defer="defer"></script>
 		<script type="text/javascript" src="home/navigation.js" defer="defer"></script>
 		<script type="text/javascript" src="home/main.js" defer="defer"></script>
-		<script type="text/javascript" src="yigo2-theme/js/oa.js"></script>
-		<link rel="stylesheet" type="text/css" href="yigo2-theme/css/main.css">
+		
+		<script type="text/javascript" src="yigo2-theme/js/allfile-oa.js"></script>
 
 		<!-- IM引入 -->
 		<script src="/bokesoft-messager/dist/bundle.bokesoft-messager.js"></script>

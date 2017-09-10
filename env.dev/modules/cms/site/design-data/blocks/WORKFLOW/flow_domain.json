@@ -1,0 +1,35 @@
+{
+	"@type":"com.bokesoft.cms2.impl.buildin.modelio.vo.BlockVO",
+	"block":{
+		"@type":"com.bokesoft.cms2.model.blocks.TmplBlock",
+		"formulaText":"",
+		"notes":"",
+		"parameters":[],
+		"tmplText":"",
+		"type":"TMPL"
+	},
+	"code":"flow_domain",
+	"name":"依流程域",
+	"params":[
+		{
+			"caption":"查询后显示的Tab页",
+			"key":"queryshowtab",
+			"type":"common"
+		},
+		{
+			"caption":"是否启用查询",
+			"key":"enableQuery",
+			"type":"common"
+		},
+		{
+			"caption":"填表权限的路径",
+			"key":"entryPath",
+			"type":"common"
+		},
+		{
+			"caption":"显示子菜单",
+			"key":"showChildren",
+			"type":"common"
+		}
+	]
+}

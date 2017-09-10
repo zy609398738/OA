@@ -3,6 +3,8 @@ package com.bokesoft.oa.base;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.bokesoft.yes.common.util.StringUtil;
+
 /**
  * ID字符串
  * 
@@ -31,6 +33,9 @@ public class Ids {
 	 *            ID字符串
 	 */
 	public void setIds(String ids) {
+		if (StringUtil.isBlankOrNull(ids)) {
+			return;
+		}
 		this.ids = ids;
 		String[] idArray = ids.split(sep);
 		for (String id : idArray) {

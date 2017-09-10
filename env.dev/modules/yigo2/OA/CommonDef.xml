@@ -1,2 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<CommonDef/>
+<CommonDef>
+    <QueryCollection>
+        <Query Key="WorkFlowQuery">
+            <Statement>
+                <![CDATA[select WorkflowID, BillName from OA_WorkflowType_D where soid=?]]>
+            </Statement>
+            <ParameterCollection>
+                <Parameter DataType="Long"/>
+            </ParameterCollection>
+        </Query>
+    </QueryCollection>
+</CommonDef>

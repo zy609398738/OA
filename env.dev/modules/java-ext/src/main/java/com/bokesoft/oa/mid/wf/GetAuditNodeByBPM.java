@@ -20,7 +20,7 @@ import com.bokesoft.yigo.mid.service.IExtService;
 public class GetAuditNodeByBPM implements IExtService {
 	@Override
 	public Object doCmd(DefaultContext paramDefaultContext, ArrayList<Object> paramArrayList) throws Throwable {
-		return getAuditNode(paramDefaultContext,TypeConvertor.toString(paramArrayList.get(0)),
+		return getAuditNode(paramDefaultContext, TypeConvertor.toString(paramArrayList.get(0)),
 				TypeConvertor.toInteger(paramArrayList.get(1)));
 	}
 
@@ -30,24 +30,27 @@ public class GetAuditNodeByBPM implements IExtService {
 	 * @return 流程中所有审批节点的下拉字符串
 	 * @throws Throwable
 	 */
-	public String getAuditNode(DefaultContext context,String workflowKey,Integer workflowVersion) throws Throwable {
+	public String getAuditNode(DefaultContext context, String workflowKey, Integer workflowVersion) throws Throwable {
 		String dropItem = "";
-		if(StringUtil.isBlankOrNull(workflowKey) || workflowVersion<=0){
+		if (StringUtil.isBlankOrNull(workflowKey) || workflowVersion <= 0) {
 			return dropItem;
 		}
-		MetaProcess process=context.getVE().getMetaFactory().getProcessDefinationBy(workflowKey, workflowVersion);
+		MetaProcess process = context.getVE().getMetaFactory().getProcessDefinationBy(workflowKey, workflowVersion);
+		if (process == null) {
+			throw new Error("该流程定义不存在，请重新设置");
+		}
 		Iterator<Entry<String, MetaNode>> nodeIterator = process.entryIterator();
-		while(nodeIterator.hasNext()){
+		while (nodeIterator.hasNext()) {
 			Entry<String, MetaNode> entry = nodeIterator.next();
 			MetaNode node = entry.getValue();
-			int nodeID = node.getID();//节点标识
-			String nodeCaption = node.getCaption();//节点名称
-			int nodeType=node.getNodeType();//节点类型
-			if(3==nodeType || 4==nodeType){//3-审批节点，4-会签节点
+			int nodeID = node.getID();// 节点标识
+			String nodeCaption = node.getCaption();// 节点名称
+			int nodeType = node.getNodeType();// 节点类型
+			if (3 == nodeType || 4 == nodeType) {// 3-审批节点，4-会签节点
 				dropItem = dropItem + ";" + nodeID + "," + nodeCaption;
 			}
 		}
-		if(dropItem.length()>0){
+		if (dropItem.length() > 0) {
 			dropItem = dropItem.substring(";".length());
 		}
 		return dropItem;

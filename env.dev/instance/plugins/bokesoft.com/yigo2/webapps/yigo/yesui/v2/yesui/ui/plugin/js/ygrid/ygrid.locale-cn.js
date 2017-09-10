@@ -43,9 +43,9 @@
              confirm: YIUI.I18N.date.confirm
         },
         cell_imgOpt: {
-        	open: YIUI.I18N.grid.open,
-            show: YIUI.I18N.grid.see,
-            clear: YIUI.I18N.grid.eliminate
+        	open: YIUI.I18N.grid.select,
+            show: YIUI.I18N.grid.show,
+            clear: YIUI.I18N.grid.clear
         }
     });
 })(jQuery);

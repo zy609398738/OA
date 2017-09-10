@@ -391,7 +391,7 @@ YIUI.Control.Chart = YIUI.extend(YIUI.Control, {
 					title: this.seriesAxisTitle,
 					/** 刻度的最小值 */
 					min : this.yMin,
-					min : this.yMax,
+					max : this.yMax,
 					/** 刻度值小数点后几位数 */
 					tickDecimals : 0,
 					ticks : this.yScale

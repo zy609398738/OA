@@ -1,0 +1,11 @@
+[
+  {
+    "recordMpLog": "false",
+    "text": "ERP_GetAvailableBudget_TO_BPM",
+    "parentId": "8a9f5aff5c9f11d9015c9f1a6f280008",
+    "id": "8a9f5aff5c9f11d9015c9f1a6f3b0009",
+    "description": "获取可用预算额接口",
+    "fileImport": "false",
+    "enable": "true"
+  }
+]

@@ -2,6 +2,8 @@ package com.bokesoft.oa.config;
 
 import java.util.List;
 
+import com.bokesoft.oa.base.ABase;
+import com.bokesoft.oa.base.OAContext;
 import com.bokesoft.oa.util.Variable;
 import com.bokesoft.yes.common.util.StringUtil;
 
@@ -11,7 +13,7 @@ import com.bokesoft.yes.common.util.StringUtil;
  * @author minjian
  * 
  */
-public class Configuration {
+public class Configuration extends ABase {
 	/**
 	 * 在全局缓冲集合里存放参数配置对象的Key
 	 */
@@ -27,47 +29,60 @@ public class Configuration {
 
 	/**
 	 * 根节点的设置对象
+	 * 
 	 * @return 根节点的设置对象
 	 */
 	public Settings getRootSettings() {
 		return rootSettings;
 	}
+
 	/**
 	 * 根节点的设置对象
-	 * @param rootSettings 根节点的设置对象
+	 * 
+	 * @param rootSettings
+	 *            根节点的设置对象
 	 */
 	public void setRootSettings(Settings rootSettings) {
 		this.rootSettings = rootSettings;
 	}
-	
+
 	/**
 	 * 构造参数配置对象
 	 * 
+	 * @param context
+	 *            上下文对象
+	 * @param settings
+	 *            参数设置对象
 	 * @throws Throwable
 	 */
-	protected Configuration(Settings settings) throws Throwable {
+	protected Configuration(OAContext context, Settings settings) throws Throwable {
+		super(context);
 		rootSettings = settings;
 	}
 
 	/**
 	 * 获得参数配置对象
 	 * 
+	 * @param context
+	 *            上下文对象
 	 * @return 参数配置对象
 	 * @throws Throwable
 	 */
-	public static Configuration getConfiguration() throws Throwable {
-		return getConfiguration(Variable.get(MODULE_KEY).toString());
+	public static Configuration getConfiguration(OAContext context) throws Throwable {
+		return getConfiguration(context, Variable.get(MODULE_KEY).toString());
 	}
 
 	/**
 	 * 获得参数配置对象
 	 * 
+	 * @param context
+	 *            上下文对象
 	 * @param moduleKey
 	 *            模块标识
 	 * @return 参数配置对象
 	 * @throws Throwable
 	 */
-	public static Configuration getConfiguration(String moduleKey) throws Throwable {
+	public static Configuration getConfiguration(OAContext context, String moduleKey) throws Throwable {
 		String key = CONFIGURATION + "_" + moduleKey;
 		Configuration configuration = null;
 		if (Variable.containsKey(key)) {
@@ -79,9 +94,9 @@ public class Configuration {
 			}
 		}
 		if (configuration == null) {
-			Settings settings = new Settings();
+			Settings settings = new Settings(context);
 			settings.loadConfig(moduleKey);
-			configuration = new Configuration(settings);
+			configuration = new Configuration(context, settings);
 			Variable.put(key, configuration);
 			Variable.put(MODULE_KEY, moduleKey);
 		}

@@ -12,6 +12,7 @@ dependencies {
   compile devOpsFileTree(dir: "../../instance/plugins/bokesoft.com/yigo2/webapps/yigo/WEB-INF/lib", include: ['quartz-*.jar'])
   compile devOpsFileTree(dir: "../../instance/plugins/bokesoft.com/yigo2/webapps/yigo/WEB-INF/lib", include: ['mysqljdbc-*.jar'])
   compile devOpsFileTree(dir: "../../instance/plugins/bokesoft.com/yigo2/webapps/yigo/WEB-INF/lib", include: ['commons-dbcp-*.jar'])
+  compile devOpsFileTree(dir: "../../instance/plugins/bokesoft.com/yigo2/webapps/yigo/WEB-INF/lib", include: ['poi-*.jar'])
 }
 
 devOpsApply from: "../../instance/plugins/bokesoft.com/yigo2/yigo2.gradle"

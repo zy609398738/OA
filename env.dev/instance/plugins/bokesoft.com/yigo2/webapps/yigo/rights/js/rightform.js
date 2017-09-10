@@ -11,18 +11,18 @@
 								rows: data.fieldData,
 								cols: [{
 									key: "caption",
-									caption: "名称"
+									caption: RTS.I18N.formright.caption
 								}, {
 									key: "key",
-									caption: "标识"
+									caption: RTS.I18N.formright.key
 								}, {
 									key: "visible",
-									caption: "是否可见",
+									caption: RTS.I18N.formright.visible,
 									type: "checkbox",
 									index: 0
 								}, {
 									key: "enable",
-									caption: "是否可编辑",
+									caption: RTS.I18N.formright.enable,
 									type: "checkbox",
 									index: 1
 								}],
@@ -42,14 +42,14 @@
 								rows: data.optData,
 								cols: [{
 									key: "caption",
-									caption: "名称"
+									caption: RTS.I18N.formright.caption
 								},{
 									key: "key",
-									caption: "标识"
+									caption: RTS.I18N.formright.key
 								}, {
 									key: "hasRights",
 									type: "checkbox",
-									caption: "是否有权限"
+									caption: RTS.I18N.formright.hasrights
 								}],
 								allOptRights: data.hasAllOptRights
 						};

@@ -35,7 +35,8 @@
                     <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
                     <Column Key="Sequence" Caption="序号" DataType="Integer"/>
                     <Column Key="MessageType" Caption="消息类型" DataType="Varchar"/>
-                    <Column Key="IsSucceed" Caption="继续发送" DataType="Integer"/>
+                    <Column Key="SendEmail" Caption="发送邮件测试地址" DataType="Varchar"/>
+                    <Column Key="ReceiverEmail" Caption="测试邮件地址" DataType="Varchar"/>
                 </Table>
             </TableCollection>
         </DataObject>
@@ -85,6 +86,8 @@
                             <Grid Key="Dtl" Caption="明细" Height="100%" Width="100%">
                                 <GridColumnCollection>
                                     <GridColumn Key="MessageType" Caption="发送类型" Width="80px"/>
+                                    <GridColumn Key="SendEmail" Caption="发送邮件测试地址" Width="300px"/>
+                                    <GridColumn Key="ReceiverEmail" Caption="测试接收邮件地址" Width="300px"/>
                                 </GridColumnCollection>
                                 <GridRowCollection>
                                     <GridRow Key="row-0" TableKey="OA_MessageSet_D">
@@ -93,6 +96,12 @@
                                             <FormulaItems>
                                                 <![CDATA[OA_GetDropItemsBySettings("SystemMessage|MessageType")]]>
                                             </FormulaItems>
+                                        </GridCell>
+                                        <GridCell Key="SendEmail" Caption="发送邮件测试地址" CellType="TextEditor">
+                                            <DataBinding ColumnKey="SendEmail"/>
+                                        </GridCell>
+                                        <GridCell Key="ReceiverEmail" Caption="测试接收邮件地址" CellType="TextEditor">
+                                            <DataBinding ColumnKey="ReceiverEmail"/>
                                         </GridCell>
                                     </GridRow>
                                 </GridRowCollection>

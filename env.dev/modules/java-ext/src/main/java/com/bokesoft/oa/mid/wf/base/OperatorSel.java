@@ -10,9 +10,13 @@ import com.bokesoft.oa.mid.message.MessageSet;
 import com.bokesoft.oa.util.Corporation;
 import com.bokesoft.yes.common.util.StringUtil;
 import com.bokesoft.yigo.common.util.TypeConvertor;
+import com.bokesoft.yigo.meta.dataobject.MetaDataObject;
+import com.bokesoft.yigo.meta.factory.MetaFactory;
 import com.bokesoft.yigo.mid.base.DefaultContext;
 import com.bokesoft.yigo.mid.connection.IDBManager;
 import com.bokesoft.yigo.struct.datatable.DataTable;
+import com.bokesoft.yigo.struct.document.Document;
+import com.bokesoft.yigo.tools.document.DocumentUtil;
 
 /**
  * 人员选择
@@ -165,24 +169,24 @@ public class OperatorSel extends BillBase {
 	private String optDesc;
 
 	/**
-	 *  选择结果描述
+	 * 选择结果描述
 	 * 
-	 * @return  选择结果描述
+	 * @return 选择结果描述
 	 */
 	public String getOptDesc() {
 		return optDesc;
 	}
 
 	/**
-	 *  选择结果描述
+	 * 选择结果描述
 	 * 
 	 * @param optDesc
-	 *             选择结果描述
+	 *            选择结果描述
 	 */
 	public void setOptDesc(String optDesc) {
 		this.optDesc = optDesc;
 	}
-	
+
 	/**
 	 * 操作员ids
 	 */
@@ -253,6 +257,23 @@ public class OperatorSel extends BillBase {
 			}
 		}
 		return operatorSelDtlMap;
+	}
+
+	/**
+	 * 删除人员选择明细
+	 * 
+	 * @return 人员选择明细集合
+	 * @throws Throwable
+	 */
+	public Integer deleteOperatorSelDtl(Integer optType) throws Throwable {
+		Integer dtlDt = 0;
+		Long oid = getOID();
+		if (oid > 0) {
+			String dtlSql = "delete from OA_OperatorSel_D where soid=? and optType=? order by Sequence";
+			dtlDt = getContext().getContext().getDBManager().execPrepareUpdate(dtlSql, oid, optType);
+		}
+		setOperatorSelDtlMap(null);
+		return dtlDt;
 	}
 
 	/**
@@ -363,6 +384,34 @@ public class OperatorSel extends BillBase {
 	}
 
 	/**
+	 * 发送条件
+	 */
+	private String sendFormula;
+
+	/**
+	 * 发送条件
+	 * 
+	 * @return 发送条件
+	 */
+	public String getSendFormula() {
+		// 如果为空，取所在节点的发送条件
+		if (sendFormula == null) {
+			sendFormula = getWorkflowDesigneDtl().getSendFormula();
+		}
+		return sendFormula;
+	}
+
+	/**
+	 * 发送条件
+	 * 
+	 * @param sendFormula
+	 *            发送条件
+	 */
+	public void setSendFormula(String sendFormula) {
+		this.sendFormula = sendFormula;
+	}
+
+	/**
 	 * 载入数据
 	 * 
 	 * @param dt
@@ -380,6 +429,70 @@ public class OperatorSel extends BillBase {
 		setOptDesc(dt.getString("OptDesc"));
 		setMessageSetID(dt.getLong("MessageSetID_H"));
 		setEmailTemp(dt.getString("EmailTemp_H"));
+		setSendFormula(dt.getString("SendFormula"));
+	}
+
+	/**
+	 * 更新数据
+	 * 
+	 * @throws Throwable
+	 */
+	public void uploadData() throws Throwable {
+		DataTable dt = document.get("OA_OperatorSel_H");
+		uploadData(dt);
+		dt = document.get("OA_OperatorSel_D");
+		getOperatorSelDtlMap().uploadData(dt);
+	}
+
+	/**
+	 * 更新数据
+	 * 
+	 * @param dt
+	 *            头表数据集
+	 * @throws Throwable
+	 */
+	public void uploadData(DataTable dt) throws Throwable {
+		dt.setString("SourceKey", getSourceKey());
+		dt.setLong("SourceID", getSourceID());
+		dt.setString("Tag1", getTag1());
+		dt.setString("Tag2", getTag2());
+		dt.setString("Tag3", getTag3());
+		dt.setString("Tag4", getTag4());
+		dt.setString("OptDesc", getOptDesc());
+		dt.setLong("MessageSetID_H", getMessageSetID());
+		dt.setString("EmailTemp_H", getEmailTemp());
+
+	}
+
+	/**
+	 * 数据对象
+	 */
+	private Document document;
+
+	/**
+	 * 数据对象
+	 * 
+	 * @return 数据对象
+	 * @throws Throwable
+	 */
+	public Document getDocument() throws Throwable {
+		if (document == null) {
+			MetaDataObject metaDataObject = MetaFactory.getGlobalInstance().getDataObject("OA_OperatorSel");
+			document = DocumentUtil.newDocument(metaDataObject);
+			uploadData();
+		}
+		setOID(document.getOID());
+		return document;
+	}
+
+	/**
+	 * 数据对象
+	 * 
+	 * @param document
+	 *            数据对象
+	 */
+	public void setDocument(Document document) {
+		this.document = document;
 	}
 
 	/**

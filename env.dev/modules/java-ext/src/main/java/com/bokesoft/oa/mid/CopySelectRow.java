@@ -49,7 +49,7 @@ public class CopySelectRow implements IExtService {
 	 */
 	public DataTable copySelectRow(DefaultContext context, String srcTableName, String srcSelectName,
 			String srcFieldName, String srcNames, String tgtTableName, String tgtFieldName, String tgtNames)
-					throws Throwable {
+			throws Throwable {
 		Document doc = context.getDocument();
 		DataTable srcDt = doc.get(srcTableName);
 		DataTable tgtDt = doc.get(tgtTableName);

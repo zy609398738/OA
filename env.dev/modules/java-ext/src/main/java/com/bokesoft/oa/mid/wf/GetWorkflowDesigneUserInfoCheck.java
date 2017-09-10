@@ -60,6 +60,9 @@ public class GetWorkflowDesigneUserInfoCheck implements IExtService {
 			return value;
 		}
 		OperationSelDtl operationSelDtl = operationSelDtlMap.get(operatorSelKey);
+		if(operationSelDtl==null){
+			return value;
+		}
 		value = operationSelDtl.getOpinion();
 		return value;
 	}

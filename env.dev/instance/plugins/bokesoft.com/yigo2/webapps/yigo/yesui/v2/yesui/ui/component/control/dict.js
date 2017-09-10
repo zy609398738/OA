@@ -103,15 +103,15 @@ YIUI.Control.Dict = YIUI.extend(YIUI.Control, {
     },
 
 	setBackColor: function(backColor) {
-		this.yesDict.setBackColor(backColor)
+        this.yesDict && this.yesDict.setBackColor(backColor)
 	},
 
 	setForeColor: function(foreColor) {
-		this.yesDict.setForeColor(foreColor);
+        this.yesDict && this.yesDict.setForeColor(foreColor);
 	},
 	
     setFormatStyle: function(cssStyle) {
-    	this.yesDict.setFormatStyle(cssStyle);
+        this.yesDict && this.yesDict.setFormatStyle(cssStyle);
 	},
 	
 	setMultiSelect: function(multiSelect) {

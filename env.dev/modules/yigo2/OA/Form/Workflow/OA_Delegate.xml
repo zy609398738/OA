@@ -6,10 +6,10 @@
                 <Table Caption="代理授权" DBTableName="WF_Delegate" Key="OA_Delegate" Persist="false" SourceType="Query" TableMode="Detail">
                     <Column Caption="代理编号" DataType="Long" Key="DelegateID"/>
                     <Column Caption="代理类型" DataType="Integer" Key="DelegateType"/>
-                    <Column Caption="目标操作员" DataType="Long" Key="TgtOperatorID"/>
-                    <Column Caption="源操作员" DataType="Long" Key="SrcOperatorID"/>
-                    <Column Caption="代理类型" DataType="Integer" Key="ObjectType"/>
-                    <Column Caption="标识" DataType="Varchar" Key="ObjectKey"/>
+                    <Column Caption="代理人" DataType="Long" Key="TgtOperatorID"/>
+                    <Column Caption="被代理人" DataType="Long" Key="SrcOperatorID"/>
+                    <Column Caption="数据范围" DataType="Integer" Key="ObjectType"/>
+                    <Column Key="ObjectKey" Caption="流程名称" DataType="Varchar"/>
                     <Column Caption="结点" DataType="Varchar" Key="NodeKey"/>
                     <Column Caption="起始时间" DataType="DateTime" Key="StartTime"/>
                     <Column Caption="结束时间" DataType="DateTime" Key="EndTime"/>
@@ -29,7 +29,7 @@
         <Operation Key="Save" Caption="添加代理信息" Visible="!ReadOnly()">
             <Action>
                 <![CDATA[
-				ShowModal('OA_AddDelegate')
+				ShowModal('OA_DelegateDialog')
 					]]>
             </Action>
         </Operation>
@@ -42,25 +42,24 @@
                 </ToolBar>
                 <ListView Height="100%" Key="list" TableKey="OA_Delegate">
                     <ListViewColumnCollection>
-                        <ListViewColumn Caption="代理编号" DataColumnKey="DelegateID" Key="DelegateID" Width="100px"/>
-                        <ListViewColumn Caption="代理类型" ColumnType="ComboBox" DataColumnKey="DelegateType" Key="delegateType">
+                        <ListViewColumn Caption="代理编号" DataColumnKey="DelegateID" Key="DelegateID" Width="100px" Visible="false"/>
+                        <ListViewColumn Caption="代理类型" ColumnType="ComboBox" DataColumnKey="DelegateType" Key="delegateType" Width="80px">
                             <Item Caption="授权" Key="AUTHORIZE" Value="1"/>
                             <Item Caption="代理" Key="DELEGATE" Value="2"/>
                         </ListViewColumn>
-                        <ListViewColumn Caption="对象类型" ColumnType="ComboBox" DataColumnKey="ObjectType" Key="ObjectType">
+                        <ListViewColumn Caption="数据范围" ColumnType="ComboBox" DataColumnKey="ObjectType" Key="ObjectType" Width="80px">
                             <Item Caption="操作员" Key="OPERATOR" Value="1"/>
                             <Item Caption="流程" Key="PROCESS" Value="2"/>
                             <Item Caption="流程结点" Key="PROCESS_NODE" Value="3"/>
                             <Item Caption="表单" Key="OBJECT" Value="4"/>
                         </ListViewColumn>
-                        <ListViewColumn Caption="目标操作员" ColumnType="Dict" DataColumnKey="TgtOperatorID" ItemKey="Operator" Key="TgtOperatorID" Width="100px"/>
-                        <ListViewColumn Caption="源操作员" ColumnType="Dict" DataColumnKey="SrcOperatorID" ItemKey="Operator" Key="SrcOperatorID" Width="100px"/>
-                        <ListViewColumn Caption="标识" DataColumnKey="ObjectKey" Key="ObjectKey" Width="100px"/>
-                        <ListViewColumn Caption="结点" DataColumnKey="NodeKey" Key="NodeKey" Width="175px"/>
-                        <ListViewColumn Caption="起始时间" ColumnType="DatePicker" DataColumnKey="StartTime" Key="StartTime" Width="350px"/>
-                        <ListViewColumn Caption="结束时间" ColumnType="DatePicker" DataColumnKey="EndTime" Key="EndTime" Width="350px"/>
+                        <ListViewColumn Caption="代理人" ColumnType="Dict" DataColumnKey="TgtOperatorID" ItemKey="Operator" Key="TgtOperatorID" Width="130px"/>
+                        <ListViewColumn Caption="被代理人" ColumnType="Dict" DataColumnKey="SrcOperatorID" ItemKey="Operator" Key="SrcOperatorID" Width="130px"/>
+                        <ListViewColumn Key="ObjectKey" Caption="流程名称" DataColumnKey="ObjectKey" Width="150px"/>
+                        <ListViewColumn Caption="起始时间" ColumnType="DatePicker" DataColumnKey="StartTime" Key="StartTime" Width="160px" OnlyDate="true"/>
+                        <ListViewColumn Caption="结束时间" ColumnType="DatePicker" DataColumnKey="EndTime" Key="EndTime" Width="160px" OnlyDate="true"/>
                         <ListViewColumn Caption="永久有效" ColumnType="CheckBox" DataColumnKey="AlwaysValid" Enable="false" Key="AlwaysValid" Width="100px"/>
-                        <ListViewColumn Caption="删除" ColumnType="Button" DataColumnKey="deleteitem" DefaultValue="删除" Key="delete">
+                        <ListViewColumn Caption="删除" ColumnType="Button" DataColumnKey="deleteitem" DefaultValue="删除" Key="delete" Width="80px">
                             <OnClick RunType="Client">
                                 <![CDATA[DeleteDelegateData(DelegateID);LoadData();RefreshControl('list');]]>
                             </OnClick>

@@ -34,7 +34,35 @@
         </DataObject>
     </DataSource>
     <OperationCollection>
-        <Operation Key="Save" Caption="保存" RefKey="Save"/>
+        <Operation Key="Save" Caption="保存" Visible="!ReadOnly()">
+            <Action>
+                <![CDATA[var sql="Select count(oid) from OA_EmailSet_H where IsDefault = 1";
+var count = DBQueryValue(sql);
+if(count==0&&IsDefault==0){
+    SaveData();
+    DBUpdate("Update OA_EmailSet_H set IsDefault=1 where OID=?", GetOID());
+    LoadData();
+}else{
+    if(count>0&&IsDefault==1){
+		SaveData();
+		DBUpdate("Update OA_EmailSet_H set IsDefault=0 where OID!=?", GetOID());
+	}else{
+		if(count>0&&IsDefault==0){
+			var billid=DBQueryValue("Select oid from OA_EmailSet_H where IsDefault = 1");
+			if(billid==GetOID()){
+				SaveData();
+				DBUpdate("Update OA_EmailSet_H set IsDefault=1 where OID=?", GetOID());
+                                LoadData();
+			}else{
+				SaveData();
+			}
+		}else{
+			SaveData();
+		}
+	}
+}]]>
+            </Action>
+        </Operation>
         <Operation Key="Delete" Caption="删除" RefKey="Delete"/>
         <Operation Key="Edit" Caption="编辑" RefKey="Edit"/>
         <Operation Key="Cancel" Caption="取消" RefKey="Cancel"/>
@@ -59,7 +87,7 @@
                             </Format>
                         </Label>
                         <TextEditor Key="ReceiverHost" Caption="接收邮件（POP3）地址" BuddyKey="Lab_ReceiverHost" X="2" Y="1">
-                            <DataBinding TableKey="OA_EmailSet_H" ColumnKey="ReceiverHost" Required="true"/>
+                            <DataBinding TableKey="OA_EmailSet_H" ColumnKey="ReceiverHost"/>
                         </TextEditor>
                         <Label Key="Lab_ReceiverHost" Caption="接收邮件（POP3）地址" X="0" Y="1" XSpan="2"/>
                         <TextEditor Key="SenderHost" Caption="发送邮件（SMTP）地址" BuddyKey="Lab_SenderHost" X="4" Y="1">
@@ -68,7 +96,7 @@
                         <Label Key="Lab_SenderHost" Caption="发送邮件（SMTP）地址" X="3" Y="1"/>
                         <Label Key="ServerPort" Caption="服务器端口号" X="0" Y="2" XSpan="2"/>
                         <NumberEditor Key="ReceiverPort" Caption="接收邮件（POP3）" BuddyKey="Lab_ReceiverPort" X="2" Y="3" IntegerValue="true">
-                            <DataBinding TableKey="OA_EmailSet_H" ColumnKey="ReceiverPort" Required="true"/>
+                            <DataBinding TableKey="OA_EmailSet_H" ColumnKey="ReceiverPort"/>
                         </NumberEditor>
                         <Label Key="Lab_ReceiverPort" Caption="接收邮件（POP3）" X="0" Y="3" XSpan="2"/>
                         <NumberEditor Key="SenderPort" Caption="发送邮件（SMTP）" BuddyKey="Lab_SenderPort" X="4" Y="3" IntegerValue="true">
@@ -93,11 +121,13 @@
                             <Item Caption="30分钟" Key="1800000" Value="1800000"/>
                         </ComboBox>
                         <Label Key="Lab_AutoReceRate" Caption="接收频率" X="1" Y="8"/>
-                        <Button Key="TestConn" Caption="测试连接" X="3" Y="8" Enable="true">
+                        <Button Key="ReceiverEmailConnect" Caption="接收邮件连接测试" X="2" Y="7" Enable="true">
                             <OnClick>
-                                <![CDATA[IIF(InvokeService("OA_CheckEmailConnect", true, false,OperatorID),
-     Confirm("连接成功"), 
-     Confirm("连接失败，请检查配置"))]]>
+                                <![CDATA[if(InvokeService("OA_ReceiverEmailConnect", true, false,OperatorID)){
+     Confirm("接收邮件连接测试成功");
+}else{
+     Confirm("接收邮件连接测试失败，请检查配置");
+}]]>
                             </OnClick>
                         </Button>
                         <PasswordEditor Key="Password" Caption="密码" BuddyKey="Lab_Password" X="4" Y="5">
@@ -111,6 +141,15 @@
                             <DataBinding TableKey="OA_EmailSet_H" ColumnKey="OperatorID" DefaultFormulaValue="GetOperator()"/>
                         </Dict>
                         <Label Key="Lab_OperatorID" Caption="用户" X="3" Y="6"/>
+                        <Button Key="SendEmailConnect" Caption="发送邮件连接测试" X="4" Y="7" Enable="true">
+                            <OnClick>
+                                <![CDATA[if(InvokeService("OA_SendEmailConnect", true, false,OperatorID)){
+     Confirm("发送邮件连接测试成功");
+}else{
+     Confirm("发送邮件连接测试失败，请检查配置");
+}]]>
+                            </OnClick>
+                        </Button>
                         <RowDefCollection RowGap="8">
                             <RowDef Height="30px"/>
                             <RowDef Height="30px"/>

@@ -18,25 +18,6 @@
             </TableCollection>
         </DataObject>
     </DataSource>
-    <OperationCollection>
-        <Operation Key="OK" Caption="确定">
-            <Action>
-                <![CDATA[InvokeService("OA_GetFeedbackMessage",true,false,GetValue("WorkitemID"),GetValue("SourceOID"),GetValue("BillKey"),GetValue("BillDate"),GetValue("Content"),GetValue("FeedbackType"));
-if(GetValue("FeedbackType")==10||GetValue("FeedbackType")==30){
-                    DBUpdate('Insert into OA_ReadRecord (OID,SOID,POID,VERID,DVERID,Reader,ReadTime,BillKey,BillOID) values (?,OID,null,0,0,?,?,?,?)',
-                    ApplyNewOID(),GetOperator(),Format(ServerDate(), "yyyy-MM-dd HH:mm:ss"),GetValue('BillKey'),GetValue("SourceOID"));
-                    DBUpdate('Update OA_read set status = 20,ReadTime=? where  readuser=? and billoid=?',Format(ServerDate(), "yyyy-MM-dd HH:mm:ss"),GetOperator(),GetValue("SourceOID"));
-}
-parent.RefreshUIStatus();
-Close();]]>
-            </Action>
-        </Operation>
-        <Operation Key="Cancel" Caption="取消">
-            <Action>
-                <![CDATA[Close()]]>
-            </Action>
-        </Operation>
-    </OperationCollection>
     <Body PopHeight="210px" PopWidth="600px">
         <Block>
             <FlexFlowLayoutPanel Key="root" Caption="根面板">
@@ -46,42 +27,36 @@ Close();]]>
                 <GridLayoutPanel Key="first_head" Padding="5px" Height="pref" Caption="基本信息">
                     <TextArea Key="Content" Caption="反馈意见" BuddyKey="Lab_Content" X="1" Y="0" XSpan="5" YSpan="2" MaxLength="1000"/>
                     <Label Key="Lab_Content" Caption="反馈意见" X="0" Y="0"/>
-                    <DatePicker Key="BillDate" Caption="反馈时间" BuddyKey="Lab_BillDate" X="3" Y="2" Visible="false">
-                        <DataBinding DefaultFormulaValue="ServerDate();"/>
-                    </DatePicker>
-                    <Label Key="Lab_BillDate" Caption="反馈时间" X="2" Y="2"/>
-                    <TextEditor Key="BillKey" Caption="单据名称" BuddyKey="Lab_BillKey" X="5" Y="2" Visible="false">
-                        <DataBinding DefaultFormulaValue="Para(&quot;BillKey&quot;);"/>
-                    </TextEditor>
-                    <Label Key="Lab_BillKey" Caption="单据名称" X="4" Y="2"/>
-                    <TextEditor Key="WorkitemID" Caption="工作项标识" BuddyKey="Lab_WorkitemID" X="1" Y="2" Visible="false" TabOrder="0">
-                        <DataBinding DefaultFormulaValue="Para(&quot;WorkitemID&quot;)"/>
-                    </TextEditor>
-                    <Label Key="Lab_WorkitemID" Caption="工作项标识" X="0" Y="2"/>
-                    <TextEditor Key="SourceOID" Caption="源OID" BuddyKey="Lab_SourceOID" X="1" Y="2" Visible="false">
-                        <DataBinding DefaultFormulaValue="Para(&quot;SourceOID&quot;);"/>
-                    </TextEditor>
-                    <Label Key="Lab_SourceOID" Caption="源OID" X="0" Y="2"/>
-                    <ComboBox Key="FeedbackType" Caption="反馈类型" BuddyKey="Lab_FeedbackType" X="1" Y="3" Visible="false">
-                        <DataBinding DefaultFormulaValue="Para(&quot;FeedbackType&quot;)"/>
-                        <Item Caption="流程反馈" Key="10" Value="10"/>
-                        <Item Caption="督办" Key="20" Value="20"/>
-                        <Item Caption="任务反馈" Key="30" Value="30"/>
-                    </ComboBox>
-                    <Label Key="Lab_FeedbackType" Caption="反馈类型" X="0" Y="3"/>
+                    <Button Key="OK" Caption="确定" X="2" Y="2">
+                        <OnClick>
+                            <![CDATA[InvokeService("OA_GetFeedbackMessage",true,false,Para("wid"),Para("billoid"),Para("billkey"),ServerDate(),GetValue("Content"),Para("FeedbackType"));
+InvokeService("OA_UrgeMessage", true, false, Para("billkey"),Para("wid"),Para("billoid"),ServerDate(),-1,Para("no"),"OPTUrge");
+if(Para("FeedbackType")==10||Para("FeedbackType")==30){
+                    DBUpdate('Insert into OA_ReadRecord (OID,SOID,POID,VERID,DVERID,Reader,ReadTime,BillKey,BillOID) values (?,OID,null,0,0,?,?,?,?)',
+                    ApplyNewOID(),GetOperator(),Format(ServerDate(), "yyyy-MM-dd HH:mm:ss"),GetValue('BillKey'),GetValue("SourceOID"));
+                    DBUpdate('Update OA_read set status = 20,ReadTime=? where  readuser=? and billoid=?',Format(ServerDate(), "yyyy-MM-dd HH:mm:ss"),GetOperator(),GetValue("SourceOID"));
+}
+parent.RefreshUIStatus();
+Close();]]>
+                        </OnClick>
+                    </Button>
+                    <Button Key="Cancel" Caption="取消" X="3" Y="2">
+                        <OnClick>
+                            <![CDATA[Close()]]>
+                        </OnClick>
+                    </Button>
                     <RowDefCollection RowGap="8" RowHeight="30">
                         <RowDef/>
                         <RowDef Height="90px"/>
                         <RowDef/>
-                        <RowDef/>
                     </RowDefCollection>
                     <ColumnDefCollection ColumnGap="8">
                         <ColumnDef Width="80px"/>
-                        <ColumnDef Width="33%"/>
+                        <ColumnDef Width="50%"/>
                         <ColumnDef Width="80px"/>
-                        <ColumnDef Width="33%"/>
                         <ColumnDef Width="80px"/>
-                        <ColumnDef Width="34%"/>
+                        <ColumnDef Width="80px"/>
+                        <ColumnDef Width="50%"/>
                     </ColumnDefCollection>
                 </GridLayoutPanel>
             </FlexFlowLayoutPanel>

@@ -62,8 +62,7 @@
             		caption = caption.toString();
             	}
                 this.caption = caption || "";
-                var reg = new RegExp("\n", "g");
-                var text = this.caption.replace(reg, "<br/>").replace(/\ /g, "&nbsp;");
+                var text = this.caption.replace(/\\n/g, "<br/>").replace(/\ /g, "&nbsp;");
                 this.label.html(text);
             },
 

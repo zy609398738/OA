@@ -1,0 +1,103 @@
+<table id="group_13" class="group"  border="0" cellspacing="0" cellpadding="0"><tr style="height:100%;">
+<td id="zenLayoutTableCell_14"  >
+<div class="zendiv" id="content" zen="14"  ><div><hr/><table><tr><td><table cellpadding=4 cellspacing=4><tbody align=center><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='1:MSH - message header segment' href='${bd_hl7_ss_url}MSH&PATH=MSH&MS=MS%3A2.3.1%3AOMN_O01'>MSH</a></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='2:NTE() - notes and comments segment' href='${bd_hl7_ss_url}NTE&PATH=NTE()&MS=MS%3A2.3.1%3AOMN_O01'>NTE</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='right' valign='top' style='font-style:italic;'>PIDgrp</td><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='3:PIDgrp.PID - patient identification segment' href='${bd_hl7_ss_url}PID&PATH=PIDgrp.PID&MS=MS%3A2.3.1%3AOMN_O01'>PID</a></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='4:PIDgrp.PD1 - patient additional demographic segment' href='${bd_hl7_ss_url}PD1&PATH=PIDgrp.PD1&MS=MS%3A2.3.1%3AOMN_O01'>PD1</a></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='5:PIDgrp.NTE() - notes and comments segment' href='${bd_hl7_ss_url}NTE&PATH=PIDgrp.NTE()&MS=MS%3A2.3.1%3AOMN_O01'>NTE</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='right' valign='top' style='font-style:italic;'>PV1grp</td><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='6:PIDgrp.PV1grp.PV1 - patient visit segment-' href='${bd_hl7_ss_url}PV1&PATH=PIDgrp.PV1grp.PV1&MS=MS%3A2.3.1%3AOMN_O01'>PV1</a></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='7:PIDgrp.PV1grp.PV2 - patient visit - additional information segment' href='${bd_hl7_ss_url}PV2&PATH=PIDgrp.PV1grp.PV2&MS=MS%3A2.3.1%3AOMN_O01'>PV2</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='right' valign='top' style='font-style:italic;'>IN1grp</td><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='8:PIDgrp.IN1grp().IN1 - insurance segment' href='${bd_hl7_ss_url}IN1&PATH=PIDgrp.IN1grp().IN1&MS=MS%3A2.3.1%3AOMN_O01'>IN1</a></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='9:PIDgrp.IN1grp().IN2 - insurance additional information segment' href='${bd_hl7_ss_url}IN2&PATH=PIDgrp.IN1grp().IN2&MS=MS%3A2.3.1%3AOMN_O01'>IN2</a></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='10:PIDgrp.IN1grp().IN3 - insurance additional information, certification segment' href='${bd_hl7_ss_url}IN3&PATH=PIDgrp.IN1grp().IN3&MS=MS%3A2.3.1%3AOMN_O01'>IN3</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='11:PIDgrp.GT1 - guarantor segment' href='${bd_hl7_ss_url}GT1&PATH=PIDgrp.GT1&MS=MS%3A2.3.1%3AOMN_O01'>GT1</a></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='12:PIDgrp.AL1() - patient allergy information segment' href='${bd_hl7_ss_url}AL1&PATH=PIDgrp.AL1()&MS=MS%3A2.3.1%3AOMN_O01'>AL1</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='right' valign='top' style='font-style:italic;'>ORCgrp</td><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='13:ORCgrp().ORC - common order segment' href='${bd_hl7_ss_url}ORC&PATH=ORCgrp().ORC&MS=MS%3A2.3.1%3AOMN_O01'>ORC</a></td></tr>
+<tr><td align='right' valign='top' style='font-style:italic;'>RQDgrp</td><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='14:ORCgrp().RQDgrp.RQD - requisition detail segment' href='${bd_hl7_ss_url}RQD&PATH=ORCgrp().RQDgrp.RQD&MS=MS%3A2.3.1%3AOMN_O01'>RQD</a></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='15:ORCgrp().RQDgrp.RQ1 - requisition detail-1 segment' href='${bd_hl7_ss_url}RQ1&PATH=ORCgrp().RQDgrp.RQ1&MS=MS%3A2.3.1%3AOMN_O01'>RQ1</a></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='16:ORCgrp().RQDgrp.NTE() - notes and comments segment' href='${bd_hl7_ss_url}NTE&PATH=ORCgrp().RQDgrp.NTE()&MS=MS%3A2.3.1%3AOMN_O01'>NTE</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='right' valign='top' style='font-style:italic;'>OBXgrp</td><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='17:ORCgrp().RQDgrp.OBXgrp().OBX - observation/result segment' href='${bd_hl7_ss_url}OBX&PATH=ORCgrp().RQDgrp.OBXgrp().OBX&MS=MS%3A2.3.1%3AOMN_O01'>OBX</a></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px solid  #703838; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='18:ORCgrp().RQDgrp.OBXgrp().NTE() - notes and comments segment' href='${bd_hl7_ss_url}NTE&PATH=ORCgrp().RQDgrp.OBXgrp().NTE()&MS=MS%3A2.3.1%3AOMN_O01'>NTE</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+<tr><td align='left' valign='top'><table cellpadding=4 cellspacing=4 align='left' style='border: 2px dotted #60a060; border-right: none;'><tr>
+<tr><td align='left' style='padding:0px 4px 0px 4px;'><a title='19:ORCgrp().BLG - billing segment' href='${bd_hl7_ss_url}BLG&PATH=ORCgrp().BLG&MS=MS%3A2.3.1%3AOMN_O01'>BLG</a></td></tr>
+</tr></table></td></tr>
+</tr></table></td></tr>
+</tr></table></td>
+<td valign='top'><div style="padding-left:10px;">
+<b>Key</b><table cellpadding=4 cellspacing=4>
+<tr><td style="border: 2px dotted #60a060; border-right: none;" >可选</td></tr>
+<tr><td style="border: 2px solid #703838; border-right: none;" >重复</td></tr>
+</table></div></td>
+</tr></table></div>
+</div>
+</td>
+<td id="zenLayoutTableCell_15"  style="vertical-align:top;">
+<div class="zendiv" id="zen15" zen="15"  >
+<table id="group_15" class="group"  border="0" cellspacing="0" cellpadding="0">
+<tr style="vertical-align:top;">
+<td id="zenLayoutTableCell_16"  >
+<div class="zendiv" id="showRawContent" zen="16"  ><div id="rawDivPointer" style="padding:20px 0px 0px 20px;">
+	<span><img src="images/spacer.gif" width="30" height="2"><img src="images/disclosure-contracted.gif" alt="*" width="8" height="11" border="0">
+	<span onclick="showRaw('rawContent');"><a href="#">显示原始定义文本</a></span></span><br/>
+	</div>
+<div id="rawContent" style="padding:20px 0px 0px 50px;display:none;" >
+	<b>原始定义</b>
+	<table cellspacing="0" cellpadding="2">
+	<tr><td>2.3.1:MSH~[~{~2.3.1:NTE~}~]~[~2.3.1:PID~[~2.3.1:PD1~]~[~{~2.3.1:NTE~}~]~[~2.3.1:PV1~[~2.3.1:PV2~]~]~[~{~2.3.1:IN1~[~2.3.1:IN2~]~[~2.3.1:IN3~]~}~]~[~2.3.1:GT1~]~[~{~2.3.1:AL1~}~]~]~{~2.3.1:ORC~[~2.3.1:RQD~[~2.3.1:RQ1~]~[~{~2.3.1:NTE~}~]~[~{~2.3.1:OBX~[~{~2.3.1:NTE~}~]~}~]~]~[~2.3.1:BLG~]~}</td></tr>
+	</table>
+	</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+</tr></table><script type="text/javascript" src="js/hl7/ms.js"></script>

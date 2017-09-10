@@ -50,8 +50,7 @@ public class ConfigFileFilter implements FileFilter {
 			Document document = builder.parse(pathname);
 			NodeList nodeList = document.getElementsByTagName("config");
 			if (nodeList.getLength() == 1) {
-				NodeList childNodes = ((Element) nodeList.item(0))
-						.getElementsByTagName("settings");
+				NodeList childNodes = ((Element) nodeList.item(0)).getElementsByTagName("settings");
 				if (childNodes.getLength() == 1) {
 					isAccept = true;
 				}

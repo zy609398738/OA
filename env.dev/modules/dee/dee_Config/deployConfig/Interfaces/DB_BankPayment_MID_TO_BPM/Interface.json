@@ -1,0 +1,10 @@
+{
+  "id": "8aaae0da5dcf21d3015dcf3eccb30028",
+  "startIndex": "",
+  "text": "DB_BankPayment_MID_TO_BPM",
+  "autoRun": "true",
+  "description": "查询银行付款中间表导入YIGO系统",
+  "responseTime": "600000",
+  "changePort": "",
+  "oldPort": ""
+}

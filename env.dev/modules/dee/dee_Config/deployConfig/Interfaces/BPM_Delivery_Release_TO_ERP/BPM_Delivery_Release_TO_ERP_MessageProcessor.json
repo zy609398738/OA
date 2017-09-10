@@ -1,0 +1,118 @@
+{
+  "response": [
+    {
+      "text": "响应反馈",
+      "description": "",
+      "scriptContent": "String expMsg = \"\";\nMap rsmap = new HashMap();\nif (message.getExceptionPayload() != null)\n{\n    message.setOutboundProperty(\"http.status\", 200);\n    expMsg = message.getExceptionPayload().getRootException().getMessage();\n    if (expMsg.length() > 3500)\n    {\n        expMsg = expMsg.substring(0, 3000);\n    }\n    message.setExceptionPayload(null);\n    rsmap.put(\"code\", \"e\");\n    rsmap.put(\"msg\", \"调用失败！\");\n}\nelse\n{\n    rsmap.put(\"code\", \"s\");\n    rsmap.put(\"msg\", \"调用成功！\");\n    rsmap.put(\"data\", payload);\n}\nMap logmap = message.getInboundProperty(\"logmap\");\nObject[] o = new Object[10];\no[0] = logmap.get(\"flow\");\no[1] = logmap.get(\"node\");\no[2] = logmap.get(\"billkey\");\no[3] = logmap.get(\"oid\");\no[4] = logmap.get(\"begintime\");\no[5] = new java.text.SimpleDateFormat(\"yyyyMMdd HH:mm:ss.SSS\").format(new java.sql.Timestamp(java.lang.System.currentTimeMillis()));\no[6] = \"\";\no[7] = \"\";\no[8] = expMsg;\no[9] = \"interface_4\";\ndbop.saveOrUpdate(\"insert into TRINA_SL_INTERFACE_LOG(id,flow,node,billkey,oid,starttime,endtime,request_data,response_data,EXCEPTION,interface_type)values(Trina_SL_Interface_Log_ID_SEQ.Nextval,?,?,?,?,?,?,?,?,?,?)\", o, false);\nreturn com.bokesoft.dee.mule.util.json.JSONUtil.toJson(rsmap);",
+      "smallType": "GroovyScriptWithDS",
+      "className": "com.bokesoft.exchange.transformer.ScriptWithDSTransformer",
+      "enable": "true",
+      "parentId": "8a9f5aff5c8a388e015c8a4011dc0031",
+      "bigType": "transformer_au",
+      "simpleMpLog": "false",
+      "ds": "2c9081d05be7e572015be80fcb64000f",
+      "isRef": "false",
+      "id": "ff8080815cbfa774015cc991d0310716"
+    }
+  ],
+  "normal": [
+    {
+      "text": "接收存储过程传入条件",
+      "description": "",
+      "address": "vm://BPM_Delivery_Release_TO_ERP",
+      "exchange_pattern": "request-response",
+      "smallType": "VM",
+      "className": "",
+      "enable": "true",
+      "parentId": "8aaae0a95c871527015c871c67b20010",
+      "bigType": "inbound",
+      "simpleMpLog": "false",
+      "encoding": "UTF-8",
+      "isRef": "false",
+      "id": "8aaae0a95c871527015c871d35210015"
+    },
+    {
+      "text": "记录开始时间",
+      "description": "",
+      "scriptContent": "String begintime = new java.text.SimpleDateFormat(\"yyyyMMdd HH:mm:ss.SSS\").format(new java.sql.Timestamp(java.lang.System.currentTimeMillis()));\nMap logmap = new HashMap();\nlogmap.put(\"begintime\", begintime);\nlogmap.put(\"flow\", payload.get(\"flow\"));\nlogmap.put(\"node\", payload.get(\"node\"));\nlogmap.put(\"oid\", payload.get(\"oid\"));\nlogmap.put(\"billkey\", payload.get(\"billkey\"));\nlogmap.put(\"request_data\", payload.get(\"json\"));\nlogmap.put(\"taskid\", taskid);\nlogmap.put(\"proc_state\", proc_state);\nlogmap.put(\"eta\", eta);\nlogmap.put(\"etd\", etd);\nlogmap.put(\"delivery_id\", delivery_id);\nmessage.setInboundProperty(\"logmap\", logmap);\nreturn payload;",
+      "className": "org.mule.module.scripting.transformer.ScriptTransformer",
+      "smallType": "GroovyScriptTransformer",
+      "enable": "true",
+      "parentId": "8a9f5aff5c8a388e015c8a4011dc0031",
+      "bigType": "transformer_au",
+      "simpleMpLog": "false",
+      "isRef": "false",
+      "id": "ff8080815cbfa774015cc99159960715"
+    },
+    {
+      "text": "更新",
+      "description": "",
+      "scriptContent": "Map logmap = message.getInboundProperty(\"logmap\");\nObject[] o = new Object[5];\no[0] = logmap.get(\"taskid\");\no[1] = logmap.get(\"proc_state\");\no[2] = logmap.get(\"eta\");\no[3] = logmap.get(\"etd\");\no[4] = logmap.get(\"delivery_id\");\ndbop.saveOrUpdate(\"update cuxs.eFlow_Interface_Delivery_main set TASK_ID=?,PROC_STATE=?,ETA=to_date(?,'yyyy-MM-dd'),ETD=to_date(?,'yyyy-MM-dd') where DELIVERY_ID=?\", o, false);",
+      "smallType": "GroovyScriptWithDS",
+      "className": "com.bokesoft.exchange.transformer.ScriptWithDSTransformer",
+      "enable": "true",
+      "parentId": "8aaae0cc5d34c6e5015d34ca06ca0008",
+      "bigType": "transformer_au",
+      "simpleMpLog": "false",
+      "ds": "8aaae09b5bf03e9f015bf17bc58e061f",
+      "isRef": "false",
+      "id": "8aaae0cc5d34c6e5015d35aef18a003c"
+    }
+  ],
+  "exception": [
+    {
+      "text": "把异常对象转换为文本",
+      "description": "把异常对象转换为文本",
+      "className": "com.bokesoft.exchange.transformer.ExceptionMessageTransformer",
+      "smallType": "ExceptionMessageTransformer",
+      "enable": "true",
+      "parentId": "8aaae0a95c871527015c871c67b20010",
+      "bigType": "GGPZTransformer",
+      "isRef": "true",
+      "id": "8aaae0a95c871527015c871c67bf0011"
+    },
+    {
+      "path": "${bokedee.logpath.runtimeLog}/BPM_Delivery_Release_TO_ERP",
+      "text": "记录错误日志到文件",
+      "description": "",
+      "className": "",
+      "smallType": "File",
+      "enable": "true",
+      "outputPattern": "#[function:datestamp:yyyyMMddHHmmss]-#[message:id].xml",
+      "parentId": "8aaae0a95c871527015c871c67b20010",
+      "bigType": "outbound",
+      "file_subdir": "#[context:serviceName]/#[function:datestamp:yyyyMMdd]",
+      "simpleMpLog": "false",
+      "isRef": "false",
+      "id": "8aaae0a95c871527015c871c67e20012"
+    },
+    {
+      "text": "把异常信息替换换行符",
+      "description": "把异常信息替换换行符",
+      "scriptContent": "String exceptionContent = message.getPayload();String exception = exceptionContent.replace(\"\\n\", \"<br/>\");message.setPayload(exception);return message;",
+      "smallType": "GroovyScriptTransformer",
+      "className": "org.mule.module.scripting.transformer.ScriptTransformer",
+      "enable": "false",
+      "parentId": "8aaae0a95c871527015c871c67b20010",
+      "bigType": "transformer_au",
+      "simpleMpLog": "false",
+      "isRef": "false",
+      "id": "8aaae0a95c871527015c871c68050013"
+    },
+    {
+      "text": "把异常信息通过邮件发送",
+      "description": "把异常信息通过邮件发送",
+      "connector_ref": "bokedee_default_smtp_connector",
+      "subject": "AS_Day_TO_BPM",
+      "smallType": "SMTP",
+      "className": "",
+      "enable": "false",
+      "parentId": "8aaae0a95c871527015c871c67b20010",
+      "bigType": "outbound",
+      "simpleMpLog": "false",
+      "encoding": "UTF-8",
+      "isRef": "false",
+      "id": "8aaae0a95c871527015c871c68250014"
+    }
+  ]
+}

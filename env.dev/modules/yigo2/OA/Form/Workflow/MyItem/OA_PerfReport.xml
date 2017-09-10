@@ -89,7 +89,7 @@ ShowData();]]>
                         <ComboBox Key="ComboBox1" Caption="业务类型" BuddyKey="Lab_ComboBox1" X="1" Y="2" SourceType="Formula" XSpan="3">
                             <Condition ColumnKey="FormKey" TableKey="OA_PerfReport" CondSign="in"/>
                             <FormulaItems>
-                                <![CDATA[GetFormByType("Entity")]]>
+                                <![CDATA[OA_GetFormCaption(GetOperator(),GetOperator());]]>
                             </FormulaItems>
                         </ComboBox>
                         <Label Key="Lab_ComboBox1" Caption="业务类型" X="0" Y="2"/>
@@ -163,7 +163,7 @@ ShowData();]]>
                                 <GridCell Key="FormKey" Caption="单据名称" CellType="ComboBox" SourceType="Formula">
                                     <DataBinding ColumnKey="FormKey"/>
                                     <FormulaItems>
-                                        <![CDATA[GetFormByType("Entity")]]>
+                                        <![CDATA[OA_GetFormCaption(GetOperator(),GetOperator());]]>
                                     </FormulaItems>
                                 </GridCell>
                                 <GridCell Key="OID" Caption="OID">

@@ -49,4 +49,9 @@
        <from>/yesui/v2/yesui/ui/maincontainer.js</from>
        <to type="forward">/yigo2-theme/patches/yesui/v2/yesui/ui/maincontainer.js</to>
     </rule>
+	
+    <rule match-type="wildcard">
+       <from>/yesui/v2/yesui/ui/component/control/bpmgraph.js</from>
+       <to type="forward">/yigo2-theme/patches/yesui/v2/yesui/ui/component/control/bpmgraph.js</to>
+    </rule>
 </urlrewrite>

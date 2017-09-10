@@ -81,8 +81,8 @@ public class SendMessage implements IExtService {
 		}
 		OAContext oaContext = new OAContext(context, moduleKey);
 		MessageSet messageSet = oaContext.getMessageSetMap().get(messageSetID);
-		Message message = new Message(oaContext, saveSendMessage, saveSendMessage, moduleKey, sendDate, sendOptID,
-				topic, content, receiveIDs, messageSet, srcBillKey, srcBillNO, srcOid);
+		Message message = new Message(oaContext, saveSendMessage, saveSendMessage, sendDate, sendOptID, "", topic,
+				content, receiveIDs, messageSet, srcBillKey, srcBillNO, srcOid);
 		return sendMessage(oaContext, message);
 	}
 
@@ -115,11 +115,8 @@ public class SendMessage implements IExtService {
 			if (!isContinue) {
 				continue;
 			}
-			Boolean isSucceed = false;
-			if (messageType.containsProperty("IsSucceed")) {
-				isSucceed = TypeConvertor.toBoolean(messageType.getProperty("IsSucceed"));
-			}
-			if (isSucceed && isPreError) {
+
+			if (isPreError) {
 				continue;
 			} else {
 				isPreError = false;
@@ -130,10 +127,11 @@ public class SendMessage implements IExtService {
 				throw new Error("消息类型=" + messageType.getPropertyOrEmpty("Name") + "，还未实现，请设置其他消息发送方式。");
 			}
 			MessageTypeBase messageTypeBase = (MessageTypeBase) Class.forName(messageClasse).newInstance();
+			messageTypeBase.setContext(oaContext);
 			try {
 				String result = TypeConvertor.toString("企业已过期，请重新联系供应商");
 				message.setResult(result);
-				messageTypeBase.sendMessage(oaContext, message);
+				messageTypeBase.sendMessage(message);
 				Boolean isSaveMessage = false;
 				if (messageType.containsProperty("IsSaveMessage")) {
 					isSaveMessage = TypeConvertor.toBoolean(messageType.getProperty("IsSaveMessage"));
@@ -142,12 +140,12 @@ public class SendMessage implements IExtService {
 					continue;
 				}
 				if (saveSendMessage) {
-					messageTypeBase.saveSendMessage(oaContext, message);
+					messageTypeBase.saveSendMessage(message);
 				} else {
 					String sqlresult = "Update OA_SendMessages_H set VERID=VERID+1,Result= ? where OID=?";
 					dbManager.execPrepareUpdate(sqlresult, result, srcOid);
 				}
-				messageTypeBase.receiveMessage(context, message);
+				messageTypeBase.receiveMessage(message);
 			} catch (Throwable t) {
 				t.printStackTrace();
 				isPreError = true;

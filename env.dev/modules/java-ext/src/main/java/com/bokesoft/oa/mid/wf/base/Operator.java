@@ -12,51 +12,113 @@ import com.bokesoft.yigo.struct.datatable.DataTable;
  */
 public class Operator extends DicBase {
 	/**
+	 * 人员ID
+	 */
+	private Long employeeID;
+
+	/**
+	 * 人员ID
+	 * 
+	 * @return 人员
+	 */
+	public Long getEmployeeID() {
+		return employeeID;
+	}
+
+	/**
+	 * 人员ID
+	 * 
+	 * @param employeeID
+	 *            人员
+	 */
+	public void setEmployeeID(Long employeeID) {
+		this.employeeID = employeeID;
+	}
+
+	/**
 	 * 人员
 	 */
-	private Employee empID;
+	private Employee employee;
 
 	/**
 	 * 人员
 	 * 
 	 * @return 人员
+	 * @throws Throwable
 	 */
-	public Employee getEmpID() {
-		return empID;
+	public Employee getEmployee() throws Throwable {
+		if (employee == null) {
+			if (employeeID > 0) {
+				employee = getContext().getEmployeeMap().get(employeeID);
+			}
+		}
+		return employee;
 	}
 
 	/**
 	 * 人员
 	 * 
-	 * @param empID
+	 * @param employee
 	 *            人员
 	 */
-	public void setEmpID(Employee empID) {
-		this.empID = empID;
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
+		setEmployeeID(employee.getOID());
 	}
 
 	/**
-	 * 所属部门
+	 * 部门ID
 	 */
-	private Department dept;
+	private Long departmentID;
 
 	/**
-	 * 所属部门
+	 * 部门ID
 	 * 
-	 * @return 所属部门
+	 * @return 部门ID
 	 */
-	public Department getDept() {
-		return dept;
+	public Long getDepartmentID() {
+		return departmentID;
 	}
 
 	/**
-	 * 所属部门
+	 * 部门ID
 	 * 
-	 * @param dept
-	 *            所属部门
+	 * @param departmentID
+	 *            部门ID
 	 */
-	public void setDept(Department dept) {
-		this.dept = dept;
+	public void setDepartmentID(Long departmentID) {
+		this.departmentID = departmentID;
+	}
+
+	/**
+	 * 部门
+	 */
+	private Department department;
+
+	/**
+	 * 部门
+	 * 
+	 * @return 部门
+	 * @throws Throwable
+	 */
+	public Department getDepartment() throws Throwable {
+		if (department == null) {
+			if (departmentID > 0) {
+				department = getContext().getDepartmentMap().get(departmentID);
+			}
+		}
+		return department;
+	}
+
+	/**
+	 * 部门
+	 * 
+	 * @param department
+	 *            部门
+	 */
+	public void setDepartment(Department department) {
+		this.department = department;
+		setDepartmentID(department.getOID());
 	}
 
 	/**
@@ -68,20 +130,17 @@ public class Operator extends DicBase {
 	 */
 	public void loadData(DataTable dt) throws Throwable {
 		super.loadData(dt);
-		Employee emp = getContext().getEmployeeMap().get(dt.getLong("EmpID"));
-		setEmpID(emp);
-		Department department = getContext().getDepartmentMap().get(dt.getLong("DeptID"));
-		setDept(department);
-	}
-
-	public Operator(OAContext context) {
-		super(context);
+		setEmployeeID(dt.getLong("EmpID"));
+		setDepartmentID(dt.getLong("DeptID"));
 	}
 
 	/**
-	 * 重载，输出标识ID,单据标识，单据名称
+	 * 构造操作员对象
+	 * 
+	 * @param context
+	 *            上下文对象
 	 */
-	public String toString() {
-		return super.toString() + ",单据标识:" + getKey() + ",单据名称:" + getCaption();
+	public Operator(OAContext context) {
+		super(context);
 	}
 }

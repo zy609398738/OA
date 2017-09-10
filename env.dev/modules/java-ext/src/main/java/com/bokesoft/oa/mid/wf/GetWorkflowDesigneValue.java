@@ -9,7 +9,7 @@ import com.bokesoft.yigo.mid.base.DefaultContext;
 import com.bokesoft.yigo.mid.service.IExtService;
 
 /**
- * 获得流程设计的指定字段值
+ * 获得流程设计的节点属性字段值
  * 
  * @author zhkh
  *
@@ -47,6 +47,7 @@ public class GetWorkflowDesigneValue implements IExtService {
 			Long workflowTypeDtlID, String key) throws Throwable {
 		OAContext oaContext = new OAContext(context);
 		NodeProperty node = oaContext.getWorkflowTypeDtlMap().getNodeProperty(formKey, workflowTypeDtlID, workItemID);
+		// 如果没找到，返回null
 		if (node == null) {
 			return null;
 		}

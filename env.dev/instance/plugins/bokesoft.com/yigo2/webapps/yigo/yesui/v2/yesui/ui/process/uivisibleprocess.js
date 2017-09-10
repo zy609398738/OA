@@ -15,7 +15,7 @@
                 context = this.newContext(this.form,-1,-1);
             for( var i = 0,exp,com;exp = items[i];i++ ) {
                 com = this.form.getComponent(exp.source);
-                if( !com || com.isSubDetail || exp.type == this.VisibleItemType.Operation )
+                if( !com || exp.type == this.VisibleItemType.Operation )
                     continue;
 
                 this.calcExprItemObject(com,context,exp);
@@ -62,14 +62,13 @@
 
             com.setVisible(this.calcVisible(item,this.newContext(this.form,-1,-1)));
 
-            if( !com.isVisible() ) {
-                if ( !this.form.isError() || this.form.formKey != this.form.errorInfo.errorSource ) {
-                    if ( com.isError() ) {
-                        this.form.setError(true, com.errorInfo.msg, com.key);
-                    }
-                    if ( com.isRequired() ) {
-                        this.form.setError(true, com.caption + " is Required", com.key);
-                    }
+            // 组件的错误优先显示
+            if( !com.isVisible() && (com.isError() || com.isRequired()) ) {
+                if ( com.isError() ) {
+                    this.form.setError(true, com.errorInfo.msg, com.key);
+                }
+                if ( com.isRequired() ) {
+                    this.form.setError(true, com.caption + " is Required", com.key);
                 }
             } else {
                 if (this.form.isError() && this.form.errorInfo.errorSource == com.key) {

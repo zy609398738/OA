@@ -1,0 +1,11 @@
+[
+  {
+    "parentId": "8aaae0bb5dcae2ce015dcaf5321d000c",
+    "text": "ERP_Create_Ap_Payment_TO_BPM",
+    "recordMpLog": "false",
+    "id": "8aaae0bb5dcae2ce015dcaf53245000d",
+    "description": "ERP系统创建付款单",
+    "fileImport": "false",
+    "enable": "true"
+  }
+]

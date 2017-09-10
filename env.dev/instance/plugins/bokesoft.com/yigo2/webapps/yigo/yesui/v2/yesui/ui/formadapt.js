@@ -156,6 +156,9 @@
             getGridMap: function () {
                 return this.gridMap;
             },
+            getListViewMap: function () {
+                return this.LVMap;
+            },
             getCompList: function () {
                 return this.compList;
             },

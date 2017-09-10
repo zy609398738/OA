@@ -104,7 +104,8 @@ ShowModal("OA_ParticipatorSelect","ParticipatorIDs:{Para('ParticipatorIDs')},Nex
                 <GridLayoutPanel Key="GridLayoutPanel3" Height="pref" Padding="5px" Caption="GridLayoutPanel3">
                     <Button Key="APPROVE" Caption="通过" X="1" Y="0" Enable="True">
                         <OnClick>
-                            <![CDATA[OA_WorkflowPass();]]>
+                            <![CDATA[UICheck();
+OA_WorkflowPass();]]>
                         </OnClick>
                     </Button>
                     <Button Key="cancel" Caption="取消" X="2" Y="0" Enable="True">

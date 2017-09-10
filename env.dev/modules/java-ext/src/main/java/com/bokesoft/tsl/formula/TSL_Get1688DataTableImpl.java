@@ -34,7 +34,7 @@ public class TSL_Get1688DataTableImpl extends BaseMidFunctionImpl {
 		DataTable dataTable = DataTableUtil.newEmptyDataTable(metaTable);
 
 		TSL_BokeDeeFactory factory = new TSL_BokeDeeFactory();
-		
+
 		JSONArray ja = new JSONArray();
 		JSONObject jo = factory.getRowNumberCondition();
 		ja.add(jo);
@@ -66,7 +66,7 @@ public class TSL_Get1688DataTableImpl extends BaseMidFunctionImpl {
 		String stringJson = factory.executeAction(ACTION);
 		// json后续处理
 		JSONObject reJSONObject = JSONObject.parseObject(stringJson);
-		
+
 		Object data = reJSONObject.get("data");
 		if (data instanceof JSONArray) {
 			JSONArray reJSONArray = (JSONArray) data;
@@ -78,7 +78,8 @@ public class TSL_Get1688DataTableImpl extends BaseMidFunctionImpl {
 				dataTable.append();
 				for (int index = 0; index < count; index++) {
 					columnInfo = metaData.getColumnInfo(index);
-					dataTable.setObject(columnInfo.getColumnKey(), jsonObject.get(columnInfo.getColumnKey().toLowerCase()));
+					dataTable.setObject(columnInfo.getColumnKey(),
+							jsonObject.get(columnInfo.getColumnKey().toLowerCase()));
 				}
 			}
 		}

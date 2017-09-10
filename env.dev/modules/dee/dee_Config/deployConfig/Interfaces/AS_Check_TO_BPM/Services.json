@@ -1,0 +1,11 @@
+[
+  {
+    "recordMpLog": "false",
+    "text": "AS_Check_TO_BPM",
+    "parentId": "8a9f5aff5c8a388e015c8a4010e90030",
+    "id": "8a9f5aff5c8a388e015c8a4011dc0031",
+    "description": "查询是否有重复请假申请",
+    "fileImport": "false",
+    "enable": "true"
+  }
+]

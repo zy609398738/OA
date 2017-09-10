@@ -1,0 +1,11 @@
+[
+  {
+    "recordMpLog": "false",
+    "text": "ERP_Sales_Contract_Details_TO_BPM",
+    "parentId": "ff8080815c37d627015c3927e0bb0152",
+    "id": "ff8080815c37d627015c3927e0c30153",
+    "description": "实时查询ERP系统销售合同明细信息",
+    "fileImport": "false",
+    "enable": "true"
+  }
+]

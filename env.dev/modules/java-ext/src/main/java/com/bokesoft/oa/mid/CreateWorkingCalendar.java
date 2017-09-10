@@ -85,7 +85,7 @@ public class CreateWorkingCalendar implements IExtService {
 			dt.beforeFirst();
 			dt.setShowDeleted(true);
 			while (dt.next()) {
-				if (clendarDate.get(0).after(dt.getDateTime("DateOfYear")) 
+				if (clendarDate.get(0).after(dt.getDateTime("DateOfYear"))
 						|| (dt.getDateTime("DateOfYear")).after(clendarDate.get(clendarDate.size() - 1))) {
 					dt.delete();
 				}

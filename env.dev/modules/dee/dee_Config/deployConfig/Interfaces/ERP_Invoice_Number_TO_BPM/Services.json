@@ -1,0 +1,11 @@
+[
+  {
+    "parentId": "8a9f5a005dba1a3d015dbb8266e3000e",
+    "text": "ERP_Invoice_Number_TO_BPM",
+    "recordMpLog": "false",
+    "id": "8a9f5a005dba1a3d015dbb826704000f",
+    "description": "实时查询ERP系统发票号信息",
+    "fileImport": "false",
+    "enable": "true"
+  }
+]

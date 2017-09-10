@@ -19,7 +19,7 @@ import com.bokesoft.yigo.mid.service.IExtService;
 public class GetOperationDropItem implements IExtService {
 	@Override
 	public Object doCmd(DefaultContext paramDefaultContext, ArrayList<Object> paramArrayList) throws Throwable {
-		return getOperationDropItem(paramDefaultContext,TypeConvertor.toString(paramArrayList.get(0)));
+		return getOperationDropItem(paramDefaultContext, TypeConvertor.toString(paramArrayList.get(0)));
 	}
 
 	/**
@@ -33,15 +33,15 @@ public class GetOperationDropItem implements IExtService {
 	 * @throws Throwable
 	 */
 	public String getOperationDropItem(DefaultContext context, String formKey) throws Throwable {
-		MetaOperationCollection moc=context.getVE().getMetaFactory().getMetaForm(formKey).getOperationCollection();
-		String dropItem="";
-		Iterator<KeyPairCompositeObject> i=moc.iterator();
-		while(i.hasNext()){
+		MetaOperationCollection moc = context.getVE().getMetaFactory().getMetaForm(formKey).getOperationCollection();
+		String dropItem = "";
+		Iterator<KeyPairCompositeObject> i = moc.iterator();
+		while (i.hasNext()) {
 			MetaOperation mo = (MetaOperation) i.next();
-			dropItem=dropItem+";"+mo.getKey()+","+mo.getCaption();
+			dropItem = dropItem + ";" + mo.getKey() + "," + mo.getCaption();
 		}
-		if(dropItem.length()>0){
-			dropItem=dropItem.substring(1);
+		if (dropItem.length() > 0) {
+			dropItem = dropItem.substring(1);
 		}
 		return dropItem;
 	}

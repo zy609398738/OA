@@ -2,6 +2,7 @@ package com.bokesoft.oa.config;
 
 import java.util.ArrayList;
 
+import com.bokesoft.oa.util.OASettings;
 import com.bokesoft.yigo.common.util.TypeConvertor;
 import com.bokesoft.yigo.mid.base.DefaultContext;
 import com.bokesoft.yigo.mid.service.IExtService;
@@ -37,7 +38,7 @@ public class GetPropertyBySettings implements IExtService {
 	public static String getPropertyBySettings(DefaultContext context, String billKey, String paths,
 			String propertyName) throws Throwable {
 		String value = "";
-		Settings mapSettings = Configuration.getConfiguration(billKey).getSettingsByPaths(paths);
+		Settings mapSettings = OASettings.getConfiguration(context).getSettingsByPaths(paths);
 		value = mapSettings.getProperty(propertyName);
 		return value;
 	}

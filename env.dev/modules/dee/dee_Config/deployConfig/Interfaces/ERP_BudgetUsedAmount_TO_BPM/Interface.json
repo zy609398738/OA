@@ -1,0 +1,10 @@
+{
+  "id": "8a9f5afd5e0240a2015e037e6c43002f",
+  "startIndex": "",
+  "text": "ERP_BudgetUsedAmount_TO_BPM",
+  "autoRun": "true",
+  "description": "查询ERP系统费用申请单已使用金额信息",
+  "responseTime": "600000",
+  "changePort": "",
+  "oldPort": ""
+}

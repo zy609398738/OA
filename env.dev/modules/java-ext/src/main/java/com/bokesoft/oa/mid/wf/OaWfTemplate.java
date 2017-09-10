@@ -145,7 +145,7 @@ public class OaWfTemplate implements Template {
 		WorkflowTypeDtl workflowTypeDtl = oaContext.getWorkflowTypeDtlMap().getWorkflowTypeDtl(context.getFormKey(),
 				pdKey);
 		WorkflowDesigneDtl workflowDesigneDtl = workflowTypeDtl.getWorkflowDesigneDtl(nodeID.toString());
-		if(workflowDesigneDtl == null){
+		if (workflowDesigneDtl == null) {
 			return null;
 		}
 		OperationSel operationSel = workflowDesigneDtl.getAuditOptSel();
@@ -209,12 +209,14 @@ public class OaWfTemplate implements Template {
 	 *            当前流程对象
 	 * @param node
 	 *            当前流程节点
+	 * @param parentNode
+	 *            父流程节点
 	 * @param spoon
 	 *            决定是否替换参与者列表
 	 * @return 参与者列表
 	 */
 	public List<Participator> getParticipatorList(DefaultContext context, MetaProcess process, MetaNode node,
-			Spoon spoon) throws Throwable {
+			MetaNode parentNode, Spoon spoon) throws Throwable {
 		if (context.getDocument() == null) {
 			return null;
 		}
@@ -226,7 +228,7 @@ public class OaWfTemplate implements Template {
 		String pdKey = process.getKey();
 		WorkflowTypeDtl workflowTypeDtl = oaContext.getWorkflowTypeDtlMap().getWorkflowTypeDtl(context.getFormKey(),
 				pdKey);
-		String ids = getOperatorIDs(oaContext, process, node, workflowTypeDtl);
+		String ids = getOperatorIDs(oaContext, process, node, parentNode, workflowTypeDtl);
 		List<Participator> list = new ArrayList<Participator>();
 		MetaDictionary metaDictionary = new MetaDictionary();
 		metaDictionary.setDictionaryKey("Operator");
@@ -244,32 +246,48 @@ public class OaWfTemplate implements Template {
 	 *            当前流程对象
 	 * @param node
 	 *            当前流程节点
+	 * @param parentNode
+	 *            父节点
 	 * @param workflowTypeDtl
 	 *            流程类别明细
 	 * @return 操作员ID字符串
 	 * @throws Throwable
 	 */
-	private String getOperatorIDs(OAContext oaContext, MetaProcess pd, MetaNode node, WorkflowTypeDtl workflowTypeDtl)
-			throws Throwable, Error {
-		DefaultContext context = oaContext.getContext();
+	private String getOperatorIDs(OAContext oaContext, MetaProcess pd, MetaNode node, MetaNode parentNode,
+			WorkflowTypeDtl workflowTypeDtl) throws Throwable, Error {
+		BPMContext context = (BPMContext) oaContext.getContext();
 		Document doc = context.getDocument();
 		Long billOID = doc.getOID();
 		String formKey = context.getFormKey();
 		Integer nodeID = node.getID();
 		WorkflowDesigneDtl workflowDesigneDtl = workflowTypeDtl.getWorkflowDesigneDtl(nodeID.toString());
-		WorkflowDesigneDtl preNode = getPreNodeID(oaContext, workflowDesigneDtl);
-		String workflowKey = preNode.getHeadBase().getWorkflowKey();
-		String ids = oaContext.getNextParticipatorMap().getIDs(formKey, billOID, workflowKey, preNode.getAuditNode(),
-				":");
-		if (!StringUtil.isBlankOrNull(ids)) {
-			return ids;
+		Workitem workitem = context.getUpdateWorkitem();
+		String ids = "";
+		if (workitem != null) {
+			String workflowKey = pd.getKey();
+			Long workitemID = workitem.getWorkItemID();
+			ids = oaContext.getNextParticipatorMap().getIDs(formKey, billOID, workflowKey, workitemID, ":");
+			if (!StringUtil.isBlankOrNull(ids)) {
+				return ids;
+			}
 		}
+
 		OperatorSel operaorSel = workflowDesigneDtl.getAuditPerSel();
 		if (operaorSel != null) {
-			ids = operaorSel.getParticipatorIDs(billOID);
+			NodeProperty nodeProperty = workflowDesigneDtl.getNodeProperty();
+			// 如果节点属性中第一个参与者选项选中，取第一个参与者
+			if (nodeProperty != null && nodeProperty.getFirstOpt() == 1) {
+				Set<Long> participatorSet = operaorSel.getParticipatorSet(billOID);
+				if (participatorSet.size() > 0) {
+					ids = participatorSet.iterator().next().toString();
+				}
+			} else {
+				ids = operaorSel.getParticipatorIDs(billOID);
+			}
+
 		}
 		if (StringUtil.isBlankOrNull(ids)) {
-			if (preNode.getNodeProperty().getNoPer() != 1) {
+			if (workflowDesigneDtl.getNodeProperty().getNoPer() != 1) {
 				throw new Error(
 						"流程“" + pd.getCaption() + "”的流程节点“" + node.getCaption() + "”，人员选择的结果为空，请修正流程节点对应的人员选择。");
 			}
@@ -277,33 +295,34 @@ public class OaWfTemplate implements Template {
 		return ids;
 	}
 
-	/**
-	 * 
-	 * 根据当前审批节点获得前一个审批节点明细
-	 * 
-	 * @param context
-	 *            OA上下文
-	 * @param workflowDesigneDtl
-	 *            流程设计明细
-	 * @return 前一个审批节点
-	 * @return
-	 * @throws Throwable
-	 */
-	private WorkflowDesigneDtl getPreNodeID(OAContext context, WorkflowDesigneDtl workflowDesigneDtl) throws Throwable {
-		BPMContext bPMContext = (BPMContext) context.getContext();
-		Workitem workitem = bPMContext.getUpdateWorkitem();
-		// 如果当前工作项为空，取当前节点
-		if (workitem == null) {
-			return workflowDesigneDtl;
-		}
-		Long workitemID = workitem.getWorkItemID();
-		WorkflowDesigneDtl preNode = workflowDesigneDtl.getHeadBase().getWorkflowDesigneDtlMap().getPreNode(workitemID);
-		// 如果前一个为空，取当前节点
-		if (preNode == null) {
-			return workflowDesigneDtl;
-		}
-		return preNode;
-	}
+	// /**
+	// *
+	// * 根据当前审批节点获得前一个审批节点明细
+	// *
+	// * @param context
+	// * OA上下文
+	// * @param workflowDesigneDtl
+	// * 流程设计明细
+	// * @return 前一个审批节点
+	// * @throws Throwable
+	// */
+	// private WorkflowDesigneDtl getPreNodeID(OAContext context,
+	// WorkflowDesigneDtl workflowDesigneDtl) throws Throwable {
+	// BPMContext bPMContext = (BPMContext) context.getContext();
+	// Workitem workitem = bPMContext.getUpdateWorkitem();
+	// // 如果当前工作项为空，取当前节点
+	// if (workitem == null) {
+	// return workflowDesigneDtl;
+	// }
+	// Long workitemID = workitem.getWorkItemID();
+	// WorkflowDesigneDtl preNode =
+	// workflowDesigneDtl.getHeadBase().getWorkflowDesigneDtlMap().getPreNode(workitemID);
+	// // 如果前一个为空，取当前节点
+	// if (preNode == null) {
+	// return workflowDesigneDtl;
+	// }
+	// return preNode;
+	// }
 
 	/**
 	 * 无参与者自动略过
@@ -437,9 +456,9 @@ public class OaWfTemplate implements Template {
 				if (!StringUtil.isBlankOrNull(peroidFrom)) {
 					String key = nodeProperty.getOID().toString();
 					MetaTimerItem metaTimerItem = new MetaTimerItem();
-					metaTimerItemCollection.add(metaTimerItem);
 					setMetaTimerItem(formKey, billOID, workitemID, pdKey, nodeID, workflowTypeDtlID,
 							workflowDesigneDtlID, informPerOID, common, peroidFrom, key, metaTimerItem);
+					metaTimerItemCollection.add(metaTimerItem);
 				}
 			}
 			// 紧急
@@ -448,10 +467,9 @@ public class OaWfTemplate implements Template {
 				String peroidFrom = nodeProperty.getFrom_Two();
 				String key = nodeProperty.getOID().toString();
 				MetaTimerItem metaTimerItem = new MetaTimerItem();
-				metaTimerItemCollection.add(metaTimerItem);
 				setMetaTimerItem(formKey, billOID, workitemID, pdKey, nodeID, workflowTypeDtlID, workflowDesigneDtlID,
 						informPerOID, urgency, peroidFrom, key, metaTimerItem);
-
+				metaTimerItemCollection.add(metaTimerItem);
 			}
 			// 特急
 			Integer extraUrgent = nodeProperty.getExtraUrgent();
@@ -459,10 +477,9 @@ public class OaWfTemplate implements Template {
 				String peroidFrom = nodeProperty.getFrom_Three();
 				String key = nodeProperty.getOID().toString();
 				MetaTimerItem metaTimerItem = new MetaTimerItem();
-				metaTimerItemCollection.add(metaTimerItem);
 				setMetaTimerItem(formKey, billOID, workitemID, pdKey, nodeID, workflowTypeDtlID, workflowDesigneDtlID,
 						informPerOID, extraUrgent, peroidFrom, key, metaTimerItem);
-
+				metaTimerItemCollection.add(metaTimerItem);
 			}
 		}
 		// 过时处理
@@ -475,14 +492,14 @@ public class OaWfTemplate implements Template {
 					String autoDealFun = nodeProperty.getAutoDealFun();
 					if (autoDealFun.equalsIgnoreCase("pass")) {
 						MetaTimerAutoPass metaTimerAuto = new MetaTimerAutoPass();
-						metaTimerItemCollection.add(metaTimerAuto);
 						metaTimerAuto.setKey(key);
 						metaTimerAuto.setPeroid(deadline);
+						metaTimerItemCollection.add(metaTimerAuto);
 					} else if (autoDealFun.equalsIgnoreCase("deny")) {
 						MetaTimerAutoDeny metaTimerAuto = new MetaTimerAutoDeny();
-						metaTimerItemCollection.add(metaTimerAuto);
 						metaTimerAuto.setKey(key);
 						metaTimerAuto.setPeroid(deadline);
+						metaTimerItemCollection.add(metaTimerAuto);
 					}
 				}
 			}
@@ -528,7 +545,7 @@ public class OaWfTemplate implements Template {
 		metaTimerItem.setPeroid(peroid);
 		metaTimerItem.setRepeat(false);
 		metaTimerItem.setTrigger(
-				"TimeoutNotice(" + formKey + "," + billOID + "," + workitemID + "," + pdKey + "," + nodeID + ","
+				"OA_TimeoutNotice('" + formKey + "'," + billOID + "," + workitemID + ",'" + pdKey + "'," + nodeID + ","
 						+ workflowTypeDtlID + "," + workflowDesigneDtlID + "," + informPerOID + "," + urgencyDeg + ")");
 	}
 
@@ -550,9 +567,9 @@ public class OaWfTemplate implements Template {
 				continue;
 			}
 			MetaWorkingCalendar metaWorkingCalendar = new MetaWorkingCalendar();
+			metaWorkingCalendar.setKey(workingCalendar.getCode());
 			metaWorkingCalendarCollection.add(metaWorkingCalendar);
 			WorkingTime workingTimew = workingCalendar.getWorkingTime();
-			metaWorkingCalendar.setKey(workingCalendar.getCode());
 			String weekend = workingTimew.getWeekend();
 			List<Integer> weekendList = workingTimew.getWeekendList();
 			metaWorkingCalendar.setWeekend(weekend);
@@ -691,5 +708,10 @@ public class OaWfTemplate implements Template {
 			spoon.setMarked(true);
 		}
 		return metaPerm;
+	}
+
+	public MetaProcess getDefination(DefaultContext arg0, String arg1, int arg2, Spoon arg3) throws Throwable {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

@@ -58,7 +58,7 @@ public class GetNextOptAndPar implements IExtService {
 		}
 
 		for (LinkedHashMap<String, StringBuffer> map : fieldValueMap.values()) {
-//			sb.append(sepRow);
+			// sb.append(sepRow);
 			String value = "";
 			for (Iterator<Entry<String, StringBuffer>> i = map.entrySet().iterator(); i.hasNext();) {
 				Entry<String, StringBuffer> e = i.next();

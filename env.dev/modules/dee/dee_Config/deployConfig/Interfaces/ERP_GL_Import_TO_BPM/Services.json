@@ -1,0 +1,11 @@
+[
+  {
+    "parentId": "8a9f5aff5ca06150015ca09e3c02001e",
+    "text": "ERP_GL_Import_TO_BPM",
+    "recordMpLog": "false",
+    "id": "8a9f5aff5ca06150015ca09e3c1c001f",
+    "description": "导入GL总账接口",
+    "fileImport": "false",
+    "enable": "true"
+  }
+]

@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <Form Key="OA_TmpTest" Caption="反向模板" FormType="Entity">
     <DataSource>
-        <DataObject Key="OA_TmpTest" Caption="反向模板" PrimaryTableKey="OA_TmpTest" PrimaryType="Entity">
+        <DataObject Key="OA_TmpTest" Caption="反向模板" PrimaryType="Entity">
             <TableCollection>
-                <Table Key="OA_TmpTest" Caption="反向模板">
+                <Table Key="OA_TmpTest" Caption="反向模板" TableMode="Detail">
                     <Column Key="OID" Caption="对象标识" DataType="Long"/>
                     <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
                     <Column Key="POID" Caption="父对象标识" DataType="Long"/>
                     <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
                     <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
-                    <Column Key="AuditOpinion" Caption="审批意见" DataType="Varchar"/>
                 </Table>
             </TableCollection>
         </DataObject>
@@ -24,9 +23,7 @@
                     <SplitPanel Key="SplitPanel1" Orientation="Vertical" Height="100%" Caption="SplitPanel1" Width="100%">
                         <SplitPanel Key="oaSplitPanel1" Orientation="Vertical" Height="100%" Caption="SplitPanel1" Width="pref">
                             <GridLayoutPanel Key="GridLayoutPanel144" Height="50px" Padding="5px" Caption="GridLayoutPanel144" Width="0px">
-                                <TextEditor Key="AuditOpinion" Caption="审批意见" BuddyKey="Lab_AuditOpinion" X="1" Y="0" Enable="true" XSpan="3">
-                                    <DataBinding TableKey="OA_TmpTest" ColumnKey="AuditOpinion"/>
-                                </TextEditor>
+                                <TextArea Key="AuditOpinion" Caption="审批意见" BuddyKey="Lab_AuditOpinion" X="1" Y="0" Enable="true" XSpan="3"/>
                                 <Label Key="Lab_AuditOpinion" Caption="审批意见" X="0" Y="0"/>
                                 <RowDefCollection RowGap="5">
                                     <RowDef Height="100%"/>

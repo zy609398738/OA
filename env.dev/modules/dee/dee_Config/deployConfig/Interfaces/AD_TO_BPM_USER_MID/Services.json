@@ -1,0 +1,11 @@
+[
+  {
+    "recordMpLog": "false",
+    "text": "AD_TO_BPM_USER_MID",
+    "id": "ff8080815c2deb06015c3324868d00bb",
+    "parentId": "ff8080815c2deb06015c3324868600ba",
+    "description": "AD系统数据库用户表同步数据至BPM中间表",
+    "fileImport": "false",
+    "enable": "true"
+  }
+]

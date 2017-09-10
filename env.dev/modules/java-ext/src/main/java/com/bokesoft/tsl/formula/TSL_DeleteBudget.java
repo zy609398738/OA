@@ -3,7 +3,6 @@ package com.bokesoft.tsl.formula;
 import java.util.HashMap;
 
 import com.bokesoft.tsl.common.TSL_BokeDeeFactory;
-import com.bokesoft.yigo.common.util.TypeConvertor;
 import com.bokesoft.yigo.mid.base.DefaultContext;
 import com.bokesoft.yigo.mid.parser.BaseMidFunctionImpl;
 import com.bokesoft.yigo.parser.IExecutor;
@@ -16,12 +15,10 @@ public class TSL_DeleteBudget extends BaseMidFunctionImpl {
 
 	@Override
 	public Object evalImpl(String name, DefaultContext context, Object[] args, IExecutor iExecutor) throws Throwable {
-		String dataObjectKey = TypeConvertor.toString(args[0]);
-		CostInfo info = TSLInfoFactory.CreateInfo(context, dataObjectKey);
 		Document document = context.getDocument();
-		DataTable headTable = document.get(info.getHeadTable());
+		DataTable headTable = document.get("B_CostApply");
 		// TaskID
-		String TaskId = headTable.getObject(info.getOIDField()).toString();
+		String TaskId = headTable.getObject("InstanceID").toString();
 
 		TSL_BokeDeeFactory factory = new TSL_BokeDeeFactory();
 		HashMap<String, String> paramenter = factory.getParameter();

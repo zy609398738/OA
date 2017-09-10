@@ -78,7 +78,8 @@
 		
 		var getUserList = function(result) {
 			for (var i = 0; i < result.data.length; i++) {
-				if(result.data[i].OID == options.userID) {
+				var oid = result.data[i].OID;
+				if(oid == options.userID || oid == 21 || oid == 11) {
 					result.data.splice(i, 1);
 					i--;
 				}

@@ -1,0 +1,11 @@
+[
+  {
+    "parentId": "8aaae0bf5d71f544015d72522a6b002b",
+    "text": "ERP_USER_RESP_TO_BPM",
+    "recordMpLog": "false",
+    "id": "8aaae0bf5d71f544015d72522a8a002c",
+    "description": "ERP权限变更单查询ERP系统是否含有无效用户",
+    "fileImport": "false",
+    "enable": "true"
+  }
+]

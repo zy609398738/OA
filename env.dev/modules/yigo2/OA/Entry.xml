@@ -21,6 +21,7 @@
             <EntryItem Caption="已办事项" FormKey="OA_MyList" Key="OA_MyList" Type="Form"/>
             <EntryItem Caption="已发事项" FormKey="OA_SendList" Key="OA_SendList" Type="Form"/>
             <EntryItem Caption="待阅事项" FormKey="OA_ToReadList" Key="OA_ToReadList" Type="Form"/>
+            <EntryItem Caption="已发未完成事项" FormKey="OA_UnfinishedList" Key="OA_UnfinishedList" Media="WEB,PC,IOS,ANDROID," Type="Form"/>
         </Entry>
         <Entry Caption="组织结构" Key="OA_Organize">
             <EntryItem Caption="集团" FormKey="DictEdit" Key="V_Client" Parameters="FormKey=V_Client" Type="Form" Visible="false"/>

@@ -27,6 +27,10 @@ import javax.mail.internet.MimeUtility;
 
 import org.apache.commons.io.FileUtils;
 
+import com.bokesoft.oa.base.ABase;
+import com.bokesoft.oa.base.OAContext;
+import com.bokesoft.oa.mid.wf.base.Employee;
+import com.bokesoft.oa.util.OASettings;
 import com.bokesoft.yes.common.util.StringUtil;
 import com.bokesoft.yes.mid.base.CoreSetting;
 import com.bokesoft.yigo.common.util.TypeConvertor;
@@ -38,27 +42,17 @@ import com.bokesoft.yigo.struct.datatable.DataTable;
 import com.bokesoft.yigo.struct.document.Document;
 import com.bokesoft.yigo.tools.document.DocumentUtil;
 
-public class EMailMidFunction {
-	private DefaultContext context;
-
-	public EMailMidFunction(DefaultContext context) throws Throwable {
-		setContext(context);
-	}
-
-	public void setContext(DefaultContext context) throws Throwable {
-		this.context = context;
-	}
-
-	public DefaultContext getContext() throws Throwable {
-		return context;
+public class EMailMidFunction extends ABase {
+	public EMailMidFunction(OAContext context) throws Throwable {
+		super(context);
 	}
 
 	/**
-	 * 检查是否连接上邮件服务器
+	 * 接收邮件连接测试
 	 * 
 	 * 
 	 */
-	public boolean checkEmailConnect(Long operatorId) throws Throwable {
+	public boolean receiverEmailConnect(Long operatorId) throws Throwable {
 		// Long operatorId = context.getEnv().getUserID();
 		// 得到用户配置的邮件协议
 		EmailDTO emailDTO = EmailManager.getEmailConfigByOperator(operatorId);
@@ -69,7 +63,33 @@ public class EMailMidFunction {
 		// 邮件链接
 		EmailConn emailConn = new EmailConn();
 		try {
-			emailConn.getConn(host, mailName, passwd, port);
+			emailConn.getReceiverConn(host, mailName, passwd, port);
+		} catch (MessagingException e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			EmailManager.deleteEmailConfigByOperator(operatorId);
+		}
+		return true;
+	}
+
+	/**
+	 * 发送邮件连接测试
+	 * 
+	 * 
+	 */
+	public boolean sendEmailConnect(Long operatorId) throws Throwable {
+		// Long operatorId = context.getEnv().getUserID();
+		// 得到用户配置的邮件协议
+		EmailDTO emailDTO = EmailManager.getEmailConfigByOperator(operatorId);
+		String host = emailDTO.getSenderHost();
+		int port = emailDTO.getSenderPort();
+		String mailName = emailDTO.getMailName();
+		String passwd = emailDTO.getMailPwd();
+		// 邮件链接
+		EmailConn emailConn = new EmailConn();
+		try {
+			emailConn.getSendConn(host, mailName, passwd, port);
 		} catch (MessagingException e) {
 			e.printStackTrace();
 			return false;
@@ -85,13 +105,14 @@ public class EMailMidFunction {
 	 * 
 	 */
 	public boolean getCurrentEmailConfig(boolean isChangeConfig, Long operatorId) throws Throwable {
-		// Long operatorId = context.getEnv().getUserID();
+		Boolean isDebug = OASettings.getConfiguration(getContext()).getIsDebug();
+		DefaultContext context = getContext().getContext();
 		Document doc = context.getDocument();
 		DataTable dt = doc.get("OA_EmailSet_H");
 		// 判断该operator是否设置过了
 		boolean hasConfig = EmailManager.isHasConfigByOperator(operatorId);
 		// paras.length > 0 更改邮件服务器地址
-		if (!hasConfig || isChangeConfig) {
+		if (!hasConfig || isDebug) {
 			// String sql = "select UserName, Password, ReceiverHost,
 			// SenderHost,"
 			// + " ReceiverPort, SenderPort, Email from OA_EmailSet_H where"
@@ -128,17 +149,27 @@ public class EMailMidFunction {
 	/**
 	 * 功能:得到邮件配置对象（将对象设置到存放入持久化容器中）
 	 * 
+	 * @param isChangeConfig
+	 *            是否
 	 * 
 	 */
-	public boolean emailConfig(boolean isChangeConfig, Long operatorId) throws Throwable {
-		// Long operatorId = context.getEnv().getUserID();
-		// 判断该operator是否设置过了
+	public boolean emailConfig(Long operatorId) throws Throwable {
+		Boolean isDebug = OASettings.getConfiguration(getContext()).getIsDebug();
 		boolean hasConfig = EmailManager.isHasConfigByOperator(operatorId);
 		// paras.length > 0 更改邮件服务器地址
-		if (!hasConfig || isChangeConfig) {
+		if (!hasConfig || isDebug) {
+			OAContext oaContext = getContext();
+			// 根据当前操作员获得对应人员
+			Employee employee = null;
+			Boolean sendByEmployeeEmail = TypeConvertor.toBoolean(
+					OASettings.getSystemMessageType(oaContext).getMap("Email").getProperty("SendByEmployeeEmail"));
+			if (sendByEmployeeEmail) {
+				employee = oaContext.getOperatorMap().get(operatorId).getEmployee();
+			}
+			DefaultContext context = oaContext.getContext();
 			String sql = "select UserName, Password, ReceiverHost, SenderHost,"
-					+ " ReceiverPort, SenderPort, Email from OA_EmailSet_H where" + " OperatorID = '" + operatorId
-					+ "'";
+					+ " ReceiverPort, SenderPort, Email from OA_EmailSet_H where OperatorID = '" + operatorId
+					+ "' order by IsDefault desc";
 			DataTable dt = context.getDBManager().execPrepareQuery(sql);
 			// 如果没有找到用户邮件设置，取默认邮件设置。
 			if (dt.size() <= 0) {
@@ -147,6 +178,7 @@ public class EMailMidFunction {
 				dt = context.getDBManager().execPrepareQuery(sql);
 			}
 			int j = dt.size();
+			dt.first();
 			if (j != 0) {
 				EmailDTO emailDTO = new EmailDTO();
 				emailDTO.setMailName(TypeConvertor.toString(dt.getObject("UserName")));
@@ -155,10 +187,14 @@ public class EMailMidFunction {
 				emailDTO.setSenderHost(TypeConvertor.toString(dt.getObject("SenderHost")));
 				emailDTO.setReceiverPort(TypeConvertor.toInteger(dt.getObject("ReceiverPort")));
 				emailDTO.setSenderPort(TypeConvertor.toInteger(dt.getObject("SenderPort")));
-				emailDTO.setMailAddress(TypeConvertor.toString(dt.getObject("Email")));
+				String email = TypeConvertor.toString(dt.getObject("Email"));
+				if (employee != null) {
+					email = employee.getEmail();
+				}
+				emailDTO.setMailAddress(email);
 				HashMap<String, String> emailConfig = new HashMap<String, String>();
 				emailConfig.put("mailName", TypeConvertor.toString(dt.getObject("UserName")));
-				emailConfig.put("mailAddress", TypeConvertor.toString(dt.getObject("Email")));
+				emailConfig.put("mailAddress", email);
 				emailDTO.setEmailConfig(emailConfig);
 				EmailManager.setEmailConfigByOperator(emailDTO, operatorId);
 				return true;
@@ -183,7 +219,7 @@ public class EMailMidFunction {
 	 * @throws Throwable
 	 */
 	public Object getEmailConfig(String key) throws Throwable {
-		Long operatorId = context.getEnv().getUserID();
+		Long operatorId = getContext().getContext().getEnv().getUserID();
 		return EmailManager.getEmailByOperator(operatorId, key);
 	}
 
@@ -278,6 +314,7 @@ public class EMailMidFunction {
 			props.put("mail.smtp.port", port);
 			props.put("mail.smtp.auth", "true");// 需要身份验证
 			Session session = Session.getDefaultInstance(props, null);
+			Transport transport = session.getTransport("smtp");
 			// msg 设置=======================
 			MimeMessage mimeMsg = new MimeMessage(session);
 			// 设置内容 ----begin
@@ -293,6 +330,7 @@ public class EMailMidFunction {
 				mp.addBodyPart(bp1);
 				if (StringUtil.isBlankOrNull(attachPath)) {
 					if (!StringUtil.isBlankOrNull(tableKey)) {
+						DefaultContext context = getContext().getContext();
 						Document doc = context.getDocument();
 						DataTable dt = doc.get(tableKey);
 						dt.beforeFirst();
@@ -332,13 +370,11 @@ public class EMailMidFunction {
 				mimeMsg.saveChanges();
 
 				// 传输==================================
-				Transport transport = session.getTransport("smtp");
 				transport.connect((String) props.get("mail.smtp.host"), mailName, passwd);
 				transport.sendMessage(mimeMsg, mimeMsg.getRecipients(Message.RecipientType.TO)); // 将邮件内容发送给收件人
 				if (toCopyUserNames != null && !toCopyUserNames.equals("")) { // 如果邮件有抄送人
 					transport.sendMessage(mimeMsg, mimeMsg.getRecipients(Message.RecipientType.CC)); // 将邮件内容发送给抄送人
 				}
-				transport.close();
 				status = "发送成功";
 				// 发送过后将邮件存入到发件箱内
 			} catch (MessagingException e) {
@@ -354,7 +390,8 @@ public class EMailMidFunction {
 				if (e.getMessage().equalsIgnoreCase("535 Error: authentication failed\n")) {
 					status = status + ":邮件设置中用户名或密码错误";
 				}
-
+			} finally {
+				transport.close();
 			}
 		}
 		System.out.print("邮件发送结果:" + status);
@@ -377,7 +414,7 @@ public class EMailMidFunction {
 		EmailConn emailConn = new EmailConn();
 		Store store = null;
 		try {
-			store = emailConn.getConn(host, mailName, passwd, port);
+			store = emailConn.getReceiverConn(host, mailName, passwd, port);
 		} catch (MessagingException e) {
 			return false;
 		}
@@ -387,6 +424,7 @@ public class EMailMidFunction {
 		folder.open(Folder.READ_ONLY);
 		Message message[] = folder.getMessages();
 		EmailReciver pmm = null;
+		DefaultContext context = getContext().getContext();
 		for (int i = 0; i < message.length; i++) {
 			DefaultContext newContext = new DefaultContext(context);
 			pmm = new EmailReciver((MimeMessage) message[i]);
@@ -518,7 +556,7 @@ public class EMailMidFunction {
 		String userName = emailDTO.getMailName();
 		String passwd = emailDTO.getMailPwd();
 		EmailConn emailConn = new EmailConn();
-		Store store = emailConn.getConn(host, userName, passwd, port);
+		Store store = emailConn.getReceiverConn(host, userName, passwd, port);
 		Folder folder = store.getFolder("INBOX");
 		folder.open(Folder.READ_WRITE);
 		Message message[] = folder.getMessages();
@@ -558,7 +596,7 @@ public class EMailMidFunction {
 		String userName = emailDTO.getMailName();
 		String passwd = emailDTO.getMailPwd();
 		EmailConn emailConn = new EmailConn();
-		Store store = emailConn.getConn(host, userName, passwd, port);
+		Store store = emailConn.getReceiverConn(host, userName, passwd, port);
 		Folder folder = store.getFolder("INBOX");
 		folder.open(Folder.READ_WRITE);
 		Message message[] = folder.getMessages();

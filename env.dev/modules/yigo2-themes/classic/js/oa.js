@@ -1,6 +1,6 @@
 ﻿//初始打开系统时默认载入的入口菜单和首页
 function reloadAndOpenStart() {
-	reloadAndOpenEntry('OABusiness/OA','OABusiness/OA/OA_Index');
+	reloadAndOpenEntry('','TSL/Base/TSL_Index');
 }
 
 //解析当前URL参数打开菜单入口或指定单据
@@ -11,6 +11,10 @@ function parseURL() {
 		parseURLByStr(str);
 	}else{
 		reloadAndOpenStart();
+	}
+	var language=$.cookie("locale");
+	if(language){
+		$(".select-language").val(language);
 	}
 }
 
@@ -24,38 +28,28 @@ function getUrlParam(url,name) {
 //解析指定URL参数打开菜单入口或指定单据			
 function parseURLByStr(str) {
 	if(str) {
+		var entrypath=getUrlParam(str,"entrypath");
 		var args = str.split("&");
-		for (var i = 0, len = args.length; i < len; i++) {
-			var str = args[i];
-			var arg = str.split("=");
-			var key = arg[0];
-			if(key.toLowerCase() == "entrypath") {
-				var opts = {
-					path: arg[1]
-				};
-				openEntry(opts);
-				break;
-			}
-			if(key.toLowerCase() == "formkey") {
-				var str1 = args[i+1];
-				var arg1 = str1.split("=");
-				var args = {
-					formKey: arg[1],
-					OID: arg1[1]
-					};
-				openForm(args);
-				break;
+		if(entrypath){
+			openEntry(entrypath);
+		}else {
+			var workitemid=getUrlParam(str,"workitemid");
+			if(workitemid){
+				openWorkitemID(workitemid);
+			}else{
+				var formkey=getUrlParam(str,"formkey");
+				var oid=getUrlParam(str,"oid");
+				openForm(formkey,oid);
 			}
 		}
-	
-}
+	}
 }
 //根据路径打开入口
-function OpenEntryByPath(node) {
-	var opts = {
-		path: node
+function OpenEntryByPath(entrypath) {
+	var args = {
+		path: entrypath
 	};
-	openEntry(opts);
+	openEntry(args);
 }
 
 //打开单据界面
@@ -68,8 +62,20 @@ function openFormByKey(key,id) {
 }
 
 //打开单据界面
-function openForm(node) {
-	YIUI.FormUtil.openForm(node, YIUI.MainContainer);
+function openWorkitemID(workitemid) {
+	var args = {
+		WID: workitemid
+	};
+	YIUI.FormUtil.openWorkItem(args, YIUI.MainContainer);
+}
+
+//打开单据界面
+function openForm(formkey,oid) {
+	var args = {
+		formKey: formkey,
+		OID: oid
+	};
+	YIUI.FormUtil.openForm(args, YIUI.MainContainer);
 }
 
 //打开web界面
@@ -115,4 +121,10 @@ function closeAll() {
 function imHostCallBack(type,data,globalOptions){
 	var callParas=data.split(",");
 	openFormByKey(callParas[1],callParas[2]);
+}
+
+//设置语言
+function setLanguage(language){
+	$.cookie("locale",language);
+	location.reload();
 }

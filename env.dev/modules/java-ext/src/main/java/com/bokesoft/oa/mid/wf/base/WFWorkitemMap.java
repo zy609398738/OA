@@ -11,7 +11,7 @@ import com.bokesoft.yigo.struct.datatable.DataTable;
  * @author minjian
  *
  */
-public class WFWorkitemMap extends DtlBaseMap<Long, WFWorkitem,WorkitemInf> {
+public class WFWorkitemMap extends DtlBaseMap<Long, WFWorkitem, WorkitemInf> {
 
 	/**
 	 * 
@@ -26,8 +26,8 @@ public class WFWorkitemMap extends DtlBaseMap<Long, WFWorkitem,WorkitemInf> {
 	 * @param workitemInf
 	 *            工作项信息
 	 */
-	public WFWorkitemMap(OAContext context,WorkitemInf workitemInf) {
-		super(context,workitemInf);
+	public WFWorkitemMap(OAContext context, WorkitemInf workitemInf) {
+		super(context, workitemInf);
 	}
 
 	/**
@@ -40,7 +40,7 @@ public class WFWorkitemMap extends DtlBaseMap<Long, WFWorkitem,WorkitemInf> {
 	public void loadData(DataTable dt) throws Throwable {
 		dt.beforeFirst();
 		while (dt.next()) {
-			WFWorkitem dtl = new WFWorkitem(getContext(),getHeadBase());
+			WFWorkitem dtl = new WFWorkitem(getContext(), getHeadBase());
 			dtl.loadData(dt);
 			put(dtl.getOID(), dtl);
 		}
@@ -62,7 +62,7 @@ public class WFWorkitemMap extends DtlBaseMap<Long, WFWorkitem,WorkitemInf> {
 			String dtlSql = "select * from WF_Workitem where WorkitemID=? and WorkitemID>0";
 			DataTable dtlDt = dbm.execPrepareQuery(dtlSql, oid);
 			if (dtlDt.size() > 0) {
-				obj = new WFWorkitem(context,getHeadBase());
+				obj = new WFWorkitem(context, getHeadBase());
 				obj.loadData(dtlDt);
 				super.put(oid, obj);
 			}

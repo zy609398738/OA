@@ -3,6 +3,8 @@ package com.bokesoft.oa.mid.message;
 import com.bokesoft.oa.base.DtlBase;
 import com.bokesoft.oa.base.OAContext;
 import com.bokesoft.oa.config.Settings;
+import com.bokesoft.oa.util.OASettings;
+import com.bokesoft.yigo.struct.datatable.DataTable;
 
 /**
  * 消息设置明细
@@ -36,30 +38,51 @@ public class MessageSetDtl extends DtlBase<MessageSet> {
 	}
 
 	/**
-	 * 失败后继续发送<br/>
-	 * 当为true时，只有前一种发送时如果发送失败，才会调用此方式重新发送。 当为false时，意味着无论前一种发送成功与否，都执行此法送。
+	 * 测试接收邮件地址
 	 */
-	private Boolean isSucceed = false;
+	private String receiverEmail;
 
 	/**
-	 * 是否继续发送<br/>
-	 * 当为true时，只有前一种发送时如果发送失败，才会调用此方式重新发送。 当为false时，意味着无论前一种发送成功与否，都执行此法送。
+	 * 测试接收邮件地址
 	 * 
-	 * @return 是否继续发送
+	 * @return 测试接收邮件地址
 	 */
-	public Boolean getIsSucceed() {
-		return isSucceed;
+	public String getReceiverEmail() {
+		return receiverEmail;
 	}
 
 	/**
-	 * 是否继续发送<br/>
-	 * 当为true时，只有前一种发送时如果发送失败，才会调用此方式重新发送。 当为false时，意味着无论前一种发送成功与否，都执行此法送。
+	 * 测试接收邮件地址
 	 * 
-	 * @param isSucceed
-	 *            是否继续发送
+	 * @param receiverEmail
+	 *            测试接收邮件地址
 	 */
-	public void setIsSucceed(Boolean isSucceed) {
-		this.isSucceed = isSucceed;
+	public void setReceiverEmail(String receiverEmail) {
+		this.receiverEmail = receiverEmail;
+	}
+
+	/**
+	 * 测试发送邮件地址
+	 */
+	private String SendEmail;
+
+	/**
+	 * 测试发送邮件地址
+	 * 
+	 * @return 测试发送邮件地址
+	 */
+	public String getSendEmail() {
+		return SendEmail;
+	}
+
+	/**
+	 * 测试发送邮件地址
+	 * 
+	 * @param sendEmail
+	 *            测试发送邮件地址
+	 */
+	public void setSendEmail(String sendEmail) {
+		SendEmail = sendEmail;
 	}
 
 	/**
@@ -70,5 +93,22 @@ public class MessageSetDtl extends DtlBase<MessageSet> {
 	 */
 	public MessageSetDtl(OAContext context, MessageSet messageSet) {
 		super(context, messageSet);
+	}
+
+	/**
+	 * 载入数据
+	 * 
+	 * @param dt
+	 *            明细数据集
+	 * @throws Throwable
+	 */
+	public void loadData(DataTable dt) throws Throwable {
+		super.loadData(dt);
+		Settings settings = OASettings.getSystemMessageType(getContext());
+		String type = dt.getString("MessageType");
+		Settings messageType = settings.getMap(type);
+		setMessageType(messageType);
+		setReceiverEmail(dt.getString("ReceiverEmail"));
+		setSendEmail(dt.getString("SendEmail"));
 	}
 }

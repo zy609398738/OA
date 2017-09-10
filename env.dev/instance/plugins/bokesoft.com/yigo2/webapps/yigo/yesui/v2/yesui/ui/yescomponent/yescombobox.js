@@ -60,57 +60,6 @@
                 this._textBtn.css(cssStyle);
             },
 
-//            setDropViewTop: function () {
-//                var cityObj = this._textBtn;
-//                var cityOffset = this._textBtn.offset();
-//
-//                var bottom = $(window).height() - cityOffset.top - this.el.height();
-//                var top = cityOffset.top + cityObj.outerHeight();
-//                if (bottom < this._dropView.outerHeight()) {
-//                    this._dropView.addClass("toplst");
-//                    this.el.addClass("toplst");
-//                    top = "auto";
-//                    bottom = $(window).height() - $(this._textBtn).offset().top;
-//                } else {
-//                    this._dropView.removeClass("toplst");
-//                    this.el.removeClass("toplst");
-//                    bottom = "auto";
-//                }
-//                if (top != "auto") {
-//                    this._dropView.css("top", top + "px");
-//                    this._dropView.css("bottom", "auto");
-//                }
-//                if (bottom != "auto") {
-//                    this._dropView.css("bottom", bottom + "px");
-//                    this._dropView.css("top", "auto");
-//                }
-//            },
-//
-//            setDropViewLeft: function () {
-//                var cityObj = this._textBtn;
-//                var cityOffset = this._textBtn.offset();
-//
-//                var right = $(window).width() - $(this._textBtn).offset().left;
-//                var left = $(window).width() - this._dropView.outerWidth();
-//                if (right < this._dropView.outerWidth()) {
-//                    left = "auto";
-//                    right = $(window).width() - cityOffset.left - cityObj.outerWidth();
-//                } else {
-//                    left = cityOffset.left;
-//                    right = "auto";
-//                }
-//                if (left != "auto") {
-//                    this._dropView.css("left", left + "px");
-//                    this._dropView.css("right", "auto");
-//                }
-//                if (right != "auto") {
-//                    this._dropView.css("right", right + "px");
-//                    this._dropView.css("left", "auto");
-//                }
-//                this._dropView[0].style.width = cityObj.outerWidth() + "px";
-//                
-//            },
-
             getItemCaption: function (value) {
                 if (value == null) return "";
                 var caption = this._textBtn.val();
@@ -177,10 +126,10 @@
                 this._dropView.hide();
                 this._hasShow = false;
                 this.isFinishExp = false;
+                $("li.selected",this._dropView).removeClass("selected");
 		    	$(document).off("mousedown");
                 this.commitValue(this.value);
             },
-
 
             /**
              * 设置下拉内容
@@ -198,7 +147,6 @@
                         _li = $('<li><input type="checkbox"  itemValue="' + val + '"/><span>' + cap + '</span></li>');
                     } else {
                         _li = $('<li itemValue="' + val + '">' + (items[i].caption || "") + '</li>');
-//                        if(val == "") _li.addClass("empty");
                         if (this.value && this.value == items[i].value) {
                             _li.addClass("sel");
                             this._selectedLi = _li;
@@ -257,10 +205,6 @@
 
             install: function () {
                 var self = this;
-//                $(window).resize(function () {
-//                	self.itemval = 0;
-//                	self.hideComboList();
-//			    });
                 this._dropBtn.mousedown(function(e){
                     self._needShow =  !self._hasShow ? true : false;
                 }).click(function (e) {
@@ -283,7 +227,6 @@
                         return;
                     }
 
-                    console.log('combobox mousedown');
                     self._dropView.children("ul").css("width", "auto");
 
                     self._hasShow = true;
@@ -291,9 +234,7 @@
 
                     self.checkItems().then(function(data){
                         self.checkItem(self.getSelValue());
-                        
-//                        self.setDropViewTop();
-//                        self.setDropViewLeft();
+
                         YIUI.PositionUtil.setViewPos(self._textBtn, self._dropView, true);
                         
                         self._dropView.slideDown(300, function(){
@@ -306,9 +247,6 @@
 	                            items.removeClass("sel");
 	                            self._dropView.scrollTop(0);
 	                        }
-	    //                    if (val != "") {
-	    //                       finditem(val,items);
-	    //                    }
 
                             var ul = self._dropView.children("ul");
 
@@ -351,104 +289,19 @@
                         self._hasShow = false;
                     });
                     e.stopPropagation();
-//                     self.getItems();
-//                     self.checkItem(self.getSelValue());
-//                     self.setDropViewTop();
-//                     self.setDropViewLeft();
-//                     self._dropView.show();
-// 					var val = self.getText();
-//                     var items = self._dropView.find("li");
-//                     if (val == "") {
-//                     	items.removeClass("sel");
-//                     	self._dropView.scrollTop(0);
-//                     }
-// //                    if (val != "") {
-// //                    	 finditem(val,items);
-// //                    }
-
-//                     self._dropView.children("ul").css("width", self._dropView[0].scrollWidth);
-
-//                     if (self._selectedLi && (self._selectedLi.attr("itemValue") == self.getSelValue())) {
-//                         var scrollHeight = self._dropView.outerHeight() - self._dropView[0].clientHeight;
-//                         var scrollTop = self._selectedLi.position().top - self._dropView.height() + self._selectedLi.height() + scrollHeight;
-//                         self._dropView.scrollTop(scrollTop < 0 ? 0 : scrollTop);
-//                     } else {
-//                     	$(".sel", self._dropView).removeClass("sel");
-//                     	var $li = $("[itemValue='"+self.getSelValue()+"']");
-//                     	if($li.length > 0 && !$li.hasClass("empty")) {
-//                     		self._selectedLi = $li;
-//                     		$li.addClass("sel");
-//                     	}
-//                     }
-
-//                     $(document).on("mousedown", function (e) {
-//                         var target = $(e.target);
-
-//                         if ((target.closest(self._dropView).length == 0)
-//                             && (target.closest(self._dropBtn).length == 0)
-//                         	 && (target.closest(self._textBtn).length == 0)) {
-//                         	self.itemval = 0;
-
-//                             self.hideComboList();
-//                         }
-//                     });
-
-//                     self._hasShow = true;
-                /*    $(this).removeClass("arrowgif");
-                    $(this).addClass("arrow");*/
-                   // e.stopPropagation();
                 });
                 
                 var self = this;
-            	var index = -1;
-            	var keyFocus = false;
             	var hideCombView = function() {
             		self.$combView && self.$combView.hide();
         			self.selLi = null;
         			$(".selected", self.$combView).removeClass("selected");
-//        			var val = self._textBtn.val();
-//        			var items = self.items;
-//        			var isHas = false;
-//        			var itemval = null;
-//        			for (var i = 0; i < items.length; i++) {
-//        				if (items[i].caption == val) {
-//        					val = items[i].value;
-//                            itemval = self.items[i].value;
-//        					isHas = true;
-//        				}
-//        			}
-//        			val = val == "" ? null : val;
-//        			var integerVal = self.integerValue;
-//              	    var editable = self.editable;
-//              	    if (integerVal || editable == false) {
-//              	    	if (isHas == false) {
-//              	    		val = null;
-//              	    	}
-//              	    }
-//              	    
-//
-//                    if (integerVal || editable == false) {
-//                        if (isHave == false) {
-//                            self.setSelValue(null);
-//                            self.commitValue(null);
-//                        }
-//                    } else if(editable) {
-//                    	var changed = self.itemValue != itemval;
-//                    	if(changed) {
-//                    		self.setSelValue(val);
-//                    		self.commitValue(val);
-//                    		self.itemValue = val;
-//                    	}
-//                    }
-              	    
-//              	    self.setSelValue(val);
-//        			self.commitValue(val);
-        	    	index = -1;
             	};
             	this._textBtn.bind("keyup", $.debounce(200, function(e){
                 	if(!self.isEnable()) {
                 		return false;
                 	}
+
             		if (self._hasShow || !$(this).is(":focus")) {
             		    e.stopPropagation();
             		    return;
@@ -456,7 +309,7 @@
         			if(self.multiSelect) return;
                 	var value = $(this).val();
             		var keyCode = e.keyCode;
-            		
+
             	    var items = self._dropView.find("li");
 					items.removeClass("sel");
             	    if (keyCode != 13) {
@@ -464,20 +317,20 @@
                 	    if (self._hasShow && val != "") {
                 		    finditem(value,items);
                 		    e.stopPropagation();
-                		   
+
                 	    }
             	    }
-            		
+
             		if(keyCode == 27) {
             			hideCombView();
             			return;
             		}
-            		
+
                     $(document).on("mousedown", function (e) {
                         var target = $(e.target);
                         if(self.selLi && self.selLi.length > 0) {
                         	self.selLi.mouseup();
-                        } else if (target.closest(self.$suggestView).length == 0 
+                        } else if (target.closest(self.$suggestView).length == 0
                         		&& target.closest(self._textBtn).length == 0) {
         			    	hideCombView();
         			    	var integerVal = self.integerValue;
@@ -490,11 +343,10 @@
                         }
             			self.selLi = null;
                     });
-                    
+
                 	if(keyCode == 38 || keyCode == 40 || keyCode == 9) return;
                 	if(keyCode == 13) {
                 		if(self.selLi) {
-                			index = -1;
                 			self.selLi.mouseup();
                 		}
                 		return;
@@ -519,75 +371,88 @@
     	                        top: cityOffset.top + cityObj.outerHeight(),
     	                        left: cityOffset.left
     	                    })
+                            self.$combView = $view;
     	                    $view.show();
                     	});
                 	} else {
                 		$view.empty().hide();
                 	}
 
-
                 }));
-            	
+
             	this._textBtn.bind("keydown", function(e){
                 	if(!self.isEnable()) {
                 		return false;
                 	}
-            		if (self._hasShow) {
-        	   			e.stopPropagation();
-        	   			return;
-            		}
-            		if(!keyFocus && self.sourceType == YIUI.COMBOBOX_SOURCETYPE.QUERY) {
-            			keyFocus = true;
-            			self.handler.getComboboxItems(self);
-            		}
-            		var keyCode = e.keyCode;
-                    var $suggestView = self.$suggestView, $combView, isAutoView = false;
-                    
-                    if(!$suggestView.is(":hidden") || (self._dropView.is(":hidden") && (keyCode != 40))) {
-                    	$combView = $suggestView;
-                    	isAutoView = true;
-                    } else {
-                    	$combView = self._dropView;
+
+                	var $combView;
+
+                	if( !self.$suggestView.is(":hidden") ) {
+                        $combView = self.$suggestView;
                     }
-                    self.$combView = $combView;
-                    var maxLen = $("li", $combView).length;
-                    if(keyCode == 38) {
-                    	if(!isAutoView && self._dropView.is(":hidden")) {
-                    		return;
-                    	}
-                    	index--;
-                    	if(index == -1) index = maxLen - 1;
-                    } else if(keyCode == 40) {
-                    	if(!isAutoView && self._dropView.is(":hidden")) {
-                    		self._dropBtn.click();
-                    		var $li = $("li.sel", self._dropView).removeClass("sel");
-                    		index = $li.index();
-                    	}
-                    	index++;
-                    	if(index == maxLen) index = 0;
-                    } else if (keyCode == 9 || keyCode === 13 || keyCode === 108) {
-//                        self.focusManager.requestNextFocus(self);
-                        if (keyCode == 9 && !self._dropView.is(":hidden")) {
-                            $(document).mousedown();
-                        }
-                        e.preventDefault();
+
+                    if( !$combView && !self._dropView.is(":hidden") ) {
+                        $combView = self._dropView;
+                    }
+
+                    if( !$combView )
+                        return;
+
+                	self.$combView = $combView;
+
+                    var maxLen = $("li", $combView).length,
+                        li = $("li.selected", $combView),
+                        idx = -1;
+
+                    var li = $("li.selected", $combView);
+                    if( li.length > 0 ) {
+                        idx = li.index();
                     } else {
+                        li = $("li.sel", $combView);
+                        if( li.length > 0 ) {
+                            idx = li.index();
+                        }
+                    }
+
+                    switch (e.keyCode){
+                    case 38:  // up
+                        idx--;
+                        if( idx < 0 )
+                            idx = 0;
+                        break;
+                    case 40: // down
+                        idx++;
+                        if( idx >= maxLen )
+                            idx = 0;
+                        break;
+                    case 13: // enter
+                        if( self.selLi ) {
+                            var value = self.selLi.attr("itemValue");
+                            self.setSelValue(value);
+                            self.commitValue(value);
+                        }
+                        hideCombView();
+                        e.stopPropagation();
+                        e.stop = true;
+                        break;
+                    case 9: // tab
+                        $(document).mousedown();
+                        break;
+                    default:
                         return;
                     }
-                    if (index == -1) return;
-                    self.selLi && self.selLi.removeClass("selected").removeClass("sel");
-                    var li = $combView.find("li:eq("+index+")");
-                    li.addClass("selected");
+
+                    if (idx == -1)
+                        return;
+
+                    var li = $combView.find("li:eq("+idx+")");
+                    li.addClass("selected").siblings("li").removeClass("selected");
+
                     self.selLi = li;
 
                     var scrollHeight = self._dropView.outerHeight() - self._dropView[0].clientHeight;
                     var scrollTop = li.position().top - self._dropView.height() + li.height() + scrollHeight;
                     self._dropView.scrollTop(scrollTop < 0 ? 0 : scrollTop);
-                    
-                    if(!isAutoView) {
-                    	//self._textBtn.val(li.text());
-                    }
-                	
             	});
 
             	this._textBtn.blur(function(e) {
@@ -600,18 +465,16 @@
                         return;
                     }
 
-                    console.log('combobox blur...');
-            		keyFocus = false;
             		var _this = $(this);
                	    var integerVal = self.integerValue;
                	    var editable = self.editable;
                	    var isHave = false;
                	    var val = self._textBtn.val();
-               	    if(val == self.temp){ 
+               	    if(val == self.temp){
                         self.doFocusOut();
                         return;
                     }
-               	    
+
                     self.checkItems().then(function(data){
                     	var tempVal;
                         var items = self.items;
@@ -677,11 +540,11 @@
 
                         self.doFocusOut();
                     });
-               	   
+
             	});
 
                 //节点绑定事件
-                this._dropView.delegate("li", "mouseup", function (e) {
+                this._dropView.delegate("li", "mousedown", function (e) {
                 	$(this).parent().find("li").removeClass("sel");
                     if (self.multiSelect) {
                         return;
@@ -692,28 +555,22 @@
                     if (self._selectedLi) {
                         self._selectedLi.removeClass("sel");
                     }
-//                    if(!$(this).hasClass("empty")) {
-                    	$(this).addClass("sel");
-                    	self._selectedLi = $(this);
-//                    } else {
-//                    	self._selectedLi = null;
-//                    }
+                    $(this).addClass("sel");
+                    self._selectedLi = $(this);
+
                     var value = $(e.target).attr("itemValue");
                     self.setSelValue(value);
-                    //self._textBtn.val($(e.target).text());
                     self.hideComboList();
                 });
                 
                 //节点绑定事件
-                this.$suggestView.delegate("li", "mouseup", function (e) {
+                this.$suggestView.delegate("li", "mousedown", function (e) {
                 	var value = $(e.target).attr("itemValue");
                 	self.setSelValue(value);
-                	//self._textBtn.val($(e.target).text());
                 	self.$suggestView.hide();
                 	self.commitValue(value);
                 	self._selectedLi = $("li[itemvalue="+value+"]", self._dropView).addClass("sel");
     		    	$(document).off("mousedown");
-    	            
                 });
                 
                 //查询全部

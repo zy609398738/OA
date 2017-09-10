@@ -11,7 +11,7 @@ import com.bokesoft.yigo.struct.datatable.DataTable;
  * @author chenbiao
  *
  */
-public class WFMigrationMap extends BaseMap<Long,WFMigration> {
+public class WFMigrationMap extends BaseMap<Long, WFMigration> {
 
 	/**
 	 * 

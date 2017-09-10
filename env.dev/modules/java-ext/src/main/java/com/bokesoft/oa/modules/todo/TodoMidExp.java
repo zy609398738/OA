@@ -23,10 +23,14 @@ import com.bokesoft.yes.tools.rights.IRightsProvider;
 import com.bokesoft.yes.tools.rights.IRightsProviderFactory;
 import com.bokesoft.yes.tools.rights.RightsProviderFactory;
 import com.bokesoft.yigo.common.util.TypeConvertor;
+import com.bokesoft.yigo.meta.solution.MetaLang;
+import com.bokesoft.yigo.meta.solution.MetaLangConfig;
+import com.bokesoft.yigo.meta.solution.MetaSolution;
 import com.bokesoft.yigo.mid.base.DefaultContext;
 import com.bokesoft.yigo.struct.datatable.DataTable;
 
 import cms2.spel.DataExp;
+import cms2.spel.ReqExp;
 
 public class TodoMidExp {
 
@@ -367,8 +371,8 @@ public class TodoMidExp {
 		dt.beforeFirst();
 		while (dt.next()) {
 			String billKey = dt.getString("BillKey");
-			entry = entry + "/" + billKey;
-			if (entryRights.hasEntryRights(entry)) {
+			String path = entry + "/" + billKey;
+			if (entryRights.hasEntryRights(path)) {
 				LinkedHashMap<String, Object> map = new LinkedHashMap<String, Object>();
 				list.add(map);
 				map.put("OID", dt.getLong("OID"));
@@ -473,5 +477,40 @@ public class TodoMidExp {
 		}
 
 		return size;
+	}
+
+	/**
+	 * 根据当前语言获取后缀
+	 * 
+	 * @return 后缀
+	 * @throws Throwable
+	 */
+	public static String getSuffixByLanguage(DefaultContext context) throws Throwable {
+		String locale = ReqExp.Cookie("locale");
+		MetaSolution metaSolution = context.getVE().getMetaFactory().getSolution();
+		String suffix = "";
+		if (StringUtil.isBlankOrNull(locale)) {
+			return suffix;
+		}
+		if (locale.equalsIgnoreCase(metaSolution.getDefaultLang())) {
+			return suffix;
+		}
+		MetaLangConfig metaLangConfig = context.getVE().getMetaFactory().getSolution().getLangConfig();
+		MetaLang metaLang = metaLangConfig.get(locale);
+		suffix = metaLang.getSuffix();
+		return suffix;
+	}
+
+	/**
+	 * 根据工作项检查权限
+	 * 
+	 * @param workitemID
+	 *            工作项标识
+	 * @return 后缀
+	 * @throws Throwable
+	 */
+	public static Boolean checkRightByWorkitem(DefaultContext context, String workitemID) throws Throwable {
+		
+		return true;
 	}
 }

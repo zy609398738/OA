@@ -75,48 +75,55 @@ public class EmpSelConditionMap extends DtlBaseMap<Long, EmpSelCondition, SelRul
 			EmpSelCondition empSelCondition = e.getValue();
 			String fieldKey = empSelCondition.getFieldKey();
 			sb.append(empSelCondition.getRBracket());
-			if (empSelCondition.getIsVariate() == 1) {
-				setVariate(sqlWhere, empSelCondition, businessDt);
+			String opt = empSelCondition.getOperation();
+			if (opt.equals(SqlWhere.OperationSqlIn) || opt.equals(SqlWhere.OperationSqlNotIn)) {
+				setSqlIn(sqlWhere, empSelCondition);
 			} else {
-				EmployeeSourceDtl employeeSourceDtl = fieldMap.get(fieldKey);
-				String fieldType = employeeSourceDtl.getFieldType();
-				switch (fieldType) {
-				case "oid":
-					setLong(sqlWhere, empSelCondition);
-				case "user":
-					setLong(sqlWhere, empSelCondition);
-				case "dic":
-					setDic(sqlWhere, empSelCondition);
-				case "txt":
-					setVarchar(sqlWhere, empSelCondition);
-				case "long":
-					setLong(sqlWhere, empSelCondition);
-				case "int":
-					setInteger(sqlWhere, empSelCondition);
-				case "num":
-					setNumeric(sqlWhere, empSelCondition);
-				case "date":
-					setDate(sqlWhere, empSelCondition);
-				case "time":
-					setDate(sqlWhere, empSelCondition);
-				case "drop":
-					setDrop(sqlWhere, empSelCondition);
-				case "sel":
-					setInteger(sqlWhere, empSelCondition);
+				if (empSelCondition.getIsVariate() == 1) {
+					if (businessDt != null) {
+						setVariate(sqlWhere, empSelCondition, businessDt);
+					}
+				} else {
+					EmployeeSourceDtl employeeSourceDtl = fieldMap.get(fieldKey);
+					String fieldType = employeeSourceDtl.getFieldType();
+					switch (fieldType) {
+					case "oid":
+						setLong(sqlWhere, empSelCondition);
+					case "user":
+						setLong(sqlWhere, empSelCondition);
+					case "dic":
+						setDic(sqlWhere, empSelCondition);
+					case "txt":
+						setVarchar(sqlWhere, empSelCondition);
+					case "long":
+						setLong(sqlWhere, empSelCondition);
+					case "int":
+						setInteger(sqlWhere, empSelCondition);
+					case "num":
+						setNumeric(sqlWhere, empSelCondition);
+					case "date":
+						setDate(sqlWhere, empSelCondition);
+					case "time":
+						setDate(sqlWhere, empSelCondition);
+					case "drop":
+						setDrop(sqlWhere, empSelCondition);
+					case "sel":
+						setInteger(sqlWhere, empSelCondition);
+					}
 				}
 			}
-
 			sb.append(empSelCondition.getLBracket());
 			// 如果还有下一个，拼上逻辑操作符
 			if (i.hasNext()) {
-				sb.append(SqlWhere.DefaultBlank);
+				sb.append(SqlWhere.Blank);
 				String lg = empSelCondition.getLogicOperation();
 				if (StringUtil.isBlankOrNull(lg)) {
 					lg = " and ";
 				}
 				sb.append(lg);
-				sb.append(SqlWhere.DefaultBlank);
+				sb.append(SqlWhere.Blank);
 			}
+
 		}
 		return sqlWhere;
 	}
@@ -205,6 +212,7 @@ public class EmpSelConditionMap extends DtlBaseMap<Long, EmpSelCondition, SelRul
 		StringBuffer sb = sqlWhere.getSqlWhere();
 		List<Object> list = sqlWhere.getValueList();
 		sb.append(empSelCondition.getFieldKey());
+		sb.append(SqlWhere.Blank);
 		sb.append(empSelCondition.getOperation());
 		sb.append(SqlWhere.DefaultRep);
 		list.add(empSelCondition.getValue());
@@ -217,8 +225,9 @@ public class EmpSelConditionMap extends DtlBaseMap<Long, EmpSelCondition, SelRul
 	 *            SQl条件对象
 	 * @param empSelCondition
 	 *            人员选择条件明细
+	 * @throws Throwable
 	 */
-	public void setDrop(SqlWhere sqlWhere, EmpSelCondition empSelCondition) {
+	public void setDrop(SqlWhere sqlWhere, EmpSelCondition empSelCondition) throws Throwable {
 		DataTableMetaData metaData = getHeadBase().getEmployeeSource().getSourceDataTable().getMetaData();
 		Integer dataType = metaData.getColumnInfo(empSelCondition.getFieldKey()).getDataType();
 		if (dataType == 1002) {
@@ -276,5 +285,25 @@ public class EmpSelConditionMap extends DtlBaseMap<Long, EmpSelCondition, SelRul
 		sb.append(empSelCondition.getOperation());
 		sb.append(SqlWhere.DefaultRep);
 		list.add(value);
+	}
+
+	/**
+	 * 设置SQL包含
+	 * 
+	 * @param sqlWhere
+	 *            SQl条件对象
+	 * @param empSelCondition
+	 *            人员选择条件明细
+	 */
+	public void setSqlIn(SqlWhere sqlWhere, EmpSelCondition empSelCondition) {
+		StringBuffer sb = sqlWhere.getSqlWhere();
+		sb.append(empSelCondition.getFieldKey());
+		sb.append(SqlWhere.Blank);
+		sb.append(empSelCondition.getOperation());
+		sb.append(SqlWhere.Blank);
+		sb.append(SqlWhere.LeftBracket);
+		sb.append(empSelCondition.getValue());
+		sb.append(SqlWhere.RightBracket);
+		sb.append(SqlWhere.Blank);
 	}
 }

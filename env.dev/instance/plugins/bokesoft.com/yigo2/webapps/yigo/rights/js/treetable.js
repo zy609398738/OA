@@ -179,7 +179,7 @@
 			if($("tbody tr", $table).length > 0) {
 				$table.next("label.empty").remove();
 			} else  {
-				var label = $("<label class='empty'>表中无内容</label>");
+				var label = $("<label class='empty'>"+RTS.I18N.attachment.noContent+"</label>");
 				$table.after(label);
 			}
 			

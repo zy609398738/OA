@@ -6,12 +6,15 @@
 		<MidFunction Description="OA扩展公式" Provider="com.bokesoft.oa.mid.formula.OAFuncRegistery"/>
 		<MidFunction Description="TSL中间层扩展公式" Provider="com.bokesoft.tsl.formula.TSLMidFunctionProvider"/>
 	</ExtMidFunction>
-
+	<ExtImportService>
+		<ImportService Name="OA_ImportExcelSelRule" Description="导入Excel数据" Impl="com.bokesoft.oa.mid.ImportExcelSelRule"/>
+	</ExtImportService>
     <ExtService>
 		 <Service Name="OA_FillListByBPM" Description="根据流程填充流程的列表" Impl="com.bokesoft.oa.mid.wf.FillListByBPM"/>
 		 <Service Name="OA_GetDropItemByBPM" Description="获得所有流程的下拉字符串" Impl="com.bokesoft.oa.mid.wf.GetDropItemByBPM"/>
 		 <Service Name="OA_GetDropItemByDesigne" Description="根据流程设计获得的下拉字符串" Impl="com.bokesoft.oa.mid.wf.GetDropItemByDesigne"/>
 		 <Service Name="OA_GetAuditNodeByBPM" Description="获得流程中所有审批节点的下拉字符串" Impl="com.bokesoft.oa.mid.wf.GetAuditNodeByBPM"/>
+		 <Service Name="OA_GetAuditNodeByProcessKey" Description="获得流程中所有审批节点的下拉字符串" Impl="com.bokesoft.oa.mid.wf.GetAuditNodeByProcessKey"/>
 		 <Service Name="OA_GetWorkflowAttribute" Description="获得流程的属性" Impl="com.bokesoft.oa.mid.wf.GetWorkflowAttribute"/>
 		 <Service Name="OA_AddOperatorSelResult" Description="获得人员选择结果的列表" Impl="com.bokesoft.oa.mid.wf.GetOperatorSelResult"/>
 		 <Service Name="OA_GetNodeIDByNodeKey" Description="根据流程节点标识获取节点ID" Impl="com.bokesoft.oa.mid.wf.GetNodeIDByNodeKey"/>
@@ -22,7 +25,8 @@
 		 <Service Name="OA_WorkPlan" Description="传阅工作计划" Impl="com.bokesoft.oa.mid.WorkPlan"/>
 		 <Service Name="OA_GenOperatorAll" Description="根据人员全部同步操作员" Impl="com.bokesoft.oa.mid.GenOperatorAll"/>
 		 <Service Name="OA_GetDoReadCount" Description="待办事项访问量" Impl="com.bokesoft.oa.mid.GetDoReadCount"/>
-		 <Service Name="OA_CheckEmailConnect" Description="检查是否连接上邮件服务器" Impl="com.bokesoft.oa.mid.email.CheckEmailConnect"/>
+		 <Service Name="OA_ReceiverEmailConnect" Description="接收邮件连接测试" Impl="com.bokesoft.oa.mid.email.ReceiverEmailConnect"/>
+		 <Service Name="OA_SendEmailConnect" Description="发送邮件连接测试" Impl="com.bokesoft.oa.mid.email.SendEmailConnect"/>
 		 <Service Name="OA_SendEmailToServer" Description="将邮件发送到邮件服务器" Impl="com.bokesoft.oa.mid.email.SendEmailToServer"/>
 		 <Service Name="OA_ReceiveEmail" Description="接收邮件" Impl="com.bokesoft.oa.mid.email.ReceiveEmail"/>
 		 <Service Name="OA_DeleteServerEmailByIDS" Description="删除邮件" Impl="com.bokesoft.oa.mid.email.DeleteServerEmailByIDS"/>
@@ -64,6 +68,10 @@
 		 <Service Name="OA_GetProcessKey" Description="根据单据标识返回关联流程标识" Impl="com.bokesoft.oa.mid.wf.GetProcessKey"/>
 		 <Service Name="OA_StopTime" Description="进程暂停一段时间" Impl="com.bokesoft.oa.mid.StopTime"/>
 		 <Service Name="OA_OptSendMessage" Description="审批操作通过之后发送消息" Impl="com.bokesoft.oa.mid.wf.OptSendMessage"/>
+		 <Service Name="OA_OptSendMessageBPM" Description="提交审批操作之后发送消息" Impl="com.bokesoft.oa.mid.wf.OptSendMessageBPM"/>
+		 <Service Name="OA_OptSendMessageReject" Description="审批操作撤回之后发送消息" Impl="com.bokesoft.oa.mid.wf.OptSendMessageReject"/>
+		 <Service Name="OA_OptSendMessageEnd" Description="审批结束之后发送消息" Impl="com.bokesoft.oa.mid.wf.OptSendMessageEnd"/>
+		 <Service Name="OA_UrgeMessage" Description="催办发送邮件通知" Impl="com.bokesoft.oa.mid.wf.UrgeMessage"/>
 		 <Service Name="OA_DeleteFile" Description="删除文件" Impl="com.bokesoft.oa.mid.file.DeleteFile"/>
 		 <Service Name="OA_GetMainTableName" Description="获得主表名称" Impl="com.bokesoft.oa.mid.GetMainTableName"/>
 		 <Service Name="OA_RefreshDictItem" Description="刷新字典字段的缓存信息" Impl="com.bokesoft.oa.mid.RefreshDictItem"/>
@@ -80,6 +88,9 @@
 		 <Service Name="OA_GetNextOptAndPar" Description="根据SQL获得下一步的参与者和操作名称" Impl="com.bokesoft.oa.mid.GetNextOptAndPar"/>
 		 <Service Name="OA_GetFileType" Description="根据附件名称获取文件类型" Impl="com.bokesoft.oa.mid.GetFileType"/>
 		 <Service Name="OA_GetRelationRightByOpt" Description="根据操作员获取相关审批权限" Impl="com.bokesoft.oa.mid.wf.GetRelationRightByOpt"/>
+		 <Service Name="OA_StringToQRCode" Description="字符串转二维码" Impl="com.bokesoft.oa.mid.StringToQRCode"/>
+		 <Service Name="OA_GetEmailTemplateStr" Description="获取邮件模板文件名称的字符串" Impl="com.bokesoft.oa.mid.email.GetEmailTemplateStr"/>
+		 <Service Name="OA_RefreshComb" Description="修改SQL后刷新业务来源和用户来源明细表（重新载入字段）" Impl="com.bokesoft.oa.mid.RefreshComb"/>
 		 <Service Name="TSL_GetRegionData" Description="获取区域数据" Impl="com.bokesoft.tsl.service.TSL_GetRegionData"/>
 		 <Service Name="TSL_GetSubRegionData" Description="获取子区域数据" Impl="com.bokesoft.tsl.service.TSL_GetSubRegionData"/>
 		 <Service Name="TSL_GetRate" Description="获取汇率" Impl="com.bokesoft.tsl.service.TSL_GetRate"/>
@@ -95,7 +106,10 @@
 		 <Service Name="TSL_CheckContractCN" Description="销售合同变更ContractBarcode查询" Impl="com.bokesoft.tsl.service.TSL_CheckContractCN"/>
 		 <Service Name="TSL_CheckContractNonCN" Description="销售合同变更（非中国区）ContractBarcode查询" Impl="com.bokesoft.tsl.service.TSL_CheckContractNonCN"/>
 		 <Service Name="TSL_CheckMainContract" Description="销售合同主体变更ContractBarcode查询" Impl="com.bokesoft.tsl.service.TSL_CheckMainContract"/>
-		 <Service Name="OA_StringToQRCode" Description="字符串转二维码" Impl="com.bokesoft.oa.mid.StringToQRCode"/>
-		 <Service Name="OA_GetFileNameStr" Description="获取邮件模板文件名称的字符串" Impl="com.bokesoft.oa.mid.GetFileNameStr"/>
+		 <Service Name="TSL_GetAMOUNT_TYPE" Description="获取预算金额类型" Impl="com.bokesoft.tsl.service.TSL_GetAMOUNT_TYPE"/>
+		 <Service Name="TSL_GetBudgetTotalAmount" Description="获取预算总金额" Impl="com.bokesoft.tsl.service.TSL_GetBudgetTotalAmount"/>
+		 <Service Name="TSL_GetBudgetUsedAmount" Description="获取预算已使用金额" Impl="com.bokesoft.tsl.service.TSL_GetBudgetUsedAmount"/>
+		 
+		 
     </ExtService>
 </Enhance>

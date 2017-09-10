@@ -32,6 +32,7 @@
                     <Column Key="EmailTemp_H" Caption="邮件模板" DataType="Varchar"/>
                     <Column Key="MessageSetID_H" Caption="发送方式" DataType="Long"/>
                     <Column Key="FieldKey" Caption="字段标识" DataType="Varchar"/>
+                    <Column Key="SendFormula" Caption="发送条件" DataType="Varchar"/>
                 </Table>
                 <Table Caption="人员选择明细" DBTableName="OA_OperatorSel_D" Key="OA_OperatorSel_D" TableMode="Detail">
                     <Column Caption="对象标识" DataType="Long" Key="OID"/>
@@ -516,7 +517,7 @@ Close();]]>
                                     <GridCell Caption="类型" CellType="ComboBox" Key="OptType" Enable="false" GroupKey="OptType" SourceType="ParaGroup">
                                         <DataBinding ColumnKey="OptType"/>
                                     </GridCell>
-                                    <GridCell Caption="名称" Key="Name" CellType="TextEditor" Enable="true">
+                                    <GridCell Caption="名称" Key="Name" CellType="TextEditor" Enable="false">
                                         <DataBinding ColumnKey="Name">
                                             <ValueChanged>
                                                 <![CDATA[
@@ -546,7 +547,7 @@ Close();]]>
                             <ComboBox Key="EmailTemp_H" Caption="邮件模板" BuddyKey="Lab_EmailTemp_H" X="3" Y="0" Enable="true" SourceType="Formula">
                                 <DataBinding ColumnKey="EmailTemp_H" TableKey="OA_OperatorSel_H"/>
                                 <FormulaItems>
-                                    <![CDATA[InvokeService("OA_GetFileNameStr", false, true, "../cms/site/static/email")]]>
+                                    <![CDATA[OA_GetEmailTemplateStr();]]>
                                 </FormulaItems>
                             </ComboBox>
                             <Label Key="Lab_EmailTemp_H" Caption="邮件模板" X="2" Y="0"/>
@@ -554,6 +555,10 @@ Close();]]>
                                 <DataBinding ColumnKey="MessageSetID_H" TableKey="OA_OperatorSel_H"/>
                             </Dict>
                             <Label Key="Lab_MessageSetID_H" Caption="发送方式" X="0" Y="0"/>
+                            <TextEditor Key="SendFormula" Caption="发送条件" BuddyKey="Lab_SendFormula" X="1" Y="1" Enable="true">
+                                <DataBinding ColumnKey="SendFormula" TableKey="OA_OperatorSel_H"/>
+                            </TextEditor>
+                            <Label Key="Lab_SendFormula" Caption="发送条件" X="0" Y="1"/>
                             <RowDefCollection RowGap="5">
                                 <RowDef Height="30px"/>
                                 <RowDef Height="30px"/>

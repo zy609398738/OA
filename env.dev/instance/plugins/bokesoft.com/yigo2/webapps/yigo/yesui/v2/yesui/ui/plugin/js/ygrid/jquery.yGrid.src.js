@@ -464,11 +464,9 @@
                 if ( isTreeCol ) {
                     var pl = (rowData.treeLevel * 16) + "px", icon = ts.p.treeExpand ? "cell-expand" : "cell-collapse";
                     if (rowData.isLeaf) {
-                        tcIcon = ["<span class='cell-treeIcon ", ts.p.treeExpand ? " ui-state-disabled" : "",
-                            "' style='margin-left: " , pl, "'></span>"].join("");
+                        tcIcon = ["<span class='cell-treeIcon ","' style='margin-left: " , pl, "'></span>"].join("");
                     } else {
-                        tcIcon = ["<span class='cell-treeIcon " , icon , ts.p.treeExpand ? " ui-state-disabled" : "",
-                            "' style='margin-left: " , pl, "'></span>"].join("");
+                        tcIcon = ["<span class='cell-treeIcon ", icon,"' style='margin-left: " , pl, "'></span>"].join("");
                     }
                 }
 
@@ -482,12 +480,12 @@
 
                 return ["<td role=\"gridcell\" ", prp , ">", tcIcon, err, $.htmlEncode(cellData[1]), "</td>"].join("");
             };
+
             var addRowNum = function (column, idx) {
                 var prp = formatCol.call(ts, column, {});
                 return ["<td role=\"gridcell\" class=\"ui-state-default ygrid-rownum\" " , prp, ">" , idx + 1 , "</td>"].join("");
             };
-            
-            
+
             var gotBackColor = function (form,backColor,idx) {
                 var color = backColor;
                 if( !$.ygrid.regExp.test(backColor) ) {
@@ -542,8 +540,18 @@
                     }
                 }
 
-                if( !th.p.treeExpand && curRd.parentRow ) {
-                    $(row).hide();
+                if( th.p.treeIndex != -1 && curRd.parentRow) {
+                    var index = grid.getRowIndexByID(curRd.parentRow.rowID),
+                        viewRow = $(this).getGridRowById($.ygrid.uidPref + index);
+
+                    var $td = $("td:eq("+(th.p.treeIndex + (th.p.rowSequences ? 1 : 0))+")",viewRow),
+                        $span = $("span.cell-treeIcon",$td);
+                    if( !$span.hasClass("cell-expand") && !$span.hasClass("cell-collapse") ){
+                        $span.addClass("cell-collapse");
+                    }
+                    if( $span.hasClass('cell-collapse') ) {
+                        $(row).hide();
+                    }
                 }
 
                 if( curRd.backColor ) {
@@ -623,7 +631,7 @@
                 var th = this, gridRow = $(th).getGridRowById($.ygrid.uidPref + ri), rind;
                 if (gridRow) {
                     rind = gridRow.rowIndex;
-                    th.p.data.splice(ri, 1);
+                 //   th.p.data.splice(ri, 1);
                     $(gridRow).remove();
                     afterRowOpt.call(th, rind, true);
                 }
@@ -669,6 +677,9 @@
             };
 
             ts.knvFocus = function () {
+                if(!ts.p.scrollPage){
+                    return;
+                }
                 window.setTimeout(function () {
                     if( !ts.grid )
                         return;
@@ -699,10 +710,6 @@
                     // 值变化 刷新单元格显示值
                     $(this).yGrid("setCell", rowId, colPos, rowData.data[colIndex], false, false);
                     this.p.editCells.splice(0, 1);
-                    // 检查全选
-                    if( this.p.selectFieldIndex == colIndex ) {
-                        this.getControlGrid().refreshSelectAll();
-                    }
                 } else {
                     // 值未变化 还原单元格样式
                     var iRow = row.rowIndex;
@@ -990,10 +997,8 @@
             imgs = null;
             hTable.append(thead.join(""));
 
-            // 全选操作
+            // 全选按钮做成一直可用
             $(".chk", hTable).click(function (e) {
-                if( $(this).attr('enable') !== 'true' )
-                    return;
                 var grid = ts.getControlGrid(),idx = ts.p.selectFieldIndex,row,cell;
                 var checked = $(this).hasClass('checked') ? false : true;
                 grid.needCheckSelect = false;
@@ -1008,7 +1013,6 @@
                 e.stopPropagation();
             });
 
-            // $(ts).reShowCheckColumn();
             //开始处理表头单元中的一些特定功能：拖拉大小，排序图标
             thead = $("thead:first", grid.hDiv).get(0);
             var thr = $("tr:first", thead), w, res, sort, column;
@@ -1365,9 +1369,6 @@
                     ts.grid.populate();
                 }
 
-                ts.getControlGrid().refreshSelectEnable();
-                ts.getControlGrid().refreshSelectAll();
-
                 var pageInfo = ts.getControlGrid().pageInfo;
                 var pagerId = ts.p.id + '_pager';
                 updatePagination($("#pagination_" + pagerId), pageInfo);
@@ -1490,12 +1491,12 @@
                 return true;
             };
 
-            var treeClick = function($td, ri, ci){
-                if($td.hasClass('ui-state-disabled')){
+            var treeClick = function($span, ri, ci){
+                if($span.hasClass('ui-state-disabled')){
                     return;
                 }
 
-                var isExpand = $td.hasClass('cell-collapse');
+                var isExpand = $span.hasClass('cell-collapse');
 
                 var rowData = ts.p.data[ri - 1];
 
@@ -1659,17 +1660,30 @@
                 };
 
                 var curPage = pageInfo.curPageIndex + 1;
-                if (pageInfo.pageCount <= 5) {
+                var indicator = pageInfo.pageIndicatorCount;
+                if (pageInfo.pageCount <= indicator) {
                     initPagination(1, pageInfo.pageCount, curPage);
                 } else {
-                    var begin = (curPage - 2) >= 1 ? (curPage - 2) : 1, end = begin + 4;
+                	var step = Math.floor(indicator/2);
+                    var begin = (curPage - step) >= 1 ? (curPage - step) : 1, end = begin + indicator - 1;
                     if (end > pageInfo.pageCount) {
-                        var gap = end - pageInfo.pageCount;
-                        begin -= gap;
-                        end -= gap;
-                    }
-                    initPagination(begin, end, curPage);
+                         var gap = end - pageInfo.pageCount;
+                         begin -= gap;
+                         end -= gap;
+                     }
+                     initPagination(begin, end, curPage);                	
                 }
+//                if (pageInfo.pageCount <= 5) {
+//                    initPagination(1, pageInfo.pageCount, curPage);
+//                } else {
+//                    var begin = (curPage - 2) >= 1 ? (curPage - 2) : 1, end = begin + 4;
+//                    if (end > pageInfo.pageCount) {
+//                        var gap = end - pageInfo.pageCount;
+//                        begin -= gap;
+//                        end -= gap;
+//                    }
+//                    initPagination(begin, end, curPage);
+//                }
             }
 
             //表格数据主体构建结束------------------------------
@@ -1969,6 +1983,7 @@
                         this.p.knv , "'></div>"].join("")).insertBefore($(this.grid.bDiv).parents(".ui-ygrid-view")[0]);
                 }
 
+                var _this = this;
                 /**
                  * 表格焦点策略
                  */
@@ -2003,17 +2018,15 @@
 
                                 // 检查并且设值
                                 var checkAndSetValue = function (ri, ci, value) {
-                                    var cell = grid.getCellDataAt(ri, ci),
-                                        editOpt = th.getCellEditOptByIndex(ri, ci);
+                                    var cell = grid.getCellDataAt(ri, ci);
                                     if ( value == null || value.trim().length == 0 )
                                         return;
-                                    var column = grid.getColumnAt(ci);
-                                    if (column.hidden || !cell[2])
-                                        return;
-                                    grid.setValueAt(ri, ci, value.trim(), true, true);
+                                    if ( cell[2] ) {
+                                        grid.setValueAt(ri, ci, value.trim(), true, true);
+                                    }
                                 }
 
-                                var values, vals;
+                                var values, vals, _column;
                                 switch (th.p.selectModel.selectionMode) {
                                 case YIUI.SelectionMode.CELL:
                                     checkAndSetValue(ri, ci, val);
@@ -2022,15 +2035,23 @@
                                     values = val.split("\n");
                                     for (var i = ri, length = values.length; i < grid.getRowCount() && i - ri < length; i++) {
                                         vals = values[i - ri].split("\t");
-                                        for (var c = ci, size = vals.length; c < rowData.data.length && c - ci < size; c++) {
-                                            checkAndSetValue(i, c, vals[c - ci]);
+                                        for (var c = ci, size = vals.length,idx = 0; c < rowData.data.length && idx < size; c++) {
+                                            _column = grid.getColumnAt(c);
+                                            if( _column.hidden )
+                                                continue;
+                                            checkAndSetValue(i, c, vals[idx]);
+                                            idx++;
                                         }
                                     }
                                     break;
                                 case YIUI.SelectionMode.ROW:
-                                    values = val.split("\t");
-                                    for (var i = 0, size = rowData.data.length; i < size; i++) {
-                                        checkAndSetValue(ri, i, values(i));
+                                    values = val.split("\t"),length = rowData.data.length,size = values.length;
+                                    for (var c = 0,idx = 0; c < length && idx < size; c++) {
+                                        _column = grid.getColumnAt(c);
+                                        if( _column.hidden )
+                                            continue;
+                                        checkAndSetValue(ri, c, values[idx]);
+                                        idx++;
                                     }
                                     break;
                                 }
@@ -2047,12 +2068,7 @@
                                 textArea.blur();
                                 textArea.val("");
 
-                                // 让表格获取焦点
-                                // window.setTimeout(function () {
-                                //     $("#" + th.p.knv).attr("tabindex", "-1").focus();
-                                // }, 0);
-
-                                this.knvFocus();
+                                _this.knvFocus();
 
                             });
                         }
@@ -2132,6 +2148,12 @@
                         break;
                     case 40:
                         th.changeFocus("bottom");
+                        break;
+                    case 46:
+                        var cell = grid.getCellDataAt(ri, ci);
+                        if( cell[2] ) {
+                            grid.setValueAt(ri,ci,null,true,true);
+                        }
                         break;
                     case 67: // C
                         if (event.ctrlKey) {
@@ -2225,8 +2247,11 @@
                 for (var i = chs.length - 1,ch; ch = chs[i]; i--) {
                     for (var ci = 0, rhci = 0, clen = ch.cells.length; ci < clen; ci++) {
                         chCell = $(ch.cells[ci]);
-                        if( chCell[0].style.display === "none" )
+                        if( chCell[0].style.display === "none" ) {
+                            rhci++;
                             continue;
+                        }
+
                         rhCell = $(th.grid.headers[rhci].el);
                         if (chCell[0].colSpan > 1) {  // 跨多列
                             rhci += parseInt(chCell.attr("cellspan"));
