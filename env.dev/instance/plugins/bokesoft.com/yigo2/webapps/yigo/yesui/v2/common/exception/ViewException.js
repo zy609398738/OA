@@ -98,6 +98,16 @@ YIUI.ViewException = (function () {
                 throw new Error( data );
             }
             Svr.Request.getSyncData(Svr.SvrMgr.ServletURL, paras, success);
+        },
+
+        getException: function (code, args) {
+            var paras = {};
+            paras.service = "Exception";
+            paras.code = code;
+            if (args != null && args != undefined) {
+                paras.args = args;
+            }
+            return Svr.Request.getSyncData(Svr.SvrMgr.ServletURL, paras);
         }
     };
     return Return;

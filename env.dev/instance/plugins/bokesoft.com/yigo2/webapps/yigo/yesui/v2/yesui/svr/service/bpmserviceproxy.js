@@ -3,14 +3,19 @@ YIUI.BPMService = (function () {
 		/**
 		 * 关闭流程
 		 */
-	    killInstance: function(instanceID) {
-
-
+	    killInstance: function(form, instanceID, userinfo) {
 	        var params = {
 	    		service: "BPM",
 	    		cmd: "KillInstance",
-	    		instanceID: instanceID
+	    		instanceID: instanceID,
+	    		userInfo: userinfo
 	        };
+
+	        form.refreshParas();
+        	var parameters = form.getParas();
+        	if(parameters){
+    			params.parameters = parameters.toJSON();
+    		}
 
             return Svr.Request.getData(params);
 	    },
@@ -74,7 +79,7 @@ YIUI.BPMService = (function () {
 	    /**
 		 * 结束一个流程实例
 		 */
-	    endInstance: function(instanceID, userinfo) {
+	    endInstance: function(form, instanceID, userinfo) {
 	        var params = {
 	    		service: "BPM",
 	    		cmd: "EndInstance",
@@ -82,18 +87,30 @@ YIUI.BPMService = (function () {
 	    		userInfo: userinfo
 	        };
 
+	        form.refreshParas();
+        	var parameters = form.getParas();
+        	if(parameters){
+    			params.parameters = parameters.toJSON();
+    		}
             return Svr.Request.getData(params);
 	    },
 
 	   	/**
 		 * 暂停一个流程实例
 		 */
-	    pauseInstance: function(wid) {
+	    pauseInstance: function(form, instanceID, userinfo) {
 	        var params = {
 	    		service: "BPM",
 	    		cmd: "PauseInstance",
-	    		workitemID: wid
+	    		instanceID: instanceID,
+	    		userInfo: userinfo
 	        };
+
+	        form.refreshParas();
+        	var parameters = form.getParas();
+        	if(parameters){
+    			params.parameters = parameters.toJSON();
+    		}
 
             return Svr.Request.getData(params);
 	    },
@@ -101,12 +118,19 @@ YIUI.BPMService = (function () {
 	    /**
 		 * 取消暂停一个流程实例
 		 */
-	    resume: function(wid) {
+	    resume: function(form, instanceID, userinfo) {
 	        var params = {
 	    		service: "BPM",
 	    		cmd: "Resume",
-	    		workitemID: wid
+	    		instanceID: instanceID,
+	    		userInfo: userinfo
 	        };
+
+	        form.refreshParas();
+        	var parameters = form.getParas();
+        	if(parameters){
+    			params.parameters = parameters.toJSON();
+    		}
 
             return Svr.Request.getData(params);
 	    },
@@ -181,20 +205,32 @@ YIUI.BPMService = (function () {
 
             return Svr.Request.getData(params);
 	    },	 
-
-	   	/**
-		 * 跳至某个节点
-		 */
-	    skipToNode: function(workitemID, nodeID) {
+	    
+	    forcibleMove: function(instanceID, srcNode, tgtNode) {
 	        var params = {
 	    		service: "BPM",
-	    		cmd: "SkipToNode",
-	    		workitemID: workitemID,
-	    		nodeID: nodeID
+	    		cmd: "ForcibleMove",
+	    		instanceID: instanceID,
+	    		sourceNode: srcNode,
+	    		targetNode: tgtNode
 	        };
 
             return Svr.Request.getData(params);
 	    },
+
+//	   	/**
+//		 * 跳至某个节点
+//		 */
+//	    skipToNode: function(workitemID, nodeID) {
+//	        var params = {
+//	    		service: "BPM",
+//	    		cmd: "SkipToNode",
+//	    		workitemID: workitemID,
+//	    		nodeID: nodeID
+//	        };
+//
+//            return Svr.Request.getData(params);
+//	    },
 
 	    /**
 		 * 在叙事薄界面为勾选的若个单据，进行批量审批
@@ -323,7 +359,7 @@ YIUI.BPMService = (function () {
 	    /**
 		 * 移交工作项
 		 */
-	    transferTask: function(wid, operatorID, createRecord, userinfo, auditResult) {
+	    transferTask: function(wid, operatorID, createRecord, userinfo, auditResult, srcOperator, transferType) {
 	        var params = {
 	    		service: "BPMExtend",
 	    		cmd: "TransferTask",
@@ -331,21 +367,46 @@ YIUI.BPMService = (function () {
 	    		OperatorID: operatorID,
 	    		CreateRecord: createRecord,
 	    		UserInfo: userinfo,
-	    		AuditResult: auditResult
+	    		AuditResult: auditResult,
+	    		SrcOpt:srcOperator,
+	    		TransferType:transferType
 	        };
 			//return Svr.Request.getSyncData(Svr.SvrMgr.ServletURL, params);
             return Svr.Request.getData(params);
+	    },
+	    
+	    refuseTask: function(wid, auditResult, userInfo){
+	    	 var params = {
+	 	    		service: "BPMExtend",
+	 	    		cmd: "RefuseTask",
+	 	    		workitemID: wid,
+	 	    		auditResult: auditResult,
+	 	    		userInfo: userInfo
+	 	        };
+	    	 return Svr.Request.getData(params);
+	    },
+	    
+	    refuseToOperator: function(info, operatorID){
+	    	 var params = {
+	 	    		service: "BPM",
+	 	    		cmd: "RefuseToOperator",
+	 	    		workitemInfo: $.toJSON(info),
+	 	    		operatorID: operatorID
+	 	        };
+	    	 return Svr.Request.getData(params);
 	    },
 
 	    /**
 	     * 获得可驳回节点
 	     */
-	    getValidNodes: function(nodeID, processKey) {
+	    getValidNodes: function(nodeID, processKey, instanceid, ignoreDeep) {
 	    	var params = {
 	    		service:"BPM",
 	    		cmd:"GetValidNodes",
 	    		nodeID:nodeID,
-	    		processKey:processKey
+	    		processKey:processKey,
+	    		instanceID:instanceid,
+	    		ignoreDeep:ignoreDeep
 	    	};
 	    	return Svr.Request.getSyncData(Svr.SvrMgr.ServletURL, params);
 	    },
@@ -380,12 +441,38 @@ YIUI.BPMService = (function () {
 	    /**
 		 * 从结束状态复活一个流程实例
 		 */
-	    reviveInstance: function(instanceID, userinfo) {
+	    reviveInstance: function(form, instanceID, userinfo) {
 	        var params = {
 	    		service: "BPM",
 	    		cmd: "ReviveInstance",
 	    		InstanceID: instanceID,
 	    		userInfo: userinfo
+	        };
+
+	        form.refreshParas();
+        	var parameters = form.getParas();
+        	if(parameters){
+    			params.parameters = parameters.toJSON();
+    		}
+            return Svr.Request.getData(params);
+	    },
+	    
+	    distributeWorkitem: function(workitemID, operatorID) {
+	        var params = {
+	    		service: "BPM",
+	    		cmd: "DistributeWorkitem",
+	    		workitemID: workitemID,
+	    		operatorID: operatorID
+	        };
+
+            return Svr.Request.getData(params);
+	    },
+	    
+	    cancelDistributeWorkitem: function(workitemID) {
+	        var params = {
+	    		service: "BPM",
+	    		cmd: "CancelDistributeWorkitem",
+	    		workitemID: workitemID
 	        };
 
             return Svr.Request.getData(params);

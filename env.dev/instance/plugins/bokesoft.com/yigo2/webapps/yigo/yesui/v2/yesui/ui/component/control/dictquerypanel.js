@@ -94,6 +94,11 @@
             				if(row.NodeType == 1) {
             					span.addClass("p_node");
             				}
+                            if(row.Enable == 0) {
+                                span.addClass("disabled");
+                            } else if(row.Enable == -1) {
+                                span.addClass("invalid");
+                            }
             			}
 
         				value = row[column.key];
@@ -246,7 +251,17 @@
         };
         
 		var getDictData = function(fuzzyValue, startRow, isResetPageNum) {
-			YIUI.DictService.getQueryData(options.itemKey, startRow, options.maxRows, options.pageIndicatorCount, fuzzyValue, options.stateMask, options.dictFilter, options.rootValue)
+			YIUI.DictService.getQueryData(
+                        options.itemKey,
+                        startRow,
+                        options.maxRows,
+                        options.pageIndicatorCount,
+                        fuzzyValue,
+                        options.stateMask,
+                        options.dictFilter,
+                        options.rootValue,
+                        options.formKey,
+                        options.fieldKey)
 					.done(function(data) {
 						if(startRow == 0 && data.totalRowCount < options.maxRows) {
 							listView._pagination.hidePagination();

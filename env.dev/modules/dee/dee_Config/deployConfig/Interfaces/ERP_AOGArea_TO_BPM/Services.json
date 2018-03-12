@@ -1,0 +1,11 @@
+[
+  {
+    "recordMpLog": "false",
+    "text": "ERP_AOGArea_TO_BPM",
+    "id": "8aab8d065f095ba7015f0a4d72a40043",
+    "parentId": "8aab8d065f095ba7015f0a4d72420042",
+    "description": "实时查询ERP系统模板合同单据到货地点信息",
+    "fileImport": "false",
+    "enable": "true"
+  }
+]

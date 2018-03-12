@@ -1,35 +1,32 @@
 <%@ page language="java"
 	import="java.util.*,com.zhuozhengsoft.pageoffice.*"
-	pageEncoding="gb2312"%>
-<%@ taglib uri="http://java.pageoffice.cn" prefix="po"%>
+	pageEncoding="utf-8"%>
 <%
 PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
 poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");
 
-// ����һ���Զ��幤�����ϵİ�ť��AddCustomToolButton�Ĳ���˵���������������
-poCtrl.addCustomToolButton("���԰�ť","myTest",0);
+// 添加一个自定义工具条上的按钮，AddCustomToolButton的参数说明，详见开发帮助
+poCtrl.addCustomToolButton("测试按钮","myTest",0);
+poCtrl.webOpen("doc/test.doc",OpenModeType.docNormalEdit,"张佚名");
 
-poCtrl.webOpen("doc/test.doc",OpenModeType.docNormalEdit,"������");
-poCtrl.setTagId("PageOfficeCtrl1");//���б���
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
-   <title>���Զ��幤�������Ӱ�ť</title>
+   <title>在自定义工具条添加按钮</title>     
 </head>
 <body>
     <script type="text/javascript">
         function myTest() {
-            document.getElementById("PageOfficeCtrl1").Alert("���Գɹ���");
+            document.getElementById("PageOfficeCtrl1").Alert("测试成功！");
         }
     </script>
     <form id="form1" >
-    ����Զ��幤�����еġ����԰�ť���鿴Ч����<br />
+    点击自定义工具栏中的“测试按钮”查看效果。<br />
     <img src="img/addbutton.jpg" />
     <div style=" width:auto; height:700px;">
-        <po:PageOfficeCtrl id="PageOfficeCtrl1">
-        </po:PageOfficeCtrl>
+       <%=poCtrl.getHtmlCode("PageOfficeCtrl1")%>
     </div>
     </form>
 </body>

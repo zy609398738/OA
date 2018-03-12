@@ -1,41 +1,40 @@
 <%@ page language="java"
 	import="java.util.*,com.zhuozhengsoft.pageoffice.*"
-	pageEncoding="gb2312"%>
-<%@ taglib uri="http://java.pageoffice.cn" prefix="po"%>
+	pageEncoding="utf-8"%>
 <%
 PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
-//ÉèÖÃ·şÎñÆ÷Ò³Ãæ
+//è®¾ç½®æœåŠ¡å™¨é¡µé¢
 poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");
 
 poCtrl.setCustomToolbar(false);
 poCtrl.setOfficeToolbars(false);
-poCtrl.setAllowCopy(false);
+poCtrl.setAllowCopy(false);//ç¦æ­¢æ‹·è´
 
 poCtrl.setJsFunction_AfterDocumentOpened("AfterDocumentOpened");
-//´ò¿ªWordÎÄµµ
-poCtrl.webOpen("doc/test.doc",OpenModeType.docReadOnly,"ÕÅØıÃû");
-poCtrl.setTagId("PageOfficeCtrl1");//´ËĞĞ±ØĞè
+//æ‰“å¼€Wordæ–‡æ¡£
+poCtrl.webOpen("doc/test.doc",OpenModeType.docReadOnly,"å¼ ä½šå");
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
-   <title>×î¼òµ¥µÄ´ò¿ª±£´æWordÎÄ¼ş</title>
+   <title>æœ€ç®€å•çš„æ‰“å¼€ä¿å­˜Wordæ–‡ä»¶</title>
+
 </head>
 <body>
     <script type="text/javascript">
         function AfterDocumentOpened() {
-            document.getElementById("PageOfficeCtrl1").SetEnableFileCommand(3, false); // ½ûÖ¹±£´æ
-            document.getElementById("PageOfficeCtrl1").SetEnableFileCommand(4, false); // ½ûÖ¹Áí´æ
-            document.getElementById("PageOfficeCtrl1").SetEnableFileCommand(5, false); //½ûÖ¹´òÓ¡
-            document.getElementById("PageOfficeCtrl1").SetEnableFileCommand(6, false); // ½ûÖ¹Ò³ÃæÉèÖÃ
+            document.getElementById("PageOfficeCtrl1").SetEnableFileCommand(3, false); // ç¦æ­¢ä¿å­˜
+            document.getElementById("PageOfficeCtrl1").SetEnableFileCommand(4, false); // ç¦æ­¢å¦å­˜
+            document.getElementById("PageOfficeCtrl1").SetEnableFileCommand(5, false); //ç¦æ­¢æ‰“å°
+            document.getElementById("PageOfficeCtrl1").SetEnableFileCommand(6, false); // ç¦æ­¢é¡µé¢è®¾ç½®
         }
+        
     </script>
     <form id="form1" >
-    <p>µã»÷¡°ÎÄ¼ş¡±²Ëµ¥£¬¿ÉÒÔ¿´µ½¡°±£´æ¡±¡¢¡°Áí´æÎª¡±¡¢¡°Ò³ÃæÉèÖÃ¡±¡¢¡°´òÓ¡¡±²Ëµ¥ÏîÒÑ¾­±ä»Ò¡£±£´æ²Ëµ¥Ïî²»½ö±ä»Ò£¬Ctrl+SÒ²±»½ûÓÃ¡£</p>
+    <p>ç‚¹å‡»â€œæ–‡ä»¶â€èœå•ï¼Œå¯ä»¥çœ‹åˆ°â€œä¿å­˜â€ã€â€œå¦å­˜ä¸ºâ€ã€â€œé¡µé¢è®¾ç½®â€ã€â€œæ‰“å°â€èœå•é¡¹å·²ç»å˜ç°ã€‚ä¿å­˜èœå•é¡¹ä¸ä»…å˜ç°ï¼ŒCtrl+Sä¹Ÿè¢«ç¦ç”¨ã€‚</p>
     <div style=" width:auto; height:700px;">
-        <po:PageOfficeCtrl id="PageOfficeCtrl1">
-        </po:PageOfficeCtrl>
+              <%=poCtrl.getHtmlCode("PageOfficeCtrl1")%>
     </div>
     </form>
 </body>

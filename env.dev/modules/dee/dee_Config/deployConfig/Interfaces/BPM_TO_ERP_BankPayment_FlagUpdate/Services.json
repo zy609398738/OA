@@ -1,0 +1,11 @@
+[
+  {
+    "recordMpLog": "false",
+    "text": "BPM_TO_ERP_BankPayment_FlagUpdate",
+    "id": "8aab8d0b5fb891f7015fb8984410001a",
+    "parentId": "8aab8d0b5fb891f7015fb89843870019",
+    "description": "实时更新ERP银行付款单起单标识为空",
+    "fileImport": "false",
+    "enable": "true"
+  }
+]

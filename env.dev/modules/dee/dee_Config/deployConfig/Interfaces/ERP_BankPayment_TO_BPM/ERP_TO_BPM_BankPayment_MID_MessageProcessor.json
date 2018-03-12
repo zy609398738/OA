@@ -1,0 +1,180 @@
+{
+  "response": [
+    {
+      "text": "记录同步ERP银行付款单数据至本地中间表的接口日志",
+      "description": "记录同步ERP银行付款单数据至本地中间表的接口日志",
+      "scriptContent": "String expMsg = \"\";\nMap rsmap = new HashMap();\nif (message.getExceptionPayload() != null)\n{\n    message.setOutboundProperty(\"http.status\", 200);\n    expMsg = message.getExceptionPayload().getRootException().getMessage();\n    if (expMsg.length() > 3500)\n    {\n        expMsg = expMsg.substring(0, 3000);\n    }\n    message.setExceptionPayload(null);\n    rsmap.put(\"code\", \"e\");\n    rsmap.put(\"msg\", \"更新失败！\");\n}\nelse\n{\n    rsmap.put(\"code\", \"s\");\n    rsmap.put(\"msg\", \"更新成功！\");\n    rsmap.put(\"data\", payload);\n}\nMap logmap = message.getInboundProperty(\"logmap\");\nObject[] o = new Object[10];\no[0] = logmap.get(\"flow\");\no[1] = logmap.get(\"node\");\no[2] = logmap.get(\"billkey\");\no[3] = logmap.get(\"oid\");\no[4] = logmap.get(\"begintime\");\no[5] = new java.text.SimpleDateFormat(\"yyyyMMdd HH:mm:ss.SSS\").format(new java.sql.Timestamp(java.lang.System.currentTimeMillis()));\no[6] = \"\";\no[7] = \"\";\no[8] = expMsg;\no[9] = \"ERP_TO_BPM_BankPayment_MID\";\ndbop.saveOrUpdate(\"insert into TRINA_SL_INTERFACE_LOG(id,flow,node,billkey,oid,starttime,endtime,request_data,response_data,EXCEPTION,interface_type)values(Trina_SL_Interface_Log_ID_SEQ.Nextval,?,?,?,?,?,?,?,?,?,?)\", o, false);\nreturn com.bokesoft.dee.mule.util.json.JSONUtil.toJson(rsmap);",
+      "smallType": "GroovyScriptWithDS",
+      "className": "com.bokesoft.exchange.transformer.ScriptWithDSTransformer",
+      "enable": "true",
+      "parentId": "8aab8d025f4cf8b7015f4d0188000019",
+      "bigType": "transformer_au",
+      "simpleMpLog": "false",
+      "ds": "2c9081d05be7e572015be80fcb64000f",
+      "isRef": "false",
+      "id": "8aab8d025f4cf8b7015f4d1679d0002b"
+    }
+  ],
+  "normal": [
+    {
+      "text": "同步ERP银行付款单至本地中间表入口",
+      "description": "同步ERP银行付款单至本地中间表入口",
+      "address": "vm://ERP_TO_BPM_BankPayment_MID",
+      "exchange_pattern": "request-response",
+      "className": "",
+      "smallType": "VM",
+      "enable": "true",
+      "parentId": "8aab8d025f4cf8b7015f4d0188000019",
+      "bigType": "inbound",
+      "simpleMpLog": "false",
+      "encoding": "UTF-8",
+      "isRef": "false",
+      "id": "8aab8d025f4cf8b7015f4d0298af001e"
+    },
+    {
+      "text": "启动JDBC事务",
+      "description": "启动数据库事务",
+      "smallType": "StartTxTransformer",
+      "className": "com.bokesoft.dee.transport.transaction.StartTxTransformer",
+      "enable": "true",
+      "parentId": "8aab8d025f4cf8b7015f4d0188000019",
+      "bigType": "GGPZTransformer",
+      "isRef": "true",
+      "id": "8aab8d025f4cf8b7015f4d034922001f"
+    },
+    {
+      "text": "记录执行同步银行付款单中间表的开始时间",
+      "description": "记录执行同步银行付款单中间表的开始时间",
+      "scriptContent": "String begintime = new java.text.SimpleDateFormat(\"yyyyMMdd HH:mm:ss.SSS\").format(new java.sql.Timestamp(java.lang.System.currentTimeMillis()));\nMap logmap = new HashMap();\nlogmap.put(\"begintime\", begintime);\nlogmap.put(\"flow\", payload.get(\"flow\"));\nlogmap.put(\"node\", payload.get(\"node\"));\nlogmap.put(\"oid\", payload.get(\"oid\"));\nlogmap.put(\"billkey\", payload.get(\"billkey\"));\nlogmap.put(\"request_data\", payload.get(\"json\"));\nmessage.setInboundProperty(\"logmap\", logmap);\ncom.bokesoft.InterfaceOperator.checkTransaction(dbop, \"ERP_TO_BPM_BankPayment_MID\");\nreturn payload;",
+      "smallType": "GroovyScriptWithDS",
+      "className": "com.bokesoft.exchange.transformer.ScriptWithDSTransformer",
+      "enable": "true",
+      "parentId": "8aab8d025f4cf8b7015f4d0188000019",
+      "bigType": "transformer_au",
+      "simpleMpLog": "false",
+      "ds": "2c9081d05be7e572015be80fcb64000f",
+      "isRef": "false",
+      "id": "8aab8d025f4cf8b7015f4d04488a0020"
+    },
+    {
+      "text": "查询符合条件的ERP银行付款单数据",
+      "description": "查询符合条件的ERP银行付款单数据",
+      "scriptContent": "List < Map > data = dbop.select(\" select header_id,item_type,detail_type,org_id,vendor_name,vendor_num,to_char(ap_date,'yyyy-MM-dd') as ap_date,invoice_num,invoice_id,line_num,term_name,to_char(due_date,'yyyy-MM-dd') as due_date,payment_method_name,a.currency_code,invoice_amount,round(amount, 2) as amount,employee_number,employee_name,flag,b.name,c.currency_code as original_currency from cux.cux3_eflow_ap_detail a inner join apps.hr_operating_units b on a.org_id = b.organization_id inner join apps.gl_ledgers c on b.set_of_books_id = c.ledger_id  where item_type <> '预付款核销' and item_type <> '贷项通知单' and invoice_amount > 0 and (flag is null or flag = '')  and (due_date <= sysdate or due_date <= sysdate + 15)  \", message);\nreturn data;",
+      "className": "com.bokesoft.exchange.transformer.ScriptWithDSTransformer",
+      "smallType": "GroovyScriptWithDS",
+      "enable": "true",
+      "parentId": "8aab8d025f4cf8b7015f4d0188000019",
+      "bigType": "transformer_au",
+      "simpleMpLog": "false",
+      "ds": "8aaae09b5bf03e9f015bf17bc58e061f",
+      "isRef": "false",
+      "id": "8aab8d025f4cf8b7015f4d06c51b0022"
+    },
+    {
+      "text": "清空本地银行付款单中间表数据",
+      "description": "清空本地银行付款单中间表数据",
+      "scriptContent": "Object[] o = new Object[0];\ndbop.saveOrUpdate(\"truncate table bank_payment_tmp_mid\", o, true);\nreturn payload;\nreturn data;",
+      "smallType": "GroovyScriptWithDS",
+      "className": "com.bokesoft.exchange.transformer.ScriptWithDSTransformer",
+      "enable": "true",
+      "parentId": "8aab8d025f4cf8b7015f4d0188000019",
+      "bigType": "transformer_au",
+      "simpleMpLog": "false",
+      "ds": "2c9081d05be7e572015be80fcb64000f",
+      "isRef": "false",
+      "id": "8aab8d025f4cf8b7015f4d0b20420023"
+    },
+    {
+      "text": "插入银行付款单数据至本地中间表",
+      "description": "插入银行付款单数据至本地中间表",
+      "connector_ref": "8aaae09b5c18fbeb015c19339dd30014",
+      "xaTransaction": "",
+      "className": "",
+      "queryKey": "8aab8d025f4cf8b7015f4d154f980028",
+      "smallType": "Jdbc",
+      "enable": "true",
+      "parentId": "8aab8d025f4cf8b7015f4d0188000019",
+      "bigType": "outbound",
+      "simpleMpLog": "false",
+      "isRef": "false",
+      "id": "8aab8d025f4cf8b7015f4d0d1aba0025",
+      "transaction": "BEGIN_OR_JOIN"
+    },
+    {
+      "text": "提交或者回滚JDBC事务",
+      "description": "提交或者回滚数据库事务",
+      "smallType": "FinishTxTransformer",
+      "className": "com.bokesoft.dee.transport.transaction.FinishTxTransformer",
+      "enable": "true",
+      "parentId": "8aab8d025f4cf8b7015f4d0188000019",
+      "bigType": "GGPZTransformer",
+      "isRef": "true",
+      "id": "8aab8d025f4cf8b7015f4d1602eb002a"
+    }
+  ],
+  "exception": [
+    {
+      "text": "提交或者回滚JDBC事务",
+      "description": "提交或者回滚数据库事务",
+      "smallType": "FinishTxTransformer",
+      "className": "com.bokesoft.dee.transport.transaction.FinishTxTransformer",
+      "enable": "true",
+      "parentId": "8aab8d025f4cf8b7015f4d0188000019",
+      "bigType": "GGPZTransformer",
+      "isRef": "true",
+      "id": "8aaae0d05f5bc8b8015f5c899f400087"
+    },
+    {
+      "text": "把异常对象转换为文本",
+      "description": "把异常对象转换为文本",
+      "smallType": "ExceptionMessageTransformer",
+      "className": "com.bokesoft.exchange.transformer.ExceptionMessageTransformer",
+      "enable": "true",
+      "parentId": "8aab8d025f4cf8b7015f4d0188000019",
+      "bigType": "GGPZTransformer",
+      "isRef": "true",
+      "id": "8aab8d025f4cf8b7015f4d01883c001a"
+    },
+    {
+      "path": "${bokedee.logpath.runtimeLog}/ERP_BankPayment_TO_BPM",
+      "text": "记录错误日志到文件_ERP_TO_BPM_BankPayment_MID",
+      "description": "",
+      "smallType": "File",
+      "className": "",
+      "enable": "true",
+      "outputPattern": "#[function:datestamp:yyyyMMddHHmmss]-#[message:id].xml",
+      "parentId": "8aab8d025f4cf8b7015f4d0188000019",
+      "bigType": "outbound",
+      "file_subdir": "#[context:serviceName]/#[function:datestamp:yyyyMMdd]",
+      "isRef": "false",
+      "id": "8aab8d025f4cf8b7015f4d0188fe001b"
+    },
+    {
+      "text": "把异常信息替换换行符_ERP_TO_BPM_BankPayment_MID",
+      "description": "把异常信息替换换行符",
+      "scriptContent": "String exceptionContent = message.getPayload();String exception = exceptionContent.replace(\"\\n\", \"<br/>\");message.setPayload(exception);return message;",
+      "className": "org.mule.module.scripting.transformer.ScriptTransformer",
+      "smallType": "GroovyScriptTransformer",
+      "enable": "false",
+      "parentId": "8aab8d025f4cf8b7015f4d0188000019",
+      "bigType": "transformer_au",
+      "simpleMpLog": "false",
+      "isRef": "false",
+      "id": "8aab8d025f4cf8b7015f4d01898a001c"
+    },
+    {
+      "text": "把异常信息通过邮件发送_ERP_TO_BPM_BankPayment_MID",
+      "description": "把异常信息通过邮件发送",
+      "connector_ref": "bokedee_default_smtp_connector",
+      "subject": "ERP_BankPayment_TO_BPM",
+      "smallType": "SMTP",
+      "className": "",
+      "enable": "false",
+      "parentId": "8aab8d025f4cf8b7015f4d0188000019",
+      "bigType": "outbound",
+      "encoding": "UTF-8",
+      "isRef": "false",
+      "id": "8aab8d025f4cf8b7015f4d018a1a001d"
+    }
+  ]
+}

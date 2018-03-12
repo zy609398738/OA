@@ -98,11 +98,12 @@
         			}
             	}
             },
-            dataSourceCopy: function(dataSource, parentID){
+            dataSourceCopy: function(dataSource, parentID, parentVisible){
             	if(dataSource) {
             		if(!dataSource.length) {
             			dataSource = $(dataSource);
             		}
+                    var visible;
             		for (var i = 0, len = dataSource.length; i < len; i++) {
             			var ds = dataSource[i];
             			var parent = ds.parent;
@@ -116,13 +117,23 @@
             			} else {
             				d.isLoaded = false;
             			}
+
+            			if( parentVisible === false ) {
+                            visible = false;
+						} else {
+                            visible = !ds.visible ? true : this.calcBoolean(ds.visible);
+						}
+
+                        ds._visible = visible;
+                        d._visible = visible;
+
             			if(ds.children && ds.children.length > 0) {
             				d.open = ds.open;
             				var children = [];
             				for (var j = 0, length = ds.children.length; j < length; j++) {
             					var child = ds.children[j];
             					children.push(child.id);
-            					this.dataSourceCopy($(child), ds.id);
+            					this.dataSourceCopy($(child), ds.id, visible);
             				}
             				d.children = children;
             			} else {
@@ -136,9 +147,11 @@
             			if(ds.parent) {
             				d.parentId = ds.parent.id;
             			}
+
             			if(parentID) {
             				d.parentID = parentID;
             			}
+
             			this._data.push(d);
             		}
             	}
@@ -185,9 +198,8 @@
                     nid = node.id;
                     node.parentId = parentId;
 
-    				var isVisible = !node.visible ? true : this.calcBoolean(node.visible);
-    				if(!isVisible)
-    					continue;
+					if( !node._visible )
+						continue;
 
                     var _li = $("<li class='tm-node' level='"+level+"'></li>").attr("path", node.path);
                     if(node.single) {
@@ -290,7 +302,8 @@
     	    			return;
     	    		}
     	    	});
-    	    	self.el.delegate("a","dblclick", $.debounce(500, function(e) {
+    	    	var event = YIUI.openEntryByClick ? "click" : "dblclick";
+    	    	self.el.delegate("a", event, $.debounce(500, function(e) {
     	    		if($(this).hasClass("noExpand")) {
     	    			self.clickEvent.selectNode($(this), self);
     	    			return;

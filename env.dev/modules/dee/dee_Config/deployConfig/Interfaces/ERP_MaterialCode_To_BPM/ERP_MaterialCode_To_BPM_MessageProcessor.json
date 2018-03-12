@@ -1,0 +1,116 @@
+{
+  "response": [
+    {
+      "text": "记录实时查询ERP系统物料分配申请单中的物料号的日志信息",
+      "description": "记录实时查询ERP系统物料分配申请单中的物料号的日志信息",
+      "scriptContent": "String expMsg = \"\";\nMap rsmap = new HashMap();\nif (message.getExceptionPayload() != null)\n{\n    message.setOutboundProperty(\"http.status\", 200);\n    expMsg = message.getExceptionPayload().getRootException().getMessage();\n    if (expMsg.length() > 3500)\n    {\n        expMsg = expMsg.substring(0, 3000);\n    }\n    message.setExceptionPayload(null);\n    rsmap.put(\"code\", \"e\");\n    rsmap.put(\"msg\", \"查询失败！\");\n}\nelse\n{\n    rsmap.put(\"code\", \"s\");\n    rsmap.put(\"msg\", \"查询成功！\");\n    rsmap.put(\"data\", payload);\n}\nMap logmap = message.getInboundProperty(\"logmap\");\nString request_data = logmap.get(\"request_data\") == null ? \"\": logmap.get(\"request_data\");\nString response_data = logmap.get(\"response_data\") == null ? \"\": logmap.get(\"response_data\");\nObject[] o = new Object[10];\no[0] = logmap.get(\"flow\");\no[1] = logmap.get(\"node\");\no[2] = logmap.get(\"billkey\");\no[3] = logmap.get(\"oid\");\no[4] = logmap.get(\"begintime\");\no[5] = new java.text.SimpleDateFormat(\"yyyyMMdd HH:mm:ss.SSS\").format(new java.sql.Timestamp(java.lang.System.currentTimeMillis()));\no[6] = request_data.length() > 3500 ? request_data.substring(0, 3000) : request_data;\no[7] = response_data.length() > 3500 ? response_data.substring(0, 3000) : response_data;\no[8] = expMsg;\no[9] = \"ERP_MaterialCode_To_BPM\";\ndbop.saveOrUpdate(\"insert into TRINA_SL_INTERFACE_LOG(id,flow,node,billkey,oid,starttime,endtime,request_data,response_data,EXCEPTION,interface_type)values(Trina_SL_Interface_Log_ID_SEQ.Nextval,?,?,?,?,?,?,?,?,?,?)\", o, false);\nreturn com.bokesoft.dee.mule.util.json.JSONUtil.toJson(rsmap);",
+      "smallType": "GroovyScriptWithDS",
+      "className": "com.bokesoft.exchange.transformer.ScriptWithDSTransformer",
+      "enable": "true",
+      "parentId": "8aab8da261e042cb0161e0555b240021",
+      "bigType": "transformer_au",
+      "simpleMpLog": "false",
+      "ds": "2c9081d05be7e572015be80fcb64000f",
+      "isRef": "false",
+      "id": "8aab8da261e042cb0161e06dadc80029"
+    }
+  ],
+  "normal": [
+    {
+      "text": "实时查询ERP系统中物料号分配申请的料号信息入口",
+      "description": "",
+      "address": "vm://ERP_MaterialCode_To_BPM",
+      "exchange_pattern": "request-response",
+      "smallType": "VM",
+      "className": "",
+      "enable": "true",
+      "parentId": "8aab8da261e042cb0161e0555b240021",
+      "bigType": "inbound",
+      "simpleMpLog": "false",
+      "encoding": "UTF-8",
+      "isRef": "false",
+      "id": "8aab8da261e042cb0161e05b01e40026"
+    },
+    {
+      "text": "记录查询ERP系统物料号申请的料号信息的开始时间",
+      "description": "",
+      "scriptContent": "String begintime = new java.text.SimpleDateFormat(\"yyyyMMdd HH:mm:ss.SSS\").format(new java.sql.Timestamp(java.lang.System.currentTimeMillis()));\nMap logmap = new HashMap();\nlogmap.put(\"begintime\", begintime);\nlogmap.put(\"flow\", payload.get(\"flow\"));\nlogmap.put(\"node\", payload.get(\"node\"));\nlogmap.put(\"oid\", payload.get(\"oid\"));\nlogmap.put(\"billkey\", payload.get(\"billkey\"));\nlogmap.put(\"request_data\", payload.get(\"json\"));\nmessage.setInboundProperty(\"logmap\", logmap);\nreturn com.bokesoft.dee.mule.util.json.JSONUtil.fromJson(payload.get(\"json\"), java.util.List.class);",
+      "className": "org.mule.module.scripting.transformer.ScriptTransformer",
+      "smallType": "GroovyScriptTransformer",
+      "enable": "true",
+      "parentId": "8aab8da261e042cb0161e0555b240021",
+      "bigType": "transformer_au",
+      "simpleMpLog": "false",
+      "isRef": "false",
+      "id": "8aab8da261e042cb0161e05d26400027"
+    },
+    {
+      "text": "实时查询ERP系统中物料分配申请单中的料号信息",
+      "description": "实时查询ERP系统中物料分配申请单中的料号信息",
+      "scriptContent": "int size = payload.size();\nString[] oj = null;\nfor (int j = 0; j < size; j++)\n{\n    Map mj = payload.get(j);\n    String valuej = mj.get(\"value\");\n    String conditionj = mj.get(\"condition\");\n    if (conditionj.equalsIgnoreCase(\"in\"))\n    {\n        oj = valuej.split(\",\");\n    }\n}\nString s = \"\";\nList ol = new ArrayList();\nfor (int i = 0; i < size; i++)\n{\n    Map m = payload.get(i);\n    String key = m.get(\"key\");\n    String value = m.get(\"value\");\n    String condition = m.get(\"condition\");\n    if (condition.equalsIgnoreCase(\"in\"))\n    {\n        s = s + \" and \" + key + \" \" + condition + \"(\";\n        for (int k = 0; k < oj.length; k++)\n        {\n            if (oj.length == 1)\n            {\n                s = s + \"?\";\n                ol.add(oj[k]);\n            }\n            else if (k == oj.length - 1)\n            {\n                s = s + \"?\";\n                ol.add(oj[k]);\n            }\n            else\n            {\n                s = s + \"?,\";\n                ol.add(oj[k]);\n            }\n        }\n        s = s + \")\";\n    }\n    else\n    {\n        s = s + \" and \" + key + condition + \"?\";\n        ol.add(value);\n    }\n}\nObject[] o = ol.toArray();\nString sql = \"SELECT ROWNUM,ORGA_NAME,ORGA_ID,ATTRIBUTE1,ATTRIBUTE2,ATTRIBUTE3,ATTRIBUTE4,INV_PLAN_ID,INVENTORY_PLANNING_CODE,MRP_PLAN_ID,MRP_PLANNING_CODE,POSTPROCESSING_LEAD_TIME,FIXED_LEAD_TIME,PLANNER_CODE,WIP_SUPPLY_ID,WIP_SUPPLY_TYPE,SHRINKAGE_RATE,FULL_LEAD_TIME,SEGMENT1,INVENTORY_ITEM_ID,DESCRIPTION,PRIMARY_UOM_CODE,CATEGORY_ID1,CATEGORY1,CATE_SEG1,CATE_SEG2,PLAN_MAKE_BUY_ID,PLANNING_MAKE_BUY_CODE,CATEGORY_ID2,CATEGORY2,CATEGORY_ID3,CATEGORY3,CATE3_SEG1,CATE3_SEG2,CATE3_SEG3,CATE3_SEG4,CATE3_SEG5,COGS_ID,COST_OF_SALES_ACCOUNT,BUDGET,AGENT_ID,BUYER_ID,RECEIPT_REQUIRED_FLAG,INSPECTION_REQUIRED_FLAG,RCV_ROUT_ID from apps.cux3_eflow_item_v t where t.orga_id = '82'\" + s;\nList < Map > rs = dbop.select(sql, o);\nString json = com.bokesoft.dee.mule.util.json.JSONUtil.toJson(rs);\nmessage.getInboundProperty(\"logmap\").put(\"response_data\", json);\nreturn rs;",
+      "smallType": "GroovyScriptWithDS",
+      "className": "com.bokesoft.exchange.transformer.ScriptWithDSTransformer",
+      "enable": "true",
+      "parentId": "8aab8da261e042cb0161e0555b240021",
+      "bigType": "transformer_au",
+      "simpleMpLog": "false",
+      "ds": "8aaae09b5bf03e9f015bf17bc58e061f",
+      "isRef": "false",
+      "id": "8aab8da261e042cb0161e06000870028"
+    }
+  ],
+  "exception": [
+    {
+      "text": "把异常对象转换为文本",
+      "description": "把异常对象转换为文本",
+      "className": "com.bokesoft.exchange.transformer.ExceptionMessageTransformer",
+      "smallType": "ExceptionMessageTransformer",
+      "enable": "true",
+      "parentId": "8aab8da261e042cb0161e0555b240021",
+      "bigType": "GGPZTransformer",
+      "isRef": "true",
+      "id": "8aab8da261e042cb0161e0555b9c0022"
+    },
+    {
+      "path": "${bokedee.logpath.runtimeLog}/ERP_MaterialCode_To_BPM",
+      "text": "记录错误日志到文件_ERP_MaterialCode_To_BPM",
+      "description": "",
+      "className": "",
+      "smallType": "File",
+      "enable": "true",
+      "outputPattern": "#[function:datestamp:yyyyMMddHHmmss]-#[message:id].xml",
+      "parentId": "8aab8da261e042cb0161e0555b240021",
+      "bigType": "outbound",
+      "file_subdir": "#[context:serviceName]/#[function:datestamp:yyyyMMdd]",
+      "isRef": "false",
+      "id": "8aab8da261e042cb0161e0555c740023"
+    },
+    {
+      "text": "把异常信息替换换行符_ERP_MaterialCode_To_BPM",
+      "description": "把异常信息替换换行符",
+      "scriptContent": "String exceptionContent = message.getPayload();String exception = exceptionContent.replace(\"\\n\", \"<br/>\");message.setPayload(exception);return message;",
+      "smallType": "GroovyScriptTransformer",
+      "className": "org.mule.module.scripting.transformer.ScriptTransformer",
+      "enable": "false",
+      "parentId": "8aab8da261e042cb0161e0555b240021",
+      "bigType": "transformer_au",
+      "simpleMpLog": "false",
+      "isRef": "false",
+      "id": "8aab8da261e042cb0161e0555d0d0024"
+    },
+    {
+      "text": "把异常信息通过邮件发送_ERP_MaterialCode_To_BPM",
+      "description": "把异常信息通过邮件发送",
+      "connector_ref": "bokedee_default_smtp_connector",
+      "subject": "ERP_MaterialCode_To_BPM",
+      "className": "",
+      "smallType": "SMTP",
+      "enable": "false",
+      "parentId": "8aab8da261e042cb0161e0555b240021",
+      "bigType": "outbound",
+      "encoding": "UTF-8",
+      "isRef": "false",
+      "id": "8aab8da261e042cb0161e0555da90025"
+    }
+  ]
+}

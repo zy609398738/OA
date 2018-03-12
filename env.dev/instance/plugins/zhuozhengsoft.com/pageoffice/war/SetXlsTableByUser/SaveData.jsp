@@ -1,17 +1,17 @@
 <%@ page language="java"
 	import="java.util.*,com.zhuozhengsoft.pageoffice.*,com.zhuozhengsoft.pageoffice.excelreader.*"
-	pageEncoding="gb2312"%>
+	pageEncoding="utf-8"%>
 <%
 	Workbook wb = new Workbook(request, response);
 	Sheet sheet = wb.openSheet("Sheet1");
 	Table tableA = sheet.openTable("tableA");
 	Table tableB = sheet.openTable("tableB");
 
-	//Êä³öÌá½»µÄÊı¾İ
-	out.print("Ìá½»µÄÊı¾İÎª£º<br/><br/>");
-	out.print("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;¼Æ»®Íê³ÉÁ¿"
-					+ "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Êµ¼ÊÍê³ÉÁ¿<br/>");
-	out.print("A²¿ÃÅ£º");
+	//è¾“å‡ºæäº¤çš„æ•°æ®
+	out.print("æäº¤çš„æ•°æ®ä¸ºï¼š<br/><br/>");
+	out.print("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;è®¡åˆ’å®Œæˆé‡"
+					+ "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;å®é™…å®Œæˆé‡<br/>");
+	out.print("Aéƒ¨é—¨ï¼š");
 	while (!tableA.getEOF()) {
 		if (!tableA.getDataFields().getIsEmpty()) {
 			for (int i = 0; i < tableA.getDataFields().size(); i++) {
@@ -23,7 +23,7 @@
 		tableA.nextRow();
 	}
 
-	out.print("B²¿ÃÅ£º");
+	out.print("Béƒ¨é—¨ï¼š");
 	while (!tableB.getEOF()) {
 		if (!tableB.getDataFields().getIsEmpty()) {
 			for (int i = 0; i < tableB.getDataFields().size(); i++) {
@@ -35,7 +35,7 @@
 		tableB.nextRow();
 	}
 
-	//Ïò¿Í»§¶ËÏÔÊ¾Ìá½»µÄÊı¾İ
+	//å‘å®¢æˆ·ç«¯æ˜¾ç¤ºæäº¤çš„æ•°æ®
 	wb.showPage(300, 300);
 	wb.close();
 %>

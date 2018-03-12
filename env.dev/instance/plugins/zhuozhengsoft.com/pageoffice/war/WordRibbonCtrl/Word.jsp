@@ -1,38 +1,38 @@
 <%@ page language="java"
-	import="java.util.*,com.zhuozhengsoft.pageoffice.*;"
-	pageEncoding="gb2312"%>
-<%@ taglib uri="http://java.pageoffice.cn" prefix="po"%>
+	import="java.util.*,com.zhuozhengsoft.pageoffice.*"
+	pageEncoding="utf-8"%>
 <%
 PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
-//ÉèÖÃ·şÎñÆ÷Ò³Ãæ
+//è®¾ç½®æœåŠ¡å™¨é¡µé¢
 poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");
-//Ìí¼Ó×Ô¶¨Òå°´Å¥
-poCtrl.addCustomToolButton("±£´æ","Save",1);
-poCtrl.getRibbonBar().setTabVisible("TabHome",true);//¿ªÊ¼
-poCtrl.getRibbonBar().setTabVisible("TabPageLayoutWord", false);//Ò³Ãæ²¼¾Ö
-poCtrl.getRibbonBar().setTabVisible("TabReferences", false);//ÒıÓÃ
-poCtrl.getRibbonBar().setTabVisible("TabMailings", false);//ÓÊ¼ş
-poCtrl.getRibbonBar().setTabVisible("TabReviewWord", false);//ÉóÔÄ
-poCtrl.getRibbonBar().setTabVisible("TabInsert", false);//²åÈë
-poCtrl.getRibbonBar().setTabVisible("TabView", false);//ÊÓÍ¼
+//æ·»åŠ è‡ªå®šä¹‰æŒ‰é’®
+poCtrl.addCustomToolButton("ä¿å­˜","Save",1);
+poCtrl.getRibbonBar().setTabVisible("TabHome",true);//å¼€å§‹
+poCtrl.getRibbonBar().setTabVisible("TabPageLayoutWord", false);//é¡µé¢å¸ƒå±€
+poCtrl.getRibbonBar().setTabVisible("TabReferences", false);//å¼•ç”¨
+poCtrl.getRibbonBar().setTabVisible("TabMailings", false);//é‚®ä»¶
+poCtrl.getRibbonBar().setTabVisible("TabReviewWord", false);//å®¡é˜…
+poCtrl.getRibbonBar().setTabVisible("TabInsert", false);//æ’å…¥
+poCtrl.getRibbonBar().setTabVisible("TabView", false);//è§†å›¾
 
 
-poCtrl.getRibbonBar().setSharedVisible("FileSave", false);//office×Ô´øµÄ±£´æ°´Å¥
+poCtrl.getRibbonBar().setSharedVisible("FileSave", false);//officeè‡ªå¸¦çš„ä¿å­˜æŒ‰é’®
 
-poCtrl.getRibbonBar().setGroupVisible("GroupClipboard", false);//·Ö×é¼ôÌù°å
+poCtrl.getRibbonBar().setGroupVisible("GroupClipboard", false);//åˆ†ç»„å‰ªè´´æ¿
 
-//ÉèÖÃ±£´æÒ³Ãæ
+//è®¾ç½®ä¿å­˜é¡µé¢
 //poCtrl.setSaveFilePage("SaveFile.jsp");
-//´ò¿ªWordÎÄµµ
-poCtrl.webOpen("doc/test.doc",OpenModeType.docNormalEdit,"ÕÅØıÃû");
-//poCtrl.webOpen("doc/test.docx",OpenModeType.docNormalEdit,"ÕÅØıÃû");
-poCtrl.setTagId("PageOfficeCtrl1");//´ËĞĞ±ØĞè
+//æ‰“å¼€Wordæ–‡æ¡£
+poCtrl.webOpen("doc/test.doc",OpenModeType.docNormalEdit,"å¼ ä½šå");
+//poCtrl.webOpen("doc/test.docx",OpenModeType.docNormalEdit,"å¼ ä½šå");
+
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
-   <title>×î¼òµ¥µÄ´ò¿ª±£´æWordÎÄ¼ş</title>
+   <title>æœ€ç®€å•çš„æ‰“å¼€ä¿å­˜Wordæ–‡ä»¶</title>
+
 </head>
 <body>
     <script type="text/javascript">
@@ -43,17 +43,16 @@ poCtrl.setTagId("PageOfficeCtrl1");//´ËĞĞ±ØĞè
     <form id="form1" >
     <div style=" width:auto; height:700px;">
 	<div style="font-size:14px; line-height:20px; ">
-	poCtrl.getRibbonBar().setTabVisible("TabHome",false);ÊµÏÖÒş²ØRibbonÀ¸ÖĞµÄ¡°¿ªÊ¼¡±ÃüÁî·Ö×é.£¨"TabHome"Îª¸ÃÃüÁî·Ö×éµÄÃû³Æ,falseÎªÒş²Ø£¬trueÎªÏÔÊ¾£©
+	poCtrl.getRibbonBar().setTabVisible("TabHome",false);å®ç°éšè—Ribbonæ ä¸­çš„â€œå¼€å§‹â€å‘½ä»¤åˆ†ç»„.ï¼ˆ"TabHome"ä¸ºè¯¥å‘½ä»¤åˆ†ç»„çš„åç§°,falseä¸ºéšè—ï¼Œtrueä¸ºæ˜¾ç¤ºï¼‰
 	<br/>
-	poCtrl.getRibbonBar().setSharedVisible("FileSave", false);ÊµÏÖÒş²ØRibbon¿ìËÙ¹¤¾ßÀ¸ÖĞµÄ¡°±£´æ¡±°´Å¥.£¨"FileSave"Îª°´Å¥µÄÃû³Æ,falseÎªÒş²Ø£¬trueÎªÏÔÊ¾£©
+	poCtrl.getRibbonBar().setSharedVisible("FileSave", false);å®ç°éšè—Ribbonå¿«é€Ÿå·¥å…·æ ä¸­çš„â€œä¿å­˜â€æŒ‰é’®.ï¼ˆ"FileSave"ä¸ºæŒ‰é’®çš„åç§°,falseä¸ºéšè—ï¼Œtrueä¸ºæ˜¾ç¤ºï¼‰
 	<br/>
-	poCtrl.getRibbonBar().setGroupVisible("GroupClipboard", false);ÊµÏÖÒş²Ø¡°¿ªÊ¼¡±ÃüÁî·Ö×éÖĞµÄ¡°¼ôÇĞ°å¡±Ãæ°å.£¨"GroupClipboard"Îª¸ÃÃæ°åµÄÃû³Æ,falseÎªÒş²Ø£¬trueÎªÏÔÊ¾£©
+	poCtrl.getRibbonBar().setGroupVisible("GroupClipboard", false);å®ç°éšè—â€œå¼€å§‹â€å‘½ä»¤åˆ†ç»„ä¸­çš„â€œå‰ªåˆ‡æ¿â€é¢æ¿.ï¼ˆ"GroupClipboard"ä¸ºè¯¥é¢æ¿çš„åç§°,falseä¸ºéšè—ï¼Œtrueä¸ºæ˜¾ç¤ºï¼‰
 	<br/>
-	<span style="color:red">×¢Òâ£º´Ë¿ØÖÆÊÇ»áÍ¬²½Ó°Ïìµ½±¾µØÎÄ¼ş´ò¿ªÊ±RibbonÀ¸ÖĞµÄ¸÷¸ö¹¤¾ß°´Å¥µÄÏÔÊ¾×´Ì¬£¬µ±¹Ø±ÕÔÚÏß±à¼­´°¿ÚÊ±£¬±¾µØRibbonÀ¸×´Ì¬»Ö¸´Õı³£¡£</span>
+	<span style="color:red">æ³¨æ„ï¼šæ­¤æ§åˆ¶æ˜¯ä¼šåŒæ­¥å½±å“åˆ°æœ¬åœ°æ–‡ä»¶æ‰“å¼€æ—¶Ribbonæ ä¸­çš„å„ä¸ªå·¥å…·æŒ‰é’®çš„æ˜¾ç¤ºçŠ¶æ€ï¼Œå½“å…³é—­åœ¨çº¿ç¼–è¾‘çª—å£æ—¶ï¼Œæœ¬åœ°Ribbonæ çŠ¶æ€æ¢å¤æ­£å¸¸ã€‚</span>
 	<br/><br/>
 	</div>
-        <po:PageOfficeCtrl id="PageOfficeCtrl1">
-        </po:PageOfficeCtrl>
+      	        <%=poCtrl.getHtmlCode("PageOfficeCtrl1")%>
     </div>
     </form>
 </body>

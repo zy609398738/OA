@@ -1,42 +1,34 @@
 <%@ page language="java"
 	import="java.util.*,com.zhuozhengsoft.pageoffice.*,com.zhuozhengsoft.pageoffice.excelwriter.*"
-	pageEncoding="gb2312"%>
-<%@ taglib uri="http://java.pageoffice.cn" prefix="po"%>
+	pageEncoding="utf-8"%>
 <%
 PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
-//ÉèÖÃ·þÎñÆ÷Ò³Ãæ
+//è®¾ç½®æœåŠ¡å™¨é¡µé¢
 poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");
-//Ìí¼Ó×Ô¶¨Òå°´Å¥
-poCtrl.addCustomToolButton("±£´æ","Save",1);
+
 
 Workbook  workBoook=new Workbook();
-workBoook.setDisableSheetRightClick(true);//½ûÖ¹µ±Ç°¹¤×÷±íÊó±êÓÒ¼ü
-//workBoook.setDisableSheetDoubleClick(true);//½ûÖ¹µ±Ç°¹¤×÷±íÊó±êË«»÷
+workBoook.setDisableSheetRightClick(true);//ç¦æ­¢å½“å‰å·¥ä½œè¡¨é¼ æ ‡å³é”®
+//workBoook.setDisableSheetDoubleClick(true);//ç¦æ­¢å½“å‰å·¥ä½œè¡¨é¼ æ ‡åŒå‡»
+//workBoook.setDisableSheetSelection(true);//ç¦æ­¢åœ¨å½“å‰å·¥ä½œè¡¨ä¸­é€‰æ‹©å†…å®¹
 poCtrl.setWriter(workBoook);
 
-//ÉèÖÃ±£´æÒ³Ãæ
-poCtrl.setSaveFilePage("SaveFile.jsp");
-//´ò¿ªWordÎÄµµ
-poCtrl.webOpen("doc/test.xls",OpenModeType.xlsNormalEdit,"ÕÅØýÃû");
-poCtrl.setTagId("PageOfficeCtrl1");//´ËÐÐ±ØÐè
+//æ‰“å¼€Wordæ–‡æ¡£
+poCtrl.webOpen("doc/test.xls",OpenModeType.xlsNormalEdit,"å¼ ä½šå");
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
-    <title>½ûÖ¹ExcelÎÄµµÊó±êÓÒ¼ü</title>
+    <title>ç¦æ­¢Excelæ–‡æ¡£é¼ æ ‡å³é”®</title>
+
 </head>
 <body>
-    <script type="text/javascript">
-        function Save() {
-            document.getElementById("PageOfficeCtrl1").WebSave();
-        }
-    </script>
+ 
     <form id="form1">
-    <div style="color:Red">´ò¿ªExcelÎÄµµºó£¬Êó±êÓÒ¼ü£¬·¢ÏÖÓÒ¼üÊ§Ð§¡£</div>
+    <div style="color:Red">æ‰“å¼€Excelæ–‡æ¡£åŽï¼Œé¼ æ ‡å³é”®ï¼Œå‘çŽ°å³é”®å¤±æ•ˆã€‚</div>
     <div style=" width:100%; height:700px;">
-        <po:PageOfficeCtrl id="PageOfficeCtrl1">
-        </po:PageOfficeCtrl>
+       <%=poCtrl.getHtmlCode("PageOfficeCtrl1")%>
     </div>
     </form>
 </body>

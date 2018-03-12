@@ -1,0 +1,11 @@
+[
+  {
+    "recordMpLog": "false",
+    "text": "ERP_Rate_TO_BPM",
+    "parentId": "8aaae09b5bfa4119015bfb7064ce0020",
+    "id": "8aaae09b5bfa4119015bfb7064ed0021",
+    "description": "实时查询ERP系统汇率信息",
+    "fileImport": "false",
+    "enable": "true"
+  }
+]

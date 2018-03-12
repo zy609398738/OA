@@ -102,8 +102,7 @@ YIUI.MetaService = (function () {
 		 */
 	    getPreLoadItems: function() {
 	        var params = {
-	    		cmd: "GetPreLoadItems",
-	    		service: "WebMetaService"
+	    		service: "GetPreLoadForm"
 	        };
 	        return Svr.Request.getData(params);
 	    },

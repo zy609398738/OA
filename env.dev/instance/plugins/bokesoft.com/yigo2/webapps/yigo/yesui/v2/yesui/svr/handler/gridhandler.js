@@ -3,10 +3,10 @@ YIUI.GridHandler = (function () {
         /**
          * 单元格单击事件,用于表格的button , hyperlink等
          */
-        doOnCellClick: function (control, rowIndex, colIndex, value) {
-            var formID = control.ofFormID, form = YIUI.FormStack.getForm(formID),
-                rowData = control.getRowDataAt(rowIndex),cellKey = rowData.cellKeys[colIndex],
-                editOpt = control.getColInfoByKey(cellKey)[0].cell;
+        doOnCellClick: function (grid, rowIndex, colIndex, value) {
+            var form = YIUI.FormStack.getForm(grid.ofFormID),
+                rowData = grid.getRowDataAt(rowIndex),
+                editOpt = grid.getMetaObj().rows[rowData.metaRowIndex].cells[colIndex];
 
             switch (editOpt.editOptions.cellType) {
             case YIUI.CONTROLTYPE.BUTTON:
@@ -58,6 +58,29 @@ YIUI.GridHandler = (function () {
             }
 
         },
+
+        /**
+         * 单元格双击事件
+         */
+        doOnCellDblClick: function (grid, rowIndex, colIndex) {
+            var rowData = grid.getRowDataAt(rowIndex),
+                metaCell = grid.getMetaObj().rows[rowData.metaRowIndex].cells[colIndex];
+
+            var cellDblClick = metaCell.cellDblClick;
+
+            if( cellDblClick ) {
+                var formID = grid.ofFormID,
+                    form = YIUI.FormStack.getForm(formID);
+                var cxt = new View.Context(form);
+
+                cxt.setRowIndex(rowIndex);
+                cxt.setColIndex(colIndex);
+
+                form.eval(cellDblClick, cxt, null);
+            }
+
+        },
+
         /**
          * 表格行焦点变化
          * oldRowIndex 暂未使用
@@ -85,13 +108,8 @@ YIUI.GridHandler = (function () {
         /**
          * 表格排序事件
          */
-        doOnSortClick: function (control, colIndex, sortType) {
-            if (control.hasGroupRow) {
-                alert(YIUI.I18N.grid.nonsupport);
-                return;
-            }
-            var data = control.dataModel.data;
-            data.sort(function (row1, row2) {
+        doOnSortClick: function (grid, colIndex, sortType) {
+            grid.dataModel.data.sort(function (row1, row2) {
                 if (row1.rowType == "Fix" || row1.rowType == "Total" || row2.rowType == "Fix" || row2.rowType == "Total") {
                     return row1.metaRowIndex - row2.metaRowIndex;
                 }
@@ -102,7 +120,7 @@ YIUI.GridHandler = (function () {
                 if (value1 !== undefined && value2 == undefined) return sortType === "asc" ? -1 : 1;
                 if (value1 == undefined && value2 !== undefined) return sortType === "asc" ? 1 : -1;
 
-                var editOpt = control.getCellEditOpt(row1.cellKeys[colIndex]);
+                var editOpt = grid.getCellEditOpt(row1.cellKeys[colIndex]);
 
                 switch (editOpt.editOptions.cellType) {
                 case YIUI.CONTROLTYPE.DATEPICKER:
@@ -117,9 +135,9 @@ YIUI.GridHandler = (function () {
                 }
                 return 1;
             });
-            control.dataModel.data = data;
-            control.refreshGrid();
+            grid.refreshGrid();
         },
+
         /**
          * 单元格选中事件
          */
@@ -206,15 +224,6 @@ YIUI.GridHandler = (function () {
                 }
             }
         },
-        // doAllChecked: function (control, colIndex, newValue) {
-        //     var len = control.dataModel.data.length;
-        //     for (var i = 0; i < len; i++) {
-        //         var rd = control.dataModel.data[i];
-        //         if (rd.isDetail && rd.bookmark != undefined && rd.bookmark != null) {
-        //             control.setValueAt(i, colIndex, newValue, true, true);
-        //         }
-        //     }
-        // },
 
         /**
          * 向指定页进行跳转
@@ -233,18 +242,8 @@ YIUI.GridHandler = (function () {
                 filterMap.setOID(form.getDocument().oid == undefined ? -1 : form.getDocument().oid);
                 filterMap.getTblFilter(tableKey).startRow = startRi;
                 filterMap.getTblFilter(tableKey).maxRows = pageRowCount;
-                // var paras = {
-                //     formKey: form.formKey,
-                //     cmd: "gridgotopage",
-                //     filterMap: $.toJSON(filterMap),
-                //     gridKey: control.key,
-                //     condition: $.toJSON(form.getCondParas()),
-                //     formOptState: form.getOperationState()
-                // };
                 def = YIUI.DocService.loadFormData(form, form.getFilterMap().OID, form.getFilterMap(), form.getCondParas())
                         .then(function(doc){
-                         //   console.log('goto page load data');
-                            // form.setDocument(doc);
 
                             var dataTable = doc.getByKey(tableKey);
 
@@ -252,56 +251,10 @@ YIUI.GridHandler = (function () {
 
                             var totalRowCount = startRi + YIUI.TotalRowCountUtil.getRowCount(doc, tableKey);
                             YIUI.TotalRowCountUtil.setRowCount(form.getDocument(), tableKey, totalRowCount);
-                            // control.curPageIndex = pageIndex + 1;
                             control.load(false);
                         });
-//              if (control.pageInfo.pageLoadType == "UI") {
-//                 paras.document = $.toJSON(YIUI.DataUtil.toJSONDoc(form.getDocument()));
-//              }
-
-                // var result = JSON.parse(Svr.SvrMgr.doGoToPage(paras)), dataTable;
-                // if (result.dataTable) {
-                //     dataTable = YIUI.DataUtil.fromJSONDataTable(result.dataTable);
-                //     form.getDocument().setByKey(control.tableKey, dataTable);
-                // } else {
-                //     dataTable = form.getDocument().getByKey(control.tableKey);
-                // }
-
-                // 后台分页不考虑编辑,只处理选择字段的值
-//                 var shadowTableKey = YIUI.DataUtil.getShadowTableKey(control.tableKey);
-//                 var shadowTable = form.getDocument().getByKey(shadowTableKey);
-//                 if( shadowTable && control.pageInfo.pageLoadType == YIUI.PageLoadType.DB ) {
-//                     var data = result.data,row;
-//                     for( var i = 0,len = result.data.length;i < len;i++ ){
-//                        row = data[i];
-//                        if( row.bookmark === undefined || row.bookmark == null )
-//                         continue;
-//                        dataTable.setByBkmk(row.bookmark);
-//                        var OID = dataTable.getByKey(YIUI.SystemField.OID_SYS_KEY),primaryKeys;
-//                        if( OID != null && OID != undefined ){
-//                            primaryKeys = [YIUI.SystemField.OID_SYS_KEY];
-//                        } else {
-//                            primaryKeys = control.primaryKeys;
-//                        }
-//                        var pos = YIUI.DataUtil.getPosByPrimaryKeys(dataTable, shadowTable, primaryKeys);
-//                        if( pos != -1 ) {
-//                            var v = shadowTable.getByKey(YIUI.DataUtil.System_SelectField_Key);
-//                            row.data[control.selectFieldIndex][0] = v;  // value caption enable
-//                        }
-//                    }
-//                 }
-//                 control.dataModel.data = result.data;
-//                 control.errorInfoes = result.errorInfoes;
-//                 control.pageInfo.totalPage = result.totalPage;
-// //              control.pageInfo.currentPage = result.currentPage;
-//                 control.rowIDMask = 0;
             }
-            // control.initRowDatas();
-            // control.refreshGrid({needCalc: control.pageInfo.pageLoadType == "DB"});
-  //          if (control.pageInfo.pageLoadType == YIUI.PageLoadType.DB) {
-                //如果是DB分页的情况，根据shadowTable中的行修改当前页的对应的行的值及显示数据。
-//                YIUI.DataUtil.modifyDisplayValueByShadow(form.getDocument(), dataTable, control, result.data);
-    //        }
+
 
             return def.promise();
         },
@@ -387,30 +340,30 @@ YIUI.GridHandler = (function () {
                 break;
             }
         },
-        setCellValueToDataTable: function (editOpt, dataTable, newValue) {
-            var colKey = editOpt.columnKey;
+        setCellValueToDataTable: function (metaCell, dataTable, newValue) {
+            var colKey = metaCell.columnKey;
 
             if ( !colKey )
                 return;
 
-            var editOpts = editOpt.editOptions;
-            var cellType = editOpts.cellType;
+            var cellType = metaCell.cellType,
+                editOpt = metaCell.editOptions;
 
             switch (cellType) {
                 case YIUI.CONTROLTYPE.DYNAMICDICT:
                 case YIUI.CONTROLTYPE.DICT:
                     if (newValue == null || newValue == undefined) {
-                        if (editOpts.allowMultiSelection) {
+                        if (editOpt.allowMultiSelection) {
                             dataTable.setByKey(colKey, null);
                         } else {
                             dataTable.setByKey(colKey, 0);
                         }
                         break;
                     }
-                    if (editOpts.allowMultiSelection) {
+                    if (editOpt.allowMultiSelection) {
                         var oids = [], itemKey = "";
-                        if (editOpts.isCompDict) {
-                            $.error($.ygrid.formatString($.ygrid.compDictNotDataBinding, editOpt.key))
+                        if (editOpt.isCompDict) {
+                            $.error($.ygrid.formatString($.ygrid.compDictNotDataBinding, metaCell.key))
                         }
                         for (var i = 0, len = newValue.length; i < len; i++) {
                             oids.push(newValue[i].oid);
@@ -471,39 +424,89 @@ YIUI.GridHandler = (function () {
             return dataTable.getBkmk();
         },
         setFixValueToDoc: function (form, grid, rowIndex, colIndex, newValue) {
-            var row = grid.dataModel.data[rowIndex], cEditOpt = grid.dataModel.colModel.cells[row.cellKeys[colIndex]],
-                doc = form.getDocument(), dataTable, dataType, tableKey = cEditOpt.tableKey, colKey = cEditOpt.columnKey;
-            if (doc == undefined || doc == null) return;
-            if (tableKey == undefined || colKey == undefined) return;
-            dataTable = doc.getByKey(tableKey);
-            if (dataTable == undefined || dataTable == null) return;
-            if (!dataTable.first()) {
-                dataTable.addRow();
+            var row = grid.dataModel.data[rowIndex],
+                metaCell = grid.getMetaObj().rows[row.metaRowIndex].cells[colIndex],
+                doc = form.getDocument(),
+                table;
+            if ( !doc )
+                return;
+            table = doc.getByKey(metaCell.tableKey);
+            if ( !table )
+                return;
+            if ( !table.first() ) {
+                table.addRow(true);
             }
-            this.setCellValueToDataTable(cEditOpt, dataTable, newValue);
+            this.setCellValueToDataTable(metaCell, table, newValue);
         },
+
+        selectRange: function (grid, start, end, ci, value) {
+            var cell,
+                row;
+            for( var i = start;i < end;i++ ) {
+                row = grid.getRowDataAt(i);
+                cell = row.data[ci];
+                if( row.rowType !== 'Detail' || YIUI.GridUtil.isEmptyRow(row) || !cell[2] )
+                    continue;
+                grid.setValueAt(i,ci,value,true,true);
+            }
+        },
+
+        selectSingle: function (grid, rowIndex, colIndex, value) {
+            if( value ) {
+                var row;
+                for( var i = 0,size = grid.getRowCount();i < size;i++ ) {
+                    row = grid.getRowDataAt(i);
+                    if( i == rowIndex || row.rowType !== 'Detail' || YIUI.GridUtil.isEmptyRow(row) )
+                        continue;
+                    grid.setValueAt(i,colIndex,false,true,true);
+                }
+                var form = YIUI.FormStack.getForm(grid.ofFormID);
+                var doc = form.getDocument();
+                var shadowTable = doc.getShadow(grid.tableKey);
+                if ( shadowTable ) {
+                    shadowTable.clear();
+                }
+            }
+            grid.setValueAt(rowIndex,colIndex,value,true,true);
+        },
+
         selectRow: function (form, grid, rowIndex, colIndex, newValue) {
-            var rd = grid.getRowDataAt(rowIndex), tableKey = grid.tableKey,
-                doc = form.getDocument(), dataTable = doc.getByKey(tableKey),
-                dataType = dataTable.cols[dataTable.indexByKey(YIUI.SystemField.SELECT_FIELD_KEY)].type;
-            if (rd.isDetail && rd.bookmark == undefined || doc == undefined || dataTable == undefined) return;
+            var row = grid.getRowDataAt(rowIndex),
+                tableKey = grid.tableKey,
+                doc = form.getDocument(),
+                dataTable = doc.getByKey(tableKey);
+
+            var bkmk;
+            if( row.bkmkRow ) {
+                bkmk = row.bkmkRow.getBookmark();
+            }
+            if( bkmk == null ) {
+                bkmk = row.bookmark;
+            }
+
+            if ( bkmk == undefined || !tableKey ) {
+                return;
+            }
+
             var selectKey = YIUI.SystemField.SELECT_FIELD_KEY,
-                OIDKey = YIUI.SystemField.OID_SYS_KEY;
+                OIDKey = YIUI.SystemField.OID_SYS_KEY,
+                dataType = dataTable.cols[dataTable.indexByKey(selectKey)].type;
+
+            newValue = YIUI.TypeConvertor.toDataType(dataType, newValue);
+
             if (grid.hasColExpand) {
-                for (var i = 0, len = rd.bookmark.length; i < len; i++) {
-                    var detailBkmk = rd.bookmark[i];
-                    dataTable.setByBkmk(detailBkmk);
-                    dataTable.setByKey(selectKey, YIUI.Handler.convertValue(newValue, dataType));
+                for (var i = 0, len = row.bookmark.length; i < len; i++) {
+                    dataTable.setByBkmk(row.bookmark[i]);
+                    dataTable.setByKey(selectKey, newValue);
                 }
             } else {
                 if (grid.pageInfo.pageLoadType == YIUI.PageLoadType.DB) {
-
                     var shadowTable = doc.getShadow(tableKey);
                     if ( !shadowTable ) {
                         shadowTable = YIUI.DataUtil.newShadowDataTable(dataTable);
                         doc.addShadow(tableKey, shadowTable);
                     }
-                    dataTable.setByBkmk(rd.bookmark);
+                    dataTable.setByBkmk(bkmk);
                     if (dataTable.getState() == DataDef.R_New)
                         return;
                     var curOID = dataTable.getByKey(OIDKey), primaryKeys;
@@ -522,7 +525,7 @@ YIUI.GridHandler = (function () {
                                 shadowTable.set(j, dataTable.get(j));
                             }
                         }
-                        shadowTable.setByKey(selectKey, 1);
+                        shadowTable.setByKey(selectKey, newValue);
                         shadowTable.setState(dataTable.getState());
                     } else {
                         if (pos != -1) {
@@ -531,24 +534,35 @@ YIUI.GridHandler = (function () {
                         }
                     }
                 } else {
-                    dataTable.setByBkmk(rd.bookmark);
-                    dataTable.setByKey(selectKey, YIUI.Handler.convertValue(newValue, dataType));
+                    dataTable.setByBkmk(bkmk);
+                    dataTable.setByKey(selectKey, newValue);
                 }
             }
         },
         setDtlValueToDoc: function (form, grid, rowIndex, colIndex, newValue) {
-            var row = grid.dataModel.data[rowIndex], cEditOpt = grid.dataModel.colModel.cells[row.cellKeys[colIndex]],
-                doc = form.getDocument(),metaCell = grid.getMetaObj().rows[row.metaRowIndex].cells[colIndex];
+            var row = grid.getRowDataAt(rowIndex),
+                doc = form.getDocument(),
+                metaCell = grid.getMetaObj().rows[row.metaRowIndex].cells[colIndex],
+                sIndex = grid.selectFieldIndex;
 
-            if (grid.selectFieldIndex != -1 && grid.selectFieldIndex == colIndex) {
+            if (sIndex != -1 && sIndex == colIndex && row.rowType === 'Detail' ) {
                 this.selectRow(form, grid, rowIndex, colIndex, newValue);
             }
+
             if ( !doc || !metaCell.hasDB )
                 return;
 
             var dataTable = doc.getByKey(grid.tableKey);
 
-            if (row.isDetail && row.bookmark == undefined) {
+            var bkmk;
+            if( row.bkmkRow ) {
+                bkmk = row.bkmkRow.getBookmark();
+            }
+            if( bkmk == null ) {
+                bkmk = row.bookmark;
+            }
+
+            if( row.isDetail && bkmk == null ) {
                 this.flushRow(form, grid, rowIndex);
                 
                 YIUI.SubDetailUtil.showSubDetailData(grid, rowIndex);
@@ -558,29 +572,30 @@ YIUI.GridHandler = (function () {
                 if (grid.hasColExpand) {
                     if (metaCell.isColExpand) {
                         dataTable.setByBkmk(row.cellBkmks[colIndex]);
-                        this.setCellValueToDataTable(cEditOpt, dataTable, newValue);
+                        this.setCellValueToDataTable(metaCell, dataTable, newValue);
                     } else {
                         for (var i = 0, len = row.bookmark.length; i < len; i++) {
                             dataTable.setByBkmk(row.bookmark[i]);
-                            this.setCellValueToDataTable(cEditOpt, dataTable, newValue);
+                            this.setCellValueToDataTable(metaCell, dataTable, newValue);
                         }
                     }
                 } else {
-                    dataTable.setByBkmk(row.bookmark);
-                    this.setCellValueToDataTable(cEditOpt, dataTable, newValue);
+                    dataTable.setByBkmk(bkmk);
+                    this.setCellValueToDataTable(metaCell, dataTable, newValue);
                 }
             }
             // 设置子明细头控件的值
             var compList = form.subDetailInfo[metaCell.key];
             if( compList ) {
+                var com;
                 for (var i = 0, len = compList.length; i < len; i++) {
-                    var com = form.getComponent(compList[i]);
+                    com = form.getComponent(compList[i]);
                     com.setValue(newValue,true,true);
                 }
             }
 
             // 设置影子表的值
-            this.setValue2ShadowTable(form,grid,cEditOpt,dataTable);
+            this.setValue2ShadowTable(form,grid,metaCell,dataTable);
         },
 
         setValue2ShadowTable:function (form, grid, editOpt, dataTable) {
@@ -625,20 +640,24 @@ YIUI.GridHandler = (function () {
             return key.join("_");
         },
         flushRow: function (form, grid, rowIndex) {
-            var row = grid.dataModel.data[rowIndex], tableKey = grid.tableKey,
-                metaRow = grid.getMetaObj().rows[row.metaRowIndex],viewRow,
-                doc = form.getDocument(), dataTable = doc.getByKey(tableKey), rowBkmk;
+            var row = grid.getRowDataAt(rowIndex),
+                metaRow = grid.getMetaObj().rows[row.metaRowIndex],
+                dataTable = form.getDocument().getByKey(grid.tableKey),
+                rowBkmk,
+                viewRow;
             if (grid.hasColExpand) {
                 rowBkmk = [];
                 viewRow = new YIUI.ExpandRowBkmk(grid.getColumnExpandModel().length);
-                var cell, metaCell, cEditOpt;
+                var cell,
+                    metaCell,
+                    crossValue,
+                    areaIndex;
                 for (var i = 0, len = row.data.length; i < len; i++) {
                     cell = row.data[i];
                     metaCell = metaRow.cells[i];
-                    cEditOpt = grid.dataModel.colModel.cells[row.cellKeys[i]];
                     if (metaCell.isColExpand) {
-                        var crossValue = metaCell.crossValue;
-                        var areaIndex = metaCell.columnArea;
+                        crossValue = metaCell.crossValue;
+                        areaIndex = metaCell.columnArea;
 
                         var detailViewRow = viewRow.getAtArea(areaIndex,crossValue);
 
@@ -647,15 +666,16 @@ YIUI.GridHandler = (function () {
                             rowBkmk.push(dataTable.getBkmk());
                             row.cellBkmks[i] = dataTable.getBkmk();
 
-                            detailViewRow = new YIUI.DetailRowBkmk();
-                            detailViewRow.setBookmark(dataTable.getBkmk());
-                            viewRow.add(metaCell.columnArea,crossValue,detailViewRow);
+                            detailViewRow = new YIUI.DetailRowBkmk(dataTable.getBkmk());
+                            viewRow.add(areaIndex,crossValue,detailViewRow);
 
                             //扩展数据赋值
-                            var expInfo = grid.expandModel[metaCell.columnArea];
-                            for (var k = 0, cLen = metaCell.crossValue.values.length; k < cLen; k++) {
-                                var node = metaCell.crossValue.values[k];
-                                var expKey = expInfo[k];
+                            var expInfo = grid.expandModel[areaIndex],
+                                node,
+                                expKey;
+                            for (var k = 0, cLen = crossValue.values.length; k < cLen; k++) {
+                                node = crossValue.values[k];
+                                expKey = expInfo[k];
                                 if (expKey !== undefined && expKey !== null && expKey.length > 0) {
                                     dataTable.setByKey(expKey, node.value);
                                 }
@@ -664,16 +684,15 @@ YIUI.GridHandler = (function () {
                             row.cellBkmks[i] = detailViewRow.getBookmark();
                         }
                         //当前单元格赋值
-                        this.setCellValueToDataTable(cEditOpt, dataTable, cell[0]);
+                        this.setCellValueToDataTable(metaCell, dataTable, cell[0]);
                     }
                 }
                 for (var m = 0, eLen = viewRow.size(); m < eLen; m++) {
                     dataTable.setByBkmk(viewRow.getAt(m).getBookmark());
                     for (var n = 0, nLen = row.data.length; n < nLen; n++) {
                         metaCell = metaRow.cells[n];
-                        cEditOpt = grid.dataModel.colModel.cells[row.cellKeys[n]];
                         if ( !metaCell.isColExpand ) {
-                            this.setCellValueToDataTable(cEditOpt, dataTable, row.data[n][0]);
+                            this.setCellValueToDataTable(metaCell, dataTable, row.data[n][0]);
                         }
                     }
                 }
@@ -681,15 +700,13 @@ YIUI.GridHandler = (function () {
                 dataTable.addRow(true);
                 rowBkmk = dataTable.getBkmk();
                 for (var j = 0, jLen = row.data.length; j < jLen; j++) {
-                    cEditOpt = grid.dataModel.colModel.cells[row.cellKeys[j]];
-                    this.setCellValueToDataTable(cEditOpt, dataTable, row.data[j][0]);
+                    metaCell = metaRow.cells[j];
+                    this.setCellValueToDataTable(metaCell, dataTable, row.data[j][0]);
                 }
-                viewRow = new YIUI.DetailRowBkmk();
-                viewRow.setBookmark(rowBkmk);
+                viewRow = new YIUI.DetailRowBkmk(rowBkmk);
                 if( grid.isSubDetail ) {
-                    var parentGrid = YIUI.SubDetailUtil.getBindingGrid(form,grid);
-                    var parentIndex = parentGrid.getFocusRowIndex();
-                    var parentRow = parentGrid.dataModel.data[parentIndex];
+                    var parentGrid = YIUI.SubDetailUtil.getBindingGrid(form,grid),
+                        parentRow = parentGrid.dataModel.data[parentGrid.getFocusRowIndex()];
                     dataTable.rows[dataTable.pos].parentBkmk = parentRow.bookmark;
                 }
             }
@@ -762,9 +779,7 @@ YIUI.GridHandler = (function () {
                     || metaCell.cellType == YIUI.CONTROLTYPE.BUTTON
                     || metaCell.cellType == YIUI.CONTROLTYPE.HYPERLINK) {
 
-                    value = rowData.data[i][1];
-
-                    grid.setValueAt(rowIndex, i, value, false, false, true);
+                    grid.setCaptionAt(rowIndex, i, rowData.data[i][1]);
                 }
             }
         },
@@ -773,12 +788,13 @@ YIUI.GridHandler = (function () {
             var document = form.getDocument();
             if (document == null)
                 return;
-            var rowData = grid.getRowDataAt(rowIndex);
+            var rowData = grid.getRowDataAt(rowIndex),
+                metaCell,
+                value;
             for (var i = 0, len = rowData.data.length; i < len; i++) {
-                var metaCell = grid.getMetaObj().rows[rowData.metaRowIndex].cells[i], value;
+                metaCell = grid.getMetaObj().rows[rowData.metaRowIndex].cells[i];
                 if( metaCell.hasDB ) {
-                    var table = document.getByKey(metaCell.tableKey);
-                    value = YIUI.UIUtil.getCompValue(metaCell, table);
+                    value = YIUI.UIUtil.getCompValue(metaCell, document.getByKey(metaCell.tableKey));
                 } else {
                     value = rowData.data[i][1];
                 }
@@ -835,13 +851,16 @@ YIUI.GridHandler = (function () {
          *处理表格值变化时需要发生的相关事件
          */
         fireEvent: function (form, grid, rowIndex, colIndex) {
-            var row = grid.dataModel.data[rowIndex], cellKey = row.cellKeys[colIndex],
-                editOpt = grid.dataModel.colModel.cells[cellKey];
+            var row = grid.dataModel.data[rowIndex];
+                //cellKey = row.cellKeys[colIndex];
+               // editOpt = grid.dataModel.colModel.cells[cellKey];
+
+            var editOpt = grid.getMetaObj().rows[row.metaRowIndex].cells[colIndex];
 
             // 触发事件
-            form.getViewDataMonitor().fireCellValueChanged(grid, rowIndex, colIndex,cellKey);
+            form.getViewDataMonitor().fireCellValueChanged(grid, rowIndex, colIndex, editOpt.key);
 
-            if ( grid.isEnable() && grid.newEmptyRow && editOpt && editOpt.columnKey ) {
+            if ( (grid.isEnable() && grid.newEmptyRow && editOpt && editOpt.columnKey) || grid.condition ) {
 
                 var index = grid.appendEmptyRow(rowIndex);
 
@@ -938,7 +957,7 @@ YIUI.GridHandler = (function () {
                     bkmk = row.bookmark;
                     if (grid.hasColExpand) {
                         dataTable.setByBkmk(bkmk[0]);
-                        seq = ++ curSeq;
+                        seq = ++curSeq;
                         for (var j = 0, jlen = bkmk.length; j < jlen; j++) {
                             dataTable.setByBkmk(bkmk[j]);
                             dataTable.setByKey(SYS_SEQUENCE, seq);
@@ -1016,7 +1035,10 @@ YIUI.GridHandler = (function () {
             }
         },
         dependedValueChangeAt: function (grid, rowIndex, dependencyField, targetField, value) {
-            var row = grid.getRowDataAt(rowIndex), metaRow = grid.getMetaObj().rows[row.metaRowIndex];
+            var row = grid.getRowDataAt(rowIndex),
+                metaRow = grid.getMetaObj().rows[row.metaRowIndex],
+                metaCell,editOpt;
+
             var updateDynamicCell = function (cell, cellTypeDef, editOpt, rowData, rowIndex, cellIndex) {
                 if (cellTypeDef.options.isAlwaysShow) {
                     var iRow = rowIndex + 1, iCol = grid.getMetaObj().showRowHead ? cellIndex + 1 : cellIndex, cm = grid.dataModel.colModel[iCol],
@@ -1025,18 +1047,32 @@ YIUI.GridHandler = (function () {
                     grid.alwaysShowCellEditor(cell, iRow, iCol, cm, [null, "", cell.enable], opt, gRow.offsetHeight);
                 }
             };
-            for (var i = 0, len = metaRow.cells.length; i < len; i++) {
-                var metaCell = metaRow.cells[i], editOpt = grid.dataModel.colModel.cells[metaCell.key];
+
+            for (var i = 0;metaCell = metaRow.cells[i]; i++) {
+                editOpt = grid.getCellEditOpt(metaCell.key);
                 if (metaCell.key == targetField) {
                     if (metaCell.cellType == YIUI.CONTROLTYPE.DYNAMIC) {
-                        var cell = grid.el.getGridCellAt(rowIndex + 1, grid.getMetaObj().showRowHead ? i + 1 : i),
-                            cellTypeDef = cell.cellTypeDef;
-                        if (cellTypeDef != null) {
-                            var newOpt = $.extend(true, {}, editOpt), newOptions = $.extend(true, cellTypeDef.options, editOpt.editOptions);
-                            newOpt.editOptions = newOptions;
-                            Return.dependencyValueChangedByType(grid, cellTypeDef.type, newOpt, rowIndex, i, dependencyField, value);
-                            updateDynamicCell(cell, cellTypeDef, rowIndex, i);
-                        }
+
+                        var typeDefKey = editOpt.typeDefKey;
+                        if( !typeDefKey )
+                            return;
+
+                        var form = YIUI.FormStack.getForm(grid.ofFormID),
+                            cellTypeDef = form.metaForm.cellTypeGroup[typeDefKey];
+
+
+
+                      //  var cell = grid.el.getGridCellAt(rowIndex + 1, grid.getMetaObj().showRowHead ? i + 1 : i),
+                       //     cellTypeDef = cell.cellTypeDef;
+                       // if (cellTypeDef != null) {
+                         //   var newOpt = $.extend(true, {}, editOpt), newOptions = $.extend(true, cellTypeDef.options, editOpt.editOptions);
+                        //    newOpt.editOptions = newOptions;
+                       //     Return.dependencyValueChangedByType(grid, cellTypeDef.type, newOpt, rowIndex, i, dependencyField, value);
+                      //      updateDynamicCell(cell, cellTypeDef, rowIndex, i);
+                     //   }
+
+                        grid.setValueAt(rowIndex, i, value, true, true);
+
                     } else {
                         Return.dependencyValueChangedByType(grid, metaCell.cellType, editOpt, rowIndex, i, dependencyField, value);
                     }

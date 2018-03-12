@@ -1,32 +1,30 @@
 <%@ page language="java"
 	import="java.util.*,com.zhuozhengsoft.pageoffice.*,com.zhuozhengsoft.pageoffice.excelwriter.*"
-	pageEncoding="gb2312"%>
-<%@ taglib uri="http://java.pageoffice.cn" prefix="po"%>
+	pageEncoding="utf-8"%>
 <%
 Workbook workBook=new Workbook();
 Sheet sheet1=workBook.openSheet("Sheet1");
 sheet1.openCell("A1").setValue("[image]image/logo.jpg[/image]");
 PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
-//ÉèÖÃ·þÎñÆ÷Ò³Ãæ
+//è®¾ç½®æœåŠ¡å™¨é¡µé¢
 poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");
-poCtrl.setWriter(workBook);//´ËÐÐ±ØÐë
-//´ò¿ªWordÎÄµµ
-poCtrl.webOpen("doc/test.xls",OpenModeType.xlsNormalEdit,"ÕÅØýÃû");
-poCtrl.setTagId("PageOfficeCtrl1");//´ËÐÐ±ØÐè
+poCtrl.setWriter(workBook);//æ­¤è¡Œå¿…é¡»
+//æ‰“å¼€Wordæ–‡æ¡£
+poCtrl.webOpen("doc/test.xls",OpenModeType.xlsNormalEdit,"å¼ ä½šå");
+
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
-    <title>ExcelÖÐ²åÈëÍ¼Æ¬</title>
+    <title>Excelä¸­æ’å…¥å›¾ç‰‡</title>
+
 </head>
 <body>
-    <script type="text/javascript">
-    </script>
+    
     <form id="form1">
     <div style=" width:100%; height:700px;">
-        <po:PageOfficeCtrl id="PageOfficeCtrl1">
-        </po:PageOfficeCtrl>
+       <%=poCtrl.getHtmlCode("PageOfficeCtrl1")%>
     </div>
     </form>
 </body>

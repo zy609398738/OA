@@ -1,9 +1,9 @@
-<%@ page language="java" import="java.util.*" pageEncoding="gb2312"%>
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@page import="com.zhuozhengsoft.pageoffice.*, com.zhuozhengsoft.pageoffice.excelwriter.*"%>
-<%@ taglib uri="http://java.pageoffice.cn" prefix="po"%>
+
 <%
 		String userName=request.getParameter("userName");
- 		//***************************×¿ÕıPageOffice×é¼şµÄÊ¹ÓÃ********************************
+ 		//***************************å“æ­£PageOfficeç»„ä»¶çš„ä½¿ç”¨********************************
  		PageOfficeCtrl poCtrl = new PageOfficeCtrl(request);
  		
         Workbook wb = new Workbook();
@@ -15,31 +15,30 @@
         tableB.setSubmitName("tableB");
 		
 		
-        //¸ù¾İµÇÂ¼ÓÃ»§ÃûÉèÖÃÊı¾İÇøÓò¿É±à¼­ĞÔ
+        //æ ¹æ®ç™»å½•ç”¨æˆ·åè®¾ç½®æ•°æ®åŒºåŸŸå¯ç¼–è¾‘æ€§
         String strInfo = "";
         
-        //A²¿ÃÅ¾­ÀíµÇÂ¼ºó
+        //Aéƒ¨é—¨ç»ç†ç™»å½•å
         if (userName.equals("zhangsan"))
         {
-        	strInfo = "A²¿ÃÅ¾­Àí£¬ËùÒÔÖ»ÄÜ±à¼­A²¿ÃÅµÄ²úÆ·Êı¾İ";
+        	strInfo = "Aéƒ¨é—¨ç»ç†ï¼Œæ‰€ä»¥åªèƒ½ç¼–è¾‘Aéƒ¨é—¨çš„äº§å“æ•°æ®";
             tableA.setReadOnly(false);
             tableB.setReadOnly(true);
         }
-        //B²¿ÃÅ¾­ÀíµÇÂ¼ºó
+        //Béƒ¨é—¨ç»ç†ç™»å½•å
         else
         {
-        	strInfo = "B²¿ÃÅ¾­Àí£¬ËùÒÔÖ»ÄÜ±à¼­B²¿ÃÅµÄ²úÆ·Êı¾İ";
+        	strInfo = "Béƒ¨é—¨ç»ç†ï¼Œæ‰€ä»¥åªèƒ½ç¼–è¾‘Béƒ¨é—¨çš„äº§å“æ•°æ®";
             tableA.setReadOnly(true);
             tableB.setReadOnly(false);
         }
 
         poCtrl.setWriter(wb);
 
-		poCtrl.setServerPage(request.getContextPath()+"/poserver.zz"); //´ËĞĞ±ØĞë
-        poCtrl.addCustomToolButton("±£´æ", "Save", 1);
+		poCtrl.setServerPage(request.getContextPath()+"/poserver.zz"); //æ­¤è¡Œå¿…é¡»
+        poCtrl.addCustomToolButton("ä¿å­˜", "Save", 1);
         poCtrl.setSaveFilePage("SaveFile.jsp");
         poCtrl.webOpen("doc/test.xls",OpenModeType.xlsSubmitForm, userName);
-        poCtrl.setTagId("PageOfficeCtrl1");
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -48,6 +47,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
 		<title></title>
 		<link href="images/csstg.css" rel="stylesheet" type="text/css" />
+
 	</head>
 	<body>
 
@@ -55,21 +55,21 @@
 		<div id="content">
 			<div id="textcontent" style="width: 1000px; height: 800px;">
 				<div class="flow4">
-					<a href="Default.jsp"> ·µ»ØµÇÂ¼Ò³</a>
-					<strong>µ±Ç°ÓÃ»§£º</strong>
+					<a href="Default.jsp"> è¿”å›ç™»å½•é¡µ</a>
+					<strong>å½“å‰ç”¨æˆ·ï¼š</strong>
 					<span style="color: Red;"><%=strInfo %></span>
 				</div>
 
 				<script type="text/javascript">
-	                //±£´æÒ³Ãæ
+	                //ä¿å­˜é¡µé¢
 	                function Save() {
 	                    document.getElementById("PageOfficeCtrl1").WebSave();
 	                }
 	
 	            </script>
 
-				<!--**************   ×¿Õı PageOffice×é¼ş ************************-->
-				<po:PageOfficeCtrl id="PageOfficeCtrl1"></po:PageOfficeCtrl>
+				<!--**************   å“æ­£ PageOfficeç»„ä»¶ ************************-->
+				        <%=poCtrl.getHtmlCode("PageOfficeCtrl1")%>
 			</div>
 		</div>
 

@@ -17,6 +17,8 @@ import com.bokesoft.cms2.core.ctx.CmsRequestContext;
 import com.bokesoft.cms2.core.reader.ext.ExtendedActionReader;
 import com.bokesoft.cms2.model.Action;
 import com.bokesoft.yes.mid.base.CoreSetting;
+import com.bokesoft.yigo.meta.factory.IMetaFactory;
+import com.bokesoft.yigo.meta.factory.MetaFactory;
 
 public class BuildinExtendActionReader implements ExtendedActionReader {
 
@@ -58,8 +60,7 @@ public class BuildinExtendActionReader implements ExtendedActionReader {
 		Misc.$assert(StringUtils.isBlank(path), "文件路径参数不能为空");
 
 		path = path.replaceAll("\\\\", "/");
-		String yigoCfgPath = CoreSetting.getInstance().getSolutionPath();
-		String picPath = yigoCfgPath + "/Data/" + path;
+		String picPath = getAttachDataPath() + path;
 		File file = new File(picPath);
 
 		Misc.$assert(!file.exists(), "文件'" + file + "'不存在");
@@ -69,6 +70,16 @@ public class BuildinExtendActionReader implements ExtendedActionReader {
 		cmsCtx.setContentType(mimeType);
 		cmsCtx.setViewer("binary");
 		cmsCtx.setFileName(file.getName());
+	}
+
+	public static String getAttachDataPath() throws Throwable {
+		IMetaFactory metaFactory = MetaFactory.getGlobalInstance();
+		String dirPath = metaFactory.getSolution().getDataPath();
+		if (dirPath.isEmpty()) {
+			dirPath = CoreSetting.getInstance().getSolutionPath() + File.separator + "Data";
+		}
+
+		return dirPath;
 	}
 
 	public static void downloadYigoFile() throws Throwable {
@@ -83,7 +94,7 @@ public class BuildinExtendActionReader implements ExtendedActionReader {
 
 		Misc.$assert(!file.exists(), "文件'" + file + "'不存在");
 		String mimeType = getMimeType(cmsCtx, file.getAbsolutePath());
-		if(null == mimeType){
+		if (null == mimeType) {
 			mimeType = "application/octet-stream";
 		}
 

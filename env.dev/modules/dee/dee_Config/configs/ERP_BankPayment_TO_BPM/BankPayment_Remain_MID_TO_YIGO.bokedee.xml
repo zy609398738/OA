@@ -1,0 +1,445 @@
+<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:spring="http://www.springframework.org/schema/beans" xmlns:vm="http://www.mulesoft.org/schema/mule/vm"
+	xmlns:ftp="http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.ftp/1.2"
+	xmlns:script="http://www.mulesoft.org/schema/mule/scripting"
+	xmlns:file="http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.file/1.2"
+	xmlns:http="http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.http/1.2"
+	xmlns:https="http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.https/1.2"
+	xmlns:tcp="http://www.mulesoft.org/schema/mule/tcp"
+	xmlns:stdio="http://www.mulesoft.org/schema/mule/stdio" xmlns:cxf="http://www.mulesoft.org/schema/mule/cxf"
+	xmlns:axis="http://www.mulesoft.org/schema/mule/axis" xmlns:jbossts="http://www.mulesoft.org/schema/mule/jbossts"
+	xmlns:jdbc="http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.jdbc/1.2"
+	xmlns:pattern="http://www.mulesoft.org/schema/mule/pattern" xmlns:sftp="http://www.mulesoft.org/schema/mule/sftp"
+	xmlns:smooks="http://www.muleforge.org/smooks/schema/mule-module-smooks"
+  xmlns:jms="http://www.mulesoft.org/schema/mule/jms"
+  xmlns:smtp="http://www.mulesoft.org/schema/mule/smtp"
+  xmlns:imap="http://www.mulesoft.org/schema/mule/imap"
+ xmlns:pop3="http://www.mulesoft.org/schema/mule/pop3"
+  xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/3.1/mule.xsd
+http://www.mulesoft.org/schema/mule/jbossts http://www.mulesoft.org/schema/mule/jbossts/3.1/mule-jbossts.xsd
+http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.jdbc/1.2 http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.jdbc/1.2/mule-com.bokesoft.dee.patch.jdbc.xsd
+http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.file/1.2 http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.file/1.2/mule-com.bokesoft.dee.patch.file.xsd
+http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.http/1.2 http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.http/1.2/mule-com.bokesoft.dee.patch.http.xsd
+http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.https/1.2 http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.https/1.2/mule-com.bokesoft.dee.patch.https.xsd
+http://www.mulesoft.org/schema/mule/tcp http://www.mulesoft.org/schema/mule/tcp/3.1/mule-tcp.xsd
+http://www.muleforge.org/smooks/schema/mule-module-smooks http://dist.muleforge.org/smooks/schema/mule-module-smooks/1.1/mule-module-smooks.xsd
+http://www.mulesoft.org/schema/mule/stdio http://www.mulesoft.org/schema/mule/stdio/3.1/mule-stdio.xsd
+http://www.mulesoft.org/schema/mule/cxf http://www.mulesoft.org/schema/mule/cxf/3.1/mule-cxf.xsd
+http://www.mulesoft.org/schema/mule/axis http://www.mulesoft.org/schema/mule/axis/3.1/mule-axis.xsd
+http://www.mulesoft.org/schema/mule/scripting http://www.mulesoft.org/schema/mule/scripting/3.1/mule-scripting.xsd
+http://www.mulesoft.org/schema/mule/pattern http://www.mulesoft.org/schema/mule/pattern/3.1/mule-pattern.xsd
+        http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.ftp/1.2 http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.ftp/1.2/mule-com.bokesoft.dee.patch.ftp.xsd
+http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/3.1/mule-vm.xsd 
+     http://www.mulesoft.org/schema/mule/sftp http://www.mulesoft.org/schema/mule/sftp/3.1/mule-sftp.xsd 
+    http://www.mulesoft.org/schema/mule/jms http://www.mulesoft.org/schema/mule/jms/3.1/mule-jms.xsd 
+  http://www.mulesoft.org/schema/mule/smtp http://www.mulesoft.org/schema/mule/smtp/3.1/mule-smtp.xsd 
+	http://www.mulesoft.org/schema/mule/imap http://www.mulesoft.org/schema/mule/imap/3.1/mule-imap.xsd 
+ http://www.mulesoft.org/schema/mule/pop3 http://www.mulesoft.org/schema/mule/pop3/3.1/mule-pop3.xsd ">
+
+		<custom-transformer class="com.bokesoft.exchange.transformer.ScriptWithDSTransformer" name="记录二次发起生成银行付款单接口日志">
+		<spring:property name="ds" ref="2c9081d05be7e572015be80fcb64000f_YIGO2_DB"></spring:property>
+		<spring:property name="script">
+			<spring:value>
+			<![CDATA[
+				String expMsg = "";
+Map rsmap = new HashMap();
+if (message.getExceptionPayload() != null)
+{
+    message.setOutboundProperty("http.status", 200);
+    expMsg = message.getExceptionPayload().getRootException().getMessage();
+    if (expMsg.length() > 3500)
+    {
+        expMsg = expMsg.substring(0, 3000);
+    }
+    message.setExceptionPayload(null);
+    rsmap.put("code", "0003");
+    rsmap.put("msg", "同步失败！");
+}
+else
+{
+    rsmap.put("code", "0002");
+    rsmap.put("msg", "同步成功！");
+    rsmap.put("data", payload);
+}
+Map logmap = message.getInboundProperty("logmap");
+Object[] o = new Object[10];
+o[0] = "BankPayment_flow";
+o[1] = "开始";
+o[2] = "B_BankPayment";
+o[3] = "";
+o[4] = logmap.get("begintime");
+o[5] = new java.text.SimpleDateFormat("yyyyMMdd HH:mm:ss.SSS").format(new java.sql.Timestamp(java.lang.System.currentTimeMillis()));
+o[6] = "";
+o[7] = "";
+o[8] = expMsg;
+o[9] = "BankPayment_Tmp_Remain_TO_YIGO";
+dbop.saveOrUpdate("insert into TRINA_SL_INTERFACE_LOG(id,flow,node,billkey,oid,starttime,endtime,request_data,response_data,EXCEPTION,interface_type)values(Trina_SL_Interface_Log_ID_SEQ.Nextval,?,?,?,?,?,?,?,?,?,?)", o, false);
+return rsmap.get("code");
+			]]>
+			</spring:value>
+		</spring:property>
+	</custom-transformer>
+
+		<custom-transformer class="com.bokesoft.dee.mule.common.transformer.LogProcessorTransformer" name="8aaae0d360766f5e0160772f9ab4006f">
+		<spring:property name="transformerName" value="记录二次发起生成银行付款单接口日志"></spring:property>
+		<spring:property name="filePath" value="${bokedee.logpath.debugLog}/ERP_BankPayment_TO_BPM"></spring:property>
+		<spring:property name="errorLog" value="false"></spring:property>
+
+
+	</custom-transformer><flow name="BankPayment_Remain_MID_TO_YIGO">
+		<!--分发数据生成银行付款单入口（二次发起）-->
+	<vm:inbound-endpoint  name="二次发起分发数据生成银行付款单入口"
+		encoding="UTF-8"
+		address="vm://BankPayment_Tmp_Remain_TO_YIGO" 
+		exchange-pattern ="request-response" 
+		responseTransformer-refs ="记录二次发起生成银行付款单接口日志 8aaae0d360766f5e0160772f9ab4006f"
+		>
+	</vm:inbound-endpoint>
+
+		<custom-transformer class="com.bokesoft.dee.mule.common.transformer.LogProcessorTransformer" >
+		<spring:property name="transformerName" value="二次发起分发数据生成银行付款单入口"></spring:property>
+		<spring:property name="filePath" value="${bokedee.logpath.debugLog}/ERP_BankPayment_TO_BPM"></spring:property>
+		<spring:property name="errorLog" value="false"></spring:property>
+
+
+	</custom-transformer>
+
+	<transformer ref="ggpz_启动JDBC事务"/>
+
+		<custom-transformer class="com.bokesoft.dee.mule.common.transformer.LogProcessorTransformer" >
+		<spring:property name="transformerName" value="启动JDBC事务"></spring:property>
+		<spring:property name="filePath" value="${bokedee.logpath.debugLog}/ERP_BankPayment_TO_BPM"></spring:property>
+		<spring:property name="errorLog" value="false"></spring:property>
+
+
+	</custom-transformer>
+		<!--记录分发数据生成银行付款单开始时间（二次发起）-->
+	<custom-transformer class="com.bokesoft.exchange.transformer.ScriptWithDSTransformer" name="记录二次发起分发数据生成银行付款单开始时间">
+		<spring:property name="ds" ref="2c9081d05be7e572015be80fcb64000f_YIGO2_DB"></spring:property>
+		<spring:property name="script">
+			<spring:value>
+			<![CDATA[
+				String begintime = new java.text.SimpleDateFormat("yyyyMMdd HH:mm:ss.SSS").format(new java.sql.Timestamp(java.lang.System.currentTimeMillis()));
+Map logmap = new HashMap();
+logmap.put("begintime", begintime);
+message.setInboundProperty("logmap", logmap);
+com.bokesoft.InterfaceOperator.checkTransaction(dbop, "BankPayment_Tmp_Remain_TO_YIGO");
+return payload;
+			]]>
+			</spring:value>
+		</spring:property>
+	</custom-transformer>
+
+		<custom-transformer class="com.bokesoft.dee.mule.common.transformer.LogProcessorTransformer" >
+		<spring:property name="transformerName" value="记录二次发起分发数据生成银行付款单开始时间"></spring:property>
+		<spring:property name="filePath" value="${bokedee.logpath.debugLog}/ERP_BankPayment_TO_BPM"></spring:property>
+		<spring:property name="errorLog" value="false"></spring:property>
+
+
+	</custom-transformer>
+		<!--查询银行付款单贷项通知单数据（二次发起）-->
+	<custom-transformer class="com.bokesoft.dee.mule.dataimport.FieldValueLookUpWithDsTransformer" name="查询二次发起银行付款贷项通知单数据">
+		<spring:property name="tablePath" value="B_BankPayment"></spring:property>
+		<spring:property name="query">
+			<spring:value> <![CDATA[select invoice_num as d_invoice_num,invoice_id as d_invoice_id,currency_code as d_currency_code,to_char(round(amount,5)) as d_amount, to_char(invoice_amount) as d_another_amount,description from cux.cux3_eflow_ap_detail  where item_type = '贷项通知单'   and (flag is null or flag='') and vendor_num=#[map-payload:vendor_num]]]></spring:value>
+		</spring:property>
+		<spring:property name="ds" ref="8aaae09b5bf03e9f015bf17bc58e061f_ERP_TO_BPM"></spring:property>
+		<spring:property name="firstRecode" value="true"></spring:property>
+
+		<spring:property name="subField" value="B_BankPaymentDtl"></spring:property>
+	</custom-transformer>
+
+		<custom-transformer class="com.bokesoft.dee.mule.common.transformer.LogProcessorTransformer" >
+		<spring:property name="transformerName" value="查询二次发起银行付款贷项通知单数据"></spring:property>
+		<spring:property name="filePath" value="${bokedee.logpath.debugLog}/ERP_BankPayment_TO_BPM"></spring:property>
+		<spring:property name="errorLog" value="false"></spring:property>
+
+
+	</custom-transformer>
+		<!--查询银行付款单PO数据（二次发起）-->
+	<custom-transformer class="com.bokesoft.dee.mule.dataimport.FieldValueLookUpWithDsTransformer" name="查询二次发起银行付款PO数据">
+		<spring:property name="tablePath" value="B_BankPayment"></spring:property>
+		<spring:property name="query">
+			<spring:value> <![CDATA[select distinct a.po_number as ponumber,a.po_description as podescription,b.name as poterm from apps.cux3_eflow_ap_requester a, apps.cux3_eflow_po_dtl_v b  where a.po_number=b.po_num and a.invoice_id= #[map-payload:invoice_id] and a.line_num = #[map-payload:line_num?]]]></spring:value>
+		</spring:property>
+		<spring:property name="ds" ref="8aaae09b5bf03e9f015bf17bc58e061f_ERP_TO_BPM"></spring:property>
+		<spring:property name="firstRecode" value="true"></spring:property>
+		<spring:property name="optionOrderQueries">
+			<spring:list>
+						<spring:value> <![CDATA[select distinct a.po_number as ponumber,a.po_description as podescription,b.name as poterm from apps.cux3_eflow_ap_requester a, apps.cux3_eflow_po_dtl_v b  where a.po_number=b.po_num and a.invoice_id= #[map-payload:invoice_id]]]></spring:value>
+			</spring:list>
+		</spring:property>
+		<spring:property name="subField" value="B_BankPaymentPO"></spring:property>
+	</custom-transformer>
+
+		<custom-transformer class="com.bokesoft.dee.mule.common.transformer.LogProcessorTransformer" >
+		<spring:property name="transformerName" value="查询二次发起银行付款PO数据"></spring:property>
+		<spring:property name="filePath" value="${bokedee.logpath.debugLog}/ERP_BankPayment_TO_BPM"></spring:property>
+		<spring:property name="errorLog" value="false"></spring:property>
+
+
+	</custom-transformer>
+	<!--设置银行付款单表头固定值（二次发起）-->
+<custom-transformer class="com.bokesoft.dee.mule.dataimport.FixFieldsAddTransformer" name="设置二次银行付款单表头固定值">
+		<spring:property name="tablePath" value="B_BankPayment"></spring:property>
+		<spring:property name="fixFields">
+			<spring:map>
+					<spring:entry key="mule.adapter.thing-name" value="B_BankPayment"></spring:entry>
+					<spring:entry key="mule.adapter.formKey" value="B_BankPayment"></spring:entry>
+					<spring:entry key="mule.adapter.op-plan" value="insert"></spring:entry>
+					<spring:entry key="mule.adapter.id-fields" value="GUID"></spring:entry>
+					<spring:entry key="mule.adapter.auto-delete-unknown-detail" value="B_BankPaymentDtl"></spring:entry>
+					<spring:entry key="mule.adapter.start-workflow" value="0"></spring:entry>
+					<spring:entry key="mule.adapter.return-fields" value="GUID,InstanceID"></spring:entry>
+			</spring:map>
+		</spring:property>
+		<spring:property name="rowNumColumn" value="norowno"></spring:property>
+		
+</custom-transformer>
+
+		<custom-transformer class="com.bokesoft.dee.mule.common.transformer.LogProcessorTransformer" >
+		<spring:property name="transformerName" value="设置二次银行付款单表头固定值"></spring:property>
+		<spring:property name="filePath" value="${bokedee.logpath.debugLog}/ERP_BankPayment_TO_BPM"></spring:property>
+		<spring:property name="errorLog" value="false"></spring:property>
+
+
+	</custom-transformer>
+	<!--设置银行付款单贷项通知单字段固定值（二次发起）-->
+<custom-transformer class="com.bokesoft.dee.mule.dataimport.FixFieldsAddTransformer" name="设置二次发起银行付款单贷项通知单字段固定值">
+		<spring:property name="tablePath" value="B_BankPayment/B_BankPaymentDtl"></spring:property>
+		<spring:property name="fixFields">
+			<spring:map>
+					<spring:entry key="mule.adapter.thing-name" value="B_BankPayment"></spring:entry>
+					<spring:entry key="mule.adapter.op-plan" value="insert"></spring:entry>
+			</spring:map>
+		</spring:property>
+		<spring:property name="rowNumColumn" value="norowno"></spring:property>
+		
+</custom-transformer>
+
+		<custom-transformer class="com.bokesoft.dee.mule.common.transformer.LogProcessorTransformer" >
+		<spring:property name="transformerName" value="设置二次发起银行付款单贷项通知单字段固定值"></spring:property>
+		<spring:property name="filePath" value="${bokedee.logpath.debugLog}/ERP_BankPayment_TO_BPM"></spring:property>
+		<spring:property name="errorLog" value="false"></spring:property>
+
+
+	</custom-transformer>
+	<!--设置银行付款单PO表字段固定值（二次发起）-->
+<custom-transformer class="com.bokesoft.dee.mule.dataimport.FixFieldsAddTransformer" name="设置二次发起银行付款单PO表字段固定值">
+		<spring:property name="tablePath" value="B_BankPayment/B_BankPaymentPO"></spring:property>
+		<spring:property name="fixFields">
+			<spring:map>
+					<spring:entry key="mule.adapter.thing-name" value="B_BankPayment"></spring:entry>
+					<spring:entry key="mule.adapter.op-plan" value="insert"></spring:entry>
+			</spring:map>
+		</spring:property>
+		<spring:property name="rowNumColumn" value="norowno"></spring:property>
+		
+</custom-transformer>
+
+		<custom-transformer class="com.bokesoft.dee.mule.common.transformer.LogProcessorTransformer" >
+		<spring:property name="transformerName" value="设置二次发起银行付款单PO表字段固定值"></spring:property>
+		<spring:property name="filePath" value="${bokedee.logpath.debugLog}/ERP_BankPayment_TO_BPM"></spring:property>
+		<spring:property name="errorLog" value="false"></spring:property>
+
+
+	</custom-transformer>
+		<!--查询银行付款单调用ERP数据（二次发起）-->
+	<custom-transformer class="com.bokesoft.dee.mule.dataimport.MutiFieldValueLookUpWithDsTransformer" name="查询二次发起银行付款单调用ERP数据">
+		<spring:property name="tablePath" value="B_BankPayment"></spring:property>
+		<spring:property name="queries">
+			<spring:list>
+				<spring:value> <![CDATA[select bank_name,branch_name,bank_account_num,ext_bank_account_id as bank_account_id,iban,swift_code as swiftcode from  apps.cux3_eflow_po_vendor_bank_v where vendor_num=#[map-payload:vendor_num] and currency_code=#[map-payload:currency_code]]]></spring:value>
+				<spring:value> <![CDATA[select company_code from  apps.cux3_inter_vendor_v where  segment1=#[map-payload:vendor_num]]]></spring:value>
+				<spring:value> <![CDATA[select party_name,email_address from apps.cux3_eflow_vendors_contact where email_address is not null and vendor_num=#[map-payload:vendor_num]]]></spring:value>
+			</spring:list>
+		</spring:property>
+		<spring:property name="ds" ref="8aaae09b5bf03e9f015bf17bc58e061f_ERP_TO_BPM"></spring:property>
+		<spring:property name="firstRecode" value="true"></spring:property>
+	</custom-transformer>
+
+		<custom-transformer class="com.bokesoft.dee.mule.common.transformer.LogProcessorTransformer" >
+		<spring:property name="transformerName" value="查询二次发起银行付款单调用ERP数据"></spring:property>
+		<spring:property name="filePath" value="${bokedee.logpath.debugLog}/ERP_BankPayment_TO_BPM"></spring:property>
+		<spring:property name="errorLog" value="false"></spring:property>
+
+
+	</custom-transformer>
+		<!--查询银行付款单调用ERP数据（二次发起）-->
+	<custom-transformer class="com.bokesoft.dee.mule.dataimport.MutiFieldValueLookUpWithDsTransformer" name="查询二次发起银行付款单表头字典数据">
+		<spring:property name="tablePath" value="B_BankPayment"></spring:property>
+		<spring:property name="queries">
+			<spring:list>
+				<spring:value> <![CDATA[select oid as applicantid,code as applicantcode,name as applicantname from sys_operator  where code='autosponsor']]></spring:value>
+				<spring:value> <![CDATA[select oid as creator, code as creatorcode from sys_operator where code='autosponsor']]></spring:value>
+				<spring:value> <![CDATA[select oid as currency from dict_currency where code=#[map-payload:currency_code] and (status=0 or status=1)]]></spring:value>
+				<spring:value> <![CDATA[select oid as paymentmehtod from dict_paymentmehtod where name=#[map-payload:paymentmethod_name] and (status=0 or status=1)]]></spring:value>
+				<spring:value> <![CDATA[select oid as original_currency from dict_currency where code=#[map-payload:orig_currencycode] and (status=0 or status=1)]]></spring:value>
+			</spring:list>
+		</spring:property>
+		<spring:property name="ds" ref="2c9081d05be7e572015be80fcb64000f_YIGO2_DB"></spring:property>
+		<spring:property name="firstRecode" value="true"></spring:property>
+	</custom-transformer>
+
+		<custom-transformer class="com.bokesoft.dee.mule.common.transformer.LogProcessorTransformer" >
+		<spring:property name="transformerName" value="查询二次发起银行付款单表头字典数据"></spring:property>
+		<spring:property name="filePath" value="${bokedee.logpath.debugLog}/ERP_BankPayment_TO_BPM"></spring:property>
+		<spring:property name="errorLog" value="false"></spring:property>
+
+
+	</custom-transformer>
+		<!--设置字段映射关系-->
+	<custom-transformer class="com.bokesoft.dee.mule.yigo2.transformer.MapKeyMapping" name="设置二次发起银行付款单字段映射关系">
+		<spring:property name="source" value="current"></spring:property>
+		<spring:property name="target" value="current"></spring:property>
+		<spring:property name="fieldExpression">
+			<spring:list>
+						<spring:value><![CDATA[GUID]]>:<![CDATA[guid]]>~</spring:value>
+						<spring:value><![CDATA[Header_ID]]>:<![CDATA[header_id]]>~</spring:value>
+						<spring:value><![CDATA[Creator]]>:<![CDATA[creator]]>~</spring:value>
+						<spring:value><![CDATA[CreatorCode]]>:<![CDATA[creatorcode]]>~</spring:value>
+						<spring:value><![CDATA[ApplicantID]]>:<![CDATA[applicantid]]>~</spring:value>
+						<spring:value><![CDATA[ApplicantCode]]>:<![CDATA[applicantcode]]>~</spring:value>
+						<spring:value><![CDATA[ApplicantName]]>:<![CDATA[applicantname]]>~</spring:value>
+						<spring:value><![CDATA[Invoice_num]]>:<![CDATA[invoice_num]]>~</spring:value>
+						<spring:value><![CDATA[Invoice_ID]]>:<![CDATA[invoice_id]]>~</spring:value>
+						<spring:value><![CDATA[ITEM_TYPE]]>:<![CDATA[item_type]]>~</spring:value>
+						<spring:value><![CDATA[DETAIL_TYPE]]>:<![CDATA[detail_type]]>~</spring:value>
+						<spring:value><![CDATA[OU_CODE]]>:<![CDATA[ou_code]]>~</spring:value>
+						<spring:value><![CDATA[OU_NAME]]>:<![CDATA[ou_name]]>~</spring:value>
+						<spring:value><![CDATA[VENDOR_NUM]]>:<![CDATA[vendor_num]]>~</spring:value>
+						<spring:value><![CDATA[VENDOR_NAME]]>:<![CDATA[vendor_name]]>~</spring:value>
+						<spring:value><![CDATA[AP_DATE]]>:<![CDATA[ap_date]]>~</spring:value>
+						<spring:value><![CDATA[DUE_DATE]]>:<![CDATA[due_date]]>~</spring:value>
+						<spring:value><![CDATA[PaymentMehtod]]>:<![CDATA[paymentmehtod]]>~</spring:value>
+						<spring:value><![CDATA[PaymentMehtod_Name]]>:<![CDATA[paymentmethod_name]]>~</spring:value>
+						<spring:value><![CDATA[Original_Currency]]>:<![CDATA[original_currency]]>~</spring:value>
+						<spring:value><![CDATA[Orig_CurrencyCode]]>:<![CDATA[orig_currencycode]]>~</spring:value>
+						<spring:value><![CDATA[CURRENCY]]>:<![CDATA[currency]]>~</spring:value>
+						<spring:value><![CDATA[CURRENCYCODE]]>:<![CDATA[currency_code]]>~</spring:value>
+						<spring:value><![CDATA[INVOICE_AMOUNT]]>:<![CDATA[invoice_amount]]>~</spring:value>
+						<spring:value><![CDATA[AMOUNT]]>:<![CDATA[amount]]>~</spring:value>
+						<spring:value><![CDATA[INVOICE_AMOUNT1]]>:<![CDATA[INVOICE_AMOUNT]]></spring:value>
+						<spring:value><![CDATA[AMOUNT1]]>:<![CDATA[AMOUNT]]></spring:value>
+						<spring:value><![CDATA[UserAccount]]>:<![CDATA[requestor_number]]>~</spring:value>
+						<spring:value><![CDATA[BUSINESS_USER_ACCOUNT]]>:<![CDATA[adaccount]]>~</spring:value>
+						<spring:value><![CDATA[EMPLOYEE_NUMBER]]>:<![CDATA[employee_number]]>~</spring:value>
+						<spring:value><![CDATA[EMPLOYEE_NAME]]>:<![CDATA[employee_name]]>~</spring:value>
+						<spring:value><![CDATA[Vendor_bank_name]]>:<![CDATA[bank_name]]>~</spring:value>
+						<spring:value><![CDATA[Vendor_Branch_name]]>:<![CDATA[branch_name]]>~</spring:value>
+						<spring:value><![CDATA[Vendor_Branch_Account_number]]>:<![CDATA[bank_account_num]]>~</spring:value>
+						<spring:value><![CDATA[p_ext_bank_acc_id]]>:<![CDATA[bank_account_id]]>~</spring:value>
+						<spring:value><![CDATA[IBAN]]>:<![CDATA[iban]]>~</spring:value>
+						<spring:value><![CDATA[Swift_Code]]>:<![CDATA[swiftcode]]>~</spring:value>
+						<spring:value><![CDATA[Vendor_Branch_ICO]]>:<![CDATA[company_code]]>~</spring:value>
+						<spring:value><![CDATA[ContactPerson]]>:<![CDATA[party_name]]>~</spring:value>
+						<spring:value><![CDATA[MailAddress]]>:<![CDATA[email_address]]>~</spring:value>
+						<spring:value><![CDATA[TERM_NAME]]>:<![CDATA[term_name]]>~</spring:value>
+						<spring:value><![CDATA[LINE_NUM]]>:<![CDATA[line_num]]>~</spring:value>
+						<spring:value><![CDATA[B_BankPaymentDtl]]>:<![CDATA[b_bankpaymentdtl]]>~</spring:value>
+						<spring:value><![CDATA[B_BankPaymentDtl.D_Invoice_Num]]>~d2d:<![CDATA[d_invoice_num]]>~</spring:value>
+						<spring:value><![CDATA[B_BankPaymentDtl.D_Invoice_ID]]>~d2d:<![CDATA[d_invoice_id]]>~</spring:value>
+						<spring:value><![CDATA[B_BankPaymentDtl.D_Currency_Code]]>~d2d:<![CDATA[d_currency_code]]>~</spring:value>
+						<spring:value><![CDATA[B_BankPaymentDtl.D_Amount]]>~d2d:<![CDATA[d_amount]]>~</spring:value>
+						<spring:value><![CDATA[B_BankPaymentDtl.D_Another_Amount]]>~d2d:<![CDATA[d_another_amount]]>~</spring:value>
+						<spring:value><![CDATA[B_BankPaymentDtl.Description]]>~d2d:<![CDATA[description]]>~</spring:value>
+						<spring:value><![CDATA[B_BankPaymentPO]]>:<![CDATA[b_bankpaymentpo]]>~</spring:value>
+						<spring:value><![CDATA[B_BankPaymentPO.PoNumber]]>~d2d:<![CDATA[ponumber]]>~</spring:value>
+						<spring:value><![CDATA[B_BankPaymentPO.PoDescription]]>~d2d:<![CDATA[podescription]]>~</spring:value>
+						<spring:value><![CDATA[B_BankPaymentPO.PoTerm]]>~d2d:<![CDATA[poterm]]>~</spring:value>
+			</spring:list>		
+		</spring:property>
+	</custom-transformer>
+
+		<custom-transformer class="com.bokesoft.dee.mule.common.transformer.LogProcessorTransformer" >
+		<spring:property name="transformerName" value="设置二次发起银行付款单字段映射关系"></spring:property>
+		<spring:property name="filePath" value="${bokedee.logpath.debugLog}/ERP_BankPayment_TO_BPM"></spring:property>
+		<spring:property name="errorLog" value="false"></spring:property>
+
+
+	</custom-transformer>		
+		<!--导入数据到YIGO系统-->
+	<custom-transformer class="com.bokesoft.dee.transport.http.transformers.HttpSendRequestToYigoTransformer" name="二次发起导入数据到YIGO系统">
+		<spring:property name="yigoUrl" value="BD{YIGO2_URL}"></spring:property>
+		<spring:property name="connectTimeout" value="6000"></spring:property>
+		<spring:property name="readTimeout" value="60000"></spring:property>
+		<spring:property name="isThrowException" value="true"></spring:property>
+		<spring:property name="isInTransaction" value="true"></spring:property>
+	</custom-transformer>
+
+
+		<custom-transformer class="com.bokesoft.dee.mule.common.transformer.LogProcessorTransformer" >
+		<spring:property name="transformerName" value="二次发起导入数据到YIGO系统"></spring:property>
+		<spring:property name="filePath" value="${bokedee.logpath.debugLog}/ERP_BankPayment_TO_BPM"></spring:property>
+		<spring:property name="errorLog" value="false"></spring:property>
+
+
+	</custom-transformer>
+		<!--更新本地二次发起中间表标志字段-->
+	<custom-transformer class="com.bokesoft.dee.transport.jdbc.transformer.ExecuteSQLSimpleTransformer" name="更新本地二次发起中间表标志字段">
+		<spring:property name="queries">
+			<spring:list>
+				<spring:value> <![CDATA[
+					update bank_payment_remain_mid set flag=#[map-payload:InstanceID] where former_taskid=#[map-payload:GUID]
+				]]></spring:value>
+			</spring:list>		
+		</spring:property>
+		<spring:property name="ds" ref="2c9081d05be7e572015be80fcb64000f_YIGO2_DB"></spring:property>
+		<spring:property name="resultIndexOf" value="1"></spring:property>
+		<spring:property name="ignoreSQLError" value="false"></spring:property>
+	</custom-transformer>
+	
+
+		<custom-transformer class="com.bokesoft.dee.mule.common.transformer.LogProcessorTransformer" >
+		<spring:property name="transformerName" value="更新本地二次发起中间表标志字段"></spring:property>
+		<spring:property name="filePath" value="${bokedee.logpath.debugLog}/ERP_BankPayment_TO_BPM"></spring:property>
+		<spring:property name="errorLog" value="false"></spring:property>
+
+
+	</custom-transformer>
+
+	<transformer ref="ggpz_提交或者回滚JDBC事务"/>
+
+		<custom-transformer class="com.bokesoft.dee.mule.common.transformer.LogProcessorTransformer" >
+		<spring:property name="transformerName" value="提交或者回滚JDBC事务"></spring:property>
+		<spring:property name="filePath" value="${bokedee.logpath.debugLog}/ERP_BankPayment_TO_BPM"></spring:property>
+		<spring:property name="errorLog" value="false"></spring:property>
+
+
+	</custom-transformer><default-exception-strategy><processor-chain>
+
+	<transformer ref="ggpz_提交或者回滚JDBC事务"/>
+
+		<custom-transformer class="com.bokesoft.dee.mule.common.transformer.LogProcessorTransformer" >
+		<spring:property name="transformerName" value="提交或者回滚JDBC事务"></spring:property>
+		<spring:property name="filePath" value="${bokedee.logpath.debugLog}/ERP_BankPayment_TO_BPM"></spring:property>
+		<spring:property name="errorLog" value="true"></spring:property>
+
+
+	</custom-transformer>
+
+	<transformer ref="ggpz_把异常对象转换为文本"/>
+
+		<custom-transformer class="com.bokesoft.dee.mule.common.transformer.LogProcessorTransformer" >
+		<spring:property name="transformerName" value="把异常对象转换为文本"></spring:property>
+		<spring:property name="filePath" value="${bokedee.logpath.debugLog}/ERP_BankPayment_TO_BPM"></spring:property>
+		<spring:property name="errorLog" value="true"></spring:property>
+
+
+	</custom-transformer>
+		<file:outbound-endpoint path="${bokedee.logpath.runtimeLog}/ERP_BankPayment_TO_BPM"  name="记录错误日志到文件_BankPayment_Remain_MID_TO_YIGO"
+		
+		outputPattern="#[function:datestamp:yyyyMMddHHmmss]-#[message:id].xml">
+		<property key="file_subdir" value="#[context:serviceName]/#[function:datestamp:yyyyMMdd]" />
+	</file:outbound-endpoint>
+
+
+		<custom-transformer class="com.bokesoft.dee.mule.common.transformer.LogProcessorTransformer" >
+		<spring:property name="transformerName" value="记录错误日志到文件_BankPayment_Remain_MID_TO_YIGO"></spring:property>
+		<spring:property name="filePath" value="${bokedee.logpath.debugLog}/ERP_BankPayment_TO_BPM"></spring:property>
+		<spring:property name="errorLog" value="true"></spring:property>
+
+
+	</custom-transformer></processor-chain></default-exception-strategy></flow></mule>

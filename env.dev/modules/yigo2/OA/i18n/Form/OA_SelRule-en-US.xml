@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <Opt>
+        <Upload>UploadExcel</Upload>
+    </Opt>
+    <UI>
+        <Lab_BillKey>Billkey</Lab_BillKey>
+        <SysTab>System Information</SysTab>
+        <Lab_Name>Name</Lab_Name>
+        <Lab_Notes>Notes</Lab_Notes>
+        <Grid3>OperatorMatchedCondition</Grid3>
+        <Lab_CreateTime>CreateTime</Lab_CreateTime>
+        <Lab_ClusterID>Group</Lab_ClusterID>
+        <Grid2>DirectOperator</Grid2>
+        <Lab_Code>Code</Lab_Code>
+        <Lab_OptSrcType>OptSourceType</Lab_OptSrcType>
+        <Lab_UserSource>CustomizeSource</Lab_UserSource>
+        <Lab_DefinitionExtand>UserDefined</Lab_DefinitionExtand>
+        <Lab_Creator>Creator</Lab_Creator>
+        <Lab_Modifier>Modifier</Lab_Modifier>
+        <BasicInfo>Basic Information</BasicInfo>
+        <Lab_BusSource>BusinessSource</Lab_BusSource>
+        <Lab_ModifyTime>ModifyTime</Lab_ModifyTime>
+    </UI>
+    <GridColumn>
+        <LBracket_T>LeftBracket</LBracket_T>
+        <IsVariate>IsVariate</IsVariate>
+        <FieldKey_T>Field</FieldKey_T>
+        <Operation>Operation</Operation>
+        <LogicOperation>LogicOperation</LogicOperation>
+        <DirectEmpID>DirectOperator</DirectEmpID>
+        <SValue>Value</SValue>
+        <Operation_T>Operation</Operation_T>
+        <SValue_T>Value</SValue_T>
+        <RBracket_T>RightBracket</RBracket_T>
+        <LogicOperation_T>LogicOperation</LogicOperation_T>
+        <LBracket>LeftBracket</LBracket>
+        <FieldKey>Field</FieldKey>
+        <RBracket>RightBracket</RBracket>
+    </GridColumn>
+</StringTable>

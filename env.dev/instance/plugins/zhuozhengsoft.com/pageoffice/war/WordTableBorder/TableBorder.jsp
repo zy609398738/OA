@@ -1,87 +1,81 @@
 <%@ page language="java"
 	import="java.util.*,com.zhuozhengsoft.pageoffice.*,com.zhuozhengsoft.pageoffice.wordwriter.*,java.awt.*"
-	pageEncoding="gb2312"%>
-<%@ taglib uri="http://java.pageoffice.cn" prefix="po"%>
+	pageEncoding="utf-8"%>
 <%
-	//******************************×¿ÕýPageOffice×é¼þµÄÊ¹ÓÃ*******************************
+	//******************************å“æ­£PageOfficeç»„ä»¶çš„ä½¿ç”¨*******************************
 	PageOfficeCtrl poCtrl1 = new PageOfficeCtrl(request);
-	poCtrl1.setServerPage(request.getContextPath()+"/poserver.zz"); //´ËÐÐ±ØÐë
+	poCtrl1.setServerPage(request.getContextPath()+"/poserver.zz"); //æ­¤è¡Œå¿…é¡»
 	
 	WordDocument doc = new WordDocument();
-	//´ò¿ªÊý¾ÝÇøÓò
+	//æ‰“å¼€æ•°æ®åŒºåŸŸ
 	DataRegion dataRegion = doc.openDataRegion("PO_regTable");
-	//´ò¿ªtable£¬openTable(index)·½·¨ÖÐµÄindex´ú±íWordÎÄµµÖÐtableÎ»ÖÃµÄË÷Òý£¬´Ó1¿ªÊ¼
+	//æ‰“å¼€tableï¼ŒopenTable(index)æ–¹æ³•ä¸­çš„indexä»£è¡¨Wordæ–‡æ¡£ä¸­tableä½ç½®çš„ç´¢å¼•ï¼Œä»Ž1å¼€å§‹
 	Table table = dataRegion.openTable(1);
 	
-	//¸øtableÖÐµÄµ¥Ôª¸ñ¸³Öµ£¬ openCellRC(int,int)ÖÐµÄ²ÎÊý·Ö±ð´ú±íµÚ¼¸ÐÐ¡¢µÚ¼¸ÁÐ£¬´Ó1¿ªÊ¼
-	table.openCellRC(3, 1).setValue("A¹«Ë¾");
-	table.openCellRC(3, 2).setValue("¿ª·¢²¿");
-	table.openCellRC(3, 3).setValue("ÀîÇå");
+	//ç»™tableä¸­çš„å•å…ƒæ ¼èµ‹å€¼ï¼Œ openCellRC(int,int)ä¸­çš„å‚æ•°åˆ†åˆ«ä»£è¡¨ç¬¬å‡ è¡Œã€ç¬¬å‡ åˆ—ï¼Œä»Ž1å¼€å§‹
+	table.openCellRC(3, 1).setValue("Aå…¬å¸");
+	table.openCellRC(3, 2).setValue("å¼€å‘éƒ¨");
+	table.openCellRC(3, 3).setValue("æŽæ¸…");
 	
-	//²åÈëÒ»ÐÐ£¬insertRowAfter·½·¨ÖÐµÄ²ÎÊý´ú±íÔÚÄÄ¸öµ¥Ôª¸ñÏÂÃæ²åÈëÒ»¸ö¿ÕÐÐ
+	//æ’å…¥ä¸€è¡Œï¼ŒinsertRowAfteræ–¹æ³•ä¸­çš„å‚æ•°ä»£è¡¨åœ¨å“ªä¸ªå•å…ƒæ ¼ä¸‹é¢æ’å…¥ä¸€ä¸ªç©ºè¡Œ
 	table.insertRowAfter(table.openCellRC(3, 3));
 	
-	table.openCellRC(4, 1).setValue("B¹«Ë¾");
-	table.openCellRC(4, 2).setValue("ÏúÊÛ²¿");
-	table.openCellRC(4, 3).setValue("ÕÅÈý");
+	table.openCellRC(4, 1).setValue("Bå…¬å¸");
+	table.openCellRC(4, 2).setValue("é”€å”®éƒ¨");
+	table.openCellRC(4, 3).setValue("å¼ ä¸‰");
 	
-	//ÉèÖÃ±í¸ñÐÐµÄ¸ß¶È
+	//è®¾ç½®è¡¨æ ¼è¡Œçš„é«˜åº¦
 	table.setRowsHeight(30.5f);
 	
-	//ÉèÖÃ±í¸ñµÄ±ß¿ò
+	//è®¾ç½®è¡¨æ ¼çš„è¾¹æ¡†
 	Border border=table.getBorder();
-	// ÉèÖÃ±ß¿òµÄÀàÐÍ
-	border.setBorderType(WdBorderType.wdFullGrid);//°üº¬ÄÚ±ß¿ò
-	//ÉèÖÃ±ß¿òµÄÑÕÉ«
+	// è®¾ç½®è¾¹æ¡†çš„ç±»åž‹
+	border.setBorderType(WdBorderType.wdFullGrid);//åŒ…å«å†…è¾¹æ¡†
+	//è®¾ç½®è¾¹æ¡†çš„é¢œè‰²
 	border.setLineColor(Color.red);
-	//ÉèÖÃ±ß¿òµÄÏßÌõÑùÊ½
+	//è®¾ç½®è¾¹æ¡†çš„çº¿æ¡æ ·å¼
 	border.setLineStyle(WdLineStyle.wdLineStyleDot );
-	//ÉèÖÃ±ß¿òµÄ´ÖÏ¸
+	//è®¾ç½®è¾¹æ¡†çš„ç²—ç»†
 	border.setLineWidth(WdLineWidth.wdLineWidth150pt);
 	
-	//ÉèÖÃ±í¸ñÄÚ×ÖÌåÑùÊ½
+	//è®¾ç½®è¡¨æ ¼å†…å­—ä½“æ ·å¼
 	com.zhuozhengsoft.pageoffice.wordwriter.Font font=dataRegion.getFont();
-	//ÉèÖÃ×ÖÌåµÄÊÇ·ñ¼Ó´Ö
+	//è®¾ç½®å­—ä½“çš„æ˜¯å¦åŠ ç²—
 	font.setBold(true);
-	//ÉèÖÃ×ÖÌåµÄÑÕÉ«
+	//è®¾ç½®å­—ä½“çš„é¢œè‰²
 	font.setColor(Color.blue);
-	//ÉèÖÃ×ÖÌåÊÇ·ñÎªÐ±Ìå
+	//è®¾ç½®å­—ä½“æ˜¯å¦ä¸ºæ–œä½“
 	font.setItalic(true);
-       //ÉèÖÃ×ÖÌåÃû³Æ
-	font.setName("ËÎÌå");
-	//ÉèÖÃ×ÖÌå´óÐ¡
+       //è®¾ç½®å­—ä½“åç§°
+	font.setName("å®‹ä½“");
+	//è®¾ç½®å­—ä½“å¤§å°
 	font.setSize(15.5f);
 	
 	poCtrl1.setWriter(doc);
-	//Òþ²Ø²Ëµ¥À¸
+	//éšè—èœå•æ 
 	poCtrl1.setMenubar(false);
-	//Òþ²Ø×Ô¶¨Òå¹¤¾ßÀ¸
+	//éšè—è‡ªå®šä¹‰å·¥å…·æ 
 	poCtrl1.setCustomToolbar(false);
-	//´ò¿ªÎÄ¼þ
-	poCtrl1.webOpen("doc/test.doc", OpenModeType.docNormalEdit, "ÕÅÈý");
-	poCtrl1.setTagId("PageOfficeCtrl1"); //´ËÐÐ±ØÐë
+	//æ‰“å¼€æ–‡ä»¶
+	poCtrl1.webOpen("doc/test.doc", OpenModeType.docNormalEdit, "å¼ ä¸‰");
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
-    <title>ÉèÖÃ±í¸ñµÄ±ß¿òÑùÊ½ºÍ×ÖÌåÑùÊ½</title>
+    <title>è®¾ç½®è¡¨æ ¼çš„è¾¹æ¡†æ ·å¼å’Œå­—ä½“æ ·å¼</title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
-	<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
 
   </head>
   
   <body>
     <div style=" width:auto; height:700px;">
-        <po:PageOfficeCtrl id ="PageOfficeCtrl1">
-        </po:PageOfficeCtrl>
+       <%=poCtrl1.getHtmlCode("PageOfficeCtrl1")%>
     </div>
   </body>
 </html>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <UI>
+		<Lab_BillKey>Billkey</Lab_BillKey>
+        <SplitPanel1>Basic Information</SplitPanel1>
+        <SysTab>System Information</SysTab>
+        <Lab_Name>Name</Lab_Name>
+        <Lab_Notes>Notes</Lab_Notes>
+        <Lab_CreateTime>CreateTime</Lab_CreateTime>
+        <Lab_ClusterID>Group</Lab_ClusterID>
+        <Lab_Name_en_US>EnglishName</Lab_Name_en_US>
+        <Lab_Code>Code</Lab_Code>
+        <Lab_Creator>Creator</Lab_Creator>
+        <Lab_Modifier>Modifier</Lab_Modifier>
+        <Lab_OrderNum>DisplayOrder</Lab_OrderNum>
+        <Lab_PartitionType>Type</Lab_PartitionType>
+        <Lab_ModifyTime>CreateTime</Lab_ModifyTime>
+        <Dtl>Detail</Dtl>
+    </UI>
+    <GridColumn>
+        <BillKey_D>RelevanceForm</BillKey_D>
+        <SponsorRightID>SponsorRightID</SponsorRightID>
+        <EmailTemp>StartEmailTemp</EmailTemp>
+        <OrderNum_D>DisplayOrder</OrderNum_D>
+        <MessageSetID>StartMessageSetWay</MessageSetID>
+        <WorkflowDesigne>WorkflowSet</WorkflowDesigne>
+        <SendFormula_D>StartMessageSetDemand</SendFormula_D>
+        <OID>DetailID</OID>
+        <BillName>FormName</BillName>
+        <WorkflowID>WorkflowDefine</WorkflowID>
+        <SendFormula_DEnd>EndMessageSetDemand</SendFormula_DEnd>
+        <RightSelDepict>RightDepict</RightSelDepict>
+        <MessageSetIDEnd>EndMessageSetWay</MessageSetIDEnd>
+        <StartAction>EnabledOperation</StartAction>
+        <WorkflowDesigneID>WorkflowDesigneID</WorkflowDesigneID>
+        <StartCaption>EnabledOperationName</StartCaption>
+        <IsCommon>IsCommom</IsCommon>
+        <EmailTempEnd>EndEmailTemp</EmailTempEnd>
+        <RightSelOID>RightID</RightSelOID>
+        <SponsorRightDepict>SponsorRightDepict</SponsorRightDepict>
+        <Sel>Select</Sel>
+        <BillName_en_US>FormEnglishName</BillName_en_US>
+        <SponsorRight>SponsorRight</SponsorRight>
+        <RightSel>RightSet</RightSel>
+    </GridColumn>
+</StringTable>

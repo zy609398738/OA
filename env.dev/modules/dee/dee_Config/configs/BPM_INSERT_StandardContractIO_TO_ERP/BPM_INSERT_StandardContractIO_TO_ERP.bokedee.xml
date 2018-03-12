@@ -1,0 +1,178 @@
+<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:spring="http://www.springframework.org/schema/beans" xmlns:vm="http://www.mulesoft.org/schema/mule/vm"
+	xmlns:ftp="http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.ftp/1.2"
+	xmlns:script="http://www.mulesoft.org/schema/mule/scripting"
+	xmlns:file="http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.file/1.2"
+	xmlns:http="http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.http/1.2"
+	xmlns:https="http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.https/1.2"
+	xmlns:tcp="http://www.mulesoft.org/schema/mule/tcp"
+	xmlns:stdio="http://www.mulesoft.org/schema/mule/stdio" xmlns:cxf="http://www.mulesoft.org/schema/mule/cxf"
+	xmlns:axis="http://www.mulesoft.org/schema/mule/axis" xmlns:jbossts="http://www.mulesoft.org/schema/mule/jbossts"
+	xmlns:jdbc="http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.jdbc/1.2"
+	xmlns:pattern="http://www.mulesoft.org/schema/mule/pattern" xmlns:sftp="http://www.mulesoft.org/schema/mule/sftp"
+	xmlns:smooks="http://www.muleforge.org/smooks/schema/mule-module-smooks"
+  xmlns:jms="http://www.mulesoft.org/schema/mule/jms"
+  xmlns:smtp="http://www.mulesoft.org/schema/mule/smtp"
+  xmlns:imap="http://www.mulesoft.org/schema/mule/imap"
+ xmlns:pop3="http://www.mulesoft.org/schema/mule/pop3"
+  xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/3.1/mule.xsd
+http://www.mulesoft.org/schema/mule/jbossts http://www.mulesoft.org/schema/mule/jbossts/3.1/mule-jbossts.xsd
+http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.jdbc/1.2 http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.jdbc/1.2/mule-com.bokesoft.dee.patch.jdbc.xsd
+http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.file/1.2 http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.file/1.2/mule-com.bokesoft.dee.patch.file.xsd
+http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.http/1.2 http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.http/1.2/mule-com.bokesoft.dee.patch.http.xsd
+http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.https/1.2 http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.https/1.2/mule-com.bokesoft.dee.patch.https.xsd
+http://www.mulesoft.org/schema/mule/tcp http://www.mulesoft.org/schema/mule/tcp/3.1/mule-tcp.xsd
+http://www.muleforge.org/smooks/schema/mule-module-smooks http://dist.muleforge.org/smooks/schema/mule-module-smooks/1.1/mule-module-smooks.xsd
+http://www.mulesoft.org/schema/mule/stdio http://www.mulesoft.org/schema/mule/stdio/3.1/mule-stdio.xsd
+http://www.mulesoft.org/schema/mule/cxf http://www.mulesoft.org/schema/mule/cxf/3.1/mule-cxf.xsd
+http://www.mulesoft.org/schema/mule/axis http://www.mulesoft.org/schema/mule/axis/3.1/mule-axis.xsd
+http://www.mulesoft.org/schema/mule/scripting http://www.mulesoft.org/schema/mule/scripting/3.1/mule-scripting.xsd
+http://www.mulesoft.org/schema/mule/pattern http://www.mulesoft.org/schema/mule/pattern/3.1/mule-pattern.xsd
+        http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.ftp/1.2 http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.ftp/1.2/mule-com.bokesoft.dee.patch.ftp.xsd
+http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/3.1/mule-vm.xsd 
+     http://www.mulesoft.org/schema/mule/sftp http://www.mulesoft.org/schema/mule/sftp/3.1/mule-sftp.xsd 
+    http://www.mulesoft.org/schema/mule/jms http://www.mulesoft.org/schema/mule/jms/3.1/mule-jms.xsd 
+  http://www.mulesoft.org/schema/mule/smtp http://www.mulesoft.org/schema/mule/smtp/3.1/mule-smtp.xsd 
+	http://www.mulesoft.org/schema/mule/imap http://www.mulesoft.org/schema/mule/imap/3.1/mule-imap.xsd 
+ http://www.mulesoft.org/schema/mule/pop3 http://www.mulesoft.org/schema/mule/pop3/3.1/mule-pop3.xsd ">
+
+		<!--记录实时回写合同模板评审组织信息IO至ERP系统表接口日志-->
+	<custom-transformer class="com.bokesoft.exchange.transformer.ScriptWithDSTransformer" name="记录实时回写合同模板评审组织信息IO至ERP系统表接口日志">
+		<spring:property name="ds" ref="2c9081d05be7e572015be80fcb64000f_YIGO2_DB"></spring:property>
+		<spring:property name="script">
+			<spring:value>
+			<![CDATA[
+				String expMsg = "";
+Map rsmap = new HashMap();
+if (message.getExceptionPayload() != null)
+{
+    message.setOutboundProperty("http.status", 200);
+    expMsg = message.getExceptionPayload().getRootException().getMessage();
+    if (expMsg.length() > 3500)
+    {
+        expMsg = expMsg.substring(0, 3000);
+    }
+    message.setExceptionPayload(null);
+    rsmap.put("code", "e");
+    rsmap.put("msg", "更新失败！");
+}
+else
+{
+    rsmap.put("code", "s");
+    rsmap.put("msg", "更新成功！");
+    rsmap.put("data", payload);
+}
+Map logmap = message.getInboundProperty("logmap");
+Object[] o = new Object[10];
+o[0] = logmap.get("flow");
+o[1] = logmap.get("node");
+o[2] = logmap.get("billkey");
+o[3] = logmap.get("oid");
+o[4] = logmap.get("begintime");
+o[5] = new java.text.SimpleDateFormat("yyyyMMdd HH:mm:ss.SSS").format(new java.sql.Timestamp(java.lang.System.currentTimeMillis()));
+o[6] = "";
+o[7] = "";
+o[8] = expMsg;
+o[9] = "BPM_INSERT_StandardContractIO_TO_ERP";
+dbop.saveOrUpdate("insert into TRINA_SL_INTERFACE_LOG(id,flow,node,billkey,oid,starttime,endtime,request_data,response_data,EXCEPTION,interface_type)values(Trina_SL_Interface_Log_ID_SEQ.Nextval,?,?,?,?,?,?,?,?,?,?)", o, false);
+return com.bokesoft.dee.mule.util.json.JSONUtil.toJson(rsmap);
+			]]>
+			</spring:value>
+		</spring:property>
+	</custom-transformer>
+
+		<custom-transformer class="com.bokesoft.dee.mule.common.transformer.LogProcessorTransformer" name="8aaae0d360766f5e0160772f9009005e">
+		<spring:property name="transformerName" value="记录实时回写合同模板评审组织信息IO至ERP系统表接口日志"></spring:property>
+		<spring:property name="filePath" value="${bokedee.logpath.debugLog}/BPM_INSERT_StandardContractIO_TO_ERP"></spring:property>
+		<spring:property name="errorLog" value="false"></spring:property>
+
+
+	</custom-transformer><flow name="BPM_INSERT_StandardContractIO_TO_ERP">
+		<!--实时回写合同模板评审组织信息IO至ERP系统表入口-->
+	<vm:inbound-endpoint  name="实时回写合同模板评审组织信息IO至ERP系统表入口"
+		encoding="UTF-8"
+		address="vm://BPM_INSERT_StandardContractHeader_TO_ERP" 
+		exchange-pattern ="request-response" 
+		responseTransformer-refs ="记录实时回写合同模板评审组织信息IO至ERP系统表接口日志 8aaae0d360766f5e0160772f9009005e"
+		>
+	</vm:inbound-endpoint>
+
+		<custom-transformer class="com.bokesoft.dee.mule.common.transformer.LogProcessorTransformer" >
+		<spring:property name="transformerName" value="实时回写合同模板评审组织信息IO至ERP系统表入口"></spring:property>
+		<spring:property name="filePath" value="${bokedee.logpath.debugLog}/BPM_INSERT_StandardContractIO_TO_ERP"></spring:property>
+		<spring:property name="errorLog" value="false"></spring:property>
+
+
+	</custom-transformer>
+		<!--记录回写合同模板评审组织信息IO至ERP系统表开始时间-->
+	<script:transformer name="记录回写合同模板评审组织信息IO至ERP系统表开始时间">
+		<script:script engine="groovy">
+			<script:text><![CDATA[
+				String begintime = new java.text.SimpleDateFormat("yyyyMMdd HH:mm:ss.SSS").format(new java.sql.Timestamp(java.lang.System.currentTimeMillis()));
+Map logmap = new HashMap();
+logmap.put("begintime", begintime);
+logmap.put("flow", payload.get("flow"));
+logmap.put("node", payload.get("node"));
+logmap.put("oid", payload.get("oid"));
+logmap.put("billkey", payload.get("billkey"));
+logmap.put("request_data", payload);
+message.setInboundProperty("logmap", logmap);
+return payload;
+				]]></script:text>
+		</script:script>
+	</script:transformer>	
+		<custom-transformer class="com.bokesoft.dee.mule.common.transformer.LogProcessorTransformer" >
+		<spring:property name="transformerName" value="记录回写合同模板评审组织信息IO至ERP系统表开始时间"></spring:property>
+		<spring:property name="filePath" value="${bokedee.logpath.debugLog}/BPM_INSERT_StandardContractIO_TO_ERP"></spring:property>
+		<spring:property name="errorLog" value="false"></spring:property>
+
+
+	</custom-transformer>
+		<!--回写合同模板评审组织信息IO至ERP系统表-->
+	<custom-transformer class="com.bokesoft.dee.transport.jdbc.transformer.ExecuteSQLSimpleTransformer" name="回写合同模板评审组织信息IO至ERP系统表">
+		<spring:property name="queries">
+			<spring:list>
+				<spring:value> <![CDATA[
+					insert into apps.CUX3_EFLOW_PO_CONTRACT_ORG (TASK_ID,ORG_ID) values (#[map-payload:task_id],#[map-payload:org_id?])
+				]]></spring:value>
+			</spring:list>		
+		</spring:property>
+		<spring:property name="ds" ref="8aaae09b5bf03e9f015bf17bc58e061f_ERP_TO_BPM"></spring:property>
+		<spring:property name="resultIndexOf" value="1"></spring:property>
+		<spring:property name="ignoreSQLError" value="false"></spring:property>
+	</custom-transformer>
+	
+
+		<custom-transformer class="com.bokesoft.dee.mule.common.transformer.LogProcessorTransformer" >
+		<spring:property name="transformerName" value="回写合同模板评审组织信息IO至ERP系统表"></spring:property>
+		<spring:property name="filePath" value="${bokedee.logpath.debugLog}/BPM_INSERT_StandardContractIO_TO_ERP"></spring:property>
+		<spring:property name="errorLog" value="false"></spring:property>
+
+
+	</custom-transformer><default-exception-strategy><processor-chain>
+
+	<transformer ref="ggpz_把异常对象转换为文本"/>
+
+		<custom-transformer class="com.bokesoft.dee.mule.common.transformer.LogProcessorTransformer" >
+		<spring:property name="transformerName" value="ggpz_把异常对象转换为文本"></spring:property>
+		<spring:property name="filePath" value="${bokedee.logpath.debugLog}/BPM_INSERT_StandardContractIO_TO_ERP"></spring:property>
+		<spring:property name="errorLog" value="true"></spring:property>
+
+
+	</custom-transformer>
+		<file:outbound-endpoint path="${bokedee.logpath.runtimeLog}/BPM_INSERT_StandardContractIO_TO_ERP"  name="记录错误日志到文件_BPM_INSERT_StandardContractIO_TO_ERP"
+		
+		outputPattern="#[function:datestamp:yyyyMMddHHmmss]-#[message:id].xml">
+		<property key="file_subdir" value="#[context:serviceName]/#[function:datestamp:yyyyMMdd]" />
+	</file:outbound-endpoint>
+
+
+		<custom-transformer class="com.bokesoft.dee.mule.common.transformer.LogProcessorTransformer" >
+		<spring:property name="transformerName" value="记录错误日志到文件_BPM_INSERT_StandardContractIO_TO_ERP"></spring:property>
+		<spring:property name="filePath" value="${bokedee.logpath.debugLog}/BPM_INSERT_StandardContractIO_TO_ERP"></spring:property>
+		<spring:property name="errorLog" value="true"></spring:property>
+
+
+	</custom-transformer></processor-chain></default-exception-strategy></flow></mule>

@@ -1,26 +1,25 @@
-<%@ page language="java" pageEncoding="gb2312"
+<%@ page language="java" pageEncoding="utf-8"
 	import="com.zhuozhengsoft.pageoffice.*,com.zhuozhengsoft.pageoffice.excelwriter.*,java.awt.*,javax.servlet.*,javax.servlet.http.*,java.sql.*,java.text.SimpleDateFormat,java.util.Date"%>
-<%@ taglib uri="http://java.pageoffice.cn" prefix="po"%>
 <%
 	Workbook wb = new Workbook();
-	// …Ë÷√±≥æ∞
+	// ËÆæÁΩÆËÉåÊôØ
 	Table backGroundTable = wb.openSheet("Sheet1").openTable("A1:P200");
 	backGroundTable.getBorder().setLineColor(Color.white);
 
-	// …Ë÷√±ÍÃ‚
+	// ËÆæÁΩÆÊ†áÈ¢ò
 	wb.openSheet("Sheet1").openTable("A1:H2").merge();
 	wb.openSheet("Sheet1").openTable("A1:H2").setRowHeight(30);
 	Cell A1 = wb.openSheet("Sheet1").openCell("A1");
 	A1.setHorizontalAlignment(XlHAlign.xlHAlignCenter);
 	A1.setVerticalAlignment(XlVAlign.xlVAlignCenter);
 	A1.setForeColor(new Color(0, 128, 128));
-	A1.setValue("≥ˆ≤Óø™÷ß‘§À„");
+	A1.setValue("Âá∫Â∑ÆÂºÄÊîØÈ¢ÑÁÆó");
 	
-	//…Ë÷√◊÷ÃÂ
+	//ËÆæÁΩÆÂ≠ó‰Ωì
 	wb.openSheet("Sheet1").openTable("A1:A1").getFont().setBold(true);
 	wb.openSheet("Sheet1").openTable("A1:A1").getFont().setSize(25);
 	
-	// ª≠±ÌÕ∑	
+	// ÁîªË°®Â§¥	
 	Border C4Border = wb.openSheet("Sheet1").openTable("C4:C4").getBorder();
 	C4Border.setWeight(XlBorderWeight.xlThick);
 	C4Border.setLineColor(Color.yellow);
@@ -30,7 +29,7 @@
 	titleTable.getBorder().setWeight(XlBorderWeight.xlThick);
 	titleTable.getBorder().setLineColor(new Color(0, 128, 128));
 	
-	// ª≠±ÌÃÂ
+	// ÁîªË°®‰Ωì
 	Table bodyTable = wb.openSheet("Sheet1").openTable("B6:H15");
 	bodyTable.getBorder().setLineColor(Color.gray);
 	bodyTable.getBorder().setWeight(XlBorderWeight.xlHairline);
@@ -70,7 +69,7 @@
 	bodyTable2.getBorder().setLineColor(new Color(0, 128, 128));
 	bodyTable2.getBorder().setBorderType(XlBorderType.xlAllEdges);
 
-	// ª≠±ÌŒ≤
+	// ÁîªË°®Â∞æ
 	Border H16H17Border = wb.openSheet("Sheet1").openTable("H16:H17").getBorder();
 	H16H17Border.setLineColor(new Color(204, 255, 204));
 
@@ -82,7 +81,7 @@
 	footTable.getBorder().setLineColor(new Color(0, 128, 128));
 	footTable.getBorder().setBorderType(XlBorderType.xlAllEdges);
 
-	// …Ë÷√––∏ﬂ¡–øÌ
+	// ËÆæÁΩÆË°åÈ´òÂàóÂÆΩ
 	wb.openSheet("Sheet1").openTable("A1:A1").setColumnWidth(1);
 	wb.openSheet("Sheet1").openTable("B1:B1").setColumnWidth(20);
 	wb.openSheet("Sheet1").openTable("C1:C1").setColumnWidth(15);
@@ -95,14 +94,14 @@
 	wb.openSheet("Sheet1").openTable("A16:A16").setRowHeight(20);
 	wb.openSheet("Sheet1").openTable("A17:A17").setRowHeight(20);
 
-	// …Ë÷√±Ì∏Ò÷–◊÷ÃÂ¥Û–°Œ™10
-	for (int i = 0; i < 12; i++) {//excel±Ì∏Ò––∫≈
-		for (int j = 0; j < 7; j++) {//excel±Ì∏Ò¡–∫≈
+	// ËÆæÁΩÆË°®Ê†º‰∏≠Â≠ó‰ΩìÂ§ßÂ∞è‰∏∫10
+	for (int i = 0; i < 12; i++) {//excelË°®Ê†ºË°åÂè∑
+		for (int j = 0; j < 7; j++) {//excelË°®Ê†ºÂàóÂè∑
 			wb.openSheet("Sheet1").openCellRC(4 + i, 2 + j).getFont().setSize(10);
 		}
 	}
 
-	// ÃÓ≥‰µ•‘™∏Ò±≥æ∞—’…´
+	// Â°´ÂÖÖÂçïÂÖÉÊ†ºËÉåÊôØÈ¢úËâ≤
 	for (int i = 0; i < 10; i++) {
 		wb.openSheet("Sheet1").openCell("H" + (6 + i)).setBackColor(new Color(255, 255, 153));
 	}
@@ -116,54 +115,54 @@
 	wb.openSheet("Sheet1").openCell("H16").setBackColor(new Color(204, 255, 204));
 	wb.openSheet("Sheet1").openCell("H17").setBackColor(new Color(204, 255, 204));
 
-	//ÃÓ≥‰µ•‘™∏ÒŒƒ±æ∫Õπ´ Ω
+	//Â°´ÂÖÖÂçïÂÖÉÊ†ºÊñáÊú¨ÂíåÂÖ¨Âºè
 	Cell B4 = wb.openSheet("Sheet1").openCell("B4");
 	B4.getFont().setBold(true);
-	B4.setValue("≥ˆ≤Óø™÷ß‘§À„");
+	B4.setValue("Âá∫Â∑ÆÂºÄÊîØÈ¢ÑÁÆó");
 	Cell H5 = wb.openSheet("Sheet1").openCell("H5");
 	H5.getFont().setBold(true);
-	H5.setValue("◊‹º∆");
+	H5.setValue("ÊÄªËÆ°");
 	H5.setHorizontalAlignment(XlHAlign.xlHAlignCenter);
 	Cell B6 = wb.openSheet("Sheet1").openCell("B6");
 	B6.getFont().setBold(true);
-	B6.setValue("∑…ª˙∆±º€");
+	B6.setValue("È£ûÊú∫Á•®‰ª∑");
 	Cell B9 = wb.openSheet("Sheet1").openCell("B9");
 	B9.getFont().setBold(true);
-	B9.setValue("æ∆µÍ");
+	B9.setValue("ÈÖíÂ∫ó");
 	Cell B11 = wb.openSheet("Sheet1").openCell("B11");
 	B11.getFont().setBold(true);
-	B11.setValue("≤Õ“˚");
+	B11.setValue("È§êÈ•Æ");
 	Cell B12 = wb.openSheet("Sheet1").openCell("B12");
 	B12.getFont().setBold(true);
-	B12.setValue("ΩªÕ®∑—”√");
+	B12.setValue("‰∫§ÈÄöË¥πÁî®");
 	Cell B13 = wb.openSheet("Sheet1").openCell("B13");
 	B13.getFont().setBold(true);
-	B13.setValue("–›œ–”È¿÷");
+	B13.setValue("‰ºëÈó≤Â®±‰πê");
 	Cell B14 = wb.openSheet("Sheet1").openCell("B14");
 	B14.getFont().setBold(true);
-	B14.setValue("¿Ò∆∑");
+	B14.setValue("Á§ºÂìÅ");
 	Cell B15 = wb.openSheet("Sheet1").openCell("B15");
 	B15.getFont().setBold(true);
 	B15.getFont().setSize(10);
-	B15.setValue("∆‰À˚∑—”√");
+	B15.setValue("ÂÖ∂‰ªñË¥πÁî®");
 
-	wb.openSheet("Sheet1").openCell("C6").setValue("ª˙∆±µ•º€£®Õ˘£©");
-	wb.openSheet("Sheet1").openCell("C7").setValue("ª˙∆±µ•º€£®∑µ£©");
-	wb.openSheet("Sheet1").openCell("C8").setValue("∆‰À˚");
-	wb.openSheet("Sheet1").openCell("C9").setValue("√øÕÌ∑—”√");
-	wb.openSheet("Sheet1").openCell("C10").setValue("∆‰À˚");
-	wb.openSheet("Sheet1").openCell("C11").setValue("√øÃÏ∑—”√");
-	wb.openSheet("Sheet1").openCell("C12").setValue("√øÃÏ∑—”√");
-	wb.openSheet("Sheet1").openCell("C13").setValue("◊‹º∆");
-	wb.openSheet("Sheet1").openCell("C14").setValue("◊‹º∆");
-	wb.openSheet("Sheet1").openCell("C15").setValue("◊‹º∆");
+	wb.openSheet("Sheet1").openCell("C6").setValue("Êú∫Á•®Âçï‰ª∑ÔºàÂæÄÔºâ");
+	wb.openSheet("Sheet1").openCell("C7").setValue("Êú∫Á•®Âçï‰ª∑ÔºàËøîÔºâ");
+	wb.openSheet("Sheet1").openCell("C8").setValue("ÂÖ∂‰ªñ");
+	wb.openSheet("Sheet1").openCell("C9").setValue("ÊØèÊôöË¥πÁî®");
+	wb.openSheet("Sheet1").openCell("C10").setValue("ÂÖ∂‰ªñ");
+	wb.openSheet("Sheet1").openCell("C11").setValue("ÊØèÂ§©Ë¥πÁî®");
+	wb.openSheet("Sheet1").openCell("C12").setValue("ÊØèÂ§©Ë¥πÁî®");
+	wb.openSheet("Sheet1").openCell("C13").setValue("ÊÄªËÆ°");
+	wb.openSheet("Sheet1").openCell("C14").setValue("ÊÄªËÆ°");
+	wb.openSheet("Sheet1").openCell("C15").setValue("ÊÄªËÆ°");
 
-	wb.openSheet("Sheet1").openCell("G6").setValue("  ’≈");
-	wb.openSheet("Sheet1").openCell("G7").setValue("  ’≈");
-	wb.openSheet("Sheet1").openCell("G9").setValue("  ÕÌ");
-	wb.openSheet("Sheet1").openCell("G10").setValue("  ÕÌ");
-	wb.openSheet("Sheet1").openCell("G11").setValue("  ÃÏ");
-	wb.openSheet("Sheet1").openCell("G12").setValue("  ÃÏ");
+	wb.openSheet("Sheet1").openCell("G6").setValue("  Âº†");
+	wb.openSheet("Sheet1").openCell("G7").setValue("  Âº†");
+	wb.openSheet("Sheet1").openCell("G9").setValue("  Êôö");
+	wb.openSheet("Sheet1").openCell("G10").setValue("  Êôö");
+	wb.openSheet("Sheet1").openCell("G11").setValue("  Â§©");
+	wb.openSheet("Sheet1").openCell("G12").setValue("  Â§©");
 
 	wb.openSheet("Sheet1").openCell("H6").setFormula("=D6*F6");
 	wb.openSheet("Sheet1").openCell("H7").setFormula("=D7*F7");
@@ -177,66 +176,65 @@
 	wb.openSheet("Sheet1").openCell("H15").setFormula("=D15*F15");
 
 	for (int i = 0; i < 10; i++) {
-		//…Ë÷√ ˝æ›“‘ªı±“–Œ Ωœ‘ æ
-		wb.openSheet("Sheet1").openCell("D" + (6 + i)).setNumberFormatLocal("£§#,##0.00;£§-#,##0.00");
-		wb.openSheet("Sheet1").openCell("H" + (6 + i)).setNumberFormatLocal("£§#,##0.00;£§-#,##0.00");
+		//ËÆæÁΩÆÊï∞ÊçÆ‰ª•Ë¥ßÂ∏ÅÂΩ¢ÂºèÊòæÁ§∫
+		wb.openSheet("Sheet1").openCell("D" + (6 + i)).setNumberFormatLocal("Ôø•#,##0.00;Ôø•-#,##0.00");
+		wb.openSheet("Sheet1").openCell("H" + (6 + i)).setNumberFormatLocal("Ôø•#,##0.00;Ôø•-#,##0.00");
 	}
 
 	Cell E16 = wb.openSheet("Sheet1").openCell("E16");
 	E16.getFont().setBold(true);
 	E16.getFont().setSize(11);
 	E16.setForeColor(Color.white);
-	E16.setValue("≥ˆ≤Óø™÷ß◊‹∑—”√");
+	E16.setValue("Âá∫Â∑ÆÂºÄÊîØÊÄªË¥πÁî®");
 	E16.setVerticalAlignment(XlVAlign.xlVAlignCenter);
 	Cell E17 = wb.openSheet("Sheet1").openCell("E17");
 	E17.getFont().setBold(true);
 	E17.getFont().setSize(11);
 	E17.setForeColor(Color.white);
-	E17.setFormula("=IF(C4>H16,\"µÕ”⁄‘§À„\",\"≥¨≥ˆ‘§À„\")");
+	E17.setFormula("=IF(C4>H16,\"‰Ωé‰∫éÈ¢ÑÁÆó\",\"Ë∂ÖÂá∫È¢ÑÁÆó\")");
 	E17.setVerticalAlignment(XlVAlign.xlVAlignCenter);
 	Cell H16 = wb.openSheet("Sheet1").openCell("H16");
 	H16.setVerticalAlignment(XlVAlign.xlVAlignCenter);
-	H16.setNumberFormatLocal("£§#,##0.00;£§-#,##0.00");
+	H16.setNumberFormatLocal("Ôø•#,##0.00;Ôø•-#,##0.00");
 	H16.getFont().setName("Arial");
 	H16.getFont().setSize(11);
 	H16.getFont().setBold(true);
 	H16.setFormula("=SUM(H6:H15)");
 	Cell H17 = wb.openSheet("Sheet1").openCell("H17");
 	H17.setVerticalAlignment(XlVAlign.xlVAlignCenter);
-	H17.setNumberFormatLocal("£§#,##0.00;£§-#,##0.00");
+	H17.setNumberFormatLocal("Ôø•#,##0.00;Ôø•-#,##0.00");
 	H17.getFont().setName("Arial");
 	H17.getFont().setSize(11);
 	H17.getFont().setBold(true);
 	H17.setFormula("=(C4-H16)");
 
-	// ÃÓ≥‰ ˝æ›
+	// Â°´ÂÖÖÊï∞ÊçÆ
 	Cell C4 = wb.openSheet("Sheet1").openCell("C4");
-	C4.setNumberFormatLocal("£§#,##0.00;£§-#,##0.00");
+	C4.setNumberFormatLocal("Ôø•#,##0.00;Ôø•-#,##0.00");
 	C4.setValue("2500");
 	Cell D6 = wb.openSheet("Sheet1").openCell("D6");
-	D6.setNumberFormatLocal("£§#,##0.00;£§-#,##0.00");
+	D6.setNumberFormatLocal("Ôø•#,##0.00;Ôø•-#,##0.00");
 	D6.setValue("1200");
 	wb.openSheet("Sheet1").openCell("F6").getFont().setSize(10);
 	wb.openSheet("Sheet1").openCell("F6").setValue("1");
 	Cell D7 = wb.openSheet("Sheet1").openCell("D7");
-	D7.setNumberFormatLocal("£§#,##0.00;£§-#,##0.00");
+	D7.setNumberFormatLocal("Ôø•#,##0.00;Ôø•-#,##0.00");
 	D7.setValue("875");
 	wb.openSheet("Sheet1").openCell("F7").setValue("1");
 
 	PageOfficeCtrl poCtrl1 = new PageOfficeCtrl(request);
 	poCtrl1.setWriter(wb);
-	poCtrl1.setServerPage(request.getContextPath()+"/poserver.zz"); //¥À––±ÿ–Î
+	poCtrl1.setServerPage(request.getContextPath()+"/poserver.zz"); //Ê≠§Ë°åÂøÖÈ°ª
 	String fileName = "test.xls";
 
-	//¥¥Ω®◊‘∂®“Â≤Àµ•¿∏
-	poCtrl1.addCustomToolButton("»´∆¡«–ªª", "SetFullScreen()", 4);
+	//ÂàõÂª∫Ëá™ÂÆö‰πâËèúÂçïÊ†è
+	poCtrl1.addCustomToolButton("ÂÖ®Â±èÂàáÊç¢", "SetFullScreen()", 4);
 
-	poCtrl1.setMenubar(false);//“˛≤ÿ≤Àµ•¿∏
-	poCtrl1.setOfficeToolbars(false);//“˛≤ÿOfficeπ§æﬂ¿∏
+	poCtrl1.setMenubar(false);//ÈöêËóèËèúÂçïÊ†è
+	poCtrl1.setOfficeToolbars(false);//ÈöêËóèOfficeÂ∑•ÂÖ∑Ê†è
 
-	//¥Úø™Œƒº˛
+	//ÊâìÂºÄÊñá‰ª∂
 	poCtrl1.webOpen("doc/" + fileName, OpenModeType.xlsNormalEdit, "");
-	poCtrl1.setTagId("PageOfficeCtrl1"); //¥À––±ÿ–Î
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -246,14 +244,14 @@
 	</head>
 
 	<body>
-		<!-- *********************pageoffice◊Èº˛µƒ π”√ **************************-->
+		<!-- *********************pageofficeÁªÑ‰ª∂ÁöÑ‰ΩøÁî® **************************-->
 		<script language="javascript" type="text/javascript">
-			//»´∆¡
+			//ÂÖ®Â±è
 			function SetFullScreen() {
 				document.getElementById("PageOfficeCtrl1").FullScreen = !document.getElementById("PageOfficeCtrl1").FullScreen;
 			}
 		</script>
-		<po:PageOfficeCtrl id="PageOfficeCtrl1" />
-		<!-- *********************pageoffice◊Èº˛µƒ π”√ **************************-->
+		<%=poCtrl1.getHtmlCode("PageOfficeCtrl1")%>
+		<!-- *********************pageofficeÁªÑ‰ª∂ÁöÑ‰ΩøÁî® **************************-->
 	</body>
 </html>

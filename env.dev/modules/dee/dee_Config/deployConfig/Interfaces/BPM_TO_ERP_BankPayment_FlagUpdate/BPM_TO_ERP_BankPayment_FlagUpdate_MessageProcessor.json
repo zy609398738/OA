@@ -1,0 +1,119 @@
+{
+  "response": [
+    {
+      "text": "记录实时更新ERP银行付款单起单标识为空接口日志",
+      "description": "记录实时更新ERP银行付款单起单标识为空接口日志",
+      "scriptContent": "String expMsg = \"\";\nMap rsmap = new HashMap();\nif (message.getExceptionPayload() != null)\n{\n    message.setOutboundProperty(\"http.status\", 200);\n    expMsg = message.getExceptionPayload().getRootException().getMessage();\n    if (expMsg.length() > 3500)\n    {\n        expMsg = expMsg.substring(0, 3000);\n    }\n    message.setExceptionPayload(null);\n    rsmap.put(\"code\", \"0003\");\n    rsmap.put(\"msg\", \"查询失败！\");\n}\nelse\n{\n    rsmap.put(\"code\", \"0002\");\n    rsmap.put(\"msg\", \"查询成功！\");\n    rsmap.put(\"data\", payload);\n}\nMap logmap = message.getInboundProperty(\"logmap\");\nObject[] o = new Object[10];\no[0] = \"BankPayment_flow\";\no[1] = \"开始\";\no[2] = \"B_BankPayment\";\no[3] = \"\";\no[4] = logmap.get(\"begintime\");\no[5] = new java.text.SimpleDateFormat(\"yyyyMMdd HH:mm:ss.SSS\").format(new java.sql.Timestamp(java.lang.System.currentTimeMillis()));\no[6] = \"\";\no[7] = \"\";\no[8] = expMsg;\no[9] = \"BPM_TO_ERP_BankPayment_FlagUpdate\";\ndbop.saveOrUpdate(\"insert into TRINA_SL_INTERFACE_LOG(id,flow,node,billkey,oid,starttime,endtime,request_data,response_data,EXCEPTION,interface_type)values(Trina_SL_Interface_Log_ID_SEQ.Nextval,?,?,?,?,?,?,?,?,?,?)\", o, false);\nreturn rsmap.get(\"code\");",
+      "smallType": "GroovyScriptWithDS",
+      "className": "com.bokesoft.exchange.transformer.ScriptWithDSTransformer",
+      "enable": "true",
+      "parentId": "8aab8d0b5fb891f7015fb8984410001a",
+      "bigType": "transformer_au",
+      "simpleMpLog": "false",
+      "ds": "2c9081d05be7e572015be80fcb64000f",
+      "isRef": "false",
+      "id": "8aab8d0b5fb891f7015fb89eabe60022"
+    }
+  ],
+  "normal": [
+    {
+      "text": "实时更新ERP银行付款单起单标识为空入口",
+      "description": "实时更新ERP银行付款单起单标识为空入口",
+      "address": "vm://BPM_TO_ERP_BankPayment_FlagUpdate",
+      "exchange_pattern": "request-response",
+      "smallType": "VM",
+      "className": "",
+      "enable": "true",
+      "parentId": "8aab8d0b5fb891f7015fb8984410001a",
+      "bigType": "inbound",
+      "simpleMpLog": "false",
+      "encoding": "UTF-8",
+      "isRef": "false",
+      "id": "8aab8d0b5fb891f7015fb89b87170020"
+    },
+    {
+      "text": "记录更新ERP银行付款单起单标识为空开始时间",
+      "description": "记录更新ERP银行付款单起单标识为空开始时间",
+      "scriptContent": "String begintime = new java.text.SimpleDateFormat(\"yyyyMMdd HH:mm:ss.SSS\").format(new java.sql.Timestamp(java.lang.System.currentTimeMillis()));\nMap logmap = new HashMap();\nlogmap.put(\"begintime\", begintime);\nmessage.setInboundProperty(\"logmap\", logmap);\nreturn payload;",
+      "smallType": "GroovyScriptTransformer",
+      "className": "org.mule.module.scripting.transformer.ScriptTransformer",
+      "enable": "true",
+      "parentId": "8aab8d0b5fb891f7015fb8984410001a",
+      "bigType": "transformer_au",
+      "simpleMpLog": "false",
+      "ds": "2c9081d05be7e572015be80fcb64000f",
+      "isRef": "false",
+      "id": "8aab8d0b5fb891f7015fb89c78d50021"
+    },
+    {
+      "ignoreSQLError": "false",
+      "text": "更新ERP银行付款单起单标识为空",
+      "description": "更新ERP银行付款单起单标识为空",
+      "smallType": "ExecuteSQLSimpleTransformer",
+      "className": "com.bokesoft.dee.transport.jdbc.transformer.ExecuteSQLSimpleTransformer",
+      "enable": "true",
+      "queries": "[{\"value\":\"update cux.cux3_eflow_ap_detail set flag=''  where header_id= #[map-payload:Header_ID] and invoice_id = #[map-payload:Invoice_ID] and flag= #[map-payload:InstanceID] \"}]",
+      "parentId": "8aab8d0b5fb891f7015fb8984410001a",
+      "bigType": "transformer_au",
+      "simpleMpLog": "false",
+      "resultIndexOf": 1,
+      "isRef": "false",
+      "ds": "8aab8d005f9978c4015f9a70f1a5015c",
+      "id": "8aab8d0b5fb891f7015fb8992cfa001f"
+    }
+  ],
+  "exception": [
+    {
+      "text": "把异常对象转换为文本",
+      "description": "把异常对象转换为文本",
+      "smallType": "ExceptionMessageTransformer",
+      "className": "com.bokesoft.exchange.transformer.ExceptionMessageTransformer",
+      "enable": "true",
+      "parentId": "8aab8d0b5fb891f7015fb8984410001a",
+      "bigType": "GGPZTransformer",
+      "isRef": "true",
+      "id": "8aab8d0b5fb891f7015fb8984441001b"
+    },
+    {
+      "path": "${bokedee.logpath.runtimeLog}/BPM_TO_ERP_BankPayment_FlagUpdate",
+      "text": "记录错误日志到文件_BPM_TO_ERP_BankPayment_FlagUpdate",
+      "description": "",
+      "smallType": "File",
+      "className": "",
+      "enable": "true",
+      "outputPattern": "#[function:datestamp:yyyyMMddHHmmss]-#[message:id].xml",
+      "parentId": "8aab8d0b5fb891f7015fb8984410001a",
+      "bigType": "outbound",
+      "file_subdir": "#[context:serviceName]/#[function:datestamp:yyyyMMdd]",
+      "isRef": "false",
+      "id": "8aab8d0b5fb891f7015fb89844d2001c"
+    },
+    {
+      "text": "把异常信息替换换行符_BPM_TO_ERP_BankPayment_FlagUpdate",
+      "description": "把异常信息替换换行符",
+      "scriptContent": "String exceptionContent = message.getPayload();String exception = exceptionContent.replace(\"\\n\", \"<br/>\");message.setPayload(exception);return message;",
+      "className": "org.mule.module.scripting.transformer.ScriptTransformer",
+      "smallType": "GroovyScriptTransformer",
+      "enable": "false",
+      "parentId": "8aab8d0b5fb891f7015fb8984410001a",
+      "bigType": "transformer_au",
+      "simpleMpLog": "false",
+      "isRef": "false",
+      "id": "8aab8d0b5fb891f7015fb8984544001d"
+    },
+    {
+      "text": "把异常信息通过邮件发送_BPM_TO_ERP_BankPayment_FlagUpdate",
+      "description": "把异常信息通过邮件发送",
+      "connector_ref": "bokedee_default_smtp_connector",
+      "subject": "BPM_TO_ERP_BankPayment_FlagUpdate",
+      "smallType": "SMTP",
+      "className": "",
+      "enable": "false",
+      "parentId": "8aab8d0b5fb891f7015fb8984410001a",
+      "bigType": "outbound",
+      "encoding": "UTF-8",
+      "isRef": "false",
+      "id": "8aab8d0b5fb891f7015fb89845b2001e"
+    }
+  ]
+}

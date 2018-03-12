@@ -1,0 +1,10 @@
+{
+  "id": "402880e961e9a0780161e9c6d1a00024",
+  "startIndex": "",
+  "autoRun": "true",
+  "changePort": "",
+  "responseTime": "600000",
+  "description": "实时回写BPM物料分配单InvItemOrg表的数据至ERP",
+  "text": "ERP_Insert_InvItemOrg_To_BPM",
+  "oldPort": ""
+}

@@ -1,0 +1,11 @@
+[
+  {
+    "recordMpLog": "false",
+    "text": "ERP_PO_Import_To_BPM",
+    "id": "8aab8da76204bf110162052e959b012b",
+    "parentId": "8aab8da76204bf110162052e8237012a",
+    "description": "实时导入维修单的PO包",
+    "fileImport": "false",
+    "enable": "true"
+  }
+]

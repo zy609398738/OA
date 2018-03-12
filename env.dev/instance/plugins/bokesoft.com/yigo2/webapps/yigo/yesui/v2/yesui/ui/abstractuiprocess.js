@@ -49,14 +49,40 @@ var YIUI = YIUI || {};
             return item;
         },
 
-        calcFormulaValue:function (item,context) {
+        calcFormulaValue:function (item, context, cType) {
             var result = null;
-            if( item.syntaxTree ) {
-                result = this.form.evalByTree(item.syntaxTree,context,null);
-            } else if ( item.formulaValue ) {
-                result = this.form.eval(item.formulaValue,context,null);
-            } else if ( item.defaultValue  ) {
-                result = item.defaultValue;
+            if(item.syntaxTree) {
+                result = this.form.evalByTree(item.syntaxTree, context, null);
+            } else if (item.formulaValue) {
+                result = this.form.eval(item.formulaValue, context, null);
+            } else if (item.defaultValue) {
+                if(cType) {
+                    result = this.dataConvert(cType, item.defaultValue);
+                } else {
+                    result = item.defaultValue;
+                }
+            }
+            return result;
+        },
+
+        dataConvert: function(cType, value) {
+            var result = null;
+
+            switch (cType) {
+            case YIUI.CONTROLTYPE.NUMBEREDITOR:
+                result = YIUI.TypeConvertor.toDecimal(value);
+                break;
+            case YIUI.CONTROLTYPE.DATEPICKER:
+                result = YIUI.TypeConvertor.toDate(value);
+                break;
+            case YIUI.CONTROLTYPE.DICT:
+                if( $.isNumeric(value) ) {
+                    result = YIUI.TypeConvertor.toLong(value);
+                }
+                break;
+            default:
+                result = value;
+                break;
             }
             return result;
         },
@@ -91,6 +117,21 @@ var YIUI = YIUI || {};
                 result = this.form.eval(item.content,context,null);
             }
             return result;
+        },
+
+        moveError:function (com) {
+            if( !com.isVisible() && (com.isError() || com.isRequired()) ) {
+                if( com.isError() ) {
+                    this.form.setError(true,com.getErrorMsg(),com.key);
+                }
+                if( com.isRequired() ) {
+                    this.form.setError(true,YIUI.ViewException.getException(YIUI.ViewException.REQUIRED_ERROR,com.key),com.key);
+                }
+            } else {
+                if( this.form.isError() && this.form.errorInfo.errorSource == com.key ){
+                    this.form.setError(false,null,null);
+                }
+            }
         }
 
     })

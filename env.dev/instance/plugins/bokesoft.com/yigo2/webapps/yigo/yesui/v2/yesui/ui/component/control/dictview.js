@@ -290,10 +290,15 @@ YIUI.Control.DictView = YIUI.extend(YIUI.Control, {
 		for (i=0,len=colModel.length;i<colModel.length;i++) {
 			col = colModel[i];
 			// width = col.width || this.defaultWidth;
-			width = Math.round(100/len);
-//			$('<col></col>').attr('width', width).prependTo(this._$table);
+			if (col.width) {
+				$th = $('<th ><span class="title">' + col.caption + '</span></th>').css("width", col.width).appendTo(tr);
+			} else {
+				width = Math.round(100/len);
+//				$('<col></col>').attr('width', width).prependTo(this._$table);
+				
+				$th = $('<th ><span class="title">' + col.caption + '</span></th>').css("width", width + "%").appendTo(tr);
+			}
 			
-			$th = $('<th ><span class="title">' + col.caption + '</span></th>').css("width", width + "%").appendTo(tr);
 			if(i < len - 1) {
 				$("<span class='dv-handler'></span>").appendTo($("span", $th));
 			}
@@ -391,6 +396,14 @@ YIUI.Control.DictView = YIUI.extend(YIUI.Control, {
 			self.handler.doDictViewSearch(self, text);
 			
 		});
+		
+		this._$fuzzyText.keypress(function (event) {
+            if (event.keyCode == 13) {
+            	var text = self._$fuzzyText.val();
+    			self.handler.doDictViewSearch(self, text);
+    			self._$fuzzyText.blur();
+            }
+        });
 		
 		var _this = this;
 		$(".dv-handler", this.el).bind('mousedown', function (e) {

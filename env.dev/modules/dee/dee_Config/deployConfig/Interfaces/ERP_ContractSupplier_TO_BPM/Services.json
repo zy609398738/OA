@@ -1,0 +1,11 @@
+[
+  {
+    "id": "8aab8d065f095ba7015f0a261c7f001d",
+    "text": "ERP_ContractSupplier_TO_BPM",
+    "recordMpLog": "false",
+    "parentId": "8aab8d065f095ba7015f0a261bc7001c",
+    "description": "实时查询ERP系统模板合同单据供应商数据",
+    "fileImport": "false",
+    "enable": "true"
+  }
+]

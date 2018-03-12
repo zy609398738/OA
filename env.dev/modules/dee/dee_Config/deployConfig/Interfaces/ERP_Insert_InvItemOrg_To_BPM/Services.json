@@ -1,0 +1,11 @@
+[
+  {
+    "recordMpLog": "false",
+    "text": "ERP_Insert_InvItemOrg_To_BPM",
+    "id": "402880e961e9a0780161e9c6e5680025",
+    "parentId": "402880e961e9a0780161e9c6d1a00024",
+    "description": "实时回写BPM物料分配单InvItemOrg表的数据至ERP",
+    "fileImport": "false",
+    "enable": "true"
+  }
+]

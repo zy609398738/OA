@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <Opt>
+        <New>New</New>
+    </Opt>
+    <UI>
+        <OA_WorkflowView>ProcessDefineList</OA_WorkflowView>
+		<Lab_CheckListBox1>WorkflowRelevance</Lab_CheckListBox1>
+        <Lab_CheckListBox2>WorkflowState</Lab_CheckListBox2>
+        <Query>Query</Query>
+    </UI>
+    <GridColumn>
+        <WorkflowKey>WorkflowKey</WorkflowKey>
+        <WorkflowRelevance>WorkflowRelevance</WorkflowRelevance>
+        <WorkflowState>WorkflowStatus</WorkflowState>
+        <WorkflowName>WorkflowName</WorkflowName>
+        <WorkflowVersion>Version</WorkflowVersion>
+        <Code>WorkflowDefineCode</Code>
+        <Name>WorkflowDefineName</Name>
+    </GridColumn>
+</StringTable>

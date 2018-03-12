@@ -38,6 +38,9 @@ Svr.Request = (function () {
             // var timezone = tz.name();
             // params.locale = locale;
             // params.timezone = timezone;
+        	if (!YIUI.HeadInfos.empty()) {
+        		params.headinfos = YIUI.HeadInfos.toJSON();
+        	}
 			if(!url){
 				url = Svr.SvrMgr.ServletURL
 			}
@@ -99,6 +102,9 @@ Svr.Request = (function () {
 
         getSyncData: function (url, params, sucCallback, errorCallback) {
             params.mode = 1;
+            if (!YIUI.HeadInfos.empty()) {
+        		params.headinfos = YIUI.HeadInfos.toJSON();
+        	}
             var returnObj = null;
         
             var tz = jstz.determine();
@@ -149,6 +155,9 @@ Svr.Request = (function () {
 
         getAsyncData: function (url, params, sucCallback, errorCallback) {
             params.mode = 1;
+            if (!YIUI.HeadInfos.empty()) {
+        		params.headinfos = YIUI.HeadInfos.toJSON();
+        	}
             var returnObj = null;
             var tz = jstz.determine();
             var timezone = tz.name();

@@ -124,7 +124,7 @@ var defaultInit = function(options){
 				var file = returnData[i],
 					fileName = file.fileName,
 					fileSize = file.fileSize,
-					fileUrl = (options.ctxPath || '')+file.viewUrl;
+					fileUrl = file.downloadUrl;
 				var _isImage = reImg.test(fileName);
 				
 				var str = "";

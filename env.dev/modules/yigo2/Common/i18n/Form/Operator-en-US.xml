@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <UI>
+        <Lab_EmpID>Corresponding staff</Lab_EmpID>
+        <L_Name>Name</L_Name>
+        <L_Code>Log-in name</L_Code>
+        <Lab_DeptID>Corresponding departments</Lab_DeptID>
+    </UI>
+    <GridColumn>
+        <L_Role>Role</L_Role>
+    </GridColumn>
+</StringTable>

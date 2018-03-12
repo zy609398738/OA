@@ -68,7 +68,6 @@ YIUI.Panel.StackContainer = YIUI.extend(YIUI.Panel, {
 	/** 删除当前form，并取出之前缓存的form，并显示 */
 	remove : function(comp, autoDestroy) {
 		this.base(comp, autoDestroy);
-		this.formID && YIUI.FormStack.removeForm(this.formID);
 	},
 	
 	beforeDestroy: function() {
@@ -95,6 +94,8 @@ YIUI.Panel.StackContainer = YIUI.extend(YIUI.Panel, {
 		}
 		this.form = form;
 		this.formID = form.formID;
+		var rt = form.getRoot();
+		this.items.push(rt);
 	},
 
     doLayout: function(panelWidth, panelHeight) {
@@ -125,5 +126,6 @@ YIUI.Panel.StackContainer = YIUI.extend(YIUI.Panel, {
 //        this.remove(this.get(compID));
 //		this.formID && YIUI.FormStack.removeForm(this.formID);
 //	}
+
 });
 YIUI.reg('stackcontainer', YIUI.Panel.StackContainer);

@@ -1,20 +1,20 @@
 <%@ page language="java"
 	import="java.util.*,com.zhuozhengsoft.pageoffice.*"
-	pageEncoding="gb2312"%>
-<%@ taglib uri="http://java.pageoffice.cn" prefix="po"%>
+	pageEncoding="utf-8"%>
 <%
 PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
-//ÉèÖÃ·şÎñÆ÷Ò³Ãæ
+//è®¾ç½®æœåŠ¡å™¨é¡µé¢
 poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");
-//´ò¿ªWordÎÄµµ
-poCtrl.webOpen("doc/test.doc",OpenModeType.docNormalEdit,"ÕÅØıÃû");
-poCtrl.setTagId("PageOfficeCtrl1");//´ËĞĞ±ØĞè
+//æ‰“å¼€Wordæ–‡æ¡£
+poCtrl.webOpen("doc/test.doc",OpenModeType.docNormalEdit,"å¼ ä½šå");
+
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
-   <title>ÓÃjs¿ØÖÆ¹¤¾ßÀ¸µÄÏÔÊ¾ºÍÒş²Ø</title>
+   <title>ç”¨jsæ§åˆ¶å·¥å…·æ çš„æ˜¾ç¤ºå’Œéšè—</title>
+
 </head>
 <body>
     <script type="text/javascript">
@@ -22,25 +22,25 @@ poCtrl.setTagId("PageOfficeCtrl1");//´ËĞĞ±ØĞè
             document.getElementById("PageOfficeCtrl1").WebSave();
         }
         
-        // Òş²Ø/ÏÔÊ¾ ±êÌâÀ¸
+        // éšè—/æ˜¾ç¤º æ ‡é¢˜æ 
         function Button1_onclick() {
             var bVisible = document.getElementById("PageOfficeCtrl1").Titlebar;
             document.getElementById("PageOfficeCtrl1").Titlebar = !bVisible;
         }
         
-        // Òş²Ø/ÏÔÊ¾ ²Ëµ¥À¸
+        // éšè—/æ˜¾ç¤º èœå•æ 
         function Button2_onclick() {
             var bVisible = document.getElementById("PageOfficeCtrl1").Menubar;
             document.getElementById("PageOfficeCtrl1").Menubar = !bVisible;
         }
 
 
-        // Òş²Ø/ÏÔÊ¾ ×Ô¶¨Òå¹¤¾ßÀ¸
+        // éšè—/æ˜¾ç¤º è‡ªå®šä¹‰å·¥å…·æ 
         function Button3_onclick() {
             var bVisible = document.getElementById("PageOfficeCtrl1").CustomToolbar;
             document.getElementById("PageOfficeCtrl1").CustomToolbar = !bVisible;
         }
-        // Òş²Ø/ÏÔÊ¾ Office¹¤¾ßÀ¸
+        // éšè—/æ˜¾ç¤º Officeå·¥å…·æ 
         function Button4_onclick() {
             var bVisible = document.getElementById("PageOfficeCtrl1").OfficeToolbars;
             document.getElementById("PageOfficeCtrl1").OfficeToolbars = !bVisible;
@@ -48,14 +48,13 @@ poCtrl.setTagId("PageOfficeCtrl1");//´ËĞĞ±ØĞè
 
     </script>
     <form id="form1" >
-    <input id="Button1" type="button" value="Òş²Ø/ÏÔÊ¾ ±êÌâÀ¸"  onclick="return Button1_onclick()" />
-    <input id="Button2" type="button" value="Òş²Ø/ÏÔÊ¾ ²Ëµ¥À¸" onclick="return Button2_onclick()" />
-    <input id="Button3" type="button" value="Òş²Ø/ÏÔÊ¾ ×Ô¶¨Òå¹¤¾ßÀ¸"  onclick="return Button3_onclick()" />
-    <input id="Button4" type="button" value="Òş²Ø/ÏÔÊ¾ Office¹¤¾ßÀ¸"  onclick="return Button4_onclick()" />
+    <input id="Button1" type="button" value="éšè—/æ˜¾ç¤º æ ‡é¢˜æ "  onclick="return Button1_onclick()" />
+    <input id="Button2" type="button" value="éšè—/æ˜¾ç¤º èœå•æ " onclick="return Button2_onclick()" />
+    <input id="Button3" type="button" value="éšè—/æ˜¾ç¤º è‡ªå®šä¹‰å·¥å…·æ "  onclick="return Button3_onclick()" />
+    <input id="Button4" type="button" value="éšè—/æ˜¾ç¤º Officeå·¥å…·æ "  onclick="return Button4_onclick()" />
     <br /><br />
     <div style=" width:auto; height:700px;">
-        <po:PageOfficeCtrl id="PageOfficeCtrl1">
-        </po:PageOfficeCtrl>
+        <%=poCtrl.getHtmlCode("PageOfficeCtrl1")%>
     </div>
     </form>
 </body>

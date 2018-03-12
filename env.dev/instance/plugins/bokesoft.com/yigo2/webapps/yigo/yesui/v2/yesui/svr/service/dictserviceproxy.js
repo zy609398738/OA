@@ -47,7 +47,7 @@ YIUI.DictService = (function () {
 		/**
 		 * 根据父节点获取子节点
 		 */
-		getDictChildren: function(itemKey, itemData, filter, stateMask){
+		getDictChildren: function(itemKey, itemData, filter, stateMask, formKey, fieldKey){
 			var result = true;
 			var params = {};
 			params.itemKey = itemKey;
@@ -58,6 +58,8 @@ YIUI.DictService = (function () {
 			params.service = "WebDictService";
 			params.cmd = "GetDictChildren";
 			params.stateMask = stateMask;
+			params.formKey = formKey;
+			params.fieldKey = fieldKey;
 			
 			return Svr.Request.getData(params);
 		},
@@ -150,7 +152,7 @@ YIUI.DictService = (function () {
 		},
 		
 		/**
-		 * 获取一个字典缓存
+		 * 获取一个字典缓存,异步
 		 */
 		getItem: function(itemKey, oid, statMask, callback) {
 			var data = {};
@@ -169,6 +171,25 @@ YIUI.DictService = (function () {
 			});
 			
 		},
+
+        /**
+         * 获取一个字典缓存,同步,用于字典树形
+         */
+        getSyncItem: function(itemKey, oid, statMask, callback) {
+            var data = {};
+            data.itemKey = itemKey;
+            data.oid = oid;
+            data.statMask = statMask;
+            data.cmd = "GetItem";
+            data.service = "WebDictService";
+
+            var item = null;
+            var data = Svr.Request.getSyncData(Svr.SvrMgr.ServletURL, data);
+			if( data ) {
+				item = YIUI.DataUtil.fromJSONItem(data);
+			}
+			return item;
+        },
 		
 		/**
 		 * 模糊查询　用于dictQueryPane 与　链式字典的dictView
@@ -203,7 +224,7 @@ YIUI.DictService = (function () {
 			Svr.Request.getSyncData(Svr.SvrMgr.ServletURL, data, success);
 			return result;
 		},*/
-		getQueryData: function(itemKey, startRow, maxRows, pageIndicatorCount, fuzzyValue, stateMask, filter, root){
+		getQueryData: function(itemKey, startRow, maxRows, pageIndicatorCount, fuzzyValue, stateMask, filter, root, formKey, fieldKey){
 			var result = true;
 			var params = {};
 			params.itemKey = itemKey;
@@ -212,13 +233,15 @@ YIUI.DictService = (function () {
 			params.pageIndicatorCount = pageIndicatorCount;
 			params.value = fuzzyValue;
 			params.stateMask = stateMask;
-			
 			if(filter != null){
 				params.filter = $.toJSON(filter);
 			}
 			if(root != null){
 				params.root = $.toJSON(root);
 			}
+			params.formKey = formKey;
+			params.fieldKey = fieldKey;
+
 			params.service = "WebDictService";
 			params.cmd = "GetQueryData";
 

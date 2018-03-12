@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <Opt>
+        <New>Save</New>
+        <Close>Close</Close>
+    </Opt>
+    <UI>
+        <OA_CommonViews>Comments</OA_CommonViews>
+    </UI>
+    <ListViewColumn>
+        <Status>Status</Status>
+        <Content>Content</Content>
+        <OID>OID</OID>
+    </ListViewColumn>
+</StringTable>

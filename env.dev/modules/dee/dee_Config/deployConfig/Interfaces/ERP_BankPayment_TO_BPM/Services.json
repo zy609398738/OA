@@ -1,0 +1,83 @@
+[
+  {
+    "id": "8aab8d025f4cf8b7015f4d0188000019",
+    "text": "ERP_TO_BPM_BankPayment_MID",
+    "recordMpLog": "false",
+    "parentId": "8aab8d025f4cf8b7015f4d0187400018",
+    "description": "更新ERP银行付款单信息至BPM系统中间表",
+    "fileImport": "false",
+    "enable": "true"
+  },
+  {
+    "id": "8aab8dfa5f50f282015f515480ff0022",
+    "text": "BPM_Update_BankPayment_Amount",
+    "recordMpLog": "false",
+    "parentId": "8aab8d025f4cf8b7015f4d0187400018",
+    "description": "更新本地银行付款单中间表核销表金额信息",
+    "fileImport": "false",
+    "enable": "true"
+  },
+  {
+    "recordMpLog": "false",
+    "text": "ERP_Update_BankPayment_Falg",
+    "id": "8aaae0fb5f52393c015f5263532f0021",
+    "parentId": "8aab8d025f4cf8b7015f4d0187400018",
+    "description": "更新ERP银行付款单表标记字段",
+    "fileImport": "false",
+    "enable": "true"
+  },
+  {
+    "id": "8aab8dfd5f560a35015f5637a22a001d",
+    "text": "BPM_Update_BankPayment_request_1",
+    "recordMpLog": "false",
+    "parentId": "8aab8d025f4cf8b7015f4d0187400018",
+    "description": "更新本地银行付款单中间表人员信息",
+    "fileImport": "false",
+    "enable": "true"
+  },
+  {
+    "recordMpLog": "false",
+    "text": "BPM_Update_BankPayment_request_2",
+    "id": "8aab8dfd5f560a35015f5637a3ff0022",
+    "parentId": "8aab8d025f4cf8b7015f4d0187400018",
+    "description": "更新本地银行付款单中间表人员信息",
+    "fileImport": "false",
+    "enable": "true"
+  },
+  {
+    "id": "8aab8dfd5f574cb4015f575fb66c0026",
+    "text": "BankPayment_Tmp_MID_Distribute",
+    "recordMpLog": "false",
+    "parentId": "8aab8d025f4cf8b7015f4d0187400018",
+    "description": "本地银行付款单中间表数据分发",
+    "fileImport": "false",
+    "enable": "true"
+  },
+  {
+    "recordMpLog": "false",
+    "text": "BankPayment_Tmp_MID_TO_YIGO",
+    "id": "8aab8dfd5f574cb4015f575fb83f002b",
+    "parentId": "8aab8d025f4cf8b7015f4d0187400018",
+    "description": "接收数据生成银行付款单",
+    "fileImport": "false",
+    "enable": "true"
+  },
+  {
+    "recordMpLog": "false",
+    "text": "BankPayment_Remain_MID_Distribute",
+    "id": "8aaae0b75f7b7add015f7b7ed2ac002a",
+    "parentId": "8aab8d025f4cf8b7015f4d0187400018",
+    "description": "银行付款单二次数据分发",
+    "fileImport": "false",
+    "enable": "true"
+  },
+  {
+    "id": "8aaae0b75f7b7add015f7b7ed56b002f",
+    "text": "BankPayment_Remain_MID_TO_YIGO",
+    "recordMpLog": "false",
+    "parentId": "8aab8d025f4cf8b7015f4d0187400018",
+    "description": "接收二次发起数据生成银行付款单",
+    "fileImport": "false",
+    "enable": "true"
+  }
+]

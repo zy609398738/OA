@@ -16,7 +16,7 @@
 					var body = $("<div class='tab-body'/>").appendTo(el);
 					for (var i = 0, len = items.length; i < len; i++) {
 						var item = items[i];
-						var _li = $("<li class='"+(i==0 ? "sel" : "")+"' ref=tab_"+item.id+"><a>"+item.caption+"</a></li>").appendTo(ul);
+						var _li = $("<li class='"+(i==0 ? "sel" : "")+"' ref=tab_"+item.id+" r_type='"+item.type+"'><a>"+item.caption+"</a></li>").appendTo(ul);
 						var _itemCt = $("<div class='tab-item "+(i==0 ? "show" : "")+"' id=tab_"+item.id+"></div>").appendTo(body);
 						item.ct = _itemCt;
 						item.render(_itemCt);
@@ -46,6 +46,8 @@
 					this.el.delegate("ul.tab-ul li", "click", function(event) {
 						if(!_this.enable) return;
 						var li = $(this);
+						var type = li.attr("r_type");
+						RTS.options.type = parseInt(type);
 						var ref = li.attr("ref");
 						var oldRef = _this.selTabID;
 						if(oldRef) {

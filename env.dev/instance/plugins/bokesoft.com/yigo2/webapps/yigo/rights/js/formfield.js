@@ -128,7 +128,8 @@
 					this.el.appendTo(ct);
 				},
 				addRows: function(data) {
-					var tbl = new RTS.Treetable(this.el, RTS.options);
+					var opts = $.extend({}, RTS.options, {type: RTS.Rights_type.TYPE_FORM});
+					var tbl = new RTS.Treetable(this.el, opts);
 					this.$table_el = tbl.create(ff_opt, data);
 					this.$table = tbl;
 

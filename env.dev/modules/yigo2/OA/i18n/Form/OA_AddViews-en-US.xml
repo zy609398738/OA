@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <Opt>
+        <Delete>Delete</Delete>
+        <Save>Save</Save>
+        <Close>Close</Close>
+        <Edit>Edit</Edit>
+    </Opt>
+    <UI>
+        <OA_AddViews>AddComments</OA_AddViews>
+		<Lab_Status>Status</Lab_Status>
+        <Lab_Creator>Creator</Lab_Creator>
+        <Lab_Content>Content</Lab_Content>
+    </UI>
+</StringTable>

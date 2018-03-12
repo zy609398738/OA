@@ -109,23 +109,23 @@ span.login_username, .navRight .org_lbl {
 	top:50px;
 	right:0;
     display:none;
-	width:120px;
-	z-index:999
+	min-width:120px;
+	z-index:999;
+	white-space: nowrap;
 }
 .nav-field-list {
 	background-color:#fff; 
-	width:120px;
 	z-index:10; 
 	box-shadow: -2px 2px 10px 0px #ccc;
 }
 .nav-field-list li { 
-	width:120px; 
 	color: #323232; 
 	font-size: 16px;
 	line-height:40px; 
 	text-align:center; 
 	background:#ebebeb;
 	cursor:pointer;
+	padding: 0 10px;
 }
 .nav-field-list li a {
 	font-size:16px;
@@ -229,11 +229,12 @@ span.login_username, .navRight .org_lbl {
 }
 .matchItems {
 	position: absolute;
-	width: 260px;
+	width: "auto";
+	max-width: 500px;
 	max-height: 500px;
 	z-index: 111;
 	background-color: #fff;
-	/* border: 1px solid #dadada; */
+	border: 1px solid #dadada;
 	display: none;
 	overflow: auto;
 }
@@ -246,7 +247,7 @@ span.login_username, .navRight .org_lbl {
 	white-space: nowrap;	
 }
 .matchItems li a {
-	padding-left: 10px;
+	padding: 0 15px 0 10px;
 	display: block;
 	color: #74787a;
 	/* 

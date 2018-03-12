@@ -1,43 +1,41 @@
 <%@ page language="java"
 	import="java.util.*,com.zhuozhengsoft.pageoffice.*,com.zhuozhengsoft.pageoffice.wordwriter.*"
-	pageEncoding="gb2312"%>
-<%@ taglib uri="http://java.pageoffice.cn" prefix="po"%>
-<%
-//******************************×¿ÕýPageOffice×é¼þµÄÊ¹ÓÃ*******************************
-	PageOfficeCtrl poCtrl1 = new PageOfficeCtrl(request);
-	poCtrl1.setServerPage(request.getContextPath()+"/poserver.zz"); //´ËÐÐ±ØÐë
-	//Òþ²Ø²Ëµ¥À¸
-	poCtrl1.setMenubar(false);
-	//Ìí¼Ó×Ô¶¨Òå°´Å¥
-	poCtrl1.addCustomToolButton("²åÈëÊéÇ©","addBookMark",5);
-	poCtrl1.addCustomToolButton("É¾³ýÊéÇ©","delBookMark",5);
+	pageEncoding="utf-8"%>
 
-	poCtrl1.webOpen("doc/template.doc", OpenModeType.docNormalEdit, "ÕÅÈý");
-	poCtrl1.setTagId("PageOfficeCtrl1"); //´ËÐÐ±ØÐë	
+<%
+//******************************å“æ­£PageOfficeç»„ä»¶çš„ä½¿ç”¨*******************************
+	PageOfficeCtrl poCtrl1 = new PageOfficeCtrl(request);
+	poCtrl1.setServerPage(request.getContextPath()+"/poserver.zz"); //æ­¤è¡Œå¿…é¡»
+	//éšè—èœå•æ 
+	poCtrl1.setMenubar(false);
+	//æ·»åŠ è‡ªå®šä¹‰æŒ‰é’®
+	poCtrl1.addCustomToolButton("æ’å…¥ä¹¦ç­¾","addBookMark",5);
+	poCtrl1.addCustomToolButton("åˆ é™¤ä¹¦ç­¾","delBookMark",5);
+
+	poCtrl1.webOpen("doc/template.doc", OpenModeType.docNormalEdit, "å¼ ä¸‰");
 
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
-    <title>ÔÚwordµ±Ç°¹â±ê´¦²åÈëÊéÇ©</title>
+    <title>åœ¨wordå½“å‰å…‰æ ‡å¤„æ’å…¥ä¹¦ç­¾</title>
 
 </head>
 <body>
     <form id="form1">
     <div style=" font-size:small; color:Red;">
-        <label>¹Ø¼ü´úÂë£ºµãÓÒ¼ü£¬Ñ¡Ôñ¡°²é¿´Ô´ÎÄ¼þ¡±£¬¿´jsº¯Êý£º</label>
-        <label>function  addBookMark() ºÍ function delBookMark()</label>
+        <label>å…³é”®ä»£ç ï¼šç‚¹å³é”®ï¼Œé€‰æ‹©â€œæŸ¥çœ‹æºæ–‡ä»¶â€ï¼Œçœ‹jså‡½æ•°ï¼š</label>
+        <label>function  addBookMark() å’Œ function delBookMark()</label>
         <br/>
-    <label>²åÈëÊéÇ©Ê±£¬ÇëÏÈÊäÈëÒª²åÈëµÄÊéÇ©Ãû³ÆºÍÎÄ±¾£»É¾³ýÊéÇ©Ê±£¬ÇëÏÈÊäÈëÏàÓ¦µÄÊéÇ©Ãû³Æ£¡</label><br />
-        <label>ÊéÇ©Ãû³Æ£º</label><input id="txtBkName" type="text" value="test" />
-        &nbsp;&nbsp;<label>ÊéÇ©ÎÄ±¾£º</label><input id="txtBkText" type="text" value="[²âÊÔ]" />
+    <label>æ’å…¥ä¹¦ç­¾æ—¶ï¼Œè¯·å…ˆè¾“å…¥è¦æ’å…¥çš„ä¹¦ç­¾åç§°å’Œæ–‡æœ¬ï¼›åˆ é™¤ä¹¦ç­¾æ—¶ï¼Œè¯·å…ˆè¾“å…¥ç›¸åº”çš„ä¹¦ç­¾åç§°ï¼</label><br />
+        <label>ä¹¦ç­¾åç§°ï¼š</label><input id="txtBkName" type="text" value="test" />
+        &nbsp;&nbsp;<label>ä¹¦ç­¾æ–‡æœ¬ï¼š</label><input id="txtBkText" type="text" value="[æµ‹è¯•]" />
     </div>
-    <input id="Button1" type="button" onclick="addBookMark();" value="²åÈëÊéÇ©" />
-    <input id="Button2" type="button" onclick="delBookMark()" value="É¾³ýÊéÇ©" />
+    <input id="Button1" type="button" onclick="addBookMark();" value="æ’å…¥ä¹¦ç­¾" />
+    <input id="Button2" type="button" onclick="delBookMark()" value="åˆ é™¤ä¹¦ç­¾" />
     <div style=" width:auto; height:700px;">
-        <po:PageOfficeCtrl id ="PageOfficeCtrl1" >
-        </po:PageOfficeCtrl>
+          <%=poCtrl1.getHtmlCode("PageOfficeCtrl1")%>
     </div>
     </form>
    <script type="text/javascript">

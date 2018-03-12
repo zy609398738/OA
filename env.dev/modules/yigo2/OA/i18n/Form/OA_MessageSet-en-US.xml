@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <UI>
+        <IsDefault>IsDefault</IsDefault>
+        <Lab_BillKey>Billkey</Lab_BillKey>
+        <SplitPanel1>Basic Information</SplitPanel1>
+        <SysTab>System Information</SysTab>
+        <Lab_Name>Name</Lab_Name>
+        <Lab_Notes>Notes</Lab_Notes>
+        <Lab_CreateTime>CreateTime</Lab_CreateTime>
+        <Lab_ClusterID>Group</Lab_ClusterID>
+        <Lab_Code>Code</Lab_Code>
+        <Lab_Creator>Creator</Lab_Creator>
+        <Lab_Modifier>Modifier</Lab_Modifier>
+        <Lab_ModifyTime>CreateTime</Lab_ModifyTime>
+        <Dtl>Dtl</Dtl>
+    </UI>
+    <GridColumn>
+        <SendEmail>TestSendEmailAddress</SendEmail>
+        <MessageType>MessageType</MessageType>
+        <ReceiverEmail>TestReceiverEmailAddress</ReceiverEmail>
+    </GridColumn>
+</StringTable>

@@ -1,0 +1,10 @@
+{
+  "id": "8aaae0c85f2cd839015f2d1f70350024",
+  "startIndex": "",
+  "autoRun": "true",
+  "changePort": "",
+  "responseTime": "600000",
+  "description": "实时回写合同模板评审组织信息IO至ERP系统表",
+  "text": "BPM_INSERT_StandardContractIO_TO_ERP",
+  "oldPort": ""
+}

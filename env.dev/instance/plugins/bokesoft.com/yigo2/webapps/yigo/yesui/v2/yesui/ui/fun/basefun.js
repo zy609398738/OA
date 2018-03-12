@@ -314,7 +314,11 @@ UI.BaseFuns = (function () {
 
     funs.Edit = function (name, cxt, args) {
         var form = cxt.form;
-        var editOpt = new YIUI.EditOpt(form);
+        var checkUI = false;
+        if (args.length > 0) {
+            checkUI = YIUI.TypeConvertor.toBoolean(args[0]);
+        }
+        var editOpt = new YIUI.EditOpt(form,checkUI);
         editOpt.doOpt();
     };
 
@@ -337,6 +341,7 @@ UI.BaseFuns = (function () {
         if (args.length > 2) {
             target = YIUI.FormTarget.parse(args[2]);
         }
+
         var tsParas;
         if (args.length > 3) {
             tsParas = args[3];
@@ -362,8 +367,8 @@ UI.BaseFuns = (function () {
             var filterMap = emptyForm.getFilterMap();
             filterMap.setOID(OID);
 
-            YIUI.FormParasUtil.processCallParas(form, emptyForm);
             emptyForm.setOptQueue(new YIUI.OptQueue(new YIUI.LoadOpt(emptyForm)));
+            YIUI.FormParasUtil.processCallParas(form, emptyForm);
 
             builder.builder(emptyForm);
         });
@@ -377,10 +382,12 @@ UI.BaseFuns = (function () {
     };
 
     funs.SaveData = function (name, cxt, args) {
-        var form = cxt.form, uiCheckOpt = new YIUI.UICheckOpt(form);
-        if (!uiCheckOpt.doOpt()) return false;
-        YIUI.UIUtil.saveDocument(form);
-        return true;
+        var form = cxt.form;
+        var checkUI = true;
+        if (args.length > 0) {
+            checkUI = YIUI.TypeConvertor.toBoolean(args[0]);
+        }
+        YIUI.UIUtil.saveDocument(form,checkUI);
     };
 
     funs.LoadData = function (name, cxt, args) {
@@ -392,7 +399,8 @@ UI.BaseFuns = (function () {
         YIUI.DocService.loadFormData(form, form.getFilterMap().OID, form.getFilterMap(), form.getCondParas())
             .then(function(doc){
                 form.setDocument(doc);
-                form.setSysExpVals(YIUI.BPMConstants.WORKITEM_INFO,doc.getExpData(YIUI.BPMKeys.WORKITEM_INFO));
+                if(doc.getExpData(YIUI.BPMKeys.WORKITEM_INFO))
+                	form.setSysExpVals(YIUI.BPMConstants.WORKITEM_INFO,doc.getExpData(YIUI.BPMKeys.WORKITEM_INFO));
                 form.showDocument();
             });
     };
@@ -438,11 +446,150 @@ UI.BaseFuns = (function () {
         paras.setCondFormKey(condFomKey);
         var comp = null;
         var condition = null;
+        var highCondition = null;
         var condItem = null;
         var value = null;
         var compList = form.getComponentList();
         for (var i in compList) {
             var cmp = compList[i];
+            
+            // 处理特殊查询
+            if ( cmp.type == YIUI.CONTROLTYPE.GRID && cmp.condition) {
+            	for( var i = 0,size = cmp.getRowCount();i < size;i++ ) {
+            		highCondition = {
+            				lBrac: 0,
+            				key: "",
+            				sign: -1,
+            				value: "",
+            				rBrac: 0,
+            				logical: 0,
+            				tableKey: "",
+            				columnKey: "",
+            				type: -1,
+            				onlyDate: true,
+            				itemKey: "",
+            				stateMask: 7,
+            				filter: {}
+            		};
+            		
+            		highCondition.lBrac = YIUI.TypeConvertor.toInt(cmp.getValueByKey(i,"LBrac"));
+            		
+            		// 去除无key            		
+            		var tableColumn =  YIUI.TypeConvertor.toString(cmp.getValueByKey(i,"Field"));
+            		if (tableColumn.isEmpty()) {
+            			continue;
+            		}
+            		
+            		// 去除无值
+            		var editOpt = cmp.dataModel.colModel.cells["Value"];
+            		var typeFormula = editOpt.editOptions.typeFormula;
+            		cxt.setRowIndex(i);
+                    var typeDefKey = form.eval(typeFormula, cxt);
+                    if(!typeDefKey){
+                        continue ;
+                    }
+            		
+                    highCondition.tableKey = form.metaForm.cellTypeGroup[typeDefKey].tableKey;
+                    highCondition.columnKey = form.metaForm.cellTypeGroup[typeDefKey].columnKey;
+                    var options = form.metaForm.cellTypeGroup[typeDefKey].editOptions;            		
+            		var cellType = options.cellType;
+                    
+            		value = cmp.getValueByKey(i,"Value");
+                    if (value == null) {
+                    	continue;
+                    }
+                    
+                    if (cellType == YIUI.CONTROLTYPE.DATEPICKER) {
+                        value = value.getTime();
+                        highCondition.onlyDate = $.isUndefined(options.onlyDate) ? false : options.onlyDate;
+                    } else if (cellType == YIUI.CONTROLTYPE.COMPDICT
+                        || cellType == YIUI.CONTROLTYPE.DICT
+                        || cellType == YIUI.CONTROLTYPE.DYNAMICDICT) {
+
+                        if (options.allowMultiSelection) {
+                            if (value.length == 1 && value[0].oid == 0) {
+                                continue;
+                            }
+                            
+                            var itemFilters = options.itemFilters;
+                            var filter = null;
+                            if (itemFilters) {
+                            	var itemFilter = itemFilters[options.itemKey];
+                                if (itemFilter != null && itemFilter != undefined && itemFilter.length > 0) {
+                                    for (var m = 0, len = itemFilter.length; m < len; m++) {
+                                        var cond = itemFilter[m].cond;
+                                        // 暂时处理
+                                        if (cond && cond.length > 0) {
+                                            if(!cxt) {
+                                                cxt = new View.Context(form);
+                                            }
+                                            var ret = form.eval(cond, cxt, null);
+                                            if (ret == true) {
+                                                filter = itemFilter[m];
+                                                break;
+                                            }
+                                        } else {
+                                            filter = itemFilter[m];
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                            
+                            if (filter) {
+                                var filterVal, fparas = [];
+                                if (filter.filterVals !== null && filter.filterVals !== undefined && filter.filterVals.length > 0) {
+                                    for (var j in filter.filterVals) {
+                                        filterVal = filter.filterVals[j];
+                                        // 暂时处理
+                                        switch (filterVal.type) {
+                                        case YIUI.FILTERVALUETYPE.CONST:
+                                            fparas.push(filterVal.refVal);
+                                            break;
+                                        case YIUI.FILTERVALUETYPE.FORMULA:
+                                        case YIUI.FILTERVALUETYPE.FIELD:
+                                            if(!cxt) {
+                                                cxt = new View.Context(form);
+                                            }
+                                            fparas.push(form.eval(filterVal.refVal, cxt, null));
+                                            break;
+                                        }
+                                    }
+                                }
+                                var dictFilter = {};
+                                dictFilter.itemKey = options.itemKey;
+                                dictFilter.formKey = form.formKey;
+                                dictFilter.sourceKey = "";
+                                dictFilter.fieldKey = "";
+                                dictFilter.filterIndex = filter.filterIndex;
+                                dictFilter.values = fparas;
+                                dictFilter.dependency = filter.dependency;
+                                dictFilter.typeDefKey = filter.typeDefKey;
+                                
+                                highCondition.filter = dictFilter;
+                            }
+                            
+                        }
+                        
+                        highCondition.itemKey = options.itemKey;
+                        highCondition.stateMask = $.isUndefined(options.stateMask) ? 7 : options.stateMask;
+                    }
+                    
+            		highCondition.type = cellType; 
+            		highCondition.value = value;
+            		highCondition.key = tableColumn;
+            		
+            		highCondition.sign = YIUI.TypeConvertor.toInt(cmp.getValueByKey(i,"Sign"));
+            		
+            		highCondition.rBrac = YIUI.TypeConvertor.toInt(cmp.getValueByKey(i,"RBrac"));
+            		
+            		highCondition.logical = YIUI.TypeConvertor.toInt(cmp.getValueByKey(i,"Logical"));
+            		
+            		paras.addHighCond(highCondition);
+            	}
+            }
+            
+            // 普通查询处理
             if ( cmp.value && !cmp.isNull() && cmp.condition) {
                 condition = cmp.condition;
                 value = cmp.value;
@@ -452,16 +599,14 @@ UI.BaseFuns = (function () {
                 } else if (cmp.type == YIUI.CONTROLTYPE.NUMBEREDITOR) {
                     if (value == 0) continue;
                 } else if (cmp.type == YIUI.CONTROLTYPE.COMPDICT
-                    || cmp.type == YIUI.CONTROLTYPE.DICT
-                    || cmp.type == YIUI.CONTROLTYPE.DYNAMICDICT) {
+                    || cmp.type == YIUI.CONTROLTYPE.DICT) {
 
                     if (cmp.multiSelect) {
                         if (value.length == 1 && value[0].oid == 0) {
                             continue;
                         }
                         //多选的情况 添加界面过滤条件。 汇总节点选中， 并非所有子节点 都显示。
-                        cmp.checkDict();
-                        var filter = cmp.getDictTree().dictFilter;
+                        var filter = YIUI.DictHandler.getDictFilter(form, cmp.key, cmp.getMetaObj().itemFilters, cmp.itemKey);
                         if (filter != null) {
                             condition.filter = filter;
                         }
@@ -474,12 +619,9 @@ UI.BaseFuns = (function () {
             } else if (cmp.condition && cmp.condition.limitToSource) {
                 condition = cmp.condition;
                 if (cmp.type == YIUI.CONTROLTYPE.COMPDICT
-                    || cmp.type == YIUI.CONTROLTYPE.DICT
-                    || cmp.type == YIUI.CONTROLTYPE.DYNAMICDICT) {
+                    || cmp.type == YIUI.CONTROLTYPE.DICT) {
 
-                    //多选的情况 添加界面过滤条件。 汇总节点选中， 并非所有子节点 都显示。
-                    cmp.checkDict();
-                    var filter = cmp.getDictTree().dictFilter;
+                    var filter = YIUI.DictHandler.getDictFilter(form, cmp.key, cmp.getMetaObj().itemFilters, cmp.itemKey);
                     if (filter == null) {
                         continue;
                     }
@@ -496,6 +638,65 @@ UI.BaseFuns = (function () {
         for (var i = 0, len = filterMap.length; i < len; i++) {
             filterMap[i].startRow = 0;
         }
+    };
+    
+    funs.GetCondSignItems = function (name, cxt, args) {
+        var formKey = args[0];
+        var field = args[1];
+        
+        var paras = {
+            service: "WebMetaService",
+            cmd: "GetCondSignItems",
+            formKey: formKey,
+            field: field
+        };
+
+        return Svr.Request.getSyncData(Svr.SvrMgr.ServletURL, paras);
+    };
+    
+    funs.GetDynamicCellKey = function (name, cxt, args) {
+        var pForm = cxt.form, formKey = args[0], tsParas = args[1], field = "", sign = -1;
+        var paras = {formKey: formKey}, callBack = {};
+
+        if (tsParas) {
+            tsParas = splitPara(tsParas);
+            field = tsParas["Field"] ? YIUI.TypeConvertor.toString(pForm.eval(tsParas["Field"], cxt)): "";
+            sign = tsParas["Sign"] ? YIUI.TypeConvertor.toInt(pForm.eval(tsParas["Sign"],cxt)): -1;
+        }
+        
+        var paras = {
+            service: "WebMetaService",
+            cmd: "GetDynamicCellKey",
+            formKey: formKey,
+            field: field,
+            sign: sign
+        };
+
+        return Svr.Request.getSyncData(Svr.SvrMgr.ServletURL, paras);
+    };
+    
+    funs.GetAllCondition = function (name, cxt, args) {
+    	
+        if(!this.condItemCache){
+            this.condItemCache = new LRUCache(5);
+        }
+
+        var formKey = args[0];
+
+        var paras = {
+            service: "WebMetaService",
+            cmd: "GetConditionItems",
+            formKey: formKey
+        };
+
+        var condItems = null;
+        if(this.condItemCache.contains(formKey)) {
+        	condItems = this.condItemCache.get(formKey);
+        } else {
+        	condItems = Svr.Request.getSyncData(Svr.SvrMgr.ServletURL, paras)
+            this.condItemCache.set(formKey, condItems);
+        }
+        return condItems;
     };
 
     funs.ReadOnly = function (name, cxt, args) {
@@ -659,7 +860,7 @@ UI.BaseFuns = (function () {
             emptyForm.setOptQueue(new YIUI.OptQueue(new YIUI.NewOpt(emptyForm)));
             return builder.builder(emptyForm);
 
-        }).then(function(tarForm){
+        }).then(function(tgtForm){
             var mapWorkitemInfo = false, postFormula = null;
             if (args.length > 2)
                 mapWorkitemInfo = YIUI.TypeConvertor.toBoolean(args[2]);
@@ -668,12 +869,10 @@ UI.BaseFuns = (function () {
                 postFormula = YIUI.TypeConvertor.toString(args[3]);
             }
 
-            allDoMap(srcFormKey, formDoc, tgFormKey, mapKey, tarForm, mapWorkitemInfo, postFormula)
-                .done(function(jsonObj) {
-                    var doc = YIUI.DataUtil.fromJSONDoc(jsonObj.document);
-                    var ignoreKeys = jsonObj.ignoreKeys;
+            allDoMap(srcFormKey, formDoc, tgFormKey, mapKey, tgtForm, mapWorkitemInfo, postFormula)
+                .done(function(json) {
 
-                    afterDoMap(form, tarForm, ignoreKeys, doc, mapWorkitemInfo, postFormula);
+                    afterDoMap(form, tgtForm, json, mapWorkitemInfo, postFormula);
                 });
         });
 
@@ -695,11 +894,10 @@ UI.BaseFuns = (function () {
             mapKey: mapKey
         };
 
-        Svr.SvrMgr.doMapEvent(params).done(function(jsonObj) {
-            var document = YIUI.DataUtil.fromJSONDoc(jsonObj.document);
-            var ignoreKeys = jsonObj.ignoreKeys;
+        Svr.SvrMgr.doMapEvent(params).done(function(json) {
 
-            afterDoMap(form, newForm, ignoreKeys, document, mapWorkitemInfo, postFormula);
+            afterDoMap(form, newForm, json, mapWorkitemInfo, postFormula);
+
         });
     };
 
@@ -731,16 +929,33 @@ UI.BaseFuns = (function () {
         return Svr.SvrMgr.doMapEvent(params);
     };
 
-    var afterDoMap = function(srcform, newForm, ignoreKeys, document, mapWorkitemInfo, postFormula) {
-        if (ignoreKeys){
+    var afterDoMap = function(srcForm, newForm, json, mapWorkitemInfo, postFormula) {
+
+        var document = YIUI.DataUtil.fromJSONDoc(json.document),
+            ignoreKeys = json.ignoreKeys,
+            gridKeys = json.gridKeys;
+
+        if( ignoreKeys ) {
             newForm.setSysExpVals("IgnoreKeys", ignoreKeys);
         }
+
         newForm.setDocument(document);
         newForm.showDocument(true);
 
+        if( gridKeys ) {
+            var key,
+                grid;
+            for( var i = 0;key = gridKeys[i];i++ ) {
+                grid = newForm.getComponent(key);
+                if( grid ) {
+                    grid.getHandler().dealWithSequence(newForm,grid,0);
+                }
+            }
+        }
+
         if (mapWorkitemInfo) {
-            if(srcform){
-                var info = srcform.getSysExpVals(YIUI.BPMConstants.WORKITEM_INFO);
+            if(srcForm){
+                var info = srcForm.getSysExpVals(YIUI.BPMConstants.WORKITEM_INFO);
                 if (info != null){
                     document.putExpData(YIUI.BPMKeys.SaveBPMMap_KEY, info.WorkitemID);
                     document.expDataType[YIUI.BPMKeys.SaveBPMMap_KEY] = YIUI.ExpandDataType.LONG;
@@ -874,11 +1089,10 @@ UI.BaseFuns = (function () {
     funs.MapToForm = function (name, cxt, args) {
         var form = cxt.form,
             mapKey = args[0],
-            srcFormKey = form.formKey;
-        newForm = form.getParentForm(),
+            srcFormKey = form.formKey,
+            newForm = form.getParentForm(),
             tgFormKey = newForm.formKey,
             srcDoc = form.getDocument();
-
 
         viewDoMap(form, tgFormKey, mapKey, newForm);
 
@@ -920,6 +1134,21 @@ UI.BaseFuns = (function () {
                 OIDListStr: $.toJSON(OIDList)
             };
             Svr.SvrMgr.batchDeleteData(params);
+
+            var listView = form.getListView(tableKey);
+            if( !listView )
+                return true;
+
+            var document = form.getDocument();
+
+            YIUI.DocService.loadFormData(form, document.oid, form.getFilterMap(), form.getCondParas())
+                .then(function(doc){
+
+                    document.remove(tableKey);
+                    document.add(tableKey, doc.getByKey(tableKey));
+
+                    listView.load();
+                });
             return true;
         };
         funs.BatchMap = function (name, cxt, args) {
@@ -991,7 +1220,7 @@ UI.BaseFuns = (function () {
         if(key){
             var event = form.getEvent(key);
             if(event){
-                event(form, args);
+                event(key, form, args);
             }
         }
     };
@@ -1120,18 +1349,20 @@ UI.BaseFuns = (function () {
     funs.GetValue = function (name, cxt, args) {
         var form = cxt.form;
         var controlKey = args[0];
-        return YIUI.ExprUtil.getImplValue(form, controlKey, cxt);
+        var com = form.getComponent(controlKey);
+        if( !com ) {
+            YIUI.ViewException.throwException(YIUI.ViewException.COMPONENT_NOT_EXISTS,controlKey);
+        }
+        return YIUI.ExprUtil.convertValue(com.getValue());
     };
 
     funs.GetText = function (name, cxt, args) {
-    	var text = "";
-    	var form = cxt.form;
-        var controlKey = args[0];
-        var component = form.getComponent(controlKey);
-        if (component != null) {
- 			text = component.getShowText();
- 		}
- 		return text;
+        var form = cxt.form,
+            controlKey = args[0];
+
+        var com = form.getComponent(controlKey);
+
+        return com != null ? com.getShowText() : "";
     };
     
     funs.GetJSONValue = function (name, cxt, args) {
@@ -1157,17 +1388,19 @@ UI.BaseFuns = (function () {
     };
 
     funs.SumExpand = function (name, cxt, args) {
-        var count = new Decimal(0), form = cxt.form, cellKey = args[0], ri = cxt.rowIndex,
-            cLoc = form.getCellLocation(cellKey), grid = form.getComponent(cLoc.key);
-        if (grid == undefined) return count;
-        var gr = grid.getRowDataAt(ri), value;
-        if (gr) {
-            for (var i = 0, len = gr.cellKeys.length; i < len; i++) {
-                if (gr.cellKeys[i] == cellKey) {
-                    value = grid.getValueAt(ri, i);
-                 //   if (value != null) {
-                  //      count = count.plus(value);
-                  //  }
+        var count = new Decimal(0),
+            form = cxt.form,
+            cellKey = args[0],
+            loc = form.getCellLocation(cellKey),
+            grid = form.getComponent(loc.key);
+        if( !grid )
+            return count;
+        var row = grid.getRowDataAt(cxt.rowIndex),
+            value;
+        if( row ) {
+            for (var i = 0, len = row.cellKeys.length; i < len; i++) {
+                if (row.cellKeys[i] == cellKey) {
+                    value = row.data[i][0];
                     count = count.plus(YIUI.TypeConvertor.toDecimal(value));
                 }
             }
@@ -1176,95 +1409,178 @@ UI.BaseFuns = (function () {
     };
 
     funs.Sum = function (name, cxt, args) {
-        var form = cxt.form, cellKey = args[0].toString(),
-            cellLoc = form.getCellLocation(cellKey),
-            grid = form.getComponent(cellLoc.key);
-        if (grid == undefined) return 0;
-        var sumInGrid = function (grid, rowIndex, colIndex) {
-            var count = new Decimal(0), len = grid.getRowCount(), rowData = grid.getRowDataAt(rowIndex), value;
-            switch (rowData.rowType) {
+        if( !funs.sumInGrid ) {
+            funs.sumInGrid = function (form, grid, rowIndex, colIndex, condition) {
+                var sumValue = new Decimal(0),
+                    rowData = grid.getRowDataAt(rowIndex),
+                    value,
+                    row;
+
+                var ctx = new View.Context(form);
+
+                switch (rowData.rowType) {
                 case "Fix":
                 case "Total":
-                    var colInfoes = grid.getColInfoByKey(cellKey), isMatch = false;
-                    if (colInfoes != null) {
-                        for (var j = 0, jlen = colInfoes.length; j < jlen; j++) {
-                            if (colIndex == colInfoes[j].colIndex) {
-                                isMatch = true;
-                                break;
-                            }
+                    for (var i = 0, length = grid.getRowCount(); i < length; i++) {
+                        row = grid.getRowDataAt(i);
+                        if (row.rowType === 'Detail' && !YIUI.GridUtil.isEmptyRow(row)) {
+                            ctx.setRowIndex(i);
+                            ctx.setColIndex(colIndex);
+                            sumValue = sumValue.plus(funs.oneValue(form,ctx,condition,row,colIndex));
                         }
-                    }
-                    if (isMatch) {
-                        for (var i = 0, rlen = grid.getRowCount(); i < rlen; i++) {
-                            rowData = grid.getRowDataAt(i);
-                            if (rowData.rowType === 'Detail' && !YIUI.GridUtil.isEmptyRow(rowData)) {
-                                value = rowData.data[colIndex][0];
-                                count = count.plus(YIUI.TypeConvertor.toDecimal(value));
-                            }
-                        }
-                    } else {
-                        sumOutGrid(grid, cellKey);
                     }
                     break;
                 case "Group":
-                    var nextRD,preRD;
                     if (rowData.isGroupHead) {
-                        for (var nextRi = rowIndex + 1; nextRi < len; nextRi++) {
-                            nextRD = grid.getRowDataAt(nextRi);
-                            if (nextRD.rowGroupLevel == rowData.rowGroupLevel)
+                        var len = grid.getRowCount();
+                        for (var p = rowIndex + 1; p < len; p++) {
+                            row = grid.getRowDataAt(p);
+                            if (row.rowGroupLevel == rowData.rowGroupLevel)
                                 break;
-                            if (rowData.rowType === 'Detail' && !YIUI.GridUtil.isEmptyRow(nextRD)) {
-                                value = nextRD.data[colIndex][0];
-                                count = count.plus(YIUI.TypeConvertor.toDecimal(value));
+                            if (row.rowType === 'Detail' && !YIUI.GridUtil.isEmptyRow(row)) {
+                                ctx.setRowIndex(p);
+                                ctx.setColIndex(colIndex);
+                                sumValue = sumValue.plus(funs.oneValue(form,ctx,condition,row,colIndex));
                             }
                         }
                     } else if (rowData.isGroupTail) {
-                        for (var preRi = rowIndex - 1; preRi >= 0; preRi--) {
-                            preRD = grid.getRowDataAt(preRi);
-                            if (preRD.rowGroupLevel == rowData.rowGroupLevel)
+                        for (var k = rowIndex - 1; k >= 0; k--) {
+                            row = grid.getRowDataAt(k);
+                            if (row.rowGroupLevel == rowData.rowGroupLevel)
                                 break;
-                            if (rowData.rowType === 'Detail' && !YIUI.GridUtil.isEmptyRow(preRD)) {
-                                value = preRD.data[colIndex][0];
-                                count = count.plus(YIUI.TypeConvertor.toDecimal(value));
+                            if (row.rowType === 'Detail' && !YIUI.GridUtil.isEmptyRow(row)) {
+                                ctx.setRowIndex(k);
+                                ctx.setColIndex(colIndex);
+                                sumValue = sumValue.plus(funs.oneValue(form,ctx,condition,row,colIndex));
                             }
                         }
                     }
                     break;
+                }
+                return sumValue;
             }
-            return count;
         };
-        var sumOutGrid = function (grid, cellKey) {
-            var rowData, colInfoes, colIndex, count = new Decimal(0), value;
-            for (var i = 0, len = grid.getRowCount(); i < len; i++) {
-                rowData = grid.getRowDataAt(i);
-                if (rowData.rowType === 'Detail' && !YIUI.GridUtil.isEmptyRow(rowData)) {
-                    colInfoes = grid.getColInfoByKey(cellKey);
-                    if (colInfoes == null)
-                        continue;
-                    for (var j = 0, jlen = colInfoes.length; j < jlen; j++) {
-                        colIndex = colInfoes[j].colIndex;
-                        value = rowData.data[colIndex][0];
-                        count = count.plus(YIUI.TypeConvertor.toDecimal(value));
+        if( !funs.sumOutGrid ) {
+            funs.sumOutGrid = function (form, grid, colIndex, condition, sumAll) {
+
+                var sumValue = new Decimal(0),
+                    row,
+                    value;
+
+                if( grid.isSubDetail ) {
+                    var parGrid = YIUI.SubDetailUtil.getBindingGrid(form, grid);
+                    //  暂时无法判断
+                }
+
+                var ctx = new View.Context(form);
+
+                for( var i = 0,size = grid.getRowCount();i < size;i++ ) {
+                    row = grid.getRowDataAt(i);
+                    if( row.rowType === 'Detail' && !YIUI.GridUtil.isEmptyRow(row) ) {
+                        if( sumAll ) {
+                            ctx.setRowIndex(i);
+                            ctx.setColIndex(colIndex);
+                            sumValue = sumValue.plus(funs.oneValue(form,ctx,condition,row,colIndex));
+                        } else {
+                            if( row.treeLevel == 0 ) {
+                                value = row.data[colIndex][0];
+                                sumValue = sumValue.plus(YIUI.TypeConvertor.toDecimal(value));
+                            }
+                        }
                     }
                 }
+                return sumValue;
             }
-            return count;
-        };
-        var targetCellLocation = form.getCellLocation(cxt.target);
-        if (targetCellLocation == null || targetCellLocation.key != grid.key) {
-            return sumOutGrid(grid, cellKey);
-        } else if (cxt.rowIndex !== undefined && cxt.colIndex != undefined && cellLoc !== undefined) {
-            return sumInGrid(grid, cxt.rowIndex, cxt.colIndex);
-        } else {
-            return sumOutGrid(grid, cellKey);
         }
+        if( !funs.oneValue ) {
+            funs.oneValue = function (form, context, condition, row, colIndex) {
+                var result = true;
+                if( condition ) {
+                    result = YIUI.TypeConvertor.toBoolean(form.eval(condition,context));
+                }
+                var value = new Decimal(0);
+                if( result ) {
+                    var value = row.data[colIndex][0];
+                    value = YIUI.TypeConvertor.toDecimal(value);
+                }
+                return value;
+            }
+        }
+        if( !funs.sumTreeGrid ) {
+            funs.sumTreeGrid = function (form, grid, rowIndex, colIndex, sumAll) {
+                var sumValue = new Decimal(0),
+                    row = grid.getRowDataAt(rowIndex),
+                    cell,
+                    gridRow,
+                    value;
+                if( row.rowType === 'Detail' ) {
+                    var childRows = row.childRows;
+                    if( childRows ) {
+                        for( var i = 0,size = childRows.length;i < size;i++ ) {
+                            gridRow = grid.getRowDataByID(childRows[i]);
+                            value = gridRow.data[colIndex][0];
+                            sumValue = sumValue.plus(YIUI.TypeConvertor.toDecimal(value));
+                        }
+                    }
+                } else {
+                    for( var i = 0,size = grid.getRowCount();i < size;i++ ) {
+                        gridRow = grid.getRowDataAt(i);
+                        if( gridRow.rowType === 'Detail' && !YIUI.GridUtil.isEmptyRow(gridRow) ) {
+                            if( sumAll ) {
+                                value = gridRow.data[colIndex][0];
+                                sumValue = sumValue.plus(YIUI.TypeConvertor.toDecimal(value));
+                            } else {
+                                if( gridRow.treeLevel == 0 ) {
+                                    value = gridRow.data[colIndex][0];
+                                    sumValue = sumValue.plus(YIUI.TypeConvertor.toDecimal(value));
+                                }
+                            }
+                        }
+                    }
+                }
+                return sumValue;
+            }
+        }
+
+        var form = cxt.form,
+            cellKey = YIUI.TypeConvertor.toString(args[0]);
+
+        var condition = "";
+        if (args.length > 1) {
+            condition = YIUI.TypeConvertor.toString(args[1]);
+        }
+
+        var sumAll = true;
+        if (args.length > 2) {
+            sumAll = YIUI.TypeConvertor.toBoolean(args[2]);
+        }
+
+        var loc = form.getCellLocation(cellKey),
+            grid = form.getComponent(loc.key),
+            sumValue = new Decimal(0);
+
+        if ( cxt.inSide ) {
+            if( grid.treeIndex != -1 ) {
+                sumValue = funs.sumTreeGrid(form, grid, cxt.rowIndex, cxt.colIndex, sumAll);
+            } else {
+                sumValue = funs.sumInGrid(form, grid, cxt.rowIndex, cxt.colIndex, condition);
+            }
+        } else {
+            sumValue = funs.sumOutGrid(form, grid, loc.column, condition, sumAll);
+        }
+        return sumValue;
     };
 
     funs.UpdateView = function (name, cxt, args) {
-        updateView(cxt.form);
+        var idx = -1;
+        if( args.length > 0 ) {
+            idx = YIUI.TypeConvertor.toInt(args[0]);
+        }
+        updateView(cxt.form,idx);
     };
 
-    var updateView = function (form) {
+    // idx : 插行的位置
+    var updateView = function (form,idx) {
         var tag = form.getSysExpVals(YIUI.BPMConstants.WORKITEM_VIEW);
         if (tag == YIUI.BPMConstants.WORKITEM_VIEW) {
             return;
@@ -1281,20 +1597,22 @@ UI.BaseFuns = (function () {
         if (form.getDataObjectKey() != viewForm.getDataObjectKey()) {
             return;
         }
-        var doc = form.getDocument();
-        var viewDoc = viewForm.getDocument();
-        var OID = doc.oid;
-        var viewFound = false;
-        var mTblKey = viewForm.mainTableKey;
-        var listView = null;
+
+        var mTblKey = viewForm.mainTableKey,
+            listView,
+            doc = form.getDocument();
+
         if (mTblKey) {
             listView = viewForm.getListView(mTblKey);
         } else {
             listView = viewForm.getListView(0);
         }
-        if (!listView) return;
-        var rowCount = listView.getRowCount();
-        var row = -1, colKey;
+        if (!listView)
+            return;
+
+        var row = -1,
+            colKey;
+
         for (var cInfo, ci = 0, len = listView.columnInfo.length; ci < len; ci++) {
             cInfo = listView.columnInfo[ci];
             if (cInfo.columnKey == YIUI.SystemField.OID_SYS_KEY) {
@@ -1302,51 +1620,77 @@ UI.BaseFuns = (function () {
                 break;
             }
         }
-        if (!colKey) return;
+        if (!colKey)
+            return;
+
+        var rowCount = listView.getRowCount();
         for (var i = 0; i < rowCount; i++) {
-            if (listView.getValByKey(i, colKey) == OID) {
+            if (listView.getValByKey(i, colKey) == doc.oid) {
                 row = i;
                 break;
             }
         }
-        if (form.getOperationState() == YIUI.Form_OperationState.Delete) {
-            listView.deleteRow(row);
-        } else {
-            var data = {};
-            var columnInfo = listView.columnInfo;
 
-            $.each(columnInfo, function (i, column) {
-                var tbl, val;
+        var viewDoc = viewForm.getDocument(),
+            tableKey = listView.tableKey,
+            table = doc.getByKey(tableKey),
+            viewTable = viewDoc.getByKey(tableKey);
 
-                if (column.tableKey) {
-                    tbl = doc.getByKey(column.tableKey);
-                    if (tbl && tbl.first() && column.columnKey) {
-                        val = tbl.getByKey(column.columnKey);
-                        data[column.key] = val;
-                    }
-                }else if (column.defaultValue) {
-                    data[column.key] = column.defaultValue;
-                }else if (column.defaultFormula) {
-                    var cxt = new View.Context(viewForm);
-                    cxt.setRowIndex(row);
-                    var value = viewForm.eval(column.defaultFormula, cxt, null);
-                    data[column.key] = value;
-                }
-            });
+        table.first();
 
-            //未找到行
-            if (row == -1) {
-                row = listView.addNewRow();
+        if ( row == -1 ) {
+            row = listView.addNewRow(idx);
+            viewTable.addRow(true);
+            listView.data[row].bkmkRow = new YIUI.DetailRowBkmk(viewTable.getBkmk());
+
+            var colInfo,
+                value;
+            for(var i = 0,size = table.cols.length;i < size;i++){
+                colInfo = table.getCol(i);
+
+                if( !colInfo.key )
+                    continue;
+
+                value = table.getByKey(colInfo.key);
+                viewTable.setByKey(colInfo.key,value == undefined ? null : value);
             }
+            viewTable.setState(DataDef.R_Normal);
+        } else {
+            var bkmkRow = listView.data[row].bkmkRow;
+            viewTable.setByBkmk(bkmkRow.getBookmark());
+            for(var i = 0,size = viewTable.cols.length;i < size;i++){
+                colInfo = viewTable.getCol(i);
 
-            $.each(columnInfo, function (i, column) {
-                var v = data[column.key];
-                if (v != undefined) {
-                    listView.setValByKey(row, column.key, v, true, true);
-                }
-            });
+                if( !colInfo.key )
+                    continue;
+
+                value = table.getByKey(colInfo.key);
+                viewTable.setByKey(colInfo.key,value == undefined ? null : value);
+            }
         }
 
+        if (form.getOperationState() == YIUI.Form_OperationState.Delete) {
+            listView.deleteRow(row);
+            viewTable.delRow();
+        } else {
+            $.each(listView.columnInfo, function (i, column) {
+                var val;
+
+                if (column.columnKey) {
+                    val = viewTable.getByKey(column.columnKey);
+                } else if (column.defaultValue) {
+                    val = column.defaultValue;
+                } else if (column.defaultFormulaValue) {
+                    var cxt = new View.Context(viewForm);
+                    cxt.setRowIndex(row);
+                    val = viewForm.eval(column.defaultFormulaValue, cxt, null);
+                }
+
+                listView.setValByKey(row, column.key, val, true);
+            });
+            // 刷新背景色
+            listView.refreshBackColor(row);
+        }
     };
 
     funs.GetSelectedValue = function (name, cxt, args) {
@@ -1403,14 +1747,15 @@ UI.BaseFuns = (function () {
         return enable;
     };
 
+    // 支持ListView,Grid
     funs.GetFocusRow = function (name, cxt, args) {
         var form = cxt.form;
-        var gridKey = YIUI.TypeConvertor.toString(args[0]);
-        var grid = form.getComponent(gridKey);
-        if (grid == null) {
-            YIUI.ViewException.throwException(YIUI.ViewException.COMPONENT_NOT_EXISTS);
+        var key = YIUI.TypeConvertor.toString(args[0]);
+        var com = form.getComponent(key);
+        if (com == null) {
+            YIUI.ViewException.throwException(YIUI.ViewException.COMPONENT_NOT_EXISTS,key);
         }
-        return grid.getFocusRowIndex();
+        return com.getFocusRowIndex();
     };
 
     funs.SetFocusRow = function (name, cxt, args) {
@@ -1444,23 +1789,23 @@ UI.BaseFuns = (function () {
         }
         var count = 0;
         switch (comp.type) {
-            case YIUI.CONTROLTYPE.GRID:
-                var grid = comp;
-                if (includeEmpty) {
-                    count = grid.getRowCount();
-                } else {
-                    var rowData;
-                    for (var i = 0, len = grid.getRowCount(); i < len; i++) {
-                        rowData = grid.getRowDataAt(i);
-                        if (rowData.rowType === "Detail" && !YIUI.GridUtil.isEmptyRow(rowData)) {
-                            count++;
-                        }
+        case YIUI.CONTROLTYPE.GRID:
+            var grid = comp;
+            if (includeEmpty) {
+                count = grid.getRowCount();
+            } else {
+                var rowData;
+                for (var i = 0, len = grid.getRowCount(); i < len; i++) {
+                    rowData = grid.getRowDataAt(i);
+                    if (rowData.rowType === "Detail" && !YIUI.GridUtil.isEmptyRow(rowData)) {
+                        count++;
                     }
                 }
-                break;
-            case YIUI.CONTROLTYPE.LISTVIEW:
-                count = comp.totalRowCount;
-                break;
+            }
+            break;
+        case YIUI.CONTROLTYPE.LISTVIEW:
+            count = comp.data.length;
+            break;
         }
         return count;
     };
@@ -1500,19 +1845,21 @@ UI.BaseFuns = (function () {
     funs.IsControlNull = function (name, cxt, args) {
         var key = args[0];
         var form = cxt.form;
-        var comp = form.getComponent(key);
-        if (comp != null) {
-            return comp.isNull();
+        var com = form.getComponent(key);
+        if (com != null) {
+            return com.isNull();
         }
-        var location = form.getCellLocation(key);
-        if (location != null) {
-            var gridKey = location.key;
-            var grid = form.getComponent(gridKey), row = cxt.rowIndex;
+        var loc = form.getCellLocation(key);
+        if (loc != null) {
+            var grid = form.getComponent(loc.key),
+                row = cxt.rowIndex;
             if (row == null || row < 0) {
                 row = grid.getFocusRowIndex();
             }
-            if (row != -1) {
-                return grid.isNullValue(grid.getValueByKey(row,key));
+            if ( row != -1 ) {
+                var editOpt = grid.getCellEditOpt(key),
+                    value = grid.getValueByKey(row,key);
+                return grid.isNullValue(editOpt.editOptions,value);
             }
         }
         return true;
@@ -1563,6 +1910,7 @@ UI.BaseFuns = (function () {
         }
         return true;
     };
+
     funs.GetCellValue = function (name, cxt, args) {
         var form = cxt.form;
         var key = args[0];
@@ -1584,6 +1932,38 @@ UI.BaseFuns = (function () {
         }
         return YIUI.ExprUtil.convertValue(result,comp.dataModel && comp.dataModel.colModel.cells[col]);
     };
+
+    // 获取分组单元格的值
+    funs.GetGroupCellValue = function (name, cxt, args) {
+        var form = cxt.form;
+        var cellKey = YIUI.TypeConvertor.toString(args[0]),
+            location = form.getCellLocation(cellKey);
+
+        var grid = form.getComponent(location.key),
+            rowIndex = cxt.rowIndex,
+            groupRow = grid.getRowDataAt(rowIndex);
+
+        var row,
+            value;
+        if( groupRow.isGroupHead ) {
+            for( var i = rowIndex,count = grid.getRowCount(); i < count;i++ ) {
+                row = grid.getRowDataAt(i);
+                if( row.isDetail && !YIUI.GridUtil.isEmptyRow(row) ) {
+                    value = grid.getValueByKey(i,cellKey);
+                    break;
+                }
+            }
+        } else {
+            for( var k = rowIndex;k >= 0;k-- ) {
+                row = grid.getRowDataAt(k);
+                if( row.isDetail && !YIUI.GridUtil.isEmptyRow(row) ) {
+                    value = grid.getValueByKey(k,cellKey);
+                    break;
+                }
+            }
+        }
+        return YIUI.ExprUtil.convertValue(value);
+    }
 
     // 获取拓展单元格的拓展值
     funs.GetExpandValue = function(name,cxt,args) {
@@ -1619,67 +1999,6 @@ UI.BaseFuns = (function () {
         return oid;
     };
 
-//     funs.RunValueChanged = function (name, cxt, args) {
-//         var form = cxt.form;
-//         var key = YIUI.TypeConvertor.toString(args[0]);
-//         var cmp = form.getComponent(key);
-//         var cell = form.getCellLocation(key);
-//         var valueChange = "";
-//         if (cmp) {
-//             valueChange = cmp.valueChanged;
-//             valueChange && form.eval(valueChange, cxt, null);
-//         } else if (cell) {
-//             var compKey = cell.key;
-//             var grid = form.getComponent(compKey);
-//             if (grid.type == YIUI.CONTROLTYPE.GRID) {
-//                 var rowIndex = grid.getFocusRowIndex();
-//                 if (rowIndex == -1) return;
-//                 var row = grid.dataModel.data[rowIndex], cellKey = key,
-//                     editOpt = grid.dataModel.colModel.cells[cellKey],
-//                     meatRow = grid.getMetaObj().rows[row.metaRowIndex];
-//
-//                 var colIndex = grid.getColInfoByKey(cellKey)[0].colIndex;
-//
-// //			    form.uiProcess.doCellValueChanged(grid, rowIndex, colIndex, cellKey);
-//                 YIUI.GridSumUtil.evalAffectSum(form, grid, rowIndex, colIndex);
-//
-//                 var cellCEvent = meatRow.cells[colIndex].valueChanged;
-//                 if (cellCEvent !== undefined && cellCEvent.length > 0) {
-//                     var cxt = new View.Context(form);
-//                     cxt.setRowIndex(rowIndex);
-//                     form.eval($.trim(cellCEvent), cxt, null);
-//                 }
-//             }
-//         }
-//
-//         return true;
-//     };
-
-    // funs.RunClick = function (name, cxt, args) {
-    //     var form = cxt.form;
-    //     var key = args[0];
-    //     var comp = form.getComponent(key);
-    //     switch (comp.type) {
-    //         case YIUI.CONTROLTYPE.BUTTON:
-    //         case YIUI.CONTROLTYPE.HYPERLINK:
-    //             var clickContent = comp.clickContent;
-    //             clickContent && form.eval(clickContent, cxt, null);
-    //             break;
-    //     }
-    //     return true;
-    // };
-    // funs.RunOpt = function (name, cxt, args) {
-    //     var form = cxt.form;
-    //     var optKey = args[0];
-    //     //toolbar
-    //     var optInfo = form.getOptMap()[optKey], tbr;
-    //     if (optInfo) {
-    //         var action = optInfo.opt.action;
-    //         action && form.eval(action, cxt, null);
-    //     }
-    //     return true;
-    // };
-
     funs.SetOID = function (name, cxt, args) {
         var form = cxt.form;
         var filterMap = form.getFilterMap();
@@ -1689,12 +2008,26 @@ UI.BaseFuns = (function () {
     };
     funs.ResetCondition = function (name, cxt, args) {
         var form = cxt.form;
-        var compList = form.getComponentList();
-        var cmp = null;
+
+        var tableKey;
+        if( args.length > 0 ) {
+            tableKey = YIUI.TypeConvertor.toString(args[0]);
+        }
+
+        var compList = form.getComponentList(),
+            com,
+            meta;
+
         for (var i in compList) {
-            cmp = compList[i];
-            if (cmp.condition) {
-                cmp.setValue(null, true, false);
+            com = compList[i];
+            meta = com.getMetaObj();
+
+            if( meta.clearable === false ) {
+                com.setValue(null, true, false);
+            } else if ( com.condition && com.condition.needReset !== false ) {
+                if( !tableKey || tableKey === com.condition.tableKey ) {
+                    com.setValue(null, true, false);
+                }
             }
         }
         return true;
@@ -2096,17 +2429,64 @@ UI.BaseFuns = (function () {
     };
 
     funs.SetNewEmptyRow = function (name, cxt, args) {
-        var form = cxt.form;
-        var gridKey = YIUI.TypeConvertor.toString(args[0]);
-        var flag = YIUI.TypeConvertor.toBoolean(args[1]);
-        var grid = form.getComponent(gridKey);
-        if (grid == null) {
+        var form = cxt.form,
+            gridKey = YIUI.TypeConvertor.toString(args[0]),
+            newValue = YIUI.TypeConvertor.toBoolean(args[1]),
+            grid = form.getComponent(gridKey);
+
+        if( !grid ) {
             YIUI.ViewException.throwException(YIUI.ViewException.COMPONENT_NOT_EXISTS);
         }
-        grid.newEmptyRow = flag;
-        grid.removeAutoRowAndGroup();
+
+        if( grid.newEmptyRow === newValue )
+            return;
+
+        grid.newEmptyRow = newValue;
+
+        if( newValue ) {
+            var state = form.operationState;
+            if ( grid.enable &&
+                state == YIUI.Form_OperationState.Edit || state == YIUI.Form_OperationState.New ) {
+                grid.appendAutoRowAndGroup();
+            }
+        } else {
+            grid.removeAutoRowAndGroup();
+        }
         return true;
     };
+    
+    funs.SetSingleSelect = function (name,cxt,args) {
+        var form = cxt.form,
+            gridKey = YIUI.TypeConvertor.toString(args[0]),
+            newValue = YIUI.TypeConvertor.toBoolean(args[1]),
+            grid = form.getComponent(gridKey);
+
+        if( !grid ) {
+            YIUI.ViewException.throwException(YIUI.ViewException.COMPONENT_NOT_EXISTS);
+        }
+
+        var sIndex = grid.selectFieldIndex;
+
+        if( sIndex == -1 || grid.singleSelect === newValue )
+            return;
+
+        grid.setSingleSelect(newValue);
+
+        var _row;
+        for( var i = 0,size = grid.getRowCount();i < size;i++ ) {
+            _row = grid.getRowDataAt(i);
+            if( _row.rowType === 'Detail' && !YIUI.GridUtil.isEmptyRow(_row) ){
+                grid.setValueAt(i,sIndex,false,true,true);
+            }
+        }
+        var doc = form.getDocument(),
+            table = doc.getShadow(grid.tableKey);
+        if( table ) {
+            table.clear();
+        }
+
+        return true;
+    }
 
     funs.IsInBounds = function (name, cxt, args) {
         var form = cxt.form;
@@ -2341,15 +2721,30 @@ UI.BaseFuns = (function () {
 
     funs.ReplaceTable = function (name, cxt, args) {
         var form = cxt.form;
-        var document = form.getDocument();
-        var key = args[0];
-        var table = args[1];
-        if (!(table instanceof DataDef.DataTable)) {
-            table = YIUI.DataUtil.fromJSONDataTable(table);
+        var document = form.getDocument(),
+            key = args[0],
+            newTable = args[1];
+
+        var table = document.getByKey(key),
+            info,
+            newInfo,
+            columnKey;
+
+        table.clear();
+
+        newTable.beforeFirst();
+        while (newTable.next()) {
+            table.addRow(true);
+            table.setState(newTable.getState());
+            for (var i = 0, len = newTable.cols.length; i < len; i++) {
+                newInfo = newTable.getCol(i);
+                columnKey = newInfo.key;
+                info = table.getColByKey(columnKey);
+                if( info ) {
+                    table.setByKey(columnKey, YIUI.TypeConvertor.toDataType(info.type,newTable.getByKey(columnKey)));
+                }
+            }
         }
-        document.remove(key);
-        table.key = key;
-        document.add(key, table);
         return true;
     };
 
@@ -2494,33 +2889,6 @@ UI.BaseFuns = (function () {
             obj = table.get(0);
         }
         return obj;
-
-
-        /*var form = cxt.form;
-         var sqlName = args[0];
-         var values = [];
-         for (var i = 1, len = args.length; i < len; i++) {
-         values.push(args[i]);
-         }
-
-         var paras = YIUI.YesJSONUtil.toJSONArray(values);
-
-         var params = {
-         service: "PureWebDB",
-         cmd: "PureDBNamedQuery",
-         SQLName: sqlName,
-         formKey: form.formKey,
-         values: $.toJSON(paras)
-         };
-         var tableJson = Svr.Request.getSyncData(Svr.SvrMgr.ServletURL, params);
-         if (!tableJson) return null;
-         var table = YIUI.DataUtil.fromJSONDataTable(tableJson);
-         var obj = null;
-         if (table.first()) {
-         table.setPos(0);
-         obj = table.get(0);
-         }
-         return obj;*/
     };
 
     funs.SetColumnCaption = function (name, cxt, args) {
@@ -2622,46 +2990,60 @@ UI.BaseFuns = (function () {
         var form = cxt.form;
         var key = YIUI.TypeConvertor.toString(args[0]);
         var rowIndex = parseInt(args[1].toString());
-        var comp = form.getComponent(key);
-        if (rowIndex == undefined || rowIndex == null || rowIndex == -1) {
+        var grid = form.getComponent(key);
+
+        if( rowIndex == null || rowIndex == -1 ) {
             rowIndex = cxt.rowIndex;
         }
-        if ((rowIndex == undefined || rowIndex == null || rowIndex == -1) && comp) {
-            rowIndex = comp.getFocusRowIndex();
+
+        if( rowIndex == null || rowIndex == -1 ) {
+            rowIndex = grid.getFocusRowIndex();
         }
 
-        var col = YIUI.TypeConvertor.toString(args[2]);
-        if ($.isNumeric(col)) {
-        	var color = YIUI.TypeConvertor.toString(args[3]);
-            form.setCellBackColor(key, rowIndex, parseInt(col), color);
+        var colIndex = args[2];
+        if( typeof colIndex === 'number' ) {
+            if( colIndex == -1 ) {
+                colIndex = grid.getFocusColIndex();
+            }
         } else {
-        	var color = YIUI.TypeConvertor.toString(args[3]);
-            form.setCellBackColor(key, rowIndex, comp.getCellIndexByKey(col), color);
+            colIndex = grid.getCellIndexByKey(colIndex);
         }
-        
+
+        var color = YIUI.TypeConvertor.toString(args[3]);
+
+        grid.setCellBackColor(rowIndex, colIndex, color);
+
+        return true;
     };
     
     funs.SetCellForeColor = function (name, cxt, args) {
         var form = cxt.form;
         var key = YIUI.TypeConvertor.toString(args[0]);
         var rowIndex = parseInt(args[1].toString());
-        var comp = form.getComponent(key);
-        if (rowIndex == undefined || rowIndex == null || rowIndex == -1) {
+        var grid = form.getComponent(key);
+
+        if( rowIndex == null || rowIndex == -1 ) {
             rowIndex = cxt.rowIndex;
         }
-        if ((rowIndex == undefined || rowIndex == null || rowIndex == -1) && comp) {
-            rowIndex = comp.getFocusRowIndex();
+
+        if( rowIndex == null || rowIndex == -1 ) {
+            rowIndex = grid.getFocusRowIndex();
         }
 
-        var col = YIUI.TypeConvertor.toString(args[2]);
-        if ($.isNumeric(col)) {
-        	var color = YIUI.TypeConvertor.toString(args[3]);
-            form.setCellForeColor(key, rowIndex, parseInt(col), color);
+        var colIndex = args[2];
+        if( typeof colIndex === 'number' ) {
+            if( colIndex == -1 ) {
+                colIndex = grid.getFocusColIndex();
+            }
         } else {
-        	var color = YIUI.TypeConvertor.toString(args[3]);
-            form.setCellForeColor(key, rowIndex, form.getCellLocation(col).column, color);
+            colIndex = grid.getCellIndexByKey(colIndex);
         }
-        
+
+        var color = YIUI.TypeConvertor.toString(args[3]);
+
+        grid.setCellForeColor(rowIndex, colIndex, color);
+
+        return true;
     };
     
     funs.RefreshUIStatus = function (name, cxt, args) {
@@ -2780,7 +3162,6 @@ UI.BaseFuns = (function () {
                 }
                 paras = YIUI.YesJSONUtil.toJSONArray(paras);
             }
-
         } else {
             for (var key in mapParas) {
                 var value = form.eval(mapParas[key], cxt);
@@ -2798,8 +3179,8 @@ UI.BaseFuns = (function () {
             doc = YIUI.DataUtil.toJSONDoc(doc,true);
             data.document = $.toJSON(doc);
         }
-        //返回值为document
 
+        //返回值为document
         var result = Svr.Request.getSyncData(Svr.SvrMgr.ServletURL, data);
         if (refresh && result instanceof DataDef.Document) {
             form.setDocument(result);
@@ -2964,14 +3345,25 @@ UI.BaseFuns = (function () {
         }
 
         if( window.up_target ) {
-            window.up_target.change(function(){
+           // window.up_target.change(function(){
+
+             //   alert(this.value);
+
+               // console.log("change......");
+
+              //  options.file = $(this);
+              //  YIUI.FileUtil.ajaxFileUpload(options);
+        //    });
+
+            // Jquery写法IE无法触发
+            window.up_target.onchange = function () {
+                // alert(this.value);
                 options.file = $(this);
                 YIUI.FileUtil.ajaxFileUpload(options);
-            });
+            }
         } else {
             YIUI.FileUtil.uploadFile(options);
         }
-
     };
 
     funs.SingleImportExcel = function (name, cxt, args) {
@@ -3028,10 +3420,10 @@ UI.BaseFuns = (function () {
         };
 
         if( window.up_target ) {
-            window.up_target.change(function(){
+            window.up_target.onchange = function () {
                 options.file = $(this);
                 YIUI.FileUtil.ajaxFileUpload(options);
-            });
+            }
         } else {
             YIUI.FileUtil.uploadFile(options);
         }
@@ -3042,7 +3434,8 @@ UI.BaseFuns = (function () {
         var needDownload = true;
         var exportTables = "";
         var exportCurPage = false;
-        var postExportServerName = "";
+        var postExportServiceName = "";
+        var exportServiceName = "";
         if (args.length > 0) {
             needDownload = YIUI.TypeConvertor.toBoolean(args[0]);
         }
@@ -3055,7 +3448,11 @@ UI.BaseFuns = (function () {
         }
 
         if (args.length > 3) {
-            postExportServerName = YIUI.TypeConvertor.toString(args[3]);
+            postExportServiceName = YIUI.TypeConvertor.toString(args[3]);
+        }
+
+        if (args.length > 4) {
+            exportServiceName = YIUI.TypeConvertor.toString(args[4]);
         }
 
         var document = form.getDocument();
@@ -3073,7 +3470,8 @@ UI.BaseFuns = (function () {
         paras.filterMap = $.toJSON(filterMap);
         paras.condition = $.toJSON(form.getCondParas());
         paras.onlyCurrentPage = exportCurPage;
-        paras.postExportServerName = postExportServerName;
+        paras.exportServiceName = exportServiceName;
+        paras.postExportServiceName = postExportServiceName;
 
         var result = Svr.Request.getSyncData(Svr.SvrMgr.ServletURL, paras);
         if (needDownload) {
@@ -3108,9 +3506,9 @@ UI.BaseFuns = (function () {
             needDownload = YIUI.TypeConvertor.toBoolean(args[4]);
         }
 
-        var postExportServerName = "";
+        var postExportServiceName = "";
         if (args.length > 5) {
-            postExportServerName = YIUI.TypeConvertor.toString(args[5]);
+            postExportServiceName = YIUI.TypeConvertor.toString(args[5]);
         }
 
         var document = form.getDocument();
@@ -3127,7 +3525,7 @@ UI.BaseFuns = (function () {
         paras.tableKey = tableKey;
         paras.OIDFieldKey = OIDFieldKey;
         paras.templateKey = templateKey;
-        paras.postExportServerName = postExportServerName;
+        paras.postExportServiceName = postExportServiceName;
         paras.document = $.toJSON(doc);
         paras.filterMap = $.toJSON(filterMap);
         paras.condition = $.toJSON(form.getCondParas());
@@ -3161,9 +3559,9 @@ UI.BaseFuns = (function () {
             needDownload = YIUI.TypeConvertor.toBoolean(args[2]);
         }
 
-        var postExportServerName = "";
+        var postExportServiceName = "";
         if (args.length > 3) {
-            postExportServerName = YIUI.TypeConvertor.toString(args[3]);
+            postExportServiceName = YIUI.TypeConvertor.toString(args[3]);
         }
 
         var paras = {};
@@ -3171,12 +3569,12 @@ UI.BaseFuns = (function () {
         paras.cmd = "ExportDict";
         paras.exportFormKey = exportFormKey;
         paras.templateKey = templateKey;
-        paras.postExportServerName = postExportServerName;
+        paras.postExportServiceName = postExportServiceName;
 
         var result = Svr.Request.getSyncData(Svr.SvrMgr.ServletURL, paras);
         if (needDownload) {
             var options = {
-                formKey: form.formKey,
+                formKey: exportFormKey,
                 filePath: result.filePath.replace(/\\/g, "/"),
                 fileMD5: result.fileMD5,
                 fileName: result.fileName,
@@ -3295,6 +3693,40 @@ UI.BaseFuns = (function () {
         YIUI.Print.print(url, form.formID);
     };
 
+    funs.PrintEx = function(name, cxt, args) {
+        var form = cxt.form;
+        var paras = {};
+        paras.service = "WebPrintService";
+        paras.cmd = "PrintPDF";
+        paras.formKey = form.formKey;
+
+        var objectKey = YIUI.TypeConvertor.toString(args[0]);
+        var OID = YIUI.TypeConvertor.toString(args[1]);
+
+        var reportKey = YIUI.TypeConvertor.toString(args[2]);
+        paras.reportKey = reportKey;
+
+        var fillEmptyPrint = false;
+        if (args.length > 1) {
+            fillEmptyPrint = YIUI.TypeConvertor.toBoolean(args[3]);
+        }
+        paras.fillEmptyPrint = fillEmptyPrint;
+
+        form.refreshParas();
+        var parameters = form.getParas();
+
+        var fm = new FilterMap();
+        fm.setOID(OID);
+
+        YIUI.DocService.loadData(objectKey,OID,fm,null,parameters).then(function (doc) {
+            var jsonDoc = YIUI.DataUtil.toJSONDoc(doc);
+            paras.doc = $.toJSON(jsonDoc);
+            paras.parameters = parameters.toJSON();
+            var url = Svr.Request.getSyncData(Svr.SvrMgr.ServletURL, paras);
+            YIUI.Print.print(url, form.formID);
+        });
+    }
+
     funs.PrintPreview = function (name, cxt, args) {
         var form = cxt.form;
         var paras = {};
@@ -3326,13 +3758,78 @@ UI.BaseFuns = (function () {
         new YIUI.PrintPreview(opts);
     };
 
+    funs.PrintPreviewEx = function (name, cxt, args) {
+        var form = cxt.form;
+        var paras = {};
+        paras.service = "WebPrintService";
+        paras.cmd = "PrintPDF";
+        paras.formKey = form.formKey;
+
+        var objectKey = YIUI.TypeConvertor.toString(args[0]);
+        var OID = YIUI.TypeConvertor.toString(args[1]);
+
+        var reportKey = YIUI.TypeConvertor.toString(args[2]);
+        paras.reportKey = reportKey;
+
+        var fillEmptyPrint = false;
+        if (args.length > 1) {
+            fillEmptyPrint = YIUI.TypeConvertor.toBoolean(args[3]);
+        }
+        paras.fillEmptyPrint = fillEmptyPrint;
+
+        form.refreshParas();
+        var parameters = form.getParas();
+
+        var fm = new FilterMap();
+        fm.setOID(OID);
+
+        YIUI.DocService.loadData(objectKey,OID,fm,null,parameters).then(function (doc) {
+            var jsonDoc = YIUI.DataUtil.toJSONDoc(doc);
+            paras.doc = $.toJSON(jsonDoc);
+            paras.parameters = parameters.toJSON();
+            var url = Svr.Request.getSyncData(Svr.SvrMgr.ServletURL, paras);
+            url = url.replace(/\\/g, "/");
+            var opts = {
+                formKey: form.formKey,
+                url: url
+            };
+            new YIUI.PrintPreview(opts);
+        });
+    }
+
+    funs.AutoPrint = function (name, cxt, args) {
+        var form = cxt.form;
+        var paras = {};
+        paras.service = "WebPrintService";
+        paras.cmd = "AutoPrintPDF";
+        paras.formKey = form.formKey;
+        var fillEmptyPrint = false;
+        if (args.length > 0) {
+            fillEmptyPrint = YIUI.TypeConvertor.toBoolean(args[0]);
+        }
+        paras.fillEmptyPrint = fillEmptyPrint;
+        var doc = form.getDocument();
+        var jsonDoc = YIUI.DataUtil.toJSONDoc(doc);
+        paras.doc = $.toJSON(jsonDoc);
+        paras.parameters = form.getParas().toJSON();
+
+        var url = Svr.Request.getSyncData(Svr.SvrMgr.ServletURL, paras);
+        url = url.replace(/\\/g, "/");
+        var opts = {
+            formKey: form.formKey,
+            url: url
+        };
+        new YIUI.PrintPreview(opts);
+    };
+
     funs.PrintHtml = function (name, cxt, args) {
         var $el;
+        var form = cxt.form;
         if (args.length > 0) {
             var selector = YIUI.TypeConvertor.toString(args[0]);
-            $el = $(selector);
+            var id = form.formID + "_" + selector;
+            $el = $("#" + id);
         } else {
-            var form = cxt.form;
             $el = form.formAdapt.getRoot().el;
             form.defaultToolBar && form.defaultToolBar.el.addClass('noneedprint');
         }
@@ -3400,6 +3897,18 @@ UI.BaseFuns = (function () {
             }
             return processVer;
         };
+        
+        funs.GetInstanceState = function (name, cxt, args) {
+            var form = cxt.form, state = -1,
+                doc = form.getDocument(),
+                expData = doc.getExpDataInfo("BPM").data,
+                table = YIUI.DataUtil.fromJSONDataTable(expData);
+            if (table && table.getRowCount() > 0) {
+                table.first();
+                state = table.getByKey("State");
+            }
+            return state;
+        };
 
         funs.AddDelegateData = function (name, cxt, args) {
             var delegateType = args[0],
@@ -3428,15 +3937,64 @@ UI.BaseFuns = (function () {
             YIUI.BPMService.deleteDelegateData(args[0]);
         };
 
+        funs.IsTransit = function(name, cxt, args){
+            var sql = "select COUNT(*) as count from BPM_TransitTo where WorkitemID=?";
+            var WorkitemID = YIUI.TypeConvertor.toLong(args[0]);
+            if (WorkitemID == -1) {
+                var fromParent = false;
+                if (args.length > 1) {
+                    fromParent = YIUI.TypeConvertor.toBoolean(args[1]);
+                }
+
+                var form = cxt.form;
+                if (fromParent) {
+                    var pFormID = form.pFormID;
+                    form = YIUI.FormStack.getForm(pFormID);
+                }
+
+                info = form.getSysExpVals(YIUI.BPMConstants.WORKITEM_INFO);
+
+                if (info == null) {
+                    return false;
+                }
+                WorkitemID = info.WorkitemID;
+            }
+            var args1 = [];
+            args1[0] = sql;
+            args1[1] = WorkitemID;
+            var table = funs.DBQuery(name, cxt, args1);
+            var result = false;
+
+            if (table.first()) {
+                result = YIUI.TypeConvertor.toInt(table.get(0)) > 0;
+            }
+
+            return result;
+        };
+
         funs.GetActiveWorkitemID = function (name, cxt, args) {
             var info = getActiveWorkitem(cxt, args);
-            var WID = info.WorkitemID;
+            var WID = -1;
+            if(info){
+                WID = info.WorkitemID;
+            }
             return WID;
         };
 
+        funs.GetActiveNodeID = function (name, cxt, args) {
+            var nodeID = -1;
+            var info = getActiveWorkitem(cxt, args);
+            if (info) {
+                 nodeID= info.NodeID;
+            }
+            return nodeID;
+        };
         funs.GetActiveInstanceID = function (name, cxt, args) {
             var info = getActiveWorkitem(cxt, args);
-            var instanceID = info.InstanceID;
+            var instanceID = -1;
+            if (info) {
+                instanceID = info.InstanceID;
+            }
             return instanceID;
         };
 
@@ -3451,15 +4009,15 @@ UI.BaseFuns = (function () {
                 form = YIUI.FormStack.getForm(pFormID);
             }
             var info = form.getSysExpVals(YIUI.BPMConstants.WORKITEM_INFO);
-            if (!info) {
-                YIUI.BPMException.throwException(YIUI.BPMException.NO_ACTIVE_WORKITEM);
-            }
             return info;
         };
 
         funs.GetActiveWorkitemFormKey = function (name, cxt, args) {
             var info = getActiveWorkitem(cxt, args);
-            var formKey = info.FormKey;
+            var formKey = "";
+            if (info) {
+                formKey = info.FormKey;
+            } 
             return formKey;
         };
 
@@ -3522,7 +4080,7 @@ UI.BaseFuns = (function () {
                 var info = form.getSysExpVals(YIUI.BPMConstants.WORKITEM_INFO);
                 instanceID = info.InstanceID;
 
-                YIUI.BPMService.endInstance(instanceID, userinfo).then(function(data){
+                YIUI.BPMService.endInstance(form, instanceID, userinfo).then(function(data){
                     form.setSysExpVals(YIUI.BPMConstants.WORKITEM_INFO, null);
                     var doc = form.getDocument();
                     var b = doc.getExpData(YIUI.BPMKeys.WORKITEM_INFO);
@@ -3532,7 +4090,7 @@ UI.BaseFuns = (function () {
                     viewReload(form);
                 });
             } else {
-                YIUI.BPMService.endInstance(instanceID, userinfo);
+                YIUI.BPMService.endInstance(cxt.form, instanceID, userinfo);
             }
 
             return true;
@@ -3558,40 +4116,78 @@ UI.BaseFuns = (function () {
                 var info = form.getSysExpVals(YIUI.BPMConstants.WORKITEM_INFO);
                 instanceID = info.InstanceID;
 
-                YIUI.BPMService.reviveInstance(instanceID, userinfo).then(function(data){
-                    form.setSysExpVals(YIUI.BPMConstants.WORKITEM_INFO, null);
-                    var doc = form.getDocument();
-                    var b = doc.getExpData(YIUI.BPMKeys.WORKITEM_INFO);
-                    if (b != null) {
-                        form.getDocument().putExpData(YIUI.BPMKeys.WORKITEM_INFO, null);
-                    }
+                YIUI.BPMService.reviveInstance(form, instanceID, userinfo).then(function(data){
+                    form.setSysExpVals(YIUI.BPMConstants.LOAD_WORKITEM_INFO, true);
+                    viewReload(form);
                 });
             } else {
-                YIUI.BPMService.reviveInstance(instanceID, userinfo);
+                YIUI.BPMService.reviveInstance(cxt.form, instanceID, userinfo);
             }
 
             return true;
         };
 
         funs.PauseInstance = function (name, cxt, args) {
-        	var form = cxt.form;
-            var wid = args[0];
-            if (wid == -1) {
+        	var instanceID = YIUI.TypeConvertor.toLong(args[0]);
+            var userinfo = "";
+            if(args.length > 2)
+            	userinfo = YIUI.TypeConvertor.toString(args[2]);
+            
+            if (instanceID == -1) {
+                var fromParent = false;
+                if (args.length > 1) {
+                    fromParent = YIUI.TypeConvertor.toBoolean(args[1]);
+                }
+
+                var form = cxt.form;
+                if (fromParent) {
+                    var pFormID = form.pFormID;
+                    form = YIUI.FormStack.getForm(pFormID);
+                }
+
                 var info = form.getSysExpVals(YIUI.BPMConstants.WORKITEM_INFO);
-                wid = info.WorkitemID;
+                instanceID = info.InstanceID;
+
+                YIUI.BPMService.pauseInstance(form, instanceID, userinfo).then(function(data){
+                    viewReload(form);
+                });
+            } else {
+            	YIUI.BPMService.pauseInstance(cxt.form, instanceID, userinfo).then(function(data){
+                    viewReload(cxt.form);
+                });
             }
-            YIUI.BPMService.pauseInstance(wid);
             return true;
         };
 
         funs.Resume = function (name, cxt, args) {
-        	var form = cxt.form;
-            var wid = args[0];
-            if (wid == -1) {
+            var instanceID = YIUI.TypeConvertor.toLong(args[0]);
+            var userinfo = "";
+            if(args.length > 2)
+                userinfo = YIUI.TypeConvertor.toString(args[2]);
+            
+            if (instanceID == -1) {
+                var fromParent = false;
+                if (args.length > 1) {
+                    fromParent = YIUI.TypeConvertor.toBoolean(args[1]);
+                }
+
+                var form = cxt.form;
+                if (fromParent) {
+                    var pFormID = form.pFormID;
+                    form = YIUI.FormStack.getForm(pFormID);
+                }
+
                 var info = form.getSysExpVals(YIUI.BPMConstants.WORKITEM_INFO);
-                wid = info.WorkitemID;
+                instanceID = info.InstanceID;
+
+                YIUI.BPMService.resume(form, instanceID, userinfo).then(function(data){
+                    viewReload(form);
+                });
+            } else {
+                YIUI.BPMService.resume(cxt.form, instanceID, userinfo).then(function(data){
+                    viewReload(cxt.form);
+                });
             }
-            YIUI.BPMService.resume(wid);
             return true;
         };
 
@@ -3613,11 +4209,30 @@ UI.BaseFuns = (function () {
             var form = cxt.form;
             var WID = args[0].toString();
             var onlyOpen = false;
+            var loadInfo = true;
             if (args.length > 1) {
                 onlyOpen = YIUI.TypeConvertor.toBoolean(args[1]);
             }
+            if (args.length > 2) {
+                loadInfo = YIUI.TypeConvertor.toBoolean(args[2]);
+            }
+
+            var tsParas;
+            if (args.length > 3) {
+                tsParas = args[3];
+            }
+
+            if (tsParas) {
+                tsParas = splitPara(tsParas);
+                for (var key in tsParas) {
+                    form.setCallPara(key, form.eval(tsParas[key], cxt));
+                }
+            }
 
             YIUI.BPMService.loadWorkitemInfo(WID).then(function(info){
+            	if(!info){
+            		$.error("工作项不可用");
+            	}
                 var formKey = info.FormKey;
                 var OID = info.OID;
                 var container = form.getDefContainer();
@@ -3631,20 +4246,24 @@ UI.BaseFuns = (function () {
                     formKey = info.AttachmentPara;
                     if (info.AttachmentOperateType == YIUI.AttachmentOperateType.NEW && OID < 0) {
 
-                        var builder = new YIUI.YIUIBuilder(formKey, info.TemplateKey);
+                        var builder = new YIUI.YIUIBuilder(formKey);
                         builder.setContainer(container);
                         builder.setParentForm(form);
                         builder.setTarget(YIUI.FormTarget.NEWTAB);
+                        builder.setTemplateKey(onlyOpen ? "" : info.TemplateKey);
                         builder.newEmpty().then(function(emptyForm){
 
-                            if (!onlyOpen) {
-//                                emptyForm.setSysExpVals(YIUI.BPMConstants.WORKITEM_INFO, info);
-                                emptyForm.setTemplateKey(info.TemplateKey)
-                            }
-                            // 代表新界面由代办页面打开
                             emptyForm.setSysExpVals(YIUI.BPMConstants.WORKITEM_VIEW, YIUI.BPMConstants.WORKITEM_VIEW);
 
                             emptyForm.setOptQueue(new YIUI.OptQueue(new YIUI.NewOpt(emptyForm)));
+
+                            YIUI.FormParasUtil.processCallParas(form, emptyForm);
+
+                            if( info.State === YIUI.WorkItem_State.NEW && loadInfo) {
+                                emptyForm.setSysExpVals(YIUI.BPMKeys.WORKITEM_INFO, info);
+                            }
+                            emptyForm.setSysExpVals(YIUI.BPMKeys.LOAD_WORKITEM_INFO, false);
+
                             return builder.builder(emptyForm);
                         }).then(function(data){
                             var doc = data.getDocument();
@@ -3654,25 +4273,23 @@ UI.BaseFuns = (function () {
                     }
                 }
 
-
-                var builder = new YIUI.YIUIBuilder(formKey, info.TemplateKey);
+                var builder = new YIUI.YIUIBuilder(formKey);
                 builder.setContainer(container);
                 builder.setParentForm(form);
-                // builder.setTarget(YIUI.FormTarget.NEWTAB);
+                builder.setTemplateKey(onlyOpen ? "" : info.TemplateKey);
                 builder.setOperationState(YIUI.Form_OperationState.Default);
-
                 builder.newEmpty().then(function(emptyForm){
 
-                    if (!onlyOpen) {
-//                        emptyForm.setSysExpVals(YIUI.BPMConstants.WORKITEM_INFO, info);
-                        emptyForm.TemplateKey = info.TemplateKey;
-                    }
-                    // 代表新界面由代办页面打开
                     emptyForm.setSysExpVals(YIUI.BPMConstants.WORKITEM_VIEW, YIUI.BPMConstants.WORKITEM_VIEW);
 
-                    var filterMap = emptyForm.getFilterMap();
-                    filterMap.setOID(OID);
+                    emptyForm.getFilterMap().setOID(OID);
                     emptyForm.setOptQueue(new YIUI.OptQueue(new YIUI.LoadOpt(emptyForm)));
+                    YIUI.FormParasUtil.processCallParas(form, emptyForm);
+
+                    if( info.State === YIUI.WorkItem_State.NEW && loadInfo ) {
+                        emptyForm.setSysExpVals(YIUI.BPMKeys.WORKITEM_INFO, info);
+                    } 
+                    emptyForm.setSysExpVals(YIUI.BPMKeys.LOAD_WORKITEM_INFO, false);
                     builder.builder(emptyForm);
                 });
 
@@ -3711,9 +4328,14 @@ UI.BaseFuns = (function () {
             	tsParas = splitPara(tsParas);
             }
             
-            var pattern;
-            var backSite = -1;
-            var saveDoc = false;
+            var pattern,
+            	backSite = -1,
+            	backSiteOpt=-1,
+            	saveDoc = false,
+            	keepParts = false,
+            	status = -1,
+                srcOperator = -1;
+            
             if(tsParas) {
             	if(tsParas["pattern"]){
             		pattern = tsParas["pattern"];
@@ -3721,13 +4343,42 @@ UI.BaseFuns = (function () {
             	if(tsParas["backSite"]){
             		backSite = YIUI.TypeConvertor.toInt(form.eval(tsParas["backSite"], cxt));
             	}
+                if (tsParas["backSiteOpt"]) {
+                    backSiteOpt=YIUI.TypeConvertor.toInt(form.eval(tsParas["backSiteOpt"], cxt));
+                }
             	if(tsParas["saveDoc"]){
             		saveDoc = YIUI.TypeConvertor.toBoolean(tsParas["saveDoc"]);
             	}
+            	if(tsParas["keepParts"]){
+            		keepParts = YIUI.TypeConvertor.toBoolean(tsParas["keepParts"]);
+            	}
+            	if(tsParas["status"]){
+            		status = YIUI.TypeConvertor.toInt(tsParas["status"]);
+            	}
+                if (tsParas["srcOpt"]) {
+                    srcOperator = YIUI.TypeConvertor.toLong(form.eval(tsParas["srcOpt"], cxt));
+                }
             }
             
-            if(pattern) {
+            if(saveDoc){
+                var Opt = new YIUI.UICheckOpt(form);
+                Opt.doOpt();
+            }
+            if(srcOperator > 0){
+                info.SrcOperator = srcOperator;
+            }
+
+            form.setSysExpVals(YIUI.BPMKeys.LOAD_WORKITEM_INFO, true);
+
+            var flag = true;
+            var newArgs = [];
+            newArgs[0] = WID;
+            if (pattern && pattern == "Transit" && !funs.IsTransit(null, cxt, newArgs)) {
+                flag = false;
+            }
+            if(pattern && flag) {
             	if(pattern == "Transit") {
+            		info.KeepParts = keepParts;
             		if(saveDoc) {
             			YIUI.BPMService.transferToNode(info, doc).then(function(data){
             				form.setSysExpVals(YIUI.BPMKeys.WORKITEM_INFO, null);
@@ -3740,18 +4391,18 @@ UI.BaseFuns = (function () {
             		} else {
             			YIUI.BPMService.transferToNode(info).then(function(data){
                             form.setSysExpVals(YIUI.BPMConstants.WORKITEM_INFO, null);
-
                             var b = form.getDocument().getExpData(YIUI.BPMKeys.WORKITEM_INFO);
                             if (b != null) {
                             	form.getDocument().rmExpData(YIUI.BPMKeys.WORKITEM_INFO);
                             }
-
                             viewReload(form);
                         });
             		}
             	} else if(pattern == "Return") {
             		if(backSite != -1) {
             			info.BackSite = backSite;
+            			info.BackSiteOpt=backSiteOpt;
+            			info.Status=status;
             			if(saveDoc) {
                     		YIUI.BPMService.commitWorkitem(info, doc).then(function(data){
                     			form.setSysExpVals(YIUI.BPMKeys.WORKITEM_INFO, null);
@@ -3772,7 +4423,7 @@ UI.BaseFuns = (function () {
                           });
                     	}
             		} else {
-            			$.error("你没有写驳回位置啊亲！(＞﹏＜)~！！！");
+            			$.error("驳回位置不可用!");
             		}
             	}
             } else {
@@ -3814,11 +4465,9 @@ UI.BaseFuns = (function () {
             if (args.length == 3) {
                 OIDList = [];
                 var list = args[0];
-//                for (var i = 0, len = list.length; i < len; i++) {
-//                    OIDList.push(YIUI.TypeConvertor.toLong(list[i]));
-//                }
-                OIDList.push(36976546);
-                OIDList.push(36976547);
+                for (var i = 0, len = list.length; i < len; i++) {
+                    OIDList.push(YIUI.TypeConvertor.toLong(list[i]));
+                }
                 result = YIUI.TypeConvertor.toInt(args[1]);
                 userInfo = YIUI.TypeConvertor.toString(args[2]);
             } else {
@@ -3855,6 +4504,62 @@ UI.BaseFuns = (function () {
             }
 
             YIUI.BPMService.batchCommitWorkitem(WIDList, result, userInfo);
+            return true;
+        };
+        
+        funs.DistributeWorkitem = function (name, cxt, args) {
+            var WID = args[0];
+            var operatorID = args[1];
+//            if (args.length == 3) {
+//                WIDList = [];
+//                var list = args[0];
+//                for (var i = 0, len = list.length; i < len; i++) {
+//                    WIDList.push(YIUI.TypeConvertor.toLong(list[i]));
+//                }
+//                result = YIUI.TypeConvertor.toInt(args[1]);
+//                userInfo = YIUI.TypeConvertor.toString(args[2]);
+//            } else {
+//                var tableKey = YIUI.TypeConvertor.toString(args[0]);
+//                var WIDFieldKey = YIUI.TypeConvertor.toString(args[1]);
+//                WIDList = YIUI.BatchUtil.getSelectOIDs(form, tableKey, WIDFieldKey, true);
+//                result = YIUI.TypeConvertor.toInt(args[2]);
+//                userInfo = YIUI.TypeConvertor.toString(args[3]);
+//            }
+            if(WID == -1){
+            	var form=cxt.form;
+            	var info = form.getSysExpVals(YIUI.BPMConstants.WORKITEM_INFO);
+            	WID = info.WorkitemID;
+            }
+
+            YIUI.BPMService.distributeWorkitem(WID, operatorID);
+            return true;
+        };
+        
+        funs.CancelDistributeWorkitem = function (name, cxt, args) {
+            var WID = args[0];
+//            var operatorID = args[1];
+//            if (args.length == 3) {
+//                WIDList = [];
+//                var list = args[0];
+//                for (var i = 0, len = list.length; i < len; i++) {
+//                    WIDList.push(YIUI.TypeConvertor.toLong(list[i]));
+//                }
+//                result = YIUI.TypeConvertor.toInt(args[1]);
+//                userInfo = YIUI.TypeConvertor.toString(args[2]);
+//            } else {
+//                var tableKey = YIUI.TypeConvertor.toString(args[0]);
+//                var WIDFieldKey = YIUI.TypeConvertor.toString(args[1]);
+//                WIDList = YIUI.BatchUtil.getSelectOIDs(form, tableKey, WIDFieldKey, true);
+//                result = YIUI.TypeConvertor.toInt(args[2]);
+//                userInfo = YIUI.TypeConvertor.toString(args[3]);
+//            }
+            if(WID == -1){
+            	var form=cxt.form;
+            	var info = form.getSysExpVals(YIUI.BPMConstants.WORKITEM_INFO);
+            	WID = info.WorkitemID;
+            }
+
+            YIUI.BPMService.cancelDistributeWorkitem(WID);
             return true;
         };
 
@@ -3954,6 +4659,11 @@ UI.BaseFuns = (function () {
 
         funs.KillInstance = function (name, cxt, args) {
             var instanceID = args[0].toString();
+            var userinfo = "";
+            if (args.length > 2) {
+                userinfo = YIUI.TypeConvertor.toString(args[2]);
+            }
+
             if (instanceID == -1) {
                 var fromParent = false;
                 if (args.length > 1) {
@@ -3967,7 +4677,7 @@ UI.BaseFuns = (function () {
                 var info = form.getSysExpVals(YIUI.BPMConstants.WORKITEM_INFO);
                 instanceID = info.InstanceID;
 
-                YIUI.BPMService.killInstance(instanceID).then(function(data){
+                YIUI.BPMService.killInstance(form, instanceID, userinfo).then(function(data){
                     form.setSysExpVals(YIUI.BPMConstants.WORKITEM_INFO, null);
 
                     var b = form.getDocument().getExpData(YIUI.BPMKeys.WORKITEM_INFO);
@@ -3975,27 +4685,31 @@ UI.BaseFuns = (function () {
                         form.getDocument().putExpData(YIUI.BPMKeys.WORKITEM_INFO, null);
                     }
 
-                    viewReload(cxt.form);
+                    viewReload(form);
                 });
             } else {
-                YIUI.BPMService.killInstance(instanceID);
+                YIUI.BPMService.killInstance(cxt.form, instanceID, userinfo);
             }
             return true;
         };
-
-        funs.SkipToNode = function (name, cxt, args) {
-            var info = form.getSysExpVals(YIUI.BPMConstants.WORKITEM_INFO);
-
-            YIUI.BPMService.skipToNode(info.WorkitemID, args[0])
-                .then(function(data){
-                    viewReload(form);
-                });
-        };
         
         funs.GetValidNodes = function (name, cxt, args) {
+        	var form = cxt.form;
+        	var instanceid = -1;
+        	if(form.getSysExpVals(YIUI.BPMKeys.WORKITEM_INFO))
+        		instanceid = form.getSysExpVals(YIUI.BPMKeys.WORKITEM_INFO).InstanceID;
+        	if(instanceid == -1){
+        		form = form.getParentForm();
+        		if(form.getSysExpVals(YIUI.BPMKeys.WORKITEM_INFO))
+            		instanceid = form.getSysExpVals(YIUI.BPMKeys.WORKITEM_INFO).InstanceID;
+        	}
         	var nodeID = YIUI.TypeConvertor.toInt(args[0]);
         	var processKey = YIUI.TypeConvertor.toString(args[1]);
-        	return YIUI.BPMService.getValidNodes(nodeID, processKey);
+            var ignoreDeep = false;
+            if (args.length > 2) {
+                ignoreDeep = YIUI.TypeConvertor.toBoolean(args[2]);
+            }
+        	return YIUI.BPMService.getValidNodes(nodeID, processKey, instanceid, ignoreDeep);
         };
         
         funs.GetAliasKey = function(name, cxt, args) {
@@ -4041,6 +4755,7 @@ UI.BaseFuns = (function () {
                 }
             }
 
+            form.setOperationState(YIUI.Form_OperationState.Default);
             var loadParent = new YIUI.LoadOpt(form);
             loadParent.doOpt();
 
@@ -4085,9 +4800,37 @@ UI.BaseFuns = (function () {
                 });
             return true;
         };
+        
+        funs.ForcibleMove = function (name, cxt, args) {
+            var form = cxt.form;
+            var info = form.getSysExpVals(YIUI.BPMConstants.WORKITEM_INFO);
+            if (!info) {
+                YIUI.BPMException.throwException(YIUI.BPMException.NO_ACTIVE_WORKITEM);
+            }
+            var instaceID = info.InstanceID,
+            	srcNode = YIUI.TypeConvertor.toInt(args[0]),
+            	tgtNode = YIUI.TypeConvertor.toInt(args[1]);
+
+            YIUI.BPMService.forcibleMove(instaceID, srcNode, tgtNode)
+                .then(function(data){
+
+                    form.setSysExpVals(YIUI.BPMConstants.WORKITEM_INFO, null);
+
+                    var b = form.getDocument().getExpData(YIUI.BPMKeys.WORKITEM_INFO);
+                    if (b != null) {
+                        form.getDocument().putExpData(YIUI.BPMKeys.WORKITEM_INFO, null);
+                    }
+
+                    viewReload(form);
+                });
+            return true;
+        };
 
         funs.AssignNextNodeParticipator = function (name, cxt, args) {
             var info = getActiveWorkitem(cxt, args);
+            if (!info) {
+                YIUI.BPMException.throwException(YIUI.BPMException.NO_ACTIVE_WORKITEM);
+            }
             var role = false;
             if (args.length > 2) {
                 role = YIUI.TypeConvertor.toBoolean(args[2]);
@@ -4380,7 +5123,10 @@ UI.BaseFuns = (function () {
                 form = cxt.form, wiInfo = form.getSysExpVals(YIUI.BPMConstants.WORKITEM_INFO),
                 operatorID = parseFloat(args[1].toString()),
                 createRecord = false, userinfo,
-                auditResult = -1;
+                auditResult = -1,
+                srcOperator = -1,
+                transferType = -1;
+
             if (WID == -1) {
                 WID = wiInfo.WorkitemID;
             }
@@ -4393,8 +5139,54 @@ UI.BaseFuns = (function () {
             if (args.length > 4) {
             	auditResult = args[4];
             }
+            if (args.length > 5) {
+                srcOperator = args[5];
+            }
+            if (args.length > 6) {
+                transferType = args[6];
+            }
+
+            YIUI.BPMService.transferTask(WID, operatorID, createRecord, userinfo, auditResult, srcOperator, transferType);
+        };
+        
+        funs.RefuseTask = function (name, cxt, args) {
+            var WID = YIUI.TypeConvertor.toLong(args[0]) ,
+                form = cxt.form, wiInfo = form.getSysExpVals(YIUI.BPMConstants.WORKITEM_INFO),
+//                operatorID = parseFloat(args[1].toString()),
+                createRecord = false, userinfo,
+                auditResult = -1;
+            if (WID == -1) {
+                WID = wiInfo.WorkitemID;
+            }
+//            if (args.length > 2) {
+//                createRecord = args[2];
+//            }
+            if (args.length > 2) {
+            	userinfo = YIUI.TypeConvertor.toString(args[2]);
+            }
+            if (args.length > 1) {
+            	auditResult = YIUI.TypeConvertor.toInt(args[1]);
+            }
             
-            YIUI.BPMService.transferTask(WID, operatorID, createRecord, userinfo, auditResult);
+            YIUI.BPMService.refuseTask(WID, auditResult, userinfo);
+        };
+        
+        funs.RefuseToOperator = function (name, cxt, args) {
+            var operatorID = YIUI.TypeConvertor.toLong(args[0]) ,
+                form = cxt.form, wiInfo = form.getSysExpVals(YIUI.BPMConstants.WORKITEM_INFO);
+//                createRecord = false, userinfo,
+//                auditResult = -1;
+//            if (WID == -1) {
+//                WID = wiInfo.WorkitemID;
+//            }
+//            if (args.length > 2) {
+//            	userinfo = YIUI.TypeConvertor.toString(args[2]);
+//            }
+//            if (args.length > 1) {
+//            	auditResult = YIUI.TypeConvertor.toInt(args[1]);
+//            }
+//            
+            YIUI.BPMService.refuseToOperator(wiInfo, operatorID);
         };
 
         funs.EndorseTask = function (name, cxt, args) {
@@ -4433,68 +5225,107 @@ UI.BaseFuns = (function () {
             YIUI.BPMService.launchTask(WID, nodeKey, pp, launchInfo, hideActiveWorkitem);
         };
 
+        // 使用FillGridData代替!
         funs.FillGrid = function (name, cxt, args) {
-            var form = cxt.form, gridKey = args[0].toString(), fields = [], dataTable = args[1], grid = form.getComponent(gridKey);
+            var form = cxt.form,
+                grid = form.getComponent(args[0].toString());
+
+            if( grid == null ) {
+                YIUI.ViewException.throwException(YIUI.ViewException.COMPONENT_NOT_EXISTS);
+            }
+
+            var tableKey = grid.tableKey;
+            if( !tableKey ){
+                return;
+            }
+
+            var ignoreKeys = [],
+                newTable = args[1],
+                doc = form.getDocument();
+
+            var oldTable = doc.getByKey(tableKey);
+
+            var parentKey = oldTable.parentKey,
+                parentbkmk = -1;
+            if( parentKey ) {
+                parentbkmk = doc.getByKey(parentKey).getBkmk();
+            }
+
+            YIUI.DataUtil.append(newTable, oldTable, parentbkmk);
+
             for (var i = 2, len = args.length; i < len; i++) {
-                fields.push(args[i].toString());
+                ignoreKeys.push(args[i].toString());
             }
-            var convertData = function (cell, value) {
-                var cellType = cell.edittype, result = value;
-                if (cellType == "dict") {
-                    var itemKey = cell.itemKey;
-                    result = YIUI.UIUtil.convertDictValue(itemKey, cell, value);
-                }
-                return result;
-            };
-            dataTable.beforeFirst();
-            while (dataTable.next()) {
-                var index = grid.getLastDetailRowIndex();
-                if( index == -1 ) {
-                    index = grid.insertRow(-1);
-                }
-                for (var j = 0, jLen = fields.length; j < jLen; j++) {
-                    var cellKey = fields[j],
-                        value = dataTable.get(j);
-                    var cell = grid.dataModel.colModel.cells[cellKey];
-                    value = convertData(cell, value);
-                    grid.setValueByKey(index, cellKey, value, true, true);
-                }
+            form.setSysExpVals("IgnoreKeys", ignoreKeys);
+
+            if( grid.isSubDetail ) {
+                YIUI.SubDetailUtil.showSubDetailGridData(grid);
+            } else {
+                grid.load(false);
             }
+
+            grid.getHandler().dealWithSequence(form,grid,0);
         };
+
         funs.FillGridData = function (name, cxt, args) {
-            var form = cxt.form, dataTable = args[1], doc = form.getDocument(),
-                clearOldData = false, gridKey = args[0].toString(), grid = form.getComponent(gridKey);
-            if (args.length > 2) {
-                clearOldData = YIUI.TypeConvertor.toBoolean(args[2]);
-            }
+            var form = cxt.form,
+                clearOldData = false,
+                grid = form.getComponent(args[0].toString());
+
             if (grid == null) {
                 YIUI.ViewException.throwException(YIUI.ViewException.COMPONENT_NOT_EXISTS);
             }
-            var tableKey = grid.tableKey, oldTable = doc.getByKey(tableKey);
-            if (oldTable != null) {
-                if (clearOldData) {
-                    oldTable.delAll();
-                }
-                var parentKey = oldTable.parentKey,parentbkmk = -1;
-                if( parentKey ) {
-                    parentbkmk = doc.getByKey(parentKey).getBkmk();
-                }
 
-                YIUI.DataUtil.append(dataTable, oldTable, parentbkmk);
+            if (args.length > 2) {
+                clearOldData = YIUI.TypeConvertor.toBoolean(args[2]);
+            }
 
-                if( grid.isSubDetail ) {
-                    YIUI.SubDetailUtil.showSubDetailGridData(grid);
-                } else {
-                    grid.load(false);
+            var tableKey = grid.tableKey;
+            if( !tableKey ){
+                return;
+            }
+
+            var dataTable = args[1],
+                doc = form.getDocument();
+
+            var oldTable = doc.getByKey(tableKey);
+
+            // 如果是新增状态的行,直接删除
+            if (clearOldData) {
+                oldTable.delAll();
+            }
+            var parentKey = oldTable.parentKey,
+                parentbkmk = -1;
+            if( parentKey ) {
+                parentbkmk = doc.getByKey(parentKey).getBkmk();
+            }
+
+            YIUI.DataUtil.append(dataTable, oldTable, parentbkmk);
+
+            var ignoreKeys = [],
+                metaCell;
+            for( var i = 0,count = dataTable.getColumnCount();i < count;i++ ) {
+                metaCell = grid.getMetaCellByColumnKey(dataTable.getCol(i).getKey());
+                if( metaCell ) {
+                    ignoreKeys.push(metaCell.key);
                 }
             }
+            form.setSysExpVals("IgnoreKeys", ignoreKeys);
+
+            if( grid.isSubDetail ) {
+                YIUI.SubDetailUtil.showSubDetailGridData(grid);
+            } else {
+                grid.load(false);
+            }
+
+            grid.getHandler().dealWithSequence(form,grid,0);
         }
     }
 
     {
         funs.GetSvrUsers = function (name,cxt,args) {
             var form = cxt.form;
-            var mode = 1;
+            var mode = -1;
             if( args.length > 0  ) {
                 mode = YIUI.TypeConvertor.toInt(args[1]);
             }
@@ -4688,10 +5519,10 @@ UI.BaseFuns = (function () {
             }
 
             if( window.up_target ) {
-                window.up_target.change(function(){
+                window.up_target.onchange = function () {
                     options.file = $(this);
                     YIUI.FileUtil.ajaxFileUpload(options);
-                });
+                }
             } else {
                 YIUI.FileUtil.uploadFile(options);
             }
@@ -4928,9 +5759,6 @@ UI.BaseFuns = (function () {
                 paras: $.toJSON(values)
             }
             var str = Svr.Request.getSyncData(Svr.SvrMgr.ServletURL, params);
-            if (!str) {
-            	YIUI.ViewException.throwException(YIUI.ViewException.NO_LOCALE_STRING_DEFINED);
-            }
             return str;
         };
         
@@ -4951,20 +5779,30 @@ UI.BaseFuns = (function () {
                 paras: $.toJSON(values)
             }
             var str = Svr.Request.getSyncData(Svr.SvrMgr.ServletURL, params);
-            if (!str) {
-            	YIUI.ViewException.throwException(YIUI.ViewException.NO_LOCALE_STRING_DEFINED);
-            }
             return str;
         };
-		
-        funs.HasParent = function (name, cxt, args) {
-            return cxt.form.getParentForm()!=null;
-        };
-		
+
         funs.LocaleFormat = funs.LocaleParaFormat;
+
+        funs.GetHeadInfo = function (name, cxt, args) {
+        	return YIUI.HeadInfos.get(args[0]);        	
+        };
+        
+        funs.PutHeadInfo = function (name, cxt, args) {
+        	var key = args[0];
+        	var value = args[1];
+        	
+        	YIUI.HeadInfos.put(key, value);
+        	return true;
+        };
+        
+        funs.RemoveHeadInfo = function (name, cxt, args) {
+        	return YIUI.HeadInfos.remove(args[0]);
+        };
+
+		funs.HasParent = function (name,cxt,args){
+			return cxt.form.getParentForm()!=null;
+		};
     }
     return funs;
 })();
-
-
-

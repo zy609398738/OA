@@ -1,17 +1,15 @@
-<%@ page language="java" import="java.util.*,java.text.SimpleDateFormat" pageEncoding="gb2312"%>
+<%@ page language="java" import="java.util.*,java.text.SimpleDateFormat" pageEncoding="utf-8"%>
 <%@ page
 	import="com.zhuozhengsoft.pageoffice.*,com.zhuozhengsoft.pageoffice.wordwriter.*"%>
-<%@ taglib uri="http://java.pageoffice.cn" prefix="po"%>
 <%
 	PageOfficeCtrl poCtrl = new PageOfficeCtrl(request);
-	poCtrl.addCustomToolButton("µ¼ÈëÎÄ¼ş", "importData()", 5);
-	poCtrl.addCustomToolButton("Ìá½»Êı¾İ", "submitData()", 1);
+	poCtrl.addCustomToolButton("å¯¼å…¥æ–‡ä»¶", "importData()", 15);
+	poCtrl.addCustomToolButton("æäº¤æ•°æ®", "submitData()", 1);
 	WordDocument doc = new WordDocument();
 	poCtrl.setWriter(doc);
 
 	poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");
 	poCtrl.setSaveDataPage("SaveData.jsp");
-	poCtrl.setTagId("PageOfficeCtrl1");
 %>
 
 
@@ -19,19 +17,17 @@
 <html>
   <head>
 
-    <title>µ¼ÈëÎÄ¼ş²¢Ìá½»Êı¾İ</title>
+    <title>å¯¼å…¥æ–‡ä»¶å¹¶æäº¤æ•°æ®</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
-	<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
+
   </head>
   
  <body>
-		<!-- ***************************************PageOffice×é¼şµÄÊ¹ÓÃ****************************************** -->
+		<!-- ***************************************PageOfficeç»„ä»¶çš„ä½¿ç”¨****************************************** -->
 		<script type="text/javascript">
                    function importData() {
                       document.getElementById("PageOfficeCtrl1").WordImportDialog();
@@ -42,10 +38,10 @@
 
                }
               </script>
-                 <div style="color:Red">Çëµ¼Èë¡°/Samples/ImportWordData¡±ÏÂµÄImportWord.docÎÄµµ²é¿´ÑİÊ¾Ğ§¹û¡£</div>
+                 <div style="color:Red">è¯·å¯¼å…¥â€œ/Samples4/ImportWordDataâ€ä¸‹çš„ImportWord.docæ–‡æ¡£æŸ¥çœ‹æ¼”ç¤ºæ•ˆæœã€‚</div>
 		<div style="width: auto; height: 600px;">
-			<po:PageOfficeCtrl id="PageOfficeCtrl1"></po:PageOfficeCtrl>
+			<%=poCtrl.getHtmlCode("PageOfficeCtrl1")%>
 		</div>
-		<!-- ***************************************PageOffice×é¼şµÄÊ¹ÓÃ****************************************** -->
+		<!-- ***************************************PageOfficeç»„ä»¶çš„ä½¿ç”¨****************************************** -->
 	</body>
 </html>

@@ -1,26 +1,25 @@
 <%@ page language="java"
 	import="java.util.*,com.zhuozhengsoft.pageoffice.*"
-	pageEncoding="gb2312"%>
-<%@ taglib uri="http://java.pageoffice.cn" prefix="po"%>
+	pageEncoding="utf-8"%>
 <%
-//******************************×¿ÕýPageOffice×é¼þµÄÊ¹ÓÃ*******************************
-	//ÉèÖÃPageOffice·þÎñÆ÷×é¼þ
+//******************************å“æ­£PageOfficeç»„ä»¶çš„ä½¿ç”¨*******************************
+	//è®¾ç½®PageOfficeæœåŠ¡å™¨ç»„ä»¶
 	PageOfficeCtrl poCtrl1 = new PageOfficeCtrl(request);
-	poCtrl1.setServerPage(request.getContextPath()+"/poserver.zz"); //´ËÐÐ±ØÐë
-        poCtrl1.setJsFunction_AfterDocumentOpened("AfterDocumentOpened()");
-	poCtrl1.setOfficeToolbars(false);//Òþ²ØOffice¹¤¾ß
-        poCtrl1.addCustomToolButton("±£´æ", "Save()", 1); 
-		poCtrl1.addCustomToolButton("ÐÂ½¨Åú×¢", "InsertComment()", 3); 
-        poCtrl1.setSaveFilePage("SaveFile.jsp");
-	//´ò¿ªÎÄ¼þ
+	poCtrl1.setServerPage(request.getContextPath()+"/poserver.zz"); //æ­¤è¡Œå¿…é¡»
+    poCtrl1.setJsFunction_AfterDocumentOpened("AfterDocumentOpened()");
+	poCtrl1.setOfficeToolbars(false);//éšè—Officeå·¥å…·
+    poCtrl1.addCustomToolButton("ä¿å­˜", "Save()", 1); 
+    poCtrl1.addCustomToolButton("æ–°å»ºæ‰¹æ³¨", "InsertComment()", 3); 
+    poCtrl1.setSaveFilePage("SaveFile.jsp");
+	//æ‰“å¼€æ–‡ä»¶
 	poCtrl1.webOpen("doc/test.doc", OpenModeType.docRevisionOnly, "Tom");
-	poCtrl1.setTagId("PageOfficeCtrl1"); //´ËÐÐ±ØÐë	
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title></title>
+
 </head>
 
 <body>
@@ -106,19 +105,17 @@
     <form id="form1">
     <div  style=" width:1300px; height:700px;">
         <div id="Div_Comments" style=" float:left; width:200px; height:700px; border:solid 1px red;">
-        <h3>Åú×¢ÁÐ±í</h3>
-		<input id="Button2" type="button" value="Ë¢ÐÂ" onclick="return Button2_onclick()" />
+        <h3>æ‰¹æ³¨åˆ—è¡¨</h3>
+		<input id="Button2" type="button" value="åˆ·æ–°" onclick="return Button2_onclick()" />
         <ul id="ul_Comments">
             
         </ul>
         </div>
 <div style=" width:1050px; height:700px; float:right;">
-            <input id="Button1" type="button" value="²åÈëÅú×¢" onclick="return Button1_onclick()" /> 
+            <input id="Button1" type="button" value="æ’å…¥æ‰¹æ³¨" onclick="return Button1_onclick()" /> 
 <input id="Text1" type="text" />
             
-         
-            <po:PageOfficeCtrl id="PageOfficeCtrl1" >
-            </po:PageOfficeCtrl>
+   <%=poCtrl1.getHtmlCode("PageOfficeCtrl1")%>
         </div>
     </div>
     </form>

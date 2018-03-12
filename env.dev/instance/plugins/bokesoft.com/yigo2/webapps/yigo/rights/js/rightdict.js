@@ -50,8 +50,8 @@
 								var $id = dictData[i].oid;
 								var $item = $dr_tbl.treeNode.tree[$id];
 								var hasRts = dictData[i].hasRights == 0 ? false : true;
+								$item.changed = true;
 								if(hasRts != checked) {
-									$item.changed = true;
 									if(checked) {
 										$(".checkbox", $item.row).prop("checked", true);
 										options.dict.addRts.push($id);

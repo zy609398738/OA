@@ -33,7 +33,7 @@ YIUI.NumberEditorHandler = (function () {
 						settings.vMin = '-' + maxNumber;
 						settings.mDec = decScale;
 
-			            settings.roundingMode = $.isDefined(meta.roundingMode) ? meta.roundingMode : this.roundingMode;
+			            settings.mRound = $.isDefined(meta.roundingMode) ? meta.roundingMode : this.roundingMode;
                         settings.useSeparator = $.isDefined(meta.useSeparator) ? meta.useSeparator : this.useSeparator;
 
 			            return settings;

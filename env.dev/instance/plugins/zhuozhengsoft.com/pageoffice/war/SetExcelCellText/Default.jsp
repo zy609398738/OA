@@ -1,85 +1,83 @@
-<%@ page language="java" import="java.util.*, java.awt.*" pageEncoding="gb2312"%>
+<%@ page language="java" import="java.util.*, java.awt.*" pageEncoding="utf-8"%>
 <%@page
 	import="com.zhuozhengsoft.pageoffice.*,com.zhuozhengsoft.pageoffice.excelwriter.*"%>
-<%@ taglib uri="http://java.pageoffice.cn" prefix="po"%>
 <%
 	PageOfficeCtrl poCtrl = new PageOfficeCtrl(request);
 	Workbook wb = new Workbook();
 	Sheet sheet = wb.openSheet("Sheet1");
 
 	Cell cC3 = sheet.openCell("C3");
-	//ÉèÖÃµ¥Ôª¸ñ±³¾°ÑùÊ½
+	//è®¾ç½®å•å…ƒæ ¼èƒŒæ™¯æ ·å¼
 	cC3.setBackColor( Color.LIGHT_GRAY);
-	cC3.setValue( "Ò»ÔÂ");
+	cC3.setValue( "ä¸€æœˆ");
 	cC3.setForeColor(Color.white);
 	cC3.setHorizontalAlignment(XlHAlign.xlHAlignCenter);
 
 	Cell cD3 = sheet.openCell("D3");
-	//ÉèÖÃµ¥Ôª¸ñ±³¾°ÑùÊ½
+	//è®¾ç½®å•å…ƒæ ¼èƒŒæ™¯æ ·å¼
 	cD3.setBackColor( Color.lightGray);
-	cD3.setValue( "¶þÔÂ");
+	cD3.setValue( "äºŒæœˆ");
 	cD3.setForeColor(Color.white);
 	cD3.setHorizontalAlignment( XlHAlign.xlHAlignCenter);
 
 	Cell cE3 = sheet.openCell("E3");
-	//ÉèÖÃµ¥Ôª¸ñ±³¾°ÑùÊ½
+	//è®¾ç½®å•å…ƒæ ¼èƒŒæ™¯æ ·å¼
 	cE3.setBackColor( Color.lightGray);
-	cE3.setValue( "ÈýÔÂ");
+	cE3.setValue( "ä¸‰æœˆ");
 	cE3.setForeColor(Color.white);
 	cE3.setHorizontalAlignment( XlHAlign.xlHAlignCenter);
 
 	Cell cB4 = sheet.openCell("B4");
-	//ÉèÖÃµ¥Ôª¸ñ±³¾°ÑùÊ½
+	//è®¾ç½®å•å…ƒæ ¼èƒŒæ™¯æ ·å¼
 	cB4.setBackColor( new Color(10,254,254));
-	cB4.setValue( "×¡·¿");
+	cB4.setValue( "ä½æˆ¿");
 	cB4.setForeColor( new Color(10,150,150));
 	cB4.setHorizontalAlignment( XlHAlign.xlHAlignCenter);
 
 	Cell cB5 = sheet.openCell("B5");
-	//ÉèÖÃµ¥Ôª¸ñ±³¾°ÑùÊ½
+	//è®¾ç½®å•å…ƒæ ¼èƒŒæ™¯æ ·å¼
 	cB5.setBackColor( new Color(10,150,150));
-	cB5.setValue( "Èý²Í");
+	cB5.setValue( "ä¸‰é¤");
 	cB5.setForeColor( new Color(10,100,250));
 	cB5.setHorizontalAlignment( XlHAlign.xlHAlignCenter);
 
 	Cell cB6 = sheet.openCell("B6");
-	//ÉèÖÃµ¥Ôª¸ñ±³¾°ÑùÊ½
+	//è®¾ç½®å•å…ƒæ ¼èƒŒæ™¯æ ·å¼
 	cB6.setBackColor(new Color(200,200,100) );
-	cB6.setValue( "³µ·Ñ");
+	cB6.setValue( "è½¦è´¹");
 	cB6.setForeColor( new Color(10,150,150));
 	cB6.setHorizontalAlignment( XlHAlign.xlHAlignCenter);
 
 	Cell cB7 = sheet.openCell("B7");
-	//ÉèÖÃµ¥Ôª¸ñ±³¾°ÑùÊ½
+	//è®¾ç½®å•å…ƒæ ¼èƒŒæ™¯æ ·å¼
 	cB7.setBackColor( new Color(80,50,80));
-	cB7.setValue( "Í¨Ñ¶");
+	cB7.setValue( "é€šè®¯");
 	cB7.setForeColor( new Color(10,150,150));
 	cB7.setHorizontalAlignment( XlHAlign.xlHAlignCenter);
 
-	//»æÖÆ±í¸ñÏß
+	//ç»˜åˆ¶è¡¨æ ¼çº¿
 	Table titleTable = sheet.openTable("B3:E10");
 	titleTable.getBorder().setWeight(XlBorderWeight.xlThick);
 	titleTable.getBorder().setLineColor(new Color(0, 128, 128));
 	titleTable.getBorder().setBorderType(XlBorderType.xlAllEdges);
 
-	sheet.openTable("B1:E2").merge();//ºÏ²¢µ¥Ôª¸ñ
-	sheet.openTable("B1:E2").setRowHeight( 30);//ÉèÖÃÐÐ¸ß
+	sheet.openTable("B1:E2").merge();//åˆå¹¶å•å…ƒæ ¼
+	sheet.openTable("B1:E2").setRowHeight( 30);//è®¾ç½®è¡Œé«˜
 	Cell B1 = sheet.openCell("B1");
-	//ÉèÖÃµ¥Ôª¸ñÎÄ±¾ÑùÊ½
+	//è®¾ç½®å•å…ƒæ ¼æ–‡æœ¬æ ·å¼
 	B1.setHorizontalAlignment(XlHAlign.xlHAlignCenter);
 	B1.setVerticalAlignment(XlVAlign.xlVAlignCenter);
 	B1.setForeColor( new Color(0,128,128));
-	B1.setValue( "³ö²î¿ªÖ§Ô¤Ëã");
+	B1.setValue( "å‡ºå·®å¼€æ”¯é¢„ç®—");
 	B1.getFont().setBold(true);
 	B1.getFont().setSize(25);
 	
 	poCtrl.setWriter(wb);
 
-	//ÉèÖÃ·þÎñÆ÷Ò³Ãæ
-	poCtrl.setServerPage(request.getContextPath()+"/poserver.zz"); //´ËÐÐ±ØÐë
-	//ÉèÖÃÎÄµµ´ò¿ª·½Ê½
-	poCtrl.webOpen("doc/test.xls", OpenModeType.xlsNormalEdit, "ÕÅÈý");
-	poCtrl.setTagId("PageOfficeCtrl1");
+	//è®¾ç½®æœåŠ¡å™¨é¡µé¢
+	poCtrl.setServerPage(request.getContextPath()+"/poserver.zz"); //æ­¤è¡Œå¿…é¡»
+	//è®¾ç½®æ–‡æ¡£æ‰“å¼€æ–¹å¼
+	poCtrl.webOpen("doc/test.xls", OpenModeType.xlsNormalEdit, "å¼ ä¸‰");
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -88,15 +86,15 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
 		<title></title>
 		<link href="images/csstg.css" rel="stylesheet" type="text/css" />
+
 	</head>
 	<body>
 
 		<div id="content">
 			<div id="textcontent" style="width: 1000px; height: 800px;">
 
-				<!--**************   ×¿Õý PageOffice×é¼þ ************************-->
-				<po:PageOfficeCtrl id="PageOfficeCtrl1">
-				</po:PageOfficeCtrl>
+				<!--**************   å“æ­£ PageOfficeç»„ä»¶ ************************-->
+				  <%=poCtrl.getHtmlCode("PageOfficeCtrl1")%>
 			</div>
 		</div>
 

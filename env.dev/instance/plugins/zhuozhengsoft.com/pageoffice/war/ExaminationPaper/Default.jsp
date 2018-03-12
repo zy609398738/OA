@@ -1,5 +1,6 @@
+
 <%@ page language="java" import="java.util.*,java.sql.*"
-	pageEncoding="gb2312"%>
+	pageEncoding="utf-8"%>
 <%
 	Class.forName("org.sqlite.JDBC");
 			String strUrl = "jdbc:sqlite:"
@@ -7,21 +8,26 @@
 	Connection conn = DriverManager.getConnection(strUrl);
 	Statement stmt = conn.createStatement();
 	ResultSet rs = stmt.executeQuery("Select * from stream");
-	boolean flg = false;//±êÊ¶ÊÇ·ñÓĞÊı¾İ
-	StringBuilder strHtmls = new StringBuilder();
+	boolean flg = false;//æ ‡è¯†æ˜¯å¦æœ‰æ•°æ®
+	StringBuilder strHtmls = new StringBuilder();	
+    strHtmls.append("<tr  style='background-color:#FEE;'>");
+    strHtmls.append("<td style='text-align:center;width=10%' >é€‰æ‹©</td>");
+    strHtmls.append("<td style='text-align:center;width=30%'>é¢˜åº“ç¼–å·</td>");
+    strHtmls.append("<td style='text-align:center;width=60%'>æ“ä½œ</td>");
+    strHtmls.append("</tr>");
 	while (rs.next()) {
 		flg = true;
 		String pID = rs.getString("ID");
 		strHtmls.append("<tr  style='background-color:white;'>");
-		strHtmls.append("<td><input name='check" + pID + "'  type='checkbox' /></td>");
-		strHtmls.append("<td>Ñ¡ÔñÌâ-" + pID + "</td>");
-		strHtmls.append("<td><a href='Edit.jsp?id=" + pID + "'>±à¼­</a></td>");
+		strHtmls.append("<td style='text-align:center'><input id='check" + pID + "'  type='checkbox' /></td>");
+		strHtmls.append("<td style='text-align:center'>é€‰æ‹©é¢˜-" + pID + "</td>");
+		strHtmls.append("<td style='text-align:center'><a href='javascript:POBrowser.openWindowModeless(\"Edit.jsp?id=" + pID + "\" ,\"width=1200px;height=800px;\");'>ç¼–è¾‘</a></td>");
 		strHtmls.append("</tr>");
 	}
 
 	if (!flg) {
 		strHtmls.append("<tr>\r\n");
-		strHtmls.append("<td width='100%' height='100' align='center'>¶Ô²»Æğ£¬ÔİÊ±Ã»ÓĞ¿ÉÒÔ²Ù×÷µÄÊı¾İ¡£\r\n");
+		strHtmls.append("<td width='100%' height='100' align='center'>å¯¹ä¸èµ·ï¼Œæš‚æ—¶æ²¡æœ‰å¯ä»¥æ“ä½œçš„æ•°æ®ã€‚\r\n");
 		strHtmls.append("</td></tr>\r\n");
 	}
 %>
@@ -29,34 +35,59 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 	<head>
-		<title>ÎŞ±êÌâÒ³</title>
+		<title>æ— æ ‡é¢˜é¡µ</title>
+	      <!--PageOffice.jså’Œjquery.min.jsæ–‡ä»¶ä¸€å®šè¦å¼•ç”¨-->
+    <script type="text/javascript" src="../jquery.min.js"></script>
+    <script type="text/javascript" src="../pageoffice.js" id="po_js_main"></script>         
 	</head>
 	<body style="text-align: center">
 	<script type="text/javascript">
-		// JS·½Ê½Éú³ÉÊÔ¾í
+		// JSæ–¹å¼ç”Ÿæˆè¯•å·
 		function button1Click(){
-			document.getElementById("form1").action = "Compose.jsp";
-			document.getElementById("form1").submit();
+		  var ids = "";
+          for (var i = 1; i < 11; i++) {
+                if (document.getElementById("check" + i.toString()).checked) {
+                    ids += i.toString() + ",";
+                }
+            }
+            if (ids == "")
+                alert("è¯·å…ˆé€‰æ‹©è¦ç”Ÿæˆçš„è¯•é¢˜");
+            else
+          location.href ="javascript:POBrowser.openWindowModeless('Compose.jsp?ids="+ids.substr(0, ids.length - 1)+"', 'width=1200px;height=800px;');" ;			
 		}
-		// ºóÌ¨±à³ÌÉú³ÉÊÔ¾í
+		// åå°ç¼–ç¨‹ç”Ÿæˆè¯•å·
 		function button2Click(){
-			document.getElementById("form1").action = "Compose2.jsp";
-			document.getElementById("form1").submit();
+			var ids = "";
+          for (var i = 1; i < 11; i++) {
+                if (document.getElementById("check" + i.toString()).checked) {
+                    ids += i.toString() + ",";
+                }
+            }
+            if (ids == "")
+                alert("è¯·å…ˆé€‰æ‹©è¦ç”Ÿæˆçš„è¯•é¢˜");
+            else
+          location.href ="javascript:POBrowser.openWindowModeless('Compose2.jsp?ids="+ids.substr(0, ids.length - 1)+"', 'width=1200px;height=800px;');" ;
 		}
 	</script>
-		<div style="color: Red">
-			1.¿ÉÒÔµã¡°²Ù×÷¡±À¸ÖĞµÄ¡°±à¼­¡±À´±à¼­¸÷¸öÊÔÌâ&nbsp;&nbsp;&nbsp;&nbsp;
+		<div>
+		  <table align="center" style="color:red;">
+			<tr>
+			<td>1.å¯ä»¥ç‚¹"æ“ä½œ"æ ä¸­çš„"ç¼–è¾‘"æ¥ç¼–è¾‘å„ä¸ªè¯•é¢˜</td>
+			</tr>	
+			<tr>
+			<td>2.å¯ä»¥é€‰æ‹©å¤šä¸ªè¯•é¢˜ï¼Œç‚¹"ç”Ÿæˆè¯•å·"æŒ‰é’®ï¼Œç”Ÿæˆè¯•å·</td>
+			</tr>	
+		  </table>
 		</div>
-		<div style="color: Red">
-			2.¿ÉÒÔÑ¡Ôñ¶à¸öÊÔÌâ£¬µã¡°Éú³ÉÊÔ¾í¡±°´Å¥£¬Éú³ÉÊÔ¾í
-		</div>
-		<form id="form1" name="form1" method="post" action="Compose.jsp">
-			<table style="background-color: #999; width: 600px;">
-				<%=strHtmls %>
+		<div style="text-align: center;">
+		<form id="form1" name="form1" method="post" action="Compose.jsp">		
+			<table  style="background-color: #999; width: 600px; margin-left:28%; align:center;">
+				<%=strHtmls%>
 			</table>
 			<br />
-			<input type="button" onclick="button1Click();" id="Button1" value="JS·½Ê½Éú³ÉÊÔ¾í" /><span>£¨ËùÓĞ°æ±¾£©</span>
-			<input type="button" onclick="button2Click();" id="Button2" value="ºóÌ¨±à³ÌÉú³ÉÊÔ¾í" /><span style="color:Red;">£¨×¨Òµ°æ¡¢ÆóÒµ°æ£©</span>
+			<input type="button" onclick="button1Click();" id="Button1" value="JSæ–¹å¼ç”Ÿæˆè¯•å·" /><span>ï¼ˆæ‰€æœ‰ç‰ˆæœ¬ï¼‰</span>
+			<input type="button" onclick="button2Click();" id="Button2" value="åå°ç¼–ç¨‹ç”Ÿæˆè¯•å·" /><span style="color:Red;">ï¼ˆä¸“ä¸šç‰ˆã€ä¼ä¸šç‰ˆï¼‰</span>
 		</form>
+		</div>
 	</body>
 </html>

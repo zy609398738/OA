@@ -1,0 +1,11 @@
+[
+  {
+    "parentId": "8aaae09b5bfa4119015bfb73e1970022",
+    "text": "ERP_ContractBarcode_TO_BPM",
+    "recordMpLog": "false",
+    "id": "8aaae09b5bfa4119015bfb73e1c30023",
+    "description": "实时查询ERP系统销售合同单据合同编号信息",
+    "fileImport": "false",
+    "enable": "true"
+  }
+]

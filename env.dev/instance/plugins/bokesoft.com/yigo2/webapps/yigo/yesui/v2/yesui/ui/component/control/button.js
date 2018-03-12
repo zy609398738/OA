@@ -60,6 +60,11 @@ YIUI.Control.Button = YIUI.extend(YIUI.Control, {
         this.foreColor && this.button.getTextButton().css("color", this.foreColor);
         this.backColor && $("button", this.el).css("background-color", this.backColor);
     },
+    
+    setBackColor:function(backColor) {
+        this.backColor = backColor;
+    	backColor && $("button", this.el).css("background-color", backColor);
+    },
 
     onSetWidth: function (width) {
         this.button.setWidth(width);
@@ -135,16 +140,26 @@ YIUI.Control.Button = YIUI.extend(YIUI.Control, {
             if( !self.enable ) {
                 return false;
             }
-            if($(e.target).hasClass("upload")) {
-                window.up_target = $(e.target);
-            }
             self.focus();
+            YIUI.HeadInfos.put(YIUI.HeadInfoType.SysOpt, self.key);
             self.handler.doOnClick(self.ofFormID, self.clickContent, self.key);
+            YIUI.HeadInfos.remove(YIUI.HeadInfoType.SysOpt);
         };
 
         self.el.click($.debounce(100, function (e) {
             fireEvent(e);
         }));
+
+        // 文件上传不延时
+        self.el.delegate(".upload","click",function (event) {
+            var target = event.currentTarget;
+            if($(target).hasClass("upload")) {
+                window.up_target = target;
+            }
+            self.focus();
+            self.handler.doOnClick(self.ofFormID, self.clickContent, self.key);
+            event.stopPropagation();
+        });
 
         self.el.keydown(function (event) {
             var keyCode = event.keyCode || event.charCode;

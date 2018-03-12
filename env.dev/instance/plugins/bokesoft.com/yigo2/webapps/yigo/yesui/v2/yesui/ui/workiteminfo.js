@@ -12,8 +12,14 @@
     		InlineNodeID: -1,
     		/** 节点的ID */
     		NodeID: -1,
+    		/** 工作项状态*/
+    		State: -1,
     		/** 驳回位置*/
     		BackSite: -1,
+    		/** 驳回位置的可选操作员 */
+    		BackSiteOpt:-1,
+    		/** 重新计算参与者*/
+    		KeepParts: false,
     		/** 表单的KEY */
     		FormKey: "",
     		/** 忽略表单状态*/
@@ -46,6 +52,8 @@
     		UserInfo: "",
     		OperationKey: "",
     		NextOpStr: "",
+    		Status: -1,
+            SrcOperator: -1,
     		
         },options);
     }

@@ -1,0 +1,176 @@
+<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:spring="http://www.springframework.org/schema/beans" xmlns:vm="http://www.mulesoft.org/schema/mule/vm"
+	xmlns:ftp="http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.ftp/1.2"
+	xmlns:script="http://www.mulesoft.org/schema/mule/scripting"
+	xmlns:file="http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.file/1.2"
+	xmlns:http="http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.http/1.2"
+	xmlns:https="http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.https/1.2"
+	xmlns:tcp="http://www.mulesoft.org/schema/mule/tcp"
+	xmlns:stdio="http://www.mulesoft.org/schema/mule/stdio" xmlns:cxf="http://www.mulesoft.org/schema/mule/cxf"
+	xmlns:axis="http://www.mulesoft.org/schema/mule/axis" xmlns:jbossts="http://www.mulesoft.org/schema/mule/jbossts"
+	xmlns:jdbc="http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.jdbc/1.2"
+	xmlns:pattern="http://www.mulesoft.org/schema/mule/pattern" xmlns:sftp="http://www.mulesoft.org/schema/mule/sftp"
+	xmlns:smooks="http://www.muleforge.org/smooks/schema/mule-module-smooks"
+  xmlns:jms="http://www.mulesoft.org/schema/mule/jms"
+  xmlns:smtp="http://www.mulesoft.org/schema/mule/smtp"
+  xmlns:imap="http://www.mulesoft.org/schema/mule/imap"
+ xmlns:pop3="http://www.mulesoft.org/schema/mule/pop3"
+  xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/3.1/mule.xsd
+http://www.mulesoft.org/schema/mule/jbossts http://www.mulesoft.org/schema/mule/jbossts/3.1/mule-jbossts.xsd
+http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.jdbc/1.2 http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.jdbc/1.2/mule-com.bokesoft.dee.patch.jdbc.xsd
+http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.file/1.2 http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.file/1.2/mule-com.bokesoft.dee.patch.file.xsd
+http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.http/1.2 http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.http/1.2/mule-com.bokesoft.dee.patch.http.xsd
+http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.https/1.2 http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.https/1.2/mule-com.bokesoft.dee.patch.https.xsd
+http://www.mulesoft.org/schema/mule/tcp http://www.mulesoft.org/schema/mule/tcp/3.1/mule-tcp.xsd
+http://www.muleforge.org/smooks/schema/mule-module-smooks http://dist.muleforge.org/smooks/schema/mule-module-smooks/1.1/mule-module-smooks.xsd
+http://www.mulesoft.org/schema/mule/stdio http://www.mulesoft.org/schema/mule/stdio/3.1/mule-stdio.xsd
+http://www.mulesoft.org/schema/mule/cxf http://www.mulesoft.org/schema/mule/cxf/3.1/mule-cxf.xsd
+http://www.mulesoft.org/schema/mule/axis http://www.mulesoft.org/schema/mule/axis/3.1/mule-axis.xsd
+http://www.mulesoft.org/schema/mule/scripting http://www.mulesoft.org/schema/mule/scripting/3.1/mule-scripting.xsd
+http://www.mulesoft.org/schema/mule/pattern http://www.mulesoft.org/schema/mule/pattern/3.1/mule-pattern.xsd
+        http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.ftp/1.2 http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.ftp/1.2/mule-com.bokesoft.dee.patch.ftp.xsd
+http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/3.1/mule-vm.xsd 
+     http://www.mulesoft.org/schema/mule/sftp http://www.mulesoft.org/schema/mule/sftp/3.1/mule-sftp.xsd 
+    http://www.mulesoft.org/schema/mule/jms http://www.mulesoft.org/schema/mule/jms/3.1/mule-jms.xsd 
+  http://www.mulesoft.org/schema/mule/smtp http://www.mulesoft.org/schema/mule/smtp/3.1/mule-smtp.xsd 
+	http://www.mulesoft.org/schema/mule/imap http://www.mulesoft.org/schema/mule/imap/3.1/mule-imap.xsd 
+ http://www.mulesoft.org/schema/mule/pop3 http://www.mulesoft.org/schema/mule/pop3/3.1/mule-pop3.xsd ">
+	
+	<spring:bean id="placeholderConfig"  class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<spring:property name="location">
+			<spring:value>file:${dee.mule.config-root}/globalConfig/globalConfig.properties</spring:value>
+		</spring:property>
+		<spring:property name="placeholderPrefix">
+			<spring:value>BD{</spring:value>
+		</spring:property>
+		<spring:property name="placeholderSuffix">
+			<spring:value>}</spring:value>
+		</spring:property>
+		<spring:property name="systemPropertiesMode" value="2"/>		
+    </spring:bean>
+<configuration defaultResponseTimeout="600000"></configuration>
+
+		<!--YIGO2.0数据库-->
+	<spring:bean name="2c9081d05be7e572015be80fcb64000f_YIGO2_DB" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<spring:property name="driverClassName">
+			<spring:value>oracle.jdbc.driver.OracleDriver</spring:value>
+		</spring:property>
+		<spring:property name="url">
+			<spring:value>BD{JDBC_URL}</spring:value>
+		</spring:property>
+		<spring:property name="username">
+			<spring:value>BD{DB_USERNAME}</spring:value>
+		</spring:property>
+		<spring:property name="password">
+			<spring:value>BD{DB_PASSWORD}</spring:value>
+		</spring:property>
+		<spring:property name="initialSize">
+			<spring:value>3</spring:value>
+		</spring:property>
+		<spring:property name="maxActive">
+			<spring:value>10</spring:value>
+		</spring:property>
+		<spring:property name="maxWait">
+			<spring:value>5000</spring:value>
+		</spring:property>
+		<spring:property name="validationQuery">
+			<spring:value>select 1 from dual</spring:value>
+		</spring:property>
+		<spring:property name="testOnBorrow">
+			<spring:value>true</spring:value>
+		</spring:property>
+		<spring:property name="testOnReturn">
+			<spring:value>false</spring:value>
+		</spring:property>
+			<spring:property name="logAbandoned">
+		<spring:value>true</spring:value>
+		</spring:property>
+			<spring:property name="removeAbandoned">
+		<spring:value>true</spring:value>
+		</spring:property>
+			<spring:property name="minIdle">
+		<spring:value>0</spring:value>
+		</spring:property>
+			<spring:property name="maxIdle">
+		<spring:value>0</spring:value>
+		</spring:property>
+			<spring:property name="removeAbandonedTimeout">
+		<spring:value>1000</spring:value>
+		</spring:property>
+			<spring:property name="timeBetweenEvictionRunsMillis">
+		<spring:value>5000</spring:value>
+		</spring:property>
+			<spring:property name="numTestsPerEvictionRun">
+		<spring:value>10</spring:value>
+		</spring:property>
+			<spring:property name="minEvictableIdleTimeMillis">
+		<spring:value>5000</spring:value>
+		</spring:property>
+	</spring:bean>
+
+		<!--AD数据库-->
+	<spring:bean name="8aaae09b5c18fbeb015c192edd860011_AD_TO_BPM" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<spring:property name="driverClassName">
+			<spring:value>net.sourceforge.jtds.jdbc.Driver</spring:value>
+		</spring:property>
+		<spring:property name="url">
+			<spring:value>BD{AD_JDBC_URL}</spring:value>
+		</spring:property>
+		<spring:property name="username">
+			<spring:value>BD{AD_DB_USERNAME}</spring:value>
+		</spring:property>
+		<spring:property name="password">
+			<spring:value>BD{AD_DB_PASSWORD}</spring:value>
+		</spring:property>
+		<spring:property name="initialSize">
+			<spring:value>3</spring:value>
+		</spring:property>
+		<spring:property name="maxActive">
+			<spring:value>10</spring:value>
+		</spring:property>
+		<spring:property name="maxWait">
+			<spring:value>5000</spring:value>
+		</spring:property>
+		<spring:property name="validationQuery">
+			<spring:value>select 1</spring:value>
+		</spring:property>
+		<spring:property name="testOnBorrow">
+			<spring:value>true</spring:value>
+		</spring:property>
+		<spring:property name="testOnReturn">
+			<spring:value>false</spring:value>
+		</spring:property>
+			<spring:property name="logAbandoned">
+		<spring:value>true</spring:value>
+		</spring:property>
+			<spring:property name="removeAbandoned">
+		<spring:value>true</spring:value>
+		</spring:property>
+			<spring:property name="minIdle">
+		<spring:value>0</spring:value>
+		</spring:property>
+			<spring:property name="maxIdle">
+		<spring:value>0</spring:value>
+		</spring:property>
+			<spring:property name="removeAbandonedTimeout">
+		<spring:value>1000</spring:value>
+		</spring:property>
+			<spring:property name="timeBetweenEvictionRunsMillis">
+		<spring:value>5000</spring:value>
+		</spring:property>
+			<spring:property name="numTestsPerEvictionRun">
+		<spring:value>10</spring:value>
+		</spring:property>
+			<spring:property name="minEvictableIdleTimeMillis">
+		<spring:value>5000</spring:value>
+		</spring:property>
+	</spring:bean>
+
+		<!--把异常对象转换为文本-->
+	<custom-transformer class="com.bokesoft.exchange.transformer.ExceptionMessageTransformer" name="ggpz_把异常对象转换为文本">
+	</custom-transformer>
+</mule>

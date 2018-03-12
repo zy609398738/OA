@@ -1,0 +1,11 @@
+[
+  {
+    "recordMpLog": "false",
+    "text": "ERP_POEFLOW_Import_To_BPM",
+    "id": "8aab8d9d61f91bf90161f9263e4f001a",
+    "parentId": "8aab8d9d61f91bf90161f9263daf0019",
+    "description": "实时将ERP系统维修保养单的POEFLOW包导入BPM",
+    "fileImport": "false",
+    "enable": "true"
+  }
+]

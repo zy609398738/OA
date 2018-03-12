@@ -1,28 +1,26 @@
 <%@ page language="java"
 	import="java.util.*,com.zhuozhengsoft.pageoffice.*,com.zhuozhengsoft.pageoffice.wordwriter.*"
-	pageEncoding="gb2312"%>
-<%@ taglib uri="http://java.pageoffice.cn" prefix="po"%>
+	pageEncoding="utf-8"%>
 <%
-//******************************×¿ÕýPageOffice×é¼þµÄÊ¹ÓÃ*******************************
-	//ÉèÖÃPageOffice·þÎñÆ÷×é¼þ
+//******************************å“æ­£PageOfficeç»„ä»¶çš„ä½¿ç”¨*******************************
+	//è®¾ç½®PageOfficeæœåŠ¡å™¨ç»„ä»¶
 	PageOfficeCtrl poCtrl1 = new PageOfficeCtrl(request);
-	poCtrl1.setServerPage(request.getContextPath()+"/poserver.zz"); //´ËÐÐ±ØÐë
+	poCtrl1.setServerPage(request.getContextPath()+"/poserver.zz"); //æ­¤è¡Œå¿…é¡»
 	
-	poCtrl1.setTitlebar(false); //Òþ²Ø±êÌâÀ¸
-	poCtrl1.setMenubar(false); //Òþ²Ø²Ëµ¥À¸
-	poCtrl1.setOfficeToolbars(false);//Òþ²ØOffice¹¤¾ßÌõ
-	poCtrl1.setCustomToolbar(false);//Òþ²Ø×Ô¶¨Òå¹¤¾ßÀ¸
+	poCtrl1.setTitlebar(false); //éšè—æ ‡é¢˜æ 
+	poCtrl1.setMenubar(false); //éšè—èœå•æ 
+	poCtrl1.setOfficeToolbars(false);//éšè—Officeå·¥å…·æ¡
+	poCtrl1.setCustomToolbar(false);//éšè—è‡ªå®šä¹‰å·¥å…·æ 
 
-	//´ò¿ªÎÄ¼þ
-	//poCtrl1.webOpen("doc/template.doc", OpenModeType.docNormalEdit, "ÕÅÈý");
-	poCtrl1.webOpen("doc/template.doc", OpenModeType.docReadOnly, "ÕÅÈý");
-	poCtrl1.setTagId("PageOfficeCtrl1"); //´ËÐÐ±ØÐë	
+	//æ‰“å¼€æ–‡ä»¶
+	//poCtrl1.webOpen("doc/template.doc", OpenModeType.docNormalEdit, "å¼ ä¸‰");
+	poCtrl1.webOpen("doc/template.doc", OpenModeType.docReadOnly, "å¼ ä¸‰");
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>   
-    <title>¿ØÖÆ±êÌâÀ¸¡¢²Ëµ¥À¸¡¢×Ô¶¨¹¤¾ßÀ¸ºÍOffice¹¤¾ßÀ¸µÄÒþ²ØºÍÏÔÊ¾</title>
+    <title>æŽ§åˆ¶æ ‡é¢˜æ ã€èœå•æ ã€è‡ªå®šå·¥å…·æ å’ŒOfficeå·¥å…·æ çš„éšè—å’Œæ˜¾ç¤º</title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
@@ -36,9 +34,9 @@
   </head>
   
   <body>
-  	Òþ²ØÁË±êÌâÀ¸¡¢²Ëµ¥À¸¡¢×Ô¶¨¹¤¾ßÀ¸ºÍOffice¹¤¾ßÀ¸µÄÐ§¹û£¬Ã¿¸öÀ¸¶¼ÊÇ¿ÉÒÔµ¥¶ÀµÄ¿ØÖÆÊÇ·ñÒþ²Ø¡£
+  	éšè—äº†æ ‡é¢˜æ ã€èœå•æ ã€è‡ªå®šå·¥å…·æ å’ŒOfficeå·¥å…·æ çš„æ•ˆæžœï¼Œæ¯ä¸ªæ éƒ½æ˜¯å¯ä»¥å•ç‹¬çš„æŽ§åˆ¶æ˜¯å¦éšè—ã€‚
     <div style=" width:auto; height:700px;">
-    <po:PageOfficeCtrl id="PageOfficeCtrl1"></po:PageOfficeCtrl>
+           <%=poCtrl1.getHtmlCode("PageOfficeCtrl1")%>
     </div>
   </body>
 </html>

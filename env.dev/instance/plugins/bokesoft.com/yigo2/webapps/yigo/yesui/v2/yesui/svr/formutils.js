@@ -40,22 +40,39 @@
  	        if (args.target) {
  	            target = YIUI.FormTarget.parse(args.target);
  	        }
-
+			
 			var onlyOpen = false;
+			if (args.onlyOpen) {
+				onlyOpen = args.onlyOpen;
+			}
+
+			var loadInfo = true;
+			if (args.loadInfo) {
+				loadInfo = args.loadInfo;
+			}
+
+			var tsParas;
+			if (args.tsParas) {
+				tsParas = args.tsParas;
+			}
 
 			YIUI.BPMService.loadWorkitemInfo(WID).then(function(info){
+				if(!info){
+            		$.error("工作项不可用");
+            	}
+
 				var formKey = info.FormKey;
 				var OID = info.OID;
-
 
 				var existsAttachment = info.AttachmentType >= 0;
 				if (existsAttachment) {
 				OID = info.AttachmentOID;
 				formKey = info.AttachmentPara;
 				if (info.AttachmentOperateType == YIUI.AttachmentOperateType.NEW && OID < 0) {
-					var builder = new YIUI.YIUIBuilder(formKey, info.TemplateKey);
+					var builder = new YIUI.YIUIBuilder(formKey);
 					builder.setContainer(ct);
 					builder.setTarget(YIUI.FormTarget.NEWTAB);
+					builder.setTemplateKey(onlyOpen ? "" : info.TemplateKey);
 					builder.newEmpty().then(function(emptyForm){
 						if (!onlyOpen) {
 							// emptyForm.setSysExpVals(YIUI.BPMConstants.WORKITEM_INFO, info);
@@ -65,6 +82,12 @@
 						emptyForm.setSysExpVals(YIUI.BPMConstants.WORKITEM_VIEW, YIUI.BPMConstants.WORKITEM_VIEW);
 
 						emptyForm.setOptQueue(new YIUI.OptQueue(new YIUI.NewOpt(emptyForm)));
+						
+						if( info.State === YIUI.WorkItem_State.NEW && loadInfo) {
+							emptyForm.setSysExpVals(YIUI.BPMKeys.WORKITEM_INFO, info);
+						}
+						emptyForm.setSysExpVals(YIUI.BPMKeys.LOAD_WORKITEM_INFO, false);
+						
 						return builder.builder(emptyForm);
 					}).then(function(data){
 						var doc = data.getDocument();
@@ -74,20 +97,23 @@
 					}
 				}
 
-				var builder = new YIUI.YIUIBuilder(formKey, info.TemplateKey);
+				var builder = new YIUI.YIUIBuilder(formKey);
 				builder.setContainer(ct);
+				builder.setTemplateKey(onlyOpen ? "" : info.TemplateKey);
 				builder.setOperationState(YIUI.Form_OperationState.Default);
 
 				builder.newEmpty().then(function(emptyForm){
-					if (!onlyOpen) {
-						// emptyForm.setSysExpVals(YIUI.BPMConstants.WORKITEM_INFO, info);
-						emptyForm.TemplateKey = info.TemplateKey;
-					}
 					// 代表新界面由代办页面打开
 					emptyForm.setSysExpVals(YIUI.BPMConstants.WORKITEM_VIEW, YIUI.BPMConstants.WORKITEM_VIEW);
 
 					var filterMap = emptyForm.getFilterMap();
 					filterMap.setOID(OID);
+
+					if( info.State === YIUI.WorkItem_State.NEW && loadInfo ) {
+                        emptyForm.setSysExpVals(YIUI.BPMKeys.WORKITEM_INFO, info);
+                    } 
+                    emptyForm.setSysExpVals(YIUI.BPMKeys.LOAD_WORKITEM_INFO, false);
+
 					emptyForm.setOptQueue(new YIUI.OptQueue(new YIUI.LoadOpt(emptyForm)));
 					builder.builder(emptyForm);
 				});

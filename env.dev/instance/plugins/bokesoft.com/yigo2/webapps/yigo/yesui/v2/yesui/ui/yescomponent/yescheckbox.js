@@ -53,7 +53,7 @@
             },
             setHeight: function (height) {
                 $("label", this.el).css({height: height + "px", lineHeight: height + "px" });
-                var $input = $("span", this.el);
+                var $input = $("span.chk", this.el);
                 $input.css("margin-top", (height - $input.height()) / 2);
             },
             setWidth: function (width) {

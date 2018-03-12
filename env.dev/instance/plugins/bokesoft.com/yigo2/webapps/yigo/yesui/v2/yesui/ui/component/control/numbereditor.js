@@ -22,6 +22,8 @@
 
         showZero: false,
 
+        selectOnFocus: true,
+
         init: function (options) {
             this.base(options);
             this.value = new Decimal(0);// 默认值为0,不是""
@@ -30,14 +32,14 @@
 
             this.settings = this.handler.getSettings(meta);
             this.showZero = $.isDefined(meta.showZero) ? meta.showZero : this.showZero;
+            this.selectOnFocus = $.isDefined(meta.selectOnFocus) ? meta.selectOnFocus : this.selectOnFocus;
         },
 
         isNull: function() {
-        	var value = this.value.toString();
-        	if( value ) {
-        		return parseFloat(value) == 0 ? true : false;
-        	}
-            return true;
+            if( this.base() ) {
+                return true;
+            }
+            return parseFloat(this.value.toString()) == 0;
         },
 
         checkEnd: function(value) {
@@ -69,10 +71,12 @@
         },
     	
         setBackColor: function (backColor) {
+            this.backColor = backColor;
             this.yesNumEd && this.yesNumEd.setBackColor(backColor);
         },
 
         setForeColor: function (foreColor) {
+            this.foreColor = foreColor;
             this.yesNumEd && this.yesNumEd.setForeColor(foreColor);
         },
 

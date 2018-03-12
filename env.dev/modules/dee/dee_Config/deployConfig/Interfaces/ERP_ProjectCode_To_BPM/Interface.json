@@ -1,0 +1,10 @@
+{
+  "startIndex": "",
+  "autoRun": "true",
+  "responseTime": "600000",
+  "description": "实时查询ERP系统中光伏产品项目号",
+  "changePort": "",
+  "id": "8aab8d9d61fffa83016200299dce0019",
+  "text": "ERP_ProjectCode_To_BPM",
+  "oldPort": ""
+}

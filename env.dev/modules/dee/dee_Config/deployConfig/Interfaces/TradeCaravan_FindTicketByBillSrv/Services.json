@@ -1,0 +1,11 @@
+[
+  {
+    "recordMpLog": "false",
+    "text": "TradeCaravan_FindTicketByBillSrv",
+    "id": "ff8080815fc89bdf015fc8be32c50026",
+    "parentId": "ff8080815fc89bdf015fc8be32890025",
+    "description": "实时调用中兴商旅查看机票服务",
+    "fileImport": "false",
+    "enable": "true"
+  }
+]

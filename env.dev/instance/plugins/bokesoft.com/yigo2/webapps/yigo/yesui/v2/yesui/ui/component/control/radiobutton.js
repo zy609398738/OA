@@ -41,47 +41,42 @@ YIUI.Control.RadioButton = YIUI.extend(YIUI.Control, {
     },
     
     listeners: {
-    	change: function() {
-    		//head
-    		var comp = this;
-    		var headKey = $(this._group).attr("headKey");
+    	click: function() {
+    		var target = this,
+            	newValue = target.metaValue;
     		if(!this.isGroupHead) {
     			var form = YIUI.FormStack.getForm(this.ofFormID);
-    			comp = form.getComponent(headKey);
+    			target = form.getComponent($(this._group).attr("headKey"));
     		}
-	 		var newValue = $(this._group).data(this.groupKey);
             if (typeof newValue == "object" && newValue != null) {
                 newValue = $.toJSON(newValue);
             }
-            this.handler.doValueChanged(comp, newValue, true, true);
+            target.setValue(newValue,true,true);
     	}
     },
-    
-    isNull: function() {
-    	var v = $(this._group).data(this.groupKey);
-    	return v == null || v === "";
+
+    setValue:function (value, commit, fireEvent, ignoreChanged, editing) {
+		if( !this.isGroupHead )
+			return;
+		return this.base(value, commit, fireEvent, ignoreChanged, editing);
     },
-    
+
     checkEnd: function(value) {
-		this.value = value;
-		if($.isDefined(value) && value){
-    		var radios = $("[name="+this.ofFormID+ "_" + this.groupKey+"]");
-    		for (var i = 0, len = radios.length; i < len; i++) {
-    			var radio = radios.eq(i);
-				if(radio.attr("value") == value) {
-                    $("." + this.ofFormID+ '_' + this.groupKey).removeClass("checked").addClass("unchk");
-					radio.removeClass("unchk").addClass("checked");
-			 		$(this._group).data(this.groupKey, value);
-				} 
-			}
-    	}
+        this.value = value;
+        var radio,
+			radios = $("." + this.ofFormID+ '_' + this.groupKey);
+        radios.removeClass("checked").addClass("unchk");
+		if( value != null ) {
+            for (var i = 0; i < radios.length; i++) {
+                radio = radios.eq(i);
+                if (radio.attr("value") == value) {
+                    radio.removeClass("unchk").addClass("checked");
+                }
+            }
+        }
 	},
 	
     getValue: function() {
-        if(this._group){
-            return $(this._group).data(this.groupKey);
-        }
-
     	return this.value;
     },
     
@@ -121,7 +116,7 @@ YIUI.Control.RadioButton = YIUI.extend(YIUI.Control, {
                 break;
             default:
             	$wrap.css({height: height + "px", lineHeight: height + "px" });
-             	var $input = $("span", this.el);
+             	var $input = $("span.rdo", this.el);
              	$input.css("margin-top", (height - $input.height()) / 2);
              	break;
         }
@@ -130,28 +125,27 @@ YIUI.Control.RadioButton = YIUI.extend(YIUI.Control, {
     
     onSetWidth: function(width) {
     	this.base(width);
-    	$("label", this.el).css("width", width - $("span", this.el).outerWidth());
+    	$("label", this.el).css("width", width - $("span.rdo", this.el).outerWidth());
     },
 
     setFormatStyle: function(cssStyle) {
     	$("label", this.el).css(cssStyle);
-    	$("span", this.el).css(cssStyle);
+    	$("span.rdo", this.el).css(cssStyle);
 	},
 	
 	setControlValue: function(value) {
+    	this.base(value);
         if(value == null){
-            return ;
+            return;
         }
 		var form = YIUI.FormStack.getForm(this.ofFormID);
 		var radios = form.getRadios(this.groupKey);
-		for (var i = 0, len = radios.length; i < len; i++) {
-			var r = radios[i];
-            r.value = value;
-			if(r.metaValue == value) {
-				r.selected = true;
+		for (var i = 0,radio;radio = radios[i]; i++) {
+			if(radio.metaValue == value) {
+				radio.selected = true;
                 break;
 			} else {
-				r.selected = false;
+				radio.selected = false;
 			}
 		}
 	},
@@ -164,7 +158,7 @@ YIUI.Control.RadioButton = YIUI.extend(YIUI.Control, {
     onRender: function (ct) {
     	this.base(ct);
     	var $wrap = $("<div class='wrap'></div>");
-    	var radio = $('<span class="' + this.ofFormID+ '_' + this.groupKey + ' unchk" id="radio_' + this.id + '" type="radio" value="' + this.metaValue +
+    	var radio = $('<span class="' + this.ofFormID+ '_' + this.groupKey + ' unchk rdo" id="radio_' + this.id + '" type="radio" value="' + this.metaValue +
             '" name="' + this.ofFormID+ '_' + this.groupKey + '"/>').appendTo($wrap);
         this._group = "ui_" + this.groupKey+ '_' + this.ofFormID;
         var txt = this.caption.replace(/ /g, "&nbsp;");
@@ -175,22 +169,21 @@ YIUI.Control.RadioButton = YIUI.extend(YIUI.Control, {
         } 
         if(this.selected) {
 			radio.removeClass("unchk").addClass("checked");
-	 		$(this._group).data(this.groupKey, this.metaValue);
 		}
     },
     focus: function () {
-        $("span", this.el).attr("tabindex",0).focus();
+        $("span.rdo", this.el).attr("tabindex",0).focus();
     },
     install : function() {
     	this.base();
     	var self = this;
-    	$("span", this.el).click(function(e){
+    	$("span.rdo", this.el).click(function(e){
     		dealChk(e, $(this));
     	});
     	
     	$("label",this.el).click(function(e){
     		if($.browser.isIE) return;
-    		var span = $("span", self.el);
+    		var span = $("span.rdo", self.el);
     		dealChk(e, span);
     	});
     	
@@ -207,14 +200,10 @@ YIUI.Control.RadioButton = YIUI.extend(YIUI.Control, {
         	} else {
         		dom.addClass("unchk").removeClass("checked");
         	}
-    		
-    		var oldVal = $(self._group).data(self.groupKey);
-			$(self._group).data(self.groupKey, self.metaValue);
-    		if(oldVal != self.metaValue) {
-    			self.fireEvent('change', e);
-    		}
+
+			self.fireEvent('click', e);
     	}
-        $("span", this.el).keydown(function (event) {
+        $("span.rdo", this.el).keydown(function (event) {
             var keyCode = event.keyCode || event.charCode;
             if (keyCode === 13 || keyCode === 108 || keyCode === 9) {   //Enter
                 self.focusManager.requestNextFocus(self);

@@ -26,7 +26,6 @@
             setHeight: function (height) {
                 this.el.css("height", height);
                 this.el.css("position", "relative");
-                this.label.css("position", "absolute");
                 if (this.format != null) {
                 	var vAlign = this.format.vAlign;
                 	switch( vAlign ){

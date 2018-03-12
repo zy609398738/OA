@@ -12,7 +12,7 @@ YIUI.Control.Dialog = YIUI.extend(YIUI.Control, {
     
     msgType: YIUI.Dialog_MsgType.YES_NO_OPTION,
     
-    eventList: {},
+    eventList: null,
 
     isDataBinding: function() {
         return false;
@@ -23,6 +23,7 @@ YIUI.Control.Dialog = YIUI.extend(YIUI.Control, {
      */
     onRender: function (ct) {
     	this.base(ct);
+        this.eventList = {};
     	this.dialog = new YIUI.Yes_Dialog({
     		el: this.el,
     		title: this.title,

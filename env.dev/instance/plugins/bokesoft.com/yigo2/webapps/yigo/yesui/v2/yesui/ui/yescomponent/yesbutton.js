@@ -24,13 +24,13 @@
                 var textButton = $("span.txt", this.el), _icon = $("span.icon", this.el);
                 if (_icon.length > 0) {
                     _icon.css({
-                    	backgroundImage: "url(Resource/" + icon + ")",
+                    	backgroundImage: "url('Resource/" + icon + "')",
                     	backgroundRepeat: 'no-repeat',
                     	backgroundPosition: 'center'
                     });
                 } else {
                     _icon = $("<span class='icon'></span>").css({
-                    	backgroundImage: "url(Resource/" + icon + ")",
+                    	backgroundImage: "url('Resource/" + icon + "')",
                     	backgroundRepeat: 'no-repeat',
                     	backgroundPosition: 'center'
                     });

@@ -4,7 +4,7 @@ var $ = require("jquery");
 if (! window.jQuery) window.jQuery = $;
 require("jquery-toast-plugin");
 //MUST load the css manually
-require("../jquery-toast-plugin/src/jquery.toast.css");
+require("jquery-toast-plugin/src/jquery.toast.css");
 
 /** Define the export point for module */
 module.exports = {

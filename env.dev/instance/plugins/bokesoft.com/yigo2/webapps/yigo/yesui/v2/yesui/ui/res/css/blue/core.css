@@ -142,7 +142,7 @@ iframe {
 }
 
 /** 图片控件拉伸宽度*/
-.stretch {
+.stretch, .ui-img.empty img {
     width: 100% !important;
 }
 
@@ -163,8 +163,8 @@ iframe {
     font-weight: normal;
     overflow: hidden;
     max-width: 100%;
-    text-overflow: ellipsis;
-    vertical-align: middle;
+    text-overflow: ellipsis;/*
+    vertical-align: middle;*/
     display: inline-block;
 }
 
@@ -172,7 +172,7 @@ iframe {
     display: inline-block;
     height: 16px;
     width: 16px;
-    vertical-align: middle;
+    /*vertical-align: middle;*/
 }
 /*基础按钮（悬停）*/
 .ui-btn:hover {
@@ -265,11 +265,9 @@ iframe {
 }
 
 /*输入框（错误输入）*/
-/* .ui-txted.ui-error input, .ui-numed.ui-error input, .ui-cmb.ui-error input, .ui-dict.ui-error input, .ui-dp.ui-error input {
-	color: #f13a3a;
-} */
-.ui-txted span.error-icon, .ui-txta.ui-error span.error-icon, .ui-numed.ui-error span.error-icon, .ui-cmb.ui-error span.error-icon,
-.ui-dict.ui-error span.error-icon, .ui-chaindict.ui-error span.error-icon, .ui-dp.ui-error span.error-icon, .ui-rich.ui-error span.error-icon {
+.ui-txted span.error-icon, .ui-txta span.error-icon, .ui-numed span.error-icon, .ui-cmb span.error-icon,
+.ui-dict span.error-icon, .ui-chaindict span.error-icon, .ui-dp span.error-icon, .ui-rich span.error-icon,
+.ui-rdo span.error-icon, .ui-chk span.error-icon, .ui-img span.error-icon {
     display: inherit;
     position: absolute;
     top: 1px;
@@ -279,8 +277,26 @@ iframe {
     border-width: 8px 0px 0px 8px;
     border-top-style: solid;
     border-left-style: solid;
-    border-top-color: red;
+    border-top-color: #ff2b10;
     border-left-color: transparent;
+}
+
+/*输入框（必填）*/
+.ui-txted span.required-icon, .ui-txta span.required-icon, .ui-numed span.required-icon, .ui-cmb span.required-icon,
+.ui-dict span.required-icon, .ui-chaindict span.required-icon, .ui-dp span.required-icon, .ui-rich span.required-icon,
+.ui-rdo span.required-icon, .ui-chk span.required-icon, .ui-img span.required-icon {
+    display: inherit;
+    position: absolute;
+    top: 1px;
+    right: 1px;
+    width: 0px;
+    height: 0px;
+    border-width: 8px 0px 0px 8px;
+    border-top-style: solid;
+    border-left-style: solid;
+    border-top-color: #ffd008;
+    border-left-color: transparent;
+    background-origin: content-box;
 }
 
 /*输入框（必填）*/
@@ -443,6 +459,8 @@ span.ui-numed input {
     display: inline-block;
     height: 16px;
     width: 16px;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
     position: relative;
     vertical-align: top;
 }
@@ -525,7 +543,7 @@ span.ui-numed input {
 }
 .ui-splbtn .btn-left label {
     padding: 0;
-    float: right;
+    width: 100%;
 }
 .ui-splbtn .dp-tgl {
     width: 30px;
@@ -961,6 +979,39 @@ span.ui-numed input {
     color: #393939;
 }
 
+.contextmenu {
+    position: absolute;
+    border-radius:3px;
+    width: 100px;
+    height: 30px;
+    background-color: #cccbd5;
+}
+
+.menu-field-list {
+    box-shadow: -2px 2px 10px 0px #ccc;
+}
+
+.menu-field-list li {
+    color: #323232;
+    font-size: 13px;
+    line-height:30px;
+    text-align:center;
+    cursor:pointer;
+}
+
+.menu-field-list li a {
+    font-size:13px;
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.menu-field-list li:hover {
+    border-radius:3px;
+    background-color: #b6b6c9;
+    color: #fff;
+}
+
 .ui-tabs-nav li span.ui-icon-close {
     float: left;
     display: block;
@@ -1359,6 +1410,11 @@ span.ui-numed input {
 .ui-rich {
     border: 1px solid #dadada;
     border-radius: 3px;
+    position: relative;
+}
+.ui-rich .wangEditor-container {
+    height: 100%;
+    border: 0;
 }
 /** RichEditor样式--结束*/
 
@@ -1552,7 +1608,9 @@ url(images/b_invalid.png) right center no-repeat */
 .dt-vw .dt {
     min-height:220px;
     max-height: 300px;
-    min-height: 100px;
+    overflow-y: auto !important;
+    scrollbar-track-color: #dcdcdc;
+    background-color: #ffffff;
 }
 .dt-vw .dt:empty{
     min-height:70px;
@@ -1561,12 +1619,6 @@ url(images/b_invalid.png) right center no-repeat */
     display: inline-table;
     width: 100%;
     position: relative;
-}
-
-.dt-vw .dt {
-    overflow-y: auto !important;
-    scrollbar-track-color: #dcdcdc;
-    background-color: #ffffff;
 }
 
 .dt-vw .dt li {
@@ -1911,18 +1963,28 @@ input.ui-readonly, .ui-splbtn.ui-readonly button.btn, .ui-dropbtn.ui-readonly a,
 }
 
 .ui-lv .lv-tb thead th {
+    position:relative;
     vertical-align: bottom;
     padding: 0 5px;
+    text-align: center;
 }
+
 .ui-lv .lv-tb thead th label {
     font-weight: bold;
     width: 100%;
-    display: block;
+    display: inline-block;
+    padding-right: 8px;
 }
+
 .ui-lv .lv-tb .tbl-body td, .ui-lv .lv-tb thead th label {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+}
+
+.ui-lv .lv-tb .tbl-body td.wrap {
+    white-space: pre-wrap;
+    word-wrap: break-word;
 }
 
 .ui-lv .lv-tb caption + thead tr:first-child th,
@@ -2269,7 +2331,7 @@ input.ui-readonly, .ui-splbtn.ui-readonly button.btn, .ui-dropbtn.ui-readonly a,
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
 }
-.ui-rdo span, .ui-chk .chk {
+.ui-rdo span.rdo, .ui-chk .chk {
     color: #dadada;
     background-origin: border-box;
 }
@@ -2324,6 +2386,7 @@ input.ui-readonly, .ui-splbtn.ui-readonly button.btn, .ui-dropbtn.ui-readonly a,
 
 .ui-chk {
     overflow: hidden;
+    position: relative;
 }
 
 /** CheckBox样式---结束*/
@@ -2375,6 +2438,8 @@ input.ui-readonly, .ui-splbtn.ui-readonly button.btn, .ui-dropbtn.ui-readonly a,
     position: absolute;
     border: 1px solid #dadada;
     background-color: #ffffff;
+    top: auto;
+    bottom: auto;
 }
 
 .dp-vw .btn {
@@ -2531,6 +2596,17 @@ input.ui-readonly, .ui-splbtn.ui-readonly button.btn, .ui-dropbtn.ui-readonly a,
 .tbr-ul .tbr-btn {
     vertical-align: middle;
     position: relative;
+}
+
+.tbr-btn .upload,.tbr-vw .upload {
+    top: 0;
+    left: 0;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    position: absolute;
+    height: 28px;
+    width: 100%;
+    min-height: 18px;
 }
 
 .tbr-ul .tbr-btn:hover,
@@ -3006,7 +3082,6 @@ input.ui-readonly, .ui-splbtn.ui-readonly button.btn, .ui-dropbtn.ui-readonly a,
     border: 1px solid #dadada;
     height: 40px;
 }
-
 .ui-img .opt {
     width: 20px;
     height: 20px;
@@ -3174,12 +3249,25 @@ img{ display:block;}
     height: 23px;
     width: 20px;
     vertical-align: middle;
-    background: url(images/leaf.png) no-repeat;
+    background: url('images/leaf.png') no-repeat;
 }
 
 .dtquery span.dict_icon.p_node {
-    background: url(images/expanded.png) no-repeat;
+    background: url('images/expanded.png') no-repeat;
 }
+.dtquery span.dict_icon.p_node.disabled {
+    background:url('images/b_disable.png') no-repeat;
+}
+.dtquery span.dict_icon.p_node.invalid {
+    background:url('images/b_invalid.png') no-repeat;
+}
+.dtquery span.dict_icon.disabled {
+    background:url('images/l_disable.png') no-repeat;
+}
+.dtquery span.dict_icon.invalid {
+    background:url('images/l_invalid.png') no-repeat;
+}
+
 .dtquery.dialog {
     min-width: 300px;
     min-height: 200px;
@@ -3273,7 +3361,7 @@ img{ display:block;}
 
 .ui-dlg.dialog {
     -webkit-user-select: none;
-    max-width: 98%;
+    max-width: 65%;
     max-height: 98%;
 }
 
@@ -3567,11 +3655,11 @@ img{ display:block;}
 链式字典开始
 */
 .footdiv{
-    height: 24px;
     background-color: white;
 
     width:100%;
     position: relative;
+    padding-bottom: 5px;
 }
 .liwrap .chainsearch{
     height: 30px;
@@ -3649,9 +3737,6 @@ img{ display:block;}
     margin: 5px
 
 }
-.liwrap{
-    height: 260px;
-}
 .liwrap.reload{
     height: 270px;
 }
@@ -3706,12 +3791,11 @@ span.nowitem{
     content: " ";
     display: block;
     clear: both;
-
 }
 .chainmean{
     width: 100%;
     height: 30px;
-    margin-top: 2px;
+    padding-top: 5px;
 }
 .chainmean .sure,.chainmean .reset,.chainmean .removeall{
     display:inline-block;
@@ -3828,15 +3912,7 @@ input.ui-readonly, .ui-splbtn.ui-readonly button.btn, .ui-dropbtn.ui-readonly a,
 body .ui-tooltip {
     border-width: 2px
 }
-.ui-state-highlight,.ui-widget-content .ui-state-highlight,.ui-widget-header .ui-state-highlight {
-    border: 1px solid #fad42e;
-    background: #fbec88 url(images/ui-bg_flat_55_fbec00_30x100.png) 50% 50%;
-    color: #363636
-}
-.ui-state-highlight a,.ui-widget-content .ui-state-highlight a,.ui-widget-header .ui-state-highlight a
-{
-    color: #363636
-}
+
 .ui-state-highlight .ui-icon {
 	background-image: url(images/ui-icons_2e83ff_256x240.png)
 }
@@ -3855,12 +3931,33 @@ body .ui-tooltip {
  }
 
 .ui-icon-up {
-    background-position: 0 -48px
+    background-position: 0 -47px
 }
 
 .ui-icon-down {
-    background-position: -64px -48px
+    background-position: -64px -47px
 }
+
+.ui-icon-bestwidth {
+    background-position: -144px 0px
+}
+
+.ui-icon-frozenRow {
+    background-position: -193px -95px
+}
+
+.ui-icon-unfrozenRow {
+    background-position: -206px -95px
+}
+
+.ui-icon-frozenColumn {
+    background-position: -193px -95px
+}
+
+.ui-icon-unfrozenColumn {
+    background-position: -208px -95px
+}
+
 .ui-icon-refresh {
     background-position: -64px -80px
 }
@@ -3947,5 +4044,19 @@ body .ui-tooltip {
 	opacity:1.0;
 }
 
+.ui-lv-sort-asc,.ui-lv-sort-desc {
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    display: none;
+    right: 3px;
+    bottom: 25%;
+}
 
- 
+.ui-lv-sort-asc {
+    background: url(images/asc.png);
+}
+
+.ui-lv-sort-desc {
+    background: url(images/desc.png);
+}

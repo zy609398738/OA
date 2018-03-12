@@ -1,0 +1,55 @@
+.label {
+	color: #333;
+}
+.text-editor {
+	color: #333;
+}
+.text-area {
+	color: #000;
+}
+.password-editor {
+	color: #333;
+}
+.number-editor {
+	color:#333;
+}
+.button {
+	color: #333;
+}
+.dict {
+	color: #333;
+}
+.date-picker {
+	color: #333;
+}
+.combo-box{
+	border-radius: 2px;
+	background-image:ComboBox.png;
+	color: #333;
+}
+.check-list-box{
+	background-image:image/comboBox_down.png;
+}
+
+.radio-button:disabled{
+	button-image:heart.png;
+	color: #000;
+}
+.radio-button:checked:disabled{
+	button-image:heart1.png;
+	color: #000;
+}
+.check-box{
+	button-image:bheart.png;
+}
+.check-box:checked{
+	button-image:bheart1.png;
+}
+.radio-button{
+	button-image:heart.png;
+	color: #000;
+}
+.radio-button:checked{
+	button-image:heart1.png;
+	color: #000;
+}

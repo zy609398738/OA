@@ -181,10 +181,16 @@ var DataDef = DataDef || {};
         getColByKey: function (colKey) {
             return this.getCol(this.indexByKey(colKey));
         },
+        clear: function () {
+            this.allRows.length = 0;
+            this.rows.length = 0;
+            this.bkmks.clear();
+            this.pos = -1;
+        },
         addRow: function (needDefValue) {
             var r = new DataDef.Row(this.cols.length);
             if (needDefValue) {
-                setDefaultValue = function (cols, row) {
+                var setDefaultValue = function (cols, row) {
                     for (var i = 0, l = cols.length; i < l; ++i) {
                         var col = cols[i];
                         var defaultValue = col.getDefaultValue();

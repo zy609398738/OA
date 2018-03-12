@@ -87,7 +87,6 @@ YIUI.Control.SplitButton = YIUI.extend(YIUI.Control, {
     	this.el.css("width", width);
     	var width_l = width - this.buttonRight.outerWidth();
     	this.buttonLeft.css("width", width_l);
-    	$("label", this.buttonLeft).css("width", width_l - 12);
 	},
 	
 	onSetHeight : function(height) {
@@ -138,56 +137,6 @@ YIUI.Control.SplitButton = YIUI.extend(YIUI.Control, {
     	this._dropView && this._dropView.hide();
         this._hasShow = false;
 		this.el.removeClass("focus");
-    },
-    
-    setDropViewTop: function() {
-    	var cityObj = this.el;
-	    var cityOffset = this.el.offset();
-	
-	    var bottom = $(window).height() - cityOffset.top - cityObj.outerHeight();
-        var top = cityOffset.top + cityObj.outerHeight();
-        if(bottom < this._dropView.outerHeight()) {
-        	this._dropView.addClass("toplst");
-        	this.el.addClass("toplst");
-        	top = "auto";
-        	bottom = $(window).height() - cityOffset.top;
-        } else {
-        	this._dropView.removeClass("toplst");
-        	this.el.removeClass("toplst");
-        	bottom = "auto";
-        }
-        if(top != "auto") {
-        	this._dropView.css("top", top + "px");
-        	this._dropView.css("bottom", "auto");
-        }
-        if(bottom != "auto") {
-        	this._dropView.css("bottom", bottom + "px");
-        	this._dropView.css("top", "auto");
-        }
-//        this._dropView.css("width", cityObj.outerWidth()+"px");
-    },
-    
-    setDropViewLeft: function() {
-    	var cityObj = this.el;
-	    var cityOffset = this.el.offset();
-	
-    	var right = $(window).width() - cityOffset.left;
-        var left = $(window).width() - this._dropView.outerWidth();
-        if(right < this._dropView.outerWidth()) {
-        	left = "auto";
-        	right = $(window).width() - cityOffset.left - cityObj.outerWidth();
-        } else {
-        	left = cityOffset.left;
-        	right = "auto";
-        }
-        if(left != "auto") {
-        	this._dropView.css("left", left + "px");
-        	this._dropView.css("right", "auto");
-        }
-        if(right != "auto") {
-        	this._dropView.css("right", right + "px");
-        	this._dropView.css("left", "auto");
-        }
     },
     
     afterRender: function() {
@@ -255,8 +204,7 @@ YIUI.Control.SplitButton = YIUI.extend(YIUI.Control, {
 
             if (!self._dropView) return;
             
-			self.setDropViewTop();
-		    self.setDropViewLeft();
+            YIUI.PositionUtil.setViewPos(self.el, self._dropView, true);
 		    
 		    self._dropView.css( "z-index", $.getZindex( self.el ) + 1 );
 		    

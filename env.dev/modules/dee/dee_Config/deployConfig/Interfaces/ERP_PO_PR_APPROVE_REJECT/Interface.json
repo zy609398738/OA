@@ -1,0 +1,10 @@
+{
+  "id": "8aaae0c55fbf34e9015fbf373c890018",
+  "startIndex": "",
+  "autoRun": "true",
+  "changePort": "",
+  "responseTime": "600000",
+  "description": "实时调用ERP系统PO与PR单流程拒绝同意包",
+  "text": "ERP_PO_PR_APPROVE_REJECT",
+  "oldPort": ""
+}

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <Opt>
+        <EnabledDict>Enabled</EnabledDict>
+        <DeleteDict>Delete</DeleteDict>
+        <SaveDict>Save</SaveDict>
+        <DisabledDict>Disabled</DisabledDict>
+        <CancelDict>Cancel</CancelDict>
+        <ModifyDict>Modify</ModifyDict>
+        <InvalidDict>Invalid</InvalidDict>
+    </Opt>
+    <UI>
+        <OA_Workflow>ProcessDefine</OA_Workflow>
+		<WorkflowSet>WorkflowSet</WorkflowSet>
+        <Lab_BillKey>Billkey</Lab_BillKey>
+        <Lab_WorkflowState>WorkflowStatus</Lab_WorkflowState>
+        <SysTab>System Information</SysTab>
+        <Lab_OID>DictID</Lab_OID>
+        <Lab_WorkflowKey>WorkflowKey</Lab_WorkflowKey>
+        <Lab_Name>WorkflowDefineName</Lab_Name>
+        <Lab_Enable>EnabledKey</Lab_Enable>
+        <Lab_Notes>Notes</Lab_Notes>
+        <Lab_CreateTime>CreateTime</Lab_CreateTime>
+        <Lab_ClusterID>Group</Lab_ClusterID>
+        <Lab_Code>WorkflowDefineCode</Lab_Code>
+        <Lab_WorkflowDesigneID>WorkflowDesignID</Lab_WorkflowDesigneID>
+        <Lab_Creator>Creator</Lab_Creator>
+        <Lab_Modifier>Modifier</Lab_Modifier>
+        <Lab_WorkflowRelevanceID>WorkflowRelevanceID</Lab_WorkflowRelevanceID>
+        <Lab_ModifyTime>ModifyTime</Lab_ModifyTime>
+        <Lab_WorkflowVersion>Version</Lab_WorkflowVersion>
+        <Lab_WorkflowRelevance>WorkflowRelevance</Lab_WorkflowRelevance>
+        <GridLayoutPanel1>Basic Information</GridLayoutPanel1>
+        <Lab_WorkflowName>WorkflowName</Lab_WorkflowName>
+    </UI>
+</StringTable>

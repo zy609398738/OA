@@ -1,0 +1,150 @@
+{
+  "response": [
+    {
+      "text": "实时记录删除ERP系统中物料分配单Inv_ItemTad的数据日志信息",
+      "description": "实时记录删除ERP系统中物料分配单Inv_ItemTad的数据日志信息",
+      "scriptContent": "String expMsg = \"\";\nMap rsmap = new HashMap();\nif (message.getExceptionPayload() != null)\n{\n    message.setOutboundProperty(\"http.status\", 200);\n    expMsg = message.getExceptionPayload().getRootException().getMessage();\n    if (expMsg.length() > 3500)\n    {\n        expMsg = expMsg.substring(0, 3000);\n    }\n    message.setExceptionPayload(null);\n    rsmap.put(\"code\", \"e\");\n    rsmap.put(\"msg\", \"更新失败！\");\n}\nelse\n{\n    rsmap.put(\"code\", \"s\");\n    rsmap.put(\"msg\", \"更新成功！\");\n    rsmap.put(\"data\", payload);\n}\nMap logmap = message.getInboundProperty(\"logmap\");\nObject[] o = new Object[10];\no[0] = logmap.get(\"flow\");\no[1] = logmap.get(\"node\");\no[2] = logmap.get(\"billkey\");\no[3] = logmap.get(\"oid\");\no[4] = logmap.get(\"begintime\");\no[5] = new java.text.SimpleDateFormat(\"yyyyMMdd HH:mm:ss.SSS\").format(new java.sql.Timestamp(java.lang.System.currentTimeMillis()));\no[6] = \"\";\no[7] = \"\";\no[8] = expMsg;\no[9] = \"ERP_Delete_Inv_ItemTad_To_BPM\";\ndbop.saveOrUpdate(\"insert into TRINA_SL_INTERFACE_LOG(id,flow,node,billkey,oid,starttime,endtime,request_data,response_data,EXCEPTION,interface_type)values(Trina_SL_Interface_Log_ID_SEQ.Nextval,?,?,?,?,?,?,?,?,?,?)\", o, false);\nreturn com.bokesoft.dee.mule.util.json.JSONUtil.toJson(rsmap);",
+      "className": "com.bokesoft.exchange.transformer.ScriptWithDSTransformer",
+      "smallType": "GroovyScriptWithDS",
+      "enable": "true",
+      "parentId": "8aab8dfc61e6107b0161e61d09e00019",
+      "bigType": "transformer_au",
+      "simpleMpLog": "false",
+      "ds": "2c9081d05be7e572015be80fcb64000f",
+      "isRef": "false",
+      "id": "402880e961e9a0780161e9ad32c4001e"
+    }
+  ],
+  "normal": [
+    {
+      "text": "实时删除ERP系统中物料分配单Inv_ItemTad的数据入口",
+      "description": "实时删除ERP系统中物料分配单Inv_ItemTad的数据入口",
+      "address": "vm://ERP_Delete_Inv_ItemTad_To_BPM",
+      "exchange_pattern": "request-response",
+      "smallType": "VM",
+      "className": "",
+      "enable": "true",
+      "parentId": "8aab8dfc61e6107b0161e61d09e00019",
+      "bigType": "inbound",
+      "simpleMpLog": "false",
+      "encoding": "UTF-8",
+      "isRef": "false",
+      "id": "402880e961e9a0780161e9a445ac0018"
+    },
+    {
+      "text": "实时记录删除ERP系统中物料分配单Inv_ItemTad的数据开始时间",
+      "description": "实时记录删除ERP系统中物料分配单Inv_ItemTad的数据开始时间",
+      "scriptContent": "String begintime = new java.text.SimpleDateFormat(\"yyyyMMdd HH:mm:ss.SSS\").format(new java.sql.Timestamp(java.lang.System.currentTimeMillis()));\nMap logmap = new HashMap();\nlogmap.put(\"begintime\", begintime);\nlogmap.put(\"flow\", payload.get(\"flow\"));\nlogmap.put(\"node\", payload.get(\"node\"));\nlogmap.put(\"oid\", payload.get(\"oid\"));\nlogmap.put(\"billkey\", payload.get(\"billkey\"));\nlogmap.put(\"request_data\", payload.get(\"json\"));\nmessage.setInboundProperty(\"logmap\", logmap);\nreturn payload;",
+      "className": "org.mule.module.scripting.transformer.ScriptTransformer",
+      "smallType": "GroovyScriptTransformer",
+      "enable": "true",
+      "parentId": "8aab8dfc61e6107b0161e61d09e00019",
+      "bigType": "transformer_au",
+      "simpleMpLog": "false",
+      "isRef": "false",
+      "id": "402880e961e9a0780161e9a4d5e50019"
+    },
+    {
+      "ignoreSQLError": "false",
+      "text": "实时删除ERP系统中物料分配单inv_item_org_inf的数据",
+      "description": "实时删除ERP系统中物料分配单inv_item_org_inf的数据",
+      "className": "com.bokesoft.dee.transport.jdbc.transformer.ExecuteSQLSimpleTransformer",
+      "smallType": "ExecuteSQLSimpleTransformer",
+      "enable": "true",
+      "queries": "[{\"value\":\"delete from apps.cux3_inv_item_org_inf where source_id =#[map-payload:taskid] and source_code='efiow'\"}]",
+      "parentId": "8aab8dfc61e6107b0161e61d09e00019",
+      "bigType": "transformer_au",
+      "simpleMpLog": "false",
+      "resultIndexOf": 0,
+      "isRef": "false",
+      "id": "402880e961e9a0780161e9a5ce6d001a",
+      "ds": "8aaae09b5bf03e9f015bf17bc58e061f"
+    },
+    {
+      "ignoreSQLError": "false",
+      "text": "实时删除ERP系统中物料分配单inv_item_interface的数据",
+      "description": "实时删除ERP系统中物料分配单inv_item_interface的数据",
+      "className": "com.bokesoft.dee.transport.jdbc.transformer.ExecuteSQLSimpleTransformer",
+      "smallType": "ExecuteSQLSimpleTransformer",
+      "enable": "true",
+      "queries": "[{\"value\":\"delete from apps.cux3_inv_item_interface where source_id=#[map-payload:taskid] and source_code='eflow'\\n\"}]",
+      "parentId": "8aab8dfc61e6107b0161e61d09e00019",
+      "bigType": "transformer_au",
+      "simpleMpLog": "false",
+      "resultIndexOf": 1,
+      "isRef": "false",
+      "id": "402880e961e9a0780161e9a8207e001b",
+      "ds": "8aaae09b5bf03e9f015bf17bc58e061f"
+    },
+    {
+      "ignoreSQLError": "false",
+      "text": "实时删除ERP系统中物料分配单inv_item_segments_inf的数据",
+      "description": "实时删除ERP系统中物料分配单inv_item_segments_inf的数据",
+      "className": "com.bokesoft.dee.transport.jdbc.transformer.ExecuteSQLSimpleTransformer",
+      "smallType": "ExecuteSQLSimpleTransformer",
+      "enable": "true",
+      "queries": "[{\"value\":\"delete from apps.cux3_inv_item_segments_inf where source_id=#[map-payload:taskid] and source_code='eflow'\\n\"}]",
+      "parentId": "8aab8dfc61e6107b0161e61d09e00019",
+      "bigType": "transformer_au",
+      "simpleMpLog": "false",
+      "resultIndexOf": 0,
+      "isRef": "false",
+      "id": "402880e961e9a0780161e9aa6e84001c",
+      "ds": "8aaae09b5bf03e9f015bf17bc58e061f"
+    }
+  ],
+  "exception": [
+    {
+      "text": "把异常对象转换为文本",
+      "description": "把异常对象转换为文本",
+      "className": "com.bokesoft.exchange.transformer.ExceptionMessageTransformer",
+      "smallType": "ExceptionMessageTransformer",
+      "enable": "true",
+      "parentId": "8aab8dfc61e6107b0161e61d09e00019",
+      "bigType": "GGPZTransformer",
+      "isRef": "true",
+      "id": "8aab8dfc61e6107b0161e61d0a26001a"
+    },
+    {
+      "path": "${bokedee.logpath.runtimeLog}/ERP_Delete_Inv_ItemTad_To_BPM",
+      "text": "记录错误日志到文件_ERP_Delete_Inv_ItemTad_To_BPM",
+      "description": "",
+      "className": "",
+      "smallType": "File",
+      "enable": "true",
+      "outputPattern": "#[function:datestamp:yyyyMMddHHmmss]-#[message:id].xml",
+      "parentId": "8aab8dfc61e6107b0161e61d09e00019",
+      "bigType": "outbound",
+      "file_subdir": "#[context:serviceName]/#[function:datestamp:yyyyMMdd]",
+      "isRef": "false",
+      "id": "8aab8dfc61e6107b0161e61d0ad0001b"
+    },
+    {
+      "text": "把异常信息替换换行符_ERP_Delete_Inv_ItemTad_To_BPM",
+      "description": "把异常信息替换换行符",
+      "scriptContent": "String exceptionContent = message.getPayload();String exception = exceptionContent.replace(\"\\n\", \"<br/>\");message.setPayload(exception);return message;",
+      "smallType": "GroovyScriptTransformer",
+      "className": "org.mule.module.scripting.transformer.ScriptTransformer",
+      "enable": "false",
+      "parentId": "8aab8dfc61e6107b0161e61d09e00019",
+      "bigType": "transformer_au",
+      "simpleMpLog": "false",
+      "isRef": "false",
+      "id": "8aab8dfc61e6107b0161e61d0b85001c"
+    },
+    {
+      "text": "把异常信息通过邮件发送_ERP_Delete_Inv_ItemTad_To_BPM",
+      "description": "把异常信息通过邮件发送",
+      "connector_ref": "bokedee_default_smtp_connector",
+      "subject": "ERP_Delete_Inv_ItemTad_To_BPM",
+      "className": "",
+      "smallType": "SMTP",
+      "enable": "false",
+      "parentId": "8aab8dfc61e6107b0161e61d09e00019",
+      "bigType": "outbound",
+      "encoding": "UTF-8",
+      "isRef": "false",
+      "id": "8aab8dfc61e6107b0161e61d0c44001d"
+    }
+  ]
+}

@@ -1,9 +1,14 @@
+"use strict";
 YIUI.NumberEditorBehavior = (function () {
     var Return = {
 		checkAndSet: function (options, callback) {
 			var oldVal = options.oldVal;
         	var newVal = options.newVal;
-        	var decScale = $.isDefined(options.scale) ? options.scale : 2;
+            var decScale = $.isDefined(options.scale) ? options.scale : 2;
+            var integerVal = options.integerValue;
+            if(integerVal) {
+                decScale = 0;
+            }
         	var roundingMode = $.isDefined(options.roundingMode) ? options.roundingMode : YIUI.NUMBEREDITOR_ROUNDINGMODE.HALF_UP;
             
             var d = null, v = 0;

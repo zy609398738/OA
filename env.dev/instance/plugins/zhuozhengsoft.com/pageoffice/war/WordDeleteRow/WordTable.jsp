@@ -1,42 +1,38 @@
-<%@ page language="java" import="java.util.*" pageEncoding="gb2312"%>
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@ page
 	import="com.zhuozhengsoft.pageoffice.*,com.zhuozhengsoft.pageoffice.wordwriter.*"%>
-<%@ taglib uri="http://java.pageoffice.cn" prefix="po"%>
 <%
-        String FilePath=request.getContextPath()+"/WordDeleteRow/doc";
-	PageOfficeCtrl poCtrl = new PageOfficeCtrl(request);
-	WordDocument doc = new WordDocument();
-	Table table1 = doc.openDataRegion("PO_table").openTable(1);
-        Cell  cell=table1.openCellRC(2,1);
-         //É¾³ý×ø±êÎª(2,1)µÄµ¥Ôª¸ñËùÔÚÐÐ
-        table1.removeRowAt(cell);
-        poCtrl.setCustomToolbar(false);
-	poCtrl.setWriter(doc);
-	poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");
-	poCtrl.webOpen("doc/test_table.doc", OpenModeType.docNormalEdit,
-			"ÕÅØýÃû");
-	poCtrl.setTagId("PageOfficeCtrl1");
+       String FilePath=request.getContextPath()+"/WordDeleteRow/doc";
+	   PageOfficeCtrl poCtrl = new PageOfficeCtrl(request);
+	   WordDocument doc = new WordDocument();
+	   Table table1 = doc.openDataRegion("PO_table").openTable(1);
+       Cell  cell=table1.openCellRC(2,1);
+         //åˆ é™¤åæ ‡ä¸º(2,1)çš„å•å…ƒæ ¼æ‰€åœ¨è¡Œ
+       table1.removeRowAt(cell);
+       poCtrl.setCustomToolbar(false);
+	   poCtrl.setWriter(doc);
+	   poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");
+	   poCtrl.webOpen("doc/test_table.doc", OpenModeType.docNormalEdit,
+			"å¼ ä½šå");
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 	<head>
 
-		<title>É¾³ýWordÖÐtableÖÐÖ¸¶¨µ¥Ôª¸ñËùÔÚÐÐ</title>
+		<title>åˆ é™¤Wordä¸­tableä¸­æŒ‡å®šå•å…ƒæ ¼æ‰€åœ¨è¡Œ</title>
 		<meta http-equiv="pragma" content="no-cache">
 		<meta http-equiv="cache-control" content="no-cache">
 		<meta http-equiv="expires" content="0">
 		<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 		<meta http-equiv="description" content="This is my page">
-		<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
+
 	</head>
 
 	<body>
-       <div style="color:Red">É¾³ýÁËtableÖÐ×ø±êÎª(2,1)µÄµ¥Ôª¸ñËùÔÚÐÐ£¬ÇëÔÚ·þÎñÆ÷<%=FilePath%>Â·¾¶ÏÂ²é¿´Ô­Ä£°åÎÄµµ¡£</div>
+       <div style="color:Red">åˆ é™¤äº†tableä¸­åæ ‡ä¸º(2,1)çš„å•å…ƒæ ¼æ‰€åœ¨è¡Œï¼Œè¯·åœ¨æœåŠ¡å™¨<%=FilePath%>è·¯å¾„ä¸‹æŸ¥çœ‹åŽŸæ¨¡æ¿æ–‡æ¡£ã€‚</div>
 		<div style="width: auto; height: 600px;">
-			<po:PageOfficeCtrl id="PageOfficeCtrl1"></po:PageOfficeCtrl>
+			 <%=poCtrl.getHtmlCode("PageOfficeCtrl1")%>
 		</div>
 	</body>
 </html>

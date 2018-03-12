@@ -12,39 +12,36 @@ YIUI.CellEditor.CellDict = YIUI.extend(YIUI.CellEditor, {
         
     independent: false,
 
+    pageMaxNum: 10,
+
     itemKey: null,
 
     init: function (opt) {
 
         this.id = opt.id;
-
         this.metaObj = opt.editOptions;
-
         this.itemKey = this.metaObj.itemKey;
-
         this.stateMask = $.isUndefined(this.metaObj.stateMask) ? this.stateMask : this.metaObj.stateMask;
-
         this.root = $.isUndefined(this.metaObj.root) ? this.root : this.metaObj.root;
-
         this.multiSelect = this.metaObj.allowMultiSelection || this.multiSelect;
-
         this.independent = this.metaObj.independent || this.independent;
-
         this.key = opt.key;
     },
     onRender: function (parent) {
         this.base(parent);
 
         var self = this;
-        
-        // opt = $.extend(true, opt, );
+        var formID = this.ofFormID;
+        var form = YIUI.FormStack.getForm(formID);
+
         this.yesCom = new YIUI.Yes_Dict({
 
             id: self.id,
-
-            independent: this.independent,
-            
-            multiSelect: this.multiSelect,
+            independent: self.independent,
+            multiSelect: self.multiSelect,
+            pageMaxNum: self.pageMaxNum,
+            formKey: form.formKey,
+            fieldKey: self.key,
 
             getItemKey: function () {
                 return self.getItemKey();
@@ -75,7 +72,6 @@ YIUI.CellEditor.CellDict = YIUI.extend(YIUI.CellEditor, {
                 var formID = _this.ofFormID;
                 var form = YIUI.FormStack.getForm(formID);
                 var oldItemKey = _this.getDictTree().itemKey;
-
                 var itemKey = _this.getItemKey();
 
                 _this.itemKey = itemKey;
@@ -135,7 +131,7 @@ YIUI.CellEditor.CellDict = YIUI.extend(YIUI.CellEditor, {
         return this.yesCom.getSelValue();
     },
     setValue: function (value) {
-        this.yesCom.setSelValue(value);
+        this.yesCom.setValue(value);
     },
     getInput: function () {
         return this.yesCom._textBtn;

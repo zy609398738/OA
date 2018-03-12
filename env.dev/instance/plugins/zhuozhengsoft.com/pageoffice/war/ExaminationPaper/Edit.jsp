@@ -1,20 +1,18 @@
 <%@ page language="java"
 	import="java.util.*,com.zhuozhengsoft.pageoffice.*"
-	pageEncoding="gb2312"%>
-<%@ taglib uri="http://java.pageoffice.cn" prefix="po"%>
+	pageEncoding="utf-8"%>
 <%
-	//******************************×¿ÕýPageOffice×é¼þµÄÊ¹ÓÃ*******************************
+	//******************************å“æ­£PageOfficeç»„ä»¶çš„ä½¿ç”¨*******************************
 	PageOfficeCtrl poCtrl1 = new PageOfficeCtrl(request);
-	poCtrl1.setServerPage(request.getContextPath()+"/poserver.zz"); //´ËÐÐ±ØÐë
-	//Òþ²Ø²Ëµ¥À¸
+	poCtrl1.setServerPage(request.getContextPath()+"/poserver.zz"); //æ­¤è¡Œå¿…é¡»
+	//éšè—èœå•æ 
 	poCtrl1.setMenubar(false);
-	poCtrl1.addCustomToolButton("±£´æ", "Save()", 1);
-	//ÉèÖÃ±£´æÒ³Ãæ
+	poCtrl1.addCustomToolButton("ä¿å­˜", "Save()", 1);
+	//è®¾ç½®ä¿å­˜é¡µé¢
 	String id = request.getParameter("id");
 	poCtrl1.setSaveFilePage("SaveFile.jsp?id=" + id);
-	//´ò¿ªWordÎÄ¼þ
-	poCtrl1.webOpen("Openfile.jsp?id=" + id, OpenModeType.docNormalEdit, "ÕÅÈý");
-	poCtrl1.setTagId("PageOfficeCtrl1"); //´ËÐÐ±ØÐë
+	//æ‰“å¼€Wordæ–‡ä»¶
+	poCtrl1.webOpen("Openfile.jsp?id=" + id, OpenModeType.docNormalEdit, "å¼ ä¸‰");
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -28,22 +26,19 @@
 		<meta http-equiv="expires" content="0">
 		<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 		<meta http-equiv="description" content="This is my page">
-		<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
-
 	</head>
 
 	<body>
+		<a href="#"  onclick="window.external.close();">è¿”å›žåˆ—è¡¨é¡µ</a>
 		<div style="width: auto; height: 700px;">
-			<!-- *************************PageOffice×é¼þµÄÊ¹ÓÃ******************************** -->
+			<!-- *************************PageOfficeç»„ä»¶çš„ä½¿ç”¨******************************** -->
 			<script type="text/javascript">
 		        function Save() {
 		            document.getElementById("PageOfficeCtrl1").WebSave();
 		        }
 		     </script>
-			<po:PageOfficeCtrl id="PageOfficeCtrl1"></po:PageOfficeCtrl>
-			<!-- *************************PageOffice×é¼þµÄÊ¹ÓÃ******************************** -->
+			<%=poCtrl1.getHtmlCode("PageOfficeCtrl1")%>
+			<!-- *************************PageOfficeç»„ä»¶çš„ä½¿ç”¨******************************** -->
 		</div>
 	</body>
 </html>

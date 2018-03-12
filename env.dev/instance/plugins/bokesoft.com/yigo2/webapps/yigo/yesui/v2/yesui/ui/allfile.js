@@ -181,6 +181,7 @@
 				"<script type='text/javascript' src='"+root+"yesui/ui/bpm/batchoperationinplacetoolbar.js' defer='defer'></script>" +
 				
 
+				"<script type='text/javascript' src='"+root+"yesui/ui/headinfos.js' defer='defer'></script>" +
 
 				"<script type='text/javascript' src='"+root+"yesui/ui/uiprocess.js' defer='defer'></script>" +
                 "<script type='text/javascript' src='"+root+"yesui/ui/process/viewdatamonitor.js' defer='defer'></script>" +
@@ -254,6 +255,7 @@
 				"<script type='text/javascript' src='"+root+"yesui/ui/component/control/chart.js' defer='defer'></script>" + 
 		        "<script type='text/javascript' src='"+root+"yesui/ui/component/control/bpmgraph.js' defer='defer'></script>" + 
 				"<script type='text/javascript' src='"+root+"yesui/ui/component/control/custom.js' defer='defer'></script>" + 
+                "<script type='text/javascript' src='"+root+"yesui/ui/component/control/flatcanvas.js' defer='defer'></script>" +
 				"<script type='text/javascript' src='"+root+"yesui/ui/component/control/userinfopane.js' defer='defer'></script>" + 
 				"<script type='text/javascript' src='"+root+"yesui/ui/component/control/rightsset.js' defer='defer'></script>" + 
 				"<script type='text/javascript' src='"+root+"yesui/ui/component/control/dialog.js' defer='defer'></script>" + 
@@ -269,6 +271,7 @@
                 "<script type='text/javascript' src='"+root+"yesui/ui/component/grid/griddef.js' defer='defer'></script>" +
                 "<script type='text/javascript' src='"+root+"yesui/ui/component/grid/rowexpand.js' defer='defer'></script>" +
                 "<script type='text/javascript' src='"+root+"yesui/ui/component/grid/columnexpand.js' defer='defer'></script>" +
+        		"<script type='text/javascript' src='"+root+"yesui/ui/component/grid/showgriddata.js' defer='defer'></script>" +
                 "<script type='text/javascript' src='"+root+"yesui/ui/component/grid/gridutil.js' defer='defer'></script>" +
                 "<script type='text/javascript' src='"+root+"yesui/ui/component/grid/rowgroup.js' defer='defer'></script>" +
 				"<script type='text/javascript' src='"+root+"yesui/ui/component/grid/editor/celleditor.js' defer='defer'></script>" + 
@@ -309,9 +312,10 @@
 				"<script type='text/javascript' src='"+root+"yesui/ui/component/panel/tabcontainer.js' defer='defer'></script>" + 
 				"<script type='text/javascript' src='"+root+"yesui/ui/component/panel/tabexcontainer.js' defer='defer'></script>" + 
 				"<script type='text/javascript' src='"+root+"yesui/ui/component/panel/stackcontainer.js' defer='defer'></script>" + 
-				"<script type='text/javascript' src='"+root+"yesui/ui/component/panel/wizardpanel.js' defer='defer'></script>" + 
-				
-				"<script type='text/javascript' src='"+root+"yesui/ui/maincontainer.js'></script>" + 
+				"<script type='text/javascript' src='"+root+"yesui/ui/component/panel/wizardpanel.js' defer='defer'></script>" +
+
+        		"<script type='text/javascript' src='"+root+"yesui/ui/custom.js' defer='defer'></script>" +
+        		"<script type='text/javascript' src='"+root+"yesui/ui/maincontainer.js'></script>" +
 				"<script type='text/javascript' src='"+root+"yesui/ui/maintree.js'></script>" + 
 				
                 "<script type='text/javascript' src='"+root+"yesui/ui/plugin/js/print/jquery.printarea.js' defer='defer'></script>" +
@@ -376,8 +380,9 @@
 				"<script type='text/javascript' src='"+root+"yesui/ui/plugin/js/rsa/BASE_64.js' defer='defer'></script>" +
                 "<script type='text/javascript' src='"+root+"yesui/ui/plugin/js/gantt/gantt.js' defer='defer'></script>" +
 				"<script type='text/javascript' src='"+root+"yesui/ui/plugin/js/pako/pako.js' defer='defer'></script>" + 
-
-				"<script type='text/javascript' src='project/extend.js'></script>";
+                "<script type='text/javascript' src='"+root+"yesui/ui/plugin/js/flatcanvas/snap.svg.js' defer='defer'></script>" +
+                "<script type='text/javascript' src='"+root+"yesui/ui/plugin/js/flatcanvas/flatcanvas.plugin.js' defer='defer'></script>" +
+				"<script type='text/javascript' src='project/extend.js' defer='defer'></script>";
 
 	document.write(file);
 }());

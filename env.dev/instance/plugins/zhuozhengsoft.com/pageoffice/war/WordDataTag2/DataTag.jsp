@@ -1,29 +1,27 @@
 <%@ page language="java" import="java.util.*"
-	import="java.util.* ,java.awt.* ,com.zhuozhengsoft.pageoffice.*,com.zhuozhengsoft.pageoffice.wordwriter.*,java.text.SimpleDateFormat,java.util.Date;"
-	pageEncoding="gb2312"%>
-<%@ taglib uri="http://java.pageoffice.cn" prefix="po"%>
+	import="java.util.* ,java.awt.* ,com.zhuozhengsoft.pageoffice.*,com.zhuozhengsoft.pageoffice.wordwriter.*,java.text.SimpleDateFormat,java.util.Date"
+	pageEncoding="utf-8"%>
 <%
-	//PageOffice×é¼þµÄÊ¹ÓÃ
-	//ÉèÖÃ·þÎñÆ÷Ò³Ãæ
+	//PageOfficeç»„ä»¶çš„ä½¿ç”¨
+	//è®¾ç½®æœåŠ¡å™¨é¡µé¢
 	PageOfficeCtrl pCtrl = new PageOfficeCtrl(request);
 	pCtrl.setServerPage(request.getContextPath()+"/poserver.zz");
-	//¶¨ÒåWordDocument¶ÔÏó
+	//å®šä¹‰WordDocumentå¯¹è±¡
 	WordDocument doc = new WordDocument();
 	
-	//¶¨ÒåDataTag¶ÔÏó
-	DataTag deptTag = doc.openDataTag("{²¿ÃÅÃû}");
-	deptTag.setValue("¼¼Êõ");
+	//å®šä¹‰DataTagå¯¹è±¡
+	DataTag deptTag = doc.openDataTag("{éƒ¨é—¨å}");
+	deptTag.setValue("æŠ€æœ¯");
 	
-	DataTag userTag = doc.openDataTag("{ÐÕÃû}");
-	userTag.setValue("ÀîËÄ");
+	DataTag userTag = doc.openDataTag("{å§“å}");
+	userTag.setValue("æŽå››");
 	
-	DataTag dateTag = doc.openDataTag("¡¾Ê±¼ä¡¿");
+	DataTag dateTag = doc.openDataTag("ã€æ—¶é—´ã€‘");
 	dateTag.setValue(new SimpleDateFormat("yyyy-MM-dd").format(new Date()).toString());
 	
 	pCtrl.setWriter(doc);
-	//´ò¿ªWordÎÄ¼þ
-	pCtrl.webOpen("doc/test2.doc", OpenModeType.docNormalEdit, "ÕÅØýÃû");
-	pCtrl.setTagId("PageOfficeCtrl1");
+	//æ‰“å¼€Wordæ–‡ä»¶
+	pCtrl.webOpen("doc/test2.doc", OpenModeType.docNormalEdit, "å¼ ä½šå");
 %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
@@ -36,13 +34,10 @@
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
-	<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
 
   </head>
   
   <body>
-    <po:PageOfficeCtrl id="PageOfficeCtrl1"></po:PageOfficeCtrl>
+            <%=pCtrl.getHtmlCode("PageOfficeCtrl1")%>
   </body>
 </html>

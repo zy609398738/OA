@@ -1,18 +1,16 @@
 <%@ page language="java"
 	import="java.util.*,com.zhuozhengsoft.pageoffice.*,com.zhuozhengsoft.pageoffice.wordwriter.*"
-	pageEncoding="gb2312"%>
-<%@ taglib uri="http://java.pageoffice.cn" prefix="po"%>
+	pageEncoding="utf-8"%>
 <%
-//******************************◊ø’˝PageOffice◊Èº˛µƒ π”√*******************************
+//******************************ÂçìÊ≠£PageOfficeÁªÑ‰ª∂ÁöÑ‰ΩøÁî®*******************************
 	PageOfficeCtrl poCtrl1 = new PageOfficeCtrl(request);
-	poCtrl1.setServerPage(request.getContextPath()+"/poserver.zz"); //¥À––±ÿ–Î
-	//“˛≤ÿ≤Àµ•¿∏
+	poCtrl1.setServerPage(request.getContextPath()+"/poserver.zz"); //Ê≠§Ë°åÂøÖÈ°ª
+	//ÈöêËóèËèúÂçïÊ†è
 	poCtrl1.setMenubar(false);
-	poCtrl1.addCustomToolButton("±£¥Ê","Save()",1);
+	poCtrl1.addCustomToolButton("‰øùÂ≠ò","Save()",1);
 	poCtrl1.setSaveFilePage("SaveFile.jsp?id=1");
-	//¥Úø™WordŒƒº˛
-	poCtrl1.webOpen("Openstream.jsp?id=1", OpenModeType.docNormalEdit, "’≈»˝");
-	poCtrl1.setTagId("PageOfficeCtrl1"); //¥À––±ÿ–Î	
+	//ÊâìÂºÄWordÊñá‰ª∂
+	poCtrl1.webOpen("Openstream.jsp?id=1", OpenModeType.docNormalEdit, "Âº†‰∏â");	
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -24,17 +22,17 @@
 <body>
     <form id="form1">
     <div style="width: auto; height: 700px;">
-    <!-- *********************PageOffice◊Èº˛øÕªß∂ÀJS¥˙¬Î*************************** -->
+    <!-- *********************PageOfficeÁªÑ‰ª∂ÂÆ¢Êà∑Á´ØJS‰ª£Á†Å*************************** -->
     <script type="text/javascript">
         function Save() {
             document.getElementById("PageOfficeCtrl1").WebSave();
             if (document.getElementById("PageOfficeCtrl1").CustomSaveResult == "ok") {
-                document.getElementById("PageOfficeCtrl1").Alert('±£¥Ê≥…π¶£°');
+                document.getElementById("PageOfficeCtrl1").Alert('‰øùÂ≠òÊàêÂäüÔºÅ');
             }
         }
     </script>
-    <!-- *********************PageOffice◊Èº˛µƒ“˝”√*************************** -->
-        <po:PageOfficeCtrl id="PageOfficeCtrl1" />
+    <!-- *********************PageOfficeÁªÑ‰ª∂ÁöÑÂºïÁî®*************************** -->
+       <%=poCtrl1.getHtmlCode("PageOfficeCtrl1")%>
     </div>
     </form>
 </body>

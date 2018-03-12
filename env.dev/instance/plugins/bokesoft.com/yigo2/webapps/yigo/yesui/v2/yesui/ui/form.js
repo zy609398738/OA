@@ -24,6 +24,7 @@ YIUI.Form = YIUI.extend({
         this.mainTableKey = metaForm.mainTableKey;
         this.onLoad = metaForm.onLoad;
         this.onClose = metaForm.onClose;
+        this.confirmClose = metaForm.confirmClose;
         var rootObj = metaForm.root;
         this.standalone = metaForm.standalone;
         this.relations = metaForm.relations;
@@ -122,15 +123,15 @@ YIUI.Form = YIUI.extend({
     },
 
     hasEnableRight:function (fieldKey) {
-        return fieldKey && (this.formRights.allEnableRights || $.inArray(fieldKey,this.formRights.enableRights) == -1);
+        return fieldKey && this.formRights && (this.formRights.allEnableRights || $.inArray(fieldKey,this.formRights.enableRights) == -1);
     },
 
     hasVisibleRight:function (fieldKey) {
-        return fieldKey && (this.formRights.allVisibleRights || $.inArray(fieldKey,this.formRights.visibleRights) == -1);
+        return fieldKey && this.formRights && (this.formRights.allVisibleRights || $.inArray(fieldKey,this.formRights.visibleRights) == -1);
     },
 
     hasOptRight:function (optKey) {
-        return optKey && (this.formRights.allOptRights || $.inArray(optKey,this.formRights.optRights) != -1);
+        return optKey && this.formRights && (this.formRights.allOptRights || $.inArray(optKey,this.formRights.optRights) != -1);
     },
 
     initViewDataMonitor: function () {
@@ -421,26 +422,30 @@ YIUI.Form = YIUI.extend({
     showDocument: function (commitValue) {
 
         var _this = this;
+   
+        if( !_this.impl_show ) {
+            _this.impl_show = function (commit) {
+                var showData = new YIUI.ShowData(_this);
+                showData.show(commit);
+                if(!_this.rendered) {
+                    _this.render();
+                }
 
-        var _show = function () {
-            var showData = new YIUI.ShowData(_this);
-            showData.show(commitValue);
-            if(!_this.rendered) {
-                _this.render();
+                if( _this.metaForm.initFocus != false ) {
+                    _this.initFirstFocus();
+                }
+
+                var eventCB = _this.getEvent(YIUI.FormEvent.ShowDocument);
+                if(eventCB){
+                    eventCB(YIUI.FormEvent.ShowDocument, _this);
+                }
+
+                if(_this.postShow) {
+                    var cxt = {form: _this};
+                    _this.eval(_this.postShow, cxt);
+                }
+                YIUI.LoadingUtil.hide();
             }
-
-            _this.initFirstFocus();
-
-            var eventCB = _this.getEvent(YIUI.FormEvent.ShowDocument);
-            if(eventCB){
-                eventCB(_this);
-            }
-
-            if(_this.postShow) {
-                var cxt = {form: _this};
-                _this.eval(_this.postShow, cxt);
-            }
-            YIUI.LoadingUtil.hide();
         }
 
         // 每次更新权限数据
@@ -448,22 +453,29 @@ YIUI.Form = YIUI.extend({
         var workitemID = -1;
         if( info ) {
         	workitemID = info.WorkitemID;
-            if( info.IgnoreFormState && _this.getSysExpVals(YIUI.BPMConstants.WORKITEM_VIEW) == YIUI.BPMConstants.WORKITEM_VIEW )
+            if( info.IgnoreFormState &&
+                _this.getSysExpVals(YIUI.BPMConstants.WORKITEM_VIEW) == YIUI.BPMConstants.WORKITEM_VIEW )
                 _this.setOperationState(YIUI.Form_OperationState.Edit);
         }
 
         var formKey = _this.metaForm.formKey;
 
         var params = {
-            formKey:formKey,
+            formKey: formKey,
             OID: _this.getOID(),
-            workitemID:workitemID,
-            parameters:_this.getParas().toJSON()
+            workitemID: workitemID,
+            parameters: _this.getParas().toJSON()
         };
 
+        if( _this.document ) {
+            var doc = YIUI.DataUtil.toJSONDoc(_this.document);
+            params.document = $.toJSON(doc);
+        }
+
+        var commit = commitValue;
         YIUI.RightsService.loadFormRights(formKey,params).then(function (rights) {
              _this.setFormRights(rights);
-             !_this.isDestroyed && _show();
+             !_this.isDestroyed && _this.impl_show(commit);
         });
     },
     setWillShow: function(show) {
@@ -727,7 +739,9 @@ YIUI.Form = YIUI.extend({
         return YIUI.FormStack.getForm(this.pFormID);
     },
     fireClose: function () {
-        if (this.type != YIUI.Form_Type.Entity) {
+		this.close();
+        return true;
+        /*if (this.type != YIUI.Form_Type.Entity) {
             this.close();
             return true;
         }
@@ -736,6 +750,12 @@ YIUI.Form = YIUI.extend({
             this.close();
             return true;
         }
+        
+        if (!this.confirmClose) {
+        	this.close();
+            return true;
+        }
+        
         var options = {
             msg: YIUI.I18N.form.closeInterface,
             msgType: YIUI.Dialog_MsgType.YES_NO
@@ -747,7 +767,7 @@ YIUI.Form = YIUI.extend({
             $form.close();
         });
         dialog.regEvent(YIUI.Dialog_Btn.STR_NO, function () {
-        });
+        });*/
     },
     close: function () {
         var onClose = this.onClose;
@@ -758,14 +778,10 @@ YIUI.Form = YIUI.extend({
 
         var callback = this.getEvent(YIUI.FormEvent.Close);
         if (callback) {
-            callback.doTask(this, null);
+            callback(YIUI.FormEvent.Close, this);
         }
-        if (this.target == 2) {
-            $("#" + this.formID).close();
-            YIUI.FormStack.removeForm(this.formID);
-        } else {
-            this.getContainer().removeForm(this);
-        }
+
+        this.getContainer().removeForm(this);
     },
     eval: function (formula, context, callback) {
         if (formula) {
@@ -911,6 +927,8 @@ YIUI.MetaForm = YIUI.extend({
         this.root = root;
         this.authenticate = jsonObj["authenticate"];
         this.standalone = jsonObj["standalone"] || false;
+        this.initFocus = jsonObj["initFocus"];
+        this.confirmClose = jsonObj["confirmClose"];
         this.relations = jsonObj["relations"];
         this.macroMap = jsonObj["macroMap"];
         this.statusItems = jsonObj["statusItems"];

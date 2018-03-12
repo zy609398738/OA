@@ -115,15 +115,20 @@ YIUI.Control.Attachment = YIUI.extend(YIUI.Control, {
 	    $('<td class="time"><label>'+attachment.attachmentUploadTime+'</label><span class="att-handler"></span></td>').appendTo($tr);
 	    $('<td class="operator"><label>'+attachment.attachmentUploadOperatorID+'</label><span class="att-handler"></span></td>').appendTo($tr);
 	    $('<td class="path"><label>'+attachment.attachmentPath+'</label><span class="att-handler"></span></td>').appendTo($tr);
-	    $('<td class="option_u"><label></label></td>').appendTo($tr);
-	    if(this.preview) {
+	    var operate = $('<td class="option_u"><label>'+attachment.attachmentOperate+'</label></td>').appendTo($tr);
+        $('<td class="option_d" style="width:0px;"><label></label></td>').appendTo($tr);
+	    if( this.preview ) {
 	    	$tr.addClass("hasView");
-	    	$('<td class="opt_left"><label>'+attachment.exercise+'</label></td>').appendTo($tr);
-	    	$('<td class="opt_right"><label>'+attachment.ldo+'</label></td>').appendTo($tr);
-	    } else {
-	    	$('<td class="option_d"><label>'+attachment.attachmentOperate+'</label></td>').appendTo($tr);
+	    	$('<td class="option_p" style="width:0px;"><label></label></td>').appendTo($tr);
 	    }
-	    $('<td class="option_del"><label></label></td>').appendTo($tr);
+	    $('<td class="option_del" style="width:0px;"><label></label></td>').appendTo($tr);
+
+		if( this.preview ) {
+			operate.width(200);
+		} else {
+            operate.width(150);
+		}
+
 	    $('<td class="empty"><span/></td>').appendTo($tr);
 		$thead.append($tr);
 

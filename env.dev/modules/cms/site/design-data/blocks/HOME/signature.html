@@ -1,0 +1,74 @@
+<style>
+  .signature_main{
+  	display:flex;
+  	width: 100%;
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+  }
+  .signature_left{
+  	width:200px;
+  }
+  .signature_section{
+  	flex:1;
+  }
+  .signature_QuerySeal{
+  	width:100%;
+  	height:30px;
+  }
+  .signature_option{
+  	width:100%;
+  	height:30px;
+  }
+  .signature_Preview{
+  	width:200px;
+  	height:200px;
+  }
+  .signature_Reset{
+  	width:80px;
+    float: right;
+  }
+  .signature_docment{
+  	width:100%;
+  	height:100%;
+  }
+</style>
+<div class="signature_main">
+<div class="signature_left">
+  <div>
+    <span>
+      签章选择
+    </span>
+  </div>
+  
+<script type="text/javascript">
+  function SignatureChange(){
+  	var path=$(".signature_QuerySeal").val();
+  	$(".signature_Preview").attr('src',window.location.protocol+"//"+window.location.host+"/yigo/a/cms2-yigo2-adapter/cms/view-yigo-file/"+path);
+  }
+  function SignatureReset(){
+  	$(".signature_Preview").attr('src',"");
+  	$(".signature_QuerySeal").val("");
+  }
+</script>
+  <select class="signature_QuerySeal" onchange="SignatureChange()">
+    <option class="signature_option" value=""></option>
+    #foreach($SealLine in $SealData)
+    <option class="signature_option" value="$SealLine.SEAL">$SealLine.NAME</option>
+    #end
+  </select>
+  <div>
+    <span>
+      签章预览
+    </span>
+    <img class="signature_Preview" src=""/>
+    <button class="signature_Reset" onclick="SignatureReset()">
+      重置
+    </button>
+  </div>
+</div>
+<div class="signature_section">
+  <iframe class="signature_docment" src="../../pageoffice/WordTableSetImg/WordTableYigo.jsp?filePath=$filePath&amp;fileName=$fileName&amp;dataPath=$dataPath"/>
+</div>
+<div>

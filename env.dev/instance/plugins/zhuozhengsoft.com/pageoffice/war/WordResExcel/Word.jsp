@@ -1,15 +1,14 @@
 <%@ page language="java"
 	import="java.util.*,com.zhuozhengsoft.pageoffice.*,com.zhuozhengsoft.pageoffice.wordwriter.*"
-	pageEncoding="gb2312"%>
-<%@ taglib uri="http://java.pageoffice.cn" prefix="po"%>
+	pageEncoding="utf-8"%>
 <%
-	//******************************×¿ÕıPageOffice×é¼şµÄÊ¹ÓÃ*******************************
+	//******************************å“æ­£PageOfficeç»„ä»¶çš„ä½¿ç”¨*******************************
 	PageOfficeCtrl poCtrl1 = new PageOfficeCtrl(request);
-	poCtrl1.setServerPage(request.getContextPath()+"/poserver.zz"); //´ËĞĞ±ØĞë
+	poCtrl1.setServerPage(request.getContextPath()+"/poserver.zz"); //æ­¤è¡Œå¿…é¡»
 
 	WordDocument worddoc = new WordDocument();
-	//ÏÈÔÚÒª²åÈëwordÎÄ¼şµÄÎ»ÖÃÊÖ¶¯²åÈëÊéÇ©,ÊéÇ©±ØĞëÒÔ¡°PO_¡±ÎªÇ°×º
-	//¸øDataRegion¸³Öµ,ÖµµÄĞÎÊ½Îª£º"[word]wordÎÄ¼şÂ·¾¶[/word]¡¢[excel]excelÎÄ¼şÂ·¾¶[/excel]¡¢[image]Í¼Æ¬Â·¾¶[/image]"
+	//å…ˆåœ¨è¦æ’å…¥wordæ–‡ä»¶çš„ä½ç½®æ‰‹åŠ¨æ’å…¥ä¹¦ç­¾,ä¹¦ç­¾å¿…é¡»ä»¥â€œPO_â€ä¸ºå‰ç¼€
+	//ç»™DataRegionèµ‹å€¼,å€¼çš„å½¢å¼ä¸ºï¼š"[word]wordæ–‡ä»¶è·¯å¾„[/word]ã€[excel]excelæ–‡ä»¶è·¯å¾„[/excel]ã€[image]å›¾ç‰‡è·¯å¾„[/image]"
 	DataRegion data1 = worddoc.openDataRegion("PO_p1");
 	data1.setValue("[excel]doc/1.xls[/excel]");
 	DataRegion data2 = worddoc.openDataRegion("PO_p2");
@@ -18,37 +17,36 @@
 	data3.setValue("[word]doc/3.doc[/word]");
 
 	poCtrl1.setWriter(worddoc);
-	poCtrl1.setCaption("ÑİÊ¾£ººóÌ¨±à³Ì²åÈëexcelÎÄ¼şµ½Êı¾İÇøÓò(ÆóÒµ°æ)");
+	poCtrl1.setCaption("æ¼”ç¤ºï¼šåå°ç¼–ç¨‹æ’å…¥excelæ–‡ä»¶åˆ°æ•°æ®åŒºåŸŸ(ä¼ä¸šç‰ˆ)");
 
-	//Òş²Ø²Ëµ¥À¸
+	//éšè—èœå•æ 
 	poCtrl1.setMenubar(false);
-	//Òş²Ø×Ô¶¨Òå¹¤¾ßÀ¸
+	//éšè—è‡ªå®šä¹‰å·¥å…·æ 
 	poCtrl1.setCustomToolbar(false);
 
-	poCtrl1.webOpen("doc/test.doc", OpenModeType.docNormalEdit, "ÕÅÈı");
-	poCtrl1.setTagId("PageOfficeCtrl1"); //´ËĞĞ±ØĞë
+	poCtrl1.webOpen("doc/test.doc", OpenModeType.docNormalEdit, "å¼ ä¸‰");
 %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 	<head>
-		<title>ºóÌ¨±à³Ì²åÈëexcelÎÄ¼şµ½Êı¾İÇøÓò(ÆóÒµ°æ)</title>
+		<title>åå°ç¼–ç¨‹æ’å…¥excelæ–‡ä»¶åˆ°æ•°æ®åŒºåŸŸ(ä¼ä¸šç‰ˆ)</title>
+
 	</head>
 	<body>
 		<div
 			style="font-size: 12px; line-height: 20px; border-bottom: dotted 1px #ccc; border-top: dotted 1px #ccc; padding: 5px;">
-			¹Ø¼ü´úÂë£º
+			å…³é”®ä»£ç ï¼š
 			<span style="background-color: Yellow;"> <br />DataRegion
-				dataRegion = worddoc.openDataRegion("PO_¿ªÍ·µÄÊéÇ©Ãû³Æ"); <br />
+				dataRegion = worddoc.openDataRegion("PO_å¼€å¤´çš„ä¹¦ç­¾åç§°"); <br />
 				dataRegion.setValue("[excel]doc/1.xls[/excel]");</span>
 			<br />
 		</div>
 		<br />
 		<form id="form1">
 			<div style="width: auto; height: 700px;">
-				<!--**************   PageOffice ¿Í»§¶Ë´úÂë¿ªÊ¼    ************************-->
-				<po:PageOfficeCtrl id="PageOfficeCtrl1">
-				</po:PageOfficeCtrl>
-				<!--**************   PageOffice ¿Í»§¶Ë´úÂë½áÊø    ************************-->
+				<!--**************   PageOffice å®¢æˆ·ç«¯ä»£ç å¼€å§‹    ************************-->
+					  <%=poCtrl1.getHtmlCode("PageOfficeCtrl1")%>
+				<!--**************   PageOffice å®¢æˆ·ç«¯ä»£ç ç»“æŸ    ************************-->
 			</div>
 		</form>
 	</body>

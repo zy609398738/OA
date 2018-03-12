@@ -1,0 +1,10 @@
+{
+  "startIndex": "",
+  "autoRun": "true",
+  "responseTime": "600000",
+  "description": "实时调用ERP系统中物料分配单的Inv_Itempkg包",
+  "changePort": "",
+  "id": "8aab8dfc61e405260161e4656cae0025",
+  "text": "ERP_Inv_Itempkg_Import_To_BPM",
+  "oldPort": ""
+}

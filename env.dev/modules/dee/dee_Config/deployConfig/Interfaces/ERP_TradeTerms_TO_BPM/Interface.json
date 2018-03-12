@@ -1,0 +1,10 @@
+{
+  "id": "8aab8d065f095ba7015f0a4b39010030",
+  "startIndex": "",
+  "autoRun": "true",
+  "changePort": "",
+  "responseTime": "600000",
+  "description": "实时查询ERP系统模板合同单据贸易条款信息",
+  "text": "ERP_TradeTerms_TO_BPM",
+  "oldPort": ""
+}

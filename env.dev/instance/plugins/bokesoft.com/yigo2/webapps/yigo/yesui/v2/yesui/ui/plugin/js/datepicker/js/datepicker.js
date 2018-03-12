@@ -131,7 +131,7 @@
 				format: 'yyyy-MM-dd',
 				position: 'bottom',
 				eventName: 'click',
-				regional: 'en-US',//zh-CN
+				regional: 'zh-CN',//zh-CN、en-US
 				locale: {},
 				onRender: function(){return {};},
 				onChange: function(){return true;},
@@ -656,6 +656,12 @@
 		return {
 			init: function(options){
 				options = $.extend({}, defaults, options||{});
+
+				var l = $.cookie("locale");
+				if(l){
+					options.regional = l;
+				}
+
 				if(options.regional == "zh-CN") {
 					options.locale = zhLocale;
 				} else {

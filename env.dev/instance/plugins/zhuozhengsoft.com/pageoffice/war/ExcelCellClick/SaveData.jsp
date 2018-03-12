@@ -1,6 +1,6 @@
 <%@ page language="java"
 	import="java.util.*, java.text.*,com.zhuozhengsoft.pageoffice.*, com.zhuozhengsoft.pageoffice.excelreader.*"
-	pageEncoding="gb2312"%>
+	pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.pageoffice.cn" prefix="po"%>
 <%
 	Workbook workBook = new Workbook(request, response);
@@ -10,17 +10,17 @@
 	int result = 0;
 	while (!table.getEOF()) {
 	
-		//»ñÈ¡Ìá½»µÄÊıÖµ
-        //DataFields.Count±êÊ¶µÄÊÇtableµÄÁĞÊı
+		//è·å–æäº¤çš„æ•°å€¼
+        //DataFields.Countæ ‡è¯†çš„æ˜¯tableçš„åˆ—æ•°
         if (!table.getDataFields().getIsEmpty())
         {
-            content += "<br/>ÔÂ·İÃû³Æ£º" + table.getDataFields().get(0).getText();
-            content += "<br/>¼Æ»®Íê³ÉÁ¿£º" + table.getDataFields().get(1).getText();
-            content += "<br/>Êµ¼ÊÍê³ÉÁ¿£º" + table.getDataFields().get(2).getText();
+            content += "<br/>æœˆä»½åç§°ï¼š" + table.getDataFields().get(0).getText();
+            content += "<br/>è®¡åˆ’å®Œæˆé‡ï¼š" + table.getDataFields().get(1).getText();
+            content += "<br/>å®é™…å®Œæˆé‡ï¼š" + table.getDataFields().get(2).getText();
 
             content += "<br/>*********************************************";
         }
-		//Ñ­»·½øÈëÏÂÒ»ĞĞ
+		//å¾ªç¯è¿›å…¥ä¸‹ä¸€è¡Œ
 		table.nextRow();
 	}
 	table.close();
@@ -40,16 +40,16 @@
 			<div style="border: solid 1px gray;">
 				<div class="errTopArea"
 					style="text-align: left; border-bottom: solid 1px gray;">
-					[ÌáÊ¾±êÌâ£ºÕâÊÇÒ»¸ö¿ª·¢ÈËÔ±¿É×Ô¶¨ÒåµÄ¶Ô»°¿ò]
+					[æç¤ºæ ‡é¢˜ï¼šè¿™æ˜¯ä¸€ä¸ªå¼€å‘äººå‘˜å¯è‡ªå®šä¹‰çš„å¯¹è¯æ¡†]
 				</div>
 				<div class="errTxtArea" style="height: 88%; text-align: left">
 					<b class="txt_title">
 						<div style=" color:#FF0000;" >
-							Ìá½»µÄĞÅÏ¢ÈçÏÂ£º
+							æäº¤çš„ä¿¡æ¯å¦‚ä¸‹ï¼š
 						</div> <%=content%> </b>
 				</div>
 				<div class="errBtmArea" style="text-align: center;">
-					<input type="button" class="btnFn" value=" ¹Ø±Õ "
+					<input type="button" class="btnFn" value=" å…³é—­ "
 						onclick="window.opener=null;window.open('','_self');window.close();" />
 				</div>
 			</div>

@@ -1,4 +1,16 @@
 var other = {
+
+    login: {
+        title: "Make software easier",
+        userlogin: "User Login",
+        username: "Username",
+        password: "Password",
+        language: "Lang",
+        select : "select",
+        loginbtn: "Login",
+    },
+
+
 	control : {
 		required : "-Must full in-"
 	},
@@ -46,8 +58,10 @@ var other = {
 	},
 
 	grid : {
-		whetherEmpty : "Whether to empty all of the child data?",
+		whetherEmpty : "Are you sure to delete all data include children data?",
 		nonsupport : "Table sorting does not support grouping!",
+        whetherCloseAll: "Are you sure to close all forms?",
+        closeAll: "Close All",
 		lundefined : "The extension source is undefined",
 		total : "A toltal of {0} bars",
 		noData : "No data display",
@@ -58,6 +72,11 @@ var other = {
 		delRecord : "Delete the selected record",
 		moveUp : "Move up data rows",
 		moveDown : "Move down rows of data",
+        bestWidth : "Best Width",
+        frozencol : "Freeze Column",
+        frozenrow : "Freeze Row",
+        unfrozencol : "UnFreeze Column",
+        unfrozenrow : "UnFreeze Row",
 		isNotTable : "The table initialization error,initialization the HtmlElement is not the Table type",
 		isErrorMode : "The rendering mode(documentMode) of the page where the form is located is less than 5",
 		model : "colNames and colModel vary in length!",
@@ -195,8 +214,9 @@ var other = {
 		line : "line:",
 		lineThe : "line,the",
 		column : "column:",
-		required : "Is required",
-		formControl : "Form control",
+        hasError: "has error",
+		required : "cannot be null",
+		formControl : "Control",
 		noFill : "Is required,the current unfilled value."
 	},
 

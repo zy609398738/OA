@@ -1,4 +1,4 @@
-YIUI.LoadingUtil = function() {
+YIUI.LoadingUtil = (function() {
     var html = "<div class='loading mask'></div>" + 
                 "<div class='loading image'>" + 
                     "<img alt='loading' src='yesui/v2/yesui/ui/res/css/blue/images/loading.gif'>" +
@@ -18,7 +18,7 @@ YIUI.LoadingUtil = function() {
 			show: function() {
 				isShow = true;
 	        	mask.show();
-				setTimeout(function() {
+//				setTimeout(function() {
 					if(isShow && img.is(":hidden")) {
 						img.css({
 		                    top: $(window).height() / 2,
@@ -27,7 +27,7 @@ YIUI.LoadingUtil = function() {
 			        	mask.show();
 			        	img.show();
 					}
-				}, 300);
+//				}, 300);
 		        
 			},
 			hide: function() {
@@ -44,4 +44,4 @@ YIUI.LoadingUtil = function() {
 			}
 	};
 	return rt;
-}();
+})();

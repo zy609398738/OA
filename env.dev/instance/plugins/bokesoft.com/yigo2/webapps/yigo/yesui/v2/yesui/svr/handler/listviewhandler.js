@@ -37,34 +37,9 @@ YIUI.ListViewHandler = (function () {
                 form.eval(formula, cxt, null);
             }
         },
-        //
-        // /**
-        //  * 单元格值改变事件
-        //  * @param listview
-        //  * @param rowIndex
-        //  * @param colIndex
-        //  * @param newValue
-        //  */
-        // doCellValueChanged: function (listview, rowIndex, colIndex, newValue) {
-        // 	var column = listview.columnInfo[colIndex];
-        // 	var dbKey = column.key;
-        // 	var cellData = listview.data[rowIndex][dbKey];
-        // 	if (cellData)
-        // 		cellData.value = newValue;
-        //     var form = YIUI.FormStack.getForm(listview.ofFormID);
-        //     // 影子表处理
-        //     if( colIndex == listview.selectFieldIndex ) {
-        //         this.selectRow(form, listview, rowIndex, colIndex, newValue);
-        //     }
-        // 	var valueChanged = column.valueChanged;
-        // 	if(valueChanged) {
-        //         var cxt = new View.Context(form);
-        // 		form.eval(valueChanged, cxt);
-        // 	}
-        // },
 
         /**
-         * 单元格单击事件， 用于表格的checkbox , button , hyperlink
+         * Button,HyperLink点击
          */
         doOnCellClick: function (formID, columns, rowID, colKey) {
             var form = YIUI.FormStack.getForm(formID), column;
@@ -80,26 +55,86 @@ YIUI.ListViewHandler = (function () {
             }
         },
 
+        sort:function (listView, index, order) {
+            var column = listView.columnInfo[index],
+                key = column.key;
+            listView.data.sort(function (row1, row2) {
+                var v1 = row1[key].value;
+                var v2 = row2[key].value;
+
+                if( v1 == null && v2 == null ) {
+                    return 0;
+                }
+                if( v1 !== null && v2 == null ) {
+                    return order === "asc" ? -1 : 1;
+                }
+                if( v1 == null && v2 != null ) {
+                    return order === "asc" ? 1 : -1;
+                }
+
+                switch (column.columnType) {
+                case YIUI.CONTROLTYPE.DATEPICKER:
+                    var d1 = v1.getTime(),
+                        d2 = v2.getTime();
+                    return order === "asc" ? d1 - d2 : d2 - d1;
+                case YIUI.CONTROLTYPE.DICT:
+                    var o1 = typeof v1.getOID == "function" ? v1.getOID() : v1,
+                        o2 = typeof v2.getOID == "function" ? v2.getOID() : v2;
+                    return order === "asc" ? o1 - o2 : o2 - o1;
+                case YIUI.CONTROLTYPE.NUMBEREDITOR:
+                    return order === "asc" ? v1 - v2 : v2 - v1;
+                default:
+                    var s1 = v1 + "",
+                        s2 = v2 + "";
+                    return order === "asc" ? s1.localeCompare(s2) : s2.localeCompare(s1);
+                }
+            });
+            listView.repaint();
+        },
+
+        selectRange:function (listView, start, end, colIndex, value) {
+            for( var i = start;i < end;i++ ) {
+
+                listView.setValByIndex(i,colIndex,value,true);
+
+            }
+        },
+
+        selectSingle:function (listView, rowIndex, colIndex, value) {
+            if( value ) {
+                for( var i = 0,size = listView.getRowCount();i < size;i++ ) {
+                    if( i == rowIndex  )
+                        continue;
+                    listView.setValByIndex(i, colIndex, false, true);
+                }
+                var form = YIUI.FormStack.getForm(listView.ofFormID);
+                var doc = form.getDocument();
+                var shadowTable = doc.getShadow(listView.tableKey);
+                if ( shadowTable ) {
+                    shadowTable.clear();
+                }
+            }
+            listView.setValueAt(rowIndex, colIndex, value, true);
+        },
+
         /**
          * 选中一行
-         * @param form
-         * @param listview
-         * @param rowIndex
-         * @param colIndex
-         * @param newValue
          */
         selectRow: function (form, listview, rowIndex, colIndex, newValue) {
-            var doc = form.getDocument(),row = listview.data[rowIndex],tableKey = listview.tableKey;
+            var doc = form.getDocument(),
+                row = listview.data[rowIndex],
+                tableKey = listview.tableKey;
             if( !tableKey || !row.bkmkRow )
                 return;
-            var table = doc.getByKey(listview.tableKey);
-            var dataType = table.cols[table.indexByKey(YIUI.SystemField.SELECT_FIELD_KEY)].type;
+            var table = doc.getByKey(tableKey),
+                selectKey = YIUI.SystemField.SELECT_FIELD_KEY,
+                dataType = table.cols[table.indexByKey(selectKey)].type;
+            table.setByBkmk(row.bkmkRow.getBookmark());
             newValue = YIUI.Handler.convertValue(newValue, dataType);
             if( listview.pageLoadType == YIUI.PageLoadType.DB ) {
-                table.setByBkmk(row.bkmkRow.getBookmark());
                 if (table.getState() == DataDef.R_New)
                     return;
-                var shadowTable = doc.getShadow(listview.tableKey);
+                var shadowTable = doc.getShadow(tableKey);
                 if ( !shadowTable ) {
                     shadowTable = YIUI.DataUtil.newShadowDataTable(table);
                     doc.addShadow(tableKey, shadowTable);
@@ -120,7 +155,7 @@ YIUI.ListViewHandler = (function () {
                             shadowTable.set(j, table.get(j));
                         }
                     }
-                    shadowTable.setByKey(YIUI.SystemField.SELECT_FIELD_KEY, 1);
+                    shadowTable.setByKey(selectKey, newValue);
                     shadowTable.setState(table.getState());
                 } else {
                     if( pos != -1 ) {
@@ -129,8 +164,7 @@ YIUI.ListViewHandler = (function () {
                     }
                 }
             } else {
-                table.setByBkmk(row.bkmkRow.getBookmark());
-                table.setByKey(YIUI.SystemField.SELECT_FIELD_KEY, newValue);
+                table.setByKey(selectKey, newValue);
             }
         }
     };

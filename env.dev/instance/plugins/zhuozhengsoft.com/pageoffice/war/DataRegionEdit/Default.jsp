@@ -1,22 +1,21 @@
 <%@ page language="java" 
 	import="java.util.*,com.zhuozhengsoft.pageoffice.*,com.zhuozhengsoft.pageoffice.wordwriter.*" 
-	pageEncoding="gb2312"%>
-<%@ taglib uri="http://java.pageoffice.cn" prefix="po" %>
+	pageEncoding="utf-8"%>
 <%
 		WordDocument doc = new WordDocument();
-        doc.getTemplate().defineDataRegion("Name", "[ ĞÕÃû ]");
-        doc.getTemplate().defineDataRegion("Address", "[ µØÖ· ]");
-        doc.getTemplate().defineDataRegion("Tel", "[ µç»° ]");
-        doc.getTemplate().defineDataRegion("Phone", "[ ÊÖ»ú ]");
-        doc.getTemplate().defineDataRegion("Sex", "[ ĞÔ±ğ ]");
-        doc.getTemplate().defineDataRegion("Age", "[ ÄêÁä ]");
-        doc.getTemplate().defineDataRegion("Email", "[ ÓÊÏä ]");
-        doc.getTemplate().defineDataRegion("QQNo", "[ QQºÅ ]");
-        doc.getTemplate().defineDataRegion("MSNNo", "[ MSNºÅ ]");
+        doc.getTemplate().defineDataRegion("Name", "[ å§“å ]");
+        doc.getTemplate().defineDataRegion("Address", "[ åœ°å€ ]");
+        doc.getTemplate().defineDataRegion("Tel", "[ ç”µè¯ ]");
+        doc.getTemplate().defineDataRegion("Phone", "[ æ‰‹æœº ]");
+        doc.getTemplate().defineDataRegion("Sex", "[ æ€§åˆ« ]");
+        doc.getTemplate().defineDataRegion("Age", "[ å¹´é¾„ ]");
+        doc.getTemplate().defineDataRegion("Email", "[ é‚®ç®± ]");
+        doc.getTemplate().defineDataRegion("QQNo", "[ QQå· ]");
+        doc.getTemplate().defineDataRegion("MSNNo", "[ MSNå· ]");
 
 		PageOfficeCtrl poCtrl = new PageOfficeCtrl(request);
-        poCtrl.addCustomToolButton("±£´æ", "Save()", 1);
-        poCtrl.addCustomToolButton("¶¨ÒåÊı¾İÇøÓò", "ShowDefineDataRegions()", 3);
+        poCtrl.addCustomToolButton("ä¿å­˜", "Save()", 1);
+        poCtrl.addCustomToolButton("å®šä¹‰æ•°æ®åŒºåŸŸ", "ShowDefineDataRegions()", 3);
 
         poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");
         poCtrl.setSaveFilePage("SaveFile.jsp");
@@ -25,26 +24,26 @@
         poCtrl.setBorderStyle(BorderStyleType.BorderThin);
         poCtrl.setWriter(doc);
         poCtrl.webOpen("doc/test.doc", OpenModeType.docNormalEdit, "zhangsan");
-        poCtrl.setTagId("PageOfficeCtrl1");
  %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
     <title></title>
+
 	<script type="text/javascript">
-        //»ñÈ¡ºóÌ¨Ìí¼ÓµÄÊéÇ©Ãû³Æ×Ö·û´®
+        //è·å–åå°æ·»åŠ çš„ä¹¦ç­¾åç§°å­—ç¬¦ä¸²
         function getBkNames() {
             var bkNames = document.getElementById("PageOfficeCtrl1").DataRegionList.DefineNames;
             return bkNames;
         }
 
-        //»ñÈ¡ºóÌ¨Ìí¼ÓµÄÊéÇ©ÎÄ±¾×Ö·û´®
+        //è·å–åå°æ·»åŠ çš„ä¹¦ç­¾æ–‡æœ¬å­—ç¬¦ä¸²
         function getBkConts() {
             var bkConts = document.getElementById("PageOfficeCtrl1").DataRegionList.DefineCaptions;
             return bkConts;
         }
 
-        //¶¨Î»ÊéÇ©
+        //å®šä½ä¹¦ç­¾
         function locateBK(bkName) {
             var drlist = document.getElementById("PageOfficeCtrl1").DataRegionList;
             drlist.GetDataRegionByName(bkName).Locate();
@@ -52,7 +51,7 @@
             window.focus();
         }
 
-        //Ìí¼ÓÊéÇ©
+        //æ·»åŠ ä¹¦ç­¾
         function addBookMark(param) {
             var tmpArr = param.split("=");
             var bkName = tmpArr[0];
@@ -67,7 +66,7 @@
                 return "false";
             }
         }
-        //É¾³ıÊéÇ©
+        //åˆ é™¤ä¹¦ç­¾
         function delBookMark(bkName) {
             var drlist = document.getElementById("PageOfficeCtrl1").DataRegionList;
             try {
@@ -78,7 +77,7 @@
             }
         }
 
-        //±éÀúµ±Ç°WordÖĞÒÑ´æÔÚµÄÊéÇ©Ãû³Æ
+        //éå†å½“å‰Wordä¸­å·²å­˜åœ¨çš„ä¹¦ç­¾åç§°
         function checkBkNames() {
             var drlist = document.getElementById("PageOfficeCtrl1").DataRegionList;
             drlist.Refresh();
@@ -91,7 +90,7 @@
             return bkNames.substr(0, bkNames.length - 1);
         }
 
-        //±éÀúµ±Ç°WordÖĞÒÑ´æÔÚµÄÊéÇ©ÎÄ±¾
+        //éå†å½“å‰Wordä¸­å·²å­˜åœ¨çš„ä¹¦ç­¾æ–‡æœ¬
         function checkBkConts() {
             var drlist = document.getElementById("PageOfficeCtrl1").DataRegionList;
             drlist.Refresh();
@@ -121,8 +120,7 @@
 <body>
     <form action="">
     <div style="width: 1000px; height: 800px;">
-        <po:PageOfficeCtrl id="PageOfficeCtrl1" >
-        </po:PageOfficeCtrl>
+        <%=poCtrl.getHtmlCode("PageOfficeCtrl1")%>
     </div>
     </form>
 </body>

@@ -1,6 +1,7 @@
 /**
  * 所有组件的基础类。
  */
+"use strict";
 YIUI.Component = YIUI.extend({
 
     /**
@@ -147,6 +148,9 @@ YIUI.Component = YIUI.extend({
 	/** 是否是伙伴组件*/
     buddy: false,
 
+    /** 是否是继承组件*/
+    extend: false,
+
     needRender: true,
 
     /**
@@ -177,6 +181,7 @@ YIUI.Component = YIUI.extend({
         	this.parentGridKey = $.isUndefined(meta.parentGridKey) ? "" : meta.parentGridKey;
         	this.active = $.isUndefined(meta.active) ? "" : meta.active;
         	this.condition = $.isUndefined(meta.condition) ? null : meta.condition;
+        	this.extend = $.isUndefined(meta.extend) ? this.extend : meta.extend;
         }
         
         // 如果id未定义，动态生成个id
@@ -240,6 +245,7 @@ YIUI.Component = YIUI.extend({
      * @param width：Number类型。
      */
     setWidth: function (width) {
+//        width = width < 50 ? 50 : width;
         if (!width || !$.isNumeric(width) || width <= 0)
             return;
 
@@ -552,7 +558,7 @@ YIUI.Component = YIUI.extend({
         if (this.buddyKey) {
             var form = YIUI.FormStack.getForm(this.ofFormID);
             var buddyComp = form.getComponent(this.buddyKey);
-            if(buddyComp) {
+            if(buddyComp && !buddyComp.extend) {
             	if(buddyComp.rendered) {
             		buddyComp.setVisible(visible);
             	} else {
@@ -587,6 +593,10 @@ YIUI.Component = YIUI.extend({
     	if(this.tip) {
     		tip = this.tip;
     	}
+        if(tip) {
+            tip = YIUI.TypeConvertor.toString(tip);
+            tip = tip.replace(/\\n/g, "\r");
+        }
     	this.el && this.el.attr("title", tip);
     },
 
@@ -678,10 +688,8 @@ YIUI.Component = YIUI.extend({
             outerEl = this.el;
         if(!el) return;
         if (this.errorInfo.error) {
-            outerEl.addClass('ui-error');
             $('<span class="error-icon" />').attr("title", msg).appendTo(outerEl);
         } else {
-            outerEl.removeClass('ui-error');
             $(".error-icon", outerEl).remove();
         }
     },
@@ -692,6 +700,24 @@ YIUI.Component = YIUI.extend({
 
     getErrorMsg:function () {
         return this.errorInfo.msg;
+    },
+
+    setRequired: function (required) {
+        this.required = required;
+        var el = this.getEl(),
+            outerEl = this.getOuterEl();
+        if( !el ) return;
+        if (required) {
+            if($(".required-icon", outerEl).length == 0) {
+                $('<span class="required-icon" />').appendTo(outerEl);
+            }
+        } else {
+            $(".required-icon", outerEl).remove();
+        }
+    },
+
+    isRequired: function () {
+        return this.required;
     },
 
     /**
@@ -781,24 +807,6 @@ YIUI.Component = YIUI.extend({
     
     setFormatStyle: function (cssStyle) {
         this.getFormatEl().css(cssStyle);
-    },
-
-    /**
-     * 设置为必填。
-     */
-    setRequired: function (required) {
-    	this.required = required;
-    	var el = this.getOuterEl();
-    	if(!el) return;
-        if (required) {
-        	el.addClass('ui-required');
-        } else {
-        	el.removeClass('ui-required');
-        }
-    },
-
-    isRequired: function () {
-    	return this.required;
     },
 
     setCssClass: function (cssClass) {

@@ -1,0 +1,11 @@
+[
+  {
+    "parentId": "ff8080815c1ae53d015c1ea89c270168",
+    "text": "ERP_Region_TO_BPM",
+    "recordMpLog": "false",
+    "id": "ff8080815c1ae53d015c1ea89c3c0169",
+    "description": "实时查询ERP系统销售合同单据区域信息",
+    "fileImport": "false",
+    "enable": "true"
+  }
+]

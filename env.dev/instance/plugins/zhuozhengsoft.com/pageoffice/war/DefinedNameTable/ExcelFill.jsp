@@ -1,22 +1,21 @@
 <%@ page language="java"
 	import="java.util.*,com.zhuozhengsoft.pageoffice.*"
-	pageEncoding="gb2312"%>
+	pageEncoding="utf-8"%>
 <%@page import="com.zhuozhengsoft.pageoffice.excelwriter.*"%>
 <%@page import="java.awt.Color"%>
 <%@page import="java.text.*"%>
-<%@ taglib uri="http://java.pageoffice.cn" prefix="po"%>
 <%
-	//ÉèÖÃPageOfficeCtrl¿Ø¼þµÄ·þÎñÒ³Ãæ
+	//è®¾ç½®PageOfficeCtrlæŽ§ä»¶çš„æœåŠ¡é¡µé¢
 	PageOfficeCtrl poCtrl1 = new PageOfficeCtrl(request);
-	poCtrl1.setServerPage(request.getContextPath()+"/poserver.zz"); //´ËÐÐ±ØÐë
-	poCtrl1.setCaption("¼òµ¥µÄ¸øExcel¸³Öµ");
-	//¶¨ÒåWorkbook¶ÔÏó
+	poCtrl1.setServerPage(request.getContextPath()+"/poserver.zz"); //æ­¤è¡Œå¿…é¡»
+	poCtrl1.setCaption("ç®€å•çš„ç»™Excelèµ‹å€¼");
+	//å®šä¹‰Workbookå¯¹è±¡
 	Workbook workBook = new Workbook();
-	//¶¨ÒåSheet¶ÔÏó£¬"Sheet1"ÊÇ´ò¿ªµÄExcel±íµ¥µÄÃû³Æ
+	//å®šä¹‰Sheetå¯¹è±¡ï¼Œ"Sheet1"æ˜¯æ‰“å¼€çš„Excelè¡¨å•çš„åç§°
 	Sheet sheet = workBook.openSheet("Sheet1");
 	Table table = sheet.openTableByDefinedName("report", 10, 5, false);
 
-    table.getDataFields().get(0).setValue("ÂÖÌ¥");
+    table.getDataFields().get(0).setValue("è½®èƒŽ");
     table.getDataFields().get(1).setValue("100");
     table.getDataFields().get(2).setValue("120");
     table.getDataFields().get(3).setValue("500");
@@ -28,29 +27,27 @@
 	
 	poCtrl1.setWriter(workBook);
 	
-	//Òþ²Ø²Ëµ¥À¸
+	//éšè—èœå•æ 
 	poCtrl1.setMenubar(false);
 	
 	poCtrl1.setSaveDataPage("SaveData.jsp");
-	poCtrl1.addCustomToolButton("±£´æ", "Save()", 1);
-	//´ò¿ªWordÎÄ¼þ
-	poCtrl1.webOpen("doc/test.xls", OpenModeType.xlsSubmitForm, "ÕÅÈý");
-	poCtrl1.setTagId("PageOfficeCtrl1"); //´ËÐÐ±ØÐë
+	poCtrl1.addCustomToolButton("ä¿å­˜", "Save()", 1);
+	//æ‰“å¼€Wordæ–‡ä»¶
+	poCtrl1.webOpen("doc/test.xls", OpenModeType.xlsSubmitForm, "å¼ ä¸‰");
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 	<head>
-		<title>¸øExcelÎÄµµÖÐ¶¨ÒåÃû³ÆµÄÇøÓò¸³Öµ</title>
+		<title>ç»™Excelæ–‡æ¡£ä¸­å®šä¹‰åç§°çš„åŒºåŸŸèµ‹å€¼</title>
 
 		<meta http-equiv="pragma" content="no-cache">
 		<meta http-equiv="cache-control" content="no-cache">
 		<meta http-equiv="expires" content="0">
 		<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 		<meta http-equiv="description" content="This is my page">
-		<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
+
+
 	<script type="text/javascript">
         function Save() {
             document.getElementById("PageOfficeCtrl1").WebSave();
@@ -59,9 +56,9 @@
 	</head>
 
 	<body>
-	±í¸ñµÄÊý¾ÝÊÇÊ¹ÓÃºóÌ¨³ÌÐòÌî³ä½øÈ¥µÄ£¬Çë²é¿´ExcelFill.jspµÄ´úÂë
+	è¡¨æ ¼çš„æ•°æ®æ˜¯ä½¿ç”¨åŽå°ç¨‹åºå¡«å……è¿›åŽ»çš„ï¼Œè¯·æŸ¥çœ‹ExcelFill.jspçš„ä»£ç 
 		<div style="width: 1000px; height: 800px;">
-			<po:PageOfficeCtrl id="PageOfficeCtrl1"></po:PageOfficeCtrl>
+			<%=poCtrl1.getHtmlCode("PageOfficeCtrl1")%>
 		</div>
 	</body>
 </html>

@@ -5,7 +5,7 @@
  * Time: 上午10:27
  * To change this template use File | Settings | File Templates.
  */
-
+"use strict";
 YIUI.ListViewWithLayout = function(listView)  {
     var columnMap = {};
     $.each(listView.columnInfo , function(i , column) {
@@ -180,6 +180,7 @@ YIUI.ListViewWithLayout = function(listView)  {
             var count = Math.ceil( total_h / 30);
             var last_h = total_h - (count - 1) * 30;
             if(count <= 0) return;
+            
             for (var i = 0; i < count; i++) {
                 var $tr = $("<tr></tr>").addClass("space").appendTo($tbl);
                 var index = $tr.index() + 1;
@@ -240,24 +241,14 @@ YIUI.ListViewWithLayout = function(listView)  {
             var self = this;
             listView.$table.delegate(".tbl-body tbody .chk", "click", function(event){
                 if(!listView.enable || $(this).attr("enable") == "false") return;
-                // if($(this).attr('isChecked') && $(this).attr('isChecked') == 'true'){
-                //     $(this).attr('isChecked', 'false');
-                //     $(this).removeClass("checked");
-                // }else{
-                //     $(this).attr('isChecked','true');
-                //     $(this).addClass("checked");
-                // }
 
                 var colKey = $(event.target).parents('div.ui-chk').attr("id");
                 colKey = self._getCompKey(colKey);
                 var colIndex = $.inArray(columnMap[colKey],  listView.columnInfo);
 
-                //var index = $(event.target).parent('td').index();
-                //var colIndex = $("thead th", self.$table).eq(index).attr("colIndex");
                 var rowIndex = $(event.target).parents('tr.data').index() - 1;
                 var isChecked = $(this).attr('isChecked') == "true" ? false : true;
-                // listView.handler.doCellValueChanged(listView , rowIndex , colIndex , isChecked)
-                listView.setValByIndex(rowIndex,colIndex,isChecked,true,true);
+                listView.setValByIndex(rowIndex,colIndex,isChecked,true);
                 event.stopPropagation();
             });
 
@@ -367,10 +358,7 @@ YIUI.Control.ListView = YIUI.extend(YIUI.Control, {
 
     $handleContainer: null,
 
-    //doubleClick: null,
-
-    //columnInfo : null,
-    //columnKeys : null,
+    regExp: /^#[0-9a-fA-F]{6}$/,
 
     init: function(options) {
         this.base(options);
@@ -399,7 +387,7 @@ YIUI.Control.ListView = YIUI.extend(YIUI.Control, {
             this.focusRowChanged = meta.focusRowChanged;
         }
         if(this.height == "pref") {
-            this.height = 450;
+            this.height = "auto";
         }
     },
 
@@ -473,7 +461,7 @@ YIUI.Control.ListView = YIUI.extend(YIUI.Control, {
 //        this.$table = $('<table class="lv-tb"></table>').append(_thead).append(_tbody).appendTo(self._pagination.content);
 
         var $div = $('<div class="lv-div"></div>').appendTo(self._pagination.content);
-        this.$table = $('<table class="lv-tb"></table>').appendTo($div);
+        self.$table = $('<table class="lv-tb"></table>').appendTo($div);
         var $tr_h = $('<tr class="head"></tr>').appendTo(this.$table);
         var $td_h = $('<td></td>').attr("colspan", this.columnInfo.length + 1).appendTo($tr_h);
         var $div_h = $('<div class="lv-head"></div>').appendTo($td_h);
@@ -484,9 +472,9 @@ YIUI.Control.ListView = YIUI.extend(YIUI.Control, {
         var $div_b = $('<div class="lv-body"></div>').appendTo($td_b);
         var $body = $('<table class="tbl-body"></table>').append(_tbody).appendTo($div_b);
 
-        this.createColumnHead();
+        self.createColumnHead();
 
-        this.refreshSelectAll();// 第一次打开使用
+        self.refreshSelectAll();// 第一次打开使用
 
         //总行数大于data的长度
         if(this.totalRowCount <= this.pageRowCount) {
@@ -514,7 +502,7 @@ YIUI.Control.ListView = YIUI.extend(YIUI.Control, {
             var hAlign = YIUI.HAlignment.parse(style.hAlign);
             cssStyle['text-align'] = hAlign;
 
-            var index = colEl.index();
+            var index = colEl.index;
             var $th = $(".lv-head .tbl-head th", this.$table).eq(index);
             if($th.css("text-align") != hAlign) $th.css("text-align", hAlign);
         }
@@ -525,8 +513,7 @@ YIUI.Control.ListView = YIUI.extend(YIUI.Control, {
             font.bold && (cssStyle['font-weight'] = 'bold');
             font.italic && (cssStyle['font-style'] = 'italic');
         }
-        colEl.css(cssStyle);
-
+        colEl.style.cssText += "; " + cssStyle;
     },
 
     addEmptyRow: function() {
@@ -576,35 +563,48 @@ YIUI.Control.ListView = YIUI.extend(YIUI.Control, {
         var count = Math.ceil( total_h / 30);
         var last_h = total_h - (count - 1) * 30;
         if(count <= 0) return;
+
+        var frag = document.createDocumentFragment();
+        var _index = $(".tbl-body tr.data", $body).length;
         for (var i = 0; i < count; i++) {
-            var $tr = $("<tr></tr>").addClass("space").appendTo($tbl);
-            var index = $tr.index() + 1;
+        	var $tr = document.createElement("tr");
+        	var className = "space";
+            var index = _index + i + 1;
             if(index % 2 == 0) {
-                $tr.addClass("even");
+        		className += " even";
             }
-            $('<td></td>').addClass("seq").appendTo($tr);
+        	var _td = document.createElement("td");
+        	$tr.className = "seq";
+        	$tr.appendChild(_td);
             var $this = this;
-            $.each(this.columnInfo , function(i , column){
-                var $td = $('<td></td>');
-                $tr.append($td);
+        	for (var j = 0; j < this.columnInfo.length; j++) {
+				var column = this.columnInfo[j];
+            	var $td = document.createElement("td");
+                $tr.appendChild($td);
                 if(column.visible) {
+                	$td.index = j + 1;
                     column.format && $this.setColStyle($td, column.format);
                 } else {
-                    $td.hide();
+                    $td.style.display = "none";
                 }
-            });
-            $("<td class='space'></td>").appendTo($tr);
+			}
+        	var space = document.createElement("td");
+        	space.className = "space";
+        	$tr.appendChild(space);
             if(i == count - 1) {
-                $tr.addClass("last");
+        		className += " last";
                 $("td", $tr).height(last_h);
                 var h = client_h - $tbl.height();
                 if(h > 0 && h < tr_h) {
                     $("td", $tr).height(last_h + h);
                 }
             } else {
-                $tr.outerHeight(30);
+        		$tr.style.height = "30px";
             }
+        	$tr.className = className;
+        	frag.appendChild($tr);
         }
+        $tbl.append(frag);
 
     },
 
@@ -650,7 +650,7 @@ YIUI.Control.ListView = YIUI.extend(YIUI.Control, {
             $thWidth = $.getReal(this.columnInfo[i].width, this.calcRealValues(this.columnInfo, this.el.width()));
             $th.css("width", $thWidth);
             $td.css("width", $thWidth);
-            $("label", $th).css("width", $th.width());
+            $("label", $th).css("width", $th.width() - $(".chk", $th).width());
             if(!this.columnInfo[i].visible) {
                 $th.hide();
                 $td.hide();
@@ -670,57 +670,92 @@ YIUI.Control.ListView = YIUI.extend(YIUI.Control, {
         var $thead = $(".tbl-head thead", this.$table);
         var $tbody = $(".tbl-body tbody", this.$table);
         if(this.columnInfo && this.columnInfo.length > 0 ){
-            var $tr = $('<tr></tr>');
-            var $tr_b = $('<tr class="first"></tr>');
-            var $th = $('<th><label>'+YIUI.I18N.listview.seq+'</label></th>').addClass("seq");
-            $tr.append($th);
+            var $tr = document.createElement("tr");
+            var $tr_b = document.createElement("tr");
+            $tr_b.className = "first";
+            
+            var _th = document.createElement("th");
+            _th.className = "seq";
+            var lbl = document.createElement("label");
+            lbl.innerHTML = YIUI.I18N.listview.seq;
+            _th.appendChild(lbl);
+            $tr.appendChild(_th);
 
-            var $td = $('<td></td>').addClass("seq");
-            $td.css("height", "0px");
-            $tr_b.append($td);
+            var $td = document.createElement("td");
+            $td.className = "seq";
+            $td.style.height = "0px";
+            $tr_b.appendChild($td);
+
+            var th_frag = document.createDocumentFragment();
+            var td_frag = document.createDocumentFragment();
+            var $th, $td;
             for( var i = 0 ; i < this.columnInfo.length ; i ++){
                 var column = this.columnInfo[i];
-                $th = $('<th><label>' + column.caption + '</label></th>').attr("colIndex", i);
+                $th = document.createElement("th");
+                
                 var th_w = $.getReal(column.width, this.calcRealValues(this.columnInfo, this.el.width()));
-                $th.css("width", th_w).css("padding", "0 5px");
-                if( column.isSelect ) {
+                var style = "width: " + th_w + ";";
+                $th.style.cssText = style;
+                if( column.isSelect && !column.singleSelect ) {
                     this.selectFieldIndex = i;
-                    $th.prepend($("<span id='chkall' class='chk'/>"));
-                    $("label",$th).css({'display':'inline-block','padding-left':'5px'});
+                    var span = document.createElement("span");
+                    span.className = "chk";
+                    $th.appendChild(span);
+                    this.singleSelect = column.singleSelect;
                 }
+                
+                $th.setAttribute("colIndex", i);
 
-                $td = $('<td></td>').attr("colIndex", i);
-                $td.css("width", $.getReal(column.width, this.calcRealValues(this.columnInfo, this.el.width())));
-                $td.css("height", "0px");
+                // label
+                var lbl = document.createElement("label");
+                lbl.innerHTML = column.caption;
+                //lbl.style.cssText = "display: inline-block;position: absolute;left: 5px;top: 2px;";
+                $th.appendChild(lbl);
+
+                // span
+                var span = document.createElement("span");
+                span.className = "s-ico";
+                $th.appendChild(span);
+
+                $td = document.createElement("td");
+                $td.setAttribute("colIndex", i);
+                var td_s = "width: " + $.getReal(column.width, this.calcRealValues(this.columnInfo, this.el.width())) + "; height: 0px";
+                $td.style.cssText = td_s;
 
                 switch(column.columnType){
                     case YIUI.CONTROLTYPE.TEXTEDITOR:
-                        $th.addClass("lv-h-txt");
+                        $th.className = "lv-h-txt";
                         break;
                     case YIUI.CONTROLTYPE.CHECKBOX:
-                        $th.addClass("lv-h-chk");
+                        $th.className = "lv-h-chk";
                         break;
                     case YIUI.CONTROLTYPE.BUTTON:
-                        $th.addClass("lv-h-btn");
+                        $th.className = "lv-h-btn";
                         break;
                     case YIUI.CONTROLTYPE.HYPERLINK:
-                        $th.addClass("lv-h-hlk");
+                        $th.className = "lv-h-hlk";
                         break;
                     case YIUI.CONTROLTYPE.DATEPICKER:
-                        $th.addClass("lv-h-dp");
+                        $th.className = "lv-h-dp";
                         break;
                 }
 
-//			    if(column.visible) {
-                $tr.append($th);
-                $tr_b.append($td);
-//			    }
+                th_frag.appendChild($th);
+                td_frag.appendChild($td);
             }
-            $("<th class='space'></th>").appendTo($tr);
-            $("<td class='space'></td>").css("height", "0px").appendTo($tr_b);
+            
+            var th_space = document.createElement("th");
+            th_space.className = "space";
+            var td_space = document.createElement("td");
+            td_space.className = "space";
+            td_space.style.height = "0px";
+            th_frag.appendChild(th_space);
+            td_frag.appendChild(td_space);
+
+            $tr.appendChild(th_frag);
+            $tr_b.appendChild(td_frag);
         }
         $thead.append($tr);
-
         $tbody.append($tr_b);
     },
 
@@ -792,7 +827,29 @@ YIUI.Control.ListView = YIUI.extend(YIUI.Control, {
         return width < 0 ? 10 : width;
     },
 
-    addDataRow: function(data){
+    gotBackColor: function (form,backColor,idx) {
+        var color = backColor;
+        if( !this.regExp.test(backColor) ) {
+            var cxt = new View.Context(form);
+            cxt.setRowIndex(idx);
+            color = form.eval(color,cxt);
+        }
+        return this.regExp.test(color) ? color : "";
+    },
+
+    refreshBackColor: function (idx) {
+        if( !this.rowBackColor ) {
+            return;
+        }
+        var form = YIUI.FormStack.getForm(this.ofFormID);
+        var backColor = this.gotBackColor(form,this.rowBackColor,idx);
+        var $tr = $(".tbl-body tr.data", this.$table).eq(idx);
+        if( $tr ) {
+            $tr.css("background-color",backColor);
+        }
+    },
+
+    addDataRow: function(data,idx){
         if (this.layoutViewInvoker) {
             this.layoutViewInvoker.addDataRow(data);
             return;
@@ -803,35 +860,48 @@ YIUI.Control.ListView = YIUI.extend(YIUI.Control, {
             if($("tr.data", $tbody).length == 0) {
                 $("label.empty", $tbody).remove();
             }
-            var $tr , caption , $td;
-            var listView = this;
+            var $tr, tr_css = "", caption , $td, _td;
+            var listView = this,form;
             var hasFirst = $("tr.first", $tbody).length == 0 ? false : true;
-            $.each(data , function(i , row){
 
-                $tr = $('<tr></tr>').addClass("data");
-                $td = $('<td></td>').addClass("seq");
-                var backColor = row.backColor;
-                if (backColor){
-                    $tr.css({
-                        "background-color" : backColor
-                    })
+            var _selectOID = listView._selectOID;
+
+            var frag = document.createDocumentFragment();
+            var size = $tbody.children("tr.data").length;
+
+        	for (var i = 0, len = data.length; i < len; i++) {
+				var row = data[i],tr_style = "";
+                $tr = document.createElement("tr");
+                tr_css = "data";
+                
+                _td = document.createElement("td");
+                _td.className = "seq";
+
+                var rowBackColor = listView.rowBackColor;
+                if ( rowBackColor ){
+                    if( !form ) {
+                        form = YIUI.FormStack.getForm(listView.ofFormID);
+                    }
+                    var color = listView.gotBackColor(form,rowBackColor,i);
+                    if( color ) {
+                        tr_style = "background-color: " + color + ";";
+                    }
                 }
                 if(!hasFirst && i == 0) {
-                    $tr.addClass("first");
-//        			$td.css("width", $.getReal(listView.columnInfo[0].width, listView.calcRealValues(listView.columnInfo, listView.el.width())));
+                    tr_css += " first";
                 }
-                var seq = $tbody.children().length+1;
+                var seq = size + i + 1;
                 if(seq % 2 == 0) {
-                    $tr.addClass("even");
+                    tr_css += " even";
                 }
-                $tr.append($td.html($tbody.children().length));
+                _td.innerHTML = size + i + 1;
+                $tr.appendChild(_td);
+                $tr.className = tr_css;
 
-                $.each(listView.columnInfo , function(i , column){
+            	for (var j = 0, length = listView.columnInfo.length; j < length; j++) {
+            		var column = listView.columnInfo[j];
 
-                    //$td = $('<td>' + row[column.key] + '</td>');
-
-                    $td = $('<td></td>');
-                    $td.css("width", $.getReal(column.width, listView.calcRealValues(listView.columnInfo, listView.el.width())));
+                    $td = document.createElement("td");
                     var cell = row[column.key];
                     if(cell) {
                         if(cell.value === "") {
@@ -843,52 +913,74 @@ YIUI.Control.ListView = YIUI.extend(YIUI.Control, {
 
                     switch(column.columnType){
                         case YIUI.CONTROLTYPE.TEXTEDITOR:
-                            caption=YIUI.TextFormat.format(caption, this);
-                            $td.text(caption).addClass("lv-txt");
+                            caption = YIUI.TextFormat.format(caption, this);
+                            $td.className = "lv-txt";
+                            $td.innerHTML = caption;
                             break;
                         case YIUI.CONTROLTYPE.CHECKBOX:
-                            var $chkbox = $('<span class="chk"/>');
-                            $chkbox.attr('isChecked', caption == '1' ? 'true' : 'false');
-                            $chkbox.addClass(caption == '1' ? 'checked' : '');
-                            $chkbox.attr("enable", column.enable);
-                            $chkbox.data("key", column.key);
-                            $td.append($chkbox).addClass("lv-chk");
-                            listView.setEnableByEl($chkbox, column.enable);
-                            column.el = $chkbox;
+                            var _chk = document.createElement("span");
+
+                            _chk.className = "chk";
+                            _chk.removeAttribute("isChecked");
+
+                            if( cell.value ) {
+                                _chk.setAttribute('isChecked', "true");
+                                _chk.className += " " + "checked";
+                            }
+
+                            _chk.setAttribute("enable", column.enable);
+                            _chk.setAttribute("data-key", column.key);
+                           // $td.className = "lv-chk";
+                            $td.style.textAlign = "center";
+                            $td.appendChild(_chk);
+                            
+                            listView.setEnableByEl(_chk, column.enable);
+                            column.el = _chk;
                             break;
                         case YIUI.CONTROLTYPE.BUTTON:
-                            var $btn = $('<button></button>');
-                            $btn.addClass("btn")
-                            var $imginfo=$("<span class='imginfo' style='display: inline-block;height: 16px;width: 16px;vertical-align: middle;'></span>");
-                            var $fontinfo=$("<span class='txt' style='width:165px;font-weight: normal;overflow: hidden;max-width: 100%;text-overflow: ellipsis;vertical-align: middle;'>"+caption+"</span>");
-                            $imginfo.css("background","url('Resource/"+this.icon+"')")
-                            $btn.attr("enable", column.enable);
-                            $btn.data("key", column.key);
-                            $btn.append($imginfo);
-                            $fontinfo.appendTo($btn);
-                            $td.append($btn).addClass("lv-btn");
+                            var $btn = document.createElement("button");
+                            $btn.className = "btn";
+                            var $imginfo = document.createElement("span");
+                            $imginfo.className = "imginfo";
+                            $imginfo.style.cssText = "display: inline-block;height: 16px;width: 16px;vertical-align: middle; background: url('Resource/"+this.icon+"')";
+                            var $fontinfo = document.createElement("span");
+                            $fontinfo.className = "txt";
+                            $fontinfo.style.cssText = "width:165px;font-weight: normal;overflow: hidden;max-width: 100%;text-overflow: ellipsis;vertical-align: middle;";
+                            $fontinfo.innerHTML = caption;
+                            
+                            $btn.setAttribute("enable", column.enable);
+                            $btn.setAttribute("data-key", column.key);
+                            $btn.appendChild($imginfo);
+                            $btn.appendChild($fontinfo);
+                            $td.className = "lv-btn";
+                            $td.appendChild($btn);
+                            
                             listView.setEnableByEl($btn, column.enable);
                             column.el = $btn;
                             break;
                         case YIUI.CONTROLTYPE.HYPERLINK:
-                            var $hyperLink = $('<a>' + caption + '</a>');
-                            $hyperLink.addClass("hlk");
+                            var $hyperLink = document.createElement("a");
+                            $hyperLink.innerHTML = caption;
+                            $hyperLink.className = "hlk";
+                            
                             var showTarget = YIUI.Hyperlink_TargetType.Str_NewTab;
                             switch(column.targetType) {
                                 case YIUI.Hyperlink_TargetType.Current:
                                     showTarget = YIUI.Hyperlink_TargetType.Str_Current;
                                 case YIUI.Hyperlink_TargetType.NewTab:
-                                    $hyperLink.attr("href", column.url);
-                                    $hyperLink.attr("target", YIUI.Hyperlink_target[showTarget]);
+                                    column.url && $hyperLink.setAttribute("href", column.url);
+                                    $hyperLink.setAttribute("target", YIUI.Hyperlink_target[showTarget]);
                                     break;
                                 default:
-                                    $hyperLink.data("url", column.url);
-                                    $hyperLink.data("target", YIUI.Hyperlink_TargetType.New);
+                                    $hyperLink.setAttribute("data-url", column.url);
+                                    $hyperLink.setAttribute("data-target", YIUI.Hyperlink_TargetType.New);
                                     break;
                             }
-                            $hyperLink.attr("enable", column.enable);
-                            $hyperLink.data("key", column.key);
-                            $td.append($hyperLink).addClass("lv-hlk");
+                            $hyperLink.setAttribute("enable", column.enable);
+                            $hyperLink.setAttribute("data-key", column.key);
+                            $td.className = "lv-hlk";
+                            $td.appendChild($hyperLink);
+                            
                             listView.setEnableByEl($hyperLink, column.enable);
                             column.el = $hyperLink;
                             break;
@@ -897,27 +989,55 @@ YIUI.Control.ListView = YIUI.extend(YIUI.Control, {
                             if(onlyDate){
                                 caption = caption.split(" ")[0];
                             }
-                            $td.text(caption).addClass("lv-dp");
+                            $td.className = "lv-dp";
+                            $td.innerHTML = caption;
                             break;
                         default:
-                            $td.html(caption);
+                            $td.innerHTML = caption;
+							$td.style.whiteSpace = "pre-wrap";
+							$td.style.wordWrap = "break-word";
                             break;
                     }
-                    $tr.append($td);
+                    /*if( column.wrapText ) {
+                        $td.className += " wrap";
+                    }*/
+                    $tr.appendChild($td);
                     if(!column.visible) {
-                        $td.hide();
+                        $td.style.display = "none";
                     }
                     if(column.format) {
+                    	$td.index = j + 1;
                         listView.setColStyle($td, column.format);
                     }
-                });
+                };
 
-                $("<td class='space'></td>").appendTo($tr);
-                $tbody.append($tr);
+                var space = document.createElement("td");
+                space.className = "space";
+                $tr.appendChild(space);
+                
                 if(listView.rowHeight > 0) {
-                    $tr.height(listView.rowHeight);
+                	tr_style += " height: " + listView.rowHeight + "px";
                 }
-            });
+                $tr.style.cssText = tr_style;
+
+                // 排序后恢复选中行
+                if( _selectOID != null ) {
+                    var OID = listView.getValByKey(i,YIUI.SystemField.OID_SYS_KEY);
+                    if( _selectOID === OID ) {
+                        $tr.className += " clicked";
+                        listView._selectedRow = $($tr);
+                    }
+                }
+                frag.appendChild($tr);
+            };
+            if( idx >= 0 && idx <= this.data.length - 1 ) {
+                $tbody[0].insertBefore(frag,$tbody[0].rows[idx + 1]);
+                $("tr.data", $tbody).each(function (i) {
+                   $("td.seq",this).html(i + 1);
+                });
+            } else {
+                $tbody.append(frag);
+            }
         }
     },
 
@@ -937,6 +1057,7 @@ YIUI.Control.ListView = YIUI.extend(YIUI.Control, {
         var form = YIUI.FormStack.getForm(this.ofFormID);
         var showLV = YIUI.ShowListView(form, this);
         showLV.load(this);
+
         form.getUIProcess().resetComponentStatus(this);
         this.refreshSelectAll();
     },
@@ -963,8 +1084,6 @@ YIUI.Control.ListView = YIUI.extend(YIUI.Control, {
         if(this.hasDblClick){
             self.$table.delegate(".tbl-body tr.data", "dblclick", function(event) {
                 if(!self.enable || $(this).attr("enable") == "false") return;
-                //var colIndex = $(event.target).index();
-                //var rowIndex = $(event.target).parent().index();
                 var rowIndex = $(event.target).parents('tr.data').index() - 1;
                 self.handler.doOnRowClick(self.ofFormID, rowIndex, self.rowDblClick);
             });
@@ -972,13 +1091,50 @@ YIUI.Control.ListView = YIUI.extend(YIUI.Control, {
 
         // 全选按钮点击事件
         self.$table.delegate(".lv-head .chk","click",function (event) {
-            var checked = $(this).hasClass('checked') ? false : true;
+            // if( $(this).attr("enable") !== 'true' )
+            //     return;
+            var checked = !$(this).hasClass('checked');
             self.needCheckSelect = false;
             for (var i = 0, len = self.getRowCount(); i < len; i++) {
-                self.setValByIndex(i,self.selectFieldIndex,checked,true,true);
+                self.setValByIndex(i,self.selectFieldIndex,checked,true);
             }
             $(this).toggleClass('checked');
             self.needCheckSelect = true;
+        });
+
+        // 列头排序
+        var $thead = $(".tbl-head thead", this.$table);
+        $("th",$thead).click(function () {
+            var index = $(this).index();
+            if( index == 0 || index - 1 == self.selectFieldIndex || index - 1 >= self.columnInfo.length ) {
+                return;
+            }
+            var column = self.columnInfo[index - 1];
+            if( !column.sortable ) {
+                return;
+            }
+
+            var order = "asc";
+            if( self.lastsort === index ) {
+                order = self.sortorder == "asc" ? "desc" : "asc";
+            } else if ( self.lastsort != null ) {
+                var el = $("th",$thead).eq(self.lastsort);
+                $("span.s-ico",el).hide();
+                $("label", el).css({width: "100%"});
+            }
+
+            var lastClass = 'ui-lv-sort-' + (order == "asc" ? "desc" : "asc"),
+                curClass = 'ui-lv-sort-' + order;
+
+            $("span.s-ico", this).removeClass(lastClass).addClass(curClass).show();
+
+            var width = $(this).width() - $("span.s-ico", this).width();
+            $("label", this).css({width: width + "px"});
+
+            self.handler.sort(self, index - 1, order);
+
+            self.lastsort = index;
+            self.sortorder = order;
         });
 
         self.$table.delegate(".tbl-body>tbody>tr", "click", function(event) {
@@ -991,7 +1147,14 @@ YIUI.Control.ListView = YIUI.extend(YIUI.Control, {
                 return;
             }
             var rowChange = true;
-            var rowIndex = $(event.target).parents('tr.data').index() - 1;
+
+            var rowIndex = -1;
+            if( $(event.target).hasClass("data") ) {
+                rowIndex = $(event.target).index() - 1;
+            } else {
+                rowIndex = $(event.target).parents('tr').index() - 1;
+            }
+
             var oldIndex;
             if(self._selectedRow) {
                 oldIndex = self._selectedRow.index() - 1;
@@ -1002,6 +1165,13 @@ YIUI.Control.ListView = YIUI.extend(YIUI.Control, {
 
             $(this).addClass("clicked");
             self._selectedRow = $(this);
+            self._selectOID = self.getValByKey($(this).index() - 1,YIUI.SystemField.OID_SYS_KEY);
+
+            // 点击checkbox等,不执行事件
+            if( event.target.tagName !== 'TD' ) {
+                return;
+            }
+
             if(self.hasClick){
                 self.handler.doOnRowClick(self.ofFormID, rowIndex, self.rowClick);
             }
@@ -1014,28 +1184,19 @@ YIUI.Control.ListView = YIUI.extend(YIUI.Control, {
             this.layoutViewInvoker.install();
         } else {
             self.$table.delegate(".tbl-body tbody .chk", "click", function(event){
-                if(!self.enable || $(this).attr("enable") == "false") return;
-                // if($(this).attr('isChecked') && $(this).attr('isChecked') == 'true'){
-                //     $(this).attr('isChecked', 'false');
-                //     $(this).removeClass("checked");
-                // }else{
-                //     $(this).attr('isChecked','true');
-                //     $(this).addClass("checked");
-                // }
-
-                var index = $(event.target).parent('td').index();
-                var colIndex = $("thead th", self.$table).eq(index).attr("colIndex");
-                var rowIndex = $(event.target).parents('tr').index() - 1;
-                var isChecked = $(this).attr('isChecked') == "true" ? false : true;
-                // self.handler.doCellValueChanged(self , rowIndex , colIndex , isChecked);
-
-                self.setValByIndex(rowIndex,parseInt(colIndex),isChecked,true,true);
-
-                var $tr = $(this).closest("tr");
-                if(!$tr.hasClass("clicked")) {
-                    $tr.click();
+                if(!self.enable || $(this).attr("enable") == "false"){
+                    return;
                 }
-                event.stopPropagation();
+
+                var hitRow = $(event.target).parents('tr'),
+                    rowIndex = hitRow.index() - 1,
+                    colIndex = $(event.target).parent('td').index() - 1,
+                    value = !$(this).hasClass("checked");
+
+                self.doSelect(rowIndex,colIndex,value,event.shiftKey);
+
+                // 继续传播事件,为了选中行,但不执行行事件
+             //   event.stopPropagation();
             });
 
             self.$table.delegate(".btn", 'click',function(event){
@@ -1065,10 +1226,12 @@ YIUI.Control.ListView = YIUI.extend(YIUI.Control, {
         var $head = $(".lv-tb .lv-head", this.el);
         $body.scroll(function() {
             var left = $body.scrollLeft();
-            $head.scrollLeft(left);
-            if($body[0].clientWidth != $body[0].scrollWidth) {
-                var scroll_w = $body.width() - $body[0].clientWidth;
-                $(".space", $head).outerWidth(scroll_w);
+            if(left >= 0) {
+                $head.scrollLeft(left);
+                if($body[0].clientWidth != $body[0].scrollWidth) {
+                    var scroll_w = $body.width() - $body[0].clientWidth;
+                    $(".space", $head).outerWidth(scroll_w);
+                }
             }
             self.syncHandleWidths();
         })
@@ -1115,7 +1278,7 @@ YIUI.Control.ListView = YIUI.extend(YIUI.Control, {
                 return $(document).one('mouseup', function (e) {
                     $(document).off('mousemove.rc');
                     $leftColumn.outerWidth(leftColW);
-                    $("label", $leftColumn).width($leftColumn.width());
+                    $("label", $leftColumn).width($leftColumn.width() - $(".chk", $leftColumn).width());
                     var index = $leftColumn.index();
                     var $td_b = $(".lv-tb .lv-body tr.first td", _this.el).eq(index);
 //                    $td_b.outerWidth(leftColW);
@@ -1190,27 +1353,51 @@ YIUI.Control.ListView = YIUI.extend(YIUI.Control, {
         }
     },
 
-    setValByKey: function(rowIndex, colKey, value, commit, fireEvent) {
-        this.setValByIndex(rowIndex, this.findIndex(colKey), value, commit, fireEvent);
+    doSelect:function (rowIndex,colIndex,value,shiftDown) {
+        var column = this.columnInfo[colIndex],
+            self = this;
+        if( shiftDown && !column.singleSelect ) {
+            var focusIndex = self.getFocusRowIndex();
+            focusIndex = focusIndex == -1 ? rowIndex : focusIndex;
+
+            var start = Math.min(focusIndex, rowIndex);
+            var end = Math.max(focusIndex, rowIndex);
+
+            self.handler.selectRange(self,start,end + 1,colIndex,value);
+        } else {
+            if( column.singleSelect ) {
+                self.handler.selectSingle(self,rowIndex,colIndex,value);
+            } else {
+                self.setValByIndex(rowIndex,colIndex,value,true);
+            }
+        }
     },
 
-    setValByIndex: function(rowIndex, colIndex, value, commit, fireEvent) {
+    setValByKey: function(rowIndex, colKey, value, fireEvent) {
+        this.setValByIndex(rowIndex, this.findIndex(colKey), value, fireEvent);
+    },
+
+    setValByIndex: function(rowIndex, colIndex, value, fireEvent) {
         var changed = this.setValueAt(rowIndex, colIndex, value);
         if( changed ) {
+
             var form = YIUI.FormStack.getForm(this.ofFormID);
-            var $tdIndex = $(".tbl-head thead th[colIndex='"+colIndex+"']", this.$table).index();
-            if( $tdIndex > -1 && fireEvent ) {
-                var $td = $(".tbl-body tbody tr.data", this.$table).eq(rowIndex).children('td').eq($tdIndex);
+            if( colIndex == this.selectFieldIndex ) {
+                this.handler.selectRow(form,this,rowIndex,colIndex,value);
+            }
+
+            if( fireEvent ) {
+
+                if( colIndex == this.selectFieldIndex ) {
+                   this.refreshSelectAll();
+                }
+
                 var column = this.columnInfo[colIndex];
                 if( column.valueChanged ) {
                     var cxt = new View.Context(form);
                     cxt.setRowIndex(rowIndex);
                     form.eval(column.valueChanged, cxt, null);
                 }
-            }
-            // 选择字段处理
-            if( colIndex == this.selectFieldIndex ) {
-                this.handler.selectRow(form,this,rowIndex,colIndex,value);
             }
         }
     },
@@ -1240,7 +1427,6 @@ YIUI.Control.ListView = YIUI.extend(YIUI.Control, {
                         format = "yyyy-MM-dd HH:mm:ss";
                     }
                     caption = value.Format(format);
-                    value = value.toString();
                 }
                 def.resolve(caption);
                 break;
@@ -1251,19 +1437,17 @@ YIUI.Control.ListView = YIUI.extend(YIUI.Control, {
                 def = YIUI.DictHandler.getShowCaption(val, column.multiSelect);
                 break;
             case YIUI.CONTROLTYPE.COMBOBOX:
+            case YIUI.CONTROLTYPE.CHECKLISTBOX:
                 var form = YIUI.FormStack.getForm(listView.ofFormID);
                 def =  YIUI.ComboBoxHandler.getComboboxItems(form, column)
                             .then(function(items){
                                     var caption = '', item;
-                                    for (var i = 0, len = items.length, item; i < len; i++) {
-                                        item = items[i];
-                                        if (item.value == value) {
-                                            caption = item.caption;
-                                            break;
-                                        }
-                                    }
+                                    var sourceType = column.sourceType;
+                                    var multiSelect = column.columnType == YIUI.CONTROLTYPE.CHECKLISTBOX ? true : false;
+                                    caption = YIUI.ComboBoxHandler.getShowCaption(sourceType, items, value, multiSelect);
                                     return caption;
                                 });
+                
                 break;
             case YIUI.CONTROLTYPE.NUMBEREDITOR:
                 var decScale = column.decScale;
@@ -1281,7 +1465,7 @@ YIUI.Control.ListView = YIUI.extend(YIUI.Control, {
                 break;
             default:
                 caption = value;
-                def.resolve(caption);
+                def.resolve(YIUI.TypeConvertor.toString(caption));
                 break;
         }
 
@@ -1308,18 +1492,12 @@ YIUI.Control.ListView = YIUI.extend(YIUI.Control, {
             switch(column.columnType){
                 case YIUI.CONTROLTYPE.CHECKBOX:
                     var $chk = $td.children();
-                    // var isChecked = $chk.attr('isChecked') == "true" ? true : false;
-                    // var chkVal = value == true ? true : false;
-                    // if(chkVal == isChecked) break;
-                    $chk.attr('isChecked', 'false');
-                    $chk.removeClass("checked");
+                    $chk.attr('isChecked', 'false').removeClass("checked");
                     if( value ) {
-                        $chk.attr('isChecked','true');
-                        $chk.addClass("checked");
+                        $chk.attr('isChecked','true').addClass("checked");
                     }
                     break;
                 case YIUI.CONTROLTYPE.BUTTON:
-//                    $td.children("button").html(value);
                     $("button span.txt", $td).html(value);
                     break;
                 case YIUI.CONTROLTYPE.HYPERLINK:
@@ -1348,7 +1526,9 @@ YIUI.Control.ListView = YIUI.extend(YIUI.Control, {
     },
 
     getValByKey: function(rowIndex, colKey) {
-        return this.data[rowIndex][colKey].value;
+        var data = this.data[rowIndex],
+            v = data[colKey];
+        return v && v.value;
     },
 
     getRowCount: function(){
@@ -1373,18 +1553,24 @@ YIUI.Control.ListView = YIUI.extend(YIUI.Control, {
         $("tr.space", $tbody).remove();
         this.addEmptyRow();
     },
-    addNewRow: function(){
+    addNewRow: function(idx){
         var row = {};
         $.each(this.columnInfo , function(i , column) {
             row[column.key] = {};
         });
-
-        this.data.push(row);
+        var rowIndex = -1;
+        if( idx == undefined || idx == -1 || idx == this.data.length ) {
+            this.data.push(row);
+            rowIndex = this.data.length - 1;
+        } else {
+            this.data.splice(idx,0,row);
+            rowIndex = idx;
+        }
         var newRow = [];
         newRow.push(row);
-        this.addDataRow(newRow);
+        this.addDataRow(newRow,idx);
         this.addEmptyRow();
-        return this.data.length -1;
+        return rowIndex;
     }
 
 });

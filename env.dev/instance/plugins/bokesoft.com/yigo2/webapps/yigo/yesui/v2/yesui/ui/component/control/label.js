@@ -15,7 +15,6 @@ YIUI.Control.Label = YIUI.extend(YIUI.Control, {
         this.base(options);
         var meta = this.getMetaObj();
         this.icon = meta.icon || this.icon;
-        this.value = this.caption;
     },
 
     onSetWidth: function(width) {
@@ -45,7 +44,10 @@ YIUI.Control.Label = YIUI.extend(YIUI.Control, {
 
     checkEnd: function(value) {
     	this.value = value;
-        this.yesLabel.setValue(value);
+    	if( this.value != null ) {
+    	    this.caption = this.value.toString();
+        }
+        this.yesLabel.setCaption(this.caption);
     },
 
     /** 
@@ -57,9 +59,9 @@ YIUI.Control.Label = YIUI.extend(YIUI.Control, {
     	this.yesLabel = new YIUI.Yes_Label({
     		el: $this.el,
     		icon: $this.icon,
-    		caption: YIUI.TypeConvertor.toString($this.value),
     		format: $this.format
     	});
+    	this.checkEnd(this.value);
     	if(this.buddy) {
     		this.el.addClass("ui-innerlbl");
     	} else {

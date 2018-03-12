@@ -1,34 +1,32 @@
 <%@ page language="java" 
 	import="com.zhuozhengsoft.pageoffice.*,java.util.*,java.io.*,javax.servlet.*,javax.servlet.http.*" 
-	pageEncoding="gb2312"%>
-<%@ taglib uri="http://java.pageoffice.cn" prefix="po" %>
+	pageEncoding="utf-8"%>
 <%
 String path = request.getContextPath();
 String filePath ="";
 String id=request.getParameter("id").trim();
 if("1".equals(id)){
-	filePath = request.getSession().getServletContext().getRealPath("FileMakerConvertPDFs/doc/PageOffice²úÆ·¼ò½é.doc");
+	filePath = request.getSession().getServletContext().getRealPath("FileMakerConvertPDFs/doc/PageOfficeäº§å“ç®€ä»‹.doc");
 }
 if("2".equals(id)){
- filePath = request.getSession().getServletContext().getRealPath("FileMakerConvertPDFs/doc/Pageoffice¿Í»§¶Ë°²×°²½Öè.doc");
+ filePath = request.getSession().getServletContext().getRealPath("FileMakerConvertPDFs/doc/Pageofficeå®¢æˆ·ç«¯å®‰è£…æ­¥éª¤.doc");
 }
 if("3".equals(id)){
- filePath = request.getSession().getServletContext().getRealPath("FileMakerConvertPDFs/doc/PageOfficeµÄÓ¦ÓÃÁìÓò.doc");
+ filePath = request.getSession().getServletContext().getRealPath("FileMakerConvertPDFs/doc/PageOfficeçš„åº”ç”¨é¢†åŸŸ.doc");
 }
 if("4".equals(id)){
- filePath = request.getSession().getServletContext().getRealPath("FileMakerConvertPDFs/doc/PageOffice²úÆ·¶Ô¿Í»§¶Ë»·¾³ÒªÇó.doc");
+ filePath = request.getSession().getServletContext().getRealPath("FileMakerConvertPDFs/doc/PageOfficeäº§å“å¯¹å®¢æˆ·ç«¯çŽ¯å¢ƒè¦æ±‚.doc");
 }
 
 
 
-//******************************×¿ÕýPageOffice×é¼þµÄÊ¹ÓÃ*******************************
+//******************************å“æ­£PageOfficeç»„ä»¶çš„ä½¿ç”¨*******************************
 	PageOfficeCtrl poCtrl1 = new PageOfficeCtrl(request);
-	poCtrl1.setServerPage(request.getContextPath()+"/poserver.zz"); //´ËÐÐ±ØÐë
-	poCtrl1.setSaveFilePage("SaveFile.jsp");//ÈçÒª±£´æÎÄ¼þ£¬´ËÐÐ±ØÐë
-	poCtrl1.addCustomToolButton("±£´æ", "Save()", 1);//Ìí¼Ó×Ô¶¨Òå¹¤¾ßÀ¸°´Å¥
-	//´ò¿ªÎÄ¼þ
-	poCtrl1.webOpen(filePath, OpenModeType.docNormalEdit, "ÕÅÈý");
-	poCtrl1.setTagId("PageOfficeCtrl1"); //´ËÐÐ±ØÐë	 
+	poCtrl1.setServerPage(request.getContextPath()+"/poserver.zz"); //æ­¤è¡Œå¿…é¡»
+	poCtrl1.setSaveFilePage("SaveFile.jsp");//å¦‚è¦ä¿å­˜æ–‡ä»¶ï¼Œæ­¤è¡Œå¿…é¡»
+	poCtrl1.addCustomToolButton("ä¿å­˜", "Save()", 1);//æ·»åŠ è‡ªå®šä¹‰å·¥å…·æ æŒ‰é’®
+	//æ‰“å¼€æ–‡ä»¶
+	poCtrl1.webOpen(filePath, OpenModeType.docNormalEdit, "å¼ ä¸‰"); 
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -47,12 +45,13 @@ if("4".equals(id)){
   </head>
   
   <body>
+    <a href="index.jsp">è¿”å›žåˆ—è¡¨é¡µ</a>
 
     <script type="text/javascript">
 	function Save() {
 	     document.getElementById("PageOfficeCtrl1").WebSave();
 	}
     </script>
-    <po:PageOfficeCtrl id="PageOfficeCtrl1" />
+   <%=poCtrl1.getHtmlCode("PageOfficeCtrl1")%>
   </body>
 </html>

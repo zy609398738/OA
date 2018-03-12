@@ -3,32 +3,43 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.pageoffice.cn" prefix="po" %>
 <%
-String realPath = request.getSession().getServletContext().getRealPath("");
-String fixPath="instance/plugins/zhuozhengsoft.com/pageoffice/war";
-realPath=realPath.substring(0,realPath.length()-fixPath.length());
-String filePath =request.getParameter("pdfFilePath");
-String pdfFilePath=filePath;
-filePath=realPath+"modules/yigo2/Data/"+filePath;
-filePath = filePath.replaceAll("/", "\\\\"); 
-String fileName =request.getParameter("fileName");
-String pdfPath=filePath.substring(0,filePath.length()-fileName.length());
-String pdfName =request.getParameter("pdfName");
+	String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+"/";
 	
+	String fixPath="yigo/a/cms2-yigo2-adapter/cms/view-yigo-file/";
+	String filePath =request.getParameter("filePath");
+	String dataPath =request.getParameter("dataPath");
+	filePath = filePath.replaceAll("\\\\","/");
+	File file=new File(filePath);
+	String name=file.getName();
+	String path=filePath.substring(0, filePath.lastIndexOf(name));
+	String pdfName =name.substring(0,name.lastIndexOf("."))+".pdf";
+	filePath=basePath+fixPath+path+URLEncoder.encode(name,"UTF-8");
+	String pdfPath=path+URLEncoder.encode(pdfName,"UTF-8");
+
 	FileMakerCtrl fmCtrl = new FileMakerCtrl(request);
 	fmCtrl.setServerPage(request.getContextPath()+"/poserver.zz");
 	WordDocument doc = new WordDocument();
 	//禁用右击事件
 	doc.setDisableWindowRightClick(true);
-	//给数据区域赋值，即把数据填充到模板中相应的位置
-	doc.openDataRegion("PO_company").setValue("北京卓正志远软件有限公司  ");
-	String urlEncode = URLEncoder.encode(pdfName, "UTF-8");
-	File file = new File(pdfPath+pdfName);
-	if(!file.exists()){
-		fmCtrl.setSaveFilePage("SaveMakerYigo.jsp?pdfPath="+pdfPath+"&pdfName="+urlEncode);
+	
+	String realPath = request.getSession().getServletContext().getRealPath("");
+	fixPath = "instance/plugins/zhuozhengsoft.com/pageoffice/war";
+	realPath = realPath.substring(0, realPath.length() - fixPath.length());	
+	String pdfRealPath="";
+	if(dataPath == null || dataPath == ""){
+		pdfRealPath=realPath+"modules/yigo2/Data/"+path;
+	}else{
+		pdfRealPath=dataPath+path;
+	}
+	pdfRealPath = pdfRealPath + pdfName;
+
+	File pdfFile = new File(pdfRealPath);
+	if (!pdfFile.exists()) {
+		fmCtrl.setSaveFilePage("SaveMakerYigo.jsp?filePath=" + pdfPath + "&dataPath=" + dataPath);
 	}
 	fmCtrl.setWriter(doc);
 	fmCtrl.setJsFunction_OnProgressComplete("OnProgressComplete()");
-	fmCtrl.fillDocumentAsPDF(filePath, DocumentOpenType.Word, pdfName);
+	fmCtrl.fillDocumentAsPDF(filePath, DocumentOpenType.Word, pdfPath);
 	fmCtrl.setTagId("FileMakerCtrl1"); //此行必须
 
 	//fmCtrl.setTagId("FileMakerCtrl1"); //此行必须

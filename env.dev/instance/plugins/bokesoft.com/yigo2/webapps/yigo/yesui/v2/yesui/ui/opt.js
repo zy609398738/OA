@@ -56,39 +56,80 @@
             },
 
             _doOpt: function () {
+                
+                var getFormError = function () {
+                    var msg = form.errorInfo.errorMsg;
+                    if( !msg ) {
+                        msg = form.caption + " " + opt.hasError;
+                    }
+                    return msg;
+                }
+                
+                var getRowError = function (grid,row,lineNo) {
+                    var msg = rowData.errorMsg;
+                    if( !msg ) {
+                        msg = grid.caption + " " + opt.the + " " + lineNo + " " + opt.line + opt.hasError;
+                    }
+                    return msg;
+                }
+                
+                var getCellError = function (grid,cell,column,lineNo) {
+                    var msg = "";
+                    if ( cell[4] ) {
+                        msg = cellData[5];
+                        if( !msg ) {
+                            msg = grid.caption + " " + opt.the + " " + lineNo + " " + opt.line + " " + column.label + " " + opt.hasError;
+                        }
+                    } else if ( cellData[3] ) {
+                        msg = grid.caption + " " + opt.the + " " + lineNo + " " + opt.line + " " + column.label + " " + opt.required;
+                    }
+                    return msg;
+                }
+                
+                var getComError = function (com) {
+                    var msg = "";
+                    if (com.errorInfo && com.errorInfo.error) {
+                        msg = com.errorInfo.msg;
+                        if( !msg ) {
+                            msg = com.caption + " " + opt.hasError;
+                        }
+                    } else if (com.isRequired() ) {
+                        msg = com.caption + " " + opt.required;
+                    }
+                    return msg;
+                }
+
                 var self = this;
                 if (form.errorInfo.error) {
-                    this.showError(opt.form +"(" + form.formKey + " " + form.formCaption + "):" + form.errorInfo.errorMsg);
+                    this.showError(getFormError());
                 }
+
+                var rowData,
+                    cellData,
+                    com,
+                    cm;
+
                 for (var i in form.getComponentList()) {
-                    var comp = form.getComponentList()[i];
-                    if (comp.type == YIUI.CONTROLTYPE.GRID) {
-                        for (var ri = 0, size = comp.getRowCount(); ri < size; ri++) {
-                            var rowData = comp.getRowDataAt(ri);
+                    com = form.getComponentList()[i];
+                    if (com.type == YIUI.CONTROLTYPE.GRID) {
+                        for (var ri = 0, size = com.getRowCount(); ri < size; ri++) {
+                            rowData = com.getRowDataAt(ri);
+                            if( rowData.rowType === 'Fix' || (rowData.rowType === 'Detail' && !YIUI.GridUtil.isEmptyRow(rowData)) ) {
+                                if( rowData.error ) {
+                                    self.showError(getRowError(com,ri + 1,rowData));
+                                }
 
-                            if (rowData == null || !rowData.isDetail || rowData.bookmark == null)
-                                continue;
-
-                            if( rowData.error ) {
-                                self.showError(opt.table+"(" + comp.key + " " + comp.caption + ")" +opt.the + (ri + 1) + opt.line + rowData.errorMsg);
-                            }
-
-                            for (var ci = 0, length = comp.getColumnCount(); ci < length; ci++) {
-                                var cellData = comp.getCellDataAt(ri, ci), cm = comp.dataModel.colModel.columns[ci];
-                                if ( cellData[3] ) {
-                                    self.showError(opt.table+"(" + comp.key + " " + comp.caption + ")\n"+opt.the + (ri + 1)
-                                        + opt.lineThe + (ci + (comp.getMetaObj().showRowHead ? 1 : 0)) + opt.column + cm.label + opt.required);
-                                } else if ( cellData[4] ) {
-                                    self.showError(opt.table+"(" + comp.key + " " + comp.caption + ")" + opt.the + (ri + 1)
-                                        + opt.lineThe + (ci + (comp.getMetaObj().showRowHead ? 1 : 0)) + opt.column + cellData[5]);
+                                for (var ci = 0, length = com.getColumnCount(); ci < length; ci++) {
+                                    cellData = com.getCellDataAt(ri, ci), cm = com.dataModel.colModel.columns[ci];
+                                    if( cellData[3] || cellData[4] ) {
+                                        self.showError(getCellError(com,cellData,cm,ri + 1));
+                                    }
                                 }
                             }
                         }
                     } else {
-                        if (comp.errorInfo && comp.errorInfo.error) {
-                            self.showError(opt.formControl+"(" + comp.key + " " + comp.caption + "):" + comp.errorInfo.msg);
-                        } else if (comp.isRequired()) {
-                            self.showError(opt.formControl+ "(" + comp.key + " " + comp.caption + ")"+ opt.noFill);
+                        if( (com.errorInfo && com.errorInfo.error) || com.isRequired() ) {
+                            self.showError(getComError(com));
                         }
                     }
                 }
@@ -107,7 +148,14 @@
         };
         return Return;
     };
-    YIUI.EditOpt = function (form) {
+    YIUI.EditOpt = function (form,checkUI) {
+
+        var MASK = YIUI.FormUIStatusMask.ENABLE |
+            YIUI.FormUIStatusMask.VISIBLE | YIUI.FormUIStatusMask.OPERATION;
+
+        var MASKCHECK = YIUI.FormUIStatusMask.ENABLE| YIUI.FormUIStatusMask.VISIBLE |
+            YIUI.FormUIStatusMask.OPERATION | YIUI.FormUIStatusMask.CHECKRULE;
+
         var Return = {
             doOpt: function(){
                 return $.Deferred(function(def){
@@ -115,10 +163,7 @@
                             //设置操作状态
                             form.setOperationState(YIUI.Form_OperationState.Edit);
                             //重置界面状态
-                            form.resetUIStatus(YIUI.FormUIStatusMask.ENABLE
-                                | YIUI.FormUIStatusMask.VISIBLE | YIUI.FormUIStatusMask.OPERATION);
-                            //获取计算表达式处理类
-                            //form.getUIProcess().checkAll(); //TODO 目前屏蔽状态转换后的检查，之后再进行处理
+                            form.resetUIStatus(checkUI ? MASKCHECK : MASK);
                             //在表单进入编辑状态的时候为orderIndex为1的首个组件设定焦点
                             form.initFirstFocus();
                             def.resolve(true);
@@ -186,7 +231,9 @@
                             if(form.metaForm.type == YIUI.Form_Type.Entity && doc.mainTableKey){
                                 doc.oid = oid;
                                 var dt = doc.getByKey(doc.mainTableKey);
-                                dt.setByKey(YIUI.SystemField.OID_SYS_KEY, oid);
+                                if( dt.first() ) {
+                                    dt.setByKey(YIUI.SystemField.OID_SYS_KEY, oid);
+                                }
                             }
                             doc.setNew();
                             form.setDocument(doc);
@@ -194,27 +241,9 @@
                             form.setOperationState(YIUI.Form_OperationState.New);
                             if (refreshUI) {
                                 form.showDocument();
-                                //form.resetUIStatus(YIUI.FormUIStatusMask.ENABLE | YIUI.FormUIStatusMask.VISIBLE | YIUI.FormUIStatusMask.OPERATION);
-                            }  
+                            }
                             return form; 
                         });
-
-                // var paras = {};
-                // paras.service = "PureOpt";
-                // paras.cmd = "GetNewDocument";
-                // paras.formKey = form.formKey;
-                // paras.type = YIUI.OptScript.LOAD;
-                // var document = Svr.Request.getSyncData(Svr.SvrMgr.ServletURL, paras);
-
-                // form.setDocument(document);
-
-                // form.setInitOperationState(YIUI.Form_OperationState.New);
-                // form.setOperationState(YIUI.Form_OperationState.New);
-
-                // if (refreshUI) {
-                //     form.showDocument();
-                //     //form.resetUIStatus(YIUI.FormUIStatusMask.ENABLE | YIUI.FormUIStatusMask.VISIBLE | YIUI.FormUIStatusMask.OPERATION);
-                // }
             }
         };
         return Return;
@@ -238,7 +267,6 @@
                             form.setInitOperationState(YIUI.Form_OperationState.New);
                             form.setOperationState(YIUI.Form_OperationState.New);
                             form.showDocument();
-                          //  form.resetUIStatus(YIUI.FormUIStatusMask.ENABLE | YIUI.FormUIStatusMask.VISIBLE | YIUI.FormUIStatusMask.OPERATION);
                         }).promise();
             }
         };

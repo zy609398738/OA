@@ -1,0 +1,118 @@
+{
+  "response": [
+    {
+      "text": "记录实时回写合同模板评审组织信息IO至ERP系统表接口日志",
+      "description": "记录实时回写合同模板评审组织信息IO至ERP系统表接口日志",
+      "scriptContent": "String expMsg = \"\";\nMap rsmap = new HashMap();\nif (message.getExceptionPayload() != null)\n{\n    message.setOutboundProperty(\"http.status\", 200);\n    expMsg = message.getExceptionPayload().getRootException().getMessage();\n    if (expMsg.length() > 3500)\n    {\n        expMsg = expMsg.substring(0, 3000);\n    }\n    message.setExceptionPayload(null);\n    rsmap.put(\"code\", \"e\");\n    rsmap.put(\"msg\", \"更新失败！\");\n}\nelse\n{\n    rsmap.put(\"code\", \"s\");\n    rsmap.put(\"msg\", \"更新成功！\");\n    rsmap.put(\"data\", payload);\n}\nMap logmap = message.getInboundProperty(\"logmap\");\nObject[] o = new Object[10];\no[0] = logmap.get(\"flow\");\no[1] = logmap.get(\"node\");\no[2] = logmap.get(\"billkey\");\no[3] = logmap.get(\"oid\");\no[4] = logmap.get(\"begintime\");\no[5] = new java.text.SimpleDateFormat(\"yyyyMMdd HH:mm:ss.SSS\").format(new java.sql.Timestamp(java.lang.System.currentTimeMillis()));\no[6] = \"\";\no[7] = \"\";\no[8] = expMsg;\no[9] = \"BPM_INSERT_StandardContractIO_TO_ERP\";\ndbop.saveOrUpdate(\"insert into TRINA_SL_INTERFACE_LOG(id,flow,node,billkey,oid,starttime,endtime,request_data,response_data,EXCEPTION,interface_type)values(Trina_SL_Interface_Log_ID_SEQ.Nextval,?,?,?,?,?,?,?,?,?,?)\", o, false);\nreturn com.bokesoft.dee.mule.util.json.JSONUtil.toJson(rsmap);",
+      "className": "com.bokesoft.exchange.transformer.ScriptWithDSTransformer",
+      "smallType": "GroovyScriptWithDS",
+      "enable": "true",
+      "parentId": "8aaae0c85f2cd839015f2d1f706b0025",
+      "bigType": "transformer_au",
+      "simpleMpLog": "false",
+      "ds": "2c9081d05be7e572015be80fcb64000f",
+      "isRef": "false",
+      "id": "8aaae0c85f2cd839015f2d3358740037"
+    }
+  ],
+  "normal": [
+    {
+      "text": "实时回写合同模板评审组织信息IO至ERP系统表入口",
+      "description": "实时回写合同模板评审组织信息IO至ERP系统表入口",
+      "address": "vm://BPM_INSERT_StandardContractHeader_TO_ERP",
+      "exchange_pattern": "request-response",
+      "smallType": "VM",
+      "className": "",
+      "enable": "true",
+      "parentId": "8aaae0c85f2cd839015f2d1f706b0025",
+      "bigType": "inbound",
+      "simpleMpLog": "false",
+      "encoding": "UTF-8",
+      "isRef": "false",
+      "id": "8aaae0c85f2cd839015f2d30cd650030"
+    },
+    {
+      "text": "记录回写合同模板评审组织信息IO至ERP系统表开始时间",
+      "description": "记录回写合同模板评审组织信息IO至ERP系统表开始时间",
+      "scriptContent": "String begintime = new java.text.SimpleDateFormat(\"yyyyMMdd HH:mm:ss.SSS\").format(new java.sql.Timestamp(java.lang.System.currentTimeMillis()));\nMap logmap = new HashMap();\nlogmap.put(\"begintime\", begintime);\nlogmap.put(\"flow\", payload.get(\"flow\"));\nlogmap.put(\"node\", payload.get(\"node\"));\nlogmap.put(\"oid\", payload.get(\"oid\"));\nlogmap.put(\"billkey\", payload.get(\"billkey\"));\nlogmap.put(\"request_data\", payload);\nmessage.setInboundProperty(\"logmap\", logmap);\nreturn payload;",
+      "className": "org.mule.module.scripting.transformer.ScriptTransformer",
+      "smallType": "GroovyScriptTransformer",
+      "enable": "true",
+      "parentId": "8aaae0c85f2cd839015f2d1f706b0025",
+      "bigType": "transformer_au",
+      "simpleMpLog": "false",
+      "isRef": "false",
+      "id": "8aaae0c85f2cd839015f2d31e7690033"
+    },
+    {
+      "ignoreSQLError": "false",
+      "text": "回写合同模板评审组织信息IO至ERP系统表",
+      "description": "回写合同模板评审组织信息IO至ERP系统表",
+      "smallType": "ExecuteSQLSimpleTransformer",
+      "className": "com.bokesoft.dee.transport.jdbc.transformer.ExecuteSQLSimpleTransformer",
+      "enable": "true",
+      "queries": "[{\"value\":\"insert into apps.CUX3_EFLOW_PO_CONTRACT_ORG (TASK_ID,ORG_ID) values (#[map-payload:task_id],#[map-payload:org_id?])\"}]",
+      "parentId": "8aaae0c85f2cd839015f2d1f706b0025",
+      "bigType": "transformer_au",
+      "simpleMpLog": "false",
+      "resultIndexOf": 1,
+      "isRef": "false",
+      "ds": "8aaae09b5bf03e9f015bf17bc58e061f",
+      "id": "8aaae0c85f2cd839015f2d323f350034"
+    }
+  ],
+  "exception": [
+    {
+      "text": "把异常对象转换为文本",
+      "description": "把异常对象转换为文本",
+      "className": "com.bokesoft.exchange.transformer.ExceptionMessageTransformer",
+      "smallType": "ExceptionMessageTransformer",
+      "enable": "true",
+      "parentId": "8aaae0c85f2cd839015f2d1f706b0025",
+      "bigType": "GGPZTransformer",
+      "isRef": "true",
+      "id": "8aaae0c85f2cd839015f2d1f70f90026"
+    },
+    {
+      "path": "${bokedee.logpath.runtimeLog}/BPM_INSERT_StandardContractIO_TO_ERP",
+      "text": "记录错误日志到文件_BPM_INSERT_StandardContractIO_TO_ERP",
+      "description": "",
+      "className": "",
+      "smallType": "File",
+      "enable": "true",
+      "outputPattern": "#[function:datestamp:yyyyMMddHHmmss]-#[message:id].xml",
+      "parentId": "8aaae0c85f2cd839015f2d1f706b0025",
+      "bigType": "outbound",
+      "file_subdir": "#[context:serviceName]/#[function:datestamp:yyyyMMdd]",
+      "isRef": "false",
+      "id": "8aaae0c85f2cd839015f2d1f71660027"
+    },
+    {
+      "text": "把异常信息替换换行符_BPM_INSERT_StandardContractIO_TO_ERP",
+      "description": "把异常信息替换换行符",
+      "scriptContent": "String exceptionContent = message.getPayload();String exception = exceptionContent.replace(\"\\n\", \"<br/>\");message.setPayload(exception);return message;",
+      "smallType": "GroovyScriptTransformer",
+      "className": "org.mule.module.scripting.transformer.ScriptTransformer",
+      "enable": "false",
+      "parentId": "8aaae0c85f2cd839015f2d1f706b0025",
+      "bigType": "transformer_au",
+      "simpleMpLog": "false",
+      "isRef": "false",
+      "id": "8aaae0c85f2cd839015f2d1f71d00028"
+    },
+    {
+      "text": "把异常信息通过邮件发送_BPM_INSERT_StandardContractIO_TO_ERP",
+      "description": "把异常信息通过邮件发送",
+      "connector_ref": "bokedee_default_smtp_connector",
+      "subject": "BPM_INSERT_StandardContractIO_TO_ERP",
+      "className": "",
+      "smallType": "SMTP",
+      "enable": "false",
+      "parentId": "8aaae0c85f2cd839015f2d1f706b0025",
+      "bigType": "outbound",
+      "encoding": "UTF-8",
+      "isRef": "false",
+      "id": "8aaae0c85f2cd839015f2d1f72400029"
+    }
+  ]
+}

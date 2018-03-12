@@ -53,7 +53,8 @@
             setWidth: function (width) {
                 this.el.css('width', width);
                 this.getInput().css('width', width);
-                this.getBtn().css({ left: this.el.outerWidth() - 26 + "px"});
+                var left = this.el.outerWidth() - 26 > 0 ? this.el.outerWidth() - 26 : 0;
+                this.getBtn().css("left", left + "px");
             },
             setHeight: function (height) {
                 this.el.css('height', height);

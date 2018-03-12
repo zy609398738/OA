@@ -1,0 +1,10 @@
+{
+  "id": "8aab8dad61e55e5c0161e561dd380018",
+  "startIndex": "",
+  "autoRun": "true",
+  "changePort": "",
+  "responseTime": "600000",
+  "description": "实时查询ERP系统快递申请单系统预算号信息",
+  "text": "ERP_BudgetNum_TO_BPM",
+  "oldPort": ""
+}

@@ -1,0 +1,11 @@
+[
+  {
+    "id": "ff8080815fc89bdf015fc8bd83280020",
+    "text": "TradeCaravan_CloseErrandBillSrv",
+    "recordMpLog": "false",
+    "parentId": "ff8080815fc89bdf015fc8bd82ec001f",
+    "description": "实时调用中兴商旅关闭出差申请服务",
+    "fileImport": "false",
+    "enable": "true"
+  }
+]

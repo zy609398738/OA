@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <Opt>
+        <New>Save</New>
+    </Opt>
+    <UI>
+		<OA_EmailSetView>MailConfigList</OA_EmailSetView>
+		<Lab_From>FormDate From</Lab_From>
+        <Query>Query</Query>
+        <first_headVisible>HeadVisible</first_headVisible>
+        <Lab_To>To</Lab_To>
+        <Reset>Reset</Reset>
+    </UI>
+    <ListViewColumn>
+        <Status>Status</Status>
+        <IsDefault>IsDefault</IsDefault>
+        <NO>Form No.</NO>
+        <Email>Email</Email>
+        <SetDefault>SetDefault</SetDefault>
+        <OID>OID</OID>
+        <BillDate>Form Date</BillDate>
+    </ListViewColumn>
+</StringTable>

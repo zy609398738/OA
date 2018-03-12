@@ -1,12 +1,11 @@
 <%@ page language="java"
 	import="java.util.*,com.zhuozhengsoft.pageoffice.wordwriter.*,com.zhuozhengsoft.pageoffice.*,java.sql.*,java.text.NumberFormat,java.util.Locale,java.text.SimpleDateFormat,java.util.Date"
-	pageEncoding="gb2312"%>
-<%@ taglib uri="http://java.pageoffice.cn" prefix="po"%>
+	pageEncoding="utf-8"%>
 <%
 	String err = "";
 	String id = request.getParameter("ID").trim();
 	PageOfficeCtrl poCtrl = new PageOfficeCtrl(request);
-	//´´½¨WordDocment¶ÔÏó
+	//åˆ›å»ºWordDocmentå¯¹è±¡
 	WordDocument doc = new WordDocument();
 	if (id != null && id.length() > 0) {
 		String strSql = "select * from Salary where id =" + id
@@ -18,14 +17,14 @@
 		Statement stmt = conn.createStatement();
 		ResultSet rs = stmt.executeQuery(strSql);
 
-		//´ò¿ªÊı¾İÇøÓò
+		//æ‰“å¼€æ•°æ®åŒºåŸŸ
 		DataRegion datareg = doc.openDataRegion("PO_table");
 
 		SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");
 		NumberFormat formater = NumberFormat
 				.getCurrencyInstance(Locale.CHINA);
 		if (rs.next()) {
-			//¸øÊı¾İÇøÓò¸³Öµ
+			//ç»™æ•°æ®åŒºåŸŸèµ‹å€¼
 			doc.openDataRegion("PO_ID").setValue(id);
 			doc.openDataRegion("PO_UserName").setValue(
 					rs.getString("UserName"));
@@ -36,20 +35,20 @@
 			if (saltotal != null && saltotal != "") {
 				doc.openDataRegion("SalTotal").setValue(saltotal);
 			} else {
-				doc.openDataRegion("SalTotal").setValue("£¤0.00");
+				doc.openDataRegion("SalTotal").setValue("ï¿¥0.00");
 			}
 
 			String saldeduct = rs.getString("SalDeduct");
 			if (saldeduct != null && saldeduct != "") {
 				doc.openDataRegion("SalDeduct").setValue(saldeduct);
 			} else {
-				doc.openDataRegion("SalDeduct").setValue("£¤0.00");
+				doc.openDataRegion("SalDeduct").setValue("ï¿¥0.00");
 			}
 			String salcount = rs.getString("SalCount");
 			if (salcount != null && salcount != "") {
 				doc.openDataRegion("SalCount").setValue(salcount);
 			} else {
-				doc.openDataRegion("SalCount").setValue("£¤0.00");
+				doc.openDataRegion("SalCount").setValue("ï¿¥0.00");
 			}
 			String datatime = rs.getString("DataTime");
 			if (datatime != null && datatime != "") {
@@ -59,41 +58,37 @@
 			}
 
 		} else {
-			err = "<script>alert('Î´»ñµÃ¸ÃÔ±¹¤µÄ¹¤×ÊĞÅÏ¢£¡');location.href='index.jsp'</script>";
+			err = "<script>alert('æœªè·å¾—è¯¥å‘˜å·¥çš„å·¥èµ„ä¿¡æ¯ï¼');location.href='index.jsp'</script>";
 		}
 		rs.close();
 		conn.close();
 	} else {
-		err = "<script>alert('Î´»ñµÃ¸Ã¹¤×ÊĞÅÏ¢µÄID£¡');location.href='index.jsp'</script>";
+		err = "<script>alert('æœªè·å¾—è¯¥å·¥èµ„ä¿¡æ¯çš„IDï¼');location.href='index.jsp'</script>";
 	}
 
 	poCtrl.setWriter(doc);
 	poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");
 	poCtrl.webOpen("doc/template.doc", OpenModeType.docSubmitForm,
 			"someBody");
-	poCtrl.setTagId("PageOfficeCtrl1");
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 	<head>
-		<title>²é¿´¹¤×ÊĞÅÏ¢</title>
+		<title>æŸ¥çœ‹å·¥èµ„ä¿¡æ¯</title>
 
 		<meta http-equiv="pragma" content="no-cache">
 		<meta http-equiv="cache-control" content="no-cache">
 		<meta http-equiv="expires" content="0">
 		<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
-		<meta http-equiv="description" content="This is my page">
-		<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
-
+		<meta http-equiv="description" content="This is my page">    
 	</head>
 
 	<body>
+		<a href="#" onclick="window.external.close();">è¿”å›åˆ—è¡¨é¡µ</a>
 		<div style="width: auto; height: 700px;">
 			<%=err%>
-			<po:PageOfficeCtrl id="PageOfficeCtrl1"></po:PageOfficeCtrl>
+				        <%=poCtrl.getHtmlCode("PageOfficeCtrl1")%>
 		</div>
 	</body>
 </html>

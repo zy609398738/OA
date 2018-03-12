@@ -283,7 +283,7 @@ YIUI.Control.BPMGraph = YIUI.extend(YIUI.Control, {
                 break;
             case "exception-flow" :
                 var circle_center = lt.getPointAtLength(8.5);
-                var image = this.paper.image("yesui/ui/res/css/blue/images/bpmgraph/ExceptionFlow-icon.png", (circle_center.x - 8.5 - this.mX), (circle_center.y - 8.5 - this.mY), 17, 17);
+                var image = this.paper.image("yesui/v2/yesui/ui/res/css/blue/images/bpmgraph/ExceptionFlow-icon.png", (circle_center.x - 8.5 - this.mX), (circle_center.y - 8.5 - this.mY), 17, 17);
                 break;
         }
     },
@@ -976,6 +976,10 @@ YIUI.Control.BPMGraph = YIUI.extend(YIUI.Control, {
                 return this.createCounterSignNode(node);
             case BPMNodeType.STATE_ACTION:
                 return this.createStateActionNode(node);
+            case BPMNodeType.MultiTask:
+                return this.createMultiTaskNode(node);
+            case BPMNodeType.MultiAudit:
+                return this.createMultiAuditNode(node);
             default:
                 return null;
         }
@@ -1110,7 +1114,7 @@ YIUI.Control.BPMGraph = YIUI.extend(YIUI.Control, {
         out.attr({"stroke-width": "2"});
         out.attr({"fill": "white"});
         //矩形内部图案
-        var image = out.paper.image("yesui/ui/res/css/blue/images/bpmgraph/UserTask-icon.png", node.x + 2 - this.mX, node.y + 2 - this.mY, 18, 18);
+        var image = out.paper.image("yesui/v2/yesui/ui/res/css/blue/images/bpmgraph/UserTask-icon.png", node.x + 2 - this.mX, node.y + 2 - this.mY, 18, 18);
         var text = out.paper.text(node.x + node.width / 2 - this.mX, node.y + node.height / 2 - this.mY, node.caption);
         if (this.isIE()) {
             this.textFormat(text);
@@ -1127,6 +1131,62 @@ YIUI.Control.BPMGraph = YIUI.extend(YIUI.Control, {
         return out;
     },
 
+    createMultiTaskNode: function (node) {
+        var out = this.paper.rect(node.x - this.mX, node.y - this.mY, node.width, node.height, 10);
+        if (this.isLastNodeInPath(node)) {
+            out.attr("stroke", "red");
+        }
+        out.attr({"stroke-width": "2"});
+        out.attr({"fill": "white"});
+        //矩形内部图案
+        var image1 = out.paper.image("yesui/v2/yesui/ui/res/css/blue/images/bpmgraph/SubProcess-icon.png", node.x + node.width / 2 - 10 - this.mX, node.y + node.height - 18 - this.mY, 18, 18);
+        var image = out.paper.image("yesui/v2/yesui/ui/res/css/blue/images/bpmgraph/MultiTask-icon.png", node.x + 2 - this.mX, node.y + 2 - this.mY, 18, 18);
+        var text = out.paper.text(node.x + node.width / 2 - this.mX, node.y + node.height / 2 - this.mY, node.caption);
+        if (this.isIE()) {
+            this.textFormat(text);
+        }
+        $(out[0]).attr("key", node.key);
+        $(image1[0]).attr("key", node.key);
+        $(image[0]).attr("key", node.key);
+        $(text[0]).attr("key", node.key);
+        out.hover(function (e) {
+            out.attr({"cursor": "pointer"});
+            image1.attr({"cursor": "pointer"});
+            image.attr({"cursor": "pointer"});
+            text.attr({"cursor": "pointer"});
+        }, function () {
+        });
+        return out;
+    },
+
+    createMultiAuditNode: function (node) {
+        var out = this.paper.rect(node.x - this.mX, node.y - this.mY, node.width, node.height, 10);
+        if (this.isLastNodeInPath(node)) {
+            out.attr("stroke", "red");
+        }
+        out.attr({"stroke-width": "2"});
+        out.attr({"fill": "white"});
+        //矩形内部图案
+        var image1 = out.paper.image("yesui/v2/yesui/ui/res/css/blue/images/bpmgraph/SubProcess-icon.png", node.x + node.width / 2 - 10 - this.mX, node.y + node.height - 18 - this.mY, 18, 18);
+        var image = out.paper.image("yesui/v2/yesui/ui/res/css/blue/images/bpmgraph/MultiAudit-icon.png", node.x + 2 - this.mX, node.y + 2 - this.mY, 18, 18);
+        var text = out.paper.text(node.x + node.width / 2 - this.mX, node.y + node.height / 2 - this.mY, node.caption);
+        if (this.isIE()) {
+            this.textFormat(text);
+        }
+        $(out[0]).attr("key", node.key);
+        $(image1[0]).attr("key", node.key);
+        $(image[0]).attr("key", node.key);
+        $(text[0]).attr("key", node.key);
+        out.hover(function (e) {
+            out.attr({"cursor": "pointer"});
+            image1.attr({"cursor": "pointer"});
+            image.attr({"cursor": "pointer"});
+            text.attr({"cursor": "pointer"});
+        }, function () {
+        });
+        return out;
+    },
+
     createServiceTaskNode: function (node) {
         var out = this.paper.rect(node.x - this.mX, node.y - this.mY, node.width, node.height, 10);
         if (this.isLastNodeInPath(node)) {
@@ -1135,7 +1195,7 @@ YIUI.Control.BPMGraph = YIUI.extend(YIUI.Control, {
         out.attr({"stroke-width": "2"});
         out.attr({"fill": "white"});
         //矩形内部图案
-        var image = out.paper.image("yesui/ui/res/css/blue/images/bpmgraph/ServiceTask-icon.png", node.x + 2 - this.mX, node.y + 2 - this.mY, 18, 18);
+        var image = out.paper.image("yesui/v2/yesui/ui/res/css/blue/images/bpmgraph/ServiceTask-icon.png", node.x + 2 - this.mX, node.y + 2 - this.mY, 18, 18);
         var text = out.paper.text(node.x + node.width / 2 - this.mX, node.y + node.height / 2 - this.mY, node.caption);
         if (this.isIE()) {
             this.textFormat(text);
@@ -1158,7 +1218,7 @@ YIUI.Control.BPMGraph = YIUI.extend(YIUI.Control, {
         out.attr({"stroke-width": "2"});
         out.attr({"fill": "white"});
         //矩形内部图案
-        var image = out.paper.image("yesui/ui/res/css/blue/images/bpmgraph/ManualTask-icon.png", node.x + 2 - this.mX, node.y + 2 - this.mY, 18, 18);
+        var image = out.paper.image("yesui/v2/yesui/ui/res/css/blue/images/bpmgraph/ManualTask-icon.png", node.x + 2 - this.mX, node.y + 2 - this.mY, 18, 18);
         var text = out.paper.text(node.x + node.width / 2 - this.mX, node.y + node.height / 2 - this.mY, node.caption);
         if (this.isIE()) {
             this.textFormat(text);
@@ -1180,7 +1240,7 @@ YIUI.Control.BPMGraph = YIUI.extend(YIUI.Control, {
         out.attr({"stroke-width": "2"});
         out.attr({"fill": "white"});
         //矩形内部图案
-        var image = out.paper.image("yesui/ui/res/css/blue/images/bpmgraph/Audit-icon.png", node.x + 2 - this.mX, node.y + 2 - this.mY, 18, 18);
+        var image = out.paper.image("yesui/v2/yesui/ui/res/css/blue/images/bpmgraph/Audit-icon.png", node.x + 2 - this.mX, node.y + 2 - this.mY, 18, 18);
         var text = out.paper.text(node.x + node.width / 2 - this.mX, node.y + node.height / 2 - this.mY, node.caption);
         if (this.isIE()) {
             this.textFormat(text);
@@ -1351,7 +1411,7 @@ YIUI.Control.BPMGraph = YIUI.extend(YIUI.Control, {
         out.attr({"stroke-width": "2"});
 
         //矩形内部图案
-        var image = out.paper.image("yesui/ui/res/css/blue/images/bpmgraph/SubProcess-icon.png", node.x + node.width / 2 - 10 - this.mX, node.y + node.height - 18 - this.mY, 18, 18);
+        var image = out.paper.image("yesui/v2/yesui/ui/res/css/blue/images/bpmgraph/SubProcess-icon.png", node.x + node.width / 2 - 10 - this.mX, node.y + node.height - 18 - this.mY, 18, 18);
 
         var text = out.paper.text(node.x + node.width / 2 - this.mX, node.y + node.height / 2 - this.mY, node.caption);
         if (this.isIE()) {
@@ -1375,7 +1435,7 @@ YIUI.Control.BPMGraph = YIUI.extend(YIUI.Control, {
         out.attr({"stroke-width": "2"});
 
         //矩形内部图案
-        var image = out.paper.image("yesui/ui/res/css/blue/images/bpmgraph/Inline-icon.png", node.x + node.width / 2 - 10 - this.mX, node.y + node.height - 18 - this.mY, 18, 18);
+        var image = out.paper.image("yesui/v2/yesui/ui/res/css/blue/images/bpmgraph/Inline-icon.png", node.x + node.width / 2 - 10 - this.mX, node.y + node.height - 18 - this.mY, 18, 18);
 
         var text = out.paper.text(node.x + node.width / 2 - this.mX, node.y + node.height / 2 - this.mY, node.caption);
         if (this.isIE()) {
@@ -1399,7 +1459,7 @@ YIUI.Control.BPMGraph = YIUI.extend(YIUI.Control, {
         out.attr({"stroke-width": "2"});
 
         //矩形内部图案
-        var image = out.paper.image("yesui/ui/res/css/blue/images/bpmgraph/DataMap-icon.png", node.x + node.width / 2 - 10 - this.mX, node.y + node.height - 18 - this.mY, 18, 18)
+        var image = out.paper.image("yesui/v2/yesui/ui/res/css/blue/images/bpmgraph/DataMap-icon.png", node.x + node.width / 2 - 10 - this.mX, node.y + node.height - 18 - this.mY, 18, 18)
         var text = out.paper.text(node.x + node.width / 2 - this.mX, node.y + node.height / 2 - this.mY, node.caption);
         if (this.isIE()) {
             this.textFormat(text);
@@ -1424,7 +1484,7 @@ YIUI.Control.BPMGraph = YIUI.extend(YIUI.Control, {
         out.attr({"stroke-width": "2"});
         out.attr({"fill": "white"});
         //矩形内部图案
-        var image = out.paper.image("yesui/ui/res/css/blue/images/bpmgraph/UserTask-icon.png", node.x + 2 - this.mX, node.y + 2 - this.mY, 18, 18);
+        var image = out.paper.image("yesui/v2/yesui/ui/res/css/blue/images/bpmgraph/UserTask-icon.png", node.x + 2 - this.mX, node.y + 2 - this.mY, 18, 18);
 
         var text = out.paper.text(node.x + node.width / 2 - this.mX, node.y + node.height / 2 - this.mY, node.caption);
         if (this.isIE()) {
@@ -1517,7 +1577,9 @@ var BPMNodeType = (function () {
         EXCLUSIVE_FORK: 16,
         SERVICE_TASK: 17,
         BRANCH_END: 18,
-        STATE_ACTION: 19
+        STATE_ACTION: 19,
+        MultiTask: 20,
+        MultiAudit: 21
     };
     return Return;
 })();

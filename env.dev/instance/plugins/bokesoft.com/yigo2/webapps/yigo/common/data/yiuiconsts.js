@@ -200,8 +200,8 @@ YIUI.Form_Type = {
     Entity: 1,
     Dict: 2,
     View: 3,
-    Condition: 4,
-    Detail: 5
+    Detail: 4,
+    Report: 5
 };
 YIUI.FILTERVALUETYPE = {
     FIELD: 0,

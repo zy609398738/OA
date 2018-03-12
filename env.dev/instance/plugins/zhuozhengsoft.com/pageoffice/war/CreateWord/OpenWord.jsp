@@ -1,19 +1,39 @@
 <%@ page language="java"
-	import="java.util.*,com.zhuozhengsoft.pageoffice.*,com.zhuozhengsoft.pageoffice.wordwriter.*"
-	pageEncoding="gb2312"%>
+	import="java.util.*,com.zhuozhengsoft.pageoffice.*,com.zhuozhengsoft.pageoffice.wordwriter.*,java.net.*,java.sql.*"
+	pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.pageoffice.cn" prefix="po"%>
+<%! 
+String subject="";
+String fileName="";
+%>
 <%
-//******************************×¿ÕıPageOffice×é¼şµÄÊ¹ÓÃ*******************************
+Class.forName("org.sqlite.JDBC");
+String strUrl = "jdbc:sqlite:"+this.getServletContext().getRealPath("demodata/") + "\\CreateWord.db";
+Connection conn = DriverManager.getConnection(strUrl);
+Statement stmt = conn.createStatement();
+String id=request.getParameter("id");
+if(!id.equals("")&&!id.equals(null)){
+ResultSet rs=stmt.executeQuery("select * from word where ID="+id);
+subject=rs.getString("Subject");
+fileName=rs.getString("FileName");
+rs.close();
+}
+stmt.close();
+conn.close();
+%>
+<%
+
+//******************************å“æ­£PageOfficeç»„ä»¶çš„ä½¿ç”¨*******************************
 	PageOfficeCtrl poCtrl1 = new PageOfficeCtrl(request);
-	poCtrl1.setServerPage(request.getContextPath()+"/poserver.zz"); //´ËĞĞ±ØĞë
-	//Òş²Ø²Ëµ¥À¸
+	poCtrl1.setServerPage(request.getContextPath()+"/poserver.zz"); //æ­¤è¡Œå¿…é¡»
+	//éšè—èœå•æ 
 	poCtrl1.setMenubar(false);
-	poCtrl1.addCustomToolButton("±£´æ","Save()",1);
-	//ÉèÖÃ±£´æÒ³Ãæ
+	poCtrl1.addCustomToolButton("ä¿å­˜","Save()",1);
+	//è®¾ç½®ä¿å­˜é¡µé¢
 	poCtrl1.setSaveFilePage("SaveFile.jsp");
-	//´ò¿ªWordÎÄ¼ş
-	poCtrl1.webOpen("doc/"+request.getParameter("filename"), OpenModeType.docNormalEdit, "ÕÅÈı");
-	poCtrl1.setTagId("PageOfficeCtrl1"); //´ËĞĞ±ØĞë	
+	//æ‰“å¼€Wordæ–‡ä»¶
+	poCtrl1.webOpen("doc/"+fileName, OpenModeType.docNormalEdit, "å¼ ä¸‰");
+	poCtrl1.setTagId("PageOfficeCtrl1"); //æ­¤è¡Œå¿…é¡»	
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -21,12 +41,14 @@
 <head>
     <title></title>
     <link href="../images/csstg.css" rel="stylesheet" type="text/css" />
-
+    
+   
+ 
     <script type="text/javascript">
         function Save() {
             document.getElementById("PageOfficeCtrl1").WebSave();
-            //alert('±£´æ³É¹¦£¡');
         }
+        
     </script>
 
 </head>
@@ -36,34 +58,35 @@
         <div style="float: left; margin-left: 20px;">
             <img src="../images/logo.jpg" height="30" /></div>
         <ul>
-            <li><a href="#">×¿ÕıÍøÕ¾</a></li>
-            <li><a href="#">¿Í»§ÎÊ°É</a></li>
-            <li><a href="#">ÔÚÏß°ïÖú</a></li>
-            <li><a href="#">ÁªÏµÎÒÃÇ</a></li>
+            <li><a href="#">å“æ­£ç½‘ç«™</a></li>
+            <li><a href="#">å®¢æˆ·é—®å§</a></li>
+            <li><a href="#">åœ¨çº¿å¸®åŠ©</a></li>
+            <li><a href="#">è”ç³»æˆ‘ä»¬</a></li>
         </ul>
     </div>
     <div id="content">
         <div id="textcontent" style="width: 1000px; height: 800px;">
             <div class="flow4">
-                <a href="word-lists.jsp">
-                    <img alt="·µ»Ø" src="../images/return.gif" border="0" />ÎÄ¼şÁĞ±í</a>&nbsp;&nbsp;<strong>ÎÄµµÖ÷Ìâ£º</strong> <span style="color: Red;">
-                        <%=new String(request.getParameter("subject").getBytes("ISO-8859-1"),"gb2312") %></span> <span style="width: 100px;">
+                <a href="#" onclick="window.external.close();">
+                    <img alt="è¿”å›" src="../images/return.gif" border="0" />æ–‡ä»¶åˆ—è¡¨</a>&nbsp;&nbsp;<strong>æ–‡æ¡£ä¸»é¢˜ï¼š</strong> <span style="color: Red;">
+                        <%=subject%>
+                        </span> <span style="width: 100px;">
                         </span>
             </div>
-			<!-- ****************************PageOffice ×é¼ş¿Í»§¶Ë±à³Ì************************************* -->
+			<!-- ****************************PageOffice ç»„ä»¶å®¢æˆ·ç«¯ç¼–ç¨‹************************************* -->
 		   <script type="text/javascript">
 		   		function Save(){
 		   			document.getElementById("PageOfficeCtrl1").WebSave();
 		   		}
 		   </script>
-		   <!-- ****************************PageOffice ×é¼ş¿Í»§¶Ë±à³Ì½áÊø************************************* -->
+		   <!-- ****************************PageOffice ç»„ä»¶å®¢æˆ·ç«¯ç¼–ç¨‹ç»“æŸ************************************* -->
 		   <po:PageOfficeCtrl id="PageOfficeCtrl1" />
         </div>
     </div>
     <div id="footer">
         <hr width="1000" />
         <div>
-            Copyright (c) 2012 ±±¾©×¿ÕıÖ¾Ô¶Èí¼şÓĞÏŞ¹«Ë¾</div>
+            Copyright (c) 2012 åŒ—äº¬å“æ­£å¿—è¿œè½¯ä»¶æœ‰é™å…¬å¸</div>
     </div>
     </form>
 </body>

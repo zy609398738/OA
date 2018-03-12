@@ -3,12 +3,13 @@
  */
 YIUI.Control = YIUI.extend(YIUI.Component, {
     /**
-     * Object。
-     * 组件存储到数据库的值，区别于text。
+     * 组件的值
      */
-    value: '',
+    value: null,
     
-    /** 值确认事件中需要的备份值 */
+    /**
+     * 值确认事件中需要的备份值
+     */
     backupValue: '',
 
     /**
@@ -36,8 +37,6 @@ YIUI.Control = YIUI.extend(YIUI.Component, {
     
     behavior: YIUI.BaseBehavior,
 
-    /** 是否已经设值,对于查询字段,只第一次设值,再次加载不设值*/
-    initValue: false,
     /**
      * 组件触发事件时的回调方法。
      */
@@ -60,10 +59,10 @@ YIUI.Control = YIUI.extend(YIUI.Component, {
     },
 
     /**
-     * 判断组件的值是否为空值. null,'',undefined,"0",0都是空值
+     * 判断组件的值是否为空值.null,'',undefined,0都是空值
      */
     isNull: function() {
-    	return ( !this.value || parseFloat(this.value) == 0 ) ? true : false;
+        return this.value == null || this.value == "";
     },
 
 	commitValue: function() {
@@ -83,7 +82,7 @@ YIUI.Control = YIUI.extend(YIUI.Component, {
     /** 设置控件真实值，对应于数据库中存储的值 */
     setValue: function (value, commit, fireEvent, ignoreChanged, editing) {
 		this.backupValue = this.value;
-    	var _this = this;
+
     	var options = {
 			oldVal: this.getValue(),
 			newVal: value
@@ -93,58 +92,61 @@ YIUI.Control = YIUI.extend(YIUI.Component, {
     	}
     	options = $.extend((options || {}), this.getMetaObj());
 
-    	if(!this.behavior || !this.el) {
-            //控件显示的时候 计算默认值，不需要触发change事件
-    		this.behavior.checkAndSet(options, function(value) {
-//    			_this.value = value;
-    			_this.setControlValue(value);
-                _this.doChanged(commit, fireEvent, ignoreChanged, editing);
+        var _this = this;
+    //	if( !this.el ) {
+            //控件显示的时候 计算默认值，不需要fireEvent,但是依赖需要触发
+    		return this.behavior.checkAndSet(options, function(value) {
+                _this.setControlValue(value);
+                _this.doChanged(ignoreChanged, value, commit, fireEvent, editing);
     		});
-    		return false;
-    	}
-    	var changed = this.behavior.checkAndSet(options, function(value) {
-    		_this.value = value;
-    		_this.checkEnd(value);
-    	});
-		if( changed ) {
-			this.doChanged(commit, fireEvent, ignoreChanged, editing);
-		}
-		return changed;
+    		//return false;
+    //	}
+        // var changed = this.behavior.checkAndSet(options, function(value) {
+    		// _this.checkEnd(value);
+        // });
+		// if( changed ) {
+         //    _this.doChanged(ignoreChanged, _this.getValue(), commit, fireEvent, editing);
+		// }
+		//return changed;
     },
-    
+
+    /** 没有el时调用*/
     setControlValue: function(value) {
     	this.value = value;
+    	if( this.el ) {
+    	    this.checkEnd(value);
+        }
     },
-    
+
+    /** 有el时调用*/
     checkEnd: function(value) {
     	this.value = value;
     },
     
-    doChanged: function(commit, fireEvent, ignoreChanged, editing) {
-		if ( !ignoreChanged && this.handler ) {
-			if ( editing ) {
-				// 如果验证通过，则处理changed事件
-				var formID = this.ofFormID;
-	    		var validation = this.getMetaObj().validation;
-				if ( this.handler.validated(formID, validation) ) {
-					this.handler.doValueChanged(this, this.getValue(), commit, fireEvent);
-				} else {
-					// 验证未通过，如果定义了changing事件，则处理changing事件
-					var changing = this.getMetaObj().valueChanging;
-					if ( this.handler.hasChanging(changing) ) {
-						this.changing = true;
-						this.handler.changing(formID, changing);
-					} else {
-						// 如果未定义changing事件，则回滚数据
-						this.rollbackValue();
-					}
-				}
-			} else {
-				this.handler.doValueChanged(this, this.getValue(), commit, fireEvent);
-			}
-            this.initValue = true;
-			this.setTip(this.tip);
-		}
+    doChanged: function(ignoreChanged, value, commit, fireEvent, editing) {
+        if( !ignoreChanged && this.handler ) {
+            if ( editing ) {
+                // 如果验证通过，则处理changed事件
+                var formID = this.ofFormID;
+                var validation = this.getMetaObj().validation;
+                if ( this.handler.validated(formID, validation) ) {
+                    this.handler.doValueChanged(this, value, commit, fireEvent);
+                } else {
+                    // 验证未通过，如果定义了changing事件，则处理changing事件
+                    var changing = this.getMetaObj().valueChanging;
+                    if ( this.handler.hasChanging(changing) ) {
+                        this.changing = true;
+                        this.handler.changing(formID, changing);
+                    } else {
+                        // 如果未定义changing事件，则回滚数据
+                        this.rollbackValue();
+                    }
+                }
+            } else {
+                this.handler.doValueChanged(this, value, commit, fireEvent);
+            }
+            this.setTip(this.tip);
+        }
 	},
     
     /** 获取控件真实值 */
@@ -160,35 +162,6 @@ YIUI.Control = YIUI.extend(YIUI.Component, {
     /** 获取控件显示值，同setText */
     getText: function () {
         return this.getValue();
-    },
-
-    /**
-     * 设置为必填。
-     */
-    setRequired: function (required) {
-        this.base(required);
-        if (this.getEl() && required) {
-            this.getEl().placeholder(YIUI.I18N.control.required);
-            var _this = this;
-            this.bind(null, 'keyup', function () {
-            	if (_this.isNull()) {
-                    this.getOuterEl().addClass('ui-required');
-                } else {
-                    this.getOuterEl().removeClass('ui-required');
-                }
-            });
-            this.bind(null, 'blur', function () {
-                if (_this.isNull()) {
-                    this.getOuterEl().addClass('ui-required');
-                } else {
-                    this.getOuterEl().removeClass('ui-required');
-                }
-            });
-        }
-    },
-
-    isInitValue: function(){
-        return this.initValue;
     }
 });
 YIUI.reg("control", YIUI.Control);

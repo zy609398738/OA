@@ -1,0 +1,119 @@
+{
+  "response": [
+    {
+      "text": "实时记录回写BPM物料分配单InvItemInterface表的数据至ERP的日志信息",
+      "description": "实时记录回写BPM物料分配单InvItemInterface表的数据至ERP的日志信息",
+      "scriptContent": "String expMsg = \"\";\nMap rsmap = new HashMap();\nif (message.getExceptionPayload() != null)\n{\n    message.setOutboundProperty(\"http.status\", 200);\n    expMsg = message.getExceptionPayload().getRootException().getMessage();\n    if (expMsg.length() > 3500)\n    {\n        expMsg = expMsg.substring(0, 3000);\n    }\n    message.setExceptionPayload(null);\n    rsmap.put(\"code\", \"e\");\n    rsmap.put(\"msg\", \"更新失败！\");\n}\nelse\n{\n    rsmap.put(\"code\", \"s\");\n    rsmap.put(\"msg\", \"更新成功！\");\n    rsmap.put(\"data\", payload);\n}\nMap logmap = message.getInboundProperty(\"logmap\");\nObject[] o = new Object[10];\no[0] = logmap.get(\"flow\");\no[1] = logmap.get(\"node\");\no[2] = logmap.get(\"billkey\");\no[3] = logmap.get(\"oid\");\no[4] = logmap.get(\"begintime\");\no[5] = new java.text.SimpleDateFormat(\"yyyyMMdd HH:mm:ss.SSS\").format(new java.sql.Timestamp(java.lang.System.currentTimeMillis()));\no[6] = \"\";\no[7] = \"\";\no[8] = expMsg;\no[9] = \"ERP_Insert_InvItemInterface_To_BPM\";\ndbop.saveOrUpdate(\"insert into TRINA_SL_INTERFACE_LOG(id,flow,node,billkey,oid,starttime,endtime,request_data,response_data,EXCEPTION,interface_type)values(Trina_SL_Interface_Log_ID_SEQ.Nextval,?,?,?,?,?,?,?,?,?,?)\", o, false);\nreturn com.bokesoft.dee.mule.util.json.JSONUtil.toJson(rsmap);",
+      "smallType": "GroovyScriptWithDS",
+      "className": "com.bokesoft.exchange.transformer.ScriptWithDSTransformer",
+      "enable": "true",
+      "parentId": "402880e961e9a0780161e9d4fdee0030",
+      "bigType": "transformer_au",
+      "simpleMpLog": "false",
+      "ds": "2c9081d05be7e572015be80fcb64000f",
+      "isRef": "false",
+      "id": "402880e961e9a0780161e9d988200038"
+    }
+  ],
+  "normal": [
+    {
+      "text": "实时回写BPM物料分配单表InvItemInterface的数据至ERP的入口",
+      "description": "实时回写BPM物料分配单表InvItemInterface的数据至ERP的入口",
+      "address": "vm://ERP_Insert_InvItemInterface_To_BPM",
+      "exchange_pattern": "request-response",
+      "smallType": "VM",
+      "className": "",
+      "enable": "true",
+      "parentId": "402880e961e9a0780161e9d4fdee0030",
+      "bigType": "inbound",
+      "simpleMpLog": "false",
+      "encoding": "UTF-8",
+      "isRef": "false",
+      "id": "402880e961e9a0780161e9d6c76f0035"
+    },
+    {
+      "text": "实时记录回写BPM物料分配单InvItemInterface表的数据至ERP开始时间",
+      "description": "实时记录回写BPM物料分配单InvItemInterface表的数据至ERP开始时间",
+      "scriptContent": "String begintime = new java.text.SimpleDateFormat(\"yyyyMMdd HH:mm:ss.SSS\").format(new java.sql.Timestamp(java.lang.System.currentTimeMillis()));\nMap logmap = new HashMap();\nlogmap.put(\"begintime\", begintime);\nlogmap.put(\"flow\", payload.get(\"flow\"));\nlogmap.put(\"node\", payload.get(\"node\"));\nlogmap.put(\"oid\", payload.get(\"oid\"));\nlogmap.put(\"billkey\", payload.get(\"billkey\"));\nlogmap.put(\"request_data\", payload.get(\"json\"));\nmessage.setInboundProperty(\"logmap\", logmap);\nreturn payload;",
+      "smallType": "GroovyScriptTransformer",
+      "className": "org.mule.module.scripting.transformer.ScriptTransformer",
+      "enable": "true",
+      "parentId": "402880e961e9a0780161e9d4fdee0030",
+      "bigType": "transformer_au",
+      "simpleMpLog": "false",
+      "isRef": "false",
+      "id": "402880e961e9a0780161e9d7edbf0036"
+    },
+    {
+      "ignoreSQLError": "false",
+      "text": "实时回写BPM物料分配单InvItemInterface表的数据至ERP",
+      "description": "实时回写BPM物料分配单InvItemInterface表的数据至ERP",
+      "scriptContent": "Object[] o = new Object[33];\no[0] = payload.get(\"item_segment1\");\no[1] = payload.get(\"inventory_item_id\");\no[2] = payload.get(\"description\");\no[3] = payload.get(\"primary_uom_code\");\no[4] = payload.get(\"category_id1\");\no[5] = payload.get(\"category_id2\");\no[6] = payload.get(\"planning_make_buy_code\");\no[7] = payload.get(\"cost_of_sales_account\");\no[8] = payload.get(\"buyer_name\");\no[9] = payload.get(\"receipt_required_flag\");\no[10] = payload.get(\"inspection_required_flag\");\no[11] = payload.get(\"receiving_routing_id\");\no[12] = payload.get(\"inventory_planning_code\");\no[13] = payload.get(\"mrp_planning_code\");\no[14] = payload.get(\"postprocessing_lead_time\");\no[15] = payload.get(\"fixed_lead_time\");\no[16] = payload.get(\"wip_supply_type\");\no[17] = payload.get(\"shrinkage_rate\");\no[18] = payload.get(\"full_lead_time\");\no[19] = payload.get(\"template_id\");\no[20] = payload.get(\"source_code\");\no[21] = payload.get(\"source_id\");\no[22] = payload.get(\"source_line_id\");\no[23] = payload.get(\"process_type\");\no[24] = payload.get(\"process_status\");\no[25] = payload.get(\"process_message\");\no[26] = payload.get(\"row_version_number\");\no[27] = payload.get(\"created_by\");\no[28] = payload.get(\"last_updated_by\");\no[29] = payload.get(\"attribute17\");\no[30] = payload.get(\"attribute18\");\no[31] = payload.get(\"attribute19\");\no[32] = payload.get(\"attribute4\");\ndbop.saveOrUpdate(\"Insert into apps.cux3_inv_item_interface (item_segment1,inventory_item_id,description,primary_uom_code,category_id1,category_id2,planning_make_buy_code,cost_of_sales_account,buyer_name,receipt_required_flag,inspection_required_flag,receiving_routing_id,inventory_planning_code,mrp_planning_code,postprocessing_lead_time,fixed_lead_time,wip_supply_type,shrinkage_rate,full_lead_time,template_id,source_code,source_id,source_line_id,process_type,process_status,process_date,process_message,row_version_number,creation_date,created_by,last_updated_by,last_update_date,attribute17,attribute18,attribute19,attribute4) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,sysdate,?,?,sysdate,?,?,sysdate,?,?,?,?)\", o, false);\nreturn true;",
+      "smallType": "GroovyScriptWithDS",
+      "className": "com.bokesoft.exchange.transformer.ScriptWithDSTransformer",
+      "enable": "true",
+      "queries": "[{\"value\":\"Insert into apps.cux3_inv_item_interface (item_segment1,inventory_item_id,description,primary_uom_code,category_id1,category_id2,planning_make_buy_code,cost_of_sales_account,buyer_name,receipt_required_flag,inspection_required_flag,receiving_routing_id,inventory_planning_code,mrp_planning_code,postprocessing_lead_time,fixed_lead_time,wip_supply_type,shrinkage_rate,full_lead_time,template_id,source_code,source_id,source_line_id,process_type,process_status,process_date,process_message,row_version_number,creation_date,created_by,last_updated_by,last_update_date,attribute17,attribute18,attribute19,attribute4) values (#[map-payload:item_segment1],#[map-payload:inventory_item_id],#[map-payload:description],#[map-payload:primary_uom_code],#[map-payload:category_id1],#[map-payload:category_id2],#[map-payload:planning_make_buy_code],#[map-payload:cost_of_sales_account],#[map-payload:buyer_name,#[map-payload:receipt_required_flag],#[map-payload:inspection_required_flag],#[map-payload:receiving_routing_id],#[map-payload:inventory_planning_code],#[map-payload:mrp_planning_code],#[map-payload:postprocessing_lead_time],#[map-payload:fixed_lead_time],#[map-payload:wip_supply_type],#[map-payload:shrinkage_rate],#[map-payload:full_lead_time],#[map-payload:template_id],#[map-payload:source_code],#[map-payload:source_id],#[map-payload:source_line_id],#[map-payload:process_type],#[map-payload:process_status],sysdate,#[map-payload:process_message],#[map-payload:row_version_number],sysdate,#[map-payload:created_by],#[map-payload:last_updated_by],sysdate,#[map-payload:attribute17],#[map-payload:attribute18],#[map-payload:attribute19],#[map-payload:attribute4])\"}]",
+      "parentId": "402880e961e9a0780161e9d4fdee0030",
+      "bigType": "transformer_au",
+      "simpleMpLog": "false",
+      "resultIndexOf": 1,
+      "isRef": "false",
+      "id": "402880e961e9a0780161e9d88cd00037",
+      "ds": "8aaae09b5bf03e9f015bf17bc58e061f"
+    }
+  ],
+  "exception": [
+    {
+      "text": "把异常对象转换为文本",
+      "description": "把异常对象转换为文本",
+      "className": "com.bokesoft.exchange.transformer.ExceptionMessageTransformer",
+      "smallType": "ExceptionMessageTransformer",
+      "enable": "true",
+      "parentId": "402880e961e9a0780161e9d4fdee0030",
+      "bigType": "GGPZTransformer",
+      "isRef": "true",
+      "id": "402880e961e9a0780161e9d4fe3e0031"
+    },
+    {
+      "path": "${bokedee.logpath.runtimeLog}/ERP_Insert_InvItemInterface_To_BPM",
+      "text": "记录错误日志到文件_ERP_Insert_InvItemInterface_To_BPM",
+      "description": "",
+      "className": "",
+      "smallType": "File",
+      "enable": "true",
+      "outputPattern": "#[function:datestamp:yyyyMMddHHmmss]-#[message:id].xml",
+      "parentId": "402880e961e9a0780161e9d4fdee0030",
+      "bigType": "outbound",
+      "file_subdir": "#[context:serviceName]/#[function:datestamp:yyyyMMdd]",
+      "isRef": "false",
+      "id": "402880e961e9a0780161e9d4fee80032"
+    },
+    {
+      "text": "把异常信息替换换行符_ERP_Insert_InvItemInterface_To_BPM",
+      "description": "把异常信息替换换行符",
+      "scriptContent": "String exceptionContent = message.getPayload();String exception = exceptionContent.replace(\"\\n\", \"<br/>\");message.setPayload(exception);return message;",
+      "smallType": "GroovyScriptTransformer",
+      "className": "org.mule.module.scripting.transformer.ScriptTransformer",
+      "enable": "false",
+      "parentId": "402880e961e9a0780161e9d4fdee0030",
+      "bigType": "transformer_au",
+      "simpleMpLog": "false",
+      "isRef": "false",
+      "id": "402880e961e9a0780161e9d4ff9d0033"
+    },
+    {
+      "text": "把异常信息通过邮件发送_ERP_Insert_InvItemInterface_To_BPM",
+      "description": "把异常信息通过邮件发送",
+      "connector_ref": "bokedee_default_smtp_connector",
+      "subject": "ERP_Insert_InvItemInterface_To_BPM",
+      "className": "",
+      "smallType": "SMTP",
+      "enable": "false",
+      "parentId": "402880e961e9a0780161e9d4fdee0030",
+      "bigType": "outbound",
+      "encoding": "UTF-8",
+      "isRef": "false",
+      "id": "402880e961e9a0780161e9d500470034"
+    }
+  ]
+}

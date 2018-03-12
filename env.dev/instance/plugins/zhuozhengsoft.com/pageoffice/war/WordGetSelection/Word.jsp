@@ -1,24 +1,22 @@
 <%@ page language="java"
 	import="java.util.*,com.zhuozhengsoft.pageoffice.*,com.zhuozhengsoft.pageoffice.wordwriter.*"
-	pageEncoding="gb2312"%>
-<%@ taglib uri="http://java.pageoffice.cn" prefix="po"%>
+	pageEncoding="utf-8"%>
 <%
-//******************************×¿ÕıPageOffice×é¼şµÄÊ¹ÓÃ*******************************
+//******************************å“æ­£PageOfficeç»„ä»¶çš„ä½¿ç”¨*******************************
 	PageOfficeCtrl poCtrl1 = new PageOfficeCtrl(request);
-	poCtrl1.setServerPage(request.getContextPath()+"/poserver.zz"); //´ËĞĞ±ØĞë
-	//Òş²Ø²Ëµ¥À¸
+	poCtrl1.setServerPage(request.getContextPath()+"/poserver.zz"); //æ­¤è¡Œå¿…é¡»
+	//éšè—èœå•æ 
 	poCtrl1.setMenubar(false);
-	//Ìí¼Ó×Ô¶¨Òå°´Å¥
-	poCtrl1.addCustomToolButton("»ñÈ¡wordÑ¡ÖĞµÄÎÄ×Ö","getSelectionText",5);
+	//æ·»åŠ è‡ªå®šä¹‰æŒ‰é’®
+	poCtrl1.addCustomToolButton("è·å–wordé€‰ä¸­çš„æ–‡å­—","getSelectionText",5);
 
-	poCtrl1.webOpen("doc/test.doc", OpenModeType.docNormalEdit, "ÕÅÈı");
-	poCtrl1.setTagId("PageOfficeCtrl1"); //´ËĞĞ±ØĞë	
+	poCtrl1.webOpen("doc/test.doc", OpenModeType.docNormalEdit, "å¼ ä¸‰");
 
 %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
-    <title>ÑİÊ¾£ºjs»ñÈ¡wordÑ¡ÖĞµÄÎÄ×Ö</title>
+    <title>æ¼”ç¤ºï¼šjsè·å–wordé€‰ä¸­çš„æ–‡å­—</title>
 
     <script type="text/javascript">
     function  getSelectionText()
@@ -27,7 +25,7 @@
             document.getElementById("PageOfficeCtrl1").Alert(document.getElementById("PageOfficeCtrl1").Document.Application.Selection.Range.Text);
 	    }
 	    else{
-	        document.getElementById("PageOfficeCtrl1").Alert("ÄúÃ»ÓĞÑ¡ÔñÈÎºÎÎÄ±¾¡£");
+	        document.getElementById("PageOfficeCtrl1").Alert("æ‚¨æ²¡æœ‰é€‰æ‹©ä»»ä½•æ–‡æœ¬ã€‚");
 	    }     
     }
     </script>
@@ -36,16 +34,15 @@
 <body>
     <div style="font-size: 12px; line-height: 20px; border-bottom: dotted 1px #ccc; border-top: dotted 1px #ccc;
         padding: 5px;">
-        <span style="color: red;">²Ù×÷ËµÃ÷£º</span>Ñ¡ÖĞwordÎÄ¼şÖĞµÄÒ»¶ÎÎÄ×Ö£¬È»ºóµã¡°»ñÈ¡Ñ¡ÖĞÎÄ×Ö¡±°´Å¥¡£<br />
-        ¹Ø¼ü´úÂë£ºµãÓÒ¼ü£¬Ñ¡Ôñ¡°²é¿´Ô´ÎÄ¼ş¡±£¬¿´jsº¯Êı<span style="background-color: Yellow;">getSelectionText()</span></div>
+        <span style="color: red;">æ“ä½œè¯´æ˜ï¼š</span>é€‰ä¸­wordæ–‡ä»¶ä¸­çš„ä¸€æ®µæ–‡å­—ï¼Œç„¶åç‚¹â€œè·å–é€‰ä¸­æ–‡å­—â€æŒ‰é’®ã€‚<br />
+        å…³é”®ä»£ç ï¼šç‚¹å³é”®ï¼Œé€‰æ‹©â€œæŸ¥çœ‹æºæ–‡ä»¶â€ï¼Œçœ‹jså‡½æ•°<span style="background-color: Yellow;">getSelectionText()</span></div>
     
-    <input id="Button1" type="button" onclick="getSelectionText();" value="js»ñÈ¡wordÑ¡ÖĞµÄÎÄ×Ö" /><br />
+    <input id="Button1" type="button" onclick="getSelectionText();" value="jsè·å–wordé€‰ä¸­çš„æ–‡å­—" /><br />
     <form id="form1">
     <div style=" width:auto; height:700px;">
-        <!--**************   PageOffice ¿Í»§¶Ë´úÂë¿ªÊ¼    ************************-->
-        <po:PageOfficeCtrl id="PageOfficeCtrl1">
-        </po:PageOfficeCtrl>
-        <!--**************   PageOffice ¿Í»§¶Ë´úÂë½áÊø    ************************-->
+        <!--**************   PageOffice å®¢æˆ·ç«¯ä»£ç å¼€å§‹    ************************-->
+              <%=poCtrl1.getHtmlCode("PageOfficeCtrl1")%>
+        <!--**************   PageOffice å®¢æˆ·ç«¯ä»£ç ç»“æŸ    ************************-->
     </div>
     </form>
 </body>

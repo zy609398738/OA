@@ -1,0 +1,10 @@
+{
+  "id": "ff8080815c1ae53d015c1ebb8587016b",
+  "startIndex": "",
+  "text": "ERP_SubRegion_TO_BPM",
+  "autoRun": "true",
+  "description": "实时查询ERP系统销售合同单据子区域信息",
+  "responseTime": "600000",
+  "changePort": "",
+  "oldPort": ""
+}

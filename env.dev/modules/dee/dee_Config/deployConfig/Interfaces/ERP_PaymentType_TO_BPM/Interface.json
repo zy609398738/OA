@@ -1,0 +1,10 @@
+{
+  "id": "8aaae0c05f03ab5e015f03deb8c8001c",
+  "startIndex": "",
+  "autoRun": "true",
+  "changePort": "",
+  "responseTime": "600000",
+  "description": "实时查询ERP系统模板合同单据付款方式信息",
+  "text": "ERP_PaymentType_TO_BPM",
+  "oldPort": ""
+}

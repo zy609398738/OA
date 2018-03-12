@@ -1,6 +1,6 @@
 <%@ page language="java"
 	import="java.util.*,java.sql.*,com.zhuozhengsoft.pageoffice.wordreader.*,com.zhuozhengsoft.pageoffice.*"
-	pageEncoding="gb2312"%>
+	pageEncoding="utf-8"%>
 <%
 	String err = "";
 	String id = request.getParameter("ID");
@@ -14,11 +14,11 @@
 		Statement stmt = conn.createStatement();
 
 		String userName = "", deptName = "", salTotoal = "0", salDeduct = "0", salCount = "0", dateTime = "";
-		//-----------  PageOffice ·şÎñÆ÷¶Ë±à³Ì¿ªÊ¼  -------------------//
+		//-----------  PageOffice æœåŠ¡å™¨ç«¯ç¼–ç¨‹å¼€å§‹  -------------------//
 		WordDocument doc = new WordDocument(request, response);
 		userName = doc.openDataRegion("PO_UserName").getValue();
 		deptName = doc.openDataRegion("PO_DeptName").getValue();
-                //½«¸ñÊ½»¯µÄÊı¾İ×ª»¯ÎªString´æµ½Êı¾İ¿â
+                //å°†æ ¼å¼åŒ–çš„æ•°æ®è½¬åŒ–ä¸ºStringå­˜åˆ°æ•°æ®åº“
 		salTotoal =doc.openDataRegion("PO_SalTotal").getValue();
 		salDeduct = doc.openDataRegion("PO_SalDeduct").getValue();
 		salCount = doc.openDataRegion("PO_SalCount").getValue();
@@ -31,14 +31,14 @@
 				
 		int count = stmt.executeUpdate(sql);
 		if (count > 0) {
-			//Ïò¿Í»§¶Ë¿Ø¼ş·µ»ØÒÔÉÏ´úÂëÖ´ĞĞ³É¹¦µÄÏûÏ¢¡£
+			//å‘å®¢æˆ·ç«¯æ§ä»¶è¿”å›ä»¥ä¸Šä»£ç æ‰§è¡ŒæˆåŠŸçš„æ¶ˆæ¯ã€‚
 			doc.setCustomSaveResult("ok");
 		}
 		doc.close();
 		conn.close();
 	} else {
 
-		err = "<script>alert('Î´»ñµÃÎÄ¼şµÄID£¬±£´æÊ§°Ü£¡');location.href='Default.aspx'</script>";
+		err = "<script>alert('æœªè·å¾—æ–‡ä»¶çš„IDï¼Œä¿å­˜å¤±è´¥ï¼');location.href='Default.aspx'</script>";
 	}
 %>
 

@@ -1,25 +1,25 @@
 <%@ page language="java"
 	import="java.util.*,com.zhuozhengsoft.pageoffice.*"
-	pageEncoding="gb2312"%>
-<%@ taglib uri="http://java.pageoffice.cn" prefix="po"%>
+	pageEncoding="utf-8"%>
 <%
-//******************************×¿ÕıPageOffice×é¼şµÄÊ¹ÓÃ*******************************
-	//ÉèÖÃPageOffice·şÎñÆ÷×é¼ş
+//******************************å“æ­£PageOfficeç»„ä»¶çš„ä½¿ç”¨*******************************
+	//è®¾ç½®PageOfficeæœåŠ¡å™¨ç»„ä»¶
 	PageOfficeCtrl poCtrl1 = new PageOfficeCtrl(request);
-	poCtrl1.setServerPage(request.getContextPath()+"/poserver.zz"); //´ËĞĞ±ØĞë
+	poCtrl1.setServerPage(request.getContextPath()+"/poserver.zz"); //æ­¤è¡Œå¿…é¡»
         poCtrl1.setJsFunction_AfterDocumentOpened("AfterDocumentOpened()");
-        poCtrl1.addCustomToolButton("±£´æ", "Save()", 1); 
-	poCtrl1.setOfficeToolbars(false);//Òş²Øoffice¹¤¾ßÀ¸
+        poCtrl1.addCustomToolButton("ä¿å­˜", "Save()", 1); 
+	poCtrl1.setOfficeToolbars(false);//éšè—officeå·¥å…·æ 
         poCtrl1.setSaveFilePage("SaveFile.jsp");
-	//´ò¿ªÎÄ¼ş
+	//æ‰“å¼€æ–‡ä»¶
 	poCtrl1.webOpen("doc/test.doc", OpenModeType.docRevisionOnly, "Tom");
-	poCtrl1.setTagId("PageOfficeCtrl1"); //´ËĞĞ±ØĞë	
+	
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title></title>
+
 </head>
 
 <body>
@@ -33,7 +33,7 @@
             refreshList();
         }
         
-          //»ñÈ¡µ±Ç°ºÛ¼£ÁĞ±í
+          //è·å–å½“å‰ç—•è¿¹åˆ—è¡¨
          function refreshList() {
             var i;
             document.getElementById("ul_Comments").innerHTML = "";
@@ -41,23 +41,23 @@
                 var str = "";
                 str = str + document.getElementById("PageOfficeCtrl1").Document.Revisions.Item(i).Author;
                 var  revisionDate=document.getElementById("PageOfficeCtrl1").Document.Revisions.Item(i).Date;
-                 //×ª»»Îª±ê×¼Ê±¼ä
+                 //è½¬æ¢ä¸ºæ ‡å‡†æ—¶é—´
                  str=str+" "+dateFormat(revisionDate,"yyyy-MM-dd HH:mm:ss");
                   
                 if (document.getElementById("PageOfficeCtrl1").Document.Revisions.Item(i).Type == "1") {
-                    str = str + ' ²åÈë£º' + document.getElementById("PageOfficeCtrl1").Document.Revisions.Item(i).Range.Text;
+                    str = str + ' æ’å…¥ï¼š' + document.getElementById("PageOfficeCtrl1").Document.Revisions.Item(i).Range.Text;
                 }
                 else if (document.getElementById("PageOfficeCtrl1").Document.Revisions.Item(i).Type == "2") {
-                    str = str + ' É¾³ı£º' + document.getElementById("PageOfficeCtrl1").Document.Revisions.Item(i).Range.Text;
+                    str = str + ' åˆ é™¤ï¼š' + document.getElementById("PageOfficeCtrl1").Document.Revisions.Item(i).Range.Text;
                 }
                 else {
-                    str = str + ' µ÷Õû¸ñÊ½»òÑùÊ½¡£';
+                    str = str + ' è°ƒæ•´æ ¼å¼æˆ–æ ·å¼ã€‚';
                 }
                 document.getElementById("ul_Comments").innerHTML += "<li><a href='#' onclick='goToRevision(" + i + ")'>" + str + "</a></li>"
             }
 
         }
-         //GMTÊ±¼ä¸ñÊ½×ª»»ÎªCST
+         //GMTæ—¶é—´æ ¼å¼è½¬æ¢ä¸ºCST
           dateFormat = function (date, format) {
             date = new Date(date); 
             var o = {
@@ -80,7 +80,7 @@
             return format;
         }
 
-        //¶¨Î»µ½µ±Ç°ºÛ¼£
+        //å®šä½åˆ°å½“å‰ç—•è¿¹
         function goToRevision(index)
         {
 	        var sMac = "Sub myfunc() " + "\r\n"
@@ -91,7 +91,7 @@
 	        
         }
 
-        //Ë¢ĞÂÁĞ±í
+        //åˆ·æ–°åˆ—è¡¨
        function refresh_click()
         {
 	       refreshList();    
@@ -101,15 +101,14 @@
     </script>
     <div  style=" width:1300px; height:700px;">
         <div id="Div_Comments" style=" float:left; width:200px; height:700px; border:solid 1px red;">
-        <h3>ºÛ¼£ÁĞ±í</h3>
-        <input type="button" name="refresh" value="Ë¢ĞÂ"onclick=" return refresh_click()"/>
+        <h3>ç—•è¿¹åˆ—è¡¨</h3>
+        <input type="button" name="refresh" value="åˆ·æ–°"onclick=" return refresh_click()"/>
         <ul id="ul_Comments">
             
         </ul>
         </div>
        <div style=" width:1050px; height:700px; float:right;">
-        <po:PageOfficeCtrl id="PageOfficeCtrl1" >
-        </po:PageOfficeCtrl>
+                <%=poCtrl1.getHtmlCode("PageOfficeCtrl1")%>
       </div>
     </form>
 </body>

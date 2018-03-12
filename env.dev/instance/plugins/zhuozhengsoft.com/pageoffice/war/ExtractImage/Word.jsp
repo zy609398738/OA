@@ -1,7 +1,6 @@
 ﻿<%@ page language="java"
 	import="java.util.*,com.zhuozhengsoft.pageoffice.*,com.zhuozhengsoft.pageoffice.wordwriter.*"
 	pageEncoding="utf-8"%>
-<%@ taglib uri="http://java.pageoffice.cn" prefix="po"%>
 <%
 	PageOfficeCtrl poCtrl = new PageOfficeCtrl(request);
 	//设置服务器页面
@@ -15,13 +14,13 @@
 	//设置保存页面
 	poCtrl.setSaveDataPage("SaveData.jsp");
 	poCtrl.webOpen("doc/test.doc", OpenModeType.docSubmitForm, "张佚名");
-	poCtrl.setTagId("PageOfficeCtrl1");//此行必需
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 	<head>
 		<title>保存时获取word文档中的图片</title>
+
 	</head>
 	<body>
 
@@ -33,8 +32,7 @@
 			}
 		</script>
 		<div id="div1" style="width: auto; height: 700px;">
-			<po:PageOfficeCtrl id="PageOfficeCtrl1">
-			</po:PageOfficeCtrl>
+			<%=poCtrl.getHtmlCode("PageOfficeCtrl1")%>
 		</div>
 
 	</body>

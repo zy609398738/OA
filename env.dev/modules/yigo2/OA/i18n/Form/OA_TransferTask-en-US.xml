@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <UI>
+        <OA_TransferTask>TransferTask</OA_TransferTask>
+		<cancel>Cancel</cancel>
+        <Lab_Opinion>Opinion</Lab_Opinion>
+        <Lab_Query_Employee>AssignPersonnel</Lab_Query_Employee>
+        <TransferTask>Confirm</TransferTask>
+        <Lab_TransferOpt>AssignPersonnel</Lab_TransferOpt>
+    </UI>
+</StringTable>

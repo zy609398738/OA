@@ -6,7 +6,7 @@ YIUI.Control.RichEditor = YIUI.extend(YIUI.Control, {
      * String。
      * render控件时，为控件自动创建的DOM标签。
      */
-    autoEl: '<textarea></textarea>',
+    autoEl: '<div><textarea></textarea></div>',
     editor: null,
     shadow: null,
     _input: null,
@@ -29,30 +29,29 @@ YIUI.Control.RichEditor = YIUI.extend(YIUI.Control, {
         if(!this.shadow) return;
         if (enable) {
             this.shadow.hide();
-        } else{
+        } else {
             this.shadow.show();
         }
+        this.editor.$txt.attr("contenteditable",enable);
     },
 
-    setVisible: function(visible)  {
+    setVisible: function(visible) {
         this.base(visible);
         if(!this.editor) return;
         if (!visible) {
             this.editor.$editorContainer.css("display", "none");
-        }  else{
+        } else {
             this.editor.$editorContainer.css("display", "block");
         }
     },
 
     onSetHeight: function (height) {
-        this.getOuterEl().css("height", height);
-        var btnHeight = this.editor.$btnContainer.height();
-        this.editor.$txtContainer.css("height", height-btnHeight-3);
-        this.editor.$txt.css("position", "relative");
-        this.editor.$txt.css("min-height", height-btnHeight-3);
-        this.shadow.css("height", height);
-        var btnHeight = this.editor.$btnContainer.height();
-        this.editor.$txtContainer.css("height", this.shadow.height()-btnHeight-3);
+        this.base(height);
+        var btnHeight = this.editor.$btnContainer.outerHeight();
+        var h = this.el.height();
+        this.editor.$txt.css("min-height", h - btnHeight);
+        this.editor.$txtContainer.css("height", h - btnHeight);
+        this.shadow.css("height", btnHeight);
     },
 
     onSetWidth: function (width) {
@@ -63,7 +62,7 @@ YIUI.Control.RichEditor = YIUI.extend(YIUI.Control, {
         }
         btnWidthArr.sort(function (a, b) {
             return a-b;
-        })
+        });
         var maxbtnWidth = btnWidthArr[btnWidthArr.length - 1];
         if (width < maxbtnWidth) {
             var columngap = parseInt(this.getOuterEl().css("margin-left")) || 32;
@@ -76,22 +75,18 @@ YIUI.Control.RichEditor = YIUI.extend(YIUI.Control, {
             this.editor.width = width;
             this.shadow.css("width", width);
         }
-//        this.shadow.css("top", this.editor.$editorContainer.position().top);
-        this.shadow.css("margin-top", this.getOuterEl().css("margin-top"));
-        this.shadow.css("margin-left", this.getOuterEl().css("margin-left"));
     },
 
     onRender: function (ct) {
         this.base(ct);
-        this.editor = this.el.wangEditor();
-        this.el = this.editor.$editorContainer;
-        this.shadow = $("<div class='ui-redt sd'></div>").appendTo(this.container);
+        this.editor = $("textarea", this.el).wangEditor();
+        this.shadow = $("<div class='ui-redt sd'></div>").appendTo(this.el);
         this.shadow.parent().css("position", "relative");
         this._input = this.editor.$txt;
         if (this.value) {
             this._input.html(this.value);
         }
-        this.el.addClass("ui-rich")
+        this.el.addClass("ui-rich");
     },
     focus: function () {
         this.el.attr("tabIndex",this.getTabIndex());

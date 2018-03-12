@@ -1,24 +1,23 @@
 <%@ page language="java"
 	import="java.util.*,java.lang.*,com.zhuozhengsoft.pageoffice.*"
-	pageEncoding="gb2312"%>
+	pageEncoding="utf-8"%>
 <%@page import="com.zhuozhengsoft.pageoffice.excelwriter.*"%>
 <%@page import="java.awt.Color"%>
 <%@page import="java.text.*"%>
-<%@ taglib uri="http://java.pageoffice.cn" prefix="po"%>
 <%
-	//ÉèÖÃPageOfficeCtrl¿Ø¼þµÄ·þÎñÒ³Ãæ
+	//è®¾ç½®PageOfficeCtrlæŽ§ä»¶çš„æœåŠ¡é¡µé¢
 	PageOfficeCtrl poCtrl1 = new PageOfficeCtrl(request);
-	poCtrl1.setServerPage(request.getContextPath()+"/poserver.zz"); //´ËÐÐ±ØÐë
-	poCtrl1.setCaption("Ê¹ÓÃOpenTable¸øExcel¸³Öµ");
-	//¶¨ÒåWorkbook¶ÔÏó
+	poCtrl1.setServerPage(request.getContextPath()+"/poserver.zz"); //æ­¤è¡Œå¿…é¡»
+	poCtrl1.setCaption("ä½¿ç”¨OpenTableç»™Excelèµ‹å€¼");
+	//å®šä¹‰Workbookå¯¹è±¡
 	Workbook workBook = new Workbook();
-	//¶¨ÒåSheet¶ÔÏó£¬"Sheet1"ÊÇ´ò¿ªµÄExcel±íµ¥µÄÃû³Æ
+	//å®šä¹‰Sheetå¯¹è±¡ï¼Œ"Sheet1"æ˜¯æ‰“å¼€çš„Excelè¡¨å•çš„åç§°
 	Sheet sheet = workBook.openSheet("Sheet1");
-	//¶¨ÒåTable¶ÔÏó
+	//å®šä¹‰Tableå¯¹è±¡
 	Table table = sheet.openTable("B4:F13");
     for(int i=0; i < 50; i++)
     { 
-        table.getDataFields().get(0).setValue("²úÆ· " + i);
+        table.getDataFields().get(0).setValue("äº§å“ " + i);
         table.getDataFields().get(1).setValue("100");
         table.getDataFields().get(2).setValue(String.valueOf(100+i));
         table.nextRow();
@@ -27,13 +26,13 @@
     	
 	poCtrl1.setWriter(workBook);
 	
-	//Òþ²Ø²Ëµ¥À¸
+	//éšè—èœå•æ 
 	poCtrl1.setMenubar(false);
-	//Òþ²Ø¹¤¾ßÀ¸
+	//éšè—å·¥å…·æ 
 	poCtrl1.setCustomToolbar(false);
-	//´ò¿ªWordÎÄ¼þ
-	poCtrl1.webOpen("doc/test.xls", OpenModeType.xlsNormalEdit, "ÕÅÈý");
-	poCtrl1.setTagId("PageOfficeCtrl1"); //´ËÐÐ±ØÐë
+	//æ‰“å¼€Wordæ–‡ä»¶
+	poCtrl1.webOpen("doc/test.xls", OpenModeType.xlsNormalEdit, "å¼ ä¸‰");
+
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -46,16 +45,13 @@
 		<meta http-equiv="expires" content="0">
 		<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 		<meta http-equiv="description" content="This is my page">
-		<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
 
 	</head>
 
 	<body>
-		´Ë±í¸ñÖÐµÄÊý¾ÝÊÇÊ¹ÓÃºóÌ¨³ÌÐòÌî³ä½øÈ¥µÄ£¬Çë²é¿´Table.jspµÄ´úÂë£¬Ê¹ÓÃµÄOpenTableµÄ·½·¨£¬¿ÉÒÔÊµÏÖÐÐÔö³¤£¬»¹¿ÉÒÔÑ­»·Ê¹ÓÃÔ­Ä£°åTableÇøÓò£¨B4:F13£©µ¥Ôª¸ñÑùÊ½¡£
+		æ­¤è¡¨æ ¼ä¸­çš„æ•°æ®æ˜¯ä½¿ç”¨åŽå°ç¨‹åºå¡«å……è¿›åŽ»çš„ï¼Œè¯·æŸ¥çœ‹Table.jspçš„ä»£ç ï¼Œä½¿ç”¨çš„OpenTableçš„æ–¹æ³•ï¼Œå¯ä»¥å®žçŽ°è¡Œå¢žé•¿ï¼Œè¿˜å¯ä»¥å¾ªçŽ¯ä½¿ç”¨åŽŸæ¨¡æ¿TableåŒºåŸŸï¼ˆB4:F13ï¼‰å•å…ƒæ ¼æ ·å¼ã€‚
 		<div style="width: 1000px; height: 700px;">
-			<po:PageOfficeCtrl id="PageOfficeCtrl1"></po:PageOfficeCtrl>
+				<%=poCtrl1.getHtmlCode("PageOfficeCtrl1")%>
 		</div>
 	</body>
 </html>

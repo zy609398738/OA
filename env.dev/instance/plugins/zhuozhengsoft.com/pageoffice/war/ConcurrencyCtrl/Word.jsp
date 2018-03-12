@@ -1,46 +1,59 @@
 <%@ page language="java"
 	import="java.util.*,com.zhuozhengsoft.pageoffice.*"
-	pageEncoding="gb2312"%>
-<%@ taglib uri="http://java.pageoffice.cn" prefix="po"%>
+	pageEncoding="utf-8"%>
 <%
 String userName = "somebody";
 
 String userId = request.getParameter("userid").toString();
 if (userId.equals("1"))
 {
-    userName = "ÕÅÈı";
+    userName = "å¼ ä¸‰";
 }
 else
 {
-    userName = "ÀîËÄ";
+    userName = "æå››";
 }
 
 PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
 poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");
-poCtrl.addCustomToolButton("±£´æ","Save",1);
+poCtrl.addCustomToolButton("ä¿å­˜","Save",1);
 poCtrl.setSaveFilePage("SaveFile.jsp");
-//ÉèÖÃ²¢·¢¿ØÖÆÊ±¼ä
+//è®¾ç½®å¹¶å‘æ§åˆ¶æ—¶é—´
 poCtrl.setTimeSlice(20);
 poCtrl.webOpen("doc/test.doc",OpenModeType.docRevisionOnly,userName);
-poCtrl.setTagId("PageOfficeCtrl1");//´ËĞĞ±ØĞè
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
-   <title>×î¼òµ¥µÄ´ò¿ª±£´æWordÎÄ¼ş</title>
+   <title>æœ€ç®€å•çš„æ‰“å¼€ä¿å­˜Wordæ–‡ä»¶</title>
 </head>
 <body>
     <script type="text/javascript">
         function Save() {
             document.getElementById("PageOfficeCtrl1").WebSave();
         }
+        
+        //æ–‡æ¡£å…³é—­å‰å…ˆæç¤ºç”¨æˆ·æ˜¯å¦ä¿å­˜
+        function BeforeBrowserClosed(){
+         if (document.getElementById("PageOfficeCtrl1").IsDirty){
+                if(confirm("æç¤ºï¼šæ–‡æ¡£å·²è¢«ä¿®æ”¹ï¼Œæ˜¯å¦ç»§ç»­å…³é—­æ”¾å¼ƒä¿å­˜ ï¼Ÿ"))
+                {
+                    return  true;
+                    
+                }else{
+                
+                    return  false;
+                }
+	         	
+            }
+             
+        }
     </script>
     <form id="form1" >
-    µ±Ç°ÓÃ»§£º <%=userName %>¡£
+    å½“å‰ç”¨æˆ·ï¼š <%=userName %>ã€‚
     <div style=" width:auto; height:700px;">
-        <po:PageOfficeCtrl id="PageOfficeCtrl1">
-        </po:PageOfficeCtrl>
+     <%=poCtrl.getHtmlCode("PageOfficeCtrl1")%>
     </div>
     </form>
 </body>

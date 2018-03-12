@@ -64,7 +64,7 @@
              */
             focus: true,
 
-            required: false,
+            // required: false,
 
             selectOnFocus: true,
 
@@ -151,13 +151,13 @@
                 return val;
             },
 
-            setRequired: function (required) {
-                if (required) {
-                    this.getEl().addClass('ui-required');
-                } else {
-                    this.getEl().removeClass('ui-required');
-                }
-            },
+            // setRequired: function (required) {
+            //     if (required) {
+            //         this.getEl().addClass('ui-required');
+            //     } else {
+            //         this.getEl().removeClass('ui-required');
+            //     }
+            // },
 
             setBackColor: function (backColor) {
                 this.backColor = backColor;
@@ -267,13 +267,13 @@
              */
             setIcon: function (icon) {
                 this.icon = icon;
-                $('<span class="icon" />').css('background-image', 'url(Resource/' + icon + ')').appendTo(this.getEl());
+                $('<span class="icon" />').css('background-image', 'url("Resource/' + icon + '")').appendTo(this.getEl());
             },
 
             setPreIcon: function (preIcon) {
                 this.preIcon = preIcon;
                 var $this = this.getEl();
-                $('<span class="pre-icon" />').css('background-image', 'url(Resource/' + preIcon + ')').appendTo($this);
+                $('<span class="pre-icon" />').css('background-image', 'url("Resource/' + preIcon + '")').appendTo($this);
             },
 
             /**
@@ -328,10 +328,10 @@
                 if (curValue != self.value) {
                     self.setValue(curValue);
                     self.commitValue(curValue);
-                    if (self.required) {
-                        var required = (curValue == "");
-                        self.setRequired(required);
-                    }
+                    // if (self.required) {
+                    //     var required = (curValue == "");
+                    //     self.setRequired(required);
+                    // }
                 }
             },
 
@@ -353,10 +353,11 @@
                         self.needSelectAll = false;
                     }
                 }).on('focusin',function () {
-                        if (self.selectOnFocus) {
-                            self.needSelectAll = self.selectOnFocus;
-                        }
-                }).keyup(function () {
+                    if (self.selectOnFocus) {
+                        self.needSelectAll = self.selectOnFocus;
+                    }
+                })
+                    .keyup(function () {
                     if (!$.isDefined($(this).attr('readonly'))) {
                         if ($(this).val()) {
                             icon.show();
@@ -367,19 +368,19 @@
                     
                 }).keydown(function (event) {
                 	var key = event.keyCode || event.which;
-                	var isSelect = false;
-                	if(document.selection) {
-                		isSelect = document.selection.createRange().text.length > 0;
-//                	} else if(window.getSelection()){
-//                		isSelect = (this.selectionEnd - this.selectionStart) > 0;
-                	} else {
-                		isSelect = (this.selectionEnd - this.selectionStart) > 0;
-                	}
-                	
-//                	if(key != 8 && !isSelect && (this.value.length >= self.maxLength )) {
-//                		event.preventDefault();
-//						return true;
-//                	}
+                //	var isSelect = false;
+
+                    var nKeyCode = event.keyCode || event.which;
+                    if (nKeyCode >= 37 && nKeyCode <= 40){
+                        return;
+                    }
+
+               // 	if(document.selection) {
+                //		isSelect = document.selection.createRange().text.length > 0;
+                //	} else {
+                //		isSelect = (this.selectionEnd - this.selectionStart) > 0;
+               // 	}
+
                     if (event.ctrlKey) {
                         if (key == 86) {
 

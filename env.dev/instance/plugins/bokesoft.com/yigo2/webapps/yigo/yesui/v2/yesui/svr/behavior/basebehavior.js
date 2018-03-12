@@ -3,9 +3,9 @@ YIUI.BaseBehavior = (function () {
         checkAndSet: function (options, callback) {
         	var oldVal = options.oldVal;
         	var newVal = options.newVal;
-        	if(newVal instanceof Decimal) {
-        		newVal = newVal.toString();
-        	}
+
+            newVal = YIUI.TypeConvertor.toString(newVal);
+
             if (oldVal === newVal) {
                 return false;
             }

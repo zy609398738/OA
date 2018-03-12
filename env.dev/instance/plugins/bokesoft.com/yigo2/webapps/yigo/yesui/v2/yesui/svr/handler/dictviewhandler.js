@@ -132,19 +132,19 @@ YIUI.DictViewHandler = (function () {
             var cxt = new View.Context(form);
             if (itemFilters) {
                 var itemFilter = itemFilters[itemKey];
-
-                for (var i in itemFilter) {
-
-                    var cond = itemFilter[i].cond;
-                    if (cond && cond.length > 0) {
-                        var ret = form.eval(cond, cxt, null);
-                        if (ret == true) {
+                if(itemFilter) {
+                    for(var i = 0, len = itemFilter.length; i < len; i++){
+                        var cond = itemFilter[i].cond;
+                        if (cond && cond.length > 0) {
+                            var ret = form.eval(cond, cxt, null);
+                            if (ret == true) {
+                                filter = itemFilter[i];
+                                break;
+                            }
+                        } else {
                             filter = itemFilter[i];
                             break;
                         }
-                    } else {
-                        filter = itemFilter[i];
-                        break;
                     }
                 }
             }
@@ -152,25 +152,24 @@ YIUI.DictViewHandler = (function () {
             if (filter) {
                 var filterVal
                 var paras = [];
-                for (var j in filter.filterVals) {
-                    filterVal = filter.filterVals[j];
+                if (filter.filterVals) {
+                    for (var j = 0, len = filter.filterVals.length; j < len; j++) {
+                        filterVal = filter.filterVals[j];
+                        switch (filterVal.type) {
+                            case YIUI.FILTERVALUETYPE.CONST:
+                                //paras += content;
+                                paras.push(filterVal.refVal);
+                                break;
+                            case YIUI.FILTERVALUETYPE.FORMULA:
+                            case YIUI.FILTERVALUETYPE.FIELD:
+                                var cxt = new View.Context(form);
+                                //paras += form.eval(content, cxt, null);
 
-
-                    switch (filterVal.type) {
-                        case YIUI.FILTERVALUETYPE.CONST:
-                            //paras += content;
-                            paras.push(filterVal.refVal);
-                            break;
-                        case YIUI.FILTERVALUETYPE.FORMULA:
-                        case YIUI.FILTERVALUETYPE.FIELD:
-                            var cxt = new View.Context(form);
-                            //paras += form.eval(content, cxt, null);
-
-                            paras.push(form.eval(filterVal.refVal, cxt, null));
-                            break;
+                                paras.push(form.eval(filterVal.refVal, cxt, null));
+                                break;
+                        }
                     }
                 }
-
                 var dictFilter = {};
                 dictFilter.itemKey = itemKey;
                 dictFilter.formKey = form.formKey;

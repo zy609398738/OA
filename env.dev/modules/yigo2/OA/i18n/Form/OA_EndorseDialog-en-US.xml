@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <UI>
+        <OA_EndorseDialog>EndorseDialog</OA_EndorseDialog>
+		<cancel>Cancel</cancel>
+        <Lab_Query_Employee>EndorseStaff</Lab_Query_Employee>
+        <SaveCommonViews>SaveCommonViews</SaveCommonViews>
+        <Lab_CommonUseContent>CommonUseContent</Lab_CommonUseContent>
+        <APPROVE>Confirm</APPROVE>
+        <Lab_Endorse>EndorseStaff</Lab_Endorse>
+        <T_Opinion>HandlingSuggestion</T_Opinion>
+    </UI>
+</StringTable>

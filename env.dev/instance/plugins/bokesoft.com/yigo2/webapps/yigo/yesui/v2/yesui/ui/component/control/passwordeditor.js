@@ -10,7 +10,13 @@ YIUI.Control.PasswordEditor = YIUI.extend(YIUI.Control.TextEditor, {
 	 */
     inputType: 'password',
 
-    handler: YIUI.PasswordEditorHandler
+    handler: YIUI.PasswordEditorHandler,
+    
+    setTip: function(tip) {
+    	if(this.el && this.tip) {
+    		this.el.attr("title", this.tip);
+    	}
+    }
     
 });
 YIUI.reg('passwordeditor', YIUI.Control.PasswordEditor);

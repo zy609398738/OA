@@ -76,6 +76,8 @@ YIUI.Control.Dict = YIUI.extend(YIUI.Control, {
 
     independent: false,
 
+    pageMaxNum: 10,
+
 	init : function (options){
 		//this.itemKey = options["itemKey"];
 		//this.otherParam = {"Service":"dictTreeService","Cmd":"getdictchildren","itemKey":this.itemKey};
@@ -103,10 +105,12 @@ YIUI.Control.Dict = YIUI.extend(YIUI.Control, {
     },
 
 	setBackColor: function(backColor) {
+        this.backColor = backColor;
         this.yesDict && this.yesDict.setBackColor(backColor)
 	},
 
 	setForeColor: function(foreColor) {
+        this.foreColor = foreColor;
         this.yesDict && this.yesDict.setForeColor(foreColor);
 	},
 	
@@ -184,8 +188,10 @@ YIUI.Control.Dict = YIUI.extend(YIUI.Control, {
 	   
         var _this = this;
 
-        this.handler.getShowCaption(value, this.multiSelect)
+        this.handler.getShowCaption(value, this.multiSelect, this.independent)
                     .done(function(text){
+                        if( text && !_this.value ) // 可能后台获取标题返回的时候值已经被清空
+                            return;
                         _this.setText(text);
                         _this.setTip(text);
                     });
@@ -303,55 +309,15 @@ YIUI.Control.Dict = YIUI.extend(YIUI.Control, {
     		dataSource: $this.dataSource,
     		independent: $this.independent,
     		multiSelect: $this.multiSelect,
+            pageMaxNum: $this.pageMaxNum,
+            formKey: form.formKey,
+            fieldKey: $this.getMetaObj().key,
     		getItemKey: function() {
     			return $this.itemKey;
     		},
-
             getStateMask: function(){
                 return $this.stateMask;
             },
-
-    	   /* hiding : function (){
-    	    	var value = this.getSelValue();
-    	    	// var changed = $this.isChanged(value);
-    	    	// if(changed) {
-    	    		$this.setValue(value, true, true, false, true);
-    	    	// }
-    	    },*/
-
-    	    // getDictChildren: function(node) {
-
-    	    // 	if ($this.secondaryType != 5) {
-         //            YIUI.DictService.getDictChildren($this.itemKey, 
-         //                                             $this.getDictTree().getNodeValue(node), 
-         //                                             $this.getDictTree().dictFilter,
-         //                                             $this.stateMask)
-         //                            .done(function(nodes){
-         //                                if (nodes) {
-         //                                    var nodeId = node.attr('id');
-         //                                    var syncNodes = $this.getDictTree().formatAsyncData(nodes);
-         //                                    var isHaveNext = nodes.totalRowCount;
-         //                                    nodes = $this.secondaryType == 5 ? nodes.data :nodes;
-         //                                    for(var i=0, len=nodes.length; i<len; i++) {
-                                                
-         //                                        if($this.type == YIUI.CONTROLTYPE.COMPDICT || $this.secondaryType == 5) {
-         //                                            var path = nodeId + "_" + nodes[i].OID;
-         //                                            nodes[i].id = path;
-         //                                        }
-         //                                    }
-         //                                    syncNodes = $this.secondaryType == 5 ? nodes :syncNodes;
-         //                                    $this.getDictTree().buildTreenode(syncNodes , nodeId, parseInt(node.attr("level"))+1, $this.secondaryType, isHaveNext);
-         //                                    $this.secondaryType == 5 ? node.attr('isLoaded',false) : node.attr('isLoaded',true);
-         //                                }
-         //                             });
-    	    // 	} else {
-    	    // 		if (pageMaxNum == null) {
-    	    // 			pageMaxNum = 10;
-    	    // 		}
-        	//     	YIUI.DictService.getQueryData($this.itemKey,$this.yesDict.dictTree.startRow, pageMaxNum,$this.yesDict.dictTree.pageIndicatorCount, $this.yesDict.dictTree.fuzzyValue,  $this.stateMask ,$this.getDictTree().dictFilter, $this.getDictTree().getNodeValue(node),success);
-    	    // 	}
-    	    // },
-
     		checkDict: function() {
                 // var _impl = this;
                 return $this.checkDict();
@@ -363,7 +329,6 @@ YIUI.Control.Dict = YIUI.extend(YIUI.Control, {
           //           _impl.getDictTree().expandNode(_impl.getDictTree().rootNode);
           //       });
     		},
-
             commitValue:function(value){
                 return $this.setValue(value, true, true, false, true);
             },
@@ -388,80 +353,6 @@ YIUI.Control.Dict = YIUI.extend(YIUI.Control, {
 			            	});
                 return def.promise();
             },
-    		/*doLostFocus: function(text, show) {
-    			if($this.autoSel) {
-    				$this.$dictView.hide();
-    				$this.isDictView = false;
-    				return;
-    			}
-
-                if($.isEmptyObject(text)){
-                    $this.setValue(null, true, true, false, true);
-                }else{
-                    //精确匹配
-                    var rootValue = null;
-                    if ($this.getDictTree().rootNode != null) {
-                        rootValue = $this.getDictTree().getNodeValue($this.getDictTree().rootNode);
-                    }
-
-                    var ret = null
-                    if (!$.isEmptyObject(text)) {
-                        ret = YIUI.DictService.locate2($this.itemKey, 'Code', text, $this.getDictTree().dictFilter, rootValue, $this.stateMask)
-                                              .then(function(data){
-                                                    if(data){
-                                                        var value = new YIUI.ItemData(data);
-                                                        
-                                                        var change = $this.setValue(value, true, true);
-                                            
-                                                        //值未改变时 还原Text
-                                                        if(!change){
-                                                              $this.setText($this.text); 
-                                                        }
-                                                    }else{
-                                                        _showDictQueryPane();
-                                                    }
-                                              });
-
-             
-                        var _showDictQueryPane = function(){
-                            var options = {
-                                fuzzyValue: text,
-                                itemKey: $this.itemKey,
-                                caption: $this.caption,
-                                rootValue: rootValue,
-                                stateMask: $this.stateMask,
-                                dictFilter: $this.getDictTree().dictFilter,
-                                displayCols: $this.displayCols,
-                                startRow: 0,
-                                maxRows: 5,
-                                pageIndicatorCount: 3,
-                                columns: $this.displayColumns,
-                                textInput: $('input', $this.el),
-                                callback: function (itemData) {
-                                    if (itemData) {
-                                        $this.setValue(itemData, true, true);
-                                    } else {
-                                        $this.setText($this.text);
-                                    }
-                                    //$this.isShowQuery = false;
-                                }
-                            };
-                            var dictquery = new YIUI.DictQuery(options);
-                        }
-                    }
-                }
-
-
-    	// 		if(!$this.multiSelect && (!$.isEmptyObject(text) || show)){
-    	// 			if(($this.hasSuggest && !$this.isSuggest) || $this.hasSuggest == false) {
-    	// 				$this.$dictView.hide();
-    	// 			}
-    	// 			$this.handler.autoComplete($this, text);
-    	// 		} else {
-					
-					// $this.setText('');
-    	// 		}
-    		},*/
     		valueChange: function(text) {
     			$this.handler.doLostFocus($this, text);
 			},
@@ -486,42 +377,11 @@ YIUI.Control.Dict = YIUI.extend(YIUI.Control, {
     		}
     	});
         this.el.addClass("ui-dict");
-        //this.setMultiSelect(this.multiSelect);
-//        this.setEnable(this.enable);
-//        this.setEditable(this.editable);
-        
-    //     if(this.value) {
-    //     	if(this.multiSelect) {
-    //     		var vals = [];
-    //     		for (var i = 0, len = this.value.length; i < len; i++) {
-				// 	var val = this.value[i];
-	   //      		var value = new YIUI.ItemData(val);
-	   //      		vals.push(value);
-				// }
-    //     		this.value = vals;
-    //     	} else {
-    //     		var opts = this.value;
-    //     		opts.caption = this.text;
-    //     		var value = new YIUI.ItemData(opts);
-    //     		this.value = value;
-    //     	}
-    //     }
-        //this.setValue(this.value);
+
         this.checkEnd(this.value);
         this.setMultiSelect(this.multiSelect);
         this.setDynamic(this.isDynamic);
         this.setStateMask(this.stateMask);
-        //this.setText(this.text);
-        
-      //  this.dictTree = this.yesDict.dictTree;
-        
-      //  if(this.root){
-      //  	dictTree.createRootNode(this.root.itemKey,this.root.itemKey+'_'+this.root.soid,this.caption);
-      //  }else{
-       // 	dictTree.createRootNode(this.itemKey,this.itemKey+'_'+0,this.caption);
-      //  }
-      
-	
     },
     
     setStateMask: function(stateMask) {
@@ -776,6 +636,9 @@ YIUI.Control.Dict = YIUI.extend(YIUI.Control, {
 		if(this.needRebuild){
 			this.setText("");
 			this.setValue(null, true, true, false, true);
+            if(this.yesDict){
+                this.getDictTree().startRow = 0;
+            }
 		}
 	},
     
@@ -835,5 +698,3 @@ YIUI.Control.Dict = YIUI.extend(YIUI.Control, {
 YIUI.reg('dict', YIUI.Control.Dict);
 YIUI.reg('compdict', YIUI.Control.Dict);
 YIUI.reg('dynamicdict', YIUI.Control.Dict);
-//字典分页单页显示数量的全局变量
-var pageMaxNum;

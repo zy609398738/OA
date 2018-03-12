@@ -17,14 +17,15 @@
              bCancel: YIUI.I18N.dict.cancel
         },
         nav: {
-        	 addtext: "",  //新增按钮名称
              addtitle: YIUI.I18N.grid.addRecord,
-             deltext: "", //删除按钮名称
              deltitle: YIUI.I18N.grid.delRecord,
-             uprowtext: "",  //上移按钮名称
              uprowtitle: YIUI.I18N.grid.moveUp,
-             downrowtext: "", //删除按钮名称
-             downrowtitle: YIUI.I18N.grid.moveDown
+             downrowtitle: YIUI.I18N.grid.moveDown,
+             bestwidthtitle: YIUI.I18N.grid.bestWidth,
+             frozencoltitle: YIUI.I18N.grid.frozencol,
+             frozenrowtitle: YIUI.I18N.grid.frozenrow,
+             unfrozencoltitle: YIUI.I18N.grid.unfrozencol,
+             unfrozenrowtitle: YIUI.I18N.grid.unfrozenrow,
         },
         formatter: {
             integer: {thousandsSeparator: ",", defaultValue: '0'},

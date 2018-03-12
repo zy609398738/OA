@@ -1,53 +1,48 @@
 <%@ page language="java"
 	import="java.util.*,com.zhuozhengsoft.pageoffice.*,com.zhuozhengsoft.pageoffice.wordwriter.*"
-	pageEncoding="gb2312"%>
-<%@ taglib uri="http://java.pageoffice.cn" prefix="po"%>
+	pageEncoding="utf-8"%>
 <%
 	PageOfficeCtrl poCtrl1 = new PageOfficeCtrl(request);
-	poCtrl1.setServerPage(request.getContextPath()+"/poserver.zz"); //´ËÐÐ±ØÐë
+	poCtrl1.setServerPage(request.getContextPath()+"/poserver.zz"); //æ­¤è¡Œå¿…é¡»
 	WordDocument doc=new WordDocument();
-	//´´½¨Êý¾ÝÇøÓò£¬createDataRegion ·½·¨ÖÐµÄÈý¸ö²ÎÊý·Ö±ð´ú±í¡°ÐÂ½¨µÄÊý¾ÝÇøÓòÃû³Æ¡±£¬¡°Êý¾ÝÇøÓò½«Òª²åÈëµÄÎ»ÖÃ¡±£¬
-	//¡°ÓëÐÂ½¨µÄÊý¾ÝÇøÓòÏà¹ØÁªµÄÊý¾ÝÇøÓòÃû³Æ¡±£¬Èôµ±Ç°WordÎÄµµÖÐÉÐÎÞÊý¾ÝÇøÓò£¨ÊéÇ©£©»òÕßÏëÔÚÎÄµµµÄ×î¿ªÍ·´´½¨Ê±£¬ÄÇÃ´µÚÈý¸ö²ÎÊýÎª¡°[home]¡±
-	//ÈôÏëÔÚÎÄµµµÄ½áÎ²´¦´´½¨Êý¾ÝÇøÓòÔòµÚÈý¸ö²ÎÊýÎª¡°[end]¡±
+	//åˆ›å»ºæ•°æ®åŒºåŸŸï¼ŒcreateDataRegion æ–¹æ³•ä¸­çš„ä¸‰ä¸ªå‚æ•°åˆ†åˆ«ä»£è¡¨â€œæ–°å»ºçš„æ•°æ®åŒºåŸŸåç§°â€ï¼Œâ€œæ•°æ®åŒºåŸŸå°†è¦æ’å…¥çš„ä½ç½®â€ï¼Œ
+	//â€œä¸Žæ–°å»ºçš„æ•°æ®åŒºåŸŸç›¸å…³è”çš„æ•°æ®åŒºåŸŸåç§°â€ï¼Œè‹¥å½“å‰Wordæ–‡æ¡£ä¸­å°šæ— æ•°æ®åŒºåŸŸï¼ˆä¹¦ç­¾ï¼‰æˆ–è€…æƒ³åœ¨æ–‡æ¡£çš„æœ€å¼€å¤´åˆ›å»ºæ—¶ï¼Œé‚£ä¹ˆç¬¬ä¸‰ä¸ªå‚æ•°ä¸ºâ€œ[home]â€
+	//è‹¥æƒ³åœ¨æ–‡æ¡£çš„ç»“å°¾å¤„åˆ›å»ºæ•°æ®åŒºåŸŸåˆ™ç¬¬ä¸‰ä¸ªå‚æ•°ä¸ºâ€œ[end]â€
 	DataRegion dataRegion1 =  doc.createDataRegion("reg1",DataRegionInsertType.After,"[home]");
-	//ÉèÖÃ´´½¨µÄÊý¾ÝÇøÓòµÄ¿É±à¼­ÐÔ
+	//è®¾ç½®åˆ›å»ºçš„æ•°æ®åŒºåŸŸçš„å¯ç¼–è¾‘æ€§
 	dataRegion1.setEditing(true);
-	//¸øÊý¾ÝÇøÓò¸³Öµ
-	dataRegion1.setValue("µÚÒ»¸öÊý¾ÝÇøÓò\r\n");
+	//ç»™æ•°æ®åŒºåŸŸèµ‹å€¼
+	dataRegion1.setValue("ç¬¬ä¸€ä¸ªæ•°æ®åŒºåŸŸ\r\n");
 	
 	DataRegion dataRegion2 = doc.createDataRegion("reg2",DataRegionInsertType.After,"reg1");
 	dataRegion2.setEditing(true);
-	dataRegion2.setValue("µÚ¶þ¸öÊý¾ÝÇøÓò");
+	dataRegion2.setValue("ç¬¬äºŒä¸ªæ•°æ®åŒºåŸŸ");
 	
 	poCtrl1.setWriter(doc);
-	//Òþ²Ø²Ëµ¥À¸
+	//éšè—èœå•æ 
 	poCtrl1.setMenubar(false);
-		//Òþ²Ø¹¤¾ßÀ¸
+		//éšè—å·¥å…·æ 
 	poCtrl1.setCustomToolbar(false);
-	//´ò¿ªWordÎÄ¼þ
-	poCtrl1.webOpen("doc/test.doc", OpenModeType.docNormalEdit,"ÕÅÈý");
-	poCtrl1.setTagId("PageOfficeCtrl1"); //´ËÐÐ±ØÐë
+	//æ‰“å¼€Wordæ–‡ä»¶
+	poCtrl1.webOpen("doc/test.doc", OpenModeType.docNormalEdit,"å¼ ä¸‰");
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 	<head>
-		<title>ÐÂ½¨Êý¾ÝÇøÓò</title>
+		<title>æ–°å»ºæ•°æ®åŒºåŸŸ</title>
 
 		<meta http-equiv="pragma" content="no-cache">
 		<meta http-equiv="cache-control" content="no-cache">
 		<meta http-equiv="expires" content="0">
 		<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 		<meta http-equiv="description" content="This is my page">
-		<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
 
 	</head>
 
 	<body>
 		<div style="width: auto; height: 700px;">
-			<po:PageOfficeCtrl id="PageOfficeCtrl1"></po:PageOfficeCtrl>
+		<%=poCtrl1.getHtmlCode("PageOfficeCtrl1")%>
 		</div>
 	</body>
 </html>

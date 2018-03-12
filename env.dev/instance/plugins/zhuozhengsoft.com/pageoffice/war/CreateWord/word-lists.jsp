@@ -1,6 +1,7 @@
 <%@ page language="java" 
 	import="java.util.*, java.sql.*,java.io.*,javax.servlet.*,javax.servlet.http.*,java.text.SimpleDateFormat,java.util.Date" 
-	pageEncoding="gb2312"%>
+	pageEncoding="utf-8"%>
+<%@page import="java.net.URLEncoder"%>
 <%
 if(request.getParameter("op")!=null&&request.getParameter("op").length()>0){
             Class.forName("org.sqlite.JDBC");
@@ -17,20 +18,21 @@ if(request.getParameter("op")!=null&&request.getParameter("op").length()>0){
             rs.close();
 
             String fileName = "aabb" + newID + ".doc";
-            String FileSubject = "ÇëÊäÈëÎÄµµÖ÷Ìâ";
+            
+            String FileSubject = "è¯·è¾“å…¥æ–‡æ¡£ä¸»é¢˜";
             String getFile=(String)request.getParameter("FileSubject");
             if ( getFile!=null&&getFile.length()>0)
-                FileSubject =new String(getFile.getBytes("iso-8859-1"));
+                FileSubject =new String(getFile.getBytes("iso-8859-1"),"utf-8");
                 out.print(FileSubject);
-            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//ÉèÖÃÈÕÆÚ¸ñÊ½
-			// new Date()Îª»ñÈ¡µ±Ç°ÏµÍ³Ê±¼ä
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//è®¾ç½®æ—¥æœŸæ ¼å¼
+			// new Date()ä¸ºèŽ·å–å½“å‰ç³»ç»Ÿæ—¶é—´
             String strsql = "Insert into word(ID,FileName,Subject,SubmitTime) values(" + newID
                 + ",'" + fileName + "','" + FileSubject + "','" + df.format(new Date()) + "')";
             stmt.executeUpdate(strsql);
             stmt.close();
             conn.close();
             
-            //¿½±´ÎÄ¼þ
+            //æ‹·è´æ–‡ä»¶
             //if(request.getParameter("action").equals("create")){
 			String oldPath=getServletContext().getRealPath("CreateWord/doc/template.doc");
 			String newPath=getServletContext().getRealPath("CreateWord/doc/" + fileName);
@@ -38,13 +40,13 @@ if(request.getParameter("op")!=null&&request.getParameter("op").length()>0){
            		int bytesum = 0; 
            		int byteread = 0; 
            		File oldfile = new File(oldPath);
-           		if (oldfile.exists()) { //ÎÄ¼þ´æÔÚÊ± 
-               		InputStream inStream = new FileInputStream(oldPath); //¶ÁÈëÔ­ÎÄ¼þ 
+           		if (oldfile.exists()) { //æ–‡ä»¶å­˜åœ¨æ—¶ 
+               		InputStream inStream = new FileInputStream(oldPath); //è¯»å…¥åŽŸæ–‡ä»¶ 
                		FileOutputStream fs = new FileOutputStream(newPath); 
                		byte[] buffer = new byte[1444]; 
                		int length; 
                		while ( (byteread = inStream.read(buffer)) != -1) { 
-                   		bytesum += byteread; //×Ö½ÚÊý ÎÄ¼þ´óÐ¡ 
+                   		bytesum += byteread; //å­—èŠ‚æ•° æ–‡ä»¶å¤§å° 
                    		System.out.println(bytesum); 
                    		fs.write(buffer, 0, byteread); 
                		} 
@@ -52,7 +54,7 @@ if(request.getParameter("op")!=null&&request.getParameter("op").length()>0){
            		} 
        		} 
       		catch (Exception e) { 
-           		System.out.println("¸´ÖÆµ¥¸öÎÄ¼þ²Ù×÷³ö´í"); 
+           		System.out.println("å¤åˆ¶å•ä¸ªæ–‡ä»¶æ“ä½œå‡ºé”™"); 
            		e.printStackTrace(); 
        		} 
 		//}
@@ -66,8 +68,11 @@ if(request.getParameter("op")!=null&&request.getParameter("op").length()>0){
 <html>
 <head>
     <title></title>
-    <link href="../css/style.css" rel="stylesheet" type="text/css" />
-
+    <link href="css/style.css" rel="stylesheet" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <!--PageOffice.jså’Œjquery.min.jsæ–‡ä»¶ä¸€å®šè¦å¼•ç”¨-->
+    <script type="text/javascript" src="../jquery.min.js"></script>
+    <script type="text/javascript" src="../pageoffice.js" id="po_js_main"></script>    
     <script type="text/javascript">
         function onColor(td) {
             td.style.backgroundColor = '#D7FFEE';
@@ -77,7 +82,7 @@ if(request.getParameter("op")!=null&&request.getParameter("op").length()>0){
         }
         function getFocus() {
             var str = document.getElementById("FileSubject").value;
-            if (str == "ÇëÊäÈëÎÄµµÖ÷Ìâ") {
+            if (str == "è¯·è¾“å…¥æ–‡æ¡£ä¸»é¢˜") {
                 document.getElementById("FileSubject").value = "";
             }
 
@@ -85,11 +90,13 @@ if(request.getParameter("op")!=null&&request.getParameter("op").length()>0){
         function lostFocus() {
             var str = document.getElementById("FileSubject").value;
             if (str.length <= 0) {
-                document.getElementById("FileSubject").value = "ÇëÊäÈëÎÄµµÖ÷Ìâ";
+                document.getElementById("FileSubject").value = "è¯·è¾“å…¥æ–‡æ¡£ä¸»é¢˜";
             }
         }
-
-
+        
+       function  freshIndex(){
+         window.location.href="word-lists.jsp";
+       }
     </script>
 
 </head>
@@ -103,9 +110,8 @@ if(request.getParameter("op")!=null&&request.getParameter("op").length()>0){
                     <img src="../images/logo.png" alt="" /></a></div>
             <!--logo end-->
             <ul class="head-rightUl fr">
-                <li><a href="home.html">×¿ÕýÍøÕ¾</a></li>
-                <li><a href="###">¿Í»§ÎÊ°É</a></li>
-                <li class="bor-0"><a href="contact-us.html">ÁªÏµÎÒÃÇ</a></li>
+                <li><a href="http://www.zhuozhengsoft.com">å“æ­£ç½‘ç«™</a></li>
+                <li class="bor-0"><a href="http://www.zhuozhengsoft.com">è”ç³»æˆ‘ä»¬</a></li>
             </ul>
         </div>
     </div>
@@ -114,24 +120,24 @@ if(request.getParameter("op")!=null&&request.getParameter("op").length()>0){
     <div class="zz-content mc clearfix pd-28">
         <div class="demo mc">
             <h2 class="fs-16">
-                PageOffice Á½ÖÖ´´½¨ÐÂÎÄµµµÄ·½Ê½</h2>
+                PageOffice ä¸¤ç§åˆ›å»ºæ–°æ–‡æ¡£çš„æ–¹å¼</h2>
         </div>
         <div class="demo mc" style="text-align:left;">
             <h3 class="fs-12">
-                ÐÂ½¨ÎÄ¼þ</h3>
+                æ–°å»ºæ–‡ä»¶</h3>
             <form id="form1" method="post" action="word-lists.jsp?op=create">
             <table class="text" cellspacing="0" cellpadding="0" border="0">
                 <tr>
                     <td style="font-size: 9pt" align="left">
-                        ·½·¨1£ºÍ¨¹ý¸´ÖÆÎÄ¼þ´´½¨ÐÂÎÄ¼þ
+                        æ–¹æ³•1ï¼šé€šè¿‡å¤åˆ¶æ–‡ä»¶åˆ›å»ºæ–°æ–‡ä»¶
                     </td>
                     <td align="center">
                         <input name="FileSubject" id="FileSubject" type="text" onfocus="getFocus()" onblur="lostFocus()"
-                            class="boder" style="width: 180px;" value="ÇëÊäÈëÎÄµµÖ÷Ìâ" />
+                            class="boder" style="width: 180px;" value="è¯·è¾“å…¥æ–‡æ¡£ä¸»é¢˜" />
                     </td>
                     <td style="width: 221px;">
                         &nbsp;
-                        <input type="submit" value="´´½¨ÎÄ¼þ" style=" width:86px;"/>
+                        <input type="submit" value="åˆ›å»ºæ–‡ä»¶" style=" width:86px;"/>
                     </td>
                 </tr>
                 <tr>
@@ -139,10 +145,10 @@ if(request.getParameter("op")!=null&&request.getParameter("op").length()>0){
                 </tr>
                 <tr>
                     <td>
-                        ·½·¨2£ºÀûÓÃÊôÐÔWebCreateNew´´½¨ÐÂÎÄ¼þ&nbsp;&nbsp;
+                        æ–¹æ³•2ï¼šåˆ©ç”¨å±žæ€§WebCreateNewåˆ›å»ºæ–°æ–‡ä»¶&nbsp;&nbsp;
                     </td>
                     <td>
-                        &nbsp;<a href="CreateWord.jsp" target="_blank"style=" color:Blue; text-decoration:underline;">ÐÂ½¨ÎÄ¼þ</a>
+                        &nbsp;<a href="javascript:POBrowser.openWindowModeless('CreateWord.jsp' , 'width=1200px;height=800px;')" style=" color:Blue; text-decoration:underline;">æ–°å»ºæ–‡ä»¶</a>
                         </td>
                     <td style="width: 221px;">
                         &nbsp;&nbsp;
@@ -153,15 +159,15 @@ if(request.getParameter("op")!=null&&request.getParameter("op").length()>0){
         </div>
         <div class="zz-talbeBox mc">
             <h2 class="fs-12">
-                ÎÄµµÁÐ±í</h2>
+                æ–‡æ¡£åˆ—è¡¨</h2>
             <table class="zz-talbe">
                 <thead>
                     <tr>
                         <th width="22%">
-                            ÎÄµµÃû³Æ
+                            æ–‡æ¡£åç§°
                         </th>
                         <th width="10%">
-                            ´´½¨ÈÕÆÚ
+                            åˆ›å»ºæ—¥æœŸ
                         </th>
                     </tr>
                 </thead>
@@ -173,10 +179,11 @@ if(request.getParameter("op")!=null&&request.getParameter("op").length()>0){
 				Connection conn = DriverManager.getConnection(strUrl);
 				Statement stmt = conn.createStatement();
 				ResultSet rs=stmt.executeQuery("select * from word order by id desc");
-				String fileName="";
-				String subject="";
-				String submitTime="";
-				while(rs.next()){	
+				 String fileName="";
+	             String subject="";
+		         String submitTime="";
+				while(rs.next()){
+				    int id=rs.getInt("ID");	
 					fileName = rs.getString("FileName");
 					subject = rs.getString("Subject");
 					submitTime = rs.getString("SubmitTime");
@@ -184,7 +191,7 @@ if(request.getParameter("op")!=null&&request.getParameter("op").length()>0){
 					<tr onmouseover='onColor(this)' onmouseout='offColor(this)'>
 					<td>
 								<a
-									href='OpenWord.jsp?filename=<%= fileName %>&subject=<%=subject %>'><%=subject %></a>
+									href="javascript:POBrowser.openWindowModeless('OpenWord.jsp?id=<%=id%>' , 'width=1200px;height=800px;')"><%=subject %></a>
 							</td>
 				<%
 					if(submitTime!=null&&submitTime.length()>0){
@@ -212,7 +219,7 @@ if(request.getParameter("op")!=null&&request.getParameter("op").length()>0){
     <!--content end-->
     <!--footer-->
     <div class="login-footer clearfix">
-        Copyright &copy 2012 ±±¾©×¿ÕýÖ¾Ô¶Èí¼þÓÐÏÞ¹«Ë¾</div>
+        Copyright &copy 2012 åŒ—äº¬å“æ­£å¿—è¿œè½¯ä»¶æœ‰é™å…¬å¸</div>
     <!--footer end-->
 </body>
 </html>

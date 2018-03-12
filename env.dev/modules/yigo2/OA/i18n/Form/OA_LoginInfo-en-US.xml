@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <Opt>
+        <Setfirst_headVisible>Query</Setfirst_headVisible>
+    </Opt>
+    <UI>
+        <OA_LoginInfo>Login Log</OA_LoginInfo>
+		<Lab_From>Time From</Lab_From>
+        <Query>Query</Query>
+        <first_headVisible>HeadVisible</first_headVisible>
+        <Lab_To>To</Lab_To>
+        <Reset>Reset</Reset>
+    </UI>
+    <GridColumn>
+        <Operator>Operator</Operator>
+        <Delete>Delete</Delete>
+        <IP>IP</IP>
+        <Port>Port</Port>
+        <Host>Host</Host>
+        <OID>OID</OID>
+        <HappenTime>HappenTime</HappenTime>
+    </GridColumn>
+</StringTable>

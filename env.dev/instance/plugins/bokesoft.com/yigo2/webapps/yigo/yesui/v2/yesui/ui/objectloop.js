@@ -15,30 +15,54 @@ var OBJLOOP = OBJLOOP || {};
         }
     });
     OBJLOOP.GridLoop = function (cxt, grid, includeEmptyRow) {
-        this.index = -1;
+        this.total = 0;
+        this.pos = -1;
         this.context = cxt;
         this.includeEmptyRow = includeEmptyRow;
-        this.key = grid.key;
+        this.grid = grid;
         this.count = 0;
-        if (this.includeEmptyRow) {
-            this.count = grid.getRowCount();
-        } else {
-            for (var i = 0, tmpCount = grid.getRowCount(); i < tmpCount; i++) {
-                var row = grid.dataModel.data[i];
-                if (!(row.isDetail && row.bookmark == undefined)) {
-                    this.count++;
-                }
+
+        var row;
+        for (var i = 0, tmpCount = grid.getRowCount(); i < tmpCount; i++) {
+            row = grid.getRowDataAt(i);
+
+            if ( this.needLoop(row,includeEmptyRow) ) {
+                this.total++;
             }
         }
     };
     Lang.impl(OBJLOOP.GridLoop, {
+        needLoop:function (row,includeEmptyRow) {
+            if( !row.isDetail )
+                return false;
+
+            if( !includeEmptyRow && (row.bookmark == undefined && !row.bkmkRow) )
+                return false;
+
+            return true;
+        },
         hasNext: function () {
-            return this.count > 0 && this.index < this.count - 1;
+            return this.total > 0 && this.count != this.total;
         },
         next: function () {
-            ++this.index;
-            this.context.key = this.key;
-            this.context.rowIndex = this.index;
+            if( this.forward() ) {
+                this.context.key = this.grid.key;
+                this.context.rowIndex = this.pos;
+            }
+        },
+        forward:function () {
+            var row = null;
+            for( var i = this.pos >= 0 ? this.pos : 0,size = this.grid.getRowCount();i < size;i++ ) {
+                row = this.grid.getRowDataAt(i);
+
+                this.pos++;
+
+                if( this.needLoop(row, this.includeEmptyRow) ) {
+                    this.count++;
+                    return true;
+                }
+            }
+            return false;
         },
         clean: function () {
 

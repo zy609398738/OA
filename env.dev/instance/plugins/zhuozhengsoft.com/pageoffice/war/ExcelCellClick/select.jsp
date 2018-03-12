@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*" pageEncoding="gb2312"%>
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -13,7 +13,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <body style="margin:0; padding:0;border-style:none; font-size:12px;overflow:hidden">
     <script language="javascript" type="text/javascript">
         function CheckValue(theForm) {
-            window.external.DialogResult = theForm.WordList.value; //ÉèÖÃShowHtmlModalDialogµÄ·µ»ØÖµ
+            window.external.DialogResult = theForm.WordList.value; //è®¾ç½®ShowHtmlModalDialogçš„è¿”å›å€¼
             window.opener = null; 
             window.open('', '_self');
             window.close();
@@ -22,23 +22,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</script>
     <form id="form1" runat="server">
     <div  style=" margin:0; padding:0; height:25px; background-color:lightGreen; line-height:25px; border: solid 1px blue; text-align:right; padding:0 10px;">
-        <a href="#" onclick="window.opener=null;window.open('','_self');window.close();" style=" font-size:18px; text-decoration:none;">¡Á</a>
+        <a href="#" onclick="window.opener=null;window.open('','_self');window.close();" style=" font-size:18px; text-decoration:none;">Ã—</a>
     </div>
     <div  id="rect1" style=" margin:0; padding:0; height:200px; border: solid 1px blue;">
         <br />
-        ¿ÉÒÔ×Ô¼º¶¨ÒåÕâ¸öÒ³ÃæµÄÑù×Ó£¬±ÈÈçÏñµ¯³öµÄdivÒ»Ñù¡£
+        å¯ä»¥è‡ªå·±å®šä¹‰è¿™ä¸ªé¡µé¢çš„æ ·å­ï¼Œæ¯”å¦‚åƒå¼¹å‡ºçš„divä¸€æ ·ã€‚
         <br /><br />
 
         <select name="WordList" style='width:240 px;'>
-            <option value='ĞĞÕş²¿'>ĞĞÕş²¿</option>
-            <option value='²ÆÎñ²¿'>²ÆÎñ²¿</option>
-            <option value='ÊĞ³¡Ò»²¿'>ÊĞ³¡Ò»²¿</option>
-            <option value='ÊĞ³¡¶ş²¿'>ÊĞ³¡¶ş²¿</option>
-            <option value='ÊĞ³¡Èı²¿'>ÊĞ³¡Èı²¿</option>
-            <option value='ÊĞ³¡ËÄ²¿'>ÊĞ³¡ËÄ²¿</option>
+            <option value='è¡Œæ”¿éƒ¨'>è¡Œæ”¿éƒ¨</option>
+            <option value='è´¢åŠ¡éƒ¨'>è´¢åŠ¡éƒ¨</option>
+            <option value='å¸‚åœºä¸€éƒ¨'>å¸‚åœºä¸€éƒ¨</option>
+            <option value='å¸‚åœºäºŒéƒ¨'>å¸‚åœºäºŒéƒ¨</option>
+            <option value='å¸‚åœºä¸‰éƒ¨'>å¸‚åœºä¸‰éƒ¨</option>
+            <option value='å¸‚åœºå››éƒ¨'>å¸‚åœºå››éƒ¨</option>
         </select>
-        <button type="button" onclick="CheckValue(form1);">È·¶¨</button>
-        <button type="button" onclick="window.opener=null;window.open('','_self');window.close();">È¡Ïû</button>
+        <button type="button" onclick="CheckValue(form1);">ç¡®å®š</button>
+        <button type="button" onclick="window.opener=null;window.open('','_self');window.close();">å–æ¶ˆ</button>
     </div>
     </form>
     <script language="javascript" type="text/javascript">

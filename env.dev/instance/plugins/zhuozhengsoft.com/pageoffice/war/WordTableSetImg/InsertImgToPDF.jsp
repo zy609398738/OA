@@ -10,9 +10,14 @@
 	String fixPath = "instance/plugins/zhuozhengsoft.com/pageoffice/war";
 	realPath = realPath.substring(0, realPath.length() - fixPath.length());
 	String fileName=request.getParameter("filePath");
+	String dataPath =request.getParameter("datapath");
 	String filePath = fileName;
-	filePath = realPath + "modules/yigo2/Data/" + filePath;
-	//filePath = filePath.replaceAll("/", "\\\\");
+	if (dataPath == null || dataPath == "") {
+		filePath = realPath + "modules/yigo2/Data/" + filePath;
+	} else {
+		filePath = dataPath + filePath;
+	}
+	filePath = filePath.replaceAll("/", "\\\\");
 
 	String pdfPate = filePath;
 	pdfPate=pdfPate.substring(0,pdfPate.lastIndexOf("."));
@@ -23,13 +28,17 @@
 	if(imageName!=null && imageName.length()>0){	
 		PdfReader reader = new PdfReader(filePath);
 		PdfStamper stamp = new PdfStamper(reader, new FileOutputStream(pdfPate));
-		imageName = realPath + "modules/yigo2/Data/" + imageName;
+		if (dataPath == null || dataPath == "") {
+			imageName = realPath + "modules/yigo2/Data/" + imageName;
+		} else {
+			imageName = dataPath + imageName;
+		}
 		Image img = Image.getInstance(imageName);
 		int n = reader.getNumberOfPages();
 		Document document = new Document(reader.getPageSize(n)); 
 		float width = document.getPageSize().getWidth(); 
 		width = width - img.getWidth(); 
-		img.setAbsolutePosition(width,50);
+		img.setAbsolutePosition(0,0);
 		img.scaleAbsolute(170, 170);
 		PdfContentByte under = stamp.getOverContent(n);
 		under.addImage(img);
@@ -40,7 +49,12 @@
 	
 	if(savePath!=null && savePath.length()>0){
 		filePath = savePath;
+		if (dataPath == null || dataPath == "") {
 		filePath = realPath + "modules/yigo2/Data/" + filePath;
+	} else {
+		filePath = dataPath + filePath;
+	}
+		//filePath = realPath + "modules/yigo2/Data/" + filePath;
 		filePath = filePath.replaceAll("/", "\\\\");
 		File file = new File(filePath);
 		File file2 = new File(pdfPate);  //新文件
@@ -50,7 +64,7 @@
 		}
 	}
 
-	poCtrl.addCustomToolButton("加盖签章", "addSeal", 5);
+	poCtrl.addCustomToolButton("加盖签章", "addSeal()", 5);
 	poCtrl.addCustomToolButton("保存", "Save", 1);
 	poCtrl.addCustomToolButton("隐藏/显示书签", "SetBookmarks", 0);
 	poCtrl.addCustomToolButton("实际大小", "SetPageReal", 16);
@@ -69,7 +83,6 @@
 <html>
 <head>
 <base href="<%=filePath%>">
-
 <title>在线打开PDF文件</title>
 <meta http-equiv="pragma" content="no-cache">
 <meta http-equiv="cache-control" content="no-cache">
@@ -81,12 +94,11 @@
 	-->
 <script language="javascript" type="text/javascript">
 	function addSeal(){
-		var formID=getUrlParam('formID');
-		var path=parent.YIUI.FormStack.getForm(formID).getComponent("Preview").value;
+		//var formID=getUrlParam('formID');
+		var path=parent.YIUI.FormStack.getForm(parent.formID-1).getComponent("Preview")._image.value;
 		if(path!=null){
-			window.location.href=window.location.protocol+"//"+window.location.host+"/pageoffice/WordTableSetImg/InsertImgToPDF.jsp?filePath="+<%="\""+fileName+"\""%>+"&imagePath="+path;
+			window.location.href=window.location.protocol+"//"+window.location.host+"/pageoffice/WordTableSetImg/InsertImgToPDF.jsp?filePath="+<%="\""+fileName+"\""%>+"&imagePath="+path+"&datapath="+<%="\""+dataPath+"\""%>;
 		}
-		
 		
 	}
 	function SetBookmarks() {
@@ -109,7 +121,7 @@
 		document.getElementById("PDFCtrl1").GoToLastPage();
 	}
 	function Save() {
-		window.location.href=window.location.protocol+"//"+window.location.host+"/pageoffice/WordTableSetImg/InsertImgToPDF.jsp?filePath="+<%="\""+fileName+"\""%>+"&savePath="+<%="\""+fileName+"\""%>;
+		window.location.href=window.location.protocol+"//"+window.location.host+"/pageoffice/WordTableSetImg/InsertImgToPDF.jsp?filePath="+<%="\""+fileName+"\""%>+"&savePath="+<%="\""+fileName+"\""%>+"&datapath="+<%="\""+dataPath+"\""%>;
 	}
 	//获取url中的参数
 	function getUrlParam(name) {

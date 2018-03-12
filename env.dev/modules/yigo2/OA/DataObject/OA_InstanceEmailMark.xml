@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<DataObject Key="OA_InstanceEmailMark" Caption="已发邮件标记" PrimaryType="Entity">
+    <TableCollection>
+        <Table Key="OA_InstanceEmailMark" Caption="已发邮件标记" DBTableName="OA_InstanceEmailMark" TableMode="Detail">
+            <Column Key="OID" Caption="对象标识" DataType="Long"/>
+            <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+            <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+            <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+            <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+            <Column Key="WorkitemID" Caption="工作项标识" DataType="Long"/>
+            <Column Key="InstanceID" Caption="流程实例标识" DataType="Long"/>
+            <Column Key="OperatorIDs" Caption="人员ID" DataType="Varchar" Length="1000"/>
+            <Column Key="Formkey" Caption="单据标识" DataType="Varchar"/>
+            <Column Key="BillOID" Caption="单据ID" DataType="Long"/>
+            <Column Key="EmailType" DataType="Varchar" Caption="邮件类型"/>
+            <Column Key="NodeID" Caption="节点ID" DataType="Integer"/>
+            <Column Key="InsertTime" Caption="插入时间" DataType="DateTime"/>
+        </Table>
+    </TableCollection>
+</DataObject>

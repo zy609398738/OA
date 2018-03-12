@@ -1,10 +1,10 @@
-<%@ page language="java" import="java.util.*,com.zhuozhengsoft.pageoffice.*,javax.servlet.*,javax.servlet.http.*,java.sql.*" pageEncoding="gb2312"%>
+<%@ page language="java" import="java.util.*,com.zhuozhengsoft.pageoffice.*,javax.servlet.*,javax.servlet.http.*,java.sql.*" pageEncoding="utf-8"%>
 <%
 FileSaver fs=new FileSaver(request,response);
 fs.saveToFile(request.getSession().getServletContext().getRealPath("SaveAndSearch/doc/")+"/"+fs.getFileName());
-fs.setCustomSaveResult("±£´æ³É¹¦£¡");
+fs.setCustomSaveResult("ok");
 String strDocumentText = fs.getDocumentText(); 
-//¸üÐÂÊý¾Ý¿âÖÐÎÄµµµÄÎÄ±¾ÄÚÈÝ
+//æ›´æ–°æ•°æ®åº“ä¸­æ–‡æ¡£çš„æ–‡æœ¬å†…å®¹
 int  id=Integer.parseInt(request.getParameter("id"));
 Class.forName("org.sqlite.JDBC");
 String strUrl = "jdbc:sqlite:"

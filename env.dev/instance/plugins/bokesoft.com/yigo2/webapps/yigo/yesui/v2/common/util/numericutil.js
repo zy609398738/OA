@@ -1,7 +1,7 @@
 YIUI.NumericUtil = (function () {
     var fraction = ['角', '分'],
         digit = ["零", "壹", "贰", "叁", "肆", "伍", "陆", "柒", "捌", "玖"],
-        unit = [['圆', '萬', '亿'],['', '拾', '佰', '仟']];
+        unit = [['圆', '万', '亿'],['', '拾', '佰', '仟']];
 
     var Return = {
         getAmountInWords:function(n) {

@@ -1,3 +1,4 @@
+"use strict";
 // layout的命名空间
 YIUI.layout = {};
 /**

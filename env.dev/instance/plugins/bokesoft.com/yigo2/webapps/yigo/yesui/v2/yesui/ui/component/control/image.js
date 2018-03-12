@@ -6,6 +6,7 @@
  *  其中docBase为上传的图片所在服务端的路径
  * @type {*}
  */
+"use strict";
 YIUI.Control.Image = YIUI.extend(YIUI.Control, {
 
     sourceType: YIUI.IMAGE_SOURCETYPE.DATA,
@@ -36,7 +37,9 @@ YIUI.Control.Image = YIUI.extend(YIUI.Control, {
     },
 
     checkEnd: function(value) {
+        this.value = value;
         if( value ) {
+            this.el.removeClass("empty");
             if( this.sourceType == YIUI.IMAGE_SOURCETYPE.DATA ) {
                 var form = YIUI.FormStack.getForm(this.ofFormID),
                 formKey = form.formKey,path = encodeURIComponent(value),
@@ -49,6 +52,7 @@ YIUI.Control.Image = YIUI.extend(YIUI.Control, {
             this._image.setValue(value);
         } else {
             this._image.getImage().attr("src", YIUI.Image.EmptyImg);
+            this.el.addClass("empty");
         }
         this._image.getImage().attr("alt", this.caption);
     },

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <Items-objectType>
+        <OPERATOR>AllProcess</OPERATOR>
+        <PROCESS>AppointProcess</PROCESS>
+    </Items-objectType>
+    <Items-delegateType>
+        <AUTHORIZE>Authorize</AUTHORIZE>
+        <DELEGATE>Delegate</DELEGATE>
+    </Items-delegateType>
+    <UI>
+        <OA_DelegateDialog>AddDelegate</OA_DelegateDialog>
+		<Lab_delegateType>DelegateType</Lab_delegateType>
+        <Lab_Query_Employee>Agent</Lab_Query_Employee>
+        <Button1>Confirm</Button1>
+        <Lab_startTime>StartTime</Lab_startTime>
+        <Lab_nodekey>Process_node</Lab_nodekey>
+        <Lab_SrcOperatorID>Principal</Lab_SrcOperatorID>
+        <Lab_endtime>EndTime</Lab_endtime>
+        <Lab_WorkflowType>Process_type</Lab_WorkflowType>
+        <alwaysValid>Never Expires</alwaysValid>
+        <Lab_WorkFlowKey>Process_key</Lab_WorkFlowKey>
+        <Lab_objectKey>Process_name</Lab_objectKey>
+        <Lab_objectType>DelegateScope</Lab_objectType>
+        <Button2>Cancel</Button2>
+    </UI>
+</StringTable>

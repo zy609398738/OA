@@ -1,0 +1,10 @@
+{
+  "id": "ff8080815fc89bdf015fc8bc72e70019",
+  "startIndex": "",
+  "autoRun": "true",
+  "changePort": "",
+  "responseTime": "600000",
+  "description": "实时调用中兴商旅创建出差申请单服务",
+  "text": "TradeCaravan_CreateErrandBillSrv",
+  "oldPort": ""
+}

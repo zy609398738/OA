@@ -97,12 +97,32 @@ var YIUI = YIUI || {};
         calcGridRows:function (context,grid,item,calcSubDetails) {
             if( !item.items )
                 return;
+            var rowData;
             for( var i = 0,size = grid.getRowCount(); i < size;i++ ) {
-                if (!grid.getRowDataAt(i).isDetail)
+
+                rowData = grid.getRowDataAt(i);
+
+                if( rowData.rowType === 'Fix' )
                     continue;
 
                 context.rowIndex = i;
-                this.impl_calcGridRow(context,grid,i,item,calcSubDetails);
+
+                if( rowData.rowType === 'Detail' ) {
+
+                    this.impl_calcGridRow(context,grid,i,item,calcSubDetails);
+
+                } else {
+
+                    var metaRow = grid.getMetaObj().rows[rowData.metaRowIndex],
+                        metaCell;
+
+                    for( var k = 0,count = metaRow.cells.length;k < count;k++ ) {
+                        metaCell = metaRow.cells[k];
+                        if( metaCell.cellType !== YIUI.CONTROLTYPE.LABEL ) {
+                            grid.setCellEnable(i,k,true);
+                        }
+                    }
+                }
             }
         },
 
@@ -154,52 +174,54 @@ var YIUI = YIUI || {};
             this.impl_ValueChanged(grid,context,rowIndex,cellKey);
         },
 
-        valueChanged:function (com) {
-            var affectItems = this.enableTree.affectItems,affectItem;
-            for (var i = 0, len = affectItems.length; i < len; i++) {
-                if( affectItems[i].key === com.key ){
-                    affectItem = affectItems[i];
-                    break;
-                }
-            }
-            if( !affectItem )
+        valueChanged:function (comp) {
+            var items = this.enableTree.affectItems[comp.key];
+
+            if( !items )
                 return;
-            for( var i = 0,exp,com;exp = affectItem.expItems[i];i++ ) {
-                com = this.form.getComponent(exp.source);
-                if( !com && exp.type !== this.EnableItemType.Operation )
+
+            var item,
+                com;
+
+            for( var i = 0;item = items[i];i++ ) {
+                com = this.form.getComponent(item.source);
+                if( !com && item.type !== this.EnableItemType.Operation )
                     continue;
 
-                this.calcExprItemObject(com,exp,true);
+                this.calcExprItemObject(com,item,true);
             }
         },
 
-        impl_ValueChanged:function (grid,context,rowIndex,cellKey) {
-            var affectItems = this.enableTree.affectItems,affectItem;
-            for (var i = 0, len = affectItems.length; i < len; i++) {
-                if( affectItems[i].key === cellKey ){
-                    affectItem = affectItems[i];
-                    break;
-                }
-            }
-            if( !affectItem )
+        impl_ValueChanged:function (grid,context,rowIndex,srcKey) {
+            var items = this.enableTree.affectItems[srcKey];
+
+            if( !items )
                 return;
-            for( var i = 0,exp,com;exp = affectItem.expItems[i];i++ ) {
-                com = this.form.getComponent(exp.source);
-                if( !com )
+
+            var item,
+                com;
+
+            for( var i = 0;item = items[i];i++ ) {
+                com = this.form.getComponent(item.source);
+                if( !com && item.type !== this.EnableItemType.Operation )
                     continue;
-                switch ( exp.objectType ){
+                switch ( item.objectType ){
                 case YIUI.ExprItem_Type.Item:
-                    this.calcHeadItem(com,exp,true);
+                    if( item.type == this.EnableItemType.Operation ) {
+                        this.form.setOperationEnable(item.target,this.form.eval(item.content,this.newContext(this.form,-1,-1),null));
+                    } else {
+                        this.calcHeadItem(com,item,true);
+                    }
                     break;
                 case YIUI.ExprItem_Type.Set:
-                    if( grid.key === com.key && cellKey.indexOf(":RowIndex") == -1 ) {
+                    if( grid.key === com.key && srcKey.indexOf(":RowIndex") == -1 ) {
                         context.rowIndex = rowIndex;
-                        this.impl_calcGridRow(context,grid,rowIndex,exp,true);
+                        this.impl_calcGridRow(context,grid,rowIndex,item,true);
                     } else if ( YIUI.SubDetailUtil.isSubDetail(this.form,grid,com.key) ) {
                         context.rowIndex = com.getFocusRowIndex();
-                        this.impl_calcGridRow(context,com,com.getFocusRowIndex(),exp,true);
+                        this.impl_calcGridRow(context,com,com.getFocusRowIndex(),item,true);
                     } else {
-                        this.calcGrid(com,exp,true);
+                        this.calcGrid(com,item,true);
                     }
                     break;
                 default:
@@ -215,7 +237,7 @@ var YIUI = YIUI || {};
             this.impl_ValueChanged(grid,ctx,-1,grid.key + ":RowCount");
 
             // 计算行号改变的影响
-            this.impl_ValueChanged(grid,ctx,-1,grid.key + ":RowIndex");
+            this.impl_RowChanged(grid);
         },
 
         doAfterInsertRow:function (component,rowIndex) {
@@ -226,8 +248,31 @@ var YIUI = YIUI || {};
         },
 
         doAfterRowChanged:function (grid) {
-            var context = this.newContext(this.form,-1,-1);
-            this.impl_ValueChanged(grid,context,-1,grid.key + ":RowIndex");
+            this.impl_RowChanged(grid);
+        },
+
+        impl_RowChanged:function (grid) {
+            var detailRow = grid.getDetailMetaRow(),
+                item,
+                com,
+                items;
+
+            if( !detailRow ) {
+                return;
+            }
+
+            for( var i = 0,length = detailRow.cells.length;i < length;i++ ) {
+                items = this.enableTree.affectItems[detailRow.cells[i].key];
+                if( items ) {
+                    for( var j = 0;item = items[j];j++ ) {
+                        com = this.form.getComponent(item.source);
+                        if( !com && item.type !== this.EnableItemType.Operation )
+                            continue;
+
+                        this.calcExprItemObject(com,item,true);
+                    }
+                }
+            }
         },
 
         calcGridRow:function (grid,context,rowIndex) {
@@ -243,16 +288,17 @@ var YIUI = YIUI || {};
             this.impl_ValueChanged(grid,context,-1,grid.key + ":RowCount");
 
             // 计算行号改变的影响
-            this.impl_ValueChanged(grid,context,-1,grid.key + ":RowIndex");
+            this.impl_RowChanged(grid);
         },
 
         reCalcComponent:function (com) {
-            var items = this.enableTree.items;
-            for( var i = 0,exp;exp = items[i];i++ ) {
-                if( exp.source !== com.key )
+            var items = this.enableTree.items,
+                item;
+            for( var i = 0;item = items[i];i++ ) {
+                if( item.source !== com.key )
                     continue;
 
-                this.calcExprItemObject(com,exp,false);
+                this.calcExprItemObject(com,item,false);
             }
         }
 

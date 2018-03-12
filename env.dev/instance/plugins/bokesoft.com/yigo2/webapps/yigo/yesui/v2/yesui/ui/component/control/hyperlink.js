@@ -32,7 +32,7 @@ YIUI.Control.Hyperlink = YIUI.extend(YIUI.Control, {
         var meta = this.getMetaObj();
         this.clickContent = $.isUndefined(meta.onClick) ? "" : meta.onClick.trim();
         this.url = meta.url || null;
-        this.targetType = meta.targetShowType || this.targetType;
+        this.targetType = $.isUndefined(meta.targetShowType) ?  this.targetType : meta.targetShowType;
     },
     
     setText: function (text) {
@@ -102,7 +102,7 @@ YIUI.Control.Hyperlink = YIUI.extend(YIUI.Control, {
         var self = this;
         if (this.hyperlink.getText() != "") {
             this.el.click(function () {
-                if (!self.enable) return;
+                if (!self.enable) return false;
                 if(self.url && self.targetType == YIUI.Hyperlink_TargetType.New) {
                     window.open(self.url, YIUI.Hyperlink_target.New, "alwaysRaised=yes");
                 } else if(!self.url){

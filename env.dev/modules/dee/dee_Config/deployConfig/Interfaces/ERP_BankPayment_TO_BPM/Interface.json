@@ -1,0 +1,10 @@
+{
+  "id": "8aab8d025f4cf8b7015f4d0187400018",
+  "startIndex": "",
+  "autoRun": "true",
+  "changePort": "",
+  "responseTime": "600000",
+  "description": "定时同步ERP系统银行付款单信息至BPM系统",
+  "text": "ERP_BankPayment_TO_BPM",
+  "oldPort": ""
+}

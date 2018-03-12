@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <UI>
+        <OA_Reject>Reject</OA_Reject>
+		<cancel>Cancel</cancel>
+        <SaveCommonViews>SaveCommonViews</SaveCommonViews>
+        <Button1>Signature</Button1>
+        <Lab_CommonUseContent>CommonUseContent</Lab_CommonUseContent>
+        <OPPOSE>Confirm</OPPOSE>
+        <Lab_E_Signature>ElectronicSignature </Lab_E_Signature>
+        <Reset>Reset</Reset>
+        <Transit>Transit</Transit>
+        <T_Opinion>HandlingSuggestion</T_Opinion>
+        <Lab_E_SignaturePath>E_SignaturePath</Lab_E_SignaturePath>
+        <Lab_RejectNode>RejectNode</Lab_RejectNode>
+    </UI>
+</StringTable>

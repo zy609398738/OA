@@ -1,39 +1,39 @@
 <%@ page language="java"
 	import="java.util.*,com.zhuozhengsoft.pageoffice.*,com.zhuozhengsoft.pageoffice.excelwriter.*"
-	pageEncoding="gb2312"%>
-<%@ taglib uri="http://java.pageoffice.cn" prefix="po"%>
+	pageEncoding="utf-8"%>
 <%
 	PageOfficeCtrl poCtrl = new PageOfficeCtrl(request);
-	//ÉèÖÃ·þÎñÆ÷Ò³Ãæ
+	//è®¾ç½®æœåŠ¡å™¨é¡µé¢
 	poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");
 
-	//¶¨ÒåWorkbook¶ÔÏó
+	//å®šä¹‰Workbookå¯¹è±¡
 	Workbook workBook = new Workbook();
-	//¶¨ÒåSheet¶ÔÏó£¬"Sheet1"ÊÇ´ò¿ªµÄExcel±íµ¥µÄÃû³Æ
+	//å®šä¹‰Sheetå¯¹è±¡ï¼Œ"Sheet1"æ˜¯æ‰“å¼€çš„Excelè¡¨å•çš„åç§°
 	Sheet sheet = workBook.openSheet("Sheet1");
 
-	//¶¨Òåtable¶ÔÏó£¬ÉèÖÃtable¶ÔÏóµÄÉèÖÃ·¶Î§
+	//å®šä¹‰tableå¯¹è±¡ï¼Œè®¾ç½®tableå¯¹è±¡çš„è®¾ç½®èŒƒå›´
 	Table table = sheet.openTable("B4:D8");
-	//ÉèÖÃtable¶ÔÏóµÄÌá½»Ãû³Æ£¬ÒÔ±ã±£´æÒ³Ãæ»ñÈ¡Ìá½»µÄÊý¾Ý
+	//è®¾ç½®tableå¯¹è±¡çš„æäº¤åç§°ï¼Œä»¥ä¾¿ä¿å­˜é¡µé¢èŽ·å–æäº¤çš„æ•°æ®
 	table.setSubmitName("Info");
 
-	// ÉèÖÃÏìÓ¦µ¥Ôª¸ñµã»÷ÊÂ¼þµÄjs function
+	// è®¾ç½®å“åº”å•å…ƒæ ¼ç‚¹å‡»äº‹ä»¶çš„js function
     poCtrl.setJsFunction_OnExcelCellClick("OnCellClick()");
     
 	poCtrl.setWriter(workBook);
-	//Ìí¼Ó×Ô¶¨Òå°´Å¥
-	poCtrl.addCustomToolButton("±£´æ", "Save", 1);
-	//ÉèÖÃ±£´æÒ³Ãæ
+	//æ·»åŠ è‡ªå®šä¹‰æŒ‰é’®
+	poCtrl.addCustomToolButton("ä¿å­˜", "Save", 1);
+	//è®¾ç½®ä¿å­˜é¡µé¢
 	poCtrl.setSaveDataPage("SaveData.jsp");
-	//´ò¿ªWordÎÄµµ
-	poCtrl.webOpen("doc/test.xls", OpenModeType.xlsSubmitForm, "ÕÅØýÃû");
-	poCtrl.setTagId("PageOfficeCtrl1");//´ËÐÐ±ØÐè
+	//æ‰“å¼€Wordæ–‡æ¡£
+	poCtrl.webOpen("doc/test.xls", OpenModeType.xlsSubmitForm, "å¼ ä½šå");
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 	<head>
-		<title>ÏìÓ¦Excelµ¥Ôª¸ñµã»÷ÊÂ¼þ</title>
+		<title>å“åº”Excelå•å…ƒæ ¼ç‚¹å‡»äº‹ä»¶</title>
+		
+       
 		<script type="text/javascript">
 			function Save() {
 				document.getElementById("PageOfficeCtrl1").WebSave();
@@ -41,7 +41,7 @@
 			
 			function OnCellClick(Celladdress, value, left, bottom) {
 		            var i = 0;
-		            while (i<5) {//±í¸ñµÚÒ»ÁÐµÄ5¸öµ¥Ôª¸ñ¶¼µ¯³öÑ¡Ôñ¶Ô»°¿ò
+		            while (i<5) {//è¡¨æ ¼ç¬¬ä¸€åˆ—çš„5ä¸ªå•å…ƒæ ¼éƒ½å¼¹å‡ºé€‰æ‹©å¯¹è¯æ¡†
 		                if (Celladdress == "$B$" + (4 + i)) {
 		                    var strRet = document.getElementById("PageOfficeCtrl1").ShowHtmlModalDialog("select.jsp", "", "left=" + left + "px;top=" + bottom + "px;width=320px;height=230px;frame=no;");
 		                    if (strRet != "") {
@@ -61,10 +61,9 @@
 	</head>
 	<body>
 		<form id="form1">
-			ÑÝÊ¾£ºµã»÷Excelµ¥Ôª¸ñµ¯³ö×Ô¶¨Òå¶Ô»°¿òµÄÐ§¹û¡£Çë¿´ÊµÏÖÏÂÃæ±í¸ñÖÐµÄ¡°²¿ÃÅÃû³Æ¡±Ö»ÄÜÑ¡ÔñµÄÐ§¹û¡£<br /><br />
+			æ¼”ç¤ºï¼šç‚¹å‡»Excelå•å…ƒæ ¼å¼¹å‡ºè‡ªå®šä¹‰å¯¹è¯æ¡†çš„æ•ˆæžœã€‚è¯·çœ‹å®žçŽ°ä¸‹é¢è¡¨æ ¼ä¸­çš„â€œéƒ¨é—¨åç§°â€åªèƒ½é€‰æ‹©çš„æ•ˆæžœã€‚<br /><br />
 			<div style="width: auto; height: 700px;">
-				<po:PageOfficeCtrl id="PageOfficeCtrl1">
-				</po:PageOfficeCtrl>
+				<%=poCtrl.getHtmlCode("PageOfficeCtrl1")%>
 			</div>
 		</form>
 	</body>

@@ -157,7 +157,9 @@ $.DateTimeMask = {
 	    // 文本长度 
 	    var nTextLen=options.maxLength; 
 	    // 当前光标位置 
-	    var nCursorPos = $.DateTimeMask.GetCursor(objTextBox).start;
+	    var cursor = $.DateTimeMask.GetCursor(objTextBox);
+	    var nCursorPos = cursor.start;
+	    var endPos = cursor.end;
 		//忽略按键
 	    event.returnValue = false; 
 		//阻止冒泡
@@ -168,15 +170,11 @@ $.DateTimeMask = {
 	            
 	            break; 
 	        default :
-	            if(!((nKeyCode >=48 && nKeyCode<=57) || (nKeyCode >=96 && nKeyCode<=105))/* && nKeyCode != 8 && nKeyCode != 109 && nKeyCode != 189*/){
-//	            	event.preventDefault();
-//	            	return true;
+	            if(!((nKeyCode >=48 && nKeyCode<=57) || (nKeyCode >=96 && nKeyCode<=105)) && nKeyCode != 8 && nKeyCode != 109 && nKeyCode != 189){
+	            	event.preventDefault();
+	            	return true;
 	            }
-//        		var selecter = window.getSelection().toString();
-        		var selecter = "";
-	        	if(objTextBox.document && objTextBox.document.selection) {
-	        		selecter = objTextBox.document.selection.createRange().text;
-	        	}
+				var oldV = objTextBox.oldvalue;
 	        	
 	        	if(/*objTextBox.selectionEnd < nTextLen && */objTextBox.value.length >= nTextLen) {
 //	        		event.preventDefault();
@@ -184,12 +182,25 @@ $.DateTimeMask = {
 	        	}
 				if (nKeyCode > 95) nKeyCode -= (95-47); 
 				
-				if(objTextBox.value.length > nCursorPos && (nKeyCode >=48 && nKeyCode<=57)) {
+				if(oldV.length > nCursorPos && (nKeyCode >=48 && nKeyCode<=57)) {
+
+					var selrange = endPos - nCursorPos;
+		        	if(selrange > 1) {
+		        		var code = options.preText.substring(nCursorPos, endPos);
+		        		oldV = oldV.substr(0, nCursorPos) + code + oldV.substr(endPos); 
+		        	}
+
 					var keycode = String.fromCharCode(nKeyCode);
-					text = objTextBox.oldvalue.substr(0, nCursorPos) + keycode + objTextBox.oldvalue.substr(nCursorPos+1,nTextLen); 
-					if(!$.DateTimeMask.DealWith(options.masktype,text,nCursorPos)) {
+					var text = oldV.substr(0, nCursorPos) + keycode + oldV.substr(nCursorPos+1,nTextLen); 
+					if(!$.DateTimeMask.DealWith(options.masktype, text, nCursorPos)) {
 						event.preventDefault();
 						return true;
+					} else {
+						if(selrange == oldV.length) {
+							objTextBox.oldvalue = "";
+						} else {
+							objTextBox.oldvalue = text;
+						}
 					}
 					return;
 				}
@@ -305,7 +316,7 @@ $.DateTimeMask = {
 	GetCursor : function(textBox) {
 		var obj = new Object();
 		var start = 0,end = 0;
-		if ($.browser.isIE) {
+		if ($.browser.isIE && $.browser.version < 11) {
 			var range=textBox.createTextRange(); 
 			var text = range.text;
 			var selrange = document.selection.createRange();

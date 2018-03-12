@@ -1,22 +1,22 @@
 <%@ page language="java"
 	import="java.util.*,com.zhuozhengsoft.pageoffice.*,com.zhuozhengsoft.pageoffice.wordwriter.*"
-	pageEncoding="gb2312"%>
-<%@ taglib uri="http://java.pageoffice.cn" prefix="po"%>
+	pageEncoding="utf-8"%>
+
 <%
 PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
-//ÉèÖÃ·şÎñÆ÷Ò³Ãæ
+//è®¾ç½®æœåŠ¡å™¨é¡µé¢
 poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");
-//ÉèÖÃ´ò¿ªµÄWordÎÄµµµÄÖ÷Ìâ
+//è®¾ç½®æ‰“å¼€çš„Wordæ–‡æ¡£çš„ä¸»é¢˜
 poCtrl.setTheme(ThemeType.Office2010);
-//´ò¿ªWordÎÄµµ
-poCtrl.webOpen("doc/test.doc",OpenModeType.docNormalEdit,"ÕÅØıÃû");
-poCtrl.setTagId("PageOfficeCtrl1");//´ËĞĞ±ØĞè
+//æ‰“å¼€Wordæ–‡æ¡£
+poCtrl.webOpen("doc/test.doc",OpenModeType.docNormalEdit,"å¼ ä½šå");
+
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
-   <title>ÑİÊ¾£ºĞŞ¸ÄWordÎÄµµµÄÖ÷ÌâÑùÊ½</title>
+   <title>æ¼”ç¤ºï¼šä¿®æ”¹Wordæ–‡æ¡£çš„ä¸»é¢˜æ ·å¼</title>
     <style>
         html, body
         {
@@ -27,17 +27,17 @@ poCtrl.setTagId("PageOfficeCtrl1");//´ËĞĞ±ØĞè
             height: 100%;
         }
     </style>
+
 </head>
 <body>
     <form id="form1">
     <div style="font-size: 12px; line-height: 20px; border-bottom: dotted 1px #ccc; border-top: dotted 1px #ccc;
         padding: 5px;">
-        ²Ù×÷£ºÔÚHtmlÒ³ÃæÌí¼ÓPageOfficeCtrl¿Ø¼ş£¬ÔÙÔÚºóÌ¨ÉèÖÃPageOfficeCtrlµÄThemeÊôĞÔ<br />
-        ¹Ø¼ü´úÂë£º<span style="background-color:Yellow;">poCtrl.setTheme(ThemeType.Office2007);//poCtrlÎªPageOfficeCtrl¶ÔÏó£¬ThemeTypeÎªÃ¶¾ÙÀàĞÍ</span>
+        æ“ä½œï¼šåœ¨Htmlé¡µé¢æ·»åŠ PageOfficeCtrlæ§ä»¶ï¼Œå†åœ¨åå°è®¾ç½®PageOfficeCtrlçš„Themeå±æ€§<br />
+        å…³é”®ä»£ç ï¼š<span style="background-color:Yellow;">poCtrl.setTheme(ThemeType.Office2007);//poCtrlä¸ºPageOfficeCtrlå¯¹è±¡ï¼ŒThemeTypeä¸ºæšä¸¾ç±»å‹</span>
     </div>
     <div style="height: 600px; width: auto;">
-        <po:PageOfficeCtrl id="PageOfficeCtrl1">
-        </po:PageOfficeCtrl>
+               <%=poCtrl.getHtmlCode("PageOfficeCtrl1")%>
     </div>
     </form>
 </body>

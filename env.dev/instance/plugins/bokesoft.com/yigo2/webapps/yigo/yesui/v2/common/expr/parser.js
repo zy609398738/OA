@@ -152,7 +152,7 @@ var Expr = Expr || {};
             return r;
         },
         skipC: function (c) {
-            var r = c;
+        	var r = c;
             this.c_skip = false;
             if (this.pos < this.len) {
                 var oldPos = this.pos;
@@ -179,8 +179,11 @@ var Expr = Expr || {};
                                     c = this.s.charAt(this.pos);
                                     ++this.pos;
                                     ++this.start;
+                                    r = c;
+                                } else {
+                                	r = '$';
                                 }
-                                r = c;
+                                
                                 found = true;
                             }
                         } else if (c == '*') {
@@ -188,22 +191,35 @@ var Expr = Expr || {};
                                 c = this.s.charAt(this.pos);
                                 ++this.pos;
                                 ++this.start;
-                                while (c != '*' && this.pos < this.len) {
-                                    if (this.pos < this.len) {
-                                        c = this.s.charAt(this.pos);
-                                        ++this.pos;
-                                        ++this.start;
-                                    }
+                                
+                                while ( true ) {
+                                	if ( c == '*' ) {
+                                		if ( this.pos < this.len && this.s.charAt(this.pos) == '/' ) {
+                                			++this.pos;
+                                			++this.start;
+                                			found = true;
+                                			break;
+                                		}
+                                	}
+                                	if ( this.pos < this.len ) {
+                                		c = this.s.charAt(this.pos);
+                                		++this.pos;
+                                		++this.start;
+                                	} else {
+                                		break;
+                                	}
                                 }
-                                ++this.pos;
-                                ++this.start;
-                                if (this.pos < this.len) {
-                                    c = this.s.charAt(this.pos);
-                                    ++this.pos;
-                                    ++this.start;
+                                
+                                if ( found ) {
+                                	if ( this.pos < this.len ) {
+                                		c = this.s.charAt(this.pos);
+                                		++this.pos;
+                                		++this.start;
+                                		r = c;
+                                	} else {
+                                		r = '$';
+                                	}
                                 }
-                                r = c;
-                                found = true;
                             }
                         }
                     }
@@ -586,11 +602,6 @@ var Expr = Expr || {};
                         this.li = "<";
                         this.lv = "<";
                     }
-                    break;
-                case '$':
-                    id = 20;
-                    this.li = "$";
-                    this.lv = "$";
                     break;
                 case '\'':
                     do {
@@ -2006,10 +2017,13 @@ var Expr = Expr || {};
             var E1 = p.item(0);
             var E2 = p.item(2);
             this.exec(cxt, E1);
-            this.exec(cxt, E2);
 
             var b1 = YIUI.TypeConvertor.toBoolean(E1.get());
-            var b2 = YIUI.TypeConvertor.toBoolean(E2.get());
+            var b2 = false;
+            if ( b1 ) {
+            	this.exec(cxt, E2);
+            	b2 = YIUI.TypeConvertor.toBoolean(E2.get());
+            }
             p.set(b1 && b2);
         },
         // E -> E == E

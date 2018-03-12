@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <Opt>
+        <Import>ExcelImport</Import>
+        <Cancel>Cancel</Cancel>
+        <EnabledDict>EnabledDict</EnabledDict>
+        <DeleteDict>DeleteDict</DeleteDict>
+        <Export>ExcelExport</Export>
+        <NewDict>NewDict</NewDict>
+        <Modify>Modify</Modify>
+        <Save>Save</Save>
+        <DisabledDict>DisabledDict</DisabledDict>
+        <InvalidDict>InvalidDict</InvalidDict>
+    </Opt>
+</StringTable>

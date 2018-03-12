@@ -1,32 +1,32 @@
 <%@ page language="java" import="java.util.*,java.awt.*"
-	pageEncoding="gb2312"%>
+	pageEncoding="utf-8"%>
 <%@page
 	import="com.zhuozhengsoft.pageoffice.*,com.zhuozhengsoft.pageoffice.wordwriter.*"%>
-<%@ taglib uri="http://java.pageoffice.cn" prefix="po"%>
+
 <%
 	WordDocument doc = new WordDocument();
 	DataRegion dataReg = doc.openDataRegion("PO_table");
 	Table table = dataReg.openTable(1);
-	//ºÏ²¢tableÖÐµÄµ¥Ôª¸ñ
+	//åˆå¹¶tableä¸­çš„å•å…ƒæ ¼
 	table.openCellRC(1, 1).mergeTo(1, 4);
-	//¸øºÏ²¢ºóµÄµ¥Ôª¸ñ¸³Öµ
-	table.openCellRC(1, 1).setValue("ÏúÊÛÇé¿ö±í");
-	//ÉèÖÃµ¥Ôª¸ñÎÄ±¾ÑùÊ½
+	//ç»™åˆå¹¶åŽçš„å•å…ƒæ ¼èµ‹å€¼
+	table.openCellRC(1, 1).setValue("é”€å”®æƒ…å†µè¡¨");
+	//è®¾ç½®å•å…ƒæ ¼æ–‡æœ¬æ ·å¼
 	table.openCellRC(1, 1).getFont().setColor(Color.red);
 	table.openCellRC(1, 1).getFont().setSize(24);
-	table.openCellRC(1, 1).getFont().setName("¿¬Ìå");
+	table.openCellRC(1, 1).getFont().setName("æ¥·ä½“");
 	table.openCellRC(1, 1).getParagraphFormat().setAlignment(
 			WdParagraphAlignment.wdAlignParagraphCenter);
 
 	PageOfficeCtrl poCtrl = new PageOfficeCtrl(request);
 	poCtrl.setWriter(doc);
 
-	//ÉèÖÃ·þÎñÆ÷Ò³Ãæ
-	poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");//´ËÐÐ±ØÐë
+	//è®¾ç½®æœåŠ¡å™¨é¡µé¢
+	poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");//æ­¤è¡Œå¿…é¡»
 	poCtrl.setCustomToolbar(false);
-	//ÉèÖÃÎÄµµ´ò¿ª·½Ê½
-	poCtrl.webOpen("doc/test.doc", OpenModeType.docNormalEdit, "ÕÅÈý");
-	poCtrl.setTagId("PageOfficeCtrl1");
+	//è®¾ç½®æ–‡æ¡£æ‰“å¼€æ–¹å¼
+	poCtrl.webOpen("doc/test.doc", OpenModeType.docNormalEdit, "å¼ ä¸‰");
+
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -35,6 +35,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
 		<title></title>
 		<link href="images/csstg.css" rel="stylesheet" type="text/css" />
+
 	</head>
 	<body>
 
@@ -42,9 +43,8 @@
 		<div id="content">
 			<div id="textcontent" style="width: 1000px; height: 800px;">
 
-				<!--**************   ×¿Õý PageOffice×é¼þ ************************-->
-				<po:PageOfficeCtrl id="PageOfficeCtrl1">
-				</po:PageOfficeCtrl>
+				<!--**************   å“æ­£ PageOfficeç»„ä»¶ ************************-->
+				<%=poCtrl.getHtmlCode("PageOfficeCtrl1")%>
 			</div>
 		</div>
 

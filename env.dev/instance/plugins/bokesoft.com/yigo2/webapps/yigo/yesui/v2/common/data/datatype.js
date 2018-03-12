@@ -162,6 +162,9 @@ var DataDef = DataDef || {};
         getCol: function (index) {
             return this.cols[index];
         },
+        getColumnCount: function () {
+            return this.cols.length;
+        },
         getColByKey: function (colKey) {
             return this.getCol(this.indexByKey(colKey));
         },
@@ -287,6 +290,15 @@ var DataDef = DataDef || {};
         get: function (idx) {
         	var val = this.rows[this.pos].vals[idx];
             return val;
+        },
+        setObject:function (ri,idx,val) {
+            var row = this.rows[ri];
+            var rowState = row.state;
+            if (rowState == DataDef.R_Normal) {
+                row.orgVals = $.extend([], row.vals);
+                row.state = DataDef.R_Modified;
+            }
+            row.vals[idx] = val;
         },
         set: function (idx, val) {
             var row = this.rows[this.pos];

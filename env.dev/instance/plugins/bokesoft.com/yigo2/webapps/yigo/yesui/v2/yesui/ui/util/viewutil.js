@@ -31,7 +31,7 @@ YIUI.ViewUtil = (function () {
                 if(sdt.first()){
                     while(!sdt.isAfterLast()){
                         if(oid == sdt.get(colIndex)){
-                            bookmark = sdt.getPos();
+                            bookmark = sdt.getBkmk();
                             break;
                         }
                         sdt.next();
@@ -56,7 +56,7 @@ YIUI.ViewUtil = (function () {
                                 bookmark = -1;
                                 break;
                             }
-                            bookmark = sdt.getPos();
+                            bookmark = sdt.getBkmk();
                         }
 
                         if(bookmark > -1){

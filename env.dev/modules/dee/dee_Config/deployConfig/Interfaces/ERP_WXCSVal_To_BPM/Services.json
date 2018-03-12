@@ -1,0 +1,11 @@
+[
+  {
+    "recordMpLog": "false",
+    "text": "ERP_WXCSVal_To_BPM",
+    "id": "8aab8d9d61fe815c0161ff45d86c0027",
+    "parentId": "8aab8d9d61fe815c0161ff45d7ea0026",
+    "description": "实时查询ERP系统的国内运输单的外协厂商名",
+    "fileImport": "false",
+    "enable": "true"
+  }
+]

@@ -1,0 +1,138 @@
+{
+  "response": [
+    {
+      "text": "记录查询银行付款单二次发起表头数据接口日志",
+      "description": "记录查询银行付款单表头数据接口日志（二次发起）",
+      "scriptContent": "String expMsg = \"\";\nMap rsmap = new HashMap();\nif (message.getExceptionPayload() != null)\n{\n    message.setOutboundProperty(\"http.status\", 200);\n    expMsg = message.getExceptionPayload().getRootException().getMessage();\n    if (expMsg.length() > 3500)\n    {\n        expMsg = expMsg.substring(0, 3000);\n    }\n    message.setExceptionPayload(null);\n    rsmap.put(\"code\", \"0003\");\n    rsmap.put(\"msg\", \"查询失败！\");\n}\nelse\n{\n    rsmap.put(\"code\", \"0002\");\n    rsmap.put(\"msg\", \"查询成功！\");\n    rsmap.put(\"data\", payload);\n}\nMap logmap = message.getInboundProperty(\"logmap\");\nObject[] o = new Object[10];\no[0] = \"BankPayment_flow\";\no[1] = \"开始\";\no[2] = \"B_BankPayment\";\no[3] = \"\";\no[4] = logmap.get(\"begintime\");\no[5] = new java.text.SimpleDateFormat(\"yyyyMMdd HH:mm:ss.SSS\").format(new java.sql.Timestamp(java.lang.System.currentTimeMillis()));\no[6] = \"\";\no[7] = \"\";\no[8] = expMsg;\no[9] = \"BankPayment_Remain_MID_Distribute\";\ndbop.saveOrUpdate(\"insert into TRINA_SL_INTERFACE_LOG(id,flow,node,billkey,oid,starttime,endtime,request_data,response_data,EXCEPTION,interface_type)values(Trina_SL_Interface_Log_ID_SEQ.Nextval,?,?,?,?,?,?,?,?,?,?)\", o, false);\nreturn rsmap.get(\"code\");",
+      "smallType": "GroovyScriptWithDS",
+      "className": "com.bokesoft.exchange.transformer.ScriptWithDSTransformer",
+      "enable": "true",
+      "parentId": "8aaae0b75f7b7add015f7b7ed2ac002a",
+      "bigType": "transformer_au",
+      "simpleMpLog": "false",
+      "ds": "2c9081d05be7e572015be80fcb64000f",
+      "isRef": "false",
+      "id": "8aaae0b75f7b7add015f7b8225130039"
+    }
+  ],
+  "normal": [
+    {
+      "text": "查询银行付款单二次发起数据分发入口",
+      "description": "查询银行付款单中间表数据分发入口（二次发起）",
+      "address": "vm://BankPayment_Remain_MID_Distribute",
+      "exchange_pattern": "request-response",
+      "smallType": "VM",
+      "className": "",
+      "enable": "true",
+      "parentId": "8aaae0b75f7b7add015f7b7ed2ac002a",
+      "bigType": "inbound",
+      "simpleMpLog": "false",
+      "encoding": "UTF-8",
+      "isRef": "false",
+      "id": "8aaae0b75f7b7add015f7b7fdce10034"
+    },
+    {
+      "text": "记录查询银行付款单二次发起表头数据开始时间",
+      "description": "记录查询银行付款单表头数据开始时间（二次发起）",
+      "scriptContent": "String begintime = new java.text.SimpleDateFormat(\"yyyyMMdd HH:mm:ss.SSS\").format(new java.sql.Timestamp(java.lang.System.currentTimeMillis()));\nMap logmap = new HashMap();\nlogmap.put(\"begintime\", begintime);\nmessage.setInboundProperty(\"logmap\", logmap);\nreturn payload;",
+      "smallType": "GroovyScriptTransformer",
+      "className": "org.mule.module.scripting.transformer.ScriptTransformer",
+      "enable": "true",
+      "parentId": "8aaae0b75f7b7add015f7b7ed2ac002a",
+      "bigType": "transformer_au",
+      "simpleMpLog": "false",
+      "ds": "2c9081d05be7e572015be80fcb64000f",
+      "isRef": "false",
+      "id": "8aaae0b75f7b7add015f7b8064490035"
+    },
+    {
+      "queries": "[{\"value\":\"select former_taskid as guid,\\n       header_id,\\n       item_type,\\n       detail_type,\\n       org_id as ou_code,\\n       name as ou_name,\\n       vendor_name,\\n       vendor_num,\\n       to_char(ap_date, 'yyyy-MM-dd') as ap_date,\\n       invoice_num,\\n       invoice_id,\\n       line_num,\\n       term_name,\\n       to_char(due_date, 'yyyy-MM-dd') as due_date,\\n       case \\n         when payment_method_name in ('\电\汇',\\n                                  '\商\业\承\兑\汇\票\（3\个\月\）',\\n                                  '\商\业\承\兑\汇\票\（4\个\月\）',\\n                                  '\商\业\承\兑\汇\票\（6\个\月\）',\\n                                  '\信\用\证',\\n                                  '\银\行\承\兑\汇\票\（3\个\月\）',\\n                                  '\银\行\承\兑\汇\票\（6\个\月\）',\\n                                  '\支\票') then\\n          payment_method_name\\n         else\\n          '\其\他'\\n       end as paymentmethod_name,\\n       currency_code,\\n       to_char(invoice_amount) as invoice_amount,\\n       to_char(amount) as amount,\\n       employee_number,\\n       employee_name,\\n       original_currency as orig_currencycode,\\n       requestor_number,\\n       adaccount,\\n       flag\\n  from bank_payment_remain_mid\\n where invoice_amount > 0\\n   and requestor_number is not null\\n   and flag is null\\n   and org_id not in ('804',\\n                      '864',\\n                      '1104',\\n                      '1105',\\n                      '1244',\\n                      '1245',\\n                      '1264',\\n                      '1264',\\n                      '1364',\\n                      '1464',\\n                      '1525',\\n                      '1526',\\n                      '1545',\\n                      '1564',\\n                      '1588',\\n                      '1603',\\n                      '1604',\\n                      '1609',\\n                      '1610',\\n                      '1647',\\n                      '1648',\\n                      '1649',\\n                      '1653',\\n                      '1657',\\n                      '1658',\\n                      '1659',\\n                      '1663',\\n                      '1673',\\n                      '1674',\\n                      '1682',\\n                      '1683',\\n                      '1685',\\n                      '1689',\\n                      '1694',\\n                      '1695',\\n                      '1698',\\n                      '1699',\\n                      '1704',\\n                      '1705',\\n                      '1711',\\n                      '1726',\\n                      '1731',\\n                      '1734',\\n                      '1735',\\n                      '1738',\\n                      '1746',\\n                      '1747',\\n                      '1748',\\n                      '1749',\\n                      '1750',\\n                      '1751',\\n                      '1752',\\n                      '1753',\\n                      '1764',\\n                      '1765',\\n                      '1766',\\n                      '1767',\\n                      '1768',\\n                      '1769',\\n                      '1780',\\n                      '1784',\\n                      '1786',\\n                      '1788',\\n                      '1790',\\n                      '1792',\\n                      '1796',\\n                      '1810',\\n                      '1830',\\n                      '1831',\\n                      '1832',\\n                      '1833',\\n                      '1834',\\n                      '1835',\\n                      '1836',\\n                      '1837',\\n                      '1838',\\n                      '1870',\\n                      '1871',\\n                      '1890',\\n                      '1910',\\n                      '1912',\\n                      '1914',\\n                      '1916',\\n                      '1917',\\n                      '1970',\\n                      '2010',\\n                      '2011',\\n                      '2030',\\n                      '2110',\\n                      '2111',\\n                      '2130',\\n                      '2372',\\n                      '2396',\\n                      '2430',\\n                      '2432',\\n                      '2435',\\n                      '2437',\\n                      '2460',\\n                      '2490',\\n                      '2511',\\n                      '2670',\\n                      '2710')\\n   and rownum < 20\"}]",
+      "tablePath": "B_BankPayment",
+      "parentId": "8aaae0b75f7b7add015f7b7ed2ac002a",
+      "smallType": "ExecuteSQLSimpleTransformer",
+      "description": "查询银行付款单表头数据（二次发起）",
+      "ignoreSQLError": "false",
+      "subField": "B_BankPayment",
+      "id": "8aaae0b75f7b7add015f7b80da8b0036",
+      "ds": "2c9081d05be7e572015be80fcb64000f",
+      "simpleMpLog": "false",
+      "bigType": "transformer_au",
+      "isRef": "false",
+      "resultIndexOf": 1,
+      "enable": "true",
+      "text": "查询银行付款单二次发起表头数据",
+      "query": "select guid,header_id,invoice_num,invoice_id,item_type,detail_type,vendor_num,vendor_name,org_id as ou_id,name as ou_name,ap_date,due_date,original_currency,currency_code,payment_method_name,invoice_amount,amount,employee_number,employee_name,term_name,requester_numberline_num,flag from bank_payment_tmp_mid where invoice_amount > 0 and flag <>1",
+      "firstRecode": "true",
+      "className": "com.bokesoft.dee.transport.jdbc.transformer.ExecuteSQLSimpleTransformer"
+    },
+    {
+      "dispatchInterface": "8aab8d025f4cf8b7015f4d0187400018",
+      "description": "循环分发查询结果至生成单据服务（二次发起）",
+      "useList": "true",
+      "text": "循环分发二次发起查询结果至生成单据服务",
+      "className": "com.bokesoft.dee.mule.dispatch.transformer.DispatchVMTransformer",
+      "smallType": "DispatchVMTransformer",
+      "enable": "true",
+      "parentId": "8aaae0b75f7b7add015f7b7ed2ac002a",
+      "bigType": "transformer_au",
+      "simpleMpLog": "false",
+      "dispatchService": "8aaae0b75f7b7add015f7b7ed56b002f",
+      "isRef": "false",
+      "id": "8aaae0b75f7b7add015f7b8166360038"
+    }
+  ],
+  "exception": [
+    {
+      "text": "把异常对象转换为文本",
+      "description": "把异常对象转换为文本",
+      "smallType": "ExceptionMessageTransformer",
+      "className": "com.bokesoft.exchange.transformer.ExceptionMessageTransformer",
+      "enable": "true",
+      "parentId": "8aaae0b75f7b7add015f7b7ed2ac002a",
+      "bigType": "GGPZTransformer",
+      "isRef": "true",
+      "id": "8aaae0b75f7b7add015f7b7ed2dc002b"
+    },
+    {
+      "path": "${bokedee.logpath.runtimeLog}/ERP_BankPayment_TO_BPM",
+      "text": "记录错误日志到文件_BankPayment_Remain_MID_Distribute",
+      "description": "",
+      "smallType": "File",
+      "className": "",
+      "enable": "true",
+      "outputPattern": "#[function:datestamp:yyyyMMddHHmmss]-#[message:id].xml",
+      "parentId": "8aaae0b75f7b7add015f7b7ed2ac002a",
+      "bigType": "outbound",
+      "file_subdir": "#[context:serviceName]/#[function:datestamp:yyyyMMdd]",
+      "isRef": "false",
+      "id": "8aaae0b75f7b7add015f7b7ed384002c"
+    },
+    {
+      "text": "把异常信息替换换行符_BankPayment_Remain_MID_Distribute",
+      "description": "把异常信息替换换行符",
+      "scriptContent": "String exceptionContent = message.getPayload();String exception = exceptionContent.replace(\"\\n\", \"<br/>\");message.setPayload(exception);return message;",
+      "className": "org.mule.module.scripting.transformer.ScriptTransformer",
+      "smallType": "GroovyScriptTransformer",
+      "enable": "false",
+      "parentId": "8aaae0b75f7b7add015f7b7ed2ac002a",
+      "bigType": "transformer_au",
+      "simpleMpLog": "false",
+      "isRef": "false",
+      "id": "8aaae0b75f7b7add015f7b7ed434002d"
+    },
+    {
+      "text": "把异常信息通过邮件发送_BankPayment_Remain_MID_Distribute",
+      "description": "把异常信息通过邮件发送",
+      "connector_ref": "bokedee_default_smtp_connector",
+      "subject": "ERP_BankPayment_TO_BPM",
+      "smallType": "SMTP",
+      "className": "",
+      "enable": "false",
+      "parentId": "8aaae0b75f7b7add015f7b7ed2ac002a",
+      "bigType": "outbound",
+      "encoding": "UTF-8",
+      "isRef": "false",
+      "id": "8aaae0b75f7b7add015f7b7ed517002e"
+    }
+  ]
+}

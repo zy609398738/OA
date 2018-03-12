@@ -27,32 +27,28 @@ String fileName =request.getParameter("fileName");
 	//设置页面的显示标题
 	poCtrl1.setCaption(fileName);
 	//打开文件
-	poCtrl1.webOpen(filePath, OpenModeType.docReadOnly, "张三");
-	poCtrl1.setTagId("PageOfficeCtrl1"); //此行必须	 
+	poCtrl1.setTagId("PageOfficeCtrl1");
+//打开Word文档
+poCtrl1.webOpen(filePath,OpenModeType.docNormalEdit,"张佚名");
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
-    <base href="<%=filePath%>">
-    
     <title>My JSP 'index.jsp' starting page</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
+	<script type="text/javascript" src="../jquery.min.js"></script>
+    <script type="text/javascript" src="../pageoffice.js" id="po_js_main"></script>
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
   </head>
   
   <body>
-    <script type="text/javascript">
-			function Save() {
-				document.getElementById("PageOfficeCtrl1").WebSave();
-			}
-	</script>
-    <po:PageOfficeCtrl id="PageOfficeCtrl1" />
+     <%=poCtrl1.getHtmlCode("PageOfficeCtrl1")%>
   </body>
 </html>

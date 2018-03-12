@@ -215,8 +215,22 @@
                 .substring(0, rLength + 1).split('');
             if ((tRound > 4 && settings.mRound === YIUI.NUMBEREDITOR_ROUNDINGMODE.HALF_UP)
                 || (tRound > 0 && settings.mRound === YIUI.NUMBEREDITOR_ROUNDINGMODE.ROUND_UP)) {
-                var i = ivArray.length - 1;
-                ivArray[i] = +ivArray[i] + 1;
+                // var i = ivArray.length - 1;
+                // ivArray[i] = +ivArray[i] + 1;
+
+                for(i = (ivArray.length - 1); i >= 0; i -= 1){
+                    if(ivArray[i] !== '.'){
+                        ivArray[i] = +ivArray[i] + 1;
+                        if(ivArray[i] < 10){
+                            break;
+                        }
+
+                        if(i > 0){
+                            ivArray[i] = '0';
+                        }
+                    }
+                }
+
             }
             ivArray = ivArray.slice(0, rLength + 1);
             ivRounded = ivArray.join('');
@@ -735,7 +749,7 @@
 
             selectOnFocus: true,
 
-            required: false,
+            // required: false,
 
             promptText: null,
 
@@ -849,14 +863,14 @@
             
             doFocusOut: $.noop,
 
-            setRequired: function (required) {
-                this.required = required;
-                if (required) {
-                    this.getEl().addClass('ui-required');
-                } else {
-                    this.getEl().removeClass('ui-required');
-                }
-            },
+            // setRequired: function (required) {
+            //     this.required = required;
+            //     if (required) {
+            //         this.getEl().addClass('ui-required');
+            //     } else {
+            //         this.getEl().removeClass('ui-required');
+            //     }
+            // },
 
             finishInput: function () {
                 var self = this, $this = this.getInput(), handler = self.getHandler($this),
@@ -865,9 +879,9 @@
                 if (parseFloat(curValue) != self.value) {
                     self.setValue(curValue);
                     self.commitValue(curValue);
-                    if (self.required) {
-                        self.setRequired(curValue == "");
-                    }
+                    // if (self.required) {
+                    //     self.setRequired(curValue == "");
+                    // }
                 }
             },
 

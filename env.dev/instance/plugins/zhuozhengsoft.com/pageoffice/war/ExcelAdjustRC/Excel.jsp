@@ -1,29 +1,27 @@
 <%@ page language="java"
 	import="java.util.*,com.zhuozhengsoft.pageoffice.*,com.zhuozhengsoft.pageoffice.excelwriter.*"
-	pageEncoding="gb2312"%>
-<%@ taglib uri="http://java.pageoffice.cn" prefix="po"%>
+	pageEncoding="utf-8"%>
 <%
 
    PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
-   //ÉèÖÃ·þÎñÆ÷Ò³Ãæ
+   //è®¾ç½®æœåŠ¡å™¨é¡µé¢
   poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");
+  poCtrl.setCustomToolbar(false);
   Workbook wb=new Workbook ();
   Sheet sheet1=wb.openSheet("Sheet1");
-  //ÉèÖÃµ±¹¤×÷±íÖ»¶ÁÊ±£¬ÊÇ·ñÔÊÐíÓÃ»§ÊÖ¶¯µ÷ÕûÐÐÁÐ¡£
+  //è®¾ç½®å½“å·¥ä½œè¡¨åªè¯»æ—¶ï¼Œæ˜¯å¦å…è®¸ç”¨æˆ·æ‰‹åŠ¨è°ƒæ•´è¡Œåˆ—ã€‚
   sheet1.setAllowAdjustRC(true);
-  poCtrl.setWriter(wb);//´ËÐÐ±ØÐë
-  //Ìí¼Ó×Ô¶¨Òå°´Å¥
-  poCtrl.addCustomToolButton("±£´æ","Save()",1);
-  poCtrl.setSaveFilePage("SaveFile.jsp");
-  //´ò¿ªWordÎÄµµ
-  poCtrl.webOpen("doc/test.xls",OpenModeType.xlsReadOnly,"ÕÅØýÃû");
-  poCtrl.setTagId("PageOfficeCtrl1");//´ËÐÐ±ØÐè
+  poCtrl.setWriter(wb);//æ­¤è¡Œå¿…é¡»
+
+  //æ‰“å¼€Wordæ–‡æ¡£
+  poCtrl.webOpen("doc/test.xls",OpenModeType.xlsReadOnly,"å¼ ä½šå");
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
-    <title>ExcelÖ»¶ÁÄ£Ê½ÏÂµ÷ÕûÐÐ¸ßºÍÁÐ¿í</title>
+    <title>Excelåªè¯»æ¨¡å¼ä¸‹è°ƒæ•´è¡Œé«˜å’Œåˆ—å®½</title>
+
 </head>
 <body>
     <script type="text/javascript">
@@ -33,12 +31,11 @@
     </script>
     <form id="form1">
    <div>
-      ÉèÖÃµ±¹¤×÷±íÖ»¶ÁÊ±£¬ÔÊÐíÓÃ»§ÊÖ¶¯µ÷ÕûÐÐÁÐ¡£</br>
+      è®¾ç½®å½“å·¥ä½œè¡¨åªè¯»æ—¶ï¼Œå…è®¸ç”¨æˆ·æ‰‹åŠ¨è°ƒæ•´è¡Œåˆ—ã€‚</br>
       <div style="color:Red;">sheet1.setAllowAdjustRC(true);</div>
     </div>
     <div style=" width:100%; height:700px;">
-        <po:PageOfficeCtrl id="PageOfficeCtrl1">
-        </po:PageOfficeCtrl>
+   <%=poCtrl.getHtmlCode("PageOfficeCtrl1")%>
     </div>
     </form>
 </body>

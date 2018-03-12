@@ -1,40 +1,38 @@
 <%@ page language="java" import="java.util.*,java.awt.*"
-	pageEncoding="gb2312"%>
+	pageEncoding="utf-8"%>
 <%@page
 	import="com.zhuozhengsoft.pageoffice.*,com.zhuozhengsoft.pageoffice.wordwriter.*"%>
-<%@ taglib uri="http://java.pageoffice.cn" prefix="po"%>
 <%
 	WordDocument doc = new WordDocument();
 	DataRegion d1 = doc.openDataRegion("d1");
-	d1.getFont().setColor(Color.BLUE);//ÉèÖÃÊý¾ÝÇøÓòÎÄ±¾×ÖÌåÑÕÉ«
-	d1.getFont().setName("»ªÎÄ²ÊÔÆ");//ÉèÖÃÊý¾ÝÇøÓòÎÄ±¾×ÖÌåÑùÊ½
-	d1.getFont().setSize(16);//ÉèÖÃÊý¾ÝÇøÓòÎÄ±¾×ÖÌå´óÐ¡
+	d1.getFont().setColor(Color.BLUE);//è®¾ç½®æ•°æ®åŒºåŸŸæ–‡æœ¬å­—ä½“é¢œè‰²
+	d1.getFont().setName("åŽæ–‡å½©äº‘");//è®¾ç½®æ•°æ®åŒºåŸŸæ–‡æœ¬å­—ä½“æ ·å¼
+	d1.getFont().setSize(16);//è®¾ç½®æ•°æ®åŒºåŸŸæ–‡æœ¬å­—ä½“å¤§å°
 	d1.getParagraphFormat().setAlignment(
-			WdParagraphAlignment.wdAlignParagraphCenter);//ÉèÖÃÊý¾ÝÇøÓòÎÄ±¾¶ÔÆë·½Ê½
+			WdParagraphAlignment.wdAlignParagraphCenter);//è®¾ç½®æ•°æ®åŒºåŸŸæ–‡æœ¬å¯¹é½æ–¹å¼
 
 	DataRegion d2 = doc.openDataRegion("d2");
-	d2.getFont().setColor(Color.orange);//ÉèÖÃÊý¾ÝÇøÓòÎÄ±¾×ÖÌåÑÕÉ«
-	d2.getFont().setName("ºÚÌå");//ÉèÖÃÊý¾ÝÇøÓòÎÄ±¾×ÖÌåÑùÊ½
-	d2.getFont().setSize(14);//ÉèÖÃÊý¾ÝÇøÓòÎÄ±¾×ÖÌå´óÐ¡
+	d2.getFont().setColor(Color.orange);//è®¾ç½®æ•°æ®åŒºåŸŸæ–‡æœ¬å­—ä½“é¢œè‰²
+	d2.getFont().setName("é»‘ä½“");//è®¾ç½®æ•°æ®åŒºåŸŸæ–‡æœ¬å­—ä½“æ ·å¼
+	d2.getFont().setSize(14);//è®¾ç½®æ•°æ®åŒºåŸŸæ–‡æœ¬å­—ä½“å¤§å°
 	d2.getParagraphFormat().setAlignment(
-			WdParagraphAlignment.wdAlignParagraphLeft);//ÉèÖÃÊý¾ÝÇøÓòÎÄ±¾¶ÔÆë·½Ê½
+			WdParagraphAlignment.wdAlignParagraphLeft);//è®¾ç½®æ•°æ®åŒºåŸŸæ–‡æœ¬å¯¹é½æ–¹å¼
 
 	DataRegion d3 = doc.openDataRegion("d3");
-	d3.getFont().setColor(Color.magenta);//ÉèÖÃÊý¾ÝÇøÓòÎÄ±¾×ÖÌåÑÕÉ«
-	d3.getFont().setName("»ªÎÄÐÐ¿¬");//ÉèÖÃÊý¾ÝÇøÓòÎÄ±¾×ÖÌåÑùÊ½
-	d3.getFont().setSize(12);//ÉèÖÃÊý¾ÝÇøÓòÎÄ±¾×ÖÌå´óÐ¡
+	d3.getFont().setColor(Color.magenta);//è®¾ç½®æ•°æ®åŒºåŸŸæ–‡æœ¬å­—ä½“é¢œè‰²
+	d3.getFont().setName("åŽæ–‡è¡Œæ¥·");//è®¾ç½®æ•°æ®åŒºåŸŸæ–‡æœ¬å­—ä½“æ ·å¼
+	d3.getFont().setSize(12);//è®¾ç½®æ•°æ®åŒºåŸŸæ–‡æœ¬å­—ä½“å¤§å°
 	d3.getParagraphFormat().setAlignment(
-			WdParagraphAlignment.wdAlignParagraphRight);//ÉèÖÃÊý¾ÝÇøÓòÎÄ±¾¶ÔÆë·½Ê½
+			WdParagraphAlignment.wdAlignParagraphRight);//è®¾ç½®æ•°æ®åŒºåŸŸæ–‡æœ¬å¯¹é½æ–¹å¼
 
 	PageOfficeCtrl poCtrl = new PageOfficeCtrl(request);
 	poCtrl.setWriter(doc);
 
-	//ÉèÖÃ·þÎñÆ÷Ò³Ãæ
-	poCtrl.setServerPage(request.getContextPath()+"/poserver.zz"); //´ËÐÐ±ØÐë
+	//è®¾ç½®æœåŠ¡å™¨é¡µé¢
+	poCtrl.setServerPage(request.getContextPath()+"/poserver.zz"); //æ­¤è¡Œå¿…é¡»
 	
-	//ÉèÖÃÎÄµµ´ò¿ª·½Ê½
-	poCtrl.webOpen("doc/test.doc", OpenModeType.docNormalEdit, "ÕÅÈý");
-	poCtrl.setTagId("PageOfficeCtrl1");
+	//è®¾ç½®æ–‡æ¡£æ‰“å¼€æ–¹å¼
+	poCtrl.webOpen("doc/test.doc", OpenModeType.docNormalEdit, "å¼ ä¸‰");
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -43,16 +41,16 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
 		<title></title>
 		<link href="images/csstg.css" rel="stylesheet" type="text/css" />
+
 	</head>
 	<body>
 
 		<div id="content">
-			ÑÝÊ¾ÁËÈç¹ûÊ¹ÓÃ³ÌÐò¿ØÖÆÊý¾ÝÇøÓòÎÄ±¾µÄÑùÊ½¡£<a href="Default2.jsp" target="_blank">µã´ËÁ´½Ó²é¿´Ô­ÎÄ¼þ</a><br /><br />
+			æ¼”ç¤ºäº†å¦‚æžœä½¿ç”¨ç¨‹åºæŽ§åˆ¶æ•°æ®åŒºåŸŸæ–‡æœ¬çš„æ ·å¼ã€‚<a href="Default2.jsp" >ç‚¹æ­¤é“¾æŽ¥æŸ¥çœ‹åŽŸæ–‡ä»¶å†…å®¹æ ·å¼</a><br /><br />
 			<div id="textcontent" style="width: 1000px; height: 800px;">
 
-				<!--**************   ×¿Õý PageOffice×é¼þ ************************-->
-				<po:PageOfficeCtrl id="PageOfficeCtrl1">
-				</po:PageOfficeCtrl>
+				<!--**************   å“æ­£ PageOfficeç»„ä»¶ ************************-->
+				<%=poCtrl.getHtmlCode("PageOfficeCtrl1")%>
 			</div>
 		</div>
 

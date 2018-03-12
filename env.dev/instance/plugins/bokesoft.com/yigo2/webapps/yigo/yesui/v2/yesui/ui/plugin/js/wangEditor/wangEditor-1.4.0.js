@@ -432,7 +432,7 @@ $.extend($E, {
 	    	langUpload = langConfig.common.insert;
 
 	    var content =   '<p>'+richEditor.insertPicture+'</p><form id="' + formId + '" method="post" enctype="multipart/form-data" target="' + iframeId + '">'+
-	                    '   <p>' +langChoose+ '：<input type="file" accept="image/*" name="' + fileInputName + '" id="' + fileId + '"/></p>' +
+	                    '   <p>' +langChoose+ '：<input type="file" accept="image/gif,image/jpeg,image/jpg,image/png" name="' + fileInputName + '" id="' + fileId + '"/></p>' +
 	                    '   <p>' +langTitle+ '：<input type="text" id="' + titleTxtId + '" style="width:250px;"/></p>' +
 	                    '   <p><button id="' + btnId + '"  type="button" class="wangEditor-modal-btn">' +langUpload+ '</button></p>' +
 	                    '   <span stype="color:red;" id="' + infoId + '"></span>' +

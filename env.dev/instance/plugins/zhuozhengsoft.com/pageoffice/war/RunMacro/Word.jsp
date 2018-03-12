@@ -1,28 +1,26 @@
 <%@ page language="java"
 	import="java.util.*,com.zhuozhengsoft.pageoffice.*,com.zhuozhengsoft.pageoffice.wordwriter.*"
-	pageEncoding="gb2312"%>
-<%@ taglib uri="http://java.pageoffice.cn" prefix="po"%>
+	pageEncoding="utf-8"%>
 <%
-//******************************×¿ÕýPageOffice×é¼þµÄÊ¹ÓÃ*******************************
-	//ÉèÖÃPageOffice·þÎñÆ÷×é¼þ
+//******************************å“æ­£PageOfficeç»„ä»¶çš„ä½¿ç”¨*******************************
+	//è®¾ç½®PageOfficeæœåŠ¡å™¨ç»„ä»¶
 	PageOfficeCtrl poCtrl1 = new PageOfficeCtrl(request);
-	poCtrl1.setServerPage(request.getContextPath()+"/poserver.zz"); //´ËÐÐ±ØÐë
+	poCtrl1.setServerPage(request.getContextPath()+"/poserver.zz"); //æ­¤è¡Œå¿…é¡»
 	
-	//Òþ²Ø²Ëµ¥À¸
+	//éšè—èœå•æ 
 	poCtrl1.setMenubar(false);
-	//Òþ²Ø×Ô¶¨Òå¹¤¾ßÀ¸
+	//éšè—è‡ªå®šä¹‰å·¥å…·æ 
 	poCtrl1.setCustomToolbar(false);
 	
-	//´ò¿ªÎÄ¼þ
-	poCtrl1.webOpen("doc/test.doc", OpenModeType.docNormalEdit, "ÕÅÈý");
-	poCtrl1.setTagId("PageOfficeCtrl1"); //´ËÐÐ±ØÐë	
-	
+	//æ‰“å¼€æ–‡ä»¶
+	poCtrl1.webOpen("doc/test.doc", OpenModeType.docNormalEdit, "å¼ ä¸‰");
+
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
-    <title>Ö´ÐÐºêÃüÁî</title>
+    <title>æ‰§è¡Œå®å‘½ä»¤</title>
 
     <script language="javascript" type="text/javascript">
 // <!CDATA[
@@ -33,23 +31,23 @@
 
 // ]]>
     </script>
+    
 </head>
 <body>
     <form id="form1">
     <div style="font-size: 12px; line-height: 20px; border-bottom: dotted 1px #ccc; border-top: dotted 1px #ccc;
         padding: 5px;">
-        ×¢Òâ£º<span style="background-color: Yellow;">Ö´ÐÐ¡°Ö´ÐÐºêmyfunc¡±°´Å¥Ö®Ç°ÐèÏÈÉèÖÃºÃMS WordµÄ¹ØÓÚÖ´ÐÐºêÃüÁîµÄÉèÖÃ¡£
-        <br />ÉèÖÃ²½ÖèÈçÏÂ£º´ò¿ªÒ»¸öWordÎÄµµ£¬µã»÷¡°ÎÄ¼þ¡±¡ú¡°Ñ¡Ïî¡±¡ú¡°ÐÅÈÎÖÐÐÄ¡±¡ú¡°ÐÅÈÎÖÐÐÄÉèÖÃ¡±¡ú¡°ºêÉèÖÃ¡±¡ú¹´Ñ¡ÉÏ¡°ÐÅÈÎ¶ÔVBA¹¤³Ì¶ÔÏóÄ£ÐÍµÄ·ÃÎÊ£¨V£©¡±</span>
+        æ³¨æ„ï¼š<span style="background-color: Yellow;">æ‰§è¡Œâ€œæ‰§è¡Œå®myfuncâ€æŒ‰é’®ä¹‹å‰éœ€å…ˆè®¾ç½®å¥½MS Wordçš„å…³äºŽæ‰§è¡Œå®å‘½ä»¤çš„è®¾ç½®ã€‚
+        <br />è®¾ç½®æ­¥éª¤å¦‚ä¸‹ï¼šæ‰“å¼€ä¸€ä¸ªWordæ–‡æ¡£ï¼Œç‚¹å‡»â€œæ–‡ä»¶â€â†’â€œé€‰é¡¹â€â†’â€œä¿¡ä»»ä¸­å¿ƒâ€â†’â€œä¿¡ä»»ä¸­å¿ƒè®¾ç½®â€â†’â€œå®è®¾ç½®â€â†’å‹¾é€‰ä¸Šâ€œä¿¡ä»»å¯¹VBAå·¥ç¨‹å¯¹è±¡æ¨¡åž‹çš„è®¿é—®ï¼ˆVï¼‰â€</span>
     </div>
     <textarea id="textarea1" name="textarea1" style=" height:87px; width:486px;" rows="" cols="" >
     sub myfunc() 
 msgbox "123" 
 end sub
     </textarea>
-    <input id="Button1" type="button" value="Ö´ÐÐºêmyfunc" onclick="return Button1_onclick()" />
+    <input id="Button1" type="button" value="æ‰§è¡Œå®myfunc" onclick="return Button1_onclick()" />
     <div style=" height:800px;">
-        <po:PageOfficeCtrl id="PageOfficeCtrl1">
-        </po:PageOfficeCtrl>
+                <%=poCtrl1.getHtmlCode("PageOfficeCtrl1")%>
     </div>
     </form>
 </body>

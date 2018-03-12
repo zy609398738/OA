@@ -1,3 +1,4 @@
+"use strict";
 (function() {
 	RTS = RTS || {};
 	RTS.Treetable = function(el, options) {

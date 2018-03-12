@@ -123,10 +123,12 @@ YIUI.Control.TextEditor = YIUI.extend(YIUI.Control, {
     },
 
     setBackColor: function (backColor) {
+        this.backColor = backColor;
         this.yesText && this.yesText.setBackColor(backColor);
     },
 
     setForeColor: function (foreColor) {
+        this.foreColor = foreColor;
         this.yesText && this.yesText.setForeColor(foreColor);
     },
 
@@ -203,6 +205,7 @@ YIUI.Control.TextEditor = YIUI.extend(YIUI.Control, {
             switch (event.keyCode || event.charCode) {
             case 13:
             case 108: // enter
+                self.setValue(self.yesText.getValue(),true,true);
                 if (self.holdFocus) {
                     self.yesText.getInput().focus();
                 } else {

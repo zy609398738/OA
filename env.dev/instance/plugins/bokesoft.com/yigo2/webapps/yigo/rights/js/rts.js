@@ -61,6 +61,9 @@ RTS.checkCtr = function($table, id, isCheck, index) {
 				if(isCheck) {
 					$(".checkbox", tr).eq(0).prop("checked", true);
 					chkData.visible = true;
+				} else {
+					// 记录子节点可见性
+					chkData.visible = $(".checkbox", tr).eq(0).prop("checked");
 				}
 				chkData.enable = isCheck;
 			}
@@ -139,12 +142,12 @@ RTS.checkPtr = function($table, id, isCheck, index) {
 			chkData.visible = $(".checkbox", tr).eq(0).prop("checked");
 			RTS.setRts(tr.attr("id"), isCheck, $table, chkData);
 		} else {
-			RTS.setRts(id, isCheck, $table);
 			if(isCheck && $chk.prop("checked") != isCheck) {
 				$chk.prop("checked", true);
 			}
+			RTS.setRts(id, isCheck, $table);
 		}
-		RTS.checkPtr($table, pNode.parentId, isCheck);
+		RTS.checkPtr($table, pNode.parentId, isCheck, index);
 	}
 };
 
@@ -177,9 +180,10 @@ var setDictRts = function(id, isCheck, $table) {
 	var options = RTS.options;
 	var node = $table.treeNode.tree[id];
 	var hasRts = node.row.attr('hasRts') == undefined ? false : true;
-	if($(".checkbox", node.row).is(":checked") == isCheck && isCheck != hasRts && !node.changed) {
-		node.changed = true;
-	}
+//	if($(".checkbox", node.row).is(":checked") == isCheck && isCheck != hasRts && !node.changed) {
+//		node.changed = true;
+//	}
+	node.changed = true;
 
 	var isChain = options.clickTr.attr("secondaryType") == 5;
 	if(!isChain) return;
@@ -297,15 +301,13 @@ RTS.setChecked = function($table) {
 	var checked = target.is(":checked");
 	var $trs = $("tr:not([class~='title'])", $table);
 	if(target.parents("tr").hasClass("title")) {
-		var chks = $("tr:not([class~='title']) .checkbox", $table);
-		chks.prop("checked", checked);
-//		for (var i = 0, len = $trs.length; i < len; i++) {
-//			$chk = $(".checkbox", $trs.eq(i));
-//			if($chk.attr("enable") == "false") continue;
-//			$chk.prop("checked", checked);
-//			var tr = $chk.parents("tr").eq(0);
-//			RTS.setRts(tr.attr("id"), checked, $table);
-//		}
+		for (var i = 0, len = $trs.length; i < len; i++) {
+			$chk = $(".checkbox", $trs.eq(i));
+			if($chk.attr("enable") == "false") continue;
+			$chk.prop("checked", checked);
+			var tr = $chk.parents("tr").eq(0);
+			RTS.setRts(tr.attr("id"), checked, $table);
+		}
 		
 		var type = options.type;
 		switch(type) {
@@ -380,6 +382,8 @@ RTS.loopSearch = function(value, $table) {
 				var top = $tr.position().top - (container.height() - $("thead", container).height());
 				if(top > 0) {
 					container.scrollTop(top + container.scrollTop());
+				} else {
+					container.scrollTop(0);
 				}
 				$tr.click();
 				hasClick = true;

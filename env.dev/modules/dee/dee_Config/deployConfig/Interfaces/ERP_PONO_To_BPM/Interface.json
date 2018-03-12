@@ -1,0 +1,10 @@
+{
+  "startIndex": "",
+  "autoRun": "true",
+  "responseTime": "600000",
+  "description": "实时查询ERP系统维修单的PONO信息",
+  "changePort": "",
+  "id": "8aab8d9b61f42b690161f42ecbfa0018",
+  "text": "ERP_PONO_To_BPM",
+  "oldPort": ""
+}

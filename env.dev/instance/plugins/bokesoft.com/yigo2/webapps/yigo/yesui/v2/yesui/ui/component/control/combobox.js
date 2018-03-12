@@ -71,35 +71,25 @@ YIUI.Control.ComboBox = YIUI.extend(YIUI.Control, {
     getCheckedValue : function (){
 
     },
+
+    /**
+     * 由于可以绑定字符串和整型,所以特殊处理一下
+     */
+    isNull:function () {
+        if( this.integerValue ) {
+            return this.base() || parseFloat(this.value) == 0;
+        }
+        return this.base();
+    },
     
 	dependedValueChange: function(targetField, dependedField){
 		this.needRebuild = true;
-//		this.setText("");
         this.setValue(null, true, true, false, true);
 	},
     
     checkEnd: function(value) {
     	this.value = value;
     	this.yesCombobox.setSelValue(value);
-		// var text = this.getCaption(value);
-  //       if (value) {
-  //       	switch (this.sourceType) {
-  //       	case YIUI.COMBOBOX_SOURCETYPE.FORMULA:
-  //       		this.handler.getComboboxItems(this);
-  //       		text = this.getCaption(value);
-  //       		break;
-  //       	case YIUI.COMBOBOX_SOURCETYPE.QUERY:
-  //       		text = value;
-  //       		break;
-  //       	default:
-  //       		text = this.getCaption(value);
-  //       	break;
-  //       	}
-  //       	if(!text && this.editable) {
-  //           	text = value;
-  //           }
-  //       }
-  //       this.setText(text);
 
         var _this = this;
 
@@ -204,45 +194,6 @@ YIUI.Control.ComboBox = YIUI.extend(YIUI.Control, {
     getValue: function() {
     	return this.integerValue ? YIUI.TypeConvertor.toInt(this.value) : this.value;
     },
-    
-  //   getCaption: function(value) {
-  //   	var caption = "";
-  //       if (value) {
-  //           switch (this.sourceType) {
-  //           case YIUI.COMBOBOX_SOURCETYPE.QUERY:
-  //           	caption = value;
-  //               break;
-  //           case YIUI.COMBOBOX_SOURCETYPE.FORMULA:
-  //           	this.handler.getComboboxItems(this);
-  //           default:
-	 //        	if(this.multiSelect) {
-	 //        		var values = value.split(",");
-	 //        		for (var i = 0, len = values.length; i < len; i++) {
-	 //        			if(i > 0) {
-	 //        				caption += ",";
-	 //        			}
-	 //        			caption += this.getItemCaption(values[i]);
-	 //    			}
-	 //        	} else {
-	 //        		caption = this.getItemCaption(value);
-	 //        	}
-  //               break;
-  //           }
-  //       }
-  //   	return caption;
-  //   },
-    
-  //   getItemCaption: function(value) {
-  //   	var caption = "";
-  //   	for (var i = 0, len = this.items.length, item; i < len; i++) {
-		// 	item = this.items[i];
-		// 	if(item.value == value) {
-  //   			caption = item.caption;
-  //   			break;
-  //   		}
-		// }
-  //   	return caption;
-  //   },
 
     focus: function () {
         $("input", this.el).focus();

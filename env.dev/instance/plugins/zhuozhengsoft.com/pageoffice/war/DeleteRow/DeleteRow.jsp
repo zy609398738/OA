@@ -1,40 +1,35 @@
 <%@ page language="java"
 	import="java.util.*,com.zhuozhengsoft.pageoffice.*,com.zhuozhengsoft.pageoffice.wordwriter.*"
-	pageEncoding="gb2312"%>
-<%@ taglib uri="http://java.pageoffice.cn" prefix="po"%>
+	pageEncoding="utf-8"%>
 <%
-	//******************************×¿ÕıPageOffice×é¼şµÄÊ¹ÓÃ*******************************
+	//******************************å“æ­£PageOfficeç»„ä»¶çš„ä½¿ç”¨*******************************
 	PageOfficeCtrl poCtrl1 = new PageOfficeCtrl(request);
-	poCtrl1.setServerPage(request.getContextPath()+"/poserver.zz"); //´ËĞĞ±ØĞë
-	//Òş²Ø²Ëµ¥À¸
+	poCtrl1.setServerPage(request.getContextPath()+"/poserver.zz"); //æ­¤è¡Œå¿…é¡»
+	//éšè—èœå•æ 
 	poCtrl1.setMenubar(false);
-	poCtrl1.addCustomToolButton("É¾³ıĞĞ","DeleteRow()",1);
+	poCtrl1.addCustomToolButton("åˆ é™¤è¡Œ","DeleteRow()",1);
 	
-	poCtrl1.webOpen("doc/deleteWord.doc", OpenModeType.docNormalEdit, "ÕÅÈı");
-	poCtrl1.setTagId("PageOfficeCtrl1"); //´ËĞĞ±ØĞë	
+	poCtrl1.webOpen("doc/deleteWord.doc", OpenModeType.docNormalEdit, "å¼ ä¸‰");
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 	<head>
 
-		<title>É¾³ı¹â±êËùÔÚĞĞ</title>
+		<title>åˆ é™¤å…‰æ ‡æ‰€åœ¨è¡Œ</title>
 
 		<meta http-equiv="pragma" content="no-cache">
 		<meta http-equiv="cache-control" content="no-cache">
 		<meta http-equiv="expires" content="0">
 		<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 		<meta http-equiv="description" content="This is my page">
-		<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
-
+	
 	</head>
 
 	<body>
-		<!-- ***************************PageOffice×é¼ş¿Í»§¶ËJs´úÂë******************************** -->
+		<!-- ***************************PageOfficeç»„ä»¶å®¢æˆ·ç«¯Jsä»£ç ******************************** -->
 	<script type="text/javascript">
-    //É¾³ıword±í¸ñÖĞ¹â±êËùÔÚĞĞ
+    //åˆ é™¤wordè¡¨æ ¼ä¸­å…‰æ ‡æ‰€åœ¨è¡Œ
 //        function DeleteRow() {
 //            var appObj = document.getElementById("PageOfficeCtrl1").Document.Application;
 
@@ -43,7 +38,7 @@
 //            appObj.Selection.Cells.Delete(2);
 //            appObj.Selection.TypeBackspace();
         //        }
-        //É¾³ıword±í¸ñÖĞ¹â±êËùÔÚĞĞ£¬¸÷ÖÖä¯ÀÀÆ÷ÏÂ¾ù¿ÉÊ¹ÓÃ
+        //åˆ é™¤wordè¡¨æ ¼ä¸­å…‰æ ‡æ‰€åœ¨è¡Œï¼Œå„ç§æµè§ˆå™¨ä¸‹å‡å¯ä½¿ç”¨
         function DeleteRow() {
             var mac = "Function myfunc()" + " \r\n"
                     + "Application.Selection.HomeKey Unit:=wdLine " + " \r\n"
@@ -54,8 +49,9 @@
             document.getElementById("PageOfficeCtrl1").RunMacro("myfunc", mac);
         } 
 	</script>
+		â€œåˆ é™¤è¡Œâ€æŒ‰é’®å¯ä»¥åˆ é™¤å…‰æ ‡æ‰€åœ¨è¡Œ
 		<div style="width:auto; height:700px; ">
-		<po:PageOfficeCtrl id="PageOfficeCtrl1"></po:PageOfficeCtrl>
+		<%=poCtrl1.getHtmlCode("PageOfficeCtrl1")%>
 		</div>
 		
 	</body>

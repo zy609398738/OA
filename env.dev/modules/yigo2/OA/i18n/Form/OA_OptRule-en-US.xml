@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <Opt>
+        <Lab_CreateTime>CreateTime</Lab_CreateTime>
+        <Lab_ClusterID>Group</Lab_ClusterID>
+        <Lab_BillKey>Billkey</Lab_BillKey>
+        <Lab_Code>Code</Lab_Code>
+        <Lab_Formula>SiteRules</Lab_Formula>
+        <SysTab>System Information</SysTab>
+        <Lab_Creator>Creator</Lab_Creator>
+        <Lab_Modifier>Modifier</Lab_Modifier>
+        <Lab_ModifyTime>ModifyTime</Lab_ModifyTime>
+        <Lab_Name>Name</Lab_Name>
+        <Lab_Notes>Notes</Lab_Notes>
+        <GridLayoutPanel1>Basic Information</GridLayoutPanel1>
+    </Opt>
+    <UI>
+        <Lab_CreateTime>CreateTime</Lab_CreateTime>
+        <Lab_ClusterID>Group</Lab_ClusterID>
+        <Lab_BillKey>Billkey</Lab_BillKey>
+        <Lab_Code>Code</Lab_Code>
+        <Lab_Formula>SiteRules</Lab_Formula>
+        <SysTab>System Information</SysTab>
+        <Lab_Creator>Creator</Lab_Creator>
+        <Lab_Modifier>Modifier</Lab_Modifier>
+        <Lab_ModifyTime>ModifyTime</Lab_ModifyTime>
+        <Lab_Name>Name</Lab_Name>
+        <Lab_Notes>Notes</Lab_Notes>
+        <GridLayoutPanel1>Basic Information</GridLayoutPanel1>
+    </UI>
+</StringTable>

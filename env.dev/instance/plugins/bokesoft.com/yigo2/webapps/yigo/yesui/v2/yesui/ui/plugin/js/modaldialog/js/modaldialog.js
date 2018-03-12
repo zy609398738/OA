@@ -9,15 +9,22 @@
 				options = { };
 			}
 			var defaults = {
-//				width: 525,
 				title: YIUI.I18N.grid.prompt,
 				isResize: true,
 				showCloseIcon: true,
 				showClose: true,
-				className: "",//自定义类名
+				className: "",
 				height: 100
 			};
 			var settings = $.extend(defaults, options);
+			var c_h = document.body.clientHeight;
+			var c_w = document.body.clientWidth;
+			if(parseInt(settings.height) > c_h) {
+				settings.height = c_h;
+			} 
+			if(parseInt(settings.width) > c_w) {
+				settings.width = c_w;
+			}
 			var dialog = this.get(0);
 			dialog.detailHeight = 0;
 
@@ -56,8 +63,14 @@
 			dialogmask.hide();
 			$(dialog).hide();
 			$(document.body).append(dialog);
-			$(".dialog-close", dialog).click(this.close);
-			$(".dialog-button.close", dialog).click(this.close);
+
+			$(".dialog-close,.dialog-button.close", dialog).click(function () {
+				if( typeof settings.close === 'function' ) {
+					settings.close();   // 模态窗口,执行关闭事件
+				} else {
+					$(this).close();
+				}
+            });
 			$('.dialog-title', dialog).text(settings.title);
 			var doLayout = function(width, height) {
 				innerHeight = height - $(".dialog-header", dialog).outerHeight();
@@ -135,6 +148,15 @@
 				doResize();
 			}
 			var self = this;
+			
+			var $box = $(".dialog-header", dialog).mousedown(function(e) {
+				if($(e.target).hasClass("dialog-close")) {
+					return false;
+				}
+			    var offset = $(dialog).offset();
+			    dialog.posix = {'x': e.pageX - offset.left, 'y': e.pageY - offset.top};
+			    $.extend(document, {'move': true, 'move_target': dialog});
+			});
 			$(document).mousemove(function(e) {
 				if (!!this.move) {
 					var posix = !document.move_target ? {'x': 0, 'y': 0} : document.move_target.posix,
@@ -158,33 +180,52 @@
 					});
 				}
 			});
-			// 	.on("keydown", function(e){
-			// 	var which = event.which;
-			// 	if(which == 13 || which == 108){
-			// 		self.close();
+
+			// var $box = $(".dialog-header", dialog).mousedown(function(e) {
+			// 	if($(e.target).hasClass("dialog-close")) {
+			// 		return false;
+			// 	}
+			//     var offset = $(dialog).offset();
+			//     dialog.posix = {'x': e.pageX - offset.left, 'y': e.pageY - offset.top};
+			//     $.extend(this, {'move': true, 'move_target': dialog});
+			// });
+			//  $(".dialog-header", dialog).mousemove(function(e) {
+			// 	if (!!this.move) {
+			// 		var posix = !this.move_target ? {'x': 0, 'y': 0} : this.move_target.posix,
+			// 			callback = this.call_down || function() {
+			// 				$(this.move_target).css({
+			// 					'top': e.pageY - posix.y,
+			// 					'left': e.pageX - posix.x
+			// 				});
+			// 			};
+			// 		callback.call(this, e, posix);
+			// 	}
+			// }).mouseup(function(e) {
+			// 	if (!!this.move) {
+			// 		var callback = this.call_up || function(){};
+			// 		callback.call(this, e);
+			// 		$.extend(this, {
+			// 			'move': false,
+			// 			'move_target': null,
+			// 			'call_down': false,
+			// 			'call_up': false
+			// 		});
 			// 	}
 			// });
-			var $box = $(".dialog-header", dialog).mousedown(function(e) {
-				if($(e.target).hasClass("dialog-close")) {
-					return false;
-				}
-			    var offset = $(dialog).offset();
-			    dialog.posix = {'x': e.pageX - offset.left, 'y': e.pageY - offset.top};
-			    $.extend(document, {'move': true, 'move_target': dialog});
-			});
 
 		},
 
-		//关闭窗口
-		close: function () {
-			var dialog = $(this);
-			if(!dialog.hasClass("dialog")) {
-				dialog = $(this).parents(".dialog");
-			}
-			var mask =  $("#" +  (dialog.attr("id") || "") + "_mask");
-			dialog.remove();
-			mask.remove();
-		},
+        //关闭窗口
+        close: function () {
+            var dialog = $(this);
+            if(!dialog.hasClass("dialog")) {
+                dialog = $(this).parents(".dialog");
+            }
+            var mask =  $("#" +  (dialog.attr("id") || "") + "_mask");
+            dialog.remove();
+            mask.remove();
+        },
+
 		//可加载内容处
 		dialogContent: function() {
 			return $('.dialog-content-inner', this);

@@ -4,17 +4,22 @@
  //The dir of main js file
 var MAIN_DIR = require('path').dirname(require.main.filename);
 
+console.log("node version: "+process.version);
+console.log("__filename: "+__filename);
+console.log("__dirname:"+__dirname);
+console.log("require.main.filename:"+require.main.filename);
+console.log("process.cwd: "+process.cwd());
+
 /* NOTE: Because the webpack config file (webpack.web-test-config.js) was not loaded at this
          point, so we must require mudules with absolute path.
  */
-var webpack = require(MAIN_DIR+'/node_modules/webpack');
-var WebpackDevServer = require(MAIN_DIR+'/node_modules/webpack-dev-server');
-var proxy = require(MAIN_DIR+'/node_modules/proxy-middleware');
-var url = require(MAIN_DIR+'/node_modules/url');
-var express = require(MAIN_DIR+'/node_modules/express');
-var bodyParser = require(MAIN_DIR+'/node_modules/body-parser');
-
-var colors = require(MAIN_DIR+'/node_modules/colors');
+var webpack = require('webpack'),
+	WebpackDevServer = require('webpack-dev-server'),
+	proxy = require('proxy-middleware'),
+	url = require('url'),
+	express = require('express'),
+	bodyParser = require('body-parser'),
+	colors = require('colors');
 
 module.exports = {
     /** Start test web server with webpack-dev-server "auto-refresh" support.
@@ -24,7 +29,8 @@ module.exports = {
      *     wdsPort: webpack-dev-server HTTP Port, default: auto detect available port from httpPort+1,
      *     wdsPubPath: The publish path for test code, default = "web-test",
      *     webpackCfg: The webpack configurations, default = require("./webpack.web-test-config.js")
-	 *     terget : The test target(for example 'vue', 'react', 'bootstrap' ...), optional
+	 *     target : The test target(for example 'vue', 'react', 'bootstrap' ...), optional
+	 *     apiProxys: [{ctxPath:"/api/",url:"http://localhost:8080/yigo/cms/"}, {...}, ...]
     */
     start: function(cfg, appCallback) {
 
@@ -36,7 +42,6 @@ module.exports = {
 		var startServer = function (httpPort, wdsPort) {
 			var wdsPubPath = cfg.wdsPubPath || "web-test";
 			var target = cfg.target;
-			
 			var app = express();
 			
 			app.use(bodyParser.urlencoded({ extended: true }));
@@ -45,6 +50,11 @@ module.exports = {
                 resp.send('[webpack-dev-support] It works!')
             });
 			app.use('/'+wdsPubPath, proxy(url.parse('http://localhost:'+wdsPort+'/'+wdsPubPath)));
+			var apiProxys = cfg.apiProxys || [];
+			apiProxys.forEach(function(data){
+				app.use(data.ctxPath, proxy(url.parse(data.url)));
+			});
+			//app.use('/api/', proxy(url.parse('http://localhost:8080/yigo/cms/')));
 			if (appCallback) {
                 appCallback(app);
             }

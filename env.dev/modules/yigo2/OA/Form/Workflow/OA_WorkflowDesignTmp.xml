@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="OA_WorkflowDesignTmp" Caption="流程设计模板" FormType="View">
+    <DataSource>
+        <DataObject Key="OA_WorkflowDesignTmp" Caption="流程设计模板">
+            <TableCollection>
+                <Table Key="OA_WorkflowDesignTmp" Caption="流程设计模板" TableMode="Detail" SourceType="Query" Persist="false">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="WorkflowKey" Caption="流程标识" DataType="Varchar"/>
+                    <Column Key="WorkflowName" Caption="流程名称" DataType="Varchar"/>
+                    <Column Key="WorkflowVersion" Caption="流程版本" DataType="Integer"/>
+                    <ParameterCollection>
+                        <Parameter DataType="Long" Formula="Para(&quot;WorkflowID&quot;);"/>
+                    </ParameterCollection>
+                    <Statement>
+                        <![CDATA[select OID,workflowkey,workflowname,workflowversion from oa_workflow_h where workflowkey = (select workflowkey from oa_workflow_h where oid = ?)]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <OperationCollection>
+        <Operation Key="Close" Caption="关闭">
+            <Action>
+                <![CDATA[Close();]]>
+            </Action>
+        </Operation>
+    </OperationCollection>
+    <Body PopHeight="600px" PopWidth="800px">
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板" Height="100%" Width="100%">
+                <ToolBar Key="ToolBar1" Height="pref" Caption="ToolBar1">
+                    <ToolBarItemCollection/>
+                </ToolBar>
+                <Grid Key="Grid1" Caption="Grid1" Enable="false" NewEmptyRow="false" Height="100%" PageLoadType="DB" Width="100%">
+                    <GridColumnCollection>
+                        <GridColumn Key="WorkflowKey" Caption="流程标识" Width="200px" Sortable="true"/>
+                        <GridColumn Key="WorkflowName" Caption="流程名称" Width="200px" Sortable="true"/>
+                        <GridColumn Key="WorkflowVersion" Caption="流程版本" Width="80px" Sortable="true"/>
+                        <GridColumn Key="OID" Caption="OID" Width="80px" Visible="FALSE" Sortable="true"/>
+                        <GridColumn Key="column2" Caption="一键导入" Width="80px" Sortable="true"/>
+                    </GridColumnCollection>
+                    <GridRowCollection>
+                        <GridRow Key="row1" RowHeight="35" TableKey="OA_WorkflowDesignTmp">
+                            <GridCell Key="WorkflowKey" Caption="流程标识" CellSortType="None" MergedColumnSpan="-1" MergedRowSpan="-1">
+                                <DataBinding ColumnKey="WorkflowKey"/>
+                            </GridCell>
+                            <GridCell Key="WorkflowName" Caption="流程名称" CellSortType="None" MergedColumnSpan="-1" MergedRowSpan="-1">
+                                <DataBinding ColumnKey="WorkflowName"/>
+                            </GridCell>
+                            <GridCell Key="WorkflowVersion" Caption="流程版本" MergedColumnSpan="-1" MergedRowSpan="-1">
+                                <DataBinding ColumnKey="WorkflowVersion"/>
+                            </GridCell>
+                            <GridCell Key="OID" Caption="OID" MergedColumnSpan="-1" MergedRowSpan="-1">
+                                <DataBinding ColumnKey="OID"/>
+                            </GridCell>
+                            <GridCell Key="cell1" Caption="一键导入" CellType="Button" Enable="true" MergedColumnSpan="-1" MergedRowSpan="-1">
+                                <OnClick>
+                                    <![CDATA[InvokeService("OA_ImportWorkflowDesigne", false, false, {workflowKey:{WorkflowKey}, workflowVersion:{WorkflowVersion},workflowID:{OID},workflowTypeDtlID:{Para("WorkflowTypeDtlOID")},formkey:{Para("FormKey")},workflowDesigneID:{Para("WorkflowDesigneID")}});
+DBUpdate("Update OA_WorkflowType_D set WorkflowDesigneID =? where oid =?", DBQueryValue("select oid from oa_workflowdesigne_h where tag2= ?", Para("WorkflowTypeDtlOID")),Para("WorkflowTypeDtlOID"));
+parent.SetCellValue(Para("GridKey"), -1, "WorkflowDesigneID", DBQueryValue("select oid from oa_workflowdesigne_h where tag2= ?", Para("WorkflowTypeDtlOID")));
+Close();]]>
+                                </OnClick>
+                            </GridCell>
+                        </GridRow>
+                    </GridRowCollection>
+                </Grid>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+    <OnLoad>
+        <![CDATA[LoadData();]]>
+    </OnLoad>
+</Form>

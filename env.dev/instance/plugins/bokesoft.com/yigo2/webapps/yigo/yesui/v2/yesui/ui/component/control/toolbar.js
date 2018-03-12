@@ -193,11 +193,11 @@ YIUI.Control.Toolbar = YIUI.extend(YIUI.Control, {
     install: function () {
         var self = this;
         self.el.delegate("li", "click", $.debounce(100, function (event) {
-//            var _this = $(this);
+            var _this = $(this);
             var _this = $(event.target);
-            
+
             if(!event.target.tagName.equalsIgnoreCase("li")) {
-            	_this = _this.parents("li").eq(0);
+           	    _this = _this.parents("li").eq(0);
             }
             
             if (_this.hasClass("ui-readonly")) return;
@@ -207,8 +207,9 @@ YIUI.Control.Toolbar = YIUI.extend(YIUI.Control, {
                 _this.toggleClass("show");
             } else {
                 self.item = _this[0].item;
+                YIUI.HeadInfos.put(YIUI.HeadInfoType.SysOpt, this.item.key);
                 self.handler.doOnClick(self.ofFormID, self.item);
-//                event.stopPropagation();
+                YIUI.HeadInfos.remove(YIUI.HeadInfoType.SysOpt);
             }
             $(document).on("mousedown", function (e) {
                 var target = $(e.target);
@@ -219,12 +220,15 @@ YIUI.Control.Toolbar = YIUI.extend(YIUI.Control, {
             });
         }));
 
-        self.el.delegate(".upload","click",function () {
-            var li = $(this).closest('li');
+        self.el.delegate(".upload","click",function (event) {
+            var target = event.target;
+            var li = $(target).closest('li');
             if( li.hasClass('ui-readonly') )
                 return;
-            window.up_target = $(this);
+            window.up_target = target;
+            YIUI.HeadInfos.put(YIUI.HeadInfoType.SysOpt, this.item.key);
             self.handler.doOnClick(self.ofFormID, li[0].item);
+            YIUI.HeadInfos.remove(YIUI.HeadInfoType.SysOpt);
             event.stopPropagation();
         });
 
@@ -238,7 +242,9 @@ YIUI.Control.Toolbar = YIUI.extend(YIUI.Control, {
             } else {
                 self.dropView.removeClass("show");
                 self.item = this.item;
+                YIUI.HeadInfos.put(YIUI.HeadInfoType.SysOpt, this.item.key);
                 self.handler.doOnClick(self.ofFormID, self.item);
+                YIUI.HeadInfos.remove(YIUI.HeadInfoType.SysOpt);
                 event.stopPropagation();
             }
             $(document).on("mousedown", function (e) {

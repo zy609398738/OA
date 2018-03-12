@@ -1,6 +1,6 @@
 <%@ page language="java" 
 import="java.util.*,com.zhuozhengsoft.pageoffice.*"
- pageEncoding="gb2312"%>
+ pageEncoding="utf-8"%>
 
 <%
 String url=request.getSession().getServletContext().getRealPath("PrintFiles/doc/"+"/");
@@ -16,25 +16,25 @@ String url=request.getSession().getServletContext().getRealPath("PrintFiles/doc/
         window.myFunc = function() {
             
             if (count < 5) {
-                //ÉèÖÃ½ø¶ÈÌõ
+                //è®¾ç½®è¿›åº¦æ¡
                 document.getElementById("ProgressBarSide").style.visibility = "visible";
                 document.getElementById("ProgressBar").style.width = (count) * 25 - 1 + "%";
 
-                //¼ÓÔØÎÄµµ´òÓ¡Ò³Ãæ£¨¿É´«²Î£©
+                //åŠ è½½æ–‡æ¡£æ‰“å°é¡µé¢ï¼ˆå¯ä¼ å‚ï¼‰
                 document.getElementById("iframe1").src = "Print.jsp?id=" + count;
                 count++;
             } else {
-                //Òþ²Ø½ø¶ÈÌõdiv
+                //éšè—è¿›åº¦æ¡div
                 document.getElementById("ProgressBarSide").style.visibility = "hidden";
                 count = 1;
-                //ÖØÖÃ½ø¶ÈÌõ
+                //é‡ç½®è¿›åº¦æ¡
                 document.getElementById("ProgressBar").style.width = "0%";
                 document.getElementById("aDiv").style.display = "";
-                //alert('ÅúÁ¿×ª»»Íê±Ï£¡');
+                //alert('æ‰¹é‡è½¬æ¢å®Œæ¯•ï¼');
             }
         };
 
-        //ÅúÁ¿×ª»»Íê±Ï
+        //æ‰¹é‡è½¬æ¢å®Œæ¯•
         function ConvertFiles() {
             myFunc();
         }
@@ -45,7 +45,7 @@ String url=request.getSession().getServletContext().getRealPath("PrintFiles/doc/
     <form id="form1">
     <div id="ProgressBarSide" style="color: Silver; width: 200px; visibility: hidden;
         position: absolute;  left: 40%; top: 50%; margin-top: -32px">
-        <span style="color: gray; font-size: 12px; text-align: center;">ÕýÔÚÉú³É²¢´òÓ¡ÇëÉÔºò...</span><br />
+        <span style="color: gray; font-size: 12px; text-align: center;">æ­£åœ¨ç”Ÿæˆå¹¶æ‰“å°è¯·ç¨å€™...</span><br />
 	<div style=" border:solid 1px green;">
         	<div id="ProgressBar" style="background-color: Green; height: 16px; width: 0%; border-width: 1px;border-style: Solid;">
         	</div>
@@ -53,10 +53,10 @@ String url=request.getSession().getServletContext().getRealPath("PrintFiles/doc/
     </div>
     <div style="text-align: center;">
         <br />
-        <span style="color: Red; font-size: 12px;">ÑÝÊ¾£º°ÑÊý¾ÝÌî³äµ½Ä£°åÖÐÅúÁ¿Éú³É4¸öÕýÊ½µÄwordÎÄ¼þ²¢´òÓ¡³öÀ´£¬ÇëµãÏÂÃæµÄ°´Å¥²é¿´Ð§¹û</span><br />
-        <input id="Button1" type="button" value="ÅúÁ¿Éú³ÉºÍ´òÓ¡WordÎÄ¼þ" onclick="ConvertFiles()" />
+        <span style="color: Red; font-size: 12px;">æ¼”ç¤ºï¼šæŠŠæ•°æ®å¡«å……åˆ°æ¨¡æ¿ä¸­æ‰¹é‡ç”Ÿæˆ4ä¸ªæ­£å¼çš„wordæ–‡ä»¶å¹¶æ‰“å°å‡ºæ¥ï¼Œè¯·ç‚¹ä¸‹é¢çš„æŒ‰é’®æŸ¥çœ‹æ•ˆæžœ</span><br />
+        <input id="Button1" type="button" value="æ‰¹é‡ç”Ÿæˆå’Œæ‰“å°Wordæ–‡ä»¶" onclick="ConvertFiles()" />
         <div id="aDiv" style="display: none; color: Red; font-size: 12px;">
-            <span>Ö´ÐÐÍê±Ï£¬¿ÉÔÚÏÂÃæµÄµØÖ·ÖÐ´ò¿ªÎÄ¼þÃûÎª¡°maker1.doc¡±µ½¡°maker4.doc¡±µÄWordÎÄ¼þ£¬²é¿´Éú³ÉµÄËùÓÐÎÄ¼þ£º<%=url %></span>
+            <span>æ‰§è¡Œå®Œæ¯•ï¼Œå¯åœ¨ä¸‹é¢çš„åœ°å€ä¸­æ‰“å¼€æ–‡ä»¶åä¸ºâ€œmaker1.docâ€åˆ°â€œmaker4.docâ€çš„Wordæ–‡ä»¶ï¼ŒæŸ¥çœ‹ç”Ÿæˆçš„æ‰€æœ‰æ–‡ä»¶ï¼š<%=url %></span>
         </div>
     </div>
     <div style="width: 1px; height: 1px; overflow: hidden;">

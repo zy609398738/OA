@@ -1,0 +1,10 @@
+{
+  "id": "8aab8d0b5fb891f7015fb89843870019",
+  "startIndex": "",
+  "autoRun": "true",
+  "changePort": "",
+  "responseTime": "600000",
+  "description": "实时更新ERP银行付款单起单标识为空",
+  "text": "BPM_TO_ERP_BankPayment_FlagUpdate",
+  "oldPort": ""
+}

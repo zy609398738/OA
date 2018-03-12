@@ -1,48 +1,67 @@
-<%@ page language="java" 
-	import="com.zhuozhengsoft.pageoffice.*,java.util.*,java.io.*,javax.servlet.*,javax.servlet.http.*" 
-	pageEncoding="gb2312"%>
-<%@ taglib uri="http://java.pageoffice.cn" prefix="po" %>
+<%@ page language="java"
+	import="java.util.*,com.zhuozhengsoft.pageoffice.*"
+	pageEncoding="utf-8"%>
 <%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-
+// è·å–æ–‡ä»¶ç£ç›˜è·¯å¾„
 String filePath = request.getSession().getServletContext().getRealPath("SimpleWord/doc/test.doc");
-//out.print(filePath);// ²é¿´filePath µÄÖµ
 
-//******************************×¿ÕıPageOffice×é¼şµÄÊ¹ÓÃ*******************************
-	PageOfficeCtrl poCtrl1 = new PageOfficeCtrl(request);
-	poCtrl1.setServerPage(request.getContextPath()+"/poserver.zz"); //´ËĞĞ±ØĞë
-	poCtrl1.setSaveFilePage("SaveFile.jsp");//ÈçÒª±£´æÎÄ¼ş£¬´ËĞĞ±ØĞë
-	poCtrl1.addCustomToolButton("±£´æ", "Save()", 1);//Ìí¼Ó×Ô¶¨Òå¹¤¾ßÀ¸°´Å¥
-	//´ò¿ªÎÄ¼ş
-	poCtrl1.webOpen(filePath, OpenModeType.docNormalEdit, "ÕÅÈı");
-	poCtrl1.setTagId("PageOfficeCtrl1"); //´ËĞĞ±ØĞë	 
+PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
+//è®¾ç½®æœåŠ¡å™¨é¡µé¢
+poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");
+//æ·»åŠ è‡ªå®šä¹‰æŒ‰é’®
+poCtrl.addCustomToolButton("ä¿å­˜","Save",1);
+//è®¾ç½®ä¿å­˜é¡µé¢
+poCtrl.setSaveFilePage("SaveFile.jsp");
+//æ‰“å¼€Wordæ–‡æ¡£
+poCtrl.webOpen(filePath,OpenModeType.docNormalEdit,"å¼ ä½šå");
 %>
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
 <html>
-  <head>
-    <base href="<%=basePath%>">
-    
-    <title>My JSP 'index.jsp' starting page</title>
-	<meta http-equiv="pragma" content="no-cache">
-	<meta http-equiv="cache-control" content="no-cache">
-	<meta http-equiv="expires" content="0">    
-	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
-	<meta http-equiv="description" content="This is my page">
-	<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
-  </head>
-  
-  <body>
-    	´ò¿ª·şÎñÆ÷ÉÏÖ¸¶¨´ÅÅÌÂ·¾¶ÏÂµÄÎÄ¼ş<br/>
-    	
+<head>
+<meta charset="utf-8">
+<title>XXæ–‡æ¡£ç³»ç»Ÿ</title>  
+<link rel="stylesheet" href="css/style.css"  type="text/css">
+<script type="text/javascript">
+document.createElement("section");
+document.createElement("article");
+document.createElement("footer");
+document.createElement("header");
+document.createElement("hgroup");
+document.createElement("nav");
+document.createElement("menu");
+</script>
+</head>
+<body>
     <script type="text/javascript">
-			function Save() {
-				document.getElementById("PageOfficeCtrl1").WebSave();
-			}
-	</script>
-    <po:PageOfficeCtrl id="PageOfficeCtrl1" />
-  </body>
+        function Save() {
+            document.getElementById("PageOfficeCtrl1").WebSave();
+        }
+    </script>
+ 
+ <header>
+   <div class="w12 header">
+   <a class="db logo fl"><img src="images/logo.jpg" width="327" height="94"  alt=""/></a>
+   <div class="fr logofr"><a href="#" class="blk">è¿”å›é¦–é¡µ</a> |<a href="#" class="blk">å®¢æœä¸­å¿ƒ</a><br>
+å¦‚æ³¨å†Œé‡åˆ°é—®é¢˜è¯·æ‹¨æ‰“ï¼š<strong style="font-size:14px;">400-000-0000</strong></div>
+   </div>
+ </header>
+ <div class="head_border"></div>
+ <section class="w12 login">
+ <em class="fr">å½“å‰ç”¨æˆ·ï¼šå¼ ä¸‰ </em>
+ </section>
+ <section class="main w12">
+   <div class="title"><a class="title1 db fl">æ–‡æ¡£å†…å®¹</a><a class="title2 db fl">å…¶ä»–ä¿¡æ¯</a></div>
+   <div class="fr tit2"><span class="arr"></span></div>
+
+    <div style=" width:auto; height:700px;">
+       <%=poCtrl.getHtmlCode("PageOfficeCtrl1")%>
+    </div>
+
+ </section>
+ <br /><br />
+ <div style=" text-align:center; height:80px; border-top: solid 1px #666; line-height:70px;">Copyright &copy 2015 åŒ—äº¬å“æ­£å¿—è¿œè½¯ä»¶æœ‰é™å…¬å¸</div>
+</body>
 </html>
+

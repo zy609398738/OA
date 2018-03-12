@@ -1,37 +1,38 @@
 <%@ page language="java"
 	import="java.util.*,com.zhuozhengsoft.pageoffice.*"
-	pageEncoding="gb2312"%>
-<%@ taglib uri="http://java.pageoffice.cn" prefix="po"%>
+	pageEncoding="utf-8"%>
+
 <%
 PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
-//ÉèÖÃ·şÎñÆ÷Ò³Ãæ
+//è®¾ç½®æœåŠ¡å™¨é¡µé¢
 poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");
-//Ìí¼Ó×Ô¶¨Òå°´Å¥
-poCtrl.addCustomToolButton("Áí´æMHT","saveAsMHT",1);
-//ÉèÖÃ±£´æÒ³Ãæ
+//æ·»åŠ è‡ªå®šä¹‰æŒ‰é’®
+poCtrl.addCustomToolButton("å¦å­˜MHT","saveAsMHT",1);
+//è®¾ç½®ä¿å­˜é¡µé¢
 poCtrl.setSaveFilePage("SaveFile.jsp");
-//´ò¿ªWordÎÄµµ
-poCtrl.webOpen("doc/test.doc",OpenModeType.docNormalEdit,"ÕÅØıÃû");
-poCtrl.setTagId("PageOfficeCtrl1");//´ËĞĞ±ØĞè
+//æ‰“å¼€Wordæ–‡æ¡£
+poCtrl.webOpen("doc/test.doc",OpenModeType.docNormalEdit,"å¼ ä½šå");
+
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
-   <title>WordÎÄ¼şÁí´æÎªMHT</title>
+   <title>Wordæ–‡ä»¶å¦å­˜ä¸ºMHT</title>
+
 </head>
 <body>
     <script type="text/javascript">
         function saveAsMHT() {
             document.getElementById("PageOfficeCtrl1").WebSaveAsMHT();
-            document.getElementById("PageOfficeCtrl1").Alert("MHT¸ñÊ½µÄÎÄ¼şÒÑ¾­±£´æµ½·şÎñÆ÷ÉÏ¡£");
-            window.open("doc/test.mht" + "?r=" + Math.random());
+            document.getElementById("PageOfficeCtrl1").Alert("MHTæ ¼å¼çš„æ–‡ä»¶å·²ç»ä¿å­˜åˆ° SaveAsMHT\\docç›®å½•ä¸‹ã€‚");
+            document.getElementById("div1").innerHTML = "<a href='doc/test.mht?r=" + Math.random() +"'> æŸ¥çœ‹å¦å­˜çš„ MHT æ–‡ä»¶<a><br><br>";
         }
     </script>
     <form id="form1" >
+    <div id="div1"></div>
     <div style=" width:1000px; height:800px;">
-        <po:PageOfficeCtrl id="PageOfficeCtrl1">
-        </po:PageOfficeCtrl>
+         <%=poCtrl.getHtmlCode("PageOfficeCtrl1")%>
     </div>
     </form>
 </body>

@@ -38,10 +38,11 @@ YIUI.Control.DropdownButton = YIUI.extend(YIUI.Control, {
     onRender: function (ct) {
         this.base(ct);
         var el = this.getEl(),
+        	meta = this.getMetaObj(),
             dropdownItems = this.dropdownItems,
             caption = this.caption,
             a = this.button = $('<a/>').attr('class', 'btn dp-tgl').attr('data-toggle', 'dropdown').appendTo(el);
-        this.icon && this.setIcon(this.icon);
+        meta.icon && this.setIcon(meta.icon);
         $('<label>').text(caption).appendTo(a);
         $('<span class="arrow"/>').appendTo(a);
         if (dropdownItems.length > 0) {
@@ -83,11 +84,14 @@ YIUI.Control.DropdownButton = YIUI.extend(YIUI.Control, {
 
     setFormatStyle: function (cssStyle) {
         $("label", this.button).css(cssStyle);
+        var hAlign = this.format.hAlign;
+        if(hAlign > -1) {
+            this.button.css("text-align", YIUI.HAlignment.parse(hAlign));
+        };
     },
 
     onSetWidth: function (width) {
         this.button.css("width", width);
-    	$("label", this.button).css("width", width - $("span.icon", this.el).width() - 12);
     },
 
     onSetHeight: function (height) {
@@ -95,11 +99,15 @@ YIUI.Control.DropdownButton = YIUI.extend(YIUI.Control, {
             "height": height,
             "line-height": height + "px"
         });
-//        $("label", this.el).height(height);
 		var arrow =$("span.arrow", this.el);
 		arrow.css("top", (height - arrow.height()) / 2 + "px");
 		var icon = $("span.icon", this.el);
-		icon.css("top", (height - icon.height() - 2) / 2);
+        var h = $("label", this.el).height();
+		icon.css({
+            "top": (height - h) / 2 + "px",
+            width: h + "px",
+            height: h + "px"
+        });
 
     },
 
@@ -120,56 +128,6 @@ YIUI.Control.DropdownButton = YIUI.extend(YIUI.Control, {
     	this._dropView && this._dropView.hide();
         this._hasShow = false;
         this.el.removeClass("focus");
-    },
-
-    setDropViewTop: function () {
-        var cityObj = this.el;
-        var cityOffset = this.el.offset();
-
-        var bottom = $(window).height() - cityOffset.top - cityObj.outerHeight();
-        var top = cityOffset.top + cityObj.outerHeight();
-        if (bottom < this._dropView.outerHeight()) {
-            this._dropView.addClass("toplst");
-            this.el.addClass("toplst");
-            top = "auto";
-            bottom = $(window).height() - cityOffset.top;
-        } else {
-            this._dropView.removeClass("toplst");
-            this.el.removeClass("toplst");
-            bottom = "auto";
-        }
-        if (top != "auto") {
-            this._dropView.css("top", top + "px");
-            this._dropView.css("bottom", "auto");
-        }
-        if (bottom != "auto") {
-            this._dropView.css("bottom", bottom + "px");
-            this._dropView.css("top", "auto");
-        }
-        this._dropView.css("width", cityObj.outerWidth() + "px");
-    },
-
-    setDropViewLeft: function () {
-        var cityObj = this.el;
-        var cityOffset = this.el.offset();
-
-        var right = $(window).width() - cityOffset.left;
-        var left = $(window).width() - this._dropView.outerWidth();
-        if (right < this._dropView.outerWidth()) {
-            left = "auto";
-            right = $(window).width() - cityOffset.left - cityObj.outerWidth();
-        } else {
-            left = cityOffset.left;
-            right = "auto";
-        }
-        if (left != "auto") {
-            this._dropView.css("left", left + "px");
-            this._dropView.css("right", "auto");
-        }
-        if (right != "auto") {
-            this._dropView.css("right", right + "px");
-            this._dropView.css("left", "auto");
-        }
     },
 
     beforeDestroy: function () {
@@ -219,8 +177,7 @@ YIUI.Control.DropdownButton = YIUI.extend(YIUI.Control, {
             });
             if (!self._dropView) return;
 
-            self.setDropViewTop();
-            self.setDropViewLeft();
+            YIUI.PositionUtil.setViewPos(self.el, self._dropView, true);
 
             //下拉内容显示的位置
             self._dropView.slideDown("fast");

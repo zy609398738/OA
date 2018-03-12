@@ -1,18 +1,17 @@
 <%@ page language="java" 
 	import="java.util.*,com.zhuozhengsoft.pageoffice.*,com.zhuozhengsoft.pageoffice.wordwriter.*" 
-	pageEncoding="gb2312"%>
-<%@ taglib uri="http://java.pageoffice.cn" prefix="po" %>
+	pageEncoding="utf-8"%>
 <%
 		WordDocument doc = new WordDocument();
-        doc.getTemplate().defineDataTag("{ ¼×·½ }");
-		doc.getTemplate().defineDataTag("{ ÒÒ·½ }");
-		doc.getTemplate().defineDataTag("{ µ£±£ÈË }");
-		doc.getTemplate().defineDataTag("¡¾ ºÏÍ¬ÈÕÆÚ ¡¿");
-		doc.getTemplate().defineDataTag("¡¾ ºÏÍ¬±àºÅ ¡¿");
+        doc.getTemplate().defineDataTag("{ ç”²æ–¹ }");
+		doc.getTemplate().defineDataTag("{ ä¹™æ–¹ }");
+		doc.getTemplate().defineDataTag("{ æ‹…ä¿äºº }");
+		doc.getTemplate().defineDataTag("ã€ åˆåŒæ—¥æœŸ ã€‘");
+		doc.getTemplate().defineDataTag("ã€ åˆåŒç¼–å· ã€‘");
 
 		PageOfficeCtrl poCtrl = new PageOfficeCtrl(request);
-        poCtrl.addCustomToolButton("±£´æ", "Save()", 1);
-        poCtrl.addCustomToolButton("¶¨ÒåÊı¾İ±êÇ©", "ShowDefineDataTags()", 20);
+        poCtrl.addCustomToolButton("ä¿å­˜", "Save()", 1);
+        poCtrl.addCustomToolButton("å®šä¹‰æ•°æ®æ ‡ç­¾", "ShowDefineDataTags()", 20);
 
         poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");
         poCtrl.setSaveFilePage("SaveFile.jsp");
@@ -21,20 +20,21 @@
         poCtrl.setBorderStyle(BorderStyleType.BorderThin);
         poCtrl.setWriter(doc);
         poCtrl.webOpen("doc/test.doc", OpenModeType.docNormalEdit, "zhangsan");
-        poCtrl.setTagId("PageOfficeCtrl1");
  %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
     <title></title>
-	<script type="text/javascript">
-        //»ñÈ¡ºóÌ¨¶¨ÒåµÄTag ×Ö·û´®
+    
+	   <script type="text/javascript">
+	
+        //è·å–åå°å®šä¹‰çš„Tag å­—ç¬¦ä¸²
         function getTagNames() {
             var tagNames = document.getElementById("PageOfficeCtrl1").DefineTagNames;
             return tagNames;
         }
         
-        //¶¨Î»Tag
+        //å®šä½Tag
         function locateTag(tagName) {
             
             var appSlt = document.getElementById("PageOfficeCtrl1").Document.Application.Selection;
@@ -45,14 +45,14 @@
 
             bFind = appSlt.Find.Execute(tagName);
             if (!bFind) {
-                document.getElementById("PageOfficeCtrl1").Alert("ÒÑËÑË÷µ½ÎÄµµÄ©Î²¡£");
+                document.getElementById("PageOfficeCtrl1").Alert("å·²æœç´¢åˆ°æ–‡æ¡£æœ«å°¾ã€‚");
                 appSlt.HomeKey(6);
             }
             window.focus();
 
         }
 
-        //Ìí¼ÓTag
+        //æ·»åŠ Tag
         function addTag(tagName) {
             try {
                 var tmpRange = document.getElementById("PageOfficeCtrl1").Document.Application.Selection.Range;
@@ -64,7 +64,7 @@
             }
         }
         
-        //É¾³ıTag
+        //åˆ é™¤Tag
         function delTag(tagName) {
             var tmpRange = document.getElementById("PageOfficeCtrl1").Document.Application.Selection.Range;
             
@@ -95,8 +95,7 @@
 <body>
     <form action="">
     <div style="width: auto; height: 600px;">
-        <po:PageOfficeCtrl id="PageOfficeCtrl1" >
-        </po:PageOfficeCtrl>
+        <%=poCtrl.getHtmlCode("PageOfficeCtrl1")%>
     </div>
     </form>
 </body>

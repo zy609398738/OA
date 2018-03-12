@@ -3298,6 +3298,16 @@ UI.BaseFuns = (function () {
             return WID;
         };
 
+        funs.GetActiveNodeID = function (name, cxt, args) {
+            var WID = -1;
+            var info = getActiveWorkitem(cxt, args);
+            if (info) {
+                 WID= info.NodeID;
+            }
+            return WID;
+        };
+
+
         funs.GetActiveInstanceID = function (name, cxt, args) {
             var info = getActiveWorkitem(cxt, args);
             var instanceID = info.InstanceID;

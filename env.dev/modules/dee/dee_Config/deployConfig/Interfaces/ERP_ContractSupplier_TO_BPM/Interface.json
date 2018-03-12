@@ -1,0 +1,10 @@
+{
+  "id": "8aab8d065f095ba7015f0a261bc7001c",
+  "startIndex": "",
+  "autoRun": "true",
+  "changePort": "",
+  "responseTime": "600000",
+  "description": "实时查询ERP系统模板合同单据供应商数据",
+  "text": "ERP_ContractSupplier_TO_BPM",
+  "oldPort": ""
+}

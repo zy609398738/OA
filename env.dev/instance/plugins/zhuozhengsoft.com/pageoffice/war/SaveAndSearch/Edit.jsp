@@ -1,90 +1,10 @@
 <%@ page language="java"
 	import="java.util.*,com.zhuozhengsoft.pageoffice.*,com.zhuozhengsoft.pageoffice.wordwriter.*,java.sql.*,java.net.*"
-	pageEncoding="gb2312"%>
-<%@ taglib uri="http://java.pageoffice.cn" prefix="po"%>
-<%!
-    /**
-     * ÅĞ¶Ï×Ö·ûÊÇ·ñÊÇÖĞÎÄ
-     *
-     * @param c ×Ö·û
-     * @return ÊÇ·ñÊÇÖĞÎÄ
-     */
-    public  boolean isChinese(char c) {
-        Character.UnicodeBlock ub = Character.UnicodeBlock.of(c);
-        if (ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS
-                || ub == Character.UnicodeBlock.CJK_COMPATIBILITY_IDEOGRAPHS
-                || ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS_EXTENSION_A
-                || ub == Character.UnicodeBlock.GENERAL_PUNCTUATION
-                || ub == Character.UnicodeBlock.CJK_SYMBOLS_AND_PUNCTUATION
-                || ub == Character.UnicodeBlock.HALFWIDTH_AND_FULLWIDTH_FORMS) {
-            return true;
-        }
-        return false;
-    }
+	pageEncoding="utf-8"%>
 
-    /**
-     * ÅĞ¶Ï×Ö·û´®ÊÇ·ñÊÇÂÒÂë
-     *
-     * @param strName ×Ö·û´®
-     * @return ÊÇ·ñÊÇÂÒÂë
-     */
-    public  boolean isMessyCode(String strName) {
-        java.util.regex.Pattern p = java.util.regex.Pattern.compile("\\s*|t*|r*|n*");
-        java.util.regex.Matcher m = p.matcher(strName);
-        String after = m.replaceAll("");
-        String temp = after.replaceAll("\\p{P}", "");
-        char[] ch = temp.trim().toCharArray();
-        float chLength = ch.length;
-        float count = 0;
-        for (int i = 0; i < ch.length; i++) {
-            char c = ch[i];
-            if (!Character.isLetterOrDigit(c)) {
-                if (!isChinese(c)) {
-                    count = count + 1;
-                }
-            }
-        }
-        float result = count / chLength;
-        if (result > 0.4) {
-            return true;
-        } else {
-            return false;
-        }
-
-    }
-	
-	public String repairStr(String s) throws Exception{
-		if(! isMessyCode(s)) return s;
-		
-		try{
-			String strTmp = new String(s.getBytes("ISO8859_1"), "UTF-8");
-			if(! isMessyCode(strTmp)) return strTmp;
-		}
-		catch(Exception e){
-			return "error";
-		}
-		try{
-			String strTmp = URLDecoder.decode(s, "UTF-8");
-			if(! isMessyCode(strTmp)) return strTmp;
-		}
-		catch(Exception e){
-			return "error";
-		}
-
-		return "null";
-
-	}
-
-%>
-<%
-     String strKey=request.getParameter("key");
-
-     if (strKey != null && strKey.trim().length() > 0) {
-		strKey = repairStr(strKey);
-	 }
-     int  id=Integer.parseInt(request.getParameter("id"));
-	
-	 //¸ù¾İid²éÑ¯Êı¾İ¿âÖĞ¶ÔÓ¦µÄÎÄµµÃû³Æ
+<% 
+	 int  id=Integer.parseInt(request.getParameter("id"));
+	 //æ ¹æ®idæŸ¥è¯¢æ•°æ®åº“ä¸­å¯¹åº”çš„æ–‡æ¡£åç§°
      Class.forName("org.sqlite.JDBC");
 	 String strUrl = "jdbc:sqlite:"
 				+ this.getServletContext().getRealPath("demodata/") + "\\SaveAndSearch.db";
@@ -99,46 +19,42 @@
 	stmt.close();
 	conn.close();
 	
-	/******************************PageOffice±à³Ì¿ªÊ¼**************************/
+	/******************************PageOfficeç¼–ç¨‹å¼€å§‹**************************/
         PageOfficeCtrl poCtrl1 = new PageOfficeCtrl(request);
-	poCtrl1.setServerPage(request.getContextPath()+"/poserver.zz"); //´ËĞĞ±ØĞë
-	//Òş²Ø²Ëµ¥À¸
+	poCtrl1.setServerPage(request.getContextPath()+"/poserver.zz"); //æ­¤è¡Œå¿…é¡»
+	//éšè—èœå•æ 
 	poCtrl1.setMenubar(false);
-	poCtrl1.addCustomToolButton("±£´æ","Save()",1);
-	//ÉèÖÃ±£´æÒ³Ãæ
+	poCtrl1.addCustomToolButton("ä¿å­˜","Save()",1);
+	//è®¾ç½®ä¿å­˜é¡µé¢
 	poCtrl1.setSaveFilePage("SaveFile.jsp?id="+id);
-	//´ò¿ªWordÎÄ¼ş
+	//æ‰“å¼€Wordæ–‡ä»¶
 	String filePath= request.getSession().getServletContext().getRealPath("SaveAndSearch/doc/"+FileName+".doc");
-	poCtrl1.webOpen(filePath, OpenModeType.docNormalEdit, "ÕÅÈı");
-	poCtrl1.setTagId("PageOfficeCtrl1"); //´ËĞĞ±ØĞë	
+	poCtrl1.webOpen(filePath, OpenModeType.docNormalEdit, "å¼ ä¸‰");
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
-  <head>
-    
-    <title>±à¼­ÎÄµµÒ³Ãæ</title>
-    
+  <head>    
+    <title>ç¼–è¾‘æ–‡æ¡£é¡µé¢</title>  
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
-	<meta http-equiv="description" content="This is my page">
-	<script type="text/javascript">
-        var strKey = "<%=strKey%>";
-        function Save() {
-            if (strKey != "") 
+	<meta http-equiv="description" content="This is my page">	 
+	<script type="text/javascript">	    
+        var strKey = window.external.UserParams;
+        function Save() {         
             document.getElementById("PageOfficeCtrl1").WebSave();
-            //document.getElementById("PageOfficeCtrl1").CustomSaveResult»ñÈ¡µÄÊÇ±£´æÒ³ÃæµÄ·µ»ØÖµ
-            if (document.getElementById("PageOfficeCtrl1").CustomSaveResult == "ok")
-                document.getElementById("PageOfficeCtrl1").Alert("±£´æ³É¹¦");
+            //document.getElementById("PageOfficeCtrl1").CustomSaveResultè·å–çš„æ˜¯ä¿å­˜é¡µé¢çš„è¿”å›å€¼
+            if (document.getElementById("PageOfficeCtrl1").CustomSaveResult =="ok")
+                document.getElementById("PageOfficeCtrl1").Alert("ä¿å­˜æˆåŠŸ");
             else
                  document.getElementById("PageOfficeCtrl1").Alert(document.getElementById("PageOfficeCtrl1").CustomSaveResult);
         }
 
          function SetKeyWord(key, visible) { 
            if (key=="null"||"" == key) {
-                 document.getElementById("PageOfficeCtrl1").Alert("¹Ø¼ü×ÖÎª¿Õ¡£");
+                 document.getElementById("PageOfficeCtrl1").Alert("å…³é”®å­—ä¸ºç©ºã€‚");
                 return;
             }  
              var sMac = "function myfunc()" + "\r\n"
@@ -146,7 +62,6 @@
                         + "Application.Selection.Find.ClearFormatting \r\n"
                         + "Application.Selection.Find.Replacement.ClearFormatting \r\n"
                         + "Application.Selection.Find.Text = \"" + key + "\" \r\n"
-
                         + "While (Application.Selection.Find.Execute()) \r\n"
                         +  "If (" + visible + ") Then \r\n"
                         +  "Application.Selection.Range.HighlightColorIndex = 7 \r\n"
@@ -161,16 +76,14 @@
             
         }
     </script>
-
-  </head>
-  
+ 
+  </head>  
   <body>
    <form id="form1" >
-    <input name="button" id="Button1" type="button" onclick="SetKeyWord(strKey,true)" value="¸ßÁÁÏÔÊ¾¹Ø¼ü×Ö" />
-    <input name="button" id="Button2" type="button" onclick="SetKeyWord(strKey,false)" value="È¡Ïû¹Ø¼ü×ÖÏÔÊ¾" />
+    <input name="button" id="Button1" type="button" onclick="SetKeyWord(strKey,true)" value="é«˜äº®æ˜¾ç¤ºå…³é”®å­—" />
+    <input name="button" id="Button2" type="button" onclick="SetKeyWord(strKey,false)" value="å–æ¶ˆå…³é”®å­—æ˜¾ç¤º" />
     <div style="width: auto; height: 700px;">
-        <po:PageOfficeCtrl id="PageOfficeCtrl1">
-        </po:PageOfficeCtrl>
+              <%=poCtrl1.getHtmlCode("PageOfficeCtrl1")%>
     </div>
     </form>
   </body>

@@ -4,9 +4,14 @@ String realPath = request.getSession().getServletContext().getRealPath("");
 String fixPath = "instance/plugins/zhuozhengsoft.com/pageoffice/war";
 realPath = realPath.substring(0, realPath.length() - fixPath.length());
 String fileName=request.getParameter("filePath");
+String dataPath = request.getParameter("dataPath");
 String filePath = fileName;
-
-filePath = realPath + "modules/yigo2/Data/" + filePath;
+dataPath = dataPath.replaceAll("\\\\","/");
+	if(dataPath == null || dataPath == ""){
+		filePath=realPath+"modules/yigo2/Data/"+filePath;
+	}else{
+		filePath=dataPath+filePath;
+	}
 filePath = filePath.replaceAll("/", "\\\\");
 FileSaver fs=new FileSaver(request,response);
 fs.saveToFile(filePath);

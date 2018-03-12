@@ -82,7 +82,7 @@
             return val;
         },
         extend: function (methods) {  //继续扩展继承，主要用于添加方法
-           $.extend($.fn.yGrid, methods);
+            $.extend($.fn.yGrid, methods);
             if (!this.no_legacy_api) {
                 $.fn.extend(methods);
             }
@@ -106,7 +106,7 @@
                 enable: true,//是否可用
                 width: 100, //宽度
                 height: 150, //高度
-                rowNum: 50, //一页显示的行数
+                rowNum: 1000, //一页显示的行数
                 showPager: true,   //是否显示底部操作工具条
                 showPageSet: true, //是否使用分页操作按钮及页码输入
                 navButtons: {}, // 工具条上的操作按钮
@@ -124,6 +124,7 @@
                 clickRow:null,//行点击事件
                 focusRowChanged:null,// 焦点行切换事件
                 dblClickRow: null,//行双击事件
+                dblClickCell: null,//单元格双击事件
                 onSortClick: null,   //表头列单元排序点击事件
                 specialCellClick: null,  //点击事件，通常是特殊单元格（button，hyperlink，checkbox）的点击事件
                 createCellEditor: null, //创建自定义单元格编辑组件
@@ -134,8 +135,10 @@
                 afterEndCellEditor: null, //结束自定义编辑组件之后的事件
                 extKeyDownEvent: null,//额外的按键事件
                 afterCopy: null, //复制后的事件
-                afterPaste: null,//粘贴后的事件
-                groupHeaders: [] //多行表头信息
+                afterPaste: null, //粘贴后的事件
+                groupHeaders: [], //多行表头信息
+                bestWidthStatus: false, // 最佳列宽状态
+                rowList: [] // 动态分页每页行数范围
             };
             for (var key in options) {
                 var value = options[key];
@@ -149,16 +152,17 @@
             var ts = this,
                 grid = {
                     headers: [], //表头的所有子叶列
-                    cols: [],  //表格第一行的所有单元格
-                    dragStart: function (i, x, y) {  //修改列大小，拖动开始
+                    //  cols: [],  //表格第一行的所有单元格
+                    dragStart: function (i, e, y) {  //修改列大小，拖动开始
                         var gridLeftPos = $(this.bDiv).offset().left;
-                        this.resizing = { idx: i, startX: x.clientX, sOL: x.clientX - gridLeftPos };
+                        this.resizing = { idx: i, startX: e.clientX, sOL: e.clientX - gridLeftPos };
                         this.hDiv.style.cursor = "col-resize";
                         this.curGbox = $("#rs_m" + p.id, "#gbox_" + p.id);
-                        this.curGbox.css({display: "block", left: x.clientX - gridLeftPos, top: y[1], height: y[2]});
+                        this.curGbox.css({display: "block", left: e.clientX - gridLeftPos, top: y[1], height: y[2]});
                         document.onselectstart = function () {  //不允许选中文本
                             return false;
                         };
+
                     },
                     dragMove: function (x) {      //修改列大小，拖动中
                         if (this.resizing) {
@@ -181,7 +185,8 @@
                             p.colModel[idx].width = nw;
                             this.headers[idx].width = nw;
                             this.headers[idx].el.style.width = nw + "px";
-                            this.cols[idx].style.width = nw + "px";
+                            //this.cols[idx].style.width = nw + "px";
+                            $("tr.ygfirstrow td:eq("+idx+")", ts.grid.bDiv).css("width",nw + "px");
                             p.tblwidth = this.newWidth || p.tblwidth;
                             $('table:first', this.bDiv).css("width", p.tblwidth + "px");
                             $('table:first', this.hDiv).css("width", p.tblwidth + "px");
@@ -204,6 +209,9 @@
                         }
                         var table = $("table:first", grid.bDiv);
                         var rows, rh;
+
+                        //  取行高的算法 在行高不一致的情况下,有bug  TODO
+
                         if (table[0].rows.length) {
                             try {
                                 rows = table[0].rows[1];
@@ -237,6 +245,7 @@
                             npage = parseInt((scrollTop + dh) / div, 10) + 2 - page;
                             empty = true;
                         }
+
                         if (npage) {
                             if (p.lastpage && (page > p.lastpage || p.lastpage === 1 || (page === p.page && page === p.lastpage))) {
                                 return;
@@ -246,10 +255,18 @@
                                 grid.emptyRows.call(table[0], false);
                             }
                             grid.populate(npage);
+
+                            if( p.frozenColumns ) {
+                                $(ts).triggerHandler("yGridAfterGridComplete");
+                            }
                         }
                     },
                     scrollGrid: function (e) {
-                        if (p.scrollPage) {
+                        // 因为滚动有延迟,所以为了保持锁定显示一致,加在最前面
+                        if( p.frozenColumns ) {
+                            grid.fbDiv.scrollTop( grid.bDiv.scrollTop );
+                        }
+                        if ( p.scrollPage ) {
                             var scrollTop = grid.bDiv.scrollTop;
                             if (grid.scrollTop === undefined) {
                                 grid.scrollTop = 0;
@@ -282,18 +299,18 @@
                     changed:false,
                     select:function (left,top,right,bottom,focusRow,focusCol) {
                         switch (this.selectionMode) {
-                        case YIUI.SelectionMode.RANGE:
-                            this.changed = this.left !== left || this.top !== top || this.right !== right || this.bottom !== bottom
-                                || this.focusRow !== focusRow || this.focusCol !== focusCol;
-                            this.left = left;
-                            this.top = top;
-                            this.right = right;
-                            this.bottom = bottom;
-                            break;
-                        case YIUI.SelectionMode.ROW:
-                        case YIUI.SelectionMode.CELL:
-                            this.changed = this.focusRow != focusRow || this.focusCol != focusCol;
-                            break;
+                            case YIUI.SelectionMode.RANGE:
+                                this.changed = this.left !== left || this.top !== top || this.right !== right || this.bottom !== bottom
+                                    || this.focusRow !== focusRow || this.focusCol !== focusCol;
+                                this.left = left;
+                                this.top = top;
+                                this.right = right;
+                                this.bottom = bottom;
+                                break;
+                            case YIUI.SelectionMode.ROW:
+                            case YIUI.SelectionMode.CELL:
+                                this.changed = this.focusRow != focusRow || this.focusCol != focusCol;
+                                break;
                         }
                         this.oldRowIndex = this.focusRow;
                         this.oldColIndex = this.focusCol;
@@ -327,42 +344,20 @@
                 var ret = [$th.position().left + $th.outerWidth()];
                 ret[0] -= th.grid.bDiv.scrollLeft;
                 ret.push($(th.grid.hDiv).position().top);
-                ret.push($(th.grid.bDiv).offset().top - $(th.grid.hDiv).offset().top + $(th.grid.bDiv).height());
+                ret.push($(th.grid.bDiv).offset().top - $(th.grid.hDiv).offset().top);
                 return ret;
             };
-            var getColumnHeaderIndex = function (th) { //获取表头列单元的序号
-                var $t = this, i, headers = $t.grid.headers , ci, len = headers.length;
-                for (i = 0; i < len; i++) {
-                    if (th === headers[i].el) {
-                        ci = i;
-                        break;
-                    }
-                }
-                return ci;
-            };
 
-            ts.getCellEditOpt = function (rdata, colPos) {
-                if (rdata == undefined) return {};
-                var cellKey = rdata.cellKeys[colPos - (ts.p.rowSequences ? 1 : 0)],
-                    editOpt = ts.p.cellLookup[cellKey];
-                if (editOpt == undefined) {
-                    editOpt = {};
-                }
-                return editOpt;
-            };
-
-            // 根据模型中的行列找
-            ts.getCellEditOptByIndex = function(rowIndex, colIndex){
+            /** 很据模型中的行列查询配置对象*/
+            ts.getCellEditOpt = function(rowIndex, colIndex){
                 var data = ts.p.data;
-                if(!$.isDefined(data))
+                if( !data ) {
                     return {};
-                var row = data[rowIndex];
-                var cellKey = row.cellKeys[colIndex],
-                    editOpt = ts.p.cellLookup[cellKey];
-                if (editOpt == undefined) {
-                    editOpt = {};
                 }
-                return editOpt;
+
+                var cellKey = data[rowIndex].cellKeys[colIndex];
+
+                return ts.p.cellLookup[cellKey] || {};
             };
 
             // 获取单元格value的字符串表示,用于ctrl+c,ctrl+v
@@ -370,16 +365,16 @@
                 if( !value )
                     return "";
                 switch (cellType) {
-                case YIUI.CONTROLTYPE.DICT:
-                case YIUI.CONTROLTYPE.DYNAMICDICT:
-                case YIUI.CONTROLTYPE.COMPDICT:
-                    if( value instanceof YIUI.ItemData ) {
-                        return $.toJSON(value);
-                    }
-                    break;
-                case YIUI.CONTROLTYPE.DATEPICKER:
-                    return value.Format($.ygrid.format);
-                    break;
+                    case YIUI.CONTROLTYPE.DICT:
+                    case YIUI.CONTROLTYPE.DYNAMICDICT:
+                    case YIUI.CONTROLTYPE.COMPDICT:
+                        if( value instanceof YIUI.ItemData ) {
+                            return $.toJSON(value);
+                        }
+                        break;
+                    case YIUI.CONTROLTYPE.DATEPICKER:
+                        return value.Format($.ygrid.format);
+                        break;
                 }
                 return value.toString();
             };
@@ -483,7 +478,7 @@
 
             var addRowNum = function (column, idx) {
                 var prp = formatCol.call(ts, column, {});
-                return ["<td role=\"gridcell\" class=\"ui-state-default ygrid-rownum\" " , prp, ">" , idx + 1 , "</td>"].join("");
+                return ["<td role=\"gridcell\" class=\"ui-state-default ygrid-rownum\" " , prp, ">" , "<span>" + (idx + 1) + "</span>" , "</td>"].join("");
             };
 
             var gotBackColor = function (form,backColor,idx) {
@@ -495,53 +490,76 @@
                 }
                 return $.ygrid.regExp.test(color) ? color : "";
             }
-            
-            
-            var addGridRow = function (curRd, iRow, riOfData, isTemp) {
-                var rowData = [], th = this, nbIndex = th.p.rowSequences ? 1 : 0, alwaysShowIndex = [], rh = "",color,cxt,
-                    rowId = $.ygrid.uidPref + (isTemp ? -(riOfData + 1) : riOfData),grid = th.getControlGrid();
-                if (curRd.rowHeight) {
-                    rh = curRd.rowHeight + "px";
-                }
 
-                var metaRow = grid.getMetaObj().rows[curRd.metaRowIndex];
+            var addGridRow = function (rowData, idx) {
+                var array = [], th = this, seq = th.p.rowSequences ? 1 : 0, alwaysShowIndex = [],
+                    rowId = $.ygrid.uidPref + idx,grid = th.getControlGrid();
+
+                var rh = rowData.rowHeight || 30 + "px";
+
+                var metaRow = grid.getMetaObj().rows[rowData.metaRowIndex];
                 var form = YIUI.FormStack.getForm(grid.ofFormID);
 
                 // 初始化行背景色
                 if( metaRow.backColor ) {
-                    curRd.backColor = gotBackColor(form,metaRow.backColor,riOfData);
+                    rowData.backColor = gotBackColor(form,metaRow.backColor,idx);
                 }
 
-                rowData.push(['<tr style="height:', rh , '" role="row" id="' , rowId , '" tabindex="-1" class="ui-widget-content ygrow ui-row-ltr">'].join(""));
-                if (nbIndex) {
-                    rowData.push(addRowNum(th.p.colModel[0], riOfData, th.p.page, th.p.rowNum));
+                array.push(['<tr style="height:', rh , '" role="row" id="' , rowId , '" tabindex="-1" class="ui-widget-content ygrow ui-row-ltr">'].join(""));
+                if ( seq ) {
+                    array.push(addRowNum(th.p.colModel[0], idx, th.p.page, th.p.rowNum));
                 }
-                for (var j = 0, len = th.p.colModel.length; j < len - nbIndex; j++) {
-                    var column = th.p.colModel[j + nbIndex],cellData = curRd.data[j],
-                        editOptions = th.getCellEditOpt(curRd,j + nbIndex);
-                    (editOptions && editOptions.isAlwaysShow) ? alwaysShowIndex.push(j + nbIndex) : null;
+                for (var j = seq ? 1 : 0, len = th.p.colModel.length; j < len; j++) {
+                    var column = th.p.colModel[j],cellData = rowData.data[j - seq],
+                        editOptions = th.getCellEditOpt(idx,j - seq);
+
+                    if( editOptions.isAlwaysShow ) {
+                        alwaysShowIndex.push(j);
+                    }
+
+                    //(editOptions && editOptions.isAlwaysShow) ? alwaysShowIndex.push(j + seq) : null;
                     if( editOptions.backColor ) {
-                        cellData.backColor = gotBackColor(form,editOptions.backColor,riOfData);
+                        cellData.backColor = gotBackColor(form,editOptions.backColor,idx);
                     }
-                    rowData.push(addCell(column, editOptions, cellData, curRd, column.index === th.p.treeIndex));
+                    array.push(addCell(column, editOptions, cellData, rowData, column.index === th.p.treeIndex));
                 }
-                rowData.push("</tr>");
+                array.push("</tr>");
 
-                $("#" + th.p.id + " tbody:first").append(rowData.join(''));
-                var row = th.rows[th.rows.length - 1], treeIcon, showFunc = th.p.alwaysShowCellEditor,
-                    rowHeight = (curRd.rowHeight === undefined ? row.offsetHeight : curRd.rowHeight);
-                for (var ci = 0, adlen = alwaysShowIndex.length; ci < adlen; ci++) {
-                    var iCol = alwaysShowIndex[ci], colM = th.p.colModel[iCol], nm = colM.name , editOpt = th.getCellEditOpt(curRd, iCol), val = curRd.data[colM.index],
-                        opt = $.extend({}, editOpt.editOptions || {}, {ri: riOfData, key: nm, id: iRow + "_" + nm, name: nm});
-                    if (editOpt.isAlwaysShow) {
-                        if (showFunc && $.isFunction(showFunc)) {
-                            showFunc.call(th, $(row.cells[iCol]), iRow, iCol, colM, val, opt, rowHeight);
-                        }
-                    }
+                //  $("table:first", th.grid.bDiv).removeClass("ui-ygrid-empty").find("tbody:first").append(rowData.join(''));
+                // $("#" + th.p.id + " tbody:first").append(rowData.join(''));
+
+                var $table = $("table:first", th.grid.bDiv);
+
+                $table.removeClass("ui-ygrid-empty");
+
+                var $Row = $(array.join(''));
+
+                var $row = $(th).getGridRowById($.ygrid.uidPref + idx);
+
+                // 如果是往最后插或者表格还没行,直接追加
+                if( idx == th.rows.length - 1 || !$row ) {
+                    $table.find("tbody:first").append($Row);
+                } else {
+                    $Row.insertBefore($row);
                 }
 
-                if( th.p.treeIndex != -1 && curRd.parentRow) {
-                    var index = grid.getRowIndexByID(curRd.parentRow.rowID),
+                var row = $Row.get(0);
+
+                row.id = rowId;
+
+                for (var ci = 0, alen = alwaysShowIndex.length; ci < alen; ci++) {
+                    var iCol = alwaysShowIndex[ci],
+                        colM = th.p.colModel[iCol],
+                        colIndex = iCol - seq,
+                        editOpt = th.getCellEditOpt(idx, colIndex),
+                        val = rowData.data[colIndex],
+                        opt = $.extend({}, editOpt.editOptions || {}, {});
+
+                    th.p.alwaysShowCellEditor.call(th, $(row.cells[iCol]), idx, colIndex, val, opt, rowData.rowHeight);
+                }
+
+                if( th.p.treeIndex != -1 && rowData.parentRow) {
+                    var index = grid.getRowIndexByID(rowData.parentRow.rowID),
                         viewRow = $(this).getGridRowById($.ygrid.uidPref + index);
 
                     var $td = $("td:eq("+(th.p.treeIndex + (th.p.rowSequences ? 1 : 0))+")",viewRow),
@@ -554,11 +572,19 @@
                     }
                 }
 
-                if( curRd.backColor ) {
-                    $(row).css('background', curRd.backColor);
+                if( th.p.frozenColumns ) {
+                    $("td:eq("+(grid.frozenColumnCount + (th.p.rowSequences ? 0 : -1))+")",row).addClass("frozenColumn");
                 }
 
-                return $(row);
+                if( rowData.backColor ) {
+                    $(row).css('background', rowData.backColor);
+                }
+
+                if( rowData.visible === false ) {
+                    $(row).hide();
+                }
+
+                return row;
             };
             var loadGridData = function (data, t, rcnt) {        //添加表格行
                 if (data) {
@@ -585,7 +611,7 @@
                     ri = ts.p.data.indexOf(rowData);
 
                     // 添加行
-                    addGridRow.call(ts, rowData, ri + rcnt, ri);
+                    addGridRow.call(ts, rowData, ri);
 
                     // 初始化行错误信息
                     if (rowData.error) {
@@ -597,15 +623,15 @@
                 ts.updatePager.call(ts);
             };
             var afterRowOpt = function (ri, isDelete) {
-                var i, th = this, seq, rid, len = th.rows.length;
+                var i, th = this, idx, row,len = th.rows.length;
                 for (i = ri; i < len; i++) {
+                    row = th.rows[i];
+                    idx = parseInt($.ygrid.stripPref($.ygrid.uidPref, row.id), 10);
+                    idx = idx + (isDelete ? -1 : +1);
+                    row.id = $.ygrid.uidPref + idx;
                     if (th.p.rowSequences) {
-                        seq = parseInt($(th.rows[i].cells[0]).html(), 10);
-                        $(th.rows[i].cells[0]).html(seq + (isDelete ? -1 : +1));
+                        $("span", th.rows[i].cells[0]).html(idx + 1);
                     }
-                    rid = parseInt($.ygrid.stripPref($.ygrid.uidPref, th.rows[i].id), 10);
-                    rid = rid + (isDelete ? -1 : +1);
-                    th.rows[i].id = $.ygrid.uidPref + rid;
                 }
 
                 // 刷新行数
@@ -628,48 +654,18 @@
             };
 
             ts.deleteGridRow = function (ri) {
-                var th = this, gridRow = $(th).getGridRowById($.ygrid.uidPref + ri), rind;
-                if (gridRow) {
-                    rind = gridRow.rowIndex;
-                 //   th.p.data.splice(ri, 1);
-                    $(gridRow).remove();
-                    afterRowOpt.call(th, rind, true);
+                var th = this, row = $(th).getGridRowById($.ygrid.uidPref + ri), idx;
+                if ( row ) {
+                    idx = row.rowIndex;
+                    $(row).remove();
+                    afterRowOpt.call(th, idx, true);
                 }
             };
 
-            // TODO
             ts.insertGridRow = function (ri, rowData) {
-                var th = this, gridRow, lastRid = $.ygrid.stripPref($.ygrid.uidPref, th.rows[th.rows.length - 1].id);
-                var lri = isNaN(parseInt(lastRid, 10)) ? 0 : parseInt(lastRid, 10);
-         //       th.p.data.splice(ri, 0, rowData);
-                if (ri <= lri + 1) {
-                    gridRow = addGridRow.call(th, rowData, ri + 1, ri, true);
-                    gridRow.insertBefore($(th).getGridRowById($.ygrid.uidPref + ri));
-                    var seq, rid, nRi = gridRow[0].rowIndex + 1, pRi = gridRow[0].rowIndex - 1;
-                    if (th.rows[nRi]) {
-                        if (th.p.rowSequences) {
-                            seq = $(th.rows[nRi].cells[0]).html();
-                            $(gridRow[0].cells[0]).html(seq);
-                        }
-                        rid = th.rows[nRi].id;
-                        gridRow[0].id = rid;
-                    } else {
-                        if (th.rows[pRi] !== $("tr.ygfirstrow", th.grid.bDiv)[0]) {
-                            if (th.p.rowSequences) {
-                                seq = parseInt($(th.rows[pRi].cells[0]).html(), 10);
-                                $(gridRow[0].cells[0]).html(seq + 1);
-                            }
-                            rid = parseInt($.ygrid.stripPref($.ygrid.uidPref, th.rows[pRi].id), 10);
-                            gridRow[0].id = $.ygrid.uidPref + (rid + 1);
-                        } else {
-                            if (th.p.rowSequences) {
-                                $(gridRow[0].cells[0]).html(1);
-                            }
-                            gridRow[0].id = $.ygrid.uidPref + 0;
-                        }
-                    }
-                    afterRowOpt.call(th, gridRow[0].rowIndex + 1, false);
-                }
+                var th = this, row;
+                row = addGridRow.call(th, rowData, ri);
+                afterRowOpt.call(th, row.rowIndex + 1, false);
             };
 
             ts.getColPos = function(colIndex){
@@ -677,9 +673,9 @@
             };
 
             ts.knvFocus = function () {
-                if(!ts.p.scrollPage){
-                    return;
-                }
+                // if(!ts.p.scrollPage){
+                //     return;
+                //  }
                 window.setTimeout(function () {
                     if( !ts.grid )
                         return;
@@ -690,7 +686,7 @@
                 }, 0);
             };
 
-            ts.modifyGridCell2 = function (rowIndex, colIndex, rowData, isChanged) {
+            ts.modifyGridCell2 = function (rowIndex, colIndex, rowData, isChanged, isDynamic) {
                 var rowId = $.ygrid.uidPref + rowIndex;
 
                 var row = $(this).getGridRowById(rowId);
@@ -698,26 +694,26 @@
                     return;
                 }
 
-                var colPos = this.getColPos(colIndex);
+                var iCol = this.getColPos(colIndex);
 
-                var cell = row.cells[colPos];
+                var cell = row.cells[iCol];
 
                 if(!$.isDefined(cell)){
                     return;
                 }
 
-                if( isChanged ) {
-                    // 值变化 刷新单元格显示值
-                    $(this).yGrid("setCell", rowId, colPos, rowData.data[colIndex], false, false);
+                if( isChanged || isDynamic ) {
+                    // 值变化或者动态单元格, 刷新单元格显示值
+                    $(this).yGrid("setCell", rowId, iCol, rowData.data[colIndex], false, false);
                     this.p.editCells.splice(0, 1);
                 } else {
                     // 值未变化 还原单元格样式
                     var iRow = row.rowIndex;
-                    $(this).yGrid("restoreCell", iRow, colPos);
+                    $(this).yGrid("restoreCell", iRow, iCol);
                 }
             };
 
-            var initQueryData = function () {       //初始化表格数据相关信息，主要是分页信息及数据
+            var initQueryData = function () {   //初始化表格数据相关信息，主要是分页信息及数据
                 if (!$.isArray(ts.p.data)) {
                     return null;
                 }
@@ -726,20 +722,21 @@
                     grid = ts.getControlGrid();
 
                 var recordsperpage;
-                if( grid.treeIndex != -1 ) {
-                    recordsperpage = ts.p.data.length;
+
+                if( ts.p.scrollPage ) {
+                    recordsperpage = parseInt(ts.p.rowNum, 10); // 滚动分页:rowNum=50
                 } else {
-                    recordsperpage = parseInt(ts.p.rowNum, 10);
+                    recordsperpage = ts.p.data.length; // 非滚动分页:显示全部,rowNum无用
                 }
 
                 var page = parseInt(ts.p.page, 10),
                     totalpages = Math.ceil(total / recordsperpage),
                     result = {};
-                    data = data.slice((page - 1) * recordsperpage, page * recordsperpage);
-                    result[ts.p.localReader.total] = totalpages == 0 ? 1 : totalpages;
-                    result[ts.p.localReader.page] = page;
-                    result[ts.p.localReader.records] = total;
-                    result[ts.p.localReader.root] = data;
+                data = data.slice((page - 1) * recordsperpage, page * recordsperpage);
+                result[ts.p.localReader.total] = totalpages == 0 ? 1 : totalpages;
+                result[ts.p.localReader.page] = page;
+                result[ts.p.localReader.records] = total;
+                result[ts.p.localReader.root] = data;
 
                 data = null;
                 return  result;
@@ -755,7 +752,7 @@
                     }
                 }
             };
-            grid.populate = function (npage) {          //表格载入数据计算
+            grid.populate = function (npage) {        //表格载入数据计算
                 var pvis = ts.p.scrollPage && npage === false, lc;
                 if (ts.p.page === undefined || ts.p.page <= 0) {
                     ts.p.page = Math.min(1, ts.p.lastpage);
@@ -781,10 +778,11 @@
                 }
             };
             ts.updateToolBox = function () {
-                var th = this;
+                var th = this,
+                    grid = th.getControlGrid();
 
                 $(["#add_" , th.id , ",#del_" , th.id, ", #upRow_" , th.id, ", #downRow_" , th.id].join("")).each(function () {
-                    (th.p.enable && th.p.treeIndex === -1 && th.p.rowExpandIndex === -1) ? $(this).removeClass("ui-state-disabled") : $(this).addClass("ui-state-disabled");
+                    (grid.enable && th.p.treeIndex === -1 && th.p.rowExpandIndex === -1) ? $(this).removeClass("ui-state-disabled") : $(this).addClass("ui-state-disabled");
                 });
 
             };
@@ -821,7 +819,7 @@
 
                     th.updateToolBox();
 
-                    if (th.p.showPageSet) {
+                    if (!th.p.scrollPage) {
                         //如果有分页操作，则更新操作按钮的显示以及输入框的页码
 
                         var pageInfo = this.p.pageInfo;
@@ -861,7 +859,7 @@
 
                     var pgboxes = ts.p.pager || "";
                     if (!pgboxes){
-                        return; 
+                        return;
                     }
 
                     var pageInfo = ts.p.pageInfo;
@@ -871,11 +869,11 @@
                     }
 
                     if(pageInfo.pageLoadType == YIUI.PageLoadType.NONE){
-                      //  if(ts.p.reccount === 0){
-                         //   $(".ui-paging-info", pgboxes).html($.ygrid.defaults.emptyrecords);
-                     //   }else{
-                            $(".ui-paging-info", pgboxes).html($.ygrid.formatString($.ygrid.defaults.totalrecord, ts.p.records));
-                    //    }
+                        //  if(ts.p.reccount === 0){
+                        //   $(".ui-paging-info", pgboxes).html($.ygrid.defaults.emptyrecords);
+                        //   }else{
+                        $(".ui-paging-info", pgboxes).html($.ygrid.formatString($.ygrid.defaults.totalrecord, ts.p.records));
+                        //    }
                     }else{
                         var totalRowCount = pageInfo.totalRowCount;
                         var pageRowCount = pageInfo.pageRowCount;
@@ -888,7 +886,7 @@
                         if(pageInfo.pageLoadType == YIUI.PageLoadType.DB){
                             $(".ui-paging-info", pgboxes).html($.ygrid.formatString($.ygrid.defaults.record, begin, end));
                         }else{
-                            $(".ui-paging-info", pgboxes).html($.ygrid.formatString($.ygrid.defaults.recordtext, begin, end, ts.p.records));  
+                            $(".ui-paging-info", pgboxes).html($.ygrid.formatString($.ygrid.defaults.recordtext, begin, end, ts.p.records));
                         }
                     }
                 }
@@ -927,7 +925,7 @@
             this.p = p;
             this.grid = grid;
 
-            this.p.useProp = !!$.fn.prop;
+            // this.p.useProp = !!$.fn.prop;
 
             // 初始化列模型
             ts.refreshColModel();
@@ -948,9 +946,9 @@
                 cell: "cell",
                 id: "id"
             }, ts.p.localReader);
-            if (ts.p.scrollPage) {   //滚动分页
-                ts.p.showPageSet = false;
-            }
+            //  if (ts.p.scrollPage) {   //滚动分页
+            //      ts.p.showPageSet = false;
+            //  }
             //初始化宽度
             setColWidth.call(ts); //初始化宽度
             $(eg).css("width", grid.width + "px");
@@ -960,7 +958,7 @@
                     "px' role='ygrid' aria-labelledby='gbox_" , this.id , "' cellspacing='0' cellpadding='0' border='0'></table>"].join("")),
                 hb = $("<div class='ui-ygrid-hbox-ltr'></div>").append(hTable);
             grid.hDiv = document.createElement("div");
-            $(grid.hDiv).addClass('ui-state-default ui-ygrid-hdiv').css({ width: grid.width + "px"}).append(hb);
+            $(grid.hDiv).addClass('ui-ygrid-hdiv').css({ width: grid.width + "px"}).append(hb);
             grid.hDiv.onselectstart = function () {
                 return false;
             };
@@ -997,17 +995,22 @@
             imgs = null;
             hTable.append(thead.join(""));
 
+            ts.enableSelectAll = function (enable) {
+                $(".chk", hTable).attr("enable",enable);
+            }
+
+            ts.enableSelectAll(!ts.getControlGrid().singleSelect);
+
             // 全选按钮做成一直可用
-            $(".chk", hTable).click(function (e) {
-                var grid = ts.getControlGrid(),idx = ts.p.selectFieldIndex,row,cell;
-                var checked = $(this).hasClass('checked') ? false : true;
+            hTable.delegate(".chk","click",function (e) {
+                if( $(this).attr("enable") !== 'true' )
+                    return;
+                var grid = ts.getControlGrid(),
+                    value = !$(this).hasClass('checked');
                 grid.needCheckSelect = false;
-                for( var i = 0,size = grid.getRowCount();i < size;i++ ) {
-                    row = grid.getRowDataAt(i),cell = row.data[idx];
-                    if( row.rowType !== 'Detail' || YIUI.GridUtil.isEmptyRow(row) || !cell[2] )
-                        continue;
-                    grid.setValueAt(i,idx,checked,true,true);
-                }
+
+                grid.gridHandler.selectRange(grid,0,grid.getRowCount(),grid.selectFieldIndex,value);
+
                 $(this).toggleClass('checked');
                 grid.needCheckSelect = true;
                 e.stopPropagation();
@@ -1015,25 +1018,28 @@
 
             //开始处理表头单元中的一些特定功能：拖拉大小，排序图标
             thead = $("thead:first", grid.hDiv).get(0);
-            var thr = $("tr:first", thead), w, res, sort, column;
+            var thr = $("tr:first", thead), w, sort, column;
             var firstRow = ["<tr class='ygfirstrow' role='row' style='height:auto'>"];
+            var h = thr.height();
             $("th", thr).each(function (j) {
                 column = ts.p.colModel[j];
                 w = column.width;
-                if (column.resizable === undefined) {
-                    column.resizable = true;
-                }
-                if (column.resizable) {   //如果该列的大小是可以修改的，则添加resize组件
-                    res = document.createElement("span");
-                    $(res).html("&#160;").addClass('ui-ygrid-resize ui-ygrid-resize-ltr').css("cursor", "col-resize");
-                } else {
-                    res = "";
-                }
-                $(this).css("width", w + "px").prepend(res);
+                //   if (column.resizable === undefined) {
+                //       column.resizable = true;
+                //    }
+                //    if (column.resizable) {   //如果该列的大小是可以修改的，则添加resize组件
+                var res = document.createElement("span");
+                $(res).html("&#160;").addClass('ui-ygrid-resize ui-ygrid-resize-ltr').css("cursor", "col-resize");
+                //    } else {
+                //      res = "";
+                //     }
+
+                var _this = $(this);
+                _this.css("width", w + "px").prepend(res);
                 res = null;
                 var hdcol = "";
                 if (column.hidden) {
-                    $(this).css("display", "none");
+                    _this.css("display", "none");
                     hdcol = "display:none;";
                 }
                 firstRow.push("<td role='gridcell' style='height:0px;width:");
@@ -1041,53 +1047,96 @@
                 firstRow.push(hdcol);
                 firstRow.push("'></td>");
 
-                // headers的长度和th的数量一致
-                grid.headers[j] = { width: w, el: this };
+                // 子叶列标志
+                _this.attr("leaf",true).attr("colIndex",j);
+
+                grid.headers[j] = {
+                    caption:column.label,
+                    width: w,
+                    orgWidth: w,
+                    orgHeight: h,
+                    el: this,
+                    visible: !column.hidden
+                };
 
                 if (typeof column.sortable !== 'boolean') {
                     column.sortable = true;
                 }
                 $(">div", this).addClass('ui-ygrid-sortable');
-            }).mousedown(function (e) { //注册拖动大小的鼠标事件
-                if ($(e.target).closest("th>span.ui-ygrid-resize").length == 1) {
-                    var ci = getColumnHeaderIndex.call(ts, this);
+            });
+
+            // 子叶列绑定事件
+            ts.bindEvents2LeafColumn = function () {
+
+                var ts = this,
+                    trs = $("tr", ts.grid.hDiv);
+
+                $("th[leaf='true'] span.ui-ygrid-resize",trs).off("mousedown").mousedown(function (e) {
+                    var th = $(this).parents("th");
+                    var ci = parseInt(th.attr("colIndex"));
                     grid.dragStart(ci, e, getOffset.call(ts, ci));
-                }
-            }).click(function (e) {  //注册排序所用的点击事件
-                var g = ts.getControlGrid();
-                if( g.hasColExpand || g.treeIndex != -1 || g.rowExpandIndex != -1 )
-                    return;
-                var ci = getColumnHeaderIndex.call(ts, this);
-                if (!ts.p.lastsort) {
-                    ts.p.sortorder = "asc";
-                } else if (ts.p.lastsort === ci) {
-                    ts.p.sortorder = (ts.p.sortorder == "asc" ? "desc" : "asc");
-                } else {
-                    var previousSelectedTh = ts.grid.headers[ts.p.lastsort].el;
-                    $("div span.s-ico", previousSelectedTh).hide();
-                    $("div span.colCaption", previousSelectedTh).css({width: "100%"});
-                    ts.p.sortorder = "asc";
-                }
-                if ( ts.p.colModel[ci].sortable ) {
-                    var lastClass = 'ui-grid-sort-' + (ts.p.sortorder == "asc" ? "desc" : "asc"),
-                        curClass = 'ui-grid-sort-' + ts.p.sortorder;
+                });
+
+                $("th[leaf='true']",trs).off("click").click(function (e) {
+                    var g = ts.getControlGrid();
+                    if( g.hasGroupRow || g.hasColExpand || g.treeIndex != -1 || g.rowExpandIndex != -1 )
+                        return;
+                    var ci = parseInt($(this).attr("colIndex"));
+                    var column = ts.p.colModel[ci];
+                    if( !column.sortable )
+                        return;
+                    var colIndex = ts.p.rowSequences ? ci - 1 : ci;
+                    if( colIndex == g.selectFieldIndex ) {
+                        return;
+                    }
+                    var order = "asc";
+                    if( ts.p.lastsort === ci ) {
+                        order = (ts.p.sortorder == "asc" ? "desc" : "asc");
+                    } else if ( ts.p.lastsort != null ) {
+                        var el = ts.grid.headers[ts.p.lastsort].el;
+                        $("div span.s-ico", el).hide();
+                        $("div span.colCaption", el).css({width: "100%"});
+                    }
+
+                    var lastClass = 'ui-grid-sort-' + (order == "asc" ? "desc" : "asc"),
+                        curClass = 'ui-grid-sort-' + order;
                     $("div span.s-ico", this).removeClass(lastClass).addClass(curClass).show();
                     var width = this.clientWidth - $("div span.s-ico", this)[0].clientWidth;
                     $("div span.colCaption", this).css({width: width + "px"});
                     if ($.isFunction(ts.p.onSortClick)) {
-                        ts.p.onSortClick.call(ts, ci, ts.p.sortorder);
+                        g.onSortClick(colIndex, order);
                     }
                     ts.p.lastsort = ci;
-                }
-            }).dblclick(function (e) {
+                    ts.p.sortorder = order;
+                }).off("dblclick").dblclick(function (e) {
+                    var ci = parseInt($(this).attr("colIndex"));
+                    var colIndex = ts.p.rowSequences ? ci - 1 : ci;
+                    if( colIndex == ts.getControlGrid().selectFieldIndex ){
+                        return;
+                    }
+                    resizeColumn2BestWidth(ci);
+                });
+            };
 
-                // if( e.target.tagName !== 'TD' )
-                //     return;
+            // 列拖动中及结束事件
+            ts.bindEvents2GridView = function () {
+                var ts = this,
+                    gView = $(ts.grid.bDiv).parents(".ui-ygrid-view");
 
-                var ci = getColumnHeaderIndex.call(ts, this);
+                gView.mousemove(function (e) {
+                    if (grid.resizing) {
+                        grid.dragMove(e);
+                    }
+                });
 
-                resizeColumn2BestWidth(ci);
-            });
+                $(document).bind("mouseup.yGrid" + ts.p.id, function () {
+                    if (grid.resizing) {
+                        grid.dragEnd();
+                        return false;
+                    }
+                    return true;
+                });
+            }
 
             /**
              * 表格列最佳列宽
@@ -1109,26 +1158,161 @@
                     width = $.ygrid.minWidth;
                 }
                 grid.newWidth = p.tblwidth + (width - oldWidth);
-                grid.resizing = {idx:idx};
                 grid.headers[idx].newWidth = width;
+                grid.resizing = {idx:idx};
                 grid.dragEnd();
             }
 
-            // 注册最佳列宽事件
-            var gid = ts.p.id,name = ts.p.colModel[0].name,td,tdWidth;
-            $("#" + gid + "_" + name,thr).dblclick(function () {
+            var resizeColumn2OrgWidth = function (idx) {
+                var el = grid.headers[idx].el,
+                    oldWidth = el.offsetWidth,
+                    width = grid.headers[idx].orgWidth;
+                grid.newWidth = p.tblwidth + (width - oldWidth);
+                grid.headers[idx].newWidth = width;
+                grid.resizing = {idx:idx};
+                grid.dragEnd();
+            }
+
+            ts.switchWidth = function () {
                 var thr = $("tr:first", thead);
                 $("th", thr).each(function (i) {
-                    if( !ts.p.colModel[i].hidden ) {
+                    if( ts.p.colModel[i].hidden )
+                        return;
+                    if( ts.p.bestWidthStatus ) {
+                        resizeColumn2OrgWidth(i);
+                    } else {
                         resizeColumn2BestWidth(i);
                     }
+                });
+                ts.p.bestWidthStatus = !ts.p.bestWidthStatus;
+            }
+
+            var frozenColumn = function (colIndex) {
+                var ci = ts.p.rowSequences ? colIndex + 1 : colIndex;
+
+                var header = ts.grid.headers[ci];
+                $(header.el).addClass("frozenColumn");
+
+
+                $(ts.rows).each(function () {
+                    $("td:eq(" + ci + ")",this).addClass("frozenColumn");
+                });
+
+
+                // 冻结列
+                $(ts).setFrozenColumns();
+            }
+
+            var unfrozenColumn = function (colIndex) {
+                var ci = ts.p.rowSequences ? colIndex + 1 : colIndex;
+
+                var header = ts.grid.headers[ci];
+                $(header.el).removeClass("frozenColumn");
+
+                $(ts.rows).each(function () {
+                    $("td:eq(" + ci + ")", this).removeClass("frozenColumn");
+                });
+
+                // 解冻列
+                $(ts).destroyFrozenColumns();
+            }
+
+            var frozenRow = function (rowIndex) {
+                var viewRow = $(ts).getGridRowById($.ygrid.uidPref + rowIndex);
+                if( viewRow ) {
+                    $(viewRow.cells).each(function () {
+                        $(this).addClass("frozenRow");
+                    });
+                }
+
+                // 冻结列
+                $(ts).setFrozenRows();
+            }
+
+            var unfrozenRow = function (rowIndex) {
+                var viewRow = $(ts).getGridRowById($.ygrid.uidPref + rowIndex);
+                if( viewRow ) {
+                    $(viewRow.cells).each(function () {
+                        $(this).removeClass("frozenRow");
+                    });
+                }
+
+                // 解冻列
+                $(ts).destroyFrozenRows();
+            }
+
+            ts.frozenRow = function ($btn,op) {
+                var grid = ts.getControlGrid();
+                var frozenCount = grid.frozenRowCount;
+                var rowIndex = grid.getFocusRowIndex();
+
+                if( !frozenCount ) {
+                    if( rowIndex == -1 ) {
+                        return;
+                    }
+                    grid.frozenRowCount = rowIndex + 1;
+
+                    frozenRow(rowIndex);
+
+                    $btn.attr("title",op.unfrozenrowtitle);
+                    $btn.removeClass("ui-icon-frozenRow").addClass("ui-icon-unfrozenRow");
+                } else {
+                    grid.frozenRowCount = 0;
+
+                    unfrozenRow(rowIndex);
+
+                    $btn.attr("title",op.frozenrowtitle);
+                    $btn.removeClass("ui-icon-unfrozenRow").addClass("ui-icon-frozenRow");
+                }
+            }
+
+            ts.frozenColumn = function ($btn,op) {
+                var grid = ts.getControlGrid();
+                var frozenCount = grid.frozenColumnCount;
+                var colIndex = grid.getFocusColIndex();
+
+                if( !frozenCount ) {
+                    if( colIndex == -1 ) {
+                        return;
+                    }
+
+                    // TODO support last child column
+                    var ci = ts.p.rowSequences ? colIndex + 1 : colIndex;
+                    var cm = ts.p.colModel[ci];
+                    if( cm.parentKey ) {
+                        return;
+                    }
+
+                    grid.frozenColumnCount = colIndex + 1;
+
+                    frozenColumn(colIndex);
+
+                    $btn.attr("title",op.unfrozencoltitle);
+                    $btn.removeClass("ui-icon-frozenColumn").addClass("ui-icon-unfrozenColumn");
+                } else {
+                    grid.frozenColumnCount = 0;
+
+                    unfrozenColumn(colIndex);
+
+                    $btn.attr("title",op.frozencoltitle);
+                    $btn.removeClass("ui-icon-unfrozenColumn").addClass("ui-icon-frozenColumn");
+                }
+            }
+
+            // 注册最佳列宽事件
+            $("#" + ts.p.id + "_" + ts.p.colModel[0].name,thr).dblclick(function () {
+                var thr = $("tr:first", thead);
+                $("th", thr).each(function (i) {
+                    if( ts.p.colModel[i].hidden )
+                        return;
+                    resizeColumn2BestWidth(i);
                 });
             });
 
             firstRow.push("</tr>");
             var tbody = document.createElement("tbody");
             this.appendChild(tbody);
-            $(this).addClass('ui-ygrid-btable').append(firstRow.join(""));
+            $(this).addClass('ui-ygrid-btable ui-ygrid-empty').append(firstRow.join(""));
 
             firstRow = null;
             //表头构建结束--------------------------------------
@@ -1150,25 +1334,30 @@
                 }
             }
             $(grid.hDiv).after(grid.bDiv);
-            $(gv).mousemove(function (e) { //注册拖动大小拖动中事件
-                if (grid.resizing) {
-                    grid.dragMove(e);
-                }
-            });
-            $(".ui-ygrid-labels", grid.hDiv).bind("selectstart", function () {
-                return false;
-            });
-            $(document).bind("mouseup.yGrid" + ts.p.id, function () { //注册拖动大小拖动结束事件
-                if (grid.resizing) {
-                    grid.dragEnd();
-                    return false;
-                }
-                return true;
-            });
+            // $(gv).mousemove(function (e) { //注册拖动大小拖动中事件
+            //     if (grid.resizing) {
+            //         grid.dragMove(e);
+            //     }
+            // });
+            // $(".ui-ygrid-labels", grid.hDiv).bind("selectstart", function () {
+            //     return false;
+            // });
+            // $(gv).mouseup(function (e) { //注册拖动大小拖动中事件
+            //     if (grid.resizing) {
+            //         grid.dragEnd();
+            //     }
+            // });
+            // $(document).bind("mouseup.yGrid" + ts.p.id, function () { //注册拖动大小拖动结束事件
+            //     if (grid.resizing) {
+            //         grid.dragEnd();
+            //         return false;
+            //     }
+            //     return true;
+            // });
             if (ts.p.populate) {
                 grid.populate(); //数据载入计算
             }
-            this.grid.cols = this.rows[0].cells;
+            //  this.grid.cols = this.rows[0].cells;
             // grid.clearSelectCells = function () {
             //     if (ts.p.selectCells) {
             //         for (var i = 0, len = ts.p.selectCells.length; i < len; i++) {
@@ -1182,7 +1371,7 @@
             ts.hitTest = function(e) {
                 var td = e.target, hit = {};
                 var ptr = $(td, ts.rows).closest("tr.ygrow");
-                if ($(ptr).length === 0 || ptr[0].className.indexOf('ui-state-disabled') > -1) {
+                if ($(ptr).length === 0) {
                     return hit;
                 }
 
@@ -1219,28 +1408,25 @@
                         top = Math.min(rowIndex, oldTop),
                         bottom = Math.max(rowIndex, oldBottom);
 
-                    // console.log(" left ： " + left + " top : " + top + " right : " + right + " bottom : " + bottom);
-
-
                     ts.selectGridRow(left,top,right,bottom,top,left);
                 }
             });
             $(ts).click(function (e) {      //表格点击事件,主要用来触发表格的各种事件以及进入编辑
                 // 这里不能做这个限制,否则按钮等的事件无法触发
-             //   if ( e.target.tagName === "TD" ) {
-                    var target = e.target;
-                    // var ptr = $(td, ts.rows).closest("tr.ygrow");
-                    // if ($(ptr).length === 0 || ptr[0].className.indexOf('ui-state-disabled') > -1) {
-                    //     return;
-                    // }
+                //   if ( e.target.tagName === "TD" ) {
+                var target = e.target;
+                // var ptr = $(td, ts.rows).closest("tr.ygrow");
+                // if ($(ptr).length === 0 || ptr[0].className.indexOf('ui-state-disabled') > -1) {
+                //     return;
+                // }
 
-                    // //当前点击单元格 不是编辑单元格，结束编辑
-                    // if (ts.p.editCells.length > 0) {
-                    //     $(ts).yGrid("restoreCell", ts.p.editCells[0].ir, ts.p.editCells[0].ic);
-                    // }
+                // //当前点击单元格 不是编辑单元格，结束编辑
+                // if (ts.p.editCells.length > 0) {
+                //     $(ts).yGrid("restoreCell", ts.p.editCells[0].ir, ts.p.editCells[0].ic);
+                // }
 
-                    var rowIndex = ts.p.selectModel.focusRow,
-                        colIndex = ts.p.selectModel.focusCol,
+                var rowIndex = ts.p.selectModel.focusRow,
+                    colIndex = ts.p.selectModel.focusCol,
 
                     oldRowIndex = ts.p.selectModel.oldRowIndex,
 
@@ -1248,27 +1434,27 @@
 
                     hit = ts.hitTest(e);
 
-                    // 光标所在的单元格未改变
-                    if( !ts.p.selectModel.changed && hit.row == rowIndex && hit.column == colIndex ) {
-                        $(ts).yGrid('editCell', ri, ci, true, e);// 鼠标编辑
-                    }
+                // 光标所在的单元格未改变
+                if( !ts.p.selectModel.changed && hit.row == rowIndex && hit.column == colIndex ) {
+                    $(ts).yGrid('editCell', ri, ci, true, e);// 鼠标编辑
+                }
 
-                    // 单击事件
-                    if( $.isFunction(ts.p.clickRow) ) {
-                        ts.p.clickRow.call(ts,rowIndex);
-                    }
+                // 单击事件
+                if( $.isFunction(ts.p.clickRow) ) {
+                    ts.p.clickRow.call(ts,rowIndex);
+                }
 
-                    // 树形表格点击
-                    if( $(target).hasClass('cell-treeIcon') ){
-                        treeClick($(target), ri, ci);
-                    }
+                // 树形表格点击
+                if( $(target).hasClass('cell-treeIcon') ){
+                    treeClick($(target), ri, ci);
+                }
 
-                    // 行改变事件
-                    if( rowIndex != oldRowIndex && $.isFunction(ts.p.focusRowChanged) ) {
-                        ts.p.focusRowChanged.call(ts,rowIndex,oldRowIndex);
-                    }
+                // 行改变事件
+                if( rowIndex != oldRowIndex && $.isFunction(ts.p.focusRowChanged) ) {
+                    ts.p.focusRowChanged.call(ts,rowIndex,oldRowIndex);
+                }
 
-           //     }
+                //     }
             }).mouseup(function (e) {
                 if (e.target.tagName === "TD") {
                     document.onselectstart = function () {
@@ -1299,67 +1485,54 @@
 
                 var rowIndex = hit.row,colIndex = hit.column;
 
-                if( rowIndex == null || colIndex == null )
+                if( rowIndex == null || colIndex == null || colIndex < 0 )
                     return;
 
-                // 选中
-                ts.selectGridRow(colIndex,rowIndex,colIndex,rowIndex,rowIndex,colIndex);
+                var oldRowIndex = ts.p.selectModel.focusRow,
+                    oldColIndex = ts.p.selectModel.focusCol;
 
-                ts.selecting = {x:e.clientX,y:e.clientY};
+                if( colIndex == oldColIndex && e.shiftKey ) {
 
-            }).dblclick(function (e) {    //表格双击事件，主要是行双击事件
-                    var td = e.target;
-                    if ($.ygrid.msie) {   //兼容IE
-                        $(td).click();
-                    }
-                    var ptr = $(td, ts.rows).closest("tr.ygrow");
-                    if ($(ptr).length === 0) {
-                        return;
-                    }
-                    var rowIndex = parseInt($.ygrid.stripPref($.ygrid.uidPref, ptr[0].id));
-                    if ($.isFunction(ts.p.dblClickRow)) {
-                        ts.p.dblClickRow.call(ts, rowIndex);
-                    }
-            }).bind('reloadGrid', function (e, opts) {
-                     var $rowHeader = $("tr.ui-ygrid-headers", ts.grid.hDiv);
-                     var firstRow = $("tr.ygfirstrow", grid.bDiv);
-                    if (ts.p.colModel.isChange) {
-                        ts.p.colModel.isChange = false;
-                        $(ts.grid.headers).each(function (iCol) {
-                            var column = ts.p.colModel[iCol],
-                                _td = firstRow.find("td").eq(iCol);
+                    var top = Math.min(rowIndex, oldRowIndex);
+                    var bottom = Math.max(rowIndex, oldRowIndex);
 
-                            $(this.el).css("display", column.hidden ? "none" : "");
-                            _td.css("display", column.hidden ? "none" : "");
-                        });
-                    if (ts.p.groupHeaders.length > 0) {
-                        for (var i = 0, len = ts.grid.headers.length; i < len; i++) {
-                            var header = ts.grid.headers[i].el, cells = $rowHeader[0].cells;
-                            $("div", header).attr("style", "");
-                            if ($.inArray(cells, header) == -1) {
-                                $rowHeader.append(header);
-                            } else {
-                                header.after(ts.grid.headers[i - 1].el);
-                            }
-                        }
-                        $(ts.grid.hDiv).find("tr.ui-ygrid-columnheader").remove();
-                        $(ts).buildGroupHeaders(ts.p.groupHeaders);
-                    }
+                    ts.selectGridRow(colIndex,top,colIndex,bottom,rowIndex,colIndex);
+
+                } else {
+
+                    ts.selectGridRow(colIndex,rowIndex,colIndex,rowIndex,rowIndex,colIndex);
+
+                    ts.selecting = {x:e.clientX,y:e.clientY};
                 }
-                if (opts && opts.page) {
-                    var page = opts.page;
-                    if (page > ts.p.lastpage) {
-                        page = ts.p.lastpage;
-                    }
-                    if (page < 1) {
-                        page = 1;
-                    }
-                    ts.p.page = page;
-                    if (ts.grid.prevRowHeight) {
-                        ts.grid.bDiv.scrollTop = (page - 1) * ts.grid.prevRowHeight * ts.p.rowNum;
-                    } else {
-                        ts.grid.bDiv.scrollTop = 0;
-                    }
+            }).dblclick(function (e) {    //表格双击事件,包括单元格双击和行双击
+                var td = e.target;
+                if ($.ygrid.msie) {   //兼容IE
+                    $(td).click();
+                }
+
+                var hit = ts.hitTest(e);
+
+                var rowIndex = hit.row,colIndex = hit.column;
+
+                if( rowIndex == null || colIndex == null || colIndex < 0 )
+                    return;
+
+                if ($.isFunction(ts.p.dblClickCell)) {
+                    ts.p.dblClickCell.call(ts, rowIndex, colIndex);
+                }
+
+                if ($.isFunction(ts.p.dblClickRow)) {
+                    ts.p.dblClickRow.call(ts, rowIndex);
+                }
+
+            }).bind('reloadGrid', function (e, opts) {
+                var _grid = ts.getControlGrid();
+
+                if ( _grid.visibleChanged ) {
+
+                    _grid.repaintHeaders();
+
+                    _grid.visibleChanged = false;
                 }
 
                 if (ts.grid.prevRowHeight && ts.p.scrollPage) {
@@ -1369,85 +1542,94 @@
                     ts.grid.populate();
                 }
 
-                var pageInfo = ts.getControlGrid().pageInfo;
-                var pagerId = ts.p.id + '_pager';
-                updatePagination($("#pagination_" + pagerId), pageInfo);
+                updatePagination($("#pagination_" + ts.p.id + '_pager'), _grid.pageInfo);
             });
 
             // ----------------------------------表格选择模式--------------------------------------------
+
+            var unselect = function (row,left,right) {
+                left = left + (ts.p.rowSequences ? 1 : 0), right = right + (ts.p.rowSequences ? 1 : 0);
+                $(row.cells).each(function () {
+                    if( this.cellIndex >= left && this.cellIndex <= right){
+                        $(this).removeClass("ui-state-highlight");
+                    }
+                });
+            };
+
+            var select = function (row,left,right) {
+                left = left + (ts.p.rowSequences ? 1 : 0), right = right + (ts.p.rowSequences ? 1 : 0);
+                $(row.cells).each(function () {
+                    if( this.cellIndex >= left && this.cellIndex <= right){
+                        $(this).addClass("ui-state-highlight");
+                    }
+                });
+            };
+
+            ts.unselectGridRow = function (rowIndex) {
+                var viewRow = $(ts).getGridRowById($.ygrid.uidPref + rowIndex);
+                if( viewRow ) {
+                    $(viewRow.cells).each(function () {
+                        $(this).removeClass("ui-state-highlight");
+                    });
+                }
+            };
+
             //  传入的是真实的colIndex
             ts.selectGridRow = function (left,top,right,bottom,focusRow,focusCol) {
-                var unselect = function (row,left,right) {
-                    left = left + (ts.p.rowSequences ? 1 : 0), right = right + (ts.p.rowSequences ? 1 : 0);
-                    $(row.cells).each(function () {
-                        if( this.cellIndex >= left && this.cellIndex <= right){
-                            $(this).removeClass("ui-state-highlight");
-                        }
-                    });
-                };
-
-                var select = function (row,left,right) {
-                    left = left + (ts.p.rowSequences ? 1 : 0), right = right + (ts.p.rowSequences ? 1 : 0);
-                    $(row.cells).each(function () {
-                        if( this.cellIndex >= left && this.cellIndex <= right){
-                            $(this).addClass("ui-state-highlight");
-                        }
-                    });
-                };
                 var selectModel = ts.p.selectModel;
                 var oldFocusRow = -1,oldFocusCol = -1;
                 var rid,viewRow;
                 switch (selectModel.selectionMode){
-                case YIUI.SelectionMode.RANGE:
-                    var oldLeft = selectModel.left,oldRight = selectModel.right,
-                        oldTop = selectModel.top,oldBottom = selectModel.bottom;
-                    if( selectModel.select(left, top, right, bottom,focusRow,focusCol) ) {
-                        $("tbody:first > tr:gt(0)", ts.grid.bDiv).each(function () {
-                            var rowIndex = parseInt($.ygrid.stripPref($.ygrid.uidPref, this.id));
-                            if(rowIndex >= oldTop && rowIndex <= oldBottom && oldLeft != -1 && oldRight != -1){
-                                unselect(this,oldLeft,oldRight);
+                    case YIUI.SelectionMode.RANGE:
+                        var oldLeft = selectModel.left,oldRight = selectModel.right,
+                            oldTop = selectModel.top,oldBottom = selectModel.bottom;
+                        if( selectModel.select(left, top, right, bottom,focusRow,focusCol) ) {
+                            $("tbody:first > tr:gt(0)", ts.grid.bDiv).each(function () {
+                                var rowIndex = parseInt($.ygrid.stripPref($.ygrid.uidPref, this.id));
+                                if(rowIndex >= oldTop && rowIndex <= oldBottom && oldLeft != -1 && oldRight != -1){
+                                    unselect(this,oldLeft,oldRight);
+                                }
+                                if(rowIndex >= top && rowIndex <= bottom ) {
+                                    select(this,left,right);
+                                }
+                            });
+                        }
+                        break;
+                    case YIUI.SelectionMode.ROW:
+                        oldFocusRow = selectModel.focusRow;
+                        var count = ts.getControlGrid().getColumnCount();
+                        if( selectModel.select(0,focusRow,count,focusRow,focusRow,focusCol) ) {
+                            if( oldFocusRow != -1 ) {
+                                rid = $.ygrid.uidPref + oldFocusRow;
+                                viewRow = $(ts).getGridRowById(rid);
                             }
-                            if(rowIndex >= top && rowIndex <= bottom ) {
-                                select(this,left,right);
+                            if( viewRow ) {
+                                unselect(viewRow,0,count - 1);
                             }
-                        });
-                    }
-                    break;
-                case YIUI.SelectionMode.ROW:
-                    oldFocusRow = selectModel.focusRow;
-                    var count = ts.getControlGrid().getColumnCount();
-                    if( selectModel.select(0,focusRow,count,focusRow,focusRow,focusCol) ) {
-                        if( oldFocusRow != -1 ) {
-                            rid = $.ygrid.uidPref + oldFocusRow;
+                            rid = $.ygrid.uidPref + focusRow;
                             viewRow = $(ts).getGridRowById(rid);
+                            if( viewRow ) {
+                                select(viewRow,0,count - 1);
+                            }
                         }
-                        if( viewRow ) {
-                            unselect(viewRow,0,count - 1);
-                        }
-                        rid = $.ygrid.uidPref + focusRow;
-                        viewRow = $(ts).getGridRowById(rid);
-                        if( viewRow ) {
-                            select(viewRow,0,count - 1);
-                        }
-                    }
-                    break;
-                case YIUI.SelectionMode.CELL:
-                    oldFocusRow = selectModel.focusRow,oldFocusCol = selectModel.focusCol;
-                    if( selectModel.select(focusCol,focusRow,focusCol,focusRow,focusRow,focusCol) ) {
-                        if( oldFocusRow != -1 && oldFocusCol != -1 ) {
-                            rid = $.ygrid.uidPref + oldFocusRow;
+                        break;
+                    case YIUI.SelectionMode.CELL:
+                        oldFocusRow = selectModel.focusRow,oldFocusCol = selectModel.focusCol;
+                        if( selectModel.select(focusCol,focusRow,focusCol,focusRow,focusRow,focusCol) ) {
+                            if( oldFocusRow != -1 && oldFocusCol != -1 ) {
+                                rid = $.ygrid.uidPref + oldFocusRow;
+                                viewRow = $(ts).getGridRowById(rid);
+                            }
+                            if( viewRow ) {
+                                unselect(viewRow,oldFocusCol,oldFocusCol);
+                            }
+                            rid = $.ygrid.uidPref + focusRow;
                             viewRow = $(ts).getGridRowById(rid);
+                            if( viewRow ) {
+                                select(viewRow,focusCol,focusCol);
+                            }
                         }
-                        if( viewRow ) {
-                            unselect(viewRow,oldFocusCol,oldFocusCol);
-                        }
-                        rid = $.ygrid.uidPref + focusRow;
-                        viewRow = $(ts).getGridRowById(rid);
-                        if( viewRow ) {
-                            select(viewRow,focusCol,focusCol);
-                        }
-                    }
-                    break;
+                        break;
                 }
             };
 
@@ -1461,32 +1643,32 @@
                     rid = $.ygrid.uidPref + row,colModel = ts.p.colModel;
                 var grid = ts.getControlGrid(),cellData = grid.getCellDataAt(row,column);
                 switch ( keyCode ){
-                case 13:
-                case 108:// enter
-                    var editOpt = ts.getCellEditOptByIndex(row,column);
-                    switch (editOpt.editOptions.cellType) {
-                    case YIUI.CONTROLTYPE.BUTTON:
-                    case YIUI.CONTROLTYPE.HYPERLINK:
-                        if( cellData[2] ) {
-                            grid.gridHandler.doOnCellClick(grid,row,column);
-                        } else {
-                            return ts.changeFocus();
+                    case 13:
+                    case 108:// enter
+                        var editOpt = ts.getCellEditOpt(row,column);
+                        switch (editOpt.editOptions.cellType) {
+                            case YIUI.CONTROLTYPE.BUTTON:
+                            case YIUI.CONTROLTYPE.HYPERLINK:
+                                if( cellData[2] ) {
+                                    grid.gridHandler.doOnCellClick(grid,row,column);
+                                } else {
+                                    return ts.changeFocus();
+                                }
+                                break;
+                            case YIUI.CONTROLTYPE.CHECKBOX:
+                                if( cellData[2] ) {
+                                    grid.setValueAt(row,column,!cellData[0],true,true);
+                                } else {
+                                    return ts.changeFocus();
+                                }
+                                break;
+                            default:
+                                return ts.changeFocus();
                         }
                         break;
-                    case YIUI.CONTROLTYPE.CHECKBOX:
-                        if( cellData[2] ) {
-                            grid.setValueAt(row,column,!cellData[0],true,true);
-                        } else {
-                            return ts.changeFocus();
-                        }
-                        break;
-                    default:
+                    case 9:// tab
                         return ts.changeFocus();
-                    }
-                    break;
-                case 9:// tab
-                    return ts.changeFocus();
-                    break;
+                        break;
                 }
                 return true;
             };
@@ -1600,18 +1782,18 @@
                     ci = column + (ts.p.rowSequences ? 1 : 0);
                 var pos = {};
                 switch ( flag ) {
-                case "left":
-                    pos = findVisiblePos(ri,ci,"pre");
-                    break;
-                case "top":
-                    pos.row = ri - 1,pos.column = ci;
-                    break;
-                case "right":
-                    pos = findVisiblePos(ri,ci,"next");
-                    break;
-                case "bottom":
-                    pos.row = ri + 1,pos.column = ci;
-                    break;
+                    case "left":
+                        pos = findVisiblePos(ri,ci,"pre");
+                        break;
+                    case "top":
+                        pos.row = ri - 1,pos.column = ci;
+                        break;
+                    case "right":
+                        pos = findVisiblePos(ri,ci,"next");
+                        break;
+                    case "bottom":
+                        pos.row = ri + 1,pos.column = ci;
+                        break;
                 }
 
                 // 没改变
@@ -1622,8 +1804,8 @@
                 if( ri >= 0 && ri < ts.rows.length && ci >= 0 && ci < colModel.length ) {
                     viewRow = ts.rows[ri];
                     if( viewRow ) {
-                        $(viewRow.cells[ci]).trigger("mousedown").trigger("mouseup").click();
                         $(ts).scrollVisibleCell(ri,ci);
+                        $(viewRow.cells[ci]).trigger("mousedown").trigger("mouseup").click();
                     }
                     return true;
                 }
@@ -1632,11 +1814,11 @@
 
             // 清空选择
             ts.cleanSelection = function () {
-                var row = ts.p.selectModel.focusRow,column = ts.p.selectModel.focusCol;
-                var viewRow = $(ts).getGridRowById($.ygrid.uidPref + row);
-                if( !viewRow )
-                    return;
-                $(viewRow.cells[column + (ts.p.rowSequences ? 1 : 0)]).removeClass("ui-state-highlight");
+                //var row = ts.p.selectModel.focusRow,column = ts.p.selectModel.focusCol;
+                // var viewRow = $(ts).getGridRowById($.ygrid.uidPref + row);
+                //  if( !viewRow )
+                //     return;
+                // $(viewRow.cells[column + (ts.p.rowSequences ? 1 : 0)]).removeClass("ui-state-highlight");
                 ts.selectGridRow(-1,-1,-1,-1,-1,-1);
             };
 
@@ -1664,14 +1846,14 @@
                 if (pageInfo.pageCount <= indicator) {
                     initPagination(1, pageInfo.pageCount, curPage);
                 } else {
-                	var step = Math.floor(indicator/2);
+                    var step = Math.floor(indicator/2);
                     var begin = (curPage - step) >= 1 ? (curPage - step) : 1, end = begin + indicator - 1;
                     if (end > pageInfo.pageCount) {
-                         var gap = end - pageInfo.pageCount;
-                         begin -= gap;
-                         end -= gap;
-                     }
-                     initPagination(begin, end, curPage);                	
+                        var gap = end - pageInfo.pageCount;
+                        begin -= gap;
+                        end -= gap;
+                    }
+                    initPagination(begin, end, curPage);
                 }
 //                if (pageInfo.pageCount <= 5) {
 //                    initPagination(1, pageInfo.pageCount, curPage);
@@ -1710,13 +1892,12 @@
                     "<td id='" , pagerId , "_center' align='center' style='white-space:pre;'></td>",
                     "<td id='" , pagerId , "_right' align='right' style='min-width:100px'></td>",
                     "</tr></tbody></table></div>"].join(""));
-                //初始化操作按钮
                 var tbd,
                     navBTtbl = $("<table cellpadding='0' border='0' class='ui-pg-table navtable' style='float:left;table-layout:auto;'><tbody><tr></tr></tbody></table>"),
                     sep = "<td class='ui-pg-button ui-state-disabled' style='width:4px;'><span class='ui-separator'></span></td>";
                 if (op.add) {
                     tbd = $("<td class='ui-pg-button ui-corner-all'></td>");
-                    $(tbd).append(["<div class='ui-pg-div'><span class='ui-icon " , op.addIcon , "'></span>" , op.addtext , "</div>"].join(""));
+                    $(tbd).append(["<div class='ui-pg-div'><span class='ui-icon " , op.addIcon , "'></span>", "</div>"].join(""));
                     $("tr", navBTtbl).append(tbd);
                     $(tbd, navBTtbl)
                         .attr({"title": op.addtitle || "", id: "add_" + ts.p.id})
@@ -1724,8 +1905,6 @@
                             if (!$(this).hasClass('ui-state-disabled')) {
                                 if ($.isFunction(op.addFunc)) {
                                     op.addFunc.call(ts, "add");
-                                } else {
-//                                  //TODO  新增行
                                 }
                             }
                             return false;
@@ -1734,7 +1913,7 @@
                 }
                 if (op.del) {
                     tbd = $("<td class='ui-pg-button ui-corner-all'></td>");
-                    $(tbd).append(["<div class='ui-pg-div'><span class='ui-icon " , op.delIcon , "'></span>" , op.deltext , "</div>"].join(""));
+                    $(tbd).append(["<div class='ui-pg-div'><span class='ui-icon " , op.delIcon , "'></span>", "</div>"].join(""));
                     $("tr", navBTtbl).append(tbd);
                     $(tbd, navBTtbl)
                         .attr({"title": op.deltitle || "", id: "del_" + ts.p.id})
@@ -1742,8 +1921,6 @@
                             if (!$(this).hasClass('ui-state-disabled')) {
                                 if ($.isFunction(op.delFunc)) {
                                     op.delFunc.call(ts, "del");
-                                } else {
-//                                  //TODO  刪除行
                                 }
                             }
                             return false;
@@ -1752,7 +1929,7 @@
                 }
                 if (op.upRow) {
                     tbd = $("<td class='ui-pg-button ui-corner-all'></td>");
-                    $(tbd).append(["<div class='ui-pg-div'><span class='ui-icon " , op.upRowIcon , "'></span>" , op.uprowtext , "</div>"].join(""));
+                    $(tbd).append(["<div class='ui-pg-div'><span class='ui-icon " , op.upRowIcon , "'></span>", "</div>"].join(""));
                     $("tr", navBTtbl).append(tbd);
                     $(tbd, navBTtbl)
                         .attr({"title": op.uprowtitle || "", id: "upRow_" + ts.p.id})
@@ -1768,7 +1945,7 @@
                 }
                 if (op.downRow) {
                     tbd = $("<td class='ui-pg-button ui-corner-all'></td>");
-                    $(tbd).append(["<div class='ui-pg-div'><span class='ui-icon " , op.downRowIcon , "'></span>" , op.downrowtext , "</div>"].join(""));
+                    $(tbd).append(["<div class='ui-pg-div'><span class='ui-icon " , op.downRowIcon , "'></span>", "</div>"].join(""));
                     $("tr", navBTtbl).append(tbd);
                     $(tbd, navBTtbl)
                         .attr({"title": op.downrowtitle || "", id: "downRow_" + ts.p.id})
@@ -1782,20 +1959,71 @@
                         }).hover(onHoverIn, onHoverOut);
                     tbd = null;
                 }
-                if (op.add || op.del || op.upRow || op.downRow) {
+
+                if (op.bestWidth) {
+                    tbd = $("<td class='ui-pg-button ui-corner-all'></td>");
+                    $(tbd).append(["<div class='ui-pg-div'><span class='ui-icon " , op.bestWidthIcon , "'></span>", "</div>"].join(""));
+                    $("tr", navBTtbl).append(tbd);
+                    $(tbd, navBTtbl)
+                        .attr({"title": op.bestwidthtitle || "", id: "bestWidth_" + ts.p.id})
+                        .click(function () {
+                            if (!$(this).hasClass('ui-state-disabled')) {
+                                if ($.isFunction(ts.switchWidth)) {
+                                    ts.switchWidth();
+                                }
+                            }
+                            return false;
+                        }).hover(onHoverIn, onHoverOut);
+                    tbd = null;
+                }
+
+                if ( op.frozenRow ) {
+                    tbd = $("<td class='ui-pg-button ui-corner-all'></td>");
+                    $(tbd).append(["<div class='ui-pg-div'><span class='ui-icon " , op.frozenRowIcon , "'></span>", "</div>"].join(""));
+                    $("tr", navBTtbl).append(tbd);
+                    $(tbd, navBTtbl)
+                        .attr({"title": op.frozenrowtitle || "", id: "frozenrow_" + ts.p.id})
+                        .click(function () {
+                            if (!$(this).hasClass('ui-state-disabled')) {
+                                if ($.isFunction(ts.frozenRow)) {
+                                    ts.frozenRow($("span",this),op);
+                                }
+                            }
+                            return false;
+                        }).hover(onHoverIn, onHoverOut);
+                    tbd = null;
+                }
+
+                if ( op.frozenColumn ) {
+                    tbd = $("<td class='ui-pg-button ui-corner-all'></td>");
+                    $(tbd).append(["<div class='ui-pg-div'><span class='ui-icon " , op.frozenColumnIcon , "'></span>", "</div>"].join(""));
+                    $("tr", navBTtbl).append(tbd);
+                    $(tbd, navBTtbl)
+                        .attr({"title": op.frozencoltitle || "", id: "frozencolumn_" + ts.p.id})
+                        .click(function () {
+                            if (!$(this).hasClass('ui-state-disabled')) {
+                                if ($.isFunction(ts.frozenColumn)) {
+                                    ts.frozenColumn($("span",this),op);
+                                }
+                            }
+                            return false;
+                        }).hover(onHoverIn, onHoverOut);
+                    tbd = null;
+                }
+
+                if (op.add || op.del || op.upRow || op.downRow || op.bestWidth) {
                     $("tr", navBTtbl).append(sep);
                 }
                 $(ts.p.pager + "_left", ts.p.pager).append(navBTtbl);
                 tbd = null;
                 navBTtbl = null;
-                //初始化分页操作按钮及分页输入框
-                if (ts.p.showPageSet) {
+                //初始化分页操作按钮
+                if (!ts.p.scrollPage) {
                     var pgcnt = "pg_" + pagerId,
                         pgl = ["<table cellpadding='0' border='0' style='table-layout:auto;' class='ui-pg-table'><tbody><tr>"],
-                        po = ["first_" + pagerId, "prev_" + pagerId, "next_" + pagerId, "last_" + pagerId],
+                        po = ["first_" + pagerId, "prev_" + pagerId, "next_" + pagerId, "last_" + pagerId, "page_" + pagerId],
                         pagination = "<td><div id='pagination_" + pagerId + "' class='ui-pagination'><ul></ul></div></td>";
-//                    var pginp = "<td>" + $.ygrid.formatString($.ygrid.defaults.pgtext || "",
-//                        "<input class='ui-pg-input' type='text' size='2' maxlength='7' value='0' role='textbox'/>") + "</td>";
+
                     pgl.push("<td id='");
                     pgl.push(po[0]);
                     pgl.push("' class='ui-pg-button'><span class='ui-icon ui-icon-seek-first'></span></td>");
@@ -1809,10 +2037,34 @@
                     pgl.push("<td id='");
                     pgl.push(po[3]);
                     pgl.push("' class='ui-pg-button'><span class='ui-icon ui-icon-seek-end'></span></td>");
-//                    pgl += (pginp !== "" ? sep + pginp + sep : "");
+
+                    if(ts.p.rowList.length >0){
+                        pgl.push("<td id='");
+                        pgl.push(po[4] + "'>");
+                        pgl.push("<select class='ui-pg-selbox ui-widget-content ui-corner-all'" + " role=\"listbox\" title=\"Records per Page\">");
+                        var nm,rowNum = ts.getControlGrid().pageInfo.pageRowCount;
+                        for(i = 0;i < ts.p.rowList.length;i++){
+                            nm = ts.p.rowList[i].toString();
+
+                            pgl.push("<option role=\"option\" value=\""+nm+"\""+(rowNum === parseInt(nm)?" selected=\"selected\"":"")+">"+nm+"</option>");
+                        }
+                        pgl.push("</select></td>");
+                    }
+
                     pgl.push("</tr></tbody></table>");
                     $(ts.p.pager + "_center", ts.p.pager).append(pgl.join(""));
 
+                    //行数改变事件
+                    var rowNumChangeEvent = function () {
+                        var grid = ts.getControlGrid();
+
+                        grid.pageInfo.pageRowCount = parseInt(this.value);
+
+                        ts.p.gotoPage.call(grid, 1);
+                        return false;
+                    }
+
+                    $(".ui-pg-selbox","#page_" + pagerId).on('change', rowNumChangeEvent);
 
                     //翻页事件
                     var gotoPageEvent = function () {
@@ -1848,7 +2100,6 @@
 
                         //转发grid 翻页事件
                         ts.p.gotoPage.call(ts.getControlGrid(), page).always(function(){
-                            console.log('goto page end');
                             //更新页码
                             updatePagination($("#pagination_" + pagerId), p);
                         });
@@ -1979,7 +2230,7 @@
                 this.p.knv = this.p.id + "_kn";
                 var knv = $("#" + this.p.knv);
                 if (knv.length == 0) {
-                    knv = $(["<div tabindex='-1' style='left:-1px;width:1px;height:0px;' id='" ,
+                    knv = $(["<div tabindex='-1' style='left:-1px;width:1px;height:0px;position:fixed;' id='" ,
                         this.p.knv , "'></div>"].join("")).insertBefore($(this.grid.bDiv).parents(".ui-ygrid-view")[0]);
                 }
 
@@ -1989,71 +2240,73 @@
                  */
                 knv.keydown(function (event, outEvent) {
                     if (outEvent != null && outEvent.isPropagationStopped()) return;
-                    var th = $(".ui-ygrid-btable", event.target.nextSibling)[0], colModel = th.p.colModel;
+                    var ts = $(".ui-ygrid-btable", event.target.nextSibling)[0], colModel = ts.p.colModel;
                     var keyCode = event.charCode || event.keyCode || 0;
                     if (keyCode == 0 && outEvent !== undefined) {
                         keyCode = outEvent.charCode || outEvent.keyCode || 0;
                     }
-                    var grid = th.getControlGrid();
-                    var ri = th.p.selectModel.focusRow,ci = th.p.selectModel.focusCol;
+                    var grid = ts.getControlGrid();
+                    var ri = ts.p.selectModel.focusRow,ci = ts.p.selectModel.focusCol;
                     if( ri == -1 || ci == -1 )
                         return;
-                    var vri = ri + 1,vci = ci + (th.p.rowSequences ? 1 : 0);
+                    var vri = ri + 1,vci = ci + (ts.p.rowSequences ? 1 : 0);
 
                     // 按下ctrl按键的时候将选中的值填到textArea
                     if( event.ctrlKey ) {
-                        var textArea = $("#copyText" + th.p.id),val;
+                        var textArea = $("#copyText" + ts.p.id),val;
                         if ( textArea.length == 0 ) {
-                            textArea = $("<textarea id='copyText" + th.p.id + "'/>").appendTo($(document.body));
+                            textArea = $("<textarea id='copyText" + ts.p.id + "'/>").appendTo($(document.body));
                             textArea.css({position: "fixed", top: "-10000px", left: left + "px", width: "1000px", height: "200px"});
 
                             // 粘贴值
-                            var pasteCellValue = function () {
-                                ri = th.p.selectModel.focusRow,ci = th.p.selectModel.focusCol,val = textArea.val();
-                                if( ri == -1 || ci == -1 || !val )
-                                    return;
-                                var rowData = grid.getRowDataAt(ri);
-                                if (rowData.rowType !== 'Detail' || th.p.editCells.length > 0)
-                                    return;
-
-                                // 检查并且设值
-                                var checkAndSetValue = function (ri, ci, value) {
-                                    var cell = grid.getCellDataAt(ri, ci);
-                                    if ( value == null || value.trim().length == 0 )
+                            if( !ts.pasteCellValue ) {
+                                ts.pasteCellValue = function () {
+                                    ri = ts.p.selectModel.focusRow,ci = ts.p.selectModel.focusCol,val = textArea.val();
+                                    if( ri == -1 || ci == -1 || !val )
                                         return;
-                                    if ( cell[2] ) {
-                                        grid.setValueAt(ri, ci, value.trim(), true, true);
-                                    }
-                                }
+                                    var rowData = grid.getRowDataAt(ri);
+                                    if (rowData.rowType !== 'Detail' || ts.p.editCells.length > 0)
+                                        return;
 
-                                var values, vals, _column;
-                                switch (th.p.selectModel.selectionMode) {
-                                case YIUI.SelectionMode.CELL:
-                                    checkAndSetValue(ri, ci, val);
-                                    break;
-                                case YIUI.SelectionMode.RANGE:
-                                    values = val.split("\n");
-                                    for (var i = ri, length = values.length; i < grid.getRowCount() && i - ri < length; i++) {
-                                        vals = values[i - ri].split("\t");
-                                        for (var c = ci, size = vals.length,idx = 0; c < rowData.data.length && idx < size; c++) {
-                                            _column = grid.getColumnAt(c);
-                                            if( _column.hidden )
-                                                continue;
-                                            checkAndSetValue(i, c, vals[idx]);
-                                            idx++;
+                                    // 检查并且设值
+                                    var checkAndSetValue = function (ri, ci, value) {
+                                        var cell = grid.getCellDataAt(ri, ci);
+                                        if ( value == null || value.trim().length == 0 )
+                                            return;
+                                        if ( cell[2] ) {
+                                            grid.setValueAt(ri, ci, value.trim(), true, true);
                                         }
                                     }
-                                    break;
-                                case YIUI.SelectionMode.ROW:
-                                    values = val.split("\t"),length = rowData.data.length,size = values.length;
-                                    for (var c = 0,idx = 0; c < length && idx < size; c++) {
-                                        _column = grid.getColumnAt(c);
-                                        if( _column.hidden )
-                                            continue;
-                                        checkAndSetValue(ri, c, values[idx]);
-                                        idx++;
+
+                                    var values, vals, _column;
+                                    switch (ts.p.selectModel.selectionMode) {
+                                        case YIUI.SelectionMode.CELL:
+                                            checkAndSetValue(ri, ci, val);
+                                            break;
+                                        case YIUI.SelectionMode.RANGE:
+                                            values = val.split("\n");
+                                            for (var i = ri, length = values.length; i < grid.getRowCount() && i - ri < length; i++) {
+                                                vals = values[i - ri].split("\t");
+                                                for (var c = ci, size = vals.length,idx = 0; c < rowData.data.length && idx < size; c++) {
+                                                    _column = grid.getColumnAt(c);
+                                                    if( _column.hidden )
+                                                        continue;
+                                                    checkAndSetValue(i, c, vals[idx]);
+                                                    idx++;
+                                                }
+                                            }
+                                            break;
+                                        case YIUI.SelectionMode.ROW:
+                                            values = val.split("\t"),length = rowData.data.length,size = values.length;
+                                            for (var c = 0,idx = 0; c < length && idx < size; c++) {
+                                                _column = grid.getColumnAt(c);
+                                                if( _column.hidden )
+                                                    continue;
+                                                checkAndSetValue(ri, c, values[idx]);
+                                                idx++;
+                                            }
+                                            break;
                                     }
-                                    break;
                                 }
                             }
 
@@ -2062,7 +2315,7 @@
                                 var keyCode = event.charCode || event.keyCode;
 
                                 if (event.ctrlKey && keyCode == 86) {
-                                    pasteCellValue();
+                                    ts.pasteCellValue();
                                 }
 
                                 textArea.blur();
@@ -2076,41 +2329,43 @@
                         textArea.val("");
 
                         // 检查并选中单元格的值
-                        var checkAndSelectValue = function (ri, ci,values) {
-                            var column = grid.getColumnAt(ci);
-                            if (column.hidden)
-                                return;
-                            var cell = grid.getCellDataAt(ri, ci),
-                                editOpt = th.getCellEditOptByIndex(ri, ci);
-                            values.push(th.getCellStringValue(editOpt.editOptions.cellType, cell[0]), "\t");
+                        if( !ts.checkAndSelectValue ) {
+                            ts.checkAndSelectValue = function (ri, ci,values) {
+                                var column = grid.getColumnAt(ci);
+                                if (column.hidden)
+                                    return;
+                                var cell = grid.getCellDataAt(ri, ci),
+                                    editOpt = ts.getCellEditOpt(ri, ci);
+                                values.push(ts.getCellStringValue(editOpt.editOptions.cellType, cell[0]), "\t");
+                            }
                         }
 
                         var values = [];
-                        switch (th.p.selectModel.selectionMode) {
-                        case YIUI.SelectionMode.CELL:
-                            checkAndSelectValue(ri,ci,values);
-                            break;
-                        case YIUI.SelectionMode.RANGE:
-                            var top = th.p.selectModel.top, bottom = th.p.selectModel.bottom,
-                                left = th.p.selectModel.left, right = th.p.selectModel.right;
-                            var row;
-                            for (var i = top; i <= bottom; i++) {
-                                row = $("#" + $.ygrid.uidPref + i, th);
-                                if (!row.is(":visible"))
-                                    continue;
-                                for (var j = left; j <= right; j++) {
-                                    checkAndSelectValue(i,j,values);
+                        switch (ts.p.selectModel.selectionMode) {
+                            case YIUI.SelectionMode.CELL:
+                                ts.checkAndSelectValue(ri,ci,values);
+                                break;
+                            case YIUI.SelectionMode.RANGE:
+                                var top = ts.p.selectModel.top, bottom = ts.p.selectModel.bottom,
+                                    left = ts.p.selectModel.left, right = ts.p.selectModel.right;
+                                var row;
+                                for (var i = top; i <= bottom; i++) {
+                                    row = $("#" + $.ygrid.uidPref + i, ts);
+                                    if (!row.is(":visible"))
+                                        continue;
+                                    for (var j = left; j <= right; j++) {
+                                        ts.checkAndSelectValue(i,j,values);
+                                    }
+                                    values.pop();
+                                    values.push("\n");
                                 }
-                                values.pop();
-                                values.push("\n");
-                            }
-                            break;
-                        case YIUI.SelectionMode.ROW:
-                            var rowData = grid.getRowDataAt(ri);
-                            for (var i = 0, size = rowData.data.length; i < size; i++) {
-                                checkAndSelectValue(ri,i,values);
-                            }
-                            break;
+                                break;
+                            case YIUI.SelectionMode.ROW:
+                                var rowData = grid.getRowDataAt(ri);
+                                for (var i = 0, size = rowData.data.length; i < size; i++) {
+                                    ts.checkAndSelectValue(ri,i,values);
+                                }
+                                break;
                         }
                         values.pop();
                         textArea.val(values.join(""));
@@ -2118,72 +2373,74 @@
                         textArea.select();
                     }
 
-                    var fromCharCode = function(event,charCode){
-                        var code = String.fromCharCode(charCode).toLowerCase();
-                        if (event.shiftKey || document.isCapeLook) {
-                            code = code.toUpperCase();
+                    if( !ts.fromCharCode ) {
+                        ts.fromCharCode = function(event,charCode){
+                            var code = String.fromCharCode(charCode).toLowerCase();
+                            if (event.shiftKey || document.isCapeLook) {
+                                code = code.toUpperCase();
+                            }
+                            return code;
                         }
-                        return code;
                     }
 
                     switch (keyCode) {
-                    case 13:
-                    case 108:  // Enter,Tab键
-                    case 9:
-                        if (!th.doFocusPolicy(keyCode)) {
-                            th.cleanSelection();
-                            grid.requestNextFocus();
-                        }
-                        event.stopPropagation();//  停止传播
-                        event.preventDefault();// 阻止默认行为
-                        break;
-                    case 37:
-                        th.changeFocus("left");
-                        break;
-                    case 38:
-                        th.changeFocus("top");
-                        break;
-                    case 39:
-                        th.changeFocus("right");
-                        break;
-                    case 40:
-                        th.changeFocus("bottom");
-                        break;
-                    case 46:
-                        var cell = grid.getCellDataAt(ri, ci);
-                        if( cell[2] ) {
-                            grid.setValueAt(ri,ci,null,true,true);
-                        }
-                        break;
-                    case 67: // C
-                        if (event.ctrlKey) {
-                            // noop
-                        } else {
-                            $(th).yGrid('editCell', vri, vci, false, event, fromCharCode(event,keyCode));
-                        }
-                        break;
-                    case 86: // V
-                        if ( event.ctrlKey ) {
-                           // noop
-                        } else {
-                            $(th).yGrid('editCell', vri, vci, false, event, fromCharCode(event,keyCode));
-                        }
-                        break;
-                    default:
-                        var code;
-                        if (keyCode >= 48 && keyCode <= 57) { //数字
-                            code = String.fromCharCode(keyCode);
-                        } else if (keyCode >= 96 && keyCode <= 105) {  //小键盘数字
-                            code = String.fromCharCode(keyCode - 48);
-                        } else if (keyCode >= 65 && keyCode <= 90) { //字母
-                            code = fromCharCode(event,keyCode);
-                        } else if ( keyCode == 109 || keyCode == 189) {
-                            code = String.fromCharCode(0);
-                        }
-                        if( code ) {
-                            $(th).yGrid('editCell', vri, vci, false, event, code);
-                        }
-                        break;
+                        case 13:
+                        case 108:  // Enter,Tab键
+                        case 9:
+                            if (!ts.doFocusPolicy(keyCode)) {
+                                ts.cleanSelection();
+                                grid.requestNextFocus();
+                            }
+                            event.stopPropagation();//  停止传播
+                            event.preventDefault();// 阻止默认行为
+                            break;
+                        case 37:
+                            ts.changeFocus("left");
+                            break;
+                        case 38:
+                            ts.changeFocus("top");
+                            break;
+                        case 39:
+                            ts.changeFocus("right");
+                            break;
+                        case 40:
+                            ts.changeFocus("bottom");
+                            break;
+                        case 46:
+                            var cell = grid.getCellDataAt(ri, ci);
+                            if( cell[2] ) {
+                                grid.setValueAt(ri,ci,null,true,true);
+                            }
+                            break;
+                        case 67: // C
+                            if (event.ctrlKey) {
+                                // noop
+                            } else {
+                                $(ts).yGrid('editCell', vri, vci, false, event, ts.fromCharCode(event,keyCode));
+                            }
+                            break;
+                        case 86: // V
+                            if ( event.ctrlKey ) {
+                                // noop
+                            } else {
+                                $(ts).yGrid('editCell', vri, vci, false, event, ts.fromCharCode(event,keyCode));
+                            }
+                            break;
+                        default:
+                            var code;
+                            if (keyCode >= 48 && keyCode <= 57) { //数字
+                                code = String.fromCharCode(keyCode);
+                            } else if (keyCode >= 96 && keyCode <= 105) {  //小键盘数字
+                                code = String.fromCharCode(keyCode - 48);
+                            } else if (keyCode >= 65 && keyCode <= 90) { //字母
+                                code = ts.fromCharCode(event,keyCode);
+                            } else if (keyCode==32 || keyCode == 109 || keyCode == 189) {
+                                code = String.fromCharCode(0);
+                            }
+                            if( code ) {
+                                $(ts).yGrid('editCell', vri, vci, false, event, code);
+                            }
+                            break;
                     }
                 })
             });
@@ -2230,40 +2487,315 @@
                 }
             });
         },
+
+        setFrozenRows: function () {
+            return this.each(function () {
+                if( !this.grid ){
+                    return;
+                }
+
+                var $t = this;
+
+                var grid = $t.getControlGrid();
+                if( grid.hasGroupRow || grid.hasColExpand || grid.treeIndex != -1 || grid.rowExpandIndex != -1 ) {
+                    return;
+                }
+
+                var frozenCount = grid.frozenRowCount;
+
+                if( frozenCount > 0 ) {
+
+                    var gView = $($t.grid.bDiv).parents(".ui-ygrid-view");
+
+                    var p = $($t.grid.bDiv).position();
+
+                    $t.grid.fbDiv = $('<div style="position:absolute;left:'+p.left+'px;top:'+p.top+'px;overflow-y:hidden class= frozen-bdiv ui-ygrid-bdiv"></div>');
+
+                    gView.append($t.grid.fbDiv);
+
+                    $($t).on('yGridAfterGridComplete.setFrozenRows', function () {
+                        $("#"+$t.p.id+"_frozenRow").remove();
+
+                        var viewRow = $t.rows[frozenCount];
+
+                        $($t.grid.fbDiv).height(viewRow.offsetTop + $(viewRow).height());
+
+                        // record row height
+                        var mh = [];
+                        $("tr[role=row].ygrow",$t.grid.bDiv).each(function(){
+                            mh.push( $(this).height() );
+                        });
+
+                        console.log("setFrozenRows.................");
+
+                        var btbl = $(".ui-ygrid-btable",gView).clone(true);
+
+                        $("tr[role=row]:gt("+frozenCount+")",btbl).remove();
+
+                        $(btbl).width(1).attr("id",$t.p.id+"_frozenRow");
+                        $($t.grid.fbDiv).append(btbl);
+
+                        // set the height
+                        $("tr[role=row].ygrow",btbl).each(function(i){
+                            $(this).height( mh[i] );
+                        });
+
+                        // 滚动的距离
+                        $t.grid.fbDiv.scrollTop( $t.grid.bDiv.scrollTop );
+
+                        btbl = null;
+                    });
+
+                    $($t).triggerHandler("yGridAfterGridComplete");
+
+                    $t.p.frozenRows = true;
+
+                }
+            });
+        },
+
+        destroyFrozenRows: function () {
+            return this.each(function() {
+                if ( !this.grid ) {
+                    return;
+                }
+                if( this.p.frozenRows ) {
+                    var $t = this;
+                    $($t.grid.fbDiv).remove();
+                    $t.grid.fbDiv = null;
+
+                    $(this).off('.setFrozenRows');
+
+                    this.p.frozenRows = false;
+                }
+            });
+        },
+
+        setFrozenColumns: function () {
+            return this.each(function () {
+                if( !this.grid ){
+                    return;
+                }
+
+                var $t = this;
+
+                var grid = $t.getControlGrid();
+                if( grid.hasGroupRow || grid.hasColExpand || grid.treeIndex != -1 || grid.rowExpandIndex != -1 ) {
+                    return;
+                }
+
+                var frozenCount = grid.frozenColumnCount;
+
+                if( frozenCount > 0 ) {
+
+                    var gView = $($t.grid.bDiv).parents(".ui-ygrid-view");
+
+                    var divh = parseInt( $(".ui-ygrid-hdiv",gView).height(), 10 );
+
+                    $t.grid.fhDiv = $('<div style="position:absolute;left:0px;top:0px;' + 'height:'+divh+'px;" class="frozen-div ui-ygrid-hdiv"></div>');
+                    $t.grid.fbDiv = $('<div style="position:absolute;left:0px;top:'+ divh +'px;overflow-y:hidden" class="frozen-bdiv ui-ygrid-bdiv"></div>');
+
+                    // 列头部分
+                    gView.append($t.grid.fhDiv);
+
+                    var htbl = $(".ui-ygrid-htable",gView).clone(true);
+
+                    var dh = [];
+                    $(".ui-ygrid-htable tr", gView).each(function () {
+                        dh.push(parseInt($(this).height(),10));
+                    });
+
+                    // 锁定列所在的列序号
+                    var ci = $t.p.rowSequences ? frozenCount : frozenCount - 1;
+
+                    var index = -1;
+                    $("tr",htbl).each(function () {
+                        var cm = $("th[colindex=" + ci + "]", this);
+                        if( cm.length > 0 ) {
+                            return index = cm.index();
+                        }
+                    });
+
+                    // 去掉锁定列后的列头  TODO
+                    $("tr",htbl).each(function () {
+                        $("th",this).each(function () {
+                            if( $(this).index() > index || parseInt($(this).attr("colindex")) > ci ){
+                                $(this).remove();
+                            }
+                        });
+                    });
+
+                    $("tr",htbl).each(function(i){
+                        $(this).height(dh[i]);
+                    });
+
+                    $(htbl).width(1);
+                    if( !$.ygrid.msie ) {
+                        $(htbl).css("height","100%");
+                    }
+
+                    $($t.grid.fhDiv).append(htbl).mousemove(function (e) {
+                        if( $t.grid.resizing ) {
+                            $t.grid.dragMove(e);
+                            return false;
+                        }
+                    });
+
+                    $($t).on('yGridResizeStop.setFrozenColumns', function (e, w, index) {
+                        var rhth = $(".ui-ygrid-htable",$t.grid.fhDiv),
+                            btd = $(".ui-ygrid-btable",$t.grid.fbDiv);
+
+                        $("th:eq("+index+")", rhth).width( w );
+                        $("tr:first td:eq("+index+")", btd).width( w );
+
+                    });
+
+                    // 数据部分
+                    gView.append($t.grid.fbDiv);
+
+                    // 滚动事件
+                    $($t.grid.fbDiv).on('mousewheel DOMMouseScroll', function (e) {
+                        var st = $t.grid.bDiv.scrollTop;
+                        if (e.originalEvent.wheelDelta > 0 || e.originalEvent.detail < 0) {
+                            //up
+                            $t.grid.bDiv.scrollTop = st - 25;
+                        } else {
+                            //down
+                            $t.grid.bDiv.scrollTop = st + 25;
+                        }
+                        e.preventDefault();
+                    });
+
+                    $($t).on('yGridAfterGridComplete.setFrozenColumns', function () {
+                        $("#"+$t.p.id+"_frozenColumn").remove();
+                        $($t.grid.fbDiv).height($($t.grid.bDiv).height() - 17);
+                        // record row height
+                        var mh = [];
+                        $("tr[role=row].ygrow",$t.grid.bDiv).each(function(){
+                            mh.push( $(this).height() );
+                        });
+
+                        console.log("setFrozenColumns.................");
+
+                        var btbl = $(".ui-ygrid-btable",gView).clone(true);
+                        $("tr[role=row]",btbl).each(function(){
+                            $("td[role=gridcell]:gt("+ci+")",this).remove();
+                        });
+
+                        $(btbl).width(1).attr("id",$t.p.id+"_frozenColumn");
+                        $($t.grid.fbDiv).append(btbl);
+                        // set the height
+                        $("tr[role=row].ygrow",btbl).each(function(i){
+                            $(this).height( mh[i] );
+                        });
+
+                        // 滚动的距离
+                        $t.grid.fbDiv.scrollTop( $t.grid.bDiv.scrollTop );
+
+                        btbl = null;
+                    });
+
+                    $($t).triggerHandler("yGridAfterGridComplete");
+
+                    $t.p.frozenColumns = true;
+                }
+            });
+        },
+
+        destroyFrozenColumns: function() {
+            return this.each(function() {
+                if ( !this.grid ) {
+                    return;
+                }
+                if( this.p.frozenColumns ) {
+                    var $t = this;
+                    $($t.grid.fhDiv).remove();
+                    $($t.grid.fbDiv).remove();
+                    $t.grid.fhDiv = null;
+                    $t.grid.fbDiv = null;
+
+                    $(this).off('.setFrozenColumns');
+
+                    this.p.frozenColumns = false;
+                }
+            });
+        },
+
         buildGroupHeaders: function (array) {
             return this.each(function () {
                 var th = this, len = array.length;
+
+                $(th.grid.hDiv).find("tr.ui-ygrid-columnheader").remove();
                 th.p.groupHeaders = [];
-                if (len > 0) {
-                    for (var i = 0; i < len; i++) {
-                        var groupHeaderArray = array[i];
-                        $(th).setGroupHeaders(groupHeaderArray);
-                        th.p.groupHeaders.push(groupHeaderArray);
-                    }
+
+                for (var i = 0; i < len; i++) {
+                    $(th).setGroupHeaders(array[i]);
+                    th.p.groupHeaders.push(array[i]);
                 }
 
+                var headers = th.grid.headers;
+
+                // // 从给定位置开始寻找RH第一个可见的Cell
+                // var getRHIndex = function (idx) {
+                //     for( var i = idx,length = headers.length;i < length;i++ ) {
+                //         if( headers[i].visible ) {
+                //             return i;
+                //         }
+                //     }
+                //     return -1;
+                // }
+
+                $(headers).each(function () {
+                    this.el.rowSpan = 1;
+                });
+
                 // 从下往上,合并表头单元格
-                var chs = $("tr.ui-ygrid-columnheader", th.grid.hDiv),chCell,rhCell;
+                var chs = $("tr.ui-ygrid-columnheader", th.grid.hDiv),chCell,rhCell,inDom,height,span;
                 for (var i = chs.length - 1,ch; ch = chs[i]; i--) {
                     for (var ci = 0, rhci = 0, clen = ch.cells.length; ci < clen; ci++) {
                         chCell = $(ch.cells[ci]);
-                        if( chCell[0].style.display === "none" ) {
-                            rhci++;
+                        span = parseInt(chCell.attr("span"));
+                        if( chCell.is(":hidden") ) {
+                            if( span > 0 ) {
+                                rhci += span;
+                            } else {
+                                rhci++;
+                            }
                             continue;
                         }
 
-                        rhCell = $(th.grid.headers[rhci].el);
-                        if (chCell[0].colSpan > 1) {  // 跨多列
-                            rhci += parseInt(chCell.attr("cellspan"));
+                        // var _rhci = rhci;
+
+                        // rhci = getRHIndex(rhci);
+
+                        if ( span > 0 ) {     // 跨至少一列
+                            rhci += span;
                         } else {
+                            rhCell = $(headers[rhci].el);
+
                             rhCell[0].rowSpan += 1;
+
+                            inDom = rhCell.height() > 0;
+
                             rhCell.insertBefore(chCell); // 跨一列
-                            $("div", rhCell).css({height: rhCell.height() + "px", lineHeight: rhCell.height() + "px"});
+
+                            if( inDom ) {
+                                height = rhCell.height();
+                            } else {
+                                height = headers[rhci].orgHeight * rhCell[0].rowSpan;
+                            }
+
+                            $("div", rhCell).css({height: height + "px", lineHeight: height + "px"});
+
                             chCell.remove();
                             rhci++;
                         }
                     }
                 }
+
+                // 合并完注册相关事件
+                th.bindEvents2LeafColumn();
+                th.bindEvents2GridView();
             });
         },
         setGroupHeaders: function (o) {     //设置表格多层表头
@@ -2280,7 +2812,7 @@
                 var $th = this, groupHeaderArray = o, $rowHeader = $("tr.ui-ygrid-headers", $th.grid.hDiv),
                     $groupHeadRow = $("<tr class='ui-ygrid-columnheader' role='columnheader'></tr>").insertBefore($rowHeader),
                     $firstHeaderRow = $($th.grid.hDiv).find("tr.yg-first-row-header");   //不可见行，用于控制每个列的动态宽度
-                if ($firstHeaderRow[0] === undefined) {
+                if ($firstHeaderRow.length == 0) {
                     $firstHeaderRow = $('<tr>', {role: "row", "aria-hidden": "true"}).addClass("yg-first-row-header").css("height", "auto");
                 } else {
                     $firstHeaderRow.empty();
@@ -2289,30 +2821,27 @@
                     var thStyle = {height: 0, width: $th.grid.headers[j].width + 'px', display: ($th.p.colModel[j].hidden ? 'none' : '')};
                     $("<th>", {role: 'gridcell'}).css(thStyle).addClass("ui-first-th-ltr").appendTo($firstHeaderRow);
                 }
-                var index, colHeader;
-                for (var i = 0, clen = $th.p.colModel.length; i < clen; i++) {   //构建上级表头
+                var index, colHeader, clen = $th.p.colModel.length;
+                for (var i = 0; i < clen; i++) {   //构建上级表头
                     index = indexOfColumnHeader($th.p.colModel[i].name, groupHeaderArray);
 
                     colHeader = $('<th class="ui-state-default ui-th-column ui-th-ltr" role="columnheader"></th>').appendTo($groupHeadRow);
 
-                    if (index >= 0) {
+                    if( index >= 0 ) {
                         var colDef = groupHeaderArray[index];
-                        var colWidth = 0, count = colDef.numberOfColumns, cLen = $th.p.colModel.length;
-                        for (var visibleCount = 0, iCol = 0; iCol < count && (i + iCol < cLen); iCol++) {
+                        var colWidth = 0, count = colDef.numberOfColumns, title = colDef.titleText;
+                        for (var iCol = 0; iCol < count && (i + iCol < clen); iCol++) {
                             if ( $th.p.colModel[i + iCol].hidden )
                                 continue;
-                            visibleCount++;
                             colWidth += $th.grid.headers[i + iCol].width + 1;
                         }
-                        if (visibleCount > 0) {
-                            colHeader.attr("colspan", visibleCount);
+                        if (colWidth > 0) {
                             colHeader.css({width: colWidth + "px"});
                         } else {
                             colHeader.hide();
-                            colHeader.attr("colspan", count);
                         }
-                        colHeader.html(colDef.titleText).attr("title",colDef.titleText);
-                        colHeader.attr("cellspan",count);
+                        colHeader.html(title).attr("title",title);
+                        colHeader.attr("span",count).attr("colspan",count);
                         i += count - 1;
                     } else {
                         if ($th.p.colModel[i].hidden) {
@@ -2366,17 +2895,11 @@
         setCellRequired: function (rowIndex, colIndex, isRequired) {
 
             return this.each(function () {
-
-                var th = this;
-
-                var rid = $.ygrid.uidPref + rowIndex;
-
-                var viewRow = $(this).getGridRowById(rid);
-                if( !viewRow )
+                var pos = this.getColPos(colIndex);
+                var cell = $(this).getGridCellAt(rowIndex + 1, pos);
+                if( !cell )
                     return;
-                var viewCell = $(viewRow.cells[colIndex + (this.p.rowSequences ? 1 : 0)]);
-                if( !viewCell )
-                    return;
+                var viewCell = $(cell);
                 var errorReg = $("div.ui-cell-required",viewCell);
                 if( isRequired ) {
                     if( errorReg.length > 0 )
@@ -2394,26 +2917,40 @@
 
         setCellFocus: function (rowIndex,colIndex) {
             return this.each(function () {
-                var cell = $(this).getGridCellAt(rowIndex + 1, colIndex + (this.p.rowSequences ? 1 : 0));
-                cell && $(cell).trigger("mousedown").trigger("mouseup").click();
+                var ri = rowIndex + 1,
+                    ci = this.getColPos(colIndex);
+
+                var row = $(this).getGridRowAt(ri);
+                if( !row || $(row).is(":hidden") )
+                    return;
+
+                if( !row.cells[colIndex] )
+                    return;
+
+                $(this).scrollVisibleCell(ri,ci);
+                this.cleanSelection(); // 为了change!!
+                this.selectGridRow(colIndex,rowIndex,colIndex,rowIndex,rowIndex,colIndex);
+                this.knvFocus();
             });
         },
 
         setCellBackColor: function (rowIndex, colIndex, color) {
             return this.each(function () {
-                var cell = $(this).getGridCellAt(rowIndex + 1, colIndex + (this.p.rowSequences ? 1 : 0));
+                var pos = this.getColPos(colIndex);
+                var cell = $(this).getGridCellAt(rowIndex + 1, pos);
                 if (!cell) {
-                	return;
+                    return;
                 }
                 cell.style.backgroundColor = color;
             });
         },
-        
+
         setCellForeColor: function (rowIndex, colIndex, color) {
             return this.each(function () {
-                var cell = $(this).getGridCellAt(rowIndex + 1, colIndex + (this.p.rowSequences ? 1 : 0));
+                var pos = this.getColPos(colIndex);
+                var cell = $(this).getGridCellAt(rowIndex + 1, pos);
                 if (!cell) {
-                	return;
+                    return;
                 }
                 cell.style.color = color;
             });
@@ -2421,15 +2958,8 @@
 
         setCellEnable:function (rowIndex,colIndex,enable) {
             return this.each(function(){
-
-                var rid = $.ygrid.uidPref + rowIndex;
-                var viewRow = $(this).getGridRowById(rid);
-                if( !viewRow )
-                    return;
-
                 var pos = this.getColPos(colIndex);
-
-                var cell = viewRow.cells[pos];
+                var cell = $(this).getGridCellAt(rowIndex + 1, pos);
                 if( !cell )
                     return;
 
@@ -2443,25 +2973,25 @@
                     }
                 }
 
-                var editOpt = this.getCellEditOpt(rowData,pos);
+                var editOpt = this.getCellEditOpt(rowIndex,colIndex);
 
                 if (editOpt && editOpt.isAlwaysShow) {
                     switch (editOpt.formatter) {
-                    case "button":
-                        $(".cellEditor", cell)[0] && ($(".cellEditor", cell)[0].enable = enable);
-                        break;
-                    case "label":
-                    case "hyperlink":
-                        $(".cellEditor", cell)[0] && ($(".cellEditor", cell)[0].enable = enable);
-                        break;
-                    case "checkbox":
-                        $(".cellEditor",cell).attr('enable',enable);
-                        break;
-                    case "image":
-                        cell.editor.setEnable(enable);
-                        break;
-                    default:
-                        break;
+                        case "button":
+                            $(".cellEditor", cell)[0] && ($(".cellEditor", cell)[0].enable = enable);
+                            break;
+                        case "label":
+                        case "hyperlink":
+                            $(".cellEditor", cell)[0] && ($(".cellEditor", cell)[0].enable = enable);
+                            break;
+                        case "checkbox":
+                            $(".cellEditor",cell).attr('enable',enable);
+                            break;
+                        case "image":
+                            cell.editor.setEnable(enable);
+                            break;
+                        default:
+                            break;
                     }
                 }
             });
@@ -2469,15 +2999,11 @@
 
         setCellError: function (rowIndex,colIndex,error,errorMsg) {
             return this.each(function () {
-
-                var rid = $.ygrid.uidPref + rowIndex;
-
-                var viewRow = $(this).getGridRowById(rid);
-                if( !viewRow )
+                var pos = this.getColPos(colIndex);
+                var cell = $(this).getGridCellAt(rowIndex + 1, pos);
+                if( !cell )
                     return;
-                var viewCell = $(viewRow.cells[colIndex + (this.p.rowSequences ? 1 : 0)]);
-                if( !viewCell )
-                    return;
+                var viewCell = $(cell);
                 var errorReg = $("div.ui-cell-error",viewCell);
                 if( error ) {
                     if( errorReg.length > 0 )
@@ -2495,8 +3021,7 @@
 
         setRowError: function (rowIndex,error,errorMsg) {
             return this.each(function () {
-                var rid = $.ygrid.uidPref + rowIndex;
-                var viewRow = $(this).getGridRowById(rid);
+                var viewRow = $(this).getGridRowById($.ygrid.uidPref + rowIndex);
                 if( !viewRow )
                     return;
                 var viewCell = $(viewRow.cells[0]);
@@ -2511,6 +3036,19 @@
                         return;
                     errorReg.remove();
                     viewCell.attr({title:viewCell.text()}).removeAttr("position");
+                }
+            });
+        },
+
+        setRowVisible: function (rowIndex,visible) {
+            return this.each(function () {
+                var viewRow = $(this).getGridRowById($.ygrid.uidPref + rowIndex);
+                if( !viewRow )
+                    return;
+                if( !visible ) {
+                    $(viewRow).hide();
+                } else {
+                    $(viewRow).show();
                 }
             });
         },
@@ -2554,24 +3092,25 @@
                 }
                 iCol = parseInt(iCol, 10);
                 if ($t.p.editCells.length > 0) {
-                //    if (ed === true) {
-                        if (iRow == $t.p.iRow && iCol == $t.p.iCol) {
-                            return;
-                        }
-                //    }
+                    //    if (ed === true) {
+                    if (iRow == $t.p.iRow && iCol == $t.p.iCol) {
+                        return;
+                    }
+                    //    }
                     $($t).yGrid("saveCell", $t.p.editCells[0].ir, $t.p.editCells[0].ic);
                 }
                 var cm = $t.p.colModel[iCol],
                     // rowIndex = parseInt($.ygrid.stripPref($.ygrid.uidPref, $t.rows[iRow].id)),
                     rowIndex = $t.p.selectModel.focusRow,
-                    row = $t.p.data[rowIndex], editOpt = $t.getCellEditOpt(row, iCol);
+                    colIndex = iCol - ($t.p.rowSequences ? 1 : 0),
+                    row = $t.p.data[rowIndex], editOpt = $t.getCellEditOpt(rowIndex, colIndex);
                 var nm = cm.name;
                 // if (nm === 'rn' || formatter == undefined || formatter == "button" || formatter == "hyperlink" || formatter == "checkbox" || formatter == "image") {
                 //     return;
                 // };
                 if( nm === 'rn' || editOpt.isAlwaysShow )
                     return;
-                var colIndex = iCol - ($t.p.rowSequences ? 1 : 0);
+
                 if( colIndex == $t.p.treeIndex || colIndex === $t.p.rowExpandIndex )
                     return;
                 var rowEditable = (row.isEditable === undefined ? true : row.isEditable);
@@ -2614,8 +3153,10 @@
                     fr = null;
                 }
                 if (fr !== null) {
-                    var cc = $("td:eq(" + iCol + ")", $t.rows[iRow]), v2, rowIndex = $.ygrid.stripPref($.ygrid.uidPref, $t.rows[iRow].id),
-                        editOpt = $t.getCellEditOpt($t.p.data[rowIndex], iCol), isChanged = false;
+                    var cc = $("td:eq(" + iCol + ")", $t.rows[iRow]), v2,
+                        rowIndex = $.ygrid.stripPref($.ygrid.uidPref, $t.rows[iRow].id),
+                        colIndex = iCol - ($t.p.rowSequences ? 1 : 0),
+                        editOpt = $t.getCellEditOpt(rowIndex, colIndex), isChanged = false;
 
                     if (editOpt.customedit && $t.p.checkAndSet && $.isFunction($t.p.checkAndSet)) {
                         isChanged = $t.p.checkAndSet.call($t, cc, editOpt.edittype, iRow, iCol, val);
@@ -2671,33 +3212,34 @@
                 }
             });
         },
-        setCell: function (rowid, colname, nData, cssp, attrp) {
+        setCell: function (rowid, iCol, nData, cssp, attrp) {
             return this.each(function () {
-                var $t = this, pos = -1, v, title;
+                var $t = this, v, title;
                 if (!$t.grid) {
                     return;
                 }
-                if (isNaN(colname)) {
-                    $($t.p.colModel).each(function (i) {
-                        if (this.name === colname) {
-                            pos = i;
-                            return false;
-                        }
-                    });
-                } else {
-                    pos = parseInt(colname, 10);
-                }
-                if (pos >= 0) {
-                    var ind = $($t).yGrid('getGridRowById', rowid), ri = parseInt($.ygrid.stripPref($.ygrid.uidPref, rowid), 10);
-                    if (ind) {
+                // if (isNaN(colname)) {
+                //     $($t.p.colModel).each(function (i) {
+                //         if (this.name === colname) {
+                //             iCol = i;
+                //             return false;
+                //         }
+                //     });
+                // } else {
+                //     iCol = parseInt(colname, 10);
+                // }
+                //  if (iCol >= 0) {
+                var ind = $($t).yGrid('getGridRowById', rowid),
+                    ri = parseInt($.ygrid.stripPref($.ygrid.uidPref, rowid), 10),
+                    ci = iCol - ($t.p.rowSequences ? 1 : 0);
+                if (ind) {
+                    var tcell = $("td:eq(" + iCol + ")", ind);
 
-                        var tcell = $("td:eq(" + pos + ")", ind);
-
-                        if (nData !== undefined) {
-                            var editOpt = this.getCellEditOpt($t.p.data[ri], pos);
-                            v = nData[1];
-                            if (editOpt.isAlwaysShow) {
-                                switch (editOpt.formatter) {
+                    if (nData !== undefined) {
+                        var editOpt = this.getCellEditOpt(ri, ci);
+                        v = nData[1];
+                        if (editOpt.isAlwaysShow) {
+                            switch (editOpt.formatter) {
                                 case "button":
                                     $(".cellEditor span.txt", tcell).html(v);
                                     break;
@@ -2714,42 +3256,43 @@
                                 case "image":
                                     tcell[0].editor.setValue(v);
                                     break;
-                                }
-                            }else{
-                                title = {"title": v};
-
-                                if($t.p.treeIndex != -1 && pos == ($t.p.treeIndex + ($t.p.rowSequences ? 1 : 0))){
-                                	var childrem = $(tcell).children();
-                                    $(tcell).text('').append(childrem).append(v).attr(title);
-                                }else{
-                                    $(tcell).text(v).attr(title);
-                                }
-             
                             }
-                            
-                            pos = pos - ($t.p.rowSequences ? 1 : 0);
+                        }else{
+                            title = {"title": v};
 
-                            // 必填
-                            $($t).yGrid("setCellRequired", ri, pos, nData[3]);
+                            if($t.p.treeIndex != -1 && iCol == ($t.p.treeIndex + ($t.p.rowSequences ? 1 : 0))){
+                                var childrem = $(tcell).children();
+                                $(tcell).text('').append(childrem).append(v).attr(title);
+                            }else{
+                                $(tcell).text(v).attr(title);
+                            }
 
-                            // 检查规则
-                            $($t).yGrid("setCellError", ri, pos, nData[4], nData[5]);
                         }
 
-                        if (typeof cssp === 'string') {
-                            $(tcell).addClass(cssp);
-                        } else if (cssp) {
-                            $(tcell).css(cssp);
-                        }
-                        if (typeof attrp === 'object') {
-                            $(tcell).attr(attrp);
-                        }
+                        //  pos = pos - ($t.p.rowSequences ? 1 : 0);
 
+                        // 必填
+                        $($t).yGrid("setCellRequired", ri, ci, nData[3]);
+
+                        // 检查规则
+                        $($t).yGrid("setCellError", ri, ci, nData[4], nData[5]);
                     }
+
+                    if (typeof cssp === 'string') {
+                        $(tcell).addClass(cssp);
+                    } else if (cssp) {
+                        $(tcell).css(cssp);
+                    }
+                    if (typeof attrp === 'object') {
+                        $(tcell).attr(attrp);
+                    }
+
                 }
+                //       }
             });
         },
-        scrollVisibleCell: function (iRow, iCol) {   //滚动表格使得当前单元格处于显示区域
+        //滚动表格使得当前单元格处于显示区域
+        scrollVisibleCell: function (iRow, iCol) {
             return this.each(function () {
                 var $t = this;
                 var ch = $t.grid.bDiv.clientHeight,
@@ -2757,19 +3300,18 @@
                     crth = $t.rows[iRow].offsetTop + $t.rows[iRow].clientHeight,
                     crt = $t.rows[iRow].offsetTop;
                 if (crth >= ch + st) {
-                    $t.grid.bDiv.scrollTop = crth - ch + 2;
+                    $t.grid.bDiv.scrollTop = crth - ch;// 下部超界
                 } else if (crt < st) {
-                    $t.grid.bDiv.scrollTop = $t.rows[iRow].offsetTop;
+                    $t.grid.bDiv.scrollTop = crt;// 上部超界
                 }
                 var cw = $t.grid.bDiv.clientWidth,
                     sl = $t.grid.bDiv.scrollLeft,
                     crclw = $t.rows[iRow].cells[iCol].offsetLeft + $t.rows[iRow].cells[iCol].clientWidth,
                     crcl = $t.rows[iRow].cells[iCol].offsetLeft;
-                if (crclw >= cw + parseInt(sl, 10)) {
-                    $t.grid.bDiv.scrollLeft = $t.grid.bDiv.scrollLeft + $t.rows[iRow].cells[iCol].clientWidth;
+                if (crclw >= cw + sl) {
+                    $t.grid.bDiv.scrollLeft = crclw - cw;// 右部超界
                 } else if (crcl < sl) {
-                    var left = crcl - $t.rows[iRow].cells[iCol].clientWidth;
-                    $t.grid.bDiv.scrollLeft = left < 0 ? 0 : left;
+                    $t.grid.bDiv.scrollLeft = crcl; // 左部超界
                 }
             });
         },
@@ -2795,7 +3337,7 @@
                 grid.prevRowHeight = null;
                 grid.bDiv = null;
                 grid.hDiv = null;
-                grid.cols = null;
+                //     grid.cols = null;
                 var i, l = grid.headers.length;
                 for (i = 0; i < l; i++) {
                     grid.headers[i].el = null;

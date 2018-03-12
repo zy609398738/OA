@@ -30,7 +30,7 @@ YIUI.Control.TextArea = YIUI.extend(YIUI.Control, {
     },
 
     setTip: function (tip) {
-        var tip = $("input", this.el).val();
+        var tip = $("textarea", this.el).val();
         this.base(tip);
     },
     

@@ -1,15 +1,12 @@
-<%@ page language="java" import="java.util.*" pageEncoding="gb2312"%>
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@ page import="com.zhuozhengsoft.pageoffice.*,com.zhuozhengsoft.pageoffice.wordreader.*,java.awt.*,javax.servlet.*,javax.servlet.http.*,java.sql.*,java.text.SimpleDateFormat,java.util.Date"%>
 <%@ taglib uri="http://java.pageoffice.cn" prefix="po"%>
 <%
-	Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");//ÔØÈëÇı¶¯³ÌĞòÀà±ğ
-	String strUrl = "jdbc:odbc:driver={Microsoft Access Driver (*.mdb)};DBQ=" + this.getServletContext().getRealPath("ImportWordData/demodata/") + "\\demo.mdb";
-	Connection conn = DriverManager.getConnection(strUrl);
-	Statement stmt = conn.createStatement();
+
 	
 	String ErrorMsg = "";
 	String BaseUrl = "";
-	//-----------  PageOffice ·şÎñÆ÷¶Ë±à³Ì¿ªÊ¼  -------------------//
+	//-----------  PageOffice æœåŠ¡å™¨ç«¯ç¼–ç¨‹å¼€å§‹  -------------------//
 	WordDocument doc = new WordDocument(request, response);
 	String sName = doc.openDataRegion("PO_name").getValue();
 	String sDept = doc.openDataRegion("PO_dept").getValue();
@@ -18,50 +15,46 @@
 	String sDate = doc.openDataRegion("PO_date").getValue();
 
 	if (sName.equals("")) {
-		ErrorMsg = ErrorMsg + "<li>ÉêÇëÈË</li>";
+		ErrorMsg = ErrorMsg + "<li>ç”³è¯·äºº</li>";
 	}
 	if (sDept.equals("")) {
-		ErrorMsg = ErrorMsg + "<li>²¿ÃÅÃû³Æ</li>";
+		ErrorMsg = ErrorMsg + "<li>éƒ¨é—¨åç§°</li>";
 	}
 	if (sCause.equals("")) {
-		ErrorMsg = ErrorMsg + "<li>Çë¼ÙÔ­Òò</li>";
+		ErrorMsg = ErrorMsg + "<li>è¯·å‡åŸå› </li>";
 	}
 	if (sDate.equals("")) {
-		ErrorMsg = ErrorMsg + "<li>ÈÕÆÚ</li>";
+		ErrorMsg = ErrorMsg + "<li>æ—¥æœŸ</li>";
 	}
 	try {
 		if (sNum != "") {
 			if (Integer.parseInt(sNum) < 0) {
-				ErrorMsg = ErrorMsg + "<li>Çë¼ÙÌìÊı²»ÄÜÊÇ¸ºÊı</li>";
+				ErrorMsg = ErrorMsg + "<li>è¯·å‡å¤©æ•°ä¸èƒ½æ˜¯è´Ÿæ•°</li>";
 			}
 		} else {
-			ErrorMsg = ErrorMsg + "<li>Çë¼ÙÌìÊı</li>";
+			ErrorMsg = ErrorMsg + "<li>è¯·å‡å¤©æ•°</li>";
 		}
 	} catch (Exception Ex) {
-		ErrorMsg = ErrorMsg	+ "<li><font color=red>×¢Òâ£º</font>Çë¼ÙÌìÊı±ØĞëÊÇÊı×Ö</li>";
+		ErrorMsg = ErrorMsg	+ "<li><font color=red>æ³¨æ„ï¼š</font>è¯·å‡å¤©æ•°å¿…é¡»æ˜¯æ•°å­—</li>";
 	}
 
 	if (ErrorMsg == "") {
-		String strsql =  "insert into leaveRecord(Name,Dept,Cause,Num,SubmitTime) values('"
-                + sName + "','" + sDept + "','" + sCause + "'," + sNum + ",'"+sDate+"')";
-		stmt.execute(strsql);
-		//doc.setCustomSaveResult("ok");//±£´æ½á¹û
-		out.println("Ìá½»µÄÊı¾İÎª£º<br/>");
-		out.println("ĞÕÃû£º"+sName+"<br/>");
-		out.println("²¿ÃÅ£º"+sDept+"<br/>");
-		out.println("Ô­Òò£º"+sCause+"<br/>");
-		out.println("ÌìÊı£º"+sNum+"<br/>");
-		out.println("ÈÕÆÚ£º"+sDate+"<br/>");
+		// æ‚¨å¯ä»¥åœ¨æ­¤ç¼–ç¨‹ï¼Œä¿å­˜è¿™äº›æ•°æ®åˆ°æ•°æ®åº“ä¸­ã€‚
+		out.println("æäº¤çš„æ•°æ®ä¸ºï¼š<br/>");
+		out.println("å§“åï¼š"+sName+"<br/>");
+		out.println("éƒ¨é—¨ï¼š"+sDept+"<br/>");
+		out.println("åŸå› ï¼š"+sCause+"<br/>");
+		out.println("å¤©æ•°ï¼š"+sNum+"<br/>");
+		out.println("æ—¥æœŸï¼š"+sDate+"<br/>");
 		doc.showPage(578, 380);
 	} else {
-	ErrorMsg = "<div style='color:#FF0000;'>ÇëĞŞ¸ÄÒÔÏÂĞÅÏ¢£º</div> "
+	ErrorMsg = "<div style='color:#FF0000;'>è¯·ä¿®æ”¹ä»¥ä¸‹ä¿¡æ¯ï¼š</div> "
 				+ ErrorMsg;
 		doc.showPage(578, 380);
 	}
 	doc.close();
-	stmt.close();
-	conn.close();
-	//-----------  PageOffice ·şÎñÆ÷¶Ë±à³Ì½áÊø  -------------------//
+
+	//-----------  PageOffice æœåŠ¡å™¨ç«¯ç¼–ç¨‹ç»“æŸ  -------------------//
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -75,7 +68,7 @@
 
 	</HEAD>
 	<body>
-	<div class="errTopArea" style="TEXT-ALIGN:left">[ÌáÊ¾±êÌâ£ºÕâÊÇÒ»¸ö¿ª·¢ÈËÔ±¿É×Ô¶¨ÒåµÄ¶Ô»°¿ò]</div>
+	<div class="errTopArea" style="TEXT-ALIGN:left">[æç¤ºæ ‡é¢˜ï¼šè¿™æ˜¯ä¸€ä¸ªå¼€å‘äººå‘˜å¯è‡ªå®šä¹‰çš„å¯¹è¯æ¡†]</div>
 		<div class="errMainArea" id="error163">
 			<div class="errTxtArea" style="HEIGHT:150px; TEXT-ALIGN:left">
 				<b class="txt_title">

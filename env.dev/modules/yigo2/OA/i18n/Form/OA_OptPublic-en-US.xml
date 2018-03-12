@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <UI>
+        <Lab_CreateTime>CreateTime</Lab_CreateTime>
+        <Lab_ClusterID>Group</Lab_ClusterID>
+        <Lab_BillKey>Billkey</Lab_BillKey>
+        <Lab_Code>Code</Lab_Code>
+        <BaseInfo>Basic Information</BaseInfo>
+        <SysTab>System Information</SysTab>
+        <Lab_Creator>Creator</Lab_Creator>
+        <Lab_Modifier>Modifier</Lab_Modifier>
+        <OperatorInfo>OperatorInfo</OperatorInfo>
+        <Lab_ModifyTime>ModifyTime</Lab_ModifyTime>
+        <Lab_Name>Name</Lab_Name>
+        <Lab_Notes>Notes</Lab_Notes>
+    </UI>
+    <GridColumn>
+        <Lab_OperatorID>Operator</Lab_OperatorID>
+    </GridColumn>
+</StringTable>

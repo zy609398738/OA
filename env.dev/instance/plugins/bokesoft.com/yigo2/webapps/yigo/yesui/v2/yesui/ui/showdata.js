@@ -1,3 +1,4 @@
+"use strict";
 (function () {
 	YIUI.ShowData = function (form) {
 		var Return = {
@@ -29,7 +30,7 @@
 						cmp.itemKey = itemKey;
 					}
 				}
-				cmp.setValue(value);
+				cmp.setValue(value, false, false, true, false);
 			},
 			loadAttachment: function (attachment) {
 				attachment.load();
@@ -39,13 +40,15 @@
                 showLV.load();
 			},
 			loadGrid: function (grid) {
+				if (grid.condition) {
+					return;
+				}
 				YIUI.SubDetailUtil.clearSubDetailData(form,grid);
 				grid.pageInfo.reset();
 
-				grid.load(true);
-                // var show = new YIUI.ShowGridData(form, grid);
-                // show.load(true);
-                // grid.refreshGrid();
+                var show = new YIUI.ShowGridData(form, grid);
+                show.load(true);
+                grid.refreshGrid();
 			},
 			loadChart: function(chart) {
 				var document = form.getDocument();
@@ -283,17 +286,11 @@
 						}
 						listView.setValueAt(j, m, value);
 					}
-					if( listView.rowBackColor ) {
-						cxt.setRowIndex(j);
-						backColor = form.eval(listView.rowBackColor, cxt);
-						if ( backColor ) {
-							row.backColor = backColor;
-						}
-					}
 				}
 				if( listView._pagination ) {
 					if (!listView.pageRowCount || listView.totalRowCount < listView.pageRowCount) {
 						listView._pagination.hidePagination();
+                    	listView._pagination.content.css("height", "100%");
 					} else if (listView.totalRowCount) {
 						var reset = true;
 						if(listView.curPageIndex > 1) {

@@ -1,0 +1,11 @@
+[
+  {
+    "id": "8aab8d065f095ba7015f0a4c2bfb003d",
+    "text": "ERP_MaterialNumber_TO_BPM",
+    "recordMpLog": "false",
+    "parentId": "8aab8d065f095ba7015f0a4c2b8e003c",
+    "description": "实时查询ERP系统模板合同单据料号信息",
+    "fileImport": "false",
+    "enable": "true"
+  }
+]

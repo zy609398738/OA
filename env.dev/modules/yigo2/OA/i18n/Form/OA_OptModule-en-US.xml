@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <UI>
+		<Lab_BillKey>Billkey</Lab_BillKey>
+        <Lab_SendType>SendType</Lab_SendType>
+        <Lab_EmailTemp>EmailTemp</Lab_EmailTemp>
+        <Lab_UserVisible>UserVisible</Lab_UserVisible>
+        <Lab_Name>OperateName</Lab_Name>
+        <Lab_CreateTime>CreateTime</Lab_CreateTime>
+        <Lab_ClusterID>Group</Lab_ClusterID>
+        <Lab_OptEnable>Enable</Lab_OptEnable>
+        <Lab_Modifier>Modifier</Lab_Modifier>
+        <Lab_OrderNum>DisplayOrder</Lab_OrderNum>
+        <Lab_OptTemplateRelevance>OptTemplateRelevance</Lab_OptTemplateRelevance>
+        <Lab_SendFormula>SendFormula</Lab_SendFormula>
+        <Lab_Action>Action</Lab_Action>
+        <UserDefined>UserDefined</UserDefined>
+        <GridLayoutPanel2>DefaultOptInfo</GridLayoutPanel2>
+        <GridLayoutPanel3>UserOptInfo</GridLayoutPanel3>
+        <GridLayoutPanel1>Basic Information</GridLayoutPanel1>
+        <SysTab>System Information</SysTab>
+        <Lab_OID>OID</Lab_OID>
+        <Lab_UserOptIcon>UserOptIcon</Lab_UserOptIcon>
+        <Lab_Notes>Notes</Lab_Notes>
+        <Lab_OptIcon>Icon</Lab_OptIcon>
+        <Lab_Code>OperateKey</Lab_Code>
+        <Lab_UserEnable>UserEnable</Lab_UserEnable>
+        <Lab_TemplateKey>TemplateKey</Lab_TemplateKey>
+        <ISDefaultAdd>IsDefaultAdd</ISDefaultAdd>
+        <Lab_Creator>Creator</Lab_Creator>
+        <Lab_UserTemplateKey>UserTemplateKey</Lab_UserTemplateKey>
+        <Lab_ModifyTime>ModifyTime</Lab_ModifyTime>
+        <Lab_OptVisible>Visible</Lab_OptVisible>
+        <Lab_UserAction>UserAction</Lab_UserAction>
+    </UI>
+</StringTable>

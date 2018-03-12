@@ -23,11 +23,12 @@
                 dataTable.beforeFirst();
                 while (dataTable.next()) {
                     value = dataTable.getByKey(expandColKey);
-                    set.push(value);
+                    if( set.indexOf(value) == -1 ) {
+                        set.push(value);
+                    }
                 }
                 list = new YIUI.ExpandItemList(columnKey);
-                for (var i = 0, len = list.length; i < len; i++) {
-                    value = list[i];
+                for ( var i = 0;value = set[i];i++ ) {
                     if (value == null || (dataType == YIUI.DataType.INT && YIUI.TypeConvertor.toInt(value) == 0)) {
                         continue;
                     }
@@ -366,8 +367,10 @@
             }
 
             var updateAffectItems = function (affectItems) {
-                for( var i = 0,size = affectItems.length;i < size;i++ ) {
-                    updateItems(affectItems[i].expItems);
+                for( var o in affectItems ) {
+                    if( affectItems.hasOwnProperty(o) ) {
+                        updateItems(affectItems[o]);
+                    }
                 }
             }
 

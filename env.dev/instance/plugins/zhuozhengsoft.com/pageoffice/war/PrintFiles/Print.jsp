@@ -1,7 +1,7 @@
 <%@ page language="java"
 	import="java.util.*,com.zhuozhengsoft.pageoffice.FileMakerCtrl, com.zhuozhengsoft.pageoffice.*, com.zhuozhengsoft.pageoffice.wordwriter.*"
-	pageEncoding="gb2312"%>
-<%@ taglib uri="http://java.pageoffice.cn" prefix="po"%>
+	pageEncoding="utf-8"%>
+
 <%
 	FileMakerCtrl fmCtrl = new FileMakerCtrl(request);
 	fmCtrl.setServerPage(request.getContextPath()+"/poserver.zz");
@@ -9,14 +9,14 @@
 	
 	if (id != null && id.length() > 0) {
 		WordDocument doc = new WordDocument();
-		//¸øÊı¾İÇøÓò¸³Öµ£¬¼´°ÑÊı¾İÌî³äµ½Ä£°åÖĞÏàÓ¦µÄÎ»ÖÃ
-		doc.openDataRegion("PO_company").setValue("±±¾©×¿ÕıÖ¾Ô¶Èí¼şÓĞÏŞ¹«Ë¾  " + id);
+		//ç»™æ•°æ®åŒºåŸŸèµ‹å€¼ï¼Œå³æŠŠæ•°æ®å¡«å……åˆ°æ¨¡æ¿ä¸­ç›¸åº”çš„ä½ç½®
+		doc.openDataRegion("PO_company").setValue("åŒ—äº¬å“æ­£å¿—è¿œè½¯ä»¶æœ‰é™å…¬å¸  " + id);
 		fmCtrl.setSaveFilePage("Save.jsp?id=" + id);
 		fmCtrl.setWriter(doc);
 		fmCtrl.setJsFunction_OnProgressComplete("OnProgressComplete()");
 		fmCtrl.fillDocument("doc/template.doc", DocumentOpenType.Word);
 	}
-	fmCtrl.setTagId("FileMakerCtrl1"); //´ËĞĞ±ØĞë
+
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -38,16 +38,16 @@
 
 	<body>
 		<div>
-			<!--**************   ×¿Õı PageOffice ¿Í»§¶Ë´úÂë¿ªÊ¼    ************************-->
+			<!--**************   å“æ­£ PageOffice å®¢æˆ·ç«¯ä»£ç å¼€å§‹    ************************-->
 
 			<script language="javascript" type="text/javascript">
 				function OnProgressComplete() {
 					document.getElementById("FileMakerCtrl1").PrintOut();
-					window.parent.myFunc(); //µ÷ÓÃ¸¸Ò³ÃæµÄjsº¯Êı
+					window.parent.myFunc(); //è°ƒç”¨çˆ¶é¡µé¢çš„jså‡½æ•°
 				}
 			</script>
-			<!--**************   ×¿Õı PageOffice ¿Í»§¶Ë´úÂë½áÊø    ************************-->
-			<po:FileMakerCtrl id="FileMakerCtrl1"/>
+			<!--**************   å“æ­£ PageOffice å®¢æˆ·ç«¯ä»£ç ç»“æŸ    ************************-->
+			    <%=fmCtrl.getHtmlCode("FileMakerCtrl1")%>
 			
 		</div>
 

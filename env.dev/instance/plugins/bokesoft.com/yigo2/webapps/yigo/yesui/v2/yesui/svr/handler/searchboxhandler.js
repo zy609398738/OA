@@ -10,6 +10,8 @@ YIUI.SearchBoxHandler = (function () {
 			if(providerKey){
 				return providerKey;
 			}
+
+            var form = YIUI.FormStack.getForm(control.ofFormID);
 			
 			var formulaKey = control.formulaKey;
 			if(formulaKey){
@@ -82,7 +84,7 @@ YIUI.SearchBoxHandler = (function () {
     	
     	doOnClick: function(control) {
     		var providerKey = this.providerKey;
-    		if(!providerKey || bNeedRefresh){
+    		if(!providerKey ||  this.needRefresh){
 				providerKey = this.getProviderKey(control);
 				this.needRefresh = false;
 			}

@@ -1,71 +1,63 @@
 <%@ page language="java"
 	import="java.util.*,com.zhuozhengsoft.pageoffice.wordwriter.*,com.zhuozhengsoft.pageoffice.*"
-	pageEncoding="gb2312"%>
-<%@ taglib uri="http://java.pageoffice.cn" prefix="po"%>
+	pageEncoding="utf-8"%>
 <%
-int pNum = 1;
-String operateStr="";
-        operateStr += "function Create(){\n";
-        // document.getElementById('PageOfficeCtrl1').Document.Application Î¢Èíoffice VBA¶ÔÏóµÄ¸ùApplication¶ÔÏó
-        operateStr += "var obj = document.getElementById('PageOfficeCtrl1').Document.Application;\n";
-        operateStr += "obj.Selection.EndKey(6);\n"; // ¶¨Î»¹â±êµ½ÎÄµµÄ©Î²
+	if (request.getParameter("ids").equals(null)
+			|| request.getParameter("ids").equals("")) {
+		return;
+	}
+	String idlist = request.getParameter("ids").trim();
+	String[] ids = idlist.split(",");//å°†idlistæŒ‰ç…§","æˆªå–åå­˜åˆ°idsæ•°ç»„ä¸­ï¼Œç„¶åéå†æ•°ç»„ç”¨jsæ’å…¥æ–‡ä»¶å³å¯
 
-        for (int i = 10; i > 0; i--)
-        {
-            String a = "on";
-            String c = request.getParameter("check" + i);
+	int pNum = 1;
+	String operateStr = "";
+	operateStr += "function Create(){\n";
+	// document.getElementById('PageOfficeCtrl1').Document.Application å¾®è½¯office VBAå¯¹è±¡çš„æ ¹Applicationå¯¹è±¡
+	operateStr += "var obj = document.getElementById('PageOfficeCtrl1').Document.Application;\n";
+	operateStr += "obj.Selection.EndKey(6);\n"; // å®šä½å…‰æ ‡åˆ°æ–‡æ¡£æœ«å°¾
 
-            if (a.equals(c))
-            {
-                operateStr += "obj.Selection.TypeParagraph();"; //ÓÃÀ´»»ĞĞ
-                operateStr += "obj.Selection.Range.Text = '" + pNum + ".';\n"; // ÓÃÀ´Éú³ÉÌâºÅ
-                // ÏÂÃæÁ½¾ä´úÂëÓÃÀ´ÒÆ¶¯¹â±êÎ»ÖÃ
-                operateStr += "obj.Selection.EndKey(5,1);\n";
-                operateStr += "obj.Selection.MoveRight(1,1);\n";
-                // ²åÈëÖ¸¶¨µÄÌâµ½ÎÄµµÖĞ
-                operateStr += "document.getElementById('PageOfficeCtrl1').InsertDocumentFromURL('Openfile.jsp?id=" + i + "');\n";
-                pNum++;
-            }
-        }
-        operateStr += "\n}\n";
+	for (int i = 0; i < ids.length; i++) {
+		operateStr += "obj.Selection.TypeParagraph();"; //ç”¨æ¥æ¢è¡Œ
+		operateStr += "obj.Selection.Range.Text = '" + pNum + ".';\n"; // ç”¨æ¥ç”Ÿæˆé¢˜å·
+		// ä¸‹é¢ä¸¤å¥ä»£ç ç”¨æ¥ç§»åŠ¨å…‰æ ‡ä½ç½®
+		operateStr += "obj.Selection.EndKey(5,1);\n";
+		operateStr += "obj.Selection.MoveRight(1,1);\n";
+		// æ’å…¥æŒ‡å®šçš„é¢˜åˆ°æ–‡æ¡£ä¸­
+		operateStr += "document.getElementById('PageOfficeCtrl1').InsertDocumentFromURL('Openfile.jsp?id="
+				+ ids[i] + "');\n";
+		pNum++;
 
-      //******************************×¿ÕıPageOffice×é¼şµÄÊ¹ÓÃ*******************************
+	}
+	operateStr += "\n}\n";
+
+	//******************************å“æ­£PageOfficeç»„ä»¶çš„ä½¿ç”¨*******************************
 	PageOfficeCtrl poCtrl1 = new PageOfficeCtrl(request);
-	poCtrl1.setServerPage(request.getContextPath()+"/poserver.zz"); //´ËĞĞ±ØĞë
-	//Òş²Ø²Ëµ¥À¸
+	poCtrl1.setServerPage(request.getContextPath() + "/poserver.zz"); //æ­¤è¡Œå¿…é¡»
+	//éšè—èœå•æ 
 	poCtrl1.setMenubar(false);
 	poCtrl1.setCustomToolbar(false);
-	poCtrl1.setCaption("Éú³ÉÊÔ¾í");
+	poCtrl1.setCaption("ç”Ÿæˆè¯•å·");
 	poCtrl1.setJsFunction_AfterDocumentOpened("Create()");
-	//´ò¿ªWordÎÄ¼ş
-	poCtrl1.webOpen("doc/test.doc", OpenModeType.docNormalEdit, "ÕÅÈı");
-	poCtrl1.setTagId("PageOfficeCtrl1"); //´ËĞĞ±ØĞë	
-
-
+	//æ‰“å¼€Wordæ–‡ä»¶
+	poCtrl1.webOpen("doc/test.doc", OpenModeType.docNormalEdit, "å¼ ä¸‰");
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 	<head>
-
-		<title>ÔÚWordÎÄµµÖĞ¶¯Ì¬Éú³É ÊÔ¾í</title>
-
+		<title>åœ¨Wordæ–‡æ¡£ä¸­åŠ¨æ€ç”Ÿæˆ è¯•å·</title>
 		<meta http-equiv="pragma" content="no-cache">
 		<meta http-equiv="cache-control" content="no-cache">
 		<meta http-equiv="expires" content="0">
 		<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
-		<meta http-equiv="description" content="This is my page">
-		<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
-
+		<meta http-equiv="description" content="This is my page">                 
 	</head>
 	<script type="text/javascript">
-         <%=operateStr %>
+         <%=operateStr%>
     </script>
 	<body>
 		<div style="width: auto; height: 700px;">
-			<po:PageOfficeCtrl id="PageOfficeCtrl1"></po:PageOfficeCtrl>
+		<%=poCtrl1.getHtmlCode("PageOfficeCtrl1")%>
 		</div>
 	</body>
 </html>

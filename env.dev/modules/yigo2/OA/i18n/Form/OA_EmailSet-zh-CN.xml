@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+	<oa>
+		<receive_mail_connection_test_success>接收邮件连接测试成功</receive_mail_connection_test_success>
+		<receive_mail_connection_test_failed>接收邮件连接测试失败，请检查配置</receive_mail_connection_test_failed>
+		<send_mail_connection_test_success>发送邮件连接测试成功</send_mail_connection_test_success>
+		<send_mail_connection_test_failed>接收邮件连接测试失败，请检查配置</send_mail_connection_test_failed>
+	</oa>
+</StringTable>

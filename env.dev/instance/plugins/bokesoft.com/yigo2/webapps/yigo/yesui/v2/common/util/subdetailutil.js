@@ -43,8 +43,18 @@ YIUI.SubDetailUtil = (function () {
 
             var row = parentGrid.getRowDataAt(rowIndex);
 
-            var dataTable = form.getDocument().getByKey(parentGrid.tableKey);
-            dataTable.setByBkmk(row.bookmark);
+            var dataTable = form.getDocument().getByKey(parentGrid.tableKey),
+                bkmk;
+
+            if( row.bkmkRow ) {
+                bkmk = row.bkmkRow.getBookmark();
+            }
+            if( bkmk == null ) {
+                bkmk = row.bookmark;
+            }
+
+            dataTable.setByBkmk(bkmk);
+
             var OID = dataTable.getByKey(YIUI.SystemField.OID_SYS_KEY);
 
             var metaRow = parentGrid.getDetailMetaRow();
@@ -60,7 +70,7 @@ YIUI.SubDetailUtil = (function () {
                 var inGrid = false;
                 if (metaRow.linkType === YIUI.SubDetailLinkType.PARENT) {
                     if ((row.bookmark != null && table.getParentBkmk() === row.bookmark)
-                        || (table.getByKey(YIUI.SystemField.POID_SYS_KEY) === OID && OID > 0)) {
+                        || (OID > 0 && table.getByKey(YIUI.SystemField.POID_SYS_KEY) == OID)) {
                         inGrid = true;
                     }
                 } else if (metaRow.linkType == YIUI.SubDetailLinkType.FOREIGN) {
@@ -84,8 +94,7 @@ YIUI.SubDetailUtil = (function () {
                     }
                 }
                 if ( inGrid ) {
-                    var bkmkRow = new YIUI.DetailRowBkmk();
-                    bkmkRow.setBookmark(table.getBkmk());
+                    var bkmkRow = new YIUI.DetailRowBkmk(table.getBkmk());
                     YIUI.GridUtil.insertRow(grid, -1, grid.getDetailMetaRow(), bkmkRow, 0);
                 }
             }
@@ -113,11 +122,11 @@ YIUI.SubDetailUtil = (function () {
 
             var rowData = grid.getRowDataAt(rowIndex);
 
-            if (!rowData.isDetail || YIUI.GridUtil.isEmptyRow(rowData))
-                return;
-
             this.clearSubDetailData(form, grid);
 
+            if (!rowData.isDetail || YIUI.GridUtil.isEmptyRow(rowData))
+                return;
+            
             var value, com, table;
 
             for (var i = 0, len = compList.length; i < len; i++) {
@@ -146,24 +155,19 @@ YIUI.SubDetailUtil = (function () {
         },
         clearSubDetailData: function (form, parentGrid) {
             var compList = form.subDetailInfo[parentGrid.key];
-            if (compList == undefined)
+            if ( !compList )
                 return;
 
-            var subComp;
+            var com;
             for (var i = 0, len = compList.length; i < len; i++) {
-                subComp = form.getComponent(compList[i]);
-                if (subComp instanceof YIUI.Control.Grid) {
-                    subComp.dataModel.data = [];
-                    if( subComp.el ) {
-                        subComp.el.clearGridData();
-                    }
-                    this.clearSubDetailData(form, subComp);
-                } else {
-                    if (subComp.needClean()) {
-                        subComp.setValue(null, false, false);
-                        subComp.setRequired(false);
-                        subComp.setError(false, "");
-                    }
+                com = form.getComponent(compList[i]);
+                if (com instanceof YIUI.Control.Grid) {
+                    com.clearGridData();
+                    this.clearSubDetailData(form, com);
+                } else if ( com.needClean() ) {
+                    com.setValue(null, false, false);
+                    com.setRequired(false);
+                    com.setError(false, "");
                 }
             }
         }

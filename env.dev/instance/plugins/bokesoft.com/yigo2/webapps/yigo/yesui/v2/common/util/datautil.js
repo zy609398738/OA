@@ -299,20 +299,21 @@ YIUI.DataUtil = (function () {
             }
         },
         append: function (srcTable, tgtTable, parentBkmk) {
-            var srcIndexArray = [], tgtIndexArray = [],colInfo,tgtIndex;
+            var srcIndexArray = [], tgtIndexArray = [],tgtDataTypeArray = [],colInfo,tgtColInfo,tgtIndex;
             for (var i = 0, len = srcTable.cols.length; i < len; i++) {
                 colInfo = srcTable.getCol(i);
-                tgtIndex = tgtTable.indexByKey(colInfo.key);
-                if (tgtIndex != -1) {
+                tgtColInfo = tgtTable.getColByKey(colInfo.key);
+                if ( tgtColInfo ) {
                     srcIndexArray.push(i);
-                    tgtIndexArray.push(tgtIndex);
+                    tgtIndexArray.push(tgtTable.indexByKey(colInfo.key));
+                    tgtDataTypeArray.push(tgtColInfo.type);
                 }
             }
             srcTable.beforeFirst();
             while (srcTable.next()) {
-                tgtTable.addRow();
+                tgtTable.addRow(true);
                 for (var j = 0, jLen = srcIndexArray.length; j < jLen; j++) {
-                    tgtTable.set(tgtIndexArray[j], srcTable.get(srcIndexArray[j]));
+                    tgtTable.set(tgtIndexArray[j], YIUI.TypeConvertor.toDataType(tgtDataTypeArray[j],srcTable.get(srcIndexArray[j])));
                 }
                 if( parentBkmk != undefined && parentBkmk != -1 ) {
                     tgtTable.setParentBkmk(parentBkmk);

@@ -3560,7 +3560,7 @@ span.ui-txted:hover button,
 .ui-splbtn:hover .btn .arrow {
     color:#0099ff;  
 }
-.ui-btn:focus
+.ui-btn:focus {
     outline:1px solid #0099ff;
 }
 .btn.ok:hover{

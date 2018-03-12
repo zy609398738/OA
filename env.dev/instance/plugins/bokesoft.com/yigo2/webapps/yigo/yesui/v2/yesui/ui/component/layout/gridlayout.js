@@ -184,7 +184,7 @@ YIUI.layout.GridLayout = YIUI.extend(YIUI.layout.AutoLayout, {
 //			tr = $('tr[row='+row+']', table);
 			tr = $(table[0].rows[row+1]);
 			td = this.getCell(row, col);
-			if(!item.visible && td.attr("colspan")) {
+			if(!item.visible) {
 				continue;
 			}
 			td.nextAll('td:lt('+(colspan-1)+')').remove();

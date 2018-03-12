@@ -1,0 +1,11 @@
+[
+  {
+    "id": "8aaae0c85f2cd839015f2d204652002b",
+    "text": "BPM_INSERT_StandardContractINF_TO_ERP",
+    "recordMpLog": "false",
+    "parentId": "8aaae0c85f2cd839015f2d204616002a",
+    "description": "实时回写合同模板评审明细信息至ERP系统表",
+    "fileImport": "false",
+    "enable": "true"
+  }
+]

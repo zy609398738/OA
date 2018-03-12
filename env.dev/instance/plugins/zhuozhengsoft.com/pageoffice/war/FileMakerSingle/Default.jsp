@@ -1,6 +1,6 @@
 <%@ page language="java" 
 import="java.util.*,com.zhuozhengsoft.pageoffice.*"
- pageEncoding="gb2312"%>
+ pageEncoding="utf-8"%>
 
 <%
 String url=request.getSession().getServletContext().getRealPath("FileMakerSingle/doc/"+"/");
@@ -14,12 +14,12 @@ String url=request.getSession().getServletContext().getRealPath("FileMakerSingle
     <script type="text/javascript">
         window.myFunc = function() {
             document.getElementById("aDiv").style.display = "";
-            //alert('×ª»»Íê±Ï£¡');
+            //alert('è½¬æ¢å®Œæ¯•ï¼');
         };
 
-        //×ª»»Íê±Ï
+        //è½¬æ¢å®Œæ¯•
         function ConvertFiles() {
-            //Ò³Ãæ×ÔË¢ĞÂ
+            //é¡µé¢è‡ªåˆ·æ–°
             document.getElementById("iframe1").src = "FileMakerSingle.jsp";
         }
     </script>
@@ -29,10 +29,10 @@ String url=request.getSession().getServletContext().getRealPath("FileMakerSingle
     <form id="form1">
     <div style="text-align: center;">
         <br />
-        <span style="color: Red; font-size: 12px;">ÑİÊ¾£º°ÑÊı¾İÌî³äµ½Ä£°åÖĞÉú³ÉÕıÊ½µÄwordÎÄ¼ş£¬ÇëµãÏÂÃæµÄ°´Å¥½øĞĞ×ª»»</span><br />
-        <input id="Button1" type="button" value="×ª»»WordÎÄ¼ş" onclick="ConvertFiles()" />
+        <span style="color: Red; font-size: 12px;">æ¼”ç¤ºï¼šæŠŠæ•°æ®å¡«å……åˆ°æ¨¡æ¿ä¸­ç”Ÿæˆæ­£å¼çš„wordæ–‡ä»¶ï¼Œè¯·ç‚¹ä¸‹é¢çš„æŒ‰é’®è¿›è¡Œè½¬æ¢</span><br />
+        <input id="Button1" type="button" value="è½¬æ¢Wordæ–‡ä»¶" onclick="ConvertFiles()" />
         <div id="aDiv" style="display: none; color: Red; font-size: 12px;">
-            <span>×ª»»Íê³É£¬¿ÉÔÚÏÂÃæµÄµØÖ·ÖĞ´ò¿ªÎÄ¼şÃûÎª¡°maker.doc¡±µÄWordÎÄ¼ş£¬²é¿´×ª»»µÄĞ§¹û£º<%=url %></span>
+            <span>è½¬æ¢å®Œæˆï¼Œå¯åœ¨ä¸‹é¢çš„åœ°å€ä¸­æ‰“å¼€æ–‡ä»¶åä¸ºâ€œmaker.docâ€çš„Wordæ–‡ä»¶ï¼ŒæŸ¥çœ‹è½¬æ¢çš„æ•ˆæœï¼š<%=url %></span>
         </div>
     </div>
     <div style="width: 1px; height: 1px; overflow: hidden;">

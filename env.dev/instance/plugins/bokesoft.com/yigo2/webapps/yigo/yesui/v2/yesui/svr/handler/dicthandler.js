@@ -35,7 +35,7 @@ YIUI.DictHandler = (function () {
             if ( metaFilter ) {
                 var filterVal, paras = [];
                 if (metaFilter.filterValues !== null && metaFilter.filterValues !== undefined && metaFilter.filterValues.length > 0) {
-                    for (var j in metaFilter.filterValues) {
+                    for (var j = 0, len = metaFilter.filterValues.length; j < len; j++) {
                         filterVal = metaFilter.filterValues[j];
                         switch (filterVal.type) {
                         case YIUI.FILTERVALUETYPE.CONST:
@@ -69,7 +69,7 @@ YIUI.DictHandler = (function () {
             if (filter) {
                 var filterVal, paras = [];
                 if (filter.filterVals !== null && filter.filterVals !== undefined && filter.filterVals.length > 0) {
-                    for (var j in filter.filterVals) {
+                    for (var j = 0, len = filter.filterVals.length; j < len; j++) {
                         filterVal = filter.filterVals[j];
                         switch (filterVal.type) {
                         case YIUI.FILTERVALUETYPE.CONST:
@@ -143,7 +143,7 @@ YIUI.DictHandler = (function () {
             return Svr.Request.getData(params);
         },
 
-        getShowCaption: function(val, multiSelect){
+        getShowCaption: function(val, multiSelect, independent){
             var def = $.Deferred();
 
             var itemKey = null;
@@ -165,6 +165,10 @@ YIUI.DictHandler = (function () {
                                 needCaption = true;
                                 itemKey = v.getItemKey();
                             }
+                        } else {
+                        	if (!independent) {
+                        		text = text + ',' + YIUI.I18N.rightsset.selectAll;
+                        	}
                         }
                     }
 

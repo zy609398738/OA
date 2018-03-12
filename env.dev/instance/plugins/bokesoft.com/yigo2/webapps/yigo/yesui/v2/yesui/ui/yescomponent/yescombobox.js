@@ -94,7 +94,8 @@
             setWidth: function (width) {
                 this.el.css('width', width + 'px');
                 this._textBtn.css('width', width + 'px');
-                this._dropBtn.css({left: width - 26 + "px"});
+                var left = width - 26 > 0 ? width - 26 : 0;
+                this._dropBtn.css("left", left + "px");
             },
 
             setHeight: function (height) {

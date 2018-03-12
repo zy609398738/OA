@@ -1,41 +1,45 @@
-<%@ page language="java" import="java.util.*,java.sql.*,java.net.*" pageEncoding="gb2312"%>
+<%@ page language="java" import="java.util.*,java.sql.*,java.net.*,com.zhuozhengsoft.*" pageEncoding="utf-8"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
  <head id="Head1">
     <title></title>
-    <link href="css/style.css" rel="stylesheet" type="text/css" />
+		<link href="css/style.css" rel="stylesheet" type="text/css" />	     
+		<!--pageoffice.jså’Œjquery.min.jsä¸€å®šè¦å¼•ç”¨  -->
+        <script type="text/javascript" src="../jquery.min.js"></script>
+		<script type="text/javascript" src="../pageoffice.js" id="po_js_main"></script>
+		<script type="text/javascript">
+	
+	function onColor(td) {
+		td.style.backgroundColor = '#D7FFEE';
+	}
+	function offColor(td) {
+		td.style.backgroundColor = '';
+	}
+	function getFocus() {
+		var str = document.getElementById("Input_KeyWord").value;
+		if (str == "è¯·è¾“å…¥å…³é”®å­—") {
+			document.getElementById("Input_KeyWord").value = "";
+		}
 
-    <script type="text/javascript">
-        function onColor(td) {
-            td.style.backgroundColor = '#D7FFEE';
-        }
-        function offColor(td) {
-            td.style.backgroundColor = '';
-        }
-        function getFocus() {
-            var str = document.getElementById("Input_KeyWord").value;
-            if (str == "ÇëÊäÈë¹Ø¼ü×Ö") {
-                document.getElementById("Input_KeyWord").value = "";
-            }
+	}
+	function lostFocus() {
+		var str = document.getElementById("Input_KeyWord").value;
+		if (str.length <= 0) {
+			document.getElementById("Input_KeyWord").value = "è¯·è¾“å…¥å…³é”®å­—";
+		}
+	}
+	function copyKeyToInput(key) {
+		document.getElementById("Input_KeyWord").value = key;
+	}
+	function mySubmit() {
+		document.getElementById("Input_KeyWord").value = encodeURI(document
+				.getElementById("Input_KeyWord").value);
+		document.getElementById("form1").submit();
+		
+	}
+</script>
 
-        }
-        function lostFocus() {
-            var str = document.getElementById("Input_KeyWord").value;
-            if (str.length <= 0) {
-                document.getElementById("Input_KeyWord").value = "ÇëÊäÈë¹Ø¼ü×Ö";
-            }
-        }
-        function copyKeyToInput(key) {
-            document.getElementById("Input_KeyWord").value = key;
-        }
-        function mySubmit() {
-	    document.getElementById("Input_KeyWord").value = encodeURI(document.getElementById("Input_KeyWord").value);    
-            document.getElementById("form1").submit();
-        }
-
-    </script>
-
-</head>
+	</head>
   
  <body>
     <!--header-->
@@ -47,9 +51,9 @@
                     <img src="images/logo.png" alt="" /></a></div>
             <!--logo end-->
             <ul class="head-rightUl fr">
-                <li><a href="http://www.zhuozhengsoft.com">×¿ÕıÍøÕ¾</a></li>
-                <li><a href="http://www.zhuozhengsoft.com/poask/index.asp">¿Í»§ÎÊ°É</a></li>
-                <li class="bor-0"><a href="http://www.zhuozhengsoft.com/contact-us.html">ÁªÏµÎÒÃÇ</a></li>
+                <li><a href="http://www.zhuozhengsoft.com">å“æ­£ç½‘ç«™</a></li>
+                <li><a href="http://www.zhuozhengsoft.com/Technical/">æŠ€æœ¯æ”¯æŒ</a></li>
+                <li class="bor-0"><a href="http://www.zhuozhengsoft.com/about/about/">è”ç³»æˆ‘ä»¬</a></li>
             </ul>
         </div>
     </div>
@@ -58,47 +62,47 @@
     <div class="zz-content mc clearfix pd-28" align="center">
         <div class="demo mc">
             <h2 class="fs-16">
-                PageOffice ÊµÏÖWordÎÄµµµÄÔÚÏß±à¼­±£´æºÍÈ«ÎÄ¹Ø¼ü×ÖËÑË÷</h2>
+                PageOffice å®ç°Wordæ–‡æ¡£çš„åœ¨çº¿ç¼–è¾‘ä¿å­˜å’Œå…¨æ–‡å…³é”®å­—æœç´¢</h2>
         </div>
         <div class="demo mc">
             <h3 class="fs-12">
-                ËÑË÷ÎÄ¼ş</h3>
+                æœç´¢æ–‡ä»¶</h3>
             <form id="form1" action="FileManage.jsp"  method="post">
             <table class="text" cellspacing="0" cellpadding="0" border="0">
                 <tr>
                     <td style="font-size: 9pt" align="left">
-                        Í¨¹ıÎÄµµÄÚÈİÖĞµÄ¹Ø¼ü×ÖËÑË÷ÎÄµµ&nbsp;&nbsp;&nbsp;
+                        é€šè¿‡æ–‡æ¡£å†…å®¹ä¸­çš„å…³é”®å­—æœç´¢æ–‡æ¡£&nbsp;&nbsp;&nbsp;
                     </td>
                     <td align="center">
                         <input name="Input_KeyWord" id="Input_KeyWord" type="text" onfocus="getFocus()" onblur="lostFocus()"
-                            class="boder" style="width: 180px;" value="ÇëÊäÈë¹Ø¼ü×Ö" />
+                            class="boder" style="width: 180px;" value="è¯·è¾“å…¥å…³é”®å­—" />
                     </td>
                     <td style="width: 221px;">
                         &nbsp;
-			<input type="button" value="ËÑË÷" onclick="mySubmit();" style=" width:86px;" />
+			<input type="button" value="æœç´¢" onclick="mySubmit();" style=" width:86px;" />
                     </td>
                 </tr>
                 <tr>
                     <td >&nbsp;</td>
-                    <td colspan="2">&nbsp;<span style="color:Gray;">ÈÈÃÅËÑË÷£º</span> 
-                    <a href="#" style="color:#00217d;" onclick="copyKeyToInput('ÍøÕ¾');">ÍøÕ¾</a>
-                    <a href="#" style="color:#00217d;" onclick="copyKeyToInput('Èí¼ş');">Èí¼ş</a>
-                    <a href="#" style="color:#00217d;" onclick="copyKeyToInput('×ÖÌå');">×ÖÌå</a></td>
+                    <td colspan="2">&nbsp;<span style="color:Gray;">çƒ­é—¨æœç´¢ï¼š</span> 
+                    <a href="#" style="color:#00217d;" onclick="copyKeyToInput('ç½‘ç«™');">ç½‘ç«™</a>
+                    <a href="#" style="color:#00217d;" onclick="copyKeyToInput('è½¯ä»¶');">è½¯ä»¶</a>
+                    <a href="#" style="color:#00217d;" onclick="copyKeyToInput('å­—ä½“');">å­—ä½“</a></td>
                 </tr>
             </table>
             </form>
         </div>
         <div class="zz-talbeBox mc" >
             <h2 class="fs-12">
-                    ÎÄµµÁĞ±í</h2>
+                    æ–‡æ¡£åˆ—è¡¨</h2>
             <table class="zz-talbe">
                 <thead>
                     <tr>
                         <th width="90%">
-                                               ÎÄµµÃû³Æ
+                                               æ–‡æ¡£åç§°
                         </th>
                         <th width="100%">
-                                               ²Ù×÷
+                                               æ“ä½œ
                         </th>
                     </tr>
                 </thead>
@@ -133,7 +137,21 @@
 					</td>
 					
 					<td style='text-align:center;'>
-                       <a style="color:#00217d;" href='Edit.jsp?id=<%=id %>&key=<%=key %>'>±à¼­</a>	
+					<%
+					if (key != null && key.trim().length() > 0) {  %>
+                      <a style="color:#00217d;" href="javascript:POBrowser.openWindowModeless('Edit.jsp?id=<%=id %>' ,'width=1200px;height=800px;','<%=URLDecoder.decode(key, "UTF-8") %>');">ç¼–è¾‘</a>
+                        
+                    <%
+                    }
+                    %>	 
+                    <%
+                     if (key == null || key=="") { %>
+                      <a style="color:#00217d;" href="javascript:POBrowser.openWindowModeless('Edit.jsp?id=<%=id %>' ,'width=1200px;height=800px;');">ç¼–è¾‘</a>
+                     
+                    <%
+                    }
+                    %>
+                    
 					</td>
 					
 				<%
@@ -151,7 +169,7 @@
     <!--content end-->
     <!--footer-->
     <div class="login-footer clearfix">
-        Copyright &copy 2013 ±±¾©×¿ÕıÖ¾Ô¶Èí¼şÓĞÏŞ¹«Ë¾</div>
+        Copyright &copy 2013 åŒ—äº¬å“æ­£å¿—è¿œè½¯ä»¶æœ‰é™å…¬å¸</div>
     <!--footer end-->
 </body>
 </html>

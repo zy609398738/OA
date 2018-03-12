@@ -24,20 +24,22 @@
 <html>
 	<head>
 		<title></title>
-		<link href="../images/csstg.css" rel="stylesheet" type="text/css" />
+		<link href="../images/csstg.css" rel="stylesheet" type="text/css" />		    
 		<script type="text/javascript">
 		        function Save() {
 		            document.getElementById("PageOfficeCtrl1").WebSave();
 		            if(document.getElementById("PageOfficeCtrl1").CustomSaveResult=="ok"){
-			            alert('保存成功！');
-			            location.href = "word-lists.jsp";
+			             alert('保存成功！');
+			             window.external.CallParentFunc("freshIndex()");//返回列表页面
+			             window.external.close();//关闭当前POBrower弹出的窗口
+                        
 		            }else{
 		            	alert('保存失败！');
 		            }
 		        }
 		
 		        function Cancel() {
-		            window.close();
+		             window.external.close();
 		        }
 		
 		        function getFocus() {
@@ -94,7 +96,7 @@
 						<input name="FileSubject" id="FileSubject" type="text"
 							onfocus="getFocus()" onblur="lostFocus()" class="boder"
 							style="width: 180px;" value="请输入文档主题" />
-						<input type="button" onclick="Save()" value="保存" />
+						<input type="button" onclick="Save()" value="保存并关闭" />
 						<input type="button" onclick="Cancel()" value="取消" />
 					</div>
 					<div>

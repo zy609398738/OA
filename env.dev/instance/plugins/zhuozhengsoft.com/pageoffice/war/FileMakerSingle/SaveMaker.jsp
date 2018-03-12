@@ -1,6 +1,6 @@
 <%@ page language="java"
 	import="java.util.*,com.zhuozhengsoft.pageoffice.*"
-	pageEncoding="gb2312"%>
+	pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.pageoffice.cn" prefix="po"%>
 <%
 	FileSaver fs = new FileSaver(request, response);

@@ -44,7 +44,7 @@
 				break;
 		}
 		options.items = items;
-		var dialogDiv = options.el.attr("id", "close_dialog");
+		var dialogDiv = options.el;
 		var btns = {};
 		var createHtml = function(hasOK, hasYes, hasNO, hasCancel) {
 	    	var label = new YIUI.Control.Label({

@@ -1,22 +1,20 @@
-<%@ page language="java" import="java.util.*" pageEncoding="gb2312"%>
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@page import="com.zhuozhengsoft.pageoffice.*"%>
-<%@ taglib uri="http://java.pageoffice.cn" prefix="po"%>
 <%
 		String userName=request.getParameter("userName");
 
-        if ( userName.equals("zhangsan") ) userName = "ÕÅÈı";
-        if (userName.equals("lisi")) userName = "ÀîËÄ";
-        if (userName.equals("wangwu")) userName = "ÍõÎå";
- 		//***************************×¿ÕıPageOffice×é¼şµÄÊ¹ÓÃ********************************
+        if ( userName.equals("zhangsan") ) userName = "å¼ ä¸‰";
+        if (userName.equals("lisi")) userName = "æå››";
+        if (userName.equals("wangwu")) userName = "ç‹äº”";
+ 		//***************************å“æ­£PageOfficeç»„ä»¶çš„ä½¿ç”¨********************************
 		PageOfficeCtrl poCtrl = new PageOfficeCtrl(request);
-        poCtrl.addCustomToolButton("±£´æ", "Save", 1);
-        poCtrl.addCustomToolButton("Áìµ¼È¦ÔÄ", "StartHandDraw", 3);
-        poCtrl.addCustomToolButton("È«ÆÁ/»¹Ô­", "IsFullScreen", 4);
+        poCtrl.addCustomToolButton("ä¿å­˜", "Save", 1);
+        poCtrl.addCustomToolButton("é¢†å¯¼åœˆé˜…", "StartHandDraw", 3);
+        poCtrl.addCustomToolButton("å…¨å±/è¿˜åŸ", "IsFullScreen", 4);
         poCtrl.setJsFunction_AfterDocumentOpened("ShowByUserName");
-        poCtrl.setServerPage(request.getContextPath()+"/poserver.zz"); //´ËĞĞ±ØĞë
+        poCtrl.setServerPage(request.getContextPath()+"/poserver.zz"); //æ­¤è¡Œå¿…é¡»
         poCtrl.setSaveFilePage("SaveFile.jsp");
         poCtrl.webOpen("doc/test.doc",OpenModeType.docNormalEdit, userName);
-        poCtrl.setTagId("PageOfficeCtrl1");
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -25,50 +23,51 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
 		<title></title>
 		<link href="images/csstg.css" rel="stylesheet" type="text/css" />
+
 	</head>
 	<body>
 
 		<div id="content">
 			<div id="textcontent" style="width: 1000px; height: 800px;">
 				<div class="flow4">
-					<a href="Default.jsp"> ·µ»ØµÇÂ¼Ò³</a>
-					<span style=""> </span><strong>µ±Ç°ÓÃ»§£º</strong>
+					<a href="Default.jsp"> è¿”å›ç™»å½•é¡µ</a>
+					<span style=""> </span><strong>å½“å‰ç”¨æˆ·ï¼š</strong>
 					<span style="color: Red;"><%=userName %></span>
 				</div>
 
 				<script type="text/javascript">
-	                //±£´æÒ³Ãæ
+	                //ä¿å­˜é¡µé¢
 	                function Save() {
 	                    document.getElementById("PageOfficeCtrl1").WebSave();
 	                }
 	
-	                //Áìµ¼È¦ÔÄÇ©×Ö
+	                //é¢†å¯¼åœˆé˜…ç­¾å­—
 	                function StartHandDraw() {
 	                    document.getElementById("PageOfficeCtrl1").HandDraw.Start();
 	                }
 	                
 	                /*
-	                //·Ö²ãÏÔÊ¾ÊÖĞ´Åú×¢
+	                //åˆ†å±‚æ˜¾ç¤ºæ‰‹å†™æ‰¹æ³¨
 	                function ShowHandDrawDispBar() {
 	                    document.getElementById("PageOfficeCtrl1").HandDraw.ShowLayerBar(); ;
 	                }*/
 	
-	                //È«ÆÁ/»¹Ô­
+	                //å…¨å±/è¿˜åŸ
 	                function IsFullScreen() {
 	                    document.getElementById("PageOfficeCtrl1").FullScreen = !document.getElementById("PageOfficeCtrl1").FullScreen;
 	                }
 	
-	                //ÏÔÊ¾/Òş²ØÓÃ»§µÄÊÖĞ´Åú×¢
+	                //æ˜¾ç¤º/éšè—ç”¨æˆ·çš„æ‰‹å†™æ‰¹æ³¨
 	                function ShowByUserName() {
-	                    var userName = "<%=userName %>"; //´ÓºóÌ¨»ñÈ¡µÇÂ¼ÓÃ»§Ãû
-	                    document.getElementById("PageOfficeCtrl1").HandDraw.ShowByUserName(null, false); // Òş²ØËùÓĞµÄÊÖĞ´
-	                    document.getElementById("PageOfficeCtrl1").HandDraw.ShowByUserName(userName); // ÏÔÊ¾TomµÄÊÖĞ´£¬µÚ¶ş¸ö²ÎÊıÎªtrueÊ±¿ÉÊ¡ÂÔ
+	                    var userName = "<%=userName %>"; //ä»åå°è·å–ç™»å½•ç”¨æˆ·å
+	                    document.getElementById("PageOfficeCtrl1").HandDraw.ShowByUserName(null, false); // éšè—æ‰€æœ‰çš„æ‰‹å†™
+	                    document.getElementById("PageOfficeCtrl1").HandDraw.ShowByUserName(userName); // æ˜¾ç¤ºTomçš„æ‰‹å†™ï¼Œç¬¬äºŒä¸ªå‚æ•°ä¸ºtrueæ—¶å¯çœç•¥
 	                }
 	
 	            </script>
 
-				<!--**************   ×¿Õı PageOffice×é¼ş ************************-->
-				<po:PageOfficeCtrl id="PageOfficeCtrl1"></po:PageOfficeCtrl>
+				<!--**************   å“æ­£ PageOfficeç»„ä»¶ ************************-->
+				        <%=poCtrl.getHtmlCode("PageOfficeCtrl1")%>
 			</div>
 		</div>
 

@@ -1,0 +1,10 @@
+{
+  "startIndex": "",
+  "autoRun": "true",
+  "responseTime": "600000",
+  "description": "实时查询ERP系统的国内运输单的外协厂商名",
+  "changePort": "",
+  "id": "8aab8d9d61fe815c0161ff45d7ea0026",
+  "text": "ERP_WXCSVal_To_BPM",
+  "oldPort": ""
+}

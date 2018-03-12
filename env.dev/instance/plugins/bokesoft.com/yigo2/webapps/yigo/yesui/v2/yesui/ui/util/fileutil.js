@@ -7,36 +7,42 @@ YIUI.FileUtil = (function () {
 
     // 获取文件信息
     var getFileInfo = function ($file) {
-        var prefix,size;
+        var prefix,size,fileName;
         if ($.browser.isIE) {
             var filePath = $file[0].value;
             try {
+                // var fileSystem = new ActiveXObject("Scripting.FileSystemObject");
+                // var file = fileSystem.GetFile(filePath);
+                // size = file.Size / 1024;
+                // var fileName = file.Name;
+                // prefix = fileName.substring(fileName.lastIndexOf(".") + 1);
+
                 var s = $file[0].value;
-				var arr = s.split('\\');
-				var fileName = arr[arr.length-1];
+                var arr = s.split('\\');
+                fileName = arr[arr.length-1];
 
                 prefix = fileName.substring(fileName.lastIndexOf(".") + 1);
 
-				size = 0;
-			} catch (e) {
-				$.error("IE needs to start the ActiveX in the settings!");
-			}
+                size = 0;
+            } catch (e) {
+                $.error("IE needs to start the ActiveX in the settings!");
+            }
         } else {
             size = $file[0].files[0].size / 1024;
             var path = $file.val().toLowerCase();
             prefix = path.substring(path.lastIndexOf(".") + 1);
+            fileName = path.substring(path.lastIndexOf("\\") + 1);
         }
         var info = {};
         info.prefix = prefix;
         info.size = size;
+        info.fileName = fileName;
         return info;
     }
 
     // 文件规格检查,IE, 报错:Automation,服务器不能创建对象,需要Internet设置ActiveX
     // IE同时需要设值上传文件到服务器时包含本地路径
-    var checkFile = function ($file, maxSize, types) {
-        var info = getFileInfo($file);
-
+    var checkFile = function (info, maxSize, types) {
         if (types && types.length > 0 && $.inArray(info.prefix, types) == -1) {
             $.error("非指定文件类型!(" + types + ")");
             return false;
@@ -62,7 +68,6 @@ YIUI.FileUtil = (function () {
             }
 
             $iframe.append($form);
-            // $(document.body).append($iframe);
             $form.submit();
 
             $iframe.remove();
@@ -82,21 +87,23 @@ YIUI.FileUtil = (function () {
 
             $form.attr('action',Svr.SvrMgr.AttachURL);
 
-            for(var key in options){
-                if( typeof options[key] === 'function' )
-                    continue;
-                $form.append('<input type="hidden" name="'+key+'" value="'+ options[key]+'"/>');
-            }
-
             var $file = $('<input type="file" name="upload-file">');
 
             $file.appendTo($form);
             $(document.body).append($iframe).append($form);
 
-            var self = this;
-
             $file.change(function () {
-                if( checkFile($(this), options.maxSize, options.types) ) {
+
+                var info = getFileInfo($(this));
+                options.fileName = info.fileName;
+
+                for(var key in options){
+                    if( typeof options[key] === 'function' )
+                        continue;
+                    $form.append('<input type="hidden" name="'+key+'" value="'+ options[key]+'"/>');
+                }
+
+                if( checkFile(info, options.maxSize, options.types) ) {
                     $form.submit();
                 } else {
                     $iframe.remove();
@@ -107,8 +114,13 @@ YIUI.FileUtil = (function () {
             // 处理回调事件
             $iframe.load(function () {
                 var data = $(this).contents().find('body').html();
-                if( typeof options.success === 'function' && data ) {
-                    options.success(JSON.parse(data).data);
+                if( data ) {
+                    var ret = JSON.parse(data);
+                    if( ret.data && typeof options.success === 'function' ) {
+                        options.success(ret.data);
+                    } else if ( ret.error ) {
+                        $.error(ret.error.error_info);
+                    }
                     $iframe.remove();
                     $form.remove();
                 }
@@ -118,14 +130,18 @@ YIUI.FileUtil = (function () {
         },
 
         ajaxFileUpload:function (options) {
-            var params = {};
-            for( var p in options ) {
-                if( typeof options[p] === 'function' || typeof options[p] === 'object' )
-                    continue;
-                params[p] = options[p];
-            }
+            var info = getFileInfo(options.file);
+            options.fileName = info.fileName;
 
-            if( checkFile(options.file,options.maxSize,options.types) ) {
+            if( checkFile(info,options.maxSize,options.types) ) {
+
+                var params = {};
+                for( var p in options ) {
+                    if( typeof options[p] === 'function' || typeof options[p] === 'object' )
+                        continue;
+                    params[p] = options[p];
+                }
+
                 $.ajaxFileUpload({
                     url: Svr.SvrMgr.AttachURL,
                     fileElement: options.file,
@@ -134,7 +150,9 @@ YIUI.FileUtil = (function () {
                     success: function (data) {
                         if( !data ) return;
                         var result = JSON.parse(data).data;
-                        options.success.call(this,result);
+                        if( typeof options.success === 'function' ) {
+                            options.success.call(this,result);
+                        }
                     }
                 });
             }

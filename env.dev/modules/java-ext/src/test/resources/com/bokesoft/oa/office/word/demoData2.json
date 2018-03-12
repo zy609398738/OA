@@ -1,0 +1,454 @@
+{
+    "headers": [
+        {
+            "caption": "合同编号",
+            "key": "data_1",
+            "record": "T10001",
+            "type": "TEXT"
+        },
+        {
+            "caption": "买方名称",
+            "key": "data_2",
+            "record": "Boke",
+            "type": "TEXT"
+        },
+        {
+            "caption": "买方地址",
+            "key": "data_3",
+            "record": "上海市普陀区中江路1号",
+            "type": "TEXT"
+        },
+        {
+            "caption": "买方电话",
+            "key": "data_4",
+            "record": "021-66667777",
+            "type": "TEXT"
+        },
+        {
+            "caption": "买方传真",
+            "key": "data_5",
+            "record": "021-66667778",
+            "type": "TEXT"
+        },
+        {
+            "caption": "卖方名称",
+            "key": "data_6",
+            "record": "天合光能",
+            "type": "TEXT"
+        },
+        {
+            "caption": "卖方地址",
+            "key": "data_7",
+            "record": "北京中关村1号楼",
+            "type": "TEXT"
+        },
+        {
+            "caption": "卖方电话",
+            "key": "data_8",
+            "record": "020-33334444",
+            "type": "TEXT"
+        },
+        {
+            "caption": "卖方传真",
+            "key": "data_9",
+            "record": "020-33334445",
+            "type": "TEXT"
+        },
+        {
+            "caption": "合同生效日期",
+            "key": "data_10",
+            "record": "2017-01",
+            "type": "TEXT"
+        },
+        {
+            "caption": "包装要求备注内容",
+            "key": "show_11",
+            "record": "普通标准",
+            "type": "SHOW"
+        },
+        {
+            "caption": "包装要求备注",
+            "key": "data_11",
+            "optionList": [
+                {
+                    "caption": "包装备注内容",
+                    "descr": " ",
+                    "key": "OP_1",
+                    "type": "OPTION"
+                }
+            ],
+            "record": "OP_1",
+            "type": "COMOBOX"
+        },
+        {
+            "caption": "硅芯电阻率",
+            "key": "data_14",
+            "record": "50欧",
+            "type": "TEXT"
+        },
+        {
+            "caption": "多晶表面最长生长缝隙深度",
+            "key": "data_15",
+            "record": "2mm",
+            "type": "TEXT"
+        },
+        {
+            "caption": "多晶表面生长缝隙深度小于某数值",
+            "key": "data_16",
+            "record": "1mm",
+            "type": "TEXT"
+        },
+        {
+            "caption": "多晶表面生长缝隙深度小于某数值不超过数值",
+            "key": "data_17",
+            "record": "1mm",
+            "type": "TEXT"
+        },
+        {
+            "caption": "免洗料块尺寸",
+            "key": "data_18",
+            "record": "1m",
+            "type": "TEXT"
+        },
+        {
+            "caption": "非免洗料块尺寸",
+            "key": "data_19",
+            "record": "12m",
+            "type": "TEXT"
+        },
+        {
+            "caption": "质量要求备注内容",
+            "key": "show_20",
+            "record": "一般标准",
+            "type": "SHOW"
+        },
+        {
+            "caption": "质量要求备注",
+            "key": "data_20",
+            "optionList": [
+                {
+                    "caption": "质量要求备注内容",
+                    "descr": " ",
+                    "key": "OP_1",
+                    "type": "OPTION"
+                }
+            ],
+            "record": "OP_1",
+            "type": "COMOBOX"
+        },
+        {
+            "caption": "交货条款",
+            "key": "data_23",
+            "record": "",
+            "type": "TEXT"
+        },
+        {
+            "caption": "付款条款",
+            "key": "data_24",
+            "record": "",
+            "type": "TEXT"
+        },
+        {
+            "caption": "保险承担方",
+            "key": "data_25",
+            "record": "",
+            "type": "TEXT"
+        },
+        {
+            "caption": "到货地点",
+            "key": "data_26",
+            "record": "",
+            "type": "TEXT"
+        },
+        {
+            "caption": "运输方式",
+            "key": "data_27",
+            "record": "快递",
+            "type": "TEXT"
+        },
+        {
+            "caption": "争议解决方式内容",
+            "key": "show_28",
+            "record": "合同签订地法院",
+            "type": "SHOW"
+        },
+        {
+            "caption": "争议解决方式",
+            "key": "data_28",
+            "optionList": [
+                {
+                    "caption": "合同签订地法院",
+                    "descr": "因履行本合同产生的争议，双方首先应友好协商解决，如协商不成，则可将争议提交给合同签订地常州市新北区有管辖权的法院诉讼解决。因此而产生的诉讼费、差旅费，合理的律师费等均由败诉方承担。",
+                    "key": "OP_1",
+                    "type": "OPTION"
+                },
+                {
+                    "caption": "上海仲裁",
+                    "descr": "因本合同产生的或与其有关的任何纠纷、争议和分歧，包括关于合同存在、有效性或终止的任何问题，均应提交中国国际经济贸易仲裁委员会（“委员会”）根据委员会当时有效的仲裁规则仲裁解决。仲裁裁决为终裁对双方均有约束力。仲裁地点为上海。",
+                    "key": "OP_2",
+                    "type": "OPTION"
+                },
+                {
+                    "caption": "新加坡仲裁",
+                    "descr": "因本合同产生的或与其有关的任何纠纷、争议和分歧，包括关于合同存在、有效性或终止的任何问题，均应提交新加坡国际仲裁中心根据当时有效的仲裁规则（“SIAC”规则）裁决。仲裁裁决为终裁对双方均有约束力。仲裁使用的语言为[ ]（①中文；②英文）。",
+                    "key": "OP_3",
+                    "type": "OPTION"
+                },
+                {
+                    "caption": "香港仲裁",
+                    "descr": "因本合同产生的或与其有关的任何纠纷、争议和分歧，包括关于合同存在、有效性或终止的任何问题，均应提交香港国际仲裁中心（HKIAC）根据当时有效的仲裁规则（“HKIAC”规则）裁决。仲裁地点为香港，仲裁使用的语言为[ ]（①中文；②英文）。",
+                    "key": "OP_4",
+                    "type": "OPTION"
+                },
+                {
+                    "caption": "苏黎世仲裁",
+                    "descr": "因本合同产生的或与其有关的任何纠纷、争议和分歧，包括关于合同存在、有效性或终止的任何问题，均应提交国际商会根据该会当时有效的仲裁规则裁决。仲裁地点为瑞士·苏黎世，仲裁使用的语言为英文。",
+                    "key": "OP_5",
+                    "type": "OPTION"
+                },
+                {
+                    "caption": "纽约仲裁",
+                    "descr": "因本合同产生的或与其有关的任何纠纷、争议和分歧，包括关于合同存在、有效性或终止的任何问题，最终均应提交位于纽约的美国仲裁协会，仲裁庭由三名仲裁员组成，双方各选一名，第三名由上述双方的两名仲裁员选出。仲裁地点为纽约州纽约市。仲裁使用的语言为英文。所有提交仲裁庭的文件均为保密文件，没有对方的书面许可不得向任何人披露。仲裁员的书面裁决对双方当事人及其继任和受让人均有约束力。",
+                    "key": "OP_6",
+                    "type": "OPTION"
+                }
+            ],
+            "record": "OP_1",
+            "type": "COMOBOX"
+        },
+        {
+            "caption": "特别约定事项内容",
+            "key": "show_41",
+            "record": "无",
+            "type": "SHOW"
+        },
+        {
+            "caption": "特别约定事项",
+            "key": "data_41",
+            "optionList": [
+                {
+                    "caption": "特别约定事项内容",
+                    "descr": " ",
+                    "key": "OP_1",
+                    "type": "OPTION"
+                },
+                {
+                    "caption": "卖方弄虚作假的违约责任",
+                    "descr": "卖方提供给买方的产品或服务必须符合本合同的约定，如买方发现卖方存在与合同要求不符的弄虚作假行为的，买方有权立即解除合同，并要求卖方支付相应报价金额十倍的违约金。同时买方有权取消卖方的供应商资格，终止与卖方的一切合作。",
+                    "key": "OP_2",
+                    "type": "OPTION"
+                }
+            ],
+            "record": "OP_2",
+            "type": "COMOBOX"
+        },
+        {
+            "caption": "合同附件数目",
+            "key": "data_46",
+            "record": "1",
+            "type": "TEXT"
+        },
+        {
+            "caption": "合同附件具体名称",
+            "key": "data_47",
+            "record": "标准格式.txt",
+            "type": "TEXT"
+        },
+        {
+            "caption": "签署页卖方名称",
+            "key": "data_48",
+            "record": "天合光能",
+            "type": "TEXT"
+        },
+        {
+            "caption": "签署页买方名称",
+            "key": "data_49",
+            "record": "boke",
+            "type": "TEXT"
+        }
+    ],
+    "tables": [
+        {
+            "key": "table_01",
+            "rowlist": [
+                {
+                    "collist": [
+                        {
+                            "caption": "序号",
+                            "key": "tab_01_01",
+                            "record": "1"
+                        },
+                        {
+                            "caption": "名称",
+                            "key": "tab_01_11",
+                            "record": "H型钢"
+                        },
+                        {
+                            "caption": "型号及规格",
+                            "key": "tab_01_21",
+                            "record": "18m/t"
+                        },
+                        {
+                            "caption": "数量",
+                            "key": "tab_01_31",
+                            "record": "30"
+                        },
+                        {
+                            "caption": "数量单位",
+                            "key": "tab_01_41",
+                            "record": "根"
+                        },
+                        {
+                            "caption": "含税否",
+                            "key": "tab_01_51",
+                            "record": "是"
+                        },
+                        {
+                            "caption": "单价",
+                            "key": "tab_01_61",
+                            "record": "2000"
+                        },
+                        {
+                            "caption": "币种",
+                            "key": "tab_01_71",
+                            "record": "RMB"
+                        },
+                        {
+                            "caption": "到货地点",
+                            "key": "tab_01_81",
+                            "record": "中关村"
+                        },
+                        {
+                            "caption": "单位运费",
+                            "key": "tab_01_91",
+                            "record": "40"
+                        },
+                        {
+                            "caption": "金额",
+                            "key": "tab_01_101",
+                            "record": "60040"
+                        }
+                    ]
+                },
+				{
+                    "collist": [
+                        {
+                            "caption": "序号",
+                            "key": "tab_01_01",
+                            "record": "2"
+                        },
+                        {
+                            "caption": "名称",
+                            "key": "tab_01_11",
+                            "record": "H型钢"
+                        },
+                        {
+                            "caption": "型号及规格",
+                            "key": "tab_01_21",
+                            "record": "13m/t"
+                        },
+                        {
+                            "caption": "数量",
+                            "key": "tab_01_31",
+                            "record": "50"
+                        },
+                        {
+                            "caption": "数量单位",
+                            "key": "tab_01_41",
+                            "record": "根"
+                        },
+                        {
+                            "caption": "含税否",
+                            "key": "tab_01_51",
+                            "record": "是"
+                        },
+                        {
+                            "caption": "单价",
+                            "key": "tab_01_61",
+                            "record": "1000"
+                        },
+                        {
+                            "caption": "币种",
+                            "key": "tab_01_71",
+                            "record": "RMB"
+                        },
+                        {
+                            "caption": "到货地点",
+                            "key": "tab_01_81",
+                            "record": "中关村"
+                        },
+                        {
+                            "caption": "单位运费",
+                            "key": "tab_01_91",
+                            "record": "50"
+                        },
+                        {
+                            "caption": "金额",
+                            "key": "tab_01_101",
+                            "record": "50050"
+                        }
+                    ]
+                },
+				{
+                    "collist": [
+                        {
+                            "caption": "序号",
+                            "key": "tab_01_01",
+                            "record": "3"
+                        },
+                        {
+                            "caption": "名称",
+                            "key": "tab_01_11",
+                            "record": "钢板"
+                        },
+                        {
+                            "caption": "型号及规格",
+                            "key": "tab_01_21",
+                            "record": "1m"
+                        },
+                        {
+                            "caption": "数量",
+                            "key": "tab_01_31",
+                            "record": "50"
+                        },
+                        {
+                            "caption": "数量单位",
+                            "key": "tab_01_41",
+                            "record": "米"
+                        },
+                        {
+                            "caption": "含税否",
+                            "key": "tab_01_51",
+                            "record": "是"
+                        },
+                        {
+                            "caption": "单价",
+                            "key": "tab_01_61",
+                            "record": "100"
+                        },
+                        {
+                            "caption": "币种",
+                            "key": "tab_01_71",
+                            "record": "RMB"
+                        },
+                        {
+                            "caption": "到货地点",
+                            "key": "tab_01_81",
+                            "record": "中关村"
+                        },
+                        {
+                            "caption": "单位运费",
+                            "key": "tab_01_91",
+                            "record": "50"
+                        },
+                        {
+                            "caption": "金额",
+                            "key": "tab_01_101",
+                            "record": "5050"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

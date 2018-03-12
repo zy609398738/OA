@@ -1,41 +1,38 @@
 <%@ page language="java"
 	import="java.util.*,com.zhuozhengsoft.pageoffice.*,com.zhuozhengsoft.pageoffice.wordwriter.*"
-	pageEncoding="gb2312"%>
+	pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.pageoffice.cn" prefix="po"%>
 <%
-//******************************×¿ÕıPageOffice×é¼şµÄÊ¹ÓÃ*******************************
+//******************************å“æ­£PageOfficeç»„ä»¶çš„ä½¿ç”¨*******************************
 	PageOfficeCtrl poCtrl1 = new PageOfficeCtrl(request);
-	poCtrl1.setServerPage(request.getContextPath()+"/poserver.zz"); //´ËĞĞ±ØĞë
-	//Òş²Ø²Ëµ¥À¸
+	poCtrl1.setServerPage(request.getContextPath()+"/poserver.zz"); //æ­¤è¡Œå¿…é¡»
+	//éšè—èœå•æ 
 	poCtrl1.setMenubar(false);
-	//Ìí¼Ó×Ô¶¨Òå°´Å¥
-	poCtrl1.addCustomToolButton("ÏÔÊ¾/Òş²Ø±ê³ß","Hidden",3);
+	//æ·»åŠ è‡ªå®šä¹‰æŒ‰é’®
+	poCtrl1.addCustomToolButton("æ˜¾ç¤º/éšè—æ ‡å°º","Hidden",3);
 
-	poCtrl1.webOpen("doc/template.doc", OpenModeType.docNormalEdit, "ÕÅÈı");
-	poCtrl1.setTagId("PageOfficeCtrl1"); //´ËĞĞ±ØĞë	
+	poCtrl1.webOpen("doc/template.doc", OpenModeType.docNormalEdit, "å¼ ä¸‰");
+	poCtrl1.setTagId("PageOfficeCtrl1"); //æ­¤è¡Œå¿…é¡»	
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
-    <title>ÏÔÊ¾/Òş²Ø±ê³ß</title>
+    <title>æ˜¾ç¤º/éšè—æ ‡å°º</title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
-	<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
 
   </head>
   
   <body>
    <div style=" width:1200px; height:700px;">
-   <!-- *********************************PageOffice×é¼şµÄÊ¹ÓÃ************************************ -->
+   <!-- *********************************PageOfficeç»„ä»¶çš„ä½¿ç”¨************************************ -->
    <script type="text/javascript" language="javascript">
-           //ÏÔÊ¾/Òş²Ø±ê³ß
+           //æ˜¾ç¤º/éšè—æ ‡å°º
             function Hidden() {
                 document.getElementById("PageOfficeCtrl1").Document.ActiveWindow.ActivePane.DisplayRulers = 
                 !document.getElementById("PageOfficeCtrl1").Document.ActiveWindow.ActivePane.DisplayRulers;
@@ -44,7 +41,7 @@
     </script>
         <po:PageOfficeCtrl id="PageOfficeCtrl1">
         </po:PageOfficeCtrl>
-     <!-- *********************************PageOffice×é¼şµÄÊ¹ÓÃ************************************ -->
+     <!-- *********************************PageOfficeç»„ä»¶çš„ä½¿ç”¨************************************ -->
     </div>
   </body>
 </html>

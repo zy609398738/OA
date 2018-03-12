@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Form Key="OA_ShowInfo" Caption="显示信息" FormulaCaption="if(!IsNull(Para('FormCaption')) &amp;&amp; Length(Para('FormCaption'))&gt;0){Para('FormCaption');}else{LocaleString(&quot;oa&quot;, &quot;show_web_caption&quot;);}">
+    <DataSource>
+        <DataObject Key="OA_ShowInfo" Caption="OA_ShowInfo" PrimaryType="Entity">
+            <TableCollection>
+                <Table Key="OA_ShowInfo_H" Caption="显示信息" SourceType="Query" Persist="false">
+                    <Column Key="OID" Caption="对象标识" DataType="Long"/>
+                    <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+                    <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+                    <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+                    <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+                    <Column Key="Status" Caption="状态" DataType="Integer"/>
+                    <Statement>
+                        <![CDATA[select * from sys_role where 1=2]]>
+                    </Statement>
+                </Table>
+            </TableCollection>
+        </DataObject>
+    </DataSource>
+    <Body PopHeight="100%" PopWidth="100%">
+        <Block>
+            <FlexFlowLayoutPanel Key="root" Caption="根面板">
+                <WebBrowser Height="100%" Key="ShowWeb">
+                    <DataBinding DefaultFormulaValue="Para('URL')"/>
+                </WebBrowser>
+            </FlexFlowLayoutPanel>
+        </Block>
+    </Body>
+</Form>

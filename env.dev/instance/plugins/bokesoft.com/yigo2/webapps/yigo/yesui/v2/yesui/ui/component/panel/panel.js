@@ -11,6 +11,7 @@
  * 		}, ...]
  * }
  */
+"use strict";
 YIUI.Panel = YIUI.extend(YIUI.Component, {
 	/** 如果items未定义type，默认为component */
 	defaultType : 'component',

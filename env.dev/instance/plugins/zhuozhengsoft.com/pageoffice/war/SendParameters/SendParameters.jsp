@@ -1,26 +1,28 @@
 <%@ page language="java"
 	import="java.util.*,com.zhuozhengsoft.pageoffice.*,com.zhuozhengsoft.pageoffice.wordwriter.*"
-	pageEncoding="gb2312"%>
-<%@ taglib uri="http://java.pageoffice.cn" prefix="po"%>
+	pageEncoding="utf-8"%>
 <%
 PageOfficeCtrl pocCtrl=new PageOfficeCtrl(request);
-//ÉèÖÃ·şÎñÆ÷Ò³Ãæ
+//è®¾ç½®æœåŠ¡å™¨é¡µé¢
 pocCtrl.setServerPage(request.getContextPath()+"/poserver.zz");
-//Ìí¼Ó×Ô¶¨Òå°´Å¥
-pocCtrl.addCustomToolButton("±£´æ", "Save()", 1);
-pocCtrl.addCustomToolButton("È«ÆÁ", "SetFullScreen()", 4);
-//ÉèÖÃ±£´æÒ³Ãæ
+//æ·»åŠ è‡ªå®šä¹‰æŒ‰é’®
+pocCtrl.addCustomToolButton("ä¿å­˜", "Save()", 1);
+pocCtrl.addCustomToolButton("å…¨å±", "SetFullScreen()", 4);
+pocCtrl.addCustomToolButton("å…³é—­", "Close()", 21);
+//è®¾ç½®ä¿å­˜é¡µé¢
 pocCtrl.setSaveFilePage("SaveFile.jsp?id=1");
-//´ò¿ªÎÄ¼ş
-pocCtrl.webOpen("doc/test.doc", OpenModeType.docNormalEdit, "ÕÅØıÃû");
-pocCtrl.setTagId("PageOfficeCtrl1");
+//æ‰“å¼€æ–‡ä»¶
+pocCtrl.webOpen("doc/test.doc", OpenModeType.docNormalEdit, "å¼ ä½šå");
+
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
     <title></title>
-
+    
+   
+ 
     <script type="text/javascript">
         function Save() {
             document.getElementById("PageOfficeCtrl1").WebSave();
@@ -28,41 +30,44 @@ pocCtrl.setTagId("PageOfficeCtrl1");
         function SetFullScreen() {
             document.getElementById("PageOfficeCtrl1").FullScreen = !document.getElementById("PageOfficeCtrl1").FullScreen;
         }
-    </script>
+           function Close() {
+               window.external.close();
+        }
 
+    </script>
+       
 </head>
 <body>
     <form id="form1">
     <div style="font-size: 14px;">
-        <div style="border:1px solid black;">PageOffice¸ø±£´æÒ³Ãæ´«ÖµµÄÈıÖÖ·½Ê½£º</br>
-             <span style="color: Red;">1.Í¨¹ıÉèÖÃ±£´æÒ³ÃæµÄurlÖĞµÄ?¸ø±£´æÒ³Ãæ´«µİ²ÎÊı£º</span></br>
-              &nbsp;&nbsp;&nbsp;Àı:pocCtrl.setSaveFilePage("SaveFile.jsp?id=1");</br>
-              &nbsp;&nbsp;&nbsp;±£´æÒ³Ãæ»ñÈ¡²ÎÊıµÄ·½·¨£º</br>
+        <div style="border:1px solid black;">PageOfficeç»™ä¿å­˜é¡µé¢ä¼ å€¼çš„ä¸‰ç§æ–¹å¼ï¼š</br>
+             <span style="color: Red;">1.é€šè¿‡è®¾ç½®ä¿å­˜é¡µé¢çš„urlä¸­çš„?ç»™ä¿å­˜é¡µé¢ä¼ é€’å‚æ•°ï¼š</span></br>
+              &nbsp;&nbsp;&nbsp;ä¾‹:pocCtrl.setSaveFilePage("SaveFile.jsp?id=1");</br>
+              &nbsp;&nbsp;&nbsp;ä¿å­˜é¡µé¢è·å–å‚æ•°çš„æ–¹æ³•ï¼š</br>
               &nbsp;&nbsp;&nbsp;String value=request.getParameter("id");</br>
     
-              <span style="color: Red;">2.Í¨¹ıinputÒş²ØÓò¸ø±£´æÒ³Ãæ´«µİ²ÎÊı£º</span></br>
-               &nbsp;&nbsp;&nbsp;Àı:<xmp> <input id="Hidden1" name="age" type="hidden" value="25" /></xmp></br>
-               &nbsp;&nbsp;&nbsp;±£´æÒ³Ãæ»ñÈ¡²ÎÊıµÄ·½·¨£º</br>
+              <span style="color: Red;">2.é€šè¿‡inputéšè—åŸŸç»™ä¿å­˜é¡µé¢ä¼ é€’å‚æ•°ï¼š</span></br>
+               &nbsp;&nbsp;&nbsp;ä¾‹:<xmp> <input id="Hidden1" name="age" type="hidden" value="25" /></xmp></br>
+               &nbsp;&nbsp;&nbsp;ä¿å­˜é¡µé¢è·å–å‚æ•°çš„æ–¹æ³•ï¼š</br>
                &nbsp;&nbsp;&nbsp;String age=fs.getFormField("age");</br>
-               &nbsp;&nbsp;&nbsp;×¢Òâ£º»ñÈ¡Form¿Ø¼ş´«µİ¹ıÀ´µÄ²ÎÊıÖµ£¬fs.getFormField("²ÎÊıÃû")·½·¨ÖĞµÄ²ÎÊıÃûÊÇµ±Ç°¿Ø¼şµÄ¡°name¡±ÊôĞÔ¶ø²»ÊÇid£¬¸ü¶àÏêÏ¸´úÂëÇë²é¿´SaveFile.jsp¡£<br>
+               &nbsp;&nbsp;&nbsp;æ³¨æ„ï¼šè·å–Formæ§ä»¶ä¼ é€’è¿‡æ¥çš„å‚æ•°å€¼ï¼Œfs.getFormField("å‚æ•°å")æ–¹æ³•ä¸­çš„å‚æ•°åæ˜¯å½“å‰æ§ä»¶çš„â€œnameâ€å±æ€§è€Œä¸æ˜¯idï¼Œæ›´å¤šè¯¦ç»†ä»£ç è¯·æŸ¥çœ‹SaveFile.jspã€‚<br>
 
-              <span style="color: Red;">3.Í¨¹ıForm¿Ø¼ş¸ø±£´æÒ³Ãæ´«µİ²ÎÊı(ÕâÀïµÄForm¿Ø¼ş°üÀ¨ÊäÈë¿ò¡¢ÏÂÀ­¿ò¡¢µ¥Ñ¡¿ò¡¢¸´Ñ¡¿ò¡¢TextAreaµÈÀàĞÍµÄ¿Ø¼ş)£º</span></br>
-               &nbsp;&nbsp;&nbsp;Àı:<xmp> <input id="Text1" name="userName" type="text" value="ÕÅÈı" /></xmp></br>
-               &nbsp;&nbsp;&nbsp;±£´æÒ³Ãæ»ñÈ¡²ÎÊıµÄ·½·¨£º</br>
+              <span style="color: Red;">3.é€šè¿‡Formæ§ä»¶ç»™ä¿å­˜é¡µé¢ä¼ é€’å‚æ•°(è¿™é‡Œçš„Formæ§ä»¶åŒ…æ‹¬è¾“å…¥æ¡†ã€ä¸‹æ‹‰æ¡†ã€å•é€‰æ¡†ã€å¤é€‰æ¡†ã€TextAreaç­‰ç±»å‹çš„æ§ä»¶)ï¼š</span></br>
+               &nbsp;&nbsp;&nbsp;ä¾‹:<xmp> <input id="Text1" name="userName" type="text" value="å¼ ä¸‰" /></xmp></br>
+               &nbsp;&nbsp;&nbsp;ä¿å­˜é¡µé¢è·å–å‚æ•°çš„æ–¹æ³•ï¼š</br>
                &nbsp;&nbsp;&nbsp;String name=fs.getFormField("userName");</br>
-               &nbsp;&nbsp;&nbsp;×¢Òâ£º»ñÈ¡Form¿Ø¼ş´«µİ¹ıÀ´µÄ²ÎÊıÖµ£¬fs.getFormField("²ÎÊıÃû")·½·¨ÖĞµÄ²ÎÊıÃûÊÇµ±Ç°¿Ø¼şµÄ¡°name¡±ÊôĞÔ¶ø²»ÊÇid£¬¸ü¶àÏêÏ¸´úÂëÇë²é¿´SaveFile.jsp¡£<br>
+               &nbsp;&nbsp;&nbsp;æ³¨æ„ï¼šè·å–Formæ§ä»¶ä¼ é€’è¿‡æ¥çš„å‚æ•°å€¼ï¼Œfs.getFormField("å‚æ•°å")æ–¹æ³•ä¸­çš„å‚æ•°åæ˜¯å½“å‰æ§ä»¶çš„â€œnameâ€å±æ€§è€Œä¸æ˜¯idï¼Œæ›´å¤šè¯¦ç»†ä»£ç è¯·æŸ¥çœ‹SaveFile.jspã€‚<br>
     </div>
-        <span style="color: Red;">¸üĞÂÈËÔ±ĞÅÏ¢£º</span><br />
+        <span style="color: Red;">æ›´æ–°äººå‘˜ä¿¡æ¯ï¼š</span><br />
         <input id="Hidden1" name="age" type="hidden" value="25" />
-        <span style="color: Red;">ĞÕÃû£º</span><input id="Text1" name="userName" type="text" value="ÕÅÈı" /><br />
-        <span style="color: Red;">ĞÔ±ğ£º</span><select id="Select1" name="selSex">
-            <option value="ÄĞ">ÄĞ</option>
-            <option value="Å®">Å®</option>
+        <span style="color: Red;">å§“åï¼š</span><input id="Text1" name="userName" type="text" value="å¼ ä¸‰" /><br />
+        <span style="color: Red;">æ€§åˆ«ï¼š</span><select id="Select1" name="selSex">
+            <option value="ç”·">ç”·</option>
+            <option value="å¥³">å¥³</option>
         </select>
     </div>
     <div style="width: auto; height: 700px;">
-        <po:PageOfficeCtrl id="PageOfficeCtrl1" >
-        </po:PageOfficeCtrl>
+               <%=pocCtrl.getHtmlCode("PageOfficeCtrl1")%>
     </div>
     </form>
 </body>

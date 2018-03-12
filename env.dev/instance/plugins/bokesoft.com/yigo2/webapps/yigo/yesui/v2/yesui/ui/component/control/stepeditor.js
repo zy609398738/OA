@@ -42,6 +42,7 @@
         },
         
         setBackColor: function (backColor) {
+            this.backColor = backColor;
             this.yesStepEd.setBackColor(backColor);
         },
 

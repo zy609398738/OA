@@ -1,7 +1,6 @@
 <%@ page language="java" 
 import="java.util.*,com.zhuozhengsoft.pageoffice.*"
- pageEncoding="gb2312"%>
-
+ pageEncoding="utf-8"%>
 <%
 String url=request.getSession().getServletContext().getRealPath("FileMaker/doc/"+"/");
 %>
@@ -16,29 +15,29 @@ String url=request.getSession().getServletContext().getRealPath("FileMaker/doc/"
         window.myFunc = function() {
             count++;
             if (count < 10) {
-                //×ÓÒ³ÃæË¢ĞÂ£º·½·¨Ò»
+                //å­é¡µé¢åˆ·æ–°ï¼šæ–¹æ³•ä¸€
                 //document.frames["iframe1"].window.location.href = document.frames["iframe1"].window.location.href;
-                //×ÓÒ³ÃæË¢ĞÂ£º·½·¨¶ş£¨¿É´«²Î£©
+                //å­é¡µé¢åˆ·æ–°ï¼šæ–¹æ³•äºŒï¼ˆå¯ä¼ å‚ï¼‰
                 document.getElementById("iframe1").src = "FileMaker.jsp?id=" + count;
 
-                //ÉèÖÃ½ø¶ÈÌõ
+                //è®¾ç½®è¿›åº¦æ¡
                 document.getElementById("ProgressBarSide").style.visibility = "visible";
                 document.getElementById("ProgressBar").style.width = count + "0%";
                 //                document.body.insertBefore(document.getElementById("ProgressBarSide"), document.body.childNode[0];
             } else {
-                //Òş²Ø½ø¶ÈÌõdiv
+                //éšè—è¿›åº¦æ¡div
                 document.getElementById("ProgressBarSide").style.visibility = "hidden";
                 count = 0;
-                //ÖØÖÃ½ø¶ÈÌõ
+                //é‡ç½®è¿›åº¦æ¡
                 document.getElementById("ProgressBar").style.width = "0%";
                 document.getElementById("aDiv").style.display = "";
-                //alert('ÅúÁ¿×ª»»Íê±Ï£¡');
+                //alert('æ‰¹é‡è½¬æ¢å®Œæ¯•ï¼');
             }
         };
 
-        //ÅúÁ¿×ª»»Íê±Ï
+        //æ‰¹é‡è½¬æ¢å®Œæ¯•
         function ConvertFiles() {
-            //µÚÒ»´ÎÈÃ×ÓÒ³Ãæ×ÔË¢ĞÂ
+            //ç¬¬ä¸€æ¬¡è®©å­é¡µé¢è‡ªåˆ·æ–°
             document.getElementById("iframe1").src = "FileMaker.jsp?id=" + count;
         }
     </script>
@@ -48,17 +47,17 @@ String url=request.getSession().getServletContext().getRealPath("FileMaker/doc/"
     <form id="form1">
     <div id="ProgressBarSide" style="color: Silver; width: 200px; visibility: hidden;
         position: absolute;  left: 40%; top: 50%; margin-top: -32px">
-        <span style="color: gray; font-size: 12px; text-align: center;">ÕıÔÚ×ª»»ÇëÉÔºó...</span><br />
+        <span style="color: gray; font-size: 12px; text-align: center;">æ­£åœ¨è½¬æ¢è¯·ç¨å...</span><br />
         <div id="ProgressBar" style="background-color: Green; height: 16px; width: 0%; border-width: 1px;
             border-style: Solid;">
         </div>
     </div>
     <div style="text-align: center;">
         <br />
-        <span style="color: Red; font-size: 12px;">ÑİÊ¾£º°ÑÊı¾İÌî³äµ½Ä£°åÖĞÅúÁ¿Éú³É10¸öÕıÊ½µÄwordÎÄ¼ş£¬ÇëµãÏÂÃæµÄ°´Å¥½øĞĞ×ª»»</span><br />
-        <input id="Button1" type="button" value="ÅúÁ¿×ª»»WordÎÄ¼ş" onclick="ConvertFiles()" />
+        <span style="color: Red; font-size: 12px;">æ¼”ç¤ºï¼šæŠŠæ•°æ®å¡«å……åˆ°æ¨¡æ¿ä¸­æ‰¹é‡ç”Ÿæˆ10ä¸ªæ­£å¼çš„wordæ–‡ä»¶ï¼Œè¯·ç‚¹ä¸‹é¢çš„æŒ‰é’®è¿›è¡Œè½¬æ¢</span><br />
+        <input id="Button1" type="button" value="æ‰¹é‡è½¬æ¢Wordæ–‡ä»¶" onclick="ConvertFiles()" />
         <div id="aDiv" style="display: none; color: Red; font-size: 12px;">
-            <span>×ª»»Íê³É£¬¿ÉÔÚÏÂÃæµÄµØÖ·ÖĞ´ò¿ªÎÄ¼şÃûÎª¡°maker0.doc¡±µ½¡°maker9.doc¡±µÄWordÎÄ¼ş£¬²é¿´×ª»»µÄĞ§¹û£º<%=url %></span>
+            <span>è½¬æ¢å®Œæˆï¼Œå¯åœ¨ä¸‹é¢çš„åœ°å€ä¸­æ‰“å¼€æ–‡ä»¶åä¸ºâ€œmaker0.docâ€åˆ°â€œmaker9.docâ€çš„Wordæ–‡ä»¶ï¼ŒæŸ¥çœ‹è½¬æ¢çš„æ•ˆæœï¼š<%=url %></span>
         </div>
     </div>
     <div style="width: 1px; height: 1px; overflow: hidden;">

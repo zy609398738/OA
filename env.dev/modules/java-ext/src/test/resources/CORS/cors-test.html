@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>CORS 功能测试</title>
+</head>
+<body>
+	<h2>CORS 功能测试</h2>
+	说明：
+	<i>输入 Yigo 的 login.jsp 的 URL 地址，本测试将试图通过 AJAX 去请求这个地址。</i>
+	<hr />
+	服务地址：
+	<input id="okUrl" style="width: 500px"
+		value="http://localhost:8089/yigo/com.thetransactioncompany.cors/do-test.jsp" />
+	<button onclick="doTest('okUrl')">测试(AJAX)</button>
+	<script>
+function doTest(inputId){
+	var url = document.getElementById(inputId).value;
+	var xmlhttp = new XMLHttpRequest();
+	xmlhttp.onreadystatechange = function(){
+		if(xmlhttp.readyState == 4){
+			if(xmlhttp.status == 200){
+	            var retText = xmlhttp.responseText;
+	            alert("请求成功: " + retText);
+	        }else{
+	        	alert("请求失败: status=" + xmlhttp.status);
+	        }
+        }
+	}
+	try{
+		xmlhttp.open("POST", url, true);
+		xmlhttp.send();
+	}catch(ex){
+		alert(ex);
+	}
+}
+</script>
+</body>

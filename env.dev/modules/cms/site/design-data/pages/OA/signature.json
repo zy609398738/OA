@@ -1,0 +1,29 @@
+{
+	"@type":"com.bokesoft.cms2.impl.buildin.modelio.vo.PageVO",
+	"attributes":{"@type":"java.util.LinkedHashMap"},
+	"code":"signature",
+	"deliveryVOs":[
+		{
+			"@type":"com.bokesoft.cms2.impl.buildin.modelio.vo.PageVO$DeliveryVO",
+			"areaCode":"content",
+			"blockCode":"HOME.SIGNATURE",
+			"groupName":"",
+			"name":"签章",
+			"options":[
+				"Raw"
+			],
+			"parameters":{"@type":"java.util.HashMap"},
+			"sequence":"1"
+		}
+	],
+	"enabled":true,
+	"groups":[
+		{
+			"groupName":""
+		}
+	],
+	"name":"签章",
+	"title":"签章",
+	"tmplCode":"PUBLIC.PUBLIC",
+	"url":"/signature.page"
+}

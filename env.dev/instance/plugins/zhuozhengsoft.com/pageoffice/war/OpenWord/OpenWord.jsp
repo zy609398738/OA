@@ -1,45 +1,40 @@
 <%@ page language="java"
 	import="java.util.*,com.zhuozhengsoft.pageoffice.*,com.zhuozhengsoft.pageoffice.wordwriter.*"
-	pageEncoding="gb2312"%>
-<%@ taglib uri="http://java.pageoffice.cn" prefix="po"%>
+	pageEncoding="utf-8"%>
 <%
-//******************************×¿ÕýPageOffice×é¼þµÄÊ¹ÓÃ*******************************
-	//ÉèÖÃPageOffice·þÎñÆ÷×é¼þ
+//******************************å“æ­£PageOfficeç»„ä»¶çš„ä½¿ç”¨*******************************
+	//è®¾ç½®PageOfficeæœåŠ¡å™¨ç»„ä»¶
 	PageOfficeCtrl poCtrl1 = new PageOfficeCtrl(request);
-	poCtrl1.setServerPage(request.getContextPath()+"/poserver.zz"); //´ËÐÐ±ØÐë
+	poCtrl1.setServerPage(request.getContextPath()+"/poserver.zz"); //æ­¤è¡Œå¿…é¡»
 	
-	//Òþ²ØOffice¹¤¾ßÌõ
+	//éšè—Officeå·¥å…·æ¡
 	poCtrl1.setOfficeToolbars(false);
-	//Òþ²Ø×Ô¶¨Òå¹¤¾ßÀ¸
+	//éšè—è‡ªå®šä¹‰å·¥å…·æ 
 	poCtrl1.setCustomToolbar(false);
-	//ÉèÖÃÒ³ÃæµÄÏÔÊ¾±êÌâ
-	poCtrl1.setCaption("ÑÝÊ¾£º×î¼òµ¥µÄÒÔÖ»¶ÁÄ£Ê½´ò¿ªWordÎÄµµ");
+	//è®¾ç½®é¡µé¢çš„æ˜¾ç¤ºæ ‡é¢˜
+	poCtrl1.setCaption("æ¼”ç¤ºï¼šæœ€ç®€å•çš„ä»¥åªè¯»æ¨¡å¼æ‰“å¼€Wordæ–‡æ¡£");
 	
-	//´ò¿ªÎÄ¼þ
-	//poCtrl1.webOpen("doc/template.doc", OpenModeType.docNormalEdit, "ÕÅÈý");
-	poCtrl1.webOpen("doc/template.doc", OpenModeType.docReadOnly, "ÕÅÈý");
-	poCtrl1.setTagId("PageOfficeCtrl1"); //´ËÐÐ±ØÐë	
+	//æ‰“å¼€æ–‡ä»¶
+	poCtrl1.webOpen("doc/template.doc", OpenModeType.docReadOnly, "å¼ ä¸‰");
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>   
-    <title>×î¼òµ¥µÄÒÔÖ»¶ÁÄ£Ê½´ò¿ªWordÎÄµµ</title>
+    <title>æœ€ç®€å•çš„ä»¥åªè¯»æ¨¡å¼æ‰“å¼€Wordæ–‡æ¡£</title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
-	<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
+
 
   </head>
   
   <body>
     <div style=" width:auto; height:700px;">
-    <po:PageOfficeCtrl id="PageOfficeCtrl1"></po:PageOfficeCtrl>
+    <%=poCtrl1.getHtmlCode("PageOfficeCtrl1")%>
     </div>
   </body>
 </html>

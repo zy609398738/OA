@@ -6,17 +6,14 @@ YIUI.TextEditorBehavior = (function () {
             if (oldVal === newVal) {
                 return false;
             }
-            var trim = options.trim || false;
-            var textCase = $.isDefined(options.caseType) ? options.caseType : YIUI.TEXTEDITOR_CASE.NONE;
-            var maxLength = options.maxLength || 255;
-            var invalidChars = options.invalidChars || "";
             
             var settings = {
-                trim: trim,
-                textCase: textCase,
-                maxLength: maxLength,
-                invalidChars: invalidChars
+                trim: options.trim || false,
+                textCase: $.isDefined(options.caseType) ? options.caseType : YIUI.TEXTEDITOR_CASE.NONE,
+                maxLength: options.maxLength || 255,
+                invalidChars: options.invalidChars || ""
             };
+
             var strV = YIUI.TextFormat.format(newVal, settings);
             
             var isChange = (oldVal !== strV);

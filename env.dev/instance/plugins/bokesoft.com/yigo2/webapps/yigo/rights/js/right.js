@@ -128,23 +128,20 @@
 								if(root.changed) {
 									if(root.children && root.children.length > 0) {
 										//汇总节点
-										var halfCheck = isHalfCheck(root);
-										if(!halfCheck) {
-											//子节点全选
-											allRts.push(root.id);
-										} else {
-											if(checked) {
-												//子节点部分勾选
-												noAllRts.push(root.id);
-											} else {
-												//子节点无勾选
-												delRts.push(root.id);
-											}
+										if(checked) {
+											//子节点部分勾选
+											noAllRts.push(root.id);
 											getDictChanged(root.children, allRts, noAllRts, delRts);
+										} else {
+											//子节点无勾选
+											delRts.push(root.id);
 										}
 									} else {
 										//明细节点
 										if(checked) {
+											if(options.dict.saveType != 1){
+												delRts.push(root.id);
+											}											
 											allRts.push(root.id);
 										} else {
 											delRts.push(root.id);
@@ -252,9 +249,21 @@
 						if(options.dict) {
 							options.dict.saveType = 0;
 						}
-						if(options.clickTr) {
-							options.clickTr.removeClass("sel");
-							options.clickTr.click();
+						var clickTr = null;
+						switch(options.type) {
+							case RTS.Rights_type.TYPE_ENTRY:
+							clickTr = options.e_clickTr;
+							break;
+							case RTS.Rights_type.TYPE_DICT:
+							clickTr = options.d_clickTr;
+							break;
+							case RTS.Rights_type.TYPE_FORM:
+							clickTr = options.f_clickTr;
+							break;
+						}
+						if(clickTr) {
+							clickTr.removeClass("sel");
+							clickTr.click();
 						}
 					};
 					$(".rts-tbr").click(function(e) {

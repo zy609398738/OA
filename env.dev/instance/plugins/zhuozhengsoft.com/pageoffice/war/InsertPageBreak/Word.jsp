@@ -1,21 +1,20 @@
 <%@ page language="java"
 	import="java.util.*,com.zhuozhengsoft.pageoffice.*"
-	pageEncoding="gb2312"%>
-<%@ taglib uri="http://java.pageoffice.cn" prefix="po"%>
+	pageEncoding="utf-8"%>
 <%
 PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
-//���÷�����ҳ��
+//设置服务器页面
 poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");
-poCtrl.addCustomToolButton("�����ҳ��", "InsertPageBreak()", 1);
-//��Word�ĵ�
-poCtrl.webOpen("doc/test.doc",OpenModeType.docNormalEdit,"������");
-poCtrl.setTagId("PageOfficeCtrl1");//���б���
+poCtrl.addCustomToolButton("插入分页符", "InsertPageBreak()", 1);
+//打开Word文档
+poCtrl.webOpen("doc/test.doc",OpenModeType.docNormalEdit,"张佚名");
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
-   <title>��word�ĵ��й�괦�����ҳ��</title>
+   <title>在word文档中光标处插入分页符</title>
+
 </head>
 <body>
     <script type="text/javascript">
@@ -26,12 +25,11 @@ poCtrl.setTagId("PageOfficeCtrl1");//���б���
     </script> 
      <div style="font-size: 12px; line-height: 20px; border-bottom: dotted 1px #ccc; border-top: dotted 1px #ccc;
         padding: 5px;">
-        <span style="color: red;">����˵����</span>�ֶ���λ��굽��ǰ�ĵ���Ҫ�����ҳ����λ�ã�Ȼ��㡰�����ҳ�����İ�ť��<br />
-        �ؼ����룺���Ҽ���ѡ�񡰲鿴Դ�ļ�������js����<span style="background-color: Yellow;">InsertPageBreak()</span>
+        <span style="color: red;">操作说明：</span>手动定位光标到当前文档中要插入分页符的位置，然后点“插入分页符”的按钮。<br />
+        关键代码：点右键，选择“查看源文件”，看js函数<span style="background-color: Yellow;">InsertPageBreak()</span>
     </div>
     <div style=" width:auto; height:700px;">
-        <po:PageOfficeCtrl id="PageOfficeCtrl1">
-        </po:PageOfficeCtrl>
+        <%=poCtrl.getHtmlCode("PageOfficeCtrl1")%>
     </div>
 </body>
 </html>

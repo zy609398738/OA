@@ -1,25 +1,25 @@
 <%@ page language="java"
 	import="java.util.*,java.text.*,com.zhuozhengsoft.pageoffice.*,com.zhuozhengsoft.pageoffice.wordreader.*"
-	pageEncoding="gb2312"%>
+	pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.pageoffice.cn" prefix="po"%>
 <%
 	WordDocument doc = new WordDocument(request, response);
-	//»ñÈ¡Ìá½»µÄÊýÖµ
+	//èŽ·å–æäº¤çš„æ•°å€¼
 	String dataUserName = doc.openDataRegion("PO_userName").getValue();
 	String dataDeptName = doc.openDataRegion("PO_deptName").getValue();
 	String companyName= doc.getFormField("txtCompany");
 	
-        /**»ñÈ¡µ½µÄ¹«Ë¾Ãû³Æ,Ô±¹¤ÐÕÃû,²¿ÃÅÃû³ÆµÈÄÚÈÝ¿ÉÒÔ±£´æµ½Êý¾Ý¿â,ÕâÀï¿ÉÒÔÁ¬½Ó¿ª·¢ÈËÔ±×Ô¼ºµÄÊý¾Ý¿â,ÀýÈçÁ¬½ÓmysqlÊý¾Ý¿â¡£
+        /**èŽ·å–åˆ°çš„å…¬å¸åç§°,å‘˜å·¥å§“å,éƒ¨é—¨åç§°ç­‰å†…å®¹å¯ä»¥ä¿å­˜åˆ°æ•°æ®åº“,è¿™é‡Œå¯ä»¥è¿žæŽ¥å¼€å‘äººå‘˜è‡ªå·±çš„æ•°æ®åº“,ä¾‹å¦‚è¿žæŽ¥mysqlæ•°æ®åº“ã€‚
             *Class.forName("com.mysql.jdbc.Driver");
 	    *Connection conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/myDataBase", "root", "111111");
             *String sql="update user set userName='"+dataUserName+"',deptName='"+dataDeptName+"',companyName='"+companyName+"' where userId=1";		
 	    *PreparedStatement ps = conn.prepareStatement(sql);
 	    *int rs = ps.executeUpdate(upsql);
             * if (rs>0) {
-            *    out.println("¸üÐÂ³É¹¦");
+            *    out.println("æ›´æ–°æˆåŠŸ");
 	    *     }
             *     else{
-            *   out.println("¸üÐÂÊ§°Ü");
+            *   out.println("æ›´æ–°å¤±è´¥");
             *    }
 	    *
 	    *rs.close();
@@ -28,11 +28,3 @@
 	  doc.close();
 %>
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
-	<head>
-		<title></title>
-	</head>
-	<body>
-	</body>
-</html>

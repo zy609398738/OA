@@ -1,44 +1,42 @@
 <%@ page language="java" import="java.util.*,java.awt.*"
-	pageEncoding="gb2312"%>
+	pageEncoding="utf-8"%>
 <%@page
 	import="com.zhuozhengsoft.pageoffice.*,com.zhuozhengsoft.pageoffice.excelwriter.*"%>
-<%@ taglib uri="http://java.pageoffice.cn" prefix="po"%>
 <%
 	PageOfficeCtrl poCtrl = new PageOfficeCtrl(request);
 	Workbook wb = new Workbook();
 	Sheet sheet = wb.openSheet("Sheet1");
-	//ºÏ²¢µ¥Ôª¸ñ
+	//åˆå¹¶å•å…ƒæ ¼
 	sheet.openTable("B2:F2").merge();
 	Cell cB2 = sheet.openCell("B2");
-	cB2.setValue("±±¾©Ä³¹«Ë¾²úÆ·ÏúÊÛÇé¿ö");
-	//ÉèÖÃË®Æ½¶ÔÆë·½Ê½
+	cB2.setValue("åŒ—äº¬æŸå…¬å¸äº§å“é”€å”®æƒ…å†µ");
+	//è®¾ç½®æ°´å¹³å¯¹é½æ–¹å¼
 	cB2.setHorizontalAlignment(XlHAlign.xlHAlignCenter);
 	cB2.setForeColor(Color.red);
 	cB2.getFont().setSize(16);
 
 	sheet.openTable("B4:B6").merge();
 	Cell cB4 = sheet.openCell("B4");
-	cB4.setValue("A²úÆ·");
-	//ÉèÖÃË®Æ½¶ÔÆë·½Ê½
+	cB4.setValue("Aäº§å“");
+	//è®¾ç½®æ°´å¹³å¯¹é½æ–¹å¼
 	cB4.setHorizontalAlignment(XlHAlign.xlHAlignCenter);
-	//ÉèÖÃ´¹Ö±¶ÔÆë·½Ê½
+	//è®¾ç½®åž‚ç›´å¯¹é½æ–¹å¼
 	cB4.setVerticalAlignment(XlVAlign.xlVAlignCenter);
 
 	sheet.openTable("B7:B9").merge();
 	Cell cB7 = sheet.openCell("B7");
-	cB7.setValue("B²úÆ·");
+	cB7.setValue("Bäº§å“");
 	cB7.setHorizontalAlignment(XlHAlign.xlHAlignCenter);
 	cB7.setVerticalAlignment(XlVAlign.xlVAlignCenter);
 
 	poCtrl.setWriter(wb);
 
-	//ÉèÖÃ·þÎñÆ÷Ò³Ãæ
-	poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");//´ËÐÐ±ØÐë
+	//è®¾ç½®æœåŠ¡å™¨é¡µé¢
+	poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");//æ­¤è¡Œå¿…é¡»
 	poCtrl.setCustomToolbar(false);
 	
-	//ÉèÖÃÎÄµµ´ò¿ª·½Ê½
-	poCtrl.webOpen("doc/test.xls", OpenModeType.xlsNormalEdit, "ÕÅÈý");
-	poCtrl.setTagId("PageOfficeCtrl1");
+	//è®¾ç½®æ–‡æ¡£æ‰“å¼€æ–¹å¼
+	poCtrl.webOpen("doc/test.xls", OpenModeType.xlsNormalEdit, "å¼ ä¸‰");
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -47,6 +45,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
 		<title></title>
 		<link href="images/csstg.css" rel="stylesheet" type="text/css" />
+
 	</head>
 	<body>
 
@@ -54,9 +53,8 @@
 		<div id="content">
 			<div id="textcontent" style="width: 1000px; height: 800px;">
 
-				<!--**************   ×¿Õý PageOffice×é¼þ ************************-->
-				<po:PageOfficeCtrl id="PageOfficeCtrl1">
-				</po:PageOfficeCtrl>
+				<!--**************   å“æ­£ PageOfficeç»„ä»¶ ************************-->
+			<%=poCtrl.getHtmlCode("PageOfficeCtrl1")%>
 			</div>
 		</div>
 

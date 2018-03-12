@@ -1,10 +1,10 @@
-<%@ page language="java" import="java.util.*" pageEncoding="gb2312"%>
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@page
 	import="com.zhuozhengsoft.pageoffice.*,com.zhuozhengsoft.pageoffice.wordreader.*"%>
 <%@page import="java.io.FileOutputStream"%>
 <%@ taglib uri="http://java.pageoffice.cn" prefix="po"%>
 <%
-	//-----------  PageOffice �������˱�̿�ʼ  -------------------//
+	//-----------  PageOffice 服务器端编程开始  -------------------//
 	WordDocument doc = new WordDocument(request, response);
 	byte[] bytes = null;
 	String filePath = "";
@@ -26,7 +26,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 	<head>
-		<title>��¼ҳ��</title>
+		<title>登录页面</title>
 	</head>
 	<body>
 

@@ -1,0 +1,7 @@
+cms.PageExp.Local("filePath",cms.PageExp.UrlVar("filePath"));
+cms.PageExp.Local("fileName",cms.PageExp.UrlVar("fileName"));
+cms.PageExp.Local("dataPath",cms.PageExp.UrlVar("dataPath"));
+cms.PageExp.Local("operatorID",cms.PageExp.UrlVar("operatorID"));
+cms.PageExp.Local(
+	"SealData",cms.DataExp.QueryList("SELECT NAME,SEAL from OA_Seal_H h join OA_Seal_D d on h.oid=d.soid where h.oid>0 and h.enable=1 and d.OperatorID="+cms.PageExp.Local("operatorID"))
+);

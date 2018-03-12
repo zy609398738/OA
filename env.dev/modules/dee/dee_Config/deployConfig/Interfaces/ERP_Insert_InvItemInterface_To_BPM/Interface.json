@@ -1,0 +1,10 @@
+{
+  "startIndex": "",
+  "autoRun": "true",
+  "responseTime": "600000",
+  "description": "实时回写BPM物料分配单InvItemInterface表的数据至ERP",
+  "changePort": "",
+  "id": "402880e961e9a0780161e9d4fd9b002f",
+  "text": "ERP_Insert_InvItemInterface_To_BPM",
+  "oldPort": ""
+}

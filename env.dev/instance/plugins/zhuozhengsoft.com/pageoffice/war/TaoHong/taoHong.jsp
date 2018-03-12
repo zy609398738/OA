@@ -1,32 +1,32 @@
 <%@ page language="java"
 	import="java.util.*,com.zhuozhengsoft.pageoffice.*,java.sql.*,java.io.*,javax.servlet.*,javax.servlet.http.*"
-	pageEncoding="gb2312"%>
+	pageEncoding="utf-8"%>
 <%@page import="com.zhuozhengsoft.pageoffice.wordwriter.DataRegion"%>
 <%@page import="com.zhuozhengsoft.pageoffice.wordwriter.WordDocument"%>
-<%@ taglib uri="http://java.pageoffice.cn" prefix="po"%>
+
 <%!
 
-// ¿½±´ÎÄ¼ş
+// æ‹·è´æ–‡ä»¶
 public void copyFile(String oldPath, String newPath){
 
 		try {
 			int bytesum = 0;
 			int byteread = 0;
 			File oldfile = new File(oldPath);
-			if (oldfile.exists()) { //ÎÄ¼ş´æÔÚÊ± 
-				InputStream inStream = new FileInputStream(oldPath); //¶ÁÈëÔ­ÎÄ¼ş 
+			if (oldfile.exists()) { //æ–‡ä»¶å­˜åœ¨æ—¶ 
+				InputStream inStream = new FileInputStream(oldPath); //è¯»å…¥åŸæ–‡ä»¶ 
 				FileOutputStream fs = new FileOutputStream(newPath);
 				byte[] buffer = new byte[1444];
 				int length;
 				while ((byteread = inStream.read(buffer)) != -1) {
-					bytesum += byteread; //×Ö½ÚÊı ÎÄ¼ş´óĞ¡ 
+					bytesum += byteread; //å­—èŠ‚æ•° æ–‡ä»¶å¤§å° 
 					//System.out.println(bytesum);
 					fs.write(buffer, 0, byteread);
 				}
 				inStream.close();
 			}
 		} catch (Exception e) {
-			System.out.println("¸´ÖÆµ¥¸öÎÄ¼ş²Ù×÷³ö´í");
+			System.out.println("å¤åˆ¶å•ä¸ªæ–‡ä»¶æ“ä½œå‡ºé”™");
 			e.printStackTrace();
 		}
 
@@ -38,23 +38,23 @@ public void copyFile(String oldPath, String newPath){
 	String mbName = request.getParameter("mb");
 
 
-	//***************************×¿ÕıPageOffice×é¼şµÄÊ¹ÓÃ********************************
+	//***************************å“æ­£PageOfficeç»„ä»¶çš„ä½¿ç”¨********************************
 	PageOfficeCtrl poCtrl1 = new PageOfficeCtrl(request);
-	poCtrl1.setServerPage(request.getContextPath()+"/poserver.zz"); //´ËĞĞ±ØĞë
+	poCtrl1.setServerPage(request.getContextPath()+"/poserver.zz"); //æ­¤è¡Œå¿…é¡»
 	poCtrl1.setCustomToolbar(false);
 	poCtrl1.setSaveFilePage("savefile.jsp");
 	
 	if (mbName != null && mbName.trim() != "") {
-		// Ñ¡ÔñÄ£°åºóÖ´ĞĞÌ×ºì
+		// é€‰æ‹©æ¨¡æ¿åæ‰§è¡Œå¥—çº¢
 		
-		// ¸´ÖÆÄ£°å£¬ÃüÃûÎªÕıÊ½·¢ÎÄµÄÎÄ¼şÃû£ºzhengshi.doc
+		// å¤åˆ¶æ¨¡æ¿ï¼Œå‘½åä¸ºæ­£å¼å‘æ–‡çš„æ–‡ä»¶åï¼šzhengshi.doc
 		fileName = "zhengshi.doc";
 		String templateName = request.getParameter("mb");
 		String templatePath = getServletContext().getRealPath("TaoHong/doc/" + templateName);
 		String filePath = getServletContext().getRealPath("TaoHong/doc/" + fileName);
 		copyFile(templatePath, filePath); 
 
-		// Ìî³äÊı¾İºÍÕıÎÄÄÚÈİµ½¡°zhengshi.doc¡±
+		// å¡«å……æ•°æ®å’Œæ­£æ–‡å†…å®¹åˆ°â€œzhengshi.docâ€
 		WordDocument doc = new WordDocument();
 		DataRegion copies = doc.openDataRegion("PO_Copies");
 		copies.setValue("6");
@@ -63,23 +63,22 @@ public void copyFile(String oldPath, String newPath){
 		DataRegion issueDate = doc.openDataRegion("PO_IssueDate");
 		issueDate.setValue("2013-5-30");
 		DataRegion issueDept = doc.openDataRegion("PO_IssueDept");
-		issueDept.setValue("¿ª·¢²¿");
+		issueDept.setValue("å¼€å‘éƒ¨");
 		DataRegion sTextS = doc.openDataRegion("PO_STextS");
 		sTextS.setValue("[word]doc/test.doc[/word]");
 		DataRegion sTitle = doc.openDataRegion("PO_sTitle");
-		sTitle.setValue("±±¾©Ä³¹«Ë¾ÎÄ¼ş");
+		sTitle.setValue("åŒ—äº¬æŸå…¬å¸æ–‡ä»¶");
 		DataRegion topicWords = doc.openDataRegion("PO_TopicWords");
-		topicWords.setValue("Pageoffice¡¢ Ì×ºì");
+		topicWords.setValue("Pageofficeã€ å¥—çº¢");
 		poCtrl1.setWriter(doc);
 		
 	} else {
-		//Ê×´Î¼ÓÔØÊ±£¬¼ÓÔØÕıÎÄÄÚÈİ£ºtest.doc
+		//é¦–æ¬¡åŠ è½½æ—¶ï¼ŒåŠ è½½æ­£æ–‡å†…å®¹ï¼štest.doc
 		fileName = "test.doc";
 		
 	}
 	
-	poCtrl1.webOpen("doc/" + fileName, OpenModeType.docNormalEdit, "ÕÅÈı");
-	poCtrl1.setTagId("PageOfficeCtrl1"); //´ËĞĞ±ØĞë
+	poCtrl1.webOpen("doc/" + fileName, OpenModeType.docNormalEdit, "å¼ ä¸‰");
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -87,15 +86,15 @@ public void copyFile(String oldPath, String newPath){
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
 		<title></title>
-		<link href="images/csstg.css" rel="stylesheet" type="text/css" />
+		<link href="images/csstg.css" rel="stylesheet" type="text/css" /> 
 		<script type="text/javascript">
-	//³õÊ¼¼ÓÔØÄ£°åÁĞ±í
+	//åˆå§‹åŠ è½½æ¨¡æ¿åˆ—è¡¨
 	function load() {
 		if (getQueryString("mb") != null)
 			document.getElementById("templateName").value = getQueryString("mb");
 	}
 
-	//»ñÈ¡url²ÎÊı 
+	//è·å–urlå‚æ•° 
 	function getQueryString(name) {
 		var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
 		var r = window.location.search.substr(1).match(reg);
@@ -105,7 +104,7 @@ public void copyFile(String oldPath, String newPath){
 			return null;
 	}
 
-	//Ì×ºì
+	//å¥—çº¢
 	function taoHong() {
 		var mb = document.getElementById("templateName").value;
 		document.getElementById("form1").action = "taoHong.jsp?mb=" + mb;
@@ -113,12 +112,13 @@ public void copyFile(String oldPath, String newPath){
 		document.forms[0].submit();
 	}
 
-	//±£´æ²¢¹Ø±Õ
+	//ä¿å­˜å¹¶å…³é—­
 	function saveAndClose() {
 		document.getElementById("PageOfficeCtrl1").WebSave();
-		location.href = "index.jsp";
+		window.external.close();
 	}
 </script>
+
 	</head>
 	<body onload="load();" >
 		<div id="header">
@@ -127,57 +127,57 @@ public void copyFile(String oldPath, String newPath){
 			</div>
 			<ul>
 				<li>
-					<a target="_blank" href="http://www.zhuozhengsoft.com">×¿ÕıÍøÕ¾</a>
+					<a target="_blank" href="http://www.zhuozhengsoft.com">å“æ­£ç½‘ç«™</a>
 				</li>
 				<li>
 					<a target="_blank"
-						href="http://www.zhuozhengsoft.com/poask/index.asp">¿Í»§ÎÊ°É</a>
+						href="http://www.zhuozhengsoft.com/poask/index.asp">å®¢æˆ·é—®å§</a>
 				</li>
 				<li>
-					<a href="#">ÔÚÏß°ïÖú</a>
+					<a href="#">åœ¨çº¿å¸®åŠ©</a>
 				</li>
 				<li>
 					<a target="_blank"
-						href="http://www.zhuozhengsoft.com/contact-us.html">ÁªÏµÎÒÃÇ</a>
+						href="http://www.zhuozhengsoft.com/about/about/">è”ç³»æˆ‘ä»¬</a>
 				</li>
 			</ul>
 		</div>
 		<div id="content">
 			<div id="textcontent" style="width: 1000px; height: 800px;">
 				<div class="flow4">
-					<a href="index.jsp"> <img alt="·µ»Ø" src="images/return.gif"
-							border="0" />ÎÄ¼şÁĞ±í</a>
-					<span style="width: 100px;"> </span><strong>ÎÄµµÖ÷Ìâ£º</strong>
-					<span style="color: Red;">²âÊÔÎÄ¼ş</span>
+					<a href="#" onclick="window.external.close();"> <img alt="è¿”å›" src="images/return.gif"
+							border="0" />æ–‡ä»¶åˆ—è¡¨</a>
+					<span style="width: 100px;"> </span><strong>æ–‡æ¡£ä¸»é¢˜ï¼š</strong>
+					<span style="color: Red;">æµ‹è¯•æ–‡ä»¶</span>
 					<form method="post" id="form1">
-						<strong>Ä£°åÁĞ±í£º</strong>
+						<strong>æ¨¡æ¿åˆ—è¡¨ï¼š</strong>
 						<span style="color: Red;"> <select name="templateName"
 								id="templateName" style='width: 240px;'>
 								<option value='temp2008.doc' selected="selected">
-									Ä£°åÒ»
+									æ¨¡æ¿ä¸€
 								</option>
 								<option value='temp2009.doc'>
-									Ä£°å¶ş
+									æ¨¡æ¿äºŒ
 								</option>
 								<option value='temp2010.doc'>
-									Ä£°åÈı
+									æ¨¡æ¿ä¸‰
 								</option>
 							</select> </span>
-						<span style="color: Red;"><input type="button" value="Ò»¼üÌ×ºì"
+						<span style="color: Red;"><input type="button" value="ä¸€é”®å¥—çº¢"
 								onclick="taoHong()"/> </span>
-						<span style="color: Red;"><input type="button" value="±£´æ¹Ø±Õ"
+						<span style="color: Red;"><input type="button" value="ä¿å­˜å…³é—­"
 								onclick="saveAndClose()"/> </span>
 					</form>
 				</div>
-				<!--**************   ×¿Õı PageOffice×é¼ş ************************-->
+				<!--**************   å“æ­£ PageOfficeç»„ä»¶ ************************-->
 
-				<po:PageOfficeCtrl id="PageOfficeCtrl1" />
+				        <%=poCtrl1.getHtmlCode("PageOfficeCtrl1")%>
 			</div>
 		</div>
 		<div id="footer">
 			<hr width="1000" />
 			<div>
-				Copyright (c) 2012 ±±¾©×¿ÕıÖ¾Ô¶Èí¼şÓĞÏŞ¹«Ë¾
+				Copyright (c) 2012 åŒ—äº¬å“æ­£å¿—è¿œè½¯ä»¶æœ‰é™å…¬å¸
 			</div>
 		</div>
 

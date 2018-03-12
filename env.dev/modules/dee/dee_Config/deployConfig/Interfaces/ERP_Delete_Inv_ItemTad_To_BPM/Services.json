@@ -1,0 +1,11 @@
+[
+  {
+    "recordMpLog": "false",
+    "text": "ERP_Delete_Inv_ItemTad_To_BPM",
+    "id": "8aab8dfc61e6107b0161e61d09e00019",
+    "parentId": "8aab8dfc61e6107b0161e61d08dc0018",
+    "description": "删除物料分配申请单中的Inv_ItemTad表",
+    "fileImport": "false",
+    "enable": "true"
+  }
+]

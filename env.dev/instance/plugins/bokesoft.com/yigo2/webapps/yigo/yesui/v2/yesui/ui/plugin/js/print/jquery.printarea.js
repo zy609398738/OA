@@ -54,7 +54,40 @@
 
         settings.id = idPrefix + counter;
 
-        var $printSource = $(this);
+        var $printSource = $(this).clone();
+        // var $printSource = $(this);
+
+        // var x = (800/1920)/($printSource.outerWidth()/document.body.offsetWidth);   
+        var x_w = 1050/$printSource.outerWidth();   
+        var x_h = 1500/$printSource.outerHeight();   
+
+        var each1 = function(nodes) {
+            if(nodes.length <= 0) return;
+            for (var i = 0, len = nodes.length; i < len; i++) {
+                var node = nodes[i];
+                var style = node.style;
+                if(style) {
+                    var h = style.height;
+                    var w = style.width;
+                    if(w.indexOf("px") > -1) {
+                        w = parseInt(w) * x_w + "px";
+                        style.width = w;
+                        // h = parseInt(h) * x_h + "px";
+                        // style.height = h;
+                    }
+                }
+                each1(node.children);
+
+            }
+        }
+        each1($printSource[0].children);
+
+
+        $printSource.css({
+    	    "overflow": "visible",
+    	    // "zoom": 0.5,
+       		"height": "inherit"
+       	});
 
         var PrintAreaWindow = PrintArea.getPrintWindow();
 
@@ -67,9 +100,43 @@
         print : function( PAWindow ) {
             var paWindow = PAWindow.win;
 
+            var body = paWindow.document.body;
+
+            var rdo = "<input type='radio' checked='checked'>";
+            var chk = "<input type='checkbox' checked='checked'>";
+
+            // $(".ui-chk span.chk, .ui-rdo span.rdo", body).next().each(function() {
+            //     var text = $(this).text();
+            //     $(this).replaceWith(text);
+            // });
+
+            // $("span.chk.checked", body).after(chk);
+            // $("span.rdo.checked", body).after(rdo);
+
+            // $(".ui-chk span.chk, .ui-rdo span.rdo", body).remove();
+
+
+            var input = "";
+            $(".ui-chk span.chk, .ui-rdo span.rdo", body).each(function() {
+                var span = $(this);
+                span.next().css("position", "absolute");
+                if(span.hasClass("checked")) {
+                    var style = span.attr("style");
+                    if(span.hasClass("chk")) {
+                        input = "<input type='radio' checked='checked' style='"+style+"'>";
+                    } else {
+                        input = "<input type='checkbox' checked='checked' style='"+style+"'>";
+                    }
+                    span.after(input);
+                }
+            });
+            $(".ui-chk span.chk, .ui-rdo span.rdo", body).remove();
+
+
             $(PAWindow.doc).ready(function(){
                 paWindow.focus();
                 paWindow.print();
+                // console.log(paWindow.document.body.innerHTML);
 
                 if ( settings.mode == modes.popup && settings.popClose )
                     setTimeout(function() { paWindow.close(); }, 2000);
@@ -106,7 +173,7 @@
                         return $.type(mediaAttr) === 'undefined' || mediaAttr == "" || mediaAttr.toLowerCase() == 'print' || mediaAttr.toLowerCase() == 'all'
                     })
                 .each(function(){
-                        links += '<link type="text/css" rel="stylesheet" href="' + $(this).attr("href") + '" >';
+                        links += '<link type="text/css" media="print" rel="stylesheet" href="' + $(this).attr("href") + '" >';
                     });
             if ( settings.extraCss ) settings.extraCss.replace( /([^,\s]+)/g, function(m){ links += '<link type="text/css" rel="stylesheet" href="' + m + '">' });
 
@@ -169,6 +236,7 @@
                 iframe = document.createElement('iframe');
                 document.body.appendChild(iframe);
                 $(iframe).attr({ style: iframeStyle, id: frameId, src: "#" + new Date().getTime() });
+                $(iframe).addClass("print_area");
                 iframe.doc = null;
                 iframe.doc = iframe.contentDocument ? iframe.contentDocument : ( iframe.contentWindow ? iframe.contentWindow.document : iframe.document);
             }

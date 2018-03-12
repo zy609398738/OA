@@ -91,7 +91,7 @@ input[type="text"]::-ms-clear {
 }
 .login-strip span {
     display: inline-block;
-    width: 4em;
+    width: 5em;
     white-space: nowrap;
 }
 .login-strip input {
@@ -101,18 +101,19 @@ input[type="text"]::-ms-clear {
     -o-box-sizing:border-box;
     padding-right:1.6em;
     line-height: 2.18182em;
-    width: 11.7em;
+    width: 10em;
     height: 2.18182em;
     border: none;
     border-bottom: 1px solid #717a88;
     color: #717a88;
-    margin-left: 1.4545em;
+    margin-left: 1.8em;
     text-indent: 0.36364em;
     vertical-align:bottom;
 }
 .login-password-rows{
     position:relative;
 }
+
 :root .login-password-btn{
     position:absolute;
     right:0.3em;
@@ -134,14 +135,15 @@ input[type="text"]::-ms-clear {
     overflow: hidden;
 }
 .login-combox-name {
-    width: 4em;
+    width: 5em;
     float: left;
+    letter-spacing: 3px;
     white-space: nowrap;
 }
-.login-combox-content {
+.login-combox-content,.locale-combox-content {
     float: left;
-    margin-left: 1.4545em;
-    width: 11.7em;
+    margin-left: 1.8em;
+    width: 10em;
     height: 2.18182em;
     text-indent: 0.36364em;
     border-bottom: 1px solid #717a88;
@@ -150,7 +152,7 @@ input[type="text"]::-ms-clear {
 	margin-top: 0;
 	margin-bottom: 0;
 }
-.dropDown-button {
+.dropDown-button,.dropDown-locale {
     float: right;
     margin-top: .8em;
     width: 1.0909em;
@@ -170,7 +172,7 @@ input[type="text"]::-ms-clear {
     border-radius: 6px;
     cursor: pointer;
 }
-.login_sel_vw {
+.login_sel_vw,.login_locale_vw {
     display: none;
     position: absolute;
     max-height: 300px;
@@ -178,7 +180,7 @@ input[type="text"]::-ms-clear {
 	color: #717a88;
     border: 1px solid #e2e5ec;
 }
-.login-combox-list {
+.login-combox-list,.locale-combox-list {
     border-radius: 0 0 3px 3px;
     width: 100%;
     box-sizing: border-box;

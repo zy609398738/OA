@@ -1,0 +1,11 @@
+[
+  {
+    "recordMpLog": "false",
+    "text": "ERP_MaterialCode_To_BPM",
+    "id": "8aab8da261e042cb0161e0555b240021",
+    "parentId": "8aab8da261e042cb0161e05559f00020",
+    "description": "实时查询ERP系统物料分配的物料号",
+    "fileImport": "false",
+    "enable": "true"
+  }
+]

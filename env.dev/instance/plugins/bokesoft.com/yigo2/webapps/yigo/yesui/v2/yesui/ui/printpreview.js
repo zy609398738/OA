@@ -3,13 +3,14 @@
 		print: function(url, formID) {
 			var iframe = $("iframe[id='print_" + formID + "']", document.body);
             iframe.remove();
-		//	if(iframe.length == 0) {
-				var iframe = $("<iframe class='print' src='"+url+"' style='display:none;'></iframe>").attr("id", "print_" + formID);
-	   			iframe.appendTo($(document.body));
-		//	}
-   			var win = iframe[0].contentWindow;
-   			
-   			win.print();
+            if($.browser.isMozilla) {
+            	window.open(url);
+            } else {
+            	var iframe = $("<iframe class='print' id='print_" + formID + "' src='" + url + "' style='width: 0; height: 0;'></iframe>");
+            	iframe.appendTo(document.body);
+       			var win = iframe[0].contentWindow;
+       			win.print();
+            }
 		},
 		del: function(formID) {
 			var iframe = $("iframe[id='print_" + formID + "']", document.body);

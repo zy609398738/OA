@@ -1,13 +1,12 @@
 YIUI.ExprUtil = (function () {
     var Return = {
-        //仅拿来处理Dict值
         getImplValue: function (form, key, cxt, obj) {
             var value = null;
     		if (!obj) {
     			var cellLocation = form.getCellLocation(key);
     			// 如果存在单元位置，那么是一个集合组件
     			if (cellLocation) {
-    				var key = cellLocation.key;
+    				var gridKey = cellLocation.key;
     				var column = cellLocation.column;
     				var row = cellLocation.row;
     				var viewRow = cxt.rowIndex;
@@ -19,12 +18,12 @@ YIUI.ExprUtil = (function () {
 					}
 					// 上下文中无行取焦点行
 					if( rowIndex == null || rowIndex == -1 ) {
-						var grid = form.getComponent(cellLocation.key);
+						var grid = form.getComponent(gridKey);
 						rowIndex = grid.getFocusRowIndex();
 					}
 					// 如果是列拓展单元格,取上下文中的列
 					column = (cellLocation.expand ? cxt.colIndex : column);
-    				value = form.getCellValByIndex(key, rowIndex, column);
+    				value = form.getCellValByIndex(gridKey, rowIndex, column);
     			} else {
     				// 头控件
     				var comp = form.getComponent(key);
@@ -61,11 +60,14 @@ YIUI.ExprUtil = (function () {
 		// 表达式中的赋值需要触发事件
         setImplValue: function(form, key, value, cxt) {
         	var cmp = form.getComponent(key);
-    		var cell = form.getCellLocation(key);
         	if( cmp ) {
         		form.setComponentValue(key, value, true);
-        	} else if (cell) {
-        		form.setCellValByKey(cell.key, cxt.rowIndex, key, value, true);
+        	} else {
+                var loc = form.getCellLocation(key);
+                if( !loc ) {
+                    YIUI.ViewException.throwException(YIUI.ViewException.COMPONENT_NOT_EXISTS,key);
+				}
+        		form.setCellValByKey(loc.key, loc.row == -1 ? cxt.rowIndex : loc.row, key, value, true);
         	}
         },
         convertValue: function(value,editOpt) {
@@ -79,27 +81,28 @@ YIUI.ExprUtil = (function () {
     		return value;
     	},
         getJSONValue: function (form, key, cxt) {
-    		var reValue;
     		var comp = form.getComponent(key);
 			if (!comp) {
 	            YIUI.ViewException.throwException(YIUI.ViewException.COMPONENT_NOT_EXISTS);
 			}
 			
-			var type = comp.type;
-			switch(type) {
-				case YIUI.CONTROLTYPE.DICT:
-				case YIUI.CONTROLTYPE.DYNAMICDICT:
-				case YIUI.CONTROLTYPE.COMPDICT:
-					value = comp.getValue();
-					if (value instanceof YIUI.ItemData) {
-						reValue = value.toJSON();
-					} else if ($.isArray(value)) {
-						reValue = new Array();
-						for(var i = 0 ; i < value.length;i++){
-							reValue[i] = value[i].toJSON();
-						}
+			var value = comp.getValue(),
+				reValue;
+
+			switch(comp.type) {
+			case YIUI.CONTROLTYPE.DICT:
+			case YIUI.CONTROLTYPE.DYNAMICDICT:
+			case YIUI.CONTROLTYPE.COMPDICT:
+				if (value instanceof YIUI.ItemData) {
+					reValue = value.toJSON();
+				} else if ($.isArray(value)) {
+					reValue = new Array();
+					for(var i = 0 ; i < value.length;i++){
+						reValue[i] = value[i].toJSON();
 					}
+				}
 			}
+			return reValue;
         }
     };
     return Return;

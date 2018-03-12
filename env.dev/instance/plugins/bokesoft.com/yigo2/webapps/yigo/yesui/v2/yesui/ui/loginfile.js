@@ -12,16 +12,19 @@
 		}
 		return null;
 	}
-
-	var myStyle = getCookie("myStyle");
-	if(!myStyle){
-		myStyle = 'blue';
-	}
 	
-	var local = getCookie("language");
-	if(!local){
-		local = 'zh-CN';
-	}
+	window.getLang = function () {
+		var local = (navigator.language || navigator.userLanguage).toLowerCase();
+		var idx = local.indexOf("-");
+		return local.substring(0,idx) + "-" + local.substring(idx + 1).toUpperCase();
+    }
+
+	var myStyle = getCookie("myStyle") || 'blue';
+	
+	var local = getCookie("locale") || getLang();
+
+	// 设置到cookie
+	document.cookie = "locale=" + local;
 
 	//IE 下兼容console
 	if(/msie/.test(navigator.userAgent.toLowerCase()) || /rv:([\d.]+)\) like gecko/.test(navigator.userAgent.toLowerCase())){
@@ -44,6 +47,8 @@
 				"<script type='text/javascript' src='"+root+"yesui/ui/language/i18n.js' defer='defer'></script>" +
 				"<script type='text/javascript' src='"+root+"yesui/ui/language/"+local+"/i18N.js' defer='defer'></script>" +
 				"<script type='text/javascript' src='"+root+"yesui/ui/language/"+local+"/plug-in.js' defer='defer'></script>" +
+
+				"<script type='text/javascript' src='"+root+"yesui/ui/headinfos.js'></script>" + 
 				
 				"<script type='text/javascript' src='"+root+"common/exception/ViewException.js' defer='defer'></script>" +
 				"<script type='text/javascript' src='"+root+"yesui/base/jQueryExt.js' defer='defer'></script>" +

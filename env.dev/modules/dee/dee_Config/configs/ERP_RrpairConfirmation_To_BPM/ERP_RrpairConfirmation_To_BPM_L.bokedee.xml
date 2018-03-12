@@ -1,0 +1,334 @@
+<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:spring="http://www.springframework.org/schema/beans" xmlns:vm="http://www.mulesoft.org/schema/mule/vm"
+	xmlns:ftp="http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.ftp/1.2"
+	xmlns:script="http://www.mulesoft.org/schema/mule/scripting"
+	xmlns:file="http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.file/1.2"
+	xmlns:http="http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.http/1.2"
+	xmlns:https="http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.https/1.2"
+	xmlns:tcp="http://www.mulesoft.org/schema/mule/tcp"
+	xmlns:stdio="http://www.mulesoft.org/schema/mule/stdio" xmlns:cxf="http://www.mulesoft.org/schema/mule/cxf"
+	xmlns:axis="http://www.mulesoft.org/schema/mule/axis" xmlns:jbossts="http://www.mulesoft.org/schema/mule/jbossts"
+	xmlns:jdbc="http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.jdbc/1.2"
+	xmlns:pattern="http://www.mulesoft.org/schema/mule/pattern" xmlns:sftp="http://www.mulesoft.org/schema/mule/sftp"
+	xmlns:smooks="http://www.muleforge.org/smooks/schema/mule-module-smooks"
+  xmlns:jms="http://www.mulesoft.org/schema/mule/jms"
+  xmlns:smtp="http://www.mulesoft.org/schema/mule/smtp"
+  xmlns:imap="http://www.mulesoft.org/schema/mule/imap"
+ xmlns:pop3="http://www.mulesoft.org/schema/mule/pop3"
+  xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/3.1/mule.xsd
+http://www.mulesoft.org/schema/mule/jbossts http://www.mulesoft.org/schema/mule/jbossts/3.1/mule-jbossts.xsd
+http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.jdbc/1.2 http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.jdbc/1.2/mule-com.bokesoft.dee.patch.jdbc.xsd
+http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.file/1.2 http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.file/1.2/mule-com.bokesoft.dee.patch.file.xsd
+http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.http/1.2 http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.http/1.2/mule-com.bokesoft.dee.patch.http.xsd
+http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.https/1.2 http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.https/1.2/mule-com.bokesoft.dee.patch.https.xsd
+http://www.mulesoft.org/schema/mule/tcp http://www.mulesoft.org/schema/mule/tcp/3.1/mule-tcp.xsd
+http://www.muleforge.org/smooks/schema/mule-module-smooks http://dist.muleforge.org/smooks/schema/mule-module-smooks/1.1/mule-module-smooks.xsd
+http://www.mulesoft.org/schema/mule/stdio http://www.mulesoft.org/schema/mule/stdio/3.1/mule-stdio.xsd
+http://www.mulesoft.org/schema/mule/cxf http://www.mulesoft.org/schema/mule/cxf/3.1/mule-cxf.xsd
+http://www.mulesoft.org/schema/mule/axis http://www.mulesoft.org/schema/mule/axis/3.1/mule-axis.xsd
+http://www.mulesoft.org/schema/mule/scripting http://www.mulesoft.org/schema/mule/scripting/3.1/mule-scripting.xsd
+http://www.mulesoft.org/schema/mule/pattern http://www.mulesoft.org/schema/mule/pattern/3.1/mule-pattern.xsd
+        http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.ftp/1.2 http://dee.bokesoft.com/schema/mule/com.bokesoft.dee.patch.ftp/1.2/mule-com.bokesoft.dee.patch.ftp.xsd
+http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/3.1/mule-vm.xsd 
+     http://www.mulesoft.org/schema/mule/sftp http://www.mulesoft.org/schema/mule/sftp/3.1/mule-sftp.xsd 
+    http://www.mulesoft.org/schema/mule/jms http://www.mulesoft.org/schema/mule/jms/3.1/mule-jms.xsd 
+  http://www.mulesoft.org/schema/mule/smtp http://www.mulesoft.org/schema/mule/smtp/3.1/mule-smtp.xsd 
+	http://www.mulesoft.org/schema/mule/imap http://www.mulesoft.org/schema/mule/imap/3.1/mule-imap.xsd 
+ http://www.mulesoft.org/schema/mule/pop3 http://www.mulesoft.org/schema/mule/pop3/3.1/mule-pop3.xsd ">
+
+		<!--实时查询ERP系统维修保养单的数据日志信息-->
+	<custom-transformer class="com.bokesoft.exchange.transformer.ScriptWithDSTransformer" name="实时查询ERP系统维修保养单的数据日志信息">
+		<spring:property name="ds" ref="2c9081d05be7e572015be80fcb64000f_YIGO2_DB"></spring:property>
+		<spring:property name="script">
+			<spring:value>
+			<![CDATA[
+				String expMsg = "";
+Map rsmap = new HashMap();
+if (message.getExceptionPayload() != null)
+{
+    message.setOutboundProperty("http.status", 200);
+    expMsg = message.getExceptionPayload().getRootException().getMessage();
+    if (expMsg.length() > 3500)
+    {
+        expMsg = expMsg.substring(0, 3000);
+    }
+    message.setExceptionPayload(null);
+    rsmap.put("code", "0003");
+    rsmap.put("msg", "同步失败！");
+}
+else
+{
+    rsmap.put("code", "0002");
+    rsmap.put("msg", "同步成功！");
+    rsmap.put("data", payload);
+}
+Map logmap = message.getInboundProperty("logmap");
+Object[] o = new Object[10];
+o[0] = "";
+o[1] = "";
+o[2] = "";
+o[3] = "";
+o[4] = logmap.get("begintime");
+o[5] = new java.text.SimpleDateFormat("yyyyMMdd HH:mm:ss.SSS").format(new java.sql.Timestamp(java.lang.System.currentTimeMillis()));
+o[6] = "";
+o[7] = "";
+o[8] = expMsg;
+o[9] = "ERP_RrpairConfirmation_To_BPM_L";
+dbop.saveOrUpdate("insert into TRINA_SL_INTERFACE_LOG(id,flow,node,billkey,oid,starttime,endtime,request_data,response_data,EXCEPTION,interface_type)values(Trina_SL_Interface_Log_ID_SEQ.Nextval,?,?,?,?,?,?,?,?,?,?)", o, false);
+return rsmap.get("code");
+			]]>
+			</spring:value>
+		</spring:property>
+	</custom-transformer>
+
+		<custom-transformer class="com.bokesoft.dee.mule.common.transformer.LogProcessorTransformer" name="8aab8dab620a1c7701620a2d9aff0132">
+		<spring:property name="transformerName" value="实时查询ERP系统维修保养单的数据日志信息"></spring:property>
+		<spring:property name="filePath" value="${bokedee.logpath.debugLog}/ERP_RrpairConfirmation_To_BPM"></spring:property>
+		<spring:property name="errorLog" value="false"></spring:property>
+
+
+	</custom-transformer><flow name="ERP_RrpairConfirmation_To_BPM_L">
+		<!--接收ERP系统维修保养单的数据集-->
+	<vm:inbound-endpoint  name="接收ERP系统维修保养单的数据集"
+		encoding="UTF-8"
+		address="vm://ERP_RrpairConfirmation_To_BPM_L" 
+		exchange-pattern ="request-response" 
+		responseTransformer-refs ="实时查询ERP系统维修保养单的数据日志信息 8aab8dab620a1c7701620a2d9aff0132"
+		>
+	</vm:inbound-endpoint>
+
+		<custom-transformer class="com.bokesoft.dee.mule.common.transformer.LogProcessorTransformer" >
+		<spring:property name="transformerName" value="接收ERP系统维修保养单的数据集"></spring:property>
+		<spring:property name="filePath" value="${bokedee.logpath.debugLog}/ERP_RrpairConfirmation_To_BPM"></spring:property>
+		<spring:property name="errorLog" value="false"></spring:property>
+
+
+	</custom-transformer>
+
+	<transformer ref="ggpz_启动JDBC事务"/>
+
+		<custom-transformer class="com.bokesoft.dee.mule.common.transformer.LogProcessorTransformer" >
+		<spring:property name="transformerName" value="ggpz_启动JDBC事务"></spring:property>
+		<spring:property name="filePath" value="${bokedee.logpath.debugLog}/ERP_RrpairConfirmation_To_BPM"></spring:property>
+		<spring:property name="errorLog" value="false"></spring:property>
+
+
+	</custom-transformer>
+		<!--查询维修保养单明细数据-->
+	<custom-transformer class="com.bokesoft.dee.mule.dataimport.FieldValueLookUpWithDsTransformer" name="实时查询维修保养单明细数据">
+		<spring:property name="tablePath" value="B_RrpairConfirmation"></spring:property>
+		<spring:property name="query">
+			<spring:value> <![CDATA[select quantity_ordered as assetnum ,item_description as assetname ,po_line_id as line,pr_number as prnumber  from apps.cux3_po_eflow_acc_interface_v where type = 'P' and (task_id is null or task_id='') and po_number=#[map-payload:po_number]]]></spring:value>
+		</spring:property>
+		<spring:property name="ds" ref="8aaae09b5bf03e9f015bf17bc58e061f_ERP_TO_BPM"></spring:property>
+		<spring:property name="firstRecode" value="true"></spring:property>
+
+		<spring:property name="subField" value="B_RrpairConfirmationDtl"></spring:property>
+	</custom-transformer>
+
+		<custom-transformer class="com.bokesoft.dee.mule.common.transformer.LogProcessorTransformer" >
+		<spring:property name="transformerName" value="实时查询维修保养单明细数据"></spring:property>
+		<spring:property name="filePath" value="${bokedee.logpath.debugLog}/ERP_RrpairConfirmation_To_BPM"></spring:property>
+		<spring:property name="errorLog" value="false"></spring:property>
+
+
+	</custom-transformer>
+		<!--记录实时查询ERP系统维修保养单的数据开始时间-->
+	<custom-transformer class="com.bokesoft.exchange.transformer.ScriptWithDSTransformer" name="记录实时查询ERP系统维修保养单的数据开始时间">
+		<spring:property name="ds" ref="2c9081d05be7e572015be80fcb64000f_YIGO2_DB"></spring:property>
+		<spring:property name="script">
+			<spring:value>
+			<![CDATA[
+				String begintime = new java.text.SimpleDateFormat("yyyyMMdd HH:mm:ss.SSS").format(new java.sql.Timestamp(java.lang.System.currentTimeMillis()));
+Map logmap = new HashMap();
+logmap.put("begintime", begintime);
+message.setInboundProperty("logmap", logmap);
+com.bokesoft.InterfaceOperator.checkTransaction(dbop, "ERP_RrpairConfirmation_To_BPM_L");
+return payload;
+			]]>
+			</spring:value>
+		</spring:property>
+	</custom-transformer>
+
+		<custom-transformer class="com.bokesoft.dee.mule.common.transformer.LogProcessorTransformer" >
+		<spring:property name="transformerName" value="记录实时查询ERP系统维修保养单的数据开始时间"></spring:property>
+		<spring:property name="filePath" value="${bokedee.logpath.debugLog}/ERP_RrpairConfirmation_To_BPM"></spring:property>
+		<spring:property name="errorLog" value="false"></spring:property>
+
+
+	</custom-transformer>
+	<!--设置BPM系统维修保养单主表信息-->
+<custom-transformer class="com.bokesoft.dee.mule.dataimport.FixFieldsAddTransformer" name="设置BPM系统维修保养单主表信息">
+		<spring:property name="tablePath" value="B_RrpairConfirmation"></spring:property>
+		<spring:property name="fixFields">
+			<spring:map>
+					<spring:entry key="mule.adapter.thing-name" value="B_RrpairConfirmation"></spring:entry>
+					<spring:entry key="mule.adapter.formKey" value="B_RrpairConfirmation"></spring:entry>
+					<spring:entry key="mule.adapter.op-plan" value="insert"></spring:entry>
+					<spring:entry key="mule.adapter.auto-delete-unknown-detail" value="B_RrpairConfirmationDtl"></spring:entry>
+					<spring:entry key="mule.adapter.start-workflow" value="0"></spring:entry>
+			</spring:map>
+		</spring:property>
+		<spring:property name="rowNumColumn" value="norowno"></spring:property>
+		
+</custom-transformer>
+
+		<custom-transformer class="com.bokesoft.dee.mule.common.transformer.LogProcessorTransformer" >
+		<spring:property name="transformerName" value="设置BPM系统维修保养单主表信息"></spring:property>
+		<spring:property name="filePath" value="${bokedee.logpath.debugLog}/ERP_RrpairConfirmation_To_BPM"></spring:property>
+		<spring:property name="errorLog" value="false"></spring:property>
+
+
+	</custom-transformer>
+	<!--设置BPM系统维修保养单从表的信息-->
+<custom-transformer class="com.bokesoft.dee.mule.dataimport.FixFieldsAddTransformer" name="设置BPM系统维修保养单从表的信息">
+		<spring:property name="tablePath" value="B_RrpairConfirmation/B_RrpairConfirmationDtl"></spring:property>
+		<spring:property name="fixFields">
+			<spring:map>
+					<spring:entry key="mule.adapter.thing-name" value="B_RrpairConfirmation"></spring:entry>
+					<spring:entry key="mule.adapter.op-plan" value="insert"></spring:entry>
+			</spring:map>
+		</spring:property>
+		<spring:property name="rowNumColumn" value="norowno"></spring:property>
+		
+</custom-transformer>
+
+		<custom-transformer class="com.bokesoft.dee.mule.common.transformer.LogProcessorTransformer" >
+		<spring:property name="transformerName" value="设置BPM系统维修保养单从表的信息"></spring:property>
+		<spring:property name="filePath" value="${bokedee.logpath.debugLog}/ERP_RrpairConfirmation_To_BPM"></spring:property>
+		<spring:property name="errorLog" value="false"></spring:property>
+
+
+	</custom-transformer>
+		<!--查询BPM系统维修保养单字典的信息-->
+	<custom-transformer class="com.bokesoft.dee.mule.dataimport.MutiFieldValueLookUpWithDsTransformer" name="查询BPM系统维修保养单字典的信息">
+		<spring:property name="tablePath" value="B_RrpairConfirmation"></spring:property>
+		<spring:property name="queries">
+			<spring:list>
+				<spring:value> <![CDATA[select tag2 from OA_WorkflowDesigne_H where WorkflowFormKey='B_RrpairConfirmation' and tag1='OA_WorkflowType']]></spring:value>
+				<spring:value> <![CDATA[select '1' as isAutoGenerate, 'B_RrpairConfirmation'  as billkey,'21360'as applicatisid, '123038' as applicantaccount, '刘露 (Liu Lu)' as applicatis ,'21360' as applicantid from dual]]></spring:value>
+				<spring:value> <![CDATA[select oid as cc_descriptions from OA_Department_H where name=#[map-payload:cc_description] and status=1]]></spring:value>
+				<spring:value> <![CDATA[select oid as grade_leader_a_id , code as requestor, name as grade_leader_a from sys_operator where code=#[map-payload:requestor_number] and status=1]]></spring:value>
+				<spring:value> <![CDATA[select code as applicantcode,name as applicantname, deptid as applicantdeptname,position_descr,adaccount from oa_employee_h where code=#[map-payload:agent_number] and (status=0 or status=1)]]></spring:value>
+				<spring:value> <![CDATA[select oid as creator, code as creatorcode from sys_operator where code=#[map-payload:agent_number] and (status=0 or status=1)]]></spring:value>
+				<spring:value> <![CDATA[select  group_name as creatordeptname from oa_employee_h where code=#[map-payload:agent_number] and (status=0 or status=1)]]></spring:value>
+			</spring:list>
+		</spring:property>
+		<spring:property name="ds" ref="2c9081d05be7e572015be80fcb64000f_YIGO2_DB"></spring:property>
+		<spring:property name="firstRecode" value="true"></spring:property>
+	</custom-transformer>
+
+		<custom-transformer class="com.bokesoft.dee.mule.common.transformer.LogProcessorTransformer" >
+		<spring:property name="transformerName" value="查询BPM系统维修保养单字典的信息"></spring:property>
+		<spring:property name="filePath" value="${bokedee.logpath.debugLog}/ERP_RrpairConfirmation_To_BPM"></spring:property>
+		<spring:property name="errorLog" value="false"></spring:property>
+
+
+	</custom-transformer>
+		<!--设置查询的数据集与BPM系统的维修保养单字段进行映射-->
+	<custom-transformer class="com.bokesoft.dee.mule.yigo2.transformer.MapKeyMapping" name="设置查询的数据集与BPM系统的维修保养单字段进行映射">
+		<spring:property name="source" value="current"></spring:property>
+		<spring:property name="target" value="current"></spring:property>
+		<spring:property name="fieldExpression">
+			<spring:list>
+						<spring:value><![CDATA[HeadID]]>:<![CDATA[po_header_id]]>~</spring:value>
+						<spring:value><![CDATA[poNo]]>:<![CDATA[po_number]]>~</spring:value>
+						<spring:value><![CDATA[r_company]]>:<![CDATA[vendor_name]]>~</spring:value>
+						<spring:value><![CDATA[isAutoGenerate]]>:<![CDATA[isautogenerate]]>~</spring:value>
+						<spring:value><![CDATA[dept]]>:<![CDATA[cc_descriptions]]>~</spring:value>
+						<spring:value><![CDATA[Grade_leader_A_ID]]>:<![CDATA[grade_leader_a_id]]>~</spring:value>
+						<spring:value><![CDATA[requestor]]>:<![CDATA[requestor]]></spring:value>
+						<spring:value><![CDATA[Grade_leader_A]]>:<![CDATA[grade_leader_a]]>~</spring:value>
+						<spring:value><![CDATA[applicatisID]]>:<![CDATA[applicatisid]]>~</spring:value>
+						<spring:value><![CDATA[applicantaccount]]>:<![CDATA[applicantaccount]]></spring:value>
+						<spring:value><![CDATA[applicatis]]>:<![CDATA[applicatis]]></spring:value>
+						<spring:value><![CDATA[ApplicantID]]>:<![CDATA[applicantid]]>~</spring:value>
+						<spring:value><![CDATA[ApplicantCode]]>:<![CDATA[applicantcode]]>~</spring:value>
+						<spring:value><![CDATA[ADAccount]]>:<![CDATA[adaccount]]>~</spring:value>
+						<spring:value><![CDATA[ApplicantName]]>:<![CDATA[applicantname]]>~</spring:value>
+						<spring:value><![CDATA[Position_Descr]]>:<![CDATA[position_descr]]>~</spring:value>
+						<spring:value><![CDATA[ApplicantDeptName]]>:<![CDATA[applicantdeptname]]>~</spring:value>
+						<spring:value><![CDATA[Creator]]>:<![CDATA[creator]]>~</spring:value>
+						<spring:value><![CDATA[CreatorCode]]>:<![CDATA[creatorcode]]>~</spring:value>
+						<spring:value><![CDATA[CreatorDeptName]]>:<![CDATA[creatordeptname]]>~</spring:value>
+						<spring:value><![CDATA[billkey]]>:<![CDATA[billkey]]></spring:value>
+						<spring:value><![CDATA[WorkflowTypeDtlID]]>:<![CDATA[tag2]]>~</spring:value>
+						<spring:value><![CDATA[B_RrpairConfirmationDtl]]>:<![CDATA[b_rrpairconfirmationdtl]]>~</spring:value>
+						<spring:value><![CDATA[B_RrpairConfirmationDtl.AssetNum]]>~d2d:<![CDATA[assetnum]]>~</spring:value>
+						<spring:value><![CDATA[B_RrpairConfirmationDtl.Line]]>~d2d:<![CDATA[line]]>~</spring:value>
+						<spring:value><![CDATA[B_RrpairConfirmationDtl.AssetName]]>~d2d:<![CDATA[assetname]]>~</spring:value>
+						<spring:value><![CDATA[B_RrpairConfirmationDtl.PRNumber]]>~d2d:<![CDATA[prnumber]]>~</spring:value>
+			</spring:list>		
+		</spring:property>
+	</custom-transformer>
+
+		<custom-transformer class="com.bokesoft.dee.mule.common.transformer.LogProcessorTransformer" >
+		<spring:property name="transformerName" value="设置查询的数据集与BPM系统的维修保养单字段进行映射"></spring:property>
+		<spring:property name="filePath" value="${bokedee.logpath.debugLog}/ERP_RrpairConfirmation_To_BPM"></spring:property>
+		<spring:property name="errorLog" value="false"></spring:property>
+
+
+	</custom-transformer>		
+		<!--导入数据到BPM系统-->
+	<custom-transformer class="com.bokesoft.dee.transport.http.transformers.HttpSendRequestToYigoTransformer" name="导入数据到BPM系统">
+		<spring:property name="yigoUrl" value="BD{YIGO2_URL}"></spring:property>
+		<spring:property name="connectTimeout" value="6000"></spring:property>
+		<spring:property name="readTimeout" value="60000"></spring:property>
+		<spring:property name="isThrowException" value="true"></spring:property>
+		<spring:property name="isInTransaction" value="true"></spring:property>
+	</custom-transformer>
+
+
+		<custom-transformer class="com.bokesoft.dee.mule.common.transformer.LogProcessorTransformer" >
+		<spring:property name="transformerName" value="导入数据到BPM系统"></spring:property>
+		<spring:property name="filePath" value="${bokedee.logpath.debugLog}/ERP_RrpairConfirmation_To_BPM"></spring:property>
+		<spring:property name="errorLog" value="false"></spring:property>
+
+
+	</custom-transformer>
+
+	<transformer ref="ggpz_提交或者回滚JDBC事务"/>
+
+		<custom-transformer class="com.bokesoft.dee.mule.common.transformer.LogProcessorTransformer" >
+		<spring:property name="transformerName" value="ggpz_提交或者回滚JDBC事务"></spring:property>
+		<spring:property name="filePath" value="${bokedee.logpath.debugLog}/ERP_RrpairConfirmation_To_BPM"></spring:property>
+		<spring:property name="errorLog" value="false"></spring:property>
+
+
+	</custom-transformer><default-exception-strategy><processor-chain>
+
+	<transformer ref="ggpz_提交或者回滚JDBC事务"/>
+
+		<custom-transformer class="com.bokesoft.dee.mule.common.transformer.LogProcessorTransformer" >
+		<spring:property name="transformerName" value="提交或者回滚JDBC事务"></spring:property>
+		<spring:property name="filePath" value="${bokedee.logpath.debugLog}/ERP_RrpairConfirmation_To_BPM"></spring:property>
+		<spring:property name="errorLog" value="true"></spring:property>
+
+
+	</custom-transformer>
+
+	<transformer ref="ggpz_把异常对象转换为文本"/>
+
+		<custom-transformer class="com.bokesoft.dee.mule.common.transformer.LogProcessorTransformer" >
+		<spring:property name="transformerName" value="把异常对象转换为文本"></spring:property>
+		<spring:property name="filePath" value="${bokedee.logpath.debugLog}/ERP_RrpairConfirmation_To_BPM"></spring:property>
+		<spring:property name="errorLog" value="true"></spring:property>
+
+
+	</custom-transformer>
+		<file:outbound-endpoint path="${bokedee.logpath.runtimeLog}/ERP_RrpairConfirmation_To_BPM"  name="记录错误日志到文件_ERP_RrpairConfirmation_To_BPM_L"
+		
+		outputPattern="#[function:datestamp:yyyyMMddHHmmss]-#[message:id].xml">
+		<property key="file_subdir" value="#[context:serviceName]/#[function:datestamp:yyyyMMdd]" />
+	</file:outbound-endpoint>
+
+
+		<custom-transformer class="com.bokesoft.dee.mule.common.transformer.LogProcessorTransformer" >
+		<spring:property name="transformerName" value="记录错误日志到文件_ERP_RrpairConfirmation_To_BPM_L"></spring:property>
+		<spring:property name="filePath" value="${bokedee.logpath.debugLog}/ERP_RrpairConfirmation_To_BPM"></spring:property>
+		<spring:property name="errorLog" value="true"></spring:property>
+
+
+	</custom-transformer></processor-chain></default-exception-strategy></flow></mule>

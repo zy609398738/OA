@@ -1,36 +1,32 @@
-<%@ page language="java" import="java.util.*" pageEncoding="gb2312"%>
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@ page import="com.zhuozhengsoft.pageoffice.*, com.zhuozhengsoft.pageoffice.wordwriter.*,java.awt.*,java.net.*"%>
-<%@ taglib uri="http://java.pageoffice.cn" prefix="po" %>
 <%
 
 PageOfficeCtrl poCtrl1 = new PageOfficeCtrl(request);
 poCtrl1.setServerPage(request.getContextPath()+"/poserver.zz");
 
 // Create custom toolbar
-poCtrl1.addCustomToolButton("保存", "SaveDocument()", 1);
-poCtrl1.addCustomToolButton("显示A文档", "ShowFile1View()", 0);
-poCtrl1.addCustomToolButton("显示B文档", "ShowFile2View()", 0);
-poCtrl1.addCustomToolButton("显示比较结果", "ShowCompareView()", 0);
+poCtrl1.addCustomToolButton("淇濆瓨", "SaveDocument()", 1);
+poCtrl1.addCustomToolButton("鏄剧ずA鏂囨。", "ShowFile1View()", 0);
+poCtrl1.addCustomToolButton("鏄剧ずB鏂囨。", "ShowFile2View()", 0);
+poCtrl1.addCustomToolButton("鏄剧ず姣旇緝缁撴灉", "ShowCompareView()", 0);
 
-//poCtrl1.wordCompare("doc/aaa1.doc", "doc/aaa2.doc", OpenModeType.docReadOnly, "张三");
-poCtrl1.wordCompare("doc/aaa1.doc", "doc/aaa2.doc", OpenModeType.docAdmin, "张三");
-poCtrl1.setTagId("PageOfficeCtrl1"); //此行必须
+//poCtrl1.wordCompare("doc/aaa1.doc", "doc/aaa2.doc", OpenModeType.docReadOnly, "寮犱笁");
+poCtrl1.wordCompare("doc/aaa1.doc", "doc/aaa2.doc", OpenModeType.docAdmin, "寮犱笁");
 
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
-    <title>Word文档比较</title>
+    <title>Word鏂囨。姣旇緝</title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
-	<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
+
 
   </head>
   
@@ -56,7 +52,7 @@ poCtrl1.setTagId("PageOfficeCtrl1"); //此行必须
 	    }
 	</script>
     <div style="width:1000px; height:800px;">
-      <po:PageOfficeCtrl id="PageOfficeCtrl1" />
+              <%=poCtrl1.getHtmlCode("PageOfficeCtrl1")%>
   	</div>
   </body>
 </html>

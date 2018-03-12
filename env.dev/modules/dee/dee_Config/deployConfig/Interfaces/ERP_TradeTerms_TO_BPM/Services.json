@@ -1,0 +1,11 @@
+[
+  {
+    "id": "8aab8d065f095ba7015f0a4b39500031",
+    "text": "ERP_TradeTerms_TO_BPM",
+    "recordMpLog": "false",
+    "parentId": "8aab8d065f095ba7015f0a4b39010030",
+    "description": "实时查询ERP系统模板合同单据贸易条款信息",
+    "fileImport": "false",
+    "enable": "true"
+  }
+]

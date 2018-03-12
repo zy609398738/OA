@@ -1,23 +1,22 @@
 <%@ page language="java"
 	import="java.util.*,com.zhuozhengsoft.pageoffice.FileMakerCtrl,com.zhuozhengsoft.pageoffice.*,com.zhuozhengsoft.pageoffice.wordwriter.*"
-	pageEncoding="gb2312"%>
-<%@ taglib uri="http://java.pageoffice.cn" prefix="po" %>
+	pageEncoding="utf-8"%>
 <%
      
 String  filePath=request.getSession().getServletContext().getRealPath("FileMakerConvertPDFs/doc/");
 String id=request.getParameter("id").trim();
 
 if("1".equals(id)){
-	filePath = request.getSession().getServletContext().getRealPath("FileMakerConvertPDFs/doc/PageOffice²úÆ·¼ò½é.doc");
+	filePath = request.getSession().getServletContext().getRealPath("FileMakerConvertPDFs/doc/PageOfficeäº§å“ç®€ä»‹.doc");
 }
 if("2".equals(id)){
- filePath = request.getSession().getServletContext().getRealPath("FileMakerConvertPDFs/doc/Pageoffice¿Í»§¶Ë°²×°²½Öè.doc");
+ filePath = request.getSession().getServletContext().getRealPath("FileMakerConvertPDFs/doc/Pageofficeå®¢æˆ·ç«¯å®‰è£…æ­¥éª¤.doc");
 }
 if("3".equals(id)){
- filePath = request.getSession().getServletContext().getRealPath("FileMakerConvertPDFs/doc/PageOfficeµÄÓ¦ÓÃÁìÓò.doc");
+ filePath = request.getSession().getServletContext().getRealPath("FileMakerConvertPDFs/doc/PageOfficeçš„åº”ç”¨é¢†åŸŸ.doc");
 }
 if("4".equals(id)){
- filePath = request.getSession().getServletContext().getRealPath("FileMakerConvertPDFs/doc/PageOffice²úÆ·¶Ô¿Í»§¶Ë»·¾³ÒªÇó.doc");
+ filePath = request.getSession().getServletContext().getRealPath("FileMakerConvertPDFs/doc/PageOfficeäº§å“å¯¹å®¢æˆ·ç«¯ç¯å¢ƒè¦æ±‚.doc");
 }
 
 FileMakerCtrl fmCtrl = new FileMakerCtrl(request);
@@ -25,13 +24,7 @@ fmCtrl.setServerPage(request.getContextPath()+"/poserver.zz");
 fmCtrl.setJsFunction_OnProgressComplete("OnProgressComplete()");
 fmCtrl.setSaveFilePage("SaveFile.jsp");
 fmCtrl.fillDocumentAsPDF(filePath, DocumentOpenType.Word, "a.pdf");
-fmCtrl.setTagId("FileMakerCtrl1"); //´ËĞĞ±ØĞë
-	  
-          
-  
-   
-
-
+ 
 %>
 
 
@@ -55,16 +48,16 @@ fmCtrl.setTagId("FileMakerCtrl1"); //´ËĞĞ±ØĞë
 
 	<body>
 	   <div>
-			<!--**************   ×¿Õı PageOffice ¿Í»§¶Ë´úÂë¿ªÊ¼    ************************-->
+			<!--**************   å“æ­£ PageOffice å®¢æˆ·ç«¯ä»£ç å¼€å§‹    ************************-->
 
 	      <script language="javascript" type="text/javascript">
 	         function OnProgressComplete() {
-		            window.parent.convert(); //µ÷ÓÃ¸¸Ò³ÃæµÄjsº¯Êı
+		            window.parent.convert(); //è°ƒç”¨çˆ¶é¡µé¢çš„jså‡½æ•°
 	        }
 
          </script>
-			<!--**************   ×¿Õı PageOffice ¿Í»§¶Ë´úÂë½áÊø    ************************-->
-			        <po:FileMakerCtrl id="FileMakerCtrl1"/>
+			<!--**************   å“æ­£ PageOffice å®¢æˆ·ç«¯ä»£ç ç»“æŸ    ************************-->
+            <%=fmCtrl.getHtmlCode("FileMakerCtrl1")%>
 
 	</div>
 

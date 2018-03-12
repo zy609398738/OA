@@ -1,16 +1,16 @@
 <%@ page language="java"
 	import="java.util.*,java.text.*,com.zhuozhengsoft.pageoffice.*,com.zhuozhengsoft.pageoffice.wordreader.*"
-	pageEncoding="gb2312"%>
+	pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.pageoffice.cn" prefix="po"%>
 <%
 	WordDocument doc = new WordDocument(request, response);
-	//»ñÈ¡Ìá½»µÄÊıÖµ
+	//è·å–æäº¤çš„æ•°å€¼
 	DataRegion dataUserName = doc.openDataRegion("PO_userName");
 	DataRegion dataDeptName = doc.openDataRegion("PO_deptName");
 	String content = "";
-	content += "¹«Ë¾Ãû³Æ£º" + doc.getFormField("txtCompany");
-	content += "<br/>Ô±¹¤ĞÕÃû£º" + dataUserName.getValue();
-	content += "<br/>²¿ÃÅÃû³Æ£º" + dataDeptName.getValue();
+	content += "å…¬å¸åç§°ï¼š" + doc.getFormField("txtCompany");
+	content += "<br/>å‘˜å·¥å§“åï¼š" + dataUserName.getValue();
+	content += "<br/>éƒ¨é—¨åç§°ï¼š" + dataDeptName.getValue();
 
 	doc.showPage(500, 400);
 	doc.close();
@@ -26,16 +26,16 @@
 			<div style="border: solid 1px gray;">
 				<div class="errTopArea"
 					style="text-align: left; border-bottom: solid 1px gray;">
-					[ÌáÊ¾±êÌâ£ºÕâÊÇÒ»¸ö¿ª·¢ÈËÔ±¿É×Ô¶¨ÒåµÄ¶Ô»°¿ò]
+					[æç¤ºæ ‡é¢˜ï¼šè¿™æ˜¯ä¸€ä¸ªå¼€å‘äººå‘˜å¯è‡ªå®šä¹‰çš„å¯¹è¯æ¡†]
 				</div>
 				<div class="errTxtArea" style="height: 150px; text-align: left">
 					<b class="txt_title">
 						<div style="color: #FF0000;">
-							Ìá½»µÄĞÅÏ¢ÈçÏÂ£º
+							æäº¤çš„ä¿¡æ¯å¦‚ä¸‹ï¼š
 						</div> <%=content%> </b>
 				</div>
 				<div class="errBtmArea" style="text-align: center;">
-					<input type="button" class="btnFn" value=" ¹Ø±Õ "
+					<input type="button" class="btnFn" value=" å…³é—­ "
 						onclick="window.opener=null;window.open('','_self');window.close();" />
 				</div>
 			</div>

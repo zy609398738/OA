@@ -1,0 +1,130 @@
+{
+  "response": [
+    {
+      "text": "记录实时调用中兴商旅查看机票服务接口日志",
+      "description": "记录实时调用中兴商旅查看机票服务接口日志",
+      "scriptContent": "String expMsg = \"\";\nMap rsmap = new HashMap();\nif (message.getExceptionPayload() != null)\n{\n    message.setOutboundProperty(\"http.status\", 200);\n    expMsg = message.getExceptionPayload().getRootException().getMessage();\n    if (expMsg.length() > 3500)\n    {\n        expMsg = expMsg.substring(0, 3000);\n    }\n    message.setExceptionPayload(null);\n    rsmap.put(\"code\", \"e\");\n    rsmap.put(\"msg\", \"调用失败！\");\n}\nelse\n{\n    rsmap.put(\"code\", \"s\");\n    rsmap.put(\"msg\", \"调用成功！\");\n    rsmap.put(\"data\", payload);\n}\nMap logmap = message.getInboundProperty(\"logmap\");\nObject[] o = new Object[10];\no[0] = logmap.get(\"flow\");\no[1] = logmap.get(\"node\");\no[2] = logmap.get(\"billkey\");\no[3] = logmap.get(\"oid\");\no[4] = logmap.get(\"begintime\");\no[5] = new java.text.SimpleDateFormat(\"yyyyMMdd HH:mm:ss.SSS\").format(new java.sql.Timestamp(java.lang.System.currentTimeMillis()));\no[6] = \"\";\no[7] = \"\";\no[8] = expMsg;\no[9] = \"TradeCaravan_FindTicketByBillSrv\";\ndbop.saveOrUpdate(\"insert into TRINA_SL_INTERFACE_LOG(id,flow,node,billkey,oid,starttime,endtime,request_data,response_data,EXCEPTION,interface_type)values(Trina_SL_Interface_Log_ID_SEQ.Nextval,?,?,?,?,?,?,?,?,?,?)\", o, false);\nreturn com.bokesoft.dee.mule.util.json.JSONUtil.toJson(rsmap);",
+      "smallType": "GroovyScriptWithDS",
+      "className": "com.bokesoft.exchange.transformer.ScriptWithDSTransformer",
+      "enable": "true",
+      "parentId": "ff8080815fc89bdf015fc8be32c50026",
+      "bigType": "transformer_au",
+      "simpleMpLog": "false",
+      "ds": "2c9081d05be7e572015be80fcb64000f",
+      "isRef": "false",
+      "id": "ff8080815fc89bdf015fc8cb4b060033"
+    }
+  ],
+  "normal": [
+    {
+      "text": "实时调用中兴商旅查看机票服务入口",
+      "description": "实时调用中兴商旅查看机票服务入口",
+      "address": "vm://TradeCaravan_FindTicketByBillSrv",
+      "exchange_pattern": "request-response",
+      "className": "",
+      "smallType": "VM",
+      "enable": "true",
+      "parentId": "ff8080815fc89bdf015fc8be32c50026",
+      "bigType": "inbound",
+      "simpleMpLog": "false",
+      "encoding": "UTF-8",
+      "isRef": "false",
+      "id": "ff8080815fc89bdf015fc8c483d9002d"
+    },
+    {
+      "text": "记录调用查询中兴商旅机票信息服务开始时间",
+      "description": "记录调用查询中兴商旅机票信息服务开始时间",
+      "scriptContent": "String begintime = new java.text.SimpleDateFormat(\"yyyyMMdd HH:mm:ss.SSS\").format(new java.sql.Timestamp(java.lang.System.currentTimeMillis()));\nMap logmap = new HashMap();\nlogmap.put(\"begintime\", begintime);\nlogmap.put(\"flow\", payload.get(\"flow\"));\nlogmap.put(\"node\", payload.get(\"node\"));\nlogmap.put(\"oid\", payload.get(\"oid\"));\nlogmap.put(\"billkey\", payload.get(\"billkey\"));\nlogmap.put(\"request_data\", payload.get(\"FindTicketByBillRequest\"));\nmessage.setInboundProperty(\"logmap\", logmap);\nreturn payload.get(\"FindTicketByBillRequest\");",
+      "className": "org.mule.module.scripting.transformer.ScriptTransformer",
+      "smallType": "GroovyScriptTransformer",
+      "enable": "true",
+      "parentId": "ff8080815fc89bdf015fc8be32c50026",
+      "bigType": "transformer_au",
+      "simpleMpLog": "false",
+      "isRef": "false",
+      "id": "ff8080815fc89bdf015fc8c765380030"
+    },
+    {
+      "text": "转换调用查询机票价格服务入参格式",
+      "description": "转换调用查询机票价格服务入参格式",
+      "direction": "false",
+      "smallType": "JsonTransformer",
+      "className": "com.bokesoft.dee.mule.util.transformer.JsonTransformer",
+      "enable": "true",
+      "parentId": "ff8080815fc89bdf015fc8be32c50026",
+      "bigType": "transformer_au",
+      "simpleMpLog": "false",
+      "encoding": "UTF-8",
+      "isRef": "false",
+      "toMap": "true",
+      "id": "ff80808161d1019b0161d4bd85d80205"
+    },
+    {
+      "text": "调用查询机票价格服务",
+      "description": "调用查询机票价格服务",
+      "scriptContent": "String className = \"com.bee2c.www.FindTicketByBillSrv.QueryParam\";\ncom.bee2c.www.FindTicketByBillSrv.QueryParam ebi = com.bokesoft.dee.webservies.MapAndBeanConvertUtil.mapToObject(className, payload.get(\"queryParam\"));\ncom.bee2c.www.FindTicketByBillSrv.FindTicketByBillRequest cebrq = new com.bee2c.www.FindTicketByBillSrv.FindTicketByBillRequest();\ncebrq.setUserName(payload.get(\"userName\"));\ncebrq.setCurrentTime(payload.get(\"currentTime\"));\ncebrq.setPassword(payload.get(\"password\"));\ncebrq.setQueryParam(ebi);\ncom.bee2c.www.FindTicketByBillSrv.FindTicketByBillResponse cebrp = com.bokesoft.InterfaceOperator.findTicketByBill(cebrq, \"BD{findticketbybillsrv_url}\");\nreturn com.bokesoft.dee.webservies.MapAndBeanConvertUtil.describeBean(cebrp);",
+      "className": "org.mule.module.scripting.transformer.ScriptTransformer",
+      "smallType": "GroovyScriptTransformer",
+      "enable": "true",
+      "parentId": "ff8080815fc89bdf015fc8be32c50026",
+      "bigType": "transformer_au",
+      "simpleMpLog": "false",
+      "isRef": "false",
+      "id": "8aaae0db60e3041c0160e30d3ff6001a"
+    }
+  ],
+  "exception": [
+    {
+      "text": "把异常对象转换为文本",
+      "description": "把异常对象转换为文本",
+      "smallType": "ExceptionMessageTransformer",
+      "className": "com.bokesoft.exchange.transformer.ExceptionMessageTransformer",
+      "enable": "true",
+      "parentId": "ff8080815fc89bdf015fc8be32c50026",
+      "bigType": "GGPZTransformer",
+      "isRef": "true",
+      "id": "ff8080815fc89bdf015fc8be32f40027"
+    },
+    {
+      "path": "${bokedee.logpath.runtimeLog}/FindTicketByBillSrv",
+      "text": "记录错误日志到文件_FindTicketByBillSrv",
+      "description": "",
+      "smallType": "File",
+      "className": "",
+      "enable": "true",
+      "outputPattern": "#[function:datestamp:yyyyMMddHHmmss]-#[message:id].xml",
+      "parentId": "ff8080815fc89bdf015fc8be32c50026",
+      "bigType": "outbound",
+      "file_subdir": "#[context:serviceName]/#[function:datestamp:yyyyMMdd]",
+      "isRef": "false",
+      "id": "ff8080815fc89bdf015fc8be336d0028"
+    },
+    {
+      "text": "把异常信息替换换行符_FindTicketByBillSrv",
+      "description": "把异常信息替换换行符",
+      "scriptContent": "String exceptionContent = message.getPayload();String exception = exceptionContent.replace(\"\\n\", \"<br/>\");message.setPayload(exception);return message;",
+      "className": "org.mule.module.scripting.transformer.ScriptTransformer",
+      "smallType": "GroovyScriptTransformer",
+      "enable": "false",
+      "parentId": "ff8080815fc89bdf015fc8be32c50026",
+      "bigType": "transformer_au",
+      "simpleMpLog": "false",
+      "isRef": "false",
+      "id": "ff8080815fc89bdf015fc8be33dd0029"
+    },
+    {
+      "text": "把异常信息通过邮件发送_FindTicketByBillSrv",
+      "description": "把异常信息通过邮件发送",
+      "connector_ref": "bokedee_default_smtp_connector",
+      "subject": "FindTicketByBillSrv",
+      "smallType": "SMTP",
+      "className": "",
+      "enable": "false",
+      "parentId": "ff8080815fc89bdf015fc8be32c50026",
+      "bigType": "outbound",
+      "encoding": "UTF-8",
+      "isRef": "false",
+      "id": "ff8080815fc89bdf015fc8be3455002a"
+    }
+  ]
+}

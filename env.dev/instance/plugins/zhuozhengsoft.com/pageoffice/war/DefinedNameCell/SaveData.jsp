@@ -1,14 +1,14 @@
 <%@ page language="java"
 	import="java.util.*, java.text.*,com.zhuozhengsoft.pageoffice.*, com.zhuozhengsoft.pageoffice.excelreader.*"
-	pageEncoding="gb2312"%>
+	pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.pageoffice.cn" prefix="po"%>
 <%
 	Workbook workBook = new Workbook(request, response);
 	Sheet sheet = workBook.openSheet("Sheet1");
 	
 	String content = "";
-	content += "testA1£º" + sheet.openCellByDefinedName("testA1").getValue() + "<br/>";
-    content += "testB1£º" + sheet.openCellByDefinedName("testB1").getValue() + "<br/>";
+	content += "testA1ï¼š" + sheet.openCellByDefinedName("testA1").getValue() + "<br/>";
+    content += "testB1ï¼š" + sheet.openCellByDefinedName("testB1").getValue() + "<br/>";
 
 	workBook.showPage(500, 400);
 	workBook.close();
@@ -24,16 +24,16 @@
 			<div style="border: solid 1px gray;">
 				<div class="errTopArea"
 					style="text-align: left; border-bottom: solid 1px gray;">
-					[ÌáÊ¾±êÌâ£ºÕâÊÇÒ»¸ö¿ª·¢ÈËÔ±¿É×Ô¶¨ÒåµÄ¶Ô»°¿ò]
+					[æç¤ºæ ‡é¢˜ï¼šè¿™æ˜¯ä¸€ä¸ªå¼€å‘äººå‘˜å¯è‡ªå®šä¹‰çš„å¯¹è¯æ¡†]
 				</div>
 				<div class="errTxtArea" style="height: 88%; text-align: left">
 					<b class="txt_title">
 						<div style=" color:#FF0000;" >
-							Ìá½»µÄĞÅÏ¢ÈçÏÂ£º
+							æäº¤çš„ä¿¡æ¯å¦‚ä¸‹ï¼š
 						</div> <%=content%> </b>
 				</div>
 				<div class="errBtmArea" style="text-align: center;">
-					<input type="button" class="btnFn" value=" ¹Ø±Õ "
+					<input type="button" class="btnFn" value=" å…³é—­ "
 						onclick="window.opener=null;window.open('','_self');window.close();" />
 				</div>
 			</div>

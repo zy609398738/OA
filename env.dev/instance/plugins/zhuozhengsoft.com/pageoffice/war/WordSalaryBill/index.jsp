@@ -1,7 +1,7 @@
 <%@ page language="java"
 	import="java.util.*, java.sql.*, java.text.NumberFormat, java.util.Locale,java.lang.*,
 	java.text.SimpleDateFormat,java.util.Date"
-	pageEncoding="gb2312"%>
+	pageEncoding="utf-8"%>
 <%
     Class.forName("org.sqlite.JDBC");
 	String strUrl = "jdbc:sqlite:"
@@ -9,11 +9,22 @@
 	Connection conn = DriverManager.getConnection(strUrl);
 	Statement stmt = conn.createStatement();
 	ResultSet rs = stmt.executeQuery("select * from Salary  order by ID");
-	boolean flg = false;//±êÊ¶ÊÇ·ñÓĞÊı¾İ
+	boolean flg = false;//æ ‡è¯†æ˜¯å¦æœ‰æ•°æ®
 	StringBuilder strHtmls = new StringBuilder();
 	//SimpleDateFormat  formatDate = new SimpleDateFormat("yyyy-MM-dd");
 	//DateFormat format = new SimpleDateFormat("yyyy-MM-dd"); 
 	//NumberFormat formater = NumberFormat.getCurrencyInstance(Locale.CHINA);
+	strHtmls.append("<tr  style='height:40px;padding:0; border-right:1px solid #a2c5d9; border-bottom:1px solid #a2c5d9; background:#edf8fe; font-weight:bold; color:#666;text-align:center; text-indent:0px;'>");
+        strHtmls.append("<td width='5%' >é€‰æ‹©</td>");
+        strHtmls.append("<td width='10%' >å‘˜å·¥ç¼–å·</td>");
+        strHtmls.append("<td width='10%' >å‘˜å·¥å§“å</td>");
+        strHtmls.append("<td width='15%' >æ‰€åœ¨éƒ¨é—¨</td>");
+        strHtmls.append("<td width='10%' >åº”å‘å·¥èµ„</td>");
+        strHtmls.append("<td width='10%' >æ‰£é™¤é‡‘é¢</td>");
+        strHtmls.append("<td width='10%' >å®å‘å·¥èµ„</td>");
+        strHtmls.append("<td width='10%' >å‘æ”¾æ—¥æœŸ</td>");
+        strHtmls.append("<td width='20%' >æ“ä½œ</td>");
+        strHtmls.append("</tr>");
 	while (rs.next()) {
 		flg = true;
 		String pID = rs.getString("ID");
@@ -27,13 +38,13 @@
 		strHtmls.append("<td style=' text-align:left;'>" + rs.getString("SalDeduct").toString() + "</td>");
 		strHtmls.append("<td style=' text-align:left;'>" +rs.getString("SalCount").toString()+ "</td>");
 		strHtmls.append("<td style=' text-align:center;'>" + rs.getString("DataTime") + "</td>");
-		strHtmls.append("<td style=' text-align:center;'><a href='View.jsp?ID=" + pID + "' target='_blank'>²é¿´</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href='Openfile.jsp?ID=" + pID + "' target='_blank'>±à¼­</a></td>");
+		strHtmls.append("<td style=' text-align:center;'><a href='javascript:POBrowser.openWindowModeless(\"View.jsp?ID=" + pID + "\" ,\"width=1200px;height=800px;\");'>æŸ¥çœ‹</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href='javascript:POBrowser.openWindowModeless(\"Openfile.jsp?ID=" + pID + "\" ,\"width=1200px;height=800px;\");'>ç¼–è¾‘</a></td>");
 		strHtmls.append("</tr>");
 	}
 
 	if (!flg) {
 		strHtmls.append("<tr>\r\n");
-		strHtmls.append("<td width='100%' height='100' align='center'>¶Ô²»Æğ£¬ÔİÊ±Ã»ÓĞ¿ÉÒÔ²Ù×÷µÄÊı¾İ¡£\r\n");
+		strHtmls.append("<td width='100%' height='100' align='center'>å¯¹ä¸èµ·ï¼Œæš‚æ—¶æ²¡æœ‰å¯ä»¥æ“ä½œçš„æ•°æ®ã€‚\r\n");
 		strHtmls.append("</td></tr>\r\n");
 	}
 %>
@@ -41,8 +52,10 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 	<head>
-		<title>¶¯Ì¬Éú³É¹¤×ÊÌõ</title>
-
+		<title>åŠ¨æ€ç”Ÿæˆå·¥èµ„æ¡</title>       
+        <!--pageoffice.jså’Œjquery.min.jsä¸€å®šè¦å¼•ç”¨  -->
+        <script type="text/javascript" src="../jquery.min.js"></script>
+		<script type="text/javascript" src="../pageoffice.js" id="po_js_main"></script>   
 		<script type="text/javascript">
         function getID() {
             var ids = "";
@@ -53,28 +66,25 @@
             }
             
             if (ids == "")
-                alert("ÇëÏÈÑ¡ÔñÒªÉú³É¹¤×ÊÌõµÄ¼ÇÂ¼");
+                alert("è¯·å…ˆé€‰æ‹©è¦ç”Ÿæˆå·¥èµ„æ¡çš„è®°å½•");
             else
-                location.href = "Compose.jsp?ids=" + ids.substr(0, ids.length - 1);
+                location.href ="javascript:POBrowser.openWindowModeless('Compose.jsp?ids="+ ids.substr(0, ids.length - 1)+" ', 'width=1200px;height=800px;');" ;
         }
 
     </script>
 	</head>
 	<body>
 		<div style="text-align: center;">
-			<p style="color: Red; font-size: 14px;">
-				1.¿ÉÒÔµã»÷¡°²Ù×÷¡±À¸ÖĞµÄ¡°±à¼­¡±À´±à¼­¸÷¸öÔ±¹¤µÄ¹¤×÷Ìõ&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				<br />
-				2.¿ÉÒÔµã»÷¡°²Ù×÷¡±À¸ÖĞµÄ¡°²é¿´¡±À´²é¿´¸÷¸öÔ±¹¤µÄ¹¤×÷Ìõ&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				<br />
-				3.¿ÉÑ¡Ôñ¶àÌõ¹¤×Ê¼ÇÂ¼£¬µã¡°Éú³É¹¤×ÊÌõ¡±°´Å¥£¬Éú³É¹¤×ÊÌõ&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			</p>
+        <p style="color: Red; font-size: 14px;">
+            1.å¯ä»¥ç‚¹å‡»â€œæ“ä½œâ€æ ä¸­çš„â€œç¼–è¾‘â€æ¥ç¼–è¾‘å„ä¸ªå‘˜å·¥çš„å·¥ä½œæ¡&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
+            2.å¯ä»¥ç‚¹å‡»â€œæ“ä½œâ€æ ä¸­çš„â€œæŸ¥çœ‹â€æ¥æŸ¥çœ‹å„ä¸ªå‘˜å·¥çš„å·¥ä½œæ¡&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
+            3.å¯é€‰æ‹©å¤šæ¡å·¥èµ„è®°å½•ï¼Œç‚¹â€œç”Ÿæˆå·¥èµ„æ¡â€æŒ‰é’®ï¼Œç”Ÿæˆå·¥èµ„æ¡&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
 			<table
 				style="width: 60%; font-size: 12px; text-align: center; border: solid 1px #a2c5d9;">
                        <%=strHtmls %>
 			</table>
 			<br />
-			<input type="button" value="Éú³É¹¤×ÊÌõ" onclick="getID()" />
+			<input type="button" value="ç”Ÿæˆå·¥èµ„æ¡" onclick="getID()" />
 		</div>
 	</body>
 </html>

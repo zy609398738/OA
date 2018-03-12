@@ -2,6 +2,7 @@
  * 使用BorderLayout的面板。
  * 使用方式：参考borderlayout.js
  */
+"use strict";
 YIUI.Panel.BorderLayoutPanel = YIUI.extend(YIUI.Panel, {
 	layout : 'BorderLayout',
 

@@ -1,30 +1,28 @@
 <%@ page language="java"
 	import="java.util.*,com.zhuozhengsoft.pageoffice.*"
-	pageEncoding="gb2312"%>
-<%@ taglib uri="http://java.pageoffice.cn" prefix="po"%>
+	pageEncoding="utf-8"%>
 <%
-//******************************×¿ÕıPageOffice×é¼şµÄÊ¹ÓÃ*******************************
-	//ÉèÖÃPageOffice·şÎñÆ÷×é¼ş
+//******************************å“æ­£PageOfficeç»„ä»¶çš„ä½¿ç”¨*******************************
+	//è®¾ç½®PageOfficeæœåŠ¡å™¨ç»„ä»¶
 	PageOfficeCtrl poCtrl1 = new PageOfficeCtrl(request);
-	poCtrl1.setServerPage(request.getContextPath()+"/poserver.zz"); //´ËĞĞ±ØĞë
-        poCtrl1.setJsFunction_AfterDocumentOpened("AfterDocumentOpened()");
-        poCtrl1.addCustomToolButton("±£´æ", "Save()", 1); 
-         poCtrl1.addCustomToolButton("¿ªÊ¼ÊÖĞ´", "StartHandDraw()", 3);
-	poCtrl1.addCustomToolButton("ÉèÖÃÏß¿í", "SetPenWidth()", 5);
-	poCtrl1.addCustomToolButton("ÉèÖÃÑÕÉ«", "SetPenColor()", 5);
-	poCtrl1.addCustomToolButton("ÉèÖÃ±ÊĞÍ", "SetPenType()", 5);
-	poCtrl1.addCustomToolButton("ÉèÖÃËõ·Å", "SetPenZoom()", 5);
-	poCtrl1.setOfficeToolbars(false);//Òş²Øoffice¹¤¾ßÀ¸
+	poCtrl1.setServerPage(request.getContextPath()+"/poserver.zz"); //æ­¤è¡Œå¿…é¡»
+    poCtrl1.setJsFunction_AfterDocumentOpened("AfterDocumentOpened()");
+    poCtrl1.addCustomToolButton("ä¿å­˜", "Save()", 1); 
+    poCtrl1.addCustomToolButton("å¼€å§‹æ‰‹å†™", "StartHandDraw()", 3);
+	poCtrl1.addCustomToolButton("è®¾ç½®çº¿å®½", "SetPenWidth()", 5);
+	poCtrl1.addCustomToolButton("è®¾ç½®é¢œè‰²", "SetPenColor()", 5);
+	poCtrl1.addCustomToolButton("è®¾ç½®ç¬”å‹", "SetPenType()", 5);
+	poCtrl1.addCustomToolButton("è®¾ç½®ç¼©æ”¾", "SetPenZoom()", 5);
+	poCtrl1.setOfficeToolbars(false);//éšè—officeå·¥å…·æ 
         poCtrl1.setSaveFilePage("SaveFile.jsp");
-	//´ò¿ªÎÄ¼ş
+	//æ‰“å¼€æ–‡ä»¶
 	poCtrl1.webOpen("doc/test.doc", OpenModeType.docHandwritingOnly, "John");
-	poCtrl1.setTagId("PageOfficeCtrl1"); //´ËĞĞ±ØĞë	
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title></title>
+    <title></title>    
 </head>
 
 <body>
@@ -37,31 +35,31 @@
       function StartHandDraw() {
             document.getElementById("PageOfficeCtrl1").HandDraw.Start();
         }
-          //ÉèÖÃÏß¿í
+          //è®¾ç½®çº¿å®½
         function SetPenWidth(){
           document.getElementById("PageOfficeCtrl1").HandDraw.SetPenWidth(5);
         }
-        //ÉèÖÃÑÕÉ«
+        //è®¾ç½®é¢œè‰²
         function SetPenColor() {
 
             document.getElementById("PageOfficeCtrl1").HandDraw.SetPenColor(5292104);
         }
-        //ÉèÖÃ±ÊĞÍ
+        //è®¾ç½®ç¬”å‹
         function SetPenType() {
 
             document.getElementById("PageOfficeCtrl1").HandDraw.SetPenType(1);
         }
-        //ÉèÖÃËõ·Å
+        //è®¾ç½®ç¼©æ”¾
         function SetPenZoom() {
 
             document.getElementById("PageOfficeCtrl1").HandDraw.SetPenZoom(50);
         }
-        //³·Ïú×î½üÒ»´ÎÊÖĞ´
+        //æ’¤é”€æœ€è¿‘ä¸€æ¬¡æ‰‹å†™
         function UndoHandDraw() {
 
             document.getElementById("PageOfficeCtrl1").HandDraw.Undo();
         }
-        //ÍË³öÊÖĞ´
+        //é€€å‡ºæ‰‹å†™
         function ExitHandDraw() {
 
             document.getElementById("PageOfficeCtrl1").HandDraw.Exit();
@@ -82,20 +80,20 @@
                  {
                     handDraw = document.getElementById("PageOfficeCtrl1").HandDraw.Item(i);
                     var str="";
-                    str=str + "µÚ" + handDraw.PageNumber + "Ò³" + "," + handDraw.UserName + ", " + handDraw.DateTime;
+                    str=str + "ç¬¬" + handDraw.PageNumber + "é¡µ" + "," + handDraw.UserName + ", " + handDraw.DateTime;
 	            document.getElementById("ul_Comments").innerHTML += "<li><a href='#' onclick='goToHandDraw("+i+")'>"+str+"</a></li>";
                  }
              }else{
-                    document.getElementById("PageOfficeCtrl1").Alert("µ±Ç°ÎÄµµÃ»ÓĞÊÖĞ´Åú×¢!");
+                    document.getElementById("PageOfficeCtrl1").Alert("å½“å‰æ–‡æ¡£æ²¡æœ‰æ‰‹å†™æ‰¹æ³¨!");
                   }
         
           }
-        //¶¨Î»µ½µ±Ç°ÊÖĞ´Åú×¢
+        //å®šä½åˆ°å½“å‰æ‰‹å†™æ‰¹æ³¨
         function goToHandDraw(index){
 	     document.getElementById("PageOfficeCtrl1").HandDraw.Item(index).Locate();        
         }
         function refresh_click(){
-        //Ë¢ĞÂÊÖĞ´Åú×¢¼¯ºÏ
+        //åˆ·æ–°æ‰‹å†™æ‰¹æ³¨é›†åˆ
          refreshList();
        }
 
@@ -103,15 +101,14 @@
     <form id="form1">
     <div  style=" width:1380px; height:700px;">
         <div id="Div_Comments" style=" float:left; width:300px; height:700px; border:solid 1px red;">
-        <h3>ÊÖĞ´Åú×¢ÁĞ±í</h3>
-        <input type="button" name="refresh" value="Ë¢ĞÂ"onclick="return refresh_click()"/>
+        <h3>æ‰‹å†™æ‰¹æ³¨åˆ—è¡¨</h3>
+        <input type="button" name="refresh" value="åˆ·æ–°"onclick="return refresh_click()"/>
         <ul id="ul_Comments">
             
         </ul>
         </div>
 <div style=" width:1000px; height:700px; float:right;">
-            <po:PageOfficeCtrl id="PageOfficeCtrl1" >
-            </po:PageOfficeCtrl>
+           <%=poCtrl1.getHtmlCode("PageOfficeCtrl1")%>
         </div>
     </div>
     </form>

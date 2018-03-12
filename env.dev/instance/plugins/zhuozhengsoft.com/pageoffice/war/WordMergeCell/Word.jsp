@@ -1,57 +1,55 @@
 <%@ page language="java"
 	import="java.util.*,com.zhuozhengsoft.pageoffice.*,com.zhuozhengsoft.pageoffice.wordwriter.*"
-	pageEncoding="gb2312"%>
-<%@ taglib uri="http://java.pageoffice.cn" prefix="po"%>
+	pageEncoding="utf-8"%>
 <%
-//******************************×¿ÕıPageOffice×é¼şµÄÊ¹ÓÃ*******************************
+//******************************å“æ­£PageOfficeç»„ä»¶çš„ä½¿ç”¨*******************************
 	PageOfficeCtrl poCtrl1 = new PageOfficeCtrl(request);
-	poCtrl1.setServerPage(request.getContextPath()+"/poserver.zz"); //´ËĞĞ±ØĞë
-	//Òş²Ø²Ëµ¥À¸
+	poCtrl1.setServerPage(request.getContextPath()+"/poserver.zz"); //æ­¤è¡Œå¿…é¡»
+	//éšè—èœå•æ 
 	poCtrl1.setMenubar(false);
 	poCtrl1.setCustomToolbar(false);
 	
-	poCtrl1.webOpen("doc/template.doc", OpenModeType.docNormalEdit, "ÕÅÈı");
-	poCtrl1.setTagId("PageOfficeCtrl1"); //´ËĞĞ±ØĞë	
+	poCtrl1.webOpen("doc/template.doc", OpenModeType.docNormalEdit, "å¼ ä¸‰");	
 
 %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
-    <title>js ºÏ²¢WordÖĞµÄµ¥Ôª¸ñ</title>
+    <title>js åˆå¹¶Wordä¸­çš„å•å…ƒæ ¼</title>
 
     <script type="text/javascript">
-//        // ÏòÓÒºÏ²¢Ò»¸öµ¥Ôª¸ñ
+//        // å‘å³åˆå¹¶ä¸€ä¸ªå•å…ƒæ ¼
 //        function mergeCellRight() {
 //            var docObj = document.getElementById("PageOfficeCtrl1").Document;
-//            docObj.Tables(1).Cell(1, 1).Select();   // Ñ¡Ôñµ¥Ôª¸ñ£¨1£¬1£©
-//            docObj.Application.Selection.MoveRight(1, 1, 1); // ÏòÓÒÑ¡ÔñÒ»¸öµ¥Ôª¸ñ
-//            docObj.Application.Selection.Cells.Merge(); // ºÏ²¢
+//            docObj.Tables(1).Cell(1, 1).Select();   // é€‰æ‹©å•å…ƒæ ¼ï¼ˆ1ï¼Œ1ï¼‰
+//            docObj.Application.Selection.MoveRight(1, 1, 1); // å‘å³é€‰æ‹©ä¸€ä¸ªå•å…ƒæ ¼
+//            docObj.Application.Selection.Cells.Merge(); // åˆå¹¶
 //        }
 //        
-//        // ÏòÏÂºÏ²¢Ò»¸öµ¥Ôª¸ñ
+//        // å‘ä¸‹åˆå¹¶ä¸€ä¸ªå•å…ƒæ ¼
 //        function mergeCellDown() {
 //            var docObj = document.getElementById("PageOfficeCtrl1").Document;
-//            docObj.Tables(1).Cell(2, 2).Select();   // Ñ¡Ôñµ¥Ôª¸ñ£¨2£¬2£©
-//            docObj.Application.Selection.MoveDown(5, 1, 1); // ÏòÏÂÒÆ¶¯1¸öµ¥Ôª¸ñ
-//            docObj.Application.Selection.Cells.Merge(); // ºÏ²¢
+//            docObj.Tables(1).Cell(2, 2).Select();   // é€‰æ‹©å•å…ƒæ ¼ï¼ˆ2ï¼Œ2ï¼‰
+//            docObj.Application.Selection.MoveDown(5, 1, 1); // å‘ä¸‹ç§»åŠ¨1ä¸ªå•å…ƒæ ¼
+//            docObj.Application.Selection.Cells.Merge(); // åˆå¹¶
 //        }
 
-        // ÏòÓÒºÏ²¢Ò»¸öµ¥Ôª¸ñ
+        // å‘å³åˆå¹¶ä¸€ä¸ªå•å…ƒæ ¼
         function mergeCellRight() {
             var mac = "Function myfunc()" + " \r\n"
-                    + "ActiveDocument.Tables(1).Cell(1, 1).Select " + " \r\n" // Ñ¡Ôñµ¥Ôª¸ñ£¨1£¬1£©
-                    + "Application.Selection.MoveRight 1, 1, 1 " + " \r\n"    // ÏòÓÒÑ¡ÔñÒ»¸öµ¥Ôª¸ñ
-                    + "Application.Selection.Cells.Merge " + " \r\n"          // ºÏ²¢
+                    + "ActiveDocument.Tables(1).Cell(1, 1).Select " + " \r\n" // é€‰æ‹©å•å…ƒæ ¼ï¼ˆ1ï¼Œ1ï¼‰
+                    + "Application.Selection.MoveRight 1, 1, 1 " + " \r\n"    // å‘å³é€‰æ‹©ä¸€ä¸ªå•å…ƒæ ¼
+                    + "Application.Selection.Cells.Merge " + " \r\n"          // åˆå¹¶
                     + "End Function " + " \r\n";
             document.getElementById("PageOfficeCtrl1").RunMacro("myfunc", mac);
         }
 
-        // ÏòÏÂºÏ²¢Ò»¸öµ¥Ôª¸ñ
+        // å‘ä¸‹åˆå¹¶ä¸€ä¸ªå•å…ƒæ ¼
         function mergeCellDown() {
             var mac = "Function myfunc()" + " \r\n"
-                    + "ActiveDocument.Tables(1).Cell(2, 2).Select " + " \r\n"// Ñ¡Ôñµ¥Ôª¸ñ£¨2£¬2£©
-                    + "Application.Selection.MoveDown 5, 1, 1 " + " \r\n"    // ÏòÏÂÒÆ¶¯1¸öµ¥Ôª¸ñ
-                    + "Application.Selection.Cells.Merge " + " \r\n"         // ºÏ²¢
+                    + "ActiveDocument.Tables(1).Cell(2, 2).Select " + " \r\n"// é€‰æ‹©å•å…ƒæ ¼ï¼ˆ2ï¼Œ2ï¼‰
+                    + "Application.Selection.MoveDown 5, 1, 1 " + " \r\n"    // å‘ä¸‹ç§»åŠ¨1ä¸ªå•å…ƒæ ¼
+                    + "Application.Selection.Cells.Merge " + " \r\n"         // åˆå¹¶
                     + "End Function " + " \r\n";
             document.getElementById("PageOfficeCtrl1").RunMacro("myfunc", mac);
         }
@@ -61,15 +59,14 @@
 <body>
     <form id="form1">
     <div style="font-size:12px; line-height:20px; border-bottom:dotted 1px #ccc;border-top:dotted 1px #ccc; padding:5px;">
-    ¹Ø¼ü´úÂë£ºµãÓÒ¼ü£¬Ñ¡Ôñ¡°²é¿´Ô´ÎÄ¼ş¡±£¬¿´jsº¯Êı<span style="background-color:Yellow;">mergeCellRight()ºÍmergeCellDown()</span>
+    å…³é”®ä»£ç ï¼šç‚¹å³é”®ï¼Œé€‰æ‹©â€œæŸ¥çœ‹æºæ–‡ä»¶â€ï¼Œçœ‹jså‡½æ•°<span style="background-color:Yellow;">mergeCellRight()å’ŒmergeCellDown()</span>
     </div>
     <div style=" font-size:small">
-        <input id="Button1" type="button" value="ÏòÓÒºÏ²¢Ò»¸öµ¥Ôª¸ñ" onclick="mergeCellRight()"/>&nbsp;&nbsp;
-        <input id="Button2" type="button" value="ÏòÏÂºÏ²¢Ò»¸öµ¥Ôª¸ñ" onclick="mergeCellDown()" /><br />
+        <input id="Button1" type="button" value="å‘å³åˆå¹¶ä¸€ä¸ªå•å…ƒæ ¼" onclick="mergeCellRight()"/>&nbsp;&nbsp;
+        <input id="Button2" type="button" value="å‘ä¸‹åˆå¹¶ä¸€ä¸ªå•å…ƒæ ¼" onclick="mergeCellDown()" /><br />
     </div>
     <div style="width: 1200px; height: 700px;">
-        <po:PageOfficeCtrl id ="PageOfficeCtrl1">
-        </po:PageOfficeCtrl>
+       	        <%=poCtrl1.getHtmlCode("PageOfficeCtrl1")%>
     </div>
     </form>
 </body>

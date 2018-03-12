@@ -10,7 +10,6 @@ var uploadOptions1 = {
 		$uploadBtn:$("#testcase1 .upload-button"),
 		uploadAction: uploadUrl,
 		uploadType: 'image',  //image or file
-		ctxPath:"",
 		multiple: true,     //是否支持多文件上传。默认为 false。
 		showFileName: true,  //是否显示文件名称
 		showlocalPath: true,  //是否显示文件本地路径 
@@ -25,6 +24,7 @@ var uploadOptions2 = {
 		uploadAction: uploadUrl,
 		uploadType: 'file',
 		multiple: true,
+		showlocalPath:true,
 		parameters:{testcase:2}
 };
 upload.defaultInit(uploadOptions2);

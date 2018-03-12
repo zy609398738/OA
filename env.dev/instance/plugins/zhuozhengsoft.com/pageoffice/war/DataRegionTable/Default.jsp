@@ -1,53 +1,52 @@
-<%@ page language="java" import="java.util.*, java.awt.*" pageEncoding="gb2312"%>
+<%@ page language="java" import="java.util.*, java.awt.*" pageEncoding="utf-8"%>
 <%@page import="com.zhuozhengsoft.pageoffice.*, com.zhuozhengsoft.pageoffice.wordwriter.*"%>
-<%@ taglib uri="http://java.pageoffice.cn" prefix="po"%>
 <%
-//***************************×¿ÕıPageOffice×é¼şµÄÊ¹ÓÃ********************************
+//***************************å“æ­£PageOfficeç»„ä»¶çš„ä½¿ç”¨********************************
         WordDocument doc = new WordDocument();
-        //´ò¿ªÊı¾İÇøÓò
+        //æ‰“å¼€æ•°æ®åŒºåŸŸ
         DataRegion dTable = doc.openDataRegion("PO_table");
-        //ÉèÖÃÊı¾İÇøÓò¿É±à¼­ĞÔ
+        //è®¾ç½®æ•°æ®åŒºåŸŸå¯ç¼–è¾‘æ€§
         dTable.setEditing(true);
 
-        //´ò¿ªÊı¾İÇøÓòÖĞµÄ±í¸ñ£¬OpenTable(index)·½·¨ÖĞµÄindexÎªwordÎÄµµÖĞ±í¸ñµÄÏÂ±ê£¬´Ó1¿ªÊ¼
+        //æ‰“å¼€æ•°æ®åŒºåŸŸä¸­çš„è¡¨æ ¼ï¼ŒOpenTable(index)æ–¹æ³•ä¸­çš„indexä¸ºwordæ–‡æ¡£ä¸­è¡¨æ ¼çš„ä¸‹æ ‡ï¼Œä»1å¼€å§‹
         Table table1 = doc.openDataRegion("PO_Table").openTable(1);
-        //ÉèÖÃ±í¸ñ±ß¿òÑùÊ½
+        //è®¾ç½®è¡¨æ ¼è¾¹æ¡†æ ·å¼
         table1.getBorder().setLineColor(Color.green);
         table1.getBorder().setLineWidth(WdLineWidth.wdLineWidth050pt);
-        // ÉèÖÃ±íÍ·µ¥Ôª¸ñÎÄ±¾¾ÓÖĞ
+        // è®¾ç½®è¡¨å¤´å•å…ƒæ ¼æ–‡æœ¬å±…ä¸­
         table1.openCellRC(1, 2).getParagraphFormat().setAlignment(WdParagraphAlignment.wdAlignParagraphCenter);
         table1.openCellRC(1, 3).getParagraphFormat().setAlignment(WdParagraphAlignment.wdAlignParagraphCenter);
         table1.openCellRC(2, 1).getParagraphFormat().setAlignment(WdParagraphAlignment.wdAlignParagraphCenter);
         table1.openCellRC(3, 1).getParagraphFormat().setAlignment(WdParagraphAlignment.wdAlignParagraphCenter);
 
-        // ¸ø±íÍ·µ¥Ôª¸ñ¸³Öµ
-        table1.openCellRC(1, 2).setValue("²úÆ·1");
-        table1.openCellRC(1, 3).setValue("²úÆ·2");
-        table1.openCellRC(2, 1).setValue("A²¿ÃÅ");
-        table1.openCellRC(3, 1).setValue("B²¿ÃÅ");
+        // ç»™è¡¨å¤´å•å…ƒæ ¼èµ‹å€¼
+        table1.openCellRC(1, 2).setValue("äº§å“1");
+        table1.openCellRC(1, 3).setValue("äº§å“2");
+        table1.openCellRC(2, 1).setValue("Aéƒ¨é—¨");
+        table1.openCellRC(3, 1).setValue("Béƒ¨é—¨");
         
         PageOfficeCtrl poCtrl = new PageOfficeCtrl(request);
         poCtrl.setWriter(doc);
 
-        //Ìí¼Ó×Ô¶¨Òå°´Å¥
-        poCtrl.addCustomToolButton("±£´æ", "Save", 1);
-        poCtrl.addCustomToolButton("È«ÆÁ/»¹Ô­", "IsFullScreen", 4);
+        //æ·»åŠ è‡ªå®šä¹‰æŒ‰é’®
+        poCtrl.addCustomToolButton("ä¿å­˜", "Save", 1);
+        poCtrl.addCustomToolButton("å…¨å±/è¿˜åŸ", "IsFullScreen", 4);
         
-        //ÉèÖÃ·şÎñÆ÷Ò³Ãæ
-        poCtrl.setServerPage(request.getContextPath()+"/poserver.zz"); //´ËĞĞ±ØĞë
-        //ÉèÖÃ±£´æÒ³
+        //è®¾ç½®æœåŠ¡å™¨é¡µé¢
+        poCtrl.setServerPage(request.getContextPath()+"/poserver.zz"); //æ­¤è¡Œå¿…é¡»
+        //è®¾ç½®ä¿å­˜é¡µ
         poCtrl.setSaveDataPage("SaveData.jsp");
-        //ÉèÖÃÎÄµµ´ò¿ª·½Ê½
-        poCtrl.webOpen("doc/test.doc", OpenModeType.docSubmitForm, "ÕÅØıÃû");
-        poCtrl.setTagId("PageOfficeCtrl1");
+        //è®¾ç½®æ–‡æ¡£æ‰“å¼€æ–¹å¼
+        poCtrl.webOpen("doc/test.doc", OpenModeType.docSubmitForm, "å¼ ä½šå");
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
-    <title>Êı¾İÇøÓòÌá½»±í¸ñ</title>
+    <title>æ•°æ®åŒºåŸŸæäº¤è¡¨æ ¼</title>
     <link href="images/csstg.css" rel="stylesheet" type="text/css" />
+
 </head>
 <body>
    
@@ -57,21 +56,20 @@
       
 
             <script type="text/javascript">
-                //±£´æÒ³Ãæ
+                //ä¿å­˜é¡µé¢
                 function Save() {
                     document.getElementById("PageOfficeCtrl1").WebSave();
                 }
 
-                //È«ÆÁ/»¹Ô­
+                //å…¨å±/è¿˜åŸ
                 function IsFullScreen() {
                     document.getElementById("PageOfficeCtrl1").FullScreen = !document.getElementById("PageOfficeCtrl1").FullScreen;
                 }
 
             </script>
 
-            <!--**************   ×¿Õı PageOffice×é¼ş ************************-->
-            <po:PageOfficeCtrl id="PageOfficeCtrl1">
-            </po:PageOfficeCtrl>
+            <!--**************   å“æ­£ PageOfficeç»„ä»¶ ************************-->
+          <%=poCtrl.getHtmlCode("PageOfficeCtrl1")%>
         </div>
     </div>
 

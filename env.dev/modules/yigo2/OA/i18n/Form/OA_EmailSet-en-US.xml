@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+	<oa>
+		<receive_mail_connection_test_success>Receive mail connection test success</receive_mail_connection_test_success>
+		<receive_mail_connection_test_failed>Failed to receive mail connection test, check the configuration</receive_mail_connection_test_failed>
+		<send_mail_connection_test_success>Send mail connection test success</send_mail_connection_test_success>
+		<send_mail_connection_test_failed>Failed to send mail connection test, check the configuration</send_mail_connection_test_failed>
+	</oa>
+	<Opt>
+        <Delete>Delete</Delete>
+        <Cancel>Cancel</Cancel>
+        <Save>Save</Save>
+        <Edit>Edit</Edit>
+        <Close>Close</Close>
+    </Opt>
+    <UI>
+		<OA_EmailSet>MailConfig</OA_EmailSet>
+		<Lab_OperatorID>Operator</Lab_OperatorID>
+        <Lab_BillKey>Billkey</Lab_BillKey>
+        <Lab_ReceiverPort>ReceiveEmail(POP3)</Lab_ReceiverPort>
+        <Lab_Password>Password</Lab_Password>
+        <Lab_BillDate>Form Date</Lab_BillDate>
+        <UserInfo>UserInfo</UserInfo>
+        <Lab_Email>Email</Lab_Email>
+        <Lab_CreateTime>CreateTime</Lab_CreateTime>
+        <Lab_ClusterID>Group</Lab_ClusterID>
+        <EmailServerSet>MailReceiveServer</EmailServerSet>
+        <Lab_ReceiverHost>ReceiveEmailAddress(POP3)</Lab_ReceiverHost>
+        <AutoReceive>AutoReceive</AutoReceive>
+        <Lab_Modifier>Modifier</Lab_Modifier>
+        <SendEmailConnect>SendEmailConnect</SendEmailConnect>
+        <IsDefault>IsDefault</IsDefault>
+        <Lab_NO>Form No.</Lab_NO>
+        <SysTab>System Information</SysTab>
+        <Lab_SenderPort>SendEmail(SMTP)</Lab_SenderPort>
+        <first_head>Basic Information</first_head>
+        <Lab_SenderHost>SendEmailAddress(SMTP)</Lab_SenderHost>
+        <Lab_AutoReceRate>AutoReceiveRate</Lab_AutoReceRate>
+        <Lab_UserName>UserName</Lab_UserName>
+        <Lab_Status>Form Status</Lab_Status>
+        <Lab_Creator>Creator</Lab_Creator>
+        <Lab_ModifyTime>ModifyTime</Lab_ModifyTime>
+        <ReceiverEmailConnect>ReceiveEmailConnect</ReceiverEmailConnect>
+        <ServerPort>ServerPort</ServerPort>
+        <Other>Other</Other>
+    </UI>
+</StringTable>

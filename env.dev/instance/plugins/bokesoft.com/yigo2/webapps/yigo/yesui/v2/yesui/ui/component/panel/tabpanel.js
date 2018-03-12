@@ -1,6 +1,7 @@
 /**
  * TAB页面板
  */
+"use strict";
 YIUI.Panel.TabPanel = YIUI.extend(YIUI.Panel, {
 
     /**
@@ -105,7 +106,10 @@ YIUI.Panel.TabPanel = YIUI.extend(YIUI.Panel, {
 			} else if($li_n.length > 0) {
 				$li_s = $li_n;
 			}
-			if(!$li_s) return;
+			if(!$li_s) {
+                this.selectedTab = null;
+                return;
+            }
 			this.setTabSel($("a", $li_s));
 		}
     },

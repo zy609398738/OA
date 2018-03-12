@@ -37,7 +37,7 @@ YIUI.BPMInplaceToolBar = (function() {
 				}
 			}
 			
-			if(transitTo != -1 && instanceState == YIUI.InstanceState.SIGN) {
+			if(transitTo && transitTo != -1) {
 				var caption = "直送";
 				var action = "StartInstance(\"\",{pattern:{Transit}})";
 				var op = {};

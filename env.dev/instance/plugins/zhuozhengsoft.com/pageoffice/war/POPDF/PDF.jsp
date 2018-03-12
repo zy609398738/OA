@@ -1,45 +1,59 @@
-<%@ page language="java" import="java.util.*" pageEncoding="gb2312"%>
+ï»¿<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@ page import="com.zhuozhengsoft.pageoffice.*, com.zhuozhengsoft.pageoffice.wordwriter.*,java.awt.*"%>
-<%@ taglib uri="http://java.pageoffice.cn" prefix="po" %>
 <%
 
 PDFCtrl poCtrl1 = new PDFCtrl(request);
-poCtrl1.setServerPage(request.getContextPath()+"/poserver.zz"); //´ËÐÐ±ØÐë
+poCtrl1.setServerPage(request.getContextPath()+"/poserver.zz"); //æ­¤è¡Œå¿…é¡»
 
 // Create custom toolbar
-poCtrl1.addCustomToolButton("´òÓ¡", "Print()", 6);
-poCtrl1.addCustomToolButton("Òþ²Ø/ÏÔÊ¾ÊéÇ©", "SetBookmarks()", 0);
+poCtrl1.addCustomToolButton("æ‰“å°", "Print()", 6);
+poCtrl1.addCustomToolButton("éšè—/æ˜¾ç¤ºä¹¦ç­¾", "SetBookmarks()", 0);
 poCtrl1.addCustomToolButton("-", "", 0);
-poCtrl1.addCustomToolButton("Êµ¼Ê´óÐ¡", "SetPageReal()", 16);
-poCtrl1.addCustomToolButton("ÊÊºÏÒ³Ãæ", "SetPageFit()", 17);
-poCtrl1.addCustomToolButton("ÊÊºÏ¿í¶È", "SetPageWidth()", 18);
+poCtrl1.addCustomToolButton("å®žé™…å¤§å°", "SetPageReal()", 16);
+poCtrl1.addCustomToolButton("é€‚åˆé¡µé¢", "SetPageFit()", 17);
+poCtrl1.addCustomToolButton("é€‚åˆå®½åº¦", "SetPageWidth()", 18);
 poCtrl1.addCustomToolButton("-", "", 0);
-poCtrl1.addCustomToolButton("Ê×Ò³", "FirstPage()", 8);
-poCtrl1.addCustomToolButton("ÉÏÒ»Ò³", "PreviousPage()", 9);
-poCtrl1.addCustomToolButton("ÏÂÒ»Ò³", "NextPage()", 10);
-poCtrl1.addCustomToolButton("Î²Ò³", "LastPage()", 11);
+poCtrl1.addCustomToolButton("é¦–é¡µ", "FirstPage()", 8);
+poCtrl1.addCustomToolButton("ä¸Šä¸€é¡µ", "PreviousPage()", 9);
+poCtrl1.addCustomToolButton("ä¸‹ä¸€é¡µ", "NextPage()", 10);
+poCtrl1.addCustomToolButton("å°¾é¡µ", "LastPage()", 11);
 poCtrl1.addCustomToolButton("-", "", 0);
-
 poCtrl1.webOpen("doc/test.pdf");
-poCtrl1.setTagId("PDFCtrl1"); //´ËÐÐ±ØÐë
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
-  <head>
-    <title>ÔÚÏß´ò¿ªPDFÎÄ¼þ</title>
-	<meta http-equiv="pragma" content="no-cache">
-	<meta http-equiv="cache-control" content="no-cache">
-	<meta http-equiv="expires" content="0">    
-	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
-	<meta http-equiv="description" content="This is my page">
-	<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
-  </head>
-  
-  <body>
-  <!--**************   ×¿Õý PageOffice ¿Í»§¶Ë´úÂë¿ªÊ¼    ************************-->
+ <head>
+
+ <style>
+#main{
+	width:1030px;
+	height:900px;
+	border:#83b3d9 2px solid;
+	background:#f2f7fb;
+	
+}
+#shut{
+	width:45px;
+	height:30px;
+	float:right;
+	margin-right:-1px;
+}
+#shut:hover{
+	}
+</style>
+</head>
+<body style="overflow:hidden" >
+
+      
+    
+       <script type="text/javascript">
+           function Close() {
+               window.external.close();
+        }
+
+	</script>
+	<!--**************   å“æ­£ PageOffice å®¢æˆ·ç«¯ä»£ç å¼€å§‹    ************************-->
 	<script language="javascript" type="text/javascript">
 	    function AfterDocumentOpened() {
 	        //alert(document.getElementById("PDFCtrl1").Caption);
@@ -48,7 +62,7 @@ poCtrl1.setTagId("PDFCtrl1"); //´ËÐÐ±ØÐë
 	        document.getElementById("PDFCtrl1").BookmarksVisible = !document.getElementById("PDFCtrl1").BookmarksVisible;
 	    }
 	    
-	    function Print() {
+	    function PrintFile() {
 	        document.getElementById("PDFCtrl1").ShowDialog(4);
 	    }
 	    function SwitchFullScreen() {
@@ -88,9 +102,13 @@ poCtrl1.setTagId("PDFCtrl1"); //´ËÐÐ±ØÐë
 	        document.getElementById("PDFCtrl1").RotateLeft();
 	    }
 	</script>
-    <!--**************   ×¿Õý PageOffice ¿Í»§¶Ë´úÂë½áÊø    ************************-->
-  <div style="width:auto; height:600px;">
-      <po:PDFCtrl id="PDFCtrl1" />
-  </div>
+
+   
+<div id="main">
+
+<div id="content"  style="height:850px;width:1028px;overflow-y:auto;">
+<%=poCtrl1.getHtmlCode("PDFCtrl1")%>
+</div>
+</div> 
   </body>
 </html>

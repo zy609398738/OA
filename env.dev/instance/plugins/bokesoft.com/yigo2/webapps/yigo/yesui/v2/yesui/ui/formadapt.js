@@ -28,52 +28,52 @@
 
                 var _this = this;
 
-                var loadComp = function (array, parentCom) {
-                	if(parentCom.ofFormID > 0) return;
-                    parentCom.ofFormID = _this.formID;
-                    parentCom.id = parentCom.ofFormID + "_" + parentCom.key;
-                    if (parentCom.type == YIUI.CONTROLTYPE.LISTVIEW) {
-                        _this.loadListViewMap(parentCom);
-                        YIUI.GridLookupUtil.buildCellLookup(_this.form,parentCom);
-                    } else if (parentCom.type == YIUI.CONTROLTYPE.GRID) {
-                        _this.loadGridMap(parentCom);
-                        YIUI.GridLookupUtil.buildCellLookup(_this.form,parentCom);
-                    } else if (parentCom.type == YIUI.CONTROLTYPE.RADIOBUTTON) {
-                        _this.radioMap[parentCom.groupKey] = _this.radioMap[parentCom.groupKey] || [];
-                        _this.radioMap[parentCom.groupKey].push(parentCom);
-                    } else if ( parentCom.type == YIUI.CONTROLTYPE.CONTAINER ) {
-                        if( parentCom.mergeOperation ) {
-                            _this.form.mergeOptContainer = parentCom.key;
+                var loadComp = function (array, com) {
+                	if(com.ofFormID > 0) return;
+                    com.ofFormID = _this.formID;
+                    com.id = com.ofFormID + "_" + com.key;
+                    if (com.type == YIUI.CONTROLTYPE.LISTVIEW) {
+                        _this.loadListViewMap(com);
+                        YIUI.GridLookupUtil.buildCellLookup(_this.form,com);
+                    } else if (com.type == YIUI.CONTROLTYPE.GRID) {
+                        _this.loadGridMap(com);
+                        YIUI.GridLookupUtil.buildCellLookup(_this.form,com);
+                    } else if (com.type == YIUI.CONTROLTYPE.RADIOBUTTON) {
+                        _this.radioMap[com.groupKey] = _this.radioMap[com.groupKey] || [];
+                        _this.radioMap[com.groupKey].push(com);
+                    } else if ( com.type == YIUI.CONTROLTYPE.CONTAINER ) {
+                        if( com.mergeOperation ) {
+                            _this.form.mergeOptContainer = com.key;
                         }
-                        if( parentCom.isDefault ) {
-                            _this.form.defCtKey = parentCom.key;
+                        if( com.isDefault ) {
+                            _this.form.defCtKey = com.key;
                         }
                     }
-                    if (parentCom.items && (parentCom instanceof YIUI.Panel)) {
-                        _this.panelMap[parentCom.key] = parentCom;
-                        for (var i = 0; i < parentCom.items.length; i++) {
-                            loadComp(array, parentCom.items[i]);
+                    if (com.items && (com instanceof YIUI.Panel)) {
+                        _this.panelMap[com.key] = com;
+                        for (var i = 0; i < com.items.length; i++) {
+                            loadComp(array, com.items[i]);
                         }
                     } else {
-                        if (parentCom.type == YIUI.CONTROLTYPE.TOOLBAR) {
-                            if(parentCom.isDefault) {
-                                _this.form.defaultToolBar = parentCom;
-                                _this.loadOptMap(_this.optMap, _this.form.operations, parentCom.key);
+                        if (com.type == YIUI.CONTROLTYPE.TOOLBAR) {
+                            if(com.isDefault) {
+                                _this.form.defaultToolBar = com;
+                                _this.loadOptMap(_this.optMap, _this.form.operations, com.key);
                            }
                         }
                     }
-                    array[parentCom.key] = parentCom;
-                    parentCom.setFocusManager(_this.focusManager);
-                    if( parentCom.receiveFocus ) {
-                        if( $.isNumeric(parentCom.tabOrder) && parentCom.tabOrder != -1 ) {
-                            _this.orderList.push(parentCom); // tabOrder不为-1的
+                    array[com.key] = com;
+                    com.setFocusManager(_this.focusManager);
+                    if( com.receiveFocus ) {
+                        if( $.isNumeric(com.tabOrder) && com.tabOrder != -1 ) {
+                            _this.orderList.push(com); // tabOrder不为-1的
                         } else {
-                            _this.unOrderList.push(parentCom);// tabOrder为-1的
+                            _this.unOrderList.push(com);// tabOrder为-1的
                         }
                     }
-                    _this.metaComps[parentCom.key] = parentCom.getMetaObj();
-                    var cellKey = parentCom.bindingCellKey;
-                    var p_gridKey = parentCom.parentGridKey;
+                    _this.metaComps[com.key] = com.getMetaObj();
+                    var cellKey = com.bindingCellKey;
+                    var p_gridKey = com.parentGridKey;
                     if (cellKey != null && p_gridKey != null) {
                         var gridMap = _this.cellSubDtlCompMap[p_gridKey];
                         if (gridMap == null) {
@@ -83,7 +83,7 @@
                         if (gridMap[cellKey] == null) {
                             gridMap[cellKey] = [];
                         }
-                        gridMap[cellKey].push(parentCom);
+                        gridMap[cellKey].push(com);
                     }
                 }
                 loadComp(_this.compList, _this.rootPanel);
@@ -179,39 +179,38 @@
             },
 
             setCompValue: function (key, value, fireEvent) {
-                if (this.getComp(key) == undefined) {
+                var com = this.getComp(key);
+                if ( !com  ) {
                     YIUI.ViewException.throwException(YIUI.ViewException.NO_COMPONENT_KEY, key);
                 }
-                this.getComp(key).setValue(value, true, fireEvent);
+                com.setValue(value, true, fireEvent);
             },
             setCellValByIndex: function (key, rowIndex, colIndex, value, fireEvent) {
                 var comp = this.getComp(key);
                 var type = comp == undefined ? -1 : comp.type;
                 switch (type) {
-                    case YIUI.CONTROLTYPE.LISTVIEW:
-                        comp.setValByIndex(rowIndex, colIndex, value, true, fireEvent);
-                        break;
-                    case YIUI.CONTROLTYPE.GRID:
-                        if (comp.getRowDataAt(rowIndex).isDetail) {
-                            comp.setValueAt(rowIndex, colIndex, value, true, fireEvent);
-                        }
-                        break;
-                    default:
-                        YIUI.ViewException.throwException(YIUI.ViewException.NO_CELL_CANNOT_SET_VALUE);
+                case YIUI.CONTROLTYPE.LISTVIEW:
+                    comp.setValByIndex(rowIndex, colIndex, value, fireEvent);
+                    break;
+                case YIUI.CONTROLTYPE.GRID:
+                    comp.setValueAt(rowIndex, colIndex, value, true, fireEvent);
+                    break;
+                default:
+                    YIUI.ViewException.throwException(YIUI.ViewException.NO_CELL_CANNOT_SET_VALUE);
                 }
             },
             getCellValByIndex: function (key, rowIndex, colIndex) {
                 var comp = this.getComp(key);
                 var type = comp == undefined ? -1 : comp.type, value;
                 switch (type) {
-                    case YIUI.CONTROLTYPE.LISTVIEW:
-                        value = comp.getValue(rowIndex, colIndex);
-                        break;
-                    case YIUI.CONTROLTYPE.GRID:
-                        value = comp.getValueAt(rowIndex, colIndex);
-                        break;
-                    default:
-                        YIUI.ViewException.throwException(YIUI.ViewException.CANNNOT_GET_NO_CELL_VALUE);
+                case YIUI.CONTROLTYPE.LISTVIEW:
+                    value = comp.getValue(rowIndex, colIndex);
+                    break;
+                case YIUI.CONTROLTYPE.GRID:
+                    value = comp.getValueAt(rowIndex, colIndex);
+                    break;
+                default:
+                    YIUI.ViewException.throwException(YIUI.ViewException.CANNNOT_GET_NO_CELL_VALUE);
                 }
                 return value;
             },
@@ -219,16 +218,14 @@
                 var comp = this.getComp(key);
                 var type = comp == undefined ? -1 : comp.type;
                 switch (type) {
-                    case YIUI.CONTROLTYPE.LISTVIEW:
-                        comp.setValByKey(rowIndex, colKey, value, true, fireEvent);
-                        break;
-                    case YIUI.CONTROLTYPE.GRID:
-                        if (rowIndex != -1 && comp.getRowDataAt(rowIndex).isDetail) {
-                            comp.setValueByKey(rowIndex, colKey, value, true, fireEvent);
-                        }
-                        break;
-                    default:
-                        YIUI.ViewException.throwException(YIUI.ViewException.NO_CELL_CANNOT_SET_VALUE);
+                case YIUI.CONTROLTYPE.LISTVIEW:
+                    comp.setValByKey(rowIndex, colKey, value, fireEvent);
+                    break;
+                case YIUI.CONTROLTYPE.GRID:
+                    comp.setValueByKey(rowIndex, colKey, value, true, fireEvent);
+                    break;
+                default:
+                    YIUI.ViewException.throwException(YIUI.ViewException.NO_CELL_CANNOT_SET_VALUE);
                 }
             },
             getCellValByKey: function (key, rowIndex, colKey) {

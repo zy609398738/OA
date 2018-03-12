@@ -1,0 +1,10 @@
+{
+  "id": "ff8080815fc89bdf015fc8be32890025",
+  "startIndex": "",
+  "autoRun": "true",
+  "changePort": "",
+  "responseTime": "600000",
+  "description": "实时调用中兴商旅查看机票服务",
+  "text": "TradeCaravan_FindTicketByBillSrv",
+  "oldPort": ""
+}

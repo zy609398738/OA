@@ -104,7 +104,7 @@ var YIUI = YIUI || {};
                     return;
                 }
                 if( editOpt.isRequired ) {
-                    com.setCellRequired(loc.row, index, com.isNullValue(cellData[0]));
+                    com.setCellRequired(loc.row, index, com.isNullValue(editOpt.editOptions,cellData[0]));
                 }
                 if( item.content ) {
                     var result = this.calcCheckRule(item,this.newContext(this.form,-1,-1));
@@ -143,19 +143,7 @@ var YIUI = YIUI || {};
                         grid.setCellError(grid.getFocusRowIndex(),location.column,com.isError(),com.getErrorMsg());
                     }
                 }
-                // 组件的错误优先显示
-                if( !com.isVisible() && (com.isError() || com.isRequired()) ) {
-                    if( com.isError() ) {
-                        this.form.setError(true,com.getErrorMsg(),com.key);
-                    }
-                    if( com.isRequired() ) {
-                        this.form.setError(true,com.caption + " is Required",com.key);
-                    }
-                } else {
-                    if( this.form.isError() && this.form.errorInfo.errorSource == com.key ){
-                        this.form.setError(false,null,null);
-                    }
-                }
+                this.moveError(com);
             }
         },
 
@@ -185,7 +173,7 @@ var YIUI = YIUI || {};
                     return;
                 }
                 if( editOpt.isRequired ) {
-                    grid.setCellRequired(rowIndex, idx, grid.isNullValue(cellData[0]));
+                    grid.setCellRequired(rowIndex, idx, grid.isNullValue(editOpt.editOptions,cellData[0]));
                 }
                 if( item.content ) {
                     var result = _this.calcCheckRule(item,cxt);
@@ -285,13 +273,15 @@ var YIUI = YIUI || {};
         },
 
         reCalcComponent:function (com) {
-            var items = this.checkRuleTree.items;
-            for( var i = 0,item;item = items[i];i++ ) {
+            var items = this.checkRuleTree.items,
+                item;
+            for( var i = 0;item = items[i];i++ ) {
                 if( item.source !== com.key )
                     continue;
 
                this.calcExprItemObject(com,item);
             }
+
             if( com.type == YIUI.CONTROLTYPE.GRID ) {
                 var context = this.newContext(this.form,-1,-1);
                 for( var i = 0,size = com.getRowCount();i < size;i++ ){
@@ -305,6 +295,7 @@ var YIUI = YIUI || {};
         valueChanged:function (com) {
             if( com.getMetaObj().required ) {
                 com.setRequired(com.isNull());
+                this.moveError(com);
             }
 
             this.impl_valueChanged(com,com.key);
@@ -320,29 +311,30 @@ var YIUI = YIUI || {};
             this.checkGlobal();
         },
 
-        impl_valueChanged:function (component,key) {
-            var affectItems = this.checkRuleTree.affectItems,items;
-            for( var i = 0,size = affectItems.length;i < size;i++ ) {
-                if( affectItems[i].key === key ){
-                    items = affectItems[i];
-                    break;
-                }
-            }
+        impl_valueChanged:function (comp,key) {
+            var items = this.checkRuleTree.affectItems[key];
+
             if( !items )
                 return;
-            for( var i = 0,exp,com;exp = items.expItems[i];i++ ) {
-                com = this.form.getComponent(exp.source);
-                if( !com ) continue;
-                switch (exp.type) {
+
+            var item,
+                com;
+
+            for( var i = 0;item = items[i];i++ ) {
+                com = this.form.getComponent(item.source);
+                if( !com )
+                    continue;
+
+                switch (item.type) {
                 case YIUI.ExprItem_Type.Item:
-                    this.checkHead(com,exp,true);
+                    this.checkHead(com,item,true);
                     break;
                 case YIUI.ExprItem_Type.Set:
-                    if( YIUI.SubDetailUtil.isSubDetail(this.form,component,com.key) ) {
+                    if( YIUI.SubDetailUtil.isSubDetail(this.form,comp,com.key) ) {
                         var context = this.newContext(this.form,com.getFocusRowIndex(),-1);
-                        this.checkGridRowCell(com,context,com.getFocusRowIndex(),null,this.initTree(exp),true);
+                        this.checkGridRowCell(com,context,com.getFocusRowIndex(),null,this.initTree(item),true);
                     } else {
-                        this.checkGrid(com,this.initTree(exp),true);
+                        this.checkGrid(com,this.initTree(item),true);
                     }
                     break;
                 default:
@@ -355,34 +347,35 @@ var YIUI = YIUI || {};
             var rowData = grid.getRowDataAt(rowIndex);
             if (rowData.rowType !== "Detail" && rowData.rowType !== "Fix")
                 return;
-            var rowData = grid.getRowDataAt(rowIndex),
-                cellKey = rowData.cellKeys[colIndex],
-                editOpt = grid.getCellEditOpt(cellKey),
-                cellData = grid.getCellDataAt(rowIndex, colIndex);
+
+            var cellKey = rowData.cellKeys[colIndex],
+                editOpt = grid.getCellEditOpt(cellKey);
+
             if (editOpt.isRequired) {
-                grid.setCellRequired(rowIndex, colIndex, grid.isNullValue(cellData[0]));
+                var cellData = grid.getCellDataAt(rowIndex, colIndex);
+                grid.setCellRequired(rowIndex, colIndex, grid.isNullValue(editOpt.editOptions,cellData[0]));
             }
-            var affectItems = this.checkRuleTree.affectItems,items;
-            for (var i = 0, size = affectItems.length; i < size; i++) {
-                if (affectItems[i].key === cellKey) {
-                    items = affectItems[i];
-                    break;
-                }
-            }
-            var context = this.newContext(this.form,rowIndex,-1);
+
+            var items = this.checkRuleTree.affectItems[cellKey],
+                context = this.newContext(this.form,rowIndex,-1),
+                com,
+                item;
+
             if ( items ) {
-                for (var i = 0,exp,com;exp = items.expItems[i];i++) {
-                    com = this.form.getComponent(exp.source);
-                    if( !com ) continue;
-                    switch (exp.objectType) {
+                for (var i = 0;item = items[i];i++) {
+                    com = this.form.getComponent(item.source);
+                    if( !com )
+                        continue;
+
+                    switch (item.objectType) {
                     case YIUI.ExprItem_Type.Item:
-                        this.checkHead(com, exp, true);
+                        this.checkHead(com, item, true);
                         break;
                     case YIUI.ExprItem_Type.Set:
                         if( rowData.isDetail && com.key == grid.key ) {
-                            this.checkGridRowCell(com,context,rowIndex,{specialLoc:colIndex,specialKey:cellKey},exp,true);
+                            this.checkGridRowCell(com,context,rowIndex,{specialLoc:colIndex,specialKey:cellKey},item,true);
                         } else {
-                            this.checkGrid(com, this.initTree(exp), true);
+                            this.checkGrid(com, this.initTree(item), true);
                         }
                         break;
                     default:

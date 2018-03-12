@@ -1,49 +1,47 @@
-<%@ page language="java" import="java.util.*" pageEncoding="gb2312"%>
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@page import="com.zhuozhengsoft.pageoffice.PDFCtrl"%>
 <%@page import="com.zhuozhengsoft.pageoffice.ThemeType"%>
-<%@ taglib uri="http://java.pageoffice.cn" prefix="po"%>
 <%
-	// °´¼üËµÃ÷£º¹â±ê¼ü¡¢Home¡¢End¡¢PageUp¡¢PageDown¿ÉÓÃÀ´ÒÆ¶¯»ò·­Ò³£»Êý×Ö¼üÅÌ+¡¢-ÓÃÀ´·Å´óËõÐ¡£»Êý×Ö¼üÅÌ/¡¢*ÓÃÀ´Ðý×ªÒ³Ãæ¡£
+	// æŒ‰é”®è¯´æ˜Žï¼šå…‰æ ‡é”®ã€Homeã€Endã€PageUpã€PageDownå¯ç”¨æ¥ç§»åŠ¨æˆ–ç¿»é¡µï¼›æ•°å­—é”®ç›˜+ã€-ç”¨æ¥æ”¾å¤§ç¼©å°ï¼›æ•°å­—é”®ç›˜/ã€*ç”¨æ¥æ—‹è½¬é¡µé¢ã€‚
 
-	PDFCtrl pdfCtrl = new PDFCtrl(request);//¶¨ÒåPDFCtrl¿Ø¼þ¶ÔÏó
-	pdfCtrl.setServerPage(request.getContextPath()+"/poserver.zz"); //ÉèÖÃ·þÎñÆ÷Ò³Ãæ
-	pdfCtrl.setTheme(ThemeType.CustomStyle);//ÉèÖÃÖ÷ÌâÑùÊ½
+	PDFCtrl pdfCtrl = new PDFCtrl(request);//å®šä¹‰PDFCtrlæŽ§ä»¶å¯¹è±¡
+	pdfCtrl.setServerPage(request.getContextPath()+"/poserver.zz"); //è®¾ç½®æœåŠ¡å™¨é¡µé¢
+	pdfCtrl.setTheme(ThemeType.CustomStyle);//è®¾ç½®ä¸»é¢˜æ ·å¼
 
-	//Ìí¼Ó×Ô¶¨Òå°´Å¥
-	pdfCtrl.addCustomToolButton("´òÓ¡", "Print()", 6);
+	//æ·»åŠ è‡ªå®šä¹‰æŒ‰é’®
+	pdfCtrl.addCustomToolButton("æ‰“å°", "Print()", 6);
 	pdfCtrl.addCustomToolButton("-", "", 0);
-	pdfCtrl.addCustomToolButton("Êµ¼Ê´óÐ¡", "SetPageReal()", 16);
-	pdfCtrl.addCustomToolButton("ÊÊºÏÒ³Ãæ", "SetPageFit()", 17);
-	pdfCtrl.addCustomToolButton("ÊÊºÏ¿í¶È", "SetPageWidth()", 18);
+	pdfCtrl.addCustomToolButton("å®žé™…å¤§å°", "SetPageReal()", 16);
+	pdfCtrl.addCustomToolButton("é€‚åˆé¡µé¢", "SetPageFit()", 17);
+	pdfCtrl.addCustomToolButton("é€‚åˆå®½åº¦", "SetPageWidth()", 18);
 	pdfCtrl.addCustomToolButton("-", "", 0);
-	pdfCtrl.addCustomToolButton("Ê×Ò³", "FirstPage()", 8);
-	pdfCtrl.addCustomToolButton("ÉÏÒ»Ò³", "PreviousPage()", 9);
-	pdfCtrl.addCustomToolButton("ÏÂÒ»Ò³", "NextPage()", 10);
-	pdfCtrl.addCustomToolButton("Î²Ò³", "LastPage()", 11);
+	pdfCtrl.addCustomToolButton("é¦–é¡µ", "FirstPage()", 8);
+	pdfCtrl.addCustomToolButton("ä¸Šä¸€é¡µ", "PreviousPage()", 9);
+	pdfCtrl.addCustomToolButton("ä¸‹ä¸€é¡µ", "NextPage()", 10);
+	pdfCtrl.addCustomToolButton("å°¾é¡µ", "LastPage()", 11);
 	pdfCtrl.addCustomToolButton("-", "", 0);
-	pdfCtrl.addCustomToolButton("×ó×ª", "RotateLeft()", 12);
-	pdfCtrl.addCustomToolButton("ÓÒ×ª", "RotateRight()", 13);
+	pdfCtrl.addCustomToolButton("å·¦è½¬", "RotateLeft()", 12);
+	pdfCtrl.addCustomToolButton("å³è½¬", "RotateRight()", 13);
 	pdfCtrl.addCustomToolButton("-", "", 0);
-	pdfCtrl.addCustomToolButton("·Å´ó", "ZoomIn()", 14);
-	pdfCtrl.addCustomToolButton("ËõÐ¡", "ZoomOut()", 15);
+	pdfCtrl.addCustomToolButton("æ”¾å¤§", "ZoomIn()", 14);
+	pdfCtrl.addCustomToolButton("ç¼©å°", "ZoomOut()", 15);
 	pdfCtrl.addCustomToolButton("-", "", 0);
-	pdfCtrl.addCustomToolButton("È«ÆÁ", "SwitchFullScreen()", 4);
-	//ÉèÖÃ½ûÖ¹¿½±´
+	pdfCtrl.addCustomToolButton("å…¨å±", "SwitchFullScreen()", 4);
+	//è®¾ç½®ç¦æ­¢æ‹·è´
 	pdfCtrl.setAllowCopy(false);
 
-	String fileName = request.getParameter("fileName");//¶¨ÒåÎÄ¼þÃû³Æ
-	pdfCtrl.webOpen("doc/" + fileName);//´ò¿ªÎÄ¼þ
-	pdfCtrl.setTagId("PDFCtrl1");//´ËÐÐ±ØÐë
+	String fileName = request.getParameter("fileName");//å®šä¹‰æ–‡ä»¶åç§°
+	pdfCtrl.webOpen("doc/" + fileName);//æ‰“å¼€æ–‡ä»¶
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 	<head>
-		<title>´ò¿ªPDFÎÄ¼þ</title>
-		<!--**************   ×¿Õý PageOffice ¿Í»§¶Ë´úÂë¿ªÊ¼    ************************-->
+		<title>æ‰“å¼€PDFæ–‡ä»¶</title>
+		<!--**************   å“æ­£ PageOffice å®¢æˆ·ç«¯ä»£ç å¼€å§‹    ************************-->
 		<script language="javascript" type="text/javascript">
 	function Print() {
-		//alert(document.getElementById("PDFCtrl1").Caption);//ÏÔÊ¾±êÌâ
+		//alert(document.getElementById("PDFCtrl1").Caption);//æ˜¾ç¤ºæ ‡é¢˜
 		document.getElementById("PDFCtrl1").ShowDialog(4);
 	}
 	function SwitchFullScreen() {
@@ -84,13 +82,13 @@
 		document.getElementById("PDFCtrl1").RotateLeft();
 	}
 </script>
-		<!--**************   ×¿Õý PageOffice ¿Í»§¶Ë´úÂë½áÊø    ************************-->
+
+		
 	</head>
 	<body>
 		<form id="form1">
 			<div style="width: auto; height: 700px;">
-				<po:PDFCtrl id="PDFCtrl1">
-				</po:PDFCtrl>
+				        <%=pdfCtrl.getHtmlCode("PDFCtrl1")%>
 			</div>
 		</form>
 	</body>

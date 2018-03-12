@@ -1,25 +1,25 @@
 <%@ page language="java"
 	import="java.util.*,com.zhuozhengsoft.pageoffice.*,com.zhuozhengsoft.pageoffice.excelwriter.*"
-	pageEncoding="gb2312"%>
-<%@ taglib uri="http://java.pageoffice.cn" prefix="po"%>
+	pageEncoding="utf-8"%>
 <%
 PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
-//ÉèÖÃ·þÎñÆ÷Ò³Ãæ
+//è®¾ç½®æœåŠ¡å™¨é¡µé¢
 poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");
-//Ìí¼Ó×Ô¶¨Òå°´Å¥
-poCtrl.addCustomToolButton("±£´æ","Save",1);
-//ÉèÖÃ±£´æÒ³Ãæ
+//æ·»åŠ è‡ªå®šä¹‰æŒ‰é’®
+poCtrl.addCustomToolButton("ä¿å­˜","Save",1);
+//è®¾ç½®ä¿å­˜é¡µé¢
 //poCtrl.setSaveFilePage("SaveFile.jsp");
-//´ò¿ªExcelÎÄµµ
-poCtrl.webOpen("doc/test.xls",OpenModeType.xlsNormalEdit,"ÕÅØýÃû");
-poCtrl.setTagId("PageOfficeCtrl1");//´ËÐÐ±ØÐè
+//æ‰“å¼€Excelæ–‡æ¡£
+poCtrl.webOpen("doc/test.xls",OpenModeType.xlsNormalEdit,"å¼ ä½šå");
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>js»ñÈ¡ºÍÉèÖÃExcelÎÄ¼þÖÐµ¥Ôª¸ñµÄÖµ</title>
+    <title>jsèŽ·å–å’Œè®¾ç½®Excelæ–‡ä»¶ä¸­å•å…ƒæ ¼çš„å€¼</title>
+
+      
 </head>
 <body>
     <script type="text/javascript">
@@ -43,17 +43,16 @@ poCtrl.setTagId("PageOfficeCtrl1");//´ËÐÐ±ØÐè
         }
     </script>
     <div style="font-size:12px; line-height:20px; border-bottom:dotted 1px #ccc;border-top:dotted 1px #ccc; padding:5px;">
-     <span style="color:red;">²Ù×÷ËµÃ÷£º</span>Çëµã»÷°´Å¥¡£
-        <input id="Button1" type="button" value="»ñÈ¡Sheet1ÖÐB4µ¥Ôª¸ñµÄÖµ" onclick="return Button1_onclick()" />
-        <input id="Button2" type="button" value="ÉèÖÃSheet1ÖÐC4µ¥Ôª¸ñµÄÖµÎª£º100" onclick="return Button2_onclick()" />
+     <span style="color:red;">æ“ä½œè¯´æ˜Žï¼š</span>è¯·ç‚¹å‡»æŒ‰é’®ã€‚
+        <input id="Button1" type="button" value="èŽ·å–Sheet1ä¸­B4å•å…ƒæ ¼çš„å€¼" onclick="return Button1_onclick()" />
+        <input id="Button2" type="button" value="è®¾ç½®Sheet1ä¸­C4å•å…ƒæ ¼çš„å€¼ä¸ºï¼š100" onclick="return Button2_onclick()" />
      <br />
    
-    ¹Ø¼ü´úÂë£ºµãÓÒ¼ü£¬Ñ¡Ôñ¡°²é¿´Ô´ÎÄ¼þ¡±£¬¿´jsº¯Êý<span style="background-color:Yellow;">getCellValue(sheet, cell)&nbsp;&nbsp; setCellValue(sheet, cell, value)</span></div><br />
+    å…³é”®ä»£ç ï¼šç‚¹å³é”®ï¼Œé€‰æ‹©â€œæŸ¥çœ‹æºæ–‡ä»¶â€ï¼Œçœ‹jså‡½æ•°<span style="background-color:Yellow;">getCellValue(sheet, cell)&nbsp;&nbsp; setCellValue(sheet, cell, value)</span></div><br />
     
     <form id="form1">
     <div style=" width:100%; height:700px;">
-        <po:PageOfficeCtrl id="PageOfficeCtrl1">
-        </po:PageOfficeCtrl>
+       <%=poCtrl.getHtmlCode("PageOfficeCtrl1")%>
     </div>
     </form>
 </body>

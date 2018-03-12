@@ -1,6 +1,6 @@
 <%@ page language="java"
 	import="java.util.*,java.sql.*,com.zhuozhengsoft.pageoffice.*"
-	pageEncoding="gb2312"%>
+	pageEncoding="utf-8"%>
 <%
 	FileSaver fs = new FileSaver(request, response);
 	fs.saveToFile(request.getSession().getServletContext().getRealPath("SendParameters/doc") + "/" + fs.getFileName());
@@ -9,31 +9,31 @@
 	int age = 0;
 	String sex = "";
 
-	//»ñÈ¡Í¨¹ıUrl´«µİ¹ıÀ´µÄÖµ
+	//è·å–é€šè¿‡Urlä¼ é€’è¿‡æ¥çš„å€¼
 	if (request.getParameter("id") != null
 			&& request.getParameter("id").trim().length() > 0)
 		id = Integer.parseInt(request.getParameter("id").trim());
 
-	//»ñÈ¡Í¨¹ıÍøÒ³±êÇ©¿Ø¼ş´«µİ¹ıÀ´µÄ²ÎÊıÖµ£¬×¢Òâfs.getFormField("²ÎÊıÃû")·½·¨ÖĞµÄ²ÎÊıÃûÊÇÖµ±êÇ©µÄ¡°name¡±ÊôĞÔ¶ø²»ÊÇId
+	//è·å–é€šè¿‡ç½‘é¡µæ ‡ç­¾æ§ä»¶ä¼ é€’è¿‡æ¥çš„å‚æ•°å€¼ï¼Œæ³¨æ„fs.getFormField("å‚æ•°å")æ–¹æ³•ä¸­çš„å‚æ•°åæ˜¯å€¼æ ‡ç­¾çš„â€œnameâ€å±æ€§è€Œä¸æ˜¯Id
 
-	//»ñÈ¡Í¨¹ıÎÄ±¾¿ò<input type="text" />±êÇ©´«µİ¹ıÀ´µÄÖµ
+	//è·å–é€šè¿‡æ–‡æœ¬æ¡†<input type="text" />æ ‡ç­¾ä¼ é€’è¿‡æ¥çš„å€¼
 	if (fs.getFormField("userName") != null
 			&& fs.getFormField("userName").trim().length() > 0) {
 		userName = fs.getFormField("userName");
 	}
 
-	//»ñÈ¡Í¨¹ıÒş²ØÓò´«µİ¹ıÀ´µÄÖµ
+	//è·å–é€šè¿‡éšè—åŸŸä¼ é€’è¿‡æ¥çš„å€¼
 	if (fs.getFormField("age") != null
 			&& fs.getFormField("age").trim().length() > 0) {
 		age = Integer.parseInt(fs.getFormField("age"));
 	}
 
-	//»ñÈ¡Í¨¹ı<select>±êÇ©´«µİ¹ıÀ´µÄÖµ
+	//è·å–é€šè¿‡<select>æ ‡ç­¾ä¼ é€’è¿‡æ¥çš„å€¼
 	if (fs.getFormField("selSex") != null
 			&& fs.getFormField("selSex").trim().length() > 0) {
 		sex = fs.getFormField("selSex");
 	}
-	Class.forName("org.sqlite.JDBC");//ÔØÈëÇı¶¯³ÌĞòÀà±ğ
+	Class.forName("org.sqlite.JDBC");//è½½å…¥é©±åŠ¨ç¨‹åºç±»åˆ«
 	String strUrl = "jdbc:sqlite:"
 				+ this.getServletContext().getRealPath("demodata/") + "\\SendParameters.db";
 	Connection conn = DriverManager.getConnection(strUrl);
@@ -66,7 +66,7 @@
 
 	<body>
 <div>
-    ´«µİµÄ²ÎÊıÎª£º<br />
+    ä¼ é€’çš„å‚æ•°ä¸ºï¼š<br />
     id:<%=id %><br />
     userName:<%=userName%><br />
     age:<%=age%><br />

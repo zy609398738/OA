@@ -62,7 +62,7 @@ YIUI.Control.CheckBox = YIUI.extend(YIUI.Control, {
     },
     
     isNull: function() {
-    	return !YIUI.TypeConvertor.toBoolean(this.value);
+    	return YIUI.TypeConvertor.toBoolean(this.value) == false;
     },
 
     onRender: function (ct) {

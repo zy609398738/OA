@@ -9,7 +9,7 @@ YIUI.Component.Gantt = YIUI.extend(YIUI.Component, {
         var form = YIUI.FormStack.getForm(this.ofFormID);
         this.el.addClass("gantt");
 
-        var cxt = new View.Context(form);
+        var ctx = new View.Context(form);
         $.gantt(this.el, ctx, YIUI.Form_OperationState.New == form.getOperationState());
     }
 });

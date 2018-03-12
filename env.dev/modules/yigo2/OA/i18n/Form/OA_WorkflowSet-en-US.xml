@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <UI>
+		<OA_WorkflowSet>ProcessConfig</OA_WorkflowSet>
+	</UI>
+	<ListViewColumn>
+        <WorkflowKey>WorkflowKey</WorkflowKey>
+        <WorkflowState>WorkflowState</WorkflowState>
+        <WorkflowName>WorkflowName</WorkflowName>
+        <Edit>Edit</Edit>
+        <WorkflowVersion>WorkflowVersion</WorkflowVersion>
+    </ListViewColumn>
+</StringTable>

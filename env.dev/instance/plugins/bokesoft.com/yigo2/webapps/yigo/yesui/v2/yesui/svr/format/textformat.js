@@ -30,7 +30,7 @@ YIUI.TextFormat = (function () {
 			     * Boolean。
 			     * 是否去除首尾多余空格。
 			     */
-			    trim: true
+			    trim: false
 
 			};
 			settings = $.extend(def, settings);

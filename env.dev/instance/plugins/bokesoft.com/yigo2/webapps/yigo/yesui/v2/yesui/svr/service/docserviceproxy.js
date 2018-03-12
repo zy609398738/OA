@@ -68,6 +68,11 @@ YIUI.DocService = (function () {
     			params.templateKey = templateKey;
     		}
 
+            var _loadInfo = form.getSysExpVals(YIUI.BPMKeys.LOAD_WORKITEM_INFO);
+    		if( _loadInfo != undefined ) {
+    			params.loadWorkItemInfo = _loadInfo;
+			}
+
             return Svr.Request.getData(params);
         },
 
@@ -103,7 +108,30 @@ YIUI.DocService = (function () {
 
 	        //return Svr.Request.getData(params);
 	        return Svr.Request.getSyncData(Svr.SvrMgr.ServletURL, params);
-	    }
-	}
+	    },
+
+        loadData: function(objectKey, oid, filterMap, condParas, paras) {
+            var params = {
+                cmd: "",
+                service: "LoadData",
+                OID: oid,
+                objectKey: objectKey
+            };
+
+            if(paras) {
+                params.parameters = paras.toJSON();
+			}
+
+            if(filterMap){
+                params.filterMap = $.toJSON(filterMap);
+            }
+
+            if(condParas){
+                params.condition = $.toJSON(condParas);
+            }
+
+            return Svr.Request.getData(params);
+        }
+    }
 	return Return;
 })(); 

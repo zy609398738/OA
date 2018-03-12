@@ -1,18 +1,21 @@
-<%@ page language="java"
+ï»¿<%@ page language="java"
 	import="java.util.*,com.zhuozhengsoft.pageoffice.*"
-	pageEncoding="gb2312"%>
-<%@ taglib uri="http://java.pageoffice.cn" prefix="po"%>
+	pageEncoding="utf-8"%>
 <%
 PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
-//ÉèÖÃ·şÎñÆ÷Ò³Ãæ
+//è®¾ç½®æœåŠ¡å™¨é¡µé¢
 poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");
-//Ìí¼Ó×Ô¶¨Òå°´Å¥
-poCtrl.addCustomToolButton("±£´æ","Save",1);
-//ÉèÖÃ±£´æÒ³Ãæ
+//æ·»åŠ è‡ªå®šä¹‰æŒ‰é’®
+poCtrl.addCustomToolButton("ä¿å­˜","Save",1);
+poCtrl.addCustomToolButton("æ‰“å°è®¾ç½®","PrintSet",0);
+poCtrl.addCustomToolButton("æ‰“å°","PrintFile",6);
+poCtrl.addCustomToolButton("å…¨å±/è¿˜åŸ", "IsFullScreen", 4);
+poCtrl.addCustomToolButton("-", "", 0);
+poCtrl.addCustomToolButton("å…³é—­","Close",21);
+//è®¾ç½®ä¿å­˜é¡µé¢
 poCtrl.setSaveFilePage("SaveFile.jsp");
-//´ò¿ªWordÎÄµµ
-poCtrl.webOpen("doc/test.doc",OpenModeType.docNormalEdit,"ÕÅØıÃû");
-poCtrl.setTagId("PageOfficeCtrl1");//´ËĞĞ±ØĞè
+//æ‰“å¼€Wordæ–‡æ¡£
+poCtrl.webOpen("doc/test.doc",OpenModeType.docNormalEdit,"å¼ ä½šå");
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -20,47 +23,70 @@ poCtrl.setTagId("PageOfficeCtrl1");//´ËĞĞ±ØĞè
 <html>
 <head>
 <meta charset="utf-8">
-<title>XXÎÄµµÏµÍ³</title>
-<link rel="stylesheet" href="css/style.css"  type="text/css">
-<script type="text/javascript">
-document.createElement("section");
-document.createElement("article");
-document.createElement("footer");
-document.createElement("header");
-document.createElement("hgroup");
-document.createElement("nav");
-document.createElement("menu");
-</script>
+<title>XXæ–‡æ¡£ç³»ç»Ÿ</title>
+ <style>
+#main{
+	width:1040px;
+	height:890px;
+	border:#83b3d9 2px solid;
+	background:#f2f7fb;
+	
+}
+#shut{
+	width:45px;
+	height:30px;
+	float:right;
+	margin-right:-1px;
+}
+#shut:hover{
+	}
+</style>
 </head>
-<body>
-    <script type="text/javascript">
-        function Save() {
-            document.getElementById("PageOfficeCtrl1").WebSave();
+<body style="margin:0; padding:0;border:0px; overflow:hidden" scroll="no">
+
+      
+    
+       <script type="text/javascript">
+          function Save() {
+              document.getElementById("PageOfficeCtrl1").WebSave();
         }
-    </script>
- <header>
-   <div class="w12 header">
-   <a class="db logo fl"><img src="images/logo.jpg" width="327" height="94"  alt=""/></a>
-   <div class="fr logofr"><a href="#" class="blk">·µ»ØÊ×Ò³</a> |<a href="#" class="blk">¿Í·şÖĞĞÄ</a><br>
-Èç×¢²áÓöµ½ÎÊÌâÇë²¦´ò£º<strong style="font-size:14px;">400-000-0000</strong></div>
-   </div>
- </header>
- <div class="head_border"></div>
- <section class="w12 login">
- <em class="fr">µ±Ç°ÓÃ»§£ºÕÅÈı </em>
- </section>
- <section class="main w12">
-   <div class="title"><a class="title1 db fl">ÎÄµµÄÚÈİ</a><a class="title2 db fl">ÆäËûĞÅÏ¢</a></div>
-   <div class="fr tit2"><span class="arr"></span></div>
 
-    <div style=" width:auto; height:700px;">
-        <po:PageOfficeCtrl id="PageOfficeCtrl1">
-        </po:PageOfficeCtrl>
-    </div>
+	 function PrintSet() {
+             document.getElementById("PageOfficeCtrl1").ShowDialog(5); 
+        }
+	 function PrintFile() {
+              document.getElementById("PageOfficeCtrl1").ShowDialog(4); 
+        }
+         function Close() {
+               window.external.close();
+        }
+        function IsFullScreen() {
+               document.getElementById("PageOfficeCtrl1").FullScreen = !document.getElementById("PageOfficeCtrl1").FullScreen;
+        }
+        //æ–‡æ¡£å…³é—­å‰å…ˆæç¤ºç”¨æˆ·æ˜¯å¦ä¿å­˜
+        function BeforeBrowserClosed(){
+         if (document.getElementById("PageOfficeCtrl1").IsDirty){
+                if(confirm("æç¤ºï¼šæ–‡æ¡£å·²è¢«ä¿®æ”¹ï¼Œæ˜¯å¦ç»§ç»­å…³é—­æ”¾å¼ƒä¿å­˜ ï¼Ÿ"))
+                {
+                    return  true;
+                    
+                }else{
+                
+                    return  false;
+                }
+	         	
+            }
+             
+        }
+	</script>
 
- </section>
- <br /><br />
- <div style=" text-align:center; height:80px; border-top: solid 1px #666; line-height:70px;">Copyright &copy 2015 ±±¾©×¿ÕıÖ¾Ô¶Èí¼şÓĞÏŞ¹«Ë¾</div>
+   
+<div id="main">
+
+<div id="content"  style="height:850px;width:1036px;overflow:hidden;">
+<%=poCtrl.getHtmlCode("PageOfficeCtrl1")%>
+</div>
+</div>
 </body>
 </html>
 

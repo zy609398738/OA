@@ -1,0 +1,131 @@
+{
+  "response": [
+    {
+      "text": "记录实时调用ERP系统维修保养单POEFLOW的日志信息",
+      "description": "记录实时调用ERP系统维修保养单POEFLOW的日志信息",
+      "scriptContent": "String expMsg = \"\";\nMap rsmap = new HashMap();\nif (message.getExceptionPayload() != null)\n{\n    message.setOutboundProperty(\"http.status\", 200);\n    expMsg = message.getExceptionPayload().getRootException().getMessage();\n    if (expMsg.length() > 3500)\n    {\n        expMsg = expMsg.substring(0, 3000);\n    }\n    message.setExceptionPayload(null);\n    rsmap.put(\"code\", \"e\");\n    rsmap.put(\"msg\", \"调用失败！\");\n}\nelse\n{\n    rsmap.put(\"code\", \"s\");\n    rsmap.put(\"msg\", \"调用成功！\");\n    rsmap.put(\"data\", payload);\n}\nMap logmap = message.getInboundProperty(\"logmap\");\nObject[] o = new Object[10];\no[0] = logmap.get(\"flow\");\no[1] = logmap.get(\"node\");\no[2] = logmap.get(\"billkey\");\no[3] = logmap.get(\"oid\");\no[4] = logmap.get(\"begintime\");\no[5] = new java.text.SimpleDateFormat(\"yyyyMMdd HH:mm:ss.SSS\").format(new java.sql.Timestamp(java.lang.System.currentTimeMillis()));\no[6] = \"\";\no[7] = \"\";\no[8] = expMsg;\no[9] = \"ERP_POEFLOW_Import_To_BPM\";\ndbop.saveOrUpdate(\"insert into TRINA_SL_INTERFACE_LOG(id,flow,node,billkey,oid,starttime,endtime,request_data,response_data,EXCEPTION,interface_type)values(Trina_SL_Interface_Log_ID_SEQ.Nextval,?,?,?,?,?,?,?,?,?,?)\", o, false);\nreturn payload;",
+      "smallType": "GroovyScriptWithDS",
+      "className": "com.bokesoft.exchange.transformer.ScriptWithDSTransformer",
+      "enable": "true",
+      "parentId": "8aab8d9d61f91bf90161f9263e4f001a",
+      "bigType": "transformer_au",
+      "simpleMpLog": "false",
+      "ds": "2c9081d05be7e572015be80fcb64000f",
+      "isRef": "false",
+      "id": "8aaae0e061f935bb0161f95e0780001b"
+    }
+  ],
+  "normal": [
+    {
+      "text": "实时调用ERP系统维修保养单POEFLOW的入口",
+      "description": "实时调用ERP系统维修保养单POEFLOW的入口",
+      "address": "vm://ERP_POEFLOW_Import_To_BPM",
+      "exchange_pattern": "request-response",
+      "smallType": "VM",
+      "className": "",
+      "enable": "true",
+      "parentId": "8aab8d9d61f91bf90161f9263e4f001a",
+      "bigType": "inbound",
+      "simpleMpLog": "false",
+      "encoding": "UTF-8",
+      "isRef": "false",
+      "id": "8aab8d9d61f91bf90161f928dc860020"
+    },
+    {
+      "text": "实时调用ERP系统维修保养单POEFLOW的开始时间",
+      "description": "实时调用ERP系统维修保养单POEFLOW的开始时间",
+      "scriptContent": "String begintime = new java.text.SimpleDateFormat(\"yyyyMMdd HH:mm:ss.SSS\").format(new java.sql.Timestamp(java.lang.System.currentTimeMillis()));\nMap logmap = new HashMap();\nlogmap.put(\"begintime\", begintime);\nlogmap.put(\"flow\", payload.get(\"flow\"));\nlogmap.put(\"node\", payload.get(\"node\"));\nlogmap.put(\"oid\", payload.get(\"oid\"));\nlogmap.put(\"billkey\", payload.get(\"billkey\"));\nlogmap.put(\"request_data\", payload.get(\"json\"));\nmessage.setInboundProperty(\"logmap\", logmap);\nreturn payload;",
+      "smallType": "GroovyScriptTransformer",
+      "className": "org.mule.module.scripting.transformer.ScriptTransformer",
+      "enable": "true",
+      "parentId": "8aab8d9d61f91bf90161f9263e4f001a",
+      "bigType": "transformer_au",
+      "simpleMpLog": "false",
+      "isRef": "false",
+      "id": "8aab8d9d61f91bf90161f927fe27001f"
+    },
+    {
+      "ignoreSQLError": "false",
+      "text": "实时调用ERP系统维修保养单POEFLOW的包",
+      "description": "实时调用ERP系统维修保养单POEFLOW的包\n",
+      "className": "com.bokesoft.dee.transport.jdbc.transformer.ExecuteSQLSimpleTransformer",
+      "smallType": "ExecuteSQLSimpleTransformer",
+      "enable": "true",
+      "queries": "[{\"value\":\"call apps.cux3_po_eflow_accept_rpt.update_task_null(#[datatype:varchar2],#[datatype:number],#[datatype:varchar2],#[map-payload:p_line_id?])\"}]",
+      "parentId": "8aab8d9d61f91bf90161f9263e4f001a",
+      "bigType": "transformer_au",
+      "simpleMpLog": "false",
+      "resultIndexOf": 1,
+      "isRef": "false",
+      "id": "8aab8d9d61f91bf90161f92c19bb0021",
+      "ds": "8aaae09b5bf03e9f015bf17bc58e061f"
+    },
+    {
+      "text": "实时转换调用ERP系统维修保养单POEFLOW的数据为json类型",
+      "description": "实时转换调用ERP系统维修保养单POEFLOW的数据为json类型",
+      "scriptContent": "Map m = new HashMap();\nm.put(\"x_return_status\", payload.get(0));\nm.put(\"x_msg_count\", payload.get(1));\nm.put(\"x_msg_data\", payload.get(2));\nString s = com.bokesoft.dee.mule.util.json.JSONUtil.toJson(m);\nreturn s;",
+      "smallType": "GroovyScriptTransformer",
+      "className": "org.mule.module.scripting.transformer.ScriptTransformer",
+      "enable": "true",
+      "parentId": "8aab8d9d61f91bf90161f9263e4f001a",
+      "bigType": "transformer_au",
+      "simpleMpLog": "false",
+      "isRef": "false",
+      "id": "8aaae0e061f935bb0161f957f6fd0019"
+    }
+  ],
+  "exception": [
+    {
+      "text": "把异常对象转换为文本",
+      "description": "把异常对象转换为文本",
+      "className": "com.bokesoft.exchange.transformer.ExceptionMessageTransformer",
+      "smallType": "ExceptionMessageTransformer",
+      "enable": "true",
+      "parentId": "8aab8d9d61f91bf90161f9263e4f001a",
+      "bigType": "GGPZTransformer",
+      "isRef": "true",
+      "id": "8aab8d9d61f91bf90161f9263eb3001b"
+    },
+    {
+      "path": "${bokedee.logpath.runtimeLog}/ERP_POEFLOW_Import_To_BPM",
+      "text": "记录错误日志到文件_ERP_POEFLOW_Import_To_BPM",
+      "description": "",
+      "className": "",
+      "smallType": "File",
+      "enable": "true",
+      "outputPattern": "#[function:datestamp:yyyyMMddHHmmss]-#[message:id].xml",
+      "parentId": "8aab8d9d61f91bf90161f9263e4f001a",
+      "bigType": "outbound",
+      "file_subdir": "#[context:serviceName]/#[function:datestamp:yyyyMMdd]",
+      "isRef": "false",
+      "id": "8aab8d9d61f91bf90161f9263f8f001c"
+    },
+    {
+      "text": "把异常信息替换换行符_ERP_POEFLOW_Import_To_BPM",
+      "description": "把异常信息替换换行符",
+      "scriptContent": "String exceptionContent = message.getPayload();String exception = exceptionContent.replace(\"\\n\", \"<br/>\");message.setPayload(exception);return message;",
+      "smallType": "GroovyScriptTransformer",
+      "className": "org.mule.module.scripting.transformer.ScriptTransformer",
+      "enable": "false",
+      "parentId": "8aab8d9d61f91bf90161f9263e4f001a",
+      "bigType": "transformer_au",
+      "simpleMpLog": "false",
+      "isRef": "false",
+      "id": "8aab8d9d61f91bf90161f926404d001d"
+    },
+    {
+      "text": "把异常信息通过邮件发送_ERP_POEFLOW_Import_To_BPM",
+      "description": "把异常信息通过邮件发送",
+      "connector_ref": "bokedee_default_smtp_connector",
+      "subject": "ERP_POEFLOW_Import_To_BPM",
+      "className": "",
+      "smallType": "SMTP",
+      "enable": "false",
+      "parentId": "8aab8d9d61f91bf90161f9263e4f001a",
+      "bigType": "outbound",
+      "encoding": "UTF-8",
+      "isRef": "false",
+      "id": "8aab8d9d61f91bf90161f9264101001e"
+    }
+  ]
+}

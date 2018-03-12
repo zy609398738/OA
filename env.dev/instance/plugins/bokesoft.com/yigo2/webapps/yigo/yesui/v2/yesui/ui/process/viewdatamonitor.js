@@ -7,10 +7,10 @@
 (function(){
    YIUI.ViewDataMonitor = function(form){
        this.form = form;
-       this.uiProcess = new YIUI.UIProcess(form);
+       this.process = new YIUI.UIProcess(form);
 
        this.preFireCellValueChanged = function(grid, rowIndex, colIndex, cellKey){
-           this.uiProcess.doPreCellValueChanged(grid, rowIndex, colIndex, cellKey);
+           this.process.doPreCellValueChanged(grid, rowIndex, colIndex, cellKey);
        }
 
        this.fireCellValueChanged = function(grid,rowIndex,colIndex) {
@@ -18,8 +18,13 @@
                metaRow = grid.getMetaObj().rows[row.metaRowIndex],
                cellKey = row.cellKeys[colIndex];
 
-           this.uiProcess.doCellValueChanged(grid,rowIndex,colIndex,cellKey);
+           // 计算树形表格的层级汇总
+           YIUI.GridSumUtil.evalAffectTreeSum(form, grid, rowIndex, colIndex);
 
+           // 计算表达式
+           this.process.doCellValueChanged(grid,rowIndex,colIndex,cellKey);
+
+           // 汇总计算
            YIUI.GridSumUtil.evalAffectSum(form, grid, rowIndex, colIndex);
 
            if( colIndex == grid.selectFieldIndex ){
@@ -33,23 +38,23 @@
        }
 
        this.postFireCellValueChanged = function(grid, rowIndex, colIndex, cellKey) {
-           this.uiProcess.doPostCellValueChanged(grid, rowIndex, colIndex, cellKey);
+           this.process.doPostCellValueChanged(grid, rowIndex, colIndex, cellKey);
        }
 
        this.preFireValueChanged = function (component) {
-           this.uiProcess.preFireValueChanged(component);
+           this.process.preFireValueChanged(component);
        };
 
        this.fireValueChanged = function (component) {
-           this.uiProcess.fireValueChanged(component);
+           this.process.fireValueChanged(component);
        };
 
        this.postFireValueChanged = function (component) {
-           this.uiProcess.postFireValueChanged(component);
+           this.process.postFireValueChanged(component);
        };
 
        this.getUIProcess = function () {
-           return this.uiProcess;
+           return this.process;
        }
 
    }

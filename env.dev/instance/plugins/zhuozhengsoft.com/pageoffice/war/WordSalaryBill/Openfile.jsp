@@ -1,7 +1,6 @@
 <%@ page language="java"
 	import="java.util.*,com.zhuozhengsoft.pageoffice.wordwriter.*,com.zhuozhengsoft.pageoffice.*,java.sql.*,java.text.NumberFormat,java.util.Locale,java.text.SimpleDateFormat,java.util.Date"
-	pageEncoding="gb2312"%>
-<%@ taglib uri="http://java.pageoffice.cn" prefix="po"%>
+	pageEncoding="utf-8"%>
 <%
 	String err = "";
 	String id = request.getParameter("ID").trim();
@@ -16,9 +15,9 @@
 		Statement stmt = conn.createStatement();
 		ResultSet rs = stmt.executeQuery(strSql);
 
-		//´´½¨WordDocment¶ÔÏó
+		//åˆ›å»ºWordDocmentå¯¹è±¡
 		WordDocument doc = new WordDocument();
-		//´ò¿ªÊı¾İÇøÓò
+		//æ‰“å¼€æ•°æ®åŒºåŸŸ
 		DataRegion datareg = doc.openDataRegion("PO_table");
 
 		SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");
@@ -26,10 +25,10 @@
 				.getCurrencyInstance(Locale.CHINA);
 
 		if (rs.next()) {
-			//¸øÊı¾İÇøÓò¸³Öµ
+			//ç»™æ•°æ®åŒºåŸŸèµ‹å€¼
 			doc.openDataRegion("PO_ID").setValue(id);
 
-			//ÉèÖÃÊı¾İÇøÓòµÄ¿É±à¼­ĞÔ
+			//è®¾ç½®æ•°æ®åŒºåŸŸçš„å¯ç¼–è¾‘æ€§
 			doc.openDataRegion("PO_UserName").setEditing(true);
 			doc.openDataRegion("PO_DeptName").setEditing(true);
 			doc.openDataRegion("PO_SalTotal").setEditing(true);
@@ -47,20 +46,20 @@
 				doc.openDataRegion("SalTotal").setValue(saltotal);
 				//out.print(rs.getString("SalTotal"));
 			} else {
-				doc.openDataRegion("SalTotal").setValue("£¤0.00");
+				doc.openDataRegion("SalTotal").setValue("ï¿¥0.00");
 			}
 
 			String saldeduct = rs.getString("SalDeduct");
 			if (saldeduct != null && saldeduct != "") {
 				doc.openDataRegion("SalDeduct").setValue(saldeduct);
 			} else {
-				doc.openDataRegion("SalDeduct").setValue("£¤0.00");
+				doc.openDataRegion("SalDeduct").setValue("ï¿¥0.00");
 			}
 			String salcount = rs.getString("SalCount");
 			if (salcount != null && salcount != "") {
 				doc.openDataRegion("SalCount").setValue(salcount);
 			} else {
-				doc.openDataRegion("SalCount").setValue("£¤0.00");
+				doc.openDataRegion("SalCount").setValue("ï¿¥0.00");
 			}
 			String datatime = rs.getString("DataTime");
 			if (datatime != null && datatime != "") {
@@ -70,22 +69,21 @@
 			}
 
 		} else {
-			err = "<script>alert('Î´»ñµÃ¸ÃÔ±¹¤µÄ¹¤×ÊĞÅÏ¢£¡');location.href='index.jsp'</script>";
+			err = "<script>alert('æœªè·å¾—è¯¥å‘˜å·¥çš„å·¥èµ„ä¿¡æ¯ï¼');location.href='index.jsp'</script>";
 		}
 		rs.close();
 		conn.close();
 
-		poCtrl.addCustomToolButton("±£´æ", "Save()", 1);
+		poCtrl.addCustomToolButton("ä¿å­˜", "Save()", 1);
 		poCtrl.setSaveDataPage("SaveData.jsp?ID=" + id);
 		poCtrl.setWriter(doc);
 	} else {
-		err = "<script>alert('Î´»ñµÃ¸Ã¹¤×ÊĞÅÏ¢µÄID£¡');location.href='index.jsp'</script>";
+		err = "<script>alert('æœªè·å¾—è¯¥å·¥èµ„ä¿¡æ¯çš„IDï¼');location.href='index.jsp'</script>";
 	}
 
 	poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");
 	poCtrl.webOpen("doc/template.doc", OpenModeType.docSubmitForm,
 			"someBody");
-	poCtrl.setTagId("PageOfficeCtrl1");
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -97,13 +95,16 @@
             document.getElementById("PageOfficeCtrl1").WebSave();
         }
     </script>
+    
+   
+ 
 	</head>
 	<body>
+	<a href="#" onclick="window.external.close();">è¿”å›åˆ—è¡¨é¡µ</a>
 		<form id="form1">
 			<div style="width: auto; height: 600px;">
 				<%=err%>
-				<po:PageOfficeCtrl id="PageOfficeCtrl1">
-				</po:PageOfficeCtrl>
+					        <%=poCtrl.getHtmlCode("PageOfficeCtrl1")%>
 			</div>
 		</form>
 	</body>

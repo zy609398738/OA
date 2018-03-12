@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <UI>
+        <L_Name>Name</L_Name>
+        <IsAdmin>Whether the administrator</IsAdmin>
+        <L_Code>Code</L_Code>
+    </UI>
+    <GridColumn>
+        <Operator>Operator</Operator>
+    </GridColumn>
+</StringTable>

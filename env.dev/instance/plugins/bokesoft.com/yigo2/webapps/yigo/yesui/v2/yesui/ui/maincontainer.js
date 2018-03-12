@@ -278,7 +278,69 @@
 			        	event.stopPropagation();
 			        	return false;
 			        });
-			        
+
+                    $(".ui-tabs-header", _this.el).delegate(".ui-tabs-nav li a","mouseenter mouseleave",function (event) {
+                    	if( event.type === 'mouseenter' ) {
+                            document.oncontextmenu = function () {
+                                return false;
+                            }
+
+							$(this).off("mouseup").on("mouseup",function (e) {
+								if( e.button == 2 ) {
+                                    var menu = $(".contextmenu");
+                                    if( menu.length == 0 ) {
+                                    	var html = "<div id='contextmenu' class='contextmenu'>" +
+														"<ul class='menu-field-list'>" +
+															"<li class='menu-field-items'>" +
+																"<a>" + YIUI.I18N.grid.closeAll + "</a>" +
+															"</li>" +
+														"</ul>" +
+													"</div>";
+                                        menu = $(html);
+
+                                        $(".menu-field-list li a",menu).on("click",function () {
+                                            var options = {
+                                                msg: YIUI.I18N.grid.whetherCloseAll,
+                                                msgType: YIUI.Dialog_MsgType.YES_NO
+                                            };
+                                            var dialog = new YIUI.Control.Dialog(options);
+                                            dialog.render();
+                                            dialog.regEvent(YIUI.Dialog_Btn.STR_YES, function () {
+                                                _this.closeAll();
+                                            });
+                                            menu.hide();
+                                        });
+
+                                        $(document.body).append(menu);
+                                    }
+                                    menu.css({
+                                        left: e.clientX + "px",
+                                        top: e.clientY + "px"
+                                    });
+
+                                    menu.show();
+
+                                    $(document).off("mousedown").on("mousedown",function (e) {
+                                    	var stop = $(e.target).hasClass("menu-field-list");
+                                    	if( !stop ) {
+                                    		stop = $(e.target).parents('.menu-field-list').length > 0;
+										}
+                                    	if( stop )
+                                    		return;
+                                        $(".contextmenu").hide();
+                                        $(document).off("mousedown");
+                                    });
+								}
+                            });
+						} else {
+                            document.oncontextmenu = function () {
+                                return true;
+                            }
+
+                            $(this).off("mouseup");
+						}
+                    });
+
 			        _this._dropBtn.click(function(event) {
 			        	if(!$(this).hasClass("show")) return;
 			        	if(_this._hasShow){
@@ -373,6 +435,10 @@
 					} else {
 						comp.destroy();
 					}
+					// 恢复默认右键事件
+                    document.oncontextmenu = function () {
+                        return true;
+                    }
 					var tab = this.items[this.activeTab];
 					this.items.splice(index, 1);
 					if(tab.stack && tab.stack.length > 0) {

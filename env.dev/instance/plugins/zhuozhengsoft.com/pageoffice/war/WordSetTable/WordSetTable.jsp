@@ -1,60 +1,56 @@
 <%@ page language="java"
 	import="java.util.*,com.zhuozhengsoft.pageoffice.*,com.zhuozhengsoft.pageoffice.wordwriter.*"
-	pageEncoding="gb2312"%>
-<%@ taglib uri="http://java.pageoffice.cn" prefix="po"%>
+	pageEncoding="utf-8"%>
+
 <%
-	//******************************×¿ÕıPageOffice×é¼şµÄÊ¹ÓÃ*******************************
+	//******************************å“æ­£PageOfficeç»„ä»¶çš„ä½¿ç”¨*******************************
 	PageOfficeCtrl poCtrl1 = new PageOfficeCtrl(request);
-	poCtrl1.setServerPage(request.getContextPath()+"/poserver.zz"); //´ËĞĞ±ØĞë
+	poCtrl1.setServerPage(request.getContextPath()+"/poserver.zz"); //æ­¤è¡Œå¿…é¡»
 	
 	WordDocument doc = new WordDocument();
-	//´ò¿ªÊı¾İÇøÓò
+	//æ‰“å¼€æ•°æ®åŒºåŸŸ
 	DataRegion dataRegion = doc.openDataRegion("PO_regTable");
-	//´ò¿ªtable£¬openTable(index)·½·¨ÖĞµÄindex´ú±íWordÎÄµµÖĞtableÎ»ÖÃµÄË÷Òı£¬´Ó1¿ªÊ¼
+	//æ‰“å¼€tableï¼ŒopenTable(index)æ–¹æ³•ä¸­çš„indexä»£è¡¨Wordæ–‡æ¡£ä¸­tableä½ç½®çš„ç´¢å¼•ï¼Œä»1å¼€å§‹
 	Table table = dataRegion.openTable(1);
 	
-	//¸øtableÖĞµÄµ¥Ôª¸ñ¸³Öµ£¬ openCellRC(int,int)ÖĞµÄ²ÎÊı·Ö±ğ´ú±íµÚ¼¸ĞĞ¡¢µÚ¼¸ÁĞ£¬´Ó1¿ªÊ¼
-	table.openCellRC(3, 1).setValue("A¹«Ë¾");
-	table.openCellRC(3, 2).setValue("¿ª·¢²¿");
-	table.openCellRC(3, 3).setValue("ÀîÇå");
+	//ç»™tableä¸­çš„å•å…ƒæ ¼èµ‹å€¼ï¼Œ openCellRC(int,int)ä¸­çš„å‚æ•°åˆ†åˆ«ä»£è¡¨ç¬¬å‡ è¡Œã€ç¬¬å‡ åˆ—ï¼Œä»1å¼€å§‹
+	table.openCellRC(3, 1).setValue("Aå…¬å¸");
+	table.openCellRC(3, 2).setValue("å¼€å‘éƒ¨");
+	table.openCellRC(3, 3).setValue("ææ¸…");
 	
-	//²åÈëÒ»ĞĞ£¬insertRowAfter·½·¨ÖĞµÄ²ÎÊı´ú±íÔÚÄÄ¸öµ¥Ôª¸ñÏÂÃæ²åÈëÒ»¸ö¿ÕĞĞ
+	//æ’å…¥ä¸€è¡Œï¼ŒinsertRowAfteræ–¹æ³•ä¸­çš„å‚æ•°ä»£è¡¨åœ¨å“ªä¸ªå•å…ƒæ ¼ä¸‹é¢æ’å…¥ä¸€ä¸ªç©ºè¡Œ
 	table.insertRowAfter(table.openCellRC(3, 3));
 	
-	table.openCellRC(4, 1).setValue("B¹«Ë¾");
-	table.openCellRC(4, 2).setValue("ÏúÊÛ²¿");
-	table.openCellRC(4, 3).setValue("ÕÅÈı");
+	table.openCellRC(4, 1).setValue("Bå…¬å¸");
+	table.openCellRC(4, 2).setValue("é”€å”®éƒ¨");
+	table.openCellRC(4, 3).setValue("å¼ ä¸‰");
 	
 	poCtrl1.setWriter(doc);
-	//Òş²Ø²Ëµ¥À¸
+	//éšè—èœå•æ 
 	poCtrl1.setMenubar(false);
-	//Òş²Ø×Ô¶¨Òå¹¤¾ßÀ¸
+	//éšè—è‡ªå®šä¹‰å·¥å…·æ 
 	poCtrl1.setCustomToolbar(false);
-	//´ò¿ªÎÄ¼ş
-	poCtrl1.webOpen("doc/test.doc", OpenModeType.docNormalEdit, "ÕÅÈı");
-	poCtrl1.setTagId("PageOfficeCtrl1"); //´ËĞĞ±ØĞë
+	//æ‰“å¼€æ–‡ä»¶
+	poCtrl1.webOpen("doc/test.doc", OpenModeType.docNormalEdit, "å¼ ä¸‰");
+
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
-    <title>¼òµ¥µÄ¸øWordÎÄµµÖĞµÄTable¸³Öµ</title>
+    <title>ç®€å•çš„ç»™Wordæ–‡æ¡£ä¸­çš„Tableèµ‹å€¼</title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
-	<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
 
   </head>
   
   <body>
     <div style=" width:auto; height:700px;">
-        <po:PageOfficeCtrl id ="PageOfficeCtrl1">
-        </po:PageOfficeCtrl>
+        <%=poCtrl1.getHtmlCode("PageOfficeCtrl1")%>
     </div>
   </body>
 </html>

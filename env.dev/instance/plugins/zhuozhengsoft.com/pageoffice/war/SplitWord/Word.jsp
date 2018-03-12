@@ -1,13 +1,13 @@
 <%@ page language="java"
-	import="java.util.*,com.zhuozhengsoft.pageoffice.*,com.zhuozhengsoft.pageoffice.wordwriter.*;"
-	pageEncoding="gb2312"%>
-<%@ taglib uri="http://java.pageoffice.cn" prefix="po"%>
+	import="java.util.*,com.zhuozhengsoft.pageoffice.*,com.zhuozhengsoft.pageoffice.wordwriter.*"
+	pageEncoding="utf-8"%>
+
 <%
-//******************************×¿ÕıPageOffice×é¼şµÄÊ¹ÓÃ*******************************
+//******************************å“æ­£PageOfficeç»„ä»¶çš„ä½¿ç”¨*******************************
 	PageOfficeCtrl poCtrl1 = new PageOfficeCtrl(request);
-	poCtrl1.setServerPage(request.getContextPath()+"/poserver.zz"); //´ËĞĞ±ØĞë
+	poCtrl1.setServerPage(request.getContextPath()+"/poserver.zz"); //æ­¤è¡Œå¿…é¡»
 	WordDocument wordDoc = new WordDocument();
-	//´ò¿ªÊı¾İÇøÓò£¬openDataRegion·½·¨µÄ²ÎÊı´ú±íWordÎÄµµÖĞµÄÊéÇ©Ãû³Æ
+	//æ‰“å¼€æ•°æ®åŒºåŸŸï¼ŒopenDataRegionæ–¹æ³•çš„å‚æ•°ä»£è¡¨Wordæ–‡æ¡£ä¸­çš„ä¹¦ç­¾åç§°
 	DataRegion dataRegion1 = wordDoc.openDataRegion("PO_test1");
 	dataRegion1.setSubmitAsFile(true);
 	DataRegion dataRegion2 = wordDoc.openDataRegion("PO_test2");
@@ -17,11 +17,10 @@
 	dataRegion3.setSubmitAsFile(true);
 
 	poCtrl1.setWriter(wordDoc);
-	poCtrl1.addCustomToolButton("±£´æ","Save()",1);
+	poCtrl1.addCustomToolButton("ä¿å­˜","Save()",1);
 	poCtrl1.setSaveDataPage("SaveData.jsp");
-	//´ò¿ªWordÎÄ¼ş
-	poCtrl1.webOpen("doc/test.doc", OpenModeType.docSubmitForm, "ÕÅÈı");
-	poCtrl1.setTagId("PageOfficeCtrl1"); //´ËĞĞ±ØĞë	
+	//æ‰“å¼€Wordæ–‡ä»¶
+	poCtrl1.webOpen("doc/test.doc", OpenModeType.docSubmitForm, "å¼ ä¸‰");	
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -33,18 +32,18 @@
 <body>
     <form id="form1">
     <div style="width: auto; height: 700px;">
-    <!-- *********************PageOffice×é¼ş¿Í»§¶ËJS´úÂë*************************** -->
+    <!-- *********************PageOfficeç»„ä»¶å®¢æˆ·ç«¯JSä»£ç *************************** -->
     <script type="text/javascript">
         function Save() {
             document.getElementById("PageOfficeCtrl1").WebSave();
            
         }
     </script>
-	 <div style=" font-size:14px; line-height:20px;">ÑİÊ¾ËµÃ÷£º<br />µã»÷¡°±£´æ¡±°´Å¥£¬PageOffice»á°ÑÎÄµµÖĞÈı¸öÊı¾İÇøÓò£¨PO_test1£¬PO_test2£¬PO_test3£©ÖĞµÄÄÚÈİ±£´æÎªÈı¸ö¶ÀÁ¢µÄ×ÓÎÄ¼ş£¨new1.doc£¬new2.doc£¬new3.doc£©µ½¡°Samples/SplitWord/doc¡± Ä¿Â¼ÏÂ¡£</div>
-   <div style="color: red;font-size:14px; line-height:20px;" >Word²ğ·Ö¹¦ÄÜÖ»ÓĞÆóÒµ°æÖ§³Ö£¬²¢ÇÒÎÄµµµÄ´ò¿ªÄ£Ê½±ØĞëÊÇOpenModeType.docSubmitForm£¬ĞèÒªÉèÖÃÊı¾İÇøÓòµÄÊôĞÔdataRegion1.setSubmitAsFile(true) ¡£<br /><br /></div>
+	 <div style=" font-size:14px; line-height:20px;">æ¼”ç¤ºè¯´æ˜ï¼š<br />ç‚¹å‡»â€œä¿å­˜â€æŒ‰é’®ï¼ŒPageOfficeä¼šæŠŠæ–‡æ¡£ä¸­ä¸‰ä¸ªæ•°æ®åŒºåŸŸï¼ˆPO_test1ï¼ŒPO_test2ï¼ŒPO_test3ï¼‰ä¸­çš„å†…å®¹ä¿å­˜ä¸ºä¸‰ä¸ªç‹¬ç«‹çš„å­æ–‡ä»¶ï¼ˆnew1.docï¼Œnew2.docï¼Œnew3.docï¼‰åˆ°â€œSamples4/SplitWord/docâ€ ç›®å½•ä¸‹ã€‚</div>
+   <div style="color: red;font-size:14px; line-height:20px;" >Wordæ‹†åˆ†åŠŸèƒ½åªæœ‰ä¼ä¸šç‰ˆæ”¯æŒï¼Œå¹¶ä¸”æ–‡æ¡£çš„æ‰“å¼€æ¨¡å¼å¿…é¡»æ˜¯OpenModeType.docSubmitFormï¼Œéœ€è¦è®¾ç½®æ•°æ®åŒºåŸŸçš„å±æ€§dataRegion1.setSubmitAsFile(true) ã€‚<br /><br /></div>
 
-    <!-- *********************PageOffice×é¼şµÄÒıÓÃ*************************** -->
-        <po:PageOfficeCtrl id="PageOfficeCtrl1" />
+    <!-- *********************PageOfficeç»„ä»¶çš„å¼•ç”¨*************************** -->
+        <%=poCtrl1.getHtmlCode("PageOfficeCtrl1")%>
     </div>
     <img src="OpenStream.jsp"/>
     </form>

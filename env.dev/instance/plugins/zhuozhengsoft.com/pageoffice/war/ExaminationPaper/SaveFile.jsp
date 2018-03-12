@@ -1,6 +1,6 @@
 <%@ page language="java"
 	import="java.util.*,com.zhuozhengsoft.pageoffice.*,java.sql.*"
-	pageEncoding="gb2312"%>
+	pageEncoding="utf-8"%>
 <%@page import="java.awt.image.ConvolveOp"%>
 <%
 	FileSaver fs = new FileSaver(request, response);
@@ -23,7 +23,7 @@
 
 		fs.setCustomSaveResult("ok");
 	} else {
-		err = "<script>alert('Î´»ñµÃÎÄ¼þµÄID£¬±£´æÊ§°Ü');</script>";
+		err = "<script>alert('æœªèŽ·å¾—æ–‡ä»¶çš„IDï¼Œä¿å­˜å¤±è´¥');</script>";
 	}
 	fs.close();
 %>

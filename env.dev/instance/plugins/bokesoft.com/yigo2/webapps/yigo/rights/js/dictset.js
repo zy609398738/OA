@@ -5,6 +5,7 @@
 		var rt = {
 				el: $("<div class='rts-dict'/>"),
 				id: "id_dict_set",
+				type: RTS.Rights_type.TYPE_DICT,
 				caption: RTS.I18N.rightsset.dictRights,
 				render: function(ct) {
 					this.el.appendTo(ct);

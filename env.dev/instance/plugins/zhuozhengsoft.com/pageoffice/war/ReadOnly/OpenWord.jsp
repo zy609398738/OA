@@ -1,53 +1,48 @@
 <%@ page language="java"
 	import="java.util.*,com.zhuozhengsoft.pageoffice.*,com.zhuozhengsoft.pageoffice.wordwriter.*"
-	pageEncoding="gb2312"%>
-<%@ taglib uri="http://java.pageoffice.cn" prefix="po"%>
+	pageEncoding="utf-8"%>
 <%
-//******************************×¿ÕıPageOffice×é¼şµÄÊ¹ÓÃ*******************************
-	//ÉèÖÃPageOffice·şÎñÆ÷×é¼ş
+//******************************å“æ­£PageOfficeç»„ä»¶çš„ä½¿ç”¨*******************************
+	//è®¾ç½®PageOfficeæœåŠ¡å™¨ç»„ä»¶
 	PageOfficeCtrl poCtrl1 = new PageOfficeCtrl(request);
-	poCtrl1.setServerPage(request.getContextPath()+"/poserver.zz"); //´ËĞĞ±ØĞë
+	poCtrl1.setServerPage(request.getContextPath()+"/poserver.zz"); //æ­¤è¡Œå¿…é¡»
 	
-	poCtrl1.setAllowCopy(false);//½ûÖ¹¿½±´
-	poCtrl1.setMenubar(false);//Òş²Ø²Ëµ¥À¸
-	poCtrl1.setOfficeToolbars(false);//Òş²ØOffice¹¤¾ßÌõ
-	poCtrl1.setCustomToolbar(false);//Òş²Ø×Ô¶¨Òå¹¤¾ßÀ¸
+	poCtrl1.setAllowCopy(false);//ç¦æ­¢æ‹·è´
+	poCtrl1.setMenubar(false);//éšè—èœå•æ 
+	poCtrl1.setOfficeToolbars(false);//éšè—Officeå·¥å…·æ¡
+	poCtrl1.setCustomToolbar(false);//éšè—è‡ªå®šä¹‰å·¥å…·æ 
 	poCtrl1.setJsFunction_AfterDocumentOpened("AfterDocumentOpened");
-	//ÉèÖÃÒ³ÃæµÄÏÔÊ¾±êÌâ
-	poCtrl1.setCaption("ÑİÊ¾£ºÎÄ¼şÔÚÏß°²È«ä¯ÀÀ");
+	//è®¾ç½®é¡µé¢çš„æ˜¾ç¤ºæ ‡é¢˜
+	poCtrl1.setCaption("æ¼”ç¤ºï¼šæ–‡ä»¶åœ¨çº¿å®‰å…¨æµè§ˆ");
 	
-	//´ò¿ªÎÄ¼ş
-	poCtrl1.webOpen("doc/template.doc", OpenModeType.docReadOnly, "ÕÅÈı");
-	poCtrl1.setTagId("PageOfficeCtrl1"); //´ËĞĞ±ØĞë	
+	//æ‰“å¼€æ–‡ä»¶
+	poCtrl1.webOpen("doc/template.doc", OpenModeType.docReadOnly, "å¼ ä¸‰");
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>   
-    <title>ÑİÊ¾£ºÎÄ¼şÔÚÏß°²È«ä¯ÀÀ</title>
+    <title>æ¼”ç¤ºï¼šæ–‡ä»¶åœ¨çº¿å®‰å…¨æµè§ˆ</title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
-	<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
 
   </head>
   
   <body>
   <script type="text/javascript">
         function AfterDocumentOpened() {
-            document.getElementById("PageOfficeCtrl1").SetEnableFileCommand(4, false); //½ûÖ¹Áí´æ
-            document.getElementById("PageOfficeCtrl1").SetEnableFileCommand(5, false); //½ûÖ¹´òÓ¡
-            document.getElementById("PageOfficeCtrl1").SetEnableFileCommand(6, false); //½ûÖ¹Ò³ÃæÉèÖÃ
-            document.getElementById("PageOfficeCtrl1").SetEnableFileCommand(8, false); //½ûÖ¹´òÓ¡Ô¤ÀÀ
+            document.getElementById("PageOfficeCtrl1").SetEnableFileCommand(4, false); //ç¦æ­¢å¦å­˜
+            document.getElementById("PageOfficeCtrl1").SetEnableFileCommand(5, false); //ç¦æ­¢æ‰“å°
+            document.getElementById("PageOfficeCtrl1").SetEnableFileCommand(6, false); //ç¦æ­¢é¡µé¢è®¾ç½®
+            document.getElementById("PageOfficeCtrl1").SetEnableFileCommand(8, false); //ç¦æ­¢æ‰“å°é¢„è§ˆ
         }
     </script>
     <div style=" width:auto; height:700px;">
-    <po:PageOfficeCtrl id="PageOfficeCtrl1"></po:PageOfficeCtrl>
+          <%=poCtrl1.getHtmlCode("PageOfficeCtrl1")%>
     </div>
   </body>
 </html>

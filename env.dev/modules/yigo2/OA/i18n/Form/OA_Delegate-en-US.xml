@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <UI>
+	    <OA_Delegate>My authorization</OA_Delegate>	
+    </UI>
+    <Items-delegateType>
+        <AUTHORIZE>Authorize</AUTHORIZE>
+        <DELEGATE>Delegate</DELEGATE>
+    </Items-delegateType>
+    <Opt>
+        <Save>AddDelegateMessage</Save>
+    </Opt>
+    <ListViewColumn>
+        <ObjectType>DelegateScope</ObjectType>
+        <EndTime>EndTime</EndTime>
+        <DelegateID>DelegateID</DelegateID>
+        <delegateType>DelegateType</delegateType>
+        <ObjectKey>FlowName</ObjectKey>
+        <StartTime>StartTime</StartTime>
+        <AlwaysValid>Never Expires</AlwaysValid>
+        <TgtOperatorID>Agent</TgtOperatorID>
+        <delete>Delete</delete>
+        <SrcOperatorID>Principal</SrcOperatorID>
+    </ListViewColumn>
+    <Items-ObjectType>
+        <OPERATOR>Operator</OPERATOR>
+        <PROCESS>Process</PROCESS>
+        <OBJECT>Form</OBJECT>
+        <PROCESS_NODE>Process_node</PROCESS_NODE>
+    </Items-ObjectType>
+</StringTable>

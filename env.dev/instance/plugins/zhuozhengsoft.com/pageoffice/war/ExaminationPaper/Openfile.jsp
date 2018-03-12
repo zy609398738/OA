@@ -1,6 +1,6 @@
 <%@ page language="java"
 	import="java.util.*,java.sql.*,javax.servlet.*,javax.servlet.http.*,java.io.*"
-	pageEncoding="gb2312"%>
+	pageEncoding="utf-8"%>
 <%
 	String err = "";
 	if (request.getParameter("id") != null
@@ -14,13 +14,13 @@
 		String strSql = "select * from stream where id =" + id;
 		ResultSet rs = stmt.executeQuery(strSql);
 		if (rs.next()) {
-			//******¶ÁÈ¡´ÅÅÌÎÄ¼þ£¬Êä³öÎÄ¼þÁ÷ ¿ªÊ¼*******************************
+			//******è¯»å–ç£ç›˜æ–‡ä»¶ï¼Œè¾“å‡ºæ–‡ä»¶æµ å¼€å§‹*******************************
 			byte[] imageBytes = rs.getBytes("Word");
 			int fileSize = imageBytes.length;
 
 			response.reset();
 			response.setContentType("application/msword"); // application/x-excel, application/ms-powerpoint, application/pdf
-			response.setHeader("Content-Disposition", "attachment; filename=down.doc"); //fileNÓ¦¸ÃÊÇ±àÂëºóµÄ(utf-8)
+			response.setHeader("Content-Disposition", "attachment; filename=down.doc"); //fileNåº”è¯¥æ˜¯ç¼–ç åŽçš„(utf-8)
 			response.setContentLength(fileSize);
 
 			OutputStream outputStream = response.getOutputStream();
@@ -29,14 +29,19 @@
 			outputStream.flush();
 			outputStream.close();
 			outputStream = null;
-			//******¶ÁÈ¡´ÅÅÌÎÄ¼þ£¬Êä³öÎÄ¼þÁ÷ ½áÊø*******************************	
+			//ä¸‹é¢ä¸¤å¥ä»£ç è§£å†³response.getWriter()å’Œresponse.getOutputStream()å†²çªé—®é¢˜
+			out.clear();  
+            out = pageContext.pushBody();  
+			
+			//******è¯»å–ç£ç›˜æ–‡ä»¶ï¼Œè¾“å‡ºæ–‡ä»¶æµ ç»“æŸ*******************************	
 		} else {
-			err = "Î´»ñµÃÎÄ¼þµÄÐÅÏ¢";
+			err = "æœªèŽ·å¾—æ–‡ä»¶çš„ä¿¡æ¯";
 		}
 		rs.close();
+		stmt.close();
 		conn.close();
 	} else {
-		err = "Î´»ñµÃÎÄ¼þµÄID";
+		err = "æœªèŽ·å¾—æ–‡ä»¶çš„ID";
 		//out.print(err);
 	}
 	if (err.length() > 0)

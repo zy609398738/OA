@@ -1,3 +1,4 @@
+"use strict";
 YIUI.ComboBoxHandler = (function () {
 
     var cache = new LRUCache(20);
@@ -9,8 +10,8 @@ YIUI.ComboBoxHandler = (function () {
         || sourceType == YIUI.COMBOBOX_SOURCETYPE.QUERY){
             var dependency = meta.itemsDependency;
 
-            var data = {};
             if(dependency){
+                var data = {};
                 var fields = dependency.split(","), v, field;
 
                 for(var i = 0 ; i < fields.length ; i ++){
@@ -18,13 +19,16 @@ YIUI.ComboBoxHandler = (function () {
                     v = form.eval(field, cxt, null);
                     data[field] = v;
                 }
+
+                data.key = meta.key;
+                data.formKey = form.getFormKey();
+
+                return $.toJSON(data);
             }
 
-            data.key = meta.key;
-            data.formKey = form.getFormKey();
 
-            return $.toJSON(data);
         }
+        return null;
     }
 
     var getFormulaItems = function(form, meta, cxt){
@@ -85,6 +89,8 @@ YIUI.ComboBoxHandler = (function () {
                 }
             } else if($.isArray(rs)) {
                 items = items.concat(rs);
+            } else if(rs && $.isArray(rs.items)) {
+                items = items.concat(rs.items);
             }  
         } 
 
@@ -149,7 +155,10 @@ YIUI.ComboBoxHandler = (function () {
 
                     cacheKey = getCacheKey(form, meta, cxt);
                     
-                    var items = cache.get(cacheKey);
+                    var items = null;
+                    if(cacheKey){
+                        items = cache.get(cacheKey);
+                    }
 
                     if(items == null){
                         items = getFormulaItems(form, meta, cxt);
@@ -166,7 +175,10 @@ YIUI.ComboBoxHandler = (function () {
 
                     cacheKey = getCacheKey(form, meta, cxt);
 
-                    var items = cache.get(cacheKey);
+                    var items = null;
+                    if(cacheKey){
+                        items = cache.get(cacheKey);
+                    }
 
                     if(items == null){
                         def = getQueryItems(form, meta, cxt).then(function(d){
@@ -198,6 +210,9 @@ YIUI.ComboBoxHandler = (function () {
 
         getShowCaption: function(sourceType, items, value, multiSelect, editable) {
 
+            if( !items )
+                return "";
+
             var getItemCaption = function(v) {
                 var caption = "";
                 var item;
@@ -212,7 +227,7 @@ YIUI.ComboBoxHandler = (function () {
             };
 
             var caption = "";
-            if (value != null) {
+            if (value != null && value !== "") {  // 0 == "" !!
                 switch (sourceType) {
                 case YIUI.COMBOBOX_SOURCETYPE.QUERY:
                     caption = value;

@@ -49,13 +49,12 @@
 
 		    var self = this;
 		    YIUI.MetaService.getPreLoadItems()
-		    	.then(function(items){
-		    		var item, path;
-		            for(var i = 0, len = items.length; i < len; i++) {
-		            	item = items[i];
-		            	path = item.path;
-		            	window.openEntry({path: path});
-		            }
+		    	.then(function(paths){
+		    		if( paths ) {
+                        for(var i = 0, len = paths.length; i < len; i++) {
+                            window.openEntry({path: paths[i]});
+                        }
+					}
 		    	});
 
 
@@ -74,7 +73,7 @@
 					var searchValue = searchtext.val();
 			        if (searchValue) {
 			            var matchItems = $.map(mainTree._data, function (value, i) {
-			                return value.name.indexOf(searchValue) > -1 ? value : null;
+			                return (value._visible && value.name.indexOf(searchValue) > -1 && !value.children) ? value : null;
 			            })
 			            $(".matchItems ul").children().remove();
             			index = -1;
@@ -102,7 +101,7 @@
 				};
 			    searchtext.focusin(function (e) {
 			        searchItems();
-			    })
+			    });
 			    searchtext.keyup(function (e) {
             		var keyCode = e.keyCode;
             		if(keyCode == 38 || keyCode == 40 || keyCode == 13) return;

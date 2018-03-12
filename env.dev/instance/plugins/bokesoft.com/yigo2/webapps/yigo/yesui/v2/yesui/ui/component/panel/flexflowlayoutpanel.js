@@ -1,3 +1,4 @@
+"use strict";
 YIUI.Panel.FlexFlowLayoutPanel = YIUI.extend(YIUI.Panel, {
 	layout : 'FlexFlowLayout',
 	

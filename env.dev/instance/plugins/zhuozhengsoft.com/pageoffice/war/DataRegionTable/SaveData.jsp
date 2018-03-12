@@ -1,14 +1,14 @@
 <%@ page language="java"
 	import="java.util.*,com.zhuozhengsoft.pageoffice.*,com.zhuozhengsoft.pageoffice.wordreader.*"
-	pageEncoding="gb2312"%>
+	pageEncoding="utf-8"%>
 <%
-	//-----------  PageOffice ·şÎñÆ÷¶Ë±à³Ì¿ªÊ¼  -------------------//
+	//-----------  PageOffice æœåŠ¡å™¨ç«¯ç¼–ç¨‹å¼€å§‹  -------------------//
         WordDocument doc = new WordDocument(request,response);
         DataRegion dataReg = doc.openDataRegion("PO_table");
         Table table = dataReg.openTable(1);
      
-        //Êä³öÌá½»µÄtableÖĞµÄÊı¾İ
-        out.print("±í¸ñÖĞµÄ¸÷¸öµ¥ÔªµÄ¸ñÊı¾İÎª£º<br/><br/>");
+        //è¾“å‡ºæäº¤çš„tableä¸­çš„æ•°æ®
+        out.print("è¡¨æ ¼ä¸­çš„å„ä¸ªå•å…ƒçš„æ ¼æ•°æ®ä¸ºï¼š<br/><br/>");
         StringBuilder dataStr = new StringBuilder();
         for (int i = 1; i <= table.getRowsCount(); i++)
         {
@@ -21,7 +21,7 @@
         }
         out.print(dataStr.toString());
    
-		//Ïò¿Í»§¶ËÏÔÊ¾Ìá½»µÄÊı¾İ
+		//å‘å®¢æˆ·ç«¯æ˜¾ç¤ºæäº¤çš„æ•°æ®
 		doc.showPage(300, 300);
 		doc.close();
 %>

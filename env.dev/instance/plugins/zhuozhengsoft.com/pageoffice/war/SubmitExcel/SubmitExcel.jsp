@@ -1,48 +1,46 @@
 <%@ page language="java"
 	import="java.util.*,com.zhuozhengsoft.pageoffice.*,com.zhuozhengsoft.pageoffice.excelwriter.*"
-	pageEncoding="gb2312"%>
-<%@ taglib uri="http://java.pageoffice.cn" prefix="po"%>
+	pageEncoding="utf-8"%>
 <%
 	PageOfficeCtrl poCtrl = new PageOfficeCtrl(request);
-	//ÉèÖÃ·şÎñÆ÷Ò³Ãæ
+	//è®¾ç½®æœåŠ¡å™¨é¡µé¢
 	poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");
 
-	//¶¨ÒåWorkbook¶ÔÏó
+	//å®šä¹‰Workbookå¯¹è±¡
 	Workbook workBook = new Workbook();
-	//¶¨ÒåSheet¶ÔÏó£¬"Sheet1"ÊÇ´ò¿ªµÄExcel±íµ¥µÄÃû³Æ
+	//å®šä¹‰Sheetå¯¹è±¡ï¼Œ"Sheet1"æ˜¯æ‰“å¼€çš„Excelè¡¨å•çš„åç§°
 	Sheet sheet = workBook.openSheet("Sheet1");
 
-	//¶¨Òåtable¶ÔÏó£¬ÉèÖÃtable¶ÔÏóµÄÉèÖÃ·¶Î§
+	//å®šä¹‰tableå¯¹è±¡ï¼Œè®¾ç½®tableå¯¹è±¡çš„è®¾ç½®èŒƒå›´
 	Table table = sheet.openTable("B4:F13");
-	//ÉèÖÃtable¶ÔÏóµÄÌá½»Ãû³Æ£¬ÒÔ±ã±£´æÒ³Ãæ»ñÈ¡Ìá½»µÄÊı¾İ
+	//è®¾ç½®tableå¯¹è±¡çš„æäº¤åç§°ï¼Œä»¥ä¾¿ä¿å­˜é¡µé¢è·å–æäº¤çš„æ•°æ®
 	table.setSubmitName("Info");
 
 	poCtrl.setWriter(workBook);
-	//Ìí¼Ó×Ô¶¨Òå°´Å¥
-	poCtrl.addCustomToolButton("±£´æ", "Save", 1);
-	//ÉèÖÃ±£´æÒ³Ãæ
+	//æ·»åŠ è‡ªå®šä¹‰æŒ‰é’®
+	poCtrl.addCustomToolButton("ä¿å­˜", "Save", 1);
+	//è®¾ç½®ä¿å­˜é¡µé¢
 	poCtrl.setSaveDataPage("SaveData.jsp");
-	//´ò¿ªWordÎÄµµ
-	poCtrl.webOpen("doc/test.xls", OpenModeType.xlsSubmitForm, "ÕÅØıÃû");
-	poCtrl.setTagId("PageOfficeCtrl1");//´ËĞĞ±ØĞè
+	//æ‰“å¼€Wordæ–‡æ¡£
+	poCtrl.webOpen("doc/test.xls", OpenModeType.xlsSubmitForm, "å¼ ä½šå");
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 	<head>
-		<title>×î¼òµ¥µÄÌá½»ExcelÖĞµÄÊı¾İ</title>
+		<title>æœ€ç®€å•çš„æäº¤Excelä¸­çš„æ•°æ®</title>
 		<script type="text/javascript">
 	function Save() {
 		document.getElementById("PageOfficeCtrl1").WebSave();
 	}
 </script>
+
 	</head>
 	<body>
 		<form id="form1">
 
 			<div style="width: auto; height: 700px;">
-				<po:PageOfficeCtrl id="PageOfficeCtrl1">
-				</po:PageOfficeCtrl>
+				<%=poCtrl.getHtmlCode("PageOfficeCtrl1")%>
 			</div>
 		</form>
 	</body>

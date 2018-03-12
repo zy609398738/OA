@@ -1,45 +1,45 @@
 <%@ page language="java"
 	import="java.util.*,com.zhuozhengsoft.pageoffice.*, com.zhuozhengsoft.pageoffice.wordwriter.*"
-	pageEncoding="gb2312"%>
-<%@ taglib uri="http://java.pageoffice.cn" prefix="po"%>
+	pageEncoding="utf-8"%>
 <%
 WordDocument doc = new WordDocument();
 DataRegion mydr1 = doc.createDataRegion("PO_first", DataRegionInsertType.After, "[end]");
 mydr1.selectEnd();
-doc.insertPageBreak();//²åÈë·ÖÒ³·û
+doc.insertPageBreak();//æ’å…¥åˆ†é¡µç¬¦
 DataRegion mydr2 = doc.createDataRegion("PO_second", DataRegionInsertType.After, "[end]");
 mydr2.setValue("[word]doc/test2.doc[/word]");
 
 PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
-//ÉèÖÃ·şÎñÆ÷Ò³Ãæ
+//è®¾ç½®æœåŠ¡å™¨é¡µé¢
 poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");
-poCtrl.addCustomToolButton("±£´æ", "Save()", 1);
+poCtrl.addCustomToolButton("ä¿å­˜", "Save()", 1);
 poCtrl.setWriter(doc);
-//ÉèÖÃ±£´æÒ³Ãæ
+//è®¾ç½®ä¿å­˜é¡µé¢
 poCtrl.setSaveFilePage("SaveFile.jsp");
-//´ò¿ªWordÎÄµµ
-poCtrl.webOpen("doc/test1.doc",OpenModeType.docNormalEdit,"ÕÅØıÃû");
-poCtrl.setTagId("PageOfficeCtrl1");//´ËĞĞ±ØĞè
+//æ‰“å¼€Wordæ–‡æ¡£
+poCtrl.webOpen("doc/test1.doc",OpenModeType.docNormalEdit,"å¼ ä½šå");
+
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
-   <title>ÔÚwordÎÄµµÖĞ¹â±ê´¦²åÈë·ÖÒ³·û</title>
+   <title>åœ¨wordæ–‡æ¡£ä¸­å…‰æ ‡å¤„æ’å…¥åˆ†é¡µç¬¦</title>
+
 </head>
 <body>
     <script type="text/javascript">
         function Save() {
           document.getElementById("PageOfficeCtrl1").WebSave();
           if(document.getElementById("PageOfficeCtrl1").CustomSaveResult=="ok"){
-             alert("±£´æ³É¹¦£¡ÇëÔÚ/Samples/InsertPageBreak2/docÄ¿Â¼ÏÂ²é¿´ºÏ²¢ºóµÄĞÂÎÄµµ\"test3.doc\"¡£");
+             alert("ä¿å­˜æˆåŠŸï¼è¯·åœ¨/Samples4/InsertPageBreak2/docç›®å½•ä¸‹æŸ¥çœ‹åˆå¹¶åçš„æ–°æ–‡æ¡£\"test3.doc\"ã€‚");
              }
         }    
        
     </script> 
+    
     <div style=" width:auto; height:700px;">
-        <po:PageOfficeCtrl id="PageOfficeCtrl1">
-        </po:PageOfficeCtrl>
+        <%=poCtrl.getHtmlCode("PageOfficeCtrl1")%>
     </div>
 </body>
 </html>

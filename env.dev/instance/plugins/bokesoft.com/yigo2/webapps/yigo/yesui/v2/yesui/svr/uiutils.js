@@ -282,7 +282,13 @@ YIUI.UIUtil = (function () {
         	return form;
         },
         
-        saveDocument: function(form) {
+        saveDocument: function(form,checkUI) {
+
+            if( checkUI ) {
+                var opt = new YIUI.UICheckOpt(form);
+                opt.doOpt();
+            }
+
         	var paras = form != null ? form.getParas() : null;
         	var formDoc = form.getDocument();
             formDoc = YIUI.DataUtil.toJSONDoc(formDoc, true);

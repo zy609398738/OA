@@ -1,0 +1,104 @@
+{
+  "normal": [
+    {
+      "text": "实时查询ERP系统维修保养单的数据入口",
+      "description": "实时查询ERP系统维修保养单的数据入口",
+      "address": "vm://ERP_RrpairConfirmation_To_BPM_H",
+      "exchange_pattern": "request-response",
+      "className": "",
+      "smallType": "VM",
+      "enable": "true",
+      "parentId": "8aab8d9d61fe815c0161ff74d7f70044",
+      "bigType": "inbound",
+      "simpleMpLog": "false",
+      "encoding": "UTF-8",
+      "isRef": "false",
+      "id": "8aab8d9d61fe815c0161ff762bfe004e"
+    },
+    {
+      "ignoreSQLError": "false",
+      "text": "实时查询ERP系统维修保养单表头数据",
+      "description": "实时查询ERP系统维修保养单表头数据",
+      "className": "com.bokesoft.dee.transport.jdbc.transformer.ExecuteSQLSimpleTransformer",
+      "smallType": "ExecuteSQLSimpleTransformer",
+      "enable": "true",
+      "queries": "[{\"value\":\"select type, org_id, po_number,status, cc_description,task_id, po_header_id, vendor_id, vendor_name, currency_code, agent_id, agent_number, creation_date, line_num, category_id, category, uom_code, unit_price, deliver_to_person_id, requestor_number, department from apps.cux3_po_eflow_acc_interface_v where type = 'P' and (task_id is null or task_id='') \"}]",
+      "parentId": "8aab8d9d61fe815c0161ff74d7f70044",
+      "bigType": "transformer_au",
+      "simpleMpLog": "false",
+      "resultIndexOf": 1,
+      "isRef": "false",
+      "id": "8aab8d9d61fe815c0161ff78ad4b004f",
+      "ds": "8aaae09b5bf03e9f015bf17bc58e061f"
+    },
+    {
+      "dispatchInterface": "8aab8d9d61fe815c0161ff74d7750043",
+      "description": "循环分发单条数据集数据",
+      "useList": "true",
+      "text": "循环分发单条数据集数据",
+      "smallType": "DispatchVMTransformer",
+      "className": "com.bokesoft.dee.mule.dispatch.transformer.DispatchVMTransformer",
+      "enable": "true",
+      "parentId": "8aab8d9d61fe815c0161ff74d7f70044",
+      "bigType": "transformer_au",
+      "simpleMpLog": "false",
+      "dispatchService": "8aab8d9d61fe815c0161ff74dac90049",
+      "isRef": "false",
+      "id": "8aab8d9d61fe815c0161ff8eded50055"
+    }
+  ],
+  "exception": [
+    {
+      "text": "把异常对象转换为文本",
+      "description": "把异常对象转换为文本",
+      "smallType": "ExceptionMessageTransformer",
+      "className": "com.bokesoft.exchange.transformer.ExceptionMessageTransformer",
+      "enable": "true",
+      "parentId": "8aab8d9d61fe815c0161ff74d7f70044",
+      "bigType": "GGPZTransformer",
+      "isRef": "true",
+      "id": "8aab8d9d61fe815c0161ff74d8350045"
+    },
+    {
+      "path": "${bokedee.logpath.runtimeLog}/ERP_RrpairConfirmation_To_BPM",
+      "text": "记录错误日志到文件_ERP_RrpairConfirmation_To_BPM_H",
+      "description": "",
+      "smallType": "File",
+      "className": "",
+      "enable": "true",
+      "outputPattern": "#[function:datestamp:yyyyMMddHHmmss]-#[message:id].xml",
+      "parentId": "8aab8d9d61fe815c0161ff74d7f70044",
+      "bigType": "outbound",
+      "file_subdir": "#[context:serviceName]/#[function:datestamp:yyyyMMdd]",
+      "isRef": "false",
+      "id": "8aab8d9d61fe815c0161ff74d8eb0046"
+    },
+    {
+      "text": "把异常信息替换换行符_ERP_RrpairConfirmation_To_BPM_H",
+      "description": "把异常信息替换换行符",
+      "scriptContent": "String exceptionContent = message.getPayload();String exception = exceptionContent.replace(\"\\n\", \"<br/>\");message.setPayload(exception);return message;",
+      "className": "org.mule.module.scripting.transformer.ScriptTransformer",
+      "smallType": "GroovyScriptTransformer",
+      "enable": "false",
+      "parentId": "8aab8d9d61fe815c0161ff74d7f70044",
+      "bigType": "transformer_au",
+      "simpleMpLog": "false",
+      "isRef": "false",
+      "id": "8aab8d9d61fe815c0161ff74d9990047"
+    },
+    {
+      "text": "把异常信息通过邮件发送_ERP_RrpairConfirmation_To_BPM_H",
+      "description": "把异常信息通过邮件发送",
+      "connector_ref": "bokedee_default_smtp_connector",
+      "subject": "ERP_RrpairConfirmation_To_BPM",
+      "smallType": "SMTP",
+      "className": "",
+      "enable": "false",
+      "parentId": "8aab8d9d61fe815c0161ff74d7f70044",
+      "bigType": "outbound",
+      "encoding": "UTF-8",
+      "isRef": "false",
+      "id": "8aab8d9d61fe815c0161ff74da4c0048"
+    }
+  ]
+}

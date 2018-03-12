@@ -1,39 +1,35 @@
-<%@ page language="java" import="java.util.*" pageEncoding="gb2312"%>
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@ page import="com.zhuozhengsoft.pageoffice.*, com.zhuozhengsoft.pageoffice.wordwriter.*,java.awt.*"%>
-<%@ taglib uri="http://java.pageoffice.cn" prefix="po" %>
 <%
 
 PDFCtrl poCtrl1 = new PDFCtrl(request);
-poCtrl1.setServerPage(request.getContextPath()+"/poserver.zz"); //´ËĞĞ±ØĞë
+poCtrl1.setServerPage(request.getContextPath()+"/poserver.zz"); //æ­¤è¡Œå¿…é¡»
 
 // Create custom toolbar
-poCtrl1.addCustomToolButton("ËÑË÷", "SearchText()", 0);
-poCtrl1.addCustomToolButton("ËÑË÷ÏÂÒ»¸ö", "SearchTextNext()", 0);
-poCtrl1.addCustomToolButton("ËÑË÷ÉÏÒ»¸ö", "SearchTextPrev()", 0);
-poCtrl1.addCustomToolButton("Êµ¼Ê´óĞ¡", "SetPageReal()", 16);
-poCtrl1.addCustomToolButton("ÊÊºÏÒ³Ãæ", "SetPageFit()", 17);
-poCtrl1.addCustomToolButton("ÊÊºÏ¿í¶È", "SetPageWidth()", 18);
-
+poCtrl1.addCustomToolButton("æœç´¢", "SearchText()", 0);
+poCtrl1.addCustomToolButton("æœç´¢ä¸‹ä¸€ä¸ª", "SearchTextNext()", 0);
+poCtrl1.addCustomToolButton("æœç´¢ä¸Šä¸€ä¸ª", "SearchTextPrev()", 0);
+poCtrl1.addCustomToolButton("å®é™…å¤§å°", "SetPageReal()", 16);
+poCtrl1.addCustomToolButton("é€‚åˆé¡µé¢", "SetPageFit()", 17);
+poCtrl1.addCustomToolButton("é€‚åˆå®½åº¦", "SetPageWidth()", 18);
 poCtrl1.webOpen("doc/test.pdf");
-poCtrl1.setTagId("PDFCtrl1"); //´ËĞĞ±ØĞë
+
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
-    <title>PDFÎÄµµÖĞµÄ¹Ø¼ü×ÖËÑË÷</title>
+    <title>PDFæ–‡æ¡£ä¸­çš„å…³é”®å­—æœç´¢</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
-	<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
+
   </head>
   
   <body>
-  <!--**************   ×¿Õı PageOffice ¿Í»§¶Ë´úÂë¿ªÊ¼    ************************-->
+  <!--**************   å“æ­£ PageOffice å®¢æˆ·ç«¯ä»£ç å¼€å§‹    ************************-->
 	<script language="javascript" type="text/javascript">
 	   function SearchText() {
                document.getElementById("PDFCtrl1").SearchText();
@@ -54,9 +50,9 @@ poCtrl1.setTagId("PDFCtrl1"); //´ËĞĞ±ØĞë
 	        document.getElementById("PDFCtrl1").SetPageFit(3);
 	    }
 	</script>
-    <!--**************   ×¿Õı PageOffice ¿Í»§¶Ë´úÂë½áÊø    ************************-->
+    <!--**************   å“æ­£ PageOffice å®¢æˆ·ç«¯ä»£ç ç»“æŸ    ************************-->
   <div style="width:auto; height:600px;">
-      <po:PDFCtrl id="PDFCtrl1" />
+      <%=poCtrl1.getHtmlCode("PDFCtrl1")%>
   </div>
   </body>
 </html>

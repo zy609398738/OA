@@ -1,9 +1,8 @@
 YIUI.YIUIBuilder = (function(){
 
-    function _builder(formKey, templateKey){
+    function _builder(formKey){
         this._formKey = formKey;
-        this._state = YIUI.Form_OperationState.Edit;
-        this.templateKey = templateKey;
+        this._state = -1;
     };
 
     _builder.prototype.setContainer = function(container){
@@ -14,8 +13,12 @@ YIUI.YIUIBuilder = (function(){
         this._pForm = pForm;
     };
 
-    _builder.prototype.setTarget= function(target){
+    _builder.prototype.setTarget = function(target){
         this._target = target;
+    };
+
+    _builder.prototype.setTemplateKey = function(templateKey){
+        this.templateKey = templateKey;
     };
 
     _builder.prototype.setOperationState= function(state){
@@ -24,20 +27,21 @@ YIUI.YIUIBuilder = (function(){
 
     _builder.prototype.newEmpty= function(){
         var metaDef = null;
+
         if(this.templateKey){
             //反向模版用法， 为流程中专用， 根据流程权限加载， 所以这个地方不加载操作员权限
             metaDef = YIUI.MetaService.getMetaForm(this._formKey, this.templateKey);
         }else{
             metaDef = YIUI.MetaService.getMetaForm(this._formKey);
         }
-        
-//        var rightsDef = YIUI.RightsService.loadFormRights(this._formKey);
+
+        var _this = this;
 
         return $.when(metaDef)
                     .then(function(meta){
                         var metaForm = new YIUI.MetaForm(meta);
                         var emptyForm = new YIUI.Form(metaForm);
-//                        emptyForm.setFormRights(rights);
+                        emptyForm.setTemplateKey(_this.templateKey);
                         return emptyForm;
                     }).promise();
 
@@ -61,7 +65,9 @@ YIUI.YIUIBuilder = (function(){
         form.setContainer(this._container);
 
         var metaForm = form.metaForm;
-        var initState = metaForm.initState == YIUI.Form_OperationState.Edit ? this._state : metaForm.initState;
+
+        // 如果有指定状态,使用指定状态,否则使用初始状态
+        var initState = this._state != -1 ? this._state : metaForm.initState;
 
         form.setOperationState(initState);
 
@@ -75,7 +81,10 @@ YIUI.YIUIBuilder = (function(){
                 title: form.caption, 
                 showClose: false, 
                 width: popWidth, 
-                height: popHeight
+                height: popHeight,
+                close: function () {
+                    return form.fireClose();
+                }
             };
             var root = form.getRoot();
             settings.resizeCallback = function() {
@@ -99,7 +108,7 @@ YIUI.YIUIBuilder = (function(){
     			return false;
 			};
 			ct.removeForm = function(form) {
-				dialogDiv.close();
+                dialogDiv.close();
 				YIUI.FormStack.removeForm(form.formID);
 			};
             form.setContainer(ct);
@@ -112,11 +121,9 @@ YIUI.YIUIBuilder = (function(){
                     form.setDocument(doc);
 
                     return form.doOnLoad().then(function(data){
-                        if (_target == YIUI.FormTarget.MODAL) {
-                            form.showDocument();
-                        }else if(!form.willShow()){
-                            form.showDocument();
-                        }
+                            if( !form.willShow() ) {
+                                form.showDocument();
+                            }
                         return form;
                     });
                 });

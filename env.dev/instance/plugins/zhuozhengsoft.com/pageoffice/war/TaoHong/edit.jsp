@@ -1,20 +1,18 @@
 <%@ page language="java" 
 	import="java.util.*,com.zhuozhengsoft.pageoffice.*,java.io.*,javax.servlet.*" 
-	pageEncoding="gb2312"%>
-<%@ taglib uri="http://java.pageoffice.cn" prefix="po" %>
+	pageEncoding="utf-8"%>
 <%
-	String fileName = "test.doc"; // ÕıÎÄÄÚÈİÎÄ¼ş£ºtest.doc
+	String fileName = "test.doc"; // æ­£æ–‡å†…å®¹æ–‡ä»¶ï¼štest.doc
 	
-    //***************************×¿ÕıPageOffice×é¼şµÄÊ¹ÓÃ********************************
+    //***************************å“æ­£PageOfficeç»„ä»¶çš„ä½¿ç”¨********************************
 	PageOfficeCtrl poCtrl1 = new PageOfficeCtrl(request);
-	poCtrl1.addCustomToolButton("±£´æ", "Save", 1);
-    poCtrl1.addCustomToolButton("Áìµ¼È¦ÔÄ", "StartHandDraw", 3);
-    poCtrl1.addCustomToolButton("·Ö²ãÏÔÊ¾ÊÖĞ´Åú×¢", "ShowHandDrawDispBar", 7);
-    poCtrl1.addCustomToolButton("È«ÆÁ/»¹Ô­", "IsFullScreen", 4);
-	poCtrl1.setServerPage(request.getContextPath()+"/poserver.zz");//´ËĞĞ±ØĞë
+	poCtrl1.addCustomToolButton("ä¿å­˜", "Save", 1);
+    poCtrl1.addCustomToolButton("é¢†å¯¼åœˆé˜…", "StartHandDraw", 3);
+    poCtrl1.addCustomToolButton("åˆ†å±‚æ˜¾ç¤ºæ‰‹å†™æ‰¹æ³¨", "ShowHandDrawDispBar", 7);
+    poCtrl1.addCustomToolButton("å…¨å±/è¿˜åŸ", "IsFullScreen", 4);
+	poCtrl1.setServerPage(request.getContextPath()+"/poserver.zz");//æ­¤è¡Œå¿…é¡»
 	poCtrl1.setSaveFilePage("savefile.jsp");
-	poCtrl1.webOpen("doc/"+fileName, OpenModeType.docNormalEdit, "ÕÅÈı");
-	poCtrl1.setTagId("PageOfficeCtrl1"); //´ËĞĞ±ØĞë				  							  
+	poCtrl1.webOpen("doc/"+fileName, OpenModeType.docNormalEdit, "å¼ ä¸‰");				  							  
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -23,7 +21,6 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
     <title></title>
     <link href="images/csstg.css" rel="stylesheet" type="text/css" />
-
 </head>
 <body>
     <form id="form2">
@@ -31,50 +28,50 @@
         <div style="float: left; margin-left: 20px;">
             <img src="images/logo.jpg" height="30" /></div>
         <ul>
-            <li><a target="_blank" href="http://www.zhuozhengsoft.com">×¿ÕıÍøÕ¾</a></li>
-            <li><a target="_blank" href="http://www.zhuozhengsoft.com/poask/index.asp">¿Í»§ÎÊ°É</a></li>
-            <li><a href="#">ÔÚÏß°ïÖú</a></li>
-            <li><a target="_blank" href="http://www.zhuozhengsoft.com/contact-us.html">ÁªÏµÎÒÃÇ</a></li>
+            <li><a target="_blank" href="http://www.zhuozhengsoft.com">å“æ­£ç½‘ç«™</a></li>
+            <li><a target="_blank" href="http://www.zhuozhengsoft.com/poask/index.asp">å®¢æˆ·é—®å§</a></li>
+            <li><a href="#">åœ¨çº¿å¸®åŠ©</a></li>
+            <li><a target="_blank" href="http://www.zhuozhengsoft.com/about/about/">è”ç³»æˆ‘ä»¬</a></li>
         </ul>
     </div>
     <div id="content">
         <div id="textcontent" style="width: 1000px; height: 800px;">
         <div class="flow4">
-					<a href="index.jsp"> <img alt="·µ»Ø" src="images/return.gif"
-							border="0" />ÎÄ¼şÁĞ±í</a>
-					<span style="width: 100px;"> </span><strong>ÎÄµµÖ÷Ìâ£º</strong>
-					<span style="color: Red;">²âÊÔÎÄ¼ş</span>
+					<a href="#"  onclick="window.external.close();"> <img alt="è¿”å›" src="images/return.gif"
+							border="0" />æ–‡ä»¶åˆ—è¡¨</a>
+					<span style="width: 100px;"> </span><strong>æ–‡æ¡£ä¸»é¢˜ï¼š</strong>
+					<span style="color: Red;">æµ‹è¯•æ–‡ä»¶</span>
 		</div>
               <script type="text/javascript">
         function Save() {
             document.getElementById("PageOfficeCtrl1").WebSave();
         }
 
-        //Áìµ¼È¦ÔÄÇ©×Ö
+        //é¢†å¯¼åœˆé˜…ç­¾å­—
         function StartHandDraw() {
             document.getElementById("PageOfficeCtrl1").HandDraw.SetPenWidth(5);
             document.getElementById("PageOfficeCtrl1").HandDraw.Start();
         }
 
-        //·Ö²ãÏÔÊ¾ÊÖĞ´Åú×¢
+        //åˆ†å±‚æ˜¾ç¤ºæ‰‹å†™æ‰¹æ³¨
         function ShowHandDrawDispBar() {
             document.getElementById("PageOfficeCtrl1").HandDraw.ShowLayerBar(); ;
         }
 
-        //È«ÆÁ/»¹Ô­
+        //å…¨å±/è¿˜åŸ
         function IsFullScreen() {
             document.getElementById("PageOfficeCtrl1").FullScreen = !document.getElementById("PageOfficeCtrl1").FullScreen;
         }
 
     </script>
-            <!--**************   ×¿Õı PageOffice×é¼ş ************************-->
-             <po:PageOfficeCtrl id="PageOfficeCtrl1" />
+            <!--**************   å“æ­£ PageOfficeç»„ä»¶ ************************-->
+                     <%=poCtrl1.getHtmlCode("PageOfficeCtrl1")%>
         </div>
     </div>
     <div id="footer">
         <hr width="1000" />
         <div>
-            Copyright (c) 2012 ±±¾©×¿ÕıÖ¾Ô¶Èí¼şÓĞÏŞ¹«Ë¾</div>
+            Copyright (c) 2012 åŒ—äº¬å“æ­£å¿—è¿œè½¯ä»¶æœ‰é™å…¬å¸</div>
     </div>
     </form>
 </body>

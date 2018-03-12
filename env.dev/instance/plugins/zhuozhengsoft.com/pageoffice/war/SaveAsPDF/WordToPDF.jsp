@@ -1,45 +1,45 @@
 <%@ page language="java"
 	import="java.util.*, com.zhuozhengsoft.pageoffice.*"
-	pageEncoding="gb2312"%>
-<%@ taglib uri="http://java.pageoffice.cn" prefix="po"%>
+	pageEncoding="utf-8"%>
 <%
 PageOfficeCtrl pocCtrl=new PageOfficeCtrl(request);
-//ÉèÖÃ·şÎñÆ÷Ò³Ãæ
+//è®¾ç½®æœåŠ¡å™¨é¡µé¢
 pocCtrl.setServerPage(request.getContextPath()+"/poserver.zz");
-//Ìí¼Ó×Ô¶¨Òå°´Å¥
-pocCtrl.addCustomToolButton("±£´æ", "Save()", 1);
-pocCtrl.addCustomToolButton("Áí´æÎªPDFÎÄ¼ş", "SaveAsPDF()", 1);
-//ÉèÖÃ±£´æÒ³Ãæ
+//æ·»åŠ è‡ªå®šä¹‰æŒ‰é’®
+pocCtrl.addCustomToolButton("ä¿å­˜", "Save()", 1);
+pocCtrl.addCustomToolButton("å¦å­˜ä¸ºPDFæ–‡ä»¶", "SaveAsPDF()", 1);
+//è®¾ç½®ä¿å­˜é¡µé¢
 pocCtrl.setSaveFilePage("SaveFile.jsp");
 String fileName = "template.doc";
 String pdfName = fileName.substring(0, fileName.length() - 4) + ".pdf";
-//´ò¿ªÎÄ¼ş
-pocCtrl.webOpen("doc/" + fileName, OpenModeType.docNormalEdit, "ÕÅØıÃû");
-pocCtrl.setTagId("PageOfficeCtrl1");
+//æ‰“å¼€æ–‡ä»¶
+pocCtrl.webOpen("doc/" + fileName, OpenModeType.docNormalEdit, "å¼ ä½šå");
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 	<head>
-		<title>WordÎÄ¼ş×ª»»³ÉPDF¸ñÊ½</title>
+		<title>Wordæ–‡ä»¶è½¬æ¢æˆPDFæ ¼å¼</title>
 		<script type="text/javascript">
-        //±£´æ
+        //ä¿å­˜
         function Save() {
             document.getElementById("PageOfficeCtrl1").WebSave();
         }
 
-        //Áí´æÎªPDFÎÄ¼ş
+        //å¦å­˜ä¸ºPDFæ–‡ä»¶
         function SaveAsPDF() {
             document.getElementById("PageOfficeCtrl1").WebSaveAsPDF();
-            window.open("OpenPDF.jsp?fileName=<%=pdfName %>");
+            document.getElementById("PageOfficeCtrl1").Alert("PDFæ–‡ä»¶å·²ç»ä¿å­˜åˆ° SaveAsPDF\\docç›®å½•ä¸‹ã€‚");
+            document.getElementById("div1").innerHTML = "<a href='OpenPDF.jsp?fileName=<%=pdfName %>'> æŸ¥çœ‹å¦å­˜çš„ pdf æ–‡ä»¶<a><br><br>";
         }
     </script>
+
 	</head>
 	<body>
 		<form id="form1">
+			<div id="div1"></div>
 			<div style="width: auto; height: 700px;">
-				<po:PageOfficeCtrl id="PageOfficeCtrl1">
-				</po:PageOfficeCtrl>
+				 <%=pocCtrl.getHtmlCode("PageOfficeCtrl1")%>
 			</div>
 		</form>
 	</body>

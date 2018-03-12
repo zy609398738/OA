@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<DataObject Key="OA_WorkitemSpecial" Caption="特殊工作项" PrimaryType="Entity">
+    <TableCollection>
+        <Table Key="OA_WorkitemSpecial" Caption="特殊工作项">
+            <Column Key="OID" Caption="对象标识" DataType="Long"/>
+            <Column Key="SOID" Caption="主对象标识" DataType="Long"/>
+            <Column Key="POID" Caption="父对象标识" DataType="Long"/>
+            <Column Key="VERID" Caption="对象版本" DataType="Integer"/>
+            <Column Key="DVERID" Caption="对象明细版本" DataType="Integer"/>
+            <Column Key="WorkitemID" Caption="工作项标识" DataType="Long"/>
+            <Column Key="PreWorkitemID" Caption="前一工作项" DataType="Long"/>
+            <Column Key="BillKey" Caption="表单Key" DataType="Varchar"/>
+            <Column Key="BIllOID" Caption="表单标识" DataType="Long"/>
+            <Column Key="OptKey" Caption="操作Key" DataType="Varchar"/>
+        </Table>
+    </TableCollection>
+</DataObject>

@@ -1,44 +1,43 @@
 <%@ page language="java"
 	import="java.util.*,com.zhuozhengsoft.pageoffice.*"
-	pageEncoding="gb2312"%>
+	pageEncoding="utf-8"%>
 <%@page import="com.zhuozhengsoft.pageoffice.excelwriter.*"%>
 <%@page import="java.awt.Color"%>
 <%@page import="java.text.*"%>
-<%@ taglib uri="http://java.pageoffice.cn" prefix="po"%>
 <%
-	//ÉèÖÃPageOfficeCtrl¿Ø¼şµÄ·şÎñÒ³Ãæ
+	//è®¾ç½®PageOfficeCtrlæ§ä»¶çš„æœåŠ¡é¡µé¢
 	PageOfficeCtrl poCtrl1 = new PageOfficeCtrl(request);
-	poCtrl1.setServerPage(request.getContextPath()+"/poserver.zz"); //´ËĞĞ±ØĞë
-	poCtrl1.setCaption("¼òµ¥µÄ¸øExcel¸³Öµ");
+	poCtrl1.setServerPage(request.getContextPath()+"/poserver.zz"); //æ­¤è¡Œå¿…é¡»
+	poCtrl1.setCaption("ç®€å•çš„ç»™Excelèµ‹å€¼");
 	
-	//¶¨ÒåWorkbook¶ÔÏó
+	//å®šä¹‰Workbookå¯¹è±¡
 	Workbook workBook = new Workbook();
-	//¶¨ÒåSheet¶ÔÏó£¬"Sheet1"ÊÇ´ò¿ªµÄExcel±íµ¥µÄÃû³Æ
+	//å®šä¹‰Sheetå¯¹è±¡ï¼Œ"Sheet1"æ˜¯æ‰“å¼€çš„Excelè¡¨å•çš„åç§°
 	Sheet sheet = workBook.openSheet("Sheet1");
 	
-	//¶¨ÒåTable¶ÔÏó
+	//å®šä¹‰Tableå¯¹è±¡
 	Table table = sheet.openTable("B4:F11");
 	
-	int rowCount = 12;//¼ÙÉè½«Òª×Ô¶¯Ìî³äÊı¾İµÄÊµ¼Ê¼ÇÂ¼ÌõÊıÎª12 
+	int rowCount = 12;//å‡è®¾å°†è¦è‡ªåŠ¨å¡«å……æ•°æ®çš„å®é™…è®°å½•æ¡æ•°ä¸º12 
 	for(int i = 1; i <= rowCount; i++){
-		//¸øÇøÓòÖĞµÄµ¥Ôª¸ñ¸³Öµ
-	    table.getDataFields().get(0).setValue( i + "ÔÂ");
+		//ç»™åŒºåŸŸä¸­çš„å•å…ƒæ ¼èµ‹å€¼
+	    table.getDataFields().get(0).setValue( i + "æœˆ");
 	    table.getDataFields().get(1).setValue("100");
 	    table.getDataFields().get(2).setValue("120");
 	    table.getDataFields().get(3).setValue("500");
 	    table.getDataFields().get(4).setValue("120%");
-	    table.nextRow();//Ñ­»·ÏÂÒ»ĞĞ£¬´ËĞĞ±ØĞë
+	    table.nextRow();//å¾ªç¯ä¸‹ä¸€è¡Œï¼Œæ­¤è¡Œå¿…é¡»
 	}
 
-    //¹Ø±Õtable¶ÔÏó
+    //å…³é—­tableå¯¹è±¡
     table.close();
     
-	//¶¨ÒåTable¶ÔÏó
+	//å®šä¹‰Tableå¯¹è±¡
 	Table table2 = sheet.openTable("B13:F16");
-	int rowCount2 = 4;//¼ÙÉè½«Òª×Ô¶¯Ìî³äÊı¾İµÄÊµ¼Ê¼ÇÂ¼ÌõÊıÎª12 
+	int rowCount2 = 4;//å‡è®¾å°†è¦è‡ªåŠ¨å¡«å……æ•°æ®çš„å®é™…è®°å½•æ¡æ•°ä¸º12 
 	for(int i = 1; i <= rowCount2; i++){
-		//¸øÇøÓòÖĞµÄµ¥Ôª¸ñ¸³Öµ
-	    table2.getDataFields().get(0).setValue( i + "¼¾¶È");
+		//ç»™åŒºåŸŸä¸­çš„å•å…ƒæ ¼èµ‹å€¼
+	    table2.getDataFields().get(0).setValue( i + "å­£åº¦");
 	    table2.getDataFields().get(1).setValue("300");
 	    table2.getDataFields().get(2).setValue("300");
 	    table2.getDataFields().get(3).setValue("300");
@@ -46,46 +45,41 @@
 	    table2.nextRow();
 	}
 
-    //¹Ø±Õtable¶ÔÏó
+    //å…³é—­tableå¯¹è±¡
     table2.close();
 	
 	poCtrl1.setWriter(workBook);
 	
-	//Òş²Ø²Ëµ¥À¸
+	//éšè—èœå•æ 
 	poCtrl1.setMenubar(false);
 	
 	//poCtrl1.setSaveDataPage("SaveData.jsp");
-	//poCtrl1.addCustomToolButton("±£´æ", "Save()", 1);
-	//´ò¿ªWordÎÄ¼ş
-	poCtrl1.webOpen("doc/test4.xls", OpenModeType.xlsNormalEdit, "ÕÅÈı");
-	poCtrl1.setTagId("PageOfficeCtrl1"); //´ËĞĞ±ØĞë
+	//poCtrl1.addCustomToolButton("ä¿å­˜", "Save()", 1);
+	//æ‰“å¼€Wordæ–‡ä»¶
+	poCtrl1.webOpen("doc/test4.xls", OpenModeType.xlsNormalEdit, "å¼ ä¸‰");
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 	<head>
-		<title>¸øExcelÎÄµµÖĞ¶¨ÒåÃû³ÆµÄÇøÓò¸³Öµ</title>
+		<title>ç»™Excelæ–‡æ¡£ä¸­å®šä¹‰åç§°çš„åŒºåŸŸèµ‹å€¼</title>
 
 		<meta http-equiv="pragma" content="no-cache">
 		<meta http-equiv="cache-control" content="no-cache">
 		<meta http-equiv="expires" content="0">
 		<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 		<meta http-equiv="description" content="This is my page">
-		<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
+
 	<script type="text/javascript">
         function Save() {
             document.getElementById("PageOfficeCtrl1").WebSave();
         }
     </script>
 	</head>
-
 	<body>
-		<a href="Default.jsp">·µ»ØÊ×Ò³</a><br/>
-		openTableÌî³äÊı¾İºóÏÔÊ¾µÄĞ§¹û
+		openTableå¡«å……æ•°æ®åæ˜¾ç¤ºçš„æ•ˆæœ
 		<div style="width: 1000px; height: 900px;">
-			<po:PageOfficeCtrl id="PageOfficeCtrl1"></po:PageOfficeCtrl>
+			<%=poCtrl1.getHtmlCode("PageOfficeCtrl1")%>
 		</div>
 	</body>
 </html>

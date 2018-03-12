@@ -32,7 +32,9 @@
 						var v = this.map[m];
 						var type = this.mapType[m];
 						if(!type || type == -1) {
-							if($.isNumeric(v)) {
+                            if (typeof v == "string") {
+                                type = YIUI.JavaDataType.USER_STRING; // 需要先判断字符串eg:"02",是string而不是number
+                            } else if ($.isNumeric(v)) {
 								//TODO 判断类型是int还是long
 								//int
 //								type = YIUI.JavaDataType.USER_INT;
@@ -46,8 +48,6 @@
 							} else if(v instanceof Date) {
 								type = YIUI.JavaDataType.USER_DATETIME;
 								v = v.getTime();
-							} else if(typeof v == "string") {
-								type = YIUI.JavaDataType.USER_STRING;
 							}
 						}
 						var item = {

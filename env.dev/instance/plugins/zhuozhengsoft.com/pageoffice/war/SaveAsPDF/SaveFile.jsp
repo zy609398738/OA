@@ -1,9 +1,9 @@
 <%@ page language="java"
 	import="java.util.*,com.zhuozhengsoft.pageoffice.*"
-	pageEncoding="gb2312"%>
+	pageEncoding="utf-8"%>
 <%
 	FileSaver fs = new FileSaver(request, response);
-	//±£´æÎÄ¼þµ½±¾µØ´ÅÅÌ
+	//ä¿å­˜æ–‡ä»¶åˆ°æœ¬åœ°ç£ç›˜
 	fs.saveToFile(request.getSession().getServletContext().getRealPath("SaveAsPDF/doc/")+"/"+fs.getFileName());
 	fs.close();
 %>

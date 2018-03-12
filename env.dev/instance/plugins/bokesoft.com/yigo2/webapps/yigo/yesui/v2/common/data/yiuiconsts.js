@@ -14,7 +14,7 @@ YIUI.CONTROLTYPE = {
     BORDERLAYOUTPANEL: 8,
     FLEXFLOWLAYOUTPANEL: 9,
     TABLELAYOUTPANEL: 10,
-    FLUIDTABLELAYOUTPANEL: 12,
+    FLUIDTABLELAYOUTPANEL: 11,
 
     BUTTON: 200,
     CHECKBOX: 201,
@@ -182,7 +182,8 @@ YIUI.Form_OperationState = {
 YIUI.FormUIStatusMask = {
     ENABLE: 0x0001,
     VISIBLE: 0x0002,
-    OPERATION: 0x0004
+    OPERATION: 0x0004,
+    CHECKRULE: 0x0008
 };
 /** form目标显示方式 */
 YIUI.FormTarget = {
@@ -214,8 +215,8 @@ YIUI.Form_Type = {
     Entity: 1,
     Dict: 2,
     View: 3,
-    Condition: 4,
-    Detail: 5
+    Detail: 4,
+    Report: 5,
 };
 YIUI.FILTERVALUETYPE = {
     FIELD: 0,
@@ -236,6 +237,10 @@ YIUI.Dialog_MsgType = {
     YES_NO: 1,
     YES_NO_CANCEL: 2
 };
+YIUI.WorkItem_State = {
+    NEW: 1,
+    FINISH: 2
+}
 YIUI.Dialog_Btn = {
     OK_OPTION: 0,
     STR_OK: "OK",
@@ -432,7 +437,8 @@ YIUI.BPMKeys = {
     SaveBPMMap_KEY: "SaveBPMMap",
     LoadBPM_KEY: "BPM",
     STATE_MACHINE: "StateMachine",
-    WORKITEM_INFO: "WorkitemInfo"
+    WORKITEM_INFO: "WorkitemInfo",
+    LOAD_WORKITEM_INFO:"LoadWorkItemInfo"
 };
 YIUI.PPObject_Type = {
     ColumnType: "Type",
@@ -611,7 +617,6 @@ YIUI.GridTreeType = {
     NONE: -1,
     DICT: 0,
     COMMON: 1,
-    CUSTOM: 2
 };
 YIUI.OptType = {
 	NEW: 1,
@@ -636,12 +641,12 @@ YIUI.JsonType = {
     JsonArray:1
 }
 YIUI.PageLoadType = {
+    NONE: 0,
+    STR_NONE: "NONE",
 	UI:1,
 	STR_UI: "UI",
 	DB:2,
 	STR_DB: "DB",
-	NONE: -1,
-	STR_NONE: "NONE"
 };
 
 YIUI.InstanceState = {
@@ -656,3 +661,7 @@ YIUI.InstanceState = {
 	/** 强行关闭 */
 	PAUSE: 4
 };
+
+YIUI.HeadInfoType = {
+	SysOpt : "Sys_Opt"
+}

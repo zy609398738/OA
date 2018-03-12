@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<StringTable>
+    <UI>
+		<Lab_BillKey>Billkey</Lab_BillKey>
+        <SplitPanel1>Basic Information</SplitPanel1>
+        <SysTab>System Information</SysTab>
+        <Lab_Name>Name</Lab_Name>
+        <Lab_Notes>Notes</Lab_Notes>
+        <Lab_CreateTime>CreateTime</Lab_CreateTime>
+        <Lab_ClusterID>Group</Lab_ClusterID>
+        <Lab_Name_en_US>EnglishName</Lab_Name_en_US>
+        <Lab_Code>Code</Lab_Code>
+        <Lab_Creator>Creator</Lab_Creator>
+        <Lab_Modifier>Modifier</Lab_Modifier>
+        <Lab_OrderNum>DisplayOrder</Lab_OrderNum>
+        <Lab_ModifyTime>CreateTime</Lab_ModifyTime>
+        <Dtl>Detail</Dtl>
+    </UI>
+    <GridColumn>
+        <WorkflowTypeID>WorkflowType</WorkflowTypeID>
+        <OrderNum_D>DisplayOrder</OrderNum_D>
+    </GridColumn>
+</StringTable>

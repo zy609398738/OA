@@ -1,0 +1,20 @@
+[
+  {
+    "id": "8aab8d9d61fe815c0161ff74d7f70044",
+    "text": "ERP_RrpairConfirmation_To_BPM_H",
+    "recordMpLog": "false",
+    "parentId": "8aab8d9d61fe815c0161ff74d7750043",
+    "description": "实时查询ERP维修保养单的数据",
+    "fileImport": "false",
+    "enable": "true"
+  },
+  {
+    "recordMpLog": "false",
+    "text": "ERP_RrpairConfirmation_To_BPM_L",
+    "id": "8aab8d9d61fe815c0161ff74dac90049",
+    "parentId": "8aab8d9d61fe815c0161ff74d7750043",
+    "description": "将查询的数据映射到BPM系统中",
+    "fileImport": "false",
+    "enable": "true"
+  }
+]

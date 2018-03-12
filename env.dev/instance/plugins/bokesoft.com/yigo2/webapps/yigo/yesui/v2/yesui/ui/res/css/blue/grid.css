@@ -1,8 +1,8 @@
 /*Grid*/
-.ui-ygrid {
+div.ui-ygrid {
     position: relative;
+    border: 1px solid #dadada;
 }
-
 .ui-ygrid .ui-ygrid-view {
     position: relative;
     left: 0;
@@ -84,7 +84,7 @@
 .ui-ygrid .ui-ygrid-sortable {
     font-family: "Microsoft Yahei", "Verdana,Simsun", "Segoe UI Web Light", "Segoe UI Light", "Segoe UI Web Regular", "Segoe UI", "Segoe UI Symbol", "Helvetica Neue", "Arial";
     font-size: 12px;
-    cursor: pointer;
+    /** cursor: pointer;*/
     padding-left: 3px;
 }
 
@@ -110,6 +110,11 @@
     border-spacing: 0;
 }
 
+/** 为了出滚动条*/
+.ui-ygrid .ui-ygrid-empty {
+    height:1px;
+}
+
 .ui-ygrid tr.ygrow {
     outline-style: none;
 }
@@ -128,6 +133,18 @@
     border-bottom-width: 1px;
     border-bottom-color: #dddddd;
     border-bottom-style: solid;
+}
+
+.ui-ygrid tr.ygrow td.frozenRow {
+    border-bottom-color: #1f91dc;
+}
+
+.ui-ygrid .ui-ygrid-htable th.frozenColumn {
+    border-right-color: #1f91dc;
+}
+
+.ui-ygrid tr.ygrow td.frozenColumn {
+    border-right-color: #1f91dc;
 }
 
 .ui-ygrid tr.ygfirstrow td {
@@ -263,9 +280,11 @@
 }
 
 .ui-ygrid tr.ygrow td.ui-state-highlight {
-    /*
-        border: 2px solid #03a9f5;
-        background: none; */
+    background: #cce5ff;
+}
+
+.ui-ygrid .ui-pagination ul li.ui-state-highlight {
+    background: #cce5ff;
 }
 
 .ui-ygrid .ui-pagination .curPage {
@@ -377,7 +396,7 @@
 .ui-ygrid .ui-ygrid-resize-mark {
     width: 2px;
     left: 0;
-    background-color: #777;
+    background-color: #9d9194;
     cursor: e-resize;
     cursor: col-resize;
     position: absolute;
@@ -489,7 +508,7 @@
     width: 16px;
     height: 16px;
     position: absolute;
-    top: 40%;
+    top: 30%;
     right: 2px;
     display: none;
 }

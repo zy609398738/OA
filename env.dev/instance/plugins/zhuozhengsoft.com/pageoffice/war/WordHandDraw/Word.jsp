@@ -1,25 +1,23 @@
 <%@ page language="java"
 	import="java.util.*,com.zhuozhengsoft.pageoffice.*"
-	pageEncoding="gb2312"%>
-<%@ taglib uri="http://java.pageoffice.cn" prefix="po"%>
+	pageEncoding="utf-8"%>
 <%
-	//******************************×¿ÕıPageOffice×é¼şµÄÊ¹ÓÃ*******************************
+	//******************************å“æ­£PageOfficeç»„ä»¶çš„ä½¿ç”¨*******************************
 	PageOfficeCtrl poCtrl1 = new PageOfficeCtrl(request);
-	poCtrl1.setServerPage(request.getContextPath()+"/poserver.zz"); //´ËĞĞ±ØĞë
-	//Òş²Ø²Ëµ¥À¸
+	poCtrl1.setServerPage(request.getContextPath()+"/poserver.zz"); //æ­¤è¡Œå¿…é¡»
+	//éšè—èœå•æ 
 	poCtrl1.setMenubar(false);
-	//Ìí¼Ó×Ô¶¨Òå°´Å¥
-	poCtrl1.addCustomToolButton("±£´æ","Save()",1);
-	poCtrl1.addCustomToolButton("¿ªÊ¼ÊÖĞ´", "StartHandDraw()", 5);
-	poCtrl1.addCustomToolButton("ÉèÖÃÏß¿í", "SetPenWidth()", 5);
-	poCtrl1.addCustomToolButton("ÉèÖÃÑÕÉ«", "SetPenColor()", 5);
-	poCtrl1.addCustomToolButton("ÉèÖÃ±ÊĞÍ", "SetPenType()", 5);
-	poCtrl1.addCustomToolButton("ÉèÖÃËõ·Å", "SetPenZoom()", 5);
-	poCtrl1.addCustomToolButton("·ÃÎÊÊÖĞ´¼¯", "GetHandDrawList()", 6);
+	//æ·»åŠ è‡ªå®šä¹‰æŒ‰é’®
+	poCtrl1.addCustomToolButton("ä¿å­˜","Save()",1);
+	poCtrl1.addCustomToolButton("å¼€å§‹æ‰‹å†™", "StartHandDraw()", 5);
+	poCtrl1.addCustomToolButton("è®¾ç½®çº¿å®½", "SetPenWidth()", 5);
+	poCtrl1.addCustomToolButton("è®¾ç½®é¢œè‰²", "SetPenColor()", 5);
+	poCtrl1.addCustomToolButton("è®¾ç½®ç¬”å‹", "SetPenType()", 5);
+	poCtrl1.addCustomToolButton("è®¾ç½®ç¼©æ”¾", "SetPenZoom()", 5);
+	poCtrl1.addCustomToolButton("è®¿é—®æ‰‹å†™é›†", "GetHandDrawList()", 6);
 
 	poCtrl1.setSaveFilePage("SaveFile.jsp");
-	poCtrl1.webOpen("doc/template.doc", OpenModeType.docNormalEdit, "ÕÅÈı");
-	poCtrl1.setTagId("PageOfficeCtrl1"); //´ËĞĞ±ØĞë
+	poCtrl1.webOpen("doc/template.doc", OpenModeType.docNormalEdit, "å¼ ä¸‰");
 %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
@@ -27,83 +25,83 @@
 		<title></title>
 
 		<script language="JavaScript">
-		//±£´æ
+		//ä¿å­˜
 		function Save() {
             document.getElementById("PageOfficeCtrl1").WebSave();
         }
-        //¿ªÊ¼ÊÖĞ´
+        //å¼€å§‹æ‰‹å†™
         function StartHandDraw() {
             document.getElementById("PageOfficeCtrl1").HandDraw.Start();
         }
-        //ÉèÖÃÏß¿í
+        //è®¾ç½®çº¿å®½
         function SetPenWidth() {
             document.getElementById("PageOfficeCtrl1").HandDraw.SetPenWidth(5);
         }
-        //ÉèÖÃÑÕÉ«
+        //è®¾ç½®é¢œè‰²
         function SetPenColor() {
 
             document.getElementById("PageOfficeCtrl1").HandDraw.SetPenColor(5292104);
         }
-        //ÉèÖÃ±ÊĞÍ
+        //è®¾ç½®ç¬”å‹
         function SetPenType() {
 
             document.getElementById("PageOfficeCtrl1").HandDraw.SetPenType(1);
         }
-        //ÉèÖÃËõ·Å
+        //è®¾ç½®ç¼©æ”¾
         function SetPenZoom() {
 
             document.getElementById("PageOfficeCtrl1").HandDraw.SetPenZoom(50);
         }
-        //³·Ïú×î½üÒ»´ÎÊÖĞ´
+        //æ’¤é”€æœ€è¿‘ä¸€æ¬¡æ‰‹å†™
         function UndoHandDraw() {
 
             document.getElementById("PageOfficeCtrl1").HandDraw.Undo();
         }
-        //ÍË³öÊÖĞ´
+        //é€€å‡ºæ‰‹å†™
         function ExitHandDraw() {
 
             document.getElementById("PageOfficeCtrl1").HandDraw.Exit();
         }
-        //·ÃÎÊÊÖĞ´¼¯ºÏ
+        //è®¿é—®æ‰‹å†™é›†åˆ
         function GetHandDrawList() {
 
             var handDrawList = null;
             var handDraw = null;
             handDrawList = document.getElementById("PageOfficeCtrl1").HandDraw;
             handDrawList.Refresh();
-            document.getElementById("PageOfficeCtrl1").Alert("±¾ÎÄµµ¹²ÓĞ " + handDrawList.Count + " ¸öÊÖĞ´ÅúÊ¾¡£");
-            var i = 0; //Ë÷Òı´Ó0¿ªÊ¼
+            document.getElementById("PageOfficeCtrl1").Alert("æœ¬æ–‡æ¡£å…±æœ‰ " + handDrawList.Count + " ä¸ªæ‰‹å†™æ‰¹ç¤ºã€‚");
+            var i = 0; //ç´¢å¼•ä»0å¼€å§‹
             for (i = 0; i < handDrawList.Count; i++) {
                 handDraw = handDrawList.Item(i);
                 handDraw.Locate();
-                document.getElementById("PageOfficeCtrl1").Alert("µÚ" + handDraw.PageNumber + "Ò³" + ", " + handDraw.UserName + ", " + handDraw.DateTime);
+                document.getElementById("PageOfficeCtrl1").Alert("ç¬¬" + handDraw.PageNumber + "é¡µ" + ", " + handDraw.UserName + ", " + handDraw.DateTime);
             }
         }
+        
     </script>
 
 	</head>
 	<body>
 		<div
 			style="font-size: 12px; line-height: 20px; border-bottom: dotted 1px #ccc; border-top: dotted 1px #ccc; padding: 5px;">
-			<span style="color: red;">²Ù×÷ËµÃ÷£º</span>ÈôÏëÌáÇ°ÉèÖÃÏß¿í¡¢ÑÕÉ«¡¢±ÊĞÍ¡¢Ëõ·ÅµÈ£¬¿ÉÏÈµã»÷×Ô¶¨Òå¹¤¾ßÀ¸ÉÏµÄÏàÓ¦°´Å¥£¬È»ºóµã»÷¡°¿ªÊ¼ÊÖĞ´¡±°´Å¥¡£ÔÚÉĞÎ´¹Ø±ÕÊÖĞ´¹¤¾ßÀ¸Ê±£¬µã¡°³·Ïú×î½üÒ»´ÎÊÖĞ´¡±°´Å¥£¬¿É³·Ïú×î½üÒ»´ÎµÄÊÖĞ´£»µã»÷¡°ÍË³öÊÖĞ´¡±°´Å¥£¬¿ÉÍË³öÊÖĞ´£»»¹¿Éµã¡°ÉèÖÃÏß¿í¡±¡¢¡°ÉèÖÃÑÕÉ«¡±µÈ°´Å¥¶ÔÊÖĞ´Åú×¢µÄÑÕÉ«¡¢Ïß¿íµÈ½øĞĞÔÙ´ÎÉèÖÃ¡£
+			<span style="color: red;">æ“ä½œè¯´æ˜ï¼š</span>è‹¥æƒ³æå‰è®¾ç½®çº¿å®½ã€é¢œè‰²ã€ç¬”å‹ã€ç¼©æ”¾ç­‰ï¼Œå¯å…ˆç‚¹å‡»è‡ªå®šä¹‰å·¥å…·æ ä¸Šçš„ç›¸åº”æŒ‰é’®ï¼Œç„¶åç‚¹å‡»â€œå¼€å§‹æ‰‹å†™â€æŒ‰é’®ã€‚åœ¨å°šæœªå…³é—­æ‰‹å†™å·¥å…·æ æ—¶ï¼Œç‚¹â€œæ’¤é”€æœ€è¿‘ä¸€æ¬¡æ‰‹å†™â€æŒ‰é’®ï¼Œå¯æ’¤é”€æœ€è¿‘ä¸€æ¬¡çš„æ‰‹å†™ï¼›ç‚¹å‡»â€œé€€å‡ºæ‰‹å†™â€æŒ‰é’®ï¼Œå¯é€€å‡ºæ‰‹å†™ï¼›è¿˜å¯ç‚¹â€œè®¾ç½®çº¿å®½â€ã€â€œè®¾ç½®é¢œè‰²â€ç­‰æŒ‰é’®å¯¹æ‰‹å†™æ‰¹æ³¨çš„é¢œè‰²ã€çº¿å®½ç­‰è¿›è¡Œå†æ¬¡è®¾ç½®ã€‚
 			<br />
-			¹Ø¼ü´úÂë£ºµãÓÒ¼ü£¬Ñ¡Ôñ¡°²é¿´Ô´ÎÄ¼ş¡±£¬¿´jsº¯Êı
+			å…³é”®ä»£ç ï¼šç‚¹å³é”®ï¼Œé€‰æ‹©â€œæŸ¥çœ‹æºæ–‡ä»¶â€ï¼Œçœ‹jså‡½æ•°
 			<br />
-			<input id="Button3" type="button" value="ÉèÖÃÏß¿í"
+			<input id="Button3" type="button" value="è®¾ç½®çº¿å®½"
 				onclick="SetPenWidth()" />
 			<input id="Button4" type="button" onclick="SetPenColor()"
-				value="ÉèÖÃÑÕÉ«" />
-			<input id="Button1" type="button" value="³·Ïú×î½üÒ»´ÎÊÖĞ´"
+				value="è®¾ç½®é¢œè‰²" />
+			<input id="Button1" type="button" value="æ’¤é”€æœ€è¿‘ä¸€æ¬¡æ‰‹å†™"
 				onclick="UndoHandDraw()" />
 			<input id="Button2" type="button" onclick="ExitHandDraw()"
-				value="ÍË³öÊÖĞ´" />
+				value="é€€å‡ºæ‰‹å†™" />
 			<span style="background-color: Yellow;"></span>
 		</div>
 		<br />
 		<form id="form1">
 			<div style="height: 700px; width: auto;">
-				<po:PageOfficeCtrl id="PageOfficeCtrl1">
-				</po:PageOfficeCtrl>
+				        <%=poCtrl1.getHtmlCode("PageOfficeCtrl1")%>
 			</div>
 		</form>
 	</body>

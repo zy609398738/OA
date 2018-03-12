@@ -1,5 +1,5 @@
 {
-  "name": "boke-cms-areaSelect",
+  "name": "jquery-areaSelect-plugin-wrapper",
   "version": "1.0.0",
   "description": "areaSelect",
   "main": "src/index.js",
@@ -13,6 +13,6 @@
     "jquery": "^1.12.4"
   },
   "devDependencies": {
-    "webpack-dev-web-test": "../../../modules/supports/webpack-dev-web-test"
+    "webpack-dev-web-test": "../../../supports/webpack-dev-web-test"
   }
 }

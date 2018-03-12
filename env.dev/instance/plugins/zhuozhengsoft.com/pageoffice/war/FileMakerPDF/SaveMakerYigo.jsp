@@ -1,12 +1,25 @@
 <%@ page language="java" 
-	import="com.zhuozhengsoft.pageoffice.*,java.util.*,java.io.*,javax.servlet.*,javax.servlet.http.*" 
+	import="com.zhuozhengsoft.pageoffice.*,java.util.*,java.io.*,javax.servlet.*,javax.servlet.http.*"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.pageoffice.cn" prefix="po" %>
 <%
-	String pdfPath =request.getParameter("pdfPath");
-	String pdfName =request.getParameter("pdfName");
+	String realPath = request.getSession().getServletContext().getRealPath("");
+	String fixPath = "instance/plugins/zhuozhengsoft.com/pageoffice/war";
+	realPath = realPath.substring(0, realPath.length() - fixPath.length());
+	String filePath=request.getParameter("filePath");
+	filePath = filePath.replaceAll("\\\\","/");
+	File file=new File(filePath);
+	String name=file.getName(); 
+	String path=filePath.substring(0, filePath.lastIndexOf(name));
+	String dataPath = request.getParameter("dataPath");
+	dataPath = dataPath.replaceAll("\\\\","/");
+	if(dataPath == null || dataPath == ""){
+		filePath=realPath+"modules/yigo2/Data/"+path+name;
+	}else{
+		filePath=dataPath+path+name;
+	}
 	FileSaver fs = new FileSaver(request, response);
-	fs.saveToFile(pdfPath+ pdfName);
+	fs.saveToFile(filePath);
 	fs.close();
 %>
 

@@ -1,0 +1,10 @@
+{
+  "id": "8aab8d065f095ba7015f0a2ee47c0026",
+  "startIndex": "",
+  "autoRun": "true",
+  "changePort": "",
+  "responseTime": "600000",
+  "description": "实时查询ERP系统合同模板单据IO数据",
+  "text": "ERP_Organization_TO_BPM",
+  "oldPort": ""
+}

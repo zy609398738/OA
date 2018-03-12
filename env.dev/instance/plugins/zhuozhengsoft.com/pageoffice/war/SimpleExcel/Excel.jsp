@@ -1,36 +1,59 @@
 <%@ page language="java"
 	import="java.util.*,com.zhuozhengsoft.pageoffice.*,com.zhuozhengsoft.pageoffice.excelwriter.*"
-	pageEncoding="gb2312"%>
-<%@ taglib uri="http://java.pageoffice.cn" prefix="po"%>
+	pageEncoding="utf-8"%>
 <%
 PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
-//ÉèÖÃ·şÎñÆ÷Ò³Ãæ
+//è®¾ç½®æœåŠ¡å™¨é¡µé¢
 poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");
-//Ìí¼Ó×Ô¶¨Òå°´Å¥
-poCtrl.addCustomToolButton("±£´æ","Save",1);
-//ÉèÖÃ±£´æÒ³Ãæ
+//æ·»åŠ è‡ªå®šä¹‰æŒ‰é’®
+poCtrl.addCustomToolButton("ä¿å­˜","Save",1);
+poCtrl.addCustomToolButton("å…³é—­","Close",21);
+//è®¾ç½®ä¿å­˜é¡µé¢
 poCtrl.setSaveFilePage("SaveFile.jsp");
-//´ò¿ªWordÎÄµµ
-poCtrl.webOpen("doc/test.xls",OpenModeType.xlsNormalEdit,"ÕÅØıÃû");
-poCtrl.setTagId("PageOfficeCtrl1");//´ËĞĞ±ØĞè
+//æ‰“å¼€Wordæ–‡æ¡£
+poCtrl.webOpen("doc/test.xls",OpenModeType.xlsNormalEdit,"å¼ ä½šå");
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
-    <title>×î¼òµ¥µÄ´ò¿ª±£´æExceÎÄ¼ş</title>
+    <title>æœ€ç®€å•çš„æ‰“å¼€ä¿å­˜Excelæ–‡ä»¶</title>
+     
+       
+    
+ <style>
+#main{
+	width:750px;
+	height:800px;
+	border:#83b3d9 2px solid;
+	background:#f2f7fb;
+	
+}
+#shut{
+	width:45px;
+	height:30px;
+	float:right;
+	margin-right:-1px;
+}
+#shut:hover{
+	}
+</style>
 </head>
-<body>
+<body style="overflow:hidden" >
     <script type="text/javascript">
         function Save() {
             document.getElementById("PageOfficeCtrl1").WebSave();
         }
+        function Close() {
+               window.external.close();
+        }
     </script>
     <form id="form1">
-    <div style=" width:100%; height:700px;">
-        <po:PageOfficeCtrl id="PageOfficeCtrl1">
-        </po:PageOfficeCtrl>
-    </div>
+   <div id="main">
+<div id="shut"><img src="../js/close.png"  onclick="Close()" title="å…³é—­" /></div>
+<div id="content"  style="height:750px;width:750px;overflow-y:hidden;">
+<%=poCtrl.getHtmlCode("PageOfficeCtrl1")%>
+</div>
     </form>
 </body>
 </html>

@@ -6,6 +6,7 @@ var ConditionParas = ConditionParas || {};
 		var Return = {
 			condParas: [],
 			condFormKey : "",
+			highItems: [],
 			setCondFormKey: function(condFormKey) {
 				this.condFormKey = condFormKey;
 			},
@@ -26,6 +27,19 @@ var ConditionParas = ConditionParas || {};
 			},
 			clear: function() {
 				this.condParas.length = 0;
+				this.highItems.length = 0;
+			},
+			addHighCond: function(highCond) {
+				this.highItems.push(highCond)
+			},
+			getHighCond: function(i) {
+				return this.highItems[i]
+			},
+			highSize: function() { 
+				return this.highItems.length
+			},
+			getHighCondItems: function() { 
+				return {highCond_items: this.highItems}
 			}
 		};
 		return Return;

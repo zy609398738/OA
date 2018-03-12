@@ -1,6 +1,6 @@
 <%@ page language="java"
-	import="java.sql.*,java.io.*,javax.servlet.*,javax.servlet.http.*,java.text.SimpleDateFormat,java.util.Date;"
-	pageEncoding="gb2312"%>
+	import="java.sql.*,java.io.*,javax.servlet.*,javax.servlet.http.*,java.text.SimpleDateFormat,java.util.Date"
+	pageEncoding="utf-8"%>
 <%
  %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -9,7 +9,10 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
 		<link rel="stylesheet" href="css/style.css" type="text/css"></link>
-		<title>�׺���ʾʾ��</title>
+		 <!--pageoffice.js和jquery.min.js一定要引用  -->
+        <script type="text/javascript" src="../jquery.min.js"></script>
+		<script type="text/javascript" src="../pageoffice.js" id="po_js_main"></script>
+		<title>套红演示示例</title>
 		<script type="text/javascript">
 			function onColor(dd){
 				dd.style.backgroundColor = "#D7FFEE";
@@ -30,9 +33,9 @@
 				</div>
 				<!--logo end-->
 				<ul class="head-rightUl fr">
-					<li><a href="http://www.zhuozhengsoft.com" target="_blank">׿����վ</a></li>
-                <li><a href="http://www.zhuozhengsoft.com/poask/index.asp" target="_blank">�ͻ��ʰ�</a></li>
-                <li class="bor-0"><a href="http://www.zhuozhengsoft.com/contact-us.html" target="_blank">��ϵ����</a></li>
+					<li><a href="http://www.zhuozhengsoft.com" target="_blank">卓正网站</a></li>
+                <li><a href="http://www.zhuozhengsoft.com/poask/index.asp" target="_blank">客户问吧</a></li>
+                <li class="bor-0"><a href="http://www.zhuozhengsoft.com/about/about/" target="_blank">联系我们</a></li>
 				</ul>
 			</div>
 		</div>
@@ -41,48 +44,48 @@
 		<div class="zz-content mc clearfix pd-28">
 			<div class="demo mc">
 				<h2 class="fs-16">
-					PageOffice ���ĵ���ת�е�Ӧ��
+					PageOffice 在文档流转中的应用
 				</h2>
 				<h3 class="fs-12">
-					��ʾ˵��:
+					演示说明:
 				</h3>
 				
 				<p>
-					��ʾ1����ȷ���б���ʾǰ��������Ҫȷ�����Ļ������Ѱ�װMicrosoft Office��
+					提示1：正确运行本演示前，您首先要确定您的机器上已安装Microsoft Office。
 				</p>
 				<p>
-					��ʾ2��������ǵ�һ��ʹ��PageOffice���ڴ��ļ���ʱ�����ʾ��װ�ؼ������������װ��
+					提示2：如果您是第一次使用PageOffice，在打开文件的时候会提示安装控件，请点允许安装。
 				</p>
 				
 			</div>
 			
 			<div class="zz-talbeBox mc">
 				<h2 class="fs-12">
-					�ĵ��б�
+					文档列表
 				</h2>
 				<table class="zz-talbe">
 					<thead>
 						<tr onmouseover="onColor(this);" onmouseout="offColor(this);">		
 							<th width="20%" style="text-align:center;">
-								�ĵ�����
+								文档名称
 							</th>
 							<th width="20%" style="text-align:center;">
-								��������
+								创建日期
 							</th>
 							<th width="60%" style="text-align:center;">
-								����
+								操作
 							</th>
 							
 						</tr>
 					</thead>
 					<tbody>
 						<tr>
-							<td style="text-align:center;">�����ļ�</td>
+							<td style="text-align:center;">测试文件</td>
 							<td style="text-align:center;">2013-05-30</td>
 							<td style="text-align:center;">
-								<a href="edit.jsp"><span style=" color:Green;">�༭</span></a>&nbsp;&nbsp;&nbsp;
-								<a href="taoHong.jsp"><span style=" color:Green;">�׺�</span></a>&nbsp;&nbsp;&nbsp;
-								<a href="readOnly.jsp"><span style=" color:Green;">��ʽ����</span></a>
+								<a href="javascript:POBrowser.openWindowModeless('edit.jsp' , 'width=1200px;height=800px;');"><span style=" color:Green;">编辑</span></a>&nbsp;&nbsp;&nbsp;
+								<a href="javascript:POBrowser.openWindowModeless('taoHong.jsp' , 'width=1200px;height=800px;');"><span style=" color:Green;">套红</span></a>&nbsp;&nbsp;&nbsp;
+								<a href="javascript:POBrowser.openWindowModeless('readOnly.jsp' , 'width=1200px;height=800px;');"><span style=" color:Green;">正式发文</span></a>
 							</td>
 						</tr>
 					</tbody>

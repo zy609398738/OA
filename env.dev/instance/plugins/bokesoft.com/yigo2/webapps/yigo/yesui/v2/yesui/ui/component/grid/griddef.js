@@ -42,8 +42,8 @@
             this.values.push(value);
         },
         addAll: function (valueList) {
-            for (var value in valueList) {
-                this.values.push(valueList[value]);
+            for( var i = 0,v;v = valueList[i];i++ ) {
+                this.values.push(v);
             }
         },
         getValueCount: function () {
@@ -60,8 +60,7 @@
         },
         clone: function () {
             var newObj = new YIUI.MultiKey();
-            for (var i = 0, len = this.values.length; i < len; i++) {
-                var value = this.values[i];
+            for (var i = 0,value; value = this.values[i]; i++) {
                 newObj.addValue(value.clone());
             }
             return newObj;

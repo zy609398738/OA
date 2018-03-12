@@ -1,15 +1,42 @@
 /**
  * 此文件中仅包含对jQuery的扩展
  */
-(function ($, undefined) {
+(function ($, undefined) { 
     var userAgent = navigator.userAgent.toLowerCase();
     $.extend($, {
 
         browser: {
-            isIE: /msie/.test(navigator.userAgent.toLowerCase()) || /rv:([\d.]+)\) like gecko/.test(navigator.userAgent.toLowerCase()),
-            isSafari: /webkit/.test(userAgent), opera: /opera/.test(userAgent),
+            isSafari: /webkit/.test(userAgent), 
+            opera: /opera/.test(userAgent),
             isMozilla: /mozilla/.test(userAgent) && !/(compatible|webkit)/.test(userAgent),
-            version: (navigator.userAgent.toLowerCase().match(/.+(?:msie|firefox|opera|chrome|netscape)[/: ]([\d.]+)/) || [])[1]
+            isIE: function() {
+                var isIE = userAgent.indexOf("compatible") > -1 && userAgent.indexOf("msie") > -1;
+                var isEdge = userAgent.indexOf("edge") > -1 && !isIE;
+                var isIE11 = userAgent.indexOf("trident") > -1 && userAgent.indexOf("rv:11.0") > -1;
+                return (isIE || isIE11 || isEdge);
+            }(),
+            version: function() {
+                var isIE = userAgent.indexOf("compatible") > -1 && userAgent.indexOf("msie") > -1;
+                var isEdge = userAgent.indexOf("edge") > -1 && !isIE;
+                var isIE11 = userAgent.indexOf("trident") > -1 && userAgent.indexOf("rv:11.0") > -1;
+                if(isIE) {
+                    var reg = new RegExp("msie (\\d+\\.\\d+);");
+                    reg.test(userAgent);
+
+                    var ver = parseFloat(RegExp["$1"]);
+                    if(ver > 6) {
+                        return ver;
+                    } else {
+                        return 6; //IE版本 <= 7
+                    }
+                } else if(isEdge) {
+                    return "edge";
+                } else if(isIE11) {
+                    return 11;
+                } else {
+                    return (userAgent.match(/.+(?:firefox|opera|chrome|netscape)[/: ]([\d.]+)/) || [])[1];
+                }
+            }()
         },
 
         isDefined: function (v) {
@@ -217,6 +244,11 @@
                 var value, timer;
                 $(this).keypress(function (event) {
                     // 检查是否非法字符
+
+                    if( event.which == 8 ) {   // 火狐 backspace
+                        return;
+                    }
+
                     var c = String.fromCharCode((event.which || event.keyCode));
                     c = textCase == YIUI.TEXTEDITOR_CASE.UPPER ? c.toUpperCase() : (textCase == YIUI.TEXTEDITOR_CASE.LOWER ? c.toLowerCase() : c);
                     if (!mask.test(c)) {
@@ -232,25 +264,27 @@
                     }
                     
                     if (!event.ctrlKey && $(this).val().length >= maxLen && selTxt.length == 0) {
-                        event.preventDefault();
+                       event.preventDefault();
                     }
-                }).keyup(function (event) {
-                        var nKeyCode = event.keyCode || event.which;
-                        if (nKeyCode >= 37 && nKeyCode <= 40) return;
-                        $(this).val($(this).val().replace(replacePattern, ''));
-                    }).focus(function (event) {
-                        // 处理打开输入法时的情况
-                        var input = $(this);
-                        value = input.val();
-                        timer = setInterval(function () {
-                            if (input.val() != value) {
-                                input.val(input.val().replace(replacePattern, ''));
-                                value = input.val();
-                            }
-                        }, 100);
-                    }).blur(function (event) {
-                        timer && clearInterval(timer);
-                    });
+                })
+                   // .keyup(function (event) {
+                   // var nKeyCode = event.keyCode || event.which;
+                    //if (nKeyCode >= 37 && nKeyCode <= 40) return;
+                    //$(this).val($(this).val().replace(replacePattern, ''));
+                //})
+                    .focus(function (event) {
+                    // 处理打开输入法时的情况
+                    var input = $(this);
+                    value = input.val();
+                    timer = setInterval(function () {
+                        if (input.val() != value) {
+                            input.val(input.val().replace(replacePattern, ''));
+                            value = input.val();
+                        }
+                    }, 100);
+                }).blur(function (event) {
+                    timer && clearInterval(timer);
+                });
             });
             return this;
         }

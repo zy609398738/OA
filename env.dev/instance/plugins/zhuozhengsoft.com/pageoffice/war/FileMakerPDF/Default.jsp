@@ -1,9 +1,9 @@
 <%@ page language="java" 
 import="java.util.*,com.zhuozhengsoft.pageoffice.*"
- pageEncoding="gb2312"%>
+ pageEncoding="utf-8"%>
 
 <%
-String url=request.getSession().getServletContext().getRealPath("FileMakerSingle/doc/"+"/");
+String url=request.getSession().getServletContext().getRealPath("FileMakerPDF/doc/"+"/");
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -14,7 +14,7 @@ String url=request.getSession().getServletContext().getRealPath("FileMakerSingle
     <script type="text/javascript">
         window.myFunc = function() {
             document.getElementById("aDiv").style.display = "";
-            //alert('×ª»»Íê±Ï£¡');
+            //alert('è½¬æ¢å®Œæ¯•ï¼');
         };
         function ConvertFiles() {
             document.getElementById("iframe1").src = "FileMakerPDF.jsp";
@@ -26,10 +26,10 @@ String url=request.getSession().getServletContext().getRealPath("FileMakerSingle
     <form id="form1">
     <div style="text-align: center;">
         <br />
-        <span style="color: Red; font-size: 12px;">ÑİÊ¾£º°ÑÊı¾İÌî³äµ½wordÄ£°åÖĞÉú³É PDF ÎÄ¼ş£¬ÇëµãÏÂÃæµÄ°´Å¥½øĞĞ×ª»»</span><br />
-        <input id="Button1" type="button" value="×ª»»WordÎÄ¼şÎª PDF" onclick="ConvertFiles()" />
+        <span style="color: Red; font-size: 12px;">æ¼”ç¤ºï¼šæŠŠæ•°æ®å¡«å……åˆ°wordæ¨¡æ¿ä¸­ç”Ÿæˆ PDF æ–‡ä»¶ï¼Œè¯·ç‚¹ä¸‹é¢çš„æŒ‰é’®è¿›è¡Œè½¬æ¢</span><br />
+        <input id="Button1" type="button" value="è½¬æ¢Wordæ–‡ä»¶ä¸º PDF" onclick="ConvertFiles()" />
         <div id="aDiv" style="display: none; color: Red; font-size: 12px;">
-            <span>×ª»»Íê³É£¬¿ÉÔÚÏÂÃæµÄµØÖ·ÖĞ´ò¿ªÎÄ¼şÃûÎª¡°maker.pdf¡±µÄ PDF ÎÄ¼ş£¬²é¿´×ª»»µÄĞ§¹û£º<%=url %></span>
+            <span>è½¬æ¢å®Œæˆï¼Œå¯åœ¨ä¸‹é¢çš„åœ°å€ä¸­æ‰“å¼€æ–‡ä»¶åä¸ºâ€œmaker.pdfâ€çš„ PDF æ–‡ä»¶ï¼ŒæŸ¥çœ‹è½¬æ¢çš„æ•ˆæœï¼š<%=url %></span>
         </div>
     </div>
     <div style="width: 1px; height: 1px; overflow: hidden;">

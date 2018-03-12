@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*,com.zhuozhengsoft.pageoffice.wordreader.*,java.io.*" pageEncoding="gb2312"%>
+<%@ page language="java" import="java.util.*,com.zhuozhengsoft.pageoffice.wordreader.*,java.io.*" pageEncoding="utf-8"%>
 <%
 
 String filePath=request.getSession().getServletContext().getRealPath("SplitWord/doc/")+"/";

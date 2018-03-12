@@ -1,41 +1,40 @@
 <%@ page language="java"
 	import="java.util.*,com.zhuozhengsoft.pageoffice.*,com.zhuozhengsoft.pageoffice.wordwriter.*"
-	pageEncoding="gb2312"%>
-<%@ taglib uri="http://java.pageoffice.cn" prefix="po"%>
+	pageEncoding="utf-8"%>
 <%
-//******************************×¿ÕıPageOffice×é¼şµÄÊ¹ÓÃ*******************************
+//******************************å“æ­£PageOfficeç»„ä»¶çš„ä½¿ç”¨*******************************
 	PageOfficeCtrl poCtrl1 = new PageOfficeCtrl(request);
-	poCtrl1.setServerPage(request.getContextPath()+"/poserver.zz"); //´ËĞĞ±ØĞë
-	//Òş²Ø²Ëµ¥À¸
+	poCtrl1.setServerPage(request.getContextPath()+"/poserver.zz"); //æ­¤è¡Œå¿…é¡»
+	//éšè—èœå•æ 
 	poCtrl1.setMenubar(false);
-	//Ìí¼Ó×Ô¶¨Òå°´Å¥
-	poCtrl1.addCustomToolButton("ÔÚµ±Ç°¹â±ê´¦ÓÃjs²åÈë³¬Á´½Ó","addHyperLink",5);
+	//æ·»åŠ è‡ªå®šä¹‰æŒ‰é’®
+	poCtrl1.addCustomToolButton("åœ¨å½“å‰å…‰æ ‡å¤„ç”¨jsæ’å…¥è¶…é“¾æ¥","addHyperLink",5);
 
-	poCtrl1.webOpen("doc/test.doc", OpenModeType.docNormalEdit, "ÕÅÈı");
-	poCtrl1.setTagId("PageOfficeCtrl1"); //´ËĞĞ±ØĞë	
+	poCtrl1.webOpen("doc/test.doc", OpenModeType.docNormalEdit, "å¼ ä¸‰");
 
 %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
-    <title>ÑİÊ¾£ºÔÚµ±Ç°¹â±ê´¦ÓÃjs²åÈë³¬Á´½Ó</title>
+    <title>æ¼”ç¤ºï¼šåœ¨å½“å‰å…‰æ ‡å¤„ç”¨jsæ’å…¥è¶…é“¾æ¥</title>
     <style>
         html,body{height:100%; }
         .main{height:700px; width:auto; }
     </style>
+
 </head>
 <body>
     <script type="text/javascript">
 //    function  addHyperLink()
 //    {
 //        var docObj = document.getElementById("PageOfficeCtrl1").Document;
-//        docObj.Application.ActiveWindow.View.ShowFieldCodes = false; //²»ÒªÒÔÓò´úÂëµÄĞÎÊ½ÏÔÊ¾³¬Á´½Ó
-//	    docObj.Hyperlinks.Add(docObj.Application.Selection.Range, "http://www.zhuozhengsoft.com/", "", "", "×¿Õı");
+//        docObj.Application.ActiveWindow.View.ShowFieldCodes = false; //ä¸è¦ä»¥åŸŸä»£ç çš„å½¢å¼æ˜¾ç¤ºè¶…é“¾æ¥
+//	    docObj.Hyperlinks.Add(docObj.Application.Selection.Range, "http://www.zhuozhengsoft.com/", "", "", "å“æ­£");
 //	}
 
     function  addHyperLink()
     {
-        var text = "×¿ÕıÖ¾Ô¶";
+        var text = "å“æ­£å¿—è¿œ";
         var url = "http://www.zhuozhengsoft.com/";
         
         var mac = "Function myfunc()" + " \r\n"
@@ -48,15 +47,14 @@
 	}    
     </script>
     <div style="font-size:12px; line-height:20px; border-bottom:dotted 1px #ccc;border-top:dotted 1px #ccc; padding:5px;">
-     <span style="color:red;">²Ù×÷ËµÃ÷£º</span>¶¨Î»wordÎÄ¼şÖĞµÄ¹â±êµ½Ïë²åÈë³¬Á´½ÓµÄÎ»ÖÃ£¬È»ºóµã¡°²åÈë³¬Á´¡±°´Å¥¡£<br />
+     <span style="color:red;">æ“ä½œè¯´æ˜ï¼š</span>å®šä½wordæ–‡ä»¶ä¸­çš„å…‰æ ‡åˆ°æƒ³æ’å…¥è¶…é“¾æ¥çš„ä½ç½®ï¼Œç„¶åç‚¹â€œæ’å…¥è¶…é“¾â€æŒ‰é’®ã€‚<br />
    
-    ¹Ø¼ü´úÂë£ºµãÓÒ¼ü£¬Ñ¡Ôñ¡°²é¿´Ô´ÎÄ¼ş¡±£¬¿´jsº¯Êı<span style="background-color:Yellow;">addHyperLink()</span></div><br />
+    å…³é”®ä»£ç ï¼šç‚¹å³é”®ï¼Œé€‰æ‹©â€œæŸ¥çœ‹æºæ–‡ä»¶â€ï¼Œçœ‹jså‡½æ•°<span style="background-color:Yellow;">addHyperLink()</span></div><br />
     <form id="form1" style="height:100%;">
     <div class="main">
-    <!--**************   PageOffice ¿Í»§¶Ë´úÂë¿ªÊ¼    ************************-->
-        <po:PageOfficeCtrl id ="PageOfficeCtrl1">
-        </po:PageOfficeCtrl> 
-    <!--**************   PageOffice ¿Í»§¶Ë´úÂë½áÊø    ************************-->
+    <!--**************   PageOffice å®¢æˆ·ç«¯ä»£ç å¼€å§‹    ************************-->
+   	        <%=poCtrl1.getHtmlCode("PageOfficeCtrl1")%>
+    <!--**************   PageOffice å®¢æˆ·ç«¯ä»£ç ç»“æŸ    ************************-->
     </div>
     </form>
 </body>

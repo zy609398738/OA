@@ -13,12 +13,16 @@
         this.resetUIStatus = function (mask) {
             var calcEnable = (mask & YIUI.FormUIStatusMask.ENABLE) != 0;
             var calcVisible = (mask & YIUI.FormUIStatusMask.VISIBLE) != 0;
+            var calcCheckRule = (mask & YIUI.FormUIStatusMask.CHECKRULE) != 0;
             var addOperation = (mask & YIUI.FormUIStatusMask.OPERATION) != 0;
             if (calcEnable) {
                 this.enableProcess.calcAll();
             }
             if (calcVisible) {
                 this.visibleProcess.calcAll();
+            }
+            if (calcCheckRule) {
+                this.checkRuleProcess.calcAll();
             }
             if (addOperation) {
                 this.addOperation();
@@ -60,8 +64,13 @@
                 if( !item.selfDisable ) {
                     item.enable = (metaItem && metaItem.enable) ? _this.form.eval(metaItem.enable, cxt, null) : true;
                 }
-                for (var m = 0, length = item.items.length; m < length; m++) {
-                    _item = item.items[m],metaItem = _this.form.getMetaOpt(_item.key);
+
+                for (var m = item.items.length - 1; _item = item.items[m]; m--) {
+                    metaItem = _this.form.getMetaOpt(_item.key);
+                    if ( !_this.form.hasOptRight(_item.key)) {
+                        item.items.splice(m,1);
+                        continue;
+                    }
                     _item.visible = (metaItem && metaItem.visible) ? _this.form.eval(metaItem.visible, cxt, null) : true;
                     _item.enable = (metaItem && metaItem.enable) ? _this.form.eval(metaItem.enable, cxt, null) : true;
                 }
@@ -164,6 +173,7 @@
         this.doPostDeleteRow = function (grid) {
             this.calcProcess.doAfterDeleteRow(grid);
             this.enableProcess.doAfterDeleteRow(grid);
+            this.visibleProcess.doAfterDeleteRow(grid);
             this.checkRuleProcess.doAfterDeleteRow(grid);
         };
         this.resetComponentStatus = function (component) {
@@ -197,6 +207,7 @@
         };
         this.doAfterRowChanged = function (component) {
             this.enableProcess.doAfterRowChanged(component);
+            this.visibleProcess.doAfterRowChanged(component);
         };
         this.calcItems = function (items) {
             this.calcProcess.calcAllItems(items,true,false);

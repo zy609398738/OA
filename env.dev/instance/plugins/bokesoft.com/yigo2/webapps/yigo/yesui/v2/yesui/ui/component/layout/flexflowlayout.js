@@ -25,6 +25,7 @@
  *  panel.render('#ct1');
  */
 
+"use strict";
 YIUI.layout.FlexFlowLayout = YIUI.extend(YIUI.layout.AutoLayout,{
 	
 	layout : function(panelWidth, panelHeight) {
@@ -55,7 +56,7 @@ YIUI.layout.FlexFlowLayout = YIUI.extend(YIUI.layout.AutoLayout,{
 			if($.isNumeric(item.height) /*&& item.height > 0*/){
 				placeholderSize += (item.height == -1 ? item.getHeight() : item.height);
 			} else if(item.height == "pref") {
-				placeholderSize += item.getHeight();
+				placeholderSize += item.el.outerHeight();
 			}
 		}
 		return placeholderSize;

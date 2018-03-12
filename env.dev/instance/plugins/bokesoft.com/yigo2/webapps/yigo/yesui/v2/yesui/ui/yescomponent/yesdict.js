@@ -37,9 +37,6 @@
 		    
 		    _footMean : $("<div class = 'footmean'></div>"),
 		    
-		    /**总页数*/
-		    allPageNum : null,
-		    
 		    startRow : 0,
 	        pageIndicatorCount : 3,
 	        fuzzyValue : null,
@@ -77,21 +74,20 @@
 		    addNodes: function(nodes, pNodeKey, level, secondaryType, isNext) {
 		    	
 		    	var $pNode = $('#' + pNodeKey, this.el);
-		    	allPageNum = Math.ceil(isNext/10);
+		    	var allPageNum = Math.ceil(isNext/10);
 		    	this._footdiv.find(".pageinfo").attr("maxnum",allPageNum);
-		    	var selectNodeId = this.selectedNodeId;
-		    	var selnid = selectNodeId;			
+		    	var selnid = this.selectedNodeId;
 		    	// 无子节点的时候 去掉节点前的+号
 		    	if(nodes.length <= 0  && secondaryType != 5) {
 		    		$pNode.children('span:first').removeClass('dt-collapse');
 		    		return;
 		    	}
+		        secondaryType == 5 ? $pNode.attr('isLoaded', false) : $pNode.attr('isLoaded', true);
 		    	
 		    	//如果下一页的item不为0，点击下一页的时候删除当前页的item
 		    	if (secondaryType == 5) {
 		    		if (isNext != 0) {
 			    		this.reset();
-			    		
 			    	}
 			    	var _pageInfo = $("<span class = 'pageinfo'></span>");
 			    	if (this.startRow == 0) {
@@ -99,7 +95,6 @@
 			    			this._footdiv.find(".pageinfo").children("span").remove();
 			    			_pageInfo = this._footdiv.find(".pageinfo");
 			    		}
-			    		
 			    		_pageInfo.attr("maxnum", allPageNum);
 			    		var btnNum = allPageNum >= 3 ? 3 : allPageNum;
 			    		for ( var i = 0; i < btnNum;i++) {
@@ -108,113 +103,115 @@
 			    			} else {
 			    				$("<span class='pagenum'>"+(i + 1)+"</span>").appendTo(_pageInfo);
 			    			}
-				    		
 				    	}
-			    		if(btnNum == 1)
+			    		if(btnNum == 1){
 			    			$(".next", this._footMean).addClass("disable");
+			    		}else{
+			    			$(".next", this._footMean).removeClass("disable");
+			    		}
 				    	this._footMean.find(".prev").after(_pageInfo);
-			    		
 			    	}
-			    	
 		    		
 		    	}
-		    	
 				var node, nid ,oid, itemKey;
-				
 				this._pMap[pNodeKey] || (this._pMap[pNodeKey] = []);
+				var _pul = $pNode.children("ul");
+				if(_pul.length == 0){
+					_pul = $("<ul class='dt-ul'></ul>").appendTo($pNode).css("display", "none");
+					
+				}
+
+				var p_state = $pNode.children('.dt-chk').attr('chkstate');
+				var frag = document.createDocumentFragment();	
 				for (var i = 0, len = nodes.length; i < len; i++) {
 					node = nodes[i];
 					nid = node.id;
-					
 					oid = node.OID;
 					itemKey = node.itemKey;
-		
 					this._pMap[pNodeKey].push(nid);
 					
-					var _li = $("<li id='"+ nid + "' oid = '"+oid+"'parentid='"+pNodeKey+"' itemKey='"+itemKey+"'></li>");
-					if (secondaryType != 5) {
-						_li.attr("level", level).css("padding-left", 15);
-					}
+					var _li = document.createElement("li");
+					_li.setAttribute("id", nid);
+					_li.setAttribute("oid", oid);
+					_li.setAttribute("parentid", pNodeKey);
+					_li.setAttribute("itemKey", itemKey);
+					
+					_li.setAttribute("level", level);
 					if (secondaryType == 5) {
-						_li.attr("level", level).css("padding-left", 2);
+						_li.style.cssText += "; padding-left: 2px";
+					} else {
+						_li.style.cssText += "; padding-left: 15px";
 					}
-
+					
 					var pItemKey = $pNode.attr("itemKey");
 					var comp_Level = parseInt($pNode.attr("comp_Level"));
 					if(itemKey != pItemKey) {
 						comp_Level += 1;
 					} 
-					_li.attr("comp_Level", comp_Level);
+					_li.setAttribute("comp_Level", comp_Level);
 					var comp_css = "comp_Level" + comp_Level;
-					_li.addClass(comp_css);
+					_li.className += " " + comp_css;
 					
-					var _dtWholerow = $("<div class='dt-wholerow'/>").appendTo(_li);
+					var _dtWholerow = document.createElement("div");
+					_dtWholerow.className = "dt-wholerow";
 					if(nid == selnid){
-						_dtWholerow.addClass("hover");
+						_dtWholerow.className += " hover";
 					}
-					
-					var _pul = $pNode.children("ul");
-					
-					if(_pul.length == 0){
-						_pul = $("<ul class='dt-ul'></ul>").appendTo($pNode).css("display", "none");
-					}
-					
-					
-					_li.appendTo(_pul);
-		
-					var _a = $("<a class='dt-anchor'></a>");
-		
+					_li.appendChild(_dtWholerow);
+
+					var _a = document.createElement("a");
+					_a.className = "dt-anchor";
 			        var _ul, _span, _chk;
-			        
+	            	var _explore = document.createElement("span");
+	            	var css_name = "";
 			        if(node.NodeType == 1) {
+		            	_span = document.createElement("span");
 			        	// 汇总节点
 			            if(node.open) {
-			            	_span = $("<span class='icon dt-expand'/>").appendTo(_li);           	  
-			            	_explore = $("<span class='branch b-expand'/>").appendTo(_a);
+							_span.className = "icon dt-expand";
+							css_name = "branch b-expand";
+			            } else {
+							_span.className = "icon dt-collapse";
+							css_name = "branch b-collapse";
 			            }
-			            else {
-			            	_span = $("<span class='icon dt-collapse'/>").appendTo(_li);
-			            	_explore = $("<span class='branch b-collapse'/>").appendTo(_a);
-			            }
-			            
+						_li.appendChild(_span);
 			        } else {
 			        	//明细节点
 			        	if(secondaryType != 5){
-			        		_span = $("<span class='icon'/>").appendTo(_li);
+		            		_span = document.createElement("span");
+							_span.className = "icon";
+							_li.appendChild(_span);
 			        	}
-			        	_explore = $("<span class='branch'/>").appendTo(_a);
+						css_name = "branch";
 			        }
-
+					_a.appendChild(_explore);
 			        switch(node.Enable) {
 				        case YIUI.DictState.Enable: 
-				        	_explore.addClass("enable");
+				        	css_name += " enable";
 				        	break;
 				        case YIUI.DictState.Disable: 
-				        	_explore.addClass("disable");
+				        	css_name += " disable";
 				        	break;
 				        case YIUI.DictState.Discard: 
-				        	_explore.addClass("discard");
+				        	css_name += " discard";
 				        	break;
 			        }
+					_explore.className = css_name;
 			        //复选框
 		        	if(this.showCheckBox){
-		           		_chk = $("<span class='dt-chk' />");
-				        _chk.appendTo(_li);
+		           		_chk = document.createElement("span");
+						_chk.className = "dt-chk";
+				        _li.appendChild(_chk);
 		        	}
-					_a.appendTo(_li);
-			        
-			       
-			        var _selectNode = $("<span class='b-txt'>" + node.caption + "</span>").appendTo(_a);
-			        
-			        secondaryType == 5 ? $pNode.attr('isLoaded', false) : $pNode.attr('isLoaded', true);
-				}
-				
-				
-				//如果是多选 ，设置复选框的状态
-			    if(this.showCheckBox) {
-					for (var i = 0, len = nodes.length; i < len; i++) {
-						node = nodes[i];
-						nid = node.id;
+
+		           	var	_selectNode = document.createElement("span");
+					_selectNode.className = "b-txt";
+					_selectNode.innerHTML = node.caption;
+			        _a.appendChild(_selectNode);
+			        _li.appendChild(_a);
+
+			        //如果是多选 ，设置复选框的状态
+				    if(this.showCheckBox) {
 			        	var chkstate = 0;
 			        	if(secondaryType == 5){
 			        		var nidArr = nid.split("_");
@@ -227,26 +224,24 @@
 			        		chkstate = 1;
 			        	}
 			        	if (this.indeterminatedNodes == null) {
-			        		 this.indeterminatedNodes = []
+			        		 this.indeterminatedNodes = [];
 			        	}
-			        	
 			        	if(!this.independent &&  nid in this.indeterminatedNodes){
 			        		chkstate = 2;	
 			        	}
-
 			        	//子节点没打勾的情况下， 如果父节点打勾且是父子联动则子节点打勾
 			        	if(chkstate == 0 && !this.independent && $pNode){
-			        		var pChkstate =  $pNode.children('.dt-chk').attr('chkstate') || 0 ;
-			        		if(pChkstate == 1){
+			        		p_state =  p_state || 0 ;
+			        		if(p_state == 1){
 			        			chkstate =1;
 			        		}
 			        	}
-			        	
-			        	var $node = $('#'+nid,this.el);
-			        	
-			        	$node.children('.dt-chk').attr('chkstate', chkstate).addClass("chkstate"+chkstate);
-			        }
+			        	_chk.setAttribute("chkstate", chkstate);
+			        	_chk.className += " chkstate" + chkstate;
+					}
+					frag.appendChild(_li);
 				}
+				_pul.append(frag);
 		    },
 		   
 		    /**
@@ -776,8 +771,8 @@
 		    editable: true,
 
 			secondaryType: 0,
-			
 
+            pageMaxNum: 10,
 			
 			init: function() {
 			    this.id = this.id || this.el.attr("id");
@@ -927,9 +922,9 @@
 		    setWidth: function(width) {
 		    	this.el.css('width', width);
 		    	this._textBtn.css('width', width);
-		        this._dropBtn.css("left", width - 26 + "px");
+                var left = width - 26 > 0 ? width - 26 : 0;
+                this._dropBtn.css("left", left + "px");
 		        
-		        this.dictQuery && YIUI.PositionUtil.setViewTop(this._textBtn, this.dictQuery);
 		    },
 		    
 		    setHeight: function(height) {
@@ -940,7 +935,6 @@
 		    	}
 		        this._dropBtn.css("top", (this._textBtn.outerHeight() -16) /2 + "px");
 		        
-		        this.dictQuery && YIUI.PositionUtil.setViewLeft(this._textBtn, this.dictQuery, true);
 		    },
 		    
 		    setValue: function(value) {
@@ -949,7 +943,7 @@
 		    		this.setDictTreeCheckedNodes ();   			
 		    	}
 		    },
-		   
+		   	
 		    setText: function (text) {
 		        this._textBtn.val(text);
 		        this._temp = text;
@@ -1163,7 +1157,7 @@
 	                    var syncNodes = _this.getDictTree().formatAsyncData(nodes);
 	                    var isHaveNext = total;
 	             
-	                    for(var i=0, len=nodes.length; i<len; i++) {
+	                    for(var i=0, len = nodes.length; i<len; i++) {
 	                        if(_this.type == YIUI.CONTROLTYPE.COMPDICT || _this.secondaryType == 5) {
 	                            var path = nodeId + "_" + nodes[i].OID;
 	                            nodes[i].id = path;
@@ -1205,13 +1199,16 @@
                     def = YIUI.DictService.getDictChildren(_this.getItemKey(), 
                                                      _this.getDictTree().getNodeValue(node), 
                                                      _this.getDictTree().dictFilter,
-                                                     _this.getStateMask()).then(function(data){
+                                                     _this.getStateMask(),
+                                                     _this.formKey,
+                                                     _this.fieldKey).then(function(data){
                                                     	 return {data: data};
                                                      });
                     //                 .then(function(nodes){
              							// success(nodes);
                     //                  });
     	    	} else {
+    	    		var pageMaxNum = options.pageMaxNum;
     	    		if (pageMaxNum == null) {
     	    			pageMaxNum = 10;
     	    		}
@@ -1222,7 +1219,9 @@
         	    								  _this.getDictTree().fuzzyValue,
         	    								  _this.getStateMask(),
         	    								  _this.getDictTree().dictFilter,
-        	    								  _this.getDictTree().getNodeValue(node));
+        	    								  _this.getDictTree().getNodeValue(node),
+        	    								  _this.formKey,
+        	    								  _this.fieldKey);
         	           // 				.then(function(nodes){
              							// success(nodes);
                     //                 });
@@ -1277,12 +1276,12 @@
 		        	if(!self.isEnable()) {
 		        		return;
 		        	}
-		        	if (dictTreeNode.startRow == 0) {
-		        		self.dictTree._footMean.find(".prev").addClass("disable");
-		        	}
 		        	if (!self._hasShow) {
 		        		$(this).removeClass("arrow");
 		        		$(this).addClass("arrowgif");
+		        	}
+		        	if (dictTreeNode.startRow == 0) {
+		        		self.dictTree._footMean.find(".prev").addClass("disable");
 		        	}
 //                    self._textBtn.focus();
 				    
@@ -1349,9 +1348,9 @@
 						    self.dictTree._searchdiv.find("input").focus();
 		    	    	});
 
-					    //self._dropBtn.removeClass("arrowgif");
-				    	//self._dropBtn.addClass("arrow");
 				    },function(error){
+					    self._dropBtn.removeClass("arrowgif");
+				    	self._dropBtn.addClass("arrow");
 				    	self._hasShow = false;
 				    });
 
@@ -1424,11 +1423,11 @@
 				                        _li = $('<li oid=' + item.oid + ' itemkey = ' + item.itemKey + '></li>');
 				        				$("<div class='dt-wholerow'/>").appendTo(_li);
 				                        _a = $("<a class='dt-anchor'></a>").appendTo(_li);
-				                        _spanIcon = $("<span class='branch'></span>").appendTo(_a);
+				                        var _spanIcon = $("<span class='branch'></span>").appendTo(_a);
 				                        if (item.NodeType == 0) {
 				                            _spanIcon.addClass("p_node");
 				                        }
-				                        _spanText = $("<span class='b-txt'></span>").text(item.caption).appendTo(_a);
+				                        $("<span class='b-txt'></span>").text(item.caption).appendTo(_a);
 				                        list.append(_li);
 				                    }
 				                    var cityObj = $("input", self.el);
@@ -1540,103 +1539,64 @@
 			                    }
 			                    
 			                    YIUI.DictService.getQueryData(
-			                    		self.getItemKey(),
-			                    		0,
-			                    		10,
-			                    		3,
-			                    		text,
-			                    		self.stateMask,
-			                    		self.getDictTree().dictFilter,
-			                    		rootValue
-			                    		
-			                    ).then(function(data){
-			                    	var items = data.data;
-			                    	if (items.length == 1){
+				                    		self.getItemKey(),
+				                    		0,
+				                    		10,
+				                    		3,
+				                    		text,
+				                    		self.getStateMask(),
+				                    		self.getDictTree().dictFilter,
+				                    		rootValue,
+				                    		self.formKey,
+				                    		self.fieldKey
+					                    ).then(function(data){
+					                    	var items = data.data;
+					                    	if (items.length == 1){
 
-				                        var itemData = new YIUI.ItemData(items[0]);
-	                                    var change = self.commitValue(itemData, true, true);
-                                        //值未改变时 还原Text
-                                        if(!change){
-                                       		self.setText(self._temp); 
-                                        }
-					                    
-			                    	}else{
-			                    		var options = {
-                                       			fuzzyValue: text,
-				                                itemKey: self.getItemKey(),
-				                                caption: self.caption,
-				                                rootValue: rootValue,
-				                                stateMask: self.stateMask,
-				                                dictFilter: self.getDictTree().dictFilter,
-				                                displayCols: self.displayCols,
-				                                startRow: 0,
-				                                maxRows: 5,
-				                                pageIndicatorCount: 3,
-				                                columns: self.displayColumns,
-				                                textInput: $('input', self.el),
-				                                callback: function (itemData) {
-				                                    if (itemData) {
-				                                    	var change = self.commitValue(itemData);
-				                                    	//值未改变时 还原Text
-				                                        if(!change){
-				                                       		self.setText(self._temp); 
-				                                        }
-				                                    } else {
-				                                        self.setText(self._temp); 
-				                                    }
-				                                    //$this.isShowQuery = false;
-				                                }
-	                                       };
-				                            var dictquery = new YIUI.DictQuery(options);
-				                            YIUI.PositionUtil.setViewPos(self._textBtn, dictquery, true);
-				                            dictquery.doLayout();
-				                            self.dictQuery = dictquery;
-			                    		
-			                    	}
-			                    	
-			                    })
-			                    /*YIUI.DictService.locate2(self.getItemKey(),
-               						 'Code',
-               						 text,
-               						 self.getDictTree().dictFilter,
-               						 rootValue,
-               						 self.stateMask)
-	                                 .then(function(data) {
-			                               	if(data) {
-			                                       var value = new YIUI.ItemData(data);
-			                                       var change = self.commitValue(value, true, true);
-			                                       //值未改变时 还原Text
-			                                       if(!change){
-			                                       	self.setText(text); 
-			                                       }
-			                               	} else {
-			                                       var options = {
-			                                       		fuzzyValue: text,
-							                                itemKey: self.getItemKey(),
-							                                caption: self.caption,
-							                                rootValue: rootValue,
-							                                stateMask: self.stateMask,
-							                                dictFilter: self.getDictTree().dictFilter,
-							                                displayCols: self.displayCols,
-							                                startRow: 0,
-							                                maxRows: 5,
-							                                pageIndicatorCount: 3,
-							                                columns: self.displayColumns,
-							                                textInput: $('input', self.el),
-							                                callback: function (itemData) {
-							                                    if (itemData) {
-							                                    	self.commitValue(itemData);
-							                                    } else {
-							                                        self.setText(temp); 
-							                                    }
-							                                    //$this.isShowQuery = false;
-							                                }
+						                        var itemData = new YIUI.ItemData(items[0]);
+			                                    var change = self.commitValue(itemData, true, true);
+		                                        //值未改变时 还原Text
+		                                        if(!change){
+		                                       		self.setText(self._temp); 
+		                                        }
+							                    
+					                    	}else{
+					                    		var options = {
+		                                       			fuzzyValue: text,
+						                                itemKey: self.getItemKey(),
+						                                caption: self.caption,
+						                                rootValue: rootValue,
+						                                stateMask: self.getStateMask(),
+						                                dictFilter: self.getDictTree().dictFilter,
+						                                displayCols: self.displayCols,
+						                                startRow: 0,
+						                                maxRows: 5,
+						                                pageIndicatorCount: 3,
+						                                columns: self.displayColumns,
+						                                textInput: $('input', self.el),
+						                                formKey: self.formKey,
+						                                fieldKey: self.fieldKey,
+						                                callback: function (itemData) {
+						                                    if (itemData) {
+						                                    	var change = self.commitValue(itemData);
+						                                    	//值未改变时 还原Text
+						                                        if(!change){
+						                                       		self.setText(self._temp); 
+						                                        }
+						                                    } else {
+						                                        self.setText(self._temp); 
+						                                    }
+						                                    //$this.isShowQuery = false;
+						                                }
 			                                       };
 						                            var dictquery = new YIUI.DictQuery(options);
 						                            YIUI.PositionUtil.setViewPos(self._textBtn, dictquery, true);
 						                            dictquery.doLayout();
-			                                   }
-	                                 });*/
+						                            self.dictQuery = dictquery;
+					                    		
+					                    	}
+					                    	
+					                    });
 								});
 			    		}		    		
 			    	} else {

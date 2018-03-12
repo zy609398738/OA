@@ -1,4 +1,15 @@
 var other = {
+
+	login: {
+		title: "让世界上没有难做的系统",
+		userlogin: "用户登录",
+		username: "用户名",
+		password: "密码",
+		language: "语言",
+		select : "请选择",
+		loginbtn: "登录",
+    },
+
 	control : {
 		required : "-必须填写-"
 	},
@@ -8,8 +19,6 @@ var other = {
 		attachmentUploadTime : "上传时间",
 		attachmentUploadOperatorID : "上传人",
 		attachmentPath : "附件路径",
-		exercise : "操",
-		ldo : "作",
 		attachmentOperate : "操作",
 		attachmentUpload : "上传",
 		attachmentDownload : "下载",
@@ -46,8 +55,10 @@ var other = {
 	},
 
 	grid : {
-		whetherEmpty : "是否清空所有子数据?",
+		whetherEmpty : "确定删除当前行及其子数据?",
 		nonsupport : "表格排序不支持行分组！",
+        whetherCloseAll: "是否关闭所有表单?",
+		closeAll: "关闭所有",
 		lundefined : "扩展源未定义",
 		total : "共 {0} 条",
 		noData : "无数据显示",
@@ -58,6 +69,11 @@ var other = {
 		delRecord : "删除所选记录",
 		moveUp : "上移数据行",
 		moveDown : "下移数据行",
+		bestWidth : "最佳列宽",
+        frozencol : "冻结列",
+        frozenrow : "冻结行",
+        unfrozencol : "解冻列",
+        unfrozenrow : "解冻行",
 		isNotTable : "表格初始化错误，初始化所用HtmlElement不是Table类型",
 		isErrorMode : "表格所在页面的渲染模式(documentMode)低于5",
 		model : "colNames 和 colModel 长度不等！",
@@ -187,18 +203,19 @@ var other = {
 		check : "请求状态未初始化，检查服务器连接！"
 	},
 
-	opt : {
-		warning : "警告",
-		form : "表单",
-		table : "表格",
-		the : "第",
-		line : "行:",
-		lineThe : "行,第",
-		column : "列:",
-		required : "为必填项",
-		formControl : "表单控件",
-		noFill : "是必填项，当前未填值。"
-	},
+    opt : {
+        warning : "警告",
+        form : "表单",
+        table : "表格",
+        the : "第",
+        line : "行:",
+        lineThe : "行,第",
+        column : "列:",
+        required : "不能为空",
+        hasError: "有错误",
+        formControl : "组件",
+        noFill : "是必填项，当前未填值。"
+    },
 
 	docserviceproxy : {
 		noFormDefined : "form 不能为空"

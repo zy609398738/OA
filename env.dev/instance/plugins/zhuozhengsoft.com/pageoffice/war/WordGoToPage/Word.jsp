@@ -1,28 +1,28 @@
 <%@ page language="java"
 	import="java.util.*,com.zhuozhengsoft.pageoffice.*"
-	pageEncoding="gb2312"%>
-<%@ taglib uri="http://java.pageoffice.cn" prefix="po"%>
+	pageEncoding="utf-8"%>
 <%
 PageOfficeCtrl poCtrl=new PageOfficeCtrl(request);
-//ÉèÖÃ·şÎñÆ÷Ò³Ãæ
+//è®¾ç½®æœåŠ¡å™¨é¡µé¢
 poCtrl.setServerPage(request.getContextPath()+"/poserver.zz");
-//Ìí¼Ó×Ô¶¨Òå°´Å¥
-poCtrl.addCustomToolButton("±£´æ","Save",1);
-//ÉèÖÃ±£´æÒ³Ãæ
+//æ·»åŠ è‡ªå®šä¹‰æŒ‰é’®
+poCtrl.addCustomToolButton("ä¿å­˜","Save",1);
+//è®¾ç½®ä¿å­˜é¡µé¢
 //poCtrl.setSaveFilePage("SaveFile.jsp");
-//´ò¿ªWordÎÄµµ
-poCtrl.webOpen("doc/test.doc",OpenModeType.docNormalEdit,"ÕÅØıÃû");
-poCtrl.setTagId("PageOfficeCtrl1");//´ËĞĞ±ØĞè
+//æ‰“å¼€Wordæ–‡æ¡£
+poCtrl.webOpen("doc/test.doc",OpenModeType.docNormalEdit,"å¼ ä½šå");
+
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml" >
 <head id="Head1" runat="server">
-    <title>ÑİÊ¾£ºjsÊµÏÖwordÖĞÒ³ÃæÌø×ª</title>
+    <title>æ¼”ç¤ºï¼šjså®ç°wordä¸­é¡µé¢è·³è½¬</title>
     <style>
         html,body{height:100%; }
         .main{height:100%; }
     </style>
+
 </head>
 <body>
     <script type="text/javascript">
@@ -30,7 +30,7 @@ poCtrl.setTagId("PageOfficeCtrl1");//´ËĞĞ±ØĞè
         function gotoPage(num) {
             var sMac = "function myfunc()" + "\r\n"
                      + "  If " + num + " > Application.Selection.Information(4) Then " + "\r\n"
-                     + "     Msgbox \"³¬³öÎÄµµ·¶Î§£¬±¾ÎÄ¹²\" & Application.Selection.Information(4) & \"Ò³\"" + "\r\n"
+                     + "     Msgbox \"è¶…å‡ºæ–‡æ¡£èŒƒå›´ï¼Œæœ¬æ–‡å…±\" & Application.Selection.Information(4) & \"é¡µ\"" + "\r\n"
                      + "  End If " + "\r\n"
                      + "  Selection.GoTo What:=wdGoToPage, Which:=wdGoToAbsolute, Name:= " + num + "\r\n"
                      + "End function";
@@ -41,11 +41,11 @@ poCtrl.setTagId("PageOfficeCtrl1");//´ËĞĞ±ØĞè
         function Button1_onclick() {
             var num = document.getElementById("pageNum").value;
             if ("" == Trim(num)) {
-                document.getElementById("PageOfficeCtrl1").Alert("ÇëÊäÈëÒ³Âë");
+                document.getElementById("PageOfficeCtrl1").Alert("è¯·è¾“å…¥é¡µç ");
                 return;
             }
             if (isNaN(num)){
-                document.getElementById("PageOfficeCtrl1").Alert("Ö»ÄÜÊäÈëÊı×Ö");
+                document.getElementById("PageOfficeCtrl1").Alert("åªèƒ½è¾“å…¥æ•°å­—");
                 return;
             }
             gotoPage(num);
@@ -73,20 +73,19 @@ poCtrl.setTagId("PageOfficeCtrl1");//´ËĞĞ±ØĞè
         }
     </script>
     <div style="font-size:12px; line-height:20px; border-bottom:dotted 1px #ccc;border-top:dotted 1px #ccc; padding:5px;">
-     <span style="color:red;">²Ù×÷ËµÃ÷£º</span>ÇëÊäÈëÒ³ÂëºóµãÌø×ª°´Å¥¡£Ò³Âë£º
+     <span style="color:red;">æ“ä½œè¯´æ˜ï¼š</span>è¯·è¾“å…¥é¡µç åç‚¹è·³è½¬æŒ‰é’®ã€‚é¡µç ï¼š
      <input id="pageNum" type="text" value="3" />
-        <input id="Button1" type="button" value="Ìø×ª" onclick="return Button1_onclick()" />
+        <input id="Button1" type="button" value="è·³è½¬" onclick="return Button1_onclick()" />
      <br />
    
-    ¹Ø¼ü´úÂë£ºµãÓÒ¼ü£¬Ñ¡Ôñ¡°²é¿´Ô´ÎÄ¼ş¡±£¬¿´jsº¯Êı<span style="background-color:Yellow;">gotoPage(num)</span></div><br />
+    å…³é”®ä»£ç ï¼šç‚¹å³é”®ï¼Œé€‰æ‹©â€œæŸ¥çœ‹æºæ–‡ä»¶â€ï¼Œçœ‹jså‡½æ•°<span style="background-color:Yellow;">gotoPage(num)</span></div><br />
     <form id="form1"  style="height:100%;">
     <div class="main">
-    <!--**************   PageOffice ¿Í»§¶Ë´úÂë¿ªÊ¼    ************************-->
+    <!--**************   PageOffice å®¢æˆ·ç«¯ä»£ç å¼€å§‹    ************************-->
         <div style=" width:auto; height:700px;">
-        <po:PageOfficeCtrl id="PageOfficeCtrl1">
-        </po:PageOfficeCtrl>
+                <%=poCtrl.getHtmlCode("PageOfficeCtrl1")%>
     	</div>
-    <!--**************   PageOffice ¿Í»§¶Ë´úÂë½áÊø    ************************-->
+    <!--**************   PageOffice å®¢æˆ·ç«¯ä»£ç ç»“æŸ    ************************-->
     </div>
     </form>
 </body>
